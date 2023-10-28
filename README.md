@@ -3,6 +3,10 @@
 
 free double-entry bookeeping accounting software for Indonesian personal or soho business (UMKM).
 
+## Purpose
+
+people without prior accounting knowledge should able to use this software, and still conform to government standard.
+
 based on:
 - http://iaiglobal.or.id/v03/files/draft_ed_sak_emkm_kompilasi.pdf
 - http://iaiglobal.or.id/v03/files/file_sak/emkm/
@@ -16,32 +20,33 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
 ## Roles
 
 - SuperAdmin
-  - can manage tenants
-  - can manage users
-  - can manage standard CoA (Chart of Account that all company must have)
-  - can create entry-rule template
+  - [ ] can manage tenants
+  - [ ] can manage users
+  - [ ] can manage standard CoA (Chart of Account that all company must have)
+  - [ ] can create entry-rule template
 - TenantAdmin
-  - can edit company
-  - can manage account source
-	- can manage users
-	- can manage accounts
-	- can manage journals
-	- can manage reports
-  - can manage CoA
-  - can manage entry-rule
-  - can manage bank account
-  - can manage external company (customer, supplier, etc)
-  - can manage service/product/stock
-  - can backup/restore database
+  - [ ] can edit company
+  - [ ] can manage account source
+	- [ ] can manage users
+	- [ ] can manage accounts
+	- [ ] can manage journals
+	- [ ] can manage reports
+  - [ ] can manage CoA
+  - [ ] can manage entry-rule
+  - [ ] can manage bank account
+  - [ ] can manage external company (customer, supplier, etc)
+  - [ ] can manage service/product/stock
+  - [ ] can backup/restore database
 - EntryUser
-  - can input transaction/entry and proof
-  - can request for update/delete entry and proof
+  - [ ] can input transaction/entry and proof
+  - [ ] can request for update/delete entry and proof
 - Guest
-  - can register as new tenant
-  - can join invitation link to a company
-  - can forgot/request reset password
-  - can reset password
-  - can login
+  - [ ] can register as new tenant
+  - [ ] can join invitation link to a company
+  - [ ] can forgot/request reset password
+  - [ ] can reset password
+  - [ ] can login with username and password
+  - [ ] can login with google account
 
 ## Features
 
