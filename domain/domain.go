@@ -20,9 +20,6 @@ type Domain struct {
 	AuthOltp *Tt.Adapter
 	AuthOlap *Ch.Adapter
 
-	PropOltp *Tt.Adapter
-	PropOlap *Ch.Adapter
-
 	StorOltp *Tt.Adapter
 
 	Mailer xMailer.Mailer

@@ -13,8 +13,10 @@ import (
 	"golang.org/x/sync/errgroup"
 
 	"benakun/conf"
+	"benakun/domain"
 	"benakun/model"
 	"benakun/model/xMailer"
+	"benakun/presentation"
 )
 
 func main() {
@@ -80,6 +82,25 @@ func main() {
 		defer closer()
 	}
 
+	oauth := conf.EnvOauth()
+	d := &domain.Domain{
+		AuthOltp: tConn,
+		AuthOlap: cConn,
+		StorOltp: tConn,
+		Mailer: xMailer.Mailer{
+			SendMailFunc: mailer.SendMailFunc,
+		},
+		IsBgSvc: false,
+		Oauth:   oauth,
+		Log:     log,
+
+		UploadDir: conf.UploadDir(),
+
+		Superadmins: conf.EnvSuperAdmins(),
+	}
+	d.InitTimedBuffer()
+	defer d.CloseTimedBuffer()
+
 	mode := S.ToLower(os.Args[1])
 
 	// check table existence
@@ -90,9 +111,16 @@ func main() {
 
 	switch mode {
 	case `run`:
-		// TODO: run command line
+		cmd := &presentation.CLI{
+			Domain: d,
+		}
+		cmd.Run(os.Args[2:], log)
 	case `web`:
-		// TODO: run webserver
+		ws := &presentation.WebServer{
+			Domain: d,
+			Cfg:    conf.EnvWebConf(),
+		}
+		ws.Start(log)
 	case `migrate`:
 		model.RunMigration(tConn, cConn)
 	default:

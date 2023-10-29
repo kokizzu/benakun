@@ -52,16 +52,6 @@ func (d *Domain) UserUpdateProfile(in *UserUpdateProfileIn) (out UserProfileOut)
 		return
 	}
 
-	if in.UserName != `` && user.UserName != in.UserName {
-		dup := rqAuth.NewUsers(d.AuthOltp)
-		dup.UserName = S.ValidateIdent(in.UserName)
-		if dup.FindByUserName() && dup.Id != user.Id {
-			out.SetError(400, ErrUpdateProfileUsernameAlreadyUsed)
-			return
-		}
-		user.SetUserName(dup.UserName)
-	}
-
 	if in.Email != `` && user.Email != in.Email {
 		dup := rqAuth.NewUsers(d.AuthOltp)
 		dup.Email = S.ValidateEmail(in.Email)
@@ -76,15 +66,6 @@ func (d *Domain) UserUpdateProfile(in *UserUpdateProfileIn) (out UserProfileOut)
 	if in.FullName != `` && user.FullName != in.FullName {
 		user.SetFullName(in.FullName)
 	}
-
-	if in.Country != `` && user.Country != in.Country { // 2-letter country code
-		user.SetCountry(in.Country)
-	}
-
-	if in.Language != `` && user.Language != in.Language { // 2-letter language code
-		user.SetLanguage(in.Language)
-	}
-
 	if !user.DoUpdateById() {
 		user.HaveMutation()
 		out.SetError(400, ErrUpdateProfileFailed)
