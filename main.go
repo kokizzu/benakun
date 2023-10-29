@@ -75,7 +75,7 @@ func main() {
 	case `web`:
 		// TODO: run webserver
 	case `migrate`:
-	// TODO: run migration
+		model.RunMigration(tConn, cConn)
 	default:
 		log.Fatal().Msg(`must start with: ` + validArgs)
 	}

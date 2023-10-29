@@ -4,7 +4,8 @@ import (
 	"github.com/kokizzu/gotro/D/Ch"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
-	"github.com/kokizzu/gotro/W2/example/model/mAuth"
+
+	"benakun/model/mAuth"
 )
 
 type Migrator struct {
@@ -12,7 +13,7 @@ type Migrator struct {
 	AuthOlap *Ch.Adapter
 }
 
-func RunMigration(authOltp *Tt.Adapter, authOlap *Ch.Adapter, propOltp *Tt.Adapter, propOlap *Ch.Adapter, storOltp *Tt.Adapter) {
+func RunMigration(authOltp *Tt.Adapter, authOlap *Ch.Adapter) {
 	Tt.DEBUG = true
 	Ch.DEBUG = true
 	L.Print(`run migration..`)
