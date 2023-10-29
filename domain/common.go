@@ -352,6 +352,7 @@ func (o *ResponseCommon) Traces() string {
 
 func (d *Domain) segmentsFromSession(s *Session) M.SB {
 	s.IsSuperAdmin = d.Superadmins[s.Email]
+	s.Segments = M.SB{}
 	for _, role := range s.Roles {
 		switch role {
 		case TenantAdminSegment:

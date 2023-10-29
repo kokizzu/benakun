@@ -197,6 +197,7 @@ const (
 )
 
 func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session) {
+	// TODO: modify to not re-decode session token
 	if in.SessionToken == `` {
 		out.SetError(498, ErrSessionTokenEmpty)
 		return nil

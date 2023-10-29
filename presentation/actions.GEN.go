@@ -20,6 +20,7 @@ var allCommands = []string{
 	domain.UserAutoLoginLinkAction,
 	domain.UserChangePasswordAction,
 	domain.UserLogoutAction,
+	domain.SuperAdminUserManagementAction,
 	domain.UserProfileAction,
 	domain.UserSessionKillAction,
 	domain.UserSessionsActiveAction,

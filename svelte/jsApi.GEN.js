@@ -592,6 +592,32 @@ exports.UserLogout = async function UserLogout( i, cb ) {
 }
 
 /**
+ * @typedef {Object} UserManagementIn
+ */
+const UserManagementIn = {
+}
+/**
+ * @typedef {Object} UserManagementOut
+ */
+const UserManagementOut = {
+}
+/**
+ * @callback UserManagementCallback
+ * @param {SuperadminUserManagementOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {SuperadminUserManagementIn} i
+ * @param {UserManagementCallback} cb
+ * @returns {Promise}
+ */
+exports.UserManagement = async function UserManagement( i, cb ) {
+  return await axios.post( '/', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} UserProfileIn
  */
 const UserProfileIn = {
