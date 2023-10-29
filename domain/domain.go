@@ -1,233 +1,114 @@
 package domain
 
 import (
-	"database/sql"
-	"fmt"
 	"net"
-	"os"
-	"testing"
+	"time"
 
-	"github.com/kokizzu/gotro/D"
+	chBuffer "github.com/kokizzu/ch-timed-buffer"
 	"github.com/kokizzu/gotro/D/Ch"
 	"github.com/kokizzu/gotro/D/Tt"
-	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
-	"github.com/kokizzu/lexid"
-	"github.com/kpango/fastime"
-	"github.com/ory/dockertest/v3"
-	"github.com/tarantool/go-tarantool"
-	"golang.org/x/sync/errgroup"
+	"github.com/rs/zerolog"
 
 	"benakun/conf"
-	"benakun/model"
-	"benakun/model/mAuth/rqAuth"
-	"benakun/model/mAuth/wcAuth"
+	"benakun/model/mAuth"
+	"benakun/model/mAuth/saAuth"
 	"benakun/model/xMailer"
 )
 
-// create dockertest instance
+type Domain struct {
+	AuthOltp *Tt.Adapter
+	AuthOlap *Ch.Adapter
 
-var testTt *Tt.Adapter
-var testCh *Ch.Adapter
-var testMailer xMailer.Mailer
-var testTime = fastime.Now()
-var testSuperAdminSessionToken string
-var testAdmin *rqAuth.Users
+	PropOltp *Tt.Adapter
+	PropOlap *Ch.Adapter
 
-const (
-	testSuperAdminEmail    = `admin@localhost`
-	testSuperAdminUserName = `admin1`
-)
+	StorOltp *Tt.Adapter
 
-func TestMain(m *testing.M) {
-	if os.Getenv(`USE_COMPOSE`) != `` {
-		// use local docker compose
-		conf.LoadEnv()
+	Mailer xMailer.Mailer
 
-		var err error
-		eg := errgroup.Group{}
-		eg.Go(func() error {
-			chConf := conf.EnvClickhouse()
-			testCh, err = chConf.Connect()
-			return err
-		})
-		eg.Go(func() error {
-			ttConf := conf.EnvTarantool()
-			testTt, err = ttConf.Connect()
-			return err
-		})
-		eg.Go(func() error {
-			mhConf := conf.EnvMailhog()
-			mailer, err := xMailer.NewMailhog(mhConf)
-			testMailer = xMailer.Mailer{
-				SendMailFunc: mailer.SendEmail,
-			}
-			return err
-		})
-		err = eg.Wait()
-		L.PanicIf(err, `eg.Wait`)
+	IsBgSvc bool // long-running program
 
+	// 3rd party
+	Oauth conf.OauthConf
+
+	// oauth related cache
+	googleUserInfoEndpointCache string
+
+	// timed buffer
+	authLogs *chBuffer.TimedBuffer
+
+	// logger
+	Log *zerolog.Logger
+
+	// list of superadmin emails
+	Superadmins M.SB
+	UploadDir   string
+}
+
+// will run in background if background service
+func (d *Domain) runSubtask(subTask func()) {
+	if d.IsBgSvc {
+		go subTask()
 	} else {
-		// setup dockertest instance
-		dockerPool := D.InitDockerTest("")
-		defer dockerPool.Cleanup()
-
-		eg := errgroup.Group{}
-
-		// attach tarantool
-		eg.Go(func() error {
-			tdt := &Tt.TtDockerTest{
-				User:     "testT",
-				Password: "passT",
-			}
-			img := tdt.ImageVersion(dockerPool, ``)
-			dockerPool.Spawn(img, func(res *dockertest.Resource) error {
-				t, err := tdt.ConnectCheck(res)
-				if err != nil {
-					return err
-				}
-				testTt = &Tt.Adapter{
-					Connection: t,
-					Reconnect: func() *tarantool.Connection {
-						t, err := tdt.ConnectCheck(res)
-						L.IsError(err, `tdt.ConnectCheck`)
-						return t
-					},
-				}
-				return nil
-			})
-			return nil
-		})
-
-		// attach clickhouse
-		eg.Go(func() error {
-			cdt := &Ch.ChDockerTest{
-				User:     "testC",
-				Password: "passC",
-				Database: "default",
-			}
-			img := cdt.ImageLatest(dockerPool)
-			dockerPool.Spawn(img, func(res *dockertest.Resource) error {
-				c, err := cdt.ConnectCheck(res)
-				if err != nil {
-					return err
-				}
-				testCh = &Ch.Adapter{
-					DB: c,
-					Reconnect: func() *sql.DB {
-						c, err := cdt.ConnectCheck(res)
-						L.IsError(err, `cdt.ConnectCheck`)
-						return c
-					},
-				}
-				return nil
-			})
-			return nil
-		})
-
-		// mailer
-		eg.Go(func() error {
-			mailhogConf := conf.MailhogConf{
-				MailhogHost: `localhost`,
-				MailhogPort: 1025,
-			}
-			mailhogPort := fmt.Sprint(mailhogConf.MailhogPort)
-			dockerPool.Spawn(&dockertest.RunOptions{
-				Name:       `dockertest-mailhog-` + dockerPool.Uniq,
-				Repository: "mailhog/mailhog",
-				Tag:        `latest`,
-				NetworkID:  dockerPool.Network.ID,
-			}, func(res *dockertest.Resource) error {
-				_, err := net.Dial("tcp", res.GetHostPort(mailhogPort+"/tcp"))
-				if err != nil {
-					return err
-				}
-				mailHog, err := xMailer.NewMailhog(mailhogConf)
-				L.PanicIf(err, `xMailer.NewMailhog`)
-				testMailer.SendMailFunc = mailHog.SendEmail
-				return nil
-			})
-			return nil
-		})
-
-		err := eg.Wait()
-		L.PanicIf(err, `eg.Wait`)
-	}
-
-	// run migration
-	model.RunMigration(nil, testTt, testCh, testTt, testCh, testTt)
-
-	// run tests
-	m.Run()
-
-	// teardown dockertest instance
-}
-
-func testDomain() (*Domain, func()) {
-	log := conf.InitLogger()
-
-	d := &Domain{
-		AuthOltp: testTt,
-		AuthOlap: testCh,
-
-		PropOltp: testTt,
-		PropOlap: testCh,
-
-		StorOltp: testTt,
-
-		Mailer:  xMailer.Mailer{SendMailFunc: testMailer.SendMailFunc},
-		IsBgSvc: false,
-
-		Log: log,
-
-		Superadmins: M.SB{testSuperAdminEmail: true},
-	}
-	d.InitTimedBuffer()
-
-	// create admin
-	admin := wcAuth.NewUsersMutator(testTt)
-	admin.Email = testSuperAdminEmail
-	admin.UserName = testSuperAdminUserName
-	if !admin.FindByEmail() {
-		admin.DoInsert()
-	}
-	testAdmin = &admin.Users
-	testAdmin.Adapter = nil // prevent modification
-
-	// create session
-	session := wcAuth.NewSessionsMutator(testTt)
-	session.UserId = admin.Id
-	sess := &Session{
-		UserId:    admin.Id,
-		ExpiredAt: testTime.AddDate(0, 0, conf.CookieDays).Unix(),
-		Email:     admin.Email,
-	}
-	testSuperAdminSessionToken = sess.Encrypt(``) // empty user agent to simplify testing
-	session.SessionToken = testSuperAdminSessionToken
-	session.ExpiredAt = sess.ExpiredAt
-	if !session.FindBySessionToken() {
-		session.DoInsert()
-	}
-
-	return d, func() {
-		go d.authLogs.Close()
-		d.WaitTimedBufferFinalFlush()
+		subTask()
 	}
 }
 
-func testAdminRequestCommon(action string) RequestCommon {
-	return RequestCommon{
-		TracerContext: context.Background(),
-		RequestId:     lexid.ID(),
-		SessionToken:  testSuperAdminSessionToken,
-		UserAgent:     "",
-		IpAddress:     "127.0.2.1",
-		Debug:         true,
-		Host:          "localhost:1234",
-		Action:        action,
-		Lat:           -1,
-		Long:          -2,
-		now:           testTime.Unix(),
-		start:         testTime,
+func (d *Domain) InitTimedBuffer() {
+	d.authLogs = chBuffer.NewTimedBuffer(d.AuthOlap.DB, 100_000, 1*time.Second, saAuth.Preparators[mAuth.TableActionLogs])
+}
+
+func (d *Domain) WaitTimedBufferFinalFlush() {
+	<-d.authLogs.WaitFinalFlush
+	d.Log.Debug().Msg(`timed buffer flushed`)
+}
+
+var defaultIP4 = net.ParseIP(`0.0.0.0`).To4()
+var defaultIP6 = net.ParseIP(`0:0:0:0:0:0:0:0`).To16()
+
+func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
+	ip := net.ParseIP(in.IpAddress)
+	ip4 := ip.To4()
+	if ip4 == nil {
+		ip4 = defaultIP4
 	}
+	ip6 := ip.To16()
+	if ip6 == nil {
+		ip6 = defaultIP6
+	}
+	row := saAuth.ActionLogs{
+		CreatedAt:  in.TimeNow(),
+		RequestId:  in.RequestId,
+		ActorId:    in.SessionUser.UserId,
+		Action:     in.Action,
+		StatusCode: int16(out.StatusCode),
+		Traces:     out.Traces(),
+		Error:      out.Error,
+		IpAddr4:    ip4,
+		IpAddr6:    ip6,
+		UserAgent:  in.UserAgent,
+		TenantCode: in.SessionUser.TenantCode,
+		Latency:    in.Latency(),
+	}
+	return d.authLogs.Insert([]any{
+		row.CreatedAt,
+		row.RequestId,
+		row.ActorId,
+		row.Action,
+		row.StatusCode,
+		row.Traces,
+		row.Error,
+		row.IpAddr4,
+		row.IpAddr6,
+		row.UserAgent,
+		row.Latency,
+		row.TenantCode,
+		row.RefId,
+	})
+}
+
+func (d *Domain) CloseTimedBuffer() {
+	go d.authLogs.Close()
+	d.WaitTimedBufferFinalFlush()
 }

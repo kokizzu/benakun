@@ -4,21 +4,32 @@ go 1.21
 
 require (
 	github.com/ClickHouse/clickhouse-go/v2 v2.15.0
+	github.com/davecgh/go-spew v1.1.1
+	github.com/gabriel-vasile/mimetype v1.4.3
+	github.com/goccy/go-json v0.10.2
 	github.com/gofiber/fiber/v2 v2.50.0
 	github.com/joho/godotenv v1.4.0
 	github.com/kokizzu/ch-timed-buffer v1.2025.1416
 	github.com/kokizzu/gotro v1.3429.1507
+	github.com/kokizzu/id64 v1.2829.1452
 	github.com/kokizzu/lexid v1.2423.1347
 	github.com/kpango/fastime v1.1.9
+	github.com/mojura/enkodo v0.5.6
 	github.com/ory/dockertest/v3 v3.10.0
 	github.com/rs/zerolog v1.31.0
+	github.com/segmentio/fasthash v1.0.3
 	github.com/tarantool/go-tarantool v1.12.1
+	github.com/vburenin/nsync v0.0.0-20160822015540-9a75d1c80410
 	github.com/wneessen/go-mail v0.4.0
+	github.com/yosuke-furukawa/json5 v0.1.1
+	github.com/zeebo/xxh3 v1.0.2
+	golang.org/x/oauth2 v0.0.0-20220524215830-622c5d57e401
 	golang.org/x/sync v0.4.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 )
 
 require (
+	cloud.google.com/go v0.67.0 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20230124172434-306776ec8161 // indirect
 	github.com/ClickHouse/ch-go v0.58.2 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
@@ -36,7 +47,6 @@ require (
 	github.com/fatih/color v1.15.0 // indirect
 	github.com/go-faster/city v1.0.1 // indirect
 	github.com/go-faster/errors v0.6.1 // indirect
-	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/goccy/go-yaml v1.11.2 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
@@ -79,13 +89,12 @@ require (
 	github.com/xeipuuv/gojsonpointer v0.0.0-20190905194746-02993c407bfb // indirect
 	github.com/xeipuuv/gojsonreference v0.0.0-20180127040603-bd5ef7bd5415 // indirect
 	github.com/xeipuuv/gojsonschema v1.2.0 // indirect
-	github.com/yosuke-furukawa/json5 v0.1.1 // indirect
-	github.com/zeebo/xxh3 v1.0.2 // indirect
 	go.opentelemetry.io/otel v1.19.0 // indirect
 	go.opentelemetry.io/otel/trace v1.19.0 // indirect
 	golang.org/x/crypto v0.14.0 // indirect
 	golang.org/x/exp v0.0.0-20231006140011-7918f672742d // indirect
 	golang.org/x/mod v0.13.0 // indirect
+	golang.org/x/net v0.17.0 // indirect
 	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
 	golang.org/x/tools v0.14.0 // indirect

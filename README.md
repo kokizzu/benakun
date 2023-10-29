@@ -38,6 +38,8 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
   - [ ] can manage external company (customer, supplier, etc)
   - [ ] can manage service/product/stock
   - [ ] can backup/restore database
+- ReportViewer
+  - [ ] can see all reports
 - EntryUser
   - [ ] can input transaction/entry and proof
   - [ ] can request for update/delete entry and proof
@@ -79,3 +81,6 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
 
 - per tenant table
 - TODO: database design
+
+## TODO
+- add /tos /privacy
