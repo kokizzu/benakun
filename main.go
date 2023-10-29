@@ -14,6 +14,7 @@ import (
 
 	"benakun/conf"
 	"benakun/model"
+	"benakun/model/xMailer"
 )
 
 func main() {
@@ -30,6 +31,24 @@ func main() {
 	eg, ctx := errgroup.WithContext(ctx)
 	var closers []func() error
 	var err error
+
+	// mailer
+	var mailer xMailer.Mailer
+	eg.Go(func() error {
+		mailerCfg := conf.EnvMailer()
+		fmt.Println(`mailer: ` + mailerCfg.DefaultMailer)
+		switch mailerCfg.DefaultMailer {
+		case `dockermailserver`:
+			dms := xMailer.Dockermailserver{DockermailserverConf: conf.EnvDockermailserver()}
+			L.PanicIf(dms.Connect(), `Dockermailserver.Connect`)
+			mailer.SendMailFunc = dms.SendEmail
+		default: // use mailhog
+			mh, err := xMailer.NewMailhog(conf.EnvMailhog())
+			L.PanicIf(err, `NewMailhog`)
+			mailer.SendMailFunc = mh.SendEmail
+		}
+		return nil
+	})
 
 	// connect to tarantool
 	var tConn *Tt.Adapter
