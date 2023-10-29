@@ -47,13 +47,16 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
 - EntryUser
   - [ ] can input transaction/entry and proof
   - [ ] can request for update/delete entry and proof
+- User
+  - [ ] as new registered user can create a company
+  - [ ] can change password TODO: UI
 - Guest
-  - [ ] can register as new tenant
+  - [x] can register 
+  - [x] can forgot/request reset password
+  - [x] can reset password
+  - [x] can login with username and password
   - [ ] can join invitation link to a company
-  - [ ] can forgot/request reset password
-  - [ ] can reset password
-  - [ ] can login with username and password
-  - [ ] can login with google account
+  - [ ] can register/login with google account
 
 ## Features
 
