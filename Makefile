@@ -9,14 +9,14 @@ setup:
 	curl -fsSL https://bun.sh/install | bash
 
 local-tarantool:
-	docker exec -it `docker ps | grep tarantool | cut -d ' ' -f 1` tarantoolctl connect benakunT:benakunPT@127.0.0.1:3302
+	docker exec -it benakun-tarantool1-1 tarantoolctl connect benakunT:benakunPT@127.0.0.1:3301
 	# box.space -- list all tables
 	# box.execute [[ SELECT * FROM "users" LIMIT 1 ]]
 	# \set language sql
 	# \set delimiter ;
 
 local-clickhouse:
-	docker exec -it `docker ps | grep clickhouse | cut -d ' ' -f 1` clickhouse-client --host 127.0.0.1 --port 9001 --user benakunC --password benakunPC
+	docker exec -it benakun-clickhouse1-1 clickhouse-client --host 127.0.0.1 --port 9000 --user benakunC --password benakunPC
 	# SHOW TABLES -- list all tables
 	# SELECT * FROM "actionLogs" LIMIT 1;
 
