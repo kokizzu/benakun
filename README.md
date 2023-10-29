@@ -3,6 +3,10 @@
 
 free double-entry bookeeping accounting software for Indonesian personal or soho business (UMKM).
 
+## How to Contribute
+
+read README.md of https://github.com/kokizzu/street (the structure of this project is the same)
+
 ## Purpose
 
 people without prior accounting knowledge should able to use this software, and still conform to government standard.
