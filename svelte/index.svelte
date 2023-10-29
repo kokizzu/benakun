@@ -11,21 +11,7 @@
   let google = '#{google}';
   
   function getCookie( name ) {
-	fw.Get(`/`, func(c *fiber.Ctx) error {
-		in, user, segments := userInfoFromContext(c, d)
-		google := d.GuestExternalAuth(&domain.GuestExternalAuthIn{
-			RequestCommon: in.RequestCommon,
-			Provider:      domain.OauthGoogle,
-		})
-		google.ResponseCommon.DecorateSession(c)
-		return views.RenderIndex(c, M.SX{
-			`title`:  `BenAkun`,
-			`user`:   user,
-			`google`: google.Link,
-
-			`segments`: segments,
-		})
-    var match = document.cookie.match( new RegExp( '(^| )' + name + '=([^;]+)' ) );
+    let match = document.cookie.match( new RegExp( '(^| )' + name + '=([^;]+)' ) );
     if( match ) return match[ 2 ];
   }
   
