@@ -26,6 +26,7 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
   - [ ] can create entry-rule template
 - TenantAdmin
   - [ ] can edit company
+  - [ ] can create budgeting
   - [ ] can manage account source
 	- [ ] can manage users
 	- [ ] can manage accounts

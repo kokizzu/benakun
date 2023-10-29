@@ -1,1 +1,6 @@
 .idea
+tmp
+*.upx
+.env.override
+.DS_Store
+tmpdb
