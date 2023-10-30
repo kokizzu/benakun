@@ -17,9 +17,11 @@
         isSideMenuOpen.set( !$isSideMenuOpen );
     };
     export let access = {
-        'admin': false,
-        'buyer': false,
-        'realtor': false,
+        'superAdmin': false,
+        'tenantAdmin': false,
+        'entryUser': false,
+        'reportViewer': false,
+        'guest': false,
         'user': false,
     };
 
@@ -42,7 +44,7 @@
     <aside class='side_menu_admin'>
         <div class='side_menu_admin_container'>
             <header>
-                <h3>STREET</h3>
+                <h3>BenAkun</h3>
                 <button on:click|preventDefault={doToggle}>
                     <Icon size={20} color='#475569' src={FaSolidTimes} />
                 </button>
@@ -56,22 +58,40 @@
                         <Icon size={22} className={segment1 === '' ? 'icon_active' : 'icon_dark'} src={FaSolidHome} />
                         <span>HOME</span>
                     </a>
-                    {#if access.buyer }
-                        <a href='/buyer' class:active={segment1 === 'buyer'}>
-                            <Icon size={22} className={segment1 === 'buyer' ? 'icon_active' : 'icon_dark'} src={FaSolidShoppingBag} />
-                            <span>BUYER</span>
+                    {#if access.superAdmin }
+                        <a href='/superAdmin' class:active={segment1 === 'superAdmin'}>
+                            <Icon size={22} className={segment1 === 'superAdmin' ? 'icon_active' : 'icon_dark'} src={FaSolidShoppingBag} />
+                            <span>SUPER ADMIN</span>
                         </a>
                     {/if}
-                    {#if access.realtor}
-                        <a href='/realtor' class:active={segment1 === 'realtor'}>
-                            <Icon size={20} className={segment1 === 'realtor' ? 'icon_active' : 'icon_dark'} src={FaSolidBuilding} />
-                            <span>REALTOR</span>
+                    {#if access.tenantAdmin}
+                        <a href='/tenantAdmin' class:active={segment1 === 'tenantAdmin'}>
+                            <Icon size={20} className={segment1 === 'tenantAdmin' ? 'icon_active' : 'icon_dark'} src={FaSolidBuilding} />
+                            <span>TENANT ADMIN</span>
                         </a>
                     {/if}
-                    {#if access.admin }
-                        <a href='/admin' class:active={segment1 === 'admin'}>
-                            <Icon size={20} className={segment1 === 'admin' ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH} />
-                            <span>ADMIN</span>
+                    {#if access.entryUser }
+                        <a href='/entryUser' class:active={segment1 === 'entryUser'}>
+                            <Icon size={20} className={segment1 === 'entryUser' ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH} />
+                            <span>ENTRY USER</span>
+                        </a>
+                    {/if}
+                    {#if access.reportViewer }
+                        <a href='/reportViewer' class:active={segment1 === 'reportViewer'}>
+                            <Icon size={20} className={segment1 === 'reportViewer' ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH} />
+                            <span>REPORT VIEWER</span>
+                        </a>
+                    {/if}
+                    {#if access.guest }
+                        <a href='/guest' class:active={segment1 === 'guest'}>
+                            <Icon size={20} className={segment1 === 'guest' ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH} />
+                            <span>GUEST</span>
+                        </a>
+                    {/if}
+                    {#if access.user }
+                        <a href='/user' class:active={segment1 === 'user'}>
+                            <Icon size={20} className={segment1 === 'user' ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH} />
+                            <span>USER</span>
                         </a>
                     {/if}
                 </nav>
@@ -85,7 +105,7 @@
                             <span>PROFILE</span>
                         </a>
                     {/if}
-                    {#if access.user}
+                    {#if access.user || access.superAdmin}
                         <button on:click={userLogout} class='logout'>
                             <Icon size={22} className='icon_dark' src={FaSolidSignInAlt} />
                             <span>LOGOUT</span>

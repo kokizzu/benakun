@@ -3836,11 +3836,140 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
     return { set, update: update2, subscribe: subscribe2 };
   }
 
+  // translation.json
+  var translation_default = {
+    about: "About",
+    aboutTW: "\u6982\u8981",
+    agencyFee: "Agency Fee:",
+    agencyFeeTW: "\u4EF2\u4ECB\u8CBB:",
+    all: "All",
+    allTW: "\u5168\u90E8",
+    arStreetView: "AR Street view",
+    arStreetViewTW: "\u8857\u666F\u627E\u623F",
+    aroundHome: "Around Home",
+    aroundHomeTW: "\u5468\u908A\u8CC7\u8A0A",
+    askByText: "Ask by Text",
+    askByTextTW: "\u50B3\u7C21\u8A0A",
+    basement: "Basement",
+    basementTW: "\u5730\u4E0B\u5BA4",
+    bath: "bath",
+    bathTW: "\u885B",
+    bathroomN: "Bathroom #",
+    bathroomNTW: "\u885B\u6D74 ",
+    bed: "bed",
+    bedTW: "\u623F",
+    bedroomN: "Bedroom #",
+    bedroomNTW: "\u81E5\u5BA4 ",
+    buildingMaterial: "Building Material",
+    buildingMaterialTW: "\u5EFA\u7BC9\u6750\u6599",
+    callMe: "Call Me",
+    callMeTW: "\u96FB\u8A71\u806F\u7D61",
+    clickVerificationLink: "Please click the link in that email.",
+    clickVerificationLinkTW: "\u8ACB\u81F3\u60A8\u7684\u8A3B\u518AEmail \u4E26\u9EDE\u9078\u9023\u7D50\u4F86\u9A57\u8B49\u4FE1\u7BB1\u3002",
+    confirm: "Confirm",
+    confirmTW: "\u518D\u6B21\u78BA\u8A8D\u5BC6\u78BC",
+    constructionDate: "Construction Date",
+    constructionDateTW: "\u5EFA\u6210\u6642\u9593",
+    disclaimer1: "Disclaimer: The information provided on this platform is for reference purposes only. We do not guarantee the accuracy or completeness of the information presented. The actual information regarding the property is provided by the seller and should be verified independently. We do not assume any responsibility for any errors or omissions in the information provided. Please be aware of potential scams or frauds. We strongly advise you to conduct your own due diligence and exercise caution when communicating with anyone you meet online. Do not send money or personal information until you have verified the authenticity of the individual or company you are dealing with.",
+    disclaimer1TW: "\u514D\u8CAC\u8072\u660E\uFF1A \u672C\u5E73\u53F0\u63D0\u4F9B\u7684\u8CC7\u8A0A\u50C5\u4F9B\u53C3\u8003\u4E4B\u7528\u3002\u6211\u5011\u4E0D\u4FDD\u8B49\u6240\u63D0\u4F9B\u7684\u8CC7\u8A0A\u7684\u6E96\u78BA\u6027\u6216\u5B8C\u6574\u6027\u3002\u6709\u95DC\u7269\u4EF6\u7684\u5BE6\u969B\u8CC7\u8A0A\u7531\u8CE3\u65B9\u63D0\u4F9B\uFF0C\u61C9\u7368\u7ACB\u9032\u884C\u9A57\u8B49\u3002\u6211\u5011\u4E0D\u627F\u64D4\u4EFB\u4F55\u56E0\u6240\u63D0\u4F9B\u8CC7\u8A0A\u4E2D\u7684\u932F\u8AA4\u6216\u907A\u6F0F\u800C\u5F15\u8D77\u7684\u8CAC\u4EFB\u3002 \u8ACB\u6CE8\u610F\u53EF\u80FD\u5B58\u5728\u7684\u8A50\u9A19\u6216\u6B3A\u8A50\u884C\u70BA\u3002\u6211\u5011\u5F37\u70C8\u5EFA\u8B70\u60A8\u81EA\u884C\u9032\u884C\u5145\u5206\u7684\u5BE9\u614E\u8A55\u4F30\uFF0C\u4E26\u5728\u8207\u60A8\u5728\u7DDA\u4E0A\u9047\u5230\u7684\u4EFB\u4F55\u4EBA\u6E9D\u901A\u6642\u8B39\u614E\u884C\u4E8B\u3002\u5728\u9A57\u8B49\u60A8\u6240\u806F\u7D61\u7684\u500B\u4EBA\u6216\u516C\u53F8\u7684\u771F\u5BE6\u6027\u4E4B\u524D\uFF0C\u8ACB\u52FF\u767C\u9001\u91D1\u9322\u6216\u500B\u4EBA\u8CC7\u8A0A\u3002",
+    email: "Email",
+    emailTW: "\u4FE1\u7BB1",
+    facility: "Facility",
+    facilityTW: "\u8A2D\u65BD",
+    feet: "feet",
+    feetTW: "\u82F1\u5C3A",
+    floor: "Floor",
+    floorN: "Floor #",
+    floorNTW: "\u6A13\u5C64 ",
+    floorTW: "\u6A13\u5C64",
+    floors: "Floors",
+    floorsTW: "\u6A13\u5C64",
+    forRent: "For Rent",
+    forRentTW: "\u51FA\u79DF",
+    forgotPassword: "Forgot Password",
+    forgotPasswordTW: "\u5FD8\u8A18\u5BC6\u78BC",
+    haveAccount: "Have an Account ",
+    haveAccountTW: "\u5DF2\u662F\u6703\u54E1\uFF1F",
+    hospital: "Hospital",
+    hospitalTW: "\u91AB\u9662",
+    information: "Information",
+    informationTW: "\u8CC7\u8A0A",
+    key: "EN",
+    keyTW: "TW",
+    lastPrice: "Last Price",
+    lastPriceTW: "\u6700\u8FD1\u50F9\u683C",
+    likedProperty: "Liked Property",
+    likedPropertyTW: "\u559C\u6B61\u7684\u7269\u4EF6",
+    lookDown: "Look Down",
+    lookDownTW: "\u5F80\u4E0B\u770B",
+    lookLeft: "Look Left",
+    lookLeftTW: "\u5F80\u5DE6\u770B",
+    lookRight: "Look Right",
+    lookRightTW: "\u5F80\u53F3\u770B",
+    lookTop: "Look Top",
+    lookTopTW: "\u5F80\u4E0A\u770B",
+    m: "m",
+    m2: "m2",
+    m2TW: "\u5E73\u65B9\u7C73",
+    mTW: "\u516C\u5C3A",
+    miles: "miles",
+    milesTW: "\u82F1\u91CC",
+    moveCamera: "Slowly move the Camera to Look Around ",
+    moveCameraTW: "\u5DE6\u53F3\u79FB\u52D5\u627E\u7269\u4EF6",
+    onSale: "On Sale",
+    onSaleTW: "\u62CD\u8CE3\u4E2D",
+    openMap: "Open Map",
+    openMapTW: "\u67E5\u770B\u4F4D\u7F6E",
+    password: "Password",
+    passwordTW: "\u5BC6\u78BC",
+    ping: "ping",
+    pingTW: "\u576A",
+    pleaseVerify: "Please Verify Your Email",
+    pleaseVerifyTW: "\u9A57\u8B49Email",
+    priceHistory: "Price History",
+    priceHistoryTW: "\u6B77\u53F2\u50F9\u683C",
+    publish: "Publish",
+    publishTW: "\u520A\u767B",
+    resendVerificationLink: "Resend Verification Link",
+    resendVerificationLinkTW: "\u91CD\u5BC4 \u9A57\u8B49\u9023\u7D50",
+    restaurant: "Restaurant",
+    restaurantTW: "\u9910\u5EF3",
+    scanning: "Scanning...",
+    scanningTW: "\u6383\u63CF\u74B0\u5883\u4E2D...",
+    school: "School",
+    schoolTW: "\u5B78\u6821",
+    seeMore: "See More...",
+    seeMoreTW: "\u67E5\u770B\u66F4\u591A...",
+    signIn: "Sign In",
+    signInTW: "\u767B\u5165",
+    signOut: "Sign Out ",
+    signOutTW: "\u767B\u51FA",
+    signUp: "Sign Up",
+    signUpEmail: "Sign up with Email ",
+    signUpEmailTW: "\u4FE1\u7BB1\u8A3B\u518A",
+    signUpTW: "\u8A3B\u518A",
+    size: "Size",
+    sizeTW: "\u5C3A\u5BF8",
+    sqft: "sqft",
+    sqftTW: "\u5E73\u65B9\u7C73",
+    store: "Store",
+    storeTW: "\u5546\u5E97",
+    transit: "Transit",
+    transitTW: "\u5927\u773E\u904B\u8F38",
+    usdPerMonth: "$$/mo",
+    usdPerMonthTW: "$$/\u6708",
+    weSentEmail: "We've sent an email to your email account.",
+    weSentEmailTW: "\u6211\u5011\u5DF2\u5BC4\u4FE1\u81F3\u60A8\u7684Email!",
+    welcome: "Welcome to HapSTR ",
+    welcomeTW: "\u6B61\u8FCE\u4F7F\u7528HapSTR"
+  };
+
   // _components/uiState.js
   var isSideMenuOpen = writable(false);
+  var original = translation_default;
   var langOptions = {
     en: "EN",
-    tw: "TW"
+    id: "ID"
     // add more languages here
   };
   function translationStore() {
@@ -3849,6 +3978,18 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
       currentLang = window.localStorage.getItem("lang") || "";
     }
     let kv = { currentLang };
+    let switchLang = () => {
+      if (currentLang === "EN" || currentLang === "") {
+        for (let k in original) {
+          kv[k] = original[k];
+        }
+      } else {
+        for (let k in original) {
+          if (original[k + currentLang])
+            kv[k] = original[k + currentLang];
+        }
+      }
+    };
     const { subscribe: subscribe2, set, update: update2 } = writable(kv);
     return {
       currentLang,
@@ -3859,6 +4000,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         }
         currentLang = newV;
         kv.currentLang = newV;
+        switchLang();
         console.log("kv", kv);
         if (Object.keys(kv).length === 0)
           return;
@@ -4087,14 +4229,17 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
     let t10;
     let t11;
     let t12;
-    let c1;
     let t13;
-    let hr1;
     let t14;
-    let h61;
+    let t15;
+    let c1;
     let t16;
-    let nav1;
+    let hr1;
     let t17;
+    let h61;
+    let t19;
+    let nav1;
+    let t20;
     let current;
     let mounted;
     let dispose;
@@ -4117,23 +4262,36 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
     });
     let if_block0 = (
       /*access*/
-      ctx[1].buyer && create_if_block_5(ctx)
+      ctx[1].superAdmin && create_if_block_8(ctx)
     );
     let if_block1 = (
       /*access*/
-      ctx[1].realtor && create_if_block_4(ctx)
+      ctx[1].tenantAdmin && create_if_block_7(ctx)
     );
     let if_block2 = (
       /*access*/
-      ctx[1].admin && create_if_block_3(ctx)
+      ctx[1].entryUser && create_if_block_6(ctx)
     );
     let if_block3 = (
       /*access*/
-      ctx[1].user && create_if_block_2(ctx)
+      ctx[1].reportViewer && create_if_block_5(ctx)
     );
     let if_block4 = (
       /*access*/
-      ctx[1].user && create_if_block_1(ctx)
+      ctx[1].guest && create_if_block_4(ctx)
+    );
+    let if_block5 = (
+      /*access*/
+      ctx[1].user && create_if_block_3(ctx)
+    );
+    let if_block6 = (
+      /*access*/
+      ctx[1].user && create_if_block_2(ctx)
+    );
+    let if_block7 = (
+      /*access*/
+      (ctx[1].user || /*access*/
+      ctx[1].superAdmin) && create_if_block_1(ctx)
     );
     return {
       c() {
@@ -4141,7 +4299,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         div1 = element("div");
         header = element("header");
         h3 = element("h3");
-        h3.textContent = "STREET";
+        h3.textContent = "BenAkun";
         t1 = space();
         button = element("button");
         create_component(icon0.$.fragment);
@@ -4170,19 +4328,28 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         if (if_block2)
           if_block2.c();
         t12 = space();
-        c1 = comment(" SETTING ");
-        t13 = space();
-        hr1 = element("hr");
-        t14 = space();
-        h61 = element("h6");
-        h61.textContent = "SETTING";
-        t16 = space();
-        nav1 = element("nav");
         if (if_block3)
           if_block3.c();
-        t17 = space();
+        t13 = space();
         if (if_block4)
           if_block4.c();
+        t14 = space();
+        if (if_block5)
+          if_block5.c();
+        t15 = space();
+        c1 = comment(" SETTING ");
+        t16 = space();
+        hr1 = element("hr");
+        t17 = space();
+        h61 = element("h6");
+        h61.textContent = "SETTING";
+        t19 = space();
+        nav1 = element("nav");
+        if (if_block6)
+          if_block6.c();
+        t20 = space();
+        if (if_block7)
+          if_block7.c();
         attr(h3, "class", "svelte-1t4uo0b");
         attr(button, "class", "svelte-1t4uo0b");
         attr(header, "class", "svelte-1t4uo0b");
@@ -4234,19 +4401,28 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         append(nav0, t11);
         if (if_block2)
           if_block2.m(nav0, null);
-        append(div0, t12);
-        append(div0, c1);
-        append(div0, t13);
-        append(div0, hr1);
-        append(div0, t14);
-        append(div0, h61);
-        append(div0, t16);
-        append(div0, nav1);
+        append(nav0, t12);
         if (if_block3)
-          if_block3.m(nav1, null);
-        append(nav1, t17);
+          if_block3.m(nav0, null);
+        append(nav0, t13);
         if (if_block4)
-          if_block4.m(nav1, null);
+          if_block4.m(nav0, null);
+        append(nav0, t14);
+        if (if_block5)
+          if_block5.m(nav0, null);
+        append(div0, t15);
+        append(div0, c1);
+        append(div0, t16);
+        append(div0, hr1);
+        append(div0, t17);
+        append(div0, h61);
+        append(div0, t19);
+        append(div0, nav1);
+        if (if_block6)
+          if_block6.m(nav1, null);
+        append(nav1, t20);
+        if (if_block7)
+          if_block7.m(nav1, null);
         current = true;
         if (!mounted) {
           dispose = listen(button, "click", prevent_default(function() {
@@ -4278,7 +4454,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         }
         if (
           /*access*/
-          ctx[1].buyer
+          ctx[1].superAdmin
         ) {
           if (if_block0) {
             if_block0.p(ctx, dirty);
@@ -4287,7 +4463,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_5(ctx);
+            if_block0 = create_if_block_8(ctx);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(nav0, t10);
@@ -4301,7 +4477,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         }
         if (
           /*access*/
-          ctx[1].realtor
+          ctx[1].tenantAdmin
         ) {
           if (if_block1) {
             if_block1.p(ctx, dirty);
@@ -4310,7 +4486,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_4(ctx);
+            if_block1 = create_if_block_7(ctx);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(nav0, t11);
@@ -4324,7 +4500,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         }
         if (
           /*access*/
-          ctx[1].admin
+          ctx[1].entryUser
         ) {
           if (if_block2) {
             if_block2.p(ctx, dirty);
@@ -4333,10 +4509,10 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
               transition_in(if_block2, 1);
             }
           } else {
-            if_block2 = create_if_block_3(ctx);
+            if_block2 = create_if_block_6(ctx);
             if_block2.c();
             transition_in(if_block2, 1);
-            if_block2.m(nav0, null);
+            if_block2.m(nav0, t12);
           }
         } else if (if_block2) {
           group_outros();
@@ -4347,7 +4523,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         }
         if (
           /*access*/
-          ctx[1].user
+          ctx[1].reportViewer
         ) {
           if (if_block3) {
             if_block3.p(ctx, dirty);
@@ -4356,10 +4532,10 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
               transition_in(if_block3, 1);
             }
           } else {
-            if_block3 = create_if_block_2(ctx);
+            if_block3 = create_if_block_5(ctx);
             if_block3.c();
             transition_in(if_block3, 1);
-            if_block3.m(nav1, t17);
+            if_block3.m(nav0, t13);
           }
         } else if (if_block3) {
           group_outros();
@@ -4370,7 +4546,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         }
         if (
           /*access*/
-          ctx[1].user
+          ctx[1].guest
         ) {
           if (if_block4) {
             if_block4.p(ctx, dirty);
@@ -4379,15 +4555,85 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
               transition_in(if_block4, 1);
             }
           } else {
-            if_block4 = create_if_block_1(ctx);
+            if_block4 = create_if_block_4(ctx);
             if_block4.c();
             transition_in(if_block4, 1);
-            if_block4.m(nav1, null);
+            if_block4.m(nav0, t14);
           }
         } else if (if_block4) {
           group_outros();
           transition_out(if_block4, 1, 1, () => {
             if_block4 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*access*/
+          ctx[1].user
+        ) {
+          if (if_block5) {
+            if_block5.p(ctx, dirty);
+            if (dirty & /*access*/
+            2) {
+              transition_in(if_block5, 1);
+            }
+          } else {
+            if_block5 = create_if_block_3(ctx);
+            if_block5.c();
+            transition_in(if_block5, 1);
+            if_block5.m(nav0, null);
+          }
+        } else if (if_block5) {
+          group_outros();
+          transition_out(if_block5, 1, 1, () => {
+            if_block5 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*access*/
+          ctx[1].user
+        ) {
+          if (if_block6) {
+            if_block6.p(ctx, dirty);
+            if (dirty & /*access*/
+            2) {
+              transition_in(if_block6, 1);
+            }
+          } else {
+            if_block6 = create_if_block_2(ctx);
+            if_block6.c();
+            transition_in(if_block6, 1);
+            if_block6.m(nav1, t20);
+          }
+        } else if (if_block6) {
+          group_outros();
+          transition_out(if_block6, 1, 1, () => {
+            if_block6 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*access*/
+          ctx[1].user || /*access*/
+          ctx[1].superAdmin
+        ) {
+          if (if_block7) {
+            if_block7.p(ctx, dirty);
+            if (dirty & /*access*/
+            2) {
+              transition_in(if_block7, 1);
+            }
+          } else {
+            if_block7 = create_if_block_1(ctx);
+            if_block7.c();
+            transition_in(if_block7, 1);
+            if_block7.m(nav1, null);
+          }
+        } else if (if_block7) {
+          group_outros();
+          transition_out(if_block7, 1, 1, () => {
+            if_block7 = null;
           });
           check_outros();
         }
@@ -4402,6 +4648,9 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         transition_in(if_block2);
         transition_in(if_block3);
         transition_in(if_block4);
+        transition_in(if_block5);
+        transition_in(if_block6);
+        transition_in(if_block7);
         current = true;
       },
       o(local) {
@@ -4412,6 +4661,9 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         transition_out(if_block2);
         transition_out(if_block3);
         transition_out(if_block4);
+        transition_out(if_block5);
+        transition_out(if_block6);
+        transition_out(if_block7);
         current = false;
       },
       d(detaching) {
@@ -4430,12 +4682,18 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
           if_block3.d();
         if (if_block4)
           if_block4.d();
+        if (if_block5)
+          if_block5.d();
+        if (if_block6)
+          if_block6.d();
+        if (if_block7)
+          if_block7.d();
         mounted = false;
         dispose();
       }
     };
   }
-  function create_if_block_5(ctx) {
+  function create_if_block_8(ctx) {
     let a;
     let icon;
     let t0;
@@ -4446,7 +4704,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         size: 22,
         className: (
           /*segment1*/
-          ctx[2] === "buyer" ? "icon_active" : "icon_dark"
+          ctx[2] === "superAdmin" ? "icon_active" : "icon_dark"
         ),
         src: FaSolidShoppingBag_default
       }
@@ -4457,14 +4715,14 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         create_component(icon.$.fragment);
         t0 = space();
         span = element("span");
-        span.textContent = "BUYER";
-        attr(a, "href", "/buyer");
+        span.textContent = "SUPER ADMIN";
+        attr(a, "href", "/superAdmin");
         attr(a, "class", "svelte-1t4uo0b");
         toggle_class(
           a,
           "active",
           /*segment1*/
-          ctx[2] === "buyer"
+          ctx[2] === "superAdmin"
         );
       },
       m(target, anchor) {
@@ -4479,7 +4737,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         if (dirty & /*segment1*/
         4)
           icon_changes.className = /*segment1*/
-          ctx2[2] === "buyer" ? "icon_active" : "icon_dark";
+          ctx2[2] === "superAdmin" ? "icon_active" : "icon_dark";
         icon.$set(icon_changes);
         if (!current || dirty & /*segment1*/
         4) {
@@ -4487,7 +4745,229 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
             a,
             "active",
             /*segment1*/
-            ctx2[2] === "buyer"
+            ctx2[2] === "superAdmin"
+          );
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(a);
+        }
+        destroy_component(icon);
+      }
+    };
+  }
+  function create_if_block_7(ctx) {
+    let a;
+    let icon;
+    let t0;
+    let span;
+    let current;
+    icon = new Icon_default({
+      props: {
+        size: 20,
+        className: (
+          /*segment1*/
+          ctx[2] === "tenantAdmin" ? "icon_active" : "icon_dark"
+        ),
+        src: FaSolidBuilding_default
+      }
+    });
+    return {
+      c() {
+        a = element("a");
+        create_component(icon.$.fragment);
+        t0 = space();
+        span = element("span");
+        span.textContent = "TENANT ADMIN";
+        attr(a, "href", "/tenantAdmin");
+        attr(a, "class", "svelte-1t4uo0b");
+        toggle_class(
+          a,
+          "active",
+          /*segment1*/
+          ctx[2] === "tenantAdmin"
+        );
+      },
+      m(target, anchor) {
+        insert(target, a, anchor);
+        mount_component(icon, a, null);
+        append(a, t0);
+        append(a, span);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const icon_changes = {};
+        if (dirty & /*segment1*/
+        4)
+          icon_changes.className = /*segment1*/
+          ctx2[2] === "tenantAdmin" ? "icon_active" : "icon_dark";
+        icon.$set(icon_changes);
+        if (!current || dirty & /*segment1*/
+        4) {
+          toggle_class(
+            a,
+            "active",
+            /*segment1*/
+            ctx2[2] === "tenantAdmin"
+          );
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(a);
+        }
+        destroy_component(icon);
+      }
+    };
+  }
+  function create_if_block_6(ctx) {
+    let a;
+    let icon;
+    let t0;
+    let span;
+    let current;
+    icon = new Icon_default({
+      props: {
+        size: 20,
+        className: (
+          /*segment1*/
+          ctx[2] === "entryUser" ? "icon_active" : "icon_dark"
+        ),
+        src: FaSolidSlidersH_default
+      }
+    });
+    return {
+      c() {
+        a = element("a");
+        create_component(icon.$.fragment);
+        t0 = space();
+        span = element("span");
+        span.textContent = "ENTRY USER";
+        attr(a, "href", "/entryUser");
+        attr(a, "class", "svelte-1t4uo0b");
+        toggle_class(
+          a,
+          "active",
+          /*segment1*/
+          ctx[2] === "entryUser"
+        );
+      },
+      m(target, anchor) {
+        insert(target, a, anchor);
+        mount_component(icon, a, null);
+        append(a, t0);
+        append(a, span);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const icon_changes = {};
+        if (dirty & /*segment1*/
+        4)
+          icon_changes.className = /*segment1*/
+          ctx2[2] === "entryUser" ? "icon_active" : "icon_dark";
+        icon.$set(icon_changes);
+        if (!current || dirty & /*segment1*/
+        4) {
+          toggle_class(
+            a,
+            "active",
+            /*segment1*/
+            ctx2[2] === "entryUser"
+          );
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(a);
+        }
+        destroy_component(icon);
+      }
+    };
+  }
+  function create_if_block_5(ctx) {
+    let a;
+    let icon;
+    let t0;
+    let span;
+    let current;
+    icon = new Icon_default({
+      props: {
+        size: 20,
+        className: (
+          /*segment1*/
+          ctx[2] === "reportViewer" ? "icon_active" : "icon_dark"
+        ),
+        src: FaSolidSlidersH_default
+      }
+    });
+    return {
+      c() {
+        a = element("a");
+        create_component(icon.$.fragment);
+        t0 = space();
+        span = element("span");
+        span.textContent = "REPORT VIEWER";
+        attr(a, "href", "/reportViewer");
+        attr(a, "class", "svelte-1t4uo0b");
+        toggle_class(
+          a,
+          "active",
+          /*segment1*/
+          ctx[2] === "reportViewer"
+        );
+      },
+      m(target, anchor) {
+        insert(target, a, anchor);
+        mount_component(icon, a, null);
+        append(a, t0);
+        append(a, span);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const icon_changes = {};
+        if (dirty & /*segment1*/
+        4)
+          icon_changes.className = /*segment1*/
+          ctx2[2] === "reportViewer" ? "icon_active" : "icon_dark";
+        icon.$set(icon_changes);
+        if (!current || dirty & /*segment1*/
+        4) {
+          toggle_class(
+            a,
+            "active",
+            /*segment1*/
+            ctx2[2] === "reportViewer"
           );
         }
       },
@@ -4520,9 +5000,9 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         size: 20,
         className: (
           /*segment1*/
-          ctx[2] === "realtor" ? "icon_active" : "icon_dark"
+          ctx[2] === "guest" ? "icon_active" : "icon_dark"
         ),
-        src: FaSolidBuilding_default
+        src: FaSolidSlidersH_default
       }
     });
     return {
@@ -4531,14 +5011,14 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         create_component(icon.$.fragment);
         t0 = space();
         span = element("span");
-        span.textContent = "REALTOR";
-        attr(a, "href", "/realtor");
+        span.textContent = "GUEST";
+        attr(a, "href", "/guest");
         attr(a, "class", "svelte-1t4uo0b");
         toggle_class(
           a,
           "active",
           /*segment1*/
-          ctx[2] === "realtor"
+          ctx[2] === "guest"
         );
       },
       m(target, anchor) {
@@ -4553,7 +5033,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         if (dirty & /*segment1*/
         4)
           icon_changes.className = /*segment1*/
-          ctx2[2] === "realtor" ? "icon_active" : "icon_dark";
+          ctx2[2] === "guest" ? "icon_active" : "icon_dark";
         icon.$set(icon_changes);
         if (!current || dirty & /*segment1*/
         4) {
@@ -4561,7 +5041,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
             a,
             "active",
             /*segment1*/
-            ctx2[2] === "realtor"
+            ctx2[2] === "guest"
           );
         }
       },
@@ -4594,7 +5074,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         size: 20,
         className: (
           /*segment1*/
-          ctx[2] === "admin" ? "icon_active" : "icon_dark"
+          ctx[2] === "user" ? "icon_active" : "icon_dark"
         ),
         src: FaSolidSlidersH_default
       }
@@ -4605,14 +5085,14 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         create_component(icon.$.fragment);
         t0 = space();
         span = element("span");
-        span.textContent = "ADMIN";
-        attr(a, "href", "/admin");
+        span.textContent = "USER";
+        attr(a, "href", "/user");
         attr(a, "class", "svelte-1t4uo0b");
         toggle_class(
           a,
           "active",
           /*segment1*/
-          ctx[2] === "admin"
+          ctx[2] === "user"
         );
       },
       m(target, anchor) {
@@ -4627,7 +5107,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         if (dirty & /*segment1*/
         4)
           icon_changes.className = /*segment1*/
-          ctx2[2] === "admin" ? "icon_active" : "icon_dark";
+          ctx2[2] === "user" ? "icon_active" : "icon_dark";
         icon.$set(icon_changes);
         if (!current || dirty & /*segment1*/
         4) {
@@ -4635,7 +5115,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
             a,
             "active",
             /*segment1*/
-            ctx2[2] === "admin"
+            ctx2[2] === "user"
           );
         }
       },
@@ -4862,9 +5342,11 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
       isSideMenuOpen.set(!$isSideMenuOpen);
     } } = $props;
     let { access = {
-      "admin": false,
-      "buyer": false,
-      "realtor": false,
+      "superAdmin": false,
+      "tenantAdmin": false,
+      "entryUser": false,
+      "reportViewer": false,
+      "guest": false,
       "user": false
     } } = $props;
     let segment1;
@@ -4900,106 +5382,52 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
   function create_fragment3(ctx) {
     let div;
     let nav;
-    let a0;
-    let t1;
-    let a1;
-    let t3;
-    let a2;
-    let t5;
-    let a3;
-    let t7;
-    let a4;
-    let t9;
-    let a5;
-    let t11;
-    let a6;
-    let t13;
     let c0;
-    let t14;
+    let t0;
+    let a;
+    let t2;
     let c1;
+    let t3;
+    let c2;
+    let t4;
+    let c3;
+    let t5;
+    let c4;
+    let t6;
+    let c5;
+    let t7;
+    let c6;
+    let t8;
+    let c7;
     return {
       c() {
         div = element("div");
         nav = element("nav");
-        a0 = element("a");
-        a0.textContent = "Dashboard";
-        t1 = space();
-        a1 = element("a");
-        a1.textContent = "Users";
+        c0 = comment(`        <a href="/admin" class:active={segment2==='admin'}>Dashboard</a>`);
+        t0 = space();
+        a = element("a");
+        a.textContent = "Users";
+        t2 = space();
+        c1 = comment(`        <a href="/admin/properties/US" class:active={segment2==='US'}>Properties US</a>`);
         t3 = space();
-        a2 = element("a");
-        a2.textContent = "Properties US";
+        c2 = comment(`        <a href="/admin/properties" class:active={segment2==='properties'}>Properties</a>`);
+        t4 = space();
+        c3 = comment(`        <a href="/admin/propHistories" class:active={segment2==='propHistories'}>Prop Histories</a>`);
         t5 = space();
-        a3 = element("a");
-        a3.textContent = "Properties";
+        c4 = comment(`        <a href="/admin/accessLogs" class:active={segment2==='accessLogs'}>Access Logs</a>`);
+        t6 = space();
+        c5 = comment(`        <a href="/admin/files" class:active={segment2==='files'}>Files</a>`);
         t7 = space();
-        a4 = element("a");
-        a4.textContent = "Prop Histories";
-        t9 = space();
-        a5 = element("a");
-        a5.textContent = "Access Logs";
-        t11 = space();
-        a6 = element("a");
-        a6.textContent = "Files";
-        t13 = space();
-        c0 = comment(`  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>`);
-        t14 = space();
-        c1 = comment(`  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>`);
-        attr(a0, "href", "/admin");
-        attr(a0, "class", "svelte-1m9i3ws");
+        c6 = comment(`  <li class:active={segment2==='sessions'}><a href="/admin/sessions">Sessions</a></li>`);
+        t8 = space();
+        c7 = comment(`  <li class:active={segment2==='actionLogs'}><a href="/admin/actionLogs">Action Logs</a></li>`);
+        attr(a, "href", "/superAdmin/userManagement");
+        attr(a, "class", "svelte-1m9i3ws");
         toggle_class(
-          a0,
+          a,
           "active",
           /*segment2*/
-          ctx[0] === "admin"
-        );
-        attr(a1, "href", "/admin/users");
-        attr(a1, "class", "svelte-1m9i3ws");
-        toggle_class(
-          a1,
-          "active",
-          /*segment2*/
-          ctx[0] === "users"
-        );
-        attr(a2, "href", "/admin/properties/US");
-        attr(a2, "class", "svelte-1m9i3ws");
-        toggle_class(
-          a2,
-          "active",
-          /*segment2*/
-          ctx[0] === "US"
-        );
-        attr(a3, "href", "/admin/properties");
-        attr(a3, "class", "svelte-1m9i3ws");
-        toggle_class(
-          a3,
-          "active",
-          /*segment2*/
-          ctx[0] === "properties"
-        );
-        attr(a4, "href", "/admin/propHistories");
-        attr(a4, "class", "svelte-1m9i3ws");
-        toggle_class(
-          a4,
-          "active",
-          /*segment2*/
-          ctx[0] === "propHistories"
-        );
-        attr(a5, "href", "/admin/accessLogs");
-        attr(a5, "class", "svelte-1m9i3ws");
-        toggle_class(
-          a5,
-          "active",
-          /*segment2*/
-          ctx[0] === "accessLogs"
-        );
-        attr(a6, "href", "/admin/files");
-        attr(a6, "class", "svelte-1m9i3ws");
-        toggle_class(
-          a6,
-          "active",
-          /*segment2*/
-          ctx[0] === "files"
+          ctx[0] === "userManagement"
         );
         attr(nav, "class", "menu svelte-1m9i3ws");
         attr(div, "class", "admin_submenu svelte-1m9i3ws");
@@ -5007,86 +5435,32 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
       m(target, anchor) {
         insert(target, div, anchor);
         append(div, nav);
-        append(nav, a0);
-        append(nav, t1);
-        append(nav, a1);
-        append(nav, t3);
-        append(nav, a2);
-        append(nav, t5);
-        append(nav, a3);
-        append(nav, t7);
-        append(nav, a4);
-        append(nav, t9);
-        append(nav, a5);
-        append(nav, t11);
-        append(nav, a6);
-        append(nav, t13);
         append(nav, c0);
-        append(nav, t14);
+        append(nav, t0);
+        append(nav, a);
+        append(nav, t2);
         append(nav, c1);
+        append(nav, t3);
+        append(nav, c2);
+        append(nav, t4);
+        append(nav, c3);
+        append(nav, t5);
+        append(nav, c4);
+        append(nav, t6);
+        append(nav, c5);
+        append(nav, t7);
+        append(nav, c6);
+        append(nav, t8);
+        append(nav, c7);
       },
       p(ctx2, [dirty]) {
         if (dirty & /*segment2*/
         1) {
           toggle_class(
-            a0,
+            a,
             "active",
             /*segment2*/
-            ctx2[0] === "admin"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a1,
-            "active",
-            /*segment2*/
-            ctx2[0] === "users"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a2,
-            "active",
-            /*segment2*/
-            ctx2[0] === "US"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a3,
-            "active",
-            /*segment2*/
-            ctx2[0] === "properties"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a4,
-            "active",
-            /*segment2*/
-            ctx2[0] === "propHistories"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a5,
-            "active",
-            /*segment2*/
-            ctx2[0] === "accessLogs"
-          );
-        }
-        if (dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a6,
-            "active",
-            /*segment2*/
-            ctx2[0] === "files"
+            ctx2[0] === "userManagement"
           );
         }
       },
@@ -7476,12 +7850,12 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         /*field*/
         ctx2[21].inputType === "textarea"
       )
-        return create_if_block_7;
+        return create_if_block_72;
       if (
         /*field*/
         ctx2[21].inputType === "number"
       )
-        return create_if_block_8;
+        return create_if_block_82;
       return create_else_block_4;
     }
     let current_block_type = select_block_type_3(ctx, -1);
@@ -7549,7 +7923,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
         /*field*/
         ctx2[21].inputType === "datetime"
       )
-        return create_if_block_6;
+        return create_if_block_62;
       return create_else_block_22;
     }
     let current_block_type = select_block_type_2(ctx, -1);
@@ -7724,7 +8098,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
       }
     };
   }
-  function create_if_block_8(ctx) {
+  function create_if_block_82(ctx) {
     let input;
     let input_id_value;
     let mounted;
@@ -7791,7 +8165,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
       }
     };
   }
-  function create_if_block_7(ctx) {
+  function create_if_block_72(ctx) {
     let textarea;
     let textarea_id_value;
     let mounted;
@@ -7887,7 +8261,7 @@ input.input_filter.svelte-1hhtvg.svelte-1hhtvg {
       }
     };
   }
-  function create_if_block_6(ctx) {
+  function create_if_block_62(ctx) {
     let span;
     let t_value = (0, import_formatter2.datetime)(
       /*row*/

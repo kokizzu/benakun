@@ -163,13 +163,15 @@ func (d *Domain) SuperAdminUserManagement(in *SuperAdminUserManagementIn) (out S
 		}
 		user.SetFullName(in.User.FullName)
 
-		tenant := rqAuth.NewTenants(d.AuthOltp)
-		tenant.TenantCode = in.User.TenantCode
-		if !tenant.FindByTenantCode() {
-			out.SetError(400, ErrTenantCodeNotFound)
-			return
+		if in.User.TenantCode != "" {
+			tenant := rqAuth.NewTenants(d.AuthOltp)
+			tenant.TenantCode = in.User.TenantCode
+			if !tenant.FindByTenantCode() {
+				out.SetError(400, ErrTenantCodeNotFound)
+				return
+			}
+			user.SetTenantCode(in.User.TenantCode)
 		}
-		user.SetTenantCode(in.User.TenantCode)
 
 		if user.HaveMutation() {
 			user.SetUpdatedAt(in.UnixNow())

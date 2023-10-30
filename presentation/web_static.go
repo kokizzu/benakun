@@ -40,9 +40,9 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if err != nil {
 			return err
 		}
-		// if notAdmin(ctx, d, in.RequestCommon) {
-		// 	return ctx.Redirect(`/`, 302)
-		// }
+		if notLogin(ctx, d, in.RequestCommon, true) {
+			return ctx.Redirect(`/`, 302)
+		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
@@ -80,4 +80,23 @@ func userInfoFromRequest(rc domain.RequestCommon, d *domain.Domain) (*rqAuth.Use
 	user = out.User
 	segments = out.Segments
 	return user, segments
+}
+
+func notLogin(ctx *fiber.Ctx, d *domain.Domain, in domain.RequestCommon, superAdmin bool) bool {
+	var check domain.ResponseCommon
+	var sess *domain.Session
+
+	if superAdmin {
+		sess = d.MustSuperAdmin(in, &check)
+	} else {
+		sess = d.MustLogin(in, &check)
+	}
+	if sess == nil {
+		// TODO: implement render error
+		// _ = views.RenderError(ctx, M.SX{
+		// 	`error`: check.Error,
+		// })
+		return true
+	}
+	return false
 }

@@ -33,10 +33,7 @@ func (u *Users) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud
 	validFields := UsersFieldTypeMap
 	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
 
-	queryCount := comment + `
-SELECT COUNT(1)
-FROM ` + u.SqlTableName() + whereAndSql + `
-LIMIT 1`
+	queryCount := comment + `SELECT COUNT(1)FROM ` + u.SqlTableName() + whereAndSql + `LIMIT 1`
 	u.Adapter.QuerySql(queryCount, func(row []any) {
 		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
 	})
@@ -44,9 +41,7 @@ LIMIT 1`
 	orderBySql := out.OrderBySqlTt(in.Order, validFields)
 	limitOffsetSql := out.LimitOffsetSql()
 
-	queryRows := comment + `
-SELECT ` + meta.ToSelect() + `
-FROM ` + u.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+	queryRows := comment + `SELECT ` + meta.ToSelect() + `FROM ` + u.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	u.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
