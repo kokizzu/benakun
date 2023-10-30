@@ -360,14 +360,18 @@ func (d *Domain) segmentsFromSession(s *Session) M.SB {
 			s.Segments[ReportViewerSegment] = true
 			s.Segments[EntryUserSegment] = true
 			s.Segments[UserSegment] = true
+			s.Segments[GuestSegment] = true
 		case EntryUserSegment:
 			s.Segments[EntryUserSegment] = true
 			s.Segments[UserSegment] = true
+			s.Segments[GuestSegment] = true
 		case ReportViewerSegment:
 			s.Segments[ReportViewerSegment] = true
 			s.Segments[UserSegment] = true
+			s.Segments[GuestSegment] = true
 		case UserSegment:
 			s.Segments[UserSegment] = true
+			s.Segments[GuestSegment] = true
 		case GuestSegment:
 			s.Segments[GuestSegment] = true
 		}

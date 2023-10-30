@@ -1,10 +1,9 @@
 import { writable } from 'svelte/store';
 // translation related
-import translation from '../translation.json';
 
 export let isSideMenuOpen = writable(false); // Side Menu
 
-let original = translation;
+let original = {};
 export let langOptions = {
     en: 'EN',
     id: 'ID', // add more languages here
