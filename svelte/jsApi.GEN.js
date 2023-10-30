@@ -51,6 +51,7 @@ const GuestAutoLoginIn = {
  * @property {number} user.lastLoginAt
  * @property {String} user.fullName
  * @property {String} user.tenantCode
+ * @property {String} user.role
  * @property {Object} segments
  */
 const GuestAutoLoginOut = {
@@ -71,6 +72,7 @@ const GuestAutoLoginOut = {
     lastLoginAt: 0, // int64
     fullName: '', // string
     tenantCode: '', // string
+    role: '', // string
   }, // rqAuth.Users
   segments: { // M.SB
   }, // M.SB
@@ -219,6 +221,7 @@ const GuestLoginIn = {
  * @property {number} user.lastLoginAt
  * @property {String} user.fullName
  * @property {String} user.tenantCode
+ * @property {String} user.role
  * @property {Object} segments
  */
 const GuestLoginOut = {
@@ -239,6 +242,7 @@ const GuestLoginOut = {
     lastLoginAt: 0, // int64
     fullName: '', // string
     tenantCode: '', // string
+    role: '', // string
   }, // rqAuth.Users
   segments: { // M.SB
   }, // M.SB
@@ -290,6 +294,7 @@ const GuestOauthCallbackIn = {
  * @property {number} currentUser.lastLoginAt
  * @property {String} currentUser.fullName
  * @property {String} currentUser.tenantCode
+ * @property {String} currentUser.role
  * @property {String} provider
  * @property {Object} segments
  */
@@ -314,6 +319,7 @@ const GuestOauthCallbackOut = {
     lastLoginAt: 0, // int64
     fullName: '', // string
     tenantCode: '', // string
+    role: '', // string
   }, // rqAuth.Users
   provider: '', // string
   segments: { // M.SB
@@ -362,6 +368,7 @@ const GuestRegisterIn = {
  * @property {number} user.lastLoginAt
  * @property {String} user.fullName
  * @property {String} user.tenantCode
+ * @property {String} user.role
  * @property {String} verifyEmailUrl
  */
 const GuestRegisterOut = {
@@ -382,6 +389,7 @@ const GuestRegisterOut = {
     lastLoginAt: 0, // int64
     fullName: '', // string
     tenantCode: '', // string
+    role: '', // string
   }, // rqAuth.Users
   verifyEmailUrl: '', // string
 }
@@ -520,6 +528,7 @@ exports.GuestVerifyEmail = async function GuestVerifyEmail( i, cb ) {
  * @property {number} user.lastLoginAt
  * @property {String} user.fullName
  * @property {String} user.tenantCode
+ * @property {String} user.role
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -545,6 +554,7 @@ const SuperAdminUserManagementIn = {
     lastLoginAt: 0, // int64
     fullName: '', // string
     tenantCode: '', // string
+    role: '', // string
   }, // rqAuth.Users
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -582,6 +592,7 @@ const SuperAdminUserManagementIn = {
  * @property {number} user.lastLoginAt
  * @property {String} user.fullName
  * @property {String} user.tenantCode
+ * @property {String} user.role
  * @property {Object} users
  */
 const SuperAdminUserManagementOut = {
@@ -618,6 +629,7 @@ const SuperAdminUserManagementOut = {
     lastLoginAt: 0, // int64
     fullName: '', // string
     tenantCode: '', // string
+    role: '', // string
   }, // rqAuth.Users
   users: { // [][]any
   }, // [][]any
@@ -751,6 +763,7 @@ const UserProfileIn = {
  * @property {number} user.lastLoginAt
  * @property {String} user.fullName
  * @property {String} user.tenantCode
+ * @property {String} user.role
  * @property {Object} segments
  */
 const UserProfileOut = {
@@ -771,6 +784,7 @@ const UserProfileOut = {
     lastLoginAt: 0, // int64
     fullName: '', // string
     tenantCode: '', // string
+    role: '', // string
   }, // rqAuth.Users
   segments: { // M.SB
   }, // M.SB
@@ -885,6 +899,7 @@ const UserUpdateProfileIn = {
  * @property {number} user.lastLoginAt
  * @property {String} user.fullName
  * @property {String} user.tenantCode
+ * @property {String} user.role
  * @property {Object} segments
  */
 const UserUpdateProfileOut = {
@@ -905,6 +920,7 @@ const UserUpdateProfileOut = {
     lastLoginAt: 0, // int64
     fullName: '', // string
     tenantCode: '', // string
+    role: '', // string
   }, // rqAuth.Users
   segments: { // M.SB
   }, // M.SB

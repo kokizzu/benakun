@@ -171,8 +171,8 @@ func testDomain() (*Domain, func()) {
 		AuthOltp: testTt,
 		AuthOlap: testCh,
 
-		PropOltp: testTt,
-		PropOlap: testCh,
+		// PropOltp: testTt,
+		// PropOlap: testCh,
 
 		StorOltp: testTt,
 

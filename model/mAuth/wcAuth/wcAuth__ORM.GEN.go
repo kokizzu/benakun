@@ -516,6 +516,7 @@ func (u *UsersMutator) DoDeletePermanentById() bool { //nolint:dupl false positi
 //		A.X{`=`, 13, u.LastLoginAt},
 //		A.X{`=`, 14, u.FullName},
 //		A.X{`=`, 15, u.TenantCode},
+//		A.X{`=`, 16, u.Role},
 //	})
 //	return !L.IsError(err, `Users.DoUpsert failed: `+u.SpaceName()+ `\n%#v`, arr)
 // }
@@ -742,6 +743,17 @@ func (u *UsersMutator) SetTenantCode(val string) bool { //nolint:dupl false posi
 	return false
 }
 
+// SetRole create mutations, should not duplicate
+func (u *UsersMutator) SetRole(val string) bool { //nolint:dupl false positive
+	if val != u.Role {
+		u.mutations = append(u.mutations, A.X{`=`, 16, val})
+		u.logs = append(u.logs, A.X{`role`, u.Role, val})
+		u.Role = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (u *UsersMutator) SetAll(from rqAuth.Users, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -812,6 +824,10 @@ func (u *UsersMutator) SetAll(from rqAuth.Users, excludeMap, forceMap M.SB) (cha
 	}
 	if !excludeMap[`tenantCode`] && (forceMap[`tenantCode`] || from.TenantCode != ``) {
 		u.TenantCode = S.Trim(from.TenantCode)
+		changed = true
+	}
+	if !excludeMap[`role`] && (forceMap[`role`] || from.Role != ``) {
+		u.Role = S.Trim(from.Role)
 		changed = true
 	}
 	return

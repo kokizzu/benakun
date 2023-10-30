@@ -50,6 +50,8 @@ type Field struct {
 
 	Validations map[Validation]any `json:"validations" form:"validations" query:"validations" long:"validations" msg:"validations"`
 
+	// fixed value for combobox/select, must be under 5 rows
+	Ref []string `json:"ref" form:"ref" query:"ref" long:"ref" msg:"ref"`
 	// endpoint to find the combobox reference, if combobox/select source for autocomplete is too large
 	RefEndpoint string `json:"refEndpoint" form:"refEndpoint" query:"refEndpoint" long:"refEndpoint" msg:"refEndpoint"`
 }
