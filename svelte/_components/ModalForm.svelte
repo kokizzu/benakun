@@ -67,6 +67,7 @@
         }
     }
 
+
     $: JSON.stringify(row)
     $: JSON.stringify(fields)
 </script>
@@ -105,6 +106,22 @@
                                     <textarea id='modalForm__{field.name}' bind:value={row[field.name]}></textarea>
                                 {:else if field.inputType==='number'}
                                     <input id='modalForm__{field.name}' type='number' bind:value={row[field.name]} />
+                                {:else if field.inputType==='combobox'}
+                                    {#if field.ref && field.ref.length > 0 }
+                                        <select id='modalForm__{field.name}' bind:value={row[field.name]}>
+                                            {#each field.ref.slice(0, 4) as ref (ref)}
+                                                <option value="{ref}">{ref}</option>
+                                            {/each}
+                                        </select>
+                                    {:else}
+                                        <select id='modalForm__{field.name}' bind:value={row[field.name]}>
+                                            <option value="red">Merah</option>
+                                            <option value="blue">Biru</option>
+                                            <option value="green">Hijau</option>
+                                            <option value="yellow">Kuning</option>
+                                            <option value="orange">Oranye</option>
+                                        </select>
+                                    {/if}
                                 {:else}
                                     <input id='modalForm__{field.name}' type='text' bind:value={row[field.name]} />
                                 {/if}
@@ -230,6 +247,18 @@
         margin-top: 5px;
     }
     .input_container .input_box input:focus {
+        border-color: #3b82f6;
+        outline: 1px solid #3b82f6;
+    }
+    .input_container .input_box select {
+        width: 73%;
+        border: 1px solid #CBD5E1;
+        background-color: #F1F5F9;
+        border-radius: 8px;
+        padding: 8px;
+        margin-top: 5px;
+    }
+    .input_container .input_box select:focus {
         border-color: #3b82f6;
         outline: 1px solid #3b82f6;
     }

@@ -24,6 +24,7 @@ const (
 	LastLoginAt        = `lastLoginAt`
 	FullName           = `fullName`
 	TenantCode         = `tenantCode`
+	Role               = `role`
 )
 
 const (
@@ -61,6 +62,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{LastLoginAt, Tt.Integer},
 			{FullName, Tt.String},
 			{TenantCode, Tt.String},
+			{Role, Tt.String},
 		},
 		AutoIncrementId:  true,
 		Unique1:          Email,

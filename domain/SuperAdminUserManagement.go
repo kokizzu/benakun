@@ -35,6 +35,7 @@ const (
 	SuperAdminUserManagementAction = `superAdmin/userManagement`
 	ErrUserIdNotFound              = `user id not found`
 	ErrTenantCodeNotFound          = `tenant code is not allready`
+	ErrInvalidSegment              = `invalid segment`
 	ErrUserSaveFailed              = `user save failed`
 	ErrUsersEmailDuplicate         = `email already by another user`
 )
@@ -51,7 +52,7 @@ var SuperAdminUserManagementMeta = zCrud.Meta{
 			Name:      mAuth.TenantCode,
 			Label:     "Tenant Code",
 			DataType:  zCrud.DataTypeString,
-			InputType: zCrud.InputTypeHidden,
+			InputType: zCrud.InputTypeCombobox,
 		},
 		{
 			Name:      mAuth.Email,
@@ -64,6 +65,15 @@ var SuperAdminUserManagementMeta = zCrud.Meta{
 			Label:     "Full Name",
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name:      mAuth.Role,
+			Label:     "Role",
+			DataType:  zCrud.DataTypeString,
+			InputType: zCrud.InputTypeCombobox,
+			Ref: []string{
+				UserSegment, EntryUserSegment, TenantAdminSegment, ReportViewerSegment,
+			},
 		},
 		{
 			Name:      mAuth.CreatedAt,
@@ -162,6 +172,16 @@ func (d *Domain) SuperAdminUserManagement(in *SuperAdminUserManagementIn) (out S
 			}
 		}
 		user.SetFullName(in.User.FullName)
+
+		if user.SetRole(in.User.Role) {
+			if in.User.Role != UserSegment &&
+				in.User.Role != EntryUserSegment &&
+				in.User.Role != TenantAdminSegment &&
+				in.User.Role != ReportViewerSegment {
+				out.SetError(400, ErrInvalidSegment)
+				return
+			}
+		}
 
 		if in.User.TenantCode != "" {
 			tenant := rqAuth.NewTenants(d.AuthOltp)
