@@ -256,8 +256,8 @@ func (l *RequestCommon) FromCli(action string, payload []byte, in any) bool {
 	l.RequestId = lexid.ID()
 	// TODO: read from args/stdin/config-file other than json
 	// l.SessionToken =
-	//_, err = flags.Parse(&l)
-	//L.PanicIf(err, `flags.Parse`)
+	// _, err = flags.Parse(&l)
+	// L.PanicIf(err, `flags.Parse`)
 	l.UserAgent = `CLI` // TODO: add input format combination, eg. json-stdin
 	l.IpAddress = `127.0.0.1`
 	l.TracerContext = context.Background()
@@ -323,7 +323,7 @@ func (l *ResponseCommon) DecorateSession(ctx *fiber.Ctx) {
 		ctx.Cookie(&fiber.Cookie{
 			Name:  conf.CookieName,
 			Value: l.SessionToken,
-			//HTTPOnly: true,
+			// HTTPOnly: true,
 			Expires: time.Now().AddDate(0, 0, conf.CookieDays),
 		})
 	}
@@ -359,10 +359,17 @@ func (d *Domain) segmentsFromSession(s *Session) M.SB {
 			s.Segments[TenantAdminSegment] = true
 			s.Segments[ReportViewerSegment] = true
 			s.Segments[EntryUserSegment] = true
+			s.Segments[UserSegment] = true
 		case EntryUserSegment:
 			s.Segments[EntryUserSegment] = true
+			s.Segments[UserSegment] = true
 		case ReportViewerSegment:
 			s.Segments[ReportViewerSegment] = true
+			s.Segments[UserSegment] = true
+		case UserSegment:
+			s.Segments[UserSegment] = true
+		case GuestSegment:
+			s.Segments[GuestSegment] = true
 		}
 	}
 	if s.IsSuperAdmin {
