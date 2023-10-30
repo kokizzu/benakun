@@ -246,7 +246,7 @@ func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 	return sess
 }
 
-func (d *Domain) MustAdmin(in RequestCommon, out *ResponseCommon) (sess *Session) {
+func (d *Domain) MustSuperAdmin(in RequestCommon, out *ResponseCommon) (sess *Session) {
 	sess = d.MustLogin(in, out)
 	if sess == nil {
 		return nil

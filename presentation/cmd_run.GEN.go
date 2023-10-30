@@ -92,6 +92,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.GuestVerifyEmail(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.SuperAdminUserManagementAction:
+		in := domain.SuperAdminUserManagementIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.SuperAdminUserManagement(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.UserAutoLoginLinkAction:
 		in := domain.UserAutoLoginLinkIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
