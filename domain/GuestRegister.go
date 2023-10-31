@@ -64,6 +64,10 @@ func (d *Domain) GuestRegister(in *GuestRegisterIn) (out GuestRegisterOut) {
 
 	user.SetUpdatedAt(in.UnixNow())
 	user.SetCreatedAt(in.UnixNow())
+
+	if !d.Superadmins[in.Email] {
+		user.SetRole(UserSegment)
+	}
 	if !user.DoInsert() {
 		out.SetError(500, ErrGuestRegisterUserCreationFailed)
 		return

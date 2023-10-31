@@ -3,6 +3,9 @@ package rqAuth
 import (
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/S"
+	"github.com/kokizzu/gotro/X"
+
+	"benakun/model/zCrud"
 )
 
 func (u *Users) CheckPassword(pass string) error {
@@ -21,5 +24,33 @@ WHERE ` + s.SqlUserId() + ` = ` + I.UToS(userId) + `
 		rec := &Sessions{}
 		res = append(res, rec.FromArray(row))
 	})
+	return
+}
+
+func (u *Users) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
+	const comment = `-- Users) FindByPagination`
+
+	validFields := UsersFieldTypeMap
+	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
+
+	queryCount := comment + `
+SELECT COUNT(1)
+FROM ` + u.SqlTableName() + whereAndSql + `
+LIMIT 1`
+	u.Adapter.QuerySql(queryCount, func(row []any) {
+		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
+	})
+
+	orderBySql := out.OrderBySqlTt(in.Order, validFields)
+	limitOffsetSql := out.LimitOffsetSql()
+
+	queryRows := comment + `
+SELECT ` + meta.ToSelect() + `
+FROM ` + u.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+	u.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
 	return
 }
