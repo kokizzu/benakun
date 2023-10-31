@@ -28,6 +28,7 @@
     let segment1;
     onMount( () => {
         console.log( 'onMount.Menu' );
+        console.log( access );
         segment1 = window.location.pathname.split( '/' )[ 1 ];
     } );
 

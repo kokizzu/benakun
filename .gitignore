@@ -5,3 +5,4 @@ tmp
 .DS_Store
 tmpdb
 svelte/node_modules
+*.fiber.gz

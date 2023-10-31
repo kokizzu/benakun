@@ -370,8 +370,8 @@ func (d *Domain) segmentsFromSession(s *Session) M.SB {
 			s.Segments[UserSegment] = true
 			s.Segments[GuestSegment] = true
 		case UserSegment:
-			s.Segments[UserSegment] = true
 			s.Segments[GuestSegment] = true
+			s.Segments[UserSegment] = true
 		case GuestSegment:
 			s.Segments[GuestSegment] = true
 		}

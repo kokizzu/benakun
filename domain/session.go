@@ -230,14 +230,18 @@ func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 		return nil
 	}
 
-	// fill segment
-	d.segmentsFromSession(sess)
+	user := rqAuth.NewUsers(d.AuthOltp)
+	user.Id = session.UserId
+	if !user.FindById() {
+		out.SetError(498, ErrUserIdNotFound)
+		return nil
+	}
 
-	// check allowed to hit/access this segment
-	firstSegment := in.FirstSegment()
-	if firstSegment != `` && // never filled on test
-		!sess.IsSuperAdmin &&
-		!sess.Segments[firstSegment] {
+	sess.Roles = []string{user.Role}
+	segment := d.segmentsFromSession(sess)
+
+	sess.Segments = segment
+	if !sess.Segments[UserSegment] && !sess.Segments[SuperAdminSegment] {
 		out.SetError(403, ErrSegmentNotAllowed)
 		return nil
 	}

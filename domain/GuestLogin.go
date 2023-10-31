@@ -3,6 +3,7 @@ package domain
 import (
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
+	"github.com/rs/zerolog/log"
 
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
@@ -80,7 +81,10 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 		out.SetError(500, ErrGuestLoginFailedStoringSession)
 		return
 	}
+
+	sess.Roles = []string{user.Users.Role}
 	out.SessionToken = session.SessionToken
 	out.Segments = d.segmentsFromSession(sess)
+	log.Info().Msgf("%v", out.Segments)
 	return
 }

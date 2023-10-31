@@ -57,6 +57,7 @@
     }
 
     function applyFilter() {
+        console.log('masuk')
         let filters = {};
         for( let key in filtersMap ) {
             let value = filtersMap[ key ];
