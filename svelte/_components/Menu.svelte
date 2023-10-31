@@ -59,7 +59,7 @@
                         <span>HOME</span>
                     </a>
                     {#if access.superAdmin }
-                        <a href='/superAdmin' class:active={segment1 === 'superAdmin'}>
+                        <a href='/superAdmin/dashboard' class:active={segment1 === 'superAdmin'}>
                             <Icon size={22} className={segment1 === 'superAdmin' ? 'icon_active' : 'icon_dark'} src={FaSolidShoppingBag} />
                             <span>SUPER ADMIN</span>
                         </a>

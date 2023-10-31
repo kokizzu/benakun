@@ -11,6 +11,7 @@ import (
 
 var viewList = map[string]string{
 	`Index`: `../svelte/index.html`, // ../svelte/index.svelte
+	`SuperAdminDashboard`: `../svelte/superAdmin/dashboard.html`, // ../svelte/superAdmin/dashboard.svelte
 	`SuperAdminUserManagement`: `../svelte/superAdmin/userManagement.html`, // ../svelte/superAdmin/userManagement.svelte
 }
 
@@ -18,6 +19,11 @@ var viewList = map[string]string{
 func (v *Views) RenderIndex(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`Index`].Str(m))
+}
+
+func (v *Views) RenderSuperAdminDashboard(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`SuperAdminDashboard`].Str(m))
 }
 
 func (v *Views) RenderSuperAdminUserManagement(c *fiber.Ctx, m M.SX) error {

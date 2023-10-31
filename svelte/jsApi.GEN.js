@@ -510,6 +510,32 @@ exports.GuestVerifyEmail = async function GuestVerifyEmail( i, cb ) {
 }
 
 /**
+ * @typedef {Object} SuperAdminDashboardIn
+ */
+const SuperAdminDashboardIn = {
+}
+/**
+ * @typedef {Object} SuperAdminDashboardOut
+ */
+const SuperAdminDashboardOut = {
+}
+/**
+ * @callback SuperAdminDashboardCallback
+ * @param {SuperAdminDashboardOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {SuperAdminDashboardIn} i
+ * @param {SuperAdminDashboardCallback} cb
+ * @returns {Promise}
+ */
+exports.SuperAdminDashboard = async function SuperAdminDashboard( i, cb ) {
+  return await axios.post( '/superAdmin/dashboard', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} SuperAdminUserManagementIn
  * @property {String} cmd
  * @property {number} user.id

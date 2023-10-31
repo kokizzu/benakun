@@ -5,6 +5,13 @@
   import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import {UserLogout} from "./jsApi.GEN";
+  import FaSolidPlusCircle from "svelte-icons-pack/fa/FaSolidPlusCircle";
+  import AdminSubMenu from "./_components/AdminSubMenu.svelte";
+  import Footer from "./_components/Footer.svelte";
+  import ModalForm from "./_components/ModalForm.svelte";
+  import Menu from "./_components/Menu.svelte";
+  import ProfileHeader from "./_components/ProfileHeader.svelte";
+  import TableView from "./_components/TableView.svelte";
   
   let user = {/* user */};
   let segments = {/* segments */};
@@ -192,12 +199,24 @@
 
 <svelte:window on:hashchange={onHashChange}/>
 {#if mode===USER}
-	<section class="dashboard">
-		<div class="dashboard_main_content">
-			TODO fill with proper menu
-			<button on:click={doLogout}>Logout</button>
+	<section class='dashboard'>
+		<Menu access={segments} />
+		<div class='dashboard_main_content'>
+			<ProfileHeader></ProfileHeader>
+			<div class='content'>
+				<section class='tableview_container'>
+					TODO fill with proper menu
+				</section>
+			</div>
+			<Footer></Footer>
 		</div>
 	</section>
+<!--	<section class="dashboard">-->
+<!--		<div class="dashboard_main_content">-->
+<!--			TODO fill with proper menu-->
+<!--			<button on:click={doLogout}>Logout</button>-->
+<!--		</div>-->
+<!--	</section>-->
 {:else}
 	<section class="auth_section">
 		<div class="main_container">

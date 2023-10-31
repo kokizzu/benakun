@@ -56,6 +56,23 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.SuperAdminDashboardAction, func(ctx *fiber.Ctx) error {
+		var in domain.SuperAdminDashboardIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.SuperAdminDashboardAction)
+		if err != nil {
+			return err
+		}
+		if notLogin(ctx, d, in.RequestCommon, true) {
+			return ctx.Redirect(`/`, 302)
+		}
+		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		// out := d.SuperAdminDashboard(&in)
+		return views.RenderSuperAdminDashboard(ctx, M.SX{
+			`title`:    `Users`,
+			`segments`: segments,
+		})
+	})
+
 }
 
 func userInfoFromContext(c *fiber.Ctx, d *domain.Domain) (domain.UserProfileIn, *rqAuth.Users, M.SB) {
