@@ -25,7 +25,7 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
 
 - SuperAdmin
   - [ ] can manage tenants
-  - [ ] can manage users
+  - [x] can manage users
   - [ ] can manage standard CoA (Chart of Account that all company must have)
   - [ ] can create entry-rule template
 - TenantAdmin
