@@ -13,6 +13,8 @@
     import FaSolidSignInAlt from 'svelte-icons-pack/fa/FaSolidSignInAlt';
     import FaSolidTimes from 'svelte-icons-pack/fa/FaSolidTimes';
     import FaSolidList from "svelte-icons-pack/fa/FaSolidList";
+    import FaSolidTree from "svelte-icons-pack/fa/FaSolidTree";
+    import SubMenuLink from "./SubMenuLink.svelte";
 
     export let doToggle = function() {
         isSideMenuOpen.set(!$isSideMenuOpen);
@@ -40,6 +42,22 @@
             window.location = '/';
         });
     }
+
+    function sel1(f) {
+        return segment1 === f;
+    }
+
+    function solid1(f) {
+        return segment1 === f ? 'icon_active' : 'icon_dark';
+    }
+
+    function selFull(f) {
+        return window.location.pathname === f;
+    }
+
+    function solidFull(f) {
+        return window.location.pathname === f ? 'icon_active' : 'icon_dark';
+    }
 </script>
 
 {#if $isSideMenuOpen}
@@ -56,37 +74,35 @@
                 <hr/>
                 <h6>MENU</h6>
                 <nav class='menu'>
-                    <a href='/' class:active={segment1 === ''}>
-                        <Icon size={22} className={segment1 === '' ? 'icon_active' : 'icon_dark'} src={FaSolidHome}/>
+                    <a href='/' class:active={sel1('')}>
+                        <Icon size={22} className={solid1('')} src={FaSolidHome}/>
                         <span>HOME</span>
                     </a>
                     {#if access.reportViewer }
-                        <a href='/reportViewer/dashboard' class:active={segment1 === 'reportViewer'}>
-                            <Icon size={20} className={segment1 === 'reportViewer' ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH}/>
+                        <a href='/reportViewer/dashboard' class:active={sel1('reportViewer')}>
+                            <Icon size={20} className={solid1('reportViewer')} src={FaSolidSlidersH}/>
                             <span>REPORT VIEWER</span>
                         </a>
                     {/if}
                     {#if access.entryUser }
-                        <a href='/entryUser/dashboard' class:active={segment1 === 'entryUser'}>
-                            <Icon size={20} className={segment1 === 'entryUser' ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH}/>
+                        <a href='/entryUser/dashboard' class:active={sel1('entryUser')}>
+                            <Icon size={20} className={solid1('entryUser')} src={FaSolidSlidersH}/>
                             <span>ENTRY USER</span>
                         </a>
                     {/if}
                     {#if access.tenantAdmin}
-                        <a href='/tenantAdmin/dashboard' class:active={segment1 === 'tenantAdmin'}>
-                            <Icon size={20} className={segment1 === 'tenantAdmin' ? 'icon_active' : 'icon_dark'} src={FaSolidBuilding}/>
+                        <a href='/tenantAdmin/dashboard' class:active={sel1('tenantAdmin')}>
+                            <Icon size={20} className={solid1('tenantAdmin')} src={FaSolidBuilding}/>
                             <span>TENANT ADMIN</span>
                         </a>
                         <div class="submenu">
-                            <a href='/tenantAdmin/budgeting' class:active={segment1 === 'tenantAdmin'}>
-                                <Icon size={20} className={window.location === '/tenantAdmin/budgeting' ? 'icon_active' : 'icon_dark'} src={FaSolidList}/>
-                                <span>Budgeting</span>
-                            </a>
+                            <SubMenuLink title='Organization' href='/tenantAdmin/organization' icon={FaSolidTree}/>
+                            <SubMenuLink title='Budgeting' href='/tenantAdmin/budgeting' icon={FaSolidList}/>
                         </div>
                     {/if}
                     {#if access.superAdmin }
-                        <a href='/superAdmin/dashboard' class:active={segment1 === 'superAdmin'}>
-                            <Icon size={22} className={segment1 === 'superAdmin' ? 'icon_active' : 'icon_dark'} src={FaSolidShoppingBag}/>
+                        <a href='/superAdmin/dashboard' class:active={sel1('superAdmin')}>
+                            <Icon size={22} className={solid1('superAdmin')} src={FaSolidShoppingBag}/>
                             <span>SUPER ADMIN</span>
                         </a>
                     {/if}
@@ -113,13 +129,6 @@
     </aside>
 {/if}
 <style>
-    :global(.icon_dark) {
-        fill : #475569;
-    }
-
-    :global(.icon_active) {
-        fill : #4444EF;
-    }
 
     .side_menu_admin {
         left             : 0;
@@ -204,7 +213,7 @@
         color            : #475569;
         text-decoration  : none;
         margin           : 0;
-        padding          : 0.75rem 0;
+        padding          : 0.3rem 0 0.1rem 0.5rem;
         font-size        : 0.875rem !important;
         line-height      : 1.25rem;
         font-weight      : 700;
@@ -235,6 +244,6 @@
     }
 
     .submenu {
-        margin-left : 20px;
+        margin-left : 2.5rem;
     }
 </style>

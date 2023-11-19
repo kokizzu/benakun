@@ -1,8 +1,8 @@
 <html><head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="icon" type="image/png" href="https://blogger.googleusercontent.com/img/a/AVvXsEi-JWOvGCAdYsg0KcLYS5CNEfcD79S9vZVWRVDnEvdxU9Tr92Ki5Br-y6vQbpfxGahewNkPTS47EXlPkv7inyfTMXStSrrU_on-rnsCd-hAUr3XdyopommFUvaTpYFj33qtA2WsOyb8u9cflCBAoOHBSYfIIXVZeeQwmmAMAeQ1FmKMopvQemaJfNiEXA=s1200">
-	<title>/*! title */</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://blogger.googleusercontent.com/img/a/AVvXsEi-JWOvGCAdYsg0KcLYS5CNEfcD79S9vZVWRVDnEvdxU9Tr92Ki5Br-y6vQbpfxGahewNkPTS47EXlPkv7inyfTMXStSrrU_on-rnsCd-hAUr3XdyopommFUvaTpYFj33qtA2WsOyb8u9cflCBAoOHBSYfIIXVZeeQwmmAMAeQ1FmKMopvQemaJfNiEXA=s1200">
+    <title>/*! title */</title>
 </head>
 <body>
 <style>
@@ -160,106 +160,113 @@
         font-size  : 14px;
         margin-top : -3px;
     }
-    
-    
-  /* notifier */
-  .notifyjs-container {
-    z-index   : 100;
-    position  : fixed;
-    bottom    : 0;
-    right     : .5em;
-    max-width : 304px;
-    width     : 100%
-  }
 
-  .notifyjs-container .notifyjs-notification {
-    display       : none;
-    position      : relative;
-    padding       : 1em 2em 1em 2.5em;
-    margin-bottom : .5em;
-    width         : 100%;
-    border-width  : 1px;
-    border-style  : solid;
-    box-sizing    : border-box
-  }
+    .icon_dark {
+        fill : #475569;
+    }
 
-  .notifyjs-container .notifyjs-notification p.progress {
-    position      : absolute;
-    bottom        : 0;
-    left          : 0;
-    right         : 100%;
-    height        : 2px;
-    content       : ' ';
-    margin-bottom : 0
-  }
+    .icon_active {
+        fill : #4444EF;
+    }
 
-  .notifyjs-container .notifyjs-notification.alert-success {
-    color            : #155724;
-    background-color : #D4EDDA;
-    border-color     : #C3E6CB
-  }
+    /* notifier */
+    .notifyjs-container {
+        z-index   : 100;
+        position  : fixed;
+        bottom    : 0;
+        right     : .5em;
+        max-width : 304px;
+        width     : 100%
+    }
 
-  .notifyjs-container .notifyjs-notification.alert-danger {
-    color            : #721C24;
-    background-color : #F8D7DA;
-    border-color     : #F5C6CB
-  }
+    .notifyjs-container .notifyjs-notification {
+        display       : none;
+        position      : relative;
+        padding       : 1em 2em 1em 2.5em;
+        margin-bottom : .5em;
+        width         : 100%;
+        border-width  : 1px;
+        border-style  : solid;
+        box-sizing    : border-box
+    }
 
-  .notifyjs-container .notifyjs-notification.alert-warning {
-    color            : #856404;
-    background-color : #FFF3CD;
-    border-color     : #FFEEBA
-  }
+    .notifyjs-container .notifyjs-notification p.progress {
+        position      : absolute;
+        bottom        : 0;
+        left          : 0;
+        right         : 100%;
+        height        : 2px;
+        content       : ' ';
+        margin-bottom : 0
+    }
 
-  .notifyjs-container .notifyjs-notification.alert-info {
-    color            : #0C5460;
-    background-color : #D1ECF1;
-    border-color     : #BEE5EB
-  }
+    .notifyjs-container .notifyjs-notification.alert-success {
+        color            : #155724;
+        background-color : #D4EDDA;
+        border-color     : #C3E6CB
+    }
 
-  .notifyjs-container .notifyjs-notification.alert-success p.progress {
-    background : #155724
-  }
+    .notifyjs-container .notifyjs-notification.alert-danger {
+        color            : #721C24;
+        background-color : #F8D7DA;
+        border-color     : #F5C6CB
+    }
 
-  .notifyjs-container .notifyjs-notification.alert-danger p.progress {
-    background : #721C24
-  }
+    .notifyjs-container .notifyjs-notification.alert-warning {
+        color            : #856404;
+        background-color : #FFF3CD;
+        border-color     : #FFEEBA
+    }
 
-  .notifyjs-container .notifyjs-notification.alert-warning p.progress {
-    background : #856404
-  }
+    .notifyjs-container .notifyjs-notification.alert-info {
+        color            : #0C5460;
+        background-color : #D1ECF1;
+        border-color     : #BEE5EB
+    }
 
-  .notifyjs-container .notifyjs-notification.alert-info p.progress {
-    background : #0C5460
-  }
+    .notifyjs-container .notifyjs-notification.alert-success p.progress {
+        background : #155724
+    }
 
-  .notifyjs-container .notifyjs-notification.alert-success .notifyjs-icon svg {
-    fill : #155724
-  }
+    .notifyjs-container .notifyjs-notification.alert-danger p.progress {
+        background : #721C24
+    }
 
-  .notifyjs-container .notifyjs-notification.alert-danger .notifyjs-icon svg {
-    fill : #721C24
-  }
+    .notifyjs-container .notifyjs-notification.alert-warning p.progress {
+        background : #856404
+    }
 
-  .notifyjs-container .notifyjs-notification.alert-warning .notifyjs-icon svg {
-    fill : #856404
-  }
+    .notifyjs-container .notifyjs-notification.alert-info p.progress {
+        background : #0C5460
+    }
 
-  .notifyjs-container .notifyjs-notification.alert-info .notifyjs-icon svg {
-    fill : #0C5460
-  }
+    .notifyjs-container .notifyjs-notification.alert-success .notifyjs-icon svg {
+        fill : #155724
+    }
 
-  .notifyjs-container .notifyjs-notification .notifyjs-icon {
-    position  : absolute;
-    top       : 50%;
-    transform : translateY(-50%);
-    left      : 10px
-  }
+    .notifyjs-container .notifyjs-notification.alert-danger .notifyjs-icon svg {
+        fill : #721C24
+    }
 
-  .notifyjs-container .notifyjs-notification .notifyjs-icon img, .notifyjs-container .notifyjs-notification .notifyjs-icon svg {
-    width  : 16px;
-    height : 16px
-  }
+    .notifyjs-container .notifyjs-notification.alert-warning .notifyjs-icon svg {
+        fill : #856404
+    }
+
+    .notifyjs-container .notifyjs-notification.alert-info .notifyjs-icon svg {
+        fill : #0C5460
+    }
+
+    .notifyjs-container .notifyjs-notification .notifyjs-icon {
+        position  : absolute;
+        top       : 50%;
+        transform : translateY(-50%);
+        left      : 10px
+    }
+
+    .notifyjs-container .notifyjs-notification .notifyjs-icon img, .notifyjs-container .notifyjs-notification .notifyjs-icon svg {
+        width  : 16px;
+        height : 16px
+    }
 </style>
 
 
