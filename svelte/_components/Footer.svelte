@@ -33,7 +33,7 @@
         color: #475569;
     }
     footer nav a:hover {
-        color: #EF4444;
+        color: #4444EF;
     }
 
     /* Responsive to mobile device */

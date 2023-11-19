@@ -354,7 +354,7 @@
     .title_container p {
         font-size   : 16px;
         font-weight : 600;
-        color       : #EF4444;
+        color       : #4444EF;
         margin      : 0;
     }
 

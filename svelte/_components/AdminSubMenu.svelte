@@ -21,7 +21,7 @@
         margin-left: auto;
         margin-right: auto;
         display: flex;
-        background-color: #EF4444;
+        background-color: #4444EF;
         padding-bottom: 70px;
     }
     .admin_submenu .menu {
@@ -47,7 +47,7 @@
         margin-left: 20px;
     }
     .admin_submenu .menu a:hover {
-        color: #EF4444;
+        color: #4444EF;
     }
     .admin_submenu .menu a:nth-child(1) {
         margin-left: 0 !important;

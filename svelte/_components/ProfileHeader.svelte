@@ -34,7 +34,7 @@
 
 <style>
     .profile_header {
-        background-color : #EF4444;
+        background-color : #4444EF;
         height           : fit-content;
         position         : relative;
         padding          : 18px 50px 80px 50px;
@@ -85,27 +85,6 @@
         align-items    : center;
     }
 
-    .profile_header .navbar .right_nav .profile_button {
-        padding       : 0;
-        border        : none;
-        margin        : 0;
-        width         : fit-content;
-        height        : fit-content;
-        border-radius : 50%;
-        filter        : drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-    }
-
-    .profile_header .navbar .right_nav .profile_button:hover {
-        box-shadow : 0 0 0 3px rgba(255, 255, 255, 0.5);
-        cursor     : pointer;
-    }
-
-    .profile_header .navbar .right_nav .profile_button > img {
-        width         : 50px;
-        height        : 50px;
-        border-radius : 9999px;
-    }
-
     /* Responsive to mobile device */
     @media only screen and (max-width : 768px) {
         .profile_header {
@@ -118,11 +97,6 @@
 
         .profile_header .navbar .right_nav {
             gap : 10px;
-        }
-
-        .profile_header .navbar .right_nav .profile_button > img {
-            width  : 40px;
-            height : 40px;
         }
     }
 </style>

@@ -323,7 +323,7 @@
 
     .profile_details_container .left .session_list_container .session_list .session .kill_session {
         border           : none;
-        background-color : #EF4444;
+        background-color : #4444EF;
         padding          : 6px;
         border-radius    : 50%;
         position         : absolute;

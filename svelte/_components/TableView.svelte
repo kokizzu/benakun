@@ -231,7 +231,7 @@ multiple filter from other fields will do AND operation'
     }
 
     .table_container::-webkit-scrollbar-thumb {
-        background-color : #EF4444;
+        background-color : #4444EF;
         border-radius    : 4px;
     }
 
@@ -308,7 +308,7 @@ multiple filter from other fields will do AND operation'
     }
 
     .table_users .col_action .action:hover {
-        color            : #EF4444;
+        color            : #4444EF;
         background-color : #F0F0F0;
     }
 

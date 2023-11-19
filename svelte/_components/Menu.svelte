@@ -111,7 +111,7 @@
     }
 
     :global(.icon_active) {
-        fill : #EF4444;
+        fill : #4444EF;
     }
 
     .side_menu_admin {
@@ -168,7 +168,7 @@
 
     .side_menu_admin_container header button:hover {
         background-color : rgb(0 0 0 / 0.07);
-        color            : #EF4444;
+        color            : #4444EF;
     }
 
     .menu_container {
@@ -224,6 +224,6 @@
     }
 
     .active { /*ACTIVE Navigation*/
-        color : #EF4444 !important;
+        color : #4444EF !important;
     }
 </style>

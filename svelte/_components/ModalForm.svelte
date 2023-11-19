@@ -216,7 +216,7 @@
     }
     .modal_container header button:hover {
         background-color: rgb(0 0 0 / 0.07);
-        color: #EF4444;
+        color: #4444EF;
     }
 
     .input_container {
