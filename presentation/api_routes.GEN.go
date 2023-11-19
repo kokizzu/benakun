@@ -110,6 +110,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// ReportViewerDashboard
+	fw.Post("/"+domain.ReportViewerDashboardAction, func(c *fiber.Ctx) error {
+		in := domain.ReportViewerDashboardIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.ReportViewerDashboardAction); err != nil {
+			return nil
+		}
+		out := d.ReportViewerDashboard(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// SuperAdminDashboard
 	fw.Post("/"+domain.SuperAdminDashboardAction, func(c *fiber.Ctx) error {
 		in := domain.SuperAdminDashboardIn{}
@@ -127,6 +137,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return nil
 		}
 		out := d.SuperAdminUserManagement(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// TenantAdminDashboard
+	fw.Post("/"+domain.TenantAdminDashboardAction, func(c *fiber.Ctx) error {
+		in := domain.TenantAdminDashboardIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminDashboardAction); err != nil {
+			return nil
+		}
+		out := d.TenantAdminDashboard(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

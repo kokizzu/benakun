@@ -59,40 +59,28 @@
                         <Icon size={22} className={segment1 === '' ? 'icon_active' : 'icon_dark'} src={FaSolidHome} />
                         <span>HOME</span>
                     </a>
-                    {#if access.superAdmin }
-                        <a href='/superAdmin/dashboard' class:active={segment1 === 'superAdmin'}>
-                            <Icon size={22} className={segment1 === 'superAdmin' ? 'icon_active' : 'icon_dark'} src={FaSolidShoppingBag} />
-                            <span>SUPER ADMIN</span>
-                        </a>
-                    {/if}
-                    {#if access.tenantAdmin}
-                        <a href='/tenantAdmin' class:active={segment1 === 'tenantAdmin'}>
-                            <Icon size={20} className={segment1 === 'tenantAdmin' ? 'icon_active' : 'icon_dark'} src={FaSolidBuilding} />
-                            <span>TENANT ADMIN</span>
-                        </a>
-                    {/if}
-                    {#if access.entryUser }
-                        <a href='/entryUser' class:active={segment1 === 'entryUser'}>
-                            <Icon size={20} className={segment1 === 'entryUser' ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH} />
-                            <span>ENTRY USER</span>
-                        </a>
-                    {/if}
                     {#if access.reportViewer }
-                        <a href='/reportViewer' class:active={segment1 === 'reportViewer'}>
+                        <a href='/reportViewer/dashboard' class:active={segment1 === 'reportViewer'}>
                             <Icon size={20} className={segment1 === 'reportViewer' ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH} />
                             <span>REPORT VIEWER</span>
                         </a>
                     {/if}
-                    {#if access.guest }
-                        <a href='/guest' class:active={segment1 === 'guest'}>
-                            <Icon size={20} className={segment1 === 'guest' ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH} />
-                            <span>GUEST</span>
+                    {#if access.entryUser }
+                        <a href='/entryUser/dashboard' class:active={segment1 === 'entryUser'}>
+                            <Icon size={20} className={segment1 === 'entryUser' ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH} />
+                            <span>ENTRY USER</span>
                         </a>
                     {/if}
-                    {#if access.user }
-                        <a href='/user' class:active={segment1 === 'user'}>
-                            <Icon size={20} className={segment1 === 'user' ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH} />
-                            <span>USER</span>
+                    {#if access.tenantAdmin}
+                        <a href='/tenantAdmin/dashboard' class:active={segment1 === 'tenantAdmin'}>
+                            <Icon size={20} className={segment1 === 'tenantAdmin' ? 'icon_active' : 'icon_dark'} src={FaSolidBuilding} />
+                            <span>TENANT ADMIN</span>
+                        </a>
+                    {/if}
+                    {#if access.superAdmin }
+                        <a href='/superAdmin/dashboard' class:active={segment1 === 'superAdmin'}>
+                            <Icon size={22} className={segment1 === 'superAdmin' ? 'icon_active' : 'icon_dark'} src={FaSolidShoppingBag} />
+                            <span>SUPER ADMIN</span>
                         </a>
                     {/if}
                 </nav>
@@ -101,7 +89,7 @@
                 <h6>SETTING</h6>
                 <nav class='menu'>
                     {#if access.user}
-                        <a href='/user' class:active={segment1 === 'user'}>
+                        <a href='/user/profile' class:active={segment1 === 'user'}>
                             <Icon size={22} className={segment1 === 'user' ? 'icon_active' : 'icon_dark'} src={FaSolidUserCircle} />
                             <span>PROFILE</span>
                         </a>

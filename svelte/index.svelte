@@ -170,9 +170,7 @@
     function doLogout() {
         UserLogout({}, function(o) {
             console.log(o);
-            if (o.error) {
-                return notifier.showError(o.error);
-            }
+            if (o.error) return notifier.showError(o.error);
             user = null;
             segments = null;
             window.document.location = '/';
@@ -186,7 +184,7 @@
     <section class='dashboard'>
         <Menu access={segments}/>
         <div class='dashboard_main_content'>
-            <ProfileHeader></ProfileHeader>
+            <ProfileHeader {user}></ProfileHeader>
             <div class='content'>
                 <section class='tableview_container'>
                     TODO fill with proper menu

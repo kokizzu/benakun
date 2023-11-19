@@ -1,13 +1,13 @@
 <script>
     // @ts-nocheck
-    import Menu from '../_components/Menu.svelte';
-    import AdminSubMenu from '../_components/AdminSubMenu.svelte';
-    import ProfileHeader from '../_components/ProfileHeader.svelte';
-    import Footer from '../_components/Footer.svelte';
-    import TableView from '../_components/TableView.svelte';
-    import { SuperAdminUserManagement } from '../jsApi.GEN';
-    import ModalForm from '../_components/ModalForm.svelte';
-    import {notifier} from "../_components/notifier.js"
+    import Menu from './_components/Menu.svelte';
+    import AdminSubMenu from './_components/AdminSubMenu.svelte';
+    import ProfileHeader from './_components/ProfileHeader.svelte';
+    import Footer from './_components/Footer.svelte';
+    import TableView from './_components/TableView.svelte';
+    import { SuperAdminUserManagement } from './jsApi.GEN';
+    import ModalForm from './_components/ModalForm.svelte';
+    import {notifier} from './_components/notifier.js'
 
     import Icon from 'svelte-icons-pack/Icon.svelte';
     import FaSolidPlusCircle from "svelte-icons-pack/fa/FaSolidPlusCircle";
@@ -16,6 +16,7 @@
     let fields = [/* fields */];
     let users = [/* users */];
     let pager = {/* pager */};
+    let user = {/* user */};
 
     // return true if got error
     function handleResponse( res ) {
@@ -74,7 +75,7 @@
 <section class='dashboard'>
     <Menu access={segments} />
     <div class='dashboard_main_content'>
-        <ProfileHeader></ProfileHeader>
+        <ProfileHeader {user}></ProfileHeader>
         <AdminSubMenu></AdminSubMenu>
         <div class='content'>
             <ModalForm {fields}

@@ -72,7 +72,7 @@ var SuperAdminUserManagementMeta = zCrud.Meta{
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeCombobox,
 			Ref: []string{
-				UserSegment, EntryUserSegment, TenantAdminSegment, ReportViewerSegment,
+				UserSegment, DataEntrySegment, TenantAdminSegment, ReportViewerSegment,
 			},
 		},
 		{
@@ -175,7 +175,7 @@ func (d *Domain) SuperAdminUserManagement(in *SuperAdminUserManagementIn) (out S
 
 		if user.SetRole(in.User.Role) {
 			if in.User.Role != UserSegment &&
-				in.User.Role != EntryUserSegment &&
+				in.User.Role != DataEntrySegment &&
 				in.User.Role != TenantAdminSegment &&
 				in.User.Role != ReportViewerSegment {
 				out.SetError(400, ErrInvalidSegment)

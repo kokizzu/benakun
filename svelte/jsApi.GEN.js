@@ -510,6 +510,32 @@ exports.GuestVerifyEmail = async function GuestVerifyEmail( i, cb ) {
 }
 
 /**
+ * @typedef {Object} ReportViewerDashboardIn
+ */
+const ReportViewerDashboardIn = {
+}
+/**
+ * @typedef {Object} ReportViewerDashboardOut
+ */
+const ReportViewerDashboardOut = {
+}
+/**
+ * @callback ReportViewerDashboardCallback
+ * @param {ReportViewerDashboardOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {ReportViewerDashboardIn} i
+ * @param {ReportViewerDashboardCallback} cb
+ * @returns {Promise}
+ */
+exports.ReportViewerDashboard = async function ReportViewerDashboard( i, cb ) {
+  return await axios.post( '/reportViewer/dashboard', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} SuperAdminDashboardIn
  */
 const SuperAdminDashboardIn = {
@@ -672,6 +698,32 @@ const SuperAdminUserManagementOut = {
  */
 exports.SuperAdminUserManagement = async function SuperAdminUserManagement( i, cb ) {
   return await axios.post( '/superAdmin/userManagement', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminDashboardIn
+ */
+const TenantAdminDashboardIn = {
+}
+/**
+ * @typedef {Object} TenantAdminDashboardOut
+ */
+const TenantAdminDashboardOut = {
+}
+/**
+ * @callback TenantAdminDashboardCallback
+ * @param {TenantAdminDashboardOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminDashboardIn} i
+ * @param {TenantAdminDashboardCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminDashboard = async function TenantAdminDashboard( i, cb ) {
+  return await axios.post( '/tenantAdmin/dashboard', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

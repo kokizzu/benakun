@@ -41,7 +41,7 @@ type Session struct {
 const (
 	SuperAdminSegment   = `superAdmin`
 	TenantAdminSegment  = `tenantAdmin`
-	EntryUserSegment    = `entryUser`
+	DataEntrySegment    = `dataEntry`
 	ReportViewerSegment = `reportViewer`
 	GuestSegment        = `guest` // any user that not yet login
 	UserSegment         = `user`  // any user that already login

@@ -41,7 +41,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if err != nil {
 			return err
 		}
-		if notLogin(ctx, d, in.RequestCommon, true) {
+		if notLogin(d, in.RequestCommon, true) {
 			return ctx.Redirect(`/`, 302)
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
@@ -85,13 +85,66 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.UserProfileAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notLogin(d, in.RequestCommon, false) {
+			return ctx.Redirect(`/`, 302)
+		}
+		in.RequestCommon.Action = domain.UserSessionsActiveAction
+		out := d.UserSessionsActive(&domain.UserSessionsActiveIn{
+			RequestCommon: in.RequestCommon,
+		})
+		return views.RenderUserProfile(ctx, M.SX{
+			`title`:          `Profile`,
+			`user`:           user,
+			`segments`:       segments,
+			`activeSessions`: out.SessionsActive,
+		})
+	})
+
+	fw.Get(`/`+domain.DataEntrySegment, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notLogin(d, in.RequestCommon, false) {
+			return ctx.Redirect(`/`, 302)
+		}
+		return views.RenderDataEntryDashboard(ctx, M.SX{
+			`title`:    `Data Entry Dashboard`,
+			`user`:     user,
+			`segments`: segments,
+		})
+	})
+
+	fw.Get(`/`+domain.ReportViewerDashboardAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notLogin(d, in.RequestCommon, false) {
+			return ctx.Redirect(`/`, 302)
+		}
+		return views.RenderReportViewerDashboard(ctx, M.SX{
+			`title`:    `Report Viewer Dashboard`,
+			`user`:     user,
+			`segments`: segments,
+		})
+	})
+
+	fw.Get(`/`+domain.TenantAdminDashboardAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notLogin(d, in.RequestCommon, false) {
+			return ctx.Redirect(`/`, 302)
+		}
+		return views.RenderTenantAdminDashboard(ctx, M.SX{
+			`title`:    `Tenant Admin Dashboard`,
+			`user`:     user,
+			`segments`: segments,
+		})
+	})
+
 	fw.Get(`/`+domain.SuperAdminDashboardAction, func(ctx *fiber.Ctx) error {
 		var in domain.SuperAdminDashboardIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.SuperAdminDashboardAction)
 		if err != nil {
 			return err
 		}
-		if notLogin(ctx, d, in.RequestCommon, true) {
+		if notLogin(d, in.RequestCommon, true) {
 			return ctx.Redirect(`/`, 302)
 		}
 		_, segments := userInfoFromRequest(in.RequestCommon, d)
@@ -128,7 +181,7 @@ func userInfoFromRequest(rc domain.RequestCommon, d *domain.Domain) (*rqAuth.Use
 	return user, segments
 }
 
-func notLogin(ctx *fiber.Ctx, d *domain.Domain, in domain.RequestCommon, superAdmin bool) bool {
+func notLogin(d *domain.Domain, in domain.RequestCommon, superAdmin bool) bool {
 	var check domain.ResponseCommon
 	var sess *domain.Session
 

@@ -1,7 +1,7 @@
 <script>
     //@ts-nocheck
-    import {GuestResetPassword} from '../jsApi.GEN';
-    import {notifier} from '../_components/notifier.js'
+    import {GuestResetPassword} from './jsApi.GEN';
+    import {notifier} from './_components/notifier.js'
 
     let password = '';
     let pass2 = '';
