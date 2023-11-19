@@ -62,6 +62,7 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
 ## Features
 
 - [ ] multi-tenant
+- [ ] multiple database connection mapping (one tenant can be using specific database connection)
 - [ ] two language (ID, EN)
 - [ ] multi-currency (USD, EUR, IDR)
 - [ ] multi-user tenant (one tenant can have many users)

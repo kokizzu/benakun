@@ -10,8 +10,9 @@
 <div class="admin_submenu">
     <nav class='menu'>
         <a href="/superAdmin/userManagement" class:active={segment2==='userManagement'}>Users</a>
-<!--        <a href="/admin/accessLogs" class:active={segment2==='accessLogs'}>Access Logs</a>-->
-<!--        <a href="/admin/files" class:active={segment2==='files'}>Files</a>-->
+        <a href="/superAdmin/tenantManagement" class:active={segment2==='tenantManagement'}>Tenants</a>
+<!--        <a href="/superAdmin/accessLogs" class:active={segment2==='accessLogs'}>Access Logs</a>-->
+<!--        <a href="/superAdmin/files" class:active={segment2==='files'}>Files</a>-->
     </nav>
 </div>
 <style>

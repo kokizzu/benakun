@@ -2763,6 +2763,9 @@ a.svelte-1okz7y5 span.svelte-1okz7y5 {
       exports.SuperAdminDashboard = async function SuperAdminDashboard(i, cb) {
         return await axios.post("/superAdmin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.SuperAdminTenantManagement = async function SuperAdminTenantManagement(i, cb) {
+        return await axios.post("/superAdmin/tenantManagement", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.SuperAdminUserManagement = async function SuperAdminUserManagement(i, cb) {
         return await axios.post("/superAdmin/userManagement", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };

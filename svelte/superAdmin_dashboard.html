@@ -2638,6 +2638,9 @@ footer.svelte-1nm9n0y nav a.svelte-1nm9n0y:hover {
       exports.SuperAdminDashboard = async function SuperAdminDashboard(i, cb) {
         return await axios.post("/superAdmin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.SuperAdminTenantManagement = async function SuperAdminTenantManagement(i, cb) {
+        return await axios.post("/superAdmin/tenantManagement", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.SuperAdminUserManagement = async function SuperAdminUserManagement(i, cb) {
         return await axios.post("/superAdmin/userManagement", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -4693,28 +4696,41 @@ footer.svelte-1nm9n0y nav a.svelte-1nm9n0y:hover {
   function create_fragment4(ctx) {
     let div;
     let nav;
-    let a;
+    let a0;
     let t1;
+    let a1;
+    let t3;
     let c0;
-    let t2;
+    let t4;
     let c1;
     return {
       c() {
         div = element("div");
         nav = element("nav");
-        a = element("a");
-        a.textContent = "Users";
+        a0 = element("a");
+        a0.textContent = "Users";
         t1 = space();
-        c0 = comment(`        <a href="/admin/accessLogs" class:active={segment2==='accessLogs'}>Access Logs</a>`);
-        t2 = space();
-        c1 = comment(`        <a href="/admin/files" class:active={segment2==='files'}>Files</a>`);
-        attr(a, "href", "/superAdmin/userManagement");
-        attr(a, "class", "svelte-al14mk");
+        a1 = element("a");
+        a1.textContent = "Tenants";
+        t3 = space();
+        c0 = comment(`        <a href="/superAdmin/accessLogs" class:active={segment2==='accessLogs'}>Access Logs</a>`);
+        t4 = space();
+        c1 = comment(`        <a href="/superAdmin/files" class:active={segment2==='files'}>Files</a>`);
+        attr(a0, "href", "/superAdmin/userManagement");
+        attr(a0, "class", "svelte-al14mk");
         toggle_class(
-          a,
+          a0,
           "active",
           /*segment2*/
           ctx[0] === "userManagement"
+        );
+        attr(a1, "href", "/superAdmin/tenantManagement");
+        attr(a1, "class", "svelte-al14mk");
+        toggle_class(
+          a1,
+          "active",
+          /*segment2*/
+          ctx[0] === "tenantManagement"
         );
         attr(nav, "class", "menu svelte-al14mk");
         attr(div, "class", "admin_submenu svelte-al14mk");
@@ -4722,20 +4738,31 @@ footer.svelte-1nm9n0y nav a.svelte-1nm9n0y:hover {
       m(target, anchor) {
         insert(target, div, anchor);
         append(div, nav);
-        append(nav, a);
+        append(nav, a0);
         append(nav, t1);
+        append(nav, a1);
+        append(nav, t3);
         append(nav, c0);
-        append(nav, t2);
+        append(nav, t4);
         append(nav, c1);
       },
       p(ctx2, [dirty]) {
         if (dirty & /*segment2*/
         1) {
           toggle_class(
-            a,
+            a0,
             "active",
             /*segment2*/
             ctx2[0] === "userManagement"
+          );
+        }
+        if (dirty & /*segment2*/
+        1) {
+          toggle_class(
+            a1,
+            "active",
+            /*segment2*/
+            ctx2[0] === "tenantManagement"
           );
         }
       },

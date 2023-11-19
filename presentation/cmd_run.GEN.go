@@ -116,6 +116,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.SuperAdminDashboard(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.SuperAdminTenantManagementAction:
+		in := domain.SuperAdminTenantManagementIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.SuperAdminTenantManagement(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.SuperAdminUserManagementAction:
 		in := domain.SuperAdminUserManagementIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

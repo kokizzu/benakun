@@ -27,6 +27,8 @@
 
     let deletedAtIdx = -1;
     onMount( () => {
+        fields = fields || [];
+        rows = rows || [];
         console.log( 'onMount.TableView' );
         console.log( 'fields=', fields );
         console.log( 'rows=', rows );
@@ -142,7 +144,7 @@ multiple filter from other fields will do AND operation'
             </tr>
             </thead>
             <tbody>
-            {#each rows as row, no}
+            {#each (rows || []) as row, no}
                 <tr class:deleted={row[deletedAtIdx] > 0}>
                     {#each fields as field, i}
                         {#if field.name==='id'}

@@ -123,6 +123,7 @@ func main() {
 		ws.Start(log)
 	case `migrate`:
 		model.RunMigration(tConn, cConn)
+		// TODO: list all tenant and run migrations
 	default:
 		log.Fatal().Msg(`must start with: ` + validArgs)
 	}

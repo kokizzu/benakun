@@ -588,6 +588,107 @@ exports.SuperAdminDashboard = async function SuperAdminDashboard( i, cb ) {
 }
 
 /**
+ * @typedef {Object} SuperAdminTenantManagementIn
+ * @property {String} cmd
+ * @property {number} tenant.id
+ * @property {String} tenant.tenantCode
+ * @property {number} tenant.createdAt
+ * @property {number} tenant.createdBy
+ * @property {number} tenant.updatedAt
+ * @property {number} tenant.updatedBy
+ * @property {number} tenant.deletedAt
+ * @property {Object} withMeta
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ */
+const SuperAdminTenantManagementIn = {
+  cmd: '', // string
+  tenant: { // rqAuth.Tenants
+    id: 0, // uint64
+    tenantCode: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+  }, // rqAuth.Tenants
+  withMeta: false, // bool
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
+}
+/**
+ * @typedef {Object} SuperAdminTenantManagementOut
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
+ * @property {number} tenant.id
+ * @property {String} tenant.tenantCode
+ * @property {number} tenant.createdAt
+ * @property {number} tenant.createdBy
+ * @property {number} tenant.updatedAt
+ * @property {number} tenant.updatedBy
+ * @property {number} tenant.deletedAt
+ * @property {Object} tenants
+ */
+const SuperAdminTenantManagementOut = {
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
+  tenant: { // rqAuth.Tenants
+    id: 0, // uint64
+    tenantCode: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+  }, // rqAuth.Tenants
+  tenants: { // [][]any
+  }, // [][]any
+}
+/**
+ * @callback SuperAdminTenantManagementCallback
+ * @param {SuperAdminTenantManagementOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {SuperAdminTenantManagementIn} i
+ * @param {SuperAdminTenantManagementCallback} cb
+ * @returns {Promise}
+ */
+exports.SuperAdminTenantManagement = async function SuperAdminTenantManagement( i, cb ) {
+  return await axios.post( '/superAdmin/tenantManagement', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} SuperAdminUserManagementIn
  * @property {String} cmd
  * @property {number} user.id

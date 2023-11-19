@@ -4,10 +4,9 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/kokizzu/gotro/M"
 
-	"benakun/model/zCrud"
-
 	"benakun/domain"
 	"benakun/model/mAuth/rqAuth"
+	"benakun/model/zCrud"
 )
 
 func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
@@ -32,28 +31,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`google`: google.Link,
 
 			`segments`: segments,
-		})
-	})
-
-	fw.Get(`/`+domain.SuperAdminUserManagementAction, func(ctx *fiber.Ctx) error {
-		var in domain.SuperAdminUserManagementIn
-		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.SuperAdminUserManagementAction)
-		if err != nil {
-			return err
-		}
-		if notLogin(d, in.RequestCommon, true) {
-			return ctx.Redirect(`/`, 302)
-		}
-		_, segments := userInfoFromRequest(in.RequestCommon, d)
-		in.WithMeta = true
-		in.Cmd = zCrud.CmdList
-		out := d.SuperAdminUserManagement(&in)
-		return views.RenderSuperAdminUserManagement(ctx, M.SX{
-			`title`:    `Users`,
-			`segments`: segments,
-			`users`:    out.Users,
-			`fields`:   out.Meta.Fields,
-			`pager`:    out.Pager,
 		})
 	})
 
@@ -176,6 +153,52 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		return views.RenderSuperAdminDashboard(ctx, M.SX{
 			`title`:    `Users`,
 			`segments`: segments,
+		})
+	})
+
+	fw.Get(`/`+domain.SuperAdminUserManagementAction, func(ctx *fiber.Ctx) error {
+		var in domain.SuperAdminUserManagementIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.SuperAdminUserManagementAction)
+		if err != nil {
+			return err
+		}
+		if notLogin(d, in.RequestCommon, true) {
+			return ctx.Redirect(`/`, 302)
+		}
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Cmd = zCrud.CmdList
+		out := d.SuperAdminUserManagement(&in)
+		return views.RenderSuperAdminUserManagement(ctx, M.SX{
+			`title`:    `Users`,
+			`segments`: segments,
+			`users`:    out.Users,
+			`fields`:   out.Meta.Fields,
+			`pager`:    out.Pager,
+			`user`:     user,
+		})
+	})
+
+	fw.Get(`/`+domain.SuperAdminTenantManagementAction, func(ctx *fiber.Ctx) error {
+		var in domain.SuperAdminTenantManagementIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.SuperAdminTenantManagementAction)
+		if err != nil {
+			return err
+		}
+		if notLogin(d, in.RequestCommon, true) {
+			return ctx.Redirect(`/`, 302)
+		}
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Cmd = zCrud.CmdList
+		out := d.SuperAdminTenantManagement(&in)
+		return views.RenderSuperAdminTenantManagement(ctx, M.SX{
+			`title`:    `Users`,
+			`segments`: segments,
+			`tenants`:  out.Tenants,
+			`fields`:   out.Meta.Fields,
+			`pager`:    out.Pager,
+			`user`:     user,
 		})
 	})
 
