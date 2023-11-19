@@ -10,11 +10,29 @@ import (
 
 
 var viewList = map[string]string{
+	`GuestOauthCallback`: `../svelte/guest/oauthCallback.html`, // ../svelte/guest/oauthCallback.svelte
+	`GuestResetPassword`: `../svelte/guest/resetPassword.html`, // ../svelte/guest/resetPassword.svelte
+	`GuestVerifyEmail`: `../svelte/guest/verifyEmail.html`, // ../svelte/guest/verifyEmail.svelte
 	`Index`: `../svelte/index.html`, // ../svelte/index.svelte
 	`SuperAdminDashboard`: `../svelte/superAdmin/dashboard.html`, // ../svelte/superAdmin/dashboard.svelte
 	`SuperAdminUserManagement`: `../svelte/superAdmin/userManagement.html`, // ../svelte/superAdmin/userManagement.svelte
 }
 
+
+func (v *Views) RenderGuestOauthCallback(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`GuestOauthCallback`].Str(m))
+}
+
+func (v *Views) RenderGuestResetPassword(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`GuestResetPassword`].Str(m))
+}
+
+func (v *Views) RenderGuestVerifyEmail(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`GuestVerifyEmail`].Str(m))
+}
 
 func (v *Views) RenderIndex(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")

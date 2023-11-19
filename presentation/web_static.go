@@ -4,9 +4,10 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/kokizzu/gotro/M"
 
+	"benakun/model/zCrud"
+
 	"benakun/domain"
 	"benakun/model/mAuth/rqAuth"
-	"benakun/model/zCrud"
 )
 
 func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
@@ -53,6 +54,34 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`users`:    out.Users,
 			`fields`:   out.Meta.Fields,
 			`pager`:    out.Pager,
+		})
+	})
+
+	fw.Get(`/`+domain.GuestVerifyEmailAction, func(c *fiber.Ctx) error {
+		var in domain.GuestVerifyEmailIn
+		err := webApiParseInput(c, &in.RequestCommon, &in, domain.GuestVerifyEmailAction)
+		var errStr, email string
+		var verified bool
+		if err != nil {
+			errStr = err.Error()
+		} else {
+			out := d.GuestVerifyEmail(&in)
+			verified = out.Ok
+			errStr = out.Error
+			email = out.Email
+			out.DecorateSession(c)
+		}
+		return views.RenderGuestVerifyEmail(c, M.SX{
+			`title`:    `Email Verification`,
+			`verified`: verified,
+			`email`:    email,
+			`error`:    errStr,
+		})
+	})
+
+	fw.Get(`/`+domain.GuestResetPasswordAction, func(c *fiber.Ctx) error {
+		return views.RenderGuestResetPassword(c, M.SX{
+			`title`: `Reset Password`,
 		})
 	})
 
