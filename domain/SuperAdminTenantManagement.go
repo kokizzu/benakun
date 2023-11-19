@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 
 	"benakun/model/mAuth"
@@ -113,6 +114,8 @@ func (d *Domain) SuperAdminTenantManagement(in *SuperAdminTenantManagementIn) (o
 				return
 			}
 
+			tenant.SetAll(in.Tenant, M.SB{}, M.SB{})
+
 			if in.Cmd == zCrud.CmdDelete {
 				if tenant.DeletedAt == 0 {
 					tenant.SetDeletedAt(in.UnixNow())
@@ -121,15 +124,14 @@ func (d *Domain) SuperAdminTenantManagement(in *SuperAdminTenantManagementIn) (o
 				if tenant.DeletedAt > 0 {
 					tenant.SetDeletedAt(0)
 				}
+				L.Print(`tenant.DeletedAt`, tenant.DeletedAt)
 			}
 		} else {
 			tenant.SetCreatedAt(in.UnixNow())
 			createTables = true
 		}
 
-		haveMutation := tenant.SetAll(in.Tenant, M.SB{}, M.SB{})
-
-		if haveMutation {
+		if tenant.HaveMutation() {
 			tenant.SetUpdatedAt(in.UnixNow())
 			tenant.SetUpdatedBy(sess.UserId)
 			if tenant.Id == 0 {
@@ -144,6 +146,7 @@ func (d *Domain) SuperAdminTenantManagement(in *SuperAdminTenantManagementIn) (o
 		out.Tenant = &tenant.Tenants
 		out.Tenant.Adapter = nil
 
+		L.Print(`tenant.DeletedAt`, tenant.DeletedAt)
 		if createTables {
 			// TODO: migrate tables for this tenant
 		}
@@ -154,8 +157,10 @@ func (d *Domain) SuperAdminTenantManagement(in *SuperAdminTenantManagementIn) (o
 
 		fallthrough
 	case zCrud.CmdList:
-		r := rqAuth.NewTenants(d.AuthOltp)
-		out.Tenants = r.FindByPagination(&SuperAdminTenantManagementMeta, &in.Pager, &out.Pager)
+		t := rqAuth.NewTenants(d.AuthOltp)
+		out.Tenants = t.FindByPagination(&SuperAdminTenantManagementMeta, &in.Pager, &out.Pager)
+
+		// TODO: decorate with how many users, orgs, coa, etc that per tenant
 	}
 	return
 }
