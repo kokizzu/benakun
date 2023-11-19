@@ -7,7 +7,7 @@
     import TableView from '../_components/TableView.svelte';
     import { SuperAdminUserManagement } from '../jsApi.GEN';
     import ModalForm from '../_components/ModalForm.svelte';
-    import Growl from '../_components/Growl.svelte';
+    import {notifier} from "../_components/notifier.js"
 
     import Icon from 'svelte-icons-pack/Icon.svelte';
     import FaSolidPlusCircle from "svelte-icons-pack/fa/FaSolidPlusCircle";
@@ -17,14 +17,11 @@
     let users = [/* users */];
     let pager = {/* pager */};
 
-    // $: console.log( users, fields, pager );
-    let growl = Growl;
-
     // return true if got error
     function handleResponse( res ) {
         console.log( res );
         if( res.error ) {
-            growl.showError(res.error );
+            notifier.showError(res.error );
             return true;
         }
         if( res.users && res.users.length ) users = res.users;

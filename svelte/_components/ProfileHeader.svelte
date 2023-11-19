@@ -6,7 +6,7 @@
     import {onMount} from 'svelte';
     import {UserUpdateProfile} from '../jsApi.GEN.js';
 
-    export let user = null;
+    export let user = {};
 
     function openSideMenu() {
         isSideMenuOpen.set(!$isSideMenuOpen);
