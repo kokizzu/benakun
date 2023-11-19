@@ -273,7 +273,7 @@
 .icon_active {
   fill: #4444EF;
 }
-.side_menu_admin.svelte-zs7x3v.svelte-zs7x3v {
+.side_menu_admin.svelte-n6qdwf.svelte-n6qdwf {
   left: 0;
   display: block;
   position: fixed;
@@ -290,7 +290,7 @@
   width: 300px;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }
-.side_menu_admin_container.svelte-zs7x3v.svelte-zs7x3v {
+.side_menu_admin_container.svelte-n6qdwf.svelte-n6qdwf {
   flex-direction: column;
   align-items: stretch;
   min-height: 100%;
@@ -300,19 +300,19 @@
   width: 100%;
   margin: 0 auto;
 }
-.side_menu_admin_container.svelte-zs7x3v header.svelte-zs7x3v {
+.side_menu_admin_container.svelte-n6qdwf header.svelte-n6qdwf {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.side_menu_admin_container.svelte-zs7x3v header h3.svelte-zs7x3v {
+.side_menu_admin_container.svelte-n6qdwf header h3.svelte-n6qdwf {
   font-size: 16px;
   line-height: 1.5rem;
   padding: 0;
   margin: 0;
 }
-.side_menu_admin_container.svelte-zs7x3v header button.svelte-zs7x3v {
+.side_menu_admin_container.svelte-n6qdwf header button.svelte-n6qdwf {
   padding: 5px;
   border: none;
   background: none;
@@ -320,30 +320,30 @@
   font-size: 14px;
   cursor: pointer;
 }
-.side_menu_admin_container.svelte-zs7x3v header button.svelte-zs7x3v:hover {
+.side_menu_admin_container.svelte-n6qdwf header button.svelte-n6qdwf:hover {
   background-color: rgb(0 0 0 / 0.07);
   color: #4444EF;
 }
-.menu_container.svelte-zs7x3v.svelte-zs7x3v {
+.menu_container.svelte-n6qdwf.svelte-n6qdwf {
   margin-top: 1rem;
   align-items: stretch;
   flex-direction: column;
   display: flex;
 }
-.menu_container.svelte-zs7x3v hr.svelte-zs7x3v {
+.menu_container.svelte-n6qdwf hr.svelte-n6qdwf {
   margin: 1rem 0;
 }
-.menu_container.svelte-zs7x3v h6.svelte-zs7x3v {
+.menu_container.svelte-n6qdwf h6.svelte-n6qdwf {
   font-size: 15px;
   margin: 12px 0;
 }
-.menu_container.svelte-zs7x3v .menu.svelte-zs7x3v {
+.menu_container.svelte-n6qdwf .menu.svelte-n6qdwf {
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
 }
-.menu_container.svelte-zs7x3v .menu a.svelte-zs7x3v,
-.menu.svelte-zs7x3v .logout.svelte-zs7x3v {
+.menu_container.svelte-n6qdwf .menu a.svelte-n6qdwf,
+.menu.svelte-n6qdwf .logout.svelte-n6qdwf {
   color: #475569;
   text-decoration: none;
   margin: 0;
@@ -360,18 +360,21 @@
   align-items: center;
   gap: 15px;
 }
-.menu_container.svelte-zs7x3v .menu .logout.svelte-zs7x3v {
+.menu_container.svelte-n6qdwf .menu .logout.svelte-n6qdwf {
   cursor: pointer;
   margin-top: 0;
   margin-bottom: 0;
   margin-right: 0;
 }
-.menu_container.svelte-zs7x3v .menu a.svelte-zs7x3v:hover,
-.menu_container.svelte-zs7x3v .menu .logout.svelte-zs7x3v:hover {
+.menu_container.svelte-n6qdwf .menu a.svelte-n6qdwf:hover,
+.menu_container.svelte-n6qdwf .menu .logout.svelte-n6qdwf:hover {
   color: #64748B;
 }
-.active.svelte-zs7x3v.svelte-zs7x3v {
+.active.svelte-n6qdwf.svelte-n6qdwf {
   color: #4444EF !important;
+}
+.submenu.svelte-n6qdwf.svelte-n6qdwf {
+  margin-left: 20px;
 }
 
 /* fakecss:./_components/AdminSubMenu.esbuild-svelte-fake-css */
@@ -2563,6 +2566,9 @@ footer.svelte-1nm9n0y nav a.svelte-1nm9n0y:hover {
           cb(data);
         };
       }
+      exports.DataEntryDashboard = async function DataEntryDashboard(i, cb) {
+        return await axios.post("/dataEntry/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.GuestAutoLogin = async function GuestAutoLogin(i, cb) {
         return await axios.post("/guest/autoLogin", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2602,8 +2608,14 @@ footer.svelte-1nm9n0y nav a.svelte-1nm9n0y:hover {
       exports.SuperAdminUserManagement = async function SuperAdminUserManagement(i, cb) {
         return await axios.post("/superAdmin/userManagement", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminBudgeting = async function TenantAdminBudgeting(i, cb) {
+        return await axios.post("/tenantAdmin/budgeting", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.TenantAdminDashboard = async function TenantAdminDashboard(i, cb) {
         return await axios.post("/tenantAdmin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.TenantAdminOrganization = async function TenantAdminOrganization(i, cb) {
+        return await axios.post("/tenantAdmin/organization", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -3590,6 +3602,14 @@ footer.svelte-1nm9n0y nav a.svelte-1nm9n0y:hover {
     c: '<path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path>'
   };
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidList.js
+  var FaSolidList_default = {
+    a: {
+      viewBox: "0 0 512 512"
+    },
+    c: '<path d="M80 368H16a16 16 0 0 0-16 16v64a16 16 0 0 0 16 16h64a16 16 0 0 0 16-16v-64a16 16 0 0 0-16-16zm0-320H16A16 16 0 0 0 0 64v64a16 16 0 0 0 16 16h64a16 16 0 0 0 16-16V64a16 16 0 0 0-16-16zm0 160H16a16 16 0 0 0-16 16v64a16 16 0 0 0 16 16h64a16 16 0 0 0 16-16v-64a16 16 0 0 0-16-16zm416 176H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16z"></path>'
+  };
+
   // _components/Menu.svelte
   function create_if_block(ctx) {
     let aside;
@@ -3721,26 +3741,26 @@ footer.svelte-1nm9n0y nav a.svelte-1nm9n0y:hover {
         t18 = space();
         if (if_block5)
           if_block5.c();
-        attr(h3, "class", "svelte-zs7x3v");
-        attr(button, "class", "svelte-zs7x3v");
-        attr(header, "class", "svelte-zs7x3v");
-        attr(hr0, "class", "svelte-zs7x3v");
-        attr(h60, "class", "svelte-zs7x3v");
+        attr(h3, "class", "svelte-n6qdwf");
+        attr(button, "class", "svelte-n6qdwf");
+        attr(header, "class", "svelte-n6qdwf");
+        attr(hr0, "class", "svelte-n6qdwf");
+        attr(h60, "class", "svelte-n6qdwf");
         attr(a, "href", "/");
-        attr(a, "class", "svelte-zs7x3v");
+        attr(a, "class", "svelte-n6qdwf");
         toggle_class(
           a,
           "active",
           /*segment1*/
           ctx[2] === ""
         );
-        attr(nav0, "class", "menu svelte-zs7x3v");
-        attr(hr1, "class", "svelte-zs7x3v");
-        attr(h61, "class", "svelte-zs7x3v");
-        attr(nav1, "class", "menu svelte-zs7x3v");
-        attr(div0, "class", "menu_container svelte-zs7x3v");
-        attr(div1, "class", "side_menu_admin_container svelte-zs7x3v");
-        attr(aside, "class", "side_menu_admin svelte-zs7x3v");
+        attr(nav0, "class", "menu svelte-n6qdwf");
+        attr(hr1, "class", "svelte-n6qdwf");
+        attr(h61, "class", "svelte-n6qdwf");
+        attr(nav1, "class", "menu svelte-n6qdwf");
+        attr(div0, "class", "menu_container svelte-n6qdwf");
+        attr(div1, "class", "side_menu_admin_container svelte-n6qdwf");
+        attr(aside, "class", "side_menu_admin svelte-n6qdwf");
       },
       m(target, anchor) {
         insert(target, aside, anchor);
@@ -4028,7 +4048,7 @@ footer.svelte-1nm9n0y nav a.svelte-1nm9n0y:hover {
         span = element("span");
         span.textContent = "REPORT VIEWER";
         attr(a, "href", "/reportViewer/dashboard");
-        attr(a, "class", "svelte-zs7x3v");
+        attr(a, "class", "svelte-n6qdwf");
         toggle_class(
           a,
           "active",
@@ -4102,7 +4122,7 @@ footer.svelte-1nm9n0y nav a.svelte-1nm9n0y:hover {
         span = element("span");
         span.textContent = "ENTRY USER";
         attr(a, "href", "/entryUser/dashboard");
-        attr(a, "class", "svelte-zs7x3v");
+        attr(a, "class", "svelte-n6qdwf");
         toggle_class(
           a,
           "active",
@@ -4153,12 +4173,18 @@ footer.svelte-1nm9n0y nav a.svelte-1nm9n0y:hover {
     };
   }
   function create_if_block_4(ctx) {
-    let a;
-    let icon;
+    let a0;
+    let icon0;
     let t0;
-    let span;
+    let span0;
+    let t2;
+    let div;
+    let a1;
+    let icon1;
+    let t3;
+    let span1;
     let current;
-    icon = new Icon_default({
+    icon0 = new Icon_default({
       props: {
         size: 20,
         className: (
@@ -4168,40 +4194,78 @@ footer.svelte-1nm9n0y nav a.svelte-1nm9n0y:hover {
         src: FaSolidBuilding_default
       }
     });
+    icon1 = new Icon_default({
+      props: {
+        size: 20,
+        className: window.location === "/tenantAdmin/budgeting" ? "icon_active" : "icon_dark",
+        src: FaSolidList_default
+      }
+    });
     return {
       c() {
-        a = element("a");
-        create_component(icon.$.fragment);
+        a0 = element("a");
+        create_component(icon0.$.fragment);
         t0 = space();
-        span = element("span");
-        span.textContent = "TENANT ADMIN";
-        attr(a, "href", "/tenantAdmin/dashboard");
-        attr(a, "class", "svelte-zs7x3v");
+        span0 = element("span");
+        span0.textContent = "TENANT ADMIN";
+        t2 = space();
+        div = element("div");
+        a1 = element("a");
+        create_component(icon1.$.fragment);
+        t3 = space();
+        span1 = element("span");
+        span1.textContent = "Budgeting";
+        attr(a0, "href", "/tenantAdmin/dashboard");
+        attr(a0, "class", "svelte-n6qdwf");
         toggle_class(
-          a,
+          a0,
           "active",
           /*segment1*/
           ctx[2] === "tenantAdmin"
         );
+        attr(a1, "href", "/tenantAdmin/budgeting");
+        attr(a1, "class", "svelte-n6qdwf");
+        toggle_class(
+          a1,
+          "active",
+          /*segment1*/
+          ctx[2] === "tenantAdmin"
+        );
+        attr(div, "class", "submenu svelte-n6qdwf");
       },
       m(target, anchor) {
-        insert(target, a, anchor);
-        mount_component(icon, a, null);
-        append(a, t0);
-        append(a, span);
+        insert(target, a0, anchor);
+        mount_component(icon0, a0, null);
+        append(a0, t0);
+        append(a0, span0);
+        insert(target, t2, anchor);
+        insert(target, div, anchor);
+        append(div, a1);
+        mount_component(icon1, a1, null);
+        append(a1, t3);
+        append(a1, span1);
         current = true;
       },
       p(ctx2, dirty) {
-        const icon_changes = {};
+        const icon0_changes = {};
         if (dirty & /*segment1*/
         4)
-          icon_changes.className = /*segment1*/
+          icon0_changes.className = /*segment1*/
           ctx2[2] === "tenantAdmin" ? "icon_active" : "icon_dark";
-        icon.$set(icon_changes);
+        icon0.$set(icon0_changes);
         if (!current || dirty & /*segment1*/
         4) {
           toggle_class(
-            a,
+            a0,
+            "active",
+            /*segment1*/
+            ctx2[2] === "tenantAdmin"
+          );
+        }
+        if (!current || dirty & /*segment1*/
+        4) {
+          toggle_class(
+            a1,
             "active",
             /*segment1*/
             ctx2[2] === "tenantAdmin"
@@ -4211,18 +4275,23 @@ footer.svelte-1nm9n0y nav a.svelte-1nm9n0y:hover {
       i(local) {
         if (current)
           return;
-        transition_in(icon.$.fragment, local);
+        transition_in(icon0.$.fragment, local);
+        transition_in(icon1.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(icon.$.fragment, local);
+        transition_out(icon0.$.fragment, local);
+        transition_out(icon1.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(a);
+          detach(a0);
+          detach(t2);
+          detach(div);
         }
-        destroy_component(icon);
+        destroy_component(icon0);
+        destroy_component(icon1);
       }
     };
   }
@@ -4250,7 +4319,7 @@ footer.svelte-1nm9n0y nav a.svelte-1nm9n0y:hover {
         span = element("span");
         span.textContent = "SUPER ADMIN";
         attr(a, "href", "/superAdmin/dashboard");
-        attr(a, "class", "svelte-zs7x3v");
+        attr(a, "class", "svelte-n6qdwf");
         toggle_class(
           a,
           "active",
@@ -4324,7 +4393,7 @@ footer.svelte-1nm9n0y nav a.svelte-1nm9n0y:hover {
         span = element("span");
         span.textContent = "PROFILE";
         attr(a, "href", "/user/profile");
-        attr(a, "class", "svelte-zs7x3v");
+        attr(a, "class", "svelte-n6qdwf");
         toggle_class(
           a,
           "active",
@@ -4396,7 +4465,7 @@ footer.svelte-1nm9n0y nav a.svelte-1nm9n0y:hover {
         t0 = space();
         span = element("span");
         span.textContent = "LOGOUT";
-        attr(button, "class", "logout svelte-zs7x3v");
+        attr(button, "class", "logout svelte-n6qdwf");
       },
       m(target, anchor) {
         insert(target, button, anchor);

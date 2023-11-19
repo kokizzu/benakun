@@ -18,7 +18,9 @@ var viewList = map[string]string{
 	`ReportViewerDashboard`: `../svelte/reportViewer_dashboard.html`, // ../svelte/reportViewer_dashboard.svelte
 	`SuperAdminDashboard`: `../svelte/superAdmin_dashboard.html`, // ../svelte/superAdmin_dashboard.svelte
 	`SuperAdminUserManagement`: `../svelte/superAdmin_userManagement.html`, // ../svelte/superAdmin_userManagement.svelte
+	`TenantAdminBudgeting`: `../svelte/tenantAdmin_budgeting.html`, // ../svelte/tenantAdmin_budgeting.svelte
 	`TenantAdminDashboard`: `../svelte/tenantAdmin_dashboard.html`, // ../svelte/tenantAdmin_dashboard.svelte
+	`TenantAdminOrganization`: `../svelte/tenantAdmin_organization.html`, // ../svelte/tenantAdmin_organization.svelte
 	`UserProfile`: `../svelte/user_profile.html`, // ../svelte/user_profile.svelte
 }
 
@@ -63,9 +65,19 @@ func (v *Views) RenderSuperAdminUserManagement(c *fiber.Ctx, m M.SX) error {
 	return c.SendString(v.cache[`SuperAdminUserManagement`].Str(m))
 }
 
+func (v *Views) RenderTenantAdminBudgeting(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`TenantAdminBudgeting`].Str(m))
+}
+
 func (v *Views) RenderTenantAdminDashboard(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`TenantAdminDashboard`].Str(m))
+}
+
+func (v *Views) RenderTenantAdminOrganization(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`TenantAdminOrganization`].Str(m))
 }
 
 func (v *Views) RenderUserProfile(c *fiber.Ctx, m M.SX) error {

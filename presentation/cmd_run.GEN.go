@@ -12,6 +12,14 @@ import (
 
 func cmdRun(b *domain.Domain, action string, payload []byte) {
 	switch action {
+	case domain.DataEntryDashboardAction:
+		in := domain.DataEntryDashboardIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.DataEntryDashboard(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.GuestAutoLoginAction:
 		in := domain.GuestAutoLoginIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
@@ -116,12 +124,28 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.SuperAdminUserManagement(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.TenantAdminBudgetingAction:
+		in := domain.TenantAdminBudgetingIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.TenantAdminBudgeting(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.TenantAdminDashboardAction:
 		in := domain.TenantAdminDashboardIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.TenantAdminDashboard(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.TenantAdminOrganizationAction:
+		in := domain.TenantAdminOrganizationIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.TenantAdminOrganization(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.UserAutoLoginLinkAction:

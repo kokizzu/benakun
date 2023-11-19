@@ -10,6 +10,16 @@ import (
 
 func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 
+	// DataEntryDashboard
+	fw.Post("/"+domain.DataEntryDashboardAction, func(c *fiber.Ctx) error {
+		in := domain.DataEntryDashboardIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.DataEntryDashboardAction); err != nil {
+			return nil
+		}
+		out := d.DataEntryDashboard(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// GuestAutoLogin
 	fw.Post("/"+domain.GuestAutoLoginAction, func(c *fiber.Ctx) error {
 		in := domain.GuestAutoLoginIn{}
@@ -140,6 +150,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// TenantAdminBudgeting
+	fw.Post("/"+domain.TenantAdminBudgetingAction, func(c *fiber.Ctx) error {
+		in := domain.TenantAdminBudgetingIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminBudgetingAction); err != nil {
+			return nil
+		}
+		out := d.TenantAdminBudgeting(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// TenantAdminDashboard
 	fw.Post("/"+domain.TenantAdminDashboardAction, func(c *fiber.Ctx) error {
 		in := domain.TenantAdminDashboardIn{}
@@ -147,6 +167,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return nil
 		}
 		out := d.TenantAdminDashboard(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// TenantAdminOrganization
+	fw.Post("/"+domain.TenantAdminOrganizationAction, func(c *fiber.Ctx) error {
+		in := domain.TenantAdminOrganizationIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminOrganizationAction); err != nil {
+			return nil
+		}
+		out := d.TenantAdminOrganization(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

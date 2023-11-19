@@ -30,6 +30,7 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
   - [ ] can create entry-rule template
 - TenantAdmin
   - [ ] can edit company
+  - [ ] change organizational structure
   - [ ] can create budgeting
   - [ ] can manage account source
 	- [ ] can manage users
@@ -43,7 +44,7 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
   - [ ] can manage service/product/stock
   - [ ] can backup/restore database
 - ReportViewer
-  - [ ] can see all reports
+  - [ ] can see all reports (see below)
 - EntryUser
   - [ ] can input transaction/entry and proof
   - [ ] can request for update/delete entry and proof

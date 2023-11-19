@@ -13,12 +13,324 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-// Sessions DAO reader/query struct
+// Orgs DAO reader/query struct
 //
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file rqAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type rqAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type rqAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type rqAuth__ORM.GEN.go
+type Orgs struct {
+	Adapter    *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id         uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	TenantCode string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
+	Name       string      `json:"name" form:"name" query:"name" long:"name" msg:"name"`
+	HeadTitle  string      `json:"headTitle" form:"headTitle" query:"headTitle" long:"headTitle" msg:"headTitle"`
+	ParentId   uint64      `json:"parentId,string" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
+	Children   []any       `json:"children" form:"children" query:"children" long:"children" msg:"children"`
+	OrgType    uint64      `json:"orgType" form:"orgType" query:"orgType" long:"orgType" msg:"orgType"`
+	CreatedAt  int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy  uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt  int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy  uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt  int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+}
+
+// NewOrgs create new ORM reader/query object
+func NewOrgs(adapter *Tt.Adapter) *Orgs {
+	return &Orgs{Adapter: adapter}
+}
+
+// SpaceName returns full package and table name
+func (o *Orgs) SpaceName() string { //nolint:dupl false positive
+	return string(mAuth.TableOrgs) // casting required to string from Tt.TableName
+}
+
+// SqlTableName returns quoted table name
+func (o *Orgs) SqlTableName() string { //nolint:dupl false positive
+	return `"orgs"`
+}
+
+// SqlSelectAllFields generate Sql select fields
+func (o *Orgs) SqlSelectAllFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "tenantCode"
+	, "name"
+	, "headTitle"
+	, "parentId"
+	, "children"
+	, "orgType"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
+	`
+}
+
+// SqlSelectAllUncensoredFields generate Sql select fields
+func (o *Orgs) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "tenantCode"
+	, "name"
+	, "headTitle"
+	, "parentId"
+	, "children"
+	, "orgType"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
+	`
+}
+
+// ToUpdateArray generate slice of update command
+func (o *Orgs) ToUpdateArray() A.X { //nolint:dupl false positive
+	return A.X{
+		A.X{`=`, 0, o.Id},
+		A.X{`=`, 1, o.TenantCode},
+		A.X{`=`, 2, o.Name},
+		A.X{`=`, 3, o.HeadTitle},
+		A.X{`=`, 4, o.ParentId},
+		A.X{`=`, 5, o.Children},
+		A.X{`=`, 6, o.OrgType},
+		A.X{`=`, 7, o.CreatedAt},
+		A.X{`=`, 8, o.CreatedBy},
+		A.X{`=`, 9, o.UpdatedAt},
+		A.X{`=`, 10, o.UpdatedBy},
+		A.X{`=`, 11, o.DeletedAt},
+	}
+}
+
+// IdxId return name of the index
+func (o *Orgs) IdxId() int { //nolint:dupl false positive
+	return 0
+}
+
+// SqlId return name of the column being indexed
+func (o *Orgs) SqlId() string { //nolint:dupl false positive
+	return `"id"`
+}
+
+// IdxTenantCode return name of the index
+func (o *Orgs) IdxTenantCode() int { //nolint:dupl false positive
+	return 1
+}
+
+// SqlTenantCode return name of the column being indexed
+func (o *Orgs) SqlTenantCode() string { //nolint:dupl false positive
+	return `"tenantCode"`
+}
+
+// IdxName return name of the index
+func (o *Orgs) IdxName() int { //nolint:dupl false positive
+	return 2
+}
+
+// SqlName return name of the column being indexed
+func (o *Orgs) SqlName() string { //nolint:dupl false positive
+	return `"name"`
+}
+
+// IdxHeadTitle return name of the index
+func (o *Orgs) IdxHeadTitle() int { //nolint:dupl false positive
+	return 3
+}
+
+// SqlHeadTitle return name of the column being indexed
+func (o *Orgs) SqlHeadTitle() string { //nolint:dupl false positive
+	return `"headTitle"`
+}
+
+// IdxParentId return name of the index
+func (o *Orgs) IdxParentId() int { //nolint:dupl false positive
+	return 4
+}
+
+// SqlParentId return name of the column being indexed
+func (o *Orgs) SqlParentId() string { //nolint:dupl false positive
+	return `"parentId"`
+}
+
+// IdxChildren return name of the index
+func (o *Orgs) IdxChildren() int { //nolint:dupl false positive
+	return 5
+}
+
+// SqlChildren return name of the column being indexed
+func (o *Orgs) SqlChildren() string { //nolint:dupl false positive
+	return `"children"`
+}
+
+// IdxOrgType return name of the index
+func (o *Orgs) IdxOrgType() int { //nolint:dupl false positive
+	return 6
+}
+
+// SqlOrgType return name of the column being indexed
+func (o *Orgs) SqlOrgType() string { //nolint:dupl false positive
+	return `"orgType"`
+}
+
+// IdxCreatedAt return name of the index
+func (o *Orgs) IdxCreatedAt() int { //nolint:dupl false positive
+	return 7
+}
+
+// SqlCreatedAt return name of the column being indexed
+func (o *Orgs) SqlCreatedAt() string { //nolint:dupl false positive
+	return `"createdAt"`
+}
+
+// IdxCreatedBy return name of the index
+func (o *Orgs) IdxCreatedBy() int { //nolint:dupl false positive
+	return 8
+}
+
+// SqlCreatedBy return name of the column being indexed
+func (o *Orgs) SqlCreatedBy() string { //nolint:dupl false positive
+	return `"createdBy"`
+}
+
+// IdxUpdatedAt return name of the index
+func (o *Orgs) IdxUpdatedAt() int { //nolint:dupl false positive
+	return 9
+}
+
+// SqlUpdatedAt return name of the column being indexed
+func (o *Orgs) SqlUpdatedAt() string { //nolint:dupl false positive
+	return `"updatedAt"`
+}
+
+// IdxUpdatedBy return name of the index
+func (o *Orgs) IdxUpdatedBy() int { //nolint:dupl false positive
+	return 10
+}
+
+// SqlUpdatedBy return name of the column being indexed
+func (o *Orgs) SqlUpdatedBy() string { //nolint:dupl false positive
+	return `"updatedBy"`
+}
+
+// IdxDeletedAt return name of the index
+func (o *Orgs) IdxDeletedAt() int { //nolint:dupl false positive
+	return 11
+}
+
+// SqlDeletedAt return name of the column being indexed
+func (o *Orgs) SqlDeletedAt() string { //nolint:dupl false positive
+	return `"deletedAt"`
+}
+
+// ToArray receiver fields to slice
+func (o *Orgs) ToArray() A.X { //nolint:dupl false positive
+	return A.X{
+		o.Id,         // 0
+		o.TenantCode, // 1
+		o.Name,       // 2
+		o.HeadTitle,  // 3
+		o.ParentId,   // 4
+		o.Children,   // 5
+		o.OrgType,    // 6
+		o.CreatedAt,  // 7
+		o.CreatedBy,  // 8
+		o.UpdatedAt,  // 9
+		o.UpdatedBy,  // 10
+		o.DeletedAt,  // 11
+	}
+}
+
+// FromArray convert slice to receiver fields
+func (o *Orgs) FromArray(a A.X) *Orgs { //nolint:dupl false positive
+	o.Id = X.ToU(a[0])
+	o.TenantCode = X.ToS(a[1])
+	o.Name = X.ToS(a[2])
+	o.HeadTitle = X.ToS(a[3])
+	o.ParentId = X.ToU(a[4])
+	o.Children = X.ToArr(a[5])
+	o.OrgType = X.ToU(a[6])
+	o.CreatedAt = X.ToI(a[7])
+	o.CreatedBy = X.ToU(a[8])
+	o.UpdatedAt = X.ToI(a[9])
+	o.UpdatedBy = X.ToU(a[10])
+	o.DeletedAt = X.ToI(a[11])
+	return o
+}
+
+// FromUncensoredArray convert slice to receiver fields
+func (o *Orgs) FromUncensoredArray(a A.X) *Orgs { //nolint:dupl false positive
+	o.Id = X.ToU(a[0])
+	o.TenantCode = X.ToS(a[1])
+	o.Name = X.ToS(a[2])
+	o.HeadTitle = X.ToS(a[3])
+	o.ParentId = X.ToU(a[4])
+	o.Children = X.ToArr(a[5])
+	o.OrgType = X.ToU(a[6])
+	o.CreatedAt = X.ToI(a[7])
+	o.CreatedBy = X.ToU(a[8])
+	o.UpdatedAt = X.ToI(a[9])
+	o.UpdatedBy = X.ToU(a[10])
+	o.DeletedAt = X.ToI(a[11])
+	return o
+}
+
+// FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
+func (o *Orgs) FindOffsetLimit(offset, limit uint32, idx string) []Orgs { //nolint:dupl false positive
+	var rows []Orgs
+	res, err := o.Adapter.Select(o.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `Orgs.FindOffsetLimit failed: `+o.SpaceName()) {
+		return rows
+	}
+	for _, row := range res.Tuples() {
+		item := Orgs{}
+		rows = append(rows, *item.FromArray(row))
+	}
+	return rows
+}
+
+// FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
+func (o *Orgs) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
+	var rows []A.X
+	res, err := o.Adapter.Select(o.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `Orgs.FindOffsetLimit failed: `+o.SpaceName()) {
+		return rows, Tt.QueryMetaFrom(res, err)
+	}
+	tuples := res.Tuples()
+	rows = make([]A.X, len(tuples))
+	for z, row := range tuples {
+		rows[z] = row
+	}
+	return rows, Tt.QueryMetaFrom(res, nil)
+}
+
+// Total count number of rows
+func (o *Orgs) Total() int64 { //nolint:dupl false positive
+	rows := o.Adapter.CallBoxSpace(o.SpaceName()+`:count`, A.X{})
+	if len(rows) > 0 && len(rows[0]) > 0 {
+		return X.ToI(rows[0][0])
+	}
+	return 0
+}
+
+// OrgsFieldTypeMap returns key value of field name and key
+var OrgsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
+	`id`:         Tt.Unsigned,
+	`tenantCode`: Tt.String,
+	`name`:       Tt.String,
+	`headTitle`:  Tt.String,
+	`parentId`:   Tt.Unsigned,
+	`children`:   Tt.Array,
+	`orgType`:    Tt.Unsigned,
+	`createdAt`:  Tt.Integer,
+	`createdBy`:  Tt.Unsigned,
+	`updatedAt`:  Tt.Integer,
+	`updatedBy`:  Tt.Unsigned,
+	`deletedAt`:  Tt.Integer,
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
+// Sessions DAO reader/query struct
 type Sessions struct {
 	Adapter      *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	SessionToken string      `json:"sessionToken" form:"sessionToken" query:"sessionToken" long:"sessionToken" msg:"sessionToken"`

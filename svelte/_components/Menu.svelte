@@ -1,8 +1,8 @@
 <script>
     // @ts-nocheck
-    import { UserLogout } from '../jsApi.GEN.js';
-    import { onMount } from 'svelte';
-    import { isSideMenuOpen } from './uiState.js';
+    import {UserLogout} from '../jsApi.GEN.js';
+    import {onMount} from 'svelte';
+    import {isSideMenuOpen} from './uiState.js';
 
     import Icon from 'svelte-icons-pack/Icon.svelte';
     import FaSolidHome from 'svelte-icons-pack/fa/FaSolidHome';
@@ -12,9 +12,10 @@
     import FaSolidUserCircle from 'svelte-icons-pack/fa/FaSolidUserCircle';
     import FaSolidSignInAlt from 'svelte-icons-pack/fa/FaSolidSignInAlt';
     import FaSolidTimes from 'svelte-icons-pack/fa/FaSolidTimes';
+    import FaSolidList from "svelte-icons-pack/fa/FaSolidList";
 
     export let doToggle = function() {
-        isSideMenuOpen.set( !$isSideMenuOpen );
+        isSideMenuOpen.set(!$isSideMenuOpen);
     };
     export let access = {
         'superAdmin': false,
@@ -26,18 +27,18 @@
     };
 
     let segment1;
-    onMount( () => {
-        console.log( 'onMount.Menu' );
-        console.log( access );
-        segment1 = window.location.pathname.split( '/' )[ 1 ];
-    } );
+    onMount(() => {
+        console.log('onMount.Menu');
+        console.log(access);
+        segment1 = window.location.pathname.split('/')[1];
+    });
 
     async function userLogout() {
-        await UserLogout( {}, function( o ) {
-            console.log( o );
-            if( o.error ) return alert( o.error );
+        await UserLogout({}, function(o) {
+            console.log(o);
+            if (o.error) return alert(o.error);
             window.location = '/';
-        } );
+        });
     }
 </script>
 
@@ -47,56 +48,62 @@
             <header>
                 <h3>BenAkun</h3>
                 <button on:click|preventDefault={doToggle}>
-                    <Icon size={20} color='#475569' src={FaSolidTimes} />
+                    <Icon size={20} color='#475569' src={FaSolidTimes}/>
                 </button>
             </header>
             <div class='menu_container'>
                 <!-- PAGES -->
-                <hr />
+                <hr/>
                 <h6>MENU</h6>
                 <nav class='menu'>
                     <a href='/' class:active={segment1 === ''}>
-                        <Icon size={22} className={segment1 === '' ? 'icon_active' : 'icon_dark'} src={FaSolidHome} />
+                        <Icon size={22} className={segment1 === '' ? 'icon_active' : 'icon_dark'} src={FaSolidHome}/>
                         <span>HOME</span>
                     </a>
                     {#if access.reportViewer }
                         <a href='/reportViewer/dashboard' class:active={segment1 === 'reportViewer'}>
-                            <Icon size={20} className={segment1 === 'reportViewer' ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH} />
+                            <Icon size={20} className={segment1 === 'reportViewer' ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH}/>
                             <span>REPORT VIEWER</span>
                         </a>
                     {/if}
                     {#if access.entryUser }
                         <a href='/entryUser/dashboard' class:active={segment1 === 'entryUser'}>
-                            <Icon size={20} className={segment1 === 'entryUser' ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH} />
+                            <Icon size={20} className={segment1 === 'entryUser' ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH}/>
                             <span>ENTRY USER</span>
                         </a>
                     {/if}
                     {#if access.tenantAdmin}
                         <a href='/tenantAdmin/dashboard' class:active={segment1 === 'tenantAdmin'}>
-                            <Icon size={20} className={segment1 === 'tenantAdmin' ? 'icon_active' : 'icon_dark'} src={FaSolidBuilding} />
+                            <Icon size={20} className={segment1 === 'tenantAdmin' ? 'icon_active' : 'icon_dark'} src={FaSolidBuilding}/>
                             <span>TENANT ADMIN</span>
                         </a>
+                        <div class="submenu">
+                            <a href='/tenantAdmin/budgeting' class:active={segment1 === 'tenantAdmin'}>
+                                <Icon size={20} className={window.location === '/tenantAdmin/budgeting' ? 'icon_active' : 'icon_dark'} src={FaSolidList}/>
+                                <span>Budgeting</span>
+                            </a>
+                        </div>
                     {/if}
                     {#if access.superAdmin }
                         <a href='/superAdmin/dashboard' class:active={segment1 === 'superAdmin'}>
-                            <Icon size={22} className={segment1 === 'superAdmin' ? 'icon_active' : 'icon_dark'} src={FaSolidShoppingBag} />
+                            <Icon size={22} className={segment1 === 'superAdmin' ? 'icon_active' : 'icon_dark'} src={FaSolidShoppingBag}/>
                             <span>SUPER ADMIN</span>
                         </a>
                     {/if}
                 </nav>
                 <!-- SETTING -->
-                <hr />
+                <hr/>
                 <h6>SETTING</h6>
                 <nav class='menu'>
                     {#if access.user}
                         <a href='/user/profile' class:active={segment1 === 'user'}>
-                            <Icon size={22} className={segment1 === 'user' ? 'icon_active' : 'icon_dark'} src={FaSolidUserCircle} />
+                            <Icon size={22} className={segment1 === 'user' ? 'icon_active' : 'icon_dark'} src={FaSolidUserCircle}/>
                             <span>PROFILE</span>
                         </a>
                     {/if}
                     {#if access.user || access.superAdmin}
                         <button on:click={userLogout} class='logout'>
-                            <Icon size={22} className='icon_dark' src={FaSolidSignInAlt} />
+                            <Icon size={22} className='icon_dark' src={FaSolidSignInAlt}/>
                             <span>LOGOUT</span>
                         </button>
                     {/if}
@@ -225,5 +232,9 @@
 
     .active { /*ACTIVE Navigation*/
         color : #4444EF !important;
+    }
+
+    .submenu {
+        margin-left : 20px;
     }
 </style>

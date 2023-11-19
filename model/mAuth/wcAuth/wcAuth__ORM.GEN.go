@@ -13,12 +13,267 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-// SessionsMutator DAO writer/command struct
+// OrgsMutator DAO writer/command struct
 //
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file wcAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type wcAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type wcAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcAuth__ORM.GEN.go
+type OrgsMutator struct {
+	rqAuth.Orgs
+	mutations []A.X
+	logs      []A.X
+}
+
+// NewOrgsMutator create new ORM writer/command object
+func NewOrgsMutator(adapter *Tt.Adapter) (res *OrgsMutator) {
+	res = &OrgsMutator{Orgs: rqAuth.Orgs{Adapter: adapter}}
+	res.Children = []any{}
+	return
+}
+
+// Logs get array of logs [field, old, new]
+func (o *OrgsMutator) Logs() []A.X { //nolint:dupl false positive
+	return o.logs
+}
+
+// HaveMutation check whether Set* methods ever called
+func (o *OrgsMutator) HaveMutation() bool { //nolint:dupl false positive
+	return len(o.mutations) > 0
+}
+
+// ClearMutations clear all previously called Set* methods
+func (o *OrgsMutator) ClearMutations() { //nolint:dupl false positive
+	o.mutations = []A.X{}
+	o.logs = []A.X{}
+}
+
+// func (o *OrgsMutator) DoUpsert() bool { //nolint:dupl false positive
+//	arr := o.ToArray()
+//	_, err := o.Adapter.Upsert(o.SpaceName(), arr, A.X{
+//		A.X{`=`, 0, o.Id},
+//		A.X{`=`, 1, o.TenantCode},
+//		A.X{`=`, 2, o.Name},
+//		A.X{`=`, 3, o.HeadTitle},
+//		A.X{`=`, 4, o.ParentId},
+//		A.X{`=`, 5, o.Children},
+//		A.X{`=`, 6, o.OrgType},
+//		A.X{`=`, 7, o.CreatedAt},
+//		A.X{`=`, 8, o.CreatedBy},
+//		A.X{`=`, 9, o.UpdatedAt},
+//		A.X{`=`, 10, o.UpdatedBy},
+//		A.X{`=`, 11, o.DeletedAt},
+//	})
+//	return !L.IsError(err, `Orgs.DoUpsert failed: `+o.SpaceName()+ `\n%#v`, arr)
+// }
+
+// DoInsert insert, error if already exists
+func (o *OrgsMutator) DoInsert() bool { //nolint:dupl false positive
+	arr := o.ToArray()
+	_, err := o.Adapter.Insert(o.SpaceName(), arr)
+	return !L.IsError(err, `Orgs.DoInsert failed: `+o.SpaceName()+`\n%#v`, arr)
+}
+
+// DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
+// replace = upsert, only error when there's unique secondary key
+// previous name: DoReplace
+func (o *OrgsMutator) DoUpsert() bool { //nolint:dupl false positive
+	arr := o.ToArray()
+	_, err := o.Adapter.Replace(o.SpaceName(), arr)
+	return !L.IsError(err, `Orgs.DoUpsert failed: `+o.SpaceName()+`\n%#v`, arr)
+}
+
+// SetId create mutations, should not duplicate
+func (o *OrgsMutator) SetId(val uint64) bool { //nolint:dupl false positive
+	if val != o.Id {
+		o.mutations = append(o.mutations, A.X{`=`, 0, val})
+		o.logs = append(o.logs, A.X{`id`, o.Id, val})
+		o.Id = val
+		return true
+	}
+	return false
+}
+
+// SetTenantCode create mutations, should not duplicate
+func (o *OrgsMutator) SetTenantCode(val string) bool { //nolint:dupl false positive
+	if val != o.TenantCode {
+		o.mutations = append(o.mutations, A.X{`=`, 1, val})
+		o.logs = append(o.logs, A.X{`tenantCode`, o.TenantCode, val})
+		o.TenantCode = val
+		return true
+	}
+	return false
+}
+
+// SetName create mutations, should not duplicate
+func (o *OrgsMutator) SetName(val string) bool { //nolint:dupl false positive
+	if val != o.Name {
+		o.mutations = append(o.mutations, A.X{`=`, 2, val})
+		o.logs = append(o.logs, A.X{`name`, o.Name, val})
+		o.Name = val
+		return true
+	}
+	return false
+}
+
+// SetHeadTitle create mutations, should not duplicate
+func (o *OrgsMutator) SetHeadTitle(val string) bool { //nolint:dupl false positive
+	if val != o.HeadTitle {
+		o.mutations = append(o.mutations, A.X{`=`, 3, val})
+		o.logs = append(o.logs, A.X{`headTitle`, o.HeadTitle, val})
+		o.HeadTitle = val
+		return true
+	}
+	return false
+}
+
+// SetParentId create mutations, should not duplicate
+func (o *OrgsMutator) SetParentId(val uint64) bool { //nolint:dupl false positive
+	if val != o.ParentId {
+		o.mutations = append(o.mutations, A.X{`=`, 4, val})
+		o.logs = append(o.logs, A.X{`parentId`, o.ParentId, val})
+		o.ParentId = val
+		return true
+	}
+	return false
+}
+
+// SetChildren create mutations, should not duplicate
+func (o *OrgsMutator) SetChildren(val []any) bool { //nolint:dupl false positive
+	o.mutations = append(o.mutations, A.X{`=`, 5, val})
+	o.logs = append(o.logs, A.X{`children`, o.Children, val})
+	o.Children = val
+	return true
+}
+
+// SetOrgType create mutations, should not duplicate
+func (o *OrgsMutator) SetOrgType(val uint64) bool { //nolint:dupl false positive
+	if val != o.OrgType {
+		o.mutations = append(o.mutations, A.X{`=`, 6, val})
+		o.logs = append(o.logs, A.X{`orgType`, o.OrgType, val})
+		o.OrgType = val
+		return true
+	}
+	return false
+}
+
+// SetCreatedAt create mutations, should not duplicate
+func (o *OrgsMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
+	if val != o.CreatedAt {
+		o.mutations = append(o.mutations, A.X{`=`, 7, val})
+		o.logs = append(o.logs, A.X{`createdAt`, o.CreatedAt, val})
+		o.CreatedAt = val
+		return true
+	}
+	return false
+}
+
+// SetCreatedBy create mutations, should not duplicate
+func (o *OrgsMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
+	if val != o.CreatedBy {
+		o.mutations = append(o.mutations, A.X{`=`, 8, val})
+		o.logs = append(o.logs, A.X{`createdBy`, o.CreatedBy, val})
+		o.CreatedBy = val
+		return true
+	}
+	return false
+}
+
+// SetUpdatedAt create mutations, should not duplicate
+func (o *OrgsMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
+	if val != o.UpdatedAt {
+		o.mutations = append(o.mutations, A.X{`=`, 9, val})
+		o.logs = append(o.logs, A.X{`updatedAt`, o.UpdatedAt, val})
+		o.UpdatedAt = val
+		return true
+	}
+	return false
+}
+
+// SetUpdatedBy create mutations, should not duplicate
+func (o *OrgsMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
+	if val != o.UpdatedBy {
+		o.mutations = append(o.mutations, A.X{`=`, 10, val})
+		o.logs = append(o.logs, A.X{`updatedBy`, o.UpdatedBy, val})
+		o.UpdatedBy = val
+		return true
+	}
+	return false
+}
+
+// SetDeletedAt create mutations, should not duplicate
+func (o *OrgsMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
+	if val != o.DeletedAt {
+		o.mutations = append(o.mutations, A.X{`=`, 11, val})
+		o.logs = append(o.logs, A.X{`deletedAt`, o.DeletedAt, val})
+		o.DeletedAt = val
+		return true
+	}
+	return false
+}
+
+// SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
+func (o *OrgsMutator) SetAll(from rqAuth.Orgs, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
+	if excludeMap == nil { // list of fields to exclude
+		excludeMap = M.SB{}
+	}
+	if forceMap == nil { // list of fields to force overwrite
+		forceMap = M.SB{}
+	}
+	if !excludeMap[`id`] && (forceMap[`id`] || from.Id != 0) {
+		o.Id = from.Id
+		changed = true
+	}
+	if !excludeMap[`tenantCode`] && (forceMap[`tenantCode`] || from.TenantCode != ``) {
+		o.TenantCode = S.Trim(from.TenantCode)
+		changed = true
+	}
+	if !excludeMap[`name`] && (forceMap[`name`] || from.Name != ``) {
+		o.Name = S.Trim(from.Name)
+		changed = true
+	}
+	if !excludeMap[`headTitle`] && (forceMap[`headTitle`] || from.HeadTitle != ``) {
+		o.HeadTitle = S.Trim(from.HeadTitle)
+		changed = true
+	}
+	if !excludeMap[`parentId`] && (forceMap[`parentId`] || from.ParentId != 0) {
+		o.ParentId = from.ParentId
+		changed = true
+	}
+	if !excludeMap[`children`] && (forceMap[`children`] || from.Children != nil) {
+		o.Children = from.Children
+		changed = true
+	}
+	if !excludeMap[`orgType`] && (forceMap[`orgType`] || from.OrgType != 0) {
+		o.OrgType = from.OrgType
+		changed = true
+	}
+	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
+		o.CreatedAt = from.CreatedAt
+		changed = true
+	}
+	if !excludeMap[`createdBy`] && (forceMap[`createdBy`] || from.CreatedBy != 0) {
+		o.CreatedBy = from.CreatedBy
+		changed = true
+	}
+	if !excludeMap[`updatedAt`] && (forceMap[`updatedAt`] || from.UpdatedAt != 0) {
+		o.UpdatedAt = from.UpdatedAt
+		changed = true
+	}
+	if !excludeMap[`updatedBy`] && (forceMap[`updatedBy`] || from.UpdatedBy != 0) {
+		o.UpdatedBy = from.UpdatedBy
+		changed = true
+	}
+	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
+		o.DeletedAt = from.DeletedAt
+		changed = true
+	}
+	return
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
+// SessionsMutator DAO writer/command struct
 type SessionsMutator struct {
 	rqAuth.Sessions
 	mutations []A.X

@@ -40,6 +40,21 @@ const (
 )
 
 const (
+	TableOrgs Tt.TableName = `orgs` // organization
+
+	// OrgType is the type of organization:
+	// 1: company (sub of a tenant)
+	// 2: department
+	// 3: division, have head title
+	// 4: job
+	OrgType   = `orgType`
+	Name      = `name`
+	HeadTitle = `headTitle`
+	ParentId  = `parentId`
+	Children  = `children`
+)
+
+const (
 	TableTenants Tt.TableName = `tenants`
 )
 
@@ -95,6 +110,22 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		AutoIncrementId: true,
 		Unique1:         TenantCode,
 		Engine:          Tt.Memtx,
+	},
+	TableOrgs: {
+		Fields: []Tt.Field{
+			{Id, Tt.Unsigned},
+			{TenantCode, Tt.String},
+			{Name, Tt.String},
+			{HeadTitle, Tt.String},
+			{ParentId, Tt.Unsigned},
+			{Children, Tt.Array},
+			{OrgType, Tt.Unsigned},
+			{CreatedAt, Tt.Integer},
+			{CreatedBy, Tt.Unsigned},
+			{UpdatedAt, Tt.Integer},
+			{UpdatedBy, Tt.Unsigned},
+			{DeletedAt, Tt.Integer},
+		},
 	},
 }
 
