@@ -6846,7 +6846,7 @@ a.svelte-1okz7y5 span.svelte-1okz7y5 {
           return notifier.showError(o.error);
         }
         $invalidate(8, isSubmitted = false);
-        alert("Registered successfully, a registration verification has been sent to your email");
+        notifier.showSuccess("Registered successfully, a registration verification has been sent to your email");
         $invalidate(7, mode = LOGIN);
         $invalidate(3, password = "");
         await tick();
@@ -6865,7 +6865,7 @@ a.svelte-1okz7y5 span.svelte-1okz7y5 {
       }
       const i = { email, password };
       await (0, import_jsApi_GEN2.GuestLogin)(i, function(o) {
-        console.log(o.segments);
+        console.log("o.segments=", o.segments);
         if (o.error) {
           $invalidate(8, isSubmitted = false);
           return notifier.showError(o.error);
