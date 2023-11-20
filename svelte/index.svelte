@@ -94,7 +94,7 @@
                 return notifier.showError(o.error);
             }
             isSubmitted = false;
-            alert('Registered successfully, a registration verification has been sent to your email');
+            notifier.showSuccess('Registered successfully, a registration verification has been sent to your email');
             mode = LOGIN;
             password = '';
             await tick();
@@ -114,7 +114,7 @@
         }
         const i = {email, password};
         await GuestLogin(i, function(o) {
-            console.log(o.segments);
+            console.log('o.segments=',o.segments);
             if (o.error) {
                 isSubmitted = false;
                 return notifier.showError(o.error);
