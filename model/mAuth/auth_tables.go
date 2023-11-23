@@ -101,6 +101,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Fields: []Tt.Field{
 			{Id, Tt.Unsigned},
 			{TenantCode, Tt.String},
+			// TODO: add mapping to specific database
 			{CreatedAt, Tt.Integer},
 			{CreatedBy, Tt.Unsigned},
 			{UpdatedAt, Tt.Integer},
