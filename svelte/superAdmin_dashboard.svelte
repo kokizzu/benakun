@@ -1,8 +1,8 @@
 <script>
     // @ts-nocheck
-    import Menu from './_components/Menu.svelte';
+    import Menu from './_components/partials/SideMenu.svelte';
     import AdminSubMenu from './_components/AdminSubMenu.svelte';
-    import ProfileHeader from './_components/ProfileHeader.svelte';
+    import ProfileHeader from './_components/partials/Navbar.svelte';
     import Footer from './_components/Footer.svelte';
 
     let segments = {/* segments */};

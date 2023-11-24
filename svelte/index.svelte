@@ -1,198 +1,191 @@
 <script>
-    //@ts-nocheck
-    import {GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail} from './jsApi.GEN.js';
-    import {onMount, tick} from 'svelte';
-    import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
-    import Icon from 'svelte-icons-pack/Icon.svelte';
-    import {UserLogout} from "./jsApi.GEN";
-    import Footer from "./_components/Footer.svelte";
-    import Menu from "./_components/Menu.svelte";
-    import ProfileHeader from "./_components/ProfileHeader.svelte";
-    import {notifier} from "./_components/notifier.js"
+  //@ts-nocheck
+  import {GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail} from './jsApi.GEN.js';
+  import {onMount, tick} from 'svelte';
+  import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import {UserLogout} from "./jsApi.GEN";
+  import Footer from "./_components/Footer.svelte";
+  import SideMenu from "./_components/partials/SideMenu.svelte";
+  import Navbar from "./_components/partials/Navbar.svelte";
+  import {notifier} from "./_components/notifier.js"
 
-    let user = {/* user */};
-    let segments = {/* segments */};
-    let google = '#{google}';
+  let user = {/* user */};
+  let segments = {/* segments */};
+  let google = '#{google}';
 
-    function getCookie(name) {
-        let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-        if (match) return match[2];
+  function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    if (match) return match[2];
+  }
+
+  // server state
+  const title = '#{title}'; // /*! title */ {/* title */} [/* title */]
+  // TODO: print session or fetch from cookie
+
+  // local state
+  let email = '', password = '', confirmPass = '';
+
+  // binding to element
+  let emailInput = {}, passInput = {};
+
+  const LOGIN = 'LOGIN';
+  const REGISTER = 'REGISTER';
+  const RESEND_VERIFICATION_EMAIL = 'RESEND_VERIFICATION_EMAIL';
+  const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
+  const USER = '';
+  let mode = LOGIN, isSubmitted = false;
+
+  async function onHashChange() {
+    console.log('onHashChange.start')
+    const auth = getCookie('akun');
+    console.log(auth, user);
+    if (auth && user && !auth.startsWith('TEMP__')) {
+      location.hash = '';
+      mode = USER;
+      return;
     }
+    let hash = location.hash || '';
+    if (hash[0] === '#') hash = hash.substring(1);
 
-    // server state
-    const title = '#{title}'; // /*! title */ {/* title */} [/* title */]
-    // TODO: print session or fetch from cookie
+    if (hash === LOGIN) mode = LOGIN;
+    else if (hash === REGISTER) mode = REGISTER;
+    else if (hash === RESEND_VERIFICATION_EMAIL) mode = RESEND_VERIFICATION_EMAIL;
+    else if (hash === FORGOT_PASSWORD) mode = FORGOT_PASSWORD;
+    else location.hash = LOGIN;
+    console.log('onHashChange.tick')
+    await tick();
+    emailInput.focus();
+  }
 
-    // local state
-    let email = '';
-    let password = '';
-    let confirmPass = '';
+  onMount(() => {
+    console.log('onMount.index')
+    onHashChange();
+    console.log("User = ", user)
+  })
 
-    // binding to element
-    let emailInput = {};
-    let passInput = {};
-
-    const LOGIN = 'LOGIN';
-    const REGISTER = 'REGISTER';
-    const RESEND_VERIFICATION_EMAIL = 'RESEND_VERIFICATION_EMAIL';
-    const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
-    const USER = '';
-    let mode = LOGIN;
-
-    let isSubmitted = false;
-
-    async function onHashChange() {
-        console.log('onHashChange.start')
-        const auth = getCookie('akun');
-        console.log(auth, user);
-        if (auth && user && !auth.startsWith('TEMP__')) {
-            location.hash = '';
-            mode = USER;
-            return;
+  async function guestRegister() {
+    isSubmitted = true;
+    if (!email) {
+      isSubmitted = false;
+      return notifier.showWarning('Email is required');
+    }
+    if (password.length < 12) {
+      isSubmitted = false;
+      return notifier.showWarning('Password must be at least 12 characters');
+    }
+    if (password !== confirmPass) {
+      isSubmitted = false;
+      return notifier.showWarning('Passwords do not match');
+    }
+    // TODO: send to backend
+    const i = {email, password};
+    await GuestRegister(i, async function(o) {
+      // TODO: codegen commonResponse (o.error, etc)
+      // TODO: codegen list of possible errors
+      console.log(o);
+      if (o.error) {
+        isSubmitted = false;
+          return notifier.showError(o.error);
         }
-        let hash = location.hash || '';
-        if (hash[0] === '#') hash = hash.substring(1);
-
-        if (hash === LOGIN) mode = LOGIN;
-        else if (hash === REGISTER) mode = REGISTER;
-        else if (hash === RESEND_VERIFICATION_EMAIL) mode = RESEND_VERIFICATION_EMAIL;
-        else if (hash === FORGOT_PASSWORD) mode = FORGOT_PASSWORD;
-        else location.hash = LOGIN;
-        console.log('onHashChange.tick')
+        isSubmitted = false;
+        notifier.showSuccess('Registered successfully, a registration verification has been sent to your email');
+        mode = LOGIN;
+        password = '';
         await tick();
-        emailInput.focus();
-    }
-
-    onMount(() => {
-        console.log('onMount.index')
-        onHashChange();
-        console.log("User = ", user)
-    })
-
-    async function guestRegister() {
-        isSubmitted = true;
-        if (!email) {
-            isSubmitted = false;
-            return notifier.showWarning('Email is required');
-        }
-        if (password.length < 12) {
-            isSubmitted = false;
-            return notifier.showWarning('Password must be at least 12 characters');
-        }
-        if (password !== confirmPass) {
-            isSubmitted = false;
-            return notifier.showWarning('Passwords do not match');
-        }
-        // TODO: send to backend
-        const i = {email, password};
-        await GuestRegister(i, async function(o) {
-            // TODO: codegen commonResponse (o.error, etc)
-            // TODO: codegen list of possible errors
-            console.log(o);
-            if (o.error) {
-                isSubmitted = false;
-                return notifier.showError(o.error);
-            }
-            isSubmitted = false;
-            notifier.showSuccess('Registered successfully, a registration verification has been sent to your email');
-            mode = LOGIN;
-            password = '';
-            await tick();
-            passInput.focus();
-        });
+        passInput.focus();
+      });
     }
 
     async function guestLogin() {
-        isSubmitted = true;
-        if (!email) {
-            isSubmitted = false;
-            return notifier.showWarning('Email is required');
+      isSubmitted = true;
+      if (!email) {
+        isSubmitted = false;
+        return notifier.showWarning('Email is required');
+      }
+      if (password.length < 12) {
+        isSubmitted = false;
+        return notifier.showWarning('Password must be at least 12 characters');
+      }
+      const i = {email, password};
+      await GuestLogin(i, function(o) {
+        console.log('o.segments=',o.segments);
+        if (o.error) {
+          isSubmitted = false;
+          return notifier.showError(o.error);
         }
-        if (password.length < 12) {
-            isSubmitted = false;
-            return notifier.showWarning('Password must be at least 12 characters');
-        }
-        const i = {email, password};
-        await GuestLogin(i, function(o) {
-            console.log('o.segments=',o.segments);
-            if (o.error) {
-                isSubmitted = false;
-                return notifier.showError(o.error);
-            }
-            isSubmitted = false;
+        isSubmitted = false;
 
-            notifier.showSuccess('Login success');
-            user = o.user;
-            segments = o.segments;
-            window.document.location = '/';
-        });
+        notifier.showSuccess('Login success');
+        user = o.user;
+        segments = o.segments;
+        window.document.location = '/';
+      });
     }
 
     async function guestResendVerificationEmail() {
-        isSubmitted = true;
-        if (!email) {
-            isSubmitted = false;
-            notifier.showWarning('Email is required');
-            return
+      isSubmitted = true;
+      if (!email) {
+        isSubmitted = false;
+        notifier.showWarning('Email is required');
+        return
+      }
+      const i = {email};
+      await GuestResendVerificationEmail(i, function(o) {
+        console.log(o);
+        if (o.error) {
+          isSubmitted = false;
+          return notifier.showError(o.error);
         }
-        const i = {email};
-        await GuestResendVerificationEmail(i, function(o) {
-            console.log(o);
-            if (o.error) {
-                isSubmitted = false;
-                return notifier.showError(o.error);
-            }
-            isSubmitted = false;
-            onHashChange();
-            notifier.showInfo('An email verification link has been sent to your email');
-        });
+        isSubmitted = false;
+        onHashChange();
+        notifier.showInfo('An email verification link has been sent to your email');
+      });
     }
 
     async function guestForgotPassword() {
-        isSubmitted = true;
-        if (!email) {
-            isSubmitted = false;
-            notifier.showWarning('Email is required');
-            return
+      isSubmitted = true;
+      if (!email) {
+        isSubmitted = false;
+        notifier.showWarning('Email is required');
+        return
+      }
+      const i = {email};
+      await GuestForgotPassword(i, function(o) {
+        console.log(o);
+        if (o.error) {
+          isSubmitted = false;
+          return notifier.showError(o.error);
         }
-        const i = {email};
-        await GuestForgotPassword(i, function(o) {
-            console.log(o);
-            if (o.error) {
-                isSubmitted = false;
-                return notifier.showError(o.error);
-            }
-            onHashChange();
-            notifier.showInfo('A reset password link has been sent to your email');
-        });
+        onHashChange();
+        notifier.showInfo('A reset password link has been sent to your email');
+      });
     }
 
     function doLogout() {
-        UserLogout({}, function(o) {
-            console.log(o);
-            if (o.error) return notifier.showError(o.error);
-            user = null;
-            segments = null;
-            window.document.location = '/';
-        })
+      UserLogout({}, function(o) {
+        console.log(o);
+        if (o.error) return notifier.showError(o.error);
+        user = null;
+        segments = null;
+        window.document.location = '/';
+      })
     }
 </script>
 
 
 <svelte:window on:hashchange={onHashChange}/>
 {#if mode === USER}
-    <section class='dashboard'>
-        <Menu access={segments}/>
-        <div class='dashboard_main_content'>
-            <ProfileHeader {user}></ProfileHeader>
-            <div class='content'>
-                <section class='tableview_container'>
-                    TODO fill with proper menu
-                </section>
-            </div>
-            <Footer></Footer>
-        </div>
-    </section>
+  <div class="root_layout">
+    <SideMenu access={segments}/>
+    <div class="root_container">
+      <Navbar {user} />
+      <div class="root_content">
+        <p>TODO fill with proper menu</p>
+      </div>
+      <Footer />
+    </div>
+  </div>
 {:else}
     <section class="auth_section">
         <div class="main_container">
@@ -310,7 +303,7 @@
 {/if}
 
 <style>
-    @keyframes spin { /* TODO: use it for loading */
+  @keyframes spin { /* TODO: use it for loading */
         from {
             transform : rotate(0deg);
         }
