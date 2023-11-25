@@ -2,7 +2,7 @@
   // @ts-nocheck
   import {isSideMenuOpen} from '../uiState.js';
   import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidBars from 'svelte-icons-pack/fa/FaSolidBars';
+  import CgMenuLeft from "svelte-icons-pack/cg/CgMenuLeft";
   import {onMount} from 'svelte';
 
   export let user = {};
@@ -20,7 +20,7 @@
   <nav class="navbar">
     <div class="left">
       <button class="menu_btn" on:click|preventDefault={openSideMenu}>
-        <Icon color="#FFF" size={20} src={FaSolidBars}/>
+        <Icon color="#FFF" size={25} src={CgMenuLeft}/>
       </button>
       <span class="display_title">#{title}</span>
     </div>
@@ -58,13 +58,14 @@
 
   .navbar_container .navbar .left .menu_btn {
     background-color: transparent;
-    padding: 10px;
+    padding: 5px;
     border-radius: 50%;
     border: 1px solid transparent;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    color: #FFF;
   }
 
   .navbar_container .navbar .left .menu_btn:hover {

@@ -9,7 +9,7 @@
   import FaUserCircle from "svelte-icons-pack/fa/FaUserCircle";
   import RiEditorOrganizationChart from "svelte-icons-pack/ri/RiEditorOrganizationChart";
   import FaSolidSlidersH from 'svelte-icons-pack/fa/FaSolidSlidersH';
-  import BiLogOut from "svelte-icons-pack/bi/BiLogOut";
+  import HiSolidX from "svelte-icons-pack/hi/HiSolidX";
   import CgLogOut from "svelte-icons-pack/cg/CgLogOut";
   import FaSolidTimes from 'svelte-icons-pack/fa/FaSolidTimes';
   import AiOutlineWallet from "svelte-icons-pack/ai/AiOutlineWallet";
@@ -33,9 +33,9 @@
   let segment1;
   onMount(() => {
     console.log('onMount.Menu');
-    console.log(access);
+    console.log('Access:',access);
     segment1 = window.location.pathname.split('/')[1];
-    console.log('current path = ',segment1)
+    console.log('current path = ', window.location.pathname)
   });
 
   async function userLogout() {
@@ -71,7 +71,7 @@
     <header>
       <h3>BenAkun</h3>
       <button class="close_btn" on:click|preventDefault={doToggle}>
-        <Icon size={20} color="#475569" src={FaSolidTimes}/>
+        <Icon size={25} src={HiSolidX}/>
       </button>
     </header>
     <div class="menu_container">
@@ -89,12 +89,12 @@
         {#if access.entryUser }
           <a href='/entryUser/dashboard' class:active={segment1 === 'entryUser'}>
             <Icon size={22} className={segment1 === 'entryUser'  ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH}/>
-            <span>Entry USer</span>
+            <span>Entry User</span>
           </a>
         {/if}
         {#if access.tenantAdmin}
-          <a href='/tenantAdmin/dashboard' class:active={segment1 === 'tenantAdmin'}>
-            <Icon size={22} className={segment1 === 'tenantAdmin'  ? 'icon_active' : 'icon_dark'} src={RiBuildingsCommunityLine}/>
+          <a href='/tenantAdmin/dashboard' class:active={window.location.pathname === '/tenantAdmin/dashboard'}>
+            <Icon size={22} className={window.location.pathname === '/tenantAdmin/dashboard'  ? 'icon_active' : 'icon_dark'} src={RiBuildingsCommunityLine}/>
             <span>Tenant Admin</span>
           </a>
           <div class="submenu">
@@ -202,7 +202,7 @@
 
   .side_menu_container header .close_btn {
     background-color: transparent;
-    padding: 10px;
+    padding: 5px;
     border-radius: 50%;
     border: 1px solid transparent;
     display: flex;
@@ -249,6 +249,10 @@
     width: fit-content;
     color: var(--gray-007);
     font-size: var(--font-md);
+  }
+
+  .side_menu_container .menu_container .menu_list a:hover {
+    color: var(--purple-002);
   }
 
   .side_menu_container .menu_container .menu_list a.active {

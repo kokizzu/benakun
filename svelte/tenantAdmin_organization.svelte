@@ -2,7 +2,7 @@
     // @ts-nocheck
     import Menu from './_components/partials/SideMenu.svelte';
     import ProfileHeader from './_components/partials/Navbar.svelte';
-    import Footer from './_components/Footer.svelte';
+    import Footer from './_components/partials/Footer.svelte';
 
     let segments = {/* segments */};
     let user = {/* user */};

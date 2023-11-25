@@ -2,7 +2,7 @@
     // @ts-nocheck
     import Menu from './_components/partials/SideMenu.svelte';
     import ProfileHeader from './_components/partials/Navbar.svelte';
-    import Footer from './_components/Footer.svelte';
+    import Footer from './_components/partials/Footer.svelte';
     import {notifier} from './_components/notifier.js'
     import Icon from 'svelte-icons-pack/Icon.svelte';
     import {datetime} from './_components/formatter';

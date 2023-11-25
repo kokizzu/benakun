@@ -91,6 +91,9 @@
       width: 100%;
       padding: 20px 40px;
       min-height: 80dvh;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
     
     /* notifier */
@@ -198,43 +201,35 @@
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>/* fakecss:./_components/Footer.esbuild-svelte-fake-css */
-footer.svelte-1nm9n0y.svelte-1nm9n0y {
-  font-size: 16px;
+<style>/* fakecss:./_components/partials/Footer.esbuild-svelte-fake-css */
+footer.svelte-18vlekj.svelte-18vlekj {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 30px 50px 0 50px;
-  padding: 16px 0;
-  border-top: 1px solid #CBD5E1;
-  color: #475569;
+  margin: 30px 40px 0 40px;
+  padding: 20px 0;
+  border-top: 1px solid var(--gray-003);
+  color: var(--gray-007);
 }
-footer.svelte-1nm9n0y nav.svelte-1nm9n0y {
+footer.svelte-18vlekj p.svelte-18vlekj {
+  margin: 0;
+}
+footer.svelte-18vlekj nav.svelte-18vlekj {
   display: flex;
   flex-direction: row;
 }
-footer.svelte-1nm9n0y nav a.svelte-1nm9n0y {
+footer.svelte-18vlekj nav a.svelte-18vlekj {
   text-decoration: none;
   margin-left: 15px;
-  color: #475569;
+  color: var(--gray-007);
 }
-footer.svelte-1nm9n0y nav a.svelte-1nm9n0y:hover {
-  color: #4444EF;
-}
-@media only screen and (max-width: 768px) {
-  footer.svelte-1nm9n0y.svelte-1nm9n0y {
-    display: flex;
-    flex-direction: column-reverse;
-    margin: 30px 20px 0;
-  }
-  footer.svelte-1nm9n0y nav a.svelte-1nm9n0y {
-    font-size: 13px;
-  }
+footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
+  color: var(--purple-002);
 }
 
 /* fakecss:./_components/SubMenuLink.esbuild-svelte-fake-css */
-a.svelte-141ecy1 {
+a.svelte-1jjzex9 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -245,7 +240,10 @@ a.svelte-141ecy1 {
   color: var(--gray-007);
   font-size: var(--font-md);
 }
-a.active.svelte-141ecy1 {
+a.svelte-1jjzex9:hover {
+  color: var(--purple-002);
+}
+a.active.svelte-1jjzex9 {
   font-weight: 600;
   color: var(--purple-002);
 }
@@ -260,7 +258,7 @@ a.active.svelte-141ecy1 {
 .icon_logout {
   fill: var(--red-002);
 }
-.backdrop.svelte-1lolgen.svelte-1lolgen {
+.backdrop.svelte-1d18pp.svelte-1d18pp {
   z-index: 8888;
   position: fixed;
   padding: 0;
@@ -271,7 +269,7 @@ a.active.svelte-141ecy1 {
   right: 0;
   background-color: rgba(0 0 0 / 20%);
 }
-.side_menu.svelte-1lolgen.svelte-1lolgen {
+.side_menu.svelte-1d18pp.svelte-1d18pp {
   left: -300px;
   display: block;
   position: fixed;
@@ -286,10 +284,10 @@ a.active.svelte-141ecy1 {
   width: 300px;
   transition: 0.3s;
 }
-.side_menu.open.svelte-1lolgen.svelte-1lolgen {
+.side_menu.open.svelte-1d18pp.svelte-1d18pp {
   left: 0;
 }
-.side_menu_container.svelte-1lolgen.svelte-1lolgen {
+.side_menu_container.svelte-1d18pp.svelte-1d18pp {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -299,7 +297,7 @@ a.active.svelte-141ecy1 {
   width: 100%;
   margin: 0;
 }
-.side_menu_container.svelte-1lolgen header.svelte-1lolgen {
+.side_menu_container.svelte-1d18pp header.svelte-1d18pp {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -307,16 +305,16 @@ a.active.svelte-141ecy1 {
   height: fit-content;
   flex-grow: 0;
 }
-.side_menu_container.svelte-1lolgen header h3.svelte-1lolgen {
+.side_menu_container.svelte-1d18pp header h3.svelte-1d18pp {
   font-size: var(--font-xl);
   line-height: 1.5rem;
   font-weight: 800;
   padding: 0;
   margin: 0;
 }
-.side_menu_container.svelte-1lolgen header .close_btn.svelte-1lolgen {
+.side_menu_container.svelte-1d18pp header .close_btn.svelte-1d18pp {
   background-color: transparent;
-  padding: 10px;
+  padding: 5px;
   border-radius: 50%;
   border: 1px solid transparent;
   display: flex;
@@ -324,30 +322,30 @@ a.active.svelte-141ecy1 {
   align-items: center;
   cursor: pointer;
 }
-.side_menu_container.svelte-1lolgen header .close_btn.svelte-1lolgen:hover {
+.side_menu_container.svelte-1d18pp header .close_btn.svelte-1d18pp:hover {
   background-color: var(--gray-001);
   border: 1px solid var(--gray-002);
 }
-.side_menu_container.svelte-1lolgen header .close_btn.svelte-1lolgen:active {
+.side_menu_container.svelte-1d18pp header .close_btn.svelte-1d18pp:active {
   background-color: var(--gray-002);
 }
-.side_menu_container.svelte-1lolgen .menu_container.svelte-1lolgen {
+.side_menu_container.svelte-1d18pp .menu_container.svelte-1d18pp {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
 }
-.side_menu_container.svelte-1lolgen .menu_container .menu_list.svelte-1lolgen {
+.side_menu_container.svelte-1d18pp .menu_container .menu_list.svelte-1d18pp {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.side_menu_container.svelte-1lolgen .menu_container .menu_list.svelte-1lolgen {
+.side_menu_container.svelte-1d18pp .menu_container .menu_list.svelte-1d18pp {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.side_menu_container.svelte-1lolgen .menu_container .menu_list a.svelte-1lolgen {
+.side_menu_container.svelte-1d18pp .menu_container .menu_list a.svelte-1d18pp {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -358,17 +356,20 @@ a.active.svelte-141ecy1 {
   color: var(--gray-007);
   font-size: var(--font-md);
 }
-.side_menu_container.svelte-1lolgen .menu_container .menu_list a.active.svelte-1lolgen {
+.side_menu_container.svelte-1d18pp .menu_container .menu_list a.svelte-1d18pp:hover {
+  color: var(--purple-002);
+}
+.side_menu_container.svelte-1d18pp .menu_container .menu_list a.active.svelte-1d18pp {
   font-weight: 600;
   color: var(--purple-002);
 }
-.side_menu_container.svelte-1lolgen .menu_container .menu_list .submenu.svelte-1lolgen {
+.side_menu_container.svelte-1d18pp .menu_container .menu_list .submenu.svelte-1d18pp {
   margin-left: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.menu_list.svelte-1lolgen .logout.svelte-1lolgen {
+.menu_list.svelte-1d18pp .logout.svelte-1d18pp {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -386,50 +387,51 @@ a.active.svelte-141ecy1 {
 }
 
 /* fakecss:./_components/partials/Navbar.esbuild-svelte-fake-css */
-.navbar_container.svelte-s70vq3.svelte-s70vq3 {
+.navbar_container.svelte-1nj5vcg.svelte-1nj5vcg {
   background-color: var(--purple-003);
   height: 70px;
   padding: 18px 40px;
   display: flex;
   color: #FFF;
 }
-.navbar_container.svelte-s70vq3 .navbar.svelte-s70vq3 {
+.navbar_container.svelte-1nj5vcg .navbar.svelte-1nj5vcg {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.navbar_container.svelte-s70vq3 .navbar .left.svelte-s70vq3,
-.navbar_container.svelte-s70vq3 .navbar .right.svelte-s70vq3 {
+.navbar_container.svelte-1nj5vcg .navbar .left.svelte-1nj5vcg,
+.navbar_container.svelte-1nj5vcg .navbar .right.svelte-1nj5vcg {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 20px;
 }
-.navbar_container.svelte-s70vq3 .navbar .left .menu_btn.svelte-s70vq3 {
+.navbar_container.svelte-1nj5vcg .navbar .left .menu_btn.svelte-1nj5vcg {
   background-color: transparent;
-  padding: 10px;
+  padding: 5px;
   border-radius: 50%;
   border: 1px solid transparent;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  color: #FFF;
 }
-.navbar_container.svelte-s70vq3 .navbar .left .menu_btn.svelte-s70vq3:hover {
+.navbar_container.svelte-1nj5vcg .navbar .left .menu_btn.svelte-1nj5vcg:hover {
   background-color: var(--purple-002);
   border: 1px solid var(--purple-001);
 }
-.navbar_container.svelte-s70vq3 .navbar .left .menu_btn.svelte-s70vq3:active {
+.navbar_container.svelte-1nj5vcg .navbar .left .menu_btn.svelte-1nj5vcg:active {
   background-color: var(--purple-001);
 }
-.navbar_container.svelte-s70vq3 .navbar .left .display_title.svelte-s70vq3 {
+.navbar_container.svelte-1nj5vcg .navbar .left .display_title.svelte-1nj5vcg {
   font-size: var(--font-lg);
   font-weight: 700;
 }
-.navbar_container.svelte-s70vq3 .navbar .right .display_email.svelte-s70vq3 {
+.navbar_container.svelte-1nj5vcg .navbar .right .display_email.svelte-1nj5vcg {
   padding: 5px 15px;
   background-color: var(--purple-002);
   border-radius: 9999px;
@@ -3640,7 +3642,7 @@ a.active.svelte-141ecy1 {
   // index.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
 
-  // _components/Footer.svelte
+  // _components/partials/Footer.svelte
   function create_fragment2(ctx) {
     let footer;
     let p;
@@ -3654,9 +3656,10 @@ a.active.svelte-141ecy1 {
         ctx[0]}`;
         t2 = space();
         nav = element("nav");
-        nav.innerHTML = `<a href="/privacy" class="svelte-1nm9n0y">Privacy</a> <a href="/tos" class="svelte-1nm9n0y">Terms and Conditions</a> <a href="/about" class="svelte-1nm9n0y">About Us</a>`;
-        attr(nav, "class", "svelte-1nm9n0y");
-        attr(footer, "class", "svelte-1nm9n0y");
+        nav.innerHTML = `<a href="/privacy" class="svelte-18vlekj">Privacy</a> <a href="/tos" class="svelte-18vlekj">Terms and Conditions</a> <a href="/about" class="svelte-18vlekj">About Us</a>`;
+        attr(p, "class", "svelte-18vlekj");
+        attr(nav, "class", "svelte-18vlekj");
+        attr(footer, "class", "svelte-18vlekj");
       },
       m(target, anchor) {
         insert(target, footer, anchor);
@@ -3768,6 +3771,15 @@ a.active.svelte-141ecy1 {
     c: '<path d="M496 384H160v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h80v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h336c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160h-80v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h336v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h80c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160H288V48c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16C7.2 64 0 71.2 0 80v32c0 8.8 7.2 16 16 16h208v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h208c8.8 0 16-7.2 16-16V80c0-8.8-7.2-16-16-16z"></path>'
   };
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/hi/HiSolidX.js
+  var HiSolidX_default = {
+    a: {
+      viewBox: "0 0 20 20",
+      fill: "none"
+    },
+    c: '<path fill-rule="evenodd" clip-rule="evenodd" d="M4.29289 4.29289C4.68342 3.90237 5.31658 3.90237 5.70711 4.29289L10 8.58579L14.2929 4.29289C14.6834 3.90237 15.3166 3.90237 15.7071 4.29289C16.0976 4.68342 16.0976 5.31658 15.7071 5.70711L11.4142 10L15.7071 14.2929C16.0976 14.6834 16.0976 15.3166 15.7071 15.7071C15.3166 16.0976 14.6834 16.0976 14.2929 15.7071L10 11.4142L5.70711 15.7071C5.31658 16.0976 4.68342 16.0976 4.29289 15.7071C3.90237 15.3166 3.90237 14.6834 4.29289 14.2929L8.58579 10L4.29289 5.70711C3.90237 5.31658 3.90237 4.68342 4.29289 4.29289Z" fill="#4A5568"></path>'
+  };
+
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/cg/CgLogOut.js
   var CgLogOut_default = {
     a: {
@@ -3775,14 +3787,6 @@ a.active.svelte-141ecy1 {
       fill: "none"
     },
     c: '<path d="M8.51428 20H4.51428C3.40971 20 2.51428 19.1046 2.51428 18V6C2.51428 4.89543 3.40971 4 4.51428 4H8.51428V6H4.51428V18H8.51428V20Z" fill="currentColor"></path><path d="M13.8418 17.385L15.262 15.9768L11.3428 12.0242L20.4857 12.0242C21.038 12.0242 21.4857 11.5765 21.4857 11.0242C21.4857 10.4719 21.038 10.0242 20.4857 10.0242L11.3236 10.0242L15.304 6.0774L13.8958 4.6572L7.5049 10.9941L13.8418 17.385Z" fill="currentColor"></path>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidTimes.js
-  var FaSolidTimes_default = {
-    a: {
-      viewBox: "0 0 352 512"
-    },
-    c: '<path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path>'
   };
 
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ai/AiOutlineWallet.js
@@ -3852,7 +3856,7 @@ a.active.svelte-141ecy1 {
           /*href*/
           ctx[0]
         );
-        attr(a, "class", "svelte-141ecy1");
+        attr(a, "class", "svelte-1jjzex9");
         toggle_class(a, "active", window.location.pathname === /*href*/
         ctx[0]);
       },
@@ -3945,7 +3949,7 @@ a.active.svelte-141ecy1 {
     return {
       c() {
         button = element("button");
-        attr(button, "class", "backdrop svelte-1lolgen");
+        attr(button, "class", "backdrop svelte-1d18pp");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -3993,7 +3997,7 @@ a.active.svelte-141ecy1 {
         span = element("span");
         span.textContent = "Report Viewer";
         attr(a, "href", "/reportViewer/dashboard");
-        attr(a, "class", "svelte-1lolgen");
+        attr(a, "class", "svelte-1d18pp");
         toggle_class(
           a,
           "active",
@@ -4065,9 +4069,9 @@ a.active.svelte-141ecy1 {
         create_component(icon.$.fragment);
         t0 = space();
         span = element("span");
-        span.textContent = "Entry USer";
+        span.textContent = "Entry User";
         attr(a, "href", "/entryUser/dashboard");
-        attr(a, "class", "svelte-1lolgen");
+        attr(a, "class", "svelte-1d18pp");
         toggle_class(
           a,
           "active",
@@ -4131,10 +4135,7 @@ a.active.svelte-141ecy1 {
     icon = new Icon_default({
       props: {
         size: 22,
-        className: (
-          /*segment1*/
-          ctx[2] === "tenantAdmin" ? "icon_active" : "icon_dark"
-        ),
+        className: window.location.pathname === "/tenantAdmin/dashboard" ? "icon_active" : "icon_dark",
         src: RiBuildingsCommunityLine_default
       }
     });
@@ -4165,14 +4166,9 @@ a.active.svelte-141ecy1 {
         t3 = space();
         create_component(submenulink1.$.fragment);
         attr(a, "href", "/tenantAdmin/dashboard");
-        attr(a, "class", "svelte-1lolgen");
-        toggle_class(
-          a,
-          "active",
-          /*segment1*/
-          ctx[2] === "tenantAdmin"
-        );
-        attr(div, "class", "submenu svelte-1lolgen");
+        attr(a, "class", "svelte-1d18pp");
+        toggle_class(a, "active", window.location.pathname === "/tenantAdmin/dashboard");
+        attr(div, "class", "submenu svelte-1d18pp");
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -4186,23 +4182,7 @@ a.active.svelte-141ecy1 {
         mount_component(submenulink1, div, null);
         current = true;
       },
-      p(ctx2, dirty) {
-        const icon_changes = {};
-        if (dirty & /*segment1*/
-        4)
-          icon_changes.className = /*segment1*/
-          ctx2[2] === "tenantAdmin" ? "icon_active" : "icon_dark";
-        icon.$set(icon_changes);
-        if (!current || dirty & /*segment1*/
-        4) {
-          toggle_class(
-            a,
-            "active",
-            /*segment1*/
-            ctx2[2] === "tenantAdmin"
-          );
-        }
-      },
+      p: noop,
       i(local) {
         if (current)
           return;
@@ -4253,7 +4233,7 @@ a.active.svelte-141ecy1 {
         span = element("span");
         span.textContent = "Super Admin";
         attr(a, "href", "/superAdmin/dashboard");
-        attr(a, "class", "svelte-1lolgen");
+        attr(a, "class", "svelte-1d18pp");
         toggle_class(
           a,
           "active",
@@ -4327,7 +4307,7 @@ a.active.svelte-141ecy1 {
         span = element("span");
         span.textContent = "Profile";
         attr(a, "href", "/user/profile");
-        attr(a, "class", "svelte-1lolgen");
+        attr(a, "class", "svelte-1d18pp");
         toggle_class(
           a,
           "active",
@@ -4399,7 +4379,7 @@ a.active.svelte-141ecy1 {
         t0 = space();
         span = element("span");
         span.textContent = "Logout";
-        attr(button, "class", "logout svelte-1lolgen");
+        attr(button, "class", "logout svelte-1d18pp");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -4469,13 +4449,7 @@ a.active.svelte-141ecy1 {
       /*$isSideMenuOpen*/
       ctx[3] && create_if_block_6(ctx)
     );
-    icon0 = new Icon_default({
-      props: {
-        size: 20,
-        color: "#475569",
-        src: FaSolidTimes_default
-      }
-    });
+    icon0 = new Icon_default({ props: { size: 25, src: HiSolidX_default } });
     icon1 = new Icon_default({
       props: {
         size: 22,
@@ -4551,25 +4525,25 @@ a.active.svelte-141ecy1 {
         t11 = space();
         if (if_block6)
           if_block6.c();
-        attr(h3, "class", "svelte-1lolgen");
-        attr(button, "class", "close_btn svelte-1lolgen");
-        attr(header, "class", "svelte-1lolgen");
+        attr(h3, "class", "svelte-1d18pp");
+        attr(button, "class", "close_btn svelte-1d18pp");
+        attr(header, "class", "svelte-1d18pp");
         attr(a, "href", "/");
-        attr(a, "class", "svelte-1lolgen");
+        attr(a, "class", "svelte-1d18pp");
         toggle_class(
           a,
           "active",
           /*segment1*/
           ctx[2] === ""
         );
-        attr(nav0, "class", "menu_list svelte-1lolgen");
-        attr(nav1, "class", "menu_list svelte-1lolgen");
-        attr(div0, "class", "menu_container svelte-1lolgen");
-        attr(div1, "class", "side_menu_container svelte-1lolgen");
+        attr(nav0, "class", "menu_list svelte-1d18pp");
+        attr(nav1, "class", "menu_list svelte-1d18pp");
+        attr(div0, "class", "menu_container svelte-1d18pp");
+        attr(div1, "class", "side_menu_container svelte-1d18pp");
         attr(aside, "class", aside_class_value = null_to_empty(
           /*$isSideMenuOpen*/
           ctx[3] ? `side_menu open` : `side_menu`
-        ) + " svelte-1lolgen");
+        ) + " svelte-1d18pp");
       },
       m(target, anchor) {
         if (if_block0)
@@ -4795,7 +4769,7 @@ a.active.svelte-141ecy1 {
         8 && aside_class_value !== (aside_class_value = null_to_empty(
           /*$isSideMenuOpen*/
           ctx[3] ? `side_menu open` : `side_menu`
-        ) + " svelte-1lolgen")) {
+        ) + " svelte-1d18pp")) {
           attr(aside, "class", aside_class_value);
         }
       },
@@ -4866,9 +4840,9 @@ a.active.svelte-141ecy1 {
     let segment1;
     onMount(() => {
       console.log("onMount.Menu");
-      console.log(access);
+      console.log("Access:", access);
       $invalidate(2, segment1 = window.location.pathname.split("/")[1]);
-      console.log("current path = ", segment1);
+      console.log("current path = ", window.location.pathname);
     });
     async function userLogout() {
       await (0, import_jsApi_GEN.UserLogout)({}, function(o) {
@@ -4901,12 +4875,13 @@ a.active.svelte-141ecy1 {
   };
   var SideMenu_default = SideMenu;
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidBars.js
-  var FaSolidBars_default = {
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/cg/CgMenuLeft.js
+  var CgMenuLeft_default = {
     a: {
-      viewBox: "0 0 448 512"
+      viewBox: "0 0 24 24",
+      fill: "none"
     },
-    c: '<path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path>'
+    c: '<path d="M2 5.99519C2 5.44556 2.44556 5 2.99519 5H11.0048C11.5544 5 12 5.44556 12 5.99519C12 6.54482 11.5544 6.99039 11.0048 6.99039H2.99519C2.44556 6.99039 2 6.54482 2 5.99519Z" fill="currentColor"></path><path d="M2 11.9998C2 11.4501 2.44556 11.0046 2.99519 11.0046H21.0048C21.5544 11.0046 22 11.4501 22 11.9998C22 12.5494 21.5544 12.9949 21.0048 12.9949H2.99519C2.44556 12.9949 2 12.5494 2 11.9998Z" fill="currentColor"></path><path d="M2.99519 17.0096C2.44556 17.0096 2 17.4552 2 18.0048C2 18.5544 2.44556 19 2.99519 19H15.0048C15.5544 19 16 18.5544 16 18.0048C16 17.4552 15.5544 17.0096 15.0048 17.0096H2.99519Z" fill="currentColor"></path>'
   };
 
   // _components/partials/Navbar.svelte
@@ -4930,11 +4905,7 @@ a.active.svelte-141ecy1 {
     let mounted;
     let dispose;
     icon = new Icon_default({
-      props: {
-        color: "#FFF",
-        size: 20,
-        src: FaSolidBars_default
-      }
+      props: { color: "#FFF", size: 25, src: CgMenuLeft_default }
     });
     return {
       c() {
@@ -4950,13 +4921,13 @@ a.active.svelte-141ecy1 {
         div1 = element("div");
         span1 = element("span");
         t3 = text(t3_value);
-        attr(button, "class", "menu_btn svelte-s70vq3");
-        attr(span0, "class", "display_title svelte-s70vq3");
-        attr(div0, "class", "left svelte-s70vq3");
-        attr(span1, "class", "display_email svelte-s70vq3");
-        attr(div1, "class", "right svelte-s70vq3");
-        attr(nav, "class", "navbar svelte-s70vq3");
-        attr(header, "class", "navbar_container svelte-s70vq3");
+        attr(button, "class", "menu_btn svelte-1nj5vcg");
+        attr(span0, "class", "display_title svelte-1nj5vcg");
+        attr(div0, "class", "left svelte-1nj5vcg");
+        attr(span1, "class", "display_email svelte-1nj5vcg");
+        attr(div1, "class", "right svelte-1nj5vcg");
+        attr(nav, "class", "navbar svelte-1nj5vcg");
+        attr(header, "class", "navbar_container svelte-1nj5vcg");
       },
       m(target, anchor) {
         insert(target, header, anchor);

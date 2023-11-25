@@ -25,6 +25,10 @@
     font-size: var(--font-md);
   }
 
+  a:hover {
+    color: var(--purple-002);
+  }
+
   a.active {
     font-weight: 600;
     color: var(--purple-002);

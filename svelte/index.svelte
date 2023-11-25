@@ -5,7 +5,7 @@
   import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import {UserLogout} from "./jsApi.GEN";
-  import Footer from "./_components/Footer.svelte";
+  import Footer from "./_components/partials/Footer.svelte";
   import SideMenu from "./_components/partials/SideMenu.svelte";
   import Navbar from "./_components/partials/Navbar.svelte";
   import {notifier} from "./_components/notifier.js"
