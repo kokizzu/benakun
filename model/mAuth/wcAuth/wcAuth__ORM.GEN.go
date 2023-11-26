@@ -772,6 +772,8 @@ func (u *UsersMutator) DoDeletePermanentById() bool { //nolint:dupl false positi
 //		A.X{`=`, 14, u.FullName},
 //		A.X{`=`, 15, u.TenantCode},
 //		A.X{`=`, 16, u.Role},
+//		A.X{`=`, 17, u.InvitedAt},
+//		A.X{`=`, 18, u.InvitationState},
 //	})
 //	return !L.IsError(err, `Users.DoUpsert failed: `+u.SpaceName()+ `\n%#v`, arr)
 // }
@@ -1009,6 +1011,28 @@ func (u *UsersMutator) SetRole(val string) bool { //nolint:dupl false positive
 	return false
 }
 
+// SetInvitedAt create mutations, should not duplicate
+func (u *UsersMutator) SetInvitedAt(val string) bool { //nolint:dupl false positive
+	if val != u.InvitedAt {
+		u.mutations = append(u.mutations, A.X{`=`, 17, val})
+		u.logs = append(u.logs, A.X{`invitedAt`, u.InvitedAt, val})
+		u.InvitedAt = val
+		return true
+	}
+	return false
+}
+
+// SetInvitationState create mutations, should not duplicate
+func (u *UsersMutator) SetInvitationState(val string) bool { //nolint:dupl false positive
+	if val != u.InvitationState {
+		u.mutations = append(u.mutations, A.X{`=`, 18, val})
+		u.logs = append(u.logs, A.X{`invitationState `, u.InvitationState, val})
+		u.InvitationState = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (u *UsersMutator) SetAll(from rqAuth.Users, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -1083,6 +1107,14 @@ func (u *UsersMutator) SetAll(from rqAuth.Users, excludeMap, forceMap M.SB) (cha
 	}
 	if !excludeMap[`role`] && (forceMap[`role`] || from.Role != ``) {
 		u.Role = S.Trim(from.Role)
+		changed = true
+	}
+	if !excludeMap[`invitedAt`] && (forceMap[`invitedAt`] || from.InvitedAt != ``) {
+		u.InvitedAt = S.Trim(from.InvitedAt)
+		changed = true
+	}
+	if !excludeMap[`invitationState `] && (forceMap[`invitationState `] || from.InvitationState != ``) {
+		u.InvitationState = S.Trim(from.InvitationState)
 		changed = true
 	}
 	return

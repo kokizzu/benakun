@@ -25,6 +25,8 @@ const (
 	FullName           = `fullName`
 	TenantCode         = `tenantCode`
 	Role               = `role`
+	InvitedAt          = `invitedAt`
+	InvitationState    = `invitationState `
 )
 
 const (
@@ -78,6 +80,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{FullName, Tt.String},
 			{TenantCode, Tt.String},
 			{Role, Tt.String},
+			{InvitedAt, Tt.String},
+			{InvitationState, Tt.String},
 		},
 		AutoIncrementId:  true,
 		Unique1:          Email,
