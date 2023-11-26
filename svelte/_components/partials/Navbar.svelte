@@ -34,8 +34,9 @@
   .navbar_container {
     background-color: var(--purple-003);
     height: 70px;
-    padding: 18px 40px;
+    padding: 0 40px;
     display: flex;
+    align-items: center;
     color: #FFF;
   }
 

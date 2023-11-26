@@ -32,6 +32,16 @@
       --purple-002: #6464ee;
       --purple-003: #5555eb;
 
+      --blue-001: #ADE8F4;
+      --blue-002: #90E0EF;
+      --blue-003: #48CAE4;
+      --blue-004: #00B4D8;
+      --blue-005: #0096C7;
+      --blue-006: #0077B6;
+      --blue-007: #023E8A;
+      --blue-008: #03045E;
+
+
       --red-001: #f87171;
       --red-002: #ef4444;
 
@@ -387,29 +397,30 @@ a.active.svelte-1jjzex9 {
 }
 
 /* fakecss:./_components/partials/Navbar.esbuild-svelte-fake-css */
-.navbar_container.svelte-1nj5vcg.svelte-1nj5vcg {
+.navbar_container.svelte-y7e2rj.svelte-y7e2rj {
   background-color: var(--purple-003);
   height: 70px;
-  padding: 18px 40px;
+  padding: 0 40px;
   display: flex;
+  align-items: center;
   color: #FFF;
 }
-.navbar_container.svelte-1nj5vcg .navbar.svelte-1nj5vcg {
+.navbar_container.svelte-y7e2rj .navbar.svelte-y7e2rj {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.navbar_container.svelte-1nj5vcg .navbar .left.svelte-1nj5vcg,
-.navbar_container.svelte-1nj5vcg .navbar .right.svelte-1nj5vcg {
+.navbar_container.svelte-y7e2rj .navbar .left.svelte-y7e2rj,
+.navbar_container.svelte-y7e2rj .navbar .right.svelte-y7e2rj {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 20px;
 }
-.navbar_container.svelte-1nj5vcg .navbar .left .menu_btn.svelte-1nj5vcg {
+.navbar_container.svelte-y7e2rj .navbar .left .menu_btn.svelte-y7e2rj {
   background-color: transparent;
   padding: 5px;
   border-radius: 50%;
@@ -420,18 +431,18 @@ a.active.svelte-1jjzex9 {
   cursor: pointer;
   color: #FFF;
 }
-.navbar_container.svelte-1nj5vcg .navbar .left .menu_btn.svelte-1nj5vcg:hover {
+.navbar_container.svelte-y7e2rj .navbar .left .menu_btn.svelte-y7e2rj:hover {
   background-color: var(--purple-002);
   border: 1px solid var(--purple-001);
 }
-.navbar_container.svelte-1nj5vcg .navbar .left .menu_btn.svelte-1nj5vcg:active {
+.navbar_container.svelte-y7e2rj .navbar .left .menu_btn.svelte-y7e2rj:active {
   background-color: var(--purple-001);
 }
-.navbar_container.svelte-1nj5vcg .navbar .left .display_title.svelte-1nj5vcg {
+.navbar_container.svelte-y7e2rj .navbar .left .display_title.svelte-y7e2rj {
   font-size: var(--font-lg);
   font-weight: 700;
 }
-.navbar_container.svelte-1nj5vcg .navbar .right .display_email.svelte-1nj5vcg {
+.navbar_container.svelte-y7e2rj .navbar .right .display_email.svelte-y7e2rj {
   padding: 5px 15px;
   background-color: var(--purple-002);
   border-radius: 9999px;
@@ -4921,13 +4932,13 @@ a.active.svelte-1jjzex9 {
         div1 = element("div");
         span1 = element("span");
         t3 = text(t3_value);
-        attr(button, "class", "menu_btn svelte-1nj5vcg");
-        attr(span0, "class", "display_title svelte-1nj5vcg");
-        attr(div0, "class", "left svelte-1nj5vcg");
-        attr(span1, "class", "display_email svelte-1nj5vcg");
-        attr(div1, "class", "right svelte-1nj5vcg");
-        attr(nav, "class", "navbar svelte-1nj5vcg");
-        attr(header, "class", "navbar_container svelte-1nj5vcg");
+        attr(button, "class", "menu_btn svelte-y7e2rj");
+        attr(span0, "class", "display_title svelte-y7e2rj");
+        attr(div0, "class", "left svelte-y7e2rj");
+        attr(span1, "class", "display_email svelte-y7e2rj");
+        attr(div1, "class", "right svelte-y7e2rj");
+        attr(nav, "class", "navbar svelte-y7e2rj");
+        attr(header, "class", "navbar_container svelte-y7e2rj");
       },
       m(target, anchor) {
         insert(target, header, anchor);

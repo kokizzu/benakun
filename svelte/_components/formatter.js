@@ -23,7 +23,7 @@ function localeDatetime( unixSec ) {
     if( hh<10 ) hh = '0' + hh;
     let mm = dt.getMinutes();
     if( mm<10 ) mm = '0' + mm;
-    const formattedDate = `${day}, ${date} ${month} ${year} ${hh}:${mm}`;
+    const formattedDate = `${day}, ${date} ${month} ${year} - ${hh}:${mm}`;
     return formattedDate;
 }
 
