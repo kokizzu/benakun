@@ -33,7 +33,8 @@ type (
 const (
 	UserCreateCompanyAction = `user/createCompany`
 
-	ErrCreateCompanyUserNotFound = `user not found`
+	ErrUserCreateCompanyUserNotFound = `user not found`
+	ErrUserCreateCompanyAlreadyAdded = `company already exist`
 )
 
 func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompanyOut) {
@@ -46,13 +47,18 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Id = sess.UserId
 	if !user.FindById() {
-		out.SetError(400, ErrCreateCompanyUserNotFound)
+		out.SetError(400, ErrUserCreateCompanyUserNotFound)
 		return
 	}
 
 	org := wcAuth.NewOrgsMutator(d.AuthOltp)
 	org.SetAll(in.Company, M.SB{}, M.SB{})
 	org.SetTenantCode(fmt.Sprintf("%s_%d", in.UserTenantCode, generateRandomNumber()))
+
+	if !org.DoInsert() {
+		out.SetError(400, ErrUserCreateCompanyAlreadyAdded)
+		return
+	}
 
 	org.Adapter = nil
 	out.Company = &org.Orgs
