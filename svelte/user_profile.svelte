@@ -114,6 +114,10 @@
               <span>Last Updated Password</span>
               <span>{localeDatetime(user.passwordSetAt) || 0}</span>
             </div>
+            <div class="info">
+              <span>Tenant Code</span>
+              <span>{user.tenantCode || 0}</span>
+            </div>
           </div>
           <SubmitButton on:click={updateProfile} isSubmitted={profileSubmit} />
         </div>
@@ -126,17 +130,14 @@
         </div>
       </div>
 
-      <div class="session_list_container">
-        <h3>Active Sessions</h3>
-
-        <div class="session_list_header">
+      <div class="sessions_container">
+        <div class="header">
           <span>IP Address</span>
           <span>Expired At</span>
           <span>Device</span>
         </div>
-
-        <div class="session_list">
-          {#if sessionActiveLists.length}
+        <div class="sessions">
+          {#if sessionActiveLists && sessionActiveLists.length}
             {#each sessionActiveLists as session}
               <div class="session">
                 <span>{session.loginIPs || 'no-data'}</span>
@@ -177,9 +178,9 @@
 
   .user_details_container h3 {
     margin: 0;
-    font-size: var(--font-md);
+    font-size: var(--font-lg);
     width: 100%;
-    text-align: center;
+    text-align: left;
   }
 
   /* +============ /// ===========+ */
@@ -202,7 +203,7 @@
   }
 
   .user_details_container .profile_details {
-    width: 700px;
+    flex-grow: 1;
   }
 
   .user_details_container .profile_details .input_row {
@@ -217,6 +218,7 @@
     flex-direction: column;
     height: fit-content;
     border-radius: 8px;
+    overflow: hidden;
   }
 
   .user_details_container .profile_details .user_info .info {
@@ -234,7 +236,8 @@
     width: 200px;
   }
 
-  .user_details_container .profile_details .user_info .info:nth-child(odd) {
+  .user_details_container .profile_details .user_info .info:nth-child(odd),
+  .sessions_container .sessions .session:nth-child(odd) {
     background-color: var(--gray-001);
   }
 
@@ -248,55 +251,67 @@
 
   /* +=======================================+ */
 
-  .session_list_container .session_list_header {
+  .sessions_container {
+    border: 1px solid var(--gray-003);
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .sessions_container .header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     font-weight: bold;
-    padding: 15px 0;
+    padding: 12px 15px;
     border-bottom: 1px solid #cbd5e1;
-    margin-right: 30px;
   }
 
-  .session_list_container .session_list {
+  .sessions_container .sessions {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    margin-right: 30px;
   }
 
-  .session_list_container .session_list .session {
+  .sessions_container .sessions .session {
     text-align: left;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 0;
+    padding: 12px 15px;
     position: relative;
+    width: 100%;
   }
 
-  .session_list_container .session_list .session span:nth-child(3),
-  .session_list_container .session_list_header span:nth-child(3) {
+  .sessions_container .sessions .session span:nth-child(3),
+  .sessions_container .header span:nth-child(3) {
     flex-grow: 1;
+    margin-right: 30px;
   }
 
-  .session_list_container .session_list .session span,
-  .session_list_container .session_list_header span {
+  .sessions_container .sessions .session span,
+  .sessions_container .header span {
     width: 200px;
   }
 
-  .session_list_container .session_list .session .kill_session {
+  .sessions_container .sessions .session .kill_session {
     border: none;
-    background-color: #4444ef;
-    padding: 6px;
+    background-color: var(--red-002);
+    padding: 5px;
     border-radius: 50%;
     position: absolute;
-    right: -30px;
+    right: 15px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  .session_list_container .session_list .session .kill_session:hover {
-    background-color: #f85454;
+  .sessions_container .sessions .session .kill_session:hover {
+    background-color: var(--red-001);
   }
 
   /* Responsive to mobile device */
