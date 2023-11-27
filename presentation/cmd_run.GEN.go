@@ -172,6 +172,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.UserChangePassword(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.UserCreateCompanyAction:
+		in := domain.UserCreateCompanyIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.UserCreateCompany(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.UserLogoutAction:
 		in := domain.UserLogoutIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

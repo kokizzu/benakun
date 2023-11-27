@@ -1,6 +1,6 @@
 <script>
   //@ts-nocheck
-  import {GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail} from './jsApi.GEN.js';
+  import {UserCreateCompany, GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail} from './jsApi.GEN.js';
   import {onMount, tick} from 'svelte';
   import FaSolidCircleNotch from "svelte-icons-pack/fa/FaSolidCircleNotch";
   import Icon from 'svelte-icons-pack/Icon.svelte';
@@ -9,6 +9,7 @@
   import SideMenu from "./_components/partials/SideMenu.svelte";
   import Navbar from "./_components/partials/Navbar.svelte";
   import {notifier} from "./_components/notifier.js"
+  import SubmitButton from './_components/SubmitButton.svelte';
 
   let user = {/* user */};
   let segments = {/* segments */};
@@ -171,6 +172,29 @@
         window.document.location = '/';
       })
     }
+
+    let tenantCode = '';
+    let companyName = '';
+    let headTitle = '';
+    let isSubmitCreateCompany = false;
+    async function userCreateCompany() {
+        isSubmitCreateCompany = true;
+        await UserCreateCompany({
+            tenantCode: tenantCode,
+            name: companyName,
+            headTitle: headTitle
+        }, function(o) {
+            if (o.error) {
+                isSubmitCreateCompany = false;
+                notifier.showError(o.error);
+                console.log(o.error);
+                return
+            }
+            isSubmitCreateCompany = false;
+            console.log(o);
+            notifier.showSuccess('Company created successfully');
+        })
+    }
 </script>
 
 
@@ -181,7 +205,21 @@
     <div class="root_container">
       <Navbar {user} />
       <div class="root_content">
-        <p>TODO fill with proper menu</p>
+        <div>
+            <label for="tenantCode">Tenant Code</label><br>
+            <input type="text" name="tenantCode" id="tenantCode" bind:value={tenantCode}/>
+
+            <br><br>
+
+            <label for="companyName">Company Name</label><br>
+            <input type="text" name="companyName" id="companyName" bind:value={companyName} />
+
+            <br><br>
+            <label for="headTitle">Head Title</label><br>
+            <input type="text" name="headTitle" id="headTitle" bind:value={headTitle} />
+            <br><br>
+            <SubmitButton on:click={userCreateCompany} isSubmitted={isSubmitCreateCompany} />
+        </div>
       </div>
       <Footer />
     </div>

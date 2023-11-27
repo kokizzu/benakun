@@ -210,6 +210,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// UserCreateCompany
+	fw.Post("/"+domain.UserCreateCompanyAction, func(c *fiber.Ctx) error {
+		in := domain.UserCreateCompanyIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserCreateCompanyAction); err != nil {
+			return nil
+		}
+		out := d.UserCreateCompany(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// UserLogout
 	fw.Post("/"+domain.UserLogoutAction, func(c *fiber.Ctx) error {
 		in := domain.UserLogoutIn{}
@@ -257,16 +267,6 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return nil
 		}
 		out := d.UserUpdateProfile(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
-	})
-
-	// UserCreateCompany
-	fw.Post("/"+domain.UserCreateCompanyAction, func(c *fiber.Ctx) error {
-		in := domain.UserCreateCompanyIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserCreateCompanyAction); err != nil {
-			return nil
-		}
-		out := d.UserCreateCompany(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

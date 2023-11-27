@@ -2901,6 +2901,9 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
       exports.UserChangePassword = async function UserChangePassword(i, cb) {
         return await axios.post("/user/changePassword", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.UserCreateCompany = async function UserCreateCompany(i, cb) {
+        return await axios.post("/user/createCompany", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.UserLogout = async function UserLogout2(i, cb) {
         return await axios.post("/user/logout", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };

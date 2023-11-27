@@ -19,8 +19,7 @@ import (
 type (
 	UserCreateCompanyIn struct {
 		RequestCommon
-		Company        rqAuth.Orgs `json:"company" form:"company" query:"company" long:"company" msg:"company"`
-		UserTenantCode string      `json:"userTenantCode" form:"userTenantCode" query:"userTenantCode" long:"userTenantCode" msg:"userTenantCode"`
+		Company rqAuth.Orgs `json:"company" form:"company" query:"company" long:"company" msg:"company"`
 	}
 
 	UserCreateCompanyOut struct {
@@ -53,7 +52,7 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 
 	org := wcAuth.NewOrgsMutator(d.AuthOltp)
 	org.SetAll(in.Company, M.SB{}, M.SB{})
-	org.SetTenantCode(fmt.Sprintf("%s_%d", in.UserTenantCode, generateRandomNumber()))
+	org.SetTenantCode(fmt.Sprintf("%s_%d", in.Company.TenantCode, generate4RandomNumber()))
 
 	if !org.DoInsert() {
 		out.SetError(400, ErrUserCreateCompanyAlreadyAdded)
@@ -62,10 +61,17 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 
 	org.Adapter = nil
 	out.Company = &org.Orgs
+
+	user.SetTenantCode(out.Company.TenantCode)
+	if !user.DoUpdateById() {
+		out.SetError(500, ErrUserCreateCompanyUserNotFound)
+		return
+	}
+
 	return
 }
 
-func generateRandomNumber() int {
+func generate4RandomNumber() int {
 	randomNumber, _ := rand.Int(rand.Reader, big.NewInt(9000))
 	return int(randomNumber.Int64()) + 1000
 }
