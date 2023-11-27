@@ -995,35 +995,14 @@ exports.UserChangePassword = async function UserChangePassword( i, cb ) {
 
 /**
  * @typedef {Object} UserCreateCompanyIn
- * @property {number} company.id
- * @property {String} company.tenantCode
- * @property {String} company.name
- * @property {String} company.headTitle
- * @property {number} company.parentId
- * @property {Object} company.children
- * @property {number} company.orgType
- * @property {number} company.createdAt
- * @property {number} company.createdBy
- * @property {number} company.updatedAt
- * @property {number} company.updatedBy
- * @property {number} company.deletedAt
+ * @property {String} tenantCode
+ * @property {String} companyName
+ * @property {String} headTitle
  */
 const UserCreateCompanyIn = {
-  company: { // rqAuth.Orgs
-    id: 0, // uint64
-    tenantCode: '', // string
-    name: '', // string
-    headTitle: '', // string
-    parentId: 0, // uint64
-    children: { // []any
-    }, // []any
-    orgType: 0, // uint64
-    createdAt: 0, // int64
-    createdBy: 0, // uint64
-    updatedAt: 0, // int64
-    updatedBy: 0, // uint64
-    deletedAt: 0, // int64
-  }, // rqAuth.Orgs
+  tenantCode: '', // string
+  companyName: '', // string
+  headTitle: '', // string
 }
 /**
  * @typedef {Object} UserCreateCompanyOut

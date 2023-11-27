@@ -6,8 +6,6 @@ import (
 	"crypto/rand"
 	"fmt"
 	"math/big"
-
-	"github.com/kokizzu/gotro/M"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserCreateCompany.go
@@ -19,7 +17,9 @@ import (
 type (
 	UserCreateCompanyIn struct {
 		RequestCommon
-		Company rqAuth.Orgs `json:"company" form:"company" query:"company" long:"company" msg:"company"`
+		TenantCode  string `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
+		CompanyName string `json:"companyName" form:"companyName" query:"companyName" long:"companyName" msg:"companyName"`
+		HeadTitle   string `json:"headTitle" form:"headTitle" query:"headTitle" long:"headTitle" msg:"headTitle"`
 	}
 
 	UserCreateCompanyOut struct {
@@ -51,33 +51,36 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 	}
 
 	org := wcAuth.NewOrgsMutator(d.AuthOltp)
-	org.SetAll(in.Company, M.SB{}, M.SB{})
+	org.SetTenantCode(fmt.Sprintf("%s_%d", in.TenantCode, generate4RandomNumber()))
+	org.SetHeadTitle(in.HeadTitle)
+	org.SetName(in.CompanyName)
 	org.SetCreatedAt(in.UnixNow())
 	org.SetCreatedBy(sess.UserId)
-	org.SetTenantCode(fmt.Sprintf("%s_%d", in.Company.TenantCode, generate4RandomNumber()))
+	org.SetUpdatedAt(in.UnixNow())
+	org.SetUpdatedBy(sess.UserId)
 
 	if !org.DoInsert() {
 		out.SetError(400, ErrUserCreateCompanyAlreadyAdded)
 		return
 	}
-	out.Company = &org.Orgs
 
 	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
-	t := rqAuth.Tenants{
-		TenantCode: out.Company.TenantCode,
-	}
-	tenant.SetAll(t, M.SB{}, M.SB{})
+	tenant.SetTenantCode(org.TenantCode)
 	tenant.SetCreatedAt(in.UnixNow())
 	tenant.SetCreatedBy(sess.UserId)
+	tenant.SetUpdatedAt(in.UnixNow())
+	tenant.SetUpdatedBy(sess.UserId)
 	if !tenant.DoInsert() {
 		out.SetError(400, ErrUserCreateCompanyAlreadyAdded)
 	}
 
-	user.SetTenantCode(out.Company.TenantCode)
+	user.SetTenantCode(org.TenantCode)
 	if !user.DoUpdateById() {
 		out.SetError(400, ErrUserCreateCompanyUserNotFound)
 		return
 	}
+
+	out.Company = &org.Orgs
 	return
 }
 

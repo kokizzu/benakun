@@ -173,16 +173,14 @@
       })
     }
 
-    let tenantCode = '';
-    let companyName = '';
-    let headTitle = '';
+    let tenantCode = '', companyName = '', headTitle = '';
     let isSubmitCreateCompany = false;
     async function userCreateCompany() {
         isSubmitCreateCompany = true;
         await UserCreateCompany({
-            tenantCode: tenantCode,
-            name: companyName,
-            headTitle: headTitle
+            tenantCode,
+            companyName,
+            headTitle
         }, function(o) {
             if (o.error) {
                 isSubmitCreateCompany = false;
