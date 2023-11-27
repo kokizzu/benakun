@@ -52,22 +52,32 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 
 	org := wcAuth.NewOrgsMutator(d.AuthOltp)
 	org.SetAll(in.Company, M.SB{}, M.SB{})
+	org.SetCreatedAt(in.UnixNow())
+	org.SetCreatedBy(sess.UserId)
 	org.SetTenantCode(fmt.Sprintf("%s_%d", in.Company.TenantCode, generate4RandomNumber()))
 
 	if !org.DoInsert() {
 		out.SetError(400, ErrUserCreateCompanyAlreadyAdded)
 		return
 	}
-
-	org.Adapter = nil
 	out.Company = &org.Orgs
+
+	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
+	t := rqAuth.Tenants{
+		TenantCode: out.Company.TenantCode,
+	}
+	tenant.SetAll(t, M.SB{}, M.SB{})
+	tenant.SetCreatedAt(in.UnixNow())
+	tenant.SetCreatedBy(sess.UserId)
+	if !tenant.DoInsert() {
+		out.SetError(400, ErrUserCreateCompanyAlreadyAdded)
+	}
 
 	user.SetTenantCode(out.Company.TenantCode)
 	if !user.DoUpdateById() {
-		out.SetError(500, ErrUserCreateCompanyUserNotFound)
+		out.SetError(400, ErrUserCreateCompanyUserNotFound)
 		return
 	}
-
 	return
 }
 

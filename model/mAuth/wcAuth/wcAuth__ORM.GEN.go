@@ -48,6 +48,27 @@ func (o *OrgsMutator) ClearMutations() { //nolint:dupl false positive
 	o.logs = []A.X{}
 }
 
+// DoOverwriteById update all columns, error if not exists, not using mutations/Set*
+func (o *OrgsMutator) DoOverwriteById() bool { //nolint:dupl false positive
+	_, err := o.Adapter.Update(o.SpaceName(), o.UniqueIndexId(), A.X{o.Id}, o.ToUpdateArray())
+	return !L.IsError(err, `Orgs.DoOverwriteById failed: `+o.SpaceName())
+}
+
+// DoUpdateById update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (o *OrgsMutator) DoUpdateById() bool { //nolint:dupl false positive
+	if !o.HaveMutation() {
+		return true
+	}
+	_, err := o.Adapter.Update(o.SpaceName(), o.UniqueIndexId(), A.X{o.Id}, o.mutations)
+	return !L.IsError(err, `Orgs.DoUpdateById failed: `+o.SpaceName())
+}
+
+// DoDeletePermanentById permanent delete
+func (o *OrgsMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
+	_, err := o.Adapter.Delete(o.SpaceName(), o.UniqueIndexId(), A.X{o.Id})
+	return !L.IsError(err, `Orgs.DoDeletePermanentById failed: `+o.SpaceName())
+}
+
 // func (o *OrgsMutator) DoUpsert() bool { //nolint:dupl false positive
 //	arr := o.ToArray()
 //	_, err := o.Adapter.Upsert(o.SpaceName(), arr, A.X{
@@ -70,7 +91,13 @@ func (o *OrgsMutator) ClearMutations() { //nolint:dupl false positive
 // DoInsert insert, error if already exists
 func (o *OrgsMutator) DoInsert() bool { //nolint:dupl false positive
 	arr := o.ToArray()
-	_, err := o.Adapter.Insert(o.SpaceName(), arr)
+	row, err := o.Adapter.Insert(o.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			o.Id = X.ToU(tup[0][0])
+		}
+	}
 	return !L.IsError(err, `Orgs.DoInsert failed: `+o.SpaceName()+`\n%#v`, arr)
 }
 
@@ -79,7 +106,13 @@ func (o *OrgsMutator) DoInsert() bool { //nolint:dupl false positive
 // previous name: DoReplace
 func (o *OrgsMutator) DoUpsert() bool { //nolint:dupl false positive
 	arr := o.ToArray()
-	_, err := o.Adapter.Replace(o.SpaceName(), arr)
+	row, err := o.Adapter.Replace(o.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			o.Id = X.ToU(tup[0][0])
+		}
+	}
 	return !L.IsError(err, `Orgs.DoUpsert failed: `+o.SpaceName()+`\n%#v`, arr)
 }
 

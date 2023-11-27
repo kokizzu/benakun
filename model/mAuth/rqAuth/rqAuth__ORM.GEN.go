@@ -50,6 +50,24 @@ func (o *Orgs) SqlTableName() string { //nolint:dupl false positive
 	return `"orgs"`
 }
 
+func (o *Orgs) UniqueIndexId() string { //nolint:dupl false positive
+	return `id`
+}
+
+// FindById Find one by Id
+func (o *Orgs) FindById() bool { //nolint:dupl false positive
+	res, err := o.Adapter.Select(o.SpaceName(), o.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{o.Id})
+	if L.IsError(err, `Orgs.FindById failed: `+o.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		o.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
 // SqlSelectAllFields generate Sql select fields
 func (o *Orgs) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "id"
@@ -224,8 +242,12 @@ func (o *Orgs) SqlDeletedAt() string { //nolint:dupl false positive
 
 // ToArray receiver fields to slice
 func (o *Orgs) ToArray() A.X { //nolint:dupl false positive
+	var id any = nil
+	if o.Id != 0 {
+		id = o.Id
+	}
 	return A.X{
-		o.Id,         // 0
+		id,
 		o.TenantCode, // 1
 		o.Name,       // 2
 		o.HeadTitle,  // 3

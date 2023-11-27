@@ -14,9 +14,9 @@ func TestCreateCompany(t *testing.T) {
 	defer closer()
 	const orgJson = `{
 		"company": {
-			"tenantCode": "habiternax",
-			"name": "Ternak Linux",
-			"headTitle": "Linux dev",
+			"tenantCode": "coolcom",
+			"name": "Cool Company",
+			"headTitle": "It's an AI company",
 		}
 	}`
 
@@ -30,7 +30,15 @@ func TestCreateCompany(t *testing.T) {
 		assert.NoError(t, err)
 
 		out := d.UserCreateCompany(&in)
-
+		assert.Empty(t, out.Error)
+		assert.NotZero(t, out.Company.Id)
+		in.Company.Id = out.Company.Id
 		assert.NotZero(t, out.Company.CreatedAt)
+		in.Company.CreatedAt = out.Company.CreatedAt
+		assert.Equal(t, out.Company.Id, out.Company.CreatedBy)
+		in.Company.Id = out.Company.CreatedBy
+		assert.NotEmpty(t, in.Company.TenantCode)
+		assert.NotEmpty(t, in.Company.Name)
+		assert.NotEmpty(t, in.Company.HeadTitle)
 	})
 }

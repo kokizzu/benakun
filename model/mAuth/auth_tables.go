@@ -131,6 +131,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
 		},
+		AutoIncrementId: true,
 	},
 }
 
