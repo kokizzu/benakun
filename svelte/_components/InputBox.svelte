@@ -1,21 +1,44 @@
 <script>
+    import { onMount } from 'svelte';
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import AiOutlineEye from 'svelte-icons-pack/ai/AiOutlineEye';
+  import AiOutlineEyeInvisible from 'svelte-icons-pack/ai/AiOutlineEyeInvisible';
   export let id;
   export let value;
   export let label;
   export let type = 'text';
+  let isShowPassword = false;
+  let inputElm;
 
-  function typeAction(node) {
-    node.type = type;
+  onMount(() => {
+    inputElm.type = type;
+  })
+
+  function toggleShowPassword() {
+    isShowPassword = !isShowPassword;
+    if (isShowPassword) inputElm.type = 'text';
+    else inputElm.type = 'password';
   }
 </script>
 
 <div class="input_box">
   <label for={id}>{label}</label>
-  <input bind:value {id} use:typeAction />
+  <input bind:value {id} bind:this={inputElm} />
+  {#if type === 'password'}
+    <button class="eye" on:click={toggleShowPassword}>
+      {#if !isShowPassword}
+        <Icon color="#495057" size={20} src={AiOutlineEye}/>
+      {/if}
+      {#if isShowPassword}
+        <Icon color="#495057" size={20} src={AiOutlineEyeInvisible}/>
+      {/if}
+    </button>
+  {/if}
 </div>
 
 <style>
   .input_box {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -41,5 +64,22 @@
   .input_box input:focus {
     border-color: var(--blue-005);
     outline: 1px solid var(--blue-005);
+  }
+
+  .input_box .eye {
+    position: absolute;
+    height: fit-content;
+    width: fit-content;
+    background-color: transparent;
+    padding: 0;
+    top: 30px;
+    bottom: auto;
+    right: 10px;
+    border: none;
+    cursor: pointer;
+  }
+
+  :global(.input_box .eye:hover svg) {
+    fill: var(--blue-005);
   }
 </style>
