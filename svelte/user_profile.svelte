@@ -119,14 +119,22 @@
               <span>{user.tenantCode || 0}</span>
             </div>
           </div>
-          <SubmitButton on:click={updateProfile} isSubmitted={profileSubmit} />
+          <SubmitButton
+            on:click={updateProfile}
+            isSubmitted={profileSubmit}
+            isFullWidth={false}
+          />
         </div>
         <div class="password_set">
           <h3>Change Password</h3>
           <InputBox id="oldPassword" label="Old Password" value={oldPassword} type="password" />
           <InputBox id="newPassword" label="New Password" value={newPassword} type="password" />
           <InputBox id="repeatNewPassword" label="Repeat New Password" value={repeatNewPassword} type="password" />
-          <SubmitButton on:click={changePassword} isSubmitted={passwordSubmit} />
+          <SubmitButton
+            on:click={changePassword}
+            isSubmitted={passwordSubmit}
+            isFullWidth={false}
+          />
         </div>
       </div>
 

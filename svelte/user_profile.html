@@ -452,7 +452,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
 }
 
 /* fakecss:./_components/InputBox.esbuild-svelte-fake-css */
-.input_box.svelte-1soitl.svelte-1soitl {
+.input_box.svelte-msefpz.svelte-msefpz {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -462,22 +462,25 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   flex-direction: column;
   gap: 5px;
 }
-.input_box.svelte-1soitl label.svelte-1soitl {
+.input_box.with_password.svelte-msefpz input.svelte-msefpz {
+  padding-right: 40px !important;
+}
+.input_box.svelte-msefpz label.svelte-msefpz {
   font-size: var(--font-base);
   margin-left: 10px;
 }
-.input_box.svelte-1soitl input.svelte-1soitl {
+.input_box.svelte-msefpz input.svelte-msefpz {
   width: 100%;
   border: 1px solid var(--gray-003);
   border-radius: 5px;
   background-color: transparent;
   padding: 10px 12px;
 }
-.input_box.svelte-1soitl input.svelte-1soitl:focus {
+.input_box.svelte-msefpz input.svelte-msefpz:focus {
   border-color: var(--blue-005);
   outline: 1px solid var(--blue-005);
 }
-.input_box.svelte-1soitl .eye.svelte-1soitl {
+.input_box.svelte-msefpz .eye.svelte-msefpz {
   position: absolute;
   height: fit-content;
   width: fit-content;
@@ -494,7 +497,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
 }
 
 /* fakecss:./_components/SubmitButton.esbuild-svelte-fake-css */
-@keyframes svelte-f8ski0-spin {
+@keyframes svelte-wfjkmo-spin {
   from {
     transform: rotate(0deg);
   }
@@ -503,9 +506,12 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   }
 }
 .spin {
-  animation: svelte-f8ski0-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: svelte-wfjkmo-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
-.submit_btn.svelte-f8ski0 {
+.full_width.svelte-wfjkmo {
+  width: 100% !important;
+}
+.submit_btn.svelte-wfjkmo {
   border: none;
   width: fit-content;
   padding: 10px 15px;
@@ -518,7 +524,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   gap: 8px;
   cursor: pointer;
 }
-.submit_btn.svelte-f8ski0:hover {
+.submit_btn.svelte-wfjkmo:hover {
   background-color: var(--blue-005);
 }
 
@@ -5196,7 +5202,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         t = space();
         if (if_block1)
           if_block1.c();
-        attr(button, "class", "eye svelte-1soitl");
+        attr(button, "class", "eye svelte-msefpz");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -5291,7 +5297,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     icon = new Icon_default({
       props: {
         color: "#495057",
-        size: 20,
+        size: "20",
         src: AiOutlineEye_default
       }
     });
@@ -5324,7 +5330,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     icon = new Icon_default({
       props: {
         color: "#495057",
-        size: 20,
+        size: "20",
         src: AiOutlineEyeInvisible_default
       }
     });
@@ -5358,6 +5364,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let t1;
     let input;
     let t2;
+    let div_class_value;
     let current;
     let mounted;
     let dispose;
@@ -5384,15 +5391,18 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
           /*id*/
           ctx[1]
         );
-        attr(label_1, "class", "svelte-1soitl");
+        attr(label_1, "class", "svelte-msefpz");
         attr(
           input,
           "id",
           /*id*/
           ctx[1]
         );
-        attr(input, "class", "svelte-1soitl");
-        attr(div, "class", "input_box svelte-1soitl");
+        attr(input, "class", "svelte-msefpz");
+        attr(div, "class", div_class_value = null_to_empty(
+          /*type*/
+          ctx[3] === "password" ? "input_box with_password" : "input_box"
+        ) + " svelte-msefpz");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -5478,6 +5488,13 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
           });
           check_outros();
         }
+        if (!current || dirty & /*type*/
+        8 && div_class_value !== (div_class_value = null_to_empty(
+          /*type*/
+          ctx2[3] === "password" ? "input_box with_password" : "input_box"
+        ) + " svelte-msefpz")) {
+          attr(div, "class", div_class_value);
+        }
       },
       i(local) {
         if (current)
@@ -5508,9 +5525,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let { type = "text" } = $props;
     let isShowPassword = false;
     let inputElm;
-    onMount(() => {
-      $invalidate(5, inputElm.type = type, inputElm);
-    });
+    onMount(() => $invalidate(5, inputElm.type = type, inputElm));
     function toggleShowPassword() {
       $invalidate(4, isShowPassword = !isShowPassword);
       if (isShowPassword)
@@ -5653,6 +5668,8 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let t0;
     let t1;
     let span;
+    let t2;
+    let button_class_value;
     let current;
     let mounted;
     let dispose;
@@ -5672,8 +5689,14 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
           if_block1.c();
         t1 = space();
         span = element("span");
-        span.textContent = "Submit";
-        attr(button, "class", "submit_btn svelte-f8ski0");
+        t2 = text(
+          /*label*/
+          ctx[2]
+        );
+        attr(button, "class", button_class_value = null_to_empty(
+          /*isFullWidth*/
+          ctx[1] ? "submit_btn full_width" : "submit_btn"
+        ) + " svelte-wfjkmo");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -5684,11 +5707,12 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
           if_block1.m(button, null);
         append(button, t1);
         append(button, span);
+        append(span, t2);
         current = true;
         if (!mounted) {
           dispose = listen(button, "click", prevent_default(
             /*click_handler*/
-            ctx[1]
+            ctx[3]
           ));
           mounted = true;
         }
@@ -5736,6 +5760,20 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
           });
           check_outros();
         }
+        if (!current || dirty & /*label*/
+        4)
+          set_data(
+            t2,
+            /*label*/
+            ctx2[2]
+          );
+        if (!current || dirty & /*isFullWidth*/
+        2 && button_class_value !== (button_class_value = null_to_empty(
+          /*isFullWidth*/
+          ctx2[1] ? "submit_btn full_width" : "submit_btn"
+        ) + " svelte-wfjkmo")) {
+          attr(button, "class", button_class_value);
+        }
       },
       i(local) {
         if (current)
@@ -5764,19 +5802,25 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   }
   function instance7($self, $props, $invalidate) {
     let { isSubmitted = false } = $props;
+    let { isFullWidth = false } = $props;
+    let { label = "Submit" } = $props;
     function click_handler(event) {
       bubble.call(this, $self, event);
     }
     $self.$set = ($props2) => {
       if ("isSubmitted" in $props2)
         $invalidate(0, isSubmitted = $props2.isSubmitted);
+      if ("isFullWidth" in $props2)
+        $invalidate(1, isFullWidth = $props2.isFullWidth);
+      if ("label" in $props2)
+        $invalidate(2, label = $props2.label);
     };
-    return [isSubmitted, click_handler];
+    return [isSubmitted, isFullWidth, label, click_handler];
   }
   var SubmitButton = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance7, create_fragment7, safe_not_equal, { isSubmitted: 0 });
+      init(this, options, instance7, create_fragment7, safe_not_equal, { isSubmitted: 0, isFullWidth: 1, label: 2 });
     }
   };
   var SubmitButton_default = SubmitButton;
@@ -6138,10 +6182,13 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       }
     });
     submitbutton0 = new SubmitButton_default({
-      props: { isSubmitted: (
-        /*profileSubmit*/
-        ctx[5]
-      ) }
+      props: {
+        isSubmitted: (
+          /*profileSubmit*/
+          ctx[5]
+        ),
+        isFullWidth: false
+      }
     });
     submitbutton0.$on(
       "click",
@@ -6182,10 +6229,13 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       }
     });
     submitbutton1 = new SubmitButton_default({
-      props: { isSubmitted: (
-        /*passwordSubmit*/
-        ctx[6]
-      ) }
+      props: {
+        isSubmitted: (
+          /*passwordSubmit*/
+          ctx[6]
+        ),
+        isFullWidth: false
+      }
     });
     submitbutton1.$on(
       "click",

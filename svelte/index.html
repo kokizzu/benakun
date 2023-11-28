@@ -452,7 +452,7 @@ a.active.svelte-1jjzex9 {
 }
 
 /* fakecss:./_components/SubmitButton.esbuild-svelte-fake-css */
-@keyframes svelte-f8ski0-spin {
+@keyframes svelte-wfjkmo-spin {
   from {
     transform: rotate(0deg);
   }
@@ -461,9 +461,12 @@ a.active.svelte-1jjzex9 {
   }
 }
 .spin {
-  animation: svelte-f8ski0-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: svelte-wfjkmo-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
-.submit_btn.svelte-f8ski0 {
+.full_width.svelte-wfjkmo {
+  width: 100% !important;
+}
+.submit_btn.svelte-wfjkmo {
   border: none;
   width: fit-content;
   padding: 10px 15px;
@@ -476,12 +479,57 @@ a.active.svelte-1jjzex9 {
   gap: 8px;
   cursor: pointer;
 }
-.submit_btn.svelte-f8ski0:hover {
+.submit_btn.svelte-wfjkmo:hover {
   background-color: var(--blue-005);
 }
 
+/* fakecss:./_components/InputBox.esbuild-svelte-fake-css */
+.input_box.svelte-msefpz.svelte-msefpz {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: var(--gray-007);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.input_box.with_password.svelte-msefpz input.svelte-msefpz {
+  padding-right: 40px !important;
+}
+.input_box.svelte-msefpz label.svelte-msefpz {
+  font-size: var(--font-base);
+  margin-left: 10px;
+}
+.input_box.svelte-msefpz input.svelte-msefpz {
+  width: 100%;
+  border: 1px solid var(--gray-003);
+  border-radius: 5px;
+  background-color: transparent;
+  padding: 10px 12px;
+}
+.input_box.svelte-msefpz input.svelte-msefpz:focus {
+  border-color: var(--blue-005);
+  outline: 1px solid var(--blue-005);
+}
+.input_box.svelte-msefpz .eye.svelte-msefpz {
+  position: absolute;
+  height: fit-content;
+  width: fit-content;
+  background-color: transparent;
+  padding: 0;
+  top: 30px;
+  bottom: auto;
+  right: 10px;
+  border: none;
+  cursor: pointer;
+}
+.input_box .eye:hover svg {
+  fill: var(--blue-005);
+}
+
 /* fakecss:./index.esbuild-svelte-fake-css */
-@keyframes svelte-1i962qc-spin {
+@keyframes svelte-pad9kh-spin {
   from {
     transform: rotate(0deg);
   }
@@ -490,16 +538,16 @@ a.active.svelte-1jjzex9 {
   }
 }
 .spin {
-  animation: svelte-1i962qc-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: svelte-pad9kh-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
-.auth_section.svelte-1i962qc.svelte-1i962qc {
-  height: 100%;
+.auth_section.svelte-pad9kh.svelte-pad9kh {
+  height: 100dvh;
   width: 100%;
-  background-color: #F1F5F9;
+  background-color: #f1f5f9;
   display: flex;
   color: #475569;
 }
-.main_container.svelte-1i962qc.svelte-1i962qc {
+.main_container.svelte-pad9kh.svelte-pad9kh {
   width: 480px;
   height: fit-content;
   padding: 20px;
@@ -509,54 +557,32 @@ a.active.svelte-1jjzex9 {
   flex-direction: column;
   background-color: white;
   margin: 50px auto;
-  border: 1px solid #CBD5E1;
+  border: 1px solid #cbd5e1;
 }
-.title_container.svelte-1i962qc.svelte-1i962qc {
+.title_container.svelte-pad9kh.svelte-pad9kh {
   display: flex;
   flex-direction: column;
   width: 100%;
   text-align: center;
 }
-.title_container.svelte-1i962qc p.svelte-1i962qc {
+.title_container.svelte-pad9kh p.svelte-pad9kh {
   font-size: 16px;
   font-weight: 600;
-  color: #4444EF;
+  color: #4444ef;
   margin: 0;
 }
-.title_container.svelte-1i962qc h1.svelte-1i962qc {
+.title_container.svelte-pad9kh h1.svelte-pad9kh {
   margin: 5px 0 0 0;
   font-size: 22px;
   font-weight: 700;
 }
-.input_container.svelte-1i962qc.svelte-1i962qc {
+.input_container.svelte-pad9kh.svelte-pad9kh {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
+  gap: 20px;
 }
-.input_container.svelte-1i962qc .input_box.svelte-1i962qc {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-top: 10px;
-}
-.input_container.svelte-1i962qc .input_box label.svelte-1i962qc {
-  font-size: 13px;
-  font-weight: 700;
-  margin-left: 10px;
-  margin-bottom: 8px;
-}
-.input_container.svelte-1i962qc .input_box input.svelte-1i962qc {
-  width: 100%;
-  border: 1px solid #CBD5E1;
-  background-color: #F1F5F9;
-  border-radius: 8px;
-  padding: 12px;
-}
-.input_container.svelte-1i962qc .input_box input.svelte-1i962qc:focus {
-  border-color: #3B82F6;
-  outline: 1px solid #3B82F6;
-}
-.forgot_password.svelte-1i962qc.svelte-1i962qc {
+.forgot_password.svelte-pad9kh.svelte-pad9kh {
   margin-top: 7px;
   margin-bottom: 15px;
   width: 100%;
@@ -564,51 +590,51 @@ a.active.svelte-1jjzex9 {
   font-size: 14px;
   font-weight: 600;
 }
-.forgot_password.svelte-1i962qc a.svelte-1i962qc {
-  color: #3B82F6;
+.forgot_password.svelte-pad9kh a.svelte-pad9kh {
+  color: #3b82f6;
   text-decoration: none;
 }
-.forgot_password.svelte-1i962qc a.svelte-1i962qc:hover {
-  color: #5892F5;
+.forgot_password.svelte-pad9kh a.svelte-pad9kh:hover {
+  color: #5892f5;
   text-decoration: underline;
 }
-.button_container.svelte-1i962qc button.svelte-1i962qc {
+.button_container.svelte-pad9kh button.svelte-pad9kh {
   margin: 0;
   width: 100%;
   padding: 10px;
   font-size: 16px;
   font-weight: 700;
-  background-color: #3B82F6;
+  background-color: #3b82f6;
   border-radius: 8px;
   color: white;
   border: none;
   cursor: pointer;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }
-.button_container.svelte-1i962qc button.svelte-1i962qc:hover {
-  background-color: #5892F5;
+.button_container.svelte-pad9kh button.svelte-pad9kh:hover {
+  background-color: #5892f5;
 }
-.oauth_container.svelte-1i962qc .or_separator.svelte-1i962qc {
+.oauth_container.svelte-pad9kh .or_separator.svelte-pad9kh {
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
 }
-.oauth_container.svelte-1i962qc .or_separator span.svelte-1i962qc {
+.oauth_container.svelte-pad9kh .or_separator span.svelte-pad9kh {
   flex-grow: 1;
   height: 0;
-  border-top: 1px solid #CBD5E1;
+  border-top: 1px solid #cbd5e1;
   padding: 0;
 }
-.oauth_container.svelte-1i962qc .or_separator p.svelte-1i962qc {
+.oauth_container.svelte-pad9kh .or_separator p.svelte-pad9kh {
   width: fit-content;
   font-weight: 600;
   padding: 0 10px;
 }
-.oauth_container.svelte-1i962qc .button.svelte-1i962qc {
+.oauth_container.svelte-pad9kh .button.svelte-pad9kh {
   padding: 10px;
   background-color: white;
-  border: 1px solid #CBD5E1;
+  border: 1px solid #cbd5e1;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -618,33 +644,33 @@ a.active.svelte-1jjzex9 {
   text-decoration: none;
   color: #334155;
 }
-.oauth_container.svelte-1i962qc .button.svelte-1i962qc:hover {
-  background-color: #F1F5F9;
+.oauth_container.svelte-pad9kh .button.svelte-pad9kh:hover {
+  background-color: #f1f5f9;
 }
-.oauth_container.svelte-1i962qc .button img.svelte-1i962qc {
+.oauth_container.svelte-pad9kh .button img.svelte-pad9kh {
   width: 20px;
   height: auto;
 }
-.oauth_container.svelte-1i962qc .button span.svelte-1i962qc {
+.oauth_container.svelte-pad9kh .button span.svelte-pad9kh {
   margin-left: 8px;
 }
-.foot_auth.svelte-1i962qc.svelte-1i962qc {
+.foot_auth.svelte-pad9kh.svelte-pad9kh {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
 }
-.foot_auth.svelte-1i962qc p.svelte-1i962qc {
+.foot_auth.svelte-pad9kh p.svelte-pad9kh {
   margin-top: 10px;
   margin-bottom: 0;
   text-align: center;
   font-weight: 600;
 }
-.foot_auth.svelte-1i962qc a.svelte-1i962qc {
-  color: #3B82F6;
+.foot_auth.svelte-pad9kh a.svelte-pad9kh {
+  color: #3b82f6;
   text-decoration: none;
 }
-.foot_auth.svelte-1i962qc a.svelte-1i962qc:hover {
-  color: #5892F5;
+.foot_auth.svelte-pad9kh a.svelte-pad9kh:hover {
+  color: #5892f5;
   text-decoration: underline;
 }
 </style>
@@ -679,7 +705,7 @@ a.active.svelte-1jjzex9 {
   var require_axios = __commonJS({
     "node_modules/.pnpm/axios@1.6.2/node_modules/axios/dist/browser/axios.cjs"(exports, module) {
       "use strict";
-      function bind(fn, thisArg) {
+      function bind2(fn, thisArg) {
         return function wrap() {
           return fn.apply(thisArg, arguments);
         };
@@ -799,7 +825,7 @@ a.active.svelte-1jjzex9 {
       var extend = (a, b, thisArg, { allOwnKeys } = {}) => {
         forEach(b, (val, key) => {
           if (thisArg && isFunction(val)) {
-            a[key] = bind(val, thisArg);
+            a[key] = bind2(val, thisArg);
           } else {
             a[key] = val;
           }
@@ -2659,13 +2685,13 @@ a.active.svelte-1jjzex9 {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance8 = bind(Axios$1.prototype.request, context);
-        utils$1.extend(instance8, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance8, context, null, { allOwnKeys: true });
-        instance8.create = function create(instanceConfig) {
+        const instance9 = bind2(Axios$1.prototype.request, context);
+        utils$1.extend(instance9, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance9, context, null, { allOwnKeys: true });
+        instance9.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance8;
+        return instance9;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2975,6 +3001,13 @@ a.active.svelte-1jjzex9 {
   function set_input_value(input, value) {
     input.value = value == null ? "" : value;
   }
+  function set_style(node, key, value, important) {
+    if (value == null) {
+      node.style.removeProperty(key);
+    } else {
+      node.style.setProperty(key, value, important ? "important" : "");
+    }
+  }
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
   }
@@ -3028,6 +3061,9 @@ a.active.svelte-1jjzex9 {
   }
   function add_render_callback(fn) {
     render_callbacks.push(fn);
+  }
+  function add_flush_callback(fn) {
+    flush_callbacks.push(fn);
   }
   var seen_callbacks = /* @__PURE__ */ new Set();
   var flushidx = 0;
@@ -3198,6 +3234,13 @@ a.active.svelte-1jjzex9 {
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/Component.js
+  function bind(component, name, callback) {
+    const index = component.$.props[name];
+    if (index !== void 0) {
+      component.$.bound[index] = callback;
+      callback(component.$.ctx[index]);
+    }
+  }
   function create_component(block) {
     block && block.c();
   }
@@ -3233,7 +3276,7 @@ a.active.svelte-1jjzex9 {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance8, create_fragment8, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance9, create_fragment9, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3259,7 +3302,7 @@ a.active.svelte-1jjzex9 {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance8 ? instance8(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance9 ? instance9(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -3272,7 +3315,7 @@ a.active.svelte-1jjzex9 {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment8 ? create_fragment8($.ctx) : false;
+    $.fragment = create_fragment9 ? create_fragment9($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -5217,6 +5260,8 @@ a.active.svelte-1jjzex9 {
     let t0;
     let t1;
     let span;
+    let t2;
+    let button_class_value;
     let current;
     let mounted;
     let dispose;
@@ -5236,8 +5281,14 @@ a.active.svelte-1jjzex9 {
           if_block1.c();
         t1 = space();
         span = element("span");
-        span.textContent = "Submit";
-        attr(button, "class", "submit_btn svelte-f8ski0");
+        t2 = text(
+          /*label*/
+          ctx[2]
+        );
+        attr(button, "class", button_class_value = null_to_empty(
+          /*isFullWidth*/
+          ctx[1] ? "submit_btn full_width" : "submit_btn"
+        ) + " svelte-wfjkmo");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -5248,11 +5299,12 @@ a.active.svelte-1jjzex9 {
           if_block1.m(button, null);
         append(button, t1);
         append(button, span);
+        append(span, t2);
         current = true;
         if (!mounted) {
           dispose = listen(button, "click", prevent_default(
             /*click_handler*/
-            ctx[1]
+            ctx[3]
           ));
           mounted = true;
         }
@@ -5300,6 +5352,20 @@ a.active.svelte-1jjzex9 {
           });
           check_outros();
         }
+        if (!current || dirty & /*label*/
+        4)
+          set_data(
+            t2,
+            /*label*/
+            ctx2[2]
+          );
+        if (!current || dirty & /*isFullWidth*/
+        2 && button_class_value !== (button_class_value = null_to_empty(
+          /*isFullWidth*/
+          ctx2[1] ? "submit_btn full_width" : "submit_btn"
+        ) + " svelte-wfjkmo")) {
+          attr(button, "class", button_class_value);
+        }
       },
       i(local) {
         if (current)
@@ -5328,22 +5394,436 @@ a.active.svelte-1jjzex9 {
   }
   function instance6($self, $props, $invalidate) {
     let { isSubmitted = false } = $props;
+    let { isFullWidth = false } = $props;
+    let { label = "Submit" } = $props;
     function click_handler(event) {
       bubble.call(this, $self, event);
     }
     $self.$set = ($props2) => {
       if ("isSubmitted" in $props2)
         $invalidate(0, isSubmitted = $props2.isSubmitted);
+      if ("isFullWidth" in $props2)
+        $invalidate(1, isFullWidth = $props2.isFullWidth);
+      if ("label" in $props2)
+        $invalidate(2, label = $props2.label);
     };
-    return [isSubmitted, click_handler];
+    return [isSubmitted, isFullWidth, label, click_handler];
   }
   var SubmitButton = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance6, create_fragment6, safe_not_equal, { isSubmitted: 0 });
+      init(this, options, instance6, create_fragment6, safe_not_equal, { isSubmitted: 0, isFullWidth: 1, label: 2 });
     }
   };
   var SubmitButton_default = SubmitButton;
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ai/AiOutlineEye.js
+  var AiOutlineEye_default = {
+    a: {
+      viewBox: "0 0 1024 1024"
+    },
+    c: '<path d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 0 0 0 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"></path>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ai/AiOutlineEyeInvisible.js
+  var AiOutlineEyeInvisible_default = {
+    a: {
+      viewBox: "0 0 1024 1024"
+    },
+    c: '<path d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 0 0 0-51.5zm-63.57-320.64L836 122.88a8 8 0 0 0-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 0 0 0 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 0 0 0 11.31L155.17 889a8 8 0 0 0 11.31 0l712.15-712.12a8 8 0 0 0 0-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 0 0-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 0 1 146.2-106.69L401.31 546.2A112 112 0 0 1 396 512z"></path><path d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 0 0 227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 0 1-112 112z"></path>'
+  };
+
+  // _components/InputBox.svelte
+  function create_if_block3(ctx) {
+    let button;
+    let t;
+    let current;
+    let mounted;
+    let dispose;
+    let if_block0 = !/*isShowPassword*/
+    ctx[4] && create_if_block_22(ctx);
+    let if_block1 = (
+      /*isShowPassword*/
+      ctx[4] && create_if_block_13(ctx)
+    );
+    return {
+      c() {
+        button = element("button");
+        if (if_block0)
+          if_block0.c();
+        t = space();
+        if (if_block1)
+          if_block1.c();
+        attr(button, "class", "eye svelte-msefpz");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        if (if_block0)
+          if_block0.m(button, null);
+        append(button, t);
+        if (if_block1)
+          if_block1.m(button, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*toggleShowPassword*/
+            ctx[6]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (!/*isShowPassword*/
+        ctx2[4]) {
+          if (if_block0) {
+            if (dirty & /*isShowPassword*/
+            16) {
+              transition_in(if_block0, 1);
+            }
+          } else {
+            if_block0 = create_if_block_22(ctx2);
+            if_block0.c();
+            transition_in(if_block0, 1);
+            if_block0.m(button, t);
+          }
+        } else if (if_block0) {
+          group_outros();
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*isShowPassword*/
+          ctx2[4]
+        ) {
+          if (if_block1) {
+            if (dirty & /*isShowPassword*/
+            16) {
+              transition_in(if_block1, 1);
+            }
+          } else {
+            if_block1 = create_if_block_13(ctx2);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(button, null);
+          }
+        } else if (if_block1) {
+          group_outros();
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block0);
+        transition_in(if_block1);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block0);
+        transition_out(if_block1);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_22(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        color: "#495057",
+        size: "20",
+        src: AiOutlineEye_default
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_if_block_13(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        color: "#495057",
+        size: "20",
+        src: AiOutlineEyeInvisible_default
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_fragment7(ctx) {
+    let div;
+    let label_1;
+    let t0;
+    let t1;
+    let input;
+    let t2;
+    let div_class_value;
+    let current;
+    let mounted;
+    let dispose;
+    let if_block = (
+      /*type*/
+      ctx[3] === "password" && create_if_block3(ctx)
+    );
+    return {
+      c() {
+        div = element("div");
+        label_1 = element("label");
+        t0 = text(
+          /*label*/
+          ctx[2]
+        );
+        t1 = space();
+        input = element("input");
+        t2 = space();
+        if (if_block)
+          if_block.c();
+        attr(
+          label_1,
+          "for",
+          /*id*/
+          ctx[1]
+        );
+        attr(label_1, "class", "svelte-msefpz");
+        attr(
+          input,
+          "id",
+          /*id*/
+          ctx[1]
+        );
+        attr(input, "class", "svelte-msefpz");
+        attr(div, "class", div_class_value = null_to_empty(
+          /*type*/
+          ctx[3] === "password" ? "input_box with_password" : "input_box"
+        ) + " svelte-msefpz");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        append(div, label_1);
+        append(label_1, t0);
+        append(div, t1);
+        append(div, input);
+        set_input_value(
+          input,
+          /*value*/
+          ctx[0]
+        );
+        ctx[8](input);
+        append(div, t2);
+        if (if_block)
+          if_block.m(div, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "input",
+            /*input_input_handler*/
+            ctx[7]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, [dirty]) {
+        if (!current || dirty & /*label*/
+        4)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[2]
+          );
+        if (!current || dirty & /*id*/
+        2) {
+          attr(
+            label_1,
+            "for",
+            /*id*/
+            ctx2[1]
+          );
+        }
+        if (!current || dirty & /*id*/
+        2) {
+          attr(
+            input,
+            "id",
+            /*id*/
+            ctx2[1]
+          );
+        }
+        if (dirty & /*value*/
+        1 && input.value !== /*value*/
+        ctx2[0]) {
+          set_input_value(
+            input,
+            /*value*/
+            ctx2[0]
+          );
+        }
+        if (
+          /*type*/
+          ctx2[3] === "password"
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*type*/
+            8) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block3(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(div, null);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
+        if (!current || dirty & /*type*/
+        8 && div_class_value !== (div_class_value = null_to_empty(
+          /*type*/
+          ctx2[3] === "password" ? "input_box with_password" : "input_box"
+        ) + " svelte-msefpz")) {
+          attr(div, "class", div_class_value);
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        ctx[8](null);
+        if (if_block)
+          if_block.d();
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function instance7($self, $props, $invalidate) {
+    let { id } = $props;
+    let { value } = $props;
+    let { label } = $props;
+    let { type = "text" } = $props;
+    let isShowPassword = false;
+    let inputElm;
+    onMount(() => $invalidate(5, inputElm.type = type, inputElm));
+    function toggleShowPassword() {
+      $invalidate(4, isShowPassword = !isShowPassword);
+      if (isShowPassword)
+        $invalidate(5, inputElm.type = "text", inputElm);
+      else
+        $invalidate(5, inputElm.type = "password", inputElm);
+    }
+    function input_input_handler() {
+      value = this.value;
+      $invalidate(0, value);
+    }
+    function input_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        inputElm = $value;
+        $invalidate(5, inputElm);
+      });
+    }
+    $self.$set = ($props2) => {
+      if ("id" in $props2)
+        $invalidate(1, id = $props2.id);
+      if ("value" in $props2)
+        $invalidate(0, value = $props2.value);
+      if ("label" in $props2)
+        $invalidate(2, label = $props2.label);
+      if ("type" in $props2)
+        $invalidate(3, type = $props2.type);
+    };
+    return [
+      value,
+      id,
+      label,
+      type,
+      isShowPassword,
+      inputElm,
+      toggleShowPassword,
+      input_input_handler,
+      input_binding
+    ];
+  }
+  var InputBox = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance7, create_fragment7, safe_not_equal, { id: 1, value: 0, label: 2, type: 3 });
+    }
+  };
+  var InputBox_default = InputBox;
 
   // index.svelte
   var { window: window_1 } = globals;
@@ -5356,7 +5836,7 @@ a.active.svelte-1jjzex9 {
     let h1;
     let t2_value = (
       /*mode*/
-      ctx[7].split("_").join(" ") + ""
+      ctx[5].split("_").join(" ") + ""
     );
     let t2;
     let t3;
@@ -5382,56 +5862,56 @@ a.active.svelte-1jjzex9 {
     let current;
     let if_block0 = (
       /*mode*/
-      (ctx[7] === LOGIN || /*mode*/
-      ctx[7] === REGISTER || /*mode*/
-      ctx[7] === RESEND_VERIFICATION_EMAIL || /*mode*/
-      ctx[7] === FORGOT_PASSWORD) && create_if_block_21(ctx)
+      (ctx[5] === LOGIN || /*mode*/
+      ctx[5] === REGISTER || /*mode*/
+      ctx[5] === RESEND_VERIFICATION_EMAIL || /*mode*/
+      ctx[5] === FORGOT_PASSWORD) && create_if_block_21(ctx)
     );
     let if_block1 = (
       /*mode*/
-      (ctx[7] === LOGIN || /*mode*/
-      ctx[7] === REGISTER) && create_if_block_20(ctx)
+      (ctx[5] === LOGIN || /*mode*/
+      ctx[5] === REGISTER) && create_if_block_20(ctx)
     );
     let if_block2 = (
       /*mode*/
-      ctx[7] === REGISTER && create_if_block_19(ctx)
+      ctx[5] === REGISTER && create_if_block_19(ctx)
     );
     let if_block3 = (
       /*mode*/
-      ctx[7] === LOGIN && create_if_block_18(ctx)
+      ctx[5] === LOGIN && create_if_block_18(ctx)
     );
     let if_block4 = (
       /*mode*/
-      ctx[7] === REGISTER && create_if_block_15(ctx)
+      ctx[5] === REGISTER && create_if_block_15(ctx)
     );
     let if_block5 = (
       /*mode*/
-      ctx[7] === LOGIN && create_if_block_122(ctx)
+      ctx[5] === LOGIN && create_if_block_122(ctx)
     );
     let if_block6 = (
       /*mode*/
-      ctx[7] === RESEND_VERIFICATION_EMAIL && create_if_block_9(ctx)
+      ctx[5] === RESEND_VERIFICATION_EMAIL && create_if_block_9(ctx)
     );
     let if_block7 = (
       /*mode*/
-      ctx[7] === FORGOT_PASSWORD && create_if_block_62(ctx)
+      ctx[5] === FORGOT_PASSWORD && create_if_block_62(ctx)
     );
     let if_block8 = (
       /*mode*/
-      (ctx[7] === REGISTER || /*mode*/
-      ctx[7] === LOGIN) && create_if_block_42(ctx)
+      (ctx[5] === REGISTER || /*mode*/
+      ctx[5] === LOGIN) && create_if_block_42(ctx)
     );
     let if_block9 = (
       /*mode*/
-      ctx[7] !== REGISTER && create_if_block_32(ctx)
+      ctx[5] !== REGISTER && create_if_block_32(ctx)
     );
     let if_block10 = (
       /*mode*/
-      ctx[7] !== LOGIN && create_if_block_22(ctx)
+      ctx[5] !== LOGIN && create_if_block_23(ctx)
     );
     let if_block11 = (
       /*mode*/
-      ctx[7] !== RESEND_VERIFICATION_EMAIL && create_if_block_110(ctx)
+      ctx[5] !== RESEND_VERIFICATION_EMAIL && create_if_block_110(ctx)
     );
     return {
       c() {
@@ -5487,15 +5967,15 @@ a.active.svelte-1jjzex9 {
         t16 = space();
         if (if_block11)
           if_block11.c();
-        attr(p, "class", "svelte-1i962qc");
-        attr(h1, "class", "svelte-1i962qc");
-        attr(div0, "class", "title_container svelte-1i962qc");
-        attr(div1, "class", "input_container svelte-1i962qc");
-        attr(div2, "class", "button_container svelte-1i962qc");
-        attr(div3, "class", "foot_auth svelte-1i962qc");
+        attr(p, "class", "svelte-pad9kh");
+        attr(h1, "class", "svelte-pad9kh");
+        attr(div0, "class", "title_container svelte-pad9kh");
+        attr(div1, "class", "input_container svelte-pad9kh");
+        attr(div2, "class", "button_container svelte-pad9kh");
+        attr(div3, "class", "foot_auth svelte-pad9kh");
         attr(div4, "class", "sign_in_container");
-        attr(div5, "class", "main_container svelte-1i962qc");
-        attr(section, "class", "auth_section svelte-1i962qc");
+        attr(div5, "class", "main_container svelte-pad9kh");
+        attr(section, "class", "auth_section svelte-pad9kh");
       },
       m(target, anchor) {
         insert(target, section, anchor);
@@ -5552,62 +6032,86 @@ a.active.svelte-1jjzex9 {
         current = true;
       },
       p(ctx2, dirty) {
-        if ((!current || dirty[0] & /*mode*/
-        128) && t2_value !== (t2_value = /*mode*/
-        ctx2[7].split("_").join(" ") + ""))
+        if ((!current || dirty & /*mode*/
+        32) && t2_value !== (t2_value = /*mode*/
+        ctx2[5].split("_").join(" ") + ""))
           set_data(t2, t2_value);
         if (
           /*mode*/
-          ctx2[7] === LOGIN || /*mode*/
-          ctx2[7] === REGISTER || /*mode*/
-          ctx2[7] === RESEND_VERIFICATION_EMAIL || /*mode*/
-          ctx2[7] === FORGOT_PASSWORD
+          ctx2[5] === LOGIN || /*mode*/
+          ctx2[5] === REGISTER || /*mode*/
+          ctx2[5] === RESEND_VERIFICATION_EMAIL || /*mode*/
+          ctx2[5] === FORGOT_PASSWORD
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
+            if (dirty & /*mode*/
+            32) {
+              transition_in(if_block0, 1);
+            }
           } else {
             if_block0 = create_if_block_21(ctx2);
             if_block0.c();
+            transition_in(if_block0, 1);
             if_block0.m(div1, t4);
           }
         } else if (if_block0) {
-          if_block0.d(1);
-          if_block0 = null;
+          group_outros();
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
+          check_outros();
         }
         if (
           /*mode*/
-          ctx2[7] === LOGIN || /*mode*/
-          ctx2[7] === REGISTER
+          ctx2[5] === LOGIN || /*mode*/
+          ctx2[5] === REGISTER
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
+            if (dirty & /*mode*/
+            32) {
+              transition_in(if_block1, 1);
+            }
           } else {
             if_block1 = create_if_block_20(ctx2);
             if_block1.c();
+            transition_in(if_block1, 1);
             if_block1.m(div1, t5);
           }
         } else if (if_block1) {
-          if_block1.d(1);
-          if_block1 = null;
+          group_outros();
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
+          });
+          check_outros();
         }
         if (
           /*mode*/
-          ctx2[7] === REGISTER
+          ctx2[5] === REGISTER
         ) {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
+            if (dirty & /*mode*/
+            32) {
+              transition_in(if_block2, 1);
+            }
           } else {
             if_block2 = create_if_block_19(ctx2);
             if_block2.c();
+            transition_in(if_block2, 1);
             if_block2.m(div1, null);
           }
         } else if (if_block2) {
-          if_block2.d(1);
-          if_block2 = null;
+          group_outros();
+          transition_out(if_block2, 1, 1, () => {
+            if_block2 = null;
+          });
+          check_outros();
         }
         if (
           /*mode*/
-          ctx2[7] === LOGIN
+          ctx2[5] === LOGIN
         ) {
           if (if_block3) {
             if_block3.p(ctx2, dirty);
@@ -5622,12 +6126,12 @@ a.active.svelte-1jjzex9 {
         }
         if (
           /*mode*/
-          ctx2[7] === REGISTER
+          ctx2[5] === REGISTER
         ) {
           if (if_block4) {
             if_block4.p(ctx2, dirty);
-            if (dirty[0] & /*mode*/
-            128) {
+            if (dirty & /*mode*/
+            32) {
               transition_in(if_block4, 1);
             }
           } else {
@@ -5645,12 +6149,12 @@ a.active.svelte-1jjzex9 {
         }
         if (
           /*mode*/
-          ctx2[7] === LOGIN
+          ctx2[5] === LOGIN
         ) {
           if (if_block5) {
             if_block5.p(ctx2, dirty);
-            if (dirty[0] & /*mode*/
-            128) {
+            if (dirty & /*mode*/
+            32) {
               transition_in(if_block5, 1);
             }
           } else {
@@ -5668,12 +6172,12 @@ a.active.svelte-1jjzex9 {
         }
         if (
           /*mode*/
-          ctx2[7] === RESEND_VERIFICATION_EMAIL
+          ctx2[5] === RESEND_VERIFICATION_EMAIL
         ) {
           if (if_block6) {
             if_block6.p(ctx2, dirty);
-            if (dirty[0] & /*mode*/
-            128) {
+            if (dirty & /*mode*/
+            32) {
               transition_in(if_block6, 1);
             }
           } else {
@@ -5691,12 +6195,12 @@ a.active.svelte-1jjzex9 {
         }
         if (
           /*mode*/
-          ctx2[7] === FORGOT_PASSWORD
+          ctx2[5] === FORGOT_PASSWORD
         ) {
           if (if_block7) {
             if_block7.p(ctx2, dirty);
-            if (dirty[0] & /*mode*/
-            128) {
+            if (dirty & /*mode*/
+            32) {
               transition_in(if_block7, 1);
             }
           } else {
@@ -5714,8 +6218,8 @@ a.active.svelte-1jjzex9 {
         }
         if (
           /*mode*/
-          ctx2[7] === REGISTER || /*mode*/
-          ctx2[7] === LOGIN
+          ctx2[5] === REGISTER || /*mode*/
+          ctx2[5] === LOGIN
         ) {
           if (if_block8) {
             if_block8.p(ctx2, dirty);
@@ -5730,7 +6234,7 @@ a.active.svelte-1jjzex9 {
         }
         if (
           /*mode*/
-          ctx2[7] !== REGISTER
+          ctx2[5] !== REGISTER
         ) {
           if (if_block9) {
             if_block9.p(ctx2, dirty);
@@ -5745,12 +6249,12 @@ a.active.svelte-1jjzex9 {
         }
         if (
           /*mode*/
-          ctx2[7] !== LOGIN
+          ctx2[5] !== LOGIN
         ) {
           if (if_block10) {
             if_block10.p(ctx2, dirty);
           } else {
-            if_block10 = create_if_block_22(ctx2);
+            if_block10 = create_if_block_23(ctx2);
             if_block10.c();
             if_block10.m(div3, t16);
           }
@@ -5760,7 +6264,7 @@ a.active.svelte-1jjzex9 {
         }
         if (
           /*mode*/
-          ctx2[7] !== RESEND_VERIFICATION_EMAIL
+          ctx2[5] !== RESEND_VERIFICATION_EMAIL
         ) {
           if (if_block11) {
             if_block11.p(ctx2, dirty);
@@ -5777,6 +6281,9 @@ a.active.svelte-1jjzex9 {
       i(local) {
         if (current)
           return;
+        transition_in(if_block0);
+        transition_in(if_block1);
+        transition_in(if_block2);
         transition_in(if_block4);
         transition_in(if_block5);
         transition_in(if_block6);
@@ -5784,6 +6291,9 @@ a.active.svelte-1jjzex9 {
         current = true;
       },
       o(local) {
+        transition_out(if_block0);
+        transition_out(if_block1);
+        transition_out(if_block2);
         transition_out(if_block4);
         transition_out(if_block5);
         transition_out(if_block6);
@@ -5821,7 +6331,7 @@ a.active.svelte-1jjzex9 {
       }
     };
   }
-  function create_if_block3(ctx) {
+  function create_if_block4(ctx) {
     let div3;
     let sidemenu;
     let t0;
@@ -5830,32 +6340,28 @@ a.active.svelte-1jjzex9 {
     let t1;
     let div1;
     let div0;
-    let label0;
+    let inputbox0;
+    let updating_value;
+    let t2;
     let br0;
-    let t3;
-    let input0;
-    let t4;
     let br1;
+    let t3;
+    let inputbox1;
+    let updating_value_1;
+    let t4;
     let br2;
-    let t5;
-    let label1;
     let br3;
-    let t7;
-    let input1;
-    let t8;
+    let t5;
+    let label;
     let br4;
+    let t7;
+    let input;
+    let t8;
     let br5;
-    let t9;
-    let label2;
     let br6;
-    let t11;
-    let input2;
-    let t12;
-    let br7;
-    let br8;
-    let t13;
+    let t9;
     let submitbutton;
-    let t14;
+    let t10;
     let footer;
     let current;
     let mounted;
@@ -5868,18 +6374,52 @@ a.active.svelte-1jjzex9 {
       /*user*/
       ctx[0]
     ) } });
+    function inputbox0_value_binding(value) {
+      ctx[17](value);
+    }
+    let inputbox0_props = {
+      id: "tenantCode",
+      label: "Tenant Code",
+      type: "password"
+    };
+    if (
+      /*tenantCode*/
+      ctx[7] !== void 0
+    ) {
+      inputbox0_props.value = /*tenantCode*/
+      ctx[7];
+    }
+    inputbox0 = new InputBox_default({ props: inputbox0_props });
+    binding_callbacks.push(() => bind(inputbox0, "value", inputbox0_value_binding));
+    function inputbox1_value_binding(value) {
+      ctx[18](value);
+    }
+    let inputbox1_props = {
+      id: "companyName",
+      label: "Company Name",
+      type: "text"
+    };
+    if (
+      /*companyName*/
+      ctx[8] !== void 0
+    ) {
+      inputbox1_props.value = /*companyName*/
+      ctx[8];
+    }
+    inputbox1 = new InputBox_default({ props: inputbox1_props });
+    binding_callbacks.push(() => bind(inputbox1, "value", inputbox1_value_binding));
     submitbutton = new SubmitButton_default({
       props: {
         isSubmitted: (
           /*isSubmitCreateCompany*/
-          ctx[12]
+          ctx[10]
         )
       }
     });
     submitbutton.$on(
       "click",
       /*userCreateCompany*/
-      ctx[18]
+      ctx[16]
     );
     footer = new Footer_default({});
     return {
@@ -5892,48 +6432,33 @@ a.active.svelte-1jjzex9 {
         t1 = space();
         div1 = element("div");
         div0 = element("div");
-        label0 = element("label");
-        label0.textContent = "Tenant Code";
+        create_component(inputbox0.$.fragment);
+        t2 = space();
         br0 = element("br");
-        t3 = space();
-        input0 = element("input");
-        t4 = space();
         br1 = element("br");
+        t3 = space();
+        create_component(inputbox1.$.fragment);
+        t4 = space();
         br2 = element("br");
-        t5 = space();
-        label1 = element("label");
-        label1.textContent = "Company Name";
         br3 = element("br");
-        t7 = space();
-        input1 = element("input");
-        t8 = space();
+        t5 = space();
+        label = element("label");
+        label.textContent = "Head Title";
         br4 = element("br");
+        t7 = space();
+        input = element("input");
+        t8 = space();
         br5 = element("br");
-        t9 = space();
-        label2 = element("label");
-        label2.textContent = "Head Title";
         br6 = element("br");
-        t11 = space();
-        input2 = element("input");
-        t12 = space();
-        br7 = element("br");
-        br8 = element("br");
-        t13 = space();
+        t9 = space();
         create_component(submitbutton.$.fragment);
-        t14 = space();
+        t10 = space();
         create_component(footer.$.fragment);
-        attr(label0, "for", "tenantCode");
-        attr(input0, "type", "text");
-        attr(input0, "name", "tenantCode");
-        attr(input0, "id", "tenantCode");
-        attr(label1, "for", "companyName");
-        attr(input1, "type", "text");
-        attr(input1, "name", "companyName");
-        attr(input1, "id", "companyName");
-        attr(label2, "for", "headTitle");
-        attr(input2, "type", "text");
-        attr(input2, "name", "headTitle");
-        attr(input2, "id", "headTitle");
+        attr(label, "for", "headTitle");
+        attr(input, "type", "text");
+        attr(input, "name", "headTitle");
+        attr(input, "id", "headTitle");
+        set_style(div0, "width", "400px");
         attr(div1, "class", "root_content");
         attr(div2, "class", "root_container");
         attr(div3, "class", "root_layout");
@@ -5947,118 +6472,88 @@ a.active.svelte-1jjzex9 {
         append(div2, t1);
         append(div2, div1);
         append(div1, div0);
-        append(div0, label0);
+        mount_component(inputbox0, div0, null);
+        append(div0, t2);
         append(div0, br0);
+        append(div0, br1);
         append(div0, t3);
-        append(div0, input0);
+        mount_component(inputbox1, div0, null);
+        append(div0, t4);
+        append(div0, br2);
+        append(div0, br3);
+        append(div0, t5);
+        append(div0, label);
+        append(div0, br4);
+        append(div0, t7);
+        append(div0, input);
         set_input_value(
-          input0,
-          /*tenantCode*/
+          input,
+          /*headTitle*/
           ctx[9]
         );
-        append(div0, t4);
-        append(div0, br1);
-        append(div0, br2);
-        append(div0, t5);
-        append(div0, label1);
-        append(div0, br3);
-        append(div0, t7);
-        append(div0, input1);
-        set_input_value(
-          input1,
-          /*companyName*/
-          ctx[10]
-        );
         append(div0, t8);
-        append(div0, br4);
         append(div0, br5);
-        append(div0, t9);
-        append(div0, label2);
         append(div0, br6);
-        append(div0, t11);
-        append(div0, input2);
-        set_input_value(
-          input2,
-          /*headTitle*/
-          ctx[11]
-        );
-        append(div0, t12);
-        append(div0, br7);
-        append(div0, br8);
-        append(div0, t13);
+        append(div0, t9);
         mount_component(submitbutton, div0, null);
-        append(div2, t14);
+        append(div2, t10);
         mount_component(footer, div2, null);
         current = true;
         if (!mounted) {
-          dispose = [
-            listen(
-              input0,
-              "input",
-              /*input0_input_handler*/
-              ctx[19]
-            ),
-            listen(
-              input1,
-              "input",
-              /*input1_input_handler*/
-              ctx[20]
-            ),
-            listen(
-              input2,
-              "input",
-              /*input2_input_handler*/
-              ctx[21]
-            )
-          ];
+          dispose = listen(
+            input,
+            "input",
+            /*input_input_handler*/
+            ctx[19]
+          );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
         const sidemenu_changes = {};
-        if (dirty[0] & /*segments*/
+        if (dirty & /*segments*/
         2)
           sidemenu_changes.access = /*segments*/
           ctx2[1];
         sidemenu.$set(sidemenu_changes);
         const navbar_changes = {};
-        if (dirty[0] & /*user*/
+        if (dirty & /*user*/
         1)
           navbar_changes.user = /*user*/
           ctx2[0];
         navbar.$set(navbar_changes);
-        if (dirty[0] & /*tenantCode*/
-        512 && input0.value !== /*tenantCode*/
+        const inputbox0_changes = {};
+        if (!updating_value && dirty & /*tenantCode*/
+        128) {
+          updating_value = true;
+          inputbox0_changes.value = /*tenantCode*/
+          ctx2[7];
+          add_flush_callback(() => updating_value = false);
+        }
+        inputbox0.$set(inputbox0_changes);
+        const inputbox1_changes = {};
+        if (!updating_value_1 && dirty & /*companyName*/
+        256) {
+          updating_value_1 = true;
+          inputbox1_changes.value = /*companyName*/
+          ctx2[8];
+          add_flush_callback(() => updating_value_1 = false);
+        }
+        inputbox1.$set(inputbox1_changes);
+        if (dirty & /*headTitle*/
+        512 && input.value !== /*headTitle*/
         ctx2[9]) {
           set_input_value(
-            input0,
-            /*tenantCode*/
+            input,
+            /*headTitle*/
             ctx2[9]
           );
         }
-        if (dirty[0] & /*companyName*/
-        1024 && input1.value !== /*companyName*/
-        ctx2[10]) {
-          set_input_value(
-            input1,
-            /*companyName*/
-            ctx2[10]
-          );
-        }
-        if (dirty[0] & /*headTitle*/
-        2048 && input2.value !== /*headTitle*/
-        ctx2[11]) {
-          set_input_value(
-            input2,
-            /*headTitle*/
-            ctx2[11]
-          );
-        }
         const submitbutton_changes = {};
-        if (dirty[0] & /*isSubmitCreateCompany*/
-        4096)
+        if (dirty & /*isSubmitCreateCompany*/
+        1024)
           submitbutton_changes.isSubmitted = /*isSubmitCreateCompany*/
-          ctx2[12];
+          ctx2[10];
         submitbutton.$set(submitbutton_changes);
       },
       i(local) {
@@ -6066,6 +6561,8 @@ a.active.svelte-1jjzex9 {
           return;
         transition_in(sidemenu.$.fragment, local);
         transition_in(navbar.$.fragment, local);
+        transition_in(inputbox0.$.fragment, local);
+        transition_in(inputbox1.$.fragment, local);
         transition_in(submitbutton.$.fragment, local);
         transition_in(footer.$.fragment, local);
         current = true;
@@ -6073,6 +6570,8 @@ a.active.svelte-1jjzex9 {
       o(local) {
         transition_out(sidemenu.$.fragment, local);
         transition_out(navbar.$.fragment, local);
+        transition_out(inputbox0.$.fragment, local);
+        transition_out(inputbox1.$.fragment, local);
         transition_out(submitbutton.$.fragment, local);
         transition_out(footer.$.fragment, local);
         current = false;
@@ -6083,197 +6582,177 @@ a.active.svelte-1jjzex9 {
         }
         destroy_component(sidemenu);
         destroy_component(navbar);
+        destroy_component(inputbox0);
+        destroy_component(inputbox1);
         destroy_component(submitbutton);
         destroy_component(footer);
         mounted = false;
-        run_all(dispose);
+        dispose();
       }
     };
   }
   function create_if_block_21(ctx) {
-    let div;
-    let label;
-    let t1;
-    let input;
-    let mounted;
-    let dispose;
+    let inputbox;
+    let updating_value;
+    let current;
+    function inputbox_value_binding(value) {
+      ctx[20](value);
+    }
+    let inputbox_props = {
+      id: "email",
+      label: "Email",
+      type: "email"
+    };
+    if (
+      /*email*/
+      ctx[2] !== void 0
+    ) {
+      inputbox_props.value = /*email*/
+      ctx[2];
+    }
+    inputbox = new InputBox_default({ props: inputbox_props });
+    binding_callbacks.push(() => bind(inputbox, "value", inputbox_value_binding));
     return {
       c() {
-        div = element("div");
-        label = element("label");
-        label.textContent = "Email";
-        t1 = space();
-        input = element("input");
-        attr(label, "for", "email");
-        attr(label, "class", "svelte-1i962qc");
-        attr(input, "type", "text");
-        attr(input, "id", "email");
-        attr(input, "class", "svelte-1i962qc");
-        attr(div, "class", "input_box svelte-1i962qc");
+        create_component(inputbox.$.fragment);
       },
       m(target, anchor) {
-        insert(target, div, anchor);
-        append(div, label);
-        append(div, t1);
-        append(div, input);
-        set_input_value(
-          input,
-          /*email*/
-          ctx[2]
-        );
-        ctx[23](input);
-        if (!mounted) {
-          dispose = listen(
-            input,
-            "input",
-            /*input_input_handler*/
-            ctx[22]
-          );
-          mounted = true;
-        }
+        mount_component(inputbox, target, anchor);
+        current = true;
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*email*/
-        4 && input.value !== /*email*/
-        ctx2[2]) {
-          set_input_value(
-            input,
-            /*email*/
-            ctx2[2]
-          );
+        const inputbox_changes = {};
+        if (!updating_value && dirty & /*email*/
+        4) {
+          updating_value = true;
+          inputbox_changes.value = /*email*/
+          ctx2[2];
+          add_flush_callback(() => updating_value = false);
         }
+        inputbox.$set(inputbox_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(inputbox.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(inputbox.$.fragment, local);
+        current = false;
       },
       d(detaching) {
-        if (detaching) {
-          detach(div);
-        }
-        ctx[23](null);
-        mounted = false;
-        dispose();
+        destroy_component(inputbox, detaching);
       }
     };
   }
   function create_if_block_20(ctx) {
-    let div;
-    let label;
-    let t1;
-    let input;
-    let mounted;
-    let dispose;
+    let inputbox;
+    let updating_value;
+    let current;
+    function inputbox_value_binding_1(value) {
+      ctx[21](value);
+    }
+    let inputbox_props = {
+      id: "password",
+      label: "Password",
+      type: "password"
+    };
+    if (
+      /*password*/
+      ctx[3] !== void 0
+    ) {
+      inputbox_props.value = /*password*/
+      ctx[3];
+    }
+    inputbox = new InputBox_default({ props: inputbox_props });
+    binding_callbacks.push(() => bind(inputbox, "value", inputbox_value_binding_1));
     return {
       c() {
-        div = element("div");
-        label = element("label");
-        label.textContent = "Password";
-        t1 = space();
-        input = element("input");
-        attr(label, "for", "password");
-        attr(label, "class", "svelte-1i962qc");
-        attr(input, "type", "password");
-        attr(input, "id", "password");
-        attr(input, "class", "svelte-1i962qc");
-        attr(div, "class", "input_box svelte-1i962qc");
+        create_component(inputbox.$.fragment);
       },
       m(target, anchor) {
-        insert(target, div, anchor);
-        append(div, label);
-        append(div, t1);
-        append(div, input);
-        set_input_value(
-          input,
-          /*password*/
-          ctx[3]
-        );
-        ctx[25](input);
-        if (!mounted) {
-          dispose = listen(
-            input,
-            "input",
-            /*input_input_handler_1*/
-            ctx[24]
-          );
-          mounted = true;
-        }
+        mount_component(inputbox, target, anchor);
+        current = true;
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*password*/
-        8 && input.value !== /*password*/
-        ctx2[3]) {
-          set_input_value(
-            input,
-            /*password*/
-            ctx2[3]
-          );
+        const inputbox_changes = {};
+        if (!updating_value && dirty & /*password*/
+        8) {
+          updating_value = true;
+          inputbox_changes.value = /*password*/
+          ctx2[3];
+          add_flush_callback(() => updating_value = false);
         }
+        inputbox.$set(inputbox_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(inputbox.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(inputbox.$.fragment, local);
+        current = false;
       },
       d(detaching) {
-        if (detaching) {
-          detach(div);
-        }
-        ctx[25](null);
-        mounted = false;
-        dispose();
+        destroy_component(inputbox, detaching);
       }
     };
   }
   function create_if_block_19(ctx) {
-    let div;
-    let label;
-    let t1;
-    let input;
-    let mounted;
-    let dispose;
+    let inputbox;
+    let updating_value;
+    let current;
+    function inputbox_value_binding_2(value) {
+      ctx[22](value);
+    }
+    let inputbox_props = {
+      id: "confirmPass",
+      label: "Confirm Password",
+      type: "password"
+    };
+    if (
+      /*confirmPass*/
+      ctx[4] !== void 0
+    ) {
+      inputbox_props.value = /*confirmPass*/
+      ctx[4];
+    }
+    inputbox = new InputBox_default({ props: inputbox_props });
+    binding_callbacks.push(() => bind(inputbox, "value", inputbox_value_binding_2));
     return {
       c() {
-        div = element("div");
-        label = element("label");
-        label.textContent = "Confirm Password";
-        t1 = space();
-        input = element("input");
-        attr(label, "for", "confirmPass");
-        attr(label, "class", "svelte-1i962qc");
-        attr(input, "type", "password");
-        attr(input, "id", "confirmPass");
-        attr(input, "class", "svelte-1i962qc");
-        attr(div, "class", "input_box svelte-1i962qc");
+        create_component(inputbox.$.fragment);
       },
       m(target, anchor) {
-        insert(target, div, anchor);
-        append(div, label);
-        append(div, t1);
-        append(div, input);
-        set_input_value(
-          input,
-          /*confirmPass*/
-          ctx[4]
-        );
-        if (!mounted) {
-          dispose = listen(
-            input,
-            "input",
-            /*input_input_handler_2*/
-            ctx[26]
-          );
-          mounted = true;
-        }
+        mount_component(inputbox, target, anchor);
+        current = true;
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*confirmPass*/
-        16 && input.value !== /*confirmPass*/
-        ctx2[4]) {
-          set_input_value(
-            input,
-            /*confirmPass*/
-            ctx2[4]
-          );
+        const inputbox_changes = {};
+        if (!updating_value && dirty & /*confirmPass*/
+        16) {
+          updating_value = true;
+          inputbox_changes.value = /*confirmPass*/
+          ctx2[4];
+          add_flush_callback(() => updating_value = false);
         }
+        inputbox.$set(inputbox_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(inputbox.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(inputbox.$.fragment, local);
+        current = false;
       },
       d(detaching) {
-        if (detaching) {
-          detach(div);
-        }
-        mounted = false;
-        dispose();
+        destroy_component(inputbox, detaching);
       }
     };
   }
@@ -6286,12 +6765,12 @@ a.active.svelte-1jjzex9 {
     return {
       c() {
         p = element("p");
-        t0 = text("Forgot Password?\n                        ");
+        t0 = text("Forgot Password?\n            ");
         a = element("a");
-        a.textContent = "Reset\n                            here";
+        a.textContent = "Reset here";
         attr(a, "href", "#FORGOT_PASSWORD");
-        attr(a, "class", "svelte-1i962qc");
-        attr(p, "class", "forgot_password svelte-1i962qc");
+        attr(a, "class", "svelte-pad9kh");
+        attr(p, "class", "forgot_password svelte-pad9kh");
       },
       m(target, anchor) {
         insert(target, p, anchor);
@@ -6300,7 +6779,7 @@ a.active.svelte-1jjzex9 {
         if (!mounted) {
           dispose = listen(a, "click", prevent_default(
             /*click_handler*/
-            ctx[27]
+            ctx[23]
           ));
           mounted = true;
         }
@@ -6323,11 +6802,11 @@ a.active.svelte-1jjzex9 {
     let dispose;
     let if_block0 = (
       /*isSubmitted*/
-      ctx[8] === true && create_if_block_17(ctx)
+      ctx[6] === true && create_if_block_17(ctx)
     );
     let if_block1 = (
       /*isSubmitted*/
-      ctx[8] === false && create_if_block_16(ctx)
+      ctx[6] === false && create_if_block_16(ctx)
     );
     return {
       c() {
@@ -6337,7 +6816,7 @@ a.active.svelte-1jjzex9 {
         t = space();
         if (if_block1)
           if_block1.c();
-        attr(button, "class", "svelte-1i962qc");
+        attr(button, "class", "svelte-pad9kh");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -6352,7 +6831,7 @@ a.active.svelte-1jjzex9 {
             button,
             "click",
             /*guestRegister*/
-            ctx[14]
+            ctx[12]
           );
           mounted = true;
         }
@@ -6360,11 +6839,11 @@ a.active.svelte-1jjzex9 {
       p(ctx2, dirty) {
         if (
           /*isSubmitted*/
-          ctx2[8] === true
+          ctx2[6] === true
         ) {
           if (if_block0) {
-            if (dirty[0] & /*isSubmitted*/
-            256) {
+            if (dirty & /*isSubmitted*/
+            64) {
               transition_in(if_block0, 1);
             }
           } else {
@@ -6382,7 +6861,7 @@ a.active.svelte-1jjzex9 {
         }
         if (
           /*isSubmitted*/
-          ctx2[8] === false
+          ctx2[6] === false
         ) {
           if (if_block1) {
           } else {
@@ -6477,11 +6956,11 @@ a.active.svelte-1jjzex9 {
     let dispose;
     let if_block0 = (
       /*isSubmitted*/
-      ctx[8] === true && create_if_block_14(ctx)
+      ctx[6] === true && create_if_block_14(ctx)
     );
     let if_block1 = (
       /*isSubmitted*/
-      ctx[8] === false && create_if_block_13(ctx)
+      ctx[6] === false && create_if_block_132(ctx)
     );
     return {
       c() {
@@ -6491,7 +6970,7 @@ a.active.svelte-1jjzex9 {
         t = space();
         if (if_block1)
           if_block1.c();
-        attr(button, "class", "svelte-1i962qc");
+        attr(button, "class", "svelte-pad9kh");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -6506,7 +6985,7 @@ a.active.svelte-1jjzex9 {
             button,
             "click",
             /*guestLogin*/
-            ctx[15]
+            ctx[13]
           );
           mounted = true;
         }
@@ -6514,11 +6993,11 @@ a.active.svelte-1jjzex9 {
       p(ctx2, dirty) {
         if (
           /*isSubmitted*/
-          ctx2[8] === true
+          ctx2[6] === true
         ) {
           if (if_block0) {
-            if (dirty[0] & /*isSubmitted*/
-            256) {
+            if (dirty & /*isSubmitted*/
+            64) {
               transition_in(if_block0, 1);
             }
           } else {
@@ -6536,11 +7015,11 @@ a.active.svelte-1jjzex9 {
         }
         if (
           /*isSubmitted*/
-          ctx2[8] === false
+          ctx2[6] === false
         ) {
           if (if_block1) {
           } else {
-            if_block1 = create_if_block_13(ctx2);
+            if_block1 = create_if_block_132(ctx2);
             if_block1.c();
             if_block1.m(button, null);
           }
@@ -6606,7 +7085,7 @@ a.active.svelte-1jjzex9 {
       }
     };
   }
-  function create_if_block_13(ctx) {
+  function create_if_block_132(ctx) {
     let span;
     return {
       c() {
@@ -6631,11 +7110,11 @@ a.active.svelte-1jjzex9 {
     let dispose;
     let if_block0 = (
       /*isSubmitted*/
-      ctx[8] === true && create_if_block_11(ctx)
+      ctx[6] === true && create_if_block_11(ctx)
     );
     let if_block1 = (
       /*isSubmitted*/
-      ctx[8] === false && create_if_block_10(ctx)
+      ctx[6] === false && create_if_block_10(ctx)
     );
     return {
       c() {
@@ -6645,7 +7124,7 @@ a.active.svelte-1jjzex9 {
         t = space();
         if (if_block1)
           if_block1.c();
-        attr(button, "class", "svelte-1i962qc");
+        attr(button, "class", "svelte-pad9kh");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -6660,7 +7139,7 @@ a.active.svelte-1jjzex9 {
             button,
             "click",
             /*guestResendVerificationEmail*/
-            ctx[16]
+            ctx[14]
           );
           mounted = true;
         }
@@ -6668,11 +7147,11 @@ a.active.svelte-1jjzex9 {
       p(ctx2, dirty) {
         if (
           /*isSubmitted*/
-          ctx2[8] === true
+          ctx2[6] === true
         ) {
           if (if_block0) {
-            if (dirty[0] & /*isSubmitted*/
-            256) {
+            if (dirty & /*isSubmitted*/
+            64) {
               transition_in(if_block0, 1);
             }
           } else {
@@ -6690,7 +7169,7 @@ a.active.svelte-1jjzex9 {
         }
         if (
           /*isSubmitted*/
-          ctx2[8] === false
+          ctx2[6] === false
         ) {
           if (if_block1) {
           } else {
@@ -6785,11 +7264,11 @@ a.active.svelte-1jjzex9 {
     let dispose;
     let if_block0 = (
       /*isSubmitted*/
-      ctx[8] === true && create_if_block_8(ctx)
+      ctx[6] === true && create_if_block_8(ctx)
     );
     let if_block1 = (
       /*isSubmitted*/
-      ctx[8] === false && create_if_block_7(ctx)
+      ctx[6] === false && create_if_block_7(ctx)
     );
     return {
       c() {
@@ -6799,7 +7278,7 @@ a.active.svelte-1jjzex9 {
         t = space();
         if (if_block1)
           if_block1.c();
-        attr(button, "class", "svelte-1i962qc");
+        attr(button, "class", "svelte-pad9kh");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -6814,7 +7293,7 @@ a.active.svelte-1jjzex9 {
             button,
             "click",
             /*guestForgotPassword*/
-            ctx[17]
+            ctx[15]
           );
           mounted = true;
         }
@@ -6822,11 +7301,11 @@ a.active.svelte-1jjzex9 {
       p(ctx2, dirty) {
         if (
           /*isSubmitted*/
-          ctx2[8] === true
+          ctx2[6] === true
         ) {
           if (if_block0) {
-            if (dirty[0] & /*isSubmitted*/
-            256) {
+            if (dirty & /*isSubmitted*/
+            64) {
               transition_in(if_block0, 1);
             }
           } else {
@@ -6844,7 +7323,7 @@ a.active.svelte-1jjzex9 {
         }
         if (
           /*isSubmitted*/
-          ctx2[8] === false
+          ctx2[6] === false
         ) {
           if (if_block1) {
           } else {
@@ -6942,14 +7421,14 @@ a.active.svelte-1jjzex9 {
       c() {
         div1 = element("div");
         div0 = element("div");
-        div0.innerHTML = `<span class="svelte-1i962qc"></span> <p class="svelte-1i962qc">or</p> <span class="svelte-1i962qc"></span>`;
+        div0.innerHTML = `<span class="svelte-pad9kh"></span> <p class="svelte-pad9kh">or</p> <span class="svelte-pad9kh"></span>`;
         t3 = space();
         c = comment(" Google OAuth ");
         t4 = space();
         if (if_block)
           if_block.c();
-        attr(div0, "class", "or_separator svelte-1i962qc");
-        attr(div1, "class", "oauth_container svelte-1i962qc");
+        attr(div0, "class", "or_separator svelte-pad9kh");
+        attr(div1, "class", "oauth_container svelte-pad9kh");
       },
       m(target, anchor) {
         insert(target, div1, anchor);
@@ -6989,9 +7468,9 @@ a.active.svelte-1jjzex9 {
         if (!src_url_equal(img.src, img_src_value = "/assets/icons/google.svg"))
           attr(img, "src", img_src_value);
         attr(img, "alt", "Google");
-        attr(img, "class", "svelte-1i962qc");
-        attr(span, "class", "svelte-1i962qc");
-        attr(a, "class", "button svelte-1i962qc");
+        attr(img, "class", "svelte-pad9kh");
+        attr(span, "class", "svelte-pad9kh");
+        attr(a, "class", "button svelte-pad9kh");
         attr(a, "href", google);
       },
       m(target, anchor) {
@@ -7021,8 +7500,8 @@ a.active.svelte-1jjzex9 {
         a = element("a");
         a.textContent = "register";
         attr(a, "href", "#REGISTER");
-        attr(a, "class", "svelte-1i962qc");
-        attr(p, "class", "svelte-1i962qc");
+        attr(a, "class", "svelte-pad9kh");
+        attr(p, "class", "svelte-pad9kh");
       },
       m(target, anchor) {
         insert(target, p, anchor);
@@ -7033,7 +7512,7 @@ a.active.svelte-1jjzex9 {
             a,
             "click",
             /*click_handler_1*/
-            ctx[28]
+            ctx[24]
           );
           mounted = true;
         }
@@ -7048,7 +7527,7 @@ a.active.svelte-1jjzex9 {
       }
     };
   }
-  function create_if_block_22(ctx) {
+  function create_if_block_23(ctx) {
     let p;
     let t0;
     let a;
@@ -7061,8 +7540,8 @@ a.active.svelte-1jjzex9 {
         a = element("a");
         a.textContent = "login";
         attr(a, "href", "#LOGIN");
-        attr(a, "class", "svelte-1i962qc");
-        attr(p, "class", "svelte-1i962qc");
+        attr(a, "class", "svelte-pad9kh");
+        attr(p, "class", "svelte-pad9kh");
       },
       m(target, anchor) {
         insert(target, p, anchor);
@@ -7073,7 +7552,7 @@ a.active.svelte-1jjzex9 {
             a,
             "click",
             /*click_handler_2*/
-            ctx[29]
+            ctx[25]
           );
           mounted = true;
         }
@@ -7101,8 +7580,8 @@ a.active.svelte-1jjzex9 {
         a = element("a");
         a.textContent = "request verification email";
         attr(a, "href", "#RESEND_VERIFICATION_EMAIL");
-        attr(a, "class", "svelte-1i962qc");
-        attr(p, "class", "svelte-1i962qc");
+        attr(a, "class", "svelte-pad9kh");
+        attr(p, "class", "svelte-pad9kh");
       },
       m(target, anchor) {
         insert(target, p, anchor);
@@ -7113,7 +7592,7 @@ a.active.svelte-1jjzex9 {
             a,
             "click",
             /*click_handler_3*/
-            ctx[30]
+            ctx[26]
           );
           mounted = true;
         }
@@ -7128,24 +7607,24 @@ a.active.svelte-1jjzex9 {
       }
     };
   }
-  function create_fragment7(ctx) {
+  function create_fragment8(ctx) {
     let current_block_type_index;
     let if_block;
     let if_block_anchor;
     let current;
     let mounted;
     let dispose;
-    const if_block_creators = [create_if_block3, create_else_block];
+    const if_block_creators = [create_if_block4, create_else_block];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (
         /*mode*/
-        ctx2[7] === USER
+        ctx2[5] === USER
       )
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type(ctx, [-1, -1]);
+    current_block_type_index = select_block_type(ctx, -1);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -7161,12 +7640,12 @@ a.active.svelte-1jjzex9 {
             window_1,
             "hashchange",
             /*onHashChange*/
-            ctx[13]
+            ctx[11]
           );
           mounted = true;
         }
       },
-      p(ctx2, dirty) {
+      p(ctx2, [dirty]) {
         let previous_block_index = current_block_type_index;
         current_block_type_index = select_block_type(ctx2, dirty);
         if (current_block_type_index === previous_block_index) {
@@ -7220,7 +7699,7 @@ a.active.svelte-1jjzex9 {
     if (match)
       return match[2];
   }
-  function instance7($self, $props, $invalidate) {
+  function instance8($self, $props, $invalidate) {
     let user = {/* user */};
     let segments = {/* segments */};
     let email = "", password = "", confirmPass = "";
@@ -7232,20 +7711,20 @@ a.active.svelte-1jjzex9 {
       console.log(auth, user);
       if (auth && user && !auth.startsWith("TEMP__")) {
         location.hash = "";
-        $invalidate(7, mode = USER);
+        $invalidate(5, mode = USER);
         return;
       }
       let hash = location.hash || "";
       if (hash[0] === "#")
         hash = hash.substring(1);
       if (hash === LOGIN)
-        $invalidate(7, mode = LOGIN);
+        $invalidate(5, mode = LOGIN);
       else if (hash === REGISTER)
-        $invalidate(7, mode = REGISTER);
+        $invalidate(5, mode = REGISTER);
       else if (hash === RESEND_VERIFICATION_EMAIL)
-        $invalidate(7, mode = RESEND_VERIFICATION_EMAIL);
+        $invalidate(5, mode = RESEND_VERIFICATION_EMAIL);
       else if (hash === FORGOT_PASSWORD)
-        $invalidate(7, mode = FORGOT_PASSWORD);
+        $invalidate(5, mode = FORGOT_PASSWORD);
       else
         location.hash = LOGIN;
       console.log("onHashChange.tick");
@@ -7258,52 +7737,52 @@ a.active.svelte-1jjzex9 {
       console.log("User = ", user);
     });
     async function guestRegister() {
-      $invalidate(8, isSubmitted = true);
+      $invalidate(6, isSubmitted = true);
       if (!email) {
-        $invalidate(8, isSubmitted = false);
+        $invalidate(6, isSubmitted = false);
         return notifier.showWarning("Email is required");
       }
       if (password.length < 12) {
-        $invalidate(8, isSubmitted = false);
+        $invalidate(6, isSubmitted = false);
         return notifier.showWarning("Password must be at least 12 characters");
       }
       if (password !== confirmPass) {
-        $invalidate(8, isSubmitted = false);
+        $invalidate(6, isSubmitted = false);
         return notifier.showWarning("Passwords do not match");
       }
       const i = { email, password };
       await (0, import_jsApi_GEN2.GuestRegister)(i, async function(o) {
         console.log(o);
         if (o.error) {
-          $invalidate(8, isSubmitted = false);
+          $invalidate(6, isSubmitted = false);
           return notifier.showError(o.error);
         }
-        $invalidate(8, isSubmitted = false);
+        $invalidate(6, isSubmitted = false);
         notifier.showSuccess("Registered successfully, a registration verification has been sent to your email");
-        $invalidate(7, mode = LOGIN);
+        $invalidate(5, mode = LOGIN);
         $invalidate(3, password = "");
         await tick();
         passInput.focus();
       });
     }
     async function guestLogin() {
-      $invalidate(8, isSubmitted = true);
+      $invalidate(6, isSubmitted = true);
       if (!email) {
-        $invalidate(8, isSubmitted = false);
+        $invalidate(6, isSubmitted = false);
         return notifier.showWarning("Email is required");
       }
       if (password.length < 12) {
-        $invalidate(8, isSubmitted = false);
+        $invalidate(6, isSubmitted = false);
         return notifier.showWarning("Password must be at least 12 characters");
       }
       const i = { email, password };
       await (0, import_jsApi_GEN2.GuestLogin)(i, function(o) {
         console.log("o.segments=", o.segments);
         if (o.error) {
-          $invalidate(8, isSubmitted = false);
+          $invalidate(6, isSubmitted = false);
           return notifier.showError(o.error);
         }
-        $invalidate(8, isSubmitted = false);
+        $invalidate(6, isSubmitted = false);
         notifier.showSuccess("Login success");
         $invalidate(0, user = o.user);
         $invalidate(1, segments = o.segments);
@@ -7311,9 +7790,9 @@ a.active.svelte-1jjzex9 {
       });
     }
     async function guestResendVerificationEmail() {
-      $invalidate(8, isSubmitted = true);
+      $invalidate(6, isSubmitted = true);
       if (!email) {
-        $invalidate(8, isSubmitted = false);
+        $invalidate(6, isSubmitted = false);
         notifier.showWarning("Email is required");
         return;
       }
@@ -7321,18 +7800,18 @@ a.active.svelte-1jjzex9 {
       await (0, import_jsApi_GEN2.GuestResendVerificationEmail)(i, function(o) {
         console.log(o);
         if (o.error) {
-          $invalidate(8, isSubmitted = false);
+          $invalidate(6, isSubmitted = false);
           return notifier.showError(o.error);
         }
-        $invalidate(8, isSubmitted = false);
+        $invalidate(6, isSubmitted = false);
         onHashChange();
         notifier.showInfo("An email verification link has been sent to your email");
       });
     }
     async function guestForgotPassword() {
-      $invalidate(8, isSubmitted = true);
+      $invalidate(6, isSubmitted = true);
       if (!email) {
-        $invalidate(8, isSubmitted = false);
+        $invalidate(6, isSubmitted = false);
         notifier.showWarning("Email is required");
         return;
       }
@@ -7340,7 +7819,7 @@ a.active.svelte-1jjzex9 {
       await (0, import_jsApi_GEN2.GuestForgotPassword)(i, function(o) {
         console.log(o);
         if (o.error) {
-          $invalidate(8, isSubmitted = false);
+          $invalidate(6, isSubmitted = false);
           return notifier.showError(o.error);
         }
         onHashChange();
@@ -7360,67 +7839,53 @@ a.active.svelte-1jjzex9 {
     let tenantCode = "", companyName = "", headTitle = "";
     let isSubmitCreateCompany = false;
     async function userCreateCompany() {
-      $invalidate(12, isSubmitCreateCompany = true);
+      $invalidate(10, isSubmitCreateCompany = true);
       await (0, import_jsApi_GEN2.UserCreateCompany)({ tenantCode, companyName, headTitle }, function(o) {
         if (o.error) {
-          $invalidate(12, isSubmitCreateCompany = false);
+          $invalidate(10, isSubmitCreateCompany = false);
           notifier.showError(o.error);
           console.log(o.error);
           return;
         }
-        $invalidate(12, isSubmitCreateCompany = false);
+        $invalidate(10, isSubmitCreateCompany = false);
         console.log(o);
         notifier.showSuccess("Company created successfully");
       });
     }
-    function input0_input_handler() {
-      tenantCode = this.value;
-      $invalidate(9, tenantCode);
+    function inputbox0_value_binding(value) {
+      tenantCode = value;
+      $invalidate(7, tenantCode);
     }
-    function input1_input_handler() {
-      companyName = this.value;
-      $invalidate(10, companyName);
-    }
-    function input2_input_handler() {
-      headTitle = this.value;
-      $invalidate(11, headTitle);
+    function inputbox1_value_binding(value) {
+      companyName = value;
+      $invalidate(8, companyName);
     }
     function input_input_handler() {
-      email = this.value;
+      headTitle = this.value;
+      $invalidate(9, headTitle);
+    }
+    function inputbox_value_binding(value) {
+      email = value;
       $invalidate(2, email);
     }
-    function input_binding($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        emailInput = $value;
-        $invalidate(5, emailInput);
-      });
-    }
-    function input_input_handler_1() {
-      password = this.value;
+    function inputbox_value_binding_1(value) {
+      password = value;
       $invalidate(3, password);
     }
-    function input_binding_1($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        passInput = $value;
-        $invalidate(6, passInput);
-      });
-    }
-    function input_input_handler_2() {
-      confirmPass = this.value;
+    function inputbox_value_binding_2(value) {
+      confirmPass = value;
       $invalidate(4, confirmPass);
     }
-    const click_handler = () => $invalidate(7, mode = FORGOT_PASSWORD);
-    const click_handler_1 = () => $invalidate(7, mode = REGISTER);
-    const click_handler_2 = () => $invalidate(7, mode = LOGIN);
-    const click_handler_3 = () => $invalidate(7, mode = RESEND_VERIFICATION_EMAIL);
+    const click_handler = () => $invalidate(5, mode = FORGOT_PASSWORD);
+    const click_handler_1 = () => $invalidate(5, mode = REGISTER);
+    const click_handler_2 = () => $invalidate(5, mode = LOGIN);
+    const click_handler_3 = () => $invalidate(5, mode = RESEND_VERIFICATION_EMAIL);
     return [
       user,
       segments,
       email,
       password,
       confirmPass,
-      emailInput,
-      passInput,
       mode,
       isSubmitted,
       tenantCode,
@@ -7433,14 +7898,12 @@ a.active.svelte-1jjzex9 {
       guestResendVerificationEmail,
       guestForgotPassword,
       userCreateCompany,
-      input0_input_handler,
-      input1_input_handler,
-      input2_input_handler,
+      inputbox0_value_binding,
+      inputbox1_value_binding,
       input_input_handler,
-      input_binding,
-      input_input_handler_1,
-      input_binding_1,
-      input_input_handler_2,
+      inputbox_value_binding,
+      inputbox_value_binding_1,
+      inputbox_value_binding_2,
       click_handler,
       click_handler_1,
       click_handler_2,
@@ -7450,7 +7913,7 @@ a.active.svelte-1jjzex9 {
   var Index = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance7, create_fragment7, safe_not_equal, {}, null, [-1, -1]);
+      init(this, options, instance8, create_fragment8, safe_not_equal, {});
     }
   };
   var svelte_default = Index;

@@ -1,19 +1,17 @@
 <script>
-    import { onMount } from 'svelte';
+  import { onMount } from 'svelte';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import AiOutlineEye from 'svelte-icons-pack/ai/AiOutlineEye';
   import AiOutlineEyeInvisible from 'svelte-icons-pack/ai/AiOutlineEyeInvisible';
+
   export let id;
   export let value;
   export let label;
   export let type = 'text';
   let isShowPassword = false;
   let inputElm;
-
-  onMount(() => {
-    inputElm.type = type;
-  })
-
+  
+  onMount(() => inputElm.type = type)
   function toggleShowPassword() {
     isShowPassword = !isShowPassword;
     if (isShowPassword) inputElm.type = 'text';
@@ -21,16 +19,16 @@
   }
 </script>
 
-<div class="input_box">
+<div class={type === 'password' ? 'input_box with_password' :  'input_box'}>
   <label for={id}>{label}</label>
-  <input bind:value {id} bind:this={inputElm} />
+  <input bind:value={value} {id} bind:this={inputElm} />
   {#if type === 'password'}
     <button class="eye" on:click={toggleShowPassword}>
       {#if !isShowPassword}
-        <Icon color="#495057" size={20} src={AiOutlineEye}/>
+        <Icon color="#495057" size="20" src={AiOutlineEye}/>
       {/if}
       {#if isShowPassword}
-        <Icon color="#495057" size={20} src={AiOutlineEyeInvisible}/>
+        <Icon color="#495057" size="20" src={AiOutlineEyeInvisible}/>
       {/if}
     </button>
   {/if}
@@ -46,6 +44,10 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+  }
+
+  .input_box.with_password input{
+    padding-right: 40px !important;
   }
 
   .input_box label {
