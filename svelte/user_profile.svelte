@@ -74,100 +74,102 @@
 </script>
 
 <div class="root_layout">
-  <SideMenu access={segments} />
   <div class="root_container">
-    <Navbar {user} />
+    <SideMenu access={segments} />
     <div class="root_content">
-      <div class="user_details_container">
-        <div class="profile_details">
-          <h3>Profile Details</h3>
-          <div class="input_row">
-            <InputBox id="fullname" label="Full Name" value={user.fullName} type="text" />
-            <InputBox id="email" label="E-Mail" value={user.email} type="email" />
-          </div>
-          <div class="user_info">
-            <div class="info">
-              <span>Join At</span>
-              <span>{localeDatetime(user.createdAt)}</span>
+      <Navbar {user} />
+      <div class="content">
+        <div class="user_details_container">
+          <div class="profile_details">
+            <h3>Profile Details</h3>
+            <div class="input_row">
+              <InputBox id="fullname" label="Full Name" value={user.fullName} type="text" />
+              <InputBox id="email" label="E-Mail" value={user.email} type="email" />
             </div>
-            <div class="info">
-              <span>User ID</span>
-              <span>{user.id}</span>
-            </div>
-            <div class="info">
-              <span>Role</span>
-              <span>{user.role}</span>
-            </div>
-            <div class="info">
-              <span>Last Login</span>
-              <span>{localeDatetime(user.lastLoginAt)}</span>
-            </div>
-            <div class="info">
-              <span>Updated At</span>
-              <span>{localeDatetime(user.updatedAt) || 0}</span>
-            </div>
-            <div class="info">
-              <span>Verified At</span>
-              <span>{localeDatetime(user.verifiedAt) || 0}</span>
-            </div>
-            <div class="info">
-              <span>Last Updated Password</span>
-              <span>{localeDatetime(user.passwordSetAt) || 0}</span>
-            </div>
-            <div class="info">
-              <span>Tenant Code</span>
-              <span>{user.tenantCode || 0}</span>
-            </div>
-          </div>
-          <SubmitButton
-            on:click={updateProfile}
-            isSubmitted={profileSubmit}
-            isFullWidth={false}
-          />
-        </div>
-        <div class="password_set">
-          <h3>Change Password</h3>
-          <InputBox id="oldPassword" label="Old Password" value={oldPassword} type="password" />
-          <InputBox id="newPassword" label="New Password" value={newPassword} type="password" />
-          <InputBox id="repeatNewPassword" label="Repeat New Password" value={repeatNewPassword} type="password" />
-          <SubmitButton
-            on:click={changePassword}
-            isSubmitted={passwordSubmit}
-            isFullWidth={false}
-          />
-        </div>
-      </div>
-
-      <div class="sessions_container">
-        <div class="header">
-          <span>IP Address</span>
-          <span>Expired At</span>
-          <span>Device</span>
-        </div>
-        <div class="sessions">
-          {#if sessionActiveLists && sessionActiveLists.length}
-            {#each sessionActiveLists as session}
-              <div class="session">
-                <span>{session.loginIPs || 'no-data'}</span>
-                <span>{datetime(session.expiredAt) || 0}</span>
-                <span>{session.device || 'no-data'}</span>
-                <button
-                  on:click={() => killSession(session.sessionToken)}
-                  class="kill_session"
-                  title="Kill this session"
-                >
-                  <Icon color="#FFF" size={12} src={FaSolidTimes} />
-                </button>
+            <div class="user_info">
+              <div class="info">
+                <span>Join At</span>
+                <span>{localeDatetime(user.createdAt)}</span>
               </div>
-            {/each}
-          {/if}
+              <div class="info">
+                <span>User ID</span>
+                <span>{user.id}</span>
+              </div>
+              <div class="info">
+                <span>Role</span>
+                <span>{user.role}</span>
+              </div>
+              <div class="info">
+                <span>Last Login</span>
+                <span>{localeDatetime(user.lastLoginAt)}</span>
+              </div>
+              <div class="info">
+                <span>Updated At</span>
+                <span>{localeDatetime(user.updatedAt) || 0}</span>
+              </div>
+              <div class="info">
+                <span>Verified At</span>
+                <span>{localeDatetime(user.verifiedAt) || 0}</span>
+              </div>
+              <div class="info">
+                <span>Last Updated Password</span>
+                <span>{localeDatetime(user.passwordSetAt) || 0}</span>
+              </div>
+              <div class="info">
+                <span>Tenant Code</span>
+                <span>{user.tenantCode || 0}</span>
+              </div>
+            </div>
+            <SubmitButton
+              on:click={updateProfile}
+              isSubmitted={profileSubmit}
+              isFullWidth={false}
+            />
+          </div>
+          <div class="password_set">
+            <h3>Change Password</h3>
+            <InputBox id="oldPassword" label="Old Password" value={oldPassword} type="password" />
+            <InputBox id="newPassword" label="New Password" value={newPassword} type="password" />
+            <InputBox id="repeatNewPassword" label="Repeat New Password" value={repeatNewPassword} type="password" />
+            <SubmitButton
+              on:click={changePassword}
+              isSubmitted={passwordSubmit}
+              isFullWidth={false}
+            />
+          </div>
+        </div>
+  
+        <div class="sessions_container">
+          <div class="header">
+            <span>IP Address</span>
+            <span>Expired At</span>
+            <span>Device</span>
+          </div>
+          <div class="sessions">
+            {#if sessionActiveLists && sessionActiveLists.length}
+              {#each sessionActiveLists as session}
+                <div class="session">
+                  <span>{session.loginIPs || 'no-data'}</span>
+                  <span>{datetime(session.expiredAt) || 0}</span>
+                  <span>{session.device || 'no-data'}</span>
+                  <button
+                    on:click={() => killSession(session.sessionToken)}
+                    class="kill_session"
+                    title="Kill this session"
+                  >
+                    <Icon color="#FFF" size={12} src={FaSolidTimes} />
+                  </button>
+                </div>
+              {/each}
+            {/if}
+          </div>
         </div>
       </div>
+      <Footer />
     </div>
-
-    <Footer />
   </div>
 </div>
+
 
 <style>
   /* +============= Global ==============+ */
@@ -266,6 +268,7 @@
     height: fit-content;
     border-radius: 8px;
     overflow: hidden;
+    margin-top: 30px;
   }
 
   .sessions_container .header {

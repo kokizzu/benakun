@@ -10,7 +10,6 @@
   import { onMount, tick } from 'svelte';
   import FaSolidCircleNotch from 'svelte-icons-pack/fa/FaSolidCircleNotch';
   import Icon from 'svelte-icons-pack/Icon.svelte';
-  import { UserLogout } from './jsApi.GEN';
   import Footer from './_components/partials/Footer.svelte';
   import SideMenu from './_components/partials/SideMenu.svelte';
   import Navbar from './_components/partials/Navbar.svelte';
@@ -32,9 +31,6 @@
 
   // local state
   let email = '', password = '', confirmPass = '';
-
-  // binding to element
-  let emailInput = {}, passInput = {};
 
   const LOGIN = 'LOGIN';
   const REGISTER = 'REGISTER';
@@ -62,7 +58,6 @@
     else location.hash = LOGIN;
     console.log('onHashChange.tick');
     await tick();
-    emailInput.focus();
   }
 
   onMount(() => {
@@ -100,7 +95,6 @@
       mode = LOGIN;
       password = '';
       await tick();
-      passInput.focus();
     });
   }
 
@@ -169,16 +163,6 @@
     });
   }
 
-  function doLogout() {
-    UserLogout({}, function (o) {
-      console.log(o);
-      if (o.error) return notifier.showError(o.error);
-      user = null;
-      segments = null;
-      window.document.location = '/';
-    });
-  }
-
   let tenantCode = '', companyName = '', headTitle = '';
   let isSubmitCreateCompany = false;
   async function userCreateCompany() {
@@ -207,25 +191,26 @@
 <svelte:window on:hashchange={onHashChange} />
 {#if mode === USER}
   <div class="root_layout">
-    <SideMenu access={segments} />
     <div class="root_container">
-      <Navbar {user} />
+      <SideMenu access={segments} />
       <div class="root_content">
-        <div style="width: 400px;">
-          <InputBox id="tenantCode" label="Tenant Code" bind:value={tenantCode} type="password" />
+        <Navbar {user} />
+        <div class="content">
+          <div style="width: 400px;">
+            <InputBox id="tenantCode" label="Tenant Code" bind:value={tenantCode} type="text" />
+            <br /><br />
+            <InputBox id="companyName" label="Company Name" bind:value={companyName} type="text" />
+            <br /><br />
+            <InputBox id="headTitle" label="Head Title" bind:value={headTitle} type="text" />
+            <br /><br />
+            <SubmitButton on:click={userCreateCompany} isSubmitted={isSubmitCreateCompany} />
+          </div>
+          <div style="height: 1200px; backgroud: blue;">
 
-          <br /><br />
-
-          <InputBox id="companyName" label="Company Name" bind:value={companyName} type="text" />
-
-          <br /><br />
-          <label for="headTitle">Head Title</label><br />
-          <input type="text" name="headTitle" id="headTitle" bind:value={headTitle} />
-          <br /><br />
-          <SubmitButton on:click={userCreateCompany} isSubmitted={isSubmitCreateCompany} />
+          </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   </div>
 {:else}
@@ -336,7 +321,6 @@
 
 <style>
   @keyframes spin {
-    /* TODO: use it for loading */
     from {
       transform: rotate(0deg);
     }
@@ -352,9 +336,9 @@
   .auth_section {
     height: 100dvh;
     width: 100%;
-    background-color: #f1f5f9;
+    background-color: var(--gray-002);
     display: flex;
-    color: #475569;
+    color: var(--gray-007);
   }
 
   .main_container {
@@ -380,7 +364,7 @@
   .title_container p {
     font-size: 16px;
     font-weight: 600;
-    color: #4444ef;
+    color: var(--purple-002);
     margin: 0;
   }
 
@@ -393,8 +377,8 @@
   .input_container {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
-    gap: 20px;
+    margin-bottom: 25px;
+    gap: 15px;
   }
 
   .forgot_password {
@@ -407,12 +391,12 @@
   }
 
   .forgot_password a {
-    color: #3b82f6;
+    color: var(--blue-006);
     text-decoration: none;
   }
 
   .forgot_password a:hover {
-    color: #5892f5;
+    color: var(--blue-005);
     text-decoration: underline;
   }
 
@@ -422,7 +406,7 @@
     padding: 10px;
     font-size: 16px;
     font-weight: 700;
-    background-color: #3b82f6;
+    background-color: var(--blue-006);
     border-radius: 8px;
     color: white;
     border: none;
@@ -431,7 +415,7 @@
   }
 
   .button_container button:hover {
-    background-color: #5892f5;
+    background-color: var(--blue-005);
   }
 
   .oauth_container .or_separator {
@@ -469,7 +453,7 @@
   }
 
   .oauth_container .button:hover {
-    background-color: #f1f5f9;
+    background-color: var(--gray-002);
     /* #94a3b8 */
   }
 
@@ -496,12 +480,12 @@
   }
 
   .foot_auth a {
-    color: #3b82f6;
+    color: var(--blue-006);
     text-decoration: none;
   }
 
   .foot_auth a:hover {
-    color: #5892f5;
+    color: var(--blue-005);
     text-decoration: underline;
   }
 </style>

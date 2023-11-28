@@ -14,16 +14,17 @@
   })
 </script>
 
-
 <div class="root_layout">
-  <SideMenu access={segments}/>
   <div class="root_container">
-    <Navbar {user} />
+    <SideMenu access={segments} />
     <div class="root_content">
-      <AdminSubMenu />
-      <p>TODO fill with proper menu</p>
+      <Navbar {user} />
+      <div class="content">
+        <AdminSubMenu />
+        <p>TODO fill with proper menu</p>
+      </div>
+      <Footer />
     </div>
-    <Footer />
   </div>
 </div>
 

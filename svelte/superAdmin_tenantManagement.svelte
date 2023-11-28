@@ -13,22 +13,11 @@
   import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
   import { onMount } from 'svelte';
 
-  let segments = {
-    /* segments */
-  };
-  let fields = [
-    /* fields */
-  ];
-  let tenants =
-    [
-      /* tenants */
-    ] || [];
-  let pager = {
-    /* pager */
-  };
-  let user = {
-    /* user */
-  };
+  let segments = {/* segments */};
+  let fields = [/* fields */];
+  let tenants = [/* tenants */] || [];
+  let pager = {/* pager */};
+  let user = {/* user */};
 
   onMount(() => {
     tenants = tenants || [];
@@ -97,23 +86,31 @@
 </script>
 
 <div class="root_layout">
-  <SideMenu access={segments} />
   <div class="root_container">
-    <Navbar {user} />
+    <SideMenu access={segments} />
     <div class="root_content">
-      <AdminSubMenu />
-      <div>
-        <ModalForm {fields} rowType="Tenant" bind:this={form} onConfirm={saveRow}></ModalForm>
-        <section class="tableview_container">
-          <TableView {fields} bind:pager rows={tenants} onRefreshTableView={refreshTableView} onEditRow={editRow}>
-            <button on:click={addRow} class="action_btn">
-              <Icon size={17} color="#FFF" src={FaSolidPlusCircle} />
-              <span>Add</span>
-            </button>
-          </TableView>
-        </section>
+      <Navbar {user} />
+      <div class="content">
+        <AdminSubMenu />
+        <div class="tenant_management">
+          <ModalForm {fields} rowType="Tenant" bind:this={form} onConfirm={saveRow}></ModalForm>
+          <section class="tableview_container">
+            <TableView {fields} bind:pager rows={tenants} onRefreshTableView={refreshTableView} onEditRow={editRow}>
+              <button on:click={addRow} class="action_btn">
+                <Icon size={17} color="#FFF" src={FaSolidPlusCircle} />
+                <span>Add</span>
+              </button>
+            </TableView>
+          </section>
+        </div>
       </div>
+      <Footer />
     </div>
-    <Footer />
   </div>
 </div>
+
+<style>
+  .tenant_management {
+    margin-top: 30px;
+  }
+</style>
