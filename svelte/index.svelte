@@ -1,12 +1,6 @@
 <script>
   //@ts-nocheck
-  import {
-    UserCreateCompany,
-    GuestForgotPassword,
-    GuestLogin,
-    GuestRegister,
-    GuestResendVerificationEmail,
-  } from './jsApi.GEN.js';
+  import { GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail } from './jsApi.GEN.js';
   import { onMount, tick } from 'svelte';
   import FaSolidCircleNotch from 'svelte-icons-pack/fa/FaSolidCircleNotch';
   import Icon from 'svelte-icons-pack/Icon.svelte';
@@ -14,8 +8,8 @@
   import SideMenu from './_components/partials/SideMenu.svelte';
   import Navbar from './_components/partials/Navbar.svelte';
   import { notifier } from './_components/notifier.js';
-  import SubmitButton from './_components/SubmitButton.svelte';
   import InputBox from './_components/InputBox.svelte';
+  import ToCompany from './_components/ToCompany.svelte';
 
   let user = {/* user */};
   let segments = {/* segments */};
@@ -162,30 +156,6 @@
       notifier.showInfo('A reset password link has been sent to your email');
     });
   }
-
-  let tenantCode = '', companyName = '', headTitle = '';
-  let isSubmitCreateCompany = false;
-  async function userCreateCompany() {
-    isSubmitCreateCompany = true;
-    await UserCreateCompany(
-      {
-        tenantCode,
-        companyName,
-        headTitle,
-      },
-      function (o) {
-        if (o.error) {
-          isSubmitCreateCompany = false;
-          notifier.showError(o.error);
-          console.log(o.error);
-          return;
-        }
-        isSubmitCreateCompany = false;
-        console.log(o);
-        notifier.showSuccess('Company created successfully');
-      }
-    );
-  }
 </script>
 
 <svelte:window on:hashchange={onHashChange} />
@@ -196,18 +166,7 @@
       <div class="root_content">
         <Navbar {user} />
         <div class="content">
-          <div style="width: 400px;">
-            <InputBox id="tenantCode" label="Tenant Code" bind:value={tenantCode} type="text" />
-            <br /><br />
-            <InputBox id="companyName" label="Company Name" bind:value={companyName} type="text" />
-            <br /><br />
-            <InputBox id="headTitle" label="Head Title" bind:value={headTitle} type="text" />
-            <br /><br />
-            <SubmitButton on:click={userCreateCompany} isSubmitted={isSubmitCreateCompany} />
-          </div>
-          <div style="height: 1200px; backgroud: blue;">
-
-          </div>
+          <ToCompany {user} />
         </div>
         <Footer />
       </div>

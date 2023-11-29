@@ -83,8 +83,8 @@
           <div class="profile_details">
             <h3>Profile Details</h3>
             <div class="input_row">
-              <InputBox id="fullname" label="Full Name" value={user.fullName} type="text" />
-              <InputBox id="email" label="E-Mail" value={user.email} type="email" />
+              <InputBox id="fullname" label="Full Name" bind:value={user.fullName} type="text" />
+              <InputBox id="email" label="E-Mail" bind:value={user.email} type="email" />
             </div>
             <div class="user_info">
               <div class="info">
@@ -97,11 +97,11 @@
               </div>
               <div class="info">
                 <span>Role</span>
-                <span>{user.role}</span>
+                <span>{user.role || `--`}</span>
               </div>
               <div class="info">
                 <span>Last Login</span>
-                <span>{localeDatetime(user.lastLoginAt)}</span>
+                <span>{localeDatetime(user.lastLoginAt) || 0}</span>
               </div>
               <div class="info">
                 <span>Updated At</span>
@@ -117,7 +117,7 @@
               </div>
               <div class="info">
                 <span>Tenant Code</span>
-                <span>{user.tenantCode || 0}</span>
+                <span>{user.tenantCode || `--`}</span>
               </div>
             </div>
             <SubmitButton
@@ -210,6 +210,7 @@
     gap: 20px;
     height: fit-content;
     border-radius: 8px;
+    background-color: #FFF;
   }
 
   .user_details_container .profile_details {
@@ -269,6 +270,7 @@
     border-radius: 8px;
     overflow: hidden;
     margin-top: 30px;
+    background-color: #FFF;
   }
 
   .sessions_container .header {

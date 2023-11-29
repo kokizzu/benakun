@@ -107,6 +107,7 @@
       overflow-y: auto;
       height: 100%;
       position: relative;
+      background-color: var(--gray-001);
     }
 
     .root_layout .root_container .root_content .content {
@@ -420,38 +421,6 @@ a.active.svelte-1n0fjzt {
 @media only screen and (max-width : 768px) {
 }
 
-/* fakecss:./_components/SubmitButton.esbuild-svelte-fake-css */
-@keyframes svelte-wfjkmo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-.spin {
-  animation: svelte-wfjkmo-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-.full_width.svelte-wfjkmo {
-  width: 100% !important;
-}
-.submit_btn.svelte-wfjkmo {
-  border: none;
-  width: fit-content;
-  padding: 10px 15px;
-  border-radius: 8px;
-  background-color: var(--blue-006);
-  color: #fff;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-}
-.submit_btn.svelte-wfjkmo:hover {
-  background-color: var(--blue-005);
-}
-
 /* fakecss:./_components/InputBox.esbuild-svelte-fake-css */
 .input_box.svelte-msefpz.svelte-msefpz {
   position: relative;
@@ -495,6 +464,77 @@ a.active.svelte-1n0fjzt {
 }
 .input_box .eye:hover svg {
   fill: var(--blue-005);
+}
+
+/* fakecss:./_components/SubmitButton.esbuild-svelte-fake-css */
+@keyframes svelte-wfjkmo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin {
+  animation: svelte-wfjkmo-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.full_width.svelte-wfjkmo {
+  width: 100% !important;
+}
+.submit_btn.svelte-wfjkmo {
+  border: none;
+  width: fit-content;
+  padding: 10px 15px;
+  border-radius: 8px;
+  background-color: var(--blue-006);
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.submit_btn.svelte-wfjkmo:hover {
+  background-color: var(--blue-005);
+}
+
+/* fakecss:./_components/ToCompany.esbuild-svelte-fake-css */
+.to_company_container.svelte-132onl8.svelte-132onl8 {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+}
+.to_company_container.svelte-132onl8 .join_create_company.svelte-132onl8 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  gap: 20px;
+  width: 100%;
+}
+.to_company_container.svelte-132onl8 .join_create_company button.svelte-132onl8 {
+  width: 100%;
+  height: 100%;
+  background-color: #FFF;
+  border-radius: 20px;
+  border: 1px solid var(--gray-003);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 20px;
+  font-size: var(--font-xl);
+  color: var(--gray-007);
+  font-weight: 700;
+}
+.to_company_container.svelte-132onl8 .join_create_company button.svelte-132onl8:hover {
+  border: 1px solid var(--blue-005);
+  color: var(--blue-005);
+}
+.to_company_container.svelte-132onl8 .join_create_company button img.svelte-132onl8 {
+  width: 360px;
+  height: auto;
 }
 
 /* fakecss:./index.esbuild-svelte-fake-css */
@@ -2654,13 +2694,13 @@ a.active.svelte-1n0fjzt {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance9 = bind2(Axios$1.prototype.request, context);
-        utils$1.extend(instance9, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance9, context, null, { allOwnKeys: true });
-        instance9.create = function create(instanceConfig) {
+        const instance10 = bind2(Axios$1.prototype.request, context);
+        utils$1.extend(instance10, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance10, context, null, { allOwnKeys: true });
+        instance10.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance9;
+        return instance10;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -3228,7 +3268,7 @@ a.active.svelte-1n0fjzt {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance9, create_fragment9, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance10, create_fragment10, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3254,7 +3294,7 @@ a.active.svelte-1n0fjzt {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance9 ? instance9(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance10 ? instance10(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -3267,7 +3307,7 @@ a.active.svelte-1n0fjzt {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment9 ? create_fragment9($.ctx) : false;
+    $.fragment = create_fragment10 ? create_fragment10($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -3537,7 +3577,7 @@ a.active.svelte-1n0fjzt {
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
   // index.svelte
-  var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
+  var import_jsApi_GEN3 = __toESM(require_jsApi_GEN());
 
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidCircleNotch.js
   var FaSolidCircleNotch_default = {
@@ -4895,258 +4935,6 @@ a.active.svelte-1n0fjzt {
   };
   var Navbar_default = Navbar;
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fi/FiSend.js
-  var FiSend_default = {
-    a: {
-      viewBox: "0 0 24 24",
-      fill: "none",
-      stroke: "currentColor",
-      "stroke-width": "2",
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round"
-    },
-    c: '<line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fi/FiLoader.js
-  var FiLoader_default = {
-    a: {
-      viewBox: "0 0 24 24",
-      fill: "none",
-      stroke: "currentColor",
-      "stroke-width": "2",
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round"
-    },
-    c: '<line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>'
-  };
-
-  // _components/SubmitButton.svelte
-  function create_if_block_12(ctx) {
-    let icon;
-    let current;
-    icon = new Icon_default({
-      props: { color: "#FFF", size: 14, src: FiSend_default }
-    });
-    return {
-      c() {
-        create_component(icon.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(icon, target, anchor);
-        current = true;
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(icon, detaching);
-      }
-    };
-  }
-  function create_if_block2(ctx) {
-    let icon;
-    let current;
-    icon = new Icon_default({
-      props: {
-        className: "spin",
-        color: "#FFF",
-        size: 14,
-        src: FiLoader_default
-      }
-    });
-    return {
-      c() {
-        create_component(icon.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(icon, target, anchor);
-        current = true;
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(icon, detaching);
-      }
-    };
-  }
-  function create_fragment6(ctx) {
-    let button;
-    let t0;
-    let t1;
-    let span;
-    let t2;
-    let button_class_value;
-    let current;
-    let mounted;
-    let dispose;
-    let if_block0 = !/*isSubmitted*/
-    ctx[0] && create_if_block_12(ctx);
-    let if_block1 = (
-      /*isSubmitted*/
-      ctx[0] && create_if_block2(ctx)
-    );
-    return {
-      c() {
-        button = element("button");
-        if (if_block0)
-          if_block0.c();
-        t0 = space();
-        if (if_block1)
-          if_block1.c();
-        t1 = space();
-        span = element("span");
-        t2 = text(
-          /*label*/
-          ctx[2]
-        );
-        attr(button, "class", button_class_value = null_to_empty(
-          /*isFullWidth*/
-          ctx[1] ? "submit_btn full_width" : "submit_btn"
-        ) + " svelte-wfjkmo");
-      },
-      m(target, anchor) {
-        insert(target, button, anchor);
-        if (if_block0)
-          if_block0.m(button, null);
-        append(button, t0);
-        if (if_block1)
-          if_block1.m(button, null);
-        append(button, t1);
-        append(button, span);
-        append(span, t2);
-        current = true;
-        if (!mounted) {
-          dispose = listen(button, "click", prevent_default(
-            /*click_handler*/
-            ctx[3]
-          ));
-          mounted = true;
-        }
-      },
-      p(ctx2, [dirty]) {
-        if (!/*isSubmitted*/
-        ctx2[0]) {
-          if (if_block0) {
-            if (dirty & /*isSubmitted*/
-            1) {
-              transition_in(if_block0, 1);
-            }
-          } else {
-            if_block0 = create_if_block_12(ctx2);
-            if_block0.c();
-            transition_in(if_block0, 1);
-            if_block0.m(button, t0);
-          }
-        } else if (if_block0) {
-          group_outros();
-          transition_out(if_block0, 1, 1, () => {
-            if_block0 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*isSubmitted*/
-          ctx2[0]
-        ) {
-          if (if_block1) {
-            if (dirty & /*isSubmitted*/
-            1) {
-              transition_in(if_block1, 1);
-            }
-          } else {
-            if_block1 = create_if_block2(ctx2);
-            if_block1.c();
-            transition_in(if_block1, 1);
-            if_block1.m(button, t1);
-          }
-        } else if (if_block1) {
-          group_outros();
-          transition_out(if_block1, 1, 1, () => {
-            if_block1 = null;
-          });
-          check_outros();
-        }
-        if (!current || dirty & /*label*/
-        4)
-          set_data(
-            t2,
-            /*label*/
-            ctx2[2]
-          );
-        if (!current || dirty & /*isFullWidth*/
-        2 && button_class_value !== (button_class_value = null_to_empty(
-          /*isFullWidth*/
-          ctx2[1] ? "submit_btn full_width" : "submit_btn"
-        ) + " svelte-wfjkmo")) {
-          attr(button, "class", button_class_value);
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(if_block0);
-        transition_in(if_block1);
-        current = true;
-      },
-      o(local) {
-        transition_out(if_block0);
-        transition_out(if_block1);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(button);
-        }
-        if (if_block0)
-          if_block0.d();
-        if (if_block1)
-          if_block1.d();
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function instance6($self, $props, $invalidate) {
-    let { isSubmitted = false } = $props;
-    let { isFullWidth = false } = $props;
-    let { label = "Submit" } = $props;
-    function click_handler(event) {
-      bubble.call(this, $self, event);
-    }
-    $self.$set = ($props2) => {
-      if ("isSubmitted" in $props2)
-        $invalidate(0, isSubmitted = $props2.isSubmitted);
-      if ("isFullWidth" in $props2)
-        $invalidate(1, isFullWidth = $props2.isFullWidth);
-      if ("label" in $props2)
-        $invalidate(2, label = $props2.label);
-    };
-    return [isSubmitted, isFullWidth, label, click_handler];
-  }
-  var SubmitButton = class extends SvelteComponent {
-    constructor(options) {
-      super();
-      init(this, options, instance6, create_fragment6, safe_not_equal, { isSubmitted: 0, isFullWidth: 1, label: 2 });
-    }
-  };
-  var SubmitButton_default = SubmitButton;
-
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ai/AiOutlineEye.js
   var AiOutlineEye_default = {
     a: {
@@ -5164,7 +4952,7 @@ a.active.svelte-1n0fjzt {
   };
 
   // _components/InputBox.svelte
-  function create_if_block3(ctx) {
+  function create_if_block2(ctx) {
     let button;
     let t;
     let current;
@@ -5174,7 +4962,7 @@ a.active.svelte-1n0fjzt {
     ctx[4] && create_if_block_22(ctx);
     let if_block1 = (
       /*isShowPassword*/
-      ctx[4] && create_if_block_13(ctx)
+      ctx[4] && create_if_block_12(ctx)
     );
     return {
       c() {
@@ -5235,7 +5023,7 @@ a.active.svelte-1n0fjzt {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_13(ctx2);
+            if_block1 = create_if_block_12(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(button, null);
@@ -5306,7 +5094,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_13(ctx) {
+  function create_if_block_12(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -5339,7 +5127,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_fragment7(ctx) {
+  function create_fragment6(ctx) {
     let div;
     let label_1;
     let t0;
@@ -5352,7 +5140,7 @@ a.active.svelte-1n0fjzt {
     let dispose;
     let if_block = (
       /*type*/
-      ctx[3] === "password" && create_if_block3(ctx)
+      ctx[3] === "password" && create_if_block2(ctx)
     );
     return {
       c() {
@@ -5458,7 +5246,7 @@ a.active.svelte-1n0fjzt {
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block3(ctx2);
+            if_block = create_if_block2(ctx2);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(div, null);
@@ -5500,7 +5288,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function instance7($self, $props, $invalidate) {
+  function instance6($self, $props, $invalidate) {
     let { id } = $props;
     let { value } = $props;
     let { label } = $props;
@@ -5550,10 +5338,802 @@ a.active.svelte-1n0fjzt {
   var InputBox = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance7, create_fragment7, safe_not_equal, { id: 1, value: 0, label: 2, type: 3 });
+      init(this, options, instance6, create_fragment6, safe_not_equal, { id: 1, value: 0, label: 2, type: 3 });
     }
   };
   var InputBox_default = InputBox;
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fi/FiSend.js
+  var FiSend_default = {
+    a: {
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": "2",
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round"
+    },
+    c: '<line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fi/FiLoader.js
+  var FiLoader_default = {
+    a: {
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": "2",
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round"
+    },
+    c: '<line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>'
+  };
+
+  // _components/SubmitButton.svelte
+  function create_if_block_13(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: { color: "#FFF", size: 14, src: FiSend_default }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_if_block3(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        className: "spin",
+        color: "#FFF",
+        size: 14,
+        src: FiLoader_default
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_fragment7(ctx) {
+    let button;
+    let t0;
+    let t1;
+    let span;
+    let t2;
+    let button_class_value;
+    let current;
+    let mounted;
+    let dispose;
+    let if_block0 = !/*isSubmitted*/
+    ctx[0] && create_if_block_13(ctx);
+    let if_block1 = (
+      /*isSubmitted*/
+      ctx[0] && create_if_block3(ctx)
+    );
+    return {
+      c() {
+        button = element("button");
+        if (if_block0)
+          if_block0.c();
+        t0 = space();
+        if (if_block1)
+          if_block1.c();
+        t1 = space();
+        span = element("span");
+        t2 = text(
+          /*label*/
+          ctx[2]
+        );
+        attr(button, "class", button_class_value = null_to_empty(
+          /*isFullWidth*/
+          ctx[1] ? "submit_btn full_width" : "submit_btn"
+        ) + " svelte-wfjkmo");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        if (if_block0)
+          if_block0.m(button, null);
+        append(button, t0);
+        if (if_block1)
+          if_block1.m(button, null);
+        append(button, t1);
+        append(button, span);
+        append(span, t2);
+        current = true;
+        if (!mounted) {
+          dispose = listen(button, "click", prevent_default(
+            /*click_handler*/
+            ctx[3]
+          ));
+          mounted = true;
+        }
+      },
+      p(ctx2, [dirty]) {
+        if (!/*isSubmitted*/
+        ctx2[0]) {
+          if (if_block0) {
+            if (dirty & /*isSubmitted*/
+            1) {
+              transition_in(if_block0, 1);
+            }
+          } else {
+            if_block0 = create_if_block_13(ctx2);
+            if_block0.c();
+            transition_in(if_block0, 1);
+            if_block0.m(button, t0);
+          }
+        } else if (if_block0) {
+          group_outros();
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*isSubmitted*/
+          ctx2[0]
+        ) {
+          if (if_block1) {
+            if (dirty & /*isSubmitted*/
+            1) {
+              transition_in(if_block1, 1);
+            }
+          } else {
+            if_block1 = create_if_block3(ctx2);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(button, t1);
+          }
+        } else if (if_block1) {
+          group_outros();
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
+          });
+          check_outros();
+        }
+        if (!current || dirty & /*label*/
+        4)
+          set_data(
+            t2,
+            /*label*/
+            ctx2[2]
+          );
+        if (!current || dirty & /*isFullWidth*/
+        2 && button_class_value !== (button_class_value = null_to_empty(
+          /*isFullWidth*/
+          ctx2[1] ? "submit_btn full_width" : "submit_btn"
+        ) + " svelte-wfjkmo")) {
+          attr(button, "class", button_class_value);
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block0);
+        transition_in(if_block1);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block0);
+        transition_out(if_block1);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function instance7($self, $props, $invalidate) {
+    let { isSubmitted = false } = $props;
+    let { isFullWidth = false } = $props;
+    let { label = "Submit" } = $props;
+    function click_handler(event) {
+      bubble.call(this, $self, event);
+    }
+    $self.$set = ($props2) => {
+      if ("isSubmitted" in $props2)
+        $invalidate(0, isSubmitted = $props2.isSubmitted);
+      if ("isFullWidth" in $props2)
+        $invalidate(1, isFullWidth = $props2.isFullWidth);
+      if ("label" in $props2)
+        $invalidate(2, label = $props2.label);
+    };
+    return [isSubmitted, isFullWidth, label, click_handler];
+  }
+  var SubmitButton = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance7, create_fragment7, safe_not_equal, { isSubmitted: 0, isFullWidth: 1, label: 2 });
+    }
+  };
+  var SubmitButton_default = SubmitButton;
+
+  // _components/ToCompany.svelte
+  var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
+  function create_if_block_23(ctx) {
+    let div;
+    let button0;
+    let t2;
+    let button1;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        div = element("div");
+        button0 = element("button");
+        button0.innerHTML = `<img src="/assets/icons/join-company.svg" alt="" class="svelte-132onl8"/> <span>Join Company</span>`;
+        t2 = space();
+        button1 = element("button");
+        button1.innerHTML = `<img src="/assets/icons/create-company.svg" alt="" class="svelte-132onl8"/> <span>Create Company</span>`;
+        attr(button0, "class", "svelte-132onl8");
+        attr(button1, "class", "svelte-132onl8");
+        attr(div, "class", "join_create_company svelte-132onl8");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        append(div, button0);
+        append(div, t2);
+        append(div, button1);
+        if (!mounted) {
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*click_handler*/
+              ctx[8]
+            ),
+            listen(
+              button1,
+              "click",
+              /*click_handler_1*/
+              ctx[9]
+            )
+          ];
+          mounted = true;
+        }
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
+  function create_if_block_14(ctx) {
+    let div;
+    let inputbox;
+    let updating_value;
+    let t0;
+    let br0;
+    let br1;
+    let t1;
+    let submitbutton;
+    let current;
+    function inputbox_value_binding(value) {
+      ctx[10](value);
+    }
+    let inputbox_props = {
+      id: "invitationUrl",
+      label: "Invitation URL",
+      type: "text"
+    };
+    if (
+      /*tenantCode*/
+      ctx[1] !== void 0
+    ) {
+      inputbox_props.value = /*tenantCode*/
+      ctx[1];
+    }
+    inputbox = new InputBox_default({ props: inputbox_props });
+    binding_callbacks.push(() => bind(inputbox, "value", inputbox_value_binding));
+    submitbutton = new SubmitButton_default({
+      props: { isSubmitted: isSubmitJoinCompany }
+    });
+    submitbutton.$on(
+      "click",
+      /*userJoinCompany*/
+      ctx[6]
+    );
+    return {
+      c() {
+        div = element("div");
+        create_component(inputbox.$.fragment);
+        t0 = space();
+        br0 = element("br");
+        br1 = element("br");
+        t1 = space();
+        create_component(submitbutton.$.fragment);
+        set_style(div, "width", "400px");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        mount_component(inputbox, div, null);
+        append(div, t0);
+        append(div, br0);
+        append(div, br1);
+        append(div, t1);
+        mount_component(submitbutton, div, null);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const inputbox_changes = {};
+        if (!updating_value && dirty & /*tenantCode*/
+        2) {
+          updating_value = true;
+          inputbox_changes.value = /*tenantCode*/
+          ctx2[1];
+          add_flush_callback(() => updating_value = false);
+        }
+        inputbox.$set(inputbox_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(inputbox.$.fragment, local);
+        transition_in(submitbutton.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(inputbox.$.fragment, local);
+        transition_out(submitbutton.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        destroy_component(inputbox);
+        destroy_component(submitbutton);
+      }
+    };
+  }
+  function create_if_block4(ctx) {
+    let div;
+    let inputbox0;
+    let updating_value;
+    let t0;
+    let br0;
+    let br1;
+    let t1;
+    let inputbox1;
+    let updating_value_1;
+    let t2;
+    let br2;
+    let br3;
+    let t3;
+    let inputbox2;
+    let updating_value_2;
+    let t4;
+    let br4;
+    let br5;
+    let t5;
+    let submitbutton;
+    let current;
+    function inputbox0_value_binding(value) {
+      ctx[11](value);
+    }
+    let inputbox0_props = {
+      id: "tenantCode",
+      label: "Tenant Code",
+      type: "text"
+    };
+    if (
+      /*tenantCode*/
+      ctx[1] !== void 0
+    ) {
+      inputbox0_props.value = /*tenantCode*/
+      ctx[1];
+    }
+    inputbox0 = new InputBox_default({ props: inputbox0_props });
+    binding_callbacks.push(() => bind(inputbox0, "value", inputbox0_value_binding));
+    function inputbox1_value_binding(value) {
+      ctx[12](value);
+    }
+    let inputbox1_props = {
+      id: "companyName",
+      label: "Company Name",
+      type: "text"
+    };
+    if (
+      /*companyName*/
+      ctx[2] !== void 0
+    ) {
+      inputbox1_props.value = /*companyName*/
+      ctx[2];
+    }
+    inputbox1 = new InputBox_default({ props: inputbox1_props });
+    binding_callbacks.push(() => bind(inputbox1, "value", inputbox1_value_binding));
+    function inputbox2_value_binding(value) {
+      ctx[13](value);
+    }
+    let inputbox2_props = {
+      id: "headTitle",
+      label: "Head Title",
+      type: "text"
+    };
+    if (
+      /*headTitle*/
+      ctx[3] !== void 0
+    ) {
+      inputbox2_props.value = /*headTitle*/
+      ctx[3];
+    }
+    inputbox2 = new InputBox_default({ props: inputbox2_props });
+    binding_callbacks.push(() => bind(inputbox2, "value", inputbox2_value_binding));
+    submitbutton = new SubmitButton_default({
+      props: {
+        isSubmitted: (
+          /*isSubmitCreateCompany*/
+          ctx[4]
+        )
+      }
+    });
+    submitbutton.$on(
+      "click",
+      /*userCreateCompany*/
+      ctx[5]
+    );
+    return {
+      c() {
+        div = element("div");
+        create_component(inputbox0.$.fragment);
+        t0 = space();
+        br0 = element("br");
+        br1 = element("br");
+        t1 = space();
+        create_component(inputbox1.$.fragment);
+        t2 = space();
+        br2 = element("br");
+        br3 = element("br");
+        t3 = space();
+        create_component(inputbox2.$.fragment);
+        t4 = space();
+        br4 = element("br");
+        br5 = element("br");
+        t5 = space();
+        create_component(submitbutton.$.fragment);
+        set_style(div, "width", "400px");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        mount_component(inputbox0, div, null);
+        append(div, t0);
+        append(div, br0);
+        append(div, br1);
+        append(div, t1);
+        mount_component(inputbox1, div, null);
+        append(div, t2);
+        append(div, br2);
+        append(div, br3);
+        append(div, t3);
+        mount_component(inputbox2, div, null);
+        append(div, t4);
+        append(div, br4);
+        append(div, br5);
+        append(div, t5);
+        mount_component(submitbutton, div, null);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const inputbox0_changes = {};
+        if (!updating_value && dirty & /*tenantCode*/
+        2) {
+          updating_value = true;
+          inputbox0_changes.value = /*tenantCode*/
+          ctx2[1];
+          add_flush_callback(() => updating_value = false);
+        }
+        inputbox0.$set(inputbox0_changes);
+        const inputbox1_changes = {};
+        if (!updating_value_1 && dirty & /*companyName*/
+        4) {
+          updating_value_1 = true;
+          inputbox1_changes.value = /*companyName*/
+          ctx2[2];
+          add_flush_callback(() => updating_value_1 = false);
+        }
+        inputbox1.$set(inputbox1_changes);
+        const inputbox2_changes = {};
+        if (!updating_value_2 && dirty & /*headTitle*/
+        8) {
+          updating_value_2 = true;
+          inputbox2_changes.value = /*headTitle*/
+          ctx2[3];
+          add_flush_callback(() => updating_value_2 = false);
+        }
+        inputbox2.$set(inputbox2_changes);
+        const submitbutton_changes = {};
+        if (dirty & /*isSubmitCreateCompany*/
+        16)
+          submitbutton_changes.isSubmitted = /*isSubmitCreateCompany*/
+          ctx2[4];
+        submitbutton.$set(submitbutton_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(inputbox0.$.fragment, local);
+        transition_in(inputbox1.$.fragment, local);
+        transition_in(inputbox2.$.fragment, local);
+        transition_in(submitbutton.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(inputbox0.$.fragment, local);
+        transition_out(inputbox1.$.fragment, local);
+        transition_out(inputbox2.$.fragment, local);
+        transition_out(submitbutton.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        destroy_component(inputbox0);
+        destroy_component(inputbox1);
+        destroy_component(inputbox2);
+        destroy_component(submitbutton);
+      }
+    };
+  }
+  function create_fragment8(ctx) {
+    let div;
+    let t0;
+    let t1;
+    let current;
+    let if_block0 = (
+      /*mode*/
+      ctx[0] === DEFAULT && create_if_block_23(ctx)
+    );
+    let if_block1 = (
+      /*mode*/
+      ctx[0] === JOIN && create_if_block_14(ctx)
+    );
+    let if_block2 = (
+      /*mode*/
+      ctx[0] === CREATE && create_if_block4(ctx)
+    );
+    return {
+      c() {
+        div = element("div");
+        if (if_block0)
+          if_block0.c();
+        t0 = space();
+        if (if_block1)
+          if_block1.c();
+        t1 = space();
+        if (if_block2)
+          if_block2.c();
+        attr(div, "class", "to_company_container svelte-132onl8");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        if (if_block0)
+          if_block0.m(div, null);
+        append(div, t0);
+        if (if_block1)
+          if_block1.m(div, null);
+        append(div, t1);
+        if (if_block2)
+          if_block2.m(div, null);
+        current = true;
+      },
+      p(ctx2, [dirty]) {
+        if (
+          /*mode*/
+          ctx2[0] === DEFAULT
+        ) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+          } else {
+            if_block0 = create_if_block_23(ctx2);
+            if_block0.c();
+            if_block0.m(div, t0);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        if (
+          /*mode*/
+          ctx2[0] === JOIN
+        ) {
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
+            if (dirty & /*mode*/
+            1) {
+              transition_in(if_block1, 1);
+            }
+          } else {
+            if_block1 = create_if_block_14(ctx2);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(div, t1);
+          }
+        } else if (if_block1) {
+          group_outros();
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*mode*/
+          ctx2[0] === CREATE
+        ) {
+          if (if_block2) {
+            if_block2.p(ctx2, dirty);
+            if (dirty & /*mode*/
+            1) {
+              transition_in(if_block2, 1);
+            }
+          } else {
+            if_block2 = create_if_block4(ctx2);
+            if_block2.c();
+            transition_in(if_block2, 1);
+            if_block2.m(div, null);
+          }
+        } else if (if_block2) {
+          group_outros();
+          transition_out(if_block2, 1, 1, () => {
+            if_block2 = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block1);
+        transition_in(if_block2);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block1);
+        transition_out(if_block2);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        if (if_block2)
+          if_block2.d();
+      }
+    };
+  }
+  var DEFAULT = "DEFAULT";
+  var CREATE = "CREATE";
+  var JOIN = "JOIN";
+  var invitationUrl = "";
+  var isSubmitJoinCompany = false;
+  function instance8($self, $props, $invalidate) {
+    let { user: user2 } = $props;
+    onMount(() => {
+      console.log("onMount.toCompany ", user2);
+    });
+    let mode = DEFAULT;
+    let tenantCode = "", companyName = "", headTitle = "";
+    let isSubmitCreateCompany = false;
+    async function userCreateCompany() {
+      $invalidate(4, isSubmitCreateCompany = true);
+      await (0, import_jsApi_GEN2.UserCreateCompany)({ tenantCode, companyName, headTitle }, function(o) {
+        if (o.error) {
+          $invalidate(4, isSubmitCreateCompany = false);
+          notifier.showError(o.error);
+          console.log(o.error);
+          return;
+        }
+        $invalidate(4, isSubmitCreateCompany = false);
+        console.log(o);
+        notifier.showSuccess("Company created successfully");
+      });
+    }
+    function userJoinCompany() {
+      if (!invitationUrl)
+        return notifier.showWarning("Invitation URL is required");
+      window.location.href = invitationUrl;
+    }
+    const click_handler = () => $invalidate(0, mode = JOIN);
+    const click_handler_1 = () => $invalidate(0, mode = CREATE);
+    function inputbox_value_binding(value) {
+      tenantCode = value;
+      $invalidate(1, tenantCode);
+    }
+    function inputbox0_value_binding(value) {
+      tenantCode = value;
+      $invalidate(1, tenantCode);
+    }
+    function inputbox1_value_binding(value) {
+      companyName = value;
+      $invalidate(2, companyName);
+    }
+    function inputbox2_value_binding(value) {
+      headTitle = value;
+      $invalidate(3, headTitle);
+    }
+    $self.$set = ($props2) => {
+      if ("user" in $props2)
+        $invalidate(7, user2 = $props2.user);
+    };
+    return [
+      mode,
+      tenantCode,
+      companyName,
+      headTitle,
+      isSubmitCreateCompany,
+      userCreateCompany,
+      userJoinCompany,
+      user2,
+      click_handler,
+      click_handler_1,
+      inputbox_value_binding,
+      inputbox0_value_binding,
+      inputbox1_value_binding,
+      inputbox2_value_binding
+    ];
+  }
+  var ToCompany = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance8, create_fragment8, safe_not_equal, { user: 7 });
+    }
+  };
+  var ToCompany_default = ToCompany;
 
   // index.svelte
   var { window: window_1 } = globals;
@@ -5637,7 +6217,7 @@ a.active.svelte-1n0fjzt {
     );
     let if_block10 = (
       /*mode*/
-      ctx[5] !== LOGIN && create_if_block_23(ctx)
+      ctx[5] !== LOGIN && create_if_block_24(ctx)
     );
     let if_block11 = (
       /*mode*/
@@ -5984,7 +6564,7 @@ a.active.svelte-1n0fjzt {
           if (if_block10) {
             if_block10.p(ctx2, dirty);
           } else {
-            if_block10 = create_if_block_23(ctx2);
+            if_block10 = create_if_block_24(ctx2);
             if_block10.c();
             if_block10.m(div3, t16);
           }
@@ -6061,38 +6641,17 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block4(ctx) {
-    let div5;
-    let div4;
+  function create_if_block5(ctx) {
+    let div3;
+    let div2;
     let sidemenu;
     let t0;
-    let div3;
+    let div1;
     let navbar;
     let t1;
-    let div2;
     let div0;
-    let inputbox0;
-    let updating_value;
+    let tocompany;
     let t2;
-    let br0;
-    let br1;
-    let t3;
-    let inputbox1;
-    let updating_value_1;
-    let t4;
-    let br2;
-    let br3;
-    let t5;
-    let inputbox2;
-    let updating_value_2;
-    let t6;
-    let br4;
-    let br5;
-    let t7;
-    let submitbutton;
-    let t8;
-    let div1;
-    let t9;
     let footer;
     let current;
     sidemenu = new SideMenu_default({ props: { access: (
@@ -6103,141 +6662,41 @@ a.active.svelte-1n0fjzt {
       /*user*/
       ctx[0]
     ) } });
-    function inputbox0_value_binding(value) {
-      ctx[17](value);
-    }
-    let inputbox0_props = {
-      id: "tenantCode",
-      label: "Tenant Code",
-      type: "text"
-    };
-    if (
-      /*tenantCode*/
-      ctx[7] !== void 0
-    ) {
-      inputbox0_props.value = /*tenantCode*/
-      ctx[7];
-    }
-    inputbox0 = new InputBox_default({ props: inputbox0_props });
-    binding_callbacks.push(() => bind(inputbox0, "value", inputbox0_value_binding));
-    function inputbox1_value_binding(value) {
-      ctx[18](value);
-    }
-    let inputbox1_props = {
-      id: "companyName",
-      label: "Company Name",
-      type: "text"
-    };
-    if (
-      /*companyName*/
-      ctx[8] !== void 0
-    ) {
-      inputbox1_props.value = /*companyName*/
-      ctx[8];
-    }
-    inputbox1 = new InputBox_default({ props: inputbox1_props });
-    binding_callbacks.push(() => bind(inputbox1, "value", inputbox1_value_binding));
-    function inputbox2_value_binding(value) {
-      ctx[19](value);
-    }
-    let inputbox2_props = {
-      id: "headTitle",
-      label: "Head Title",
-      type: "text"
-    };
-    if (
-      /*headTitle*/
-      ctx[9] !== void 0
-    ) {
-      inputbox2_props.value = /*headTitle*/
-      ctx[9];
-    }
-    inputbox2 = new InputBox_default({ props: inputbox2_props });
-    binding_callbacks.push(() => bind(inputbox2, "value", inputbox2_value_binding));
-    submitbutton = new SubmitButton_default({
-      props: {
-        isSubmitted: (
-          /*isSubmitCreateCompany*/
-          ctx[10]
-        )
-      }
-    });
-    submitbutton.$on(
-      "click",
-      /*userCreateCompany*/
-      ctx[16]
-    );
+    tocompany = new ToCompany_default({ props: { user: (
+      /*user*/
+      ctx[0]
+    ) } });
     footer = new Footer_default({});
     return {
       c() {
-        div5 = element("div");
-        div4 = element("div");
+        div3 = element("div");
+        div2 = element("div");
         create_component(sidemenu.$.fragment);
         t0 = space();
-        div3 = element("div");
+        div1 = element("div");
         create_component(navbar.$.fragment);
         t1 = space();
-        div2 = element("div");
         div0 = element("div");
-        create_component(inputbox0.$.fragment);
+        create_component(tocompany.$.fragment);
         t2 = space();
-        br0 = element("br");
-        br1 = element("br");
-        t3 = space();
-        create_component(inputbox1.$.fragment);
-        t4 = space();
-        br2 = element("br");
-        br3 = element("br");
-        t5 = space();
-        create_component(inputbox2.$.fragment);
-        t6 = space();
-        br4 = element("br");
-        br5 = element("br");
-        t7 = space();
-        create_component(submitbutton.$.fragment);
-        t8 = space();
-        div1 = element("div");
-        div1.innerHTML = ``;
-        t9 = space();
         create_component(footer.$.fragment);
-        set_style(div0, "width", "400px");
-        set_style(div1, "height", "1200px");
-        set_style(div1, "backgroud", "blue");
-        attr(div2, "class", "content");
-        attr(div3, "class", "root_content");
-        attr(div4, "class", "root_container");
-        attr(div5, "class", "root_layout");
+        attr(div0, "class", "content");
+        attr(div1, "class", "root_content");
+        attr(div2, "class", "root_container");
+        attr(div3, "class", "root_layout");
       },
       m(target, anchor) {
-        insert(target, div5, anchor);
-        append(div5, div4);
-        mount_component(sidemenu, div4, null);
-        append(div4, t0);
-        append(div4, div3);
-        mount_component(navbar, div3, null);
-        append(div3, t1);
+        insert(target, div3, anchor);
         append(div3, div2);
-        append(div2, div0);
-        mount_component(inputbox0, div0, null);
-        append(div0, t2);
-        append(div0, br0);
-        append(div0, br1);
-        append(div0, t3);
-        mount_component(inputbox1, div0, null);
-        append(div0, t4);
-        append(div0, br2);
-        append(div0, br3);
-        append(div0, t5);
-        mount_component(inputbox2, div0, null);
-        append(div0, t6);
-        append(div0, br4);
-        append(div0, br5);
-        append(div0, t7);
-        mount_component(submitbutton, div0, null);
-        append(div2, t8);
+        mount_component(sidemenu, div2, null);
+        append(div2, t0);
         append(div2, div1);
-        append(div3, t9);
-        mount_component(footer, div3, null);
+        mount_component(navbar, div1, null);
+        append(div1, t1);
+        append(div1, div0);
+        mount_component(tocompany, div0, null);
+        append(div1, t2);
+        mount_component(footer, div1, null);
         current = true;
       },
       p(ctx2, dirty) {
@@ -6253,72 +6712,36 @@ a.active.svelte-1n0fjzt {
           navbar_changes.user = /*user*/
           ctx2[0];
         navbar.$set(navbar_changes);
-        const inputbox0_changes = {};
-        if (!updating_value && dirty & /*tenantCode*/
-        128) {
-          updating_value = true;
-          inputbox0_changes.value = /*tenantCode*/
-          ctx2[7];
-          add_flush_callback(() => updating_value = false);
-        }
-        inputbox0.$set(inputbox0_changes);
-        const inputbox1_changes = {};
-        if (!updating_value_1 && dirty & /*companyName*/
-        256) {
-          updating_value_1 = true;
-          inputbox1_changes.value = /*companyName*/
-          ctx2[8];
-          add_flush_callback(() => updating_value_1 = false);
-        }
-        inputbox1.$set(inputbox1_changes);
-        const inputbox2_changes = {};
-        if (!updating_value_2 && dirty & /*headTitle*/
-        512) {
-          updating_value_2 = true;
-          inputbox2_changes.value = /*headTitle*/
-          ctx2[9];
-          add_flush_callback(() => updating_value_2 = false);
-        }
-        inputbox2.$set(inputbox2_changes);
-        const submitbutton_changes = {};
-        if (dirty & /*isSubmitCreateCompany*/
-        1024)
-          submitbutton_changes.isSubmitted = /*isSubmitCreateCompany*/
-          ctx2[10];
-        submitbutton.$set(submitbutton_changes);
+        const tocompany_changes = {};
+        if (dirty & /*user*/
+        1)
+          tocompany_changes.user = /*user*/
+          ctx2[0];
+        tocompany.$set(tocompany_changes);
       },
       i(local) {
         if (current)
           return;
         transition_in(sidemenu.$.fragment, local);
         transition_in(navbar.$.fragment, local);
-        transition_in(inputbox0.$.fragment, local);
-        transition_in(inputbox1.$.fragment, local);
-        transition_in(inputbox2.$.fragment, local);
-        transition_in(submitbutton.$.fragment, local);
+        transition_in(tocompany.$.fragment, local);
         transition_in(footer.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(sidemenu.$.fragment, local);
         transition_out(navbar.$.fragment, local);
-        transition_out(inputbox0.$.fragment, local);
-        transition_out(inputbox1.$.fragment, local);
-        transition_out(inputbox2.$.fragment, local);
-        transition_out(submitbutton.$.fragment, local);
+        transition_out(tocompany.$.fragment, local);
         transition_out(footer.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(div5);
+          detach(div3);
         }
         destroy_component(sidemenu);
         destroy_component(navbar);
-        destroy_component(inputbox0);
-        destroy_component(inputbox1);
-        destroy_component(inputbox2);
-        destroy_component(submitbutton);
+        destroy_component(tocompany);
         destroy_component(footer);
       }
     };
@@ -6328,7 +6751,7 @@ a.active.svelte-1n0fjzt {
     let updating_value;
     let current;
     function inputbox_value_binding(value) {
-      ctx[20](value);
+      ctx[12](value);
     }
     let inputbox_props = {
       id: "email",
@@ -6383,7 +6806,7 @@ a.active.svelte-1n0fjzt {
     let updating_value;
     let current;
     function inputbox_value_binding_1(value) {
-      ctx[21](value);
+      ctx[13](value);
     }
     let inputbox_props = {
       id: "password",
@@ -6438,7 +6861,7 @@ a.active.svelte-1n0fjzt {
     let updating_value;
     let current;
     function inputbox_value_binding_2(value) {
-      ctx[22](value);
+      ctx[14](value);
     }
     let inputbox_props = {
       id: "confirmPass",
@@ -6511,7 +6934,7 @@ a.active.svelte-1n0fjzt {
         if (!mounted) {
           dispose = listen(a, "click", prevent_default(
             /*click_handler*/
-            ctx[23]
+            ctx[15]
           ));
           mounted = true;
         }
@@ -6563,7 +6986,7 @@ a.active.svelte-1n0fjzt {
             button,
             "click",
             /*guestRegister*/
-            ctx[12]
+            ctx[8]
           );
           mounted = true;
         }
@@ -6688,7 +7111,7 @@ a.active.svelte-1n0fjzt {
     let dispose;
     let if_block0 = (
       /*isSubmitted*/
-      ctx[6] === true && create_if_block_14(ctx)
+      ctx[6] === true && create_if_block_142(ctx)
     );
     let if_block1 = (
       /*isSubmitted*/
@@ -6717,7 +7140,7 @@ a.active.svelte-1n0fjzt {
             button,
             "click",
             /*guestLogin*/
-            ctx[13]
+            ctx[9]
           );
           mounted = true;
         }
@@ -6733,7 +7156,7 @@ a.active.svelte-1n0fjzt {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_14(ctx2);
+            if_block0 = create_if_block_142(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(button, t);
@@ -6783,7 +7206,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_14(ctx) {
+  function create_if_block_142(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -6871,7 +7294,7 @@ a.active.svelte-1n0fjzt {
             button,
             "click",
             /*guestResendVerificationEmail*/
-            ctx[14]
+            ctx[10]
           );
           mounted = true;
         }
@@ -7025,7 +7448,7 @@ a.active.svelte-1n0fjzt {
             button,
             "click",
             /*guestForgotPassword*/
-            ctx[15]
+            ctx[11]
           );
           mounted = true;
         }
@@ -7244,7 +7667,7 @@ a.active.svelte-1n0fjzt {
             a,
             "click",
             /*click_handler_1*/
-            ctx[24]
+            ctx[16]
           );
           mounted = true;
         }
@@ -7259,7 +7682,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_23(ctx) {
+  function create_if_block_24(ctx) {
     let p;
     let t0;
     let a;
@@ -7284,7 +7707,7 @@ a.active.svelte-1n0fjzt {
             a,
             "click",
             /*click_handler_2*/
-            ctx[25]
+            ctx[17]
           );
           mounted = true;
         }
@@ -7324,7 +7747,7 @@ a.active.svelte-1n0fjzt {
             a,
             "click",
             /*click_handler_3*/
-            ctx[26]
+            ctx[18]
           );
           mounted = true;
         }
@@ -7339,14 +7762,14 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_fragment8(ctx) {
+  function create_fragment9(ctx) {
     let current_block_type_index;
     let if_block;
     let if_block_anchor;
     let current;
     let mounted;
     let dispose;
-    const if_block_creators = [create_if_block4, create_else_block];
+    const if_block_creators = [create_if_block5, create_else_block];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (
@@ -7372,7 +7795,7 @@ a.active.svelte-1n0fjzt {
             window_1,
             "hashchange",
             /*onHashChange*/
-            ctx[11]
+            ctx[7]
           );
           mounted = true;
         }
@@ -7431,7 +7854,7 @@ a.active.svelte-1n0fjzt {
     if (match)
       return match[2];
   }
-  function instance8($self, $props, $invalidate) {
+  function instance9($self, $props, $invalidate) {
     let user2 = {/* user */};
     let segments2 = {/* segments */};
     let email = "", password = "", confirmPass = "";
@@ -7481,7 +7904,7 @@ a.active.svelte-1n0fjzt {
         return notifier.showWarning("Passwords do not match");
       }
       const i = { email, password };
-      await (0, import_jsApi_GEN2.GuestRegister)(i, async function(o) {
+      await (0, import_jsApi_GEN3.GuestRegister)(i, async function(o) {
         console.log(o);
         if (o.error) {
           $invalidate(6, isSubmitted = false);
@@ -7505,7 +7928,7 @@ a.active.svelte-1n0fjzt {
         return notifier.showWarning("Password must be at least 12 characters");
       }
       const i = { email, password };
-      await (0, import_jsApi_GEN2.GuestLogin)(i, function(o) {
+      await (0, import_jsApi_GEN3.GuestLogin)(i, function(o) {
         console.log("o.segments=", o.segments);
         if (o.error) {
           $invalidate(6, isSubmitted = false);
@@ -7526,7 +7949,7 @@ a.active.svelte-1n0fjzt {
         return;
       }
       const i = { email };
-      await (0, import_jsApi_GEN2.GuestResendVerificationEmail)(i, function(o) {
+      await (0, import_jsApi_GEN3.GuestResendVerificationEmail)(i, function(o) {
         console.log(o);
         if (o.error) {
           $invalidate(6, isSubmitted = false);
@@ -7545,7 +7968,7 @@ a.active.svelte-1n0fjzt {
         return;
       }
       const i = { email };
-      await (0, import_jsApi_GEN2.GuestForgotPassword)(i, function(o) {
+      await (0, import_jsApi_GEN3.GuestForgotPassword)(i, function(o) {
         console.log(o);
         if (o.error) {
           $invalidate(6, isSubmitted = false);
@@ -7554,34 +7977,6 @@ a.active.svelte-1n0fjzt {
         onHashChange();
         notifier.showInfo("A reset password link has been sent to your email");
       });
-    }
-    let tenantCode = "", companyName = "", headTitle = "";
-    let isSubmitCreateCompany = false;
-    async function userCreateCompany() {
-      $invalidate(10, isSubmitCreateCompany = true);
-      await (0, import_jsApi_GEN2.UserCreateCompany)({ tenantCode, companyName, headTitle }, function(o) {
-        if (o.error) {
-          $invalidate(10, isSubmitCreateCompany = false);
-          notifier.showError(o.error);
-          console.log(o.error);
-          return;
-        }
-        $invalidate(10, isSubmitCreateCompany = false);
-        console.log(o);
-        notifier.showSuccess("Company created successfully");
-      });
-    }
-    function inputbox0_value_binding(value) {
-      tenantCode = value;
-      $invalidate(7, tenantCode);
-    }
-    function inputbox1_value_binding(value) {
-      companyName = value;
-      $invalidate(8, companyName);
-    }
-    function inputbox2_value_binding(value) {
-      headTitle = value;
-      $invalidate(9, headTitle);
     }
     function inputbox_value_binding(value) {
       email = value;
@@ -7607,19 +8002,11 @@ a.active.svelte-1n0fjzt {
       confirmPass,
       mode,
       isSubmitted,
-      tenantCode,
-      companyName,
-      headTitle,
-      isSubmitCreateCompany,
       onHashChange,
       guestRegister,
       guestLogin,
       guestResendVerificationEmail,
       guestForgotPassword,
-      userCreateCompany,
-      inputbox0_value_binding,
-      inputbox1_value_binding,
-      inputbox2_value_binding,
       inputbox_value_binding,
       inputbox_value_binding_1,
       inputbox_value_binding_2,
@@ -7632,7 +8019,7 @@ a.active.svelte-1n0fjzt {
   var Index = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance8, create_fragment8, safe_not_equal, {});
+      init(this, options, instance9, create_fragment9, safe_not_equal, {});
     }
   };
   var svelte_default = Index;

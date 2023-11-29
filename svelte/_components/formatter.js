@@ -17,13 +17,13 @@ function localeDatetime( unixSec ) {
     const dt = new Date( unixSec * 1000 );
     const day = dt.toLocaleDateString( 'default', {weekday: 'long'} );
     const date = dt.getDate();
-    const month = dt.toLocaleDateString( 'default', {month: 'long'} );
+    const month = dt.toLocaleDateString( 'default', {month: 'short'} );
     const year = dt.getFullYear();
     let hh = dt.getHours();
     if( hh<10 ) hh = '0' + hh;
     let mm = dt.getMinutes();
     if( mm<10 ) mm = '0' + mm;
-    const formattedDate = `${day}, ${date} ${month} ${year} - ${hh}:${mm}`;
+    const formattedDate = `${date} ${month} ${year} - ${hh}:${mm}`;
     return formattedDate;
 }
 
