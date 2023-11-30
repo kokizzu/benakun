@@ -8,6 +8,7 @@
   export let value;
   export let label;
   export let type = 'text';
+  export let placeholder = '';
   let isShowPassword = false;
   let inputElm;
   
@@ -21,7 +22,7 @@
 
 <div class={type === 'password' ? 'input_box with_password' :  'input_box'}>
   <label for={id}>{label}</label>
-  <input bind:value={value} {id} bind:this={inputElm} />
+  <input bind:value={value} {id} bind:this={inputElm} {placeholder}/>
   {#if type === 'password'}
     <button class="eye" on:click={toggleShowPassword}>
       {#if !isShowPassword}

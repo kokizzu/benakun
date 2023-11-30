@@ -5,6 +5,7 @@
   import {UserCreateCompany} from '../jsApi.GEN.js';
   import {notifier} from './notifier';
   import { onMount } from "svelte";
+  import BackButton from "./BackButton.svelte";
 
   export let user;
 
@@ -12,13 +13,18 @@
     console.log('onMount.toCompany ', user);
   })
 
-  const DEFAULT = 'DEFAULT', CREATE = 'CREATE', JOIN = 'JOIN';
+  const DEFAULT = 'DEFAULT', CREATE = 'Create Company', JOIN = 'Join Company';
   let mode = DEFAULT;
 
   let tenantCode = '', companyName = '', headTitle = '';
   let isSubmitCreateCompany = false;
   async function userCreateCompany() {
     isSubmitCreateCompany = true;
+    if (!tenantCode || !companyName || !headTitle) {
+      isSubmitCreateCompany = false;
+      notifier.showWarning('All fields are required');
+      return;
+    }
     await UserCreateCompany({tenantCode, companyName, headTitle},
       function (o) {
         if (o.error) {
@@ -33,7 +39,6 @@
       }
     );
   }
-
   let invitationUrl = '', isSubmitJoinCompany = false;
   function userJoinCompany() {
     if (!invitationUrl) return notifier.showWarning('Invitation URL is required');
@@ -56,22 +61,34 @@
   {/if}
 
   {#if mode === JOIN}
-    <div style="width: 400px;">
-      <InputBox id="invitationUrl" label="Invitation URL" bind:value={tenantCode} type="text" />
-      <br /><br />
-      <SubmitButton on:click={userJoinCompany} isSubmitted={isSubmitJoinCompany} />
-    </div>
+  <div class="create_company">
+    <section class="container">
+      <header>
+        <BackButton on:click={() => mode=DEFAULT} />
+        <h2>{JOIN}</h2>
+      </header>
+      <div>
+        <InputBox id="invitationUrl" label="Invitation URL" bind:value={tenantCode} type="text" placeholder="https://benakun.com/join?companyId="/>
+        <SubmitButton on:click={userJoinCompany} isSubmitted={isSubmitJoinCompany} isFullWidth />
+      </div>
+    </section>
+  </div>
   {/if}
 
   {#if mode===CREATE}
-  <div style="width: 400px;">
-    <InputBox id="tenantCode" label="Tenant Code" bind:value={tenantCode} type="text" />
-    <br /><br />
-    <InputBox id="companyName" label="Company Name" bind:value={companyName} type="text" />
-    <br /><br />
-    <InputBox id="headTitle" label="Head Title" bind:value={headTitle} type="text" />
-    <br /><br />
-    <SubmitButton on:click={userCreateCompany} isSubmitted={isSubmitCreateCompany} />
+  <div class="create_company">
+    <section class="container">
+      <header>
+        <BackButton on:click={() => mode=DEFAULT} />
+        <h2>{CREATE}</h2>
+      </header>
+      <div>
+        <InputBox id="tenantCode" label="Tenant Code" bind:value={tenantCode} type="text" />
+        <InputBox id="companyName" label="Company Name" bind:value={companyName} type="text" />
+        <InputBox id="headTitle" label="Head Title" bind:value={headTitle} type="text" />
+        <SubmitButton on:click={userCreateCompany} isSubmitted={isSubmitCreateCompany} isFullWidth />
+      </div>
+    </section>
   </div>
   {/if}
 </div>
@@ -88,10 +105,10 @@
     grid-template-columns: 1fr 1fr;
     align-items: stretch;
     gap: 20px;
-    width: 100%;
+    width: 600px;
   }
 
-  .to_company_container .join_create_company button {
+  .to_company_container .join_create_company > button {
     width: 100%;
     height: 100%;
     background-color: #FFF;
@@ -109,13 +126,49 @@
     font-weight: 700;
   }
 
-  .to_company_container .join_create_company button:hover {
+  .to_company_container .join_create_company > button:hover {
     border: 1px solid var(--blue-005);
     color: var(--blue-005);
   }
 
-  .to_company_container .join_create_company button img {
-    width: 360px;
+  .to_company_container .join_create_company > button img {
+    width: 100%;
     height: auto;
+  }
+
+  .to_company_container .create_company {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+  }
+
+  .to_company_container .create_company .container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: fit-content;
+    width: 400px;
+    background-color: #FFF;
+    border-radius: 10px;
+    border: 1px solid var(--gray-002);    
+    padding: 20px;
+  }
+
+  .to_company_container .create_company .container header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .to_company_container .create_company .container header h2 {
+    margin: 0;
+  }
+
+  .to_company_container .create_company .container div {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 </style>

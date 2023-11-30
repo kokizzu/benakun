@@ -13,6 +13,7 @@
 
   let user = {/* user */};
   let segments = {/* segments */};
+  let org = {/* org */};
   let google = '#{google}';
 
   function getCookie(name) {
@@ -58,6 +59,7 @@
     console.log('onMount.index');
     onHashChange();
     console.log('User = ', user);
+    console.log('Company = ', org)
   });
 
   async function guestRegister() {
@@ -166,7 +168,15 @@
       <div class="root_content">
         <Navbar {user} />
         <div class="content">
-          <ToCompany {user} />
+          {#if segments && !segments.tenantAdmin && !user.tenantCode}
+            <ToCompany {user} />
+          {/if}
+          {#if user && user.tenantCode}
+            <div>
+              <p>Tenant Code: {user.tenantCode}</p>
+              <p>Company Name: {org.companyName}</p>
+            </div>
+          {/if}
         </div>
         <Footer />
       </div>

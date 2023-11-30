@@ -467,7 +467,7 @@ a.active.svelte-1n0fjzt {
 }
 
 /* fakecss:./_components/SubmitButton.esbuild-svelte-fake-css */
-@keyframes svelte-wfjkmo-spin {
+@keyframes svelte-t6erho-spin {
   from {
     transform: rotate(0deg);
   }
@@ -476,12 +476,13 @@ a.active.svelte-1n0fjzt {
   }
 }
 .spin {
-  animation: svelte-wfjkmo-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: svelte-t6erho-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
-.full_width.svelte-wfjkmo {
+.full_width.svelte-t6erho {
   width: 100% !important;
+  justify-content: center;
 }
-.submit_btn.svelte-wfjkmo {
+.submit_btn.svelte-t6erho {
   border: none;
   width: fit-content;
   padding: 10px 15px;
@@ -494,24 +495,47 @@ a.active.svelte-1n0fjzt {
   gap: 8px;
   cursor: pointer;
 }
-.submit_btn.svelte-wfjkmo:hover {
+.submit_btn.svelte-t6erho:hover {
   background-color: var(--blue-005);
 }
 
+/* fakecss:./_components/BackButton.esbuild-svelte-fake-css */
+.back_btn.svelte-17wrq4i {
+  background-color: #FFF;
+  padding: 8px;
+  border-radius: 9999px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+.back_btn.svelte-17wrq4i:hover {
+  background-color: var(--gray-001);
+}
+.back_btn.svelte-17wrq4i:active {
+  background-color: #7474ec30;
+}
+.back_btn:hover svg path {
+  fill: var(--purple-002);
+}
+.back_btn svg path {
+  fill: var(--gray-007);
+}
+
 /* fakecss:./_components/ToCompany.esbuild-svelte-fake-css */
-.to_company_container.svelte-132onl8.svelte-132onl8 {
+.to_company_container.svelte-1np3erz.svelte-1np3erz.svelte-1np3erz {
   display: flex;
   width: 100%;
   height: fit-content;
 }
-.to_company_container.svelte-132onl8 .join_create_company.svelte-132onl8 {
+.to_company_container.svelte-1np3erz .join_create_company.svelte-1np3erz.svelte-1np3erz {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: stretch;
   gap: 20px;
-  width: 100%;
+  width: 600px;
 }
-.to_company_container.svelte-132onl8 .join_create_company button.svelte-132onl8 {
+.to_company_container.svelte-1np3erz .join_create_company.svelte-1np3erz > button.svelte-1np3erz {
   width: 100%;
   height: 100%;
   background-color: #FFF;
@@ -528,13 +552,44 @@ a.active.svelte-1n0fjzt {
   color: var(--gray-007);
   font-weight: 700;
 }
-.to_company_container.svelte-132onl8 .join_create_company button.svelte-132onl8:hover {
+.to_company_container.svelte-1np3erz .join_create_company.svelte-1np3erz > button.svelte-1np3erz:hover {
   border: 1px solid var(--blue-005);
   color: var(--blue-005);
 }
-.to_company_container.svelte-132onl8 .join_create_company button img.svelte-132onl8 {
-  width: 360px;
+.to_company_container.svelte-1np3erz .join_create_company > button img.svelte-1np3erz.svelte-1np3erz {
+  width: 100%;
   height: auto;
+}
+.to_company_container.svelte-1np3erz .create_company.svelte-1np3erz.svelte-1np3erz {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+}
+.to_company_container.svelte-1np3erz .create_company .container.svelte-1np3erz.svelte-1np3erz {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: fit-content;
+  width: 400px;
+  background-color: #FFF;
+  border-radius: 10px;
+  border: 1px solid var(--gray-002);
+  padding: 20px;
+}
+.to_company_container.svelte-1np3erz .create_company .container header.svelte-1np3erz.svelte-1np3erz {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+.to_company_container.svelte-1np3erz .create_company .container header h2.svelte-1np3erz.svelte-1np3erz {
+  margin: 0;
+}
+.to_company_container.svelte-1np3erz .create_company .container div.svelte-1np3erz.svelte-1np3erz {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 /* fakecss:./index.esbuild-svelte-fake-css */
@@ -2694,13 +2749,13 @@ a.active.svelte-1n0fjzt {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance10 = bind2(Axios$1.prototype.request, context);
-        utils$1.extend(instance10, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance10, context, null, { allOwnKeys: true });
-        instance10.create = function create(instanceConfig) {
+        const instance11 = bind2(Axios$1.prototype.request, context);
+        utils$1.extend(instance11, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance11, context, null, { allOwnKeys: true });
+        instance11.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance10;
+        return instance11;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2993,13 +3048,6 @@ a.active.svelte-1n0fjzt {
   function set_input_value(input, value) {
     input.value = value == null ? "" : value;
   }
-  function set_style(node, key, value, important) {
-    if (value == null) {
-      node.style.removeProperty(key);
-    } else {
-      node.style.setProperty(key, value, important ? "important" : "");
-    }
-  }
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
   }
@@ -3268,7 +3316,7 @@ a.active.svelte-1n0fjzt {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance10, create_fragment10, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance11, create_fragment11, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3294,7 +3342,7 @@ a.active.svelte-1n0fjzt {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance10 ? instance10(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance11 ? instance11(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -3307,7 +3355,7 @@ a.active.svelte-1n0fjzt {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment10 ? create_fragment10($.ctx) : false;
+    $.fragment = create_fragment11 ? create_fragment11($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -4959,10 +5007,10 @@ a.active.svelte-1n0fjzt {
     let mounted;
     let dispose;
     let if_block0 = !/*isShowPassword*/
-    ctx[4] && create_if_block_22(ctx);
+    ctx[5] && create_if_block_22(ctx);
     let if_block1 = (
       /*isShowPassword*/
-      ctx[4] && create_if_block_12(ctx)
+      ctx[5] && create_if_block_12(ctx)
     );
     return {
       c() {
@@ -4987,17 +5035,17 @@ a.active.svelte-1n0fjzt {
             button,
             "click",
             /*toggleShowPassword*/
-            ctx[6]
+            ctx[7]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
         if (!/*isShowPassword*/
-        ctx2[4]) {
+        ctx2[5]) {
           if (if_block0) {
             if (dirty & /*isShowPassword*/
-            16) {
+            32) {
               transition_in(if_block0, 1);
             }
           } else {
@@ -5015,11 +5063,11 @@ a.active.svelte-1n0fjzt {
         }
         if (
           /*isShowPassword*/
-          ctx2[4]
+          ctx2[5]
         ) {
           if (if_block1) {
             if (dirty & /*isShowPassword*/
-            16) {
+            32) {
               transition_in(if_block1, 1);
             }
           } else {
@@ -5168,6 +5216,12 @@ a.active.svelte-1n0fjzt {
           /*id*/
           ctx[1]
         );
+        attr(
+          input,
+          "placeholder",
+          /*placeholder*/
+          ctx[4]
+        );
         attr(input, "class", "svelte-msefpz");
         attr(div, "class", div_class_value = null_to_empty(
           /*type*/
@@ -5185,7 +5239,7 @@ a.active.svelte-1n0fjzt {
           /*value*/
           ctx[0]
         );
-        ctx[8](input);
+        ctx[9](input);
         append(div, t2);
         if (if_block)
           if_block.m(div, null);
@@ -5195,7 +5249,7 @@ a.active.svelte-1n0fjzt {
             input,
             "input",
             /*input_input_handler*/
-            ctx[7]
+            ctx[8]
           );
           mounted = true;
         }
@@ -5224,6 +5278,15 @@ a.active.svelte-1n0fjzt {
             "id",
             /*id*/
             ctx2[1]
+          );
+        }
+        if (!current || dirty & /*placeholder*/
+        16) {
+          attr(
+            input,
+            "placeholder",
+            /*placeholder*/
+            ctx2[4]
           );
         }
         if (dirty & /*value*/
@@ -5280,7 +5343,7 @@ a.active.svelte-1n0fjzt {
         if (detaching) {
           detach(div);
         }
-        ctx[8](null);
+        ctx[9](null);
         if (if_block)
           if_block.d();
         mounted = false;
@@ -5293,15 +5356,16 @@ a.active.svelte-1n0fjzt {
     let { value } = $props;
     let { label } = $props;
     let { type = "text" } = $props;
+    let { placeholder = "" } = $props;
     let isShowPassword = false;
     let inputElm;
-    onMount(() => $invalidate(5, inputElm.type = type, inputElm));
+    onMount(() => $invalidate(6, inputElm.type = type, inputElm));
     function toggleShowPassword() {
-      $invalidate(4, isShowPassword = !isShowPassword);
+      $invalidate(5, isShowPassword = !isShowPassword);
       if (isShowPassword)
-        $invalidate(5, inputElm.type = "text", inputElm);
+        $invalidate(6, inputElm.type = "text", inputElm);
       else
-        $invalidate(5, inputElm.type = "password", inputElm);
+        $invalidate(6, inputElm.type = "password", inputElm);
     }
     function input_input_handler() {
       value = this.value;
@@ -5310,7 +5374,7 @@ a.active.svelte-1n0fjzt {
     function input_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         inputElm = $value;
-        $invalidate(5, inputElm);
+        $invalidate(6, inputElm);
       });
     }
     $self.$set = ($props2) => {
@@ -5322,12 +5386,15 @@ a.active.svelte-1n0fjzt {
         $invalidate(2, label = $props2.label);
       if ("type" in $props2)
         $invalidate(3, type = $props2.type);
+      if ("placeholder" in $props2)
+        $invalidate(4, placeholder = $props2.placeholder);
     };
     return [
       value,
       id,
       label,
       type,
+      placeholder,
       isShowPassword,
       inputElm,
       toggleShowPassword,
@@ -5338,7 +5405,13 @@ a.active.svelte-1n0fjzt {
   var InputBox = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance6, create_fragment6, safe_not_equal, { id: 1, value: 0, label: 2, type: 3 });
+      init(this, options, instance6, create_fragment6, safe_not_equal, {
+        id: 1,
+        value: 0,
+        label: 2,
+        type: 3,
+        placeholder: 4
+      });
     }
   };
   var InputBox_default = InputBox;
@@ -5466,7 +5539,7 @@ a.active.svelte-1n0fjzt {
         attr(button, "class", button_class_value = null_to_empty(
           /*isFullWidth*/
           ctx[1] ? "submit_btn full_width" : "submit_btn"
-        ) + " svelte-wfjkmo");
+        ) + " svelte-t6erho");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -5541,7 +5614,7 @@ a.active.svelte-1n0fjzt {
         2 && button_class_value !== (button_class_value = null_to_empty(
           /*isFullWidth*/
           ctx2[1] ? "submit_btn full_width" : "submit_btn"
-        ) + " svelte-wfjkmo")) {
+        ) + " svelte-t6erho")) {
           attr(button, "class", button_class_value);
         }
       },
@@ -5597,6 +5670,84 @@ a.active.svelte-1n0fjzt {
 
   // _components/ToCompany.svelte
   var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/im/ImArrowLeft2.js
+  var ImArrowLeft2_default = {
+    a: {
+      version: "1.1",
+      viewBox: "0 0 16 16"
+    },
+    c: '<path fill="#000000" d="M6.293 13.707l-5-5c-0.391-0.39-0.391-1.024 0-1.414l5-5c0.391-0.391 1.024-0.391 1.414 0s0.391 1.024 0 1.414l-3.293 3.293h9.586c0.552 0 1 0.448 1 1s-0.448 1-1 1h-9.586l3.293 3.293c0.195 0.195 0.293 0.451 0.293 0.707s-0.098 0.512-0.293 0.707c-0.391 0.391-1.024 0.391-1.414 0z"></path>'
+  };
+
+  // _components/BackButton.svelte
+  function create_fragment8(ctx) {
+    let button;
+    let icon;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        color: "#495057",
+        size: 18,
+        src: ImArrowLeft2_default
+      }
+    });
+    return {
+      c() {
+        button = element("button");
+        create_component(icon.$.fragment);
+        attr(button, "class", "back_btn svelte-17wrq4i");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        mount_component(icon, button, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(button, "click", prevent_default(
+            /*click_handler*/
+            ctx[0]
+          ));
+          mounted = true;
+        }
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        destroy_component(icon);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function instance8($self) {
+    function click_handler(event) {
+      bubble.call(this, $self, event);
+    }
+    return [click_handler];
+  }
+  var BackButton = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance8, create_fragment8, safe_not_equal, {});
+    }
+  };
+  var BackButton_default = BackButton;
+
+  // _components/ToCompany.svelte
   function create_if_block_23(ctx) {
     let div;
     let button0;
@@ -5608,13 +5759,13 @@ a.active.svelte-1n0fjzt {
       c() {
         div = element("div");
         button0 = element("button");
-        button0.innerHTML = `<img src="/assets/icons/join-company.svg" alt="" class="svelte-132onl8"/> <span>Join Company</span>`;
+        button0.innerHTML = `<img src="/assets/icons/join-company.svg" alt="" class="svelte-1np3erz"/> <span>Join Company</span>`;
         t2 = space();
         button1 = element("button");
-        button1.innerHTML = `<img src="/assets/icons/create-company.svg" alt="" class="svelte-132onl8"/> <span>Create Company</span>`;
-        attr(button0, "class", "svelte-132onl8");
-        attr(button1, "class", "svelte-132onl8");
-        attr(div, "class", "join_create_company svelte-132onl8");
+        button1.innerHTML = `<img src="/assets/icons/create-company.svg" alt="" class="svelte-1np3erz"/> <span>Create Company</span>`;
+        attr(button0, "class", "svelte-1np3erz");
+        attr(button1, "class", "svelte-1np3erz");
+        attr(div, "class", "join_create_company svelte-1np3erz");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -5650,22 +5801,33 @@ a.active.svelte-1n0fjzt {
     };
   }
   function create_if_block_14(ctx) {
-    let div;
+    let div1;
+    let section;
+    let header;
+    let backbutton;
+    let t0;
+    let h2;
+    let t2;
+    let div0;
     let inputbox;
     let updating_value;
-    let t0;
-    let br0;
-    let br1;
-    let t1;
+    let t3;
     let submitbutton;
     let current;
+    backbutton = new BackButton_default({});
+    backbutton.$on(
+      "click",
+      /*click_handler_2*/
+      ctx[10]
+    );
     function inputbox_value_binding(value) {
-      ctx[10](value);
+      ctx[11](value);
     }
     let inputbox_props = {
       id: "invitationUrl",
       label: "Invitation URL",
-      type: "text"
+      type: "text",
+      placeholder: "https://benakun.com/join?companyId="
     };
     if (
       /*tenantCode*/
@@ -5677,7 +5839,10 @@ a.active.svelte-1n0fjzt {
     inputbox = new InputBox_default({ props: inputbox_props });
     binding_callbacks.push(() => bind(inputbox, "value", inputbox_value_binding));
     submitbutton = new SubmitButton_default({
-      props: { isSubmitted: isSubmitJoinCompany }
+      props: {
+        isSubmitted: isSubmitJoinCompany,
+        isFullWidth: true
+      }
     });
     submitbutton.$on(
       "click",
@@ -5686,23 +5851,36 @@ a.active.svelte-1n0fjzt {
     );
     return {
       c() {
-        div = element("div");
-        create_component(inputbox.$.fragment);
+        div1 = element("div");
+        section = element("section");
+        header = element("header");
+        create_component(backbutton.$.fragment);
         t0 = space();
-        br0 = element("br");
-        br1 = element("br");
-        t1 = space();
+        h2 = element("h2");
+        h2.textContent = `${JOIN}`;
+        t2 = space();
+        div0 = element("div");
+        create_component(inputbox.$.fragment);
+        t3 = space();
         create_component(submitbutton.$.fragment);
-        set_style(div, "width", "400px");
+        attr(h2, "class", "svelte-1np3erz");
+        attr(header, "class", "svelte-1np3erz");
+        attr(div0, "class", "svelte-1np3erz");
+        attr(section, "class", "container svelte-1np3erz");
+        attr(div1, "class", "create_company svelte-1np3erz");
       },
       m(target, anchor) {
-        insert(target, div, anchor);
-        mount_component(inputbox, div, null);
-        append(div, t0);
-        append(div, br0);
-        append(div, br1);
-        append(div, t1);
-        mount_component(submitbutton, div, null);
+        insert(target, div1, anchor);
+        append(div1, section);
+        append(section, header);
+        mount_component(backbutton, header, null);
+        append(header, t0);
+        append(header, h2);
+        append(section, t2);
+        append(section, div0);
+        mount_component(inputbox, div0, null);
+        append(div0, t3);
+        mount_component(submitbutton, div0, null);
         current = true;
       },
       p(ctx2, dirty) {
@@ -5719,48 +5897,55 @@ a.active.svelte-1n0fjzt {
       i(local) {
         if (current)
           return;
+        transition_in(backbutton.$.fragment, local);
         transition_in(inputbox.$.fragment, local);
         transition_in(submitbutton.$.fragment, local);
         current = true;
       },
       o(local) {
+        transition_out(backbutton.$.fragment, local);
         transition_out(inputbox.$.fragment, local);
         transition_out(submitbutton.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(div);
+          detach(div1);
         }
+        destroy_component(backbutton);
         destroy_component(inputbox);
         destroy_component(submitbutton);
       }
     };
   }
   function create_if_block4(ctx) {
-    let div;
+    let div1;
+    let section;
+    let header;
+    let backbutton;
+    let t0;
+    let h2;
+    let t2;
+    let div0;
     let inputbox0;
     let updating_value;
-    let t0;
-    let br0;
-    let br1;
-    let t1;
+    let t3;
     let inputbox1;
     let updating_value_1;
-    let t2;
-    let br2;
-    let br3;
-    let t3;
+    let t4;
     let inputbox2;
     let updating_value_2;
-    let t4;
-    let br4;
-    let br5;
     let t5;
     let submitbutton;
     let current;
+    backbutton = new BackButton_default({});
+    backbutton.$on(
+      "click",
+      /*click_handler_3*/
+      ctx[12]
+    );
     function inputbox0_value_binding(value) {
-      ctx[11](value);
+      ctx[13](value);
     }
     let inputbox0_props = {
       id: "tenantCode",
@@ -5777,7 +5962,7 @@ a.active.svelte-1n0fjzt {
     inputbox0 = new InputBox_default({ props: inputbox0_props });
     binding_callbacks.push(() => bind(inputbox0, "value", inputbox0_value_binding));
     function inputbox1_value_binding(value) {
-      ctx[12](value);
+      ctx[14](value);
     }
     let inputbox1_props = {
       id: "companyName",
@@ -5794,7 +5979,7 @@ a.active.svelte-1n0fjzt {
     inputbox1 = new InputBox_default({ props: inputbox1_props });
     binding_callbacks.push(() => bind(inputbox1, "value", inputbox1_value_binding));
     function inputbox2_value_binding(value) {
-      ctx[13](value);
+      ctx[15](value);
     }
     let inputbox2_props = {
       id: "headTitle",
@@ -5815,7 +6000,8 @@ a.active.svelte-1n0fjzt {
         isSubmitted: (
           /*isSubmitCreateCompany*/
           ctx[4]
-        )
+        ),
+        isFullWidth: true
       }
     });
     submitbutton.$on(
@@ -5825,43 +6011,44 @@ a.active.svelte-1n0fjzt {
     );
     return {
       c() {
-        div = element("div");
-        create_component(inputbox0.$.fragment);
+        div1 = element("div");
+        section = element("section");
+        header = element("header");
+        create_component(backbutton.$.fragment);
         t0 = space();
-        br0 = element("br");
-        br1 = element("br");
-        t1 = space();
-        create_component(inputbox1.$.fragment);
+        h2 = element("h2");
+        h2.textContent = `${CREATE}`;
         t2 = space();
-        br2 = element("br");
-        br3 = element("br");
+        div0 = element("div");
+        create_component(inputbox0.$.fragment);
         t3 = space();
-        create_component(inputbox2.$.fragment);
+        create_component(inputbox1.$.fragment);
         t4 = space();
-        br4 = element("br");
-        br5 = element("br");
+        create_component(inputbox2.$.fragment);
         t5 = space();
         create_component(submitbutton.$.fragment);
-        set_style(div, "width", "400px");
+        attr(h2, "class", "svelte-1np3erz");
+        attr(header, "class", "svelte-1np3erz");
+        attr(div0, "class", "svelte-1np3erz");
+        attr(section, "class", "container svelte-1np3erz");
+        attr(div1, "class", "create_company svelte-1np3erz");
       },
       m(target, anchor) {
-        insert(target, div, anchor);
-        mount_component(inputbox0, div, null);
-        append(div, t0);
-        append(div, br0);
-        append(div, br1);
-        append(div, t1);
-        mount_component(inputbox1, div, null);
-        append(div, t2);
-        append(div, br2);
-        append(div, br3);
-        append(div, t3);
-        mount_component(inputbox2, div, null);
-        append(div, t4);
-        append(div, br4);
-        append(div, br5);
-        append(div, t5);
-        mount_component(submitbutton, div, null);
+        insert(target, div1, anchor);
+        append(div1, section);
+        append(section, header);
+        mount_component(backbutton, header, null);
+        append(header, t0);
+        append(header, h2);
+        append(section, t2);
+        append(section, div0);
+        mount_component(inputbox0, div0, null);
+        append(div0, t3);
+        mount_component(inputbox1, div0, null);
+        append(div0, t4);
+        mount_component(inputbox2, div0, null);
+        append(div0, t5);
+        mount_component(submitbutton, div0, null);
         current = true;
       },
       p(ctx2, dirty) {
@@ -5902,6 +6089,7 @@ a.active.svelte-1n0fjzt {
       i(local) {
         if (current)
           return;
+        transition_in(backbutton.$.fragment, local);
         transition_in(inputbox0.$.fragment, local);
         transition_in(inputbox1.$.fragment, local);
         transition_in(inputbox2.$.fragment, local);
@@ -5909,6 +6097,7 @@ a.active.svelte-1n0fjzt {
         current = true;
       },
       o(local) {
+        transition_out(backbutton.$.fragment, local);
         transition_out(inputbox0.$.fragment, local);
         transition_out(inputbox1.$.fragment, local);
         transition_out(inputbox2.$.fragment, local);
@@ -5917,8 +6106,9 @@ a.active.svelte-1n0fjzt {
       },
       d(detaching) {
         if (detaching) {
-          detach(div);
+          detach(div1);
         }
+        destroy_component(backbutton);
         destroy_component(inputbox0);
         destroy_component(inputbox1);
         destroy_component(inputbox2);
@@ -5926,7 +6116,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_fragment8(ctx) {
+  function create_fragment9(ctx) {
     let div;
     let t0;
     let t1;
@@ -5954,7 +6144,7 @@ a.active.svelte-1n0fjzt {
         t1 = space();
         if (if_block2)
           if_block2.c();
-        attr(div, "class", "to_company_container svelte-132onl8");
+        attr(div, "class", "to_company_container svelte-1np3erz");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -6057,11 +6247,11 @@ a.active.svelte-1n0fjzt {
     };
   }
   var DEFAULT = "DEFAULT";
-  var CREATE = "CREATE";
-  var JOIN = "JOIN";
+  var CREATE = "Create Company";
+  var JOIN = "Join Company";
   var invitationUrl = "";
   var isSubmitJoinCompany = false;
-  function instance8($self, $props, $invalidate) {
+  function instance9($self, $props, $invalidate) {
     let { user: user2 } = $props;
     onMount(() => {
       console.log("onMount.toCompany ", user2);
@@ -6071,6 +6261,11 @@ a.active.svelte-1n0fjzt {
     let isSubmitCreateCompany = false;
     async function userCreateCompany() {
       $invalidate(4, isSubmitCreateCompany = true);
+      if (!tenantCode || !companyName || !headTitle) {
+        $invalidate(4, isSubmitCreateCompany = false);
+        notifier.showWarning("All fields are required");
+        return;
+      }
       await (0, import_jsApi_GEN2.UserCreateCompany)({ tenantCode, companyName, headTitle }, function(o) {
         if (o.error) {
           $invalidate(4, isSubmitCreateCompany = false);
@@ -6090,10 +6285,12 @@ a.active.svelte-1n0fjzt {
     }
     const click_handler = () => $invalidate(0, mode = JOIN);
     const click_handler_1 = () => $invalidate(0, mode = CREATE);
+    const click_handler_2 = () => $invalidate(0, mode = DEFAULT);
     function inputbox_value_binding(value) {
       tenantCode = value;
       $invalidate(1, tenantCode);
     }
+    const click_handler_3 = () => $invalidate(0, mode = DEFAULT);
     function inputbox0_value_binding(value) {
       tenantCode = value;
       $invalidate(1, tenantCode);
@@ -6121,7 +6318,9 @@ a.active.svelte-1n0fjzt {
       user2,
       click_handler,
       click_handler_1,
+      click_handler_2,
       inputbox_value_binding,
+      click_handler_3,
       inputbox0_value_binding,
       inputbox1_value_binding,
       inputbox2_value_binding
@@ -6130,7 +6329,7 @@ a.active.svelte-1n0fjzt {
   var ToCompany = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance8, create_fragment8, safe_not_equal, { user: 7 });
+      init(this, options, instance9, create_fragment9, safe_not_equal, { user: 7 });
     }
   };
   var ToCompany_default = ToCompany;
@@ -6175,53 +6374,53 @@ a.active.svelte-1n0fjzt {
       (ctx[5] === LOGIN || /*mode*/
       ctx[5] === REGISTER || /*mode*/
       ctx[5] === RESEND_VERIFICATION_EMAIL || /*mode*/
-      ctx[5] === FORGOT_PASSWORD) && create_if_block_21(ctx)
+      ctx[5] === FORGOT_PASSWORD) && create_if_block_232(ctx)
     );
     let if_block1 = (
       /*mode*/
       (ctx[5] === LOGIN || /*mode*/
-      ctx[5] === REGISTER) && create_if_block_20(ctx)
+      ctx[5] === REGISTER) && create_if_block_222(ctx)
     );
     let if_block2 = (
       /*mode*/
-      ctx[5] === REGISTER && create_if_block_19(ctx)
+      ctx[5] === REGISTER && create_if_block_21(ctx)
     );
     let if_block3 = (
       /*mode*/
-      ctx[5] === LOGIN && create_if_block_18(ctx)
+      ctx[5] === LOGIN && create_if_block_20(ctx)
     );
     let if_block4 = (
       /*mode*/
-      ctx[5] === REGISTER && create_if_block_15(ctx)
+      ctx[5] === REGISTER && create_if_block_17(ctx)
     );
     let if_block5 = (
       /*mode*/
-      ctx[5] === LOGIN && create_if_block_122(ctx)
+      ctx[5] === LOGIN && create_if_block_142(ctx)
     );
     let if_block6 = (
       /*mode*/
-      ctx[5] === RESEND_VERIFICATION_EMAIL && create_if_block_9(ctx)
+      ctx[5] === RESEND_VERIFICATION_EMAIL && create_if_block_11(ctx)
     );
     let if_block7 = (
       /*mode*/
-      ctx[5] === FORGOT_PASSWORD && create_if_block_6(ctx)
+      ctx[5] === FORGOT_PASSWORD && create_if_block_8(ctx)
     );
     let if_block8 = (
       /*mode*/
       (ctx[5] === REGISTER || /*mode*/
-      ctx[5] === LOGIN) && create_if_block_42(ctx)
+      ctx[5] === LOGIN) && create_if_block_6(ctx)
     );
     let if_block9 = (
       /*mode*/
-      ctx[5] !== REGISTER && create_if_block_32(ctx)
+      ctx[5] !== REGISTER && create_if_block_52(ctx)
     );
     let if_block10 = (
       /*mode*/
-      ctx[5] !== LOGIN && create_if_block_24(ctx)
+      ctx[5] !== LOGIN && create_if_block_42(ctx)
     );
     let if_block11 = (
       /*mode*/
-      ctx[5] !== RESEND_VERIFICATION_EMAIL && create_if_block_110(ctx)
+      ctx[5] !== RESEND_VERIFICATION_EMAIL && create_if_block_32(ctx)
     );
     return {
       c() {
@@ -6360,7 +6559,7 @@ a.active.svelte-1n0fjzt {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_21(ctx2);
+            if_block0 = create_if_block_232(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(div1, t4);
@@ -6384,7 +6583,7 @@ a.active.svelte-1n0fjzt {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_20(ctx2);
+            if_block1 = create_if_block_222(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(div1, t5);
@@ -6407,7 +6606,7 @@ a.active.svelte-1n0fjzt {
               transition_in(if_block2, 1);
             }
           } else {
-            if_block2 = create_if_block_19(ctx2);
+            if_block2 = create_if_block_21(ctx2);
             if_block2.c();
             transition_in(if_block2, 1);
             if_block2.m(div1, null);
@@ -6426,7 +6625,7 @@ a.active.svelte-1n0fjzt {
           if (if_block3) {
             if_block3.p(ctx2, dirty);
           } else {
-            if_block3 = create_if_block_18(ctx2);
+            if_block3 = create_if_block_20(ctx2);
             if_block3.c();
             if_block3.m(div4, t8);
           }
@@ -6445,7 +6644,7 @@ a.active.svelte-1n0fjzt {
               transition_in(if_block4, 1);
             }
           } else {
-            if_block4 = create_if_block_15(ctx2);
+            if_block4 = create_if_block_17(ctx2);
             if_block4.c();
             transition_in(if_block4, 1);
             if_block4.m(div2, t9);
@@ -6468,7 +6667,7 @@ a.active.svelte-1n0fjzt {
               transition_in(if_block5, 1);
             }
           } else {
-            if_block5 = create_if_block_122(ctx2);
+            if_block5 = create_if_block_142(ctx2);
             if_block5.c();
             transition_in(if_block5, 1);
             if_block5.m(div2, t10);
@@ -6491,7 +6690,7 @@ a.active.svelte-1n0fjzt {
               transition_in(if_block6, 1);
             }
           } else {
-            if_block6 = create_if_block_9(ctx2);
+            if_block6 = create_if_block_11(ctx2);
             if_block6.c();
             transition_in(if_block6, 1);
             if_block6.m(div2, t11);
@@ -6514,7 +6713,7 @@ a.active.svelte-1n0fjzt {
               transition_in(if_block7, 1);
             }
           } else {
-            if_block7 = create_if_block_6(ctx2);
+            if_block7 = create_if_block_8(ctx2);
             if_block7.c();
             transition_in(if_block7, 1);
             if_block7.m(div2, null);
@@ -6534,7 +6733,7 @@ a.active.svelte-1n0fjzt {
           if (if_block8) {
             if_block8.p(ctx2, dirty);
           } else {
-            if_block8 = create_if_block_42(ctx2);
+            if_block8 = create_if_block_6(ctx2);
             if_block8.c();
             if_block8.m(div4, t14);
           }
@@ -6549,7 +6748,7 @@ a.active.svelte-1n0fjzt {
           if (if_block9) {
             if_block9.p(ctx2, dirty);
           } else {
-            if_block9 = create_if_block_32(ctx2);
+            if_block9 = create_if_block_52(ctx2);
             if_block9.c();
             if_block9.m(div3, t15);
           }
@@ -6564,7 +6763,7 @@ a.active.svelte-1n0fjzt {
           if (if_block10) {
             if_block10.p(ctx2, dirty);
           } else {
-            if_block10 = create_if_block_24(ctx2);
+            if_block10 = create_if_block_42(ctx2);
             if_block10.c();
             if_block10.m(div3, t16);
           }
@@ -6579,7 +6778,7 @@ a.active.svelte-1n0fjzt {
           if (if_block11) {
             if_block11.p(ctx2, dirty);
           } else {
-            if_block11 = create_if_block_110(ctx2);
+            if_block11 = create_if_block_32(ctx2);
             if_block11.c();
             if_block11.m(div3, null);
           }
@@ -6650,8 +6849,8 @@ a.active.svelte-1n0fjzt {
     let navbar;
     let t1;
     let div0;
-    let tocompany;
     let t2;
+    let t3;
     let footer;
     let current;
     sidemenu = new SideMenu_default({ props: { access: (
@@ -6662,10 +6861,17 @@ a.active.svelte-1n0fjzt {
       /*user*/
       ctx[0]
     ) } });
-    tocompany = new ToCompany_default({ props: { user: (
+    let if_block0 = (
+      /*segments*/
+      ctx[1] && !/*segments*/
+      ctx[1].tenantAdmin && !/*user*/
+      ctx[0].tenantCode && create_if_block_24(ctx)
+    );
+    let if_block1 = (
       /*user*/
-      ctx[0]
-    ) } });
+      ctx[0] && /*user*/
+      ctx[0].tenantCode && create_if_block_110(ctx)
+    );
     footer = new Footer_default({});
     return {
       c() {
@@ -6677,8 +6883,12 @@ a.active.svelte-1n0fjzt {
         create_component(navbar.$.fragment);
         t1 = space();
         div0 = element("div");
-        create_component(tocompany.$.fragment);
+        if (if_block0)
+          if_block0.c();
         t2 = space();
+        if (if_block1)
+          if_block1.c();
+        t3 = space();
         create_component(footer.$.fragment);
         attr(div0, "class", "content");
         attr(div1, "class", "root_content");
@@ -6694,8 +6904,12 @@ a.active.svelte-1n0fjzt {
         mount_component(navbar, div1, null);
         append(div1, t1);
         append(div1, div0);
-        mount_component(tocompany, div0, null);
-        append(div1, t2);
+        if (if_block0)
+          if_block0.m(div0, null);
+        append(div0, t2);
+        if (if_block1)
+          if_block1.m(div0, null);
+        append(div1, t3);
         mount_component(footer, div1, null);
         current = true;
       },
@@ -6712,26 +6926,61 @@ a.active.svelte-1n0fjzt {
           navbar_changes.user = /*user*/
           ctx2[0];
         navbar.$set(navbar_changes);
-        const tocompany_changes = {};
-        if (dirty & /*user*/
-        1)
-          tocompany_changes.user = /*user*/
-          ctx2[0];
-        tocompany.$set(tocompany_changes);
+        if (
+          /*segments*/
+          ctx2[1] && !/*segments*/
+          ctx2[1].tenantAdmin && !/*user*/
+          ctx2[0].tenantCode
+        ) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+            if (dirty & /*segments, user*/
+            3) {
+              transition_in(if_block0, 1);
+            }
+          } else {
+            if_block0 = create_if_block_24(ctx2);
+            if_block0.c();
+            transition_in(if_block0, 1);
+            if_block0.m(div0, t2);
+          }
+        } else if (if_block0) {
+          group_outros();
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*user*/
+          ctx2[0] && /*user*/
+          ctx2[0].tenantCode
+        ) {
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
+          } else {
+            if_block1 = create_if_block_110(ctx2);
+            if_block1.c();
+            if_block1.m(div0, null);
+          }
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
+        }
       },
       i(local) {
         if (current)
           return;
         transition_in(sidemenu.$.fragment, local);
         transition_in(navbar.$.fragment, local);
-        transition_in(tocompany.$.fragment, local);
+        transition_in(if_block0);
         transition_in(footer.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(sidemenu.$.fragment, local);
         transition_out(navbar.$.fragment, local);
-        transition_out(tocompany.$.fragment, local);
+        transition_out(if_block0);
         transition_out(footer.$.fragment, local);
         current = false;
       },
@@ -6741,12 +6990,15 @@ a.active.svelte-1n0fjzt {
         }
         destroy_component(sidemenu);
         destroy_component(navbar);
-        destroy_component(tocompany);
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
         destroy_component(footer);
       }
     };
   }
-  function create_if_block_21(ctx) {
+  function create_if_block_232(ctx) {
     let inputbox;
     let updating_value;
     let current;
@@ -6801,7 +7053,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_20(ctx) {
+  function create_if_block_222(ctx) {
     let inputbox;
     let updating_value;
     let current;
@@ -6856,7 +7108,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_19(ctx) {
+  function create_if_block_21(ctx) {
     let inputbox;
     let updating_value;
     let current;
@@ -6911,7 +7163,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_18(ctx) {
+  function create_if_block_20(ctx) {
     let p;
     let t0;
     let a;
@@ -6949,7 +7201,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_15(ctx) {
+  function create_if_block_17(ctx) {
     let button;
     let t;
     let current;
@@ -6957,11 +7209,11 @@ a.active.svelte-1n0fjzt {
     let dispose;
     let if_block0 = (
       /*isSubmitted*/
-      ctx[6] === true && create_if_block_17(ctx)
+      ctx[6] === true && create_if_block_19(ctx)
     );
     let if_block1 = (
       /*isSubmitted*/
-      ctx[6] === false && create_if_block_16(ctx)
+      ctx[6] === false && create_if_block_18(ctx)
     );
     return {
       c() {
@@ -7002,7 +7254,7 @@ a.active.svelte-1n0fjzt {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_17(ctx2);
+            if_block0 = create_if_block_19(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(button, t);
@@ -7020,7 +7272,7 @@ a.active.svelte-1n0fjzt {
         ) {
           if (if_block1) {
           } else {
-            if_block1 = create_if_block_16(ctx2);
+            if_block1 = create_if_block_18(ctx2);
             if_block1.c();
             if_block1.m(button, null);
           }
@@ -7052,7 +7304,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_17(ctx) {
+  function create_if_block_19(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -7086,7 +7338,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_16(ctx) {
+  function create_if_block_18(ctx) {
     let span;
     return {
       c() {
@@ -7103,7 +7355,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_122(ctx) {
+  function create_if_block_142(ctx) {
     let button;
     let t;
     let current;
@@ -7111,11 +7363,11 @@ a.active.svelte-1n0fjzt {
     let dispose;
     let if_block0 = (
       /*isSubmitted*/
-      ctx[6] === true && create_if_block_142(ctx)
+      ctx[6] === true && create_if_block_16(ctx)
     );
     let if_block1 = (
       /*isSubmitted*/
-      ctx[6] === false && create_if_block_132(ctx)
+      ctx[6] === false && create_if_block_15(ctx)
     );
     return {
       c() {
@@ -7156,7 +7408,7 @@ a.active.svelte-1n0fjzt {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_142(ctx2);
+            if_block0 = create_if_block_16(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(button, t);
@@ -7174,7 +7426,7 @@ a.active.svelte-1n0fjzt {
         ) {
           if (if_block1) {
           } else {
-            if_block1 = create_if_block_132(ctx2);
+            if_block1 = create_if_block_15(ctx2);
             if_block1.c();
             if_block1.m(button, null);
           }
@@ -7206,7 +7458,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_142(ctx) {
+  function create_if_block_16(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -7240,7 +7492,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_132(ctx) {
+  function create_if_block_15(ctx) {
     let span;
     return {
       c() {
@@ -7257,7 +7509,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_9(ctx) {
+  function create_if_block_11(ctx) {
     let button;
     let t;
     let current;
@@ -7265,11 +7517,11 @@ a.active.svelte-1n0fjzt {
     let dispose;
     let if_block0 = (
       /*isSubmitted*/
-      ctx[6] === true && create_if_block_11(ctx)
+      ctx[6] === true && create_if_block_132(ctx)
     );
     let if_block1 = (
       /*isSubmitted*/
-      ctx[6] === false && create_if_block_10(ctx)
+      ctx[6] === false && create_if_block_122(ctx)
     );
     return {
       c() {
@@ -7310,7 +7562,7 @@ a.active.svelte-1n0fjzt {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_11(ctx2);
+            if_block0 = create_if_block_132(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(button, t);
@@ -7328,7 +7580,7 @@ a.active.svelte-1n0fjzt {
         ) {
           if (if_block1) {
           } else {
-            if_block1 = create_if_block_10(ctx2);
+            if_block1 = create_if_block_122(ctx2);
             if_block1.c();
             if_block1.m(button, null);
           }
@@ -7360,7 +7612,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_11(ctx) {
+  function create_if_block_132(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -7394,7 +7646,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_10(ctx) {
+  function create_if_block_122(ctx) {
     let span;
     return {
       c() {
@@ -7411,7 +7663,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_6(ctx) {
+  function create_if_block_8(ctx) {
     let button;
     let t;
     let current;
@@ -7419,11 +7671,11 @@ a.active.svelte-1n0fjzt {
     let dispose;
     let if_block0 = (
       /*isSubmitted*/
-      ctx[6] === true && create_if_block_8(ctx)
+      ctx[6] === true && create_if_block_10(ctx)
     );
     let if_block1 = (
       /*isSubmitted*/
-      ctx[6] === false && create_if_block_7(ctx)
+      ctx[6] === false && create_if_block_9(ctx)
     );
     return {
       c() {
@@ -7464,7 +7716,7 @@ a.active.svelte-1n0fjzt {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_8(ctx2);
+            if_block0 = create_if_block_10(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(button, t);
@@ -7482,7 +7734,7 @@ a.active.svelte-1n0fjzt {
         ) {
           if (if_block1) {
           } else {
-            if_block1 = create_if_block_7(ctx2);
+            if_block1 = create_if_block_9(ctx2);
             if_block1.c();
             if_block1.m(button, null);
           }
@@ -7514,7 +7766,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_8(ctx) {
+  function create_if_block_10(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -7548,7 +7800,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_7(ctx) {
+  function create_if_block_9(ctx) {
     let span;
     return {
       c() {
@@ -7565,13 +7817,13 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_42(ctx) {
+  function create_if_block_6(ctx) {
     let div1;
     let div0;
     let t3;
     let c;
     let t4;
-    let if_block = google && create_if_block_52(ctx);
+    let if_block = google && create_if_block_7(ctx);
     return {
       c() {
         div1 = element("div");
@@ -7607,7 +7859,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_52(ctx) {
+  function create_if_block_7(ctx) {
     let a;
     let img;
     let img_src_value;
@@ -7642,7 +7894,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_32(ctx) {
+  function create_if_block_52(ctx) {
     let p;
     let t0;
     let a;
@@ -7682,7 +7934,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_24(ctx) {
+  function create_if_block_42(ctx) {
     let p;
     let t0;
     let a;
@@ -7722,7 +7974,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_if_block_110(ctx) {
+  function create_if_block_32(ctx) {
     let p;
     let t0;
     let a;
@@ -7762,7 +8014,87 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
-  function create_fragment9(ctx) {
+  function create_if_block_24(ctx) {
+    let tocompany;
+    let current;
+    tocompany = new ToCompany_default({ props: { user: (
+      /*user*/
+      ctx[0]
+    ) } });
+    return {
+      c() {
+        create_component(tocompany.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(tocompany, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const tocompany_changes = {};
+        if (dirty & /*user*/
+        1)
+          tocompany_changes.user = /*user*/
+          ctx2[0];
+        tocompany.$set(tocompany_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(tocompany.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(tocompany.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(tocompany, detaching);
+      }
+    };
+  }
+  function create_if_block_110(ctx) {
+    let div;
+    let p0;
+    let t0;
+    let t1_value = (
+      /*user*/
+      ctx[0].tenantCode + ""
+    );
+    let t1;
+    let t2;
+    let p1;
+    return {
+      c() {
+        div = element("div");
+        p0 = element("p");
+        t0 = text("Tenant Code: ");
+        t1 = text(t1_value);
+        t2 = space();
+        p1 = element("p");
+        p1.textContent = `Company Name: ${org.companyName}`;
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        append(div, p0);
+        append(p0, t0);
+        append(p0, t1);
+        append(div, t2);
+        append(div, p1);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*user*/
+        1 && t1_value !== (t1_value = /*user*/
+        ctx2[0].tenantCode + ""))
+          set_data(t1, t1_value);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+      }
+    };
+  }
+  function create_fragment10(ctx) {
     let current_block_type_index;
     let if_block;
     let if_block_anchor;
@@ -7842,6 +8174,7 @@ a.active.svelte-1n0fjzt {
       }
     };
   }
+  var org = {/* org */};
   var google = '#{google}';
   var title = '#{title}';
   var LOGIN = "LOGIN";
@@ -7854,7 +8187,7 @@ a.active.svelte-1n0fjzt {
     if (match)
       return match[2];
   }
-  function instance9($self, $props, $invalidate) {
+  function instance10($self, $props, $invalidate) {
     let user2 = {/* user */};
     let segments2 = {/* segments */};
     let email = "", password = "", confirmPass = "";
@@ -7888,6 +8221,7 @@ a.active.svelte-1n0fjzt {
       console.log("onMount.index");
       onHashChange();
       console.log("User = ", user2);
+      console.log("Company = ", org);
     });
     async function guestRegister() {
       $invalidate(6, isSubmitted = true);
@@ -8019,7 +8353,7 @@ a.active.svelte-1n0fjzt {
   var Index = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance9, create_fragment9, safe_not_equal, {});
+      init(this, options, instance10, create_fragment10, safe_not_equal, {});
     }
   };
   var svelte_default = Index;

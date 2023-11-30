@@ -35,6 +35,7 @@
 
   .full_width {
     width: 100% !important;
+    justify-content: center;
   }
   .submit_btn {
     border: none;

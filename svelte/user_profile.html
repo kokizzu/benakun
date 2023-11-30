@@ -467,7 +467,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
 }
 
 /* fakecss:./_components/SubmitButton.esbuild-svelte-fake-css */
-@keyframes svelte-wfjkmo-spin {
+@keyframes svelte-t6erho-spin {
   from {
     transform: rotate(0deg);
   }
@@ -476,12 +476,13 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   }
 }
 .spin {
-  animation: svelte-wfjkmo-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: svelte-t6erho-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
-.full_width.svelte-wfjkmo {
+.full_width.svelte-t6erho {
   width: 100% !important;
+  justify-content: center;
 }
-.submit_btn.svelte-wfjkmo {
+.submit_btn.svelte-t6erho {
   border: none;
   width: fit-content;
   padding: 10px 15px;
@@ -494,7 +495,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   gap: 8px;
   cursor: pointer;
 }
-.submit_btn.svelte-wfjkmo:hover {
+.submit_btn.svelte-t6erho:hover {
   background-color: var(--blue-005);
 }
 
@@ -4936,10 +4937,10 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let mounted;
     let dispose;
     let if_block0 = !/*isShowPassword*/
-    ctx[4] && create_if_block_22(ctx);
+    ctx[5] && create_if_block_22(ctx);
     let if_block1 = (
       /*isShowPassword*/
-      ctx[4] && create_if_block_12(ctx)
+      ctx[5] && create_if_block_12(ctx)
     );
     return {
       c() {
@@ -4964,17 +4965,17 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
             button,
             "click",
             /*toggleShowPassword*/
-            ctx[6]
+            ctx[7]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
         if (!/*isShowPassword*/
-        ctx2[4]) {
+        ctx2[5]) {
           if (if_block0) {
             if (dirty & /*isShowPassword*/
-            16) {
+            32) {
               transition_in(if_block0, 1);
             }
           } else {
@@ -4992,11 +4993,11 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         }
         if (
           /*isShowPassword*/
-          ctx2[4]
+          ctx2[5]
         ) {
           if (if_block1) {
             if (dirty & /*isShowPassword*/
-            16) {
+            32) {
               transition_in(if_block1, 1);
             }
           } else {
@@ -5145,6 +5146,12 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
           /*id*/
           ctx[1]
         );
+        attr(
+          input,
+          "placeholder",
+          /*placeholder*/
+          ctx[4]
+        );
         attr(input, "class", "svelte-msefpz");
         attr(div, "class", div_class_value = null_to_empty(
           /*type*/
@@ -5162,7 +5169,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
           /*value*/
           ctx[0]
         );
-        ctx[8](input);
+        ctx[9](input);
         append(div, t2);
         if (if_block)
           if_block.m(div, null);
@@ -5172,7 +5179,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
             input,
             "input",
             /*input_input_handler*/
-            ctx[7]
+            ctx[8]
           );
           mounted = true;
         }
@@ -5201,6 +5208,15 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
             "id",
             /*id*/
             ctx2[1]
+          );
+        }
+        if (!current || dirty & /*placeholder*/
+        16) {
+          attr(
+            input,
+            "placeholder",
+            /*placeholder*/
+            ctx2[4]
           );
         }
         if (dirty & /*value*/
@@ -5257,7 +5273,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         if (detaching) {
           detach(div);
         }
-        ctx[8](null);
+        ctx[9](null);
         if (if_block)
           if_block.d();
         mounted = false;
@@ -5270,15 +5286,16 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let { value } = $props;
     let { label } = $props;
     let { type = "text" } = $props;
+    let { placeholder = "" } = $props;
     let isShowPassword = false;
     let inputElm;
-    onMount(() => $invalidate(5, inputElm.type = type, inputElm));
+    onMount(() => $invalidate(6, inputElm.type = type, inputElm));
     function toggleShowPassword() {
-      $invalidate(4, isShowPassword = !isShowPassword);
+      $invalidate(5, isShowPassword = !isShowPassword);
       if (isShowPassword)
-        $invalidate(5, inputElm.type = "text", inputElm);
+        $invalidate(6, inputElm.type = "text", inputElm);
       else
-        $invalidate(5, inputElm.type = "password", inputElm);
+        $invalidate(6, inputElm.type = "password", inputElm);
     }
     function input_input_handler() {
       value = this.value;
@@ -5287,7 +5304,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     function input_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         inputElm = $value;
-        $invalidate(5, inputElm);
+        $invalidate(6, inputElm);
       });
     }
     $self.$set = ($props2) => {
@@ -5299,12 +5316,15 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         $invalidate(2, label = $props2.label);
       if ("type" in $props2)
         $invalidate(3, type = $props2.type);
+      if ("placeholder" in $props2)
+        $invalidate(4, placeholder = $props2.placeholder);
     };
     return [
       value,
       id,
       label,
       type,
+      placeholder,
       isShowPassword,
       inputElm,
       toggleShowPassword,
@@ -5315,7 +5335,13 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   var InputBox = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance6, create_fragment6, safe_not_equal, { id: 1, value: 0, label: 2, type: 3 });
+      init(this, options, instance6, create_fragment6, safe_not_equal, {
+        id: 1,
+        value: 0,
+        label: 2,
+        type: 3,
+        placeholder: 4
+      });
     }
   };
   var InputBox_default = InputBox;
@@ -5443,7 +5469,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         attr(button, "class", button_class_value = null_to_empty(
           /*isFullWidth*/
           ctx[1] ? "submit_btn full_width" : "submit_btn"
-        ) + " svelte-wfjkmo");
+        ) + " svelte-t6erho");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -5518,7 +5544,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         2 && button_class_value !== (button_class_value = null_to_empty(
           /*isFullWidth*/
           ctx2[1] ? "submit_btn full_width" : "submit_btn"
-        ) + " svelte-wfjkmo")) {
+        ) + " svelte-t6erho")) {
           attr(button, "class", button_class_value);
         }
       },

@@ -32,14 +32,32 @@ type (
 const (
 	UserCreateCompanyAction = `user/createCompany`
 
-	ErrUserCreateCompanyUserNotFound = `user not found`
-	ErrUserCreateCompanyAlreadyAdded = `company already exist`
+	ErrUserCreateCompanyUserNotFound       = `user not found`
+	ErrUserCreateCompanyAlreadyAdded       = `company already exist`
+	ErrUserCreateCompanyTenantCodeInvalid  = `tenant code must be valid`
+	ErrUserCreateCompanyCompanyNameInvalid = `company name must be valid`
+	ErrUserCreateCompanyHeadTitleInvalid   = `head title must be valid`
 )
 
 func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompanyOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
+		return
+	}
+
+	if in.TenantCode == `` {
+		out.SetError(400, ErrUserCreateCompanyTenantCodeInvalid)
+		return
+	}
+
+	if in.CompanyName == `` {
+		out.SetError(400, ErrUserCreateCompanyCompanyNameInvalid)
+		return
+	}
+
+	if in.HeadTitle == `` {
+		out.SetError(400, ErrUserCreateCompanyHeadTitleInvalid)
 		return
 	}
 
