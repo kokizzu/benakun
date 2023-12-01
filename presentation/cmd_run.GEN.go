@@ -148,6 +148,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminDashboard(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.TenantAdminInviteJoinAction:
+		in := domain.TenantAdminInviteJoinIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.TenantAdminInviteJoin(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.TenantAdminOrganizationAction:
 		in := domain.TenantAdminOrganizationIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

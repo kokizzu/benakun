@@ -98,6 +98,8 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 		return
 	}
 
+	sess.Segments[TenantAdminSegment] = true
+
 	out.Company = &org.Orgs
 	return
 }

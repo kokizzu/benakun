@@ -906,6 +906,36 @@ exports.TenantAdminDashboard = async function TenantAdminDashboard( i, cb ) {
 }
 
 /**
+ * @typedef {Object} TenantAdminInviteJoinIn
+ * @property {String} email
+ */
+const TenantAdminInviteJoinIn = {
+  email: '', // string
+}
+/**
+ * @typedef {Object} TenantAdminInviteJoinOut
+ * @property {String} message
+ */
+const TenantAdminInviteJoinOut = {
+  message: '', // string
+}
+/**
+ * @callback TenantAdminInviteJoinCallback
+ * @param {TenantAdminInviteJoinOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminInviteJoinIn} i
+ * @param {TenantAdminInviteJoinCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminInviteJoin = async function TenantAdminInviteJoin( i, cb ) {
+  return await axios.post( '/tenantAdmin/inviteUser', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} TenantAdminOrganizationIn
  */
 const TenantAdminOrganizationIn = {

@@ -1,6 +1,6 @@
 <script>
   //@ts-nocheck
-  import { GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail } from './jsApi.GEN.js';
+  import { TenantAdminInviteJoin, UserCreateCompany, GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail } from './jsApi.GEN.js';
   import { onMount, tick } from 'svelte';
   import FaSolidCircleNotch from 'svelte-icons-pack/fa/FaSolidCircleNotch';
   import Icon from 'svelte-icons-pack/Icon.svelte';
@@ -9,11 +9,10 @@
   import Navbar from './_components/partials/Navbar.svelte';
   import { notifier } from './_components/notifier.js';
   import InputBox from './_components/InputBox.svelte';
-  import ToCompany from './_components/ToCompany.svelte';
+  import SubmitButton from './_components/SubmitButton.svelte';
 
   let user = {/* user */};
   let segments = {/* segments */};
-  let org = {/* org */};
   let google = '#{google}';
 
   function getCookie(name) {
@@ -59,7 +58,6 @@
     console.log('onMount.index');
     onHashChange();
     console.log('User = ', user);
-    console.log('Company = ', org)
   });
 
   async function guestRegister() {
@@ -158,6 +156,44 @@
       notifier.showInfo('A reset password link has been sent to your email');
     });
   }
+
+  let emailToInvite = '', isSubmitInvite = false;
+  async function inviteUser() {
+    isSubmitInvite = true;
+    await TenantAdminInviteJoin({email: emailToInvite}, function (o) {
+      if (o.error) {
+        isSubmitInvite = false;
+        notifier.showError(o.error);
+        return;
+      }
+      isSubmitInvite = false;
+      notifier.showSuccess('User invited successfully');
+    })
+  }
+
+  let tenantCode = '', companyName = '', headTitle = '';
+  let isSubmitCreateCompany = false;
+  async function userCreateCompany() {
+    isSubmitCreateCompany = true;
+    if (!tenantCode || !companyName || !headTitle) {
+      isSubmitCreateCompany = false;
+      notifier.showWarning('All fields are required');
+      return;
+    }
+    await UserCreateCompany({tenantCode, companyName, headTitle},
+      function (o) {
+        if (o.error) {
+          isSubmitCreateCompany = false;
+          notifier.showError(o.error);
+          console.log(o.error);
+          return;
+        }
+        isSubmitCreateCompany = false;
+        console.log(o);
+        notifier.showSuccess('Company created successfully');
+      }
+    );
+  }
 </script>
 
 <svelte:window on:hashchange={onHashChange} />
@@ -168,14 +204,32 @@
       <div class="root_content">
         <Navbar {user} />
         <div class="content">
-          {#if segments && !segments.tenantAdmin && !user.tenantCode}
-            <ToCompany {user} />
+          <!-- Invite user to join company -->
+          {#if segments.tenantAdmin}
+            <section class="invite_user">
+              <header>
+                <h2>Invite user</h2>
+              </header>
+              <div class="form">
+                <InputBox id="emailToInvite" label="Email to invite" bind:value={emailToInvite} type="email" placeholder="user@example.com" />
+                <SubmitButton on:click={inviteUser} isSubmitted={isSubmitInvite} isFullWidth />
+              </div>
+            </section>
           {/if}
-          {#if user && user.tenantCode}
-            <div>
-              <p>Tenant Code: {user.tenantCode}</p>
-              <p>Company Name: {org.companyName}</p>
-            </div>
+
+          <!-- Create company -->
+          {#if segments && !segments.tenantAdmin && !user.tenantCode}
+            <section class="create_company">
+              <header>
+                <h2>Create Company</h2>
+              </header>
+              <div class="form">
+                <InputBox id="tenantCode" label="Tenant Code" bind:value={tenantCode} type="text" placeholder="axrpr" />
+                <InputBox id="companyName" label="Company Name" bind:value={companyName} type="text" placeholder="My Company" />
+                <InputBox id="headTitle" label="Head Title" bind:value={headTitle} type="text" placeholder="Mr. Smith" />
+                <SubmitButton on:click={userCreateCompany} isSubmitted={isSubmitCreateCompany} isFullWidth />
+              </div>
+            </section>
           {/if}
         </div>
         <Footer />
@@ -456,5 +510,31 @@
   .foot_auth a:hover {
     color: var(--blue-005);
     text-decoration: underline;
+  }
+
+  .invite_user,
+  .create_company {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: fit-content;
+    width: 400px;
+    background-color: #FFF;
+    border-radius: 10px;
+    border: 1px solid var(--gray-002);    
+    padding: 20px;
+  }
+
+  .invite_user header h2,
+  .create_company header h2 {
+    margin: 0;
+    text-align: center;
+  }
+
+  .invite_user .form,
+  .create_company .form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
 </style>

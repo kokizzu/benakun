@@ -19,8 +19,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		return c.SendString(`TODO: replace with real terms of service`)
 	})
 	fw.Get(`/`, func(c *fiber.Ctx) error {
-		var inC domain.UserJoinCompanyIn
-		err := webApiParseInput(c, &inC.RequestCommon, &inC, `/`)
 		in, user, segments := userInfoFromContext(c, d)
 		google := d.GuestExternalAuth(&domain.GuestExternalAuthIn{
 			RequestCommon: in.RequestCommon,
@@ -28,23 +26,12 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 		google.ResponseCommon.DecorateSession(c)
 
-		if err != nil {
-			return views.RenderIndex(c, M.SX{
-				`title`:    `BenAkun`,
-				`user`:     user,
-				`google`:   google.Link,
-				`segments`: segments,
-			})
-		} else {
-			out := d.UserJoinCompany(&inC)
-			return views.RenderIndex(c, M.SX{
-				`title`:    `BenAkun`,
-				`user`:     user,
-				`google`:   google.Link,
-				`segments`: segments,
-				`org`:      out.Company,
-			})
-		}
+		return views.RenderIndex(c, M.SX{
+			`title`:    `BenAkun`,
+			`user`:     user,
+			`google`:   google.Link,
+			`segments`: segments,
+		})
 	})
 
 	fw.Get(`/`+domain.GuestVerifyEmailAction, func(c *fiber.Ctx) error {

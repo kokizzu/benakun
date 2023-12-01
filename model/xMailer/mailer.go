@@ -51,3 +51,20 @@ please click this link to reset your password: <br/>
 please ignore this email if you didn't request reset password link<br/>`,
 	)
 }
+
+func (m *Mailer) SendInviteUserEmail(email, invitationUrl string) error {
+	if conf.IsDebug() {
+		L.Print(`SendInviteUserEmail`, email, invitationUrl)
+	}
+	return m.SendMailFunc(
+		map[string]string{email: ``},
+		`Invitation Company`,
+		`Hi `+email+`,
+
+please click this link to response our invitation to join our company: 
+`+invitationUrl,
+		`Hi `+email+`, <br><br>
+please click this link to response our invitation to join our company: <br/>
+<a href="`+invitationUrl+`">`+invitationUrl+`</a><br/><br/>`,
+	)
+}
