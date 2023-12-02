@@ -1,27 +1,25 @@
 <script>
-    // @ts-nocheck
-    import Menu from './_components/partials/SideMenu.svelte';
-    import ProfileHeader from './_components/partials/Navbar.svelte';
-    import Footer from './_components/Footer.svelte';
+  // @ts-nocheck
+  import SideMenu from './_components/partials/SideMenu.svelte';
+  import Navbar from './_components/partials/Navbar.svelte';
+  import Footer from './_components/partials/Footer.svelte';
 
-    let segments = {/* segments */};
-    let user = {/* user */};
-
+  let segments = {/* segments */};
+  let user = {/* user */};
 </script>
 
-
-<section class='dashboard'>
-    <Menu access={segments} />
-    <div class='dashboard_main_content'>
-        <ProfileHeader {user}></ProfileHeader>
-        <div class='content'>
-            <section class='tableview_container'>
-                tenantAdmin organization
-            </section>
-        </div>
-        <Footer></Footer>
+<div class="root_layout">
+  <div class="root_container">
+    <SideMenu access={segments} />
+    <div class="root_content">
+      <Navbar {user} />
+      <div class="content">
+        <p>Tenant Admin Organization</p>
+      </div>
+      <Footer />
     </div>
-</section>
+  </div>
+</div>
 
 <style>
 </style>

@@ -25,11 +25,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			Provider:      domain.OauthGoogle,
 		})
 		google.ResponseCommon.DecorateSession(c)
-		return views.RenderIndex(c, M.SX{
-			`title`:  `BenAkun`,
-			`user`:   user,
-			`google`: google.Link,
 
+		return views.RenderIndex(c, M.SX{
+			`title`:    `BenAkun`,
+			`user`:     user,
+			`google`:   google.Link,
 			`segments`: segments,
 		})
 	})
@@ -148,11 +148,12 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notLogin(d, in.RequestCommon, true) {
 			return ctx.Redirect(`/`, 302)
 		}
-		_, segments := userInfoFromRequest(in.RequestCommon, d)
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
 		// out := d.SuperAdminDashboard(&in)
 		return views.RenderSuperAdminDashboard(ctx, M.SX{
 			`title`:    `Users`,
 			`segments`: segments,
+			`user`:     user,
 		})
 	})
 

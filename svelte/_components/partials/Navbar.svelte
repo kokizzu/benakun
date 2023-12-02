@@ -1,28 +1,17 @@
 <script>
   // @ts-nocheck
-  import {isSideMenuOpen} from '../uiState.js';
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidBars from 'svelte-icons-pack/fa/FaSolidBars';
   import {onMount} from 'svelte';
 
   export let user = {};
-
-  function openSideMenu() {
-    isSideMenuOpen.set(!$isSideMenuOpen);
-  }
-
   onMount(() => {
-    console.log('onMount.ProfileHeader')
+    console.log('onMount.ProfileHeader =', user);
   });
 </script>
 
 <header class="navbar_container">
   <nav class="navbar">
     <div class="left">
-      <button class="menu_btn" on:click|preventDefault={openSideMenu}>
-        <Icon color="#FFF" size={20} src={FaSolidBars}/>
-      </button>
-      <span class="display_title">#{title}</span>
+      <h2 class="display_title">BenAkun</h2>
     </div>
     <div class="right">
       <span class="display_email">{user.email}</span>
@@ -32,11 +21,15 @@
 
 <style>
   .navbar_container {
-    background-color: var(--purple-003);
-    height: 70px;
-    padding: 18px 40px;
+    top: 0;
+    position: sticky;
+    z-index: 800;
+    background-color: #FFF;
+    height: 60px;
+    padding: 0 40px;
     display: flex;
-    color: #FFF;
+    align-items: center;
+    border-bottom: 1px solid var(--gray-002);
   }
 
   .navbar_container .navbar {
@@ -56,26 +49,6 @@
     gap: 20px;
   }
 
-  .navbar_container .navbar .left .menu_btn {
-    background-color: transparent;
-    padding: 10px;
-    border-radius: 50%;
-    border: 1px solid transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
-
-  .navbar_container .navbar .left .menu_btn:hover {
-    background-color: var(--purple-002);
-    border: 1px solid var(--purple-001);
-  }
-
-  .navbar_container .navbar .left .menu_btn:active {
-    background-color: var(--purple-001);
-  }
-
   .navbar_container .navbar .left .display_title {
     font-size: var(--font-lg);
     font-weight: 700;
@@ -83,9 +56,8 @@
 
   .navbar_container .navbar .right .display_email {
     padding: 5px 15px;
-    background-color: var(--purple-002);
     border-radius: 9999px;
-    border: 1px solid var(--purple-001);
+    border: 1px solid var(--gray-003);
   }
 
   /* Responsive to mobile device */

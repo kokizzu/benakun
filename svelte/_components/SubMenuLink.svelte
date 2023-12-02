@@ -23,10 +23,17 @@
     width: fit-content;
     color: var(--gray-007);
     font-size: var(--font-md);
+    padding: 10px 12px;
+    border-radius: 999px;
+  }
+
+  a:hover {
+    color: var(--purple-002);
   }
 
   a.active {
     font-weight: 600;
     color: var(--purple-002);
+    background-color: #7474ec30;
   }
 </style>

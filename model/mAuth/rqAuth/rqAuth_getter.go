@@ -1,9 +1,12 @@
 package rqAuth
 
 import (
+	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/I"
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
+	"github.com/tarantool/go-tarantool"
 
 	"benakun/model/zCrud"
 )
@@ -81,4 +84,17 @@ FROM ` + t.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	})
 
 	return
+}
+
+func (t *Orgs) FindByCompanyName() bool {
+	res, err := t.Adapter.Select(t.SpaceName(), t.IdxName(), 0, 1, tarantool.IterEq, A.X{t.Name})
+	if L.IsError(err, `Orgs.FindByCompanyName failed:`+t.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		t.FromArray(rows[0])
+		return true
+	}
+	return false
 }

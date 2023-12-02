@@ -1,60 +1,70 @@
 <script>
-    import { onMount } from 'svelte';
-    let segment2;
-    onMount(() => {
-        console.log('onMount.AdminSubMenu')
-        segment2 = window.location.pathname.split('/').pop() || '';
-    });
+  //@ts-nocheck
+  import { onMount } from 'svelte';
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import HiOutlinePresentationChartBar from "svelte-icons-pack/hi/HiOutlinePresentationChartBar";
+  import HiOutlineUserGroup from "svelte-icons-pack/hi/HiOutlineUserGroup";
+  import HiOutlineUserAdd from "svelte-icons-pack/hi/HiOutlineUserAdd";
+
+  let segment2;
+  onMount(() => {
+    console.log('onMount.AdminSubMenu')
+    segment2 = window.location.pathname.split('/').pop() || '';
+  });
 </script>
 
-<div class="admin_submenu">
-    <nav class='menu'>
-        <a href="/superAdmin/userManagement" class:active={segment2==='userManagement'}>Users</a>
-        <a href="/superAdmin/tenantManagement" class:active={segment2==='tenantManagement'}>Tenants</a>
-<!--        <a href="/superAdmin/accessLogs" class:active={segment2==='accessLogs'}>Access Logs</a>-->
-<!--        <a href="/superAdmin/files" class:active={segment2==='files'}>Files</a>-->
-    </nav>
-</div>
+<nav class="admin_submenu">
+  <a href="/superAdmin/dashboard" class:active={segment2==='dashboard'}>
+    <Icon className={segment2 === 'dashboard'  ? 'nav_icon_active' : 'nav_icon_dark'} size={20} src={HiOutlinePresentationChartBar}/>
+    <span>Dashboard</span>
+  </a>
+  <a href="/superAdmin/userManagement" class:active={segment2==='userManagement'}>
+    <Icon className={segment2 === 'userManagement'  ? 'nav_icon_active' : 'nav_icon_dark'} size={20} src={HiOutlineUserGroup}/>
+    <span>Users</span>
+  </a>
+  <a href="/superAdmin/tenantManagement" class:active={segment2==='tenantManagement'}>
+    <Icon className={segment2 === 'tenantManagement'  ? 'nav_icon_active' : 'nav_icon_dark'} size={20} src={HiOutlineUserAdd}/>
+    <span>Tenants</span>
+  </a>
+</nav>
+
 <style>
-    .admin_submenu {
-        position: relative;
-        margin-top: -40px;
-        margin-left: auto;
-        margin-right: auto;
-        display: flex;
-        background-color: #4444EF;
-        padding-bottom: 70px;
-    }
-    .admin_submenu .menu {
-        width: 88%;
-        margin-left: auto;
-        margin-right: auto;
-        display: flex;
-        flex-direction: row;
-    }
-    .admin_submenu .menu a {
-        flex-grow: 1;
-        color: #475569;
-        background-color: white;
-        border-radius: 6px;
-        filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-        text-transform: uppercase;
-        font-size: 13px;
-        text-decoration: none;
-        font-weight: 700;
-        padding-top: 11px;
-        padding-bottom: 11px;
-        text-align: center;
-        margin-left: 20px;
-    }
-    .admin_submenu .menu a:hover {
-        color: #4444EF;
-    }
-    .admin_submenu .menu a:nth-child(1) {
-        margin-left: 0 !important;
-    }
-    .admin_submenu .menu .active {
-        background-color : #334155 !important;
-        color: white !important;
-    }
+  :global(.admin_submenu a .nav_icon_dark path) {
+    stroke: var(--gray-006) !important;
+  }
+
+  :global(.admin_submenu a .nav_icon_active path) {
+    stroke: var(--purple-002) !important;
+  }
+  .admin_submenu {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .admin_submenu a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 5px 15px;
+    text-decoration: none;
+    color: var(--gray-007);
+    font-weight: 600;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background-color: transparent;
+  }
+
+  .admin_submenu a:hover {
+    color: var(--purple-001);
+  }
+
+  .admin_submenu a.active {
+    color: var(--purple-002);
+    border: 1px solid var(--purple-001);
+    background-color: #7474ec30;
+  }
 </style>

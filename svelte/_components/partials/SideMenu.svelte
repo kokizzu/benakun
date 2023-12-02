@@ -2,25 +2,20 @@
   // @ts-nocheck
   import {UserLogout} from '../../jsApi.GEN.js';
   import {onMount} from 'svelte';
-  import {isSideMenuOpen} from '../uiState.js';
+  import {notifier} from '../notifier.js'
 
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import AiOutlineWarning from "svelte-icons-pack/ai/AiOutlineWarning";
   import FaUserCircle from "svelte-icons-pack/fa/FaUserCircle";
   import RiEditorOrganizationChart from "svelte-icons-pack/ri/RiEditorOrganizationChart";
   import FaSolidSlidersH from 'svelte-icons-pack/fa/FaSolidSlidersH';
-  import BiLogOut from "svelte-icons-pack/bi/BiLogOut";
   import CgLogOut from "svelte-icons-pack/cg/CgLogOut";
-  import FaSolidTimes from 'svelte-icons-pack/fa/FaSolidTimes';
   import AiOutlineWallet from "svelte-icons-pack/ai/AiOutlineWallet";
   import RiUserAdminLine from "svelte-icons-pack/ri/RiUserAdminLine";
   import AiOutlineHome from "svelte-icons-pack/ai/AiOutlineHome";
   import RiBuildingsCommunityLine from "svelte-icons-pack/ri/RiBuildingsCommunityLine";
   import SubMenuLink from "../SubMenuLink.svelte";
 
-  export let doToggle = function() {
-    isSideMenuOpen.set(!$isSideMenuOpen);
-  };
   export let access = {
     'superAdmin': false,
     'tenantAdmin': false,
@@ -33,16 +28,18 @@
   let segment1;
   onMount(() => {
     console.log('onMount.Menu');
-    console.log(access);
+    console.log('Access:',access);
     segment1 = window.location.pathname.split('/')[1];
-    console.log('current path = ',segment1)
+    console.log('current path = ', window.location.pathname)
   });
 
   async function userLogout() {
     await UserLogout({}, function(o) {
       console.log(o);
-      if (o.error) return alert(o.error);
-      window.location = '/';
+      if (o.error) notifier.showError(o.error);
+      user = null;
+      segments = null;
+      window.document.location = '/';
     });
   }
   
@@ -63,16 +60,10 @@
   }
 </script>
 
-{#if $isSideMenuOpen}
-	<button class="backdrop" on:click={() => $isSideMenuOpen = !$isSideMenuOpen}></button>
-{/if}
-<aside class={$isSideMenuOpen ? `side_menu open` : `side_menu`}>
+<aside class="side_menu">
   <div class='side_menu_container'>
     <header>
       <h3>BenAkun</h3>
-      <button class="close_btn" on:click|preventDefault={doToggle}>
-        <Icon size={20} color="#475569" src={FaSolidTimes}/>
-      </button>
     </header>
     <div class="menu_container">
       <nav class="menu_list">
@@ -89,12 +80,12 @@
         {#if access.entryUser }
           <a href='/entryUser/dashboard' class:active={segment1 === 'entryUser'}>
             <Icon size={22} className={segment1 === 'entryUser'  ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH}/>
-            <span>Entry USer</span>
+            <span>Entry User</span>
           </a>
         {/if}
         {#if access.tenantAdmin}
-          <a href='/tenantAdmin/dashboard' class:active={segment1 === 'tenantAdmin'}>
-            <Icon size={22} className={segment1 === 'tenantAdmin'  ? 'icon_active' : 'icon_dark'} src={RiBuildingsCommunityLine}/>
+          <a href='/tenantAdmin/dashboard' class:active={window.location.pathname === '/tenantAdmin/dashboard'}>
+            <Icon size={22} className={window.location.pathname === '/tenantAdmin/dashboard'  ? 'icon_active' : 'icon_dark'} src={RiBuildingsCommunityLine}/>
             <span>Tenant Admin</span>
           </a>
           <div class="submenu">
@@ -140,36 +131,16 @@
     fill: var(--red-002);
   }
 
-  .backdrop {
-    z-index: 8888;
-    position: fixed;
-    padding: 0;
-    border: none;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0 0 0 / 20%);
-  }
 
   .side_menu {
-    left             : -300px;
     display          : block;
-    position         : fixed;
-    z-index          : 9999;
-    top              : 0;
-    bottom           : 0;
     overflow-y       : auto;
     flex-direction   : row;
     flex-wrap        : nowrap;
     background-color : white;
-    padding          : 16px 24px;
-    width            : 300px;
-    transition       : 0.3s;
-  }
-
-  .side_menu.open {
-    left : 0;
+    padding          : 16px 0;
+    width            : 260px;
+    border-right: 1px solid var(--gray-002);
   }
 
   .side_menu_container {
@@ -190,6 +161,7 @@
     align-items     : center;
     height: fit-content;
     flex-grow: 0;
+    margin: 20px 24px;
   }
 
   .side_menu_container header h3 {
@@ -198,26 +170,6 @@
     font-weight: 800;
     padding     : 0;
     margin      : 0;
-  }
-
-  .side_menu_container header .close_btn {
-    background-color: transparent;
-    padding: 10px;
-    border-radius: 50%;
-    border: 1px solid transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
-
-  .side_menu_container header .close_btn:hover {
-    background-color: var(--gray-001);
-    border: 1px solid var(--gray-002);
-  }
-
-  .side_menu_container header .close_btn:active {
-    background-color: var(--gray-002);
   }
 
   .side_menu_container .menu_container {
@@ -236,7 +188,8 @@
   .side_menu_container .menu_container .menu_list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 7px;
+    padding: 0 10px;
   }
 
   .side_menu_container .menu_container .menu_list a {
@@ -249,18 +202,25 @@
     width: fit-content;
     color: var(--gray-007);
     font-size: var(--font-md);
+    padding: 10px 12px;
+    border-radius: 999px;
+  }
+
+  .side_menu_container .menu_container .menu_list a:hover {
+    color: var(--purple-002);
   }
 
   .side_menu_container .menu_container .menu_list a.active {
     font-weight: 600;
     color: var(--purple-002);
+    background-color: #7474ec30;
   }
 
   .side_menu_container .menu_container .menu_list .submenu {
-    margin-left: 20px;
+    padding-left: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 7px;
   }
 
   .menu_list .logout {
@@ -274,9 +234,14 @@
     color: var(--gray-007);
     font-size: var(--font-md);
     border: none;
+    border-radius: 999px;
     background-color: transparent;
-    padding: 0;
+    padding: 10px 12px;
     cursor: pointer;
     color: var(--red-002);
+  }
+
+  .menu_list .logout:hover {
+    background-color: #ef444430;
   }
 </style>
