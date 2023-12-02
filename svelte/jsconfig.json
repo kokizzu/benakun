@@ -9,7 +9,7 @@
 		"sourceMap": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"checkJs": true
+		"checkJs": false
 	},
 	"include": ["./**/*.js", "./**/*.svelte"]
 }

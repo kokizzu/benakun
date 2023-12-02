@@ -876,7 +876,6 @@ type Users struct {
 	FullName           string      `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
 	TenantCode         string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
 	Role               string      `json:"role" form:"role" query:"role" long:"role" msg:"role"`
-	InvitedAt          string      `json:"invitedAt" form:"invitedAt" query:"invitedAt" long:"invitedAt" msg:"invitedAt"`
 	InvitationState    string      `json:"invitationState" form:"invitationState" query:"invitationState" long:"invitationState" msg:"invitationState"`
 }
 
@@ -951,7 +950,6 @@ func (u *Users) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "fullName"
 	, "tenantCode"
 	, "role"
-	, "invitedAt"
 	, "invitationState "
 	`
 }
@@ -975,7 +973,6 @@ func (u *Users) SqlSelectAllUncensoredFields() string { //nolint:dupl false posi
 	, "fullName"
 	, "tenantCode"
 	, "role"
-	, "invitedAt"
 	, "invitationState "
 	`
 }
@@ -1000,8 +997,7 @@ func (u *Users) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 14, u.FullName},
 		A.X{`=`, 15, u.TenantCode},
 		A.X{`=`, 16, u.Role},
-		A.X{`=`, 17, u.InvitedAt},
-		A.X{`=`, 18, u.InvitationState},
+		A.X{`=`, 17, u.InvitationState},
 	}
 }
 
@@ -1175,19 +1171,9 @@ func (u *Users) SqlRole() string { //nolint:dupl false positive
 	return `"role"`
 }
 
-// IdxInvitedAt return name of the index
-func (u *Users) IdxInvitedAt() int { //nolint:dupl false positive
-	return 17
-}
-
-// SqlInvitedAt return name of the column being indexed
-func (u *Users) SqlInvitedAt() string { //nolint:dupl false positive
-	return `"invitedAt"`
-}
-
 // IdxInvitationState return name of the index
 func (u *Users) IdxInvitationState() int { //nolint:dupl false positive
-	return 18
+	return 17
 }
 
 // SqlInvitationState return name of the column being indexed
@@ -1226,8 +1212,7 @@ func (u *Users) ToArray() A.X { //nolint:dupl false positive
 		u.FullName,           // 14
 		u.TenantCode,         // 15
 		u.Role,               // 16
-		u.InvitedAt,          // 17
-		u.InvitationState,    // 18
+		u.InvitationState,    // 17
 	}
 }
 
@@ -1250,8 +1235,7 @@ func (u *Users) FromArray(a A.X) *Users { //nolint:dupl false positive
 	u.FullName = X.ToS(a[14])
 	u.TenantCode = X.ToS(a[15])
 	u.Role = X.ToS(a[16])
-	u.InvitedAt = X.ToS(a[17])
-	u.InvitationState = X.ToS(a[18])
+	u.InvitationState = X.ToS(a[17])
 	return u
 }
 
@@ -1271,8 +1255,7 @@ func (u *Users) FromUncensoredArray(a A.X) *Users { //nolint:dupl false positive
 	u.FullName = X.ToS(a[14])
 	u.TenantCode = X.ToS(a[15])
 	u.Role = X.ToS(a[16])
-	u.InvitedAt = X.ToS(a[17])
-	u.InvitationState = X.ToS(a[18])
+	u.InvitationState = X.ToS(a[17])
 	return u
 }
 
@@ -1333,7 +1316,6 @@ var UsersFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`fullName`:           Tt.String,
 	`tenantCode`:         Tt.String,
 	`role`:               Tt.String,
-	`invitedAt`:          Tt.String,
 	`invitationState `:   Tt.String,
 }
 

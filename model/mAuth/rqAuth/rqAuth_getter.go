@@ -86,14 +86,14 @@ FROM ` + t.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	return
 }
 
-func (t *Orgs) FindByCompanyName() bool {
-	res, err := t.Adapter.Select(t.SpaceName(), t.IdxName(), 0, 1, tarantool.IterEq, A.X{t.Name})
-	if L.IsError(err, `Orgs.FindByCompanyName failed:`+t.SpaceName()) {
+func (o *Orgs) FindByCompanyName() bool {
+	res, err := o.Adapter.Select(o.SpaceName(), o.IdxName(), 0, 1, tarantool.IterEq, A.X{o.Name})
+	if L.IsError(err, `Orgs.FindByCompanyName failed:`+o.SpaceName()) {
 		return false
 	}
 	rows := res.Tuples()
 	if len(rows) == 1 {
-		t.FromArray(rows[0])
+		o.FromArray(rows[0])
 		return true
 	}
 	return false

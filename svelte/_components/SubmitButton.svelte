@@ -1,5 +1,4 @@
 <script>
-  //@ts-nocheck
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FiSend from 'svelte-icons-pack/fi/FiSend';
   import FiLoader from 'svelte-icons-pack/fi/FiLoader';

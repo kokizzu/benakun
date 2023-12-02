@@ -62,6 +62,27 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.UserResponseInvitationAction, func(c *fiber.Ctx) error {
+		var in domain.UserResponseInvitationIn
+		err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserResponseInvitationAction)
+		var email, errStr string
+		var joined bool
+		if err != nil {
+			errStr = err.Error()
+		} else {
+			out := d.UserResponseInvitation(&in)
+			joined = out.Ok
+			errStr = out.Error
+			email = out.Email
+		}
+		return views.RenderUserResponsejoin(c, M.SX{
+			`title`:  `Verify invitation`,
+			`joined`: joined,
+			`email`:  email,
+			`error`:  errStr,
+		})
+	})
+
 	fw.Get(`/`+domain.UserProfileAction, func(ctx *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(ctx, d)
 		if notLogin(d, in.RequestCommon, false) {

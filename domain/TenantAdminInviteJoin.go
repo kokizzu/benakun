@@ -2,7 +2,6 @@ package domain
 
 import (
 	"benakun/model/mAuth/wcAuth"
-	"fmt"
 
 	"github.com/kokizzu/gotro/L"
 )
@@ -75,7 +74,6 @@ func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantA
 	// TODO: convert it back to array when update
 
 	userToInvite.SetInvitationState(InviteJoinInvited(user.TenantCode))
-	userToInvite.SetInvitedAt(fmt.Sprintf("%v", in.UnixNow()))
 	if !userToInvite.DoUpdateByEmail() {
 		userToInvite.HaveMutation()
 		out.SetError(500, ErrTenantAdminInviteJoinInviteFailed)
@@ -83,7 +81,8 @@ func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantA
 	}
 
 	d.runSubtask(func() {
-		err := d.Mailer.SendInviteUserEmail(userToInvite.Email, `http://url`)
+		inviteRespUrl := in.Host + `/` + UserResponseInvitationAction + `?tenantCode=` + user.TenantCode + `&response=`
+		err := d.Mailer.SendInviteUserEmail(user.TenantCode, userToInvite.Email, inviteRespUrl)
 		L.IsError(err, `SendInviteUserEmail`)
 		// TODO: insert failed event to clickhouse
 	})

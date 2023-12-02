@@ -78,7 +78,6 @@ const GuestAutoLoginIn = {
  * @property {String} user.fullName
  * @property {String} user.tenantCode
  * @property {String} user.role
- * @property {String} user.invitedAt
  * @property {String} user.invitationState
  * @property {Object} segments
  */
@@ -101,7 +100,6 @@ const GuestAutoLoginOut = {
     fullName: '', // string
     tenantCode: '', // string
     role: '', // string
-    invitedAt: '', // string
     invitationState: '', // string
   }, // rqAuth.Users
   segments: { // M.SB
@@ -252,7 +250,6 @@ const GuestLoginIn = {
  * @property {String} user.fullName
  * @property {String} user.tenantCode
  * @property {String} user.role
- * @property {String} user.invitedAt
  * @property {String} user.invitationState
  * @property {Object} segments
  */
@@ -275,7 +272,6 @@ const GuestLoginOut = {
     fullName: '', // string
     tenantCode: '', // string
     role: '', // string
-    invitedAt: '', // string
     invitationState: '', // string
   }, // rqAuth.Users
   segments: { // M.SB
@@ -329,7 +325,6 @@ const GuestOauthCallbackIn = {
  * @property {String} currentUser.fullName
  * @property {String} currentUser.tenantCode
  * @property {String} currentUser.role
- * @property {String} currentUser.invitedAt
  * @property {String} currentUser.invitationState
  * @property {String} provider
  * @property {Object} segments
@@ -356,7 +351,6 @@ const GuestOauthCallbackOut = {
     fullName: '', // string
     tenantCode: '', // string
     role: '', // string
-    invitedAt: '', // string
     invitationState: '', // string
   }, // rqAuth.Users
   provider: '', // string
@@ -407,7 +401,6 @@ const GuestRegisterIn = {
  * @property {String} user.fullName
  * @property {String} user.tenantCode
  * @property {String} user.role
- * @property {String} user.invitedAt
  * @property {String} user.invitationState
  * @property {String} verifyEmailUrl
  */
@@ -430,7 +423,6 @@ const GuestRegisterOut = {
     fullName: '', // string
     tenantCode: '', // string
     role: '', // string
-    invitedAt: '', // string
     invitationState: '', // string
   }, // rqAuth.Users
   verifyEmailUrl: '', // string
@@ -724,7 +716,6 @@ exports.SuperAdminTenantManagement = async function SuperAdminTenantManagement( 
  * @property {String} user.fullName
  * @property {String} user.tenantCode
  * @property {String} user.role
- * @property {String} user.invitedAt
  * @property {String} user.invitationState
  * @property {Object} withMeta
  * @property {number} pager.page
@@ -752,7 +743,6 @@ const SuperAdminUserManagementIn = {
     fullName: '', // string
     tenantCode: '', // string
     role: '', // string
-    invitedAt: '', // string
     invitationState: '', // string
   }, // rqAuth.Users
   withMeta: false, // bool
@@ -792,7 +782,6 @@ const SuperAdminUserManagementIn = {
  * @property {String} user.fullName
  * @property {String} user.tenantCode
  * @property {String} user.role
- * @property {String} user.invitedAt
  * @property {String} user.invitationState
  * @property {Object} users
  */
@@ -831,7 +820,6 @@ const SuperAdminUserManagementOut = {
     fullName: '', // string
     tenantCode: '', // string
     role: '', // string
-    invitedAt: '', // string
     invitationState: '', // string
   }, // rqAuth.Users
   users: { // [][]any
@@ -1136,7 +1124,6 @@ const UserProfileIn = {
  * @property {String} user.fullName
  * @property {String} user.tenantCode
  * @property {String} user.role
- * @property {String} user.invitedAt
  * @property {String} user.invitationState
  * @property {Object} segments
  */
@@ -1159,7 +1146,6 @@ const UserProfileOut = {
     fullName: '', // string
     tenantCode: '', // string
     role: '', // string
-    invitedAt: '', // string
     invitationState: '', // string
   }, // rqAuth.Users
   segments: { // M.SB
@@ -1276,7 +1262,6 @@ const UserUpdateProfileIn = {
  * @property {String} user.fullName
  * @property {String} user.tenantCode
  * @property {String} user.role
- * @property {String} user.invitedAt
  * @property {String} user.invitationState
  * @property {Object} segments
  */
@@ -1299,7 +1284,6 @@ const UserUpdateProfileOut = {
     fullName: '', // string
     tenantCode: '', // string
     role: '', // string
-    invitedAt: '', // string
     invitationState: '', // string
   }, // rqAuth.Users
   segments: { // M.SB
