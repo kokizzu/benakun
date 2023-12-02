@@ -43,6 +43,8 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
   - [ ] can manage external company (customer, supplier, etc)
   - [ ] can manage service/product/stock
   - [ ] can backup/restore database
+  - [ ] can send/revoke invitation link to his own company (send email), `tenant:X1:invited:YYYYMMDD` or `tenant:X1:revoked:YYYYMMDD`
+  - [ ] can remove someone from his own company (send email), `tenant:X1:terminated:YYYYMMDD`
 - ReportViewer
   - [ ] can see all reports (see below)
 - EntryUser
@@ -51,13 +53,18 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
 - User
   - [ ] as new registered user can create a company
   - [ ] can change password TODO: UI
+  - [ ] can join/reject invitation link to a company (send email to inviter), `tenant:X1:accepted:YYYYMMDD` or `tenant:X1:rejected:YYYYMMDD`
+  - [ ] can leave from a company (send email), `tenant:X1:left:YYYYMMDD`, when accepting invite to new company, the state of old company automatically set to this.
 - Guest
   - [x] can register 
   - [x] can forgot/request reset password
   - [x] can reset password
   - [x] can login with username and password
-  - [ ] can join invitation link to a company
   - [ ] can register/login with google account
+ 
+- Daemon / Cron
+  - [ ] can remind invitation link to company
+  - [ ] can auto-revoke invitation link to company after certain period (eg. 3 days)
 
 ## Features
 
