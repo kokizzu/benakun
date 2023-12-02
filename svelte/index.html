@@ -6102,8 +6102,8 @@ a.active.svelte-1n0fjzt {
       ctx[0]
     ) } });
     let if_block0 = (
-      /*segments*/
-      ctx[1].tenantAdmin && create_if_block_23(ctx)
+      /*user*/
+      ctx[0].tenantCode && create_if_block_23(ctx)
     );
     let if_block1 = !/*user*/
     ctx[0].tenantCode && !/*user*/
@@ -6171,13 +6171,13 @@ a.active.svelte-1n0fjzt {
           ctx2[0];
         navbar.$set(navbar_changes);
         if (
-          /*segments*/
-          ctx2[1].tenantAdmin
+          /*user*/
+          ctx2[0].tenantCode
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
-            if (dirty & /*segments*/
-            2) {
+            if (dirty & /*user*/
+            1) {
               transition_in(if_block0, 1);
             }
           } else {

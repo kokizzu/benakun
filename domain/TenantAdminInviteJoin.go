@@ -4,6 +4,7 @@ import (
 	"benakun/model/mAuth/wcAuth"
 
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/T"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminInviteJoin.go
@@ -66,14 +67,19 @@ func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantA
 		return
 	}
 
-	// TODO: define string as array of string to store in db
-	// [
-	//  	'tenant:[john_0937]:accepted:2024/01/23',
-	// 		'tenant:[budi_1882]:rejected:2023/12/15'
-	// ]
-	// TODO: convert it back to array when update
+	mapState, err := ToStateMap(userToInvite.InvitationState)
+	invState := InviteState{
+		TenantCode: user.TenantCode,
+		State:      InvitationStateInvited,
+		Date:       T.DateStr(),
+	}
+	if err != nil {
+		userToInvite.SetInvitationState(invState.ToStateString())
+	} else {
+		mapState.ModifyState(user.TenantCode, InvitationStateInvited)
+		userToInvite.SetInvitationState(mapState.ToStateString())
+	}
 
-	userToInvite.SetInvitationState(InviteJoinInvited(user.TenantCode))
 	if !userToInvite.DoUpdateByEmail() {
 		userToInvite.HaveMutation()
 		out.SetError(500, ErrTenantAdminInviteJoinInviteFailed)

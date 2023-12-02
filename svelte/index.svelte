@@ -202,7 +202,7 @@
         <Navbar {user} />
         <div class="content">
           <!-- Invite user to join company -->
-          {#if segments.tenantAdmin}
+          {#if user.tenantCode}
             <section class="invite_user">
               <header>
                 <h2>Invite user</h2>

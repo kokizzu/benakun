@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"errors"
 	"fmt"
 	"net"
 	"time"
@@ -9,6 +10,8 @@ import (
 	"github.com/kokizzu/gotro/D/Ch"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/gotro/S"
+	"github.com/kokizzu/gotro/T"
 	"github.com/rs/zerolog"
 
 	"benakun/conf"
@@ -111,17 +114,92 @@ func (d *Domain) CloseTimedBuffer() {
 	d.WaitTimedBufferFinalFlush()
 }
 
-func InviteJoinAccepted(tenantCode string) string {
-	currentTime := time.Now()
-	return fmt.Sprintf("tenant:%s:accepted:%v", tenantCode, currentTime.Format("2006/01/02"))
+const (
+	InvitationStateInvited    = `invited`
+	InvitationStateRevoked    = `revoked`
+	InvitationStateAccepted   = `accepted`
+	InvitationStateRejected   = `rejected`
+	InvitationStateTerminated = `terminated`
+	InvitationStateLeft       = `left`
+
+	InvitationStateRespAccept = `accept`
+	InvitationStateRespReject = `reject`
+)
+
+type (
+	InviteState struct {
+		TenantCode string
+		State      string
+		Date       string
+	}
+	StateMap map[string]InviteState
+)
+
+func (is InviteState) ToStateString() (str string) {
+	return fmt.Sprintf("tenant:%s:%s:%v", is.TenantCode, is.State, is.Date)
 }
 
-func InviteJoinRejected(tenantCode string) string {
-	currentTime := time.Now()
-	return fmt.Sprintf("tenant:%s:rejected:%v", tenantCode, currentTime.Format("2006/01/02"))
+func (s StateMap) ModifyState(tenantCode, newState string) {
+	if sn, ok := s[tenantCode]; ok {
+		if sn.State != newState {
+			sn.TenantCode = tenantCode
+			sn.State = newState
+			sn.Date = T.DateStr()
+			s[tenantCode] = sn
+		}
+	} else {
+		s[tenantCode] = InviteState{
+			TenantCode: tenantCode,
+			State:      newState,
+			Date:       T.DateStr(),
+		}
+	}
+	for _, st := range s {
+		if newState == InvitationStateAccepted { // Change Accepted to Left
+			if st.TenantCode != tenantCode {
+				if st.State == InvitationStateAccepted {
+					st.State = InvitationStateLeft
+					s[st.TenantCode] = st
+				} else if st.State == InvitationStateInvited {
+					st.State = InvitationStateRevoked
+					s[st.TenantCode] = st
+				}
+			}
+		}
+	}
 }
 
-func InviteJoinInvited(tenantCode string) string {
-	currentTime := time.Now()
-	return fmt.Sprintf("tenant:%s:invited:%v", tenantCode, currentTime.Format("2006/01/02"))
+func (s StateMap) ToStateString() (str string) {
+	idx := 0
+	str = ``
+	for _, st := range s {
+		if idx == 0 {
+			str += st.ToStateString()
+		} else {
+			str += ` ` + st.ToStateString()
+		}
+		idx++
+	}
+	return str
+}
+
+func StateField(tenantCode, state string) string {
+	return fmt.Sprintf("tenant:%s:%s:%v", tenantCode, state, T.DateStr())
+}
+
+func ToStateMap(states string) (out StateMap, err error) {
+	out = StateMap{}
+	statesArray := S.Split(states, ` `)
+	if len(statesArray) == 0 {
+		return StateMap{}, errors.New(`States empty`)
+	}
+	for _, state := range statesArray {
+		parts := S.Split(state, `:`)
+		out[parts[1]] = InviteState{
+			TenantCode: parts[1],
+			State:      parts[2],
+			Date:       parts[3],
+		}
+	}
+	return out, nil
 }

@@ -2,6 +2,9 @@ package domain
 
 import (
 	"benakun/model/mAuth/wcAuth"
+
+	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/T"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserResponseInvitation.go
@@ -39,6 +42,15 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 		return
 	}
 
+	if in.Response == InvitationStateRespAccept {
+		in.Response = InvitationStateAccepted
+	} else if in.Response == InvitationStateRespReject {
+		in.Response = InvitationStateRejected
+	} else {
+		out.SetError(400, ErrUserResponseInvitationInvalidResponse)
+		return
+	}
+
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Id = sess.UserId
 	if !user.FindById() {
@@ -53,13 +65,19 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 		return
 	}
 
-	if in.Response == `accept` {
-		user.SetInvitationState(InviteJoinAccepted(in.TenantCode))
-	} else if in.Response == `reject` {
-		user.SetInvitationState(InviteJoinRejected(in.TenantCode))
+	L.Print(`Tenant Code: `, in.TenantCode)
+
+	mapState, err := ToStateMap(user.InvitationState)
+	invState := InviteState{
+		TenantCode: user.TenantCode,
+		State:      in.Response,
+		Date:       T.DateStr(),
+	}
+	if err != nil {
+		user.SetInvitationState(invState.ToStateString())
 	} else {
-		out.SetError(400, ErrUserResponseInvitationInvalidResponse)
-		return
+		mapState.ModifyState(in.TenantCode, in.Response)
+		user.SetInvitationState(mapState.ToStateString())
 	}
 
 	if !user.DoUpdateById() {
