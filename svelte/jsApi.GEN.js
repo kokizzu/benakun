@@ -1168,6 +1168,40 @@ exports.UserProfile = async function UserProfile( i, cb ) {
 }
 
 /**
+ * @typedef {Object} UserResponseInvitationIn
+ * @property {String} tenantCode
+ * @property {String} response
+ */
+const UserResponseInvitationIn = {
+  tenantCode: '', // string
+  response: '', // string
+}
+/**
+ * @typedef {Object} UserResponseInvitationOut
+ * @property {Object} ok
+ * @property {String} email
+ */
+const UserResponseInvitationOut = {
+  ok: false, // bool
+  email: '', // string
+}
+/**
+ * @callback UserResponseInvitationCallback
+ * @param {UserResponseInvitationOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserResponseInvitationIn} i
+ * @param {UserResponseInvitationCallback} cb
+ * @returns {Promise}
+ */
+exports.UserResponseInvitation = async function UserResponseInvitation( i, cb ) {
+  return await axios.post( '/user/responseInvitation', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} UserSessionKillIn
  * @property {String} sessionTokenHash
  */

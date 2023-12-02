@@ -2888,6 +2888,9 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
       exports.UserProfile = async function UserProfile(i, cb) {
         return await axios.post("/user/profile", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.UserResponseInvitation = async function UserResponseInvitation(i, cb) {
+        return await axios.post("/user/responseInvitation", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.UserSessionKill = async function UserSessionKill(i, cb) {
         return await axios.post("/user/sessionKill", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };

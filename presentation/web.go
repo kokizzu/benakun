@@ -84,6 +84,12 @@ func webApiParseInput(ctx *fiber.Ctx, reqCommon *domain.RequestCommon, in any, u
 func (w *WebServer) Start(log *zerolog.Logger) {
 	fw := fiber.New(fiber.Config{
 		ProxyHeader: `X-Real-IP`,
+		ErrorHandler: func(c *fiber.Ctx, err error) error {
+			return views.Render404(c, M.SX{
+				`title`:       `404 - Not Found`,
+				`description`: `Error page not found`,
+			})
+		},
 	})
 
 	// check if actionLogs are there, if error, then you need to run migration: go run main.go migrate

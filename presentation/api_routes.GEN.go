@@ -250,6 +250,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// UserResponseInvitation
+	fw.Post("/"+domain.UserResponseInvitationAction, func(c *fiber.Ctx) error {
+		in := domain.UserResponseInvitationIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserResponseInvitationAction); err != nil {
+			return nil
+		}
+		out := d.UserResponseInvitation(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// UserSessionKill
 	fw.Post("/"+domain.UserSessionKillAction, func(c *fiber.Ctx) error {
 		in := domain.UserSessionKillIn{}

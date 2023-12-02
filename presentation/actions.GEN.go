@@ -31,6 +31,7 @@ var allCommands = []string{
 	domain.UserCreateCompanyAction,
 	domain.UserLogoutAction,
 	domain.UserProfileAction,
+	domain.UserResponseInvitationAction,
 	domain.UserSessionKillAction,
 	domain.UserSessionsActiveAction,
 	domain.UserUpdateProfileAction,
