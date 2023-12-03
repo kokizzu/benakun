@@ -350,6 +350,14 @@
   function set_current_component(component) {
     current_component = component;
   }
+  function get_current_component() {
+    if (!current_component)
+      throw new Error("Function called outside component initialization");
+    return current_component;
+  }
+  function onMount(fn) {
+    get_current_component().$.on_mount.push(fn);
+  }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
@@ -501,7 +509,7 @@
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance, create_fragment2, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance2, create_fragment2, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -527,7 +535,7 @@
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance ? instance(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance2 ? instance2(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -815,7 +823,7 @@
     return {
       c() {
         p = element("p");
-        p.textContent = `${email} is joined`;
+        p.textContent = `${email}`;
       },
       m(target, anchor) {
         insert(target, p, anchor);
@@ -855,7 +863,7 @@
     let t2;
     let t3;
     let a;
-    let if_block0 = joined === "true" && create_if_block_1(ctx);
+    let if_block0 = ok === "true" && create_if_block_1(ctx);
     let if_block1 = error && create_if_block(ctx);
     return {
       c() {
@@ -890,7 +898,7 @@
         append(div, a);
       },
       p(ctx2, [dirty]) {
-        if (joined === "true")
+        if (ok === "true")
           if_block0.p(ctx2, dirty);
         if (error)
           if_block1.p(ctx2, dirty);
@@ -908,13 +916,21 @@
       }
     };
   }
-  var joined = '#{joined}';
+  var ok = '#{ok}';
   var error = '#{error}';
+  var message = '#{message}';
   var email = '#{email}';
+  function instance($self) {
+    onMount(() => {
+      console.log("ok", ok);
+      console.log("message", message);
+    });
+    return [];
+  }
   var User_responsejoin = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment, safe_not_equal, {});
+      init(this, options, instance, create_fragment, safe_not_equal, {});
     }
   };
   var user_responsejoin_default = User_responsejoin;

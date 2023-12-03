@@ -65,7 +65,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	fw.Get(`/`+domain.UserResponseInvitationAction, func(c *fiber.Ctx) error {
 		var in domain.UserResponseInvitationIn
 		err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserResponseInvitationAction)
-		var email, errStr string
+		var email, errStr, msg string
 		var joined bool
 		if err != nil {
 			errStr = err.Error()
@@ -74,12 +74,14 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			joined = out.Ok
 			errStr = out.Error
 			email = out.Email
+			msg = out.Message
 		}
 		return views.RenderUserResponsejoin(c, M.SX{
-			`title`:  `Verify invitation`,
-			`joined`: joined,
-			`email`:  email,
-			`error`:  errStr,
+			`title`:   `Verify invitation`,
+			`joined`:  joined,
+			`email`:   email,
+			`error`:   errStr,
+			`message`: msg,
 		})
 	})
 

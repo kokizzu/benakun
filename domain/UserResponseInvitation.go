@@ -21,8 +21,9 @@ type (
 	}
 	UserResponseInvitationOut struct {
 		ResponseCommon
-		Ok    bool   `json:"ok" form:"ok" query:"ok" long:"ok" msg:"ok"`
-		Email string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
+		Ok      bool   `json:"ok" form:"ok" query:"ok" long:"ok" msg:"ok"`
+		Email   string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
+		Message string `json:"message" form:"message" query:"message" long:"message" msg:"message"`
 	}
 )
 
@@ -83,6 +84,12 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 	if !user.DoUpdateById() {
 		out.SetError(500, ErrUserResponseInvitationModificationFailed)
 		return
+	}
+
+	if in.Response == InvitationStateRespAccept {
+		out.Message = user.Email + `accepted the invitation`
+	} else if in.Response == InvitationStateRespReject {
+		out.Message = user.Email + `rejected the invitation`
 	}
 
 	out.Ok = true
