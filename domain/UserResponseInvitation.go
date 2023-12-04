@@ -18,7 +18,6 @@ type (
 	}
 	UserResponseInvitationOut struct {
 		ResponseCommon
-		Ok      bool   `json:"ok" form:"ok" query:"ok" long:"ok" msg:"ok"`
 		Message string `json:"message" form:"message" query:"message" long:"message" msg:"message"`
 	}
 )
@@ -45,6 +44,7 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 		in.Response = InvitationStateRejected
 	} else {
 		out.SetError(400, ErrUserResponseInvitationInvalidResponse)
+		out.Message = ErrUserResponseInvitationInvalidResponse
 		return
 	}
 
@@ -52,6 +52,7 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 	user.Id = sess.UserId
 	if !user.FindById() {
 		out.SetError(400, ErrUserResponseInvitationUserNotFound)
+		out.Message = ErrUserResponseInvitationUserNotFound
 		return
 	}
 
@@ -59,19 +60,27 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 	tenant.TenantCode = in.TenantCode
 	if !tenant.FindByTenantCode() {
 		out.SetError(400, ErrUserResponseInvitationTenantNotFound)
+		out.Message = ErrUserResponseInvitationTenantNotFound
 		return
 	}
 
 	mapState, err := ToInvitationStateMap(user.InvitationState)
 	if err != nil {
 		out.SetError(400, ErrUserResponseInvitationInvalidResponse)
+		out.Message = ErrUserResponseInvitationInvalidResponse
 	} else {
-		mapState.ModifyState(in.TenantCode, in.Response)
+		err := mapState.ModifyState(in.TenantCode, in.Response)
+		if err != nil {
+			out.SetError(400, ErrUserResponseInvitationInvalidResponse)
+			out.Message = ErrUserResponseInvitationModificationFailed
+			return
+		}
 		user.SetInvitationState(mapState.ToStateString())
 	}
 
 	if !user.DoUpdateById() {
 		out.SetError(500, ErrUserResponseInvitationModificationFailed)
+		out.Message = ErrUserResponseInvitationModificationFailed
 		return
 	}
 
@@ -81,6 +90,5 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 		out.Message = user.Email + ` rejected the invitation`
 	}
 
-	out.Ok = true
 	return
 }

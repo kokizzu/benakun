@@ -139,13 +139,18 @@ func (is InviteState) ToStateString() (str string) {
 	return fmt.Sprintf("tenant:%s:%s:%v", is.TenantCode, is.State, is.Date)
 }
 
-func (s InvitationStateMap) ModifyState(tenantCode, newState string) {
+func (s InvitationStateMap) ModifyState(tenantCode, newState string) error {
 	if sn, ok := s[tenantCode]; ok {
 		if sn.State != newState {
+			if sn.State == InvitationStateAccepted && newState != InvitationStateTerminated && newState != InvitationStateLeft {
+				return errors.New(`Tenant cannot modify user`)
+			}
 			sn.TenantCode = tenantCode
 			sn.State = newState
 			sn.Date = T.DateStr()
 			s[tenantCode] = sn
+		} else {
+			return errors.New(`Cannot set state with previous state`)
 		}
 	} else {
 		s[tenantCode] = InviteState{
@@ -167,6 +172,7 @@ func (s InvitationStateMap) ModifyState(tenantCode, newState string) {
 			}
 		}
 	}
+	return nil
 }
 
 func (s InvitationStateMap) ToStateString() (str string) {

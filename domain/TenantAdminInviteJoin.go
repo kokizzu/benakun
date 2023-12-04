@@ -32,6 +32,7 @@ const (
 	ErrTenantAdminInviteJoinInvalidUserEmail   = `invalid user email`
 	ErrTenantAdminInviteJoinInvalidTenantAdmin = `invalid tenant admin`
 	ErrTenantAdminInviteJoinInviteFailed       = `invite user failed`
+	ErrTenantAdminInviteJoinInvalidInvitation  = `cannot invite this user`
 
 	TenantAdminInviteJoinMsg = `User invited success`
 )
@@ -76,7 +77,11 @@ func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantA
 	if err != nil {
 		userToInvite.SetInvitationState(invState.ToStateString())
 	} else {
-		mapState.ModifyState(user.TenantCode, InvitationStateInvited)
+		err := mapState.ModifyState(user.TenantCode, InvitationStateInvited)
+		if err != nil {
+			out.SetError(400, ErrTenantAdminInviteJoinInvalidInvitation)
+			return
+		}
 		userToInvite.SetInvitationState(mapState.ToStateString())
 	}
 

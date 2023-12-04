@@ -2,6 +2,7 @@ package presentation
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 
 	"benakun/domain"
@@ -66,18 +67,15 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		var in domain.UserResponseInvitationIn
 		err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserResponseInvitationAction)
 		var msg string
-		var ok bool
 		if err != nil {
-			ok = false
 			msg = err.Error()
+			L.Print(`Error response: `, msg)
 		} else {
 			out := d.UserResponseInvitation(&in)
-			ok = out.Ok
 			msg = out.Message
 		}
 		return views.RenderUserResponsejoin(c, M.SX{
 			`title`:   `Respond invitation`,
-			`ok`:      ok,
 			`message`: msg,
 		})
 	})
