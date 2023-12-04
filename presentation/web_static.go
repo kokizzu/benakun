@@ -76,7 +76,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			msg = out.Message
 		}
 		return views.RenderUserResponsejoin(c, M.SX{
-			`title`:   `Verify invitation`,
+			`title`:   `Respond invitation`,
 			`ok`:      ok,
 			`message`: msg,
 		})

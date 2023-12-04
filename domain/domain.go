@@ -132,14 +132,14 @@ type (
 		State      string
 		Date       string
 	}
-	StateMap map[string]InviteState
+	InvitationStateMap map[string]InviteState
 )
 
 func (is InviteState) ToStateString() (str string) {
 	return fmt.Sprintf("tenant:%s:%s:%v", is.TenantCode, is.State, is.Date)
 }
 
-func (s StateMap) ModifyState(tenantCode, newState string) {
+func (s InvitationStateMap) ModifyState(tenantCode, newState string) {
 	if sn, ok := s[tenantCode]; ok {
 		if sn.State != newState {
 			sn.TenantCode = tenantCode
@@ -169,7 +169,7 @@ func (s StateMap) ModifyState(tenantCode, newState string) {
 	}
 }
 
-func (s StateMap) ToStateString() (str string) {
+func (s InvitationStateMap) ToStateString() (str string) {
 	idx := 0
 	str = ``
 	for _, st := range s {
@@ -187,11 +187,11 @@ func StateField(tenantCode, state string) string {
 	return fmt.Sprintf("tenant:%s:%s:%v", tenantCode, state, T.DateStr())
 }
 
-func ToStateMap(states string) (out StateMap, err error) {
-	out = StateMap{}
+func ToInvitationStateMap(states string) (out InvitationStateMap, err error) {
+	out = InvitationStateMap{}
 	statesArray := S.Split(states, ` `)
 	if len(statesArray) == 0 {
-		return StateMap{}, errors.New(`States empty`)
+		return InvitationStateMap{}, errors.New(`States empty`)
 	}
 	for _, state := range statesArray {
 		parts := S.Split(state, `:`)

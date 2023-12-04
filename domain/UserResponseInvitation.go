@@ -2,8 +2,6 @@ package domain
 
 import (
 	"benakun/model/mAuth/wcAuth"
-
-	"github.com/kokizzu/gotro/T"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserResponseInvitation.go
@@ -28,10 +26,10 @@ type (
 const (
 	UserResponseInvitationAction = `user/responseInvitation`
 
-	ErrUserResponseInvitationInvalidResponse     = `invalid response`
-	ErrUserResponseInvitationUserNotFound        = `user not found`
-	ErrUserResponseInvitationTenantAdminNotFound = `tenant admin not found`
-	ErrUserResponseInvitationModificationFailed  = `failed verify invitation user`
+	ErrUserResponseInvitationInvalidResponse    = `invalid response for invitation`
+	ErrUserResponseInvitationUserNotFound       = `user not found on invitation`
+	ErrUserResponseInvitationTenantNotFound     = `tenant admin not found on invitation`
+	ErrUserResponseInvitationModificationFailed = `failed verify invitation user`
 )
 
 func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserResponseInvitationOut) {
@@ -60,18 +58,13 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
 	tenant.TenantCode = in.TenantCode
 	if !tenant.FindByTenantCode() {
-		out.SetError(400, ErrUserResponseInvitationTenantAdminNotFound)
+		out.SetError(400, ErrUserResponseInvitationTenantNotFound)
 		return
 	}
 
-	mapState, err := ToStateMap(user.InvitationState)
-	invState := InviteState{
-		TenantCode: in.TenantCode,
-		State:      in.Response,
-		Date:       T.DateStr(),
-	}
+	mapState, err := ToInvitationStateMap(user.InvitationState)
 	if err != nil {
-		user.SetInvitationState(invState.ToStateString())
+		out.SetError(400, ErrUserResponseInvitationInvalidResponse)
 	} else {
 		mapState.ModifyState(in.TenantCode, in.Response)
 		user.SetInvitationState(mapState.ToStateString())
@@ -83,7 +76,7 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 	}
 
 	if in.Response == InvitationStateAccepted {
-		out.Message = user.Email + ` accepted the invitation`
+		out.Message = user.Email + ` to join accepted the invitation`
 	} else if in.Response == InvitationStateRejected {
 		out.Message = user.Email + ` rejected the invitation`
 	}
