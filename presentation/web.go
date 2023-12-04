@@ -85,6 +85,7 @@ func (w *WebServer) Start(log *zerolog.Logger) {
 	fw := fiber.New(fiber.Config{
 		ProxyHeader: `X-Real-IP`,
 		ErrorHandler: func(c *fiber.Ctx, err error) error {
+			c.SendStatus(fiber.StatusNotFound)
 			return views.Render404(c, M.SX{
 				`title`:       `404 - Not Found`,
 				`description`: `Error page not found`,

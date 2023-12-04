@@ -221,10 +221,84 @@
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style></style>
+<style>/* fakecss:./_components/BackHomeBtn.esbuild-svelte-fake-css */
+.back_home.svelte-1ro3roy.svelte-1ro3roy {
+  position: relative;
+  width: fit-content;
+  padding: 15px 50px 15px 30px;
+  background-color: #3b82f6;
+  border: none;
+  border-radius: 9999px;
+  font-size: 18px;
+  cursor: pointer;
+}
+.back_home.svelte-1ro3roy.svelte-1ro3roy:hover {
+  background-color: #2c74ea;
+}
+.back_home.svelte-1ro3roy span.svelte-1ro3roy {
+  color: #ffffff;
+}
+.arrow_backhome {
+  position: absolute;
+  right: 22px;
+  top: auto;
+  bottom: auto;
+  margin-top: 2px;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.back_home:hover .arrow_backhome {
+  right: 16px;
+}
+
+/* fakecss:./404.esbuild-svelte-fake-css */
+.root_container.svelte-19xliu4.svelte-19xliu4 {
+  display: flex;
+  justify-content: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--gray-002);
+  height: 100vh;
+  width: 100vw;
+}
+.root_container.svelte-19xliu4 .container.svelte-19xliu4 {
+  margin-top: 60px;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid var(--gray-003);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: fit-content;
+  width: 400px;
+  text-align: center;
+}
+.root_container.svelte-19xliu4 .container h1.svelte-19xliu4 {
+  font-size: var(--font-xxl);
+  margin: 0;
+}
+.root_container.svelte-19xliu4 .container p.svelte-19xliu4 {
+  margin: 0;
+  font-size: var(--font-lg);
+}
+</style>
 <script>(() => {
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
+  }
+  function assign(tar, src) {
+    for (const k in src)
+      tar[k] = src[k];
+    return (
+      /** @type {T & S} */
+      tar
+    );
   }
   function run(fn) {
     return fn();
@@ -319,17 +393,29 @@
   function element(name) {
     return document.createElement(name);
   }
+  function svg_element(name) {
+    return document.createElementNS("http://www.w3.org/2000/svg", name);
+  }
   function text(data) {
     return document.createTextNode(data);
   }
   function space() {
     return text(" ");
   }
+  function listen(node, event, handler, options) {
+    node.addEventListener(event, handler, options);
+    return () => node.removeEventListener(event, handler, options);
+  }
   function attr(node, attribute, value) {
     if (value == null)
       node.removeAttribute(attribute);
     else if (node.getAttribute(attribute) !== value)
       node.setAttribute(attribute, value);
+  }
+  function set_svg_attributes(node, attributes) {
+    for (const key in attributes) {
+      attr(node, key, attributes[key]);
+    }
   }
   function children(element2) {
     return Array.from(element2.childNodes);
@@ -428,11 +514,64 @@
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
+  var outros;
   function transition_in(block, local) {
     if (block && block.i) {
       outroing.delete(block);
       block.i(local);
     }
+  }
+  function transition_out(block, local, detach2, callback) {
+    if (block && block.o) {
+      if (outroing.has(block))
+        return;
+      outroing.add(block);
+      outros.c.push(() => {
+        outroing.delete(block);
+        if (callback) {
+          if (detach2)
+            block.d(1);
+          callback();
+        }
+      });
+      block.o(local);
+    } else if (callback) {
+      callback();
+    }
+  }
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/spread.js
+  function get_spread_update(levels, updates) {
+    const update2 = {};
+    const to_null_out = {};
+    const accounted_for = { $scope: 1 };
+    let i = levels.length;
+    while (i--) {
+      const o = levels[i];
+      const n = updates[i];
+      if (n) {
+        for (const key in o) {
+          if (!(key in n))
+            to_null_out[key] = 1;
+        }
+        for (const key in n) {
+          if (!accounted_for[key]) {
+            update2[key] = n[key];
+            accounted_for[key] = 1;
+          }
+        }
+        levels[i] = n;
+      } else {
+        for (const key in o) {
+          accounted_for[key] = 1;
+        }
+      }
+    }
+    for (const key in to_null_out) {
+      if (!(key in update2))
+        update2[key] = void 0;
+    }
+    return update2;
   }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/boolean_attributes.js
@@ -469,6 +608,9 @@
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/Component.js
+  function create_component(block) {
+    block && block.c();
+  }
   function mount_component(component, target, anchor) {
     const { fragment, after_update } = component.$;
     fragment && fragment.m(target, anchor);
@@ -501,7 +643,7 @@
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance, create_fragment2, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance2, create_fragment4, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -527,7 +669,7 @@
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance ? instance(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance2 ? instance2(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -540,7 +682,7 @@
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment2 ? create_fragment2($.ctx) : false;
+    $.fragment = create_fragment4 ? create_fragment4($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -809,34 +951,273 @@
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
-  // 404.svelte
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/Icon.svelte
   function create_fragment(ctx) {
+    let svg;
+    let svg_levels = [
+      { width: (
+        /*size*/
+        ctx[1]
+      ) },
+      { height: (
+        /*size*/
+        ctx[1]
+      ) },
+      { "stroke-width": "0" },
+      { class: (
+        /*className*/
+        ctx[2]
+      ) },
+      /*src*/
+      ctx[0].a,
+      /*attr*/
+      ctx[4],
+      { xmlns: "http://www.w3.org/2000/svg" }
+    ];
+    let svg_data = {};
+    for (let i = 0; i < svg_levels.length; i += 1) {
+      svg_data = assign(svg_data, svg_levels[i]);
+    }
+    return {
+      c() {
+        svg = svg_element("svg");
+        set_svg_attributes(svg, svg_data);
+      },
+      m(target, anchor) {
+        insert(target, svg, anchor);
+        svg.innerHTML = /*innerHtml*/
+        ctx[3];
+      },
+      p(ctx2, [dirty]) {
+        if (dirty & /*innerHtml*/
+        8)
+          svg.innerHTML = /*innerHtml*/
+          ctx2[3];
+        ;
+        set_svg_attributes(svg, svg_data = get_spread_update(svg_levels, [
+          dirty & /*size*/
+          2 && { width: (
+            /*size*/
+            ctx2[1]
+          ) },
+          dirty & /*size*/
+          2 && { height: (
+            /*size*/
+            ctx2[1]
+          ) },
+          { "stroke-width": "0" },
+          dirty & /*className*/
+          4 && { class: (
+            /*className*/
+            ctx2[2]
+          ) },
+          dirty & /*src*/
+          1 && /*src*/
+          ctx2[0].a,
+          dirty & /*attr*/
+          16 && /*attr*/
+          ctx2[4],
+          { xmlns: "http://www.w3.org/2000/svg" }
+        ]));
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(svg);
+        }
+      }
+    };
+  }
+  function instance($self, $props, $invalidate) {
+    let { src } = $props;
+    let { size = "1em" } = $props;
+    let { color = void 0 } = $props;
+    let { title: title2 = void 0 } = $props;
+    let { className = "" } = $props;
+    let innerHtml;
+    let attr2;
+    $self.$set = ($props2) => {
+      if ("src" in $props2)
+        $invalidate(0, src = $props2.src);
+      if ("size" in $props2)
+        $invalidate(1, size = $props2.size);
+      if ("color" in $props2)
+        $invalidate(5, color = $props2.color);
+      if ("title" in $props2)
+        $invalidate(6, title2 = $props2.title);
+      if ("className" in $props2)
+        $invalidate(2, className = $props2.className);
+    };
+    $self.$.update = () => {
+      if ($self.$.dirty & /*color, src*/
+      33) {
+        $: {
+          $invalidate(4, attr2 = {});
+          if (color) {
+            if (src.a.stroke !== "none") {
+              $invalidate(4, attr2.stroke = color, attr2);
+            }
+            if (src.a.fill !== "none") {
+              $invalidate(4, attr2.fill = color, attr2);
+            }
+          }
+        }
+      }
+      if ($self.$.dirty & /*title, src*/
+      65) {
+        $: {
+          $invalidate(3, innerHtml = (title2 ? `<title>${title2}</title>` : "") + src.c);
+        }
+      }
+    };
+    return [src, size, className, innerHtml, attr2, color, title2];
+  }
+  var Icon = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance, create_fragment, safe_not_equal, {
+        src: 0,
+        size: 1,
+        color: 5,
+        title: 6,
+        className: 2
+      });
+    }
+  };
+  var Icon_default = Icon;
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidArrowRight.js
+  var FaSolidArrowRight_default = {
+    a: {
+      viewBox: "0 0 448 512"
+    },
+    c: '<path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path>'
+  };
+
+  // _components/BackHomeBtn.svelte
+  function create_fragment2(ctx) {
+    let button;
+    let span;
+    let t1;
+    let icon;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        className: "arrow_backhome",
+        color: "#FFF",
+        size: 18,
+        src: FaSolidArrowRight_default
+      }
+    });
+    return {
+      c() {
+        button = element("button");
+        span = element("span");
+        span.textContent = "Back to home";
+        t1 = space();
+        create_component(icon.$.fragment);
+        attr(span, "class", "svelte-1ro3roy");
+        attr(button, "class", "back_home svelte-1ro3roy");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        append(button, span);
+        append(button, t1);
+        mount_component(icon, button, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(button, "click", backHome);
+          mounted = true;
+        }
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        destroy_component(icon);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function backHome() {
+    window.location.href = "/";
+  }
+  var BackHomeBtn = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, null, create_fragment2, safe_not_equal, {});
+    }
+  };
+  var BackHomeBtn_default = BackHomeBtn;
+
+  // 404.svelte
+  function create_fragment3(ctx) {
+    let section;
     let div;
     let h1;
     let t1;
     let p;
+    let t3;
+    let backhomebtn;
+    let current;
+    backhomebtn = new BackHomeBtn_default({});
     return {
       c() {
+        section = element("section");
         div = element("div");
         h1 = element("h1");
         h1.textContent = `${title}`;
         t1 = space();
         p = element("p");
         p.textContent = `${description}`;
+        t3 = space();
+        create_component(backhomebtn.$.fragment);
+        attr(h1, "class", "svelte-19xliu4");
+        attr(p, "class", "svelte-19xliu4");
+        attr(div, "class", "container svelte-19xliu4");
+        attr(section, "class", "root_container svelte-19xliu4");
       },
       m(target, anchor) {
-        insert(target, div, anchor);
+        insert(target, section, anchor);
+        append(section, div);
         append(div, h1);
         append(div, t1);
         append(div, p);
+        append(div, t3);
+        mount_component(backhomebtn, div, null);
+        current = true;
       },
       p: noop,
-      i: noop,
-      o: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(backhomebtn.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(backhomebtn.$.fragment, local);
+        current = false;
+      },
       d(detaching) {
         if (detaching) {
-          detach(div);
+          detach(section);
         }
+        destroy_component(backhomebtn);
       }
     };
   }
@@ -845,7 +1226,7 @@
   var _404 = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment, safe_not_equal, {});
+      init(this, options, null, create_fragment3, safe_not_equal, {});
     }
   };
   var __default = _404;

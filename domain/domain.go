@@ -195,10 +195,12 @@ func ToStateMap(states string) (out StateMap, err error) {
 	}
 	for _, state := range statesArray {
 		parts := S.Split(state, `:`)
-		out[parts[1]] = InviteState{
-			TenantCode: parts[1],
-			State:      parts[2],
-			Date:       parts[3],
+		if len(parts) > 0 {
+			out[parts[1]] = InviteState{
+				TenantCode: parts[1],
+				State:      parts[2],
+				Date:       parts[3],
+			}
 		}
 	}
 	return out, nil

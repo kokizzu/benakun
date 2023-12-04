@@ -282,7 +282,7 @@
               <span />
             </div>
             <!-- Google OAuth -->
-              <a class="button" href="#">
+              <a class="button" href="/">
                 <img src="/assets/icons/google.svg" alt="Google" />
                 <span>Continue with Google</span>
               </a>
