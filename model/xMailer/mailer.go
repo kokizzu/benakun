@@ -74,3 +74,18 @@ Accept: <a href="`+acceptUrl+`">`+acceptUrl+`</a><br/><br/>
 Reject: <a href="`+rejectUrl+`">`+rejectUrl+`</a><br/><br/>`,
 	)
 }
+
+func (m *Mailer) SendResponseStateTenantEmail(tenantEmail, userEmail, state string) error {
+	if conf.IsDebug() {
+		L.Print(`SendResponseStateTenantEmail`, tenantEmail, userEmail, state)
+	}
+	return m.SendMailFunc(
+		map[string]string{tenantEmail: ``},
+		`User status changed`,
+		`Hi `+tenantEmail+`,
+
+A user with email `+userEmail+` has `+state+` from your company:`,
+		`Hi `+tenantEmail+`, <br><br>
+A user with email <a href="mailto:`+userEmail+`">`+userEmail+`</a> has `+state+` from your company: <br/>`,
+	)
+}

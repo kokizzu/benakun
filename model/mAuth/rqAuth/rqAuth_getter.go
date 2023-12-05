@@ -98,3 +98,16 @@ func (o *Orgs) FindByCompanyName() bool {
 	}
 	return false
 }
+
+func (u *Users) FindByTenantCode() bool {
+	res, err := u.Adapter.Select(u.SpaceName(), u.IdxTenantCode(), 0, 1, tarantool.IterEq, A.X{u.TenantCode})
+	if L.IsError(err, `Users.FindByTenantCode failed:`+u.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		u.FromArray(rows[0])
+		return true
+	}
+	return false
+}

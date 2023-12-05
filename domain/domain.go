@@ -127,13 +127,11 @@ const (
 )
 
 type (
-	InviteState struct {
-		TenantCode string
-		State      string
-		Date       string
-	}
+	InviteState        struct{ TenantCode, State, Date string }
 	InvitationStateMap map[string]InviteState
 )
+
+var TenantState string // For sending email
 
 func (is InviteState) ToStateString() (str string) {
 	return fmt.Sprintf("tenant:%s:%s:%v", is.TenantCode, is.State, is.Date)
@@ -168,6 +166,7 @@ func (s InvitationStateMap) ModifyState(tenantCode, newState string) error {
 				} else if st.State == InvitationStateInvited {
 					st.State = InvitationStateRevoked
 					s[st.TenantCode] = st
+					TenantState = InvitationStateRevoked
 				}
 			}
 		}

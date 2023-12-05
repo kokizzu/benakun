@@ -68,6 +68,11 @@ func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantA
 		return
 	}
 
+	if userToInvite.TenantCode != `` {
+		out.SetError(400, ErrTenantAdminInviteJoinInvalidInvitation)
+		return
+	}
+
 	mapState, err := ToInvitationStateMap(userToInvite.InvitationState)
 	invState := InviteState{
 		TenantCode: user.TenantCode,
