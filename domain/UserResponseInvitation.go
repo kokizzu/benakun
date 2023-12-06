@@ -2,8 +2,6 @@ package domain
 
 import (
 	"benakun/model/mAuth/wcAuth"
-
-	"github.com/kokizzu/gotro/L"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserResponseInvitation.go
@@ -66,14 +64,6 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 		return
 	}
 
-	tenantUser := wcAuth.NewUsersMutator(d.AuthOltp)
-	tenantUser.TenantCode = in.TenantCode
-	if !tenantUser.FindByTenantCode() {
-		out.SetError(400, ErrUserResponseInvitationTenantNotFound)
-		out.Message = ErrUserResponseInvitationTenantNotFound
-		return
-	}
-
 	mapState, err := ToInvitationStateMap(user.InvitationState)
 	if err != nil {
 		out.SetError(400, ErrUserResponseInvitationInvalidResponse)
@@ -88,23 +78,17 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 		user.SetInvitationState(mapState.ToStateString())
 	}
 
-	if !user.DoUpdateById() {
-		out.SetError(500, ErrUserResponseInvitationModificationFailed)
-		out.Message = ErrUserResponseInvitationModificationFailed
-		return
-	}
-
 	if in.Response == InvitationStateAccepted {
-		out.Message = user.Email + ` to join accepted the invitation`
+		user.SetRole(DataEntrySegment)
+		out.Message = user.Email + ` join to company` + in.TenantCode
 	} else if in.Response == InvitationStateRejected {
 		out.Message = user.Email + ` rejected the invitation`
 	}
 
-	if TenantState == InvitationStateRevoked {
-		d.runSubtask(func() {
-			err := d.Mailer.SendResponseStateTenantEmail(tenantUser.Email, user.Email, in.Response)
-			L.IsError(err, `SendResponseStateTenantEmail`)
-		})
+	if !user.DoUpdateById() {
+		out.SetError(500, ErrUserResponseInvitationModificationFailed)
+		out.Message = ErrUserResponseInvitationModificationFailed
+		return
 	}
 
 	return
