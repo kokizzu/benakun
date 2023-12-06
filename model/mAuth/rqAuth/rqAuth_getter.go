@@ -111,3 +111,20 @@ func (u *Users) FindByTenantCode() bool {
 	}
 	return false
 }
+
+func (u *Users) FindUsersByTenant(tenantCode string) (res [][]any) {
+	const comment = `-- Users) FindByTenant`
+
+	whereAndSql := ` WHERE ` + u.SqlInvitationState() + `LIKE '%tenant:` + tenantCode + `:%'`
+
+	queryRows := comment + `
+SELECT *
+FROM ` + u.SqlTableName() + whereAndSql
+
+	u.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
+	return
+}

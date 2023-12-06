@@ -1,5 +1,11 @@
 package domain
 
+import (
+	"benakun/model/mAuth/wcAuth"
+
+	"github.com/gofiber/fiber/v2"
+)
+
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminDashboard.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type TenantAdminDashboard.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type TenantAdminDashboard.go
@@ -12,14 +18,41 @@ type (
 	}
 	TenantAdminDashboardOut struct {
 		ResponseCommon
+		Staff [][]any `json:"staff" form:"staff" query:"staff" long:"staff" msg:"staff"`
 	}
 )
 
 const (
 	TenantAdminDashboardAction = `tenantAdmin/dashboard`
+
+	ErrTenantAdminDashboardUnauthorized   = `unauthorized user`
+	ErrTenantAdminDashboardTenantNotFound = `tenant admin not found`
 )
 
 func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdminDashboardOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
+
+	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
+	if sess == nil {
+		return
+	}
+
+	user := wcAuth.NewUsersMutator(d.AuthOltp)
+	user.Id = sess.UserId
+	if !user.FindById() {
+		out.SetError(fiber.StatusBadRequest, ErrTenantAdminDashboardUnauthorized)
+		return
+	}
+
+	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
+	tenant.TenantCode = user.TenantCode
+	if !tenant.FindByTenantCode() {
+		out.SetError(400, ErrTenantAdminDashboardTenantNotFound)
+		return
+	}
+
+	resp := user.FindUsersByTenant(tenant.TenantCode)
+
+	out.Staff = resp
 	return
 }

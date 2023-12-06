@@ -26,7 +26,7 @@ const (
 	TenantCode         = `tenantCode`
 	Role               = `role`
 	InvitedAt          = `invitedAt`
-	InvitationState    = `invitationState `
+	InvitationState    = `invitationState`
 )
 
 const (

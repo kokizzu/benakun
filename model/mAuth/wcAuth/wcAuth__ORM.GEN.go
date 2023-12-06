@@ -1047,7 +1047,7 @@ func (u *UsersMutator) SetRole(val string) bool { //nolint:dupl false positive
 func (u *UsersMutator) SetInvitationState(val string) bool { //nolint:dupl false positive
 	if val != u.InvitationState {
 		u.mutations = append(u.mutations, A.X{`=`, 17, val})
-		u.logs = append(u.logs, A.X{`invitationState `, u.InvitationState, val})
+		u.logs = append(u.logs, A.X{`invitationState`, u.InvitationState, val})
 		u.InvitationState = val
 		return true
 	}
@@ -1130,7 +1130,7 @@ func (u *UsersMutator) SetAll(from rqAuth.Users, excludeMap, forceMap M.SB) (cha
 		u.Role = S.Trim(from.Role)
 		changed = true
 	}
-	if !excludeMap[`invitationState `] && (forceMap[`invitationState `] || from.InvitationState != ``) {
+	if !excludeMap[`invitationState`] && (forceMap[`invitationState`] || from.InvitationState != ``) {
 		u.InvitationState = S.Trim(from.InvitationState)
 		changed = true
 	}

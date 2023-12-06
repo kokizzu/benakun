@@ -3,9 +3,15 @@
   import SideMenu from './_components/partials/SideMenu.svelte';
   import Navbar from './_components/partials/Navbar.svelte';
   import Footer from './_components/partials/Footer.svelte';
+    import { onMount } from 'svelte';
 
   let segments = {/* segments */};
   let user = {/* user */};
+  let staff = [/* staff */];
+
+  onMount(()=> {
+    console.log('Staff = ', staff)
+  })
 </script>
 
 <div class="root_layout">

@@ -126,10 +126,16 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notLogin(d, in.RequestCommon, false) {
 			return ctx.Redirect(`/`, 302)
 		}
+		in.RequestCommon.Action = domain.TenantAdminDashboardAction
+		out := d.TenantAdminDashboard(&domain.TenantAdminDashboardIn{
+			RequestCommon: in.RequestCommon,
+		})
+		L.Print(`Staff aaaa:`, out.Staff)
 		return views.RenderTenantAdminDashboard(ctx, M.SX{
 			`title`:    `Tenant Admin Dashboard`,
 			`user`:     user,
 			`segments`: segments,
+			`staff`:    out.Staff,
 		})
 	})
 

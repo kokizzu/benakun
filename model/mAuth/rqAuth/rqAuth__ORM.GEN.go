@@ -950,7 +950,7 @@ func (u *Users) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "fullName"
 	, "tenantCode"
 	, "role"
-	, "invitationState "
+	, "invitationState"
 	`
 }
 
@@ -973,7 +973,7 @@ func (u *Users) SqlSelectAllUncensoredFields() string { //nolint:dupl false posi
 	, "fullName"
 	, "tenantCode"
 	, "role"
-	, "invitationState "
+	, "invitationState"
 	`
 }
 
@@ -1178,7 +1178,7 @@ func (u *Users) IdxInvitationState() int { //nolint:dupl false positive
 
 // SqlInvitationState return name of the column being indexed
 func (u *Users) SqlInvitationState() string { //nolint:dupl false positive
-	return `"invitationState "`
+	return `"invitationState"`
 }
 
 // CensorFields remove sensitive fields for output
@@ -1316,7 +1316,7 @@ var UsersFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`fullName`:           Tt.String,
 	`tenantCode`:         Tt.String,
 	`role`:               Tt.String,
-	`invitationState `:   Tt.String,
+	`invitationState`:    Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
