@@ -52,7 +52,6 @@ func webApiParseInput(ctx *fiber.Ctx, reqCommon *domain.RequestCommon, in any, u
 				retry = false
 			}
 		}
-		log.Print("masuk 1", in)
 		// application/x-www-form-urlencoded
 		// multipart/form-data
 		if retry {
@@ -62,7 +61,6 @@ func webApiParseInput(ctx *fiber.Ctx, reqCommon *domain.RequestCommon, in any, u
 				})
 				return err
 			}
-			log.Print("masuk 2", in)
 		}
 		trimBody := S.Left(string(body), 1024)
 		if reqCommon.Debug && reqCommon.RawBody == `` {

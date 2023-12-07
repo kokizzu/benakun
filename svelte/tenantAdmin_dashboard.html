@@ -45,6 +45,9 @@
       --red-001: #f87171;
       --red-002: #ef4444;
 
+      --yellow-001: #fbbf24;
+      --yellow-002: #f59e0b;
+
       --gray-001: #F8F9FA;
       --gray-002: #E9ECEF;
       --gray-003: #DEE2E6;
@@ -87,6 +90,10 @@
 
     .text-capitalize {
       text-transform: capitalize;
+    }
+
+    .text-center {
+      text-align: center;
     }
 
     .root_layout {
@@ -426,19 +433,19 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
 }
 
 /* fakecss:./tenantAdmin_dashboard.esbuild-svelte-fake-css */
-.staff_table.svelte-k5o3td.svelte-k5o3td {
+.staff_table.svelte-1z0kpdq.svelte-1z0kpdq {
   width: fit-content;
   height: fit-content;
   border-radius: 10px;
   overflow: hidden;
 }
-.staff_table.svelte-k5o3td .action_btns.svelte-k5o3td {
+.staff_table.svelte-1z0kpdq .action_btns.svelte-1z0kpdq {
   display: flex;
   align-items: center;
   flex-direction: row;
   gap: 0;
 }
-.staff_table.svelte-k5o3td .btn.svelte-k5o3td {
+.staff_table.svelte-1z0kpdq .btn.svelte-1z0kpdq {
   padding: 6px;
   display: flex;
   justify-content: center;
@@ -449,23 +456,29 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   border-radius: 9999px;
   color: var(--gray-008);
 }
-.staff_table.svelte-k5o3td .btn.svelte-k5o3td:hover {
+.staff_table.svelte-1z0kpdq .btn.svelte-1z0kpdq:hover {
   background-color: var(--gray-002);
 }
-table.svelte-k5o3td.svelte-k5o3td {
+.staff_table .delete_btn:hover svg {
+  color: var(--red-002);
+}
+.staff_table .edit_btn:hover svg path {
+  stroke: var(--yellow-002);
+}
+table.svelte-1z0kpdq.svelte-1z0kpdq {
   text-align: left;
   position: relative;
   border-collapse: collapse;
 }
-.staff_table.svelte-k5o3td table thead tr th.svelte-k5o3td {
+.staff_table.svelte-1z0kpdq table thead tr th.svelte-1z0kpdq {
   border: 1px solid var(--gray-008);
 }
-td.svelte-k5o3td.svelte-k5o3td,
-th.svelte-k5o3td.svelte-k5o3td {
+td.svelte-1z0kpdq.svelte-1z0kpdq,
+th.svelte-1z0kpdq.svelte-1z0kpdq {
   border: 1px solid var(--gray-002);
   padding: 10px;
 }
-th.svelte-k5o3td.svelte-k5o3td {
+th.svelte-1z0kpdq.svelte-1z0kpdq {
   background: var(--gray-009);
   color: white;
   border-radius: 0;
@@ -473,9 +486,10 @@ th.svelte-k5o3td.svelte-k5o3td {
   top: 0;
   padding: 10px;
 }
-tfoot.svelte-k5o3td > tr.svelte-k5o3td {
+tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
   background-color: var(--gray-002);
   font-weight: 700;
+  color: var(--blue-006);
 }
 </style>
 <script>(() => {
@@ -4881,15 +4895,15 @@ tfoot.svelte-k5o3td > tr.svelte-k5o3td {
         button1 = element("button");
         create_component(icon1.$.fragment);
         t11 = space();
-        attr(td0, "class", "svelte-k5o3td");
-        attr(td1, "class", "svelte-k5o3td");
-        attr(td2, "class", "svelte-k5o3td");
-        attr(td3, "class", "text-capitalize svelte-k5o3td");
-        attr(td4, "class", "svelte-k5o3td");
-        attr(button0, "class", "btn delete_btn svelte-k5o3td");
-        attr(button1, "class", "btn edit_btn svelte-k5o3td");
-        attr(div, "class", "action_btns svelte-k5o3td");
-        attr(td5, "class", "svelte-k5o3td");
+        attr(td0, "class", "text-center svelte-1z0kpdq");
+        attr(td1, "class", "svelte-1z0kpdq");
+        attr(td2, "class", "svelte-1z0kpdq");
+        attr(td3, "class", "text-capitalize svelte-1z0kpdq");
+        attr(td4, "class", "svelte-1z0kpdq");
+        attr(button0, "class", "btn delete_btn svelte-1z0kpdq");
+        attr(button1, "class", "btn edit_btn svelte-1z0kpdq");
+        attr(div, "class", "action_btns svelte-1z0kpdq");
+        attr(td5, "class", "svelte-1z0kpdq");
       },
       m(target, anchor) {
         insert(target, tr, anchor);
@@ -4942,7 +4956,7 @@ tfoot.svelte-k5o3td > tr.svelte-k5o3td {
         td = element("td");
         td.innerHTML = `<i>Total Staff: 0</i>`;
         attr(td, "colspan", "6");
-        attr(td, "class", "svelte-k5o3td");
+        attr(td, "class", "svelte-1z0kpdq");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -4964,7 +4978,7 @@ tfoot.svelte-k5o3td > tr.svelte-k5o3td {
         i = element("i");
         i.textContent = `Total Staff: ${staffs.length}`;
         attr(td, "colspan", "6");
-        attr(td, "class", "svelte-k5o3td");
+        attr(td, "class", "svelte-1z0kpdq");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -5025,7 +5039,7 @@ tfoot.svelte-k5o3td > tr.svelte-k5o3td {
         div0 = element("div");
         table = element("table");
         thead = element("thead");
-        thead.innerHTML = `<tr><th class="primary svelte-k5o3td" scope="col">ID</th> <th scope="col" class="svelte-k5o3td">Email</th> <th scope="col" class="svelte-k5o3td">Full Name</th> <th scope="col" class="svelte-k5o3td">Role</th> <th scope="col" class="svelte-k5o3td">Status</th> <th scope="col" class="svelte-k5o3td">Action</th></tr>`;
+        thead.innerHTML = `<tr><th class="primary svelte-1z0kpdq" scope="col">User ID</th> <th scope="col" class="svelte-1z0kpdq">Email</th> <th scope="col" class="svelte-1z0kpdq">Full Name</th> <th scope="col" class="svelte-1z0kpdq">Role</th> <th scope="col" class="svelte-1z0kpdq">Status</th> <th scope="col" class="svelte-1z0kpdq">Action</th></tr>`;
         t13 = space();
         tbody = element("tbody");
         if (if_block0)
@@ -5036,10 +5050,10 @@ tfoot.svelte-k5o3td > tr.svelte-k5o3td {
         if_block1.c();
         t15 = space();
         create_component(footer.$.fragment);
-        attr(tr1, "class", "svelte-k5o3td");
-        attr(tfoot, "class", "svelte-k5o3td");
-        attr(table, "class", "svelte-k5o3td");
-        attr(div0, "class", "staff_table svelte-k5o3td");
+        attr(tr1, "class", "svelte-1z0kpdq");
+        attr(tfoot, "class", "svelte-1z0kpdq");
+        attr(table, "class", "svelte-1z0kpdq");
+        attr(div0, "class", "staff_table svelte-1z0kpdq");
         attr(div1, "class", "content");
         attr(div2, "class", "root_content");
         attr(div3, "class", "root_container");

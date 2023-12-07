@@ -47,7 +47,7 @@
           <table>
             <thead>
               <tr>
-                <th class="primary" scope="col">ID</th>
+                <th class="primary" scope="col">User ID</th>
                 <th scope="col">Email</th>
                 <th scope="col">Full Name</th>
                 <th scope="col">Role</th>
@@ -60,7 +60,7 @@
               {#if staffs && staffs.length}
                 {#each staffs as staff, idx}
                   <tr>
-                    <td>{staff.id}</td>
+                    <td class="text-center">{staff.id}</td>
                     <td>{staff.email}</td>
                     <td>{staff.fullName || '--'}</td>
                     <td class="text-capitalize">{staff.role}</td>
@@ -123,8 +123,17 @@
     border-radius: 9999px;
     color: var(--gray-008);
   }
+
   .staff_table .btn:hover {
     background-color: var(--gray-002);
+  }
+
+  :global(.staff_table .delete_btn:hover svg) {
+    color: var(--red-002);
+  }
+
+  :global(.staff_table .edit_btn:hover svg path) {
+    stroke: var(--yellow-002);
   }
 
   table {
@@ -153,6 +162,7 @@
   tfoot > tr {
     background-color: var(--gray-002);
     font-weight: 700;
+    color: var(--blue-006);
   }
 
 </style>

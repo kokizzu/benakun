@@ -11,6 +11,14 @@ import (
 	"benakun/model/zCrud"
 )
 
+type StaffWithInvitation struct {
+	Id              string `json:"id" form:"id" query:"id" long:"id" msg:"id"`
+	Email           string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
+	FullName        string `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
+	InvitationState string `json:"invitationState" form:"invitationState" query:"invitationState" long:"invitationState" msg:"invitationState"`
+	Role            string `json:"role" form:"role" query:"role" long:"role" msg:"role"`
+}
+
 func (u *Users) CheckPassword(pass string) error {
 	return S.CheckPassword(u.Password, pass)
 }
@@ -112,7 +120,8 @@ func (u *Users) FindByTenantCode() bool {
 	return false
 }
 
-func (u *Users) FindUsersByTenant(tenantCode string) (res [][]any) {
+func (u *Users) FindUsersByTenant(tenantCode string) (staffs []StaffWithInvitation) {
+	var res [][]any
 	const comment = `-- Users) FindByTenant`
 
 	whereAndSql := ` WHERE ` + u.SqlInvitationState() + `LIKE '%tenant:` + tenantCode + `:%'`
@@ -125,6 +134,23 @@ FROM ` + u.SqlTableName() + whereAndSql
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
 	})
+
+	if len(res) > 0 {
+		for _, stf := range res {
+			if len(stf) >= 5 {
+				st := StaffWithInvitation{
+					Id:              stf[0].(string),
+					Email:           stf[1].(string),
+					FullName:        stf[2].(string),
+					InvitationState: stf[3].(string),
+					Role:            stf[4].(string),
+				}
+				staffs = append(staffs, st)
+			}
+		}
+	} else {
+		return []StaffWithInvitation{}
+	}
 
 	return
 }

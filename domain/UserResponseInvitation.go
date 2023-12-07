@@ -1,7 +1,10 @@
 package domain
 
 import (
+	"benakun/model/mAuth"
 	"benakun/model/mAuth/wcAuth"
+
+	"github.com/kokizzu/gotro/L"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserResponseInvitation.go
@@ -38,10 +41,10 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 		return
 	}
 
-	if in.Response == InvitationStateRespAccept {
-		in.Response = InvitationStateAccepted
-	} else if in.Response == InvitationStateRespReject {
-		in.Response = InvitationStateRejected
+	if in.Response == mAuth.InvitationStateRespAccept {
+		in.Response = mAuth.InvitationStateAccepted
+	} else if in.Response == mAuth.InvitationStateRespReject {
+		in.Response = mAuth.InvitationStateRejected
 	} else {
 		out.SetError(400, ErrUserResponseInvitationInvalidResponse)
 		out.Message = ErrUserResponseInvitationInvalidResponse
@@ -64,24 +67,28 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 		return
 	}
 
-	mapState, err := ToInvitationStateMap(user.InvitationState)
+	mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
 	if err != nil {
-		out.SetError(400, ErrUserResponseInvitationInvalidResponse)
-		out.Message = ErrUserResponseInvitationInvalidResponse
+		out.SetError(400, err.Error())
+		out.Message = err.Error()
+		return
 	} else {
 		err := mapState.ModifyState(in.TenantCode, in.Response)
 		if err != nil {
-			out.SetError(400, ErrUserResponseInvitationInvalidResponse)
-			out.Message = ErrUserResponseInvitationModificationFailed
+			out.SetError(400, err.Error())
+			out.Message = err.Error()
 			return
 		}
+		L.Print(`State to be =`, mapState)
 		user.SetInvitationState(mapState.ToStateString())
 	}
 
-	if in.Response == InvitationStateAccepted {
+	L.Print(`State to be=`, user.InvitationState)
+
+	if in.Response == mAuth.InvitationStateAccepted {
 		user.SetRole(DataEntrySegment)
-		out.Message = user.Email + ` join to company` + in.TenantCode
-	} else if in.Response == InvitationStateRejected {
+		out.Message = user.Email + ` join to company ` + in.TenantCode
+	} else if in.Response == mAuth.InvitationStateRejected {
 		out.Message = user.Email + ` rejected the invitation`
 	}
 

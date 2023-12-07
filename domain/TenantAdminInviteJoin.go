@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"benakun/model/mAuth"
 	"benakun/model/mAuth/wcAuth"
 
 	"github.com/kokizzu/gotro/L"
@@ -73,16 +74,16 @@ func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantA
 		return
 	}
 
-	mapState, err := ToInvitationStateMap(userToInvite.InvitationState)
-	invState := InviteState{
+	mapState, err := mAuth.ToInvitationStateMap(userToInvite.InvitationState)
+	invState := mAuth.InviteState{
 		TenantCode: user.TenantCode,
-		State:      InvitationStateInvited,
+		State:      mAuth.InvitationStateInvited,
 		Date:       T.DateStr(),
 	}
 	if err != nil {
 		userToInvite.SetInvitationState(invState.ToStateString())
 	} else {
-		err := mapState.ModifyState(user.TenantCode, InvitationStateInvited)
+		err := mapState.ModifyState(user.TenantCode, mAuth.InvitationStateInvited)
 		if err != nil {
 			out.SetError(400, ErrTenantAdminInviteJoinInvalidInvitation)
 			return

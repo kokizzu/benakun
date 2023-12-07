@@ -1,8 +1,6 @@
 package domain
 
 import (
-	"errors"
-	"fmt"
 	"net"
 	"time"
 
@@ -10,8 +8,6 @@ import (
 	"github.com/kokizzu/gotro/D/Ch"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/M"
-	"github.com/kokizzu/gotro/S"
-	"github.com/kokizzu/gotro/T"
 	"github.com/rs/zerolog"
 
 	"benakun/conf"
@@ -112,101 +108,4 @@ func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
 func (d *Domain) CloseTimedBuffer() {
 	go d.authLogs.Close()
 	d.WaitTimedBufferFinalFlush()
-}
-
-const (
-	InvitationStateInvited    = `invited`
-	InvitationStateRevoked    = `revoked`
-	InvitationStateAccepted   = `accepted`
-	InvitationStateRejected   = `rejected`
-	InvitationStateTerminated = `terminated`
-	InvitationStateLeft       = `left`
-
-	InvitationStateRespAccept = `accept`
-	InvitationStateRespReject = `reject`
-)
-
-type (
-	InviteState        struct{ TenantCode, State, Date string }
-	InvitationStateMap map[string]InviteState
-)
-
-var TenantState string // For sending email
-
-func (is InviteState) ToStateString() (str string) {
-	return fmt.Sprintf("tenant:%s:%s:%v", is.TenantCode, is.State, is.Date)
-}
-
-func (s InvitationStateMap) ModifyState(tenantCode, newState string) error {
-	if sn, ok := s[tenantCode]; ok {
-		if sn.State != newState {
-			if sn.State == InvitationStateAccepted && newState != InvitationStateTerminated && newState != InvitationStateLeft {
-				return errors.New(`Tenant cannot modify user`)
-			}
-			sn.TenantCode = tenantCode
-			sn.State = newState
-			sn.Date = T.DateStr()
-			s[tenantCode] = sn
-		} else {
-			return errors.New(`Cannot set state with previous state`)
-		}
-	} else {
-		s[tenantCode] = InviteState{
-			TenantCode: tenantCode,
-			State:      newState,
-			Date:       T.DateStr(),
-		}
-	}
-	for _, st := range s {
-		if newState == InvitationStateAccepted { // Change Accepted to Left
-			if st.TenantCode != tenantCode {
-				if st.State == InvitationStateAccepted {
-					st.State = InvitationStateLeft
-					s[st.TenantCode] = st
-				} else if st.State == InvitationStateInvited {
-					st.State = InvitationStateRevoked
-					s[st.TenantCode] = st
-					TenantState = InvitationStateRevoked
-				}
-			}
-		}
-	}
-	return nil
-}
-
-func (s InvitationStateMap) ToStateString() (str string) {
-	idx := 0
-	str = ``
-	for _, st := range s {
-		if idx == 0 {
-			str += st.ToStateString()
-		} else {
-			str += ` ` + st.ToStateString()
-		}
-		idx++
-	}
-	return str
-}
-
-func StateField(tenantCode, state string) string {
-	return fmt.Sprintf("tenant:%s:%s:%v", tenantCode, state, T.DateStr())
-}
-
-func ToInvitationStateMap(states string) (out InvitationStateMap, err error) {
-	out = InvitationStateMap{}
-	statesArray := S.Split(states, ` `)
-	if len(statesArray) == 0 {
-		return InvitationStateMap{}, errors.New(`States empty`)
-	}
-	for _, state := range statesArray {
-		parts := S.Split(state, `:`)
-		if len(parts) > 0 {
-			out[parts[1]] = InviteState{
-				TenantCode: parts[1],
-				State:      parts[2],
-				Date:       parts[3],
-			}
-		}
-	}
-	return out, nil
 }
