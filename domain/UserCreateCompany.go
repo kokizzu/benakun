@@ -92,13 +92,12 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 		out.SetError(400, ErrUserCreateCompanyAlreadyAdded)
 	}
 
+	user.SetRole(TenantAdminSegment)
 	user.SetTenantCode(org.TenantCode)
 	if !user.DoUpdateById() {
 		out.SetError(400, ErrUserCreateCompanyUserNotFound)
 		return
 	}
-
-	sess.Segments[TenantAdminSegment] = true
 
 	out.Company = &org.Orgs
 	return

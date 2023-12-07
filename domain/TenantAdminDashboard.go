@@ -18,7 +18,7 @@ type (
 	}
 	TenantAdminDashboardOut struct {
 		ResponseCommon
-		Staff [][]any `json:"staff" form:"staff" query:"staff" long:"staff" msg:"staff"`
+		Staffs []Staff `json:"staffs" form:"staffs" query:"staffs" long:"staffs" msg:"staffs"`
 	}
 )
 
@@ -28,6 +28,14 @@ const (
 	ErrTenantAdminDashboardUnauthorized   = `unauthorized user`
 	ErrTenantAdminDashboardTenantNotFound = `tenant admin not found`
 )
+
+type Staff struct {
+	Id              string `json:"id" form:"id" query:"id" long:"id" msg:"id"`
+	Email           string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
+	FullName        string `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
+	InvitationState string `json:"invitationState" form:"invitationState" query:"invitationState" long:"invitationState" msg:"invitationState"`
+	Role            string `json:"role" form:"role" query:"role" long:"role" msg:"role"`
+}
 
 func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdminDashboardOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
@@ -52,7 +60,23 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 	}
 
 	resp := user.FindUsersByTenant(tenant.TenantCode)
-
-	out.Staff = resp
+	var staffs []Staff
+	if len(resp) > 0 {
+		for _, stf := range resp {
+			if len(stf) >= 5 {
+				st := Staff{
+					Id:              stf[0].(string),
+					Email:           stf[1].(string),
+					FullName:        stf[2].(string),
+					InvitationState: stf[3].(string),
+					Role:            stf[4].(string),
+				}
+				staffs = append(staffs, st)
+			}
+		}
+		out.Staffs = staffs
+	} else {
+		out.Staffs = []Staff{}
+	}
 	return
 }

@@ -118,7 +118,7 @@ func (u *Users) FindUsersByTenant(tenantCode string) (res [][]any) {
 	whereAndSql := ` WHERE ` + u.SqlInvitationState() + `LIKE '%tenant:` + tenantCode + `:%'`
 
 	queryRows := comment + `
-SELECT *
+SELECT ` + u.SqlId() + `, ` + u.SqlEmail() + `, ` + u.SqlFullName() + `, ` + u.SqlInvitationState() + `, ` + u.SqlRole() + `
 FROM ` + u.SqlTableName() + whereAndSql
 
 	u.Adapter.QuerySql(queryRows, func(row []any) {
