@@ -188,6 +188,9 @@
         isSubmitCreateCompany = false;
         console.log(o);
         notifier.showSuccess('Company created successfully');
+        setTimeout(() => {
+          window.location.reload(); // reload page to refresh access
+        }, 1200);
       }
     );
   }
