@@ -5,8 +5,6 @@ import (
 	"benakun/model/mAuth/wcAuth"
 	"errors"
 	"fmt"
-
-	"github.com/kokizzu/gotro/L"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserResponseInvitation.go
@@ -81,11 +79,8 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 			out.Message = err.Error()
 			return
 		}
-		L.Print(`State to be =`, mapState)
 		user.SetInvitationState(mapState.ToStateString())
 	}
-
-	L.Print(`State to be=`, user.InvitationState)
 
 	if in.Response == mAuth.InvitationStateAccepted {
 		user.SetRole(DataEntrySegment)

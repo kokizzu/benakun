@@ -5,6 +5,7 @@ import (
 
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/T"
+	"github.com/rs/zerolog/log"
 )
 
 const (
@@ -96,20 +97,24 @@ func StateField(tenantCode, state string) string {
 
 func ToInvitationStateMap(states string) (InvitationStateMap, error) {
 	out := InvitationStateMap{}
+	states = S.Trim(states)
 	statesArray := S.Split(states, ` `)
 	if len(statesArray) == 0 || states == `` {
 		return InvitationStateMap{}, wrapInvitationError(ErrInvitationStateEmpty, states, states)
 	}
 	for _, state := range statesArray {
+		if state == `` {
+			continue
+		}
 		parts := S.Split(state, `:`)
-		if len(parts) > 0 {
+		if len(parts) == 4 {
 			out[parts[1]] = InviteState{
 				TenantCode: parts[1],
 				State:      parts[2],
 				Date:       parts[3],
 			}
 		} else {
-			return out, wrapInvitationError(ErrInvitationStateEmpty, states, states)
+			log.Printf("ToInvitationStateMap.WARN: %v, have invalid state: %s", states, state)
 		}
 	}
 	return out, nil
