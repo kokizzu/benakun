@@ -874,8 +874,11 @@ const TenantAdminDashboardIn = {
 }
 /**
  * @typedef {Object} TenantAdminDashboardOut
+ * @property {Object} staffs
  */
 const TenantAdminDashboardOut = {
+  staffs: { // []rqAuth.StaffWithInvitation
+  }, // []rqAuth.StaffWithInvitation
 }
 /**
  * @callback TenantAdminDashboardCallback
@@ -945,6 +948,36 @@ const TenantAdminOrganizationOut = {
  */
 exports.TenantAdminOrganization = async function TenantAdminOrganization( i, cb ) {
   return await axios.post( '/tenantAdmin/organization', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminTerminateStaffIn
+ * @property {String} email
+ */
+const TenantAdminTerminateStaffIn = {
+  email: '', // string
+}
+/**
+ * @typedef {Object} TenantAdminTerminateStaffOut
+ * @property {String} message
+ */
+const TenantAdminTerminateStaffOut = {
+  message: '', // string
+}
+/**
+ * @callback TenantAdminTerminateStaffCallback
+ * @param {TenantAdminTerminateStaffOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminTerminateStaffIn} i
+ * @param {TenantAdminTerminateStaffCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminTerminateStaff = async function TenantAdminTerminateStaff( i, cb ) {
+  return await axios.post( '/tenantAdmin/terminateStaff', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -1178,12 +1211,10 @@ const UserResponseInvitationIn = {
 }
 /**
  * @typedef {Object} UserResponseInvitationOut
- * @property {Object} ok
- * @property {String} email
+ * @property {String} message
  */
 const UserResponseInvitationOut = {
-  ok: false, // bool
-  email: '', // string
+  message: '', // string
 }
 /**
  * @callback UserResponseInvitationCallback

@@ -7,6 +7,7 @@
   import CgTrash from "svelte-icons-pack/cg/CgTrash";
   import HiOutlinePencilAlt from "svelte-icons-pack/hi/HiOutlinePencilAlt";
   import { onMount } from 'svelte';
+  import {TenantAdminTerminateStaff} from './jsApi.GEN.js';
 
   let segments = {/* segments */};
   let user = {/* user */};
@@ -34,7 +35,19 @@
       }
       tableReady = true;
     }
-  })
+  });
+
+  async function terminateStaff(email) {
+    await TenantAdminTerminateStaff({email}, function (o) {
+      if (o.error) {
+        return notifier.showError(o.error);
+      }
+      notifier.showSuccess(o.message);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1200);
+    })
+  }
 </script>
 
 <div class="root_layout">
@@ -67,7 +80,11 @@
                     <td>{staffStatus[idx]}</td>
                     <td>
                       <div class="action_btns">
-                      <button class="btn delete_btn">
+                      <button
+                        class="btn delete_btn"
+                        on:click={terminateStaff(staff.email)}
+                        title="Terminate staff"
+                      >
                         <Icon size={15} src={CgTrash} />
                       </button>
                       <button class="btn edit_btn">

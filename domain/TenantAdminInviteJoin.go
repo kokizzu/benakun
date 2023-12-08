@@ -50,14 +50,14 @@ func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantA
 		return
 	}
 
-	user := wcAuth.NewUsersMutator(d.AuthOltp)
-	user.Id = sess.UserId
-	if !user.FindById() {
+	tenantUser := wcAuth.NewUsersMutator(d.AuthOltp)
+	tenantUser.Id = sess.UserId
+	if !tenantUser.FindById() {
 		out.SetError(400, ErrTenantAdminInviteJoinUserNotFound)
 		return
 	}
 
-	if user.TenantCode == `` {
+	if tenantUser.TenantCode == `` {
 		out.SetError(400, ErrTenantAdminInviteJoinInvalidTenantAdmin)
 		return
 	}
@@ -75,15 +75,15 @@ func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantA
 	}
 
 	mapState, err := mAuth.ToInvitationStateMap(userToInvite.InvitationState)
-	invState := mAuth.InviteState{
-		TenantCode: user.TenantCode,
-		State:      mAuth.InvitationStateInvited,
-		Date:       T.DateStr(),
-	}
 	if err != nil {
+		invState := mAuth.InviteState{
+			TenantCode: tenantUser.TenantCode,
+			State:      mAuth.InvitationStateInvited,
+			Date:       T.DateStr(),
+		}
 		userToInvite.SetInvitationState(invState.ToStateString())
 	} else {
-		err := mapState.ModifyState(user.TenantCode, mAuth.InvitationStateInvited)
+		err := mapState.ModifyState(tenantUser.TenantCode, mAuth.InvitationStateInvited)
 		if err != nil {
 			out.SetError(400, ErrTenantAdminInviteJoinInvalidInvitation)
 			return
@@ -98,8 +98,8 @@ func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantA
 	}
 
 	d.runSubtask(func() {
-		inviteRespUrl := in.Host + `/` + UserResponseInvitationAction + `?tenantCode=` + user.TenantCode + `&response=`
-		err := d.Mailer.SendInviteUserEmail(user.TenantCode, userToInvite.Email, inviteRespUrl)
+		inviteRespUrl := in.Host + `/` + UserResponseInvitationAction + `?tenantCode=` + tenantUser.TenantCode + `&response=`
+		err := d.Mailer.SendInviteUserEmail(tenantUser.TenantCode, userToInvite.Email, inviteRespUrl)
 		L.IsError(err, `SendInviteUserEmail`)
 		// TODO: insert failed event to clickhouse
 	})

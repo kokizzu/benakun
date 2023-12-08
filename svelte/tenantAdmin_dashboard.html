@@ -2612,6 +2612,9 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
       exports.TenantAdminOrganization = async function TenantAdminOrganization(i, cb) {
         return await axios.post("/tenantAdmin/organization", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminTerminateStaff = async function TenantAdminTerminateStaff2(i, cb) {
+        return await axios.post("/tenantAdmin/terminateStaff", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -3424,7 +3427,7 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
       };
     };
   }();
-  var notifier = new Notifier();
+  var notifier2 = new Notifier();
 
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/Icon.svelte
   function create_fragment(ctx) {
@@ -4553,7 +4556,7 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
       await (0, import_jsApi_GEN.UserLogout)({}, function(o) {
         console.log(o);
         if (o.error)
-          notifier.showError(o.error);
+          notifier2.showError(o.error);
         user = null;
         segments = null;
         window.document.location = "/";
@@ -4717,10 +4720,11 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
   };
 
   // tenantAdmin_dashboard.svelte
+  var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[2] = list[i];
-    child_ctx[4] = i;
+    child_ctx[3] = list[i];
+    child_ctx[5] = i;
     return child_ctx;
   }
   function create_if_block_12(ctx) {
@@ -4790,8 +4794,8 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*staffStatus, staffs*/
-        2) {
+        if (dirty & /*terminateStaff, staffs, staffStatus*/
+        6) {
           each_value = ensure_array_like(staffs);
           let i;
           for (i = 0; i < each_value.length; i += 1) {
@@ -4857,6 +4861,8 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
     let icon1;
     let t11;
     let current;
+    let mounted;
+    let dispose;
     icon0 = new Icon_default({ props: { size: 15, src: CgTrash_default } });
     icon1 = new Icon_default({
       props: { size: 15, src: HiOutlinePencilAlt_default }
@@ -4866,25 +4872,25 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
         tr = element("tr");
         td0 = element("td");
         td0.textContent = `${/*staff*/
-        ctx[2].id}`;
+        ctx[3].id}`;
         t1 = space();
         td1 = element("td");
         td1.textContent = `${/*staff*/
-        ctx[2].email}`;
+        ctx[3].email}`;
         t3 = space();
         td2 = element("td");
         td2.textContent = `${/*staff*/
-        ctx[2].fullName || "--"}`;
+        ctx[3].fullName || "--"}`;
         t5 = space();
         td3 = element("td");
         td3.textContent = `${/*staff*/
-        ctx[2].role}`;
+        ctx[3].role}`;
         t7 = space();
         td4 = element("td");
         td4.textContent = `${/*staffStatus*/
         ctx[1][
           /*idx*/
-          ctx[4]
+          ctx[5]
         ]}`;
         t9 = space();
         td5 = element("td");
@@ -4901,6 +4907,7 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
         attr(td3, "class", "text-capitalize svelte-1z0kpdq");
         attr(td4, "class", "svelte-1z0kpdq");
         attr(button0, "class", "btn delete_btn svelte-1z0kpdq");
+        attr(button0, "title", "Terminate staff");
         attr(button1, "class", "btn edit_btn svelte-1z0kpdq");
         attr(div, "class", "action_btns svelte-1z0kpdq");
         attr(td5, "class", "svelte-1z0kpdq");
@@ -4926,8 +4933,22 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
         mount_component(icon1, button1, null);
         append(tr, t11);
         current = true;
+        if (!mounted) {
+          dispose = listen(
+            button0,
+            "click",
+            /*terminateStaff*/
+            ctx[2](
+              /*staff*/
+              ctx[3].email
+            )
+          );
+          mounted = true;
+        }
       },
-      p: noop,
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+      },
       i(local) {
         if (current)
           return;
@@ -4946,6 +4967,8 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
         }
         destroy_component(icon0);
         destroy_component(icon1);
+        mounted = false;
+        dispose();
       }
     };
   }
@@ -5164,7 +5187,21 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
         $invalidate(0, tableReady = true);
       }
     });
-    return [tableReady, staffStatus];
+    async function terminateStaff(email) {
+      await (0, import_jsApi_GEN2.TenantAdminTerminateStaff)({ email }, function(o) {
+        if (o.error) {
+          return notifier.showError(o.error);
+        }
+        notifier.showSuccess(o.message);
+        setTimeout(
+          () => {
+            window.location.reload();
+          },
+          1200
+        );
+      });
+    }
+    return [tableReady, staffStatus, terminateStaff];
   }
   var TenantAdmin_dashboard = class extends SvelteComponent {
     constructor(options) {
