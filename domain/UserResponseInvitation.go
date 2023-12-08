@@ -1,10 +1,10 @@
 package domain
 
 import (
+	"errors"
+
 	"benakun/model/mAuth"
 	"benakun/model/mAuth/wcAuth"
-	"errors"
-	"fmt"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserResponseInvitation.go
@@ -68,7 +68,7 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 	}
 
 	mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
-	if errors.Is(err, fmt.Errorf(mAuth.ErrInvitationStateEmpty)) {
+	if errors.Is(err, mAuth.ErrInvitationStateEmpty) {
 		out.SetError(400, err.Error())
 		out.Message = err.Error()
 		return

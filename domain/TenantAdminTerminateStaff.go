@@ -1,10 +1,10 @@
 package domain
 
 import (
+	"errors"
+
 	"benakun/model/mAuth"
 	"benakun/model/mAuth/wcAuth"
-	"errors"
-	"fmt"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminTerminateStaff.go
@@ -64,7 +64,7 @@ func (d *Domain) TenantAdminTerminateStaff(in *TenantAdminTerminateStaffIn) (out
 	}
 
 	mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
-	if errors.Is(err, fmt.Errorf(mAuth.ErrInvitationStateEmpty)) {
+	if errors.Is(err, mAuth.ErrInvitationStateEmpty) {
 		out.SetError(400, ErrTenantAdminTerminateStaffEmptyState)
 		return
 	} else {

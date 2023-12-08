@@ -1,13 +1,13 @@
 package domain
 
 import (
-	"benakun/model/mAuth"
-	"benakun/model/mAuth/wcAuth"
 	"errors"
-	"fmt"
 
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/T"
+
+	"benakun/model/mAuth"
+	"benakun/model/mAuth/wcAuth"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminInviteJoin.go
@@ -77,7 +77,7 @@ func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantA
 	}
 
 	mapState, err := mAuth.ToInvitationStateMap(userToInvite.InvitationState)
-	if errors.Is(err, fmt.Errorf(mAuth.ErrInvitationStateEmpty)) {
+	if errors.Is(err, mAuth.ErrInvitationStateEmpty) {
 		invState := mAuth.InviteState{
 			TenantCode: tenantUser.TenantCode,
 			State:      mAuth.InvitationStateInvited,

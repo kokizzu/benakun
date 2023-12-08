@@ -21,7 +21,6 @@ const (
 
 	ErrInvitationStateIsTheSame       = `state is same as previous state`
 	ErrInvitationStateAlreadyAccepted = `state already accepted`
-	ErrInvitationStateEmpty           = `state is empty`
 )
 
 type (
@@ -29,15 +28,19 @@ type (
 	InvitationStateMap map[string]InviteState
 )
 
-var wrapInvitationError = func(errMsg, oldState, newState string) error {
-	return fmt.Errorf("%s: cannot change state from %s to %s", errMsg, oldState, newState)
-}
+var (
+	ErrInvitationStateEmpty = fmt.Errorf(`invitation state is empty`)
+)
 
 func (is InviteState) ToStateString() (str string) {
 	return fmt.Sprintf("tenant:%s:%s:%v", is.TenantCode, is.State, is.Date)
 }
 
 func (s InvitationStateMap) ModifyState(tenantCode, newState string) error {
+	var wrapInvitationError = func(errMsg, oldState, newState string) error {
+		return fmt.Errorf("%s: cannot change state from %s to %s", errMsg, oldState, newState)
+	}
+
 	if sn, ok := s[tenantCode]; ok {
 		if sn.State != newState {
 			if sn.State == InvitationStateAccepted {
@@ -91,16 +94,12 @@ func (s InvitationStateMap) ToStateString() (str string) {
 	return str
 }
 
-func StateField(tenantCode, state string) string {
-	return fmt.Sprintf("tenant:%s:%s:%v", tenantCode, state, T.DateStr())
-}
-
 func ToInvitationStateMap(states string) (InvitationStateMap, error) {
 	out := InvitationStateMap{}
 	states = S.Trim(states)
 	statesArray := S.Split(states, ` `)
 	if len(statesArray) == 0 || states == `` {
-		return InvitationStateMap{}, wrapInvitationError(ErrInvitationStateEmpty, states, states)
+		return InvitationStateMap{}, ErrInvitationStateEmpty
 	}
 	for _, state := range statesArray {
 		if state == `` {
@@ -116,6 +115,9 @@ func ToInvitationStateMap(states string) (InvitationStateMap, error) {
 		} else {
 			log.Printf("ToInvitationStateMap.WARN: %v, have invalid state: %s", states, state)
 		}
+	}
+	if len(out) == 0 {
+		return InvitationStateMap{}, ErrInvitationStateEmpty
 	}
 	return out, nil
 }
