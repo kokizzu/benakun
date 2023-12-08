@@ -3,6 +3,8 @@ package domain
 import (
 	"benakun/model/mAuth"
 	"benakun/model/mAuth/wcAuth"
+	"errors"
+	"fmt"
 
 	"github.com/kokizzu/gotro/L"
 )
@@ -68,7 +70,7 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 	}
 
 	mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
-	if err != nil {
+	if errors.Is(err, fmt.Errorf(mAuth.ErrInvitationStateEmpty)) {
 		out.SetError(400, err.Error())
 		out.Message = err.Error()
 		return
