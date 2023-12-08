@@ -3,8 +3,8 @@ package domain
 import (
 	"benakun/model/mAuth"
 	"benakun/model/mAuth/wcAuth"
-
-	"github.com/kokizzu/gotro/T"
+	"errors"
+	"fmt"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminTerminateStaff.go
@@ -63,13 +63,9 @@ func (d *Domain) TenantAdminTerminateStaff(in *TenantAdminTerminateStaffIn) (out
 	}
 
 	mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
-	if err != nil {
-		invState := mAuth.InviteState{
-			TenantCode: tenantUser.TenantCode,
-			State:      mAuth.InvitationStateTerminated,
-			Date:       T.DateStr(),
-		}
-		user.SetInvitationState(invState.ToStateString())
+	if errors.Is(err, fmt.Errorf(mAuth.ErrInvitationStateEmpty)) {
+		out.SetError(400, ErrTenantAdminTerminateStaffFailed)
+		return
 	} else {
 		err := mapState.ModifyState(tenantUser.TenantCode, mAuth.InvitationStateTerminated)
 		if err != nil {

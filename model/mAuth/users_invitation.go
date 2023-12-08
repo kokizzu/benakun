@@ -63,9 +63,11 @@ func (s InvitationStateMap) ModifyState(tenantCode, newState string) error {
 			if st.TenantCode != tenantCode {
 				if st.State == InvitationStateAccepted {
 					st.State = InvitationStateLeft
+					st.Date = T.DateStr()
 					s[st.TenantCode] = st
 				} else if st.State == InvitationStateInvited {
 					st.State = InvitationStateRevoked
+					st.Date = T.DateStr()
 					s[st.TenantCode] = st
 				}
 			}
