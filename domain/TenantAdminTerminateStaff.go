@@ -76,6 +76,8 @@ func (d *Domain) TenantAdminTerminateStaff(in *TenantAdminTerminateStaffIn) (out
 		user.SetInvitationState(mapState.ToStateString())
 	}
 
+	user.SetRole(UserSegment)
+
 	if !user.DoUpdateByEmail() {
 		user.HaveMutation()
 		out.SetError(500, ErrTenantAdminTerminateStaffFailed)
