@@ -200,6 +200,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// TenantAdminTerminateStaff
+	fw.Post("/"+domain.TenantAdminTerminateStaffAction, func(c *fiber.Ctx) error {
+		in := domain.TenantAdminTerminateStaffIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminTerminateStaffAction); err != nil {
+			return nil
+		}
+		out := d.TenantAdminTerminateStaff(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// UserAutoLoginLink
 	fw.Post("/"+domain.UserAutoLoginLinkAction, func(c *fiber.Ctx) error {
 		in := domain.UserAutoLoginLinkIn{}
@@ -247,6 +257,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return nil
 		}
 		out := d.UserProfile(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// UserResponseInvitation
+	fw.Post("/"+domain.UserResponseInvitationAction, func(c *fiber.Ctx) error {
+		in := domain.UserResponseInvitationIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserResponseInvitationAction); err != nil {
+			return nil
+		}
+		out := d.UserResponseInvitation(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

@@ -1,20 +1,14 @@
 <script>
   import BackHomeBtn from "./_components/BackHomeBtn.svelte";
 
-  let verified = '#{verified}';
-  let error = '#{error}';
-  let email = '#{email}';
+  let title = '#{title}';
+  let description = '#{description}';
 </script>
 
 <section class="root_container">
   <div class="container">
-    <h1>/*! title */</h1>
-    {#if verified === 'true'}
-      <p>{email} is verified</p>
-    {/if}
-    {#if error}
-      <p class="error">{error}</p>
-    {/if}
+    <h1>{title}</h1>
+    <p>{description}</p>
     <BackHomeBtn />
   </div>
 </section>

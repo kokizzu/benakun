@@ -1,5 +1,4 @@
 <script>
-  //@ts-nocheck
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import ImArrowLeft2 from "svelte-icons-pack/im/ImArrowLeft2";
 </script>

@@ -164,6 +164,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminOrganization(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.TenantAdminTerminateStaffAction:
+		in := domain.TenantAdminTerminateStaffIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.TenantAdminTerminateStaff(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.UserAutoLoginLinkAction:
 		in := domain.UserAutoLoginLinkIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
@@ -202,6 +210,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.UserProfile(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.UserResponseInvitationAction:
+		in := domain.UserResponseInvitationIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.UserResponseInvitation(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.UserSessionKillAction:

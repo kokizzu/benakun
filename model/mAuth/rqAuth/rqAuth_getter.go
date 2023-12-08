@@ -11,6 +11,14 @@ import (
 	"benakun/model/zCrud"
 )
 
+type StaffWithInvitation struct {
+	Id              string `json:"id" form:"id" query:"id" long:"id" msg:"id"`
+	Email           string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
+	FullName        string `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
+	InvitationState string `json:"invitationState" form:"invitationState" query:"invitationState" long:"invitationState" msg:"invitationState"`
+	Role            string `json:"role" form:"role" query:"role" long:"role" msg:"role"`
+}
+
 func (u *Users) CheckPassword(pass string) error {
 	return S.CheckPassword(u.Password, pass)
 }
@@ -86,15 +94,63 @@ FROM ` + t.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	return
 }
 
-func (t *Orgs) FindByCompanyName() bool {
-	res, err := t.Adapter.Select(t.SpaceName(), t.IdxName(), 0, 1, tarantool.IterEq, A.X{t.Name})
-	if L.IsError(err, `Orgs.FindByCompanyName failed:`+t.SpaceName()) {
+func (o *Orgs) FindByCompanyName() bool {
+	res, err := o.Adapter.Select(o.SpaceName(), o.IdxName(), 0, 1, tarantool.IterEq, A.X{o.Name})
+	if L.IsError(err, `Orgs.FindByCompanyName failed:`+o.SpaceName()) {
 		return false
 	}
 	rows := res.Tuples()
 	if len(rows) == 1 {
-		t.FromArray(rows[0])
+		o.FromArray(rows[0])
 		return true
 	}
 	return false
+}
+
+func (u *Users) FindByTenantCode() bool {
+	res, err := u.Adapter.Select(u.SpaceName(), u.IdxTenantCode(), 0, 1, tarantool.IterEq, A.X{u.TenantCode})
+	if L.IsError(err, `Users.FindByTenantCode failed:`+u.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		u.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
+func (u *Users) FindUsersByTenant(tenantCode string) (staffs []StaffWithInvitation) {
+	var res [][]any
+	const comment = `-- Users) FindByTenant`
+
+	whereAndSql := ` WHERE ` + u.SqlInvitationState() + `LIKE '%tenant:` + tenantCode + `:%'`
+
+	queryRows := comment + `
+SELECT ` + u.SqlId() + `, ` + u.SqlEmail() + `, ` + u.SqlFullName() + `, ` + u.SqlInvitationState() + `, ` + u.SqlRole() + `
+FROM ` + u.SqlTableName() + whereAndSql
+
+	u.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
+	if len(res) > 0 {
+		for _, stf := range res {
+			if len(stf) >= 5 {
+				st := StaffWithInvitation{
+					Id:              stf[0].(string),
+					Email:           stf[1].(string),
+					FullName:        stf[2].(string),
+					InvitationState: stf[3].(string),
+					Role:            stf[4].(string),
+				}
+				staffs = append(staffs, st)
+			}
+		}
+	} else {
+		return []StaffWithInvitation{}
+	}
+
+	return
 }

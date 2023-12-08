@@ -1,7 +1,6 @@
 package domain
 
 import (
-	"fmt"
 	"net"
 	"time"
 
@@ -109,19 +108,4 @@ func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
 func (d *Domain) CloseTimedBuffer() {
 	go d.authLogs.Close()
 	d.WaitTimedBufferFinalFlush()
-}
-
-func InviteJoinAccepted(tenantCode string) string {
-	currentTime := time.Now()
-	return fmt.Sprintf("tenant:[%s]:accepted:%v", tenantCode, currentTime.Format("2006/01/02"))
-}
-
-func InviteJoinRejected(tenantCode string) string {
-	currentTime := time.Now()
-	return fmt.Sprintf("tenant:[%s]:rejected:%v", tenantCode, currentTime.Format("2006/01/02"))
-}
-
-func InviteJoinInvited(tenantCode string) string {
-	currentTime := time.Now()
-	return fmt.Sprintf("tenant:[%s]:invited:%v", tenantCode, currentTime.Format("2006/01/02"))
 }

@@ -52,7 +52,9 @@ please ignore this email if you didn't request reset password link<br/>`,
 	)
 }
 
-func (m *Mailer) SendInviteUserEmail(email, invitationUrl string) error {
+func (m *Mailer) SendInviteUserEmail(tenantCode, email, invitationUrl string) error {
+	acceptUrl := invitationUrl + `accept`
+	rejectUrl := invitationUrl + `reject`
 	if conf.IsDebug() {
 		L.Print(`SendInviteUserEmail`, email, invitationUrl)
 	}
@@ -61,10 +63,29 @@ func (m *Mailer) SendInviteUserEmail(email, invitationUrl string) error {
 		`Invitation Company`,
 		`Hi `+email+`,
 
-please click this link to response our invitation to join our company: 
-`+invitationUrl,
+please click one of these links to response our invitation to join our company:
+
+Accept: `+acceptUrl+`
+Reject: `+rejectUrl,
 		`Hi `+email+`, <br><br>
-please click this link to response our invitation to join our company: <br/>
-<a href="`+invitationUrl+`">`+invitationUrl+`</a><br/><br/>`,
+please click one of these links to response our invitation to join our company: <br/>
+<br/>
+Accept: <a href="`+acceptUrl+`">`+acceptUrl+`</a><br/><br/>
+Reject: <a href="`+rejectUrl+`">`+rejectUrl+`</a><br/><br/>`,
+	)
+}
+
+func (m *Mailer) SendResponseStateTenantEmail(tenantEmail, userEmail, state string) error {
+	if conf.IsDebug() {
+		L.Print(`SendResponseStateTenantEmail`, tenantEmail, userEmail, state)
+	}
+	return m.SendMailFunc(
+		map[string]string{tenantEmail: ``},
+		`User status changed`,
+		`Hi `+tenantEmail+`,
+
+A user with email `+userEmail+` has `+state+` from your company:`,
+		`Hi `+tenantEmail+`, <br><br>
+A user with email <a href="mailto:`+userEmail+`">`+userEmail+`</a> has `+state+` from your company: <br/>`,
 	)
 }

@@ -52,7 +52,6 @@ func webApiParseInput(ctx *fiber.Ctx, reqCommon *domain.RequestCommon, in any, u
 				retry = false
 			}
 		}
-		log.Print("masuk 1", in)
 		// application/x-www-form-urlencoded
 		// multipart/form-data
 		if retry {
@@ -62,7 +61,6 @@ func webApiParseInput(ctx *fiber.Ctx, reqCommon *domain.RequestCommon, in any, u
 				})
 				return err
 			}
-			log.Print("masuk 2", in)
 		}
 		trimBody := S.Left(string(body), 1024)
 		if reqCommon.Debug && reqCommon.RawBody == `` {
@@ -84,6 +82,13 @@ func webApiParseInput(ctx *fiber.Ctx, reqCommon *domain.RequestCommon, in any, u
 func (w *WebServer) Start(log *zerolog.Logger) {
 	fw := fiber.New(fiber.Config{
 		ProxyHeader: `X-Real-IP`,
+		ErrorHandler: func(c *fiber.Ctx, err error) error {
+			c.SendStatus(fiber.StatusNotFound)
+			return views.Render404(c, M.SX{
+				`title`:       `404 - Not Found`,
+				`description`: `Error page not found`,
+			})
+		},
 	})
 
 	// check if actionLogs are there, if error, then you need to run migration: go run main.go migrate

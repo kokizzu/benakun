@@ -2,6 +2,7 @@ package presentation
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 
 	"benakun/domain"
@@ -62,6 +63,23 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.UserResponseInvitationAction, func(c *fiber.Ctx) error {
+		var in domain.UserResponseInvitationIn
+		err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserResponseInvitationAction)
+		var msg string
+		if err != nil {
+			msg = err.Error()
+			L.Print(`Error response: `, msg)
+		} else {
+			out := d.UserResponseInvitation(&in)
+			msg = out.Message
+		}
+		return views.RenderUserResponsejoin(c, M.SX{
+			`title`:   `Respond invitation`,
+			`message`: msg,
+		})
+	})
+
 	fw.Get(`/`+domain.UserProfileAction, func(ctx *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(ctx, d)
 		if notLogin(d, in.RequestCommon, false) {
@@ -108,10 +126,15 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notLogin(d, in.RequestCommon, false) {
 			return ctx.Redirect(`/`, 302)
 		}
+		in.RequestCommon.Action = domain.TenantAdminDashboardAction
+		out := d.TenantAdminDashboard(&domain.TenantAdminDashboardIn{
+			RequestCommon: in.RequestCommon,
+		})
 		return views.RenderTenantAdminDashboard(ctx, M.SX{
 			`title`:    `Tenant Admin Dashboard`,
 			`user`:     user,
 			`segments`: segments,
+			`staffs`:   out.Staffs,
 		})
 	})
 

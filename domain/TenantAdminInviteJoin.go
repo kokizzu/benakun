@@ -1,10 +1,13 @@
 package domain
 
 import (
+	"benakun/model/mAuth"
 	"benakun/model/mAuth/wcAuth"
+	"errors"
 	"fmt"
 
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/T"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminInviteJoin.go
@@ -32,6 +35,7 @@ const (
 	ErrTenantAdminInviteJoinInvalidUserEmail   = `invalid user email`
 	ErrTenantAdminInviteJoinInvalidTenantAdmin = `invalid tenant admin`
 	ErrTenantAdminInviteJoinInviteFailed       = `invite user failed`
+	ErrTenantAdminInviteJoinInvalidInvitation  = `cannot invite this user`
 
 	TenantAdminInviteJoinMsg = `User invited success`
 )
@@ -48,14 +52,14 @@ func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantA
 		return
 	}
 
-	user := wcAuth.NewUsersMutator(d.AuthOltp)
-	user.Id = sess.UserId
-	if !user.FindById() {
+	tenantUser := wcAuth.NewUsersMutator(d.AuthOltp)
+	tenantUser.Id = sess.UserId
+	if !tenantUser.FindById() {
 		out.SetError(400, ErrTenantAdminInviteJoinUserNotFound)
 		return
 	}
 
-	if user.TenantCode == `` {
+	if tenantUser.TenantCode == `` {
 		out.SetError(400, ErrTenantAdminInviteJoinInvalidTenantAdmin)
 		return
 	}
@@ -67,15 +71,28 @@ func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantA
 		return
 	}
 
-	// TODO: define string as array of string to store in db
-	// [
-	//  	'tenant:[john_0937]:accepted:2024/01/23',
-	// 		'tenant:[budi_1882]:rejected:2023/12/15'
-	// ]
-	// TODO: convert it back to array when update
+	if userToInvite.TenantCode != `` {
+		out.SetError(400, ErrTenantAdminInviteJoinInvalidInvitation)
+		return
+	}
 
-	userToInvite.SetInvitationState(InviteJoinInvited(user.TenantCode))
-	userToInvite.SetInvitedAt(fmt.Sprintf("%v", in.UnixNow()))
+	mapState, err := mAuth.ToInvitationStateMap(userToInvite.InvitationState)
+	if errors.Is(err, fmt.Errorf(mAuth.ErrInvitationStateEmpty)) {
+		invState := mAuth.InviteState{
+			TenantCode: tenantUser.TenantCode,
+			State:      mAuth.InvitationStateInvited,
+			Date:       T.DateStr(),
+		}
+		userToInvite.SetInvitationState(invState.ToStateString())
+	} else {
+		err := mapState.ModifyState(tenantUser.TenantCode, mAuth.InvitationStateInvited)
+		if err != nil {
+			out.SetError(400, err.Error())
+			return
+		}
+		userToInvite.SetInvitationState(mapState.ToStateString())
+	}
+
 	if !userToInvite.DoUpdateByEmail() {
 		userToInvite.HaveMutation()
 		out.SetError(500, ErrTenantAdminInviteJoinInviteFailed)
@@ -83,7 +100,8 @@ func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantA
 	}
 
 	d.runSubtask(func() {
-		err := d.Mailer.SendInviteUserEmail(userToInvite.Email, `http://url`)
+		inviteRespUrl := in.Host + `/` + UserResponseInvitationAction + `?tenantCode=` + tenantUser.TenantCode + `&response=`
+		err := d.Mailer.SendInviteUserEmail(tenantUser.TenantCode, userToInvite.Email, inviteRespUrl)
 		L.IsError(err, `SendInviteUserEmail`)
 		// TODO: insert failed event to clickhouse
 	})

@@ -45,6 +45,9 @@
       --red-001: #f87171;
       --red-002: #ef4444;
 
+      --yellow-001: #fbbf24;
+      --yellow-002: #f59e0b;
+
       --gray-001: #F8F9FA;
       --gray-002: #E9ECEF;
       --gray-003: #DEE2E6;
@@ -83,6 +86,14 @@
       color: var(--gray-001);
       background-color: var(--gray-001);
       margin: 0;
+    }
+
+    .text-capitalize {
+      text-transform: capitalize;
+    }
+
+    .text-center {
+      text-align: center;
     }
 
     .root_layout {
@@ -2873,6 +2884,9 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
       exports.TenantAdminOrganization = async function TenantAdminOrganization(i, cb) {
         return await axios.post("/tenantAdmin/organization", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminTerminateStaff = async function TenantAdminTerminateStaff(i, cb) {
+        return await axios.post("/tenantAdmin/terminateStaff", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2887,6 +2901,9 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
       };
       exports.UserProfile = async function UserProfile(i, cb) {
         return await axios.post("/user/profile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserResponseInvitation = async function UserResponseInvitation(i, cb) {
+        return await axios.post("/user/responseInvitation", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserSessionKill = async function UserSessionKill(i, cb) {
         return await axios.post("/user/sessionKill", i).then(wrapOk(cb)).catch(wrapErr(cb));

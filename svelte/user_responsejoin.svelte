@@ -1,20 +1,18 @@
 <script>
+  import { onMount } from "svelte";
   import BackHomeBtn from "./_components/BackHomeBtn.svelte";
 
-  let verified = '#{verified}';
-  let error = '#{error}';
-  let email = '#{email}';
+  let message = '#{message}';
+
+  onMount(() => {
+    console.log(`Message =`, message)
+  })
 </script>
 
 <section class="root_container">
   <div class="container">
     <h1>/*! title */</h1>
-    {#if verified === 'true'}
-      <p>{email} is verified</p>
-    {/if}
-    {#if error}
-      <p class="error">{error}</p>
-    {/if}
+    <p>{message}</p>
     <BackHomeBtn />
   </div>
 </section>

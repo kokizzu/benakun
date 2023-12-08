@@ -78,7 +78,6 @@ const GuestAutoLoginIn = {
  * @property {String} user.fullName
  * @property {String} user.tenantCode
  * @property {String} user.role
- * @property {String} user.invitedAt
  * @property {String} user.invitationState
  * @property {Object} segments
  */
@@ -101,7 +100,6 @@ const GuestAutoLoginOut = {
     fullName: '', // string
     tenantCode: '', // string
     role: '', // string
-    invitedAt: '', // string
     invitationState: '', // string
   }, // rqAuth.Users
   segments: { // M.SB
@@ -252,7 +250,6 @@ const GuestLoginIn = {
  * @property {String} user.fullName
  * @property {String} user.tenantCode
  * @property {String} user.role
- * @property {String} user.invitedAt
  * @property {String} user.invitationState
  * @property {Object} segments
  */
@@ -275,7 +272,6 @@ const GuestLoginOut = {
     fullName: '', // string
     tenantCode: '', // string
     role: '', // string
-    invitedAt: '', // string
     invitationState: '', // string
   }, // rqAuth.Users
   segments: { // M.SB
@@ -329,7 +325,6 @@ const GuestOauthCallbackIn = {
  * @property {String} currentUser.fullName
  * @property {String} currentUser.tenantCode
  * @property {String} currentUser.role
- * @property {String} currentUser.invitedAt
  * @property {String} currentUser.invitationState
  * @property {String} provider
  * @property {Object} segments
@@ -356,7 +351,6 @@ const GuestOauthCallbackOut = {
     fullName: '', // string
     tenantCode: '', // string
     role: '', // string
-    invitedAt: '', // string
     invitationState: '', // string
   }, // rqAuth.Users
   provider: '', // string
@@ -407,7 +401,6 @@ const GuestRegisterIn = {
  * @property {String} user.fullName
  * @property {String} user.tenantCode
  * @property {String} user.role
- * @property {String} user.invitedAt
  * @property {String} user.invitationState
  * @property {String} verifyEmailUrl
  */
@@ -430,7 +423,6 @@ const GuestRegisterOut = {
     fullName: '', // string
     tenantCode: '', // string
     role: '', // string
-    invitedAt: '', // string
     invitationState: '', // string
   }, // rqAuth.Users
   verifyEmailUrl: '', // string
@@ -724,7 +716,6 @@ exports.SuperAdminTenantManagement = async function SuperAdminTenantManagement( 
  * @property {String} user.fullName
  * @property {String} user.tenantCode
  * @property {String} user.role
- * @property {String} user.invitedAt
  * @property {String} user.invitationState
  * @property {Object} withMeta
  * @property {number} pager.page
@@ -752,7 +743,6 @@ const SuperAdminUserManagementIn = {
     fullName: '', // string
     tenantCode: '', // string
     role: '', // string
-    invitedAt: '', // string
     invitationState: '', // string
   }, // rqAuth.Users
   withMeta: false, // bool
@@ -792,7 +782,6 @@ const SuperAdminUserManagementIn = {
  * @property {String} user.fullName
  * @property {String} user.tenantCode
  * @property {String} user.role
- * @property {String} user.invitedAt
  * @property {String} user.invitationState
  * @property {Object} users
  */
@@ -831,7 +820,6 @@ const SuperAdminUserManagementOut = {
     fullName: '', // string
     tenantCode: '', // string
     role: '', // string
-    invitedAt: '', // string
     invitationState: '', // string
   }, // rqAuth.Users
   users: { // [][]any
@@ -886,8 +874,11 @@ const TenantAdminDashboardIn = {
 }
 /**
  * @typedef {Object} TenantAdminDashboardOut
+ * @property {Object} staffs
  */
 const TenantAdminDashboardOut = {
+  staffs: { // []rqAuth.StaffWithInvitation
+  }, // []rqAuth.StaffWithInvitation
 }
 /**
  * @callback TenantAdminDashboardCallback
@@ -957,6 +948,36 @@ const TenantAdminOrganizationOut = {
  */
 exports.TenantAdminOrganization = async function TenantAdminOrganization( i, cb ) {
   return await axios.post( '/tenantAdmin/organization', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminTerminateStaffIn
+ * @property {String} email
+ */
+const TenantAdminTerminateStaffIn = {
+  email: '', // string
+}
+/**
+ * @typedef {Object} TenantAdminTerminateStaffOut
+ * @property {String} message
+ */
+const TenantAdminTerminateStaffOut = {
+  message: '', // string
+}
+/**
+ * @callback TenantAdminTerminateStaffCallback
+ * @param {TenantAdminTerminateStaffOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminTerminateStaffIn} i
+ * @param {TenantAdminTerminateStaffCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminTerminateStaff = async function TenantAdminTerminateStaff( i, cb ) {
+  return await axios.post( '/tenantAdmin/terminateStaff', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -1136,7 +1157,6 @@ const UserProfileIn = {
  * @property {String} user.fullName
  * @property {String} user.tenantCode
  * @property {String} user.role
- * @property {String} user.invitedAt
  * @property {String} user.invitationState
  * @property {Object} segments
  */
@@ -1159,7 +1179,6 @@ const UserProfileOut = {
     fullName: '', // string
     tenantCode: '', // string
     role: '', // string
-    invitedAt: '', // string
     invitationState: '', // string
   }, // rqAuth.Users
   segments: { // M.SB
@@ -1177,6 +1196,38 @@ const UserProfileOut = {
  */
 exports.UserProfile = async function UserProfile( i, cb ) {
   return await axios.post( '/user/profile', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserResponseInvitationIn
+ * @property {String} tenantCode
+ * @property {String} response
+ */
+const UserResponseInvitationIn = {
+  tenantCode: '', // string
+  response: '', // string
+}
+/**
+ * @typedef {Object} UserResponseInvitationOut
+ * @property {String} message
+ */
+const UserResponseInvitationOut = {
+  message: '', // string
+}
+/**
+ * @callback UserResponseInvitationCallback
+ * @param {UserResponseInvitationOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserResponseInvitationIn} i
+ * @param {UserResponseInvitationCallback} cb
+ * @returns {Promise}
+ */
+exports.UserResponseInvitation = async function UserResponseInvitation( i, cb ) {
+  return await axios.post( '/user/responseInvitation', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -1276,7 +1327,6 @@ const UserUpdateProfileIn = {
  * @property {String} user.fullName
  * @property {String} user.tenantCode
  * @property {String} user.role
- * @property {String} user.invitedAt
  * @property {String} user.invitationState
  * @property {Object} segments
  */
@@ -1299,7 +1349,6 @@ const UserUpdateProfileOut = {
     fullName: '', // string
     tenantCode: '', // string
     role: '', // string
-    invitedAt: '', // string
     invitationState: '', // string
   }, // rqAuth.Users
   segments: { // M.SB

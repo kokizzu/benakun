@@ -1,9 +1,6 @@
 <script>
-  //@ts-nocheck
   import { TenantAdminInviteJoin, UserCreateCompany, GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail } from './jsApi.GEN.js';
   import { onMount, tick } from 'svelte';
-  import FaSolidCircleNotch from 'svelte-icons-pack/fa/FaSolidCircleNotch';
-  import Icon from 'svelte-icons-pack/Icon.svelte';
   import Footer from './_components/partials/Footer.svelte';
   import SideMenu from './_components/partials/SideMenu.svelte';
   import Navbar from './_components/partials/Navbar.svelte';
@@ -191,6 +188,9 @@
         isSubmitCreateCompany = false;
         console.log(o);
         notifier.showSuccess('Company created successfully');
+        setTimeout(() => {
+          window.location.reload(); // reload page to refresh access
+        }, 1200);
       }
     );
   }
@@ -205,7 +205,7 @@
         <Navbar {user} />
         <div class="content">
           <!-- Invite user to join company -->
-          {#if segments.tenantAdmin}
+          {#if user.tenantCode}
             <section class="invite_user">
               <header>
                 <h2>Invite user</h2>
@@ -218,7 +218,7 @@
           {/if}
 
           <!-- Create company -->
-          {#if segments && !segments.tenantAdmin && !user.tenantCode}
+          {#if !user.tenantCode && !user.invitationState}
             <section class="create_company">
               <header>
                 <h2>Create Company</h2>
@@ -264,44 +264,16 @@
         {/if}
         <div class="button_container">
           {#if mode === REGISTER}
-            <button on:click={guestRegister}>
-              {#if isSubmitted === true}
-                <Icon className="spin" color="#FFF" size={15} src={FaSolidCircleNotch} />
-              {/if}
-              {#if isSubmitted === false}
-                <span>Register</span>
-              {/if}
-            </button>
+            <SubmitButton label="Register" on:click={guestRegister} isSubmitted={isSubmitted} isFullWidth />
           {/if}
           {#if mode === LOGIN}
-            <button on:click={guestLogin}>
-              {#if isSubmitted === true}
-                <Icon className="spin" color="#FFF" size={15} src={FaSolidCircleNotch} />
-              {/if}
-              {#if isSubmitted === false}
-                <span>Login</span>
-              {/if}
-            </button>
+            <SubmitButton label="Login" on:click={guestLogin} isSubmitted={isSubmitted} isFullWidth />
           {/if}
           {#if mode === RESEND_VERIFICATION_EMAIL}
-            <button on:click={guestResendVerificationEmail}>
-              {#if isSubmitted === true}
-                <Icon className="spin" color="#FFF" size={15} src={FaSolidCircleNotch} />
-              {/if}
-              {#if isSubmitted === false}
-                <span>Resend Verification Email</span>
-              {/if}
-            </button>
+            <SubmitButton label="Resend Verification Email" on:click={guestResendVerificationEmail} isSubmitted={isSubmitted} isFullWidth />
           {/if}
           {#if mode === FORGOT_PASSWORD}
-            <button on:click={guestForgotPassword}>
-              {#if isSubmitted === true}
-                <Icon className="spin" color="#FFF" size={15} src={FaSolidCircleNotch} />
-              {/if}
-              {#if isSubmitted === false}
-                <span>Request Reset Password Link</span>
-              {/if}
-            </button>
+            <SubmitButton label="Request Reset Password Link" on:click={guestForgotPassword} isSubmitted={isSubmitted} isFullWidth />
           {/if}
         </div>
         <!-- Oauth Buttons -->
@@ -313,12 +285,11 @@
               <span />
             </div>
             <!-- Google OAuth -->
-            {#if google}
-              <a class="button" href={google}>
+              <a class="button" href="/">
                 <img src="/assets/icons/google.svg" alt="Google" />
                 <span>Continue with Google</span>
               </a>
-            {/if}
+            
           </div>
         {/if}
         <div class="foot_auth">
@@ -423,24 +394,6 @@
     text-decoration: underline;
   }
 
-  .button_container button {
-    margin: 0;
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    font-weight: 700;
-    background-color: var(--blue-006);
-    border-radius: 8px;
-    color: white;
-    border: none;
-    cursor: pointer;
-    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-  }
-
-  .button_container button:hover {
-    background-color: var(--blue-005);
-  }
-
   .oauth_container .or_separator {
     display: flex;
     flex-direction: row;
@@ -476,8 +429,8 @@
   }
 
   .oauth_container .button:hover {
-    background-color: var(--gray-002);
-    /* #94a3b8 */
+    border: 1px solid var(--blue-006);
+    background-color: var(--gray-001);
   }
 
   .oauth_container .button img {
