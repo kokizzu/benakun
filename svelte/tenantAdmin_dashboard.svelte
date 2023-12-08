@@ -8,6 +8,8 @@
   import HiOutlinePencilAlt from "svelte-icons-pack/hi/HiOutlinePencilAlt";
   import { onMount } from 'svelte';
   import {TenantAdminTerminateStaff} from './jsApi.GEN.js';
+  import { notifier } from './_components/notifier.js';
+  import ConfirmPopUp from './_components/ConfirmPopUp.svelte';
 
   let segments = {/* segments */};
   let user = {/* user */};
@@ -15,6 +17,8 @@
 
   let staffStatus = [];
   let tableReady = false;
+
+  let confirmQuestion = '', confirmVisible = false, confirmAction = function(){};
 
   onMount(()=> {
     console.log('Staff =', staffs)
@@ -35,6 +39,7 @@
       }
       tableReady = true;
     }
+    confirm_popup = ConfirmPopUp;
   });
 
   async function terminateStaff(email) {
@@ -48,8 +53,24 @@
       }, 1200);
     })
   }
+
+  function confirmTerminateStaff(email) {
+    const q = 'Are you sure you want to terminate this staff?';
+    if (!confirmVisible || !confirmVisible) {
+      confirmVisible = !confirmVisible;
+      confirmQuestion = q;
+      confirmAction = () => terminateStaff(email);
+    } else {
+      // reset if there
+      confirmQuestion = '', confirmVisible = false, confirmAction = function(){};
+      confirmVisible = !confirmVisible;
+      confirmQuestion = q;
+      confirmAction = () => terminateStaff(email);
+    }
+  }
 </script>
 
+<ConfirmPopUp action={confirmAction} question={confirmQuestion} visible={confirmVisible}/>
 <div class="root_layout">
   <div class="root_container">
     <SideMenu access={segments} />
@@ -82,8 +103,8 @@
                       <div class="action_btns">
                       <button
                         class="btn delete_btn"
-                        on:click={terminateStaff(staff.email)}
                         title="Terminate staff"
+                        on:click|preventDefault={() => confirmTerminateStaff(staff.email)}
                       >
                         <Icon size={15} src={CgTrash} />
                       </button>

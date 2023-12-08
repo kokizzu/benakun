@@ -31,6 +31,7 @@ const (
 	ErrTenantAdminTerminateStaffUserNotFound     = `user not found`
 	ErrTenantAdminTerminateStaffTenantNotFound   = `tenant admin not found`
 	ErrTenantAdminTerminateStaffInvalidUserEmail = `invalid user email`
+	ErrTenantAdminTerminateStaffFailed           = `failed to terminate staff`
 
 	TenantAdminTerminateStaffMsg = `staff successfully terminated`
 )
@@ -72,10 +73,16 @@ func (d *Domain) TenantAdminTerminateStaff(in *TenantAdminTerminateStaffIn) (out
 	} else {
 		err := mapState.ModifyState(tenantUser.TenantCode, mAuth.InvitationStateTerminated)
 		if err != nil {
-			out.SetError(400, ErrTenantAdminInviteJoinInvalidInvitation)
+			out.SetError(400, err.Error())
 			return
 		}
 		user.SetInvitationState(mapState.ToStateString())
+	}
+
+	if !user.DoUpdateByEmail() {
+		user.HaveMutation()
+		out.SetError(500, ErrTenantAdminTerminateStaffFailed)
+		return
 	}
 
 	out.Message = TenantAdminTerminateStaffMsg

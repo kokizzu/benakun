@@ -432,6 +432,84 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   color: var(--purple-002);
 }
 
+/* fakecss:./_components/ConfirmPopUp.esbuild-svelte-fake-css */
+@keyframes svelte-eckux-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin {
+  animation: svelte-eckux-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.backdrop.svelte-eckux.svelte-eckux {
+  z-index: 8888;
+  position: fixed;
+  padding: 0;
+  border: none;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0 0 0 / 40%);
+  display: flex;
+  justify-content: center;
+}
+.confirm_popup.svelte-eckux.svelte-eckux {
+  padding: 20px;
+  background-color: #FFF;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 400px;
+  height: fit-content;
+  max-height: 600px;
+  margin-top: 60px;
+  border: 1px solid var(--gray-003);
+}
+.confirm_popup.svelte-eckux h2.svelte-eckux {
+  font-size: var(--font-xl);
+  margin: 0;
+  text-align: center;
+}
+.confirm_popup.svelte-eckux .actions_btn.svelte-eckux {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: stretch;
+}
+.confirm_popup.svelte-eckux .actions_btn button.svelte-eckux {
+  flex-grow: 1;
+  padding: 14px 0;
+  border-radius: 9999px;
+  border: none;
+  font-weight: 600;
+  color: var(--gray-007);
+  cursor: pointer;
+}
+.confirm_popup.svelte-eckux .actions_btn button.no.svelte-eckux {
+  background-color: transparent;
+}
+.confirm_popup.svelte-eckux .actions_btn button.no.svelte-eckux:hover {
+  background-color: #0096c740;
+  color: var(--blue-006);
+}
+.confirm_popup.svelte-eckux .actions_btn button.yes.svelte-eckux {
+  background-color: var(--blue-006);
+  color: #FFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.confirm_popup.svelte-eckux .actions_btn button.yes.svelte-eckux:hover,
+.confirm_popup.svelte-eckux .actions_btn button.yes.svelte-eckux:disabled {
+  background-color: var(--blue-005);
+}
+
 /* fakecss:./tenantAdmin_dashboard.esbuild-svelte-fake-css */
 .staff_table.svelte-1z0kpdq.svelte-1z0kpdq {
   width: fit-content;
@@ -2265,7 +2343,7 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
           this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
             responseInterceptorChain.push(interceptor.fulfilled, interceptor.rejected);
           });
-          let promise;
+          let promise2;
           let i = 0;
           let len;
           if (!synchronousRequestInterceptors) {
@@ -2273,11 +2351,11 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
             chain.unshift.apply(chain, requestInterceptorChain);
             chain.push.apply(chain, responseInterceptorChain);
             len = chain.length;
-            promise = Promise.resolve(config);
+            promise2 = Promise.resolve(config);
             while (i < len) {
-              promise = promise.then(chain[i++], chain[i++]);
+              promise2 = promise2.then(chain[i++], chain[i++]);
             }
-            return promise;
+            return promise2;
           }
           len = requestInterceptorChain.length;
           let newConfig = config;
@@ -2293,16 +2371,16 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
             }
           }
           try {
-            promise = dispatchRequest.call(this, newConfig);
+            promise2 = dispatchRequest.call(this, newConfig);
           } catch (error) {
             return Promise.reject(error);
           }
           i = 0;
           len = responseInterceptorChain.length;
           while (i < len) {
-            promise = promise.then(responseInterceptorChain[i++], responseInterceptorChain[i++]);
+            promise2 = promise2.then(responseInterceptorChain[i++], responseInterceptorChain[i++]);
           }
-          return promise;
+          return promise2;
         }
         getUri(config) {
           config = mergeConfig(this.defaults, config);
@@ -2357,14 +2435,14 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
           });
           this.promise.then = (onfulfilled) => {
             let _resolve;
-            const promise = new Promise((resolve) => {
+            const promise2 = new Promise((resolve) => {
               token.subscribe(resolve);
               _resolve = resolve;
             }).then(onfulfilled);
-            promise.cancel = function reject() {
+            promise2.cancel = function reject() {
               token.unsubscribe(_resolve);
             };
-            return promise;
+            return promise2;
           };
           executor(function cancel(message, config, request) {
             if (token.reason) {
@@ -2503,13 +2581,13 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance7 = bind(Axios$1.prototype.request, context);
-        utils$1.extend(instance7, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance7, context, null, { allOwnKeys: true });
-        instance7.create = function create(instanceConfig) {
+        const instance8 = bind(Axios$1.prototype.request, context);
+        utils$1.extend(instance8, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance8, context, null, { allOwnKeys: true });
+        instance8.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance7;
+        return instance8;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2648,6 +2726,7 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
+  var identity = (x) => x;
   function assign(tar, src) {
     for (const k in src)
       tar[k] = src[k];
@@ -2673,6 +2752,37 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
   }
   function is_empty(obj) {
     return Object.keys(obj).length === 0;
+  }
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/environment.js
+  var is_client = typeof window !== "undefined";
+  var now = is_client ? () => window.performance.now() : () => Date.now();
+  var raf = is_client ? (cb) => requestAnimationFrame(cb) : noop;
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/loop.js
+  var tasks = /* @__PURE__ */ new Set();
+  function run_tasks(now2) {
+    tasks.forEach((task) => {
+      if (!task.c(now2)) {
+        tasks.delete(task);
+        task.f();
+      }
+    });
+    if (tasks.size !== 0)
+      raf(run_tasks);
+  }
+  function loop(callback) {
+    let task;
+    if (tasks.size === 0)
+      raf(run_tasks);
+    return {
+      promise: new Promise((fulfill) => {
+        tasks.add(task = { c: callback, f: fulfill });
+      }),
+      abort() {
+        tasks.delete(task);
+      }
+    };
   }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/globals.js
@@ -2738,6 +2848,33 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
   function append(target, node) {
     target.appendChild(node);
   }
+  function get_root_for_style(node) {
+    if (!node)
+      return document;
+    const root = node.getRootNode ? node.getRootNode() : node.ownerDocument;
+    if (root && /** @type {ShadowRoot} */
+    root.host) {
+      return (
+        /** @type {ShadowRoot} */
+        root
+      );
+    }
+    return node.ownerDocument;
+  }
+  function append_empty_stylesheet(node) {
+    const style_element = element("style");
+    style_element.textContent = "/* empty */";
+    append_stylesheet(get_root_for_style(node), style_element);
+    return style_element.sheet;
+  }
+  function append_stylesheet(node, style) {
+    append(
+      /** @type {Document} */
+      node.head || node,
+      style
+    );
+    return style.sheet;
+  }
   function insert(target, node, anchor) {
     target.insertBefore(node, anchor || null);
   }
@@ -2771,6 +2908,12 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
     node.addEventListener(event, handler, options);
     return () => node.removeEventListener(event, handler, options);
   }
+  function prevent_default(fn) {
+    return function(event) {
+      event.preventDefault();
+      return fn.call(this, event);
+    };
+  }
   function attr(node, attribute, value) {
     if (value == null)
       node.removeAttribute(attribute);
@@ -2795,6 +2938,9 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
   }
+  function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
+    return new CustomEvent(type, { detail, bubbles, cancelable });
+  }
   function get_custom_elements_slots(element2) {
     const result = {};
     element2.childNodes.forEach(
@@ -2804,6 +2950,70 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
       }
     );
     return result;
+  }
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/style_manager.js
+  var managed_styles = /* @__PURE__ */ new Map();
+  var active = 0;
+  function hash(str) {
+    let hash2 = 5381;
+    let i = str.length;
+    while (i--)
+      hash2 = (hash2 << 5) - hash2 ^ str.charCodeAt(i);
+    return hash2 >>> 0;
+  }
+  function create_style_information(doc, node) {
+    const info = { stylesheet: append_empty_stylesheet(node), rules: {} };
+    managed_styles.set(doc, info);
+    return info;
+  }
+  function create_rule(node, a, b, duration, delay, ease, fn, uid = 0) {
+    const step = 16.666 / duration;
+    let keyframes = "{\n";
+    for (let p = 0; p <= 1; p += step) {
+      const t = a + (b - a) * ease(p);
+      keyframes += p * 100 + `%{${fn(t, 1 - t)}}
+`;
+    }
+    const rule = keyframes + `100% {${fn(b, 1 - b)}}
+}`;
+    const name = `__svelte_${hash(rule)}_${uid}`;
+    const doc = get_root_for_style(node);
+    const { stylesheet, rules } = managed_styles.get(doc) || create_style_information(doc, node);
+    if (!rules[name]) {
+      rules[name] = true;
+      stylesheet.insertRule(`@keyframes ${name} ${rule}`, stylesheet.cssRules.length);
+    }
+    const animation = node.style.animation || "";
+    node.style.animation = `${animation ? `${animation}, ` : ""}${name} ${duration}ms linear ${delay}ms 1 both`;
+    active += 1;
+    return name;
+  }
+  function delete_rule(node, name) {
+    const previous = (node.style.animation || "").split(", ");
+    const next = previous.filter(
+      name ? (anim) => anim.indexOf(name) < 0 : (anim) => anim.indexOf("__svelte") === -1
+      // remove all Svelte animations
+    );
+    const deleted = previous.length - next.length;
+    if (deleted) {
+      node.style.animation = next.join(", ");
+      active -= deleted;
+      if (!active)
+        clear_rules();
+    }
+  }
+  function clear_rules() {
+    raf(() => {
+      if (active)
+        return;
+      managed_styles.forEach((info) => {
+        const { ownerNode } = info.stylesheet;
+        if (ownerNode)
+          detach(ownerNode);
+      });
+      managed_styles.clear();
+    });
   }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/lifecycle.js
@@ -2896,6 +3106,19 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
   }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/transitions.js
+  var promise;
+  function wait() {
+    if (!promise) {
+      promise = Promise.resolve();
+      promise.then(() => {
+        promise = null;
+      });
+    }
+    return promise;
+  }
+  function dispatch(node, direction, kind) {
+    node.dispatchEvent(custom_event(`${direction ? "intro" : "outro"}${kind}`));
+  }
   var outroing = /* @__PURE__ */ new Set();
   var outros;
   function group_outros() {
@@ -2935,6 +3158,132 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
     } else if (callback) {
       callback();
     }
+  }
+  var null_transition = { duration: 0 };
+  function create_bidirectional_transition(node, fn, params, intro) {
+    const options = { direction: "both" };
+    let config = fn(node, params, options);
+    let t = intro ? 0 : 1;
+    let running_program = null;
+    let pending_program = null;
+    let animation_name = null;
+    let original_inert_value;
+    function clear_animation() {
+      if (animation_name)
+        delete_rule(node, animation_name);
+    }
+    function init2(program, duration) {
+      const d = (
+        /** @type {Program['d']} */
+        program.b - t
+      );
+      duration *= Math.abs(d);
+      return {
+        a: t,
+        b: program.b,
+        d,
+        duration,
+        start: program.start,
+        end: program.start + duration,
+        group: program.group
+      };
+    }
+    function go(b) {
+      const {
+        delay = 0,
+        duration = 300,
+        easing = identity,
+        tick: tick2 = noop,
+        css
+      } = config || null_transition;
+      const program = {
+        start: now() + delay,
+        b
+      };
+      if (!b) {
+        program.group = outros;
+        outros.r += 1;
+      }
+      if ("inert" in node) {
+        if (b) {
+          if (original_inert_value !== void 0) {
+            node.inert = original_inert_value;
+          }
+        } else {
+          original_inert_value = /** @type {HTMLElement} */
+          node.inert;
+          node.inert = true;
+        }
+      }
+      if (running_program || pending_program) {
+        pending_program = program;
+      } else {
+        if (css) {
+          clear_animation();
+          animation_name = create_rule(node, t, b, duration, delay, easing, css);
+        }
+        if (b)
+          tick2(0, 1);
+        running_program = init2(program, duration);
+        add_render_callback(() => dispatch(node, b, "start"));
+        loop((now2) => {
+          if (pending_program && now2 > pending_program.start) {
+            running_program = init2(pending_program, duration);
+            pending_program = null;
+            dispatch(node, running_program.b, "start");
+            if (css) {
+              clear_animation();
+              animation_name = create_rule(
+                node,
+                t,
+                running_program.b,
+                running_program.duration,
+                0,
+                easing,
+                config.css
+              );
+            }
+          }
+          if (running_program) {
+            if (now2 >= running_program.end) {
+              tick2(t = running_program.b, 1 - t);
+              dispatch(node, running_program.b, "end");
+              if (!pending_program) {
+                if (running_program.b) {
+                  clear_animation();
+                } else {
+                  if (!--running_program.group.r)
+                    run_all(running_program.group.c);
+                }
+              }
+              running_program = null;
+            } else if (now2 >= running_program.start) {
+              const p = now2 - running_program.start;
+              t = running_program.a + running_program.d * easing(p / running_program.duration);
+              tick2(t, 1 - t);
+            }
+          }
+          return !!(running_program || pending_program);
+        });
+      }
+    }
+    return {
+      run(b) {
+        if (is_function(config)) {
+          wait().then(() => {
+            const opts = { direction: b ? "in" : "out" };
+            config = config(opts);
+            go(b);
+          });
+        } else {
+          go(b);
+        }
+      },
+      end() {
+        clear_animation();
+        running_program = pending_program = null;
+      }
+    };
   }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/each.js
@@ -3045,7 +3394,7 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance7, create_fragment7, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance8, create_fragment8, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3071,7 +3420,7 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance7 ? instance7(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance8 ? instance8(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -3084,7 +3433,7 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment7 ? create_fragment7($.ctx) : false;
+    $.fragment = create_fragment8 ? create_fragment8($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -3427,7 +3776,7 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
       };
     };
   }();
-  var notifier2 = new Notifier();
+  var notifier = new Notifier();
 
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/Icon.svelte
   function create_fragment(ctx) {
@@ -4556,7 +4905,7 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
       await (0, import_jsApi_GEN.UserLogout)({}, function(o) {
         console.log(o);
         if (o.error)
-          notifier2.showError(o.error);
+          notifier.showError(o.error);
         user = null;
         segments = null;
         window.document.location = "/";
@@ -4721,16 +5070,359 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
 
   // tenantAdmin_dashboard.svelte
   var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
-  function get_each_context(ctx, list, i) {
-    const child_ctx = ctx.slice();
-    child_ctx[3] = list[i];
-    child_ctx[5] = i;
-    return child_ctx;
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fi/FiLoader.js
+  var FiLoader_default = {
+    a: {
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": "2",
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round"
+    },
+    c: '<line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>'
+  };
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/transition/index.js
+  function fade(node, { delay = 0, duration = 400, easing = identity } = {}) {
+    const o = +getComputedStyle(node).opacity;
+    return {
+      delay,
+      duration,
+      easing,
+      css: (t) => `opacity: ${t * o}`
+    };
+  }
+
+  // _components/ConfirmPopUp.svelte
+  function create_if_block2(ctx) {
+    let div2;
+    let div1;
+    let h2;
+    let t0;
+    let t1;
+    let div0;
+    let button0;
+    let t3;
+    let button1;
+    let t4;
+    let div1_transition;
+    let current;
+    let mounted;
+    let dispose;
+    let if_block0 = !/*isSubmitted*/
+    ctx[2] && create_if_block_22(ctx);
+    let if_block1 = (
+      /*isSubmitted*/
+      ctx[2] && create_if_block_12(ctx)
+    );
+    return {
+      c() {
+        div2 = element("div");
+        div1 = element("div");
+        h2 = element("h2");
+        t0 = text(
+          /*question*/
+          ctx[1]
+        );
+        t1 = space();
+        div0 = element("div");
+        button0 = element("button");
+        button0.textContent = "No";
+        t3 = space();
+        button1 = element("button");
+        if (if_block0)
+          if_block0.c();
+        t4 = space();
+        if (if_block1)
+          if_block1.c();
+        attr(h2, "class", "svelte-eckux");
+        attr(button0, "class", "no svelte-eckux");
+        attr(button1, "class", "yes svelte-eckux");
+        button1.disabled = /*isSubmitted*/
+        ctx[2];
+        attr(div0, "class", "actions_btn svelte-eckux");
+        attr(div1, "class", "confirm_popup svelte-eckux");
+        attr(div2, "class", "backdrop svelte-eckux");
+      },
+      m(target, anchor) {
+        insert(target, div2, anchor);
+        append(div2, div1);
+        append(div1, h2);
+        append(h2, t0);
+        append(div1, t1);
+        append(div1, div0);
+        append(div0, button0);
+        append(div0, t3);
+        append(div0, button1);
+        if (if_block0)
+          if_block0.m(button1, null);
+        append(button1, t4);
+        if (if_block1)
+          if_block1.m(button1, null);
+        current = true;
+        if (!mounted) {
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*click_handler*/
+              ctx[5]
+            ),
+            listen(
+              button1,
+              "click",
+              /*confirmFunc*/
+              ctx[3]
+            )
+          ];
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (!current || dirty & /*question*/
+        2)
+          set_data(
+            t0,
+            /*question*/
+            ctx2[1]
+          );
+        if (!/*isSubmitted*/
+        ctx2[2]) {
+          if (if_block0) {
+          } else {
+            if_block0 = create_if_block_22(ctx2);
+            if_block0.c();
+            if_block0.m(button1, t4);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        if (
+          /*isSubmitted*/
+          ctx2[2]
+        ) {
+          if (if_block1) {
+            if (dirty & /*isSubmitted*/
+            4) {
+              transition_in(if_block1, 1);
+            }
+          } else {
+            if_block1 = create_if_block_12(ctx2);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(button1, null);
+          }
+        } else if (if_block1) {
+          group_outros();
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
+          });
+          check_outros();
+        }
+        if (!current || dirty & /*isSubmitted*/
+        4) {
+          button1.disabled = /*isSubmitted*/
+          ctx2[2];
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block1);
+        if (local) {
+          add_render_callback(() => {
+            if (!current)
+              return;
+            if (!div1_transition)
+              div1_transition = create_bidirectional_transition(div1, fade, { delay: 70, duration: 175 }, true);
+            div1_transition.run(1);
+          });
+        }
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block1);
+        if (local) {
+          if (!div1_transition)
+            div1_transition = create_bidirectional_transition(div1, fade, { delay: 70, duration: 175 }, false);
+          div1_transition.run(0);
+        }
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div2);
+        }
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        if (detaching && div1_transition)
+          div1_transition.end();
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
+  function create_if_block_22(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Yes";
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
   }
   function create_if_block_12(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        className: "spin",
+        color: "#FFF",
+        size: 16,
+        src: FiLoader_default
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_fragment6(ctx) {
     let if_block_anchor;
     let current;
-    let if_block = staffs && staffs.length && create_if_block_22(ctx);
+    let if_block = (
+      /*visible*/
+      ctx[0] && create_if_block2(ctx)
+    );
+    return {
+      c() {
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, [dirty]) {
+        if (
+          /*visible*/
+          ctx2[0]
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*visible*/
+            1) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block2(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if (if_block)
+          if_block.d(detaching);
+      }
+    };
+  }
+  function instance6($self, $props, $invalidate) {
+    let { visible = false } = $props;
+    let isSubmitted = false;
+    let { question = "Are you sure?" } = $props;
+    let { action = function() {
+    } } = $props;
+    async function confirmFunc() {
+      $invalidate(2, isSubmitted = true);
+      await action();
+      $invalidate(2, isSubmitted = false);
+      $invalidate(0, visible = false);
+    }
+    const click_handler = () => $invalidate(0, visible = !visible);
+    $self.$set = ($props2) => {
+      if ("visible" in $props2)
+        $invalidate(0, visible = $props2.visible);
+      if ("question" in $props2)
+        $invalidate(1, question = $props2.question);
+      if ("action" in $props2)
+        $invalidate(4, action = $props2.action);
+    };
+    return [visible, question, isSubmitted, confirmFunc, action, click_handler];
+  }
+  var ConfirmPopUp = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance6, create_fragment6, safe_not_equal, { visible: 0, question: 1, action: 4 });
+    }
+  };
+  var ConfirmPopUp_default = ConfirmPopUp;
+
+  // tenantAdmin_dashboard.svelte
+  function get_each_context(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[8] = list[i];
+    child_ctx[10] = i;
+    return child_ctx;
+  }
+  function create_if_block_13(ctx) {
+    let if_block_anchor;
+    let current;
+    let if_block = staffs && staffs.length && create_if_block_23(ctx);
     return {
       c() {
         if (if_block)
@@ -4766,7 +5458,7 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
       }
     };
   }
-  function create_if_block_22(ctx) {
+  function create_if_block_23(ctx) {
     let each_1_anchor;
     let current;
     let each_value = ensure_array_like(staffs);
@@ -4794,8 +5486,8 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*terminateStaff, staffs, staffStatus*/
-        6) {
+        if (dirty & /*confirmTerminateStaff, staffs, staffStatus*/
+        48) {
           each_value = ensure_array_like(staffs);
           let i;
           for (i = 0; i < each_value.length; i += 1) {
@@ -4864,6 +5556,15 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
     let mounted;
     let dispose;
     icon0 = new Icon_default({ props: { size: 15, src: CgTrash_default } });
+    function click_handler() {
+      return (
+        /*click_handler*/
+        ctx[6](
+          /*staff*/
+          ctx[8]
+        )
+      );
+    }
     icon1 = new Icon_default({
       props: { size: 15, src: HiOutlinePencilAlt_default }
     });
@@ -4872,25 +5573,25 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
         tr = element("tr");
         td0 = element("td");
         td0.textContent = `${/*staff*/
-        ctx[3].id}`;
+        ctx[8].id}`;
         t1 = space();
         td1 = element("td");
         td1.textContent = `${/*staff*/
-        ctx[3].email}`;
+        ctx[8].email}`;
         t3 = space();
         td2 = element("td");
         td2.textContent = `${/*staff*/
-        ctx[3].fullName || "--"}`;
+        ctx[8].fullName || "--"}`;
         t5 = space();
         td3 = element("td");
         td3.textContent = `${/*staff*/
-        ctx[3].role}`;
+        ctx[8].role}`;
         t7 = space();
         td4 = element("td");
         td4.textContent = `${/*staffStatus*/
-        ctx[1][
+        ctx[4][
           /*idx*/
-          ctx[5]
+          ctx[10]
         ]}`;
         t9 = space();
         td5 = element("td");
@@ -4934,15 +5635,7 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
         append(tr, t11);
         current = true;
         if (!mounted) {
-          dispose = listen(
-            button0,
-            "click",
-            /*terminateStaff*/
-            ctx[2](
-              /*staff*/
-              ctx[3].email
-            )
-          );
+          dispose = listen(button0, "click", prevent_default(click_handler));
           mounted = true;
         }
       },
@@ -4992,7 +5685,7 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
       }
     };
   }
-  function create_if_block2(ctx) {
+  function create_if_block3(ctx) {
     let td;
     let i;
     return {
@@ -5015,35 +5708,53 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
       }
     };
   }
-  function create_fragment6(ctx) {
+  function create_fragment7(ctx) {
+    let confirmpopup;
+    let t0;
     let div4;
     let div3;
     let sidemenu;
-    let t0;
+    let t1;
     let div2;
     let navbar;
-    let t1;
+    let t2;
     let div1;
     let div0;
     let table;
     let thead;
-    let t13;
-    let tbody;
     let t14;
+    let tbody;
+    let t15;
     let tfoot;
     let tr1;
-    let t15;
+    let t16;
     let footer;
     let current;
+    confirmpopup = new ConfirmPopUp_default({
+      props: {
+        action: (
+          /*confirmAction*/
+          ctx[3]
+        ),
+        question: (
+          /*confirmQuestion*/
+          ctx[1]
+        ),
+        visible: (
+          /*confirmVisible*/
+          ctx[2]
+        )
+      }
+    });
     sidemenu = new SideMenu_default({ props: { access: segments2 } });
     navbar = new Navbar_default({ props: { user: user2 } });
     let if_block0 = (
       /*tableReady*/
-      ctx[0] && create_if_block_12(ctx)
+      ctx[0] && create_if_block_13(ctx)
     );
     function select_block_type(ctx2, dirty) {
       if (staffs && staffs.length)
-        return create_if_block2;
+        return create_if_block3;
       return create_else_block;
     }
     let current_block_type = select_block_type(ctx, -1);
@@ -5051,27 +5762,29 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
     footer = new Footer_default({});
     return {
       c() {
+        create_component(confirmpopup.$.fragment);
+        t0 = space();
         div4 = element("div");
         div3 = element("div");
         create_component(sidemenu.$.fragment);
-        t0 = space();
+        t1 = space();
         div2 = element("div");
         create_component(navbar.$.fragment);
-        t1 = space();
+        t2 = space();
         div1 = element("div");
         div0 = element("div");
         table = element("table");
         thead = element("thead");
         thead.innerHTML = `<tr><th class="primary svelte-1z0kpdq" scope="col">User ID</th> <th scope="col" class="svelte-1z0kpdq">Email</th> <th scope="col" class="svelte-1z0kpdq">Full Name</th> <th scope="col" class="svelte-1z0kpdq">Role</th> <th scope="col" class="svelte-1z0kpdq">Status</th> <th scope="col" class="svelte-1z0kpdq">Action</th></tr>`;
-        t13 = space();
+        t14 = space();
         tbody = element("tbody");
         if (if_block0)
           if_block0.c();
-        t14 = space();
+        t15 = space();
         tfoot = element("tfoot");
         tr1 = element("tr");
         if_block1.c();
-        t15 = space();
+        t16 = space();
         create_component(footer.$.fragment);
         attr(tr1, "class", "svelte-1z0kpdq");
         attr(tfoot, "class", "svelte-1z0kpdq");
@@ -5083,30 +5796,46 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
         attr(div4, "class", "root_layout");
       },
       m(target, anchor) {
+        mount_component(confirmpopup, target, anchor);
+        insert(target, t0, anchor);
         insert(target, div4, anchor);
         append(div4, div3);
         mount_component(sidemenu, div3, null);
-        append(div3, t0);
+        append(div3, t1);
         append(div3, div2);
         mount_component(navbar, div2, null);
-        append(div2, t1);
+        append(div2, t2);
         append(div2, div1);
         append(div1, div0);
         append(div0, table);
         append(table, thead);
-        append(table, t13);
+        append(table, t14);
         append(table, tbody);
         if (if_block0)
           if_block0.m(tbody, null);
-        append(table, t14);
+        append(table, t15);
         append(table, tfoot);
         append(tfoot, tr1);
         if_block1.m(tr1, null);
-        append(div2, t15);
+        append(div2, t16);
         mount_component(footer, div2, null);
         current = true;
       },
       p(ctx2, [dirty]) {
+        const confirmpopup_changes = {};
+        if (dirty & /*confirmAction*/
+        8)
+          confirmpopup_changes.action = /*confirmAction*/
+          ctx2[3];
+        if (dirty & /*confirmQuestion*/
+        2)
+          confirmpopup_changes.question = /*confirmQuestion*/
+          ctx2[1];
+        if (dirty & /*confirmVisible*/
+        4)
+          confirmpopup_changes.visible = /*confirmVisible*/
+          ctx2[2];
+        confirmpopup.$set(confirmpopup_changes);
         if (
           /*tableReady*/
           ctx2[0]
@@ -5118,7 +5847,7 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_12(ctx2);
+            if_block0 = create_if_block_13(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(tbody, null);
@@ -5135,6 +5864,7 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
       i(local) {
         if (current)
           return;
+        transition_in(confirmpopup.$.fragment, local);
         transition_in(sidemenu.$.fragment, local);
         transition_in(navbar.$.fragment, local);
         transition_in(if_block0);
@@ -5142,6 +5872,7 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
         current = true;
       },
       o(local) {
+        transition_out(confirmpopup.$.fragment, local);
         transition_out(sidemenu.$.fragment, local);
         transition_out(navbar.$.fragment, local);
         transition_out(if_block0);
@@ -5150,8 +5881,10 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
       },
       d(detaching) {
         if (detaching) {
+          detach(t0);
           detach(div4);
         }
+        destroy_component(confirmpopup, detaching);
         destroy_component(sidemenu);
         destroy_component(navbar);
         if (if_block0)
@@ -5164,9 +5897,11 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
   var segments2 = {/* segments */};
   var user2 = {/* user */};
   var staffs = [/* staffs */];
-  function instance6($self, $props, $invalidate) {
+  function instance7($self, $props, $invalidate) {
     let staffStatus = [];
     let tableReady = false;
+    let confirmQuestion = "", confirmVisible = false, confirmAction = function() {
+    };
     onMount(() => {
       console.log("Staff =", staffs);
       if (staffs && staffs.length) {
@@ -5186,6 +5921,7 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
         }
         $invalidate(0, tableReady = true);
       }
+      confirm_popup = ConfirmPopUp_default;
     });
     async function terminateStaff(email) {
       await (0, import_jsApi_GEN2.TenantAdminTerminateStaff)({ email }, function(o) {
@@ -5201,12 +5937,35 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
         );
       });
     }
-    return [tableReady, staffStatus, terminateStaff];
+    function confirmTerminateStaff(email) {
+      const q = "Are you sure you want to terminate this staff?";
+      if (!confirmVisible || !confirmVisible) {
+        $invalidate(2, confirmVisible = !confirmVisible);
+        $invalidate(1, confirmQuestion = q);
+        $invalidate(3, confirmAction = () => terminateStaff(email));
+      } else {
+        $invalidate(1, confirmQuestion = ""), $invalidate(2, confirmVisible = false), $invalidate(3, confirmAction = function() {
+        });
+        $invalidate(2, confirmVisible = !confirmVisible);
+        $invalidate(1, confirmQuestion = q);
+        $invalidate(3, confirmAction = () => terminateStaff(email));
+      }
+    }
+    const click_handler = (staff) => confirmTerminateStaff(staff.email);
+    return [
+      tableReady,
+      confirmQuestion,
+      confirmVisible,
+      confirmAction,
+      staffStatus,
+      confirmTerminateStaff,
+      click_handler
+    ];
   }
   var TenantAdmin_dashboard = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance6, create_fragment6, safe_not_equal, {});
+      init(this, options, instance7, create_fragment7, safe_not_equal, {});
     }
   };
   var tenantAdmin_dashboard_default = TenantAdmin_dashboard;
