@@ -77,12 +77,12 @@ func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantA
 	}
 
 	mapState, err := mAuth.ToInvitationStateMap(userToInvite.InvitationState)
-	invState := mAuth.InviteState{
-		TenantCode: tenantUser.TenantCode,
-		State:      mAuth.InvitationStateInvited,
-		Date:       T.DateStr(),
-	}
 	if errors.Is(err, fmt.Errorf(mAuth.ErrInvitationStateEmpty)) {
+		invState := mAuth.InviteState{
+			TenantCode: tenantUser.TenantCode,
+			State:      mAuth.InvitationStateInvited,
+			Date:       T.DateStr(),
+		}
 		userToInvite.SetInvitationState(invState.ToStateString())
 	} else {
 		err := mapState.ModifyState(tenantUser.TenantCode, mAuth.InvitationStateInvited)
