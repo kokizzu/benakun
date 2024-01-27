@@ -30,3 +30,7 @@ orm:
 views:
 	# generate views and routes
 	./gen-views.sh
+
+migrate:
+	# migrate table schema
+	go run main.go migrate

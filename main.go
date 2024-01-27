@@ -106,7 +106,7 @@ func main() {
 	// check table existence
 	if mode != `migrate` {
 		L.Print(`verifying table schema, if failed, run: go run main.go migrate`)
-		model.VerifyTables(tConn, cConn)
+		model.VerifyTables(tConn, cConn, tConn)
 	}
 
 	switch mode {
@@ -122,7 +122,7 @@ func main() {
 		}
 		ws.Start(log)
 	case `migrate`:
-		model.RunMigration(tConn, cConn)
+		model.RunMigration(tConn, cConn, tConn)
 		// TODO: list all tenant and run migrations
 	default:
 		log.Fatal().Msg(`must start with: ` + validArgs)
