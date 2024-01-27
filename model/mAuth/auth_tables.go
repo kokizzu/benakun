@@ -54,6 +54,11 @@ const (
 	HeadTitle = `headTitle`
 	ParentId  = `parentId`
 	Children  = `children`
+
+	OrgTypeCompany  = 1
+	OrgTypeDept     = 2
+	OrgTypeDivision = 3
+	OrgTypeJob      = 4
 )
 
 const (

@@ -1,11 +1,13 @@
 package domain
 
 import (
-	"benakun/model/mAuth/rqAuth"
-	"benakun/model/mAuth/wcAuth"
 	"crypto/rand"
 	"fmt"
 	"math/big"
+
+	"benakun/model/mAuth"
+	"benakun/model/mAuth/rqAuth"
+	"benakun/model/mAuth/wcAuth"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserCreateCompany.go
@@ -72,6 +74,7 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 	org.SetTenantCode(fmt.Sprintf("%s_%d", in.TenantCode, generate4RandomNumber()))
 	org.SetHeadTitle(in.HeadTitle)
 	org.SetName(in.CompanyName)
+	org.SetOrgType(mAuth.OrgTypeCompany)
 	org.SetCreatedAt(in.UnixNow())
 	org.SetCreatedBy(sess.UserId)
 	org.SetUpdatedAt(in.UnixNow())
