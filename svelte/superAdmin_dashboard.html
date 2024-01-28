@@ -495,9 +495,9 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     mod
   ));
 
-  // node_modules/.pnpm/axios@1.6.2/node_modules/axios/dist/browser/axios.cjs
+  // node_modules/axios/dist/browser/axios.cjs
   var require_axios = __commonJS({
-    "node_modules/.pnpm/axios@1.6.2/node_modules/axios/dist/browser/axios.cjs"(exports, module) {
+    "node_modules/axios/dist/browser/axios.cjs"(exports, module) {
       "use strict";
       function bind(fn, thisArg) {
         return function wrap() {
@@ -1225,6 +1225,8 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       function formDataToJSON(formData) {
         function buildPath(path, value, target, index) {
           let name = path[index++];
+          if (name === "__proto__")
+            return true;
           const isNumericKey = Number.isFinite(+name);
           const isLast = index >= path.length;
           name = !name && utils$1.isArray(target) ? target.length : name;
@@ -1279,9 +1281,6 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
           }
           const isFormData2 = utils$1.isFormData(data);
           if (isFormData2) {
-            if (!hasJSONContentType) {
-              return data;
-            }
             return hasJSONContentType ? JSON.stringify(formDataToJSON(data)) : data;
           }
           if (utils$1.isArrayBuffer(data) || utils$1.isBuffer(data) || utils$1.isStream(data) || utils$1.isFile(data) || utils$1.isBlob(data)) {
@@ -1690,7 +1689,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url);
       }
       function combineURLs(baseURL, relativeURL) {
-        return relativeURL ? baseURL.replace(/\/+$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
+        return relativeURL ? baseURL.replace(/\/?\/$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
       }
       function buildFullPath(baseURL, requestedURL) {
         if (baseURL && !isAbsoluteURL(requestedURL)) {
@@ -2114,7 +2113,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         });
         return config;
       }
-      var VERSION2 = "1.6.2";
+      var VERSION2 = "1.6.7";
       var validators$1 = {};
       ["object", "boolean", "number", "function", "string", "symbol"].forEach((type, i) => {
         validators$1[type] = function validator2(thing) {
@@ -2188,7 +2187,24 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
          *
          * @returns {Promise} The Promise to be fulfilled
          */
-        request(configOrUrl, config) {
+        async request(configOrUrl, config) {
+          try {
+            return await this._request(configOrUrl, config);
+          } catch (err) {
+            if (err instanceof Error) {
+              let dummy;
+              Error.captureStackTrace ? Error.captureStackTrace(dummy = {}) : dummy = new Error();
+              const stack = dummy.stack ? dummy.stack.replace(/^.+\n/, "") : "";
+              if (!err.stack) {
+                err.stack = stack;
+              } else if (stack && !String(err.stack).endsWith(stack.replace(/^.+\n.+\n/, ""))) {
+                err.stack += "\n" + stack;
+              }
+            }
+            throw err;
+          }
+        }
+        _request(configOrUrl, config) {
           if (typeof configOrUrl === "string") {
             config = config || {};
             config.url = configOrUrl;
@@ -2621,7 +2637,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     }
   });
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/utils.js
+  // node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
   function assign(tar, src) {
@@ -2651,13 +2667,13 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     return Object.keys(obj).length === 0;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/globals.js
+  // node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
     // @ts-ignore Node typings have this
     global
   );
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  // node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
   var ResizeObserverSingleton = class {
     /**
      * @private
@@ -2703,7 +2719,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   };
   ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/dom.js
+  // node_modules/svelte/src/runtime/internal/dom.js
   var is_hydrating = false;
   function start_hydrating() {
     is_hydrating = true;
@@ -2773,7 +2789,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     return result;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/lifecycle.js
+  // node_modules/svelte/src/runtime/internal/lifecycle.js
   var current_component;
   function set_current_component(component) {
     current_component = component;
@@ -2787,7 +2803,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     get_current_component().$.on_mount.push(fn);
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/scheduler.js
+  // node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
   var binding_callbacks = [];
   var render_callbacks = [];
@@ -2862,7 +2878,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     render_callbacks = filtered;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/transitions.js
+  // node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
   var outros;
   function group_outros() {
@@ -2904,7 +2920,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     }
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/spread.js
+  // node_modules/svelte/src/runtime/internal/spread.js
   function get_spread_update(levels, updates) {
     const update2 = {};
     const to_null_out = {};
@@ -2938,7 +2954,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     return update2;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/boolean_attributes.js
+  // node_modules/svelte/src/shared/boolean_attributes.js
   var _boolean_attributes = (
     /** @type {const} */
     [
@@ -2971,7 +2987,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   );
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/Component.js
+  // node_modules/svelte/src/runtime/internal/Component.js
   function create_component(block) {
     block && block.c();
   }
@@ -3158,6 +3174,12 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
               this.$d[name] = get_custom_element_value(name, attribute.value, this.$p_d, "toProp");
             }
           }
+          for (const key in this.$p_d) {
+            if (!(key in this.$d) && this[key] !== void 0) {
+              this.$d[key] = this[key];
+              delete this[key];
+            }
+          }
           this.$c = new this.$ctor({
             target: this.shadowRoot || this,
             props: {
@@ -3308,10 +3330,10 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     }
   };
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/version.js
+  // node_modules/svelte/src/shared/version.js
   var PUBLIC_VERSION = "4";
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  // node_modules/svelte/src/runtime/internal/disclose-version/index.js
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
@@ -3391,7 +3413,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   }();
   var notifier = new Notifier();
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/Icon.svelte
+  // node_modules/svelte-icons-pack/Icon.svelte
   function create_fragment(ctx) {
     let svg;
     let svg_levels = [
@@ -3527,7 +3549,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   };
   var Icon_default = Icon;
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ai/AiOutlineWarning.js
+  // node_modules/svelte-icons-pack/ai/AiOutlineWarning.js
   var AiOutlineWarning_default = {
     a: {
       viewBox: "0 0 1024 1024"
@@ -3535,7 +3557,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     c: '<path d="M464 720a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm16-304v184c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V416c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8zm475.7 440l-416-720c-6.2-10.7-16.9-16-27.7-16s-21.6 5.3-27.7 16l-416 720C56 877.4 71.4 904 96 904h832c24.6 0 40-26.6 27.7-48zm-783.5-27.9L512 239.9l339.8 588.2H172.2z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaUserCircle.js
+  // node_modules/svelte-icons-pack/fa/FaUserCircle.js
   var FaUserCircle_default = {
     a: {
       viewBox: "0 0 496 512"
@@ -3543,7 +3565,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     c: '<path d="M248 104c-53 0-96 43-96 96s43 96 96 96 96-43 96-96-43-96-96-96zm0 144c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48zm0-240C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 448c-49.7 0-95.1-18.3-130.1-48.4 14.9-23 40.4-38.6 69.6-39.5 20.8 6.4 40.6 9.6 60.5 9.6s39.7-3.1 60.5-9.6c29.2 1 54.7 16.5 69.6 39.5-35 30.1-80.4 48.4-130.1 48.4zm162.7-84.1c-24.4-31.4-62.1-51.9-105.1-51.9-10.2 0-26 9.6-57.6 9.6-31.5 0-47.4-9.6-57.6-9.6-42.9 0-80.6 20.5-105.1 51.9C61.9 339.2 48 299.2 48 256c0-110.3 89.7-200 200-200s200 89.7 200 200c0 43.2-13.9 83.2-37.3 115.9z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiEditorOrganizationChart.js
+  // node_modules/svelte-icons-pack/ri/RiEditorOrganizationChart.js
   var RiEditorOrganizationChart_default = {
     a: {
       viewBox: "0 0 24 24"
@@ -3551,7 +3573,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     c: '<g><path fill="none" d="M0 0H24V24H0z"></path>\n<path d="M15 3c.552 0 1 .448 1 1v4c0 .552-.448 1-1 1h-2v2h4c.552 0 1 .448 1 1v3h2c.552 0 1 .448 1 1v4c0 .552-.448 1-1 1h-6c-.552 0-1-.448-1-1v-4c0-.552.448-1 1-1h2v-2H8v2h2c.552 0 1 .448 1 1v4c0 .552-.448 1-1 1H4c-.552 0-1-.448-1-1v-4c0-.552.448-1 1-1h2v-3c0-.552.448-1 1-1h4V9H9c-.552 0-1-.448-1-1V4c0-.552.448-1 1-1h6zM9 17H5v2h4v-2zm10 0h-4v2h4v-2zM14 5h-4v2h4V5z"></path></g>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fa/FaSolidSlidersH.js
+  // node_modules/svelte-icons-pack/fa/FaSolidSlidersH.js
   var FaSolidSlidersH_default = {
     a: {
       viewBox: "0 0 512 512"
@@ -3559,7 +3581,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     c: '<path d="M496 384H160v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h80v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h336c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160h-80v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h336v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h80c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160H288V48c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16C7.2 64 0 71.2 0 80v32c0 8.8 7.2 16 16 16h208v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h208c8.8 0 16-7.2 16-16V80c0-8.8-7.2-16-16-16z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/cg/CgLogOut.js
+  // node_modules/svelte-icons-pack/cg/CgLogOut.js
   var CgLogOut_default = {
     a: {
       viewBox: "0 0 24 24",
@@ -3568,7 +3590,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     c: '<path d="M8.51428 20H4.51428C3.40971 20 2.51428 19.1046 2.51428 18V6C2.51428 4.89543 3.40971 4 4.51428 4H8.51428V6H4.51428V18H8.51428V20Z" fill="currentColor"></path><path d="M13.8418 17.385L15.262 15.9768L11.3428 12.0242L20.4857 12.0242C21.038 12.0242 21.4857 11.5765 21.4857 11.0242C21.4857 10.4719 21.038 10.0242 20.4857 10.0242L11.3236 10.0242L15.304 6.0774L13.8958 4.6572L7.5049 10.9941L13.8418 17.385Z" fill="currentColor"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ai/AiOutlineWallet.js
+  // node_modules/svelte-icons-pack/ai/AiOutlineWallet.js
   var AiOutlineWallet_default = {
     a: {
       viewBox: "0 0 1024 1024"
@@ -3576,7 +3598,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     c: '<path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 464H528V448h312v128zm0 264H184V184h656v200H496c-17.7 0-32 14.3-32 32v192c0 17.7 14.3 32 32 32h344v200zM580 512a40 40 0 1 0 80 0 40 40 0 1 0-80 0z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiUserAdminLine.js
+  // node_modules/svelte-icons-pack/ri/RiUserAdminLine.js
   var RiUserAdminLine_default = {
     a: {
       viewBox: "0 0 24 24"
@@ -3584,7 +3606,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M12 14v2a6 6 0 0 0-6 6H4a8 8 0 0 1 8-8zm0-1c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm9 6h1v5h-8v-5h1v-1a3 3 0 0 1 6 0v1zm-2 0v-1a1 1 0 0 0-2 0v1h2z"></path></g>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ai/AiOutlineHome.js
+  // node_modules/svelte-icons-pack/ai/AiOutlineHome.js
   var AiOutlineHome_default = {
     a: {
       viewBox: "0 0 1024 1024"
@@ -3592,7 +3614,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     c: '<path d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 0 0-44.4 0L77.5 505a63.9 63.9 0 0 0-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0 0 18.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiBuildingsCommunityLine.js
+  // node_modules/svelte-icons-pack/ri/RiBuildingsCommunityLine.js
   var RiBuildingsCommunityLine_default = {
     a: {
       viewBox: "0 0 24 24"
@@ -4544,7 +4566,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   };
   var SideMenu_default = SideMenu;
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/hi/HiOutlinePresentationChartBar.js
+  // node_modules/svelte-icons-pack/hi/HiOutlinePresentationChartBar.js
   var HiOutlinePresentationChartBar_default = {
     a: {
       viewBox: "0 0 24 24",
@@ -4553,7 +4575,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     c: '<path d="M8 13V12M12 13V10M16 13V8M8 21L12 17L16 21M3 4H21M4 4H20V16C20 16.5523 19.5523 17 19 17H5C4.44772 17 4 16.5523 4 16V4Z" stroke="#374151" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/hi/HiOutlineUserGroup.js
+  // node_modules/svelte-icons-pack/hi/HiOutlineUserGroup.js
   var HiOutlineUserGroup_default = {
     a: {
       viewBox: "0 0 24 24",
@@ -4562,7 +4584,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     c: '<path d="M17 20H22V18C22 16.3431 20.6569 15 19 15C18.0444 15 17.1931 15.4468 16.6438 16.1429M17 20H7M17 20V18C17 17.3438 16.8736 16.717 16.6438 16.1429M7 20H2V18C2 16.3431 3.34315 15 5 15C5.95561 15 6.80686 15.4468 7.35625 16.1429M7 20V18C7 17.3438 7.12642 16.717 7.35625 16.1429M7.35625 16.1429C8.0935 14.301 9.89482 13 12 13C14.1052 13 15.9065 14.301 16.6438 16.1429M15 7C15 8.65685 13.6569 10 12 10C10.3431 10 9 8.65685 9 7C9 5.34315 10.3431 4 12 4C13.6569 4 15 5.34315 15 7ZM21 10C21 11.1046 20.1046 12 19 12C17.8954 12 17 11.1046 17 10C17 8.89543 17.8954 8 19 8C20.1046 8 21 8.89543 21 10ZM7 10C7 11.1046 6.10457 12 5 12C3.89543 12 3 11.1046 3 10C3 8.89543 3.89543 8 5 8C6.10457 8 7 8.89543 7 10Z" stroke="#4A5568" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/hi/HiOutlineUserAdd.js
+  // node_modules/svelte-icons-pack/hi/HiOutlineUserAdd.js
   var HiOutlineUserAdd_default = {
     a: {
       viewBox: "0 0 24 24",
