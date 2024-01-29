@@ -5,68 +5,38 @@
   import Footer from './_components/partials/Footer.svelte';
   import { onMount } from 'svelte';
   import { Title } from 'chart.js';
+  import { TenantAdminOrganization } from './jsApi.GEN';
+  import { notifier } from './_components/notifier';
 
-  let segments = {
-    /* segments */
-  };
-  let user = {
-    /* user */
-  };
-  let orgs = [
-    {
-      ParentId: 2,
-      Type: 2,
-      Children: [3],
-    },
-    {
-      ParentId: 3,
-      Type: 1,
-      Children: [4],
-    },
-    {
-      ParentId: 4,
-      Type: 1,
-      Children: [],
-    },
-    {
-      ParentId: 5,
-      Type: 1,
-      Children: [],
-    },
-  ];
+  let segments = {/* segments */};
+  let user = {/* user */};
+  let orgs = [/* orgs */];
 
+  let lastSent = {};
   let elementIsDrag;
 
   function renderTopLevelOrganization() {
     // empty content element
     document.getElementById('content').innerHTML = '';
-    const topLevelOrg = orgs.filter(org => {
-      let parentId = org.ParentId;
-      wasAChild = true;
-      for (let org of orgs) {
-        wasAChild = org.Children.includes(parentId);
-        if (wasAChild) break;
-      }
-      return !wasAChild;
-    });
+    const topLevelOrg = orgs.filter(org => org.parentId === '0');
 
     for (let org of topLevelOrg) {
       // get the childs
-      let parent = getOrginazationItemWithChilds(org.ParentId);
+      let parent = getOrginazationItemWithChilds(org.id);
       document.getElementById('content').appendChild(parent);
     }
   }
 
   /**
-   * @param {number} ParentId
+   * @param {string} id
    * @return {string}
    */
-  function getOrginazationItemWithChilds(ParentId) {
-    let parent = orgs.find(e => e.ParentId === ParentId),
+  function getOrginazationItemWithChilds(id) {
+    let orgEntry = orgs.find(e => e.id === id),
       parentBoxTag = document.createElement('div'),
       titleTag = document.createElement('h4');
 
-    titleTag.innerText = '- Parent ' + ParentId;
+    titleTag.innerText = `- ${orgEntry.name}`;
 
     // title attribute setting
     titleTag.className = 'title';
@@ -76,7 +46,7 @@
 
     // parent element attibrute setting
     parentBoxTag.draggable = true;
-    parentBoxTag.id = ParentId;
+    parentBoxTag.id = id;
     parentBoxTag.ondragstart = dragStart;
     parentBoxTag.ondrop = drop;
     parentBoxTag.ondragover = dragOver;
@@ -92,8 +62,8 @@
 
     parentBoxTag.append(titleTag);
 
-    for (let child of parent.Children) {
-      let childrenBoxTag = getOrginazationItemWithChilds(child);
+    for (let childId of orgEntry.children) {
+      let childrenBoxTag = getOrginazationItemWithChilds(childId.toString());
 
       // style child element
       childrenBoxTag.style.margin = '16px';
@@ -135,31 +105,52 @@
    * @param {Object} event - event data from drop
    */
   function drop(event) {
-    const dragedParentId = parseInt(elementIsDrag.getAttribute('id')),
-      dragedEntry = orgs.find(e => e.ParentId === dragedParentId),
-      oldParentElement = elementIsDrag.parentNode,
-      oldParentId = parseInt(oldParentElement?.getAttribute('id')),
-      oldParentEntry = oldParentId && oldParentId !== 'content' ? orgs.find(e => e.ParentId === oldParentId) : null,
+    let dragedId = parseInt(elementIsDrag.getAttribute('id')),
+      dragedEntry = orgs.find(e => e.id == dragedId),
+      oldParentId = parseInt(dragedEntry.parentId),
       newParentElement = event.srcElement,
-      newParentId = parseInt(newParentElement.getAttribute('id')),
-      newParentEntry = orgs.find(e => e.ParentId === newParentId);
+      newParentId = parseInt(newParentElement.getAttribute('id'));
 
-    // if orginization append into its child
-    if (isChild(dragedParentId, newParentId)) {
-      if (oldParentEntry) oldParentEntry.Children = [...oldParentEntry.Children, ...dragedEntry.Children];
-      dragedEntry.Children = [];
-      console.log(orgs);
+    if (isNaN(newParentId)) newParentId = 0;
+
+    if (lastSent.dragedId == dragedId && lastSent.oldParentId == oldParentId && lastSent.newParentId == newParentId) {
+      console.warn('update has been applied', lastSent);
+      renderTopLevelOrganization();
+      return;
     }
 
-    // remove organization from its old parent
-    if (oldParentEntry) oldParentEntry.Children = oldParentEntry.Children.filter(e => e != dragedParentId);
+    saveChanges(dragedId, newParentId, oldParentId);
+    lastSent = {
+      dragedId,
+      newParentId,
+      oldParentId,
+    };
 
-    // append into new parrent childs
-    const newParentChilds = newParentEntry.Children;
-    if (!newParentChilds.includes(dragedParentId)) newParentChilds.push(dragedParentId);
+    // make new parent back to white background
+    newParentElement.style.backgroundColor = 'white';
+    
+  }
 
-    //rerender orginazation structure
-    renderTopLevelOrganization();
+  /**
+   * Save new change after droping element
+   * @param {string} id
+   * @param {string} newParentId
+   * @param {string} oldParentId
+   */
+  async function saveChanges(id, newParentId, oldParentId) {
+    await TenantAdminOrganization(
+      {
+        cmd: 'upsert',
+        id,
+        newParentId,
+        oldParentId,
+      },
+      res => {
+        if (res.error) return notifier.showError(res.error);
+        orgs = res.Orgs;
+        renderTopLevelOrganization();
+      }
+    );
   }
 
   /**
@@ -200,6 +191,8 @@
    * @param {object} event - eventdata from drag end
    */
   function dragEnd(event) {
+    console.log(event);
+
     const dragedParentId = parseInt(elementIsDrag.getAttribute('id')),
       oldParent = elementIsDrag.parentNode,
       oldParentId = oldParent?.getAttribute('id');
@@ -217,20 +210,32 @@
   }
 
   onMount(async () => {
+    console.log(segments, user, orgs);
     renderTopLevelOrganization();
+
+    // asing ondragover for content
+    document.getElementById('content').ondragover = dragOver;
   });
 </script>
 
 <div class="root_layout">
   <div class="root_container">
     <SideMenu access={segments} />
+    <!-- svelte-ignore a11y-no-static-element-interactions -->
     <div class="root_content">
       <Navbar {user} />
-      <div class="content" id="content" on:dragover={dragOver} on:dragleave={dragLeave} on:dragend={dragEnd}></div>
+      <div class="content">
+        <div id="content" on:dragleave={dragLeave} on:drop={drop}></div>
+      </div>
       <Footer />
     </div>
   </div>
 </div>
 
 <style>
+  #content {
+    padding: 12px;
+    border: 1px black solid;
+    border-radius: 8px;
+  }
 </style>

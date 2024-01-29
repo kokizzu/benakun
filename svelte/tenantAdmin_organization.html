@@ -431,6 +431,13 @@ footer.svelte-18vlekj nav a.svelte-18vlekj {
 footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   color: var(--purple-002);
 }
+
+/* fakecss:./tenantAdmin_organization.esbuild-svelte-fake-css */
+#content.svelte-cch7ww {
+  padding: 12px;
+  border: 1px black solid;
+  border-radius: 8px;
+}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -2565,7 +2572,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       exports.TenantAdminInviteJoin = async function TenantAdminInviteJoin(i, cb) {
         return await axios.post("/tenantAdmin/inviteUser", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminOrganization = async function TenantAdminOrganization(i, cb) {
+      exports.TenantAdminOrganization = async function TenantAdminOrganization2(i, cb) {
         return await axios.post("/tenantAdmin/organization", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminTerminateStaff = async function TenantAdminTerminateStaff(i, cb) {
@@ -2713,6 +2720,9 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   }
   function space() {
     return text(" ");
+  }
+  function comment(content) {
+    return document.createComment(content);
   }
   function listen(node, event, handler, options) {
     node.addEventListener(event, handler, options);
@@ -4650,16 +4660,20 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   var Footer_default = Footer;
 
   // tenantAdmin_organization.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
   function create_fragment6(ctx) {
+    let div4;
     let div3;
-    let div2;
     let sidemenu;
     let t0;
-    let div1;
-    let navbar;
+    let c;
     let t1;
-    let div0;
+    let div2;
+    let navbar;
     let t2;
+    let div1;
+    let div0;
+    let t3;
     let footer;
     let current;
     let mounted;
@@ -4669,42 +4683,43 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     footer = new Footer_default({});
     return {
       c() {
+        div4 = element("div");
         div3 = element("div");
-        div2 = element("div");
         create_component(sidemenu.$.fragment);
         t0 = space();
-        div1 = element("div");
-        create_component(navbar.$.fragment);
+        c = comment(" svelte-ignore a11y-no-static-element-interactions ");
         t1 = space();
-        div0 = element("div");
+        div2 = element("div");
+        create_component(navbar.$.fragment);
         t2 = space();
+        div1 = element("div");
+        div0 = element("div");
+        t3 = space();
         create_component(footer.$.fragment);
-        attr(div0, "class", "content");
         attr(div0, "id", "content");
-        attr(div1, "class", "root_content");
-        attr(div2, "class", "root_container");
-        attr(div3, "class", "root_layout");
+        attr(div0, "class", "svelte-cch7ww");
+        attr(div1, "class", "content");
+        attr(div2, "class", "root_content");
+        attr(div3, "class", "root_container");
+        attr(div4, "class", "root_layout");
       },
       m(target, anchor) {
-        insert(target, div3, anchor);
+        insert(target, div4, anchor);
+        append(div4, div3);
+        mount_component(sidemenu, div3, null);
+        append(div3, t0);
+        append(div3, c);
+        append(div3, t1);
         append(div3, div2);
-        mount_component(sidemenu, div2, null);
-        append(div2, t0);
+        mount_component(navbar, div2, null);
+        append(div2, t2);
         append(div2, div1);
-        mount_component(navbar, div1, null);
-        append(div1, t1);
         append(div1, div0);
-        append(div1, t2);
-        mount_component(footer, div1, null);
+        append(div2, t3);
+        mount_component(footer, div2, null);
         current = true;
         if (!mounted) {
           dispose = [
-            listen(
-              div0,
-              "dragover",
-              /*dragOver*/
-              ctx[1]
-            ),
             listen(
               div0,
               "dragleave",
@@ -4713,9 +4728,9 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
             ),
             listen(
               div0,
-              "dragend",
-              /*dragEnd*/
-              ctx[2]
+              "drop",
+              /*drop*/
+              ctx[1]
             )
           ];
           mounted = true;
@@ -4738,7 +4753,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(div3);
+          detach(div4);
         }
         destroy_component(sidemenu);
         destroy_component(navbar);
@@ -4748,44 +4763,27 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       }
     };
   }
-  var segments2 = {
-    /* segments */
-  };
-  var user2 = {
-    /* user */
-  };
+  var segments2 = {/* segments */};
+  var user2 = {/* user */};
   function instance6($self) {
-    let orgs = [
-      { ParentId: 2, Type: 2, Children: [3] },
-      { ParentId: 3, Type: 1, Children: [4] },
-      { ParentId: 4, Type: 1, Children: [] },
-      { ParentId: 5, Type: 1, Children: [] }
-    ];
+    let orgs = [/* orgs */];
+    let lastSent = {};
     let elementIsDrag;
     function renderTopLevelOrganization() {
       document.getElementById("content").innerHTML = "";
-      const topLevelOrg = orgs.filter((org) => {
-        let parentId = org.ParentId;
-        wasAChild = true;
-        for (let org2 of orgs) {
-          wasAChild = org2.Children.includes(parentId);
-          if (wasAChild)
-            break;
-        }
-        return !wasAChild;
-      });
+      const topLevelOrg = orgs.filter((org) => org.parentId === "0");
       for (let org of topLevelOrg) {
-        let parent = getOrginazationItemWithChilds(org.ParentId);
+        let parent = getOrginazationItemWithChilds(org.id);
         document.getElementById("content").appendChild(parent);
       }
     }
-    function getOrginazationItemWithChilds(ParentId) {
-      let parent = orgs.find((e) => e.ParentId === ParentId), parentBoxTag = document.createElement("div"), titleTag = document.createElement("h4");
-      titleTag.innerText = "- Parent " + ParentId;
+    function getOrginazationItemWithChilds(id) {
+      let orgEntry = orgs.find((e) => e.id === id), parentBoxTag = document.createElement("div"), titleTag = document.createElement("h4");
+      titleTag.innerText = `- ${orgEntry.name}`;
       titleTag.className = "title";
       titleTag.style.margin = "0";
       parentBoxTag.draggable = true;
-      parentBoxTag.id = ParentId;
+      parentBoxTag.id = id;
       parentBoxTag.ondragstart = dragStart;
       parentBoxTag.ondrop = drop;
       parentBoxTag.ondragover = dragOver;
@@ -4797,8 +4795,8 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       parentBoxTag.style.marginBottom = "16px";
       parentBoxTag.style.backgroundColor = "white";
       parentBoxTag.append(titleTag);
-      for (let child of parent.Children) {
-        let childrenBoxTag = getOrginazationItemWithChilds(child);
+      for (let childId of orgEntry.children) {
+        let childrenBoxTag = getOrginazationItemWithChilds(childId.toString());
         childrenBoxTag.style.margin = "16px";
         childrenBoxTag.style.marginLeft = "32px";
         parentBoxTag.appendChild(childrenBoxTag);
@@ -4818,26 +4816,38 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       sourceElement.style.backgroundColor = "white";
     }
     function drop(event) {
-      const dragedParentId = parseInt(elementIsDrag.getAttribute("id")), dragedEntry = orgs.find((e) => e.ParentId === dragedParentId), oldParentElement = elementIsDrag.parentNode, oldParentId = parseInt(oldParentElement?.getAttribute("id")), oldParentEntry = oldParentId && oldParentId !== "content" ? orgs.find((e) => e.ParentId === oldParentId) : null;
-      newParentElement = event.srcElement, newParentId = parseInt(newParentElement.getAttribute("id")), newParentEntry = orgs.find((e) => e.ParentId === newParentId);
-      if (isChild(dragedParentId, newParentId)) {
-        if (oldParentEntry)
-          oldParentEntry.Children = [...oldParentEntry.Children, ...dragedEntry.Children];
-        dragedEntry.Children = [];
-        console.log(orgs);
+      let dragedId = parseInt(elementIsDrag.getAttribute("id")), dragedEntry = orgs.find((e) => e.id == dragedId), oldParentId = parseInt(dragedEntry.parentId), newParentElement = event.srcElement, newParentId = parseInt(newParentElement.getAttribute("id"));
+      if (isNaN(newParentId))
+        newParentId = 0;
+      if (lastSent.dragedId == dragedId && lastSent.oldParentId == oldParentId && lastSent.newParentId == newParentId) {
+        console.warn("update has been applied", lastSent);
+        renderTopLevelOrganization();
+        return;
       }
-      if (oldParentEntry)
-        oldParentEntry.Children = oldParentEntry.Children.filter((e) => e != dragedParentId);
-      const newParentChilds = newParentEntry.Children;
-      if (!newParentChilds.includes(dragedParentId))
-        newParentChilds.push(dragedParentId);
-      renderTopLevelOrganization();
+      saveChanges(dragedId, newParentId, oldParentId);
+      lastSent = { dragedId, newParentId, oldParentId };
+      newParentElement.style.backgroundColor = "white";
     }
-    function isChild(orgParentId, newParentId2) {
+    async function saveChanges(id, newParentId, oldParentId) {
+      await (0, import_jsApi.TenantAdminOrganization)(
+        {
+          cmd: "upsert",
+          id,
+          newParentId,
+          oldParentId
+        },
+        (res) => {
+          if (res.error)
+            return notifier.showError(res.error);
+          orgs = res.Orgs;
+          renderTopLevelOrganization();
+        }
+      );
+    }
+    function isChild(orgParentId, newParentId) {
       const org = orgs.find((e) => e.ParentId === orgParentId);
       for (let childId of org.Children) {
-        console.log(childId, newParentId2);
-        if (childId === newParentId2 || isChild(childId, newParentId2))
+        if (childId === newParentId || isChild(childId, newParentId))
           return true;
       }
       return false;
@@ -4852,6 +4862,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       return false;
     }
     function dragEnd(event) {
+      console.log(event);
       const dragedParentId = parseInt(elementIsDrag.getAttribute("id")), oldParent = elementIsDrag.parentNode, oldParentId = oldParent?.getAttribute("id");
       if (oldParentId && oldParentId !== "content") {
         let oldParentEntry = orgs.find((e) => e.ParentId == oldParentId);
@@ -4862,9 +4873,11 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       renderTopLevelOrganization();
     }
     onMount(async () => {
+      console.log(segments2, user2, orgs);
       renderTopLevelOrganization();
+      document.getElementById("content").ondragover = dragOver;
     });
-    return [dragLeave, dragOver, dragEnd];
+    return [dragLeave, drop];
   }
   var TenantAdmin_organization = class extends SvelteComponent {
     constructor(options) {

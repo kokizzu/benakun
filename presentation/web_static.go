@@ -143,6 +143,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notLogin(d, in.RequestCommon, false) {
 			return ctx.Redirect(`/`, 302)
 		}
+
 		return views.RenderTenantAdminBudgeting(ctx, M.SX{
 			`title`:    `Tenant Admin Budgeting`,
 			`user`:     user,
@@ -155,10 +156,18 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notLogin(d, in.RequestCommon, false) {
 			return ctx.Redirect(`/`, 302)
 		}
+
+		in.RequestCommon.Action = domain.TenantAdminOrganizationAction
+		out := d.TenantAdminOrganization(&domain.TenantAdminOrganizationIn{
+			RequestCommon: in.RequestCommon,
+		})
+
+		L.Print(out.Orgs)
 		return views.RenderTenantAdminOrganization(ctx, M.SX{
 			`title`:    `Tenant Admin Organization`,
 			`user`:     user,
 			`segments`: segments,
+			`orgs`:     out.Orgs,
 		})
 	})
 
@@ -261,6 +270,7 @@ func notLogin(d *domain.Domain, in domain.RequestCommon, superAdmin bool) bool {
 	} else {
 		sess = d.MustLogin(in, &check)
 	}
+
 	if sess == nil {
 		// TODO: implement render error
 		// _ = views.RenderError(ctx, M.SX{

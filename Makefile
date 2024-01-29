@@ -9,7 +9,7 @@ setup:
 	curl -fsSL https://bun.sh/install | bash
 
 local-tarantool:
-	docker exec -it benakun-tarantool1-1 tarantoolctl connect benakunT:benakunPT@127.0.0.1:3301
+	docker exec -it benakun_tarantool1_1 tarantoolctl connect benakunT:benakunPT@127.0.0.1:3301
 	# box.space -- list all tables
 	# box.execute [[ SELECT * FROM "users" LIMIT 1 ]]
 	# \set language sql
