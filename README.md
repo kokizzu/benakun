@@ -33,10 +33,10 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
   - [ ] change organizational structure
   - [ ] can create budgeting
   - [ ] can manage account source
-	- [ ] can manage users
-	- [ ] can manage accounts
-	- [ ] can manage journals
-	- [ ] can manage reports
+  - [ ] can manage users
+  - [ ] can manage accounts
+  - [ ] can manage journals
+  - [ ] can manage reports
   - [ ] can manage CoA
   - [ ] can manage entry-rule
   - [ ] can manage bank account
