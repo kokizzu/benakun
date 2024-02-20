@@ -9,10 +9,14 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"strings"
 	"testing"
 	"time"
+	"unicode"
 
+	"github.com/goccy/go-json"
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
 )
 
@@ -33,6 +37,7 @@ func BenchmarkGenerateViews(b *testing.B) {
 		JsApiGenFile:     "../svelte/jsApi.GEN.js",
 		CmdRunGenFile:    "./cmd_run.GEN.go",
 		WebViewGenFile:   "./web_view.GEN.go",
+		SwaggerGenFile:   "../swagger.json",
 	}
 	p.StartCodegen()
 
@@ -58,6 +63,7 @@ type codegen struct {
 	CmdRunGenFile    string // cmd_run.GEN.go
 	JsApiGenFile     string // jsApi.GEN.js
 	WebViewGenFile   string // web_view.GEN.go
+	SwaggerGenFile   string // swagger.json
 
 	ProjectName string // based on go.mod
 }
@@ -348,6 +354,7 @@ func (c *codegen) StartCodegen() {
 	c.GenerateApiRoutesFile()
 	c.GenerateJsApiFile()
 	c.GenerateCmdRunFile()
+	c.GenerateSwaggerFile()
 
 	// parse svelte files
 	start = time.Now()
@@ -362,6 +369,7 @@ func (c *codegen) StartCodegen() {
 		}
 		return nil
 	})
+	L.IsError(err, `filepath.Walk`)
 	L.TimeTrack(start, `parsing svelte dir`)
 
 	c.GenerateWebRouteFile()
@@ -377,7 +385,7 @@ func (d *domains) parseDomainFile(path string) {
 	ast.Walk(d, p)
 }
 
-func (d *domains) eachSortedHandler(eachFunc func(name string, handler tmethod)) {
+func (d *domains) eachSortedHandler(eachFunc func(name string, handler tmethod, isEnd bool)) {
 	// sort handlers
 	handlers := d.handlers.byRcvDotMethod
 	handlerNames := make([]string, 0, len(handlers))
@@ -393,8 +401,12 @@ func (d *domains) eachSortedHandler(eachFunc func(name string, handler tmethod))
 	}
 	sort.Strings(handlerNames)
 
-	for _, name := range handlerNames {
-		eachFunc(name, byName[name])
+	for idx, name := range handlerNames {
+		end := false
+		if idx == len(handlerNames)-1 {
+			end = true
+		}
+		eachFunc(name, byName[name], end)
 	}
 }
 
@@ -410,7 +422,7 @@ import (
 
 var allCommands = []string{
 `)
-	c.domains.eachSortedHandler(func(name string, handler tmethod) {
+	c.domains.eachSortedHandler(func(name string, handler tmethod, isEnd bool) {
 		b.WriteString(TAB + `domain.` + name + `Action,` + NL)
 	})
 	b.WriteString(`}` + NL)
@@ -433,7 +445,7 @@ import (
 
 func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 `)
-	c.domains.eachSortedHandler(func(name string, handler tmethod) {
+	c.domains.eachSortedHandler(func(name string, handler tmethod, isEnd bool) {
 		b.WriteString(`
 	// ` + name + `
 	fw.Post("/"+domain.` + name + `Action, func(c *fiber.Ctx) error {
@@ -482,7 +494,7 @@ function wrapOk( cb ) {
 `)
 	b.WriteString(generatedComment)
 
-	c.domains.eachSortedHandler(func(name string, handler tmethod) {
+	c.domains.eachSortedHandler(func(name string, handler tmethod, isEnd bool) {
 		fields := c.domains.types.byName[handler.In].fields
 		c.jsObject(&b, name+`In`, fields, 0)
 
@@ -608,7 +620,7 @@ import (
 
 func cmdRun(b *domain.Domain, action string, payload []byte) {
 	switch action {`)
-	c.domains.eachSortedHandler(func(name string, handler tmethod) {
+	c.domains.eachSortedHandler(func(name string, handler tmethod, isEnd bool) {
 		b.WriteString(`
 	case domain.` + name + `Action:
 		in := domain.` + name + `In{}
@@ -667,4 +679,58 @@ func (v *Views) Render` + cacheName + `(c *fiber.Ctx, m M.SX) error {
 	b.WriteString(generatedComment)
 
 	L.CreateFile(c.WebViewGenFile, b.String())
+}
+
+func urlPath(input string) string {
+	var result []rune
+	for i, char := range input {
+		if i > 0 && unicode.IsUpper(char) {
+			result = append(result, '/')
+		}
+		result = append(result, unicode.ToLower(char))
+	}
+	return string(result)
+}
+
+func (c *codegen) GenerateSwaggerFile() {
+	defer L.TimeTrack(time.Now(), `GenerateSwaggerFile`)
+
+	confJson, err := os.ReadFile("../openapi-conf.json")
+	L.PanicIf(err, `error read OpenAPI config file`)
+
+	var jsonMap M.SX
+	err = json.Unmarshal(confJson, &jsonMap)
+	L.PanicIf(err, `error unmarshall OpenAPI config`)
+
+	jsonString, err := json.MarshalIndent(jsonMap, "", "  ")
+	L.PanicIf(err, `marshall indent`)
+
+	jsonString = jsonString[1 : len(jsonString)-1]
+	newJsonString := string(jsonString)
+	lines := strings.Split(newJsonString, NL)
+	lines = lines[:len(lines)-1]
+
+	newJsonString = strings.Join(lines, NL)
+
+	b := bytes.Buffer{}
+
+	b.WriteString(`{` + newJsonString + `,
+	"paths": {
+`)
+
+	c.domains.eachSortedHandler(func(name string, handler tmethod, isEnd bool) {
+		coma := `,`
+		if isEnd {
+			coma = ``
+		}
+		b.WriteString(TAB + TAB + `"/` + urlPath(handler.MethodName) + `": {` + NL)
+		b.WriteString(TAB + TAB + TAB + `"post":{}` + NL +
+			TAB + TAB + `}` + coma + NL)
+	})
+
+	b.WriteString(TAB + `}
+}
+`)
+
+	L.CreateFile(c.SwaggerGenFile, b.String())
 }
