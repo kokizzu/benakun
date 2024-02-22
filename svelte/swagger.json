@@ -1,0 +1,847 @@
+{
+  "info": {
+    "contact": {
+      "email": "support@benakun.com",
+      "name": "API Support"
+    },
+    "description": "API Spec for Benakun",
+    "license": {
+      "name": "MIT License",
+      "url": "https://en.wikipedia.org/wiki/MIT_License"
+    },
+    "termsOfService": "https://benakun.com/term-of-service",
+    "title": "Benakun",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.3",
+  "servers": [
+    {
+      "description": "Benakun Server",
+      "url": "https://benakun.com"
+    }
+  ],
+	"paths": {
+		"/data/entry/dashboard": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "DataEntryDashboard",
+						"content": {
+							"application/json": {
+								"schema": {
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/guest/auto/login": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "GuestAutoLogin",
+						"content": {
+							"application/json": {
+								"schema": {
+			user: {haha
+			id: 0,
+			email: '',
+			password: '',
+			createdAt: 0,
+			createdBy: 0,
+			updatedAt: 0,
+			updatedBy: 0,
+			deletedAt: 0,
+			passwordSetAt: 0,
+			secretCode: '',
+			secretCodeAt: 0,
+			verificationSentAt: 0,
+			verifiedAt: 0,
+			lastLoginAt: 0,
+			fullName: '',
+			tenantCode: '',
+			role: '',
+			invitationState: '',
+				},
+			segments: {haha
+				},
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/guest/debug": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "GuestDebug",
+						"content": {
+							"application/json": {
+								"schema": {
+			request: {haha
+				},
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/guest/external/auth": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "GuestExternalAuth",
+						"content": {
+							"application/json": {
+								"schema": {
+			link: '',
+			clientID: '',
+			redirectUrl: '',
+			scopes: [],
+			csrfState: '',
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/guest/forgot/password": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "GuestForgotPassword",
+						"content": {
+							"application/json": {
+								"schema": {
+			ok: false,
+			resetPassUrl: '',
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/guest/login": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "GuestLogin",
+						"content": {
+							"application/json": {
+								"schema": {
+			user: {haha
+			id: 0,
+			email: '',
+			password: '',
+			createdAt: 0,
+			createdBy: 0,
+			updatedAt: 0,
+			updatedBy: 0,
+			deletedAt: 0,
+			passwordSetAt: 0,
+			secretCode: '',
+			secretCodeAt: 0,
+			verificationSentAt: 0,
+			verifiedAt: 0,
+			lastLoginAt: 0,
+			fullName: '',
+			tenantCode: '',
+			role: '',
+			invitationState: '',
+				},
+			segments: {haha
+				},
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/guest/oauth/callback": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "GuestOauthCallback",
+						"content": {
+							"application/json": {
+								"schema": {
+			oauthUser: {haha
+				},
+			email: '',
+			currentUser: {haha
+			id: 0,
+			email: '',
+			password: '',
+			createdAt: 0,
+			createdBy: 0,
+			updatedAt: 0,
+			updatedBy: 0,
+			deletedAt: 0,
+			passwordSetAt: 0,
+			secretCode: '',
+			secretCodeAt: 0,
+			verificationSentAt: 0,
+			verifiedAt: 0,
+			lastLoginAt: 0,
+			fullName: '',
+			tenantCode: '',
+			role: '',
+			invitationState: '',
+				},
+			provider: '',
+			segments: {haha
+				},
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/guest/register": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "GuestRegister",
+						"content": {
+							"application/json": {
+								"schema": {
+			user: {haha
+			id: 0,
+			email: '',
+			password: '',
+			createdAt: 0,
+			createdBy: 0,
+			updatedAt: 0,
+			updatedBy: 0,
+			deletedAt: 0,
+			passwordSetAt: 0,
+			secretCode: '',
+			secretCodeAt: 0,
+			verificationSentAt: 0,
+			verifiedAt: 0,
+			lastLoginAt: 0,
+			fullName: '',
+			tenantCode: '',
+			role: '',
+			invitationState: '',
+				},
+			verifyEmailUrl: '',
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/guest/resend/verification/email": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "GuestResendVerificationEmail",
+						"content": {
+							"application/json": {
+								"schema": {
+			ok: false,
+			verifyEmailUrl: '',
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/guest/reset/password": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "GuestResetPassword",
+						"content": {
+							"application/json": {
+								"schema": {
+			ok: false,
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/guest/verify/email": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "GuestVerifyEmail",
+						"content": {
+							"application/json": {
+								"schema": {
+			ok: false,
+			email: '',
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/report/viewer/dashboard": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "ReportViewerDashboard",
+						"content": {
+							"application/json": {
+								"schema": {
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/super/admin/dashboard": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "SuperAdminDashboard",
+						"content": {
+							"application/json": {
+								"schema": {
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/super/admin/tenant/management": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "SuperAdminTenantManagement",
+						"content": {
+							"application/json": {
+								"schema": {
+			pager: {haha
+			page: 0,
+			perPage: 0,
+			pages: 0,
+			total: 0,
+			filters: {haha
+				},
+			order: [],
+				},
+			meta: {haha
+			fields: {haha
+				},
+			mutex: {haha
+				},
+			cachedSelect: '',
+				},
+			tenant: {haha
+			id: 0,
+			tenantCode: '',
+			createdAt: 0,
+			createdBy: 0,
+			updatedAt: 0,
+			updatedBy: 0,
+			deletedAt: 0,
+				},
+			tenants: {haha
+				},
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/super/admin/user/management": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "SuperAdminUserManagement",
+						"content": {
+							"application/json": {
+								"schema": {
+			pager: {haha
+			page: 0,
+			perPage: 0,
+			pages: 0,
+			total: 0,
+			filters: {haha
+				},
+			order: [],
+				},
+			meta: {haha
+			fields: {haha
+				},
+			mutex: {haha
+				},
+			cachedSelect: '',
+				},
+			user: {haha
+			id: 0,
+			email: '',
+			password: '',
+			createdAt: 0,
+			createdBy: 0,
+			updatedAt: 0,
+			updatedBy: 0,
+			deletedAt: 0,
+			passwordSetAt: 0,
+			secretCode: '',
+			secretCodeAt: 0,
+			verificationSentAt: 0,
+			verifiedAt: 0,
+			lastLoginAt: 0,
+			fullName: '',
+			tenantCode: '',
+			role: '',
+			invitationState: '',
+				},
+			users: {haha
+				},
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tenant/admin/budgeting": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminBudgeting",
+						"content": {
+							"application/json": {
+								"schema": {
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tenant/admin/dashboard": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminDashboard",
+						"content": {
+							"application/json": {
+								"schema": {
+			staffs: {haha
+				},
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tenant/admin/invite/join": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminInviteJoin",
+						"content": {
+							"application/json": {
+								"schema": {
+			message: '',
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tenant/admin/organization": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminOrganization",
+						"content": {
+							"application/json": {
+								"schema": {
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tenant/admin/terminate/staff": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminTerminateStaff",
+						"content": {
+							"application/json": {
+								"schema": {
+			message: '',
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/auto/login/link": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "UserAutoLoginLink",
+						"content": {
+							"application/json": {
+								"schema": {
+			link: '',
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/change/password": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "UserChangePassword",
+						"content": {
+							"application/json": {
+								"schema": {
+			ok: false,
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/create/company": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "UserCreateCompany",
+						"content": {
+							"application/json": {
+								"schema": {
+			ok: false,
+			company: {haha
+			id: 0,
+			tenantCode: '',
+			name: '',
+			headTitle: '',
+			parentId: 0,
+			children: {haha
+				},
+			orgType: 0,
+			createdAt: 0,
+			createdBy: 0,
+			updatedAt: 0,
+			updatedBy: 0,
+			deletedAt: 0,
+				},
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/logout": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "UserLogout",
+						"content": {
+							"application/json": {
+								"schema": {
+			logoutAt: 0,
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/profile": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "UserProfile",
+						"content": {
+							"application/json": {
+								"schema": {
+			user: {haha
+			id: 0,
+			email: '',
+			password: '',
+			createdAt: 0,
+			createdBy: 0,
+			updatedAt: 0,
+			updatedBy: 0,
+			deletedAt: 0,
+			passwordSetAt: 0,
+			secretCode: '',
+			secretCodeAt: 0,
+			verificationSentAt: 0,
+			verifiedAt: 0,
+			lastLoginAt: 0,
+			fullName: '',
+			tenantCode: '',
+			role: '',
+			invitationState: '',
+				},
+			segments: {haha
+				},
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/response/invitation": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "UserResponseInvitation",
+						"content": {
+							"application/json": {
+								"schema": {
+			message: '',
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/session/kill": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "UserSessionKill",
+						"content": {
+							"application/json": {
+								"schema": {
+			logoutAt: 0,
+			sessionTerminated: 0,
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/sessions/active": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "UserSessionsActive",
+						"content": {
+							"application/json": {
+								"schema": {
+			sessionsActive: {haha
+				},
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/update/profile": {
+			"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "UserUpdateProfile",
+						"content": {
+							"application/json": {
+								"schema": {
+			user: {haha
+			id: 0,
+			email: '',
+			password: '',
+			createdAt: 0,
+			createdBy: 0,
+			updatedAt: 0,
+			updatedBy: 0,
+			deletedAt: 0,
+			passwordSetAt: 0,
+			secretCode: '',
+			secretCodeAt: 0,
+			verificationSentAt: 0,
+			verifiedAt: 0,
+			lastLoginAt: 0,
+			fullName: '',
+			tenantCode: '',
+			role: '',
+			invitationState: '',
+				},
+			segments: {haha
+				},
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

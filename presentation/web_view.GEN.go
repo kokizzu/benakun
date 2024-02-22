@@ -11,6 +11,7 @@ import (
 
 var viewList = map[string]string{
 	`404`: `../svelte/404.html`, // ../svelte/404.svelte
+	`ApidocsIndex`: `../svelte/apidocs/index.html`, // ../svelte/apidocs/index.svelte
 	`DataEntryDashboard`: `../svelte/dataEntry_dashboard.html`, // ../svelte/dataEntry_dashboard.svelte
 	`GuestOauthCallback`: `../svelte/guest_oauthCallback.html`, // ../svelte/guest_oauthCallback.svelte
 	`GuestResetPassword`: `../svelte/guest_resetPassword.html`, // ../svelte/guest_resetPassword.svelte
@@ -31,6 +32,11 @@ var viewList = map[string]string{
 func (v *Views) Render404(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`404`].Str(m))
+}
+
+func (v *Views) RenderApidocsIndex(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`ApidocsIndex`].Str(m))
 }
 
 func (v *Views) RenderDataEntryDashboard(c *fiber.Ctx, m M.SX) error {

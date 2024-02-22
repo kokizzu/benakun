@@ -37,7 +37,7 @@ func BenchmarkGenerateViews(b *testing.B) {
 		JsApiGenFile:     "../svelte/jsApi.GEN.js",
 		CmdRunGenFile:    "./cmd_run.GEN.go",
 		WebViewGenFile:   "./web_view.GEN.go",
-		SwaggerGenFile:   "../swagger.json",
+		SwaggerGenFile:   "../svelte/swagger.json",
 	}
 	p.StartCodegen()
 
@@ -681,17 +681,6 @@ func (v *Views) Render` + cacheName + `(c *fiber.Ctx, m M.SX) error {
 	L.CreateFile(c.WebViewGenFile, b.String())
 }
 
-func urlPath(input string) string {
-	var result []rune
-	for i, char := range input {
-		if i > 0 && unicode.IsUpper(char) {
-			result = append(result, '/')
-		}
-		result = append(result, unicode.ToLower(char))
-	}
-	return string(result)
-}
-
 func (c *codegen) GenerateSwaggerFile() {
 	defer L.TimeTrack(time.Now(), `GenerateSwaggerFile`)
 
@@ -723,9 +712,30 @@ func (c *codegen) GenerateSwaggerFile() {
 		if isEnd {
 			coma = ``
 		}
-		b.WriteString(TAB + TAB + `"/` + urlPath(handler.MethodName) + `": {` + NL)
-		b.WriteString(TAB + TAB + TAB + `"post":{}` + NL +
-			TAB + TAB + `}` + coma + NL)
+		b.WriteString(TAB + TAB + `"/` + c.swaggerPath(handler.MethodName) + `": {` + NL)
+		b.WriteString(TAB + TAB + TAB + `"post": {
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+					}
+				},`)
+		b.WriteString(`
+				"responses": {
+					"200": {
+						"description": "` + name + `",
+						"content": {
+							"application/json": {
+								"schema": {
+`)
+		fields := c.domains.types.byName[handler.Out].fields
+		c.swaggerResponses(&b, name+`Out`, fields, 0)
+		b.WriteString(TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + `}
+							}
+						}
+					}
+				}
+			}
+		}` + coma + NL)
 	})
 
 	b.WriteString(TAB + `}
@@ -733,4 +743,54 @@ func (c *codegen) GenerateSwaggerFile() {
 `)
 
 	L.CreateFile(c.SwaggerGenFile, b.String())
+}
+
+func (c *codegen) swaggerPath(input string) string {
+	var result []rune
+	for i, char := range input {
+		if i > 0 && unicode.IsUpper(char) {
+			result = append(result, '/')
+		}
+		result = append(result, unicode.ToLower(char))
+	}
+	return string(result)
+}
+
+func (c *codegen) swaggerFields(content *bytes.Buffer, fields []tfield, indent int) {
+	for _, field := range fields {
+		c.swaggerField(content, field, indent)
+	}
+}
+
+func (c *codegen) swaggerField(b *bytes.Buffer, field tfield, indent int) {
+	t := field.Type
+	// skip unecessary fields
+	switch t {
+	case `Tt.Adapter`, `Ch.Adapter`:
+		return
+	}
+
+	b.WriteString(TAB + TAB + TAB + S.CamelCase(field.Name) + `: `)
+
+	// write field type
+	switch t {
+	case `int`, `uint8`, `uint16`, `uint32`, `uint64`, `int8`, `int16`, `int32`, `int64`, `float32`, `float64`:
+		b.WriteString(`0,`)
+	case `string`:
+		b.WriteString(`'',`)
+	case `bool`:
+		b.WriteString(`false,`)
+	case `[]string`:
+		b.WriteString(`[],`)
+	default:
+		ty := c.models.types.byName[t]
+		b.WriteString(`{haha` + NL)
+		c.swaggerFields(b, ty.fields, indent+1)
+		b.WriteString(TAB + TAB + TAB + TAB + `},`)
+	}
+	b.WriteString(NL)
+}
+
+func (c *codegen) swaggerResponses(b *bytes.Buffer, name string, fields []tfield, indent int) {
+	c.swaggerFields(b, fields, indent)
 }
