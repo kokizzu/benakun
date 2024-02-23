@@ -10,37 +10,37 @@ import (
 	"benakun/model/mAuth/wcAuth"
 )
 
-//go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminInviteJoin.go
-//go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type TenantAdminInviteJoin.go
-//go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type TenantAdminInviteJoin.go
-//go:generate replacer -afterprefix "By\" form" "By,string\" form" type TenantAdminInviteJoin.go
-//go:generate farify doublequote --file TenantAdminInviteJoin.go
+//go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminInviteUser.go
+//go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type TenantAdminInviteUser.go
+//go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type TenantAdminInviteUser.go
+//go:generate replacer -afterprefix "By\" form" "By,string\" form" type TenantAdminInviteUser.go
+//go:generate farify doublequote --file TenantAdminInviteUser.go
 
 type (
-	TenantAdminInviteJoinIn struct {
+	TenantAdminInviteUserIn struct {
 		RequestCommon
 		Email string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
 	}
 
-	TenantAdminInviteJoinOut struct {
+	TenantAdminInviteUserOut struct {
 		ResponseCommon
 		Message string `json:"message" form:"message" query:"message" long:"message" msg:"message"`
 	}
 )
 
 const (
-	TenantAdminInviteJoinAction = `tenantAdmin/inviteUser`
+	TenantAdminInviteUserAction = `tenantAdmin/inviteUser`
 
-	ErrTenantAdminInviteJoinUserNotFound       = `user not found`
-	ErrTenantAdminInviteJoinInvalidUserEmail   = `invalid user email`
-	ErrTenantAdminInviteJoinInvalidTenantAdmin = `invalid tenant admin`
-	ErrTenantAdminInviteJoinInviteFailed       = `invite user failed`
-	ErrTenantAdminInviteJoinInvalidInvitation  = `cannot invite this user`
+	ErrTenantAdminInviteUserUserNotFound       = `user not found`
+	ErrTenantAdminInviteUserInvalidUserEmail   = `invalid user email`
+	ErrTenantAdminInviteUserInvalidTenantAdmin = `invalid tenant admin`
+	ErrTenantAdminInviteUserInviteFailed       = `invite user failed`
+	ErrTenantAdminInviteUserInvalidInvitation  = `cannot invite this user`
 
-	TenantAdminInviteJoinMsg = `User invited success`
+	TenantAdminInviteUserMsg = `User invited success`
 )
 
-func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantAdminInviteJoinOut) {
+func (d *Domain) TenantAdminInviteUser(in *TenantAdminInviteUserIn) (out TenantAdminInviteUserOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
@@ -48,31 +48,31 @@ func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantA
 	}
 
 	if in.Email == `` {
-		out.SetError(400, ErrTenantAdminInviteJoinInvalidUserEmail)
+		out.SetError(400, ErrTenantAdminInviteUserInvalidUserEmail)
 		return
 	}
 
 	tenantUser := wcAuth.NewUsersMutator(d.AuthOltp)
 	tenantUser.Id = sess.UserId
 	if !tenantUser.FindById() {
-		out.SetError(400, ErrTenantAdminInviteJoinUserNotFound)
+		out.SetError(400, ErrTenantAdminInviteUserUserNotFound)
 		return
 	}
 
 	if tenantUser.TenantCode == `` {
-		out.SetError(400, ErrTenantAdminInviteJoinInvalidTenantAdmin)
+		out.SetError(400, ErrTenantAdminInviteUserInvalidTenantAdmin)
 		return
 	}
 
 	userToInvite := wcAuth.NewUsersMutator(d.AuthOltp)
 	userToInvite.Email = in.Email
 	if !userToInvite.FindByEmail() {
-		out.SetError(400, ErrTenantAdminInviteJoinUserNotFound)
+		out.SetError(400, ErrTenantAdminInviteUserUserNotFound)
 		return
 	}
 
 	if userToInvite.TenantCode != `` {
-		out.SetError(400, ErrTenantAdminInviteJoinInvalidInvitation)
+		out.SetError(400, ErrTenantAdminInviteUserInvalidInvitation)
 		return
 	}
 
@@ -95,7 +95,7 @@ func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantA
 
 	if !userToInvite.DoUpdateByEmail() {
 		userToInvite.HaveMutation()
-		out.SetError(500, ErrTenantAdminInviteJoinInviteFailed)
+		out.SetError(500, ErrTenantAdminInviteUserInviteFailed)
 		return
 	}
 
@@ -106,6 +106,6 @@ func (d *Domain) TenantAdminInviteJoin(in *TenantAdminInviteJoinIn) (out TenantA
 		// TODO: insert failed event to clickhouse
 	})
 
-	out.Message = TenantAdminInviteJoinMsg
+	out.Message = TenantAdminInviteUserMsg
 	return
 }

@@ -21,7 +21,7 @@
     }
   ],
 	"paths": {
-		"/data/entry/dashboard": {
+		"/dataEntry/dashboard": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -47,7 +47,7 @@
 				}
 			}
 		},
-		"/guest/auto/login": {
+		"/guest/autoLogin": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -168,7 +168,7 @@
 				}
 			}
 		},
-		"/guest/external/auth": {
+		"/guest/externalAuth": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -212,7 +212,7 @@
 				}
 			}
 		},
-		"/guest/forgot/password": {
+		"/guest/forgotPassword": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -334,7 +334,7 @@
 				}
 			}
 		},
-		"/guest/oauth/callback": {
+		"/guest/oauthCallback": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -523,7 +523,7 @@
 				}
 			}
 		},
-		"/guest/resend/verification/email": {
+		"/guest/resendVerificationEmail": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -555,7 +555,7 @@
 				}
 			}
 		},
-		"/guest/reset/password": {
+		"/guest/resetPassword": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -584,7 +584,7 @@
 				}
 			}
 		},
-		"/guest/verify/email": {
+		"/guest/verifyEmail": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -616,7 +616,7 @@
 				}
 			}
 		},
-		"/report/viewer/dashboard": {
+		"/reportViewer/dashboard": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -642,7 +642,7 @@
 				}
 			}
 		},
-		"/super/admin/dashboard": {
+		"/superAdmin/dashboard": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -668,7 +668,7 @@
 				}
 			}
 		},
-		"/super/admin/tenant/management": {
+		"/superAdmin/tenantManagement": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -771,7 +771,7 @@
 				}
 			}
 		},
-		"/super/admin/user/management": {
+		"/superAdmin/userManagement": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -907,7 +907,7 @@
 				}
 			}
 		},
-		"/tenant/admin/budgeting": {
+		"/tenantAdmin/budgeting": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -933,7 +933,7 @@
 				}
 			}
 		},
-		"/tenant/admin/dashboard": {
+		"/tenantAdmin/dashboard": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -964,7 +964,7 @@
 				}
 			}
 		},
-		"/tenant/admin/invite/join": {
+		"/tenantAdmin/inviteUser": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -976,7 +976,7 @@
 				},
 				"responses": {
 					"200": {
-						"description": "TenantAdminInviteJoin",
+						"description": "TenantAdminInviteUser",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -993,7 +993,7 @@
 				}
 			}
 		},
-		"/tenant/admin/organization": {
+		"/tenantAdmin/organization": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -1019,7 +1019,7 @@
 				}
 			}
 		},
-		"/tenant/admin/terminate/staff": {
+		"/tenantAdmin/terminateStaff": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -1048,7 +1048,7 @@
 				}
 			}
 		},
-		"/user/auto/login/link": {
+		"/user/autoLoginLink": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -1077,7 +1077,7 @@
 				}
 			}
 		},
-		"/user/change/password": {
+		"/user/changePassword": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -1106,7 +1106,7 @@
 				}
 			}
 		},
-		"/user/create/company": {
+		"/user/createCompany": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -1297,7 +1297,7 @@
 				}
 			}
 		},
-		"/user/response/invitation": {
+		"/user/responseInvitation": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -1326,7 +1326,7 @@
 				}
 			}
 		},
-		"/user/session/kill": {
+		"/user/sessionKill": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -1358,7 +1358,7 @@
 				}
 			}
 		},
-		"/user/sessions/active": {
+		"/user/sessionsActive": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -1389,7 +1389,7 @@
 				}
 			}
 		},
-		"/user/update/profile": {
+		"/user/updateProfile": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
