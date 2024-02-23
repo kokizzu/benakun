@@ -714,6 +714,9 @@ func (c *codegen) GenerateSwaggerFile() {
 		}
 		b.WriteString(TAB + TAB + `"/` + c.swaggerPath(handler.MethodName) + `": {` + NL)
 		b.WriteString(TAB + TAB + TAB + `"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -726,10 +729,13 @@ func (c *codegen) GenerateSwaggerFile() {
 						"content": {
 							"application/json": {
 								"schema": {
+									"type": "object",
+									"properties": {
 `)
 		fields := c.domains.types.byName[handler.Out].fields
 		c.swaggerResponses(&b, name+`Out`, fields, 0)
-		b.WriteString(TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + `}
+		b.WriteString(TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + `}
+								}
 							}
 						}
 					}
@@ -738,7 +744,17 @@ func (c *codegen) GenerateSwaggerFile() {
 		}` + coma + NL)
 	})
 
-	b.WriteString(TAB + `}
+	b.WriteString(TAB + `},
+	"components": {
+		"securitySchemes": {
+			"CookieAuth": {
+				"type": "apiKey",
+				"in": "cookie",
+				"name": "auth",
+				"description": "Authentication for Benakun"
+			}
+		}
+	}
 }
 `)
 
@@ -757,12 +773,20 @@ func (c *codegen) swaggerPath(input string) string {
 }
 
 func (c *codegen) swaggerFields(content *bytes.Buffer, fields []tfield, indent int) {
-	for _, field := range fields {
-		c.swaggerField(content, field, indent)
+	for idx, field := range fields {
+		end := false
+		if idx == len(fields)-1 {
+			end = true
+		}
+		c.swaggerField(content, field, indent, end)
 	}
 }
 
-func (c *codegen) swaggerField(b *bytes.Buffer, field tfield, indent int) {
+func (c *codegen) swaggerField(b *bytes.Buffer, field tfield, indent int, isEnd bool) {
+	coma := `,`
+	if isEnd {
+		coma = ``
+	}
 	t := field.Type
 	// skip unecessary fields
 	switch t {
@@ -770,23 +794,37 @@ func (c *codegen) swaggerField(b *bytes.Buffer, field tfield, indent int) {
 		return
 	}
 
-	b.WriteString(TAB + TAB + TAB + S.CamelCase(field.Name) + `: `)
+	spaces := S.Repeat(TAB, indent*2)
+	b.WriteString(TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + spaces + `"` + S.CamelCase(field.Name) + `": `)
 
-	// write field type
 	switch t {
 	case `int`, `uint8`, `uint16`, `uint32`, `uint64`, `int8`, `int16`, `int32`, `int64`, `float32`, `float64`:
-		b.WriteString(`0,`)
+		b.WriteString(`{
+` + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + spaces + `"type": "number"
+` + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + spaces + `}` + coma)
 	case `string`:
-		b.WriteString(`'',`)
+		b.WriteString(`{
+` + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + spaces + `"type": "string"
+` + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + spaces + `}` + coma)
 	case `bool`:
-		b.WriteString(`false,`)
+		b.WriteString(`{
+` + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + spaces + `"type": "boolean"
+` + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + spaces + `}` + coma)
 	case `[]string`:
-		b.WriteString(`[],`)
+		b.WriteString(`{
+` + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + spaces + `"type": "array",
+` + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + spaces + `"items": {
+` + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + spaces + `"type": "string"
+` + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + spaces + `}
+` + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + spaces + `}` + coma)
 	default:
 		ty := c.models.types.byName[t]
-		b.WriteString(`{haha` + NL)
+		b.WriteString(`{
+											"type": "object",
+											"properties": {` + NL)
 		c.swaggerFields(b, ty.fields, indent+1)
-		b.WriteString(TAB + TAB + TAB + TAB + `},`)
+		b.WriteString(TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + spaces + `}
+` + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + spaces + `}` + coma)
 	}
 	b.WriteString(NL)
 }

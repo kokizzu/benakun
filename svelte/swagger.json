@@ -23,6 +23,9 @@
 	"paths": {
 		"/data/entry/dashboard": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -34,6 +37,9 @@
 						"content": {
 							"application/json": {
 								"schema": {
+									"type": "object",
+									"properties": {
+									}
 								}
 							}
 						}
@@ -43,6 +49,9 @@
 		},
 		"/guest/auto/login": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -54,28 +63,73 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			user: {haha
-			id: 0,
-			email: '',
-			password: '',
-			createdAt: 0,
-			createdBy: 0,
-			updatedAt: 0,
-			updatedBy: 0,
-			deletedAt: 0,
-			passwordSetAt: 0,
-			secretCode: '',
-			secretCodeAt: 0,
-			verificationSentAt: 0,
-			verifiedAt: 0,
-			lastLoginAt: 0,
-			fullName: '',
-			tenantCode: '',
-			role: '',
-			invitationState: '',
-				},
-			segments: {haha
-				},
+									"type": "object",
+									"properties": {
+										"user": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "number"
+												},
+												"email": {
+													"type": "string"
+												},
+												"password": {
+													"type": "string"
+												},
+												"createdAt": {
+													"type": "number"
+												},
+												"createdBy": {
+													"type": "number"
+												},
+												"updatedAt": {
+													"type": "number"
+												},
+												"updatedBy": {
+													"type": "number"
+												},
+												"deletedAt": {
+													"type": "number"
+												},
+												"passwordSetAt": {
+													"type": "number"
+												},
+												"secretCode": {
+													"type": "string"
+												},
+												"secretCodeAt": {
+													"type": "number"
+												},
+												"verificationSentAt": {
+													"type": "number"
+												},
+												"verifiedAt": {
+													"type": "number"
+												},
+												"lastLoginAt": {
+													"type": "number"
+												},
+												"fullName": {
+													"type": "string"
+												},
+												"tenantCode": {
+													"type": "string"
+												},
+												"role": {
+													"type": "string"
+												},
+												"invitationState": {
+													"type": "string"
+												}
+											}
+										},
+										"segments": {
+											"type": "object",
+											"properties": {
+											}
+										}
+									}
 								}
 							}
 						}
@@ -85,6 +139,9 @@
 		},
 		"/guest/debug": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -96,8 +153,14 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			request: {haha
-				},
+									"type": "object",
+									"properties": {
+										"request": {
+											"type": "object",
+											"properties": {
+											}
+										}
+									}
 								}
 							}
 						}
@@ -107,6 +170,9 @@
 		},
 		"/guest/external/auth": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -118,11 +184,27 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			link: '',
-			clientID: '',
-			redirectUrl: '',
-			scopes: [],
-			csrfState: '',
+									"type": "object",
+									"properties": {
+										"link": {
+											"type": "string"
+										},
+										"clientID": {
+											"type": "string"
+										},
+										"redirectUrl": {
+											"type": "string"
+										},
+										"scopes": {
+											"type": "array",
+												"items": {
+													"type": "string"
+												}
+											},
+										"csrfState": {
+											"type": "string"
+										}
+									}
 								}
 							}
 						}
@@ -132,6 +214,9 @@
 		},
 		"/guest/forgot/password": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -143,8 +228,15 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			ok: false,
-			resetPassUrl: '',
+									"type": "object",
+									"properties": {
+										"ok": {
+											"type": "boolean"
+										},
+										"resetPassUrl": {
+											"type": "string"
+										}
+									}
 								}
 							}
 						}
@@ -154,6 +246,9 @@
 		},
 		"/guest/login": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -165,28 +260,73 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			user: {haha
-			id: 0,
-			email: '',
-			password: '',
-			createdAt: 0,
-			createdBy: 0,
-			updatedAt: 0,
-			updatedBy: 0,
-			deletedAt: 0,
-			passwordSetAt: 0,
-			secretCode: '',
-			secretCodeAt: 0,
-			verificationSentAt: 0,
-			verifiedAt: 0,
-			lastLoginAt: 0,
-			fullName: '',
-			tenantCode: '',
-			role: '',
-			invitationState: '',
-				},
-			segments: {haha
-				},
+									"type": "object",
+									"properties": {
+										"user": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "number"
+												},
+												"email": {
+													"type": "string"
+												},
+												"password": {
+													"type": "string"
+												},
+												"createdAt": {
+													"type": "number"
+												},
+												"createdBy": {
+													"type": "number"
+												},
+												"updatedAt": {
+													"type": "number"
+												},
+												"updatedBy": {
+													"type": "number"
+												},
+												"deletedAt": {
+													"type": "number"
+												},
+												"passwordSetAt": {
+													"type": "number"
+												},
+												"secretCode": {
+													"type": "string"
+												},
+												"secretCodeAt": {
+													"type": "number"
+												},
+												"verificationSentAt": {
+													"type": "number"
+												},
+												"verifiedAt": {
+													"type": "number"
+												},
+												"lastLoginAt": {
+													"type": "number"
+												},
+												"fullName": {
+													"type": "string"
+												},
+												"tenantCode": {
+													"type": "string"
+												},
+												"role": {
+													"type": "string"
+												},
+												"invitationState": {
+													"type": "string"
+												}
+											}
+										},
+										"segments": {
+											"type": "object",
+											"properties": {
+											}
+										}
+									}
 								}
 							}
 						}
@@ -196,6 +336,9 @@
 		},
 		"/guest/oauth/callback": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -207,32 +350,84 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			oauthUser: {haha
-				},
-			email: '',
-			currentUser: {haha
-			id: 0,
-			email: '',
-			password: '',
-			createdAt: 0,
-			createdBy: 0,
-			updatedAt: 0,
-			updatedBy: 0,
-			deletedAt: 0,
-			passwordSetAt: 0,
-			secretCode: '',
-			secretCodeAt: 0,
-			verificationSentAt: 0,
-			verifiedAt: 0,
-			lastLoginAt: 0,
-			fullName: '',
-			tenantCode: '',
-			role: '',
-			invitationState: '',
-				},
-			provider: '',
-			segments: {haha
-				},
+									"type": "object",
+									"properties": {
+										"oauthUser": {
+											"type": "object",
+											"properties": {
+											}
+										},
+										"email": {
+											"type": "string"
+										},
+										"currentUser": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "number"
+												},
+												"email": {
+													"type": "string"
+												},
+												"password": {
+													"type": "string"
+												},
+												"createdAt": {
+													"type": "number"
+												},
+												"createdBy": {
+													"type": "number"
+												},
+												"updatedAt": {
+													"type": "number"
+												},
+												"updatedBy": {
+													"type": "number"
+												},
+												"deletedAt": {
+													"type": "number"
+												},
+												"passwordSetAt": {
+													"type": "number"
+												},
+												"secretCode": {
+													"type": "string"
+												},
+												"secretCodeAt": {
+													"type": "number"
+												},
+												"verificationSentAt": {
+													"type": "number"
+												},
+												"verifiedAt": {
+													"type": "number"
+												},
+												"lastLoginAt": {
+													"type": "number"
+												},
+												"fullName": {
+													"type": "string"
+												},
+												"tenantCode": {
+													"type": "string"
+												},
+												"role": {
+													"type": "string"
+												},
+												"invitationState": {
+													"type": "string"
+												}
+											}
+										},
+										"provider": {
+											"type": "string"
+										},
+										"segments": {
+											"type": "object",
+											"properties": {
+											}
+										}
+									}
 								}
 							}
 						}
@@ -242,6 +437,9 @@
 		},
 		"/guest/register": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -253,27 +451,71 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			user: {haha
-			id: 0,
-			email: '',
-			password: '',
-			createdAt: 0,
-			createdBy: 0,
-			updatedAt: 0,
-			updatedBy: 0,
-			deletedAt: 0,
-			passwordSetAt: 0,
-			secretCode: '',
-			secretCodeAt: 0,
-			verificationSentAt: 0,
-			verifiedAt: 0,
-			lastLoginAt: 0,
-			fullName: '',
-			tenantCode: '',
-			role: '',
-			invitationState: '',
-				},
-			verifyEmailUrl: '',
+									"type": "object",
+									"properties": {
+										"user": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "number"
+												},
+												"email": {
+													"type": "string"
+												},
+												"password": {
+													"type": "string"
+												},
+												"createdAt": {
+													"type": "number"
+												},
+												"createdBy": {
+													"type": "number"
+												},
+												"updatedAt": {
+													"type": "number"
+												},
+												"updatedBy": {
+													"type": "number"
+												},
+												"deletedAt": {
+													"type": "number"
+												},
+												"passwordSetAt": {
+													"type": "number"
+												},
+												"secretCode": {
+													"type": "string"
+												},
+												"secretCodeAt": {
+													"type": "number"
+												},
+												"verificationSentAt": {
+													"type": "number"
+												},
+												"verifiedAt": {
+													"type": "number"
+												},
+												"lastLoginAt": {
+													"type": "number"
+												},
+												"fullName": {
+													"type": "string"
+												},
+												"tenantCode": {
+													"type": "string"
+												},
+												"role": {
+													"type": "string"
+												},
+												"invitationState": {
+													"type": "string"
+												}
+											}
+										},
+										"verifyEmailUrl": {
+											"type": "string"
+										}
+									}
 								}
 							}
 						}
@@ -283,6 +525,9 @@
 		},
 		"/guest/resend/verification/email": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -294,8 +539,15 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			ok: false,
-			verifyEmailUrl: '',
+									"type": "object",
+									"properties": {
+										"ok": {
+											"type": "boolean"
+										},
+										"verifyEmailUrl": {
+											"type": "string"
+										}
+									}
 								}
 							}
 						}
@@ -305,6 +557,9 @@
 		},
 		"/guest/reset/password": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -316,7 +571,12 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			ok: false,
+									"type": "object",
+									"properties": {
+										"ok": {
+											"type": "boolean"
+										}
+									}
 								}
 							}
 						}
@@ -326,6 +586,9 @@
 		},
 		"/guest/verify/email": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -337,8 +600,15 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			ok: false,
-			email: '',
+									"type": "object",
+									"properties": {
+										"ok": {
+											"type": "boolean"
+										},
+										"email": {
+											"type": "string"
+										}
+									}
 								}
 							}
 						}
@@ -348,6 +618,9 @@
 		},
 		"/report/viewer/dashboard": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -359,6 +632,9 @@
 						"content": {
 							"application/json": {
 								"schema": {
+									"type": "object",
+									"properties": {
+									}
 								}
 							}
 						}
@@ -368,6 +644,9 @@
 		},
 		"/super/admin/dashboard": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -379,6 +658,9 @@
 						"content": {
 							"application/json": {
 								"schema": {
+									"type": "object",
+									"properties": {
+									}
 								}
 							}
 						}
@@ -388,6 +670,9 @@
 		},
 		"/super/admin/tenant/management": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -399,33 +684,86 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			pager: {haha
-			page: 0,
-			perPage: 0,
-			pages: 0,
-			total: 0,
-			filters: {haha
-				},
-			order: [],
-				},
-			meta: {haha
-			fields: {haha
-				},
-			mutex: {haha
-				},
-			cachedSelect: '',
-				},
-			tenant: {haha
-			id: 0,
-			tenantCode: '',
-			createdAt: 0,
-			createdBy: 0,
-			updatedAt: 0,
-			updatedBy: 0,
-			deletedAt: 0,
-				},
-			tenants: {haha
-				},
+									"type": "object",
+									"properties": {
+										"pager": {
+											"type": "object",
+											"properties": {
+												"page": {
+													"type": "number"
+												},
+												"perPage": {
+													"type": "number"
+												},
+												"pages": {
+													"type": "number"
+												},
+												"total": {
+													"type": "number"
+												},
+												"filters": {
+											"type": "object",
+											"properties": {
+													}
+												},
+												"order": {
+													"type": "array",
+														"items": {
+															"type": "string"
+														}
+													}
+											}
+										},
+										"meta": {
+											"type": "object",
+											"properties": {
+												"fields": {
+											"type": "object",
+											"properties": {
+													}
+												},
+												"mutex": {
+											"type": "object",
+											"properties": {
+													}
+												},
+												"cachedSelect": {
+													"type": "string"
+												}
+											}
+										},
+										"tenant": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "number"
+												},
+												"tenantCode": {
+													"type": "string"
+												},
+												"createdAt": {
+													"type": "number"
+												},
+												"createdBy": {
+													"type": "number"
+												},
+												"updatedAt": {
+													"type": "number"
+												},
+												"updatedBy": {
+													"type": "number"
+												},
+												"deletedAt": {
+													"type": "number"
+												}
+											}
+										},
+										"tenants": {
+											"type": "object",
+											"properties": {
+											}
+										}
+									}
 								}
 							}
 						}
@@ -435,6 +773,9 @@
 		},
 		"/super/admin/user/management": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -446,44 +787,119 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			pager: {haha
-			page: 0,
-			perPage: 0,
-			pages: 0,
-			total: 0,
-			filters: {haha
-				},
-			order: [],
-				},
-			meta: {haha
-			fields: {haha
-				},
-			mutex: {haha
-				},
-			cachedSelect: '',
-				},
-			user: {haha
-			id: 0,
-			email: '',
-			password: '',
-			createdAt: 0,
-			createdBy: 0,
-			updatedAt: 0,
-			updatedBy: 0,
-			deletedAt: 0,
-			passwordSetAt: 0,
-			secretCode: '',
-			secretCodeAt: 0,
-			verificationSentAt: 0,
-			verifiedAt: 0,
-			lastLoginAt: 0,
-			fullName: '',
-			tenantCode: '',
-			role: '',
-			invitationState: '',
-				},
-			users: {haha
-				},
+									"type": "object",
+									"properties": {
+										"pager": {
+											"type": "object",
+											"properties": {
+												"page": {
+													"type": "number"
+												},
+												"perPage": {
+													"type": "number"
+												},
+												"pages": {
+													"type": "number"
+												},
+												"total": {
+													"type": "number"
+												},
+												"filters": {
+											"type": "object",
+											"properties": {
+													}
+												},
+												"order": {
+													"type": "array",
+														"items": {
+															"type": "string"
+														}
+													}
+											}
+										},
+										"meta": {
+											"type": "object",
+											"properties": {
+												"fields": {
+											"type": "object",
+											"properties": {
+													}
+												},
+												"mutex": {
+											"type": "object",
+											"properties": {
+													}
+												},
+												"cachedSelect": {
+													"type": "string"
+												}
+											}
+										},
+										"user": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "number"
+												},
+												"email": {
+													"type": "string"
+												},
+												"password": {
+													"type": "string"
+												},
+												"createdAt": {
+													"type": "number"
+												},
+												"createdBy": {
+													"type": "number"
+												},
+												"updatedAt": {
+													"type": "number"
+												},
+												"updatedBy": {
+													"type": "number"
+												},
+												"deletedAt": {
+													"type": "number"
+												},
+												"passwordSetAt": {
+													"type": "number"
+												},
+												"secretCode": {
+													"type": "string"
+												},
+												"secretCodeAt": {
+													"type": "number"
+												},
+												"verificationSentAt": {
+													"type": "number"
+												},
+												"verifiedAt": {
+													"type": "number"
+												},
+												"lastLoginAt": {
+													"type": "number"
+												},
+												"fullName": {
+													"type": "string"
+												},
+												"tenantCode": {
+													"type": "string"
+												},
+												"role": {
+													"type": "string"
+												},
+												"invitationState": {
+													"type": "string"
+												}
+											}
+										},
+										"users": {
+											"type": "object",
+											"properties": {
+											}
+										}
+									}
 								}
 							}
 						}
@@ -493,6 +909,9 @@
 		},
 		"/tenant/admin/budgeting": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -504,6 +923,9 @@
 						"content": {
 							"application/json": {
 								"schema": {
+									"type": "object",
+									"properties": {
+									}
 								}
 							}
 						}
@@ -513,6 +935,9 @@
 		},
 		"/tenant/admin/dashboard": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -524,8 +949,14 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			staffs: {haha
-				},
+									"type": "object",
+									"properties": {
+										"staffs": {
+											"type": "object",
+											"properties": {
+											}
+										}
+									}
 								}
 							}
 						}
@@ -535,6 +966,9 @@
 		},
 		"/tenant/admin/invite/join": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -546,7 +980,12 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			message: '',
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									}
 								}
 							}
 						}
@@ -556,6 +995,9 @@
 		},
 		"/tenant/admin/organization": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -567,6 +1009,9 @@
 						"content": {
 							"application/json": {
 								"schema": {
+									"type": "object",
+									"properties": {
+									}
 								}
 							}
 						}
@@ -576,6 +1021,9 @@
 		},
 		"/tenant/admin/terminate/staff": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -587,7 +1035,12 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			message: '',
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									}
 								}
 							}
 						}
@@ -597,6 +1050,9 @@
 		},
 		"/user/auto/login/link": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -608,7 +1064,12 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			link: '',
+									"type": "object",
+									"properties": {
+										"link": {
+											"type": "string"
+										}
+									}
 								}
 							}
 						}
@@ -618,6 +1079,9 @@
 		},
 		"/user/change/password": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -629,7 +1093,12 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			ok: false,
+									"type": "object",
+									"properties": {
+										"ok": {
+											"type": "boolean"
+										}
+									}
 								}
 							}
 						}
@@ -639,6 +1108,9 @@
 		},
 		"/user/create/company": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -650,22 +1122,55 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			ok: false,
-			company: {haha
-			id: 0,
-			tenantCode: '',
-			name: '',
-			headTitle: '',
-			parentId: 0,
-			children: {haha
-				},
-			orgType: 0,
-			createdAt: 0,
-			createdBy: 0,
-			updatedAt: 0,
-			updatedBy: 0,
-			deletedAt: 0,
-				},
+									"type": "object",
+									"properties": {
+										"ok": {
+											"type": "boolean"
+										},
+										"company": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "number"
+												},
+												"tenantCode": {
+													"type": "string"
+												},
+												"name": {
+													"type": "string"
+												},
+												"headTitle": {
+													"type": "string"
+												},
+												"parentId": {
+													"type": "number"
+												},
+												"children": {
+											"type": "object",
+											"properties": {
+													}
+												},
+												"orgType": {
+													"type": "number"
+												},
+												"createdAt": {
+													"type": "number"
+												},
+												"createdBy": {
+													"type": "number"
+												},
+												"updatedAt": {
+													"type": "number"
+												},
+												"updatedBy": {
+													"type": "number"
+												},
+												"deletedAt": {
+													"type": "number"
+												}
+											}
+										}
+									}
 								}
 							}
 						}
@@ -675,6 +1180,9 @@
 		},
 		"/user/logout": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -686,7 +1194,12 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			logoutAt: 0,
+									"type": "object",
+									"properties": {
+										"logoutAt": {
+											"type": "number"
+										}
+									}
 								}
 							}
 						}
@@ -696,6 +1209,9 @@
 		},
 		"/user/profile": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -707,28 +1223,73 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			user: {haha
-			id: 0,
-			email: '',
-			password: '',
-			createdAt: 0,
-			createdBy: 0,
-			updatedAt: 0,
-			updatedBy: 0,
-			deletedAt: 0,
-			passwordSetAt: 0,
-			secretCode: '',
-			secretCodeAt: 0,
-			verificationSentAt: 0,
-			verifiedAt: 0,
-			lastLoginAt: 0,
-			fullName: '',
-			tenantCode: '',
-			role: '',
-			invitationState: '',
-				},
-			segments: {haha
-				},
+									"type": "object",
+									"properties": {
+										"user": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "number"
+												},
+												"email": {
+													"type": "string"
+												},
+												"password": {
+													"type": "string"
+												},
+												"createdAt": {
+													"type": "number"
+												},
+												"createdBy": {
+													"type": "number"
+												},
+												"updatedAt": {
+													"type": "number"
+												},
+												"updatedBy": {
+													"type": "number"
+												},
+												"deletedAt": {
+													"type": "number"
+												},
+												"passwordSetAt": {
+													"type": "number"
+												},
+												"secretCode": {
+													"type": "string"
+												},
+												"secretCodeAt": {
+													"type": "number"
+												},
+												"verificationSentAt": {
+													"type": "number"
+												},
+												"verifiedAt": {
+													"type": "number"
+												},
+												"lastLoginAt": {
+													"type": "number"
+												},
+												"fullName": {
+													"type": "string"
+												},
+												"tenantCode": {
+													"type": "string"
+												},
+												"role": {
+													"type": "string"
+												},
+												"invitationState": {
+													"type": "string"
+												}
+											}
+										},
+										"segments": {
+											"type": "object",
+											"properties": {
+											}
+										}
+									}
 								}
 							}
 						}
@@ -738,6 +1299,9 @@
 		},
 		"/user/response/invitation": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -749,7 +1313,12 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			message: '',
+									"type": "object",
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									}
 								}
 							}
 						}
@@ -759,6 +1328,9 @@
 		},
 		"/user/session/kill": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -770,8 +1342,15 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			logoutAt: 0,
-			sessionTerminated: 0,
+									"type": "object",
+									"properties": {
+										"logoutAt": {
+											"type": "number"
+										},
+										"sessionTerminated": {
+											"type": "number"
+										}
+									}
 								}
 							}
 						}
@@ -781,6 +1360,9 @@
 		},
 		"/user/sessions/active": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -792,8 +1374,14 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			sessionsActive: {haha
-				},
+									"type": "object",
+									"properties": {
+										"sessionsActive": {
+											"type": "object",
+											"properties": {
+											}
+										}
+									}
 								}
 							}
 						}
@@ -803,6 +1391,9 @@
 		},
 		"/user/update/profile": {
 			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
@@ -814,33 +1405,88 @@
 						"content": {
 							"application/json": {
 								"schema": {
-			user: {haha
-			id: 0,
-			email: '',
-			password: '',
-			createdAt: 0,
-			createdBy: 0,
-			updatedAt: 0,
-			updatedBy: 0,
-			deletedAt: 0,
-			passwordSetAt: 0,
-			secretCode: '',
-			secretCodeAt: 0,
-			verificationSentAt: 0,
-			verifiedAt: 0,
-			lastLoginAt: 0,
-			fullName: '',
-			tenantCode: '',
-			role: '',
-			invitationState: '',
-				},
-			segments: {haha
-				},
+									"type": "object",
+									"properties": {
+										"user": {
+											"type": "object",
+											"properties": {
+												"id": {
+													"type": "number"
+												},
+												"email": {
+													"type": "string"
+												},
+												"password": {
+													"type": "string"
+												},
+												"createdAt": {
+													"type": "number"
+												},
+												"createdBy": {
+													"type": "number"
+												},
+												"updatedAt": {
+													"type": "number"
+												},
+												"updatedBy": {
+													"type": "number"
+												},
+												"deletedAt": {
+													"type": "number"
+												},
+												"passwordSetAt": {
+													"type": "number"
+												},
+												"secretCode": {
+													"type": "string"
+												},
+												"secretCodeAt": {
+													"type": "number"
+												},
+												"verificationSentAt": {
+													"type": "number"
+												},
+												"verifiedAt": {
+													"type": "number"
+												},
+												"lastLoginAt": {
+													"type": "number"
+												},
+												"fullName": {
+													"type": "string"
+												},
+												"tenantCode": {
+													"type": "string"
+												},
+												"role": {
+													"type": "string"
+												},
+												"invitationState": {
+													"type": "string"
+												}
+											}
+										},
+										"segments": {
+											"type": "object",
+											"properties": {
+											}
+										}
+									}
 								}
 							}
 						}
 					}
 				}
+			}
+		}
+	},
+	"components": {
+		"securitySchemes": {
+			"CookieAuth": {
+				"type": "apiKey",
+				"in": "cookie",
+				"name": "auth",
+				"description": "Authentication for Benakun"
 			}
 		}
 	}
