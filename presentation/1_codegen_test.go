@@ -732,6 +732,17 @@ func (c *codegen) GenerateSwaggerFile() {
 				"tags": ["API"],
 				"requestBody": {
 					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+`)
+
+		fieldsIn := c.domains.types.byName[handler.In].fields
+		c.swaggerRequest(&b, name+`In`, fieldsIn, 0)
+		b.WriteString(tabs(8) + `}
+							}
+						}
 					}
 				},`)
 		b.WriteString(`
@@ -745,7 +756,7 @@ func (c *codegen) GenerateSwaggerFile() {
 									"properties": {
 `)
 		fields := c.domains.types.byName[handler.Out].fields
-		c.swaggerResponses(&b, name+`Out`, fields, 0)
+		c.swaggerResponses(&b, name+`Out`, fields, 2)
 		b.WriteString(TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + TAB + `}
 								}
 							}
@@ -796,40 +807,44 @@ func (c *codegen) swaggerField(b *bytes.Buffer, field tfield, indent int, isEnd 
 	}
 
 	spaces := S.Repeat(TAB, indent*2)
-	b.WriteString(tabs(10) + spaces + `"` + S.CamelCase(field.Name) + `": `)
+	b.WriteString(tabs(6) + spaces + `"` + S.CamelCase(field.Name) + `": `)
 
 	switch t {
 	case `int`, `uint8`, `uint16`, `uint32`, `uint64`, `int8`, `int16`, `int32`, `int64`, `float32`, `float64`:
 		b.WriteString(`{
-` + tabs(11) + spaces + `"type": "number"
-` + tabs(10) + spaces + `}` + coma)
+` + tabs(8) + spaces + `"type": "number"
+` + tabs(6) + spaces + `}` + coma)
 	case `string`:
 		b.WriteString(`{
-` + tabs(11) + spaces + `"type": "string"
-` + tabs(10) + spaces + `}` + coma)
+` + tabs(8) + spaces + `"type": "string"
+` + tabs(6) + spaces + `}` + coma)
 	case `bool`:
 		b.WriteString(`{
-` + tabs(10) + TAB + spaces + `"type": "boolean"
-` + tabs(10) + spaces + `}` + coma)
+` + tabs(6) + TAB + spaces + `"type": "boolean"
+` + tabs(6) + spaces + `}` + coma)
 	case `[]string`:
 		b.WriteString(`{
-` + tabs(11) + spaces + `"type": "array",
-` + tabs(12) + spaces + `"items": {
-` + tabs(13) + spaces + `"type": "string"
-` + tabs(12) + spaces + `}
-` + tabs(11) + spaces + `}` + coma)
+` + tabs(8) + spaces + `"type": "array",
+` + tabs(9) + spaces + `"items": {
+` + tabs(10) + spaces + `"type": "string"
+` + tabs(9) + spaces + `}
+` + tabs(8) + spaces + `}` + coma)
 	default:
 		ty := c.models.types.byName[t]
 		b.WriteString(`{
-											"type": "object",
-											"properties": {` + NL)
+` + tabs(6) + spaces + `"type": "object",
+` + tabs(6) + spaces + `"properties": {` + NL)
 		c.swaggerFields(b, ty.fields, indent+1)
-		b.WriteString(tabs(11) + spaces + `}
-` + tabs(10) + spaces + `}` + coma)
+		b.WriteString(tabs(8) + spaces + `}
+` + tabs(6) + spaces + `}` + coma)
 	}
 	b.WriteString(NL)
 }
 
 func (c *codegen) swaggerResponses(b *bytes.Buffer, name string, fields []tfield, indent int) {
+	c.swaggerFields(b, fields, indent)
+}
+
+func (c *codegen) swaggerRequest(b *bytes.Buffer, name string, fields []tfield, indent int) {
 	c.swaggerFields(b, fields, indent)
 }
