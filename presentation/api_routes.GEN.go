@@ -180,13 +180,13 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
-	// TenantAdminInviteJoin
-	fw.Post("/"+domain.TenantAdminInviteJoinAction, func(c *fiber.Ctx) error {
-		in := domain.TenantAdminInviteJoinIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminInviteJoinAction); err != nil {
+	// TenantAdminInviteUser
+	fw.Post("/"+domain.TenantAdminInviteUserAction, func(c *fiber.Ctx) error {
+		in := domain.TenantAdminInviteUserIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminInviteUserAction); err != nil {
 			return nil
 		}
-		out := d.TenantAdminInviteJoin(&in)
+		out := d.TenantAdminInviteUser(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

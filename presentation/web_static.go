@@ -226,6 +226,12 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/apidocs`, func(ctx *fiber.Ctx) error {
+		return views.RenderApidocsIndex(ctx, M.SX{
+			`title`:       `Benakun API Docs`,
+			`description`: `Restful API Documentation of Benakun`,
+		})
+	})
 }
 
 func userInfoFromContext(c *fiber.Ctx, d *domain.Domain) (domain.UserProfileIn, *rqAuth.Users, M.SB) {

@@ -25,12 +25,12 @@ func TestInviteJoinCompany(t *testing.T) {
 		err := json.Unmarshal([]byte(py), &ij)
 		assert.NoError(t, err)
 
-		in := TenantAdminInviteJoinIn{
-			RequestCommon: testAdminRequestCommon(TenantAdminInviteJoinAction),
+		in := TenantAdminInviteUserIn{
+			RequestCommon: testAdminRequestCommon(TenantAdminInviteUserAction),
 			Email:         ij.Email,
 		}
 
-		out := d.TenantAdminInviteJoin(&in)
+		out := d.TenantAdminInviteUser(&in)
 		assert.Empty(t, out.Error)
 		assert.NotEmpty(t, out.Message)
 	})

@@ -24,7 +24,7 @@ var allCommands = []string{
 	domain.SuperAdminUserManagementAction,
 	domain.TenantAdminBudgetingAction,
 	domain.TenantAdminDashboardAction,
-	domain.TenantAdminInviteJoinAction,
+	domain.TenantAdminInviteUserAction,
 	domain.TenantAdminOrganizationAction,
 	domain.TenantAdminTerminateStaffAction,
 	domain.UserAutoLoginLinkAction,

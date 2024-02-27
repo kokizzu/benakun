@@ -897,30 +897,30 @@ exports.TenantAdminDashboard = async function TenantAdminDashboard( i, cb ) {
 }
 
 /**
- * @typedef {Object} TenantAdminInviteJoinIn
+ * @typedef {Object} TenantAdminInviteUserIn
  * @property {String} email
  */
-const TenantAdminInviteJoinIn = {
+const TenantAdminInviteUserIn = {
   email: '', // string
 }
 /**
- * @typedef {Object} TenantAdminInviteJoinOut
+ * @typedef {Object} TenantAdminInviteUserOut
  * @property {String} message
  */
-const TenantAdminInviteJoinOut = {
+const TenantAdminInviteUserOut = {
   message: '', // string
 }
 /**
- * @callback TenantAdminInviteJoinCallback
- * @param {TenantAdminInviteJoinOut} o
+ * @callback TenantAdminInviteUserCallback
+ * @param {TenantAdminInviteUserOut} o
  * @returns {Promise}
  */
 /**
- * @param  {TenantAdminInviteJoinIn} i
- * @param {TenantAdminInviteJoinCallback} cb
+ * @param  {TenantAdminInviteUserIn} i
+ * @param {TenantAdminInviteUserCallback} cb
  * @returns {Promise}
  */
-exports.TenantAdminInviteJoin = async function TenantAdminInviteJoin( i, cb ) {
+exports.TenantAdminInviteUser = async function TenantAdminInviteUser( i, cb ) {
   return await axios.post( '/tenantAdmin/inviteUser', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
