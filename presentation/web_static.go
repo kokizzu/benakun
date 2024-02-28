@@ -162,6 +162,19 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.TenantAdminCoaAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notLogin(d, in.RequestCommon, false) {
+			return ctx.Redirect(`/`, 302)
+		}
+		in.RequestCommon.Action = domain.TenantAdminCoaAction
+		return views.RenderTenantAdminCoa(ctx, M.SX{
+			`title`:    `Tenant Admin Coa`,
+			`user`:     user,
+			`segments`: segments,
+		})
+	})
+
 	fw.Get(`/`+domain.SuperAdminDashboardAction, func(ctx *fiber.Ctx) error {
 		var in domain.SuperAdminDashboardIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.SuperAdminDashboardAction)

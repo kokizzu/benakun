@@ -8,7 +8,7 @@
 </script>
 
 <a href={href} class:active={window.location.pathname === href}>
-  <Icon size={22} className={window.location.pathname === href  ? 'icon_active' : 'icon_dark'} src={icon}/>
+  <Icon size={20} className={window.location.pathname === href  ? 'icon_active' : 'icon_dark'} src={icon}/>
   <span>{title}</span>
 </a>
 

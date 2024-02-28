@@ -33,6 +33,10 @@
     stroke: var(--gray-006) !important;
   }
 
+  :global(.admin_submenu a:hover .nav_icon_dark path) {
+    stroke: var(--purple-002) !important;
+  }
+
   :global(.admin_submenu a .nav_icon_active path) {
     stroke: var(--purple-002) !important;
   }
@@ -53,9 +57,9 @@
     text-decoration: none;
     color: var(--gray-007);
     font-weight: 600;
-    border: 1px solid transparent;
+    border: 1px solid var(--gray-002);
     border-radius: 999px;
-    background-color: transparent;
+    background-color: var(--gray-002);
   }
 
   .admin_submenu a:hover {
