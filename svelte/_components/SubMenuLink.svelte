@@ -1,5 +1,4 @@
 <script>
-  //@ts-nocheck
   import Icon from 'svelte-icons-pack/Icon.svelte';
 
   export let href = '';
@@ -8,7 +7,7 @@
 </script>
 
 <a href={href} class:active={window.location.pathname === href}>
-  <Icon size={20} className={window.location.pathname === href  ? 'icon_active' : 'icon_dark'} src={icon}/>
+  <Icon size="20" className={window.location.pathname === href  ? 'icon_active' : 'icon_dark'} src={icon}/>
   <span>{title}</span>
 </a>
 

@@ -37,9 +37,7 @@
   async function userLogout() {
     await UserLogout({}, function(o) {
       console.log(o);
-      if (o.error) notifier.showError(o.error);
-      user = null;
-      segments = null;
+      if (o.error) return notifier.showError(o.error);
       window.document.location = '/';
     });
   }

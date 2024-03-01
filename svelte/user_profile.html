@@ -3880,7 +3880,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let current;
     icon_1 = new Icon_default({
       props: {
-        size: 20,
+        size: "20",
         className: window.location.pathname === /*href*/
         ctx[0] ? "icon_active" : "icon_dark",
         src: (
@@ -4804,9 +4804,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       await (0, import_jsApi_GEN.UserLogout)({}, function(o) {
         console.log(o);
         if (o.error)
-          notifier.showError(o.error);
-        user = null;
-        segments = null;
+          return notifier.showError(o.error);
         window.document.location = "/";
       });
     }
@@ -4884,15 +4882,15 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     };
   }
   function instance4($self, $props, $invalidate) {
-    let { user: user2 = {} } = $props;
+    let { user = {} } = $props;
     onMount(() => {
-      console.log("onMount.ProfileHeader =", user2);
+      console.log("onMount.ProfileHeader =", user);
     });
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(0, user2 = $props2.user);
+        $invalidate(0, user = $props2.user);
     };
-    return [user2];
+    return [user];
   }
   var Navbar = class extends SvelteComponent {
     constructor(options) {
@@ -5978,7 +5976,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let t51;
     let footer;
     let current;
-    sidemenu = new SideMenu_default({ props: { access: segments2 } });
+    sidemenu = new SideMenu_default({ props: { access: segments } });
     navbar = new Navbar_default({ props: { user: (
       /*user*/
       ctx[0]
@@ -6484,9 +6482,9 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       }
     };
   }
-  var segments2 = {/* segments */};
+  var segments = {/* segments */};
   function instance8($self, $props, $invalidate) {
-    let user2 = {/* user */};
+    let user = {/* user */};
     let sessionActiveLists = {/* activeSessions */};
     let oldPassword = "";
     let newPassword = "";
@@ -6495,19 +6493,19 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let profileSubmit = false, passwordSubmit = false;
     onMount(async () => {
       console.log("onMount.user");
-      oldProfileJson = JSON.stringify(user2);
-      console.log("User data = ", user2);
+      oldProfileJson = JSON.stringify(user);
+      console.log("User data = ", user);
     });
     async function updateProfile() {
       $invalidate(5, profileSubmit = true);
-      if (JSON.stringify(user2) === oldProfileJson)
+      if (JSON.stringify(user) === oldProfileJson)
         return notifier.showWarning("No changes");
-      await (0, import_jsApi_GEN2.UserUpdateProfile)(user2, function(res) {
+      await (0, import_jsApi_GEN2.UserUpdateProfile)(user, function(res) {
         $invalidate(5, profileSubmit = false);
         if (res.error)
           return notifier.showError(res.error);
         oldProfileJson = JSON.stringify(res.user);
-        $invalidate(0, user2 = res.user);
+        $invalidate(0, user = res.user);
         notifier.showSuccess("Profile updated");
       });
     }
@@ -6538,7 +6536,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         if (res.sessionTerminated < 1)
           return notifier.showError("No session terminated");
         notifier.showInfo(res.sessionTerminated + " session terminated");
-        await (0, import_jsApi_GEN2.UserSessionsActive)({ userId: user2.id }, (res2) => {
+        await (0, import_jsApi_GEN2.UserSessionsActive)({ userId: user.id }, (res2) => {
           if (res2.error)
             return notifier.showError(res2.error);
           $invalidate(1, sessionActiveLists = res2.sessionsActive);
@@ -6546,20 +6544,20 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       });
     }
     function inputbox0_value_binding(value) {
-      if ($self.$.not_equal(user2.fullName, value)) {
-        user2.fullName = value;
-        $invalidate(0, user2);
+      if ($self.$.not_equal(user.fullName, value)) {
+        user.fullName = value;
+        $invalidate(0, user);
       }
     }
     function inputbox1_value_binding(value) {
-      if ($self.$.not_equal(user2.email, value)) {
-        user2.email = value;
-        $invalidate(0, user2);
+      if ($self.$.not_equal(user.email, value)) {
+        user.email = value;
+        $invalidate(0, user);
       }
     }
     const click_handler = (session) => killSession(session.sessionToken);
     return [
-      user2,
+      user,
       sessionActiveLists,
       oldPassword,
       newPassword,

@@ -3625,7 +3625,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let current;
     icon_1 = new Icon_default({
       props: {
-        size: 20,
+        size: "20",
         className: window.location.pathname === /*href*/
         ctx[0] ? "icon_active" : "icon_dark",
         src: (
@@ -4549,9 +4549,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       await (0, import_jsApi_GEN.UserLogout)({}, function(o) {
         console.log(o);
         if (o.error)
-          notifier.showError(o.error);
-        user = null;
-        segments = null;
+          return notifier.showError(o.error);
         window.document.location = "/";
       });
     }
@@ -4855,15 +4853,15 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     };
   }
   function instance5($self, $props, $invalidate) {
-    let { user: user3 = {} } = $props;
+    let { user: user2 = {} } = $props;
     onMount(() => {
-      console.log("onMount.ProfileHeader =", user3);
+      console.log("onMount.ProfileHeader =", user2);
     });
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(0, user3 = $props2.user);
+        $invalidate(0, user2 = $props2.user);
     };
-    return [user3];
+    return [user2];
   }
   var Navbar = class extends SvelteComponent {
     constructor(options) {
@@ -4936,8 +4934,8 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let t4;
     let footer;
     let current;
-    sidemenu = new SideMenu_default({ props: { access: segments2 } });
-    navbar = new Navbar_default({ props: { user: user2 } });
+    sidemenu = new SideMenu_default({ props: { access: segments } });
+    navbar = new Navbar_default({ props: { user } });
     adminsubmenu = new AdminSubMenu_default({});
     footer = new Footer_default({});
     return {
@@ -5005,11 +5003,11 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       }
     };
   }
-  var segments2 = {/* segments */};
-  var user2 = {/* user */};
+  var segments = {/* segments */};
+  var user = {/* user */};
   function instance7($self) {
     onMount(() => {
-      console.log("User: ", user2);
+      console.log("User: ", user);
     });
     return [];
   }

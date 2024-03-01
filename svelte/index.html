@@ -3906,7 +3906,7 @@ a.active.svelte-1n0fjzt {
     let current;
     icon_1 = new Icon_default({
       props: {
-        size: 20,
+        size: "20",
         className: window.location.pathname === /*href*/
         ctx[0] ? "icon_active" : "icon_dark",
         src: (
@@ -4830,9 +4830,7 @@ a.active.svelte-1n0fjzt {
       await (0, import_jsApi_GEN.UserLogout)({}, function(o) {
         console.log(o);
         if (o.error)
-          notifier.showError(o.error);
-        user = null;
-        segments = null;
+          return notifier.showError(o.error);
         window.document.location = "/";
       });
     }
@@ -4910,15 +4908,15 @@ a.active.svelte-1n0fjzt {
     };
   }
   function instance5($self, $props, $invalidate) {
-    let { user: user2 = {} } = $props;
+    let { user = {} } = $props;
     onMount(() => {
-      console.log("onMount.ProfileHeader =", user2);
+      console.log("onMount.ProfileHeader =", user);
     });
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(0, user2 = $props2.user);
+        $invalidate(0, user = $props2.user);
     };
-    return [user2];
+    return [user];
   }
   var Navbar = class extends SvelteComponent {
     constructor(options) {
@@ -7201,15 +7199,15 @@ a.active.svelte-1n0fjzt {
       return match[2];
   }
   function instance8($self, $props, $invalidate) {
-    let user2 = {/* user */};
-    let segments2 = {/* segments */};
+    let user = {/* user */};
+    let segments = {/* segments */};
     let email = "", password = "", confirmPass = "";
     let mode = LOGIN, isSubmitted = false;
     async function onHashChange() {
       console.log("onHashChange.start");
       const auth = getCookie("akun");
-      console.log(auth, user2);
-      if (auth && user2 && !auth.startsWith("TEMP__")) {
+      console.log(auth, user);
+      if (auth && user && !auth.startsWith("TEMP__")) {
         location.hash = "";
         $invalidate(5, mode = USER);
         return;
@@ -7233,7 +7231,7 @@ a.active.svelte-1n0fjzt {
     onMount(() => {
       console.log("onMount.index");
       onHashChange();
-      console.log("User = ", user2);
+      console.log("User = ", user);
     });
     async function guestRegister() {
       $invalidate(6, isSubmitted = true);
@@ -7282,8 +7280,8 @@ a.active.svelte-1n0fjzt {
         }
         $invalidate(6, isSubmitted = false);
         notifier.showSuccess("Login success");
-        $invalidate(0, user2 = o.user);
-        $invalidate(1, segments2 = o.segments);
+        $invalidate(0, user = o.user);
+        $invalidate(1, segments = o.segments);
         window.document.location = "/";
       });
     }
@@ -7397,8 +7395,8 @@ a.active.svelte-1n0fjzt {
     const click_handler_2 = () => $invalidate(5, mode = LOGIN);
     const click_handler_3 = () => $invalidate(5, mode = RESEND_VERIFICATION_EMAIL);
     return [
-      user2,
-      segments2,
+      user,
+      segments,
       email,
       password,
       confirmPass,
