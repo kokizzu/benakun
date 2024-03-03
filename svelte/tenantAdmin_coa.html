@@ -434,6 +434,75 @@ footer.svelte-18vlekj nav a.svelte-18vlekj {
 footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   color: var(--purple-002);
 }
+
+/* fakecss:./tenantAdmin_coa.esbuild-svelte-fake-css */
+.coa_levels.svelte-1o7267c.svelte-1o7267c {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+}
+.coa_levels.svelte-1o7267c .coa.svelte-1o7267c {
+  background-color: #FFF;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  border: 1px solid var(--gray-003);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.coa_levels.svelte-1o7267c .coa .parent.svelte-1o7267c {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--blue-006);
+  padding: 10px 10px 10px 15px;
+  border-bottom: 1px solid var(--gray-003);
+}
+.coa_levels.svelte-1o7267c .coa .options.svelte-1o7267c {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.coa_levels.svelte-1o7267c .coa .options .btn.svelte-1o7267c {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+.coa_levels.svelte-1o7267c .coa .options .btn.svelte-1o7267c:hover {
+  background-color: var(--gray-002);
+}
+.coa_levels.svelte-1o7267c .coa .options .btn.svelte-1o7267c:active {
+  background-color: var(--gray-003);
+}
+.coa_levels.svelte-1o7267c .coa .childs.svelte-1o7267c {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 16px;
+  overflow: hidden;
+}
+.coa_levels.svelte-1o7267c .coa .childs .child.svelte-1o7267c {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px 10px 15px;
+  cursor: pointer;
+}
+.coa_levels.svelte-1o7267c .coa .childs .child.svelte-1o7267c:hover {
+  background-color: var(--gray-001);
+}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -2446,13 +2515,13 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance6 = bind(Axios$1.prototype.request, context);
-        utils$1.extend(instance6, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance6, context, null, { allOwnKeys: true });
-        instance6.create = function create(instanceConfig) {
+        const instance7 = bind(Axios$1.prototype.request, context);
+        utils$1.extend(instance7, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance7, context, null, { allOwnKeys: true });
+        instance7.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance6;
+        return instance7;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2701,6 +2770,9 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   function space() {
     return text(" ");
   }
+  function empty() {
+    return text("");
+  }
   function listen(node, event, handler, options) {
     node.addEventListener(event, handler, options);
     return () => node.removeEventListener(event, handler, options);
@@ -2871,6 +2943,85 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     }
   }
 
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/each.js
+  function ensure_array_like(array_like_or_iterator) {
+    return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
+  }
+  function outro_and_destroy_block(block, lookup) {
+    transition_out(block, 1, 1, () => {
+      lookup.delete(block.key);
+    });
+  }
+  function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block2, next, get_context) {
+    let o = old_blocks.length;
+    let n = list.length;
+    let i = o;
+    const old_indexes = {};
+    while (i--)
+      old_indexes[old_blocks[i].key] = i;
+    const new_blocks = [];
+    const new_lookup = /* @__PURE__ */ new Map();
+    const deltas = /* @__PURE__ */ new Map();
+    const updates = [];
+    i = n;
+    while (i--) {
+      const child_ctx = get_context(ctx, list, i);
+      const key = get_key(child_ctx);
+      let block = lookup.get(key);
+      if (!block) {
+        block = create_each_block2(key, child_ctx);
+        block.c();
+      } else if (dynamic) {
+        updates.push(() => block.p(child_ctx, dirty));
+      }
+      new_lookup.set(key, new_blocks[i] = block);
+      if (key in old_indexes)
+        deltas.set(key, Math.abs(i - old_indexes[key]));
+    }
+    const will_move = /* @__PURE__ */ new Set();
+    const did_move = /* @__PURE__ */ new Set();
+    function insert2(block) {
+      transition_in(block, 1);
+      block.m(node, next);
+      lookup.set(block.key, block);
+      next = block.first;
+      n--;
+    }
+    while (o && n) {
+      const new_block = new_blocks[n - 1];
+      const old_block = old_blocks[o - 1];
+      const new_key = new_block.key;
+      const old_key = old_block.key;
+      if (new_block === old_block) {
+        next = new_block.first;
+        o--;
+        n--;
+      } else if (!new_lookup.has(old_key)) {
+        destroy(old_block, lookup);
+        o--;
+      } else if (!lookup.has(new_key) || will_move.has(new_key)) {
+        insert2(new_block);
+      } else if (did_move.has(old_key)) {
+        o--;
+      } else if (deltas.get(new_key) > deltas.get(old_key)) {
+        did_move.add(new_key);
+        insert2(new_block);
+      } else {
+        will_move.add(old_key);
+        o--;
+      }
+    }
+    while (o--) {
+      const old_block = old_blocks[o];
+      if (!new_lookup.has(old_block.key))
+        destroy(old_block, lookup);
+    }
+    while (n)
+      insert2(new_blocks[n - 1]);
+    run_all(updates);
+    return new_blocks;
+  }
+
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/spread.js
   function get_spread_update(levels, updates) {
     const update2 = {};
@@ -2974,7 +3125,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance6, create_fragment7, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance7, create_fragment7, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3000,7 +3151,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance6 ? instance6(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance7 ? instance7(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -4653,84 +4804,539 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   };
   var Footer_default = Footer;
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemAddBoxLine.js
+  var RiSystemAddBoxLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6 6V7h2v4h4v2h-4v4h-2v-4H7v-2h4z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiDesignPencilLine.js
+  var RiDesignPencilLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M15.728 9.686l-1.414-1.414L5 17.586V19h1.414l9.314-9.314zm1.414-1.414l1.414-1.414-1.414-1.414-1.414 1.414 1.414 1.414zM7.242 21H3v-4.243L16.435 3.322a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414L7.243 21z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiDesignDragMoveLine.js
+  var RiDesignDragMoveLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M12 2l4.243 4.243-1.415 1.414L12 4.828 9.172 7.657 7.757 6.243 12 2zM2 12l4.243-4.243 1.414 1.415L4.828 12l2.829 2.828-1.414 1.415L2 12zm20 0l-4.243 4.243-1.414-1.415L19.172 12l-2.829-2.828 1.414-1.415L22 12zm-10 2a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 8l-4.243-4.243 1.415-1.414L12 19.172l2.828-2.829 1.415 1.414L12 22z"></path></g>'
+  };
+
   // tenantAdmin_coa.svelte
+  function get_each_context(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[1] = list[i];
+    child_ctx[3] = i;
+    return child_ctx;
+  }
+  function get_each_context_1(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[4] = list[i];
+    child_ctx[3] = i;
+    return child_ctx;
+  }
+  function create_if_block2(ctx) {
+    let each_blocks = [];
+    let each_1_lookup = /* @__PURE__ */ new Map();
+    let each_1_anchor;
+    let current;
+    let each_value = ensure_array_like(
+      /*coa*/
+      ctx[0]
+    );
+    const get_key = (ctx2) => (
+      /*c*/
+      ctx2[1].id
+    );
+    for (let i = 0; i < each_value.length; i += 1) {
+      let child_ctx = get_each_context(ctx, each_value, i);
+      let key = get_key(child_ctx);
+      each_1_lookup.set(key, each_blocks[i] = create_each_block(key, child_ctx));
+    }
+    return {
+      c() {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        each_1_anchor = empty();
+      },
+      m(target, anchor) {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(target, anchor);
+          }
+        }
+        insert(target, each_1_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*coa*/
+        1) {
+          each_value = ensure_array_like(
+            /*coa*/
+            ctx2[0]
+          );
+          group_outros();
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block, each_1_anchor, get_each_context);
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        for (let i = 0; i < each_value.length; i += 1) {
+          transition_in(each_blocks[i]);
+        }
+        current = true;
+      },
+      o(local) {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          transition_out(each_blocks[i]);
+        }
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(each_1_anchor);
+        }
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].d(detaching);
+        }
+      }
+    };
+  }
+  function create_if_block_12(ctx) {
+    let div;
+    let each_blocks = [];
+    let each_1_lookup = /* @__PURE__ */ new Map();
+    let current;
+    let each_value_1 = ensure_array_like(
+      /*c*/
+      ctx[1].children
+    );
+    const get_key = (ctx2) => (
+      /*cc*/
+      ctx2[4].id
+    );
+    for (let i = 0; i < each_value_1.length; i += 1) {
+      let child_ctx = get_each_context_1(ctx, each_value_1, i);
+      let key = get_key(child_ctx);
+      each_1_lookup.set(key, each_blocks[i] = create_each_block_1(key, child_ctx));
+    }
+    return {
+      c() {
+        div = element("div");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        attr(div, "class", "childs svelte-1o7267c");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(div, null);
+          }
+        }
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*coa*/
+        1) {
+          each_value_1 = ensure_array_like(
+            /*c*/
+            ctx2[1].children
+          );
+          group_outros();
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value_1, each_1_lookup, div, outro_and_destroy_block, create_each_block_1, null, get_each_context_1);
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        for (let i = 0; i < each_value_1.length; i += 1) {
+          transition_in(each_blocks[i]);
+        }
+        current = true;
+      },
+      o(local) {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          transition_out(each_blocks[i]);
+        }
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].d();
+        }
+      }
+    };
+  }
+  function create_each_block_1(key_1, ctx) {
+    let div1;
+    let span;
+    let t1;
+    let div0;
+    let button0;
+    let icon0;
+    let t2;
+    let button1;
+    let icon1;
+    let t3;
+    let button2;
+    let icon2;
+    let t4;
+    let current;
+    icon0 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemAddBoxLine_default
+      }
+    });
+    icon1 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiDesignPencilLine_default
+      }
+    });
+    icon2 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiDesignDragMoveLine_default
+      }
+    });
+    return {
+      key: key_1,
+      first: null,
+      c() {
+        div1 = element("div");
+        span = element("span");
+        span.textContent = `${/*cc*/
+        ctx[4].name}`;
+        t1 = space();
+        div0 = element("div");
+        button0 = element("button");
+        create_component(icon0.$.fragment);
+        t2 = space();
+        button1 = element("button");
+        create_component(icon1.$.fragment);
+        t3 = space();
+        button2 = element("button");
+        create_component(icon2.$.fragment);
+        t4 = space();
+        attr(button0, "class", "btn svelte-1o7267c");
+        attr(button1, "class", "btn svelte-1o7267c");
+        attr(button2, "class", "btn svelte-1o7267c");
+        attr(div0, "class", "options svelte-1o7267c");
+        attr(div1, "class", "child svelte-1o7267c");
+        this.first = div1;
+      },
+      m(target, anchor) {
+        insert(target, div1, anchor);
+        append(div1, span);
+        append(div1, t1);
+        append(div1, div0);
+        append(div0, button0);
+        mount_component(icon0, button0, null);
+        append(div0, t2);
+        append(div0, button1);
+        mount_component(icon1, button1, null);
+        append(div0, t3);
+        append(div0, button2);
+        mount_component(icon2, button2, null);
+        append(div1, t4);
+        current = true;
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon0.$.fragment, local);
+        transition_in(icon1.$.fragment, local);
+        transition_in(icon2.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon0.$.fragment, local);
+        transition_out(icon1.$.fragment, local);
+        transition_out(icon2.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div1);
+        }
+        destroy_component(icon0);
+        destroy_component(icon1);
+        destroy_component(icon2);
+      }
+    };
+  }
+  function create_each_block(key_1, ctx) {
+    let div2;
+    let div1;
+    let span;
+    let t1;
+    let div0;
+    let button0;
+    let icon0;
+    let t2;
+    let button1;
+    let icon1;
+    let t3;
+    let t4;
+    let current;
+    icon0 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemAddBoxLine_default
+      }
+    });
+    icon1 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiDesignPencilLine_default
+      }
+    });
+    let if_block = (
+      /*c*/
+      ctx[1].children && /*c*/
+      ctx[1].children.length && create_if_block_12(ctx)
+    );
+    return {
+      key: key_1,
+      first: null,
+      c() {
+        div2 = element("div");
+        div1 = element("div");
+        span = element("span");
+        span.textContent = `${/*c*/
+        ctx[1].name}`;
+        t1 = space();
+        div0 = element("div");
+        button0 = element("button");
+        create_component(icon0.$.fragment);
+        t2 = space();
+        button1 = element("button");
+        create_component(icon1.$.fragment);
+        t3 = space();
+        if (if_block)
+          if_block.c();
+        t4 = space();
+        attr(button0, "class", "btn svelte-1o7267c");
+        attr(button1, "class", "btn svelte-1o7267c");
+        attr(div0, "class", "options svelte-1o7267c");
+        attr(div1, "class", "parent svelte-1o7267c");
+        attr(div2, "class", "coa svelte-1o7267c");
+        this.first = div2;
+      },
+      m(target, anchor) {
+        insert(target, div2, anchor);
+        append(div2, div1);
+        append(div1, span);
+        append(div1, t1);
+        append(div1, div0);
+        append(div0, button0);
+        mount_component(icon0, button0, null);
+        append(div0, t2);
+        append(div0, button1);
+        mount_component(icon1, button1, null);
+        append(div2, t3);
+        if (if_block)
+          if_block.m(div2, null);
+        append(div2, t4);
+        current = true;
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (
+          /*c*/
+          ctx[1].children && /*c*/
+          ctx[1].children.length
+        )
+          if_block.p(ctx, dirty);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon0.$.fragment, local);
+        transition_in(icon1.$.fragment, local);
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon0.$.fragment, local);
+        transition_out(icon1.$.fragment, local);
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div2);
+        }
+        destroy_component(icon0);
+        destroy_component(icon1);
+        if (if_block)
+          if_block.d();
+      }
+    };
+  }
   function create_fragment6(ctx) {
-    let div8;
-    let div7;
+    let div4;
+    let div3;
     let sidemenu;
     let t0;
-    let div6;
+    let div2;
     let navbar;
     let t1;
-    let div5;
-    let t13;
+    let div1;
+    let div0;
+    let t2;
     let footer;
     let current;
     sidemenu = new SideMenu_default({ props: { access: segments } });
     navbar = new Navbar_default({ props: { user } });
+    let if_block = (
+      /*coa*/
+      ctx[0] && /*coa*/
+      ctx[0].length && create_if_block2(ctx)
+    );
     footer = new Footer_default({});
     return {
       c() {
-        div8 = element("div");
-        div7 = element("div");
+        div4 = element("div");
+        div3 = element("div");
         create_component(sidemenu.$.fragment);
         t0 = space();
-        div6 = element("div");
+        div2 = element("div");
         create_component(navbar.$.fragment);
         t1 = space();
-        div5 = element("div");
-        div5.innerHTML = `<div class="coa_levels"><div class="coa"><div class="parent"><span>Assets</span> <div class="options"><button class="btn">Add</button> <button class="btn">Edit</button></div></div> <div class="childs"><span>1.1 Aktiva tetap</span> <span>1.2 xxxxxxxxx</span> <span>1.3 xxxxxxxx</span></div></div></div>`;
-        t13 = space();
+        div1 = element("div");
+        div0 = element("div");
+        if (if_block)
+          if_block.c();
+        t2 = space();
         create_component(footer.$.fragment);
-        attr(div5, "class", "content");
-        attr(div6, "class", "root_content");
-        attr(div7, "class", "root_container");
-        attr(div8, "class", "root_layout");
+        attr(div0, "class", "coa_levels svelte-1o7267c");
+        attr(div1, "class", "content");
+        attr(div2, "class", "root_content");
+        attr(div3, "class", "root_container");
+        attr(div4, "class", "root_layout");
       },
       m(target, anchor) {
-        insert(target, div8, anchor);
-        append(div8, div7);
-        mount_component(sidemenu, div7, null);
-        append(div7, t0);
-        append(div7, div6);
-        mount_component(navbar, div6, null);
-        append(div6, t1);
-        append(div6, div5);
-        append(div6, t13);
-        mount_component(footer, div6, null);
+        insert(target, div4, anchor);
+        append(div4, div3);
+        mount_component(sidemenu, div3, null);
+        append(div3, t0);
+        append(div3, div2);
+        mount_component(navbar, div2, null);
+        append(div2, t1);
+        append(div2, div1);
+        append(div1, div0);
+        if (if_block)
+          if_block.m(div0, null);
+        append(div2, t2);
+        mount_component(footer, div2, null);
         current = true;
       },
-      p: noop,
+      p(ctx2, [dirty]) {
+        if (
+          /*coa*/
+          ctx2[0] && /*coa*/
+          ctx2[0].length
+        )
+          if_block.p(ctx2, dirty);
+      },
       i(local) {
         if (current)
           return;
         transition_in(sidemenu.$.fragment, local);
         transition_in(navbar.$.fragment, local);
+        transition_in(if_block);
         transition_in(footer.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(sidemenu.$.fragment, local);
         transition_out(navbar.$.fragment, local);
+        transition_out(if_block);
         transition_out(footer.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(div8);
+          detach(div4);
         }
         destroy_component(sidemenu);
         destroy_component(navbar);
+        if (if_block)
+          if_block.d();
         destroy_component(footer);
       }
     };
   }
   var segments = {/* segments */};
   var user = {/* user */};
+  function instance6($self) {
+    let coa = [
+      {
+        id: "1",
+        name: "Aktiva",
+        children: [
+          {
+            id: "1.1",
+            name: "Aktiva tetap",
+            children: [],
+            parent_id: "1",
+            level: 1
+          },
+          {
+            id: "1.2",
+            name: "Aktiva lancar",
+            children: [],
+            parent_id: "1",
+            level: 1
+          },
+          {
+            id: "1.3",
+            name: "Aktiva tak berwujud",
+            children: [],
+            parent_id: "1",
+            level: 1
+          }
+        ],
+        parent_id: null,
+        level: 0
+      }
+    ];
+    return [coa];
+  }
   var TenantAdmin_coa = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment6, safe_not_equal, {});
+      init(this, options, instance6, create_fragment6, safe_not_equal, {});
     }
   };
   var tenantAdmin_coa_default = TenantAdmin_coa;
