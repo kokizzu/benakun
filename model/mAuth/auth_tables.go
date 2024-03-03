@@ -151,6 +151,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{ParentId, Tt.Unsigned},
 			{Children, Tt.Array},
 		},
+		AutoIncrementId: true,
 	},
 }
 

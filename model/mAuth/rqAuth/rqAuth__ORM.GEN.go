@@ -44,6 +44,24 @@ func (c *Coa) SqlTableName() string { //nolint:dupl false positive
 	return `"coa"`
 }
 
+func (c *Coa) UniqueIndexId() string { //nolint:dupl false positive
+	return `id`
+}
+
+// FindById Find one by Id
+func (c *Coa) FindById() bool { //nolint:dupl false positive
+	res, err := c.Adapter.Select(c.SpaceName(), c.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{c.Id})
+	if L.IsError(err, `Coa.FindById failed: `+c.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		c.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
 // SqlSelectAllFields generate Sql select fields
 func (c *Coa) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "id"
@@ -140,8 +158,12 @@ func (c *Coa) SqlChildren() string { //nolint:dupl false positive
 
 // ToArray receiver fields to slice
 func (c *Coa) ToArray() A.X { //nolint:dupl false positive
+	var id any = nil
+	if c.Id != 0 {
+		id = c.Id
+	}
 	return A.X{
-		c.Id,         // 0
+		id,
 		c.TenantCode, // 1
 		c.Name,       // 2
 		c.Level,      // 3

@@ -48,6 +48,27 @@ func (c *CoaMutator) ClearMutations() { //nolint:dupl false positive
 	c.logs = []A.X{}
 }
 
+// DoOverwriteById update all columns, error if not exists, not using mutations/Set*
+func (c *CoaMutator) DoOverwriteById() bool { //nolint:dupl false positive
+	_, err := c.Adapter.Update(c.SpaceName(), c.UniqueIndexId(), A.X{c.Id}, c.ToUpdateArray())
+	return !L.IsError(err, `Coa.DoOverwriteById failed: `+c.SpaceName())
+}
+
+// DoUpdateById update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (c *CoaMutator) DoUpdateById() bool { //nolint:dupl false positive
+	if !c.HaveMutation() {
+		return true
+	}
+	_, err := c.Adapter.Update(c.SpaceName(), c.UniqueIndexId(), A.X{c.Id}, c.mutations)
+	return !L.IsError(err, `Coa.DoUpdateById failed: `+c.SpaceName())
+}
+
+// DoDeletePermanentById permanent delete
+func (c *CoaMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
+	_, err := c.Adapter.Delete(c.SpaceName(), c.UniqueIndexId(), A.X{c.Id})
+	return !L.IsError(err, `Coa.DoDeletePermanentById failed: `+c.SpaceName())
+}
+
 // func (c *CoaMutator) DoUpsert() bool { //nolint:dupl false positive
 //	arr := c.ToArray()
 //	_, err := c.Adapter.Upsert(c.SpaceName(), arr, A.X{
@@ -64,7 +85,13 @@ func (c *CoaMutator) ClearMutations() { //nolint:dupl false positive
 // DoInsert insert, error if already exists
 func (c *CoaMutator) DoInsert() bool { //nolint:dupl false positive
 	arr := c.ToArray()
-	_, err := c.Adapter.Insert(c.SpaceName(), arr)
+	row, err := c.Adapter.Insert(c.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			c.Id = X.ToU(tup[0][0])
+		}
+	}
 	return !L.IsError(err, `Coa.DoInsert failed: `+c.SpaceName()+`\n%#v`, arr)
 }
 
@@ -73,7 +100,13 @@ func (c *CoaMutator) DoInsert() bool { //nolint:dupl false positive
 // previous name: DoReplace
 func (c *CoaMutator) DoUpsert() bool { //nolint:dupl false positive
 	arr := c.ToArray()
-	_, err := c.Adapter.Replace(c.SpaceName(), arr)
+	row, err := c.Adapter.Replace(c.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			c.Id = X.ToU(tup[0][0])
+		}
+	}
 	return !L.IsError(err, `Coa.DoUpsert failed: `+c.SpaceName()+`\n%#v`, arr)
 }
 
