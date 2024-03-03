@@ -86,9 +86,15 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
   - [ ] Statement of Cash Flows / Laporan Arus Kas
   - [ ] Notes to Financial Statements / Catatan atas Laporan Keuangan
   - [ ] Other Comprehensive Income / Laporan Laba Rugi Komprehensif Lain
-  - [ ] laporan penjualan (TODO: find english term)
-  - [ ] pergerakan piutang (TODO: find english term)
-  - [ ] pergerakan hutang (TODO: find english term)
+  - [ ] Sales Report / Laporan Penjualan
+  - [ ] Accounts Receivable Report / Laporan Piutang
+    - [ ] Customer Receivable Report (TODO: find Indonesian term)
+    - [ ] Receivable Aging Report / Laporan Umur Piutang
+    - [ ] Receivable Payment History Report (TODO: find Indonesian term)
+  - [ ] Accounts Payable Report / Laporan Hutang
+    - [ ] Voucher Activity Report (TODO: find Indonesian term)
+    - [ ] Payable Aging Report / Laporan Umur Hutang
+    - [ ] Payable Payment History Report (TODO: find Indonesian term)
 - [ ] generate invoice
 - [ ] generate receipt
 - [ ] upload proof
