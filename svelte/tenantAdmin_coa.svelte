@@ -27,35 +27,56 @@
    */
   let coa = [
     {
-      id: '1',
+      id: 'xxxxxxx',
       name: 'Aktiva',
+      level: 1,
       children: [
         {
-          id: '1.1',
+          id: 'xxxxxxx',
           name: 'Aktiva tetap',
           children: [],
           parent_id: '1',
-          level: 1
+          level: 1.2
         },
         {
-          id: '1.2',
+          id: 'xxxxxxx',
           name: 'Aktiva lancar',
           children: [],
           parent_id: '1',
-          level: 1
+          level: 1.3
         },
         {
-          id: '1.3',
+          id: 'xxxxxxx',
           name: 'Aktiva tak berwujud',
           children: [],
           parent_id: '1',
-          level: 1
+          level: 1.4
         },
       ],
       parent_id: null,
-      level: 0
     }
   ];
+
+  let parent;
+
+  function dragStart(e) {
+    setTimeout(() => e.target.classList.add('dragging'), 0);
+  }
+
+  function dragEnd(e) {
+    e.target.classList.remove('dragging');
+  }
+
+  function dragOver(e) {
+    e.preventDefault();
+    const draggingItem = document.querySelector(".dragging");
+    let siblings = [...parent.querySelectorAll(".child")];
+    let nextSibling = siblings.find((sibling) => {
+      return e.clientY <= sibling.offsetTop + sibling.offsetHeight / 2;
+    });
+
+    parent.insertBefore(draggingItem, nextSibling);
+  }
 </script>
 
 
@@ -68,9 +89,9 @@
         <div class="coa_levels">
           {#if coa && coa.length}
             {#each coa as c, _ (c.id)}
-              <div class="coa">
+              <div class="coa shadow">
                 <div class="parent">
-                  <span>{c.name}</span>
+                  <span>{c.level}. {c.name}</span>
                   <div class="options">
                     <button class="btn">
                       <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
@@ -81,19 +102,24 @@
                   </div>
                 </div>
                 {#if c.children && c.children.length}
-                  <div class="childs">
+                  <div class="children" bind:this={parent}>
                     {#each c.children as cc, _ (cc.id)}
-                      <div class="child">
-                        <span>{cc.name}</span>
+                      <!-- svelte-ignore a11y-no-static-element-interactions -->
+                      <div
+                        class="child"
+                        draggable={true}
+                        on:dragstart={dragStart}
+                        on:dragend={dragEnd}
+                        on:dragover={dragOver}
+                        >
+                        <Icon color="var(--gray-006)" className="icon_drag" size="17" src={RiDesignDragMoveLine} />
+                        <span>{cc.level}. {cc.name}</span>
                         <div class="options">
                           <button class="btn">
                             <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
                           </button>
                           <button class="btn">
                             <Icon color="var(--gray-006)" className="icon" size="17" src={RiDesignPencilLine} />
-                          </button>
-                          <button class="btn">
-                            <Icon color="var(--gray-006)" className="icon" size="17" src={RiDesignDragMoveLine} />
                           </button>
                         </div>
                       </div>
@@ -122,7 +148,6 @@
     background-color: #FFF;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
     border: 1px solid var(--gray-003);
     border-radius: 8px;
     overflow: hidden;
@@ -166,7 +191,7 @@
     background-color: var(--gray-003);
   }
 
-  .coa_levels .coa .childs {
+  .coa_levels .coa .children {
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -174,17 +199,32 @@
     overflow: hidden;
   }
 
-  .coa_levels .coa .childs .child {
+  .coa_levels .coa .children .child {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 10px 10px 15px;
+    padding: 10px 10px 10px 40px;
     cursor: pointer;
+    position: relative;
   }
 
-  .coa_levels .coa .childs .child:hover {
+  .coa_levels .coa .children .child:hover {
     background-color: var(--gray-001);
+  }
+
+  :global(.coa_levels .coa .children .child .icon_drag) {
+    display: none;
+    position: absolute;
+    left: 10px;
+  }
+
+  :global(.coa_levels .coa .children .child:hover .icon_drag) {
+    display: block;
+  }
+
+  :global(.coa_levels .coa .children .child:active .icon_drag) {
+    display: block;
   }
 </style>

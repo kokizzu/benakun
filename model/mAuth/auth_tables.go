@@ -65,6 +65,11 @@ const (
 	TableTenants Tt.TableName = `tenants`
 )
 
+const (
+	TableCoa Tt.TableName = `coa`
+	Level                 = `level`
+)
+
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableUsers: {
 		Fields: []Tt.Field{
@@ -136,6 +141,16 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedAt, Tt.Integer},
 		},
 		AutoIncrementId: true,
+	},
+	TableCoa: {
+		Fields: []Tt.Field{
+			{Id, Tt.Unsigned},
+			{TenantCode, Tt.String},
+			{Name, Tt.String},
+			{Level, Tt.Double},
+			{ParentId, Tt.Unsigned},
+			{Children, Tt.Array},
+		},
 	},
 }
 
