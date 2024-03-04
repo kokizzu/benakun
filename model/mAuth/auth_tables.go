@@ -70,6 +70,16 @@ const (
 	Level                 = `level`
 )
 
+const (
+	CoaLevel1Name = `Aktiva`
+	CoaLevel2Name = `Kewajiban`
+	CoaLevel3Name = `Ekuitas`
+	CoaLevel4Name = `Pendapatan`
+	CoaLevel5Name = `Beban`
+	CoaLevel6Name = `Pendapatan Lain-lain`
+	CoaLevel7Name = `Beban Lain-lain`
+)
+
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableUsers: {
 		Fields: []Tt.Field{

@@ -2,12 +2,15 @@ package domain
 
 import (
 	"crypto/rand"
+	"errors"
 	"fmt"
 	"math/big"
 
 	"benakun/model/mAuth"
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
+
+	"github.com/kokizzu/gotro/D/Tt"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserCreateCompany.go
@@ -39,6 +42,7 @@ const (
 	ErrUserCreateCompanyTenantCodeInvalid  = `tenant code must be valid`
 	ErrUserCreateCompanyCompanyNameInvalid = `company name must be valid`
 	ErrUserCreateCompanyHeadTitleInvalid   = `head title must be valid`
+	ErrUserCreateCompanyCoaExist           = `coa already exist`
 )
 
 func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompanyOut) {
@@ -102,6 +106,12 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 		return
 	}
 
+	err := generateCoaLevels(d.AuthOltp, org.TenantCode)
+	if err != nil {
+		out.SetError(400, err.Error())
+		return
+	}
+
 	out.Company = &org.Orgs
 	return
 }
@@ -109,4 +119,34 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 func generate4RandomNumber() int {
 	randomNumber, _ := rand.Int(rand.Reader, big.NewInt(9000))
 	return int(randomNumber.Int64()) + 1000
+}
+
+func generateCoaLevels(ao *Tt.Adapter, tenantCode string) error {
+	for i := 1; i < 7; i++ {
+		name := ``
+		if i == 1 {
+			name = mAuth.CoaLevel1Name
+		} else if i == 2 {
+			name = mAuth.CoaLevel2Name
+		} else if i == 3 {
+			name = mAuth.CoaLevel3Name
+		} else if i == 4 {
+			name = mAuth.CoaLevel4Name
+		} else if i == 5 {
+			name = mAuth.CoaLevel5Name
+		} else if i == 6 {
+			name = mAuth.CoaLevel6Name
+		} else if i == 7 {
+			name = mAuth.CoaLevel7Name
+		}
+		coa := wcAuth.NewCoaMutator(ao)
+		coa.SetTenantCode(tenantCode)
+		coa.SetLevel(float64(i))
+		coa.SetName(name)
+		if !coa.DoInsert() {
+			return errors.New(ErrUserCreateCompanyCoaExist)
+		}
+	}
+
+	return nil
 }

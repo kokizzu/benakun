@@ -2,17 +2,18 @@
   import SideMenu from './_components/partials/SideMenu.svelte';
   import Navbar from './_components/partials/Navbar.svelte';
   import Footer from './_components/partials/Footer.svelte';
-
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
   import RiDesignPencilLine from 'svelte-icons-pack/ri/RiDesignPencilLine';
   import RiDesignDragMoveLine from 'svelte-icons-pack/ri/RiDesignDragMoveLine';
+  import { onMount } from 'svelte';
 
   /**
    * @type {any}
    */
   let segments = {/* segments */};
   let user = {/* user */};
+  let coas = [/* coas */];
 
   /**
      * @typedef {Object} CoA
@@ -25,37 +26,20 @@
   /**
    * @type {Array<CoA>}
    */
-  let coa = [
-    {
-      id: 'xxxxxxx',
-      name: 'Aktiva',
-      level: 1,
-      children: [
-        {
-          id: 'xxxxxxx',
-          name: 'Aktiva tetap',
-          children: [],
-          parent_id: '1',
-          level: 1.2
-        },
-        {
-          id: 'xxxxxxx',
-          name: 'Aktiva lancar',
-          children: [],
-          parent_id: '1',
-          level: 1.3
-        },
-        {
-          id: 'xxxxxxx',
-          name: 'Aktiva tak berwujud',
-          children: [],
-          parent_id: '1',
-          level: 1.4
-        },
-      ],
-      parent_id: null,
+  let REFORMAT_COAS = [];
+
+  function reformatCoas() {
+    if (coas && coas.length) {
+      for (let i in coas) {
+        REFORMAT_COAS = [...REFORMAT_COAS, coas[i]];
+      }
     }
-  ];
+  }
+
+  onMount(() => {
+    console.log('COAS:', coas)
+    reformatCoas();
+  });
 
   let parent;
 
@@ -87,8 +71,8 @@
       <Navbar {user} />
       <div class="content">
         <div class="coa_levels">
-          {#if coa && coa.length}
-            {#each coa as c, _ (c.id)}
+          {#if REFORMAT_COAS && REFORMAT_COAS.length}
+            {#each REFORMAT_COAS as c, _ (c.id)}
               <div class="coa shadow">
                 <div class="parent">
                   <span>{c.level}. {c.name}</span>

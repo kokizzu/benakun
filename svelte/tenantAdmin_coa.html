@@ -4849,14 +4849,14 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   // tenantAdmin_coa.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[4] = list[i];
-    child_ctx[6] = i;
+    child_ctx[5] = list[i];
+    child_ctx[7] = i;
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[7] = list[i];
-    child_ctx[6] = i;
+    child_ctx[8] = list[i];
+    child_ctx[7] = i;
     return child_ctx;
   }
   function create_if_block2(ctx) {
@@ -4865,12 +4865,12 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let each_1_anchor;
     let current;
     let each_value = ensure_array_like(
-      /*coa*/
-      ctx[1]
+      /*REFORMAT_COAS*/
+      ctx[0]
     );
     const get_key = (ctx2) => (
       /*c*/
-      ctx2[4].id
+      ctx2[5].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context(ctx, each_value, i);
@@ -4894,11 +4894,11 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*parent, coa, dragStart, dragEnd, dragOver*/
+        if (dirty & /*parent, REFORMAT_COAS, dragStart, dragEnd, dragOver*/
         7) {
           each_value = ensure_array_like(
-            /*coa*/
-            ctx2[1]
+            /*REFORMAT_COAS*/
+            ctx2[0]
           );
           group_outros();
           each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block, each_1_anchor, get_each_context);
@@ -4936,11 +4936,11 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let current;
     let each_value_1 = ensure_array_like(
       /*c*/
-      ctx[4].children
+      ctx[5].children
     );
     const get_key = (ctx2) => (
       /*cc*/
-      ctx2[7].id
+      ctx2[8].id
     );
     for (let i = 0; i < each_value_1.length; i += 1) {
       let child_ctx = get_each_context_1(ctx, each_value_1, i);
@@ -4966,11 +4966,11 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*dragStart, dragEnd, dragOver, coa*/
-        6) {
+        if (dirty & /*dragStart, dragEnd, dragOver, REFORMAT_COAS*/
+        5) {
           each_value_1 = ensure_array_like(
             /*c*/
-            ctx2[4].children
+            ctx2[5].children
           );
           group_outros();
           each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value_1, each_1_lookup, div, outro_and_destroy_block, create_each_block_1, null, get_each_context_1);
@@ -5010,6 +5010,17 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let icon0;
     let t1;
     let span;
+    let t2_value = (
+      /*cc*/
+      ctx[8].level + ""
+    );
+    let t2;
+    let t3;
+    let t4_value = (
+      /*cc*/
+      ctx[8].name + ""
+    );
+    let t4;
     let t5;
     let div0;
     let button0;
@@ -5057,9 +5068,9 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         create_component(icon0.$.fragment);
         t1 = space();
         span = element("span");
-        span.textContent = `${/*cc*/
-        ctx[7].level}. ${/*cc*/
-        ctx[7].name}`;
+        t2 = text(t2_value);
+        t3 = text(". ");
+        t4 = text(t4_value);
         t5 = space();
         div0 = element("div");
         button0 = element("button");
@@ -5083,6 +5094,9 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         mount_component(icon0, div1, null);
         append(div1, t1);
         append(div1, span);
+        append(span, t2);
+        append(span, t3);
+        append(span, t4);
         append(div1, t5);
         append(div1, div0);
         append(div0, button0);
@@ -5108,6 +5122,14 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
+        if ((!current || dirty & /*REFORMAT_COAS*/
+        1) && t2_value !== (t2_value = /*cc*/
+        ctx[8].level + ""))
+          set_data(t2, t2_value);
+        if ((!current || dirty & /*REFORMAT_COAS*/
+        1) && t4_value !== (t4_value = /*cc*/
+        ctx[8].name + ""))
+          set_data(t4, t4_value);
       },
       i(local) {
         if (current)
@@ -5142,6 +5164,17 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let div2;
     let div1;
     let span;
+    let t0_value = (
+      /*c*/
+      ctx[5].level + ""
+    );
+    let t0;
+    let t1;
+    let t2_value = (
+      /*c*/
+      ctx[5].name + ""
+    );
+    let t2;
     let t3;
     let div0;
     let button0;
@@ -5170,8 +5203,8 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     });
     let if_block = (
       /*c*/
-      ctx[4].children && /*c*/
-      ctx[4].children.length && create_if_block_12(ctx)
+      ctx[5].children && /*c*/
+      ctx[5].children.length && create_if_block_12(ctx)
     );
     return {
       key: key_1,
@@ -5180,9 +5213,9 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         div2 = element("div");
         div1 = element("div");
         span = element("span");
-        span.textContent = `${/*c*/
-        ctx[4].level}. ${/*c*/
-        ctx[4].name}`;
+        t0 = text(t0_value);
+        t1 = text(". ");
+        t2 = text(t2_value);
         t3 = space();
         div0 = element("div");
         button0 = element("button");
@@ -5205,6 +5238,9 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         insert(target, div2, anchor);
         append(div2, div1);
         append(div1, span);
+        append(span, t0);
+        append(span, t1);
+        append(span, t2);
         append(div1, t3);
         append(div1, div0);
         append(div0, button0);
@@ -5220,12 +5256,38 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
+        if ((!current || dirty & /*REFORMAT_COAS*/
+        1) && t0_value !== (t0_value = /*c*/
+        ctx[5].level + ""))
+          set_data(t0, t0_value);
+        if ((!current || dirty & /*REFORMAT_COAS*/
+        1) && t2_value !== (t2_value = /*c*/
+        ctx[5].name + ""))
+          set_data(t2, t2_value);
         if (
           /*c*/
-          ctx[4].children && /*c*/
-          ctx[4].children.length
-        )
-          if_block.p(ctx, dirty);
+          ctx[5].children && /*c*/
+          ctx[5].children.length
+        ) {
+          if (if_block) {
+            if_block.p(ctx, dirty);
+            if (dirty & /*REFORMAT_COAS*/
+            1) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block_12(ctx);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(div2, t6);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
       },
       i(local) {
         if (current)
@@ -5268,9 +5330,9 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     sidemenu = new SideMenu_default({ props: { access: segments } });
     navbar = new Navbar_default({ props: { user } });
     let if_block = (
-      /*coa*/
-      ctx[1] && /*coa*/
-      ctx[1].length && create_if_block2(ctx)
+      /*REFORMAT_COAS*/
+      ctx[0] && /*REFORMAT_COAS*/
+      ctx[0].length && create_if_block2(ctx)
     );
     footer = new Footer_default({});
     return {
@@ -5312,11 +5374,29 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       },
       p(ctx2, [dirty]) {
         if (
-          /*coa*/
-          ctx2[1] && /*coa*/
-          ctx2[1].length
-        )
-          if_block.p(ctx2, dirty);
+          /*REFORMAT_COAS*/
+          ctx2[0] && /*REFORMAT_COAS*/
+          ctx2[0].length
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*REFORMAT_COAS*/
+            1) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block2(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(div0, null);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
       },
       i(local) {
         if (current)
@@ -5348,6 +5428,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   }
   var segments = {/* segments */};
   var user = {/* user */};
+  var coas = [/* coas */];
   function dragStart(e) {
     setTimeout(() => e.target.classList.add("dragging"), 0);
   }
@@ -5355,37 +5436,18 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     e.target.classList.remove("dragging");
   }
   function instance6($self, $props, $invalidate) {
-    let coa = [
-      {
-        id: "xxxxxxx",
-        name: "Aktiva",
-        level: 1,
-        children: [
-          {
-            id: "xxxxxxx",
-            name: "Aktiva tetap",
-            children: [],
-            parent_id: "1",
-            level: 1.2
-          },
-          {
-            id: "xxxxxxx",
-            name: "Aktiva lancar",
-            children: [],
-            parent_id: "1",
-            level: 1.3
-          },
-          {
-            id: "xxxxxxx",
-            name: "Aktiva tak berwujud",
-            children: [],
-            parent_id: "1",
-            level: 1.4
-          }
-        ],
-        parent_id: null
+    let REFORMAT_COAS = [];
+    function reformatCoas() {
+      if (coas && coas.length) {
+        for (let i in coas) {
+          $invalidate(0, REFORMAT_COAS = [...REFORMAT_COAS, coas[i]]);
+        }
       }
-    ];
+    }
+    onMount(() => {
+      console.log("COAS:", coas);
+      reformatCoas();
+    });
     let parent;
     function dragOver(e) {
       e.preventDefault();
@@ -5399,10 +5461,10 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     function div_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         parent = $value;
-        $invalidate(0, parent);
+        $invalidate(1, parent);
       });
     }
-    return [parent, coa, dragOver, div_binding];
+    return [REFORMAT_COAS, parent, dragOver, div_binding];
   }
   var TenantAdmin_coa = class extends SvelteComponent {
     constructor(options) {

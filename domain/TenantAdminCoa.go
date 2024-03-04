@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
 
 	"github.com/gofiber/fiber/v2"
@@ -18,6 +19,7 @@ type (
 	}
 	TenantAdminCoaOut struct {
 		ResponseCommon
+		Coas *[]rqAuth.Coa `json:"coa" form:"coa" query:"coa" long:"coa" msg:"coa"`
 	}
 )
 
@@ -49,6 +51,11 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 		out.SetError(400, ErrTenantAdminCoaTenantNotFound)
 		return
 	}
+
+	coa := wcAuth.NewCoaMutator(d.AuthOltp)
+	coas := coa.FindCoasByTenant(tenant.TenantCode)
+
+	out.Coas = &coas
 
 	return
 }
