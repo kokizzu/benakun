@@ -182,3 +182,26 @@ FROM ` + c.SqlTableName() + whereAndSql
 
 	return
 }
+
+func (c *Coa) FindCoaIdByTenantByLevel(tenantCode, level string) bool {
+	var res []any
+	const comment = `-- Coa) FindCoaIdByTenantByLevel`
+
+	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(tenantCode) + ` AND ` + c.SqlLevel() + ` = ` + S.Z(level)
+
+	queryRow := comment + `
+SELECT ` + c.SqlId() + `
+FROM ` + c.SqlTableName() + whereAndSql
+
+	c.Adapter.QuerySql(queryRow, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
+	if len(res) > 0 {
+		c.FromArray(res)
+		return true
+	}
+
+	return false
+}
