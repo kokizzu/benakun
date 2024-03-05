@@ -20,7 +20,7 @@
      * @property {string} id
      * @property {string} name
      * @property {number} level
-     * @property {string} parent_id
+     * @property {string} parentId
      * @property {Array<CoA>} children
     */
   /**
@@ -31,14 +31,27 @@
   function reformatCoas() {
     if (coas && coas.length) {
       for (let i in coas) {
-        REFORMAT_COAS = [...REFORMAT_COAS, coas[i]];
+        if (Number(coas[i].parentId) > 0) {
+          for (let j in REFORMAT_COAS) {
+            if (REFORMAT_COAS[j].id === coas[i].parentId) {
+              if (!REFORMAT_COAS[j].children) {
+                REFORMAT_COAS[j].children = [];
+              }
+              REFORMAT_COAS[j].children = [...REFORMAT_COAS[j].children, coas[i]];
+            }
+          }
+        } else {
+          REFORMAT_COAS = [...REFORMAT_COAS, coas[i]];
+        }
       }
+      REFORMAT_COAS.sort((a, b) => a.level - b.level);
     }
   }
 
   onMount(() => {
     console.log('COAS:', coas)
     reformatCoas();
+    console.log('REFORMAT_COAS:', REFORMAT_COAS)
   });
 
   let parent;
@@ -63,7 +76,6 @@
   }
 </script>
 
-
 <div class="root_layout">
   <div class="root_container">
     <SideMenu access={segments} />
@@ -87,7 +99,7 @@
                 </div>
                 {#if c.children && c.children.length}
                   <div class="children" bind:this={parent}>
-                    {#each c.children as cc, _ (cc.id)}
+                    {#each c.children as cc, idx (cc.id)}
                       <!-- svelte-ignore a11y-no-static-element-interactions -->
                       <div
                         class="child"
@@ -97,7 +109,7 @@
                         on:dragover={dragOver}
                         >
                         <Icon color="var(--gray-006)" className="icon_drag" size="17" src={RiDesignDragMoveLine} />
-                        <span>{cc.level}. {cc.name}</span>
+                        <span>{cc.level}.{idx+2} {cc.name}</span>
                         <div class="options">
                           <button class="btn">
                             <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>

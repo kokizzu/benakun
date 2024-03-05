@@ -1,6 +1,8 @@
 package rqAuth
 
 import (
+	"log"
+
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
@@ -183,11 +185,11 @@ FROM ` + c.SqlTableName() + whereAndSql
 	return
 }
 
-func (c *Coa) FindCoaIdByTenantByLevel(tenantCode, level string) bool {
-	var res []any
+func (c *Coa) FindCoaIdByTenantByLevel() uint64 {
+	var res [][]any
 	const comment = `-- Coa) FindCoaIdByTenantByLevel`
 
-	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(tenantCode) + ` AND ` + c.SqlLevel() + ` = ` + S.Z(level)
+	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode) + ` AND ` + c.SqlLevel() + ` = ` + I.ToS(int64(c.Level))
 
 	queryRow := comment + `
 SELECT ` + c.SqlId() + `
@@ -198,10 +200,12 @@ FROM ` + c.SqlTableName() + whereAndSql
 		res = append(res, row)
 	})
 
+	log.Println(`INI DIA`, res)
+
 	if len(res) > 0 {
-		c.FromArray(res)
-		return true
+		pId := res[0][0].(string)
+		return S.ToU(pId)
 	}
 
-	return false
+	return 0
 }

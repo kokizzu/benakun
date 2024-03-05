@@ -11,6 +11,7 @@ import (
 	"benakun/model/mAuth/wcAuth"
 
 	"github.com/kokizzu/gotro/D/Tt"
+	"github.com/kokizzu/gotro/S"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserCreateCompany.go
@@ -116,35 +117,42 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 	return
 }
 
+func insertCoaLevel(ta *Tt.Adapter, tenantCode string, level float64, name string, parentId uint64) error {
+	coa := wcAuth.NewCoaMutator(ta)
+	coa.SetTenantCode(tenantCode)
+	coa.SetLevel(level)
+	coa.SetName(name)
+	if parentId > 0 {
+		coa.SetParentId(parentId)
+	}
+	if !coa.DoInsert() {
+		return errors.New(ErrUserCreateCompanyCoaExist)
+	}
+
+	return nil
+}
+
 func generate4RandomNumber() int {
 	randomNumber, _ := rand.Int(rand.Reader, big.NewInt(9000))
 	return int(randomNumber.Int64()) + 1000
 }
 
-func generateCoaLevels(ao *Tt.Adapter, tenantCode string) error {
-	for i := 1; i < 7; i++ {
-		name := ``
-		if i == 1 {
-			name = mAuth.CoaLevel1Name
-		} else if i == 2 {
-			name = mAuth.CoaLevel2Name
-		} else if i == 3 {
-			name = mAuth.CoaLevel3Name
-		} else if i == 4 {
-			name = mAuth.CoaLevel4Name
-		} else if i == 5 {
-			name = mAuth.CoaLevel5Name
-		} else if i == 6 {
-			name = mAuth.CoaLevel6Name
-		} else if i == 7 {
-			name = mAuth.CoaLevel7Name
+func generateCoaLevels(ta *Tt.Adapter, tenantCode string) error {
+	for lv, vl := range mAuth.CoaLevelDefaultList {
+		if err := insertCoaLevel(ta, tenantCode, float64(S.ToInt(lv)), vl.Name, 0); err != nil {
+			return err
 		}
-		coa := wcAuth.NewCoaMutator(ao)
-		coa.SetTenantCode(tenantCode)
-		coa.SetLevel(float64(i))
-		coa.SetName(name)
-		if !coa.DoInsert() {
-			return errors.New(ErrUserCreateCompanyCoaExist)
+		if len(vl.ChildrenNames) > 0 {
+			parent := wcAuth.NewCoaMutator(ta)
+			parent.TenantCode = tenantCode
+			parent.Level = float64(S.ToInt(lv))
+
+			parentId := parent.FindCoaIdByTenantByLevel()
+			for _, v := range vl.ChildrenNames {
+				if err := insertCoaLevel(ta, tenantCode, float64(S.ToInt(lv)), v, parentId); err != nil {
+					return err
+				}
+			}
 		}
 	}
 

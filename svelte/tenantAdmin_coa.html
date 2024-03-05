@@ -4856,7 +4856,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[8] = list[i];
-    child_ctx[7] = i;
+    child_ctx[10] = i;
     return child_ctx;
   }
   function create_if_block2(ctx) {
@@ -5017,18 +5017,24 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let t2;
     let t3;
     let t4_value = (
-      /*cc*/
-      ctx[8].name + ""
+      /*idx*/
+      ctx[10] + 2 + ""
     );
     let t4;
     let t5;
+    let t6_value = (
+      /*cc*/
+      ctx[8].name + ""
+    );
+    let t6;
+    let t7;
     let div0;
     let button0;
     let icon1;
-    let t6;
+    let t8;
     let button1;
     let icon2;
-    let t7;
+    let t9;
     let div1_draggable_value;
     let current;
     let mounted;
@@ -5069,16 +5075,18 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         t1 = space();
         span = element("span");
         t2 = text(t2_value);
-        t3 = text(". ");
+        t3 = text(".");
         t4 = text(t4_value);
         t5 = space();
+        t6 = text(t6_value);
+        t7 = space();
         div0 = element("div");
         button0 = element("button");
         create_component(icon1.$.fragment);
-        t6 = space();
+        t8 = space();
         button1 = element("button");
         create_component(icon2.$.fragment);
-        t7 = space();
+        t9 = space();
         attr(button0, "class", "btn svelte-1mdfncs");
         attr(button1, "class", "btn svelte-1mdfncs");
         attr(div0, "class", "options svelte-1mdfncs");
@@ -5097,14 +5105,16 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         append(span, t2);
         append(span, t3);
         append(span, t4);
-        append(div1, t5);
+        append(span, t5);
+        append(span, t6);
+        append(div1, t7);
         append(div1, div0);
         append(div0, button0);
         mount_component(icon1, button0, null);
-        append(div0, t6);
+        append(div0, t8);
         append(div0, button1);
         mount_component(icon2, button1, null);
-        append(div1, t7);
+        append(div1, t9);
         current = true;
         if (!mounted) {
           dispose = [
@@ -5127,9 +5137,13 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         ctx[8].level + ""))
           set_data(t2, t2_value);
         if ((!current || dirty & /*REFORMAT_COAS*/
-        1) && t4_value !== (t4_value = /*cc*/
-        ctx[8].name + ""))
+        1) && t4_value !== (t4_value = /*idx*/
+        ctx[10] + 2 + ""))
           set_data(t4, t4_value);
+        if ((!current || dirty & /*REFORMAT_COAS*/
+        1) && t6_value !== (t6_value = /*cc*/
+        ctx[8].name + ""))
+          set_data(t6, t6_value);
       },
       i(local) {
         if (current)
@@ -5440,13 +5454,26 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     function reformatCoas() {
       if (coas && coas.length) {
         for (let i in coas) {
-          $invalidate(0, REFORMAT_COAS = [...REFORMAT_COAS, coas[i]]);
+          if (Number(coas[i].parentId) > 0) {
+            for (let j in REFORMAT_COAS) {
+              if (REFORMAT_COAS[j].id === coas[i].parentId) {
+                if (!REFORMAT_COAS[j].children) {
+                  $invalidate(0, REFORMAT_COAS[j].children = [], REFORMAT_COAS);
+                }
+                $invalidate(0, REFORMAT_COAS[j].children = [...REFORMAT_COAS[j].children, coas[i]], REFORMAT_COAS);
+              }
+            }
+          } else {
+            $invalidate(0, REFORMAT_COAS = [...REFORMAT_COAS, coas[i]]);
+          }
         }
+        REFORMAT_COAS.sort((a, b) => a.level - b.level);
       }
     }
     onMount(() => {
       console.log("COAS:", coas);
       reformatCoas();
+      console.log("REFORMAT_COAS:", REFORMAT_COAS);
     });
     let parent;
     function dragOver(e) {
