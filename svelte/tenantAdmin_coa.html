@@ -97,7 +97,7 @@
     }
 
     .shadow {
-      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 1px -1px rgb(0 0 0 / 0.1);
     }
 
     .root_layout {
@@ -440,38 +440,45 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
 }
 
 /* fakecss:./tenantAdmin_coa.esbuild-svelte-fake-css */
-.coa_levels.svelte-1mdfncs.svelte-1mdfncs {
+.coa_levels.svelte-ltjl15.svelte-ltjl15 {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: 1fr;
   width: 100%;
-}
-.coa_levels.svelte-1mdfncs .coa.svelte-1mdfncs {
   background-color: #FFF;
-  display: flex;
-  flex-direction: column;
   border: 1px solid var(--gray-003);
   border-radius: 8px;
   overflow: hidden;
 }
-.coa_levels.svelte-1mdfncs .coa .parent.svelte-1mdfncs {
+.coa_levels.svelte-ltjl15 .coa.svelte-ltjl15 {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.coa_levels.svelte-ltjl15 .coa .parent.svelte-ltjl15 {
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap: 20px;
   align-items: center;
   font-size: 22px;
   font-weight: 700;
   color: var(--blue-006);
   padding: 10px 10px 10px 15px;
-  border-bottom: 1px solid var(--gray-003);
 }
-.coa_levels.svelte-1mdfncs .coa .options.svelte-1mdfncs {
+.coa_levels.svelte-ltjl15 .coa .parent h5.svelte-ltjl15 {
+  font-size: 18px;
+  line-height: 2.2rem;
+  margin: 0;
+}
+.coa_levels.svelte-ltjl15 .coa .parent:hover .options.svelte-ltjl15 {
   display: flex;
+}
+.coa_levels.svelte-ltjl15 .coa .options.svelte-ltjl15 {
+  display: none;
   flex-direction: row;
   align-items: center;
 }
-.coa_levels.svelte-1mdfncs .coa .options .btn.svelte-1mdfncs {
+.coa_levels.svelte-ltjl15 .coa .options .btn.svelte-ltjl15 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -481,31 +488,39 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   padding: 5px;
   cursor: pointer;
 }
-.coa_levels.svelte-1mdfncs .coa .options .btn.svelte-1mdfncs:hover {
+.coa_levels.svelte-ltjl15 .coa .options .btn.svelte-ltjl15:hover {
   background-color: var(--gray-002);
 }
-.coa_levels.svelte-1mdfncs .coa .options .btn.svelte-1mdfncs:active {
+.coa_levels.svelte-ltjl15 .coa .options .btn.svelte-ltjl15:active {
   background-color: var(--gray-003);
 }
-.coa_levels.svelte-1mdfncs .coa .children.svelte-1mdfncs {
+.coa_levels.svelte-ltjl15 .coa .children.svelte-ltjl15 {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  font-size: 16px;
   overflow: hidden;
 }
-.coa_levels.svelte-1mdfncs .coa .children .child.svelte-1mdfncs {
+.coa_levels.svelte-ltjl15 .coa .children .child.svelte-ltjl15 {
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap: 20px;
   align-items: center;
-  padding: 10px 10px 10px 40px;
+  padding: 5px 5px 5px 40px;
   cursor: pointer;
   position: relative;
 }
-.coa_levels.svelte-1mdfncs .coa .children .child.svelte-1mdfncs:hover {
+.coa_levels.svelte-ltjl15 .coa .children .child h6.svelte-ltjl15 {
+  font-size: 14px;
+  line-height: 2.2rem;
+  font-weight: 500;
+  margin: 0;
+}
+.coa_levels.svelte-ltjl15 .coa .children .child.svelte-ltjl15:hover {
   background-color: var(--gray-001);
+}
+.coa_levels.svelte-ltjl15 .coa .children .child:hover .options.svelte-ltjl15 {
+  display: flex;
 }
 .coa_levels .coa .children .child .icon_drag {
   display: none;
@@ -4846,6 +4861,14 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M12 2l4.243 4.243-1.415 1.414L12 4.828 9.172 7.657 7.757 6.243 12 2zM2 12l4.243-4.243 1.414 1.415L4.828 12l2.829 2.828-1.414 1.415L2 12zm20 0l-4.243 4.243-1.414-1.415L19.172 12l-2.829-2.828 1.414-1.415L22 12zm-10 2a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 8l-4.243-4.243 1.415-1.414L12 19.172l2.828-2.829 1.415 1.414L12 22z"></path></g>'
   };
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemDeleteBinLine.js
+  var RiSystemDeleteBinLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M17 6h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3zm1 2H6v12h12V8zm-9 3h2v6H9v-6zm4 0h2v6h-2v-6zM9 4v2h6V4H9z"></path></g>'
+  };
+
   // tenantAdmin_coa.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
@@ -4953,7 +4976,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(div, "class", "children svelte-1mdfncs");
+        attr(div, "class", "children svelte-ltjl15");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -5009,7 +5032,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let div1;
     let icon0;
     let t1;
-    let span;
+    let h6;
     let t2_value = (
       /*cc*/
       ctx[8].level + ""
@@ -5035,6 +5058,9 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let button1;
     let icon2;
     let t9;
+    let button2;
+    let icon3;
+    let t10;
     let div1_draggable_value;
     let current;
     let mounted;
@@ -5063,6 +5089,14 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         src: RiDesignPencilLine_default
       }
     });
+    icon3 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemDeleteBinLine_default
+      }
+    });
     return {
       key: key_1,
       first: null,
@@ -5073,11 +5107,11 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         div1 = element("div");
         create_component(icon0.$.fragment);
         t1 = space();
-        span = element("span");
+        h6 = element("h6");
         t2 = text(t2_value);
         t3 = text(".");
         t4 = text(t4_value);
-        t5 = space();
+        t5 = text("\xA0\xA0");
         t6 = text(t6_value);
         t7 = space();
         div0 = element("div");
@@ -5087,10 +5121,18 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         button1 = element("button");
         create_component(icon2.$.fragment);
         t9 = space();
-        attr(button0, "class", "btn svelte-1mdfncs");
-        attr(button1, "class", "btn svelte-1mdfncs");
-        attr(div0, "class", "options svelte-1mdfncs");
-        attr(div1, "class", "child svelte-1mdfncs");
+        button2 = element("button");
+        create_component(icon3.$.fragment);
+        t10 = space();
+        attr(h6, "class", "svelte-ltjl15");
+        attr(button0, "class", "btn svelte-ltjl15");
+        attr(button0, "title", "Add child");
+        attr(button1, "class", "btn svelte-ltjl15");
+        attr(button1, "title", "Edit");
+        attr(button2, "class", "btn svelte-ltjl15");
+        attr(button2, "title", "Delete");
+        attr(div0, "class", "options svelte-ltjl15");
+        attr(div1, "class", "child svelte-ltjl15");
         attr(div1, "draggable", div1_draggable_value = true);
         this.first = first;
       },
@@ -5101,12 +5143,12 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         insert(target, div1, anchor);
         mount_component(icon0, div1, null);
         append(div1, t1);
-        append(div1, span);
-        append(span, t2);
-        append(span, t3);
-        append(span, t4);
-        append(span, t5);
-        append(span, t6);
+        append(div1, h6);
+        append(h6, t2);
+        append(h6, t3);
+        append(h6, t4);
+        append(h6, t5);
+        append(h6, t6);
         append(div1, t7);
         append(div1, div0);
         append(div0, button0);
@@ -5114,7 +5156,10 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         append(div0, t8);
         append(div0, button1);
         mount_component(icon2, button1, null);
-        append(div1, t9);
+        append(div0, t9);
+        append(div0, button2);
+        mount_component(icon3, button2, null);
+        append(div1, t10);
         current = true;
         if (!mounted) {
           dispose = [
@@ -5151,12 +5196,14 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         transition_in(icon0.$.fragment, local);
         transition_in(icon1.$.fragment, local);
         transition_in(icon2.$.fragment, local);
+        transition_in(icon3.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(icon0.$.fragment, local);
         transition_out(icon1.$.fragment, local);
         transition_out(icon2.$.fragment, local);
+        transition_out(icon3.$.fragment, local);
         current = false;
       },
       d(detaching) {
@@ -5169,6 +5216,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         destroy_component(icon0);
         destroy_component(icon1);
         destroy_component(icon2);
+        destroy_component(icon3);
         mounted = false;
         run_all(dispose);
       }
@@ -5177,7 +5225,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   function create_each_block(key_1, ctx) {
     let div2;
     let div1;
-    let span;
+    let h5;
     let t0_value = (
       /*c*/
       ctx[5].level + ""
@@ -5226,9 +5274,9 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       c() {
         div2 = element("div");
         div1 = element("div");
-        span = element("span");
+        h5 = element("h5");
         t0 = text(t0_value);
-        t1 = text(". ");
+        t1 = text(".\xA0");
         t2 = text(t2_value);
         t3 = space();
         div0 = element("div");
@@ -5241,20 +5289,23 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         if (if_block)
           if_block.c();
         t6 = space();
-        attr(button0, "class", "btn svelte-1mdfncs");
-        attr(button1, "class", "btn svelte-1mdfncs");
-        attr(div0, "class", "options svelte-1mdfncs");
-        attr(div1, "class", "parent svelte-1mdfncs");
-        attr(div2, "class", "coa shadow svelte-1mdfncs");
+        attr(h5, "class", "svelte-ltjl15");
+        attr(button0, "class", "btn svelte-ltjl15");
+        attr(button0, "title", "Add child");
+        attr(button1, "class", "btn svelte-ltjl15");
+        attr(button1, "title", "Edit");
+        attr(div0, "class", "options svelte-ltjl15");
+        attr(div1, "class", "parent svelte-ltjl15");
+        attr(div2, "class", "coa svelte-ltjl15");
         this.first = div2;
       },
       m(target, anchor) {
         insert(target, div2, anchor);
         append(div2, div1);
-        append(div1, span);
-        append(span, t0);
-        append(span, t1);
-        append(span, t2);
+        append(div1, h5);
+        append(h5, t0);
+        append(h5, t1);
+        append(h5, t2);
         append(div1, t3);
         append(div1, div0);
         append(div0, button0);
@@ -5364,7 +5415,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
           if_block.c();
         t2 = space();
         create_component(footer.$.fragment);
-        attr(div0, "class", "coa_levels svelte-1mdfncs");
+        attr(div0, "class", "coa_levels shadow svelte-ltjl15");
         attr(div1, "class", "content");
         attr(div2, "class", "root_content");
         attr(div3, "class", "root_container");
@@ -5454,14 +5505,11 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     function reformatCoas() {
       if (coas && coas.length) {
         for (let i in coas) {
+          coas[i].children = [];
           if (Number(coas[i].parentId) > 0) {
             for (let j in REFORMAT_COAS) {
-              if (REFORMAT_COAS[j].id === coas[i].parentId) {
-                if (!REFORMAT_COAS[j].children) {
-                  $invalidate(0, REFORMAT_COAS[j].children = [], REFORMAT_COAS);
-                }
+              if (REFORMAT_COAS[j].id === coas[i].parentId)
                 $invalidate(0, REFORMAT_COAS[j].children = [...REFORMAT_COAS[j].children, coas[i]], REFORMAT_COAS);
-              }
             }
           } else {
             $invalidate(0, REFORMAT_COAS = [...REFORMAT_COAS, coas[i]]);
@@ -5471,7 +5519,6 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       }
     }
     onMount(() => {
-      console.log("COAS:", coas);
       reformatCoas();
       console.log("REFORMAT_COAS:", REFORMAT_COAS);
     });

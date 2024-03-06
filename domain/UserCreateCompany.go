@@ -148,9 +148,32 @@ func generateCoaLevels(ta *Tt.Adapter, tenantCode string) error {
 			parent.Level = float64(S.ToInt(lv))
 
 			parentId := parent.FindCoaIdByTenantByLevel()
+			if parentId == 0 {
+				return errors.New(ErrUserCreateCompanyCoaExist)
+			}
+
+			var children = []any{}
+
 			for _, v := range vl.ChildrenNames {
-				if err := insertCoaLevel(ta, tenantCode, float64(S.ToInt(lv)), v, parentId); err != nil {
+				if err := insertCoaLevel(ta, tenantCode, float64(S.ToInt(lv)), v, parentId); err == nil {
+					child := wcAuth.NewCoaMutator(ta)
+					child.ParentId = parentId
+					child.Name = v
+
+					childId := child.FindCoaChildIdByParentIdByName()
+					if childId != 0 {
+						children = append(children, childId)
+					}
+				} else {
 					return err
+				}
+			}
+
+			if len(children) > 0 {
+				parent.SetChildren(children)
+				parent.Id = parentId
+				if !parent.DoUpdateById() {
+					return errors.New(ErrUserCreateCompanyCoaExist)
 				}
 			}
 		}

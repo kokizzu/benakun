@@ -1,8 +1,6 @@
 package rqAuth
 
 import (
-	"log"
-
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
@@ -200,7 +198,28 @@ FROM ` + c.SqlTableName() + whereAndSql
 		res = append(res, row)
 	})
 
-	log.Println(`INI DIA`, res)
+	if len(res) > 0 {
+		pId := res[0][0].(string)
+		return S.ToU(pId)
+	}
+
+	return 0
+}
+
+func (c *Coa) FindCoaChildIdByParentIdByName() uint64 {
+	var res [][]any
+	const comment = `-- Coa) FindCoaChildIdByParentIdByName`
+
+	whereAndSql := ` WHERE ` + c.SqlParentId() + ` = ` + I.ToS(int64(c.ParentId)) + ` AND ` + c.SqlName() + ` = ` + S.Z(c.Name)
+
+	queryRow := comment + `
+SELECT ` + c.SqlId() + `
+FROM ` + c.SqlTableName() + whereAndSql
+
+	c.Adapter.QuerySql(queryRow, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
 
 	if len(res) > 0 {
 		pId := res[0][0].(string)
