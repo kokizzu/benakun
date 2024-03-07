@@ -20,7 +20,7 @@
   }
 </script>
 
-<div class={type === 'password' ? 'input_box with_password' :  'input_box'}>
+<div class={`input_box ${type === 'password' ? 'with_password' :  ''}`}>
   <label for={id}>{label}</label>
   <input bind:value={value} {id} bind:this={inputElm} {placeholder}/>
   {#if type === 'password'}

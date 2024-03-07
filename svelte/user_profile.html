@@ -44,9 +44,47 @@
 
       --red-001: #f87171;
       --red-002: #ef4444;
+      --red-005: #ef4444;
+      --red-006: #dc2626;
 
       --yellow-001: #fbbf24;
       --yellow-002: #f59e0b;
+
+      --green-000: #f0fdf4;
+      --green-001: #dcfce7;
+      --green-002: #bbf7d0;
+      --green-003: #86efac;
+      --green-004: #4ade80;
+      --green-005: #22c55e;
+      --green-006: #16a34a;
+      --green-007: #15803d;
+      --green-008: #166534;
+      --green-009: #14532d;
+      --green-010: #052e16;
+
+      --orange-000: #fff7ed;
+      --orange-001: #ffedd5;
+      --orange-002: #fed7aa;
+      --orange-003: #fdba74;
+      --orange-004: #fb923c;
+      --orange-005: #f97316;
+      --orange-006: #ea580c;
+      --orange-007: #c2410c;
+      --orange-008: #9a3412;
+      --orange-009: #7c2d12;
+      --orange-010: #431407;
+
+      --amber-000: #fffbeb;
+      --amber-001: #fef3c7;
+      --amber-002: #fde68a;
+      --amber-003: #fcd34d;
+      --amber-004: #fbbf24;
+      --amber-005: #f59e0b;
+      --amber-006: #d97706;
+      --amber-007: #b45309;
+      --amber-008: #92400e;
+      --amber-009: #78350f;
+      --amber-010: #451a03;
 
       --gray-001: #F8F9FA;
       --gray-002: #E9ECEF;
@@ -133,7 +171,7 @@
     
     /* notifier */
     .notifyjs-container {
-      z-index: 100;
+      z-index: 2100;
       position: fixed;
       bottom: 0;
       right: .5em;
@@ -2761,6 +2799,12 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       exports.TenantAdminBudgeting = async function TenantAdminBudgeting(i, cb) {
         return await axios.post("/tenantAdmin/budgeting", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminCoa = async function TenantAdminCoa(i, cb) {
+        return await axios.post("/tenantAdmin/coa", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.TenantAdminCreateCoaChild = async function TenantAdminCreateCoaChild(i, cb) {
+        return await axios.post("/tenantAdmin/createCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.TenantAdminDashboard = async function TenantAdminDashboard(i, cb) {
         return await axios.post("/tenantAdmin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -5203,10 +5247,8 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
           ctx[4]
         );
         attr(input, "class", "svelte-msefpz");
-        attr(div, "class", div_class_value = null_to_empty(
-          /*type*/
-          ctx[3] === "password" ? "input_box with_password" : "input_box"
-        ) + " svelte-msefpz");
+        attr(div, "class", div_class_value = null_to_empty(`input_box ${/*type*/
+        ctx[3] === "password" ? "with_password" : ""}`) + " svelte-msefpz");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -5302,10 +5344,8 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
           check_outros();
         }
         if (!current || dirty & /*type*/
-        8 && div_class_value !== (div_class_value = null_to_empty(
-          /*type*/
-          ctx2[3] === "password" ? "input_box with_password" : "input_box"
-        ) + " svelte-msefpz")) {
+        8 && div_class_value !== (div_class_value = null_to_empty(`input_box ${/*type*/
+        ctx2[3] === "password" ? "with_password" : ""}`) + " svelte-msefpz")) {
           attr(div, "class", div_class_value);
         }
       },

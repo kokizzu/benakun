@@ -140,6 +140,22 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminBudgeting(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.TenantAdminCoaAction:
+		in := domain.TenantAdminCoaIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.TenantAdminCoa(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.TenantAdminCreateCoaChildAction:
+		in := domain.TenantAdminCreateCoaChildIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.TenantAdminCreateCoaChild(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.TenantAdminDashboardAction:
 		in := domain.TenantAdminDashboardIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

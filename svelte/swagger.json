@@ -66,15 +66,15 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"uid": {
-								"type": "string"
-						},
-						"token": {
-								"type": "string"
-						},
-						"path": {
-								"type": "string"
-						}
+								"uid": {
+										"type": "string"
+								},
+								"token": {
+										"type": "string"
+								},
+								"path": {
+										"type": "string"
+								}
 								}
 							}
 						}
@@ -210,12 +210,12 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"provider": {
-								"type": "string"
-						},
-						"redirect": {
-							"type": "boolean"
-						}
+								"provider": {
+										"type": "string"
+								},
+								"redirect": {
+									"type": "boolean"
+								}
 								}
 							}
 						}
@@ -267,9 +267,9 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"email": {
-								"type": "string"
-						}
+								"email": {
+										"type": "string"
+								}
 								}
 							}
 						}
@@ -309,12 +309,12 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"email": {
-								"type": "string"
-						},
-						"password": {
-								"type": "string"
-						}
+								"email": {
+										"type": "string"
+								},
+								"password": {
+										"type": "string"
+								}
 								}
 							}
 						}
@@ -412,15 +412,15 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"state": {
-								"type": "string"
-						},
-						"code": {
-								"type": "string"
-						},
-						"accessToken": {
-								"type": "string"
-						}
+								"state": {
+										"type": "string"
+								},
+								"code": {
+										"type": "string"
+								},
+								"accessToken": {
+										"type": "string"
+								}
 								}
 							}
 						}
@@ -529,12 +529,12 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"email": {
-								"type": "string"
-						},
-						"password": {
-								"type": "string"
-						}
+								"email": {
+										"type": "string"
+								},
+								"password": {
+										"type": "string"
+								}
 								}
 							}
 						}
@@ -630,9 +630,9 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"email": {
-								"type": "string"
-						}
+								"email": {
+										"type": "string"
+								}
 								}
 							}
 						}
@@ -672,15 +672,15 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"secretCode": {
-								"type": "string"
-						},
-						"hash": {
-								"type": "string"
-						},
-						"password": {
-								"type": "string"
-						}
+								"secretCode": {
+										"type": "string"
+								},
+								"hash": {
+										"type": "string"
+								},
+								"password": {
+										"type": "string"
+								}
 								}
 							}
 						}
@@ -717,12 +717,12 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"secretCode": {
-								"type": "string"
-						},
-						"hash": {
-								"type": "string"
-						}
+								"secretCode": {
+										"type": "string"
+								},
+								"hash": {
+										"type": "string"
+								}
 								}
 							}
 						}
@@ -828,60 +828,60 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"cmd": {
-								"type": "string"
-						},
-						"tenant": {
-						"type": "object",
-						"properties": {
-								"id": {
-										"type": "number"
-								},
-								"tenantCode": {
+								"cmd": {
 										"type": "string"
 								},
-								"createdAt": {
-										"type": "number"
-								},
-								"createdBy": {
-										"type": "number"
-								},
-								"updatedAt": {
-										"type": "number"
-								},
-								"updatedBy": {
-										"type": "number"
-								},
-								"deletedAt": {
-										"type": "number"
-								}
-								}
-						},
-						"withMeta": {
-							"type": "boolean"
-						},
-						"pager": {
-						"type": "object",
-						"properties": {
-								"page": {
-										"type": "number"
-								},
-								"perPage": {
-										"type": "number"
-								},
-								"filters": {
+								"tenant": {
 								"type": "object",
 								"properties": {
+										"id": {
+												"type": "number"
+										},
+										"tenantCode": {
+												"type": "string"
+										},
+										"createdAt": {
+												"type": "number"
+										},
+										"createdBy": {
+												"type": "number"
+										},
+										"updatedAt": {
+												"type": "number"
+										},
+										"updatedBy": {
+												"type": "number"
+										},
+										"deletedAt": {
+												"type": "number"
+										}
 										}
 								},
-								"order": {
-										"type": "array",
-											"items": {
-												"type": "string"
-											}
+								"withMeta": {
+									"type": "boolean"
+								},
+								"pager": {
+								"type": "object",
+								"properties": {
+										"page": {
+												"type": "number"
+										},
+										"perPage": {
+												"type": "number"
+										},
+										"filters": {
+										"type": "object",
+										"properties": {
+												}
+										},
+										"order": {
+												"type": "array",
+													"items": {
+														"type": "string"
+													}
+												}
 										}
 								}
-						}
 								}
 							}
 						}
@@ -992,93 +992,93 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"cmd": {
-								"type": "string"
-						},
-						"user": {
-						"type": "object",
-						"properties": {
-								"id": {
-										"type": "number"
-								},
-								"email": {
+								"cmd": {
 										"type": "string"
 								},
-								"password": {
-										"type": "string"
-								},
-								"createdAt": {
-										"type": "number"
-								},
-								"createdBy": {
-										"type": "number"
-								},
-								"updatedAt": {
-										"type": "number"
-								},
-								"updatedBy": {
-										"type": "number"
-								},
-								"deletedAt": {
-										"type": "number"
-								},
-								"passwordSetAt": {
-										"type": "number"
-								},
-								"secretCode": {
-										"type": "string"
-								},
-								"secretCodeAt": {
-										"type": "number"
-								},
-								"verificationSentAt": {
-										"type": "number"
-								},
-								"verifiedAt": {
-										"type": "number"
-								},
-								"lastLoginAt": {
-										"type": "number"
-								},
-								"fullName": {
-										"type": "string"
-								},
-								"tenantCode": {
-										"type": "string"
-								},
-								"role": {
-										"type": "string"
-								},
-								"invitationState": {
-										"type": "string"
-								}
-								}
-						},
-						"withMeta": {
-							"type": "boolean"
-						},
-						"pager": {
-						"type": "object",
-						"properties": {
-								"page": {
-										"type": "number"
-								},
-								"perPage": {
-										"type": "number"
-								},
-								"filters": {
+								"user": {
 								"type": "object",
 								"properties": {
+										"id": {
+												"type": "number"
+										},
+										"email": {
+												"type": "string"
+										},
+										"password": {
+												"type": "string"
+										},
+										"createdAt": {
+												"type": "number"
+										},
+										"createdBy": {
+												"type": "number"
+										},
+										"updatedAt": {
+												"type": "number"
+										},
+										"updatedBy": {
+												"type": "number"
+										},
+										"deletedAt": {
+												"type": "number"
+										},
+										"passwordSetAt": {
+												"type": "number"
+										},
+										"secretCode": {
+												"type": "string"
+										},
+										"secretCodeAt": {
+												"type": "number"
+										},
+										"verificationSentAt": {
+												"type": "number"
+										},
+										"verifiedAt": {
+												"type": "number"
+										},
+										"lastLoginAt": {
+												"type": "number"
+										},
+										"fullName": {
+												"type": "string"
+										},
+										"tenantCode": {
+												"type": "string"
+										},
+										"role": {
+												"type": "string"
+										},
+										"invitationState": {
+												"type": "string"
+										}
 										}
 								},
-								"order": {
-										"type": "array",
-											"items": {
-												"type": "string"
-											}
+								"withMeta": {
+									"type": "boolean"
+								},
+								"pager": {
+								"type": "object",
+								"properties": {
+										"page": {
+												"type": "number"
+										},
+										"perPage": {
+												"type": "number"
+										},
+										"filters": {
+										"type": "object",
+										"properties": {
+												}
+										},
+										"order": {
+												"type": "array",
+													"items": {
+														"type": "string"
+													}
+												}
 										}
 								}
-						}
 								}
 							}
 						}
@@ -1243,6 +1243,88 @@
 				}
 			}
 		},
+		"/tenantAdmin/coa": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminCoa",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"coas": {
+										"type": "array",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tenantAdmin/createCoaChild": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+								"name": {
+										"type": "string"
+								},
+								"parentId": {
+										"type": "number"
+								}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminCreateCoaChild",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"coas": {
+										"type": "array",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/tenantAdmin/dashboard": {
 			"post": {
 				"security": [{
@@ -1293,9 +1375,9 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"email": {
-								"type": "string"
-						}
+								"email": {
+										"type": "string"
+								}
 								}
 							}
 						}
@@ -1365,9 +1447,9 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"email": {
-								"type": "string"
-						}
+								"email": {
+										"type": "string"
+								}
 								}
 							}
 						}
@@ -1404,9 +1486,9 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"path": {
-								"type": "string"
-						}
+								"path": {
+										"type": "string"
+								}
 								}
 							}
 						}
@@ -1443,12 +1525,12 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"oldPass": {
-								"type": "string"
-						},
-						"newPass": {
-								"type": "string"
-						}
+								"oldPass": {
+										"type": "string"
+								},
+								"newPass": {
+										"type": "string"
+								}
 								}
 							}
 						}
@@ -1485,15 +1567,15 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"tenantCode": {
-								"type": "string"
-						},
-						"companyName": {
-								"type": "string"
-						},
-						"headTitle": {
-								"type": "string"
-						}
+								"tenantCode": {
+										"type": "string"
+								},
+								"companyName": {
+										"type": "string"
+								},
+								"headTitle": {
+										"type": "string"
+								}
 								}
 							}
 						}
@@ -1706,12 +1788,12 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"tenantCode": {
-								"type": "string"
-						},
-						"response": {
-								"type": "string"
-						}
+								"tenantCode": {
+										"type": "string"
+								},
+								"response": {
+										"type": "string"
+								}
 								}
 							}
 						}
@@ -1748,9 +1830,9 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"sessionTokenHash": {
-								"type": "string"
-						}
+								"sessionTokenHash": {
+										"type": "string"
+								}
 								}
 							}
 						}
@@ -1828,21 +1910,21 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"userName": {
-								"type": "string"
-						},
-						"fullName": {
-								"type": "string"
-						},
-						"email": {
-								"type": "string"
-						},
-						"country": {
-								"type": "string"
-						},
-						"language": {
-								"type": "string"
-						}
+								"userName": {
+										"type": "string"
+								},
+								"fullName": {
+										"type": "string"
+								},
+								"email": {
+										"type": "string"
+								},
+								"country": {
+										"type": "string"
+								},
+								"language": {
+										"type": "string"
+								}
 								}
 							}
 						}

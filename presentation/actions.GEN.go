@@ -23,6 +23,8 @@ var allCommands = []string{
 	domain.SuperAdminTenantManagementAction,
 	domain.SuperAdminUserManagementAction,
 	domain.TenantAdminBudgetingAction,
+	domain.TenantAdminCoaAction,
+	domain.TenantAdminCreateCoaChildAction,
 	domain.TenantAdminDashboardAction,
 	domain.TenantAdminInviteUserAction,
 	domain.TenantAdminOrganizationAction,

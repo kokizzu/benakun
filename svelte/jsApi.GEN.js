@@ -868,6 +868,68 @@ exports.TenantAdminBudgeting = async function TenantAdminBudgeting( i, cb ) {
 }
 
 /**
+ * @typedef {Object} TenantAdminCoaIn
+ */
+const TenantAdminCoaIn = {
+}
+/**
+ * @typedef {Object} TenantAdminCoaOut
+ * @property {Object} coas
+ */
+const TenantAdminCoaOut = {
+  coas: { // []rqAuth.Coa
+  }, // []rqAuth.Coa
+}
+/**
+ * @callback TenantAdminCoaCallback
+ * @param {TenantAdminCoaOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminCoaIn} i
+ * @param {TenantAdminCoaCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminCoa = async function TenantAdminCoa( i, cb ) {
+  return await axios.post( '/tenantAdmin/coa', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminCreateCoaChildIn
+ * @property {String} name
+ * @property {number} parentId
+ */
+const TenantAdminCreateCoaChildIn = {
+  name: '', // string
+  parentId: 0, // uint64
+}
+/**
+ * @typedef {Object} TenantAdminCreateCoaChildOut
+ * @property {Object} coas
+ */
+const TenantAdminCreateCoaChildOut = {
+  coas: { // []rqAuth.Coa
+  }, // []rqAuth.Coa
+}
+/**
+ * @callback TenantAdminCreateCoaChildCallback
+ * @param {TenantAdminCreateCoaChildOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminCreateCoaChildIn} i
+ * @param {TenantAdminCreateCoaChildCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminCreateCoaChild = async function TenantAdminCreateCoaChild( i, cb ) {
+  return await axios.post( '/tenantAdmin/createCoaChild', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} TenantAdminDashboardIn
  */
 const TenantAdminDashboardIn = {
