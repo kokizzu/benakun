@@ -188,6 +188,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminTerminateStaff(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.TenantAdminUpdateCoaChildAction:
+		in := domain.TenantAdminUpdateCoaChildIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.TenantAdminUpdateCoaChild(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.UserAutoLoginLinkAction:
 		in := domain.UserAutoLoginLinkIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

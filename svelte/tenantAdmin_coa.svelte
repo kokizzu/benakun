@@ -114,7 +114,9 @@
         reformatCoas();
         console.log(o);
         showAddEditChild_popUp = false;
-        notifier.showSuccess('Company created successfully');
+        notifier.showSuccess(
+          'Coa child ' + (addOrEditChild_state.includes('Edit') ? 'edited' : 'created')
+        );
       }
     );
   }
@@ -190,10 +192,14 @@
                         <Icon color="var(--gray-006)" className="icon_drag" size="17" src={RiDesignDragMoveLine} />
                         <h6>{cc.level}.{idx+1}&nbsp;&nbsp;{cc.name}</h6>
                         <div class="options">
-                          <button class="btn" title="Add child" on:click={toggleAddEditChild_popUp}>
+                          <button class="btn" title="Add child" on:click={
+                            ()=>toggleAddEditChild_popUp(cc.id, ``)
+                          }>
                             <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
                           </button>
-                          <button class="btn" title="Edit" on:click={toggleAddEditChild_popUp}>
+                          <button class="btn" title="Edit" on:click={
+                            ()=>toggleAddEditChild_popUp(cc.id, cc.name)
+                          }>
                             <Icon color="var(--gray-006)" className="icon" size="17" src={RiDesignPencilLine} />
                           </button>
                           <button class="btn" title="Delete">

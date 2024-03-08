@@ -5528,14 +5528,14 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[17] = list[i];
-    child_ctx[19] = i;
+    child_ctx[19] = list[i];
+    child_ctx[21] = i;
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[20] = list[i];
-    child_ctx[22] = i;
+    child_ctx[22] = list[i];
+    child_ctx[24] = i;
     return child_ctx;
   }
   function create_if_block_23(ctx) {
@@ -5829,7 +5829,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     );
     const get_key = (ctx2) => (
       /*c*/
-      ctx2[17].id
+      ctx2[19].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context(ctx, each_value, i);
@@ -5895,11 +5895,11 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let current;
     let each_value_1 = ensure_array_like(
       /*c*/
-      ctx[17].children
+      ctx[19].children
     );
     const get_key = (ctx2) => (
       /*cc*/
-      ctx2[20].id
+      ctx2[22].id
     );
     for (let i = 0; i < each_value_1.length; i += 1) {
       let child_ctx = get_each_context_1(ctx, each_value_1, i);
@@ -5921,7 +5921,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
             each_blocks[i].m(div, null);
           }
         }
-        ctx[13](div);
+        ctx[15](div);
         current = true;
       },
       p(ctx2, dirty) {
@@ -5929,7 +5929,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         193) {
           each_value_1 = ensure_array_like(
             /*c*/
-            ctx2[17].children
+            ctx2[19].children
           );
           group_outros();
           each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value_1, each_1_lookup, div, outro_and_destroy_block, create_each_block_1, null, get_each_context_1);
@@ -5957,7 +5957,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].d();
         }
-        ctx[13](null);
+        ctx[15](null);
       }
     };
   }
@@ -5971,19 +5971,19 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let h6;
     let t2_value = (
       /*cc*/
-      ctx[20].level + ""
+      ctx[22].level + ""
     );
     let t2;
     let t3;
     let t4_value = (
       /*idx*/
-      ctx[22] + 1 + ""
+      ctx[24] + 1 + ""
     );
     let t4;
     let t5;
     let t6_value = (
       /*cc*/
-      ctx[20].name + ""
+      ctx[22].name + ""
     );
     let t6;
     let t7;
@@ -6017,6 +6017,15 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         src: RiSystemAddBoxLine_default
       }
     });
+    function click_handler_3() {
+      return (
+        /*click_handler_3*/
+        ctx[13](
+          /*cc*/
+          ctx[22]
+        )
+      );
+    }
     icon2 = new Icon_default({
       props: {
         color: "var(--gray-006)",
@@ -6025,6 +6034,15 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         src: RiDesignPencilLine_default
       }
     });
+    function click_handler_4() {
+      return (
+        /*click_handler_4*/
+        ctx[14](
+          /*cc*/
+          ctx[22]
+        )
+      );
+    }
     icon3 = new Icon_default({
       props: {
         color: "var(--gray-006)",
@@ -6099,18 +6117,8 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         current = true;
         if (!mounted) {
           dispose = [
-            listen(
-              button0,
-              "click",
-              /*toggleAddEditChild_popUp*/
-              ctx[7]
-            ),
-            listen(
-              button1,
-              "click",
-              /*toggleAddEditChild_popUp*/
-              ctx[7]
-            ),
+            listen(button0, "click", click_handler_3),
+            listen(button1, "click", click_handler_4),
             listen(div1, "dragstart", dragStart),
             listen(div1, "dragend", dragEnd),
             listen(
@@ -6127,15 +6135,15 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         ctx = new_ctx;
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t2_value !== (t2_value = /*cc*/
-        ctx[20].level + ""))
+        ctx[22].level + ""))
           set_data(t2, t2_value);
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t4_value !== (t4_value = /*idx*/
-        ctx[22] + 1 + ""))
+        ctx[24] + 1 + ""))
           set_data(t4, t4_value);
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t6_value !== (t6_value = /*cc*/
-        ctx[20].name + ""))
+        ctx[22].name + ""))
           set_data(t6, t6_value);
       },
       i(local) {
@@ -6176,13 +6184,13 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let h5;
     let t0_value = (
       /*c*/
-      ctx[17].level + ""
+      ctx[19].level + ""
     );
     let t0;
     let t1;
     let t2_value = (
       /*c*/
-      ctx[17].name + ""
+      ctx[19].name + ""
     );
     let t2;
     let t3;
@@ -6210,7 +6218,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         /*click_handler_1*/
         ctx[11](
           /*c*/
-          ctx[17]
+          ctx[19]
         )
       );
     }
@@ -6227,14 +6235,14 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         /*click_handler_2*/
         ctx[12](
           /*c*/
-          ctx[17]
+          ctx[19]
         )
       );
     }
     let if_block = (
       /*c*/
-      ctx[17].children && /*c*/
-      ctx[17].children.length && create_if_block_13(ctx)
+      ctx[19].children && /*c*/
+      ctx[19].children.length && create_if_block_13(ctx)
     );
     return {
       key: key_1,
@@ -6298,16 +6306,16 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         ctx = new_ctx;
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t0_value !== (t0_value = /*c*/
-        ctx[17].level + ""))
+        ctx[19].level + ""))
           set_data(t0, t0_value);
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t2_value !== (t2_value = /*c*/
-        ctx[17].name + ""))
+        ctx[19].name + ""))
           set_data(t2, t2_value);
         if (
           /*c*/
-          ctx[17].children && /*c*/
-          ctx[17].children.length
+          ctx[19].children && /*c*/
+          ctx[19].children.length
         ) {
           if (if_block) {
             if_block.p(ctx, dirty);
@@ -6582,7 +6590,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
           reformatCoas();
           console.log(o);
           $invalidate(4, showAddEditChild_popUp = false);
-          notifier.showSuccess("Company created successfully");
+          notifier.showSuccess("Coa child " + (addOrEditChild_state.includes("Edit") ? "edited" : "created"));
         }
       );
     }
@@ -6593,6 +6601,8 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     }
     const click_handler_1 = (c) => toggleAddEditChild_popUp(c.id, ``);
     const click_handler_2 = (c) => toggleAddEditChild_popUp(c.id, c.name);
+    const click_handler_3 = (cc) => toggleAddEditChild_popUp(cc.id, ``);
+    const click_handler_4 = (cc) => toggleAddEditChild_popUp(cc.id, cc.name);
     function div_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         parent = $value;
@@ -6613,6 +6623,8 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       inputbox_value_binding,
       click_handler_1,
       click_handler_2,
+      click_handler_3,
+      click_handler_4,
       div_binding
     ];
   }
