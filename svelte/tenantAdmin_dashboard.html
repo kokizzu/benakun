@@ -2744,6 +2744,9 @@ tfoot.svelte-1z0kpdq > tr.svelte-1z0kpdq {
       exports.TenantAdminTerminateStaff = async function TenantAdminTerminateStaff2(i, cb) {
         return await axios.post("/tenantAdmin/terminateStaff", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminUpdateCoaChild = async function TenantAdminUpdateCoaChild(i, cb) {
+        return await axios.post("/tenantAdmin/updateCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };

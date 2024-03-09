@@ -1474,6 +1474,7 @@
 				}
 			}
 		},
+		"/tenantAdmin/updateCoaChild": {
 			"post": {
 				"security": [{
 					"CookieAuth": []

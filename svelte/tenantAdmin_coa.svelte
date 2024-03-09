@@ -53,9 +53,30 @@
     }
   }
 
+  function refssss() {
+    let toCoas = [];
+    for (let i in coas) {
+      coas[i].children = [];
+      if (Number(coas[i].parentId) > 0) {
+        for (let j in toCoas) {
+          if (toCoas[j].id === coas[i].parentId) {
+            toCoas[j].children = [...toCoas[j].children, coas[i]];
+          }
+        }
+      }
+      
+      toCoas = [...toCoas, coas[i]];
+    }
+
+    return toCoas;
+  }
+
   onMount(() => {
     reformatCoas();
     console.log('REFORMAT_COAS:', REFORMAT_COAS)
+    
+    const toCoas = refssss();
+    console.log('toCoas:', toCoas)
   });
 
   let parent;

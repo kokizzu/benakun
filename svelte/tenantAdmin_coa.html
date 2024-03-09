@@ -2846,6 +2846,9 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       exports.TenantAdminTerminateStaff = async function TenantAdminTerminateStaff(i, cb) {
         return await axios.post("/tenantAdmin/terminateStaff", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminUpdateCoaChild = async function TenantAdminUpdateCoaChild(i, cb) {
+        return await axios.post("/tenantAdmin/updateCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -5528,14 +5531,14 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[19] = list[i];
-    child_ctx[21] = i;
+    child_ctx[20] = list[i];
+    child_ctx[22] = i;
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[22] = list[i];
-    child_ctx[24] = i;
+    child_ctx[23] = list[i];
+    child_ctx[25] = i;
     return child_ctx;
   }
   function create_if_block_23(ctx) {
@@ -5829,7 +5832,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     );
     const get_key = (ctx2) => (
       /*c*/
-      ctx2[19].id
+      ctx2[20].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context(ctx, each_value, i);
@@ -5895,11 +5898,11 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let current;
     let each_value_1 = ensure_array_like(
       /*c*/
-      ctx[19].children
+      ctx[20].children
     );
     const get_key = (ctx2) => (
       /*cc*/
-      ctx2[22].id
+      ctx2[23].id
     );
     for (let i = 0; i < each_value_1.length; i += 1) {
       let child_ctx = get_each_context_1(ctx, each_value_1, i);
@@ -5929,7 +5932,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         193) {
           each_value_1 = ensure_array_like(
             /*c*/
-            ctx2[19].children
+            ctx2[20].children
           );
           group_outros();
           each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value_1, each_1_lookup, div, outro_and_destroy_block, create_each_block_1, null, get_each_context_1);
@@ -5971,19 +5974,19 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let h6;
     let t2_value = (
       /*cc*/
-      ctx[22].level + ""
+      ctx[23].level + ""
     );
     let t2;
     let t3;
     let t4_value = (
       /*idx*/
-      ctx[24] + 1 + ""
+      ctx[25] + 1 + ""
     );
     let t4;
     let t5;
     let t6_value = (
       /*cc*/
-      ctx[22].name + ""
+      ctx[23].name + ""
     );
     let t6;
     let t7;
@@ -6022,7 +6025,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         /*click_handler_3*/
         ctx[13](
           /*cc*/
-          ctx[22]
+          ctx[23]
         )
       );
     }
@@ -6039,7 +6042,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         /*click_handler_4*/
         ctx[14](
           /*cc*/
-          ctx[22]
+          ctx[23]
         )
       );
     }
@@ -6135,15 +6138,15 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         ctx = new_ctx;
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t2_value !== (t2_value = /*cc*/
-        ctx[22].level + ""))
+        ctx[23].level + ""))
           set_data(t2, t2_value);
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t4_value !== (t4_value = /*idx*/
-        ctx[24] + 1 + ""))
+        ctx[25] + 1 + ""))
           set_data(t4, t4_value);
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t6_value !== (t6_value = /*cc*/
-        ctx[22].name + ""))
+        ctx[23].name + ""))
           set_data(t6, t6_value);
       },
       i(local) {
@@ -6184,13 +6187,13 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let h5;
     let t0_value = (
       /*c*/
-      ctx[19].level + ""
+      ctx[20].level + ""
     );
     let t0;
     let t1;
     let t2_value = (
       /*c*/
-      ctx[19].name + ""
+      ctx[20].name + ""
     );
     let t2;
     let t3;
@@ -6218,7 +6221,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         /*click_handler_1*/
         ctx[11](
           /*c*/
-          ctx[19]
+          ctx[20]
         )
       );
     }
@@ -6235,14 +6238,14 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         /*click_handler_2*/
         ctx[12](
           /*c*/
-          ctx[19]
+          ctx[20]
         )
       );
     }
     let if_block = (
       /*c*/
-      ctx[19].children && /*c*/
-      ctx[19].children.length && create_if_block_13(ctx)
+      ctx[20].children && /*c*/
+      ctx[20].children.length && create_if_block_13(ctx)
     );
     return {
       key: key_1,
@@ -6306,16 +6309,16 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         ctx = new_ctx;
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t0_value !== (t0_value = /*c*/
-        ctx[19].level + ""))
+        ctx[20].level + ""))
           set_data(t0, t0_value);
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t2_value !== (t2_value = /*c*/
-        ctx[19].name + ""))
+        ctx[20].name + ""))
           set_data(t2, t2_value);
         if (
           /*c*/
-          ctx[19].children && /*c*/
-          ctx[19].children.length
+          ctx[20].children && /*c*/
+          ctx[20].children.length
         ) {
           if (if_block) {
             if_block.p(ctx, dirty);
@@ -6542,9 +6545,26 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         REFORMAT_COAS.sort((a, b) => a.level - b.level);
       }
     }
+    function refssss() {
+      let toCoas = [];
+      for (let i in coas) {
+        coas[i].children = [];
+        if (Number(coas[i].parentId) > 0) {
+          for (let j in toCoas) {
+            if (toCoas[j].id === coas[i].parentId) {
+              toCoas[j].children = [...toCoas[j].children, coas[i]];
+            }
+          }
+        }
+        toCoas = [...toCoas, coas[i]];
+      }
+      return toCoas;
+    }
     onMount(() => {
       reformatCoas();
       console.log("REFORMAT_COAS:", REFORMAT_COAS);
+      const toCoas = refssss();
+      console.log("toCoas:", toCoas);
     });
     let parent;
     function dragOver(e) {
