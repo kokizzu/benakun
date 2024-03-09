@@ -13,7 +13,7 @@
   import IoClose from 'svelte-icons-pack/io/IoClose';
   import { onMount } from 'svelte';
   import InputBox from './_components/InputBox.svelte';
-  import { TenantAdminCreateCoaChild } from './jsApi.GEN.js';
+  import { TenantAdminCreateCoaChild, TenantAdminUpdateCoaChild } from './jsApi.GEN.js';
   import { notifier } from './_components/notifier.js';
 
   /**
@@ -64,7 +64,7 @@
           }
         }
       }
-      
+
       toCoas = [...toCoas, coas[i]];
     }
 
@@ -104,9 +104,18 @@
   let isSubmitAddOrEditChild = false;
 
   let showAddEditChild_popUp = false;
-  let addOrEditChild_state = '';
+  let addOrEditChild_state = 'add', addOrEdit_heading = '';
+  let coaNameEdit = '';
+
   const toggleAddEditChild_popUp = (parentId, name) => {
-    addOrEditChild_state = name ? 'Edit ' + name : 'Add new child';
+    if (name !== '') {
+      coaNameEdit = name;
+      addOrEditChild_state = 'edit'
+    } else {
+      addOrEditChild_state = 'add';
+    }
+
+    addOrEdit_heading = name ? 'Edit ' + name : 'Add new child';
     childName = name;
     parentIdToAddOrEdit = parentId;
     showAddEditChild_popUp = !showAddEditChild_popUp;
@@ -118,28 +127,52 @@
       notifier.showWarning('All fields are required');
       return;
     }
-    await TenantAdminCreateCoaChild(
-      {
-        name: childName,
-        parentId: parentIdToAddOrEdit
-      },
-      function (o) {
-        if (o.error) {
-          isSubmitAddOrEditChild = false;
-          notifier.showError(o.error);
-          console.log(o.error);
-          return;
-        }
-        isSubmitAddOrEditChild = false;
-        coas = o.coa;
-        reformatCoas();
-        console.log(o);
-        showAddEditChild_popUp = false;
-        notifier.showSuccess(
-          'Coa child ' + (addOrEditChild_state.includes('Edit') ? 'edited' : 'created')
+    switch (addOrEditChild_state) {
+      case 'edit':
+        await TenantAdminUpdateCoaChild(
+          {
+            name: childName,
+            parentId: parentIdToAddOrEdit
+          },
+          function (o) {
+            if (o.error) {
+              isSubmitAddOrEditChild = false;
+              notifier.showError(o.error);
+              console.log(o.error);
+              return;
+            }
+            isSubmitAddOrEditChild = false;
+            coas = o.coa;
+            reformatCoas();
+            console.log(o);
+            showAddEditChild_popUp = false;
+            notifier.showSuccess(coaNameEdit + ' edited');
+          }
         );
-      }
-    );
+        break;
+      case 'add':
+        await TenantAdminCreateCoaChild(
+          {
+            name: childName,
+            parentId: parentIdToAddOrEdit
+          },
+          function (o) {
+            if (o.error) {
+              isSubmitAddOrEditChild = false;
+              notifier.showError(o.error);
+              console.log(o.error);
+              return;
+            }
+            isSubmitAddOrEditChild = false;
+            coas = o.coa;
+            reformatCoas();
+            console.log(o);
+            showAddEditChild_popUp = false;
+            notifier.showSuccess('Coa child created');
+          }
+        );
+        break;
+    }
   }
 </script>
 
@@ -147,7 +180,7 @@
   <div class="popup_container">
     <div class="popup">
       <header class="header">
-        <h2>{addOrEditChild_state}</h2>
+        <h2>{addOrEdit_heading}</h2>
         <button on:click={() => showAddEditChild_popUp = false}>
           <Icon size="22" color="var(--red-005)" src={IoClose}/>
         </button>
@@ -160,7 +193,7 @@
         </div>
         <div class="right">
           <button class="cancel" on:click={toggleAddEditChild_popUp}>Cancel</button>
-          <button class="ok" on:click={submitAddOrEditChild}>
+          <button class="ok" on:click={()=>submitAddOrEditChild(addOrEditChild_state)}>
             {#if !isSubmitAddOrEditChild}
               <span>Ok</span>
             {/if}

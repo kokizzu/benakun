@@ -2846,7 +2846,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       exports.TenantAdminTerminateStaff = async function TenantAdminTerminateStaff(i, cb) {
         return await axios.post("/tenantAdmin/terminateStaff", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminUpdateCoaChild = async function TenantAdminUpdateCoaChild(i, cb) {
+      exports.TenantAdminUpdateCoaChild = async function TenantAdminUpdateCoaChild2(i, cb) {
         return await axios.post("/tenantAdmin/updateCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
@@ -5531,14 +5531,14 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[20] = list[i];
-    child_ctx[22] = i;
+    child_ctx[23] = list[i];
+    child_ctx[25] = i;
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[23] = list[i];
-    child_ctx[25] = i;
+    child_ctx[26] = list[i];
+    child_ctx[28] = i;
     return child_ctx;
   }
   function create_if_block_23(ctx) {
@@ -5574,7 +5574,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       }
     });
     function inputbox_value_binding(value) {
-      ctx[10](value);
+      ctx[11](value);
     }
     let inputbox_props = {
       id: "childName",
@@ -5604,8 +5604,8 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         header = element("header");
         h2 = element("h2");
         t0 = text(
-          /*addOrEditChild_state*/
-          ctx[5]
+          /*addOrEdit_heading*/
+          ctx[6]
         );
         t1 = space();
         button0 = element("button");
@@ -5671,31 +5671,31 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
               button0,
               "click",
               /*click_handler*/
-              ctx[9]
+              ctx[10]
             ),
             listen(
               button1,
               "click",
               /*toggleAddEditChild_popUp*/
-              ctx[7]
+              ctx[8]
             ),
             listen(
               button2,
               "click",
-              /*submitAddOrEditChild*/
-              ctx[8]
+              /*click_handler_1*/
+              ctx[12]
             )
           ];
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (!current || dirty & /*addOrEditChild_state*/
-        32)
+        if (!current || dirty & /*addOrEdit_heading*/
+        64)
           set_data(
             t0,
-            /*addOrEditChild_state*/
-            ctx2[5]
+            /*addOrEdit_heading*/
+            ctx2[6]
           );
         const inputbox_changes = {};
         if (!updating_value && dirty & /*childName*/
@@ -5832,7 +5832,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     );
     const get_key = (ctx2) => (
       /*c*/
-      ctx2[20].id
+      ctx2[23].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context(ctx, each_value, i);
@@ -5857,7 +5857,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       },
       p(ctx2, dirty) {
         if (dirty & /*parent, REFORMAT_COAS, dragStart, dragEnd, dragOver, toggleAddEditChild_popUp*/
-        195) {
+        387) {
           each_value = ensure_array_like(
             /*REFORMAT_COAS*/
             ctx2[0]
@@ -5898,11 +5898,11 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let current;
     let each_value_1 = ensure_array_like(
       /*c*/
-      ctx[20].children
+      ctx[23].children
     );
     const get_key = (ctx2) => (
       /*cc*/
-      ctx2[23].id
+      ctx2[26].id
     );
     for (let i = 0; i < each_value_1.length; i += 1) {
       let child_ctx = get_each_context_1(ctx, each_value_1, i);
@@ -5924,15 +5924,15 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
             each_blocks[i].m(div, null);
           }
         }
-        ctx[15](div);
+        ctx[17](div);
         current = true;
       },
       p(ctx2, dirty) {
         if (dirty & /*dragStart, dragEnd, dragOver, toggleAddEditChild_popUp, REFORMAT_COAS*/
-        193) {
+        385) {
           each_value_1 = ensure_array_like(
             /*c*/
-            ctx2[20].children
+            ctx2[23].children
           );
           group_outros();
           each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value_1, each_1_lookup, div, outro_and_destroy_block, create_each_block_1, null, get_each_context_1);
@@ -5960,7 +5960,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].d();
         }
-        ctx[15](null);
+        ctx[17](null);
       }
     };
   }
@@ -5974,19 +5974,19 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let h6;
     let t2_value = (
       /*cc*/
-      ctx[23].level + ""
+      ctx[26].level + ""
     );
     let t2;
     let t3;
     let t4_value = (
       /*idx*/
-      ctx[25] + 1 + ""
+      ctx[28] + 1 + ""
     );
     let t4;
     let t5;
     let t6_value = (
       /*cc*/
-      ctx[23].name + ""
+      ctx[26].name + ""
     );
     let t6;
     let t7;
@@ -6020,12 +6020,12 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         src: RiSystemAddBoxLine_default
       }
     });
-    function click_handler_3() {
+    function click_handler_4() {
       return (
-        /*click_handler_3*/
-        ctx[13](
+        /*click_handler_4*/
+        ctx[15](
           /*cc*/
-          ctx[23]
+          ctx[26]
         )
       );
     }
@@ -6037,12 +6037,12 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         src: RiDesignPencilLine_default
       }
     });
-    function click_handler_4() {
+    function click_handler_5() {
       return (
-        /*click_handler_4*/
-        ctx[14](
+        /*click_handler_5*/
+        ctx[16](
           /*cc*/
-          ctx[23]
+          ctx[26]
         )
       );
     }
@@ -6120,15 +6120,15 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         current = true;
         if (!mounted) {
           dispose = [
-            listen(button0, "click", click_handler_3),
-            listen(button1, "click", click_handler_4),
+            listen(button0, "click", click_handler_4),
+            listen(button1, "click", click_handler_5),
             listen(div1, "dragstart", dragStart),
             listen(div1, "dragend", dragEnd),
             listen(
               div1,
               "dragover",
               /*dragOver*/
-              ctx[6]
+              ctx[7]
             )
           ];
           mounted = true;
@@ -6138,15 +6138,15 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         ctx = new_ctx;
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t2_value !== (t2_value = /*cc*/
-        ctx[23].level + ""))
+        ctx[26].level + ""))
           set_data(t2, t2_value);
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t4_value !== (t4_value = /*idx*/
-        ctx[25] + 1 + ""))
+        ctx[28] + 1 + ""))
           set_data(t4, t4_value);
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t6_value !== (t6_value = /*cc*/
-        ctx[23].name + ""))
+        ctx[26].name + ""))
           set_data(t6, t6_value);
       },
       i(local) {
@@ -6187,13 +6187,13 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let h5;
     let t0_value = (
       /*c*/
-      ctx[20].level + ""
+      ctx[23].level + ""
     );
     let t0;
     let t1;
     let t2_value = (
       /*c*/
-      ctx[20].name + ""
+      ctx[23].name + ""
     );
     let t2;
     let t3;
@@ -6216,12 +6216,12 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         src: RiSystemAddBoxLine_default
       }
     });
-    function click_handler_1() {
+    function click_handler_2() {
       return (
-        /*click_handler_1*/
-        ctx[11](
+        /*click_handler_2*/
+        ctx[13](
           /*c*/
-          ctx[20]
+          ctx[23]
         )
       );
     }
@@ -6233,19 +6233,19 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         src: RiDesignPencilLine_default
       }
     });
-    function click_handler_2() {
+    function click_handler_3() {
       return (
-        /*click_handler_2*/
-        ctx[12](
+        /*click_handler_3*/
+        ctx[14](
           /*c*/
-          ctx[20]
+          ctx[23]
         )
       );
     }
     let if_block = (
       /*c*/
-      ctx[20].children && /*c*/
-      ctx[20].children.length && create_if_block_13(ctx)
+      ctx[23].children && /*c*/
+      ctx[23].children.length && create_if_block_13(ctx)
     );
     return {
       key: key_1,
@@ -6299,8 +6299,8 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         current = true;
         if (!mounted) {
           dispose = [
-            listen(button0, "click", click_handler_1),
-            listen(button1, "click", click_handler_2)
+            listen(button0, "click", click_handler_2),
+            listen(button1, "click", click_handler_3)
           ];
           mounted = true;
         }
@@ -6309,16 +6309,16 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         ctx = new_ctx;
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t0_value !== (t0_value = /*c*/
-        ctx[20].level + ""))
+        ctx[23].level + ""))
           set_data(t0, t0_value);
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t2_value !== (t2_value = /*c*/
-        ctx[20].name + ""))
+        ctx[23].name + ""))
           set_data(t2, t2_value);
         if (
           /*c*/
-          ctx[20].children && /*c*/
-          ctx[20].children.length
+          ctx[23].children && /*c*/
+          ctx[23].children.length
         ) {
           if (if_block) {
             if_block.p(ctx, dirty);
@@ -6579,9 +6579,16 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let parentIdToAddOrEdit = 0, childName = "";
     let isSubmitAddOrEditChild = false;
     let showAddEditChild_popUp = false;
-    let addOrEditChild_state = "";
+    let addOrEditChild_state = "add", addOrEdit_heading = "";
+    let coaNameEdit = "";
     const toggleAddEditChild_popUp = (parentId, name) => {
-      $invalidate(5, addOrEditChild_state = name ? "Edit " + name : "Add new child");
+      if (name !== "") {
+        coaNameEdit = name;
+        $invalidate(5, addOrEditChild_state = "edit");
+      } else {
+        $invalidate(5, addOrEditChild_state = "add");
+      }
+      $invalidate(6, addOrEdit_heading = name ? "Edit " + name : "Add new child");
       $invalidate(2, childName = name);
       parentIdToAddOrEdit = parentId;
       $invalidate(4, showAddEditChild_popUp = !showAddEditChild_popUp);
@@ -6593,36 +6600,63 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         notifier.showWarning("All fields are required");
         return;
       }
-      await (0, import_jsApi_GEN2.TenantAdminCreateCoaChild)(
-        {
-          name: childName,
-          parentId: parentIdToAddOrEdit
-        },
-        function(o) {
-          if (o.error) {
-            $invalidate(3, isSubmitAddOrEditChild = false);
-            notifier.showError(o.error);
-            console.log(o.error);
-            return;
-          }
-          $invalidate(3, isSubmitAddOrEditChild = false);
-          coas = o.coa;
-          reformatCoas();
-          console.log(o);
-          $invalidate(4, showAddEditChild_popUp = false);
-          notifier.showSuccess("Coa child " + (addOrEditChild_state.includes("Edit") ? "edited" : "created"));
-        }
-      );
+      switch (addOrEditChild_state) {
+        case "edit":
+          await (0, import_jsApi_GEN2.TenantAdminUpdateCoaChild)(
+            {
+              name: childName,
+              parentId: parentIdToAddOrEdit
+            },
+            function(o) {
+              if (o.error) {
+                $invalidate(3, isSubmitAddOrEditChild = false);
+                notifier.showError(o.error);
+                console.log(o.error);
+                return;
+              }
+              $invalidate(3, isSubmitAddOrEditChild = false);
+              coas = o.coa;
+              reformatCoas();
+              console.log(o);
+              $invalidate(4, showAddEditChild_popUp = false);
+              notifier.showSuccess(coaNameEdit + " edited");
+            }
+          );
+          break;
+        case "add":
+          await (0, import_jsApi_GEN2.TenantAdminCreateCoaChild)(
+            {
+              name: childName,
+              parentId: parentIdToAddOrEdit
+            },
+            function(o) {
+              if (o.error) {
+                $invalidate(3, isSubmitAddOrEditChild = false);
+                notifier.showError(o.error);
+                console.log(o.error);
+                return;
+              }
+              $invalidate(3, isSubmitAddOrEditChild = false);
+              coas = o.coa;
+              reformatCoas();
+              console.log(o);
+              $invalidate(4, showAddEditChild_popUp = false);
+              notifier.showSuccess("Coa child created");
+            }
+          );
+          break;
+      }
     }
     const click_handler = () => $invalidate(4, showAddEditChild_popUp = false);
     function inputbox_value_binding(value) {
       childName = value;
       $invalidate(2, childName);
     }
-    const click_handler_1 = (c) => toggleAddEditChild_popUp(c.id, ``);
-    const click_handler_2 = (c) => toggleAddEditChild_popUp(c.id, c.name);
-    const click_handler_3 = (cc) => toggleAddEditChild_popUp(cc.id, ``);
-    const click_handler_4 = (cc) => toggleAddEditChild_popUp(cc.id, cc.name);
+    const click_handler_1 = () => submitAddOrEditChild(addOrEditChild_state);
+    const click_handler_2 = (c) => toggleAddEditChild_popUp(c.id, ``);
+    const click_handler_3 = (c) => toggleAddEditChild_popUp(c.id, c.name);
+    const click_handler_4 = (cc) => toggleAddEditChild_popUp(cc.id, ``);
+    const click_handler_5 = (cc) => toggleAddEditChild_popUp(cc.id, cc.name);
     function div_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         parent = $value;
@@ -6636,6 +6670,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       isSubmitAddOrEditChild,
       showAddEditChild_popUp,
       addOrEditChild_state,
+      addOrEdit_heading,
       dragOver,
       toggleAddEditChild_popUp,
       submitAddOrEditChild,
@@ -6645,6 +6680,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       click_handler_2,
       click_handler_3,
       click_handler_4,
+      click_handler_5,
       div_binding
     ];
   }
