@@ -14,9 +14,9 @@ import (
 type (
 	TenantAdminUpdateCoaChildIn struct {
 		RequestCommon
-		Id				uint64 `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+		Id         uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
 		Name     	string `json:"name" form:"name" query:"name" long:"name" msg:"name"`
-		ParentId 	uint64 `json:"parentId,string" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
+		ParentId   uint64      `json:"parentId,string" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
 	}
 	TenantAdminUpdateCoaChildOut struct {
 		ResponseCommon
@@ -58,7 +58,7 @@ func (d *Domain) TenantAdminUpdateCoaChild(in *TenantAdminUpdateCoaChildIn) (out
 
 	// find parent id
 	parent := wcAuth.NewCoaMutator(d.AuthOltp)
-	parent.Id = in.ParentId
+	parent.Id =  in.ParentId
 	if !parent.FindById() {
 		out.SetError(400, ErrTenantAdminUpdateCoaChildCoaChildNotFound)
 		return
@@ -72,7 +72,7 @@ func (d *Domain) TenantAdminUpdateCoaChild(in *TenantAdminUpdateCoaChildIn) (out
 		return
 	}
 
-	child.Name = in.Name
+	child.SetName(in.Name)
 	if !child.DoUpdateById() {
 		child.HaveMutation()
 		out.SetError(400, ErrTenantAdminCreateCoaChildFailed)

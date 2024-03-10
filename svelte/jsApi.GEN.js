@@ -899,11 +899,11 @@ exports.TenantAdminCoa = async function TenantAdminCoa( i, cb ) {
 /**
  * @typedef {Object} TenantAdminCreateCoaChildIn
  * @property {String} name
- * @property {number} parentId
+ * @property {String} parentId
  */
 const TenantAdminCreateCoaChildIn = {
   name: '', // string
-  parentId: 0, // uint64
+  parentId: '', // string
 }
 /**
  * @typedef {Object} TenantAdminCreateCoaChildOut
@@ -1046,14 +1046,14 @@ exports.TenantAdminTerminateStaff = async function TenantAdminTerminateStaff( i,
 
 /**
  * @typedef {Object} TenantAdminUpdateCoaChildIn
- * @property {number} id
+ * @property {String} id
  * @property {String} name
- * @property {number} parentId
+ * @property {String} parentId
  */
 const TenantAdminUpdateCoaChildIn = {
-  id: 0, // uint64
+  id: '', // string
   name: '', // string
-  parentId: 0, // uint64
+  parentId: '', // string
 }
 /**
  * @typedef {Object} TenantAdminUpdateCoaChildOut

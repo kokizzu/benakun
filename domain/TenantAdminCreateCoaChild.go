@@ -84,7 +84,9 @@ func (d *Domain) TenantAdminCreateCoaChild(in *TenantAdminCreateCoaChildIn) (out
 	}
 
 	// update childrens of parent coa
-	parent.Children = append(parent.Children, childId)
+	children := parent.Children
+	children = append(children, childId)
+	parent.SetChildren(children)
 	if !parent.DoUpdateById() {
 		out.SetError(400, ErrTenantAdminCreateCoaChildCoaParentNotFound)
 		return

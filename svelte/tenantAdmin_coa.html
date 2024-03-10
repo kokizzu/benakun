@@ -5924,7 +5924,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
             each_blocks[i].m(div, null);
           }
         }
-        ctx[17](div);
+        ctx[16](div);
         current = true;
       },
       p(ctx2, dirty) {
@@ -5960,7 +5960,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].d();
         }
-        ctx[17](null);
+        ctx[16](null);
       }
     };
   }
@@ -6020,10 +6020,10 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         src: RiSystemAddBoxLine_default
       }
     });
-    function click_handler_4() {
+    function click_handler_3() {
       return (
-        /*click_handler_4*/
-        ctx[15](
+        /*click_handler_3*/
+        ctx[14](
           /*cc*/
           ctx[26]
         )
@@ -6037,10 +6037,10 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         src: RiDesignPencilLine_default
       }
     });
-    function click_handler_5() {
+    function click_handler_4() {
       return (
-        /*click_handler_5*/
-        ctx[16](
+        /*click_handler_4*/
+        ctx[15](
           /*cc*/
           ctx[26]
         )
@@ -6120,8 +6120,8 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         current = true;
         if (!mounted) {
           dispose = [
-            listen(button0, "click", click_handler_4),
-            listen(button1, "click", click_handler_5),
+            listen(button0, "click", click_handler_3),
+            listen(button1, "click", click_handler_4),
             listen(div1, "dragstart", dragStart),
             listen(div1, "dragend", dragEnd),
             listen(
@@ -6198,17 +6198,14 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let t2;
     let t3;
     let div0;
-    let button0;
-    let icon0;
+    let button;
+    let icon;
     let t4;
-    let button1;
-    let icon1;
     let t5;
-    let t6;
     let current;
     let mounted;
     let dispose;
-    icon0 = new Icon_default({
+    icon = new Icon_default({
       props: {
         color: "var(--gray-006)",
         className: "icon",
@@ -6220,23 +6217,6 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       return (
         /*click_handler_2*/
         ctx[13](
-          /*c*/
-          ctx[23]
-        )
-      );
-    }
-    icon1 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiDesignPencilLine_default
-      }
-    });
-    function click_handler_3() {
-      return (
-        /*click_handler_3*/
-        ctx[14](
           /*c*/
           ctx[23]
         )
@@ -6259,20 +6239,15 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         t2 = text(t2_value);
         t3 = space();
         div0 = element("div");
-        button0 = element("button");
-        create_component(icon0.$.fragment);
+        button = element("button");
+        create_component(icon.$.fragment);
         t4 = space();
-        button1 = element("button");
-        create_component(icon1.$.fragment);
-        t5 = space();
         if (if_block)
           if_block.c();
-        t6 = space();
+        t5 = space();
         attr(h5, "class", "svelte-obbu95");
-        attr(button0, "class", "btn svelte-obbu95");
-        attr(button0, "title", "Add child");
-        attr(button1, "class", "btn svelte-obbu95");
-        attr(button1, "title", "Edit");
+        attr(button, "class", "btn svelte-obbu95");
+        attr(button, "title", "Add child");
         attr(div0, "class", "options svelte-obbu95");
         attr(div1, "class", "parent svelte-obbu95");
         attr(div2, "class", "coa svelte-obbu95");
@@ -6287,21 +6262,15 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         append(h5, t2);
         append(div1, t3);
         append(div1, div0);
-        append(div0, button0);
-        mount_component(icon0, button0, null);
-        append(div0, t4);
-        append(div0, button1);
-        mount_component(icon1, button1, null);
-        append(div2, t5);
+        append(div0, button);
+        mount_component(icon, button, null);
+        append(div2, t4);
         if (if_block)
           if_block.m(div2, null);
-        append(div2, t6);
+        append(div2, t5);
         current = true;
         if (!mounted) {
-          dispose = [
-            listen(button0, "click", click_handler_2),
-            listen(button1, "click", click_handler_3)
-          ];
+          dispose = listen(button, "click", click_handler_2);
           mounted = true;
         }
       },
@@ -6330,7 +6299,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
             if_block = create_if_block_13(ctx);
             if_block.c();
             transition_in(if_block, 1);
-            if_block.m(div2, t6);
+            if_block.m(div2, t5);
           }
         } else if (if_block) {
           group_outros();
@@ -6343,14 +6312,12 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       i(local) {
         if (current)
           return;
-        transition_in(icon0.$.fragment, local);
-        transition_in(icon1.$.fragment, local);
+        transition_in(icon.$.fragment, local);
         transition_in(if_block);
         current = true;
       },
       o(local) {
-        transition_out(icon0.$.fragment, local);
-        transition_out(icon1.$.fragment, local);
+        transition_out(icon.$.fragment, local);
         transition_out(if_block);
         current = false;
       },
@@ -6358,12 +6325,11 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         if (detaching) {
           detach(div2);
         }
-        destroy_component(icon0);
-        destroy_component(icon1);
+        destroy_component(icon);
         if (if_block)
           if_block.d();
         mounted = false;
-        run_all(dispose);
+        dispose();
       }
     };
   }
@@ -6529,42 +6495,54 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   function instance7($self, $props, $invalidate) {
     let coas = [/* coas */];
     let REFORMAT_COAS = [];
-    function reformatCoas() {
-      if (coas && coas.length) {
-        for (let i in coas) {
-          coas[i].children = [];
-          if (Number(coas[i].parentId) > 0) {
-            for (let j in REFORMAT_COAS) {
-              if (REFORMAT_COAS[j].id === coas[i].parentId)
-                $invalidate(0, REFORMAT_COAS[j].children = [...REFORMAT_COAS[j].children, coas[i]], REFORMAT_COAS);
+    function coaMaker(id) {
+      let coaFormatted = {
+        id: "",
+        name: "",
+        level: 0,
+        parentId: "",
+        children: []
+      };
+      for (let i in coas) {
+        if (coas[i].id == String(id)) {
+          const children2 = coas[i].children;
+          if (children2 && children2.length) {
+            console.log("children:", children2);
+            for (let j in children2) {
+              const childId = children2[j];
+              const child = coaMaker(childId);
+              coaFormatted.children = [...coaFormatted.children, child];
             }
           } else {
-            $invalidate(0, REFORMAT_COAS = [...REFORMAT_COAS, coas[i]]);
+            coaFormatted.children = [];
           }
+          coaFormatted.name = coas[i].name;
+          coaFormatted.level = coas[i].level;
+          coaFormatted.id = coas[i].id;
+          coaFormatted.parentId = coas[i].parentId;
         }
-        REFORMAT_COAS.sort((a, b) => a.level - b.level);
       }
+      return coaFormatted;
     }
-    function refssss() {
+    function reformatCoas() {
       let toCoas = [];
-      for (let i in coas) {
-        coas[i].children = [];
-        if (Number(coas[i].parentId) > 0) {
-          for (let j in toCoas) {
-            if (toCoas[j].id === coas[i].parentId) {
-              toCoas[j].children = [...toCoas[j].children, coas[i]];
-            }
-          }
+      if (coas && coas.length) {
+        for (let i in coas) {
+          const id = coas[i].id;
+          const coa = coaMaker(id);
+          toCoas = [...toCoas, coa];
         }
-        toCoas = [...toCoas, coas[i]];
+      }
+      if (toCoas && toCoas.length) {
+        toCoas = toCoas.filter((obj) => obj.parentId <= 0);
+        toCoas.sort((a, b) => a.level - b.level);
       }
       return toCoas;
     }
     onMount(() => {
-      reformatCoas();
-      console.log("REFORMAT_COAS:", REFORMAT_COAS);
-      const toCoas = refssss();
-      console.log("toCoas:", toCoas);
+      console.log(coas);
+      $invalidate(0, REFORMAT_COAS = reformatCoas());
+      console.log(REFORMAT_COAS);
     });
     let parent;
     function dragOver(e) {
@@ -6576,14 +6554,15 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       });
       parent.insertBefore(draggingItem, nextSibling);
     }
-    let parentIdToAddOrEdit = 0, childName = "";
+    let parentIdToAddOrEdit = "", childName = "", coaIdToUpdate = "";
     let isSubmitAddOrEditChild = false;
     let showAddEditChild_popUp = false;
     let addOrEditChild_state = "add", addOrEdit_heading = "";
     let coaNameEdit = "";
-    const toggleAddEditChild_popUp = (parentId, name) => {
-      if (name !== "") {
+    const toggleAddEditChild_popUp = (parentId, name, id) => {
+      if (name !== "" || id !== "") {
         coaNameEdit = name;
+        coaIdToUpdate = id;
         $invalidate(5, addOrEditChild_state = "edit");
       } else {
         $invalidate(5, addOrEditChild_state = "add");
@@ -6593,20 +6572,22 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       parentIdToAddOrEdit = parentId;
       $invalidate(4, showAddEditChild_popUp = !showAddEditChild_popUp);
     };
-    async function submitAddOrEditChild() {
+    async function submitAddOrEditChild(state) {
       $invalidate(3, isSubmitAddOrEditChild = true);
       if (!childName || !parentIdToAddOrEdit) {
         $invalidate(3, isSubmitAddOrEditChild = false);
         notifier.showWarning("All fields are required");
         return;
       }
-      switch (addOrEditChild_state) {
+      switch (state) {
         case "edit":
           await (0, import_jsApi_GEN2.TenantAdminUpdateCoaChild)(
             {
               name: childName,
-              parentId: parentIdToAddOrEdit
+              parentId: parentIdToAddOrEdit,
+              id: coaIdToUpdate
             },
+            // @ts-ignore
             function(o) {
               if (o.error) {
                 $invalidate(3, isSubmitAddOrEditChild = false);
@@ -6616,7 +6597,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
               }
               $invalidate(3, isSubmitAddOrEditChild = false);
               coas = o.coa;
-              reformatCoas();
+              $invalidate(0, REFORMAT_COAS = reformatCoas());
               console.log(o);
               $invalidate(4, showAddEditChild_popUp = false);
               notifier.showSuccess(coaNameEdit + " edited");
@@ -6629,6 +6610,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
               name: childName,
               parentId: parentIdToAddOrEdit
             },
+            // @ts-ignore
             function(o) {
               if (o.error) {
                 $invalidate(3, isSubmitAddOrEditChild = false);
@@ -6653,10 +6635,9 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       $invalidate(2, childName);
     }
     const click_handler_1 = () => submitAddOrEditChild(addOrEditChild_state);
-    const click_handler_2 = (c) => toggleAddEditChild_popUp(c.id, ``);
-    const click_handler_3 = (c) => toggleAddEditChild_popUp(c.id, c.name);
-    const click_handler_4 = (cc) => toggleAddEditChild_popUp(cc.id, ``);
-    const click_handler_5 = (cc) => toggleAddEditChild_popUp(cc.id, cc.name);
+    const click_handler_2 = (c) => toggleAddEditChild_popUp(c.id, "", "");
+    const click_handler_3 = (cc) => toggleAddEditChild_popUp(cc.id, "", "");
+    const click_handler_4 = (cc) => toggleAddEditChild_popUp(cc.parentId, cc.name, cc.id);
     function div_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         parent = $value;
@@ -6680,7 +6661,6 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       click_handler_2,
       click_handler_3,
       click_handler_4,
-      click_handler_5,
       div_binding
     ];
   }

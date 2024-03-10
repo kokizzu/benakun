@@ -1,6 +1,4 @@
 <script>
-// @ts-nocheck
-
   import SideMenu from './_components/partials/SideMenu.svelte';
   import Navbar from './_components/partials/Navbar.svelte';
   import Footer from './_components/partials/Footer.svelte';
@@ -36,47 +34,60 @@
    */
   let REFORMAT_COAS = [];
 
-  function reformatCoas() {
-    if (coas && coas.length) {
-      for (let i in coas) {
-        coas[i].children = [];
-        if (Number(coas[i].parentId) > 0) {
-          for (let j in REFORMAT_COAS) {
-            if (REFORMAT_COAS[j].id === coas[i].parentId)
-            REFORMAT_COAS[j].children = [...REFORMAT_COAS[j].children, coas[i]];
+  function coaMaker(id) {
+    let coaFormatted = {
+      id: '',
+      name: '',
+      level: 0,
+      parentId: '',
+      children: []
+    }
+    for (let i in coas) {
+      if (coas[i].id == String(id)) {
+        const children = coas[i].children;
+        if (children && children.length) {
+          console.log('children:', children)
+          for (let j in children) {
+            const childId = children[j]
+            const child = coaMaker(childId)
+            coaFormatted.children = [...coaFormatted.children, child];
           }
         } else {
-          REFORMAT_COAS = [...REFORMAT_COAS, coas[i]];
+          coaFormatted.children = [];
         }
+
+        coaFormatted.name = coas[i].name;
+        coaFormatted.level = coas[i].level;
+        coaFormatted.id = coas[i].id;
+        coaFormatted.parentId = coas[i].parentId;
       }
-      REFORMAT_COAS.sort((a, b) => a.level - b.level);
     }
+    return coaFormatted;
   }
 
-  function refssss() {
+  function reformatCoas() {
     let toCoas = [];
-    for (let i in coas) {
-      coas[i].children = [];
-      if (Number(coas[i].parentId) > 0) {
-        for (let j in toCoas) {
-          if (toCoas[j].id === coas[i].parentId) {
-            toCoas[j].children = [...toCoas[j].children, coas[i]];
-          }
-        }
-      }
 
-      toCoas = [...toCoas, coas[i]];
+    if (coas && coas.length) {
+      for (let i in coas) {
+        const id = coas[i].id;
+        const coa = coaMaker(id);
+        toCoas = [...toCoas, coa];
+      }
+    }
+
+    if (toCoas && toCoas.length) {
+      toCoas = toCoas.filter(obj => obj.parentId <= 0);
+      toCoas.sort((a, b) => a.level - b.level);
     }
 
     return toCoas;
   }
 
   onMount(() => {
-    reformatCoas();
-    console.log('REFORMAT_COAS:', REFORMAT_COAS)
-    
-    const toCoas = refssss();
-    console.log('toCoas:', toCoas)
+    console.log(coas)
+    REFORMAT_COAS = reformatCoas();
+    console.log(REFORMAT_COAS);
   });
 
   let parent;
@@ -100,16 +111,17 @@
     parent.insertBefore(draggingItem, nextSibling);
   }
 
-  let parentIdToAddOrEdit = 0, childName = '';
+  let parentIdToAddOrEdit = '', childName = '', coaIdToUpdate = '';
   let isSubmitAddOrEditChild = false;
 
   let showAddEditChild_popUp = false;
   let addOrEditChild_state = 'add', addOrEdit_heading = '';
   let coaNameEdit = '';
 
-  const toggleAddEditChild_popUp = (parentId, name) => {
-    if (name !== '') {
+  const toggleAddEditChild_popUp = (parentId, name, id) => {
+    if (name !== '' || id !== '') {
       coaNameEdit = name;
+      coaIdToUpdate = id;
       addOrEditChild_state = 'edit'
     } else {
       addOrEditChild_state = 'add';
@@ -120,30 +132,36 @@
     parentIdToAddOrEdit = parentId;
     showAddEditChild_popUp = !showAddEditChild_popUp;
   }
-  async function submitAddOrEditChild() {
+  async function submitAddOrEditChild(state) {
     isSubmitAddOrEditChild = true;
     if (!childName || !parentIdToAddOrEdit) {
       isSubmitAddOrEditChild = false;
       notifier.showWarning('All fields are required');
       return;
     }
-    switch (addOrEditChild_state) {
+    switch (state) {
       case 'edit':
         await TenantAdminUpdateCoaChild(
           {
-            name: childName,
-            parentId: parentIdToAddOrEdit
+              name: childName,
+              parentId: parentIdToAddOrEdit,
+              id: coaIdToUpdate
           },
+          // @ts-ignore
           function (o) {
+            // @ts-ignore
             if (o.error) {
               isSubmitAddOrEditChild = false;
+              // @ts-ignore
               notifier.showError(o.error);
+              // @ts-ignore
               console.log(o.error);
               return;
             }
             isSubmitAddOrEditChild = false;
+            // @ts-ignore
             coas = o.coa;
-            reformatCoas();
+            REFORMAT_COAS = reformatCoas();
             console.log(o);
             showAddEditChild_popUp = false;
             notifier.showSuccess(coaNameEdit + ' edited');
@@ -156,15 +174,21 @@
             name: childName,
             parentId: parentIdToAddOrEdit
           },
+          // @ts-ignore
           function (o) {
+            // @ts-ignore
             if (o.error) {
               isSubmitAddOrEditChild = false;
+              // @ts-ignore
               notifier.showError(o.error);
+              // @ts-ignore
               console.log(o.error);
               return;
             }
             isSubmitAddOrEditChild = false;
+            // @ts-ignore
             coas = o.coa;
+
             reformatCoas();
             console.log(o);
             showAddEditChild_popUp = false;
@@ -221,14 +245,9 @@
                   <h5>{c.level}.&nbsp;{c.name}</h5>
                   <div class="options">
                     <button class="btn" title="Add child" on:click={
-                      ()=>toggleAddEditChild_popUp(c.id, ``)
+                      ()=>toggleAddEditChild_popUp(c.id, '', '')
                     }>
                       <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
-                    </button>
-                    <button class="btn" title="Edit" on:click={
-                      ()=>toggleAddEditChild_popUp(c.id, c.name)
-                    }>
-                      <Icon color="var(--gray-006)" className="icon" size="17" src={RiDesignPencilLine} />
                     </button>
                   </div>
                 </div>
@@ -247,12 +266,12 @@
                         <h6>{cc.level}.{idx+1}&nbsp;&nbsp;{cc.name}</h6>
                         <div class="options">
                           <button class="btn" title="Add child" on:click={
-                            ()=>toggleAddEditChild_popUp(cc.id, ``)
+                            ()=>toggleAddEditChild_popUp(cc.id, '', '')
                           }>
                             <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
                           </button>
                           <button class="btn" title="Edit" on:click={
-                            ()=>toggleAddEditChild_popUp(cc.id, cc.name)
+                            ()=>toggleAddEditChild_popUp(cc.parentId, cc.name, cc.id)
                           }>
                             <Icon color="var(--gray-006)" className="icon" size="17" src={RiDesignPencilLine} />
                           </button>
