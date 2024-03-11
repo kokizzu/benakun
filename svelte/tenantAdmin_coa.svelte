@@ -4,15 +4,13 @@
   import Footer from './_components/partials/Footer.svelte';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
-  import RiDesignPencilLine from 'svelte-icons-pack/ri/RiDesignPencilLine';
-  import RiDesignDragMoveLine from 'svelte-icons-pack/ri/RiDesignDragMoveLine';
-  import RiSystemDeleteBinLine from 'svelte-icons-pack/ri/RiSystemDeleteBinLine';
   import FiLoader from 'svelte-icons-pack/fi/FiLoader';
   import IoClose from 'svelte-icons-pack/io/IoClose';
   import { onMount } from 'svelte';
   import InputBox from './_components/InputBox.svelte';
   import { TenantAdminCreateCoaChild, TenantAdminUpdateCoaChild } from './jsApi.GEN.js';
   import { notifier } from './_components/notifier.js';
+  import CoaTree from './_components/CoaTree.svelte';
 
   /**
    * @type {any}
@@ -46,7 +44,6 @@
       if (coas[i].id == String(id)) {
         const children = coas[i].children;
         if (children && children.length) {
-          console.log('children:', children)
           for (let j in children) {
             const childId = children[j]
             const child = coaMaker(childId)
@@ -84,32 +81,7 @@
     return toCoas;
   }
 
-  onMount(() => {
-    console.log(coas)
-    REFORMAT_COAS = reformatCoas();
-    console.log(REFORMAT_COAS);
-  });
-
-  let parent;
-
-  function dragStart(e) {
-    setTimeout(() => e.target.classList.add('dragging'), 0);
-  }
-
-  function dragEnd(e) {
-    e.target.classList.remove('dragging');
-  }
-
-  function dragOver(e) {
-    e.preventDefault();
-    const draggingItem = document.querySelector(".dragging");
-    let siblings = [...parent.querySelectorAll(".child")];
-    let nextSibling = siblings.find((sibling) => {
-      return e.clientY <= sibling.offsetTop + sibling.offsetHeight / 2;
-    });
-
-    parent.insertBefore(draggingItem, nextSibling);
-  }
+  onMount(() => REFORMAT_COAS = reformatCoas());
 
   let parentIdToAddOrEdit = '', childName = '', coaIdToUpdate = '';
   let isSubmitAddOrEditChild = false;
@@ -254,34 +226,13 @@
                   </div>
                 </div>
                 {#if c.children && c.children.length}
-                  <div class="children" bind:this={parent}>
+                  <div class="children">
                     {#each c.children as cc, idx (cc.id)}
-                      <!-- svelte-ignore a11y-no-static-element-interactions -->
-                      <div
-                        class="child"
-                        draggable={true}
-                        on:dragstart={dragStart}
-                        on:dragend={dragEnd}
-                        on:dragover={dragOver}
-                        >
-                        <Icon color="var(--gray-006)" className="icon_drag" size="17" src={RiDesignDragMoveLine} />
-                        <h6>{cc.level}.{idx+1}&nbsp;&nbsp;{cc.name}</h6>
-                        <div class="options">
-                          <button class="btn" title="Add child" on:click={
-                            ()=>toggleAddEditChild_popUp(cc.id, '', '')
-                          }>
-                            <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
-                          </button>
-                          <button class="btn" title="Edit" on:click={
-                            ()=>toggleAddEditChild_popUp(cc.parentId, cc.name, cc.id)
-                          }>
-                            <Icon color="var(--gray-006)" className="icon" size="17" src={RiDesignPencilLine} />
-                          </button>
-                          <button class="btn" title="Delete">
-                            <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemDeleteBinLine} />
-                          </button>
-                        </div>
-                      </div>
+                      <CoaTree
+                        coa={cc}
+                        num={idx+1}
+                        indent={1}
+                      />
                     {/each}
                   </div>
                 {/if}
@@ -480,46 +431,6 @@
     flex-direction: column;
     gap: 5px;
     overflow: hidden;
-  }
-
-  .coa_levels .coa .children .child {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    /* justify-content: space-between; */
-    gap: 20px;
-    align-items: center;
-    padding: 5px 5px 5px 40px;
-    cursor: pointer;
-    position: relative;
-  }
-
-  .coa_levels .coa .children .child h6 {
-    font-size: 14px;
-    line-height: 2.2rem;
-    font-weight: 500;
-    margin: 0;
-  }
-
-  .coa_levels .coa .children .child:hover {
-    background-color: var(--gray-001);
-  }
-
-  .coa_levels .coa .children .child:hover .options {
-    display: flex;
-  }
-
-  :global(.coa_levels .coa .children .child .icon_drag) {
-    display: none;
-    position: absolute;
-    left: 10px;
-  }
-
-  :global(.coa_levels .coa .children .child:hover .icon_drag) {
-    display: block;
-  }
-
-  :global(.coa_levels .coa .children .child:active .icon_drag) {
-    display: block;
+    padding: 0 20px 0 10px;
   }
 </style>
