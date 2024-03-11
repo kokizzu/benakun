@@ -161,6 +161,7 @@
             isSubmitAddOrEditChild = false;
             // @ts-ignore
             coas = o.coa;
+            REFORMAT_COAS = [];
             REFORMAT_COAS = reformatCoas();
             console.log(o);
             showAddEditChild_popUp = false;
@@ -189,7 +190,8 @@
             // @ts-ignore
             coas = o.coa;
 
-            reformatCoas();
+            REFORMAT_COAS = [];
+            REFORMAT_COAS = reformatCoas();
             console.log(o);
             showAddEditChild_popUp = false;
             notifier.showSuccess('Coa child created');
@@ -376,15 +378,6 @@
 		cursor: pointer;
 		font-weight: 600;
 	}
-
-  .popup_container .popup .foot button.reset {
-		background-color: var(--amber-006);
-		border: 1px solid var(--amber-006);
-	}
-
-  .popup_container .popup .foot button.reset:hover {
-    background-color: var(--amber-005);
-  }
 
 	.popup_container .popup .foot button.ok {
 		background-color: var(--green-006);
