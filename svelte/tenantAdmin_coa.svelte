@@ -4,13 +4,11 @@
   import Footer from './_components/partials/Footer.svelte';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
-  import FiLoader from 'svelte-icons-pack/fi/FiLoader';
-  import IoClose from 'svelte-icons-pack/io/IoClose';
   import { onMount } from 'svelte';
-  import InputBox from './_components/InputBox.svelte';
-  import { TenantAdminCreateCoaChild, TenantAdminUpdateCoaChild } from './jsApi.GEN.js';
+  import { TenantAdminCreateCoaChild } from './jsApi.GEN.js';
   import { notifier } from './_components/notifier.js';
   import CoaTree from './_components/CoaTree.svelte';
+  import PopUpCoaChild from './_components/PopUpCoaChild.svelte';
 
   /**
    * @type {any}
@@ -83,127 +81,56 @@
 
   onMount(() => REFORMAT_COAS = reformatCoas());
 
-  let parentIdToAddOrEdit = '', childName = '', coaIdToUpdate = '';
-  let isSubmitAddOrEditChild = false;
+  let popUpCoaChild;
 
-  let showAddEditChild_popUp = false;
-  let addOrEditChild_state = 'add', addOrEdit_heading = '';
-  let coaNameEdit = '';
+  let childName = '', childParentId = '';
+  let isSubmitted = false;
 
-  const toggleAddEditChild_popUp = (parentId, name, id) => {
-    if (name !== '' || id !== '') {
-      coaNameEdit = name;
-      coaIdToUpdate = id;
-      addOrEditChild_state = 'edit'
-    } else {
-      addOrEditChild_state = 'add';
-    }
-
-    addOrEdit_heading = name ? 'Edit ' + name : 'Add new child';
-    childName = name;
-    parentIdToAddOrEdit = parentId;
-    showAddEditChild_popUp = !showAddEditChild_popUp;
-  }
-  async function submitAddOrEditChild(state) {
-    isSubmitAddOrEditChild = true;
-    if (!childName || !parentIdToAddOrEdit) {
-      isSubmitAddOrEditChild = false;
-      notifier.showWarning('All fields are required');
+  async function submitAddCoaChild() {
+    isSubmitted = true;
+    if (childName === '') {
+      isSubmitted = false;
+      notifier.showWarning('coa name cannot be empty');
       return;
     }
-    switch (state) {
-      case 'edit':
-        await TenantAdminUpdateCoaChild(
-          {
-              name: childName,
-              parentId: parentIdToAddOrEdit,
-              id: coaIdToUpdate
-          },
+    await TenantAdminCreateCoaChild(
+      {
+        name: childName,
+        parentId: childParentId
+      },
+      // @ts-ignore
+      function (o) {
+        // @ts-ignore
+        if (o.error) {
+          popUpCoaChild.hide();
+          isSubmitted = false;
           // @ts-ignore
-          function (o) {
-            // @ts-ignore
-            if (o.error) {
-              isSubmitAddOrEditChild = false;
-              // @ts-ignore
-              notifier.showError(o.error);
-              // @ts-ignore
-              console.log(o.error);
-              return;
-            }
-            isSubmitAddOrEditChild = false;
-            // @ts-ignore
-            coas = o.coa;
-            REFORMAT_COAS = [];
-            REFORMAT_COAS = reformatCoas();
-            console.log(o);
-            showAddEditChild_popUp = false;
-            notifier.showSuccess(coaNameEdit + ' edited');
-          }
-        );
-        break;
-      case 'add':
-        await TenantAdminCreateCoaChild(
-          {
-            name: childName,
-            parentId: parentIdToAddOrEdit
-          },
+          notifier.showError(o.error);
           // @ts-ignore
-          function (o) {
-            // @ts-ignore
-            if (o.error) {
-              isSubmitAddOrEditChild = false;
-              // @ts-ignore
-              notifier.showError(o.error);
-              // @ts-ignore
-              console.log(o.error);
-              return;
-            }
-            isSubmitAddOrEditChild = false;
-            // @ts-ignore
-            coas = o.coa;
+          console.log(o.error);
+          return;
+        }
+        popUpCoaChild.hide();
+        isSubmitted = false;
+        // @ts-ignore
+        coas = o.coa;
 
-            REFORMAT_COAS = [];
-            REFORMAT_COAS = reformatCoas();
-            console.log(o);
-            showAddEditChild_popUp = false;
-            notifier.showSuccess('Coa child created');
-          }
-        );
-        break;
-    }
+        REFORMAT_COAS = [];
+        REFORMAT_COAS = reformatCoas();
+        notifier.showSuccess('Coa child created');
+      }
+    );
+    childName = '';
+    childParentId = '';
   }
 </script>
 
-{#if showAddEditChild_popUp}
-  <div class="popup_container">
-    <div class="popup">
-      <header class="header">
-        <h2>{addOrEdit_heading}</h2>
-        <button on:click={() => showAddEditChild_popUp = false}>
-          <Icon size="22" color="var(--red-005)" src={IoClose}/>
-        </button>
-      </header>
-      <div class="forms">
-        <InputBox id="childName" label="Nama" bind:value={childName} type="text" placeholder="Barang..." />
-      </div>
-      <div class="foot">
-        <div class="left">
-        </div>
-        <div class="right">
-          <button class="cancel" on:click={toggleAddEditChild_popUp}>Cancel</button>
-          <button class="ok" on:click={()=>submitAddOrEditChild(addOrEditChild_state)}>
-            {#if !isSubmitAddOrEditChild}
-              <span>Ok</span>
-            {/if}
-            {#if isSubmitAddOrEditChild}
-              <Icon className="spin" color="#FFF" size="14" src={FiLoader} />
-            {/if}
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-{/if}
+<PopUpCoaChild
+  bind:this={popUpCoaChild}
+  bind:isSubmitted={isSubmitted}
+  bind:childName={childName}
+  onSubmit={submitAddCoaChild}
+/>
 
 <div class="root_layout">
   <div class="root_container">
@@ -218,9 +145,10 @@
                 <div class="parent">
                   <h5>{c.level}.&nbsp;{c.name}</h5>
                   <div class="options">
-                    <button class="btn" title="Add child" on:click={
-                      ()=>toggleAddEditChild_popUp(c.id, '', '')
-                    }>
+                    <button class="btn" title="Add child" on:click={() => {
+                      childParentId = c.id;
+                      popUpCoaChild.show();
+                    }}>
                       <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
                     </button>
                   </div>
@@ -230,7 +158,7 @@
                     {#each c.children as cc, idx (cc.id)}
                       <CoaTree
                         coa={cc}
-                        num={idx+1}
+                        rootNum={idx+1}
                         indent={1}
                       />
                     {/each}
@@ -247,121 +175,6 @@
 </div>
 
 <style>
-  .popup_container {
-		position: fixed;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		z-index: 2000;
-		background-color: rgba(0 0 0 / 40%);
-		backdrop-filter: blur(1px);
-		display: flex;
-		justify-content: center;
-		padding: 50px;
-    overflow: auto;
-	}
-
-	.popup_container .popup {
-		border-radius: 8px;
-		background-color: #FFF;
-		height: fit-content;
-		width: 500px;
-		display: flex;
-		flex-direction: column;
-	}
-
-  .popup_container .popup header {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		padding: 10px 20px;
-		border-bottom: 1px solid var(--gray-004);
-	}
-
-	.popup_container .popup header button {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		padding: 5px;
-		border-radius: 50%;
-		border: none;
-		background-color: transparent;
-		cursor: pointer;
-	}
-
-	.popup_container .popup header button:hover {
-		background-color: #ef444420;
-	}
-
-	.popup_container .popup .forms {
-		padding: 20px;
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-	}
-
-	.popup_container .popup .foot {
-		display: flex;
-		flex-direction: row;
-    justify-content: space-between;
-		gap: 10px;
-		align-items: center;
-		padding: 10px 20px;
-		border-top: 1px solid var(--gray-004);
-	}
-
-  .popup_container .popup .foot .right {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-  }
-
-	.popup_container .popup .foot button {
-		padding: 8px 13px;
-		border-radius: 9999px;
-		border: none;
-		color: #FFF;
-		cursor: pointer;
-		font-weight: 600;
-	}
-
-	.popup_container .popup .foot button.ok {
-		background-color: var(--green-006);
-		border: 1px solid var(--green-006);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-	}
-
-	.popup_container .popup .foot button.ok:hover {
-		background-color: var(--green-005);
-	}
-
-	.popup_container .popup .foot button.cancel {
-		background-color: #fbbf2420;
-		color: var(--amber-005);
-		border: 1px solid var(--amber-005);
-	}
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  :global(.spin) {
-    animation: spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-  }
-
-
   .coa_levels {
     display: grid;
     grid-template-columns: 1fr;
