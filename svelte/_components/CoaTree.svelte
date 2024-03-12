@@ -8,6 +8,9 @@
   import PopUpCoaChild from './PopUpCoaChild.svelte';
   import { notifier } from './notifier.js';
   import { TenantAdminCreateCoaChild, TenantAdminUpdateCoaChild } from '../jsApi.GEN';
+  import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
 
   /**
      * @typedef {Object} CoA
@@ -75,6 +78,8 @@
             console.log(o);
             popUpCoaChild.hide();
             notifier.showSuccess(coaName + ' edited');
+            // @ts-ignore
+            dispatch('update', { coas: o.coa })
           }
         );
         break;
@@ -100,6 +105,8 @@
             console.log(o);
             popUpCoaChild.hide();
             notifier.showSuccess('Coa child created');
+            // @ts-ignore
+            dispatch('update', { coas: o.coa })
           }
         );
         break;

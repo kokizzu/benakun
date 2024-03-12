@@ -123,6 +123,13 @@
     childName = '';
     childParentId = '';
   }
+
+  function updateEventHandler(e) {
+    coas = e.detail.coas;
+    
+    REFORMAT_COAS = [];
+    REFORMAT_COAS = reformatCoas();
+  }
 </script>
 
 <PopUpCoaChild
@@ -160,6 +167,7 @@
                         coa={cc}
                         rootNum={idx+1}
                         indent={1}
+                        on:update={updateEventHandler}
                       />
                     {/each}
                   </div>
