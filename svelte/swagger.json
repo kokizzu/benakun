@@ -1243,6 +1243,88 @@
 				}
 			}
 		},
+		"/tenantAdmin/coa": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminCoa",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"coas": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tenantAdmin/createCoaChild": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"name": {
+								"type": "string"
+						},
+						"parentId": {
+								"type": "string"
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminCreateCoaChild",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"coas": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/tenantAdmin/dashboard": {
 			"post": {
 				"security": [{
@@ -1383,6 +1465,53 @@
 									"properties": {
 										"message": {
 												"type": "string"
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tenantAdmin/updateCoaChild": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"id": {
+								"type": "string"
+						},
+						"name": {
+								"type": "string"
+						},
+						"parentId": {
+								"type": "string"
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminUpdateCoaChild",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"coas": {
+										"type": "object",
+										"properties": {
+												}
 										}
 									}
 								}

@@ -65,6 +65,65 @@ const (
 	TableTenants Tt.TableName = `tenants`
 )
 
+const (
+	TableCoa Tt.TableName = `coa`
+	Level                 = `level`
+)
+
+const (
+	CoaLevel1Name = `Aktiva`
+	CoaLevel2Name = `Kewajiban`
+	CoaLevel3Name = `Ekuitas`
+	CoaLevel4Name = `Pendapatan`
+	CoaLevel5Name = `Beban`
+	CoaLevel6Name = `Pendapatan Lain-lain`
+	CoaLevel7Name = `Beban Lain-lain`
+
+	CoaLevel1ChildName1 = `Aktiva Lancar`
+	CoaLevel1ChildName2 = `Aktiva Tetap`
+	CoaLevel1ChildName3 = `Aktiva Tak Berwujud`
+)
+
+type CoaLevelDefault struct {
+	Name          string
+	ChildrenNames []string
+}
+
+var CoaLevelDefaultList = map[string]CoaLevelDefault{
+	`1`: {
+		Name: CoaLevel1Name,
+		ChildrenNames: []string{
+			CoaLevel1ChildName1,
+			CoaLevel1ChildName2,
+			CoaLevel1ChildName3,
+		},
+	},
+	`2`: {
+		Name:          CoaLevel2Name,
+		ChildrenNames: []string{},
+	},
+	`3`: {
+		Name:          CoaLevel3Name,
+		ChildrenNames: []string{},
+	},
+	`4`: {
+		Name:          CoaLevel4Name,
+		ChildrenNames: []string{},
+	},
+	`5`: {
+		Name:          CoaLevel5Name,
+		ChildrenNames: []string{},
+	},
+	`6`: {
+		Name:          CoaLevel6Name,
+		ChildrenNames: []string{},
+	},
+	`7`: {
+		Name:          CoaLevel7Name,
+		ChildrenNames: []string{},
+	},
+}
+
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableUsers: {
 		Fields: []Tt.Field{
@@ -134,6 +193,17 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UpdatedAt, Tt.Integer},
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
+		},
+		AutoIncrementId: true,
+	},
+	TableCoa: {
+		Fields: []Tt.Field{
+			{Id, Tt.Unsigned},
+			{TenantCode, Tt.String},
+			{Name, Tt.String},
+			{Level, Tt.Double},
+			{ParentId, Tt.Unsigned},
+			{Children, Tt.Array},
 		},
 		AutoIncrementId: true,
 	},

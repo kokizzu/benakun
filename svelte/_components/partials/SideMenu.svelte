@@ -14,6 +14,7 @@
   import RiUserAdminLine from "svelte-icons-pack/ri/RiUserAdminLine";
   import AiOutlineHome from "svelte-icons-pack/ai/AiOutlineHome";
   import RiBuildingsCommunityLine from "svelte-icons-pack/ri/RiBuildingsCommunityLine";
+  import BsPostcard from 'svelte-icons-pack/bs/BsPostcard';
   import SubMenuLink from "../SubMenuLink.svelte";
 
   export let access = {
@@ -36,9 +37,7 @@
   async function userLogout() {
     await UserLogout({}, function(o) {
       console.log(o);
-      if (o.error) notifier.showError(o.error);
-      user = null;
-      segments = null;
+      if (o.error) return notifier.showError(o.error);
       window.document.location = '/';
     });
   }
@@ -91,6 +90,7 @@
           <div class="submenu">
             <SubMenuLink title='Organization' href='/tenantAdmin/organization' icon={RiEditorOrganizationChart}/>
             <SubMenuLink title='Budgeting' href='/tenantAdmin/budgeting' icon={AiOutlineWallet}/>
+            <SubMenuLink title='Chart of Acount' href='/tenantAdmin/coa' icon={BsPostcard}/>
           </div>
         {/if}
         {#if access.superAdmin }
@@ -208,6 +208,10 @@
 
   .side_menu_container .menu_container .menu_list a:hover {
     color: var(--purple-002);
+  }
+
+  :global(.side_menu_container .menu_container .menu_list a:hover .icon_dark) {
+    fill: var(--purple-002) !important;
   }
 
   .side_menu_container .menu_container .menu_list a.active {

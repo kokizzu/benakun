@@ -13,12 +13,204 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-// OrgsMutator DAO writer/command struct
+// CoaMutator DAO writer/command struct
 //
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file wcAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type wcAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type wcAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcAuth__ORM.GEN.go
+type CoaMutator struct {
+	rqAuth.Coa
+	mutations []A.X
+	logs      []A.X
+}
+
+// NewCoaMutator create new ORM writer/command object
+func NewCoaMutator(adapter *Tt.Adapter) (res *CoaMutator) {
+	res = &CoaMutator{Coa: rqAuth.Coa{Adapter: adapter}}
+	res.Children = []any{}
+	return
+}
+
+// Logs get array of logs [field, old, new]
+func (c *CoaMutator) Logs() []A.X { //nolint:dupl false positive
+	return c.logs
+}
+
+// HaveMutation check whether Set* methods ever called
+func (c *CoaMutator) HaveMutation() bool { //nolint:dupl false positive
+	return len(c.mutations) > 0
+}
+
+// ClearMutations clear all previously called Set* methods
+func (c *CoaMutator) ClearMutations() { //nolint:dupl false positive
+	c.mutations = []A.X{}
+	c.logs = []A.X{}
+}
+
+// DoOverwriteById update all columns, error if not exists, not using mutations/Set*
+func (c *CoaMutator) DoOverwriteById() bool { //nolint:dupl false positive
+	_, err := c.Adapter.Update(c.SpaceName(), c.UniqueIndexId(), A.X{c.Id}, c.ToUpdateArray())
+	return !L.IsError(err, `Coa.DoOverwriteById failed: `+c.SpaceName())
+}
+
+// DoUpdateById update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (c *CoaMutator) DoUpdateById() bool { //nolint:dupl false positive
+	if !c.HaveMutation() {
+		return true
+	}
+	_, err := c.Adapter.Update(c.SpaceName(), c.UniqueIndexId(), A.X{c.Id}, c.mutations)
+	return !L.IsError(err, `Coa.DoUpdateById failed: `+c.SpaceName())
+}
+
+// DoDeletePermanentById permanent delete
+func (c *CoaMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
+	_, err := c.Adapter.Delete(c.SpaceName(), c.UniqueIndexId(), A.X{c.Id})
+	return !L.IsError(err, `Coa.DoDeletePermanentById failed: `+c.SpaceName())
+}
+
+// func (c *CoaMutator) DoUpsert() bool { //nolint:dupl false positive
+//	arr := c.ToArray()
+//	_, err := c.Adapter.Upsert(c.SpaceName(), arr, A.X{
+//		A.X{`=`, 0, c.Id},
+//		A.X{`=`, 1, c.TenantCode},
+//		A.X{`=`, 2, c.Name},
+//		A.X{`=`, 3, c.Level},
+//		A.X{`=`, 4, c.ParentId},
+//		A.X{`=`, 5, c.Children},
+//	})
+//	return !L.IsError(err, `Coa.DoUpsert failed: `+c.SpaceName()+ `\n%#v`, arr)
+// }
+
+// DoInsert insert, error if already exists
+func (c *CoaMutator) DoInsert() bool { //nolint:dupl false positive
+	arr := c.ToArray()
+	row, err := c.Adapter.Insert(c.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			c.Id = X.ToU(tup[0][0])
+		}
+	}
+	return !L.IsError(err, `Coa.DoInsert failed: `+c.SpaceName()+`\n%#v`, arr)
+}
+
+// DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
+// replace = upsert, only error when there's unique secondary key
+// previous name: DoReplace
+func (c *CoaMutator) DoUpsert() bool { //nolint:dupl false positive
+	arr := c.ToArray()
+	row, err := c.Adapter.Replace(c.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			c.Id = X.ToU(tup[0][0])
+		}
+	}
+	return !L.IsError(err, `Coa.DoUpsert failed: `+c.SpaceName()+`\n%#v`, arr)
+}
+
+// SetId create mutations, should not duplicate
+func (c *CoaMutator) SetId(val uint64) bool { //nolint:dupl false positive
+	if val != c.Id {
+		c.mutations = append(c.mutations, A.X{`=`, 0, val})
+		c.logs = append(c.logs, A.X{`id`, c.Id, val})
+		c.Id = val
+		return true
+	}
+	return false
+}
+
+// SetTenantCode create mutations, should not duplicate
+func (c *CoaMutator) SetTenantCode(val string) bool { //nolint:dupl false positive
+	if val != c.TenantCode {
+		c.mutations = append(c.mutations, A.X{`=`, 1, val})
+		c.logs = append(c.logs, A.X{`tenantCode`, c.TenantCode, val})
+		c.TenantCode = val
+		return true
+	}
+	return false
+}
+
+// SetName create mutations, should not duplicate
+func (c *CoaMutator) SetName(val string) bool { //nolint:dupl false positive
+	if val != c.Name {
+		c.mutations = append(c.mutations, A.X{`=`, 2, val})
+		c.logs = append(c.logs, A.X{`name`, c.Name, val})
+		c.Name = val
+		return true
+	}
+	return false
+}
+
+// SetLevel create mutations, should not duplicate
+func (c *CoaMutator) SetLevel(val float64) bool { //nolint:dupl false positive
+	if val != c.Level {
+		c.mutations = append(c.mutations, A.X{`=`, 3, val})
+		c.logs = append(c.logs, A.X{`level`, c.Level, val})
+		c.Level = val
+		return true
+	}
+	return false
+}
+
+// SetParentId create mutations, should not duplicate
+func (c *CoaMutator) SetParentId(val uint64) bool { //nolint:dupl false positive
+	if val != c.ParentId {
+		c.mutations = append(c.mutations, A.X{`=`, 4, val})
+		c.logs = append(c.logs, A.X{`parentId`, c.ParentId, val})
+		c.ParentId = val
+		return true
+	}
+	return false
+}
+
+// SetChildren create mutations, should not duplicate
+func (c *CoaMutator) SetChildren(val []any) bool { //nolint:dupl false positive
+	c.mutations = append(c.mutations, A.X{`=`, 5, val})
+	c.logs = append(c.logs, A.X{`children`, c.Children, val})
+	c.Children = val
+	return true
+}
+
+// SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
+func (c *CoaMutator) SetAll(from rqAuth.Coa, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
+	if excludeMap == nil { // list of fields to exclude
+		excludeMap = M.SB{}
+	}
+	if forceMap == nil { // list of fields to force overwrite
+		forceMap = M.SB{}
+	}
+	if !excludeMap[`id`] && (forceMap[`id`] || from.Id != 0) {
+		c.Id = from.Id
+		changed = true
+	}
+	if !excludeMap[`tenantCode`] && (forceMap[`tenantCode`] || from.TenantCode != ``) {
+		c.TenantCode = S.Trim(from.TenantCode)
+		changed = true
+	}
+	if !excludeMap[`name`] && (forceMap[`name`] || from.Name != ``) {
+		c.Name = S.Trim(from.Name)
+		changed = true
+	}
+	if !excludeMap[`level`] && (forceMap[`level`] || from.Level != 0) {
+		c.Level = from.Level
+		changed = true
+	}
+	if !excludeMap[`parentId`] && (forceMap[`parentId`] || from.ParentId != 0) {
+		c.ParentId = from.ParentId
+		changed = true
+	}
+	if !excludeMap[`children`] && (forceMap[`children`] || from.Children != nil) {
+		c.Children = from.Children
+		changed = true
+	}
+	return
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
+// OrgsMutator DAO writer/command struct
 type OrgsMutator struct {
 	rqAuth.Orgs
 	mutations []A.X

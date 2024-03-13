@@ -44,9 +44,47 @@
 
       --red-001: #f87171;
       --red-002: #ef4444;
+      --red-005: #ef4444;
+      --red-006: #dc2626;
 
       --yellow-001: #fbbf24;
       --yellow-002: #f59e0b;
+
+      --green-000: #f0fdf4;
+      --green-001: #dcfce7;
+      --green-002: #bbf7d0;
+      --green-003: #86efac;
+      --green-004: #4ade80;
+      --green-005: #22c55e;
+      --green-006: #16a34a;
+      --green-007: #15803d;
+      --green-008: #166534;
+      --green-009: #14532d;
+      --green-010: #052e16;
+
+      --orange-000: #fff7ed;
+      --orange-001: #ffedd5;
+      --orange-002: #fed7aa;
+      --orange-003: #fdba74;
+      --orange-004: #fb923c;
+      --orange-005: #f97316;
+      --orange-006: #ea580c;
+      --orange-007: #c2410c;
+      --orange-008: #9a3412;
+      --orange-009: #7c2d12;
+      --orange-010: #431407;
+
+      --amber-000: #fffbeb;
+      --amber-001: #fef3c7;
+      --amber-002: #fde68a;
+      --amber-003: #fcd34d;
+      --amber-004: #fbbf24;
+      --amber-005: #f59e0b;
+      --amber-006: #d97706;
+      --amber-007: #b45309;
+      --amber-008: #92400e;
+      --amber-009: #78350f;
+      --amber-010: #451a03;
 
       --gray-001: #F8F9FA;
       --gray-002: #E9ECEF;
@@ -96,6 +134,10 @@
       text-align: center;
     }
 
+    .shadow {
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 1px -1px rgb(0 0 0 / 0.1);
+    }
+
     .root_layout {
       display: block;
       top: 0;
@@ -129,7 +171,7 @@
     
     /* notifier */
     .notifyjs-container {
-      z-index: 100;
+      z-index: 2100;
       position: fixed;
       bottom: 0;
       right: .5em;
@@ -265,7 +307,7 @@ a.active.svelte-1n0fjzt {
 .icon_logout {
   fill: var(--red-002);
 }
-.side_menu.svelte-1ov9ci7.svelte-1ov9ci7 {
+.side_menu.svelte-10l3yu4.svelte-10l3yu4 {
   display: block;
   overflow-y: auto;
   flex-direction: row;
@@ -275,7 +317,7 @@ a.active.svelte-1n0fjzt {
   width: 260px;
   border-right: 1px solid var(--gray-002);
 }
-.side_menu_container.svelte-1ov9ci7.svelte-1ov9ci7 {
+.side_menu_container.svelte-10l3yu4.svelte-10l3yu4 {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -285,7 +327,7 @@ a.active.svelte-1n0fjzt {
   width: 100%;
   margin: 0;
 }
-.side_menu_container.svelte-1ov9ci7 header.svelte-1ov9ci7 {
+.side_menu_container.svelte-10l3yu4 header.svelte-10l3yu4 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -294,31 +336,31 @@ a.active.svelte-1n0fjzt {
   flex-grow: 0;
   margin: 20px 24px;
 }
-.side_menu_container.svelte-1ov9ci7 header h3.svelte-1ov9ci7 {
+.side_menu_container.svelte-10l3yu4 header h3.svelte-10l3yu4 {
   font-size: var(--font-xl);
   line-height: 1.5rem;
   font-weight: 800;
   padding: 0;
   margin: 0;
 }
-.side_menu_container.svelte-1ov9ci7 .menu_container.svelte-1ov9ci7 {
+.side_menu_container.svelte-10l3yu4 .menu_container.svelte-10l3yu4 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
 }
-.side_menu_container.svelte-1ov9ci7 .menu_container .menu_list.svelte-1ov9ci7 {
+.side_menu_container.svelte-10l3yu4 .menu_container .menu_list.svelte-10l3yu4 {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.side_menu_container.svelte-1ov9ci7 .menu_container .menu_list.svelte-1ov9ci7 {
+.side_menu_container.svelte-10l3yu4 .menu_container .menu_list.svelte-10l3yu4 {
   display: flex;
   flex-direction: column;
   gap: 7px;
   padding: 0 10px;
 }
-.side_menu_container.svelte-1ov9ci7 .menu_container .menu_list a.svelte-1ov9ci7 {
+.side_menu_container.svelte-10l3yu4 .menu_container .menu_list a.svelte-10l3yu4 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -331,21 +373,24 @@ a.active.svelte-1n0fjzt {
   padding: 10px 12px;
   border-radius: 999px;
 }
-.side_menu_container.svelte-1ov9ci7 .menu_container .menu_list a.svelte-1ov9ci7:hover {
+.side_menu_container.svelte-10l3yu4 .menu_container .menu_list a.svelte-10l3yu4:hover {
   color: var(--purple-002);
 }
-.side_menu_container.svelte-1ov9ci7 .menu_container .menu_list a.active.svelte-1ov9ci7 {
+.side_menu_container .menu_container .menu_list a:hover .icon_dark {
+  fill: var(--purple-002) !important;
+}
+.side_menu_container.svelte-10l3yu4 .menu_container .menu_list a.active.svelte-10l3yu4 {
   font-weight: 600;
   color: var(--purple-002);
   background-color: #7474ec30;
 }
-.side_menu_container.svelte-1ov9ci7 .menu_container .menu_list .submenu.svelte-1ov9ci7 {
+.side_menu_container.svelte-10l3yu4 .menu_container .menu_list .submenu.svelte-10l3yu4 {
   padding-left: 20px;
   display: flex;
   flex-direction: column;
   gap: 7px;
 }
-.menu_list.svelte-1ov9ci7 .logout.svelte-1ov9ci7 {
+.menu_list.svelte-10l3yu4 .logout.svelte-10l3yu4 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -362,7 +407,7 @@ a.active.svelte-1n0fjzt {
   cursor: pointer;
   color: var(--red-002);
 }
-.menu_list.svelte-1ov9ci7 .logout.svelte-1ov9ci7:hover {
+.menu_list.svelte-10l3yu4 .logout.svelte-10l3yu4:hover {
   background-color: #ef444430;
 }
 
@@ -370,16 +415,19 @@ a.active.svelte-1n0fjzt {
 .admin_submenu a .nav_icon_dark path {
   stroke: var(--gray-006) !important;
 }
+.admin_submenu a:hover .nav_icon_dark path {
+  stroke: var(--purple-002) !important;
+}
 .admin_submenu a .nav_icon_active path {
   stroke: var(--purple-002) !important;
 }
-.admin_submenu.svelte-1fcbi83.svelte-1fcbi83 {
+.admin_submenu.svelte-1dmgied.svelte-1dmgied {
   display: flex;
   flex-direction: row;
   align-items: stretch;
   gap: 10px;
 }
-.admin_submenu.svelte-1fcbi83 a.svelte-1fcbi83 {
+.admin_submenu.svelte-1dmgied a.svelte-1dmgied {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -389,14 +437,14 @@ a.active.svelte-1n0fjzt {
   text-decoration: none;
   color: var(--gray-007);
   font-weight: 600;
-  border: 1px solid transparent;
+  border: 1px solid var(--gray-002);
   border-radius: 999px;
-  background-color: transparent;
+  background-color: var(--gray-002);
 }
-.admin_submenu.svelte-1fcbi83 a.svelte-1fcbi83:hover {
+.admin_submenu.svelte-1dmgied a.svelte-1dmgied:hover {
   color: var(--purple-001);
 }
-.admin_submenu.svelte-1fcbi83 a.active.svelte-1fcbi83 {
+.admin_submenu.svelte-1dmgied a.active.svelte-1dmgied {
   color: var(--purple-002);
   border: 1px solid var(--purple-001);
   background-color: #7474ec30;
@@ -2875,10 +2923,16 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
       exports.TenantAdminBudgeting = async function TenantAdminBudgeting(i, cb) {
         return await axios.post("/tenantAdmin/budgeting", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminCoa = async function TenantAdminCoa(i, cb) {
+        return await axios.post("/tenantAdmin/coa", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.TenantAdminCreateCoaChild = async function TenantAdminCreateCoaChild(i, cb) {
+        return await axios.post("/tenantAdmin/createCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.TenantAdminDashboard = async function TenantAdminDashboard(i, cb) {
         return await axios.post("/tenantAdmin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminInviteJoin = async function TenantAdminInviteJoin(i, cb) {
+      exports.TenantAdminInviteUser = async function TenantAdminInviteUser(i, cb) {
         return await axios.post("/tenantAdmin/inviteUser", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminOrganization = async function TenantAdminOrganization(i, cb) {
@@ -2886,6 +2940,9 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
       };
       exports.TenantAdminTerminateStaff = async function TenantAdminTerminateStaff(i, cb) {
         return await axios.post("/tenantAdmin/terminateStaff", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.TenantAdminUpdateCoaChild = async function TenantAdminUpdateCoaChild(i, cb) {
+        return await axios.post("/tenantAdmin/updateCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -4107,6 +4164,15 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
     c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M21 21H3a1 1 0 0 1-1-1v-7.513a1 1 0 0 1 .343-.754L6 8.544V4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1zM9 19h3v-6.058L8 9.454l-4 3.488V19h3v-4h2v4zm5 0h6V5H8v2.127c.234 0 .469.082.657.247l5 4.359a1 1 0 0 1 .343.754V19zm2-8h2v2h-2v-2zm0 4h2v2h-2v-2zm0-8h2v2h-2V7zm-4 0h2v2h-2V7z"></path></g>'
   };
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/bs/BsPostcard.js
+  var BsPostcard_default = {
+    a: {
+      fill: "currentColor",
+      viewBox: "0 0 16 16"
+    },
+    c: '<path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"></path>'
+  };
+
   // _components/SubMenuLink.svelte
   function create_fragment2(ctx) {
     let a;
@@ -4117,7 +4183,7 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
     let current;
     icon_1 = new Icon_default({
       props: {
-        size: 22,
+        size: "20",
         className: window.location.pathname === /*href*/
         ctx[0] ? "icon_active" : "icon_dark",
         src: (
@@ -4252,7 +4318,7 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
         span = element("span");
         span.textContent = "Report Viewer";
         attr(a, "href", "/reportViewer/dashboard");
-        attr(a, "class", "svelte-1ov9ci7");
+        attr(a, "class", "svelte-10l3yu4");
         toggle_class(
           a,
           "active",
@@ -4326,7 +4392,7 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
         span = element("span");
         span.textContent = "Entry User";
         attr(a, "href", "/entryUser/dashboard");
-        attr(a, "class", "svelte-1ov9ci7");
+        attr(a, "class", "svelte-10l3yu4");
         toggle_class(
           a,
           "active",
@@ -4386,6 +4452,8 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
     let submenulink0;
     let t3;
     let submenulink1;
+    let t4;
+    let submenulink2;
     let current;
     icon = new Icon_default({
       props: {
@@ -4408,6 +4476,13 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
         icon: AiOutlineWallet_default
       }
     });
+    submenulink2 = new SubMenuLink_default({
+      props: {
+        title: "Chart of Acount",
+        href: "/tenantAdmin/coa",
+        icon: BsPostcard_default
+      }
+    });
     return {
       c() {
         a = element("a");
@@ -4420,10 +4495,12 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
         create_component(submenulink0.$.fragment);
         t3 = space();
         create_component(submenulink1.$.fragment);
+        t4 = space();
+        create_component(submenulink2.$.fragment);
         attr(a, "href", "/tenantAdmin/dashboard");
-        attr(a, "class", "svelte-1ov9ci7");
+        attr(a, "class", "svelte-10l3yu4");
         toggle_class(a, "active", window.location.pathname === "/tenantAdmin/dashboard");
-        attr(div, "class", "submenu svelte-1ov9ci7");
+        attr(div, "class", "submenu svelte-10l3yu4");
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -4435,6 +4512,8 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
         mount_component(submenulink0, div, null);
         append(div, t3);
         mount_component(submenulink1, div, null);
+        append(div, t4);
+        mount_component(submenulink2, div, null);
         current = true;
       },
       p: noop,
@@ -4444,12 +4523,14 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
         transition_in(icon.$.fragment, local);
         transition_in(submenulink0.$.fragment, local);
         transition_in(submenulink1.$.fragment, local);
+        transition_in(submenulink2.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
         transition_out(submenulink0.$.fragment, local);
         transition_out(submenulink1.$.fragment, local);
+        transition_out(submenulink2.$.fragment, local);
         current = false;
       },
       d(detaching) {
@@ -4461,6 +4542,7 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
         destroy_component(icon);
         destroy_component(submenulink0);
         destroy_component(submenulink1);
+        destroy_component(submenulink2);
       }
     };
   }
@@ -4488,7 +4570,7 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
         span = element("span");
         span.textContent = "Super Admin";
         attr(a, "href", "/superAdmin/dashboard");
-        attr(a, "class", "svelte-1ov9ci7");
+        attr(a, "class", "svelte-10l3yu4");
         toggle_class(
           a,
           "active",
@@ -4562,7 +4644,7 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
         span = element("span");
         span.textContent = "Profile";
         attr(a, "href", "/user/profile");
-        attr(a, "class", "svelte-1ov9ci7");
+        attr(a, "class", "svelte-10l3yu4");
         toggle_class(
           a,
           "active",
@@ -4634,7 +4716,7 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
         t0 = space();
         span = element("span");
         span.textContent = "Logout";
-        attr(button, "class", "logout svelte-1ov9ci7");
+        attr(button, "class", "logout svelte-10l3yu4");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -4732,7 +4814,7 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
         aside = element("aside");
         div1 = element("div");
         header = element("header");
-        header.innerHTML = `<h3 class="svelte-1ov9ci7">BenAkun</h3>`;
+        header.innerHTML = `<h3 class="svelte-10l3yu4">BenAkun</h3>`;
         t1 = space();
         div0 = element("div");
         nav0 = element("nav");
@@ -4760,20 +4842,20 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
         t9 = space();
         if (if_block5)
           if_block5.c();
-        attr(header, "class", "svelte-1ov9ci7");
+        attr(header, "class", "svelte-10l3yu4");
         attr(a, "href", "/");
-        attr(a, "class", "svelte-1ov9ci7");
+        attr(a, "class", "svelte-10l3yu4");
         toggle_class(
           a,
           "active",
           /*segment1*/
           ctx[1] === ""
         );
-        attr(nav0, "class", "menu_list svelte-1ov9ci7");
-        attr(nav1, "class", "menu_list svelte-1ov9ci7");
-        attr(div0, "class", "menu_container svelte-1ov9ci7");
-        attr(div1, "class", "side_menu_container svelte-1ov9ci7");
-        attr(aside, "class", "side_menu svelte-1ov9ci7");
+        attr(nav0, "class", "menu_list svelte-10l3yu4");
+        attr(nav1, "class", "menu_list svelte-10l3yu4");
+        attr(div0, "class", "menu_container svelte-10l3yu4");
+        attr(div1, "class", "side_menu_container svelte-10l3yu4");
+        attr(aside, "class", "side_menu svelte-10l3yu4");
       },
       m(target, anchor) {
         insert(target, aside, anchor);
@@ -5025,9 +5107,7 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
       await (0, import_jsApi_GEN.UserLogout)({}, function(o) {
         console.log(o);
         if (o.error)
-          notifier.showError(o.error);
-        user = null;
-        segments = null;
+          return notifier.showError(o.error);
         window.document.location = "/";
       });
     }
@@ -5102,7 +5182,7 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
           /*segment2*/
           ctx[0] === "dashboard" ? "nav_icon_active" : "nav_icon_dark"
         ),
-        size: 20,
+        size: "20",
         src: HiOutlinePresentationChartBar_default
       }
     });
@@ -5112,7 +5192,7 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
           /*segment2*/
           ctx[0] === "userManagement" ? "nav_icon_active" : "nav_icon_dark"
         ),
-        size: 20,
+        size: "20",
         src: HiOutlineUserGroup_default
       }
     });
@@ -5122,7 +5202,7 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
           /*segment2*/
           ctx[0] === "tenantManagement" ? "nav_icon_active" : "nav_icon_dark"
         ),
-        size: 20,
+        size: "20",
         src: HiOutlineUserAdd_default
       }
     });
@@ -5147,7 +5227,7 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
         span2 = element("span");
         span2.textContent = "Tenants";
         attr(a0, "href", "/superAdmin/dashboard");
-        attr(a0, "class", "svelte-1fcbi83");
+        attr(a0, "class", "svelte-1dmgied");
         toggle_class(
           a0,
           "active",
@@ -5155,7 +5235,7 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
           ctx[0] === "dashboard"
         );
         attr(a1, "href", "/superAdmin/userManagement");
-        attr(a1, "class", "svelte-1fcbi83");
+        attr(a1, "class", "svelte-1dmgied");
         toggle_class(
           a1,
           "active",
@@ -5163,14 +5243,14 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
           ctx[0] === "userManagement"
         );
         attr(a2, "href", "/superAdmin/tenantManagement");
-        attr(a2, "class", "svelte-1fcbi83");
+        attr(a2, "class", "svelte-1dmgied");
         toggle_class(
           a2,
           "active",
           /*segment2*/
           ctx[0] === "tenantManagement"
         );
-        attr(nav, "class", "admin_submenu svelte-1fcbi83");
+        attr(nav, "class", "admin_submenu svelte-1dmgied");
       },
       m(target, anchor) {
         insert(target, nav, anchor);
@@ -5331,15 +5411,15 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
     };
   }
   function instance5($self, $props, $invalidate) {
-    let { user: user3 = {} } = $props;
+    let { user: user2 = {} } = $props;
     onMount(() => {
-      console.log("onMount.ProfileHeader =", user3);
+      console.log("onMount.ProfileHeader =", user2);
     });
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(0, user3 = $props2.user);
+        $invalidate(0, user2 = $props2.user);
     };
-    return [user3];
+    return [user2];
   }
   var Navbar = class extends SvelteComponent {
     constructor(options) {
@@ -8620,8 +8700,8 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
     let t4;
     let footer;
     let current;
-    sidemenu = new SideMenu_default({ props: { access: segments2 } });
-    navbar = new Navbar_default({ props: { user: user2 } });
+    sidemenu = new SideMenu_default({ props: { access: segments } });
+    navbar = new Navbar_default({ props: { user } });
     adminsubmenu = new AdminSubMenu_default({});
     let modalform_props = {
       fields,
@@ -8764,9 +8844,9 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
       }
     };
   }
-  var segments2 = {/* segments */};
+  var segments = {/* segments */};
   var fields = [/* fields */];
-  var user2 = {/* user */};
+  var user = {/* user */};
   function instance9($self, $props, $invalidate) {
     let users = [/* users */];
     let pager = {/* pager */};
@@ -8797,12 +8877,12 @@ input.input_filter.svelte-v5jroc.svelte-v5jroc {
       form.showModal({ id: "" });
     }
     async function saveRow(action, row) {
-      let user3 = { ...row };
-      if (!user3.id)
-        user3.id = "0";
+      let user2 = { ...row };
+      if (!user2.id)
+        user2.id = "0";
       await (0, import_jsApi.SuperAdminUserManagement)(
         {
-          user: user3,
+          user: user2,
           cmd: action,
           pager
           // force refresh page, will be slow

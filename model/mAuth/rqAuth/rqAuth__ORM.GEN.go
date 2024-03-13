@@ -13,12 +13,238 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-// Orgs DAO reader/query struct
+// Coa DAO reader/query struct
 //
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file rqAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type rqAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type rqAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type rqAuth__ORM.GEN.go
+type Coa struct {
+	Adapter    *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id         uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	TenantCode string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
+	Name       string      `json:"name" form:"name" query:"name" long:"name" msg:"name"`
+	Level      float64     `json:"level" form:"level" query:"level" long:"level" msg:"level"`
+	ParentId   uint64      `json:"parentId,string" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
+	Children   []any       `json:"children" form:"children" query:"children" long:"children" msg:"children"`
+}
+
+// NewCoa create new ORM reader/query object
+func NewCoa(adapter *Tt.Adapter) *Coa {
+	return &Coa{Adapter: adapter}
+}
+
+// SpaceName returns full package and table name
+func (c *Coa) SpaceName() string { //nolint:dupl false positive
+	return string(mAuth.TableCoa) // casting required to string from Tt.TableName
+}
+
+// SqlTableName returns quoted table name
+func (c *Coa) SqlTableName() string { //nolint:dupl false positive
+	return `"coa"`
+}
+
+func (c *Coa) UniqueIndexId() string { //nolint:dupl false positive
+	return `id`
+}
+
+// FindById Find one by Id
+func (c *Coa) FindById() bool { //nolint:dupl false positive
+	res, err := c.Adapter.Select(c.SpaceName(), c.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{c.Id})
+	if L.IsError(err, `Coa.FindById failed: `+c.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		c.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
+// SqlSelectAllFields generate Sql select fields
+func (c *Coa) SqlSelectAllFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "tenantCode"
+	, "name"
+	, "level"
+	, "parentId"
+	, "children"
+	`
+}
+
+// SqlSelectAllUncensoredFields generate Sql select fields
+func (c *Coa) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "tenantCode"
+	, "name"
+	, "level"
+	, "parentId"
+	, "children"
+	`
+}
+
+// ToUpdateArray generate slice of update command
+func (c *Coa) ToUpdateArray() A.X { //nolint:dupl false positive
+	return A.X{
+		A.X{`=`, 0, c.Id},
+		A.X{`=`, 1, c.TenantCode},
+		A.X{`=`, 2, c.Name},
+		A.X{`=`, 3, c.Level},
+		A.X{`=`, 4, c.ParentId},
+		A.X{`=`, 5, c.Children},
+	}
+}
+
+// IdxId return name of the index
+func (c *Coa) IdxId() int { //nolint:dupl false positive
+	return 0
+}
+
+// SqlId return name of the column being indexed
+func (c *Coa) SqlId() string { //nolint:dupl false positive
+	return `"id"`
+}
+
+// IdxTenantCode return name of the index
+func (c *Coa) IdxTenantCode() int { //nolint:dupl false positive
+	return 1
+}
+
+// SqlTenantCode return name of the column being indexed
+func (c *Coa) SqlTenantCode() string { //nolint:dupl false positive
+	return `"tenantCode"`
+}
+
+// IdxName return name of the index
+func (c *Coa) IdxName() int { //nolint:dupl false positive
+	return 2
+}
+
+// SqlName return name of the column being indexed
+func (c *Coa) SqlName() string { //nolint:dupl false positive
+	return `"name"`
+}
+
+// IdxLevel return name of the index
+func (c *Coa) IdxLevel() int { //nolint:dupl false positive
+	return 3
+}
+
+// SqlLevel return name of the column being indexed
+func (c *Coa) SqlLevel() string { //nolint:dupl false positive
+	return `"level"`
+}
+
+// IdxParentId return name of the index
+func (c *Coa) IdxParentId() int { //nolint:dupl false positive
+	return 4
+}
+
+// SqlParentId return name of the column being indexed
+func (c *Coa) SqlParentId() string { //nolint:dupl false positive
+	return `"parentId"`
+}
+
+// IdxChildren return name of the index
+func (c *Coa) IdxChildren() int { //nolint:dupl false positive
+	return 5
+}
+
+// SqlChildren return name of the column being indexed
+func (c *Coa) SqlChildren() string { //nolint:dupl false positive
+	return `"children"`
+}
+
+// ToArray receiver fields to slice
+func (c *Coa) ToArray() A.X { //nolint:dupl false positive
+	var id any = nil
+	if c.Id != 0 {
+		id = c.Id
+	}
+	return A.X{
+		id,
+		c.TenantCode, // 1
+		c.Name,       // 2
+		c.Level,      // 3
+		c.ParentId,   // 4
+		c.Children,   // 5
+	}
+}
+
+// FromArray convert slice to receiver fields
+func (c *Coa) FromArray(a A.X) *Coa { //nolint:dupl false positive
+	c.Id = X.ToU(a[0])
+	c.TenantCode = X.ToS(a[1])
+	c.Name = X.ToS(a[2])
+	c.Level = X.ToF(a[3])
+	c.ParentId = X.ToU(a[4])
+	c.Children = X.ToArr(a[5])
+	return c
+}
+
+// FromUncensoredArray convert slice to receiver fields
+func (c *Coa) FromUncensoredArray(a A.X) *Coa { //nolint:dupl false positive
+	c.Id = X.ToU(a[0])
+	c.TenantCode = X.ToS(a[1])
+	c.Name = X.ToS(a[2])
+	c.Level = X.ToF(a[3])
+	c.ParentId = X.ToU(a[4])
+	c.Children = X.ToArr(a[5])
+	return c
+}
+
+// FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
+func (c *Coa) FindOffsetLimit(offset, limit uint32, idx string) []Coa { //nolint:dupl false positive
+	var rows []Coa
+	res, err := c.Adapter.Select(c.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `Coa.FindOffsetLimit failed: `+c.SpaceName()) {
+		return rows
+	}
+	for _, row := range res.Tuples() {
+		item := Coa{}
+		rows = append(rows, *item.FromArray(row))
+	}
+	return rows
+}
+
+// FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
+func (c *Coa) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
+	var rows []A.X
+	res, err := c.Adapter.Select(c.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `Coa.FindOffsetLimit failed: `+c.SpaceName()) {
+		return rows, Tt.QueryMetaFrom(res, err)
+	}
+	tuples := res.Tuples()
+	rows = make([]A.X, len(tuples))
+	for z, row := range tuples {
+		rows[z] = row
+	}
+	return rows, Tt.QueryMetaFrom(res, nil)
+}
+
+// Total count number of rows
+func (c *Coa) Total() int64 { //nolint:dupl false positive
+	rows := c.Adapter.CallBoxSpace(c.SpaceName()+`:count`, A.X{})
+	if len(rows) > 0 && len(rows[0]) > 0 {
+		return X.ToI(rows[0][0])
+	}
+	return 0
+}
+
+// CoaFieldTypeMap returns key value of field name and key
+var CoaFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
+	`id`:         Tt.Unsigned,
+	`tenantCode`: Tt.String,
+	`name`:       Tt.String,
+	`level`:      Tt.Double,
+	`parentId`:   Tt.Unsigned,
+	`children`:   Tt.Array,
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
+// Orgs DAO reader/query struct
 type Orgs struct {
 	Adapter    *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	Id         uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`

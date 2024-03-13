@@ -2,12 +2,16 @@ package domain
 
 import (
 	"crypto/rand"
+	"errors"
 	"fmt"
 	"math/big"
 
 	"benakun/model/mAuth"
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
+
+	"github.com/kokizzu/gotro/D/Tt"
+	"github.com/kokizzu/gotro/S"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserCreateCompany.go
@@ -39,6 +43,7 @@ const (
 	ErrUserCreateCompanyTenantCodeInvalid  = `tenant code must be valid`
 	ErrUserCreateCompanyCompanyNameInvalid = `company name must be valid`
 	ErrUserCreateCompanyHeadTitleInvalid   = `head title must be valid`
+	ErrUserCreateCompanyCoaExist           = `coa already exist`
 )
 
 func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompanyOut) {
@@ -102,11 +107,77 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 		return
 	}
 
+	err := generateCoaLevels(d.AuthOltp, org.TenantCode)
+	if err != nil {
+		out.SetError(400, err.Error())
+		return
+	}
+
 	out.Company = &org.Orgs
 	return
+}
+
+func insertCoaLevel(ta *Tt.Adapter, tenantCode string, level float64, name string, parentId uint64) error {
+	coa := wcAuth.NewCoaMutator(ta)
+	coa.SetTenantCode(tenantCode)
+	coa.SetLevel(level)
+	coa.SetName(name)
+	if parentId > 0 {
+		coa.SetParentId(parentId)
+	}
+	if !coa.DoInsert() {
+		return errors.New(ErrUserCreateCompanyCoaExist)
+	}
+
+	return nil
 }
 
 func generate4RandomNumber() int {
 	randomNumber, _ := rand.Int(rand.Reader, big.NewInt(9000))
 	return int(randomNumber.Int64()) + 1000
+}
+
+func generateCoaLevels(ta *Tt.Adapter, tenantCode string) error {
+	for lv, vl := range mAuth.CoaLevelDefaultList {
+		if err := insertCoaLevel(ta, tenantCode, float64(S.ToInt(lv)), vl.Name, 0); err != nil {
+			return err
+		}
+		if len(vl.ChildrenNames) > 0 {
+			parent := wcAuth.NewCoaMutator(ta)
+			parent.TenantCode = tenantCode
+			parent.Level = float64(S.ToInt(lv))
+
+			parentId := parent.FindCoaIdByTenantByLevel()
+			if parentId == 0 {
+				return errors.New(ErrUserCreateCompanyCoaExist)
+			}
+
+			var children = []any{}
+
+			for _, v := range vl.ChildrenNames {
+				if err := insertCoaLevel(ta, tenantCode, float64(S.ToInt(lv)), v, parentId); err == nil {
+					child := wcAuth.NewCoaMutator(ta)
+					child.ParentId = parentId
+					child.Name = v
+
+					childId := child.FindCoaChildIdByParentIdByName()
+					if childId != 0 {
+						children = append(children, childId)
+					}
+				} else {
+					return err
+				}
+			}
+
+			if len(children) > 0 {
+				parent.SetChildren(children)
+				parent.Id = parentId
+				if !parent.DoUpdateById() {
+					return errors.New(ErrUserCreateCompanyCoaExist)
+				}
+			}
+		}
+	}
+
+	return nil
 }
