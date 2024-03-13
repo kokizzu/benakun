@@ -14,9 +14,9 @@ import (
 type (
 	TenantAdminUpdateCoaChildIn struct {
 		RequestCommon
-		Id         uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+		Id         uint64      `json:"id" form:"id" query:"id" long:"id" msg:"id"`
 		Name     	string `json:"name" form:"name" query:"name" long:"name" msg:"name"`
-		ParentId   uint64      `json:"parentId,string" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
+		ParentId   uint64      `json:"parentId" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
 	}
 	TenantAdminUpdateCoaChildOut struct {
 		ResponseCommon

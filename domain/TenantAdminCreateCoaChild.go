@@ -15,7 +15,7 @@ type (
 	TenantAdminCreateCoaChildIn struct {
 		RequestCommon
 		Name     string `json:"name" form:"name" query:"name" long:"name" msg:"name"`
-		ParentId uint64 `json:"parentId,string" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
+		ParentId uint64 `json:"parentId" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
 	}
 	TenantAdminCreateCoaChildOut struct {
 		ResponseCommon

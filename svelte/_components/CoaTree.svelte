@@ -30,7 +30,7 @@
     parentId: '',
     children: []
   };
-  export let rootNum = '1';
+  export let rootNum = 1;
   export let num = 1;
   export let indent = 1;
   let indentWidth = '10px';
@@ -61,8 +61,8 @@
         await TenantAdminUpdateCoaChild(
           {
             name: coaName,
-            parentId: coa.parentId,
-            id: coa.id
+            parentId: Number(coa.parentId),
+            id: Number(coa.id)
           },
           // @ts-ignore
           function (o) {
@@ -87,7 +87,7 @@
         await TenantAdminCreateCoaChild(
           {
             name: coaName,
-            parentId: coa.id
+            parentId: Number(coa.id)
           },
           // @ts-ignore
           function (o) {

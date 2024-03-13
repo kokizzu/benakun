@@ -1,7 +1,4 @@
 <script>
-  import SideMenu from './_components/partials/SideMenu.svelte';
-  import Navbar from './_components/partials/Navbar.svelte';
-  import Footer from './_components/partials/Footer.svelte';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
   import { onMount } from 'svelte';
@@ -9,6 +6,7 @@
   import { notifier } from './_components/notifier.js';
   import CoaTree from './_components/CoaTree.svelte';
   import PopUpCoaChild from './_components/PopUpCoaChild.svelte';
+  import MainLayout from './_layouts/mainLayout.svelte';
 
   /**
    * @type {any}
@@ -79,7 +77,7 @@
     return toCoas;
   }
 
-  onMount(() => REFORMAT_COAS = reformatCoas());
+  onMount(() => {REFORMAT_COAS = reformatCoas(); console.log(REFORMAT_COAS)});
 
   let popUpCoaChild;
 
@@ -96,7 +94,7 @@
     await TenantAdminCreateCoaChild(
       {
         name: childName,
-        parentId: childParentId
+        parentId: Number(childParentId)
       },
       // @ts-ignore
       function (o) {
@@ -139,48 +137,39 @@
   onSubmit={submitAddCoaChild}
 />
 
-<div class="root_layout">
-  <div class="root_container">
-    <SideMenu access={segments} />
-    <div class="root_content">
-      <Navbar {user} />
-      <div class="content">
-        <div class="coa_levels shadow">
-          {#if REFORMAT_COAS && REFORMAT_COAS.length}
-            {#each REFORMAT_COAS as c, _ (c.id)}
-              <div class="coa">
-                <div class="parent">
-                  <h5>{c.level}.&nbsp;{c.name}</h5>
-                  <div class="options">
-                    <button class="btn" title="Add child" on:click={() => {
-                      childParentId = c.id;
-                      popUpCoaChild.show();
-                    }}>
-                      <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
-                    </button>
-                  </div>
-                </div>
-                {#if c.children && c.children.length}
-                  <div class="children">
-                    {#each c.children as cc, idx (cc.id)}
-                      <CoaTree
-                        coa={cc}
-                        rootNum={idx+1}
-                        indent={1}
-                        on:update={updateEventHandler}
-                      />
-                    {/each}
-                  </div>
-                {/if}
-              </div>
-            {/each}
+<MainLayout>
+  <div class="coa_levels shadow">
+    {#if REFORMAT_COAS && REFORMAT_COAS.length}
+      {#each REFORMAT_COAS as c, _ (c.id)}
+        <div class="coa">
+          <div class="parent">
+            <h5>{c.level}.&nbsp;{c.name}</h5>
+            <div class="options">
+              <button class="btn" title="Add child" on:click={() => {
+                childParentId = c.id;
+                popUpCoaChild.show();
+              }}>
+                <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
+              </button>
+            </div>
+          </div>
+          {#if c.children && c.children.length}
+            <div class="children">
+              {#each c.children as cc, idx (cc.id)}
+                <CoaTree
+                  coa={cc}
+                  rootNum={idx+1}
+                  indent={1}
+                  on:update={updateEventHandler}
+                />
+              {/each}
+            </div>
           {/if}
         </div>
-      </div>
-      <Footer />
-    </div>
+      {/each}
+    {/if}
   </div>
-</div>
+</MainLayout>
 
 <style>
   .coa_levels {

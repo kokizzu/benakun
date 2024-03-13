@@ -27,7 +27,7 @@
           <span>Yes</span>
         {/if}
         {#if isSubmitted}
-          <Icon className="spin" color="#FFF" size={16} src={FiLoader} />
+          <Icon className="spin" color="#FFF" size="16" src={FiLoader} />
         {/if}
       </button>
     </div>

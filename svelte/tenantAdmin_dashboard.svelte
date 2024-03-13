@@ -1,8 +1,4 @@
 <script>
-  // @ts-nocheck
-  import SideMenu from './_components/partials/SideMenu.svelte';
-  import Navbar from './_components/partials/Navbar.svelte';
-  import Footer from './_components/partials/Footer.svelte';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import CgTrash from "svelte-icons-pack/cg/CgTrash";
   import HiOutlinePencilAlt from "svelte-icons-pack/hi/HiOutlinePencilAlt";
@@ -10,6 +6,7 @@
   import {TenantAdminTerminateStaff} from './jsApi.GEN.js';
   import { notifier } from './_components/notifier.js';
   import ConfirmPopUp from './_components/ConfirmPopUp.svelte';
+  import MainLayout from './_layouts/mainLayout.svelte';
 
   let segments = {/* segments */};
   let user = {/* user */};
@@ -19,6 +16,7 @@
   let tableReady = false;
 
   let confirmQuestion = '', confirmVisible = false, confirmAction = function(){};
+  let confirm_popup;
 
   onMount(()=> {
     console.log('Staff =', staffs)
@@ -43,14 +41,12 @@
   });
 
   async function terminateStaff(email) {
+    // @ts-ignore
     await TenantAdminTerminateStaff({email}, function (o) {
-      if (o.error) {
-        return notifier.showError(o.error);
-      }
+      // @ts-ignore
+      if (o.error) return notifier.showError(o.error);
       notifier.showSuccess(o.message);
-      setTimeout(() => {
-        window.location.reload();
-      }, 1200);
+      setTimeout(() => window.location.reload(), 1200);
     })
   }
 
@@ -70,70 +66,62 @@
   }
 </script>
 
-<ConfirmPopUp action={confirmAction} question={confirmQuestion} visible={confirmVisible}/>
-<div class="root_layout">
-  <div class="root_container">
-    <SideMenu access={segments} />
-    <div class="root_content">
-      <Navbar {user} />
-      <div class="content">
-        <div class="staff_table">
-          <table>
-            <thead>
-              <tr>
-                <th class="primary" scope="col">User ID</th>
-                <th scope="col">Email</th>
-                <th scope="col">Full Name</th>
-                <th scope="col">Role</th>
-                <th scope="col">Status</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {#if tableReady}
-              {#if staffs && staffs.length}
-                {#each staffs as staff, idx}
-                  <tr>
-                    <td class="text-center">{staff.id}</td>
-                    <td>{staff.email}</td>
-                    <td>{staff.fullName || '--'}</td>
-                    <td class="text-capitalize">{staff.role}</td>
-                    <td>{staffStatus[idx]}</td>
-                    <td>
-                      <div class="action_btns">
-                      <button
-                        class="btn delete_btn"
-                        title="Terminate staff"
-                        on:click|preventDefault={() => confirmTerminateStaff(staff.email)}
-                      >
-                        <Icon size={15} src={CgTrash} />
-                      </button>
-                      <button class="btn edit_btn">
-                        <Icon size={15} src={HiOutlinePencilAlt} />
-                      </button>
-                      </div>
-                    </td>
-                  </tr>
-                {/each}
-              {/if}
-              {/if}
-            </tbody>
-            <tfoot>
-              <tr>
-                {#if staffs && staffs.length}
-                <td colspan="6"><i>Total Staff: {staffs.length}</i></td>
-                {:else}
-                  <td colspan="6"><i>Total Staff: 0</i></td>
-                {/if}
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      </div>
-      <Footer />
-    </div>
+<ConfirmPopUp action={confirmAction} question={confirmQuestion} visible={confirmVisible} />
+
+<MainLayout>
+  <div class="staff_table">
+    <table>
+      <thead>
+        <tr>
+          <th class="primary" scope="col">User ID</th>
+          <th scope="col">Email</th>
+          <th scope="col">Full Name</th>
+          <th scope="col">Role</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {#if tableReady}
+        {#if staffs && staffs.length}
+          {#each staffs as staff, idx}
+            <tr>
+              <td class="text-center">{staff.id}</td>
+              <td>{staff.email}</td>
+              <td>{staff.fullName || '--'}</td>
+              <td class="text-capitalize">{staff.role}</td>
+              <td>{staffStatus[idx]}</td>
+              <td>
+                <div class="action_btns">
+                <button
+                  class="btn delete_btn"
+                  title="Terminate staff"
+                  on:click|preventDefault={() => confirmTerminateStaff(staff.email)}
+                >
+                  <Icon size="15" src={CgTrash} />
+                </button>
+                <button class="btn edit_btn">
+                  <Icon size="15" src={HiOutlinePencilAlt} />
+                </button>
+                </div>
+              </td>
+            </tr>
+          {/each}
+        {/if}
+        {/if}
+      </tbody>
+      <tfoot>
+        <tr>
+          {#if staffs && staffs.length}
+          <td colspan="6"><i>Total Staff: {staffs.length}</i></td>
+          {:else}
+            <td colspan="6"><i>Total Staff: 0</i></td>
+          {/if}
+        </tr>
+      </tfoot>
+    </table>
   </div>
-</div>
+</MainLayout>
 
 <style>
   .staff_table {

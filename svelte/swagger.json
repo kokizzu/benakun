@@ -1297,7 +1297,7 @@
 								"type": "string"
 						},
 						"parentId": {
-								"type": "string"
+								"type": "number"
 						}
 								}
 							}
@@ -1487,13 +1487,13 @@
 								"type": "object",
 								"properties": {
 						"id": {
-								"type": "string"
+								"type": "number"
 						},
 						"name": {
 								"type": "string"
 						},
 						"parentId": {
-								"type": "string"
+								"type": "number"
 						}
 								}
 							}

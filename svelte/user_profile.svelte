@@ -1,8 +1,4 @@
 <script>
-  // @ts-nocheck
-  import SideMenu from './_components/partials/SideMenu.svelte';
-  import Navbar from './_components/partials/Navbar.svelte';
-  import Footer from './_components/partials/Footer.svelte';
   import { notifier } from './_components/notifier.js';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import { datetime } from './_components/formatter';
@@ -12,16 +8,17 @@
   import InputBox from './_components/InputBox.svelte';
   import SubmitButton from './_components/SubmitButton.svelte';
   import { localeDatetime } from './_components/formatter.js';
+  import MainLayout from './_layouts/mainLayout.svelte';
 
   let user = {/* user */};
   let segments = {/* segments */};
-  let sessionActiveLists = {/* activeSessions */};
+  let sessionActiveLists = [/* activeSessions */];
   let oldPassword = '';
   let newPassword = '';
   let repeatNewPassword = '';
   let oldProfileJson = '';
-  let profileSubmit = false,
-    passwordSubmit = false;
+  let profileSubmit = false,passwordSubmit = false;
+
   onMount(async () => {
     console.log('onMount.user');
     oldProfileJson = JSON.stringify(user);
@@ -31,10 +28,14 @@
   async function updateProfile() {
     profileSubmit = true;
     if (JSON.stringify(user) === oldProfileJson) return notifier.showWarning('No changes');
+    // @ts-ignore
     await UserUpdateProfile(user, function (res) {
       profileSubmit = false;
+      // @ts-ignore
       if (res.error) return notifier.showError(res.error);
+      // @ts-ignore
       oldProfileJson = JSON.stringify(res.user);
+      // @ts-ignore
       user = res.user;
       notifier.showSuccess('Profile updated');
     });
@@ -50,8 +51,10 @@
       oldPass: oldPassword,
       newPass: newPassword,
     };
+    // @ts-ignore
     await UserChangePassword(input, function (res) {
       passwordSubmit = false;
+      // @ts-ignore
       if (res.error) return notifier.showError(res.error);
       oldPassword = '';
       newPassword = '';
@@ -62,10 +65,13 @@
 
   async function killSession(sessionToken) {
     await UserSessionKill({ sessionTokenHash: sessionToken }, async res => {
+      // @ts-ignore
       if (res.error) return notifier.showError(res.error);
       if (res.sessionTerminated < 1) return notifier.showError('No session terminated');
       notifier.showInfo(res.sessionTerminated + ' session terminated');
+      // @ts-ignore
       await UserSessionsActive({ userId: user.id }, res => {
+        // @ts-ignore
         if (res.error) return notifier.showError(res.error);
         sessionActiveLists = res.sessionsActive;
       });
@@ -73,106 +79,95 @@
   }
 </script>
 
-<div class="root_layout">
-  <div class="root_container">
-    <SideMenu access={segments} />
-    <div class="root_content">
-      <Navbar {user} />
-      <div class="content">
-        <div class="user_details_container">
-          <div class="profile_details">
-            <h3>Profile Details</h3>
-            <div class="input_row">
-              <InputBox id="fullname" label="Full Name" bind:value={user.fullName} type="text" />
-              <InputBox id="email" label="E-Mail" bind:value={user.email} type="email" />
-            </div>
-            <div class="user_info">
-              <div class="info">
-                <span>Join At</span>
-                <span>{localeDatetime(user.createdAt)}</span>
-              </div>
-              <div class="info">
-                <span>User ID</span>
-                <span>{user.id}</span>
-              </div>
-              <div class="info">
-                <span>Role</span>
-                <span>{user.role || `--`}</span>
-              </div>
-              <div class="info">
-                <span>Last Login</span>
-                <span>{localeDatetime(user.lastLoginAt) || 0}</span>
-              </div>
-              <div class="info">
-                <span>Updated At</span>
-                <span>{localeDatetime(user.updatedAt) || 0}</span>
-              </div>
-              <div class="info">
-                <span>Verified At</span>
-                <span>{localeDatetime(user.verifiedAt) || 0}</span>
-              </div>
-              <div class="info">
-                <span>Last Updated Password</span>
-                <span>{localeDatetime(user.passwordSetAt) || 0}</span>
-              </div>
-              <div class="info">
-                <span>Tenant Code</span>
-                <span>{user.tenantCode || `--`}</span>
-              </div>
-            </div>
-            <SubmitButton
-              on:click={updateProfile}
-              isSubmitted={profileSubmit}
-              isFullWidth={false}
-            />
-          </div>
-          <div class="password_set">
-            <h3>Change Password</h3>
-            <InputBox id="oldPassword" label="Old Password" value={oldPassword} type="password" />
-            <InputBox id="newPassword" label="New Password" value={newPassword} type="password" />
-            <InputBox id="repeatNewPassword" label="Repeat New Password" value={repeatNewPassword} type="password" />
-            <SubmitButton
-              on:click={changePassword}
-              isSubmitted={passwordSubmit}
-              isFullWidth={false}
-            />
-          </div>
+<MainLayout>
+  <div class="user_details_container">
+    <div class="profile_details">
+      <h3>Profile Details</h3>
+      <div class="input_row">
+        <InputBox id="fullname" label="Full Name" bind:value={user.fullName} type="text" />
+        <InputBox id="email" label="E-Mail" bind:value={user.email} type="email" />
+      </div>
+      <div class="user_info">
+        <div class="info">
+          <span>Join At</span>
+          <span>{localeDatetime(user.createdAt)}</span>
         </div>
-  
-        <div class="sessions_container">
-          <div class="header">
-            <span>IP Address</span>
-            <span>Expired At</span>
-            <span>Device</span>
-          </div>
-          <div class="sessions">
-            {#if sessionActiveLists && sessionActiveLists.length}
-              {#each sessionActiveLists as session}
-                <div class="session">
-                  <span>{session.loginIPs || 'no-data'}</span>
-                  <span>{datetime(session.expiredAt) || 0}</span>
-                  <span>{session.device || 'no-data'}</span>
-                  <button
-                    on:click={() => killSession(session.sessionToken)}
-                    class="kill_session"
-                    title="Kill this session"
-                  >
-                    <Icon color="#FFF" size={12} src={FaSolidTimes} />
-                  </button>
-                </div>
-              {/each}
-            {/if}
-          </div>
+        <div class="info">
+          <span>User ID</span>
+          <span>{user.id}</span>
+        </div>
+        <div class="info">
+          <span>Role</span>
+          <span>{user.role || `--`}</span>
+        </div>
+        <div class="info">
+          <span>Last Login</span>
+          <span>{localeDatetime(user.lastLoginAt) || 0}</span>
+        </div>
+        <div class="info">
+          <span>Updated At</span>
+          <span>{localeDatetime(user.updatedAt) || 0}</span>
+        </div>
+        <div class="info">
+          <span>Verified At</span>
+          <span>{localeDatetime(user.verifiedAt) || 0}</span>
+        </div>
+        <div class="info">
+          <span>Last Updated Password</span>
+          <span>{localeDatetime(user.passwordSetAt) || 0}</span>
+        </div>
+        <div class="info">
+          <span>Tenant Code</span>
+          <span>{user.tenantCode || `--`}</span>
         </div>
       </div>
-      <Footer />
+      <SubmitButton
+        on:click={updateProfile}
+        isSubmitted={profileSubmit}
+        isFullWidth={false}
+      />
+    </div>
+    <div class="password_set">
+      <h3>Change Password</h3>
+      <InputBox id="oldPassword" label="Old Password" value={oldPassword} type="password" />
+      <InputBox id="newPassword" label="New Password" value={newPassword} type="password" />
+      <InputBox id="repeatNewPassword" label="Repeat New Password" value={repeatNewPassword} type="password" />
+      <SubmitButton
+        on:click={changePassword}
+        isSubmitted={passwordSubmit}
+        isFullWidth={false}
+      />
     </div>
   </div>
-</div>
+  <div class="sessions_container">
+    <div class="header">
+      <span>IP Address</span>
+      <span>Expired At</span>
+      <span>Device</span>
+    </div>
+    <div class="sessions">
+      {#if sessionActiveLists && sessionActiveLists.length}
+        {#each sessionActiveLists as session}
+          <div class="session">
+            <span>{session.loginIPs || 'no-data'}</span>
+            <span>{datetime(session.expiredAt) || 0}</span>
+            <span>{session.device || 'no-data'}</span>
+            <button
+              on:click={() => killSession(session.sessionToken)}
+              class="kill_session"
+              title="Kill this session"
+            >
+              <Icon color="#FFF" size="12" src={FaSolidTimes} />
+            </button>
+          </div>
+        {/each}
+      {/if}
+    </div>
+  </div>
+</MainLayout>
 
 
 <style>
-  /* +============= Global ==============+ */
   @keyframes spin {
     from {
       transform: rotate(0deg);
