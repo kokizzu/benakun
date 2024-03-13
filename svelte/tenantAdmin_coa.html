@@ -3125,6 +3125,12 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       return true;
     };
   }
+  function bubble(component, event) {
+    const callbacks = component.$.callbacks[event.type];
+    if (callbacks) {
+      callbacks.slice().forEach((fn) => fn.call(this, event));
+    }
+  }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
@@ -5951,8 +5957,8 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
   var import_jsApi = __toESM(require_jsApi_GEN());
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[18] = list[i];
-    child_ctx[20] = i;
+    child_ctx[21] = list[i];
+    child_ctx[23] = i;
     return child_ctx;
   }
   function create_if_block4(ctx) {
@@ -5966,7 +5972,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     );
     const get_key = (ctx2) => (
       /*ch*/
-      ctx2[18].id
+      ctx2[21].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context(ctx, each_value, i);
@@ -6033,7 +6039,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       props: {
         coa: (
           /*ch*/
-          ctx[18]
+          ctx[21]
         ),
         rootNum: (
           /*rootNum*/
@@ -6041,7 +6047,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         ),
         num: (
           /*idx*/
-          ctx[20] + 1
+          ctx[23] + 1
         ),
         indent: (
           /*indent*/
@@ -6049,6 +6055,11 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         )
       }
     });
+    coatree.$on(
+      "update",
+      /*update_handler*/
+      ctx[17]
+    );
     return {
       key: key_1,
       first: null,
@@ -6068,7 +6079,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         if (dirty & /*coa*/
         1)
           coatree_changes.coa = /*ch*/
-          ctx[18];
+          ctx[21];
         if (dirty & /*rootNum*/
         2)
           coatree_changes.rootNum = /*rootNum*/
@@ -6076,7 +6087,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         if (dirty & /*coa*/
         1)
           coatree_changes.num = /*idx*/
-          ctx[20] + 1;
+          ctx[23] + 1;
         if (dirty & /*indent*/
         8)
           coatree_changes.indent = /*indent*/
@@ -6105,6 +6116,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let popupcoachild;
     let updating_isSubmitted;
     let updating_childName;
+    let updating_heading;
     let t0;
     let div3;
     let div2;
@@ -6146,35 +6158,46 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     let mounted;
     let dispose;
     function popupcoachild_isSubmitted_binding(value) {
-      ctx[11](value);
+      ctx[12](value);
     }
     function popupcoachild_childName_binding(value) {
-      ctx[12](value);
+      ctx[13](value);
+    }
+    function popupcoachild_heading_binding(value) {
+      ctx[14](value);
     }
     let popupcoachild_props = {
       onSubmit: (
         /*submitAddOrEditChild*/
-        ctx[9]
+        ctx[10]
       )
     };
     if (
       /*isSubmitted*/
-      ctx[7] !== void 0
+      ctx[8] !== void 0
     ) {
       popupcoachild_props.isSubmitted = /*isSubmitted*/
-      ctx[7];
+      ctx[8];
     }
     if (
       /*coaName*/
-      ctx[6] !== void 0
+      ctx[7] !== void 0
     ) {
       popupcoachild_props.childName = /*coaName*/
+      ctx[7];
+    }
+    if (
+      /*heading*/
+      ctx[6] !== void 0
+    ) {
+      popupcoachild_props.heading = /*heading*/
       ctx[6];
     }
     popupcoachild = new PopUpCoaChild_default({ props: popupcoachild_props });
-    ctx[10](popupcoachild);
+    ctx[11](popupcoachild);
     binding_callbacks.push(() => bind(popupcoachild, "isSubmitted", popupcoachild_isSubmitted_binding));
     binding_callbacks.push(() => bind(popupcoachild, "childName", popupcoachild_childName_binding));
+    binding_callbacks.push(() => bind(popupcoachild, "heading", popupcoachild_heading_binding));
     icon0 = new Icon_default({
       props: {
         color: "var(--gray-006)",
@@ -6296,13 +6319,13 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
               button0,
               "click",
               /*click_handler*/
-              ctx[13]
+              ctx[15]
             ),
             listen(
               button1,
               "click",
               /*click_handler_1*/
-              ctx[14]
+              ctx[16]
             )
           ];
           mounted = true;
@@ -6311,18 +6334,25 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       p(ctx2, [dirty]) {
         const popupcoachild_changes = {};
         if (!updating_isSubmitted && dirty & /*isSubmitted*/
-        128) {
+        256) {
           updating_isSubmitted = true;
           popupcoachild_changes.isSubmitted = /*isSubmitted*/
-          ctx2[7];
+          ctx2[8];
           add_flush_callback(() => updating_isSubmitted = false);
         }
         if (!updating_childName && dirty & /*coaName*/
-        64) {
+        128) {
           updating_childName = true;
           popupcoachild_changes.childName = /*coaName*/
-          ctx2[6];
+          ctx2[7];
           add_flush_callback(() => updating_childName = false);
+        }
+        if (!updating_heading && dirty & /*heading*/
+        64) {
+          updating_heading = true;
+          popupcoachild_changes.heading = /*heading*/
+          ctx2[6];
+          add_flush_callback(() => updating_heading = false);
         }
         popupcoachild.$set(popupcoachild_changes);
         if ((!current || dirty & /*coa*/
@@ -6404,7 +6434,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
           detach(t0);
           detach(div3);
         }
-        ctx[10](null);
+        ctx[11](null);
         destroy_component(popupcoachild, detaching);
         destroy_component(icon0);
         destroy_component(icon1);
@@ -6426,7 +6456,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       parentId: "",
       children: []
     } } = $props;
-    let { rootNum = 1 } = $props;
+    let { rootNum = "1" } = $props;
     let { num = 1 } = $props;
     let { indent = 1 } = $props;
     let indentWidth = "10px";
@@ -6436,7 +6466,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
         return `${i * 10 + 10}px`;
       }
     );
-    let popUpCoaChild;
+    let popUpCoaChild, heading = "Add coa child";
     onMount(() => $invalidate(4, indentWidth = toIndentWidth(indent)));
     let coaState = "add", coaName = "";
     let isSubmitted = false;
@@ -6444,16 +6474,16 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       /** @type {string}*/
       (state) => {
         if (state === "add")
-          coaState = "add";
+          coaState = "add", $invalidate(7, coaName = ""), $invalidate(6, heading = "Add coa child");
         else
-          coaState = "edit";
+          coaState = "edit", $invalidate(7, coaName = coa.name), $invalidate(6, heading = "Edit: " + coa.name);
         popUpCoaChild.show();
       }
     );
     async function submitAddOrEditChild() {
-      $invalidate(7, isSubmitted = true);
+      $invalidate(8, isSubmitted = true);
       if (coaName === "") {
-        $invalidate(7, isSubmitted = false);
+        $invalidate(8, isSubmitted = false);
         notifier.showWarning("Coa name cannot be empty");
         return;
       }
@@ -6468,13 +6498,12 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
             // @ts-ignore
             function(o) {
               if (o.error) {
-                $invalidate(7, isSubmitted = false);
+                $invalidate(8, isSubmitted = false);
                 notifier.showError(o.error);
                 console.log(o.error);
                 return;
               }
-              $invalidate(7, isSubmitted = false);
-              console.log(o);
+              $invalidate(8, isSubmitted = false);
               popUpCoaChild.hide();
               notifier.showSuccess(coaName + " edited");
               dispatch("update", { coas: o.coa });
@@ -6487,13 +6516,12 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
             // @ts-ignore
             function(o) {
               if (o.error) {
-                $invalidate(7, isSubmitted = false);
+                $invalidate(8, isSubmitted = false);
                 notifier.showError(o.error);
                 console.log(o.error);
                 return;
               }
-              $invalidate(7, isSubmitted = false);
-              console.log(o);
+              $invalidate(8, isSubmitted = false);
               popUpCoaChild.hide();
               notifier.showSuccess("Coa child created");
               dispatch("update", { coas: o.coa });
@@ -6510,14 +6538,21 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
     }
     function popupcoachild_isSubmitted_binding(value) {
       isSubmitted = value;
-      $invalidate(7, isSubmitted);
+      $invalidate(8, isSubmitted);
     }
     function popupcoachild_childName_binding(value) {
       coaName = value;
-      $invalidate(6, coaName);
+      $invalidate(7, coaName);
+    }
+    function popupcoachild_heading_binding(value) {
+      heading = value;
+      $invalidate(6, heading);
     }
     const click_handler = () => toggleAddOrEdit("add");
     const click_handler_1 = () => toggleAddOrEdit("edit");
+    function update_handler(event) {
+      bubble.call(this, $self, event);
+    }
     $self.$set = ($props2) => {
       if ("coa" in $props2)
         $invalidate(0, coa = $props2.coa);
@@ -6535,6 +6570,7 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       indent,
       indentWidth,
       popUpCoaChild,
+      heading,
       coaName,
       isSubmitted,
       toggleAddOrEdit,
@@ -6542,8 +6578,10 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       popupcoachild_binding,
       popupcoachild_isSubmitted_binding,
       popupcoachild_childName_binding,
+      popupcoachild_heading_binding,
       click_handler,
-      click_handler_1
+      click_handler_1,
+      update_handler
     ];
   }
   var CoaTree = class extends SvelteComponent {

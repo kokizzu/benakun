@@ -30,13 +30,13 @@
     parentId: '',
     children: []
   };
-  export let rootNum = 1;
+  export let rootNum = '1';
   export let num = 1;
   export let indent = 1;
   let indentWidth = '10px';
   const toIndentWidth = (/** @type {number} */ i) => { return `${i * 10 + 10}px` }
 
-  let popUpCoaChild;
+  let popUpCoaChild, heading = 'Add coa child';
 
   onMount(() => indentWidth = toIndentWidth(indent))
 
@@ -44,7 +44,8 @@
   let isSubmitted = false;
 
   const toggleAddOrEdit = (/** @type {string}*/ state) => {
-    if (state === 'add') coaState = 'add'; else coaState = 'edit';
+    if (state === 'add') coaState = 'add', coaName = '', heading = 'Add coa child';
+    else coaState = 'edit', coaName = coa.name, heading = 'Edit: ' + coa.name;
     popUpCoaChild.show();
   }
 
@@ -75,7 +76,6 @@
               return;
             }
             isSubmitted = false;
-            console.log(o);
             popUpCoaChild.hide();
             notifier.showSuccess(coaName + ' edited');
             // @ts-ignore
@@ -101,8 +101,6 @@
               return;
             }
             isSubmitted = false;
-
-            console.log(o);
             popUpCoaChild.hide();
             notifier.showSuccess('Coa child created');
             // @ts-ignore
@@ -118,6 +116,7 @@
   bind:this={popUpCoaChild}
   bind:isSubmitted={isSubmitted}
   bind:childName={coaName}
+  bind:heading={heading}
   onSubmit={submitAddOrEditChild}
 />
 
@@ -166,6 +165,7 @@
         rootNum={rootNum}
         num={idx+1}
         indent={indent + 1}
+        on:update
       />
     {/each}
   {/if}
