@@ -184,6 +184,7 @@
     cursor: pointer;
     position: relative;
     border-radius: 8px;
+    user-select: none;
   }
 
   .coa-child:hover {

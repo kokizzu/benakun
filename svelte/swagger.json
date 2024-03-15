@@ -1414,6 +1414,77 @@
 							"schema": {
 								"type": "object",
 								"properties": {
+						"cmd": {
+								"type": "string"
+						},
+						"user": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"email": {
+										"type": "string"
+								},
+								"password": {
+										"type": "string"
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"passwordSetAt": {
+										"type": "number"
+								},
+								"secretCode": {
+										"type": "string"
+								},
+								"secretCodeAt": {
+										"type": "number"
+								},
+								"verificationSentAt": {
+										"type": "number"
+								},
+								"verifiedAt": {
+										"type": "number"
+								},
+								"lastLoginAt": {
+										"type": "number"
+								},
+								"fullName": {
+										"type": "string"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"role": {
+										"type": "string"
+								},
+								"invitationState": {
+										"type": "string"
+								}
+								}
+						},
+						"id": {
+								"type": "number"
+						},
+						"newParentId": {
+								"type": "number"
+						},
+						"oldParentId": {
+								"type": "number"
+						}
 								}
 							}
 						}
@@ -1427,6 +1498,11 @@
 								"schema": {
 									"type": "object",
 									"properties": {
+										"orgs": {
+										"type": "object",
+										"properties": {
+												}
+										}
 									}
 								}
 							}

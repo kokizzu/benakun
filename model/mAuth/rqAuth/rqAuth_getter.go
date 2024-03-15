@@ -228,3 +228,21 @@ FROM ` + c.SqlTableName() + whereAndSql
 
 	return 0
 }
+
+func (o *Orgs) FindOrgsByTenantCode(tenantCode string) (orgs []Orgs) {
+	const comment = "-- orgs) FindByTenant"
+
+	whereAndSql := ` WHERE ` + o.SqlTenantCode() + ` = '` + tenantCode + `'`
+	queryRows := comment +
+		`
+SELECT ` + o.SqlSelectAllFields() + `
+FROM ` + o.SqlTableName() +
+		whereAndSql
+
+	o.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0])
+		orgs = append(orgs, *o.FromArray(row))
+	})
+
+	return
+}
