@@ -1325,6 +1325,55 @@
 				}
 			}
 		},
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"name": {
+								"type": "string"
+						},
+						"headTitle": {
+								"type": "string"
+						},
+						"parentId": {
+								"type": "number"
+						},
+						"orgType": {
+								"type": "number"
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminCreateOrganizationChild",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"orgs": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/tenantAdmin/dashboard": {
 			"post": {
 				"security": [{
@@ -1414,77 +1463,6 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"cmd": {
-								"type": "string"
-						},
-						"user": {
-						"type": "object",
-						"properties": {
-								"id": {
-										"type": "number"
-								},
-								"email": {
-										"type": "string"
-								},
-								"password": {
-										"type": "string"
-								},
-								"createdAt": {
-										"type": "number"
-								},
-								"createdBy": {
-										"type": "number"
-								},
-								"updatedAt": {
-										"type": "number"
-								},
-								"updatedBy": {
-										"type": "number"
-								},
-								"deletedAt": {
-										"type": "number"
-								},
-								"passwordSetAt": {
-										"type": "number"
-								},
-								"secretCode": {
-										"type": "string"
-								},
-								"secretCodeAt": {
-										"type": "number"
-								},
-								"verificationSentAt": {
-										"type": "number"
-								},
-								"verifiedAt": {
-										"type": "number"
-								},
-								"lastLoginAt": {
-										"type": "number"
-								},
-								"fullName": {
-										"type": "string"
-								},
-								"tenantCode": {
-										"type": "string"
-								},
-								"role": {
-										"type": "string"
-								},
-								"invitationState": {
-										"type": "string"
-								}
-								}
-						},
-						"id": {
-								"type": "number"
-						},
-						"newParentId": {
-								"type": "number"
-						},
-						"oldParentId": {
-								"type": "number"
-						}
 								}
 							}
 						}

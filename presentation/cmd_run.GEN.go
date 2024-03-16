@@ -156,6 +156,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminCreateCoaChild(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.TenantAdminCreateOrganizationChildAction:
+		in := domain.TenantAdminCreateOrganizationChildIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.TenantAdminCreateOrganizationChild(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.TenantAdminDashboardAction:
 		in := domain.TenantAdminDashboardIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

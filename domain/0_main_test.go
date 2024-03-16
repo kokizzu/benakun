@@ -156,7 +156,7 @@ func TestMain(m *testing.M) {
 	}
 
 	// run migration
-	model.RunMigration(testTt, testCh)
+	model.RunMigration(testTt, testCh, nil)
 
 	// run tests
 	m.Run()

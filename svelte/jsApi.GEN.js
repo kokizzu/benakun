@@ -930,6 +930,43 @@ exports.TenantAdminCreateCoaChild = async function TenantAdminCreateCoaChild( i,
 }
 
 /**
+ * @typedef {Object} TenantAdminCreateOrganizationChildIn
+ * @property {String} name
+ * @property {String} headTitle
+ * @property {number} parentId
+ * @property {number} orgType
+ */
+const TenantAdminCreateOrganizationChildIn = {
+  name: '', // string
+  headTitle: '', // string
+  parentId: 0, // uint64
+  orgType: 0, // uint64
+}
+/**
+ * @typedef {Object} TenantAdminCreateOrganizationChildOut
+ * @property {Object} orgs
+ */
+const TenantAdminCreateOrganizationChildOut = {
+  orgs: { // []rqAuth.Orgs
+  }, // []rqAuth.Orgs
+}
+/**
+ * @callback TenantAdminCreateOrganizationChildCallback
+ * @param {TenantAdminCreateOrganizationChildOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminCreateOrganizationChildIn} i
+ * @param {TenantAdminCreateOrganizationChildCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminCreateOrganizationChild = async function TenantAdminCreateOrganizationChild( i, cb ) {
+  return await axios.post( '/tenantAdmin/createOrganizationChild', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} TenantAdminDashboardIn
  */
 const TenantAdminDashboardIn = {
@@ -990,54 +1027,8 @@ exports.TenantAdminInviteUser = async function TenantAdminInviteUser( i, cb ) {
 
 /**
  * @typedef {Object} TenantAdminOrganizationIn
- * @property {String} cmd
- * @property {number} user.id
- * @property {String} user.email
- * @property {String} user.password
- * @property {number} user.createdAt
- * @property {number} user.createdBy
- * @property {number} user.updatedAt
- * @property {number} user.updatedBy
- * @property {number} user.deletedAt
- * @property {number} user.passwordSetAt
- * @property {String} user.secretCode
- * @property {number} user.secretCodeAt
- * @property {number} user.verificationSentAt
- * @property {number} user.verifiedAt
- * @property {number} user.lastLoginAt
- * @property {String} user.fullName
- * @property {String} user.tenantCode
- * @property {String} user.role
- * @property {String} user.invitationState
- * @property {number} id
- * @property {number} newParentId
- * @property {number} oldParentId
  */
 const TenantAdminOrganizationIn = {
-  cmd: '', // string
-  user: { // rqAuth.Users
-    id: 0, // uint64
-    email: '', // string
-    password: '', // string
-    createdAt: 0, // int64
-    createdBy: 0, // uint64
-    updatedAt: 0, // int64
-    updatedBy: 0, // uint64
-    deletedAt: 0, // int64
-    passwordSetAt: 0, // int64
-    secretCode: '', // string
-    secretCodeAt: 0, // int64
-    verificationSentAt: 0, // int64
-    verifiedAt: 0, // int64
-    lastLoginAt: 0, // int64
-    fullName: '', // string
-    tenantCode: '', // string
-    role: '', // string
-    invitationState: '', // string
-  }, // rqAuth.Users
-  id: 0, // uint64
-  newParentId: 0, // uint64
-  oldParentId: 0, // uint64
 }
 /**
  * @typedef {Object} TenantAdminOrganizationOut

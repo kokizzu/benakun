@@ -68,6 +68,11 @@ func (d *Domain) TenantAdminCreateCoaChild(in *TenantAdminCreateCoaChildIn) (out
 	child.SetLevel(parent.Level)
 	child.SetName(in.Name)
 	child.SetParentId(parent.Id)
+	child.SetCreatedAt(in.UnixNow())
+	child.SetCreatedBy(sess.UserId)
+	child.SetUpdatedAt(in.UnixNow())
+	child.SetUpdatedBy(sess.UserId)
+
 	if !child.DoInsert() {
 		out.SetError(400, ErrTenantAdminCreateCoaChildCoaParentNotFound)
 		return
@@ -87,7 +92,11 @@ func (d *Domain) TenantAdminCreateCoaChild(in *TenantAdminCreateCoaChildIn) (out
 	children := parent.Children
 	children = append(children, childId)
 	parent.SetChildren(children)
+	parent.SetUpdatedAt(in.UnixNow())
+	parent.SetUpdatedBy(sess.UserId)
+	
 	if !parent.DoUpdateById() {
+		parent.HaveMutation()
 		out.SetError(400, ErrTenantAdminCreateCoaChildCoaParentNotFound)
 		return
 	}

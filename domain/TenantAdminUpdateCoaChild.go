@@ -73,6 +73,9 @@ func (d *Domain) TenantAdminUpdateCoaChild(in *TenantAdminUpdateCoaChildIn) (out
 	}
 
 	child.SetName(in.Name)
+	child.SetUpdatedAt(in.UnixNow())
+	child.SetCreatedBy(sess.UserId)
+	
 	if !child.DoUpdateById() {
 		child.HaveMutation()
 		out.SetError(400, ErrTenantAdminCreateCoaChildFailed)

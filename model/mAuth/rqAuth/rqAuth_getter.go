@@ -229,8 +229,8 @@ FROM ` + c.SqlTableName() + whereAndSql
 	return 0
 }
 
-func (o *Orgs) FindOrgsByTenantCode(tenantCode string) (orgs []Orgs) {
-	const comment = "-- orgs) FindByTenant"
+func (o *Orgs) FindOrgsByTenant(tenantCode string) (orgs []Orgs) {
+	const comment = "-- orgs) FindOrgsByTenant"
 
 	whereAndSql := ` WHERE ` + o.SqlTenantCode() + ` = '` + tenantCode + `'`
 	queryRows := comment +
@@ -245,4 +245,27 @@ FROM ` + o.SqlTableName() +
 	})
 
 	return
+}
+
+func (o *Orgs) FindOrgChildIdByParentIdByName() uint64 {
+	var res [][]any
+	const comment = `-- Org) FindOrgChildIdByParentIdByName`
+
+	whereAndSql := ` WHERE ` + o.SqlParentId() + ` = ` + I.ToS(int64(o.ParentId)) + ` AND ` + o.SqlName() + ` = ` + S.Z(o.Name)
+
+	queryRow := comment + `
+SELECT ` + o.SqlId() + `
+FROM ` + o.SqlTableName() + whereAndSql
+
+	o.Adapter.QuerySql(queryRow, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
+	if len(res) > 0 {
+		pId := res[0][0].(string)
+		return S.ToU(pId)
+	}
+
+	return 0
 }

@@ -78,6 +78,11 @@ func (c *CoaMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
 //		A.X{`=`, 3, c.Level},
 //		A.X{`=`, 4, c.ParentId},
 //		A.X{`=`, 5, c.Children},
+//		A.X{`=`, 6, c.CreatedAt},
+//		A.X{`=`, 7, c.CreatedBy},
+//		A.X{`=`, 8, c.UpdatedAt},
+//		A.X{`=`, 9, c.UpdatedBy},
+//		A.X{`=`, 10, c.DeletedAt},
 //	})
 //	return !L.IsError(err, `Coa.DoUpsert failed: `+c.SpaceName()+ `\n%#v`, arr)
 // }
@@ -173,6 +178,61 @@ func (c *CoaMutator) SetChildren(val []any) bool { //nolint:dupl false positive
 	return true
 }
 
+// SetCreatedAt create mutations, should not duplicate
+func (c *CoaMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
+	if val != c.CreatedAt {
+		c.mutations = append(c.mutations, A.X{`=`, 6, val})
+		c.logs = append(c.logs, A.X{`createdAt`, c.CreatedAt, val})
+		c.CreatedAt = val
+		return true
+	}
+	return false
+}
+
+// SetCreatedBy create mutations, should not duplicate
+func (c *CoaMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
+	if val != c.CreatedBy {
+		c.mutations = append(c.mutations, A.X{`=`, 7, val})
+		c.logs = append(c.logs, A.X{`createdBy`, c.CreatedBy, val})
+		c.CreatedBy = val
+		return true
+	}
+	return false
+}
+
+// SetUpdatedAt create mutations, should not duplicate
+func (c *CoaMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
+	if val != c.UpdatedAt {
+		c.mutations = append(c.mutations, A.X{`=`, 8, val})
+		c.logs = append(c.logs, A.X{`updatedAt`, c.UpdatedAt, val})
+		c.UpdatedAt = val
+		return true
+	}
+	return false
+}
+
+// SetUpdatedBy create mutations, should not duplicate
+func (c *CoaMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
+	if val != c.UpdatedBy {
+		c.mutations = append(c.mutations, A.X{`=`, 9, val})
+		c.logs = append(c.logs, A.X{`updatedBy`, c.UpdatedBy, val})
+		c.UpdatedBy = val
+		return true
+	}
+	return false
+}
+
+// SetDeletedAt create mutations, should not duplicate
+func (c *CoaMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
+	if val != c.DeletedAt {
+		c.mutations = append(c.mutations, A.X{`=`, 10, val})
+		c.logs = append(c.logs, A.X{`deletedAt`, c.DeletedAt, val})
+		c.DeletedAt = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (c *CoaMutator) SetAll(from rqAuth.Coa, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -203,6 +263,26 @@ func (c *CoaMutator) SetAll(from rqAuth.Coa, excludeMap, forceMap M.SB) (changed
 	}
 	if !excludeMap[`children`] && (forceMap[`children`] || from.Children != nil) {
 		c.Children = from.Children
+		changed = true
+	}
+	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
+		c.CreatedAt = from.CreatedAt
+		changed = true
+	}
+	if !excludeMap[`createdBy`] && (forceMap[`createdBy`] || from.CreatedBy != 0) {
+		c.CreatedBy = from.CreatedBy
+		changed = true
+	}
+	if !excludeMap[`updatedAt`] && (forceMap[`updatedAt`] || from.UpdatedAt != 0) {
+		c.UpdatedAt = from.UpdatedAt
+		changed = true
+	}
+	if !excludeMap[`updatedBy`] && (forceMap[`updatedBy`] || from.UpdatedBy != 0) {
+		c.UpdatedBy = from.UpdatedBy
+		changed = true
+	}
+	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
+		c.DeletedAt = from.DeletedAt
 		changed = true
 	}
 	return
