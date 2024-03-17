@@ -31,7 +31,7 @@ const (
 	ErrTenantAdminUpdateCoaChildTenantNotFound    = `tenant admin not found`
 	ErrTenantAdminUpdateCoaChildCoaParentNotFound = `coa parent not found`
 	ErrTenantAdminUpdateCoaChildCoaChildNotFound  = `coa child not found`
-	ErrTenantAdminCreateCoaChildFailed = `failed to update coa child`
+	ErrTenantAdminUpdateCoaChildFailed = `failed to update coa child`
 )
 
 func (d *Domain) TenantAdminUpdateCoaChild(in *TenantAdminUpdateCoaChildIn) (out TenantAdminUpdateCoaChildOut) {
@@ -78,7 +78,7 @@ func (d *Domain) TenantAdminUpdateCoaChild(in *TenantAdminUpdateCoaChildIn) (out
 	
 	if !child.DoUpdateById() {
 		child.HaveMutation()
-		out.SetError(400, ErrTenantAdminCreateCoaChildFailed)
+		out.SetError(400, ErrTenantAdminUpdateCoaChildFailed)
 		return
 	}
 

@@ -172,6 +172,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminDashboard(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.TenantAdminDeleteCoaChildAction:
+		in := domain.TenantAdminDeleteCoaChildIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.TenantAdminDeleteCoaChild(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.TenantAdminInviteUserAction:
 		in := domain.TenantAdminInviteUserIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

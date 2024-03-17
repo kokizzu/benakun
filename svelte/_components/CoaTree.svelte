@@ -7,7 +7,7 @@
   import { onMount } from 'svelte';
   import PopUpCoaChild from './PopUpCoaChild.svelte';
   import { notifier } from './notifier.js';
-  import { TenantAdminCreateCoaChild, TenantAdminUpdateCoaChild } from '../jsApi.GEN';
+  import { TenantAdminCreateCoaChild, TenantAdminUpdateCoaChild, TenantAdminDeleteCoaChild } from '../jsApi.GEN';
   import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
@@ -110,6 +110,32 @@
         break;
     }
   }
+
+  async function deleteCoaChild() {
+    isSubmitted = true;
+    await TenantAdminDeleteCoaChild(
+      {
+        id: Number(coa.id),
+        parentId: Number(coa.parentId)
+      },
+      // @ts-ignore
+      function (o) {
+        // @ts-ignore
+        if (o.error) {
+          isSubmitted = false;
+          // @ts-ignore
+          notifier.showError(o.error);
+          // @ts-ignore
+          console.log(o.error);
+          return;
+        }
+        isSubmitted = false;
+        notifier.showSuccess(coa.name + ' deleted');
+        // @ts-ignore
+        dispatch('update', { coas: o.coa })
+      }
+    )
+  }
 </script>
 
 <PopUpCoaChild
@@ -141,7 +167,7 @@
             src={RiDesignPencilLine}
           />
         </button>
-        <button class="btn" title="Delete">
+        <button class="btn" title="Delete" on:click={deleteCoaChild}>
           <Icon
             color="var(--gray-006)"
             className="icon"

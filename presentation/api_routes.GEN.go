@@ -210,6 +210,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// TenantAdminDeleteCoaChild
+	fw.Post("/"+domain.TenantAdminDeleteCoaChildAction, func(c *fiber.Ctx) error {
+		in := domain.TenantAdminDeleteCoaChildIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminDeleteCoaChildAction); err != nil {
+			return nil
+		}
+		out := d.TenantAdminDeleteCoaChild(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// TenantAdminInviteUser
 	fw.Post("/"+domain.TenantAdminInviteUserAction, func(c *fiber.Ctx) error {
 		in := domain.TenantAdminInviteUserIn{}

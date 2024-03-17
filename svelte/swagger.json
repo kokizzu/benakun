@@ -1325,6 +1325,7 @@
 				}
 			}
 		},
+		"/tenantAdmin/createOrganizationChild": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -1400,6 +1401,50 @@
 									"type": "object",
 									"properties": {
 										"staffs": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tenantAdmin/deleteCoaChild": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"id": {
+								"type": "number"
+						},
+						"parentId": {
+								"type": "number"
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminDeleteCoaChild",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"coas": {
 										"type": "object",
 										"properties": {
 												}

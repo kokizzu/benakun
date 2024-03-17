@@ -996,6 +996,39 @@ exports.TenantAdminDashboard = async function TenantAdminDashboard( i, cb ) {
 }
 
 /**
+ * @typedef {Object} TenantAdminDeleteCoaChildIn
+ * @property {number} id
+ * @property {number} parentId
+ */
+const TenantAdminDeleteCoaChildIn = {
+  id: 0, // uint64
+  parentId: 0, // uint64
+}
+/**
+ * @typedef {Object} TenantAdminDeleteCoaChildOut
+ * @property {Object} coas
+ */
+const TenantAdminDeleteCoaChildOut = {
+  coas: { // []rqAuth.Coa
+  }, // []rqAuth.Coa
+}
+/**
+ * @callback TenantAdminDeleteCoaChildCallback
+ * @param {TenantAdminDeleteCoaChildOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminDeleteCoaChildIn} i
+ * @param {TenantAdminDeleteCoaChildCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminDeleteCoaChild = async function TenantAdminDeleteCoaChild( i, cb ) {
+  return await axios.post( '/tenantAdmin/deleteCoaChild', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} TenantAdminInviteUserIn
  * @property {String} email
  */

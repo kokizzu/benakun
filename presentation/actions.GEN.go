@@ -27,6 +27,7 @@ var allCommands = []string{
 	domain.TenantAdminCreateCoaChildAction,
 	domain.TenantAdminCreateOrganizationChildAction,
 	domain.TenantAdminDashboardAction,
+	domain.TenantAdminDeleteCoaChildAction,
 	domain.TenantAdminInviteUserAction,
 	domain.TenantAdminOrganizationAction,
 	domain.TenantAdminTerminateStaffAction,

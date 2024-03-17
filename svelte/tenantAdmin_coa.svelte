@@ -77,7 +77,7 @@
     return toCoas;
   }
 
-  onMount(() => {REFORMAT_COAS = reformatCoas(); console.log(REFORMAT_COAS)});
+  onMount(() => {REFORMAT_COAS = reformatCoas(); console.log(REFORMAT_COAS); console.log(coas)});
 
   let popUpCoaChild;
 

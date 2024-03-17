@@ -2623,8 +2623,14 @@ footer.svelte-18vlekj nav a.svelte-18vlekj:hover {
       exports.TenantAdminCreateCoaChild = async function TenantAdminCreateCoaChild(i, cb) {
         return await axios.post("/tenantAdmin/createCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminCreateOrganizationChild = async function TenantAdminCreateOrganizationChild(i, cb) {
+        return await axios.post("/tenantAdmin/createOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.TenantAdminDashboard = async function TenantAdminDashboard(i, cb) {
         return await axios.post("/tenantAdmin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.TenantAdminDeleteCoaChild = async function TenantAdminDeleteCoaChild(i, cb) {
+        return await axios.post("/tenantAdmin/deleteCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminInviteUser = async function TenantAdminInviteUser(i, cb) {
         return await axios.post("/tenantAdmin/inviteUser", i).then(wrapOk(cb)).catch(wrapErr(cb));

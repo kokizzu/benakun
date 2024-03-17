@@ -159,7 +159,7 @@ func (c *Coa) FindCoasByTenant(tenantCode string) (coas []Coa) {
 	var res [][]any
 	const comment = `-- Coa) FindCoasByTenant`
 
-	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(tenantCode)
+	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(tenantCode) + ` AND "deletedAt" = 0`
 
 	queryRows := comment + `
 SELECT ` + c.SqlSelectAllFields() + `
@@ -187,7 +187,7 @@ func (c *Coa) FindCoaIdByTenantByLevel() uint64 {
 	var res [][]any
 	const comment = `-- Coa) FindCoaIdByTenantByLevel`
 
-	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode) + ` AND ` + c.SqlLevel() + ` = ` + I.ToS(int64(c.Level))
+	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode) + ` AND ` + c.SqlLevel() + ` = ` + I.ToS(int64(c.Level))  + ` AND "deletedAt" = 0`
 
 	queryRow := comment + `
 SELECT ` + c.SqlId() + `
