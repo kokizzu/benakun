@@ -21,6 +21,11 @@
      * @property {string} name
      * @property {number} level
      * @property {string} parentId
+     * @property {number} createdAt
+     * @property {string} createdBy
+     * @property {number} updatedAt
+     * @property {string} updatedBy
+     * @property {number} deletedAt
      * @property {Array<CoA>} children
     */
   /**
@@ -29,12 +34,20 @@
   let REFORMAT_COAS = [];
 
   function coaMaker(id) {
+    /**
+     * @type {CoA}
+     */
     let coaFormatted = {
-      id: '',
-      name: '',
-      level: 0,
-      parentId: '',
-      children: []
+        id: '',
+        name: '',
+        level: 0,
+        parentId: '',
+        children: [],
+        createdAt: undefined,
+        createdBy: '',
+        updatedAt: undefined,
+        updatedBy: '',
+        deletedAt: undefined
     }
     for (let i in coas) {
       if (coas[i].id == String(id)) {
@@ -45,14 +58,16 @@
             const child = coaMaker(childId)
             coaFormatted.children = [...coaFormatted.children, child];
           }
-        } else {
-          coaFormatted.children = [];
         }
-
-        coaFormatted.name = coas[i].name;
-        coaFormatted.level = coas[i].level;
-        coaFormatted.id = coas[i].id;
-        coaFormatted.parentId = coas[i].parentId;
+        coaFormatted.id = coas[i].id
+        coaFormatted.name = coas[i].name
+        coaFormatted.level = coas[i].level
+        coaFormatted.parentId = coas[i].parentId
+        coaFormatted.createdAt = coas[i].createdAt
+        coaFormatted.createdBy = coas[i].createdBy
+        coaFormatted.updatedAt = coas[i].updatedAt
+        coaFormatted.updatedBy = coas[i].updatedBy
+        coaFormatted.deletedAt = coas[i].deletedAt
       }
     }
     return coaFormatted;
@@ -143,7 +158,10 @@
       {#each REFORMAT_COAS as c, _ (c.id)}
         <div class="coa">
           <div class="parent">
-            <h5>{c.level}.&nbsp;{c.name}</h5>
+            <h5>
+              <span class="label">{c.level}</span>
+              &nbsp;{c.name}
+            </h5>
             <div class="options">
               <button class="btn" title="Add child" on:click={() => {
                 childParentId = c.id;
@@ -158,7 +176,7 @@
               {#each c.children as cc, idx (cc.id)}
                 <CoaTree
                   coa={cc}
-                  rootNum={idx+1}
+                  num={`${idx+1}`}
                   indent={1}
                   on:update={updateEventHandler}
                 />
@@ -180,6 +198,7 @@
     border: 1px solid var(--gray-003);
     border-radius: 8px;
     overflow: hidden;
+    padding-bottom: 10px;
   }
 
   .coa_levels .coa {
@@ -192,7 +211,6 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    /* justify-content: space-between; */
     gap: 20px;
     align-items: center;
     font-size: 22px;
@@ -205,6 +223,15 @@
     font-size: 18px;
     line-height: 2.2rem;
     margin: 0;
+    user-select: none;
+  }
+
+  .coa_levels .coa .parent h5 .label {
+    font-size: 14px;
+    padding: 3px 7px;
+    background-color: var(--blue-006);
+    color: #FFF;
+    border-radius: 9999px;
   }
 
   .coa_levels .coa .parent:hover .options {
@@ -239,7 +266,6 @@
   .coa_levels .coa .children {
     display: flex;
     flex-direction: column;
-    gap: 5px;
     overflow: hidden;
     padding: 0 20px 0 10px;
   }

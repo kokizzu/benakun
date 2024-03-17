@@ -998,11 +998,9 @@ exports.TenantAdminDashboard = async function TenantAdminDashboard( i, cb ) {
 /**
  * @typedef {Object} TenantAdminDeleteCoaChildIn
  * @property {number} id
- * @property {number} parentId
  */
 const TenantAdminDeleteCoaChildIn = {
   id: 0, // uint64
-  parentId: 0, // uint64
 }
 /**
  * @typedef {Object} TenantAdminDeleteCoaChildOut

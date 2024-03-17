@@ -63,7 +63,7 @@
     animation: spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
-   .popup_container {
+  .popup_container {
     display: none;
 		position: fixed;
 		width: 100%;
@@ -102,6 +102,10 @@
 		border-bottom: 1px solid var(--gray-004);
 	}
 
+	.popup_container .popup header h2 {
+		margin: 0;
+	}
+
 	.popup_container .popup header button {
 		display: flex;
 		justify-content: center;
@@ -115,6 +119,10 @@
 
 	.popup_container .popup header button:hover {
 		background-color: #ef444420;
+	}
+
+	.popup_container .popup header button:active {
+		background-color: #ef444430;
 	}
 
 	.popup_container .popup .forms {
@@ -152,7 +160,6 @@
 
 	.popup_container .popup .foot button.ok {
 		background-color: var(--green-006);
-		border: 1px solid var(--green-006);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -163,8 +170,11 @@
 	}
 
 	.popup_container .popup .foot button.cancel {
-		background-color: #fbbf2420;
+		background-color: #fbbf2430;
 		color: var(--amber-005);
-		border: 1px solid var(--amber-005);
+	}
+
+	.popup_container .popup .foot button.cancel:hover {
+		background-color: #fbbf2450;
 	}
 </style>

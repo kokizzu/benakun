@@ -15,7 +15,6 @@ type (
 	TenantAdminDeleteCoaChildIn struct {
 		RequestCommon
 		Id         uint64      `json:"id" form:"id" query:"id" long:"id" msg:"id"`
-		ParentId   uint64      `json:"parentId" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
 	}
 	TenantAdminDeleteCoaChildOut struct {
 		ResponseCommon
@@ -56,7 +55,6 @@ func (d *Domain) TenantAdminDeleteCoaChild(in *TenantAdminDeleteCoaChildIn) (out
 		return
 	}
 
-	// update coa child
 	child := wcAuth.NewCoaMutator(d.AuthOltp)
 	child.Id = in.Id
 	if !child.FindById() {
@@ -69,6 +67,7 @@ func (d *Domain) TenantAdminDeleteCoaChild(in *TenantAdminDeleteCoaChildIn) (out
 		return
 	}
 
+	// delete coa child
 	child.SetDeletedAt(in.UnixNow())
 	child.SetUpdatedAt(in.UnixNow())
 	child.SetUpdatedBy(sess.UserId)
