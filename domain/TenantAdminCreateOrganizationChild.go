@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"benakun/model/mAuth"
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
 )
@@ -17,7 +18,7 @@ type (
 		Name string `json:"name" form:"name" query:"name" long:"name" msg:"name"`
 		HeadTitle   string `json:"headTitle" form:"headTitle" query:"headTitle" long:"headTitle" msg:"headTitle"`
 		ParentId uint64 `json:"parentId" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
-		OrgType uint64 `json:"orgType" form:"orgType" query:"orgType" long:"orgType" msg:"orgType"`
+		OrgType string `json:"orgType" form:"orgType" query:"orgType" long:"orgType" msg:"orgType"`
 	}
 
 	TenantAdminCreateOrganizationChildOut struct {
@@ -35,6 +36,8 @@ const (
 	ErrTenantAdminCreateOrganizationChildOrgChildNotFound  = `organization child not found`
 	ErrTenantAdminCreateOrganizationOrgAlreadyExist = `organization already exist`
 	ErrTenantAdminCreateOrganizationChildFailed = `create organization child failed`
+	ErrTenantAdminCreateOrganizationInvalidOrgType = `invalid type of organization`
+	ErrTenantAdminCreateOrganizationJobCannotAddChild = `cannot create child if org type is job`
 )
 
 func (d *Domain) TenantAdminCreateOrganizationChild(in *TenantAdminCreateOrganizationChildIn) (out TenantAdminCreateOrganizationChildOut) {
@@ -59,6 +62,7 @@ func (d *Domain) TenantAdminCreateOrganizationChild(in *TenantAdminCreateOrganiz
 		return
 	}
 
+	// Find parent
 	parent := wcAuth.NewOrgsMutator(d.AuthOltp)
 	parent.Id = in.ParentId
 	if !parent.FindById() {
@@ -66,10 +70,30 @@ func (d *Domain) TenantAdminCreateOrganizationChild(in *TenantAdminCreateOrganiz
 		return
 	}
 
+	// Job is the lowest level, cannot create child for it
+	if parent.OrgType == mAuth.OrgTypeJob {
+		out.SetError(400, ErrTenantAdminCreateOrganizationJobCannotAddChild)
+		return
+	}
+
+	// Create child
 	child := wcAuth.NewOrgsMutator(d.AuthOltp)
+	// payload should be string for readability
+	switch in.OrgType {
+	case `company`:
+		child.SetOrgType(mAuth.OrgTypeCompany)
+	case `department`:
+		child.SetOrgType(mAuth.OrgTypeDept)
+	case `division`:
+		child.SetOrgType(mAuth.OrgTypeDivision)
+	case `job`:
+		child.SetOrgType(mAuth.OrgTypeJob)
+	default:
+		out.SetError(400, ErrTenantAdminCreateOrganizationInvalidOrgType)
+		return
+	}
 	child.SetName(in.Name)
 	child.SetHeadTitle(in.HeadTitle)
-	child.SetOrgType(in.OrgType)
 	child.SetTenantCode(tenant.TenantCode)
 	child.SetParentId(in.ParentId)
 	child.SetCreatedAt(in.UnixNow())
@@ -82,6 +106,7 @@ func (d *Domain) TenantAdminCreateOrganizationChild(in *TenantAdminCreateOrganiz
 		return
 	}
 
+	// finc the created child to update parent
 	fchild := wcAuth.NewOrgsMutator(d.AuthOltp)
 	fchild.ParentId = parent.Id
 	fchild.Name = in.Name
@@ -91,6 +116,7 @@ func (d *Domain) TenantAdminCreateOrganizationChild(in *TenantAdminCreateOrganiz
 		return
 	}
 
+	// update children for parent
 	children := parent.Children
 	children = append(children, childId)
 	parent.SetChildren(children)
@@ -102,6 +128,7 @@ func (d *Domain) TenantAdminCreateOrganizationChild(in *TenantAdminCreateOrganiz
 		return
 	}
 
+	// retrieve owned orgs
 	org := wcAuth.NewOrgsMutator(d.AuthOltp)
 	orgs := org.FindOrgsByTenant(tenant.TenantCode)
 

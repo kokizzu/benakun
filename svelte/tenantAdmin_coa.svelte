@@ -38,16 +38,16 @@
      * @type {CoA}
      */
     let coaFormatted = {
-        id: '',
-        name: '',
-        level: 0,
-        parentId: '',
-        children: [],
-        createdAt: undefined,
-        createdBy: '',
-        updatedAt: undefined,
-        updatedBy: '',
-        deletedAt: undefined
+      id: '',
+      name: '',
+      level: 0,
+      parentId: '',
+      children: [],
+      createdAt: undefined,
+      createdBy: '',
+      updatedAt: undefined,
+      updatedBy: '',
+      deletedAt: undefined
     }
     for (let i in coas) {
       if (coas[i].id == String(id)) {

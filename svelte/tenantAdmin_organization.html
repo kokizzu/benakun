@@ -512,13 +512,54 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
 }
 
 /* fakecss:./tenantAdmin_organization.esbuild-svelte-fake-css */
-.org.svelte-1013iy5.svelte-1013iy5 {
+.org.svelte-1eu133j.svelte-1eu133j {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.org.svelte-1eu133j .company.svelte-1eu133j,
+.org.svelte-1eu133j .department.svelte-1eu133j,
+.org.svelte-1eu133j .division.svelte-1eu133j,
+.org.svelte-1eu133j .job.svelte-1eu133j {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 40px;
+  padding: 5px 0;
+}
+.org.svelte-1eu133j .department.svelte-1eu133j {
+  padding-left: 30px;
+}
+.org.svelte-1eu133j .department .info .label.svelte-1eu133j {
+  background-color: var(--orange-006);
+}
+.org.svelte-1eu133j .division.svelte-1eu133j {
+  padding-left: 50px;
+}
+.org.svelte-1eu133j .division .info .label.svelte-1eu133j {
+  background-color: var(--green-006);
+}
+.org.svelte-1eu133j .job.svelte-1eu133j {
+  padding-left: 70px;
+}
+.org.svelte-1eu133j .job .info .label.svelte-1eu133j {
+  background-color: var(--gray-006);
+}
+.org.svelte-1eu133j .info.svelte-1eu133j {
   display: flex;
   align-items: center;
   flex-direction: row;
   gap: 10px;
+  position: relative;
 }
-.org.svelte-1013iy5 > .label.svelte-1013iy5 {
+.org.svelte-1eu133j .info .h-line.svelte-1eu133j {
+  position: absolute;
+  left: -15px;
+  width: 1px;
+  height: 50px;
+  background-color: var(--gray-003);
+}
+.org.svelte-1eu133j .info .label.svelte-1eu133j {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -529,9 +570,38 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   background-color: var(--blue-006);
   color: #FFF;
 }
-.org.svelte-1013iy5 > .text.svelte-1013iy5 {
+.org.svelte-1eu133j .info .title.svelte-1eu133j {
   font-size: 18px;
   font-weight: 600;
+}
+.org.svelte-1eu133j .company:hover .options.svelte-1eu133j,
+.org.svelte-1eu133j .department:hover .options.svelte-1eu133j,
+.org.svelte-1eu133j .division:hover .options.svelte-1eu133j,
+.org.svelte-1eu133j .job:hover .options.svelte-1eu133j {
+  display: flex;
+  cursor: pointer;
+}
+.org.svelte-1eu133j .options.svelte-1eu133j {
+  display: none;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+.org.svelte-1eu133j .options .btn.svelte-1eu133j {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+.org.svelte-1eu133j .options .btn.svelte-1eu133j:hover {
+  background-color: var(--gray-002);
+}
+.org.svelte-1eu133j .options .btn.svelte-1eu133j:active {
+  background-color: var(--gray-003);
 }
 </style>
 <script>(() => {
@@ -2859,9 +2929,6 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   function space() {
     return text(" ");
   }
-  function empty() {
-    return text("");
-  }
   function comment(content) {
     return document.createComment(content);
   }
@@ -3033,85 +3100,6 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     } else if (callback) {
       callback();
     }
-  }
-
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/each.js
-  function ensure_array_like(array_like_or_iterator) {
-    return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
-  }
-  function outro_and_destroy_block(block, lookup) {
-    transition_out(block, 1, 1, () => {
-      lookup.delete(block.key);
-    });
-  }
-  function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block2, next, get_context) {
-    let o = old_blocks.length;
-    let n = list.length;
-    let i = o;
-    const old_indexes = {};
-    while (i--)
-      old_indexes[old_blocks[i].key] = i;
-    const new_blocks = [];
-    const new_lookup = /* @__PURE__ */ new Map();
-    const deltas = /* @__PURE__ */ new Map();
-    const updates = [];
-    i = n;
-    while (i--) {
-      const child_ctx = get_context(ctx, list, i);
-      const key = get_key(child_ctx);
-      let block = lookup.get(key);
-      if (!block) {
-        block = create_each_block2(key, child_ctx);
-        block.c();
-      } else if (dynamic) {
-        updates.push(() => block.p(child_ctx, dirty));
-      }
-      new_lookup.set(key, new_blocks[i] = block);
-      if (key in old_indexes)
-        deltas.set(key, Math.abs(i - old_indexes[key]));
-    }
-    const will_move = /* @__PURE__ */ new Set();
-    const did_move = /* @__PURE__ */ new Set();
-    function insert2(block) {
-      transition_in(block, 1);
-      block.m(node, next);
-      lookup.set(block.key, block);
-      next = block.first;
-      n--;
-    }
-    while (o && n) {
-      const new_block = new_blocks[n - 1];
-      const old_block = old_blocks[o - 1];
-      const new_key = new_block.key;
-      const old_key = old_block.key;
-      if (new_block === old_block) {
-        next = new_block.first;
-        o--;
-        n--;
-      } else if (!new_lookup.has(old_key)) {
-        destroy(old_block, lookup);
-        o--;
-      } else if (!lookup.has(new_key) || will_move.has(new_key)) {
-        insert2(new_block);
-      } else if (did_move.has(old_key)) {
-        o--;
-      } else if (deltas.get(new_key) > deltas.get(old_key)) {
-        did_move.add(new_key);
-        insert2(new_block);
-      } else {
-        will_move.add(old_key);
-        o--;
-      }
-    }
-    while (o--) {
-      const old_block = old_blocks[o];
-      if (!new_lookup.has(old_block.key))
-        destroy(old_block, lookup);
-    }
-    while (n)
-      insert2(new_blocks[n - 1]);
-    run_all(updates);
-    return new_blocks;
   }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/spread.js
@@ -5035,86 +5023,261 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   };
   var mainLayout_default = MainLayout;
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemAddBoxLine.js
+  var RiSystemAddBoxLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6 6V7h2v4h4v2h-4v4h-2v-4H7v-2h4z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiDesignPencilLine.js
+  var RiDesignPencilLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M15.728 9.686l-1.414-1.414L5 17.586V19h1.414l9.314-9.314zm1.414-1.414l1.414-1.414-1.414-1.414-1.414 1.414 1.414 1.414zM7.242 21H3v-4.243L16.435 3.322a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414L7.243 21z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemDeleteBinLine.js
+  var RiSystemDeleteBinLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M17 6h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3zm1 2H6v12h12V8zm-9 3h2v6H9v-6zm4 0h2v6h-2v-6zM9 4v2h6V4H9z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemInformationLine.js
+  var RiSystemInformationLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM11 7h2v2h-2V7zm0 4h2v6h-2v-6z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiBuildingsBuilding2Line.js
+  var RiBuildingsBuilding2Line_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M3 19V5.7a1 1 0 0 1 .658-.94l9.671-3.516a.5.5 0 0 1 .671.47v4.953l6.316 2.105a1 1 0 0 1 .684.949V19h2v2H1v-2h2zm2 0h7V3.855L5 6.401V19zm14 0v-8.558l-5-1.667V19h5z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiUserTeamLine.js
+  var RiUserTeamLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path fill-rule="nonzero" d="M12 11a5 5 0 0 1 5 5v6h-2v-6a3 3 0 0 0-2.824-2.995L12 13a3 3 0 0 0-2.995 2.824L9 16v6H7v-6a5 5 0 0 1 5-5zm-6.5 3c.279 0 .55.033.81.094a5.947 5.947 0 0 0-.301 1.575L6 16v.086a1.492 1.492 0 0 0-.356-.08L5.5 16a1.5 1.5 0 0 0-1.493 1.356L4 17.5V22H2v-4.5A3.5 3.5 0 0 1 5.5 14zm13 0a3.5 3.5 0 0 1 3.5 3.5V22h-2v-4.5a1.5 1.5 0 0 0-1.356-1.493L18.5 16c-.175 0-.343.03-.5.085V16c0-.666-.108-1.306-.309-1.904.259-.063.53-.096.809-.096zm-13-6a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm13 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm-13 2a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1zm13 0a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1zM12 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiBusinessBriefcaseLine.js
+  var RiBusinessBriefcaseLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M7 5V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4zM4 16v3h16v-3H4zm0-2h16V7H4v7zM9 3v2h6V3H9zm2 8h2v2h-2v-2z"></path></g>'
+  };
+
   // tenantAdmin_organization.svelte
-  function get_each_context(ctx, list, i) {
-    const child_ctx = ctx.slice();
-    child_ctx[0] = list[i];
-    child_ctx[2] = i;
-    return child_ctx;
-  }
-  function create_if_block2(ctx) {
-    let each_blocks = [];
-    let each_1_lookup = /* @__PURE__ */ new Map();
-    let each_1_anchor;
-    let current;
-    let each_value = ensure_array_like(orgs);
-    const get_key = (ctx2) => (
-      /*org*/
-      ctx2[0].id
-    );
-    for (let i = 0; i < each_value.length; i += 1) {
-      let child_ctx = get_each_context(ctx, each_value, i);
-      let key = get_key(child_ctx);
-      each_1_lookup.set(key, each_blocks[i] = create_each_block(key, child_ctx));
-    }
-    return {
-      c() {
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].c();
-        }
-        each_1_anchor = empty();
-      },
-      m(target, anchor) {
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          if (each_blocks[i]) {
-            each_blocks[i].m(target, anchor);
-          }
-        }
-        insert(target, each_1_anchor, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*orgs*/
-        0) {
-          each_value = ensure_array_like(orgs);
-          group_outros();
-          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block, each_1_anchor, get_each_context);
-          check_outros();
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        for (let i = 0; i < each_value.length; i += 1) {
-          transition_in(each_blocks[i]);
-        }
-        current = true;
-      },
-      o(local) {
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          transition_out(each_blocks[i]);
-        }
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(each_1_anchor);
-        }
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].d(detaching);
-        }
-      }
-    };
-  }
-  function create_each_block(key_1, ctx) {
+  function create_default_slot(ctx) {
+    let div37;
+    let div36;
+    let div3;
     let div1;
     let div0;
-    let icon;
+    let icon0;
     let t0;
-    let span;
+    let span0;
     let t2;
+    let div2;
+    let button0;
+    let icon1;
+    let t3;
+    let button1;
+    let icon2;
+    let t4;
+    let button2;
+    let icon3;
+    let t5;
+    let button3;
+    let icon4;
+    let t6;
+    let div7;
+    let div5;
+    let span1;
+    let t7;
+    let div4;
+    let icon5;
+    let t8;
+    let span2;
+    let t10;
+    let div6;
+    let button4;
+    let icon6;
+    let t11;
+    let button5;
+    let icon7;
+    let t12;
+    let button6;
+    let icon8;
+    let t13;
+    let button7;
+    let icon9;
+    let t14;
+    let div11;
+    let div9;
+    let span3;
+    let t15;
+    let div8;
+    let icon10;
+    let t16;
+    let span4;
+    let t18;
+    let div10;
+    let button8;
+    let icon11;
+    let t19;
+    let button9;
+    let icon12;
+    let t20;
+    let button10;
+    let icon13;
+    let t21;
+    let button11;
+    let icon14;
+    let t22;
+    let div15;
+    let div13;
+    let span5;
+    let t23;
+    let div12;
+    let icon15;
+    let t24;
+    let span6;
+    let t26;
+    let div14;
+    let button12;
+    let icon16;
+    let t27;
+    let button13;
+    let icon17;
+    let t28;
+    let button14;
+    let icon18;
+    let t29;
+    let button15;
+    let icon19;
+    let t30;
+    let div19;
+    let div17;
+    let span7;
+    let t31;
+    let div16;
+    let icon20;
+    let t32;
+    let span8;
+    let t34;
+    let div18;
+    let button16;
+    let icon21;
+    let t35;
+    let button17;
+    let icon22;
+    let t36;
+    let button18;
+    let icon23;
+    let t37;
+    let button19;
+    let icon24;
+    let t38;
+    let div23;
+    let div21;
+    let span9;
+    let t39;
+    let div20;
+    let icon25;
+    let t40;
+    let span10;
+    let t42;
+    let div22;
+    let button20;
+    let icon26;
+    let t43;
+    let button21;
+    let icon27;
+    let t44;
+    let button22;
+    let icon28;
+    let t45;
+    let button23;
+    let icon29;
+    let t46;
+    let div27;
+    let div25;
+    let span11;
+    let t47;
+    let div24;
+    let icon30;
+    let t48;
+    let span12;
+    let t50;
+    let div26;
+    let button24;
+    let icon31;
+    let t51;
+    let button25;
+    let icon32;
+    let t52;
+    let button26;
+    let icon33;
+    let t53;
+    let button27;
+    let icon34;
+    let t54;
+    let div31;
+    let div29;
+    let span13;
+    let t55;
+    let div28;
+    let icon35;
+    let t56;
+    let span14;
+    let t58;
+    let div30;
+    let button28;
+    let icon36;
+    let t59;
+    let button29;
+    let icon37;
+    let t60;
+    let button30;
+    let icon38;
+    let t61;
+    let button31;
+    let icon39;
+    let t62;
+    let div35;
+    let div33;
+    let div32;
+    let icon40;
+    let t63;
+    let span15;
+    let t65;
+    let div34;
+    let button32;
+    let icon41;
+    let t66;
+    let button33;
+    let icon42;
+    let t67;
+    let button34;
+    let icon43;
+    let t68;
+    let button35;
+    let icon44;
     let current;
-    icon = new Icon_default({
+    icon0 = new Icon_default({
       props: {
         color: "#FFF",
         className: "icon",
@@ -5122,89 +5285,1036 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         src: RiBuildingsCommunityLine_default
       }
     });
+    icon1 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemAddBoxLine_default
+      }
+    });
+    icon2 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiDesignPencilLine_default
+      }
+    });
+    icon3 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemDeleteBinLine_default
+      }
+    });
+    icon4 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemInformationLine_default
+      }
+    });
+    icon5 = new Icon_default({
+      props: {
+        color: "#FFF",
+        className: "icon",
+        size: "16",
+        src: RiBuildingsBuilding2Line_default
+      }
+    });
+    icon6 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemAddBoxLine_default
+      }
+    });
+    icon7 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiDesignPencilLine_default
+      }
+    });
+    icon8 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemDeleteBinLine_default
+      }
+    });
+    icon9 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemInformationLine_default
+      }
+    });
+    icon10 = new Icon_default({
+      props: {
+        color: "#FFF",
+        className: "icon",
+        size: "16",
+        src: RiUserTeamLine_default
+      }
+    });
+    icon11 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemAddBoxLine_default
+      }
+    });
+    icon12 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiDesignPencilLine_default
+      }
+    });
+    icon13 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemDeleteBinLine_default
+      }
+    });
+    icon14 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemInformationLine_default
+      }
+    });
+    icon15 = new Icon_default({
+      props: {
+        color: "#FFF",
+        className: "icon",
+        size: "16",
+        src: RiUserTeamLine_default
+      }
+    });
+    icon16 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemAddBoxLine_default
+      }
+    });
+    icon17 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiDesignPencilLine_default
+      }
+    });
+    icon18 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemDeleteBinLine_default
+      }
+    });
+    icon19 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemInformationLine_default
+      }
+    });
+    icon20 = new Icon_default({
+      props: {
+        color: "#FFF",
+        className: "icon",
+        size: "16",
+        src: RiBusinessBriefcaseLine_default
+      }
+    });
+    icon21 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemAddBoxLine_default
+      }
+    });
+    icon22 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiDesignPencilLine_default
+      }
+    });
+    icon23 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemDeleteBinLine_default
+      }
+    });
+    icon24 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemInformationLine_default
+      }
+    });
+    icon25 = new Icon_default({
+      props: {
+        color: "#FFF",
+        className: "icon",
+        size: "16",
+        src: RiBuildingsBuilding2Line_default
+      }
+    });
+    icon26 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemAddBoxLine_default
+      }
+    });
+    icon27 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiDesignPencilLine_default
+      }
+    });
+    icon28 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemDeleteBinLine_default
+      }
+    });
+    icon29 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemInformationLine_default
+      }
+    });
+    icon30 = new Icon_default({
+      props: {
+        color: "#FFF",
+        className: "icon",
+        size: "16",
+        src: RiUserTeamLine_default
+      }
+    });
+    icon31 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemAddBoxLine_default
+      }
+    });
+    icon32 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiDesignPencilLine_default
+      }
+    });
+    icon33 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemDeleteBinLine_default
+      }
+    });
+    icon34 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemInformationLine_default
+      }
+    });
+    icon35 = new Icon_default({
+      props: {
+        color: "#FFF",
+        className: "icon",
+        size: "16",
+        src: RiBuildingsBuilding2Line_default
+      }
+    });
+    icon36 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemAddBoxLine_default
+      }
+    });
+    icon37 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiDesignPencilLine_default
+      }
+    });
+    icon38 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemDeleteBinLine_default
+      }
+    });
+    icon39 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemInformationLine_default
+      }
+    });
+    icon40 = new Icon_default({
+      props: {
+        color: "#FFF",
+        className: "icon",
+        size: "16",
+        src: RiBuildingsCommunityLine_default
+      }
+    });
+    icon41 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemAddBoxLine_default
+      }
+    });
+    icon42 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiDesignPencilLine_default
+      }
+    });
+    icon43 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemDeleteBinLine_default
+      }
+    });
+    icon44 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemInformationLine_default
+      }
+    });
     return {
-      key: key_1,
-      first: null,
       c() {
+        div37 = element("div");
+        div36 = element("div");
+        div3 = element("div");
         div1 = element("div");
         div0 = element("div");
-        create_component(icon.$.fragment);
+        create_component(icon0.$.fragment);
         t0 = space();
-        span = element("span");
-        span.textContent = `${/*org*/
-        ctx[0].name}`;
+        span0 = element("span");
+        span0.textContent = `${orgs[0].name}`;
         t2 = space();
-        attr(div0, "class", "label svelte-1013iy5");
-        attr(span, "class", "text svelte-1013iy5");
-        attr(div1, "class", "org svelte-1013iy5");
-        this.first = div1;
+        div2 = element("div");
+        button0 = element("button");
+        create_component(icon1.$.fragment);
+        t3 = space();
+        button1 = element("button");
+        create_component(icon2.$.fragment);
+        t4 = space();
+        button2 = element("button");
+        create_component(icon3.$.fragment);
+        t5 = space();
+        button3 = element("button");
+        create_component(icon4.$.fragment);
+        t6 = space();
+        div7 = element("div");
+        div5 = element("div");
+        span1 = element("span");
+        t7 = space();
+        div4 = element("div");
+        create_component(icon5.$.fragment);
+        t8 = space();
+        span2 = element("span");
+        span2.textContent = `${orgs[0].name}`;
+        t10 = space();
+        div6 = element("div");
+        button4 = element("button");
+        create_component(icon6.$.fragment);
+        t11 = space();
+        button5 = element("button");
+        create_component(icon7.$.fragment);
+        t12 = space();
+        button6 = element("button");
+        create_component(icon8.$.fragment);
+        t13 = space();
+        button7 = element("button");
+        create_component(icon9.$.fragment);
+        t14 = space();
+        div11 = element("div");
+        div9 = element("div");
+        span3 = element("span");
+        t15 = space();
+        div8 = element("div");
+        create_component(icon10.$.fragment);
+        t16 = space();
+        span4 = element("span");
+        span4.textContent = `${orgs[0].name}`;
+        t18 = space();
+        div10 = element("div");
+        button8 = element("button");
+        create_component(icon11.$.fragment);
+        t19 = space();
+        button9 = element("button");
+        create_component(icon12.$.fragment);
+        t20 = space();
+        button10 = element("button");
+        create_component(icon13.$.fragment);
+        t21 = space();
+        button11 = element("button");
+        create_component(icon14.$.fragment);
+        t22 = space();
+        div15 = element("div");
+        div13 = element("div");
+        span5 = element("span");
+        t23 = space();
+        div12 = element("div");
+        create_component(icon15.$.fragment);
+        t24 = space();
+        span6 = element("span");
+        span6.textContent = `${orgs[0].name}`;
+        t26 = space();
+        div14 = element("div");
+        button12 = element("button");
+        create_component(icon16.$.fragment);
+        t27 = space();
+        button13 = element("button");
+        create_component(icon17.$.fragment);
+        t28 = space();
+        button14 = element("button");
+        create_component(icon18.$.fragment);
+        t29 = space();
+        button15 = element("button");
+        create_component(icon19.$.fragment);
+        t30 = space();
+        div19 = element("div");
+        div17 = element("div");
+        span7 = element("span");
+        t31 = space();
+        div16 = element("div");
+        create_component(icon20.$.fragment);
+        t32 = space();
+        span8 = element("span");
+        span8.textContent = `${orgs[0].name}`;
+        t34 = space();
+        div18 = element("div");
+        button16 = element("button");
+        create_component(icon21.$.fragment);
+        t35 = space();
+        button17 = element("button");
+        create_component(icon22.$.fragment);
+        t36 = space();
+        button18 = element("button");
+        create_component(icon23.$.fragment);
+        t37 = space();
+        button19 = element("button");
+        create_component(icon24.$.fragment);
+        t38 = space();
+        div23 = element("div");
+        div21 = element("div");
+        span9 = element("span");
+        t39 = space();
+        div20 = element("div");
+        create_component(icon25.$.fragment);
+        t40 = space();
+        span10 = element("span");
+        span10.textContent = `${orgs[0].name}`;
+        t42 = space();
+        div22 = element("div");
+        button20 = element("button");
+        create_component(icon26.$.fragment);
+        t43 = space();
+        button21 = element("button");
+        create_component(icon27.$.fragment);
+        t44 = space();
+        button22 = element("button");
+        create_component(icon28.$.fragment);
+        t45 = space();
+        button23 = element("button");
+        create_component(icon29.$.fragment);
+        t46 = space();
+        div27 = element("div");
+        div25 = element("div");
+        span11 = element("span");
+        t47 = space();
+        div24 = element("div");
+        create_component(icon30.$.fragment);
+        t48 = space();
+        span12 = element("span");
+        span12.textContent = `${orgs[0].name}`;
+        t50 = space();
+        div26 = element("div");
+        button24 = element("button");
+        create_component(icon31.$.fragment);
+        t51 = space();
+        button25 = element("button");
+        create_component(icon32.$.fragment);
+        t52 = space();
+        button26 = element("button");
+        create_component(icon33.$.fragment);
+        t53 = space();
+        button27 = element("button");
+        create_component(icon34.$.fragment);
+        t54 = space();
+        div31 = element("div");
+        div29 = element("div");
+        span13 = element("span");
+        t55 = space();
+        div28 = element("div");
+        create_component(icon35.$.fragment);
+        t56 = space();
+        span14 = element("span");
+        span14.textContent = `${orgs[0].name}`;
+        t58 = space();
+        div30 = element("div");
+        button28 = element("button");
+        create_component(icon36.$.fragment);
+        t59 = space();
+        button29 = element("button");
+        create_component(icon37.$.fragment);
+        t60 = space();
+        button30 = element("button");
+        create_component(icon38.$.fragment);
+        t61 = space();
+        button31 = element("button");
+        create_component(icon39.$.fragment);
+        t62 = space();
+        div35 = element("div");
+        div33 = element("div");
+        div32 = element("div");
+        create_component(icon40.$.fragment);
+        t63 = space();
+        span15 = element("span");
+        span15.textContent = `${orgs[0].name}`;
+        t65 = space();
+        div34 = element("div");
+        button32 = element("button");
+        create_component(icon41.$.fragment);
+        t66 = space();
+        button33 = element("button");
+        create_component(icon42.$.fragment);
+        t67 = space();
+        button34 = element("button");
+        create_component(icon43.$.fragment);
+        t68 = space();
+        button35 = element("button");
+        create_component(icon44.$.fragment);
+        attr(div0, "class", "label svelte-1eu133j");
+        attr(span0, "class", "title svelte-1eu133j");
+        attr(div1, "class", "info svelte-1eu133j");
+        attr(button0, "class", "btn svelte-1eu133j");
+        attr(button0, "title", "Add department");
+        attr(button1, "class", "btn svelte-1eu133j");
+        attr(button1, "title", "Edit company");
+        attr(button2, "class", "btn svelte-1eu133j");
+        attr(button2, "title", "Delete company");
+        attr(button3, "class", "btn svelte-1eu133j");
+        attr(button3, "title", "Info");
+        attr(div2, "class", "options svelte-1eu133j");
+        attr(div3, "class", "company svelte-1eu133j");
+        attr(span1, "class", "h-line svelte-1eu133j");
+        attr(div4, "class", "label svelte-1eu133j");
+        attr(span2, "class", "title svelte-1eu133j");
+        attr(div5, "class", "info svelte-1eu133j");
+        attr(button4, "class", "btn svelte-1eu133j");
+        attr(button4, "title", "Add department");
+        attr(button5, "class", "btn svelte-1eu133j");
+        attr(button5, "title", "Edit company");
+        attr(button6, "class", "btn svelte-1eu133j");
+        attr(button6, "title", "Delete company");
+        attr(button7, "class", "btn svelte-1eu133j");
+        attr(button7, "title", "Info");
+        attr(div6, "class", "options svelte-1eu133j");
+        attr(div7, "class", "department svelte-1eu133j");
+        attr(span3, "class", "h-line svelte-1eu133j");
+        attr(div8, "class", "label svelte-1eu133j");
+        attr(span4, "class", "title svelte-1eu133j");
+        attr(div9, "class", "info svelte-1eu133j");
+        attr(button8, "class", "btn svelte-1eu133j");
+        attr(button8, "title", "Add department");
+        attr(button9, "class", "btn svelte-1eu133j");
+        attr(button9, "title", "Edit company");
+        attr(button10, "class", "btn svelte-1eu133j");
+        attr(button10, "title", "Delete company");
+        attr(button11, "class", "btn svelte-1eu133j");
+        attr(button11, "title", "Info");
+        attr(div10, "class", "options svelte-1eu133j");
+        attr(div11, "class", "division svelte-1eu133j");
+        attr(span5, "class", "h-line svelte-1eu133j");
+        attr(div12, "class", "label svelte-1eu133j");
+        attr(span6, "class", "title svelte-1eu133j");
+        attr(div13, "class", "info svelte-1eu133j");
+        attr(button12, "class", "btn svelte-1eu133j");
+        attr(button12, "title", "Add department");
+        attr(button13, "class", "btn svelte-1eu133j");
+        attr(button13, "title", "Edit company");
+        attr(button14, "class", "btn svelte-1eu133j");
+        attr(button14, "title", "Delete company");
+        attr(button15, "class", "btn svelte-1eu133j");
+        attr(button15, "title", "Info");
+        attr(div14, "class", "options svelte-1eu133j");
+        attr(div15, "class", "division svelte-1eu133j");
+        attr(span7, "class", "h-line svelte-1eu133j");
+        attr(div16, "class", "label svelte-1eu133j");
+        attr(span8, "class", "title svelte-1eu133j");
+        attr(div17, "class", "info svelte-1eu133j");
+        attr(button16, "class", "btn svelte-1eu133j");
+        attr(button16, "title", "Add department");
+        attr(button17, "class", "btn svelte-1eu133j");
+        attr(button17, "title", "Edit company");
+        attr(button18, "class", "btn svelte-1eu133j");
+        attr(button18, "title", "Delete company");
+        attr(button19, "class", "btn svelte-1eu133j");
+        attr(button19, "title", "Info");
+        attr(div18, "class", "options svelte-1eu133j");
+        attr(div19, "class", "job svelte-1eu133j");
+        attr(span9, "class", "h-line svelte-1eu133j");
+        attr(div20, "class", "label svelte-1eu133j");
+        attr(span10, "class", "title svelte-1eu133j");
+        attr(div21, "class", "info svelte-1eu133j");
+        attr(button20, "class", "btn svelte-1eu133j");
+        attr(button20, "title", "Add department");
+        attr(button21, "class", "btn svelte-1eu133j");
+        attr(button21, "title", "Edit company");
+        attr(button22, "class", "btn svelte-1eu133j");
+        attr(button22, "title", "Delete company");
+        attr(button23, "class", "btn svelte-1eu133j");
+        attr(button23, "title", "Info");
+        attr(div22, "class", "options svelte-1eu133j");
+        attr(div23, "class", "department svelte-1eu133j");
+        attr(span11, "class", "h-line svelte-1eu133j");
+        attr(div24, "class", "label svelte-1eu133j");
+        attr(span12, "class", "title svelte-1eu133j");
+        attr(div25, "class", "info svelte-1eu133j");
+        attr(button24, "class", "btn svelte-1eu133j");
+        attr(button24, "title", "Add department");
+        attr(button25, "class", "btn svelte-1eu133j");
+        attr(button25, "title", "Edit company");
+        attr(button26, "class", "btn svelte-1eu133j");
+        attr(button26, "title", "Delete company");
+        attr(button27, "class", "btn svelte-1eu133j");
+        attr(button27, "title", "Info");
+        attr(div26, "class", "options svelte-1eu133j");
+        attr(div27, "class", "division svelte-1eu133j");
+        attr(span13, "class", "h-line svelte-1eu133j");
+        attr(div28, "class", "label svelte-1eu133j");
+        attr(span14, "class", "title svelte-1eu133j");
+        attr(div29, "class", "info svelte-1eu133j");
+        attr(button28, "class", "btn svelte-1eu133j");
+        attr(button28, "title", "Add department");
+        attr(button29, "class", "btn svelte-1eu133j");
+        attr(button29, "title", "Edit company");
+        attr(button30, "class", "btn svelte-1eu133j");
+        attr(button30, "title", "Delete company");
+        attr(button31, "class", "btn svelte-1eu133j");
+        attr(button31, "title", "Info");
+        attr(div30, "class", "options svelte-1eu133j");
+        attr(div31, "class", "department svelte-1eu133j");
+        attr(div32, "class", "label svelte-1eu133j");
+        attr(span15, "class", "title svelte-1eu133j");
+        attr(div33, "class", "info svelte-1eu133j");
+        attr(button32, "class", "btn svelte-1eu133j");
+        attr(button32, "title", "Add department");
+        attr(button33, "class", "btn svelte-1eu133j");
+        attr(button33, "title", "Edit company");
+        attr(button34, "class", "btn svelte-1eu133j");
+        attr(button34, "title", "Delete company");
+        attr(button35, "class", "btn svelte-1eu133j");
+        attr(button35, "title", "Info");
+        attr(div34, "class", "options svelte-1eu133j");
+        attr(div35, "class", "company svelte-1eu133j");
+        attr(div36, "class", "org svelte-1eu133j");
       },
       m(target, anchor) {
-        insert(target, div1, anchor);
+        insert(target, div37, anchor);
+        append(div37, div36);
+        append(div36, div3);
+        append(div3, div1);
         append(div1, div0);
-        mount_component(icon, div0, null);
+        mount_component(icon0, div0, null);
         append(div1, t0);
-        append(div1, span);
-        append(div1, t2);
+        append(div1, span0);
+        append(div3, t2);
+        append(div3, div2);
+        append(div2, button0);
+        mount_component(icon1, button0, null);
+        append(div2, t3);
+        append(div2, button1);
+        mount_component(icon2, button1, null);
+        append(div2, t4);
+        append(div2, button2);
+        mount_component(icon3, button2, null);
+        append(div2, t5);
+        append(div2, button3);
+        mount_component(icon4, button3, null);
+        append(div36, t6);
+        append(div36, div7);
+        append(div7, div5);
+        append(div5, span1);
+        append(div5, t7);
+        append(div5, div4);
+        mount_component(icon5, div4, null);
+        append(div5, t8);
+        append(div5, span2);
+        append(div7, t10);
+        append(div7, div6);
+        append(div6, button4);
+        mount_component(icon6, button4, null);
+        append(div6, t11);
+        append(div6, button5);
+        mount_component(icon7, button5, null);
+        append(div6, t12);
+        append(div6, button6);
+        mount_component(icon8, button6, null);
+        append(div6, t13);
+        append(div6, button7);
+        mount_component(icon9, button7, null);
+        append(div36, t14);
+        append(div36, div11);
+        append(div11, div9);
+        append(div9, span3);
+        append(div9, t15);
+        append(div9, div8);
+        mount_component(icon10, div8, null);
+        append(div9, t16);
+        append(div9, span4);
+        append(div11, t18);
+        append(div11, div10);
+        append(div10, button8);
+        mount_component(icon11, button8, null);
+        append(div10, t19);
+        append(div10, button9);
+        mount_component(icon12, button9, null);
+        append(div10, t20);
+        append(div10, button10);
+        mount_component(icon13, button10, null);
+        append(div10, t21);
+        append(div10, button11);
+        mount_component(icon14, button11, null);
+        append(div36, t22);
+        append(div36, div15);
+        append(div15, div13);
+        append(div13, span5);
+        append(div13, t23);
+        append(div13, div12);
+        mount_component(icon15, div12, null);
+        append(div13, t24);
+        append(div13, span6);
+        append(div15, t26);
+        append(div15, div14);
+        append(div14, button12);
+        mount_component(icon16, button12, null);
+        append(div14, t27);
+        append(div14, button13);
+        mount_component(icon17, button13, null);
+        append(div14, t28);
+        append(div14, button14);
+        mount_component(icon18, button14, null);
+        append(div14, t29);
+        append(div14, button15);
+        mount_component(icon19, button15, null);
+        append(div36, t30);
+        append(div36, div19);
+        append(div19, div17);
+        append(div17, span7);
+        append(div17, t31);
+        append(div17, div16);
+        mount_component(icon20, div16, null);
+        append(div17, t32);
+        append(div17, span8);
+        append(div19, t34);
+        append(div19, div18);
+        append(div18, button16);
+        mount_component(icon21, button16, null);
+        append(div18, t35);
+        append(div18, button17);
+        mount_component(icon22, button17, null);
+        append(div18, t36);
+        append(div18, button18);
+        mount_component(icon23, button18, null);
+        append(div18, t37);
+        append(div18, button19);
+        mount_component(icon24, button19, null);
+        append(div36, t38);
+        append(div36, div23);
+        append(div23, div21);
+        append(div21, span9);
+        append(div21, t39);
+        append(div21, div20);
+        mount_component(icon25, div20, null);
+        append(div21, t40);
+        append(div21, span10);
+        append(div23, t42);
+        append(div23, div22);
+        append(div22, button20);
+        mount_component(icon26, button20, null);
+        append(div22, t43);
+        append(div22, button21);
+        mount_component(icon27, button21, null);
+        append(div22, t44);
+        append(div22, button22);
+        mount_component(icon28, button22, null);
+        append(div22, t45);
+        append(div22, button23);
+        mount_component(icon29, button23, null);
+        append(div36, t46);
+        append(div36, div27);
+        append(div27, div25);
+        append(div25, span11);
+        append(div25, t47);
+        append(div25, div24);
+        mount_component(icon30, div24, null);
+        append(div25, t48);
+        append(div25, span12);
+        append(div27, t50);
+        append(div27, div26);
+        append(div26, button24);
+        mount_component(icon31, button24, null);
+        append(div26, t51);
+        append(div26, button25);
+        mount_component(icon32, button25, null);
+        append(div26, t52);
+        append(div26, button26);
+        mount_component(icon33, button26, null);
+        append(div26, t53);
+        append(div26, button27);
+        mount_component(icon34, button27, null);
+        append(div36, t54);
+        append(div36, div31);
+        append(div31, div29);
+        append(div29, span13);
+        append(div29, t55);
+        append(div29, div28);
+        mount_component(icon35, div28, null);
+        append(div29, t56);
+        append(div29, span14);
+        append(div31, t58);
+        append(div31, div30);
+        append(div30, button28);
+        mount_component(icon36, button28, null);
+        append(div30, t59);
+        append(div30, button29);
+        mount_component(icon37, button29, null);
+        append(div30, t60);
+        append(div30, button30);
+        mount_component(icon38, button30, null);
+        append(div30, t61);
+        append(div30, button31);
+        mount_component(icon39, button31, null);
+        append(div36, t62);
+        append(div36, div35);
+        append(div35, div33);
+        append(div33, div32);
+        mount_component(icon40, div32, null);
+        append(div33, t63);
+        append(div33, span15);
+        append(div35, t65);
+        append(div35, div34);
+        append(div34, button32);
+        mount_component(icon41, button32, null);
+        append(div34, t66);
+        append(div34, button33);
+        mount_component(icon42, button33, null);
+        append(div34, t67);
+        append(div34, button34);
+        mount_component(icon43, button34, null);
+        append(div34, t68);
+        append(div34, button35);
+        mount_component(icon44, button35, null);
         current = true;
       },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
-      },
+      p: noop,
       i(local) {
         if (current)
           return;
-        transition_in(icon.$.fragment, local);
+        transition_in(icon0.$.fragment, local);
+        transition_in(icon1.$.fragment, local);
+        transition_in(icon2.$.fragment, local);
+        transition_in(icon3.$.fragment, local);
+        transition_in(icon4.$.fragment, local);
+        transition_in(icon5.$.fragment, local);
+        transition_in(icon6.$.fragment, local);
+        transition_in(icon7.$.fragment, local);
+        transition_in(icon8.$.fragment, local);
+        transition_in(icon9.$.fragment, local);
+        transition_in(icon10.$.fragment, local);
+        transition_in(icon11.$.fragment, local);
+        transition_in(icon12.$.fragment, local);
+        transition_in(icon13.$.fragment, local);
+        transition_in(icon14.$.fragment, local);
+        transition_in(icon15.$.fragment, local);
+        transition_in(icon16.$.fragment, local);
+        transition_in(icon17.$.fragment, local);
+        transition_in(icon18.$.fragment, local);
+        transition_in(icon19.$.fragment, local);
+        transition_in(icon20.$.fragment, local);
+        transition_in(icon21.$.fragment, local);
+        transition_in(icon22.$.fragment, local);
+        transition_in(icon23.$.fragment, local);
+        transition_in(icon24.$.fragment, local);
+        transition_in(icon25.$.fragment, local);
+        transition_in(icon26.$.fragment, local);
+        transition_in(icon27.$.fragment, local);
+        transition_in(icon28.$.fragment, local);
+        transition_in(icon29.$.fragment, local);
+        transition_in(icon30.$.fragment, local);
+        transition_in(icon31.$.fragment, local);
+        transition_in(icon32.$.fragment, local);
+        transition_in(icon33.$.fragment, local);
+        transition_in(icon34.$.fragment, local);
+        transition_in(icon35.$.fragment, local);
+        transition_in(icon36.$.fragment, local);
+        transition_in(icon37.$.fragment, local);
+        transition_in(icon38.$.fragment, local);
+        transition_in(icon39.$.fragment, local);
+        transition_in(icon40.$.fragment, local);
+        transition_in(icon41.$.fragment, local);
+        transition_in(icon42.$.fragment, local);
+        transition_in(icon43.$.fragment, local);
+        transition_in(icon44.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(icon.$.fragment, local);
+        transition_out(icon0.$.fragment, local);
+        transition_out(icon1.$.fragment, local);
+        transition_out(icon2.$.fragment, local);
+        transition_out(icon3.$.fragment, local);
+        transition_out(icon4.$.fragment, local);
+        transition_out(icon5.$.fragment, local);
+        transition_out(icon6.$.fragment, local);
+        transition_out(icon7.$.fragment, local);
+        transition_out(icon8.$.fragment, local);
+        transition_out(icon9.$.fragment, local);
+        transition_out(icon10.$.fragment, local);
+        transition_out(icon11.$.fragment, local);
+        transition_out(icon12.$.fragment, local);
+        transition_out(icon13.$.fragment, local);
+        transition_out(icon14.$.fragment, local);
+        transition_out(icon15.$.fragment, local);
+        transition_out(icon16.$.fragment, local);
+        transition_out(icon17.$.fragment, local);
+        transition_out(icon18.$.fragment, local);
+        transition_out(icon19.$.fragment, local);
+        transition_out(icon20.$.fragment, local);
+        transition_out(icon21.$.fragment, local);
+        transition_out(icon22.$.fragment, local);
+        transition_out(icon23.$.fragment, local);
+        transition_out(icon24.$.fragment, local);
+        transition_out(icon25.$.fragment, local);
+        transition_out(icon26.$.fragment, local);
+        transition_out(icon27.$.fragment, local);
+        transition_out(icon28.$.fragment, local);
+        transition_out(icon29.$.fragment, local);
+        transition_out(icon30.$.fragment, local);
+        transition_out(icon31.$.fragment, local);
+        transition_out(icon32.$.fragment, local);
+        transition_out(icon33.$.fragment, local);
+        transition_out(icon34.$.fragment, local);
+        transition_out(icon35.$.fragment, local);
+        transition_out(icon36.$.fragment, local);
+        transition_out(icon37.$.fragment, local);
+        transition_out(icon38.$.fragment, local);
+        transition_out(icon39.$.fragment, local);
+        transition_out(icon40.$.fragment, local);
+        transition_out(icon41.$.fragment, local);
+        transition_out(icon42.$.fragment, local);
+        transition_out(icon43.$.fragment, local);
+        transition_out(icon44.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(div1);
+          detach(div37);
         }
-        destroy_component(icon);
-      }
-    };
-  }
-  function create_default_slot(ctx) {
-    let div;
-    let current;
-    let if_block = orgs && orgs.length && create_if_block2(ctx);
-    return {
-      c() {
-        div = element("div");
-        if (if_block)
-          if_block.c();
-      },
-      m(target, anchor) {
-        insert(target, div, anchor);
-        if (if_block)
-          if_block.m(div, null);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        if (orgs && orgs.length)
-          if_block.p(ctx2, dirty);
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(if_block);
-        current = true;
-      },
-      o(local) {
-        transition_out(if_block);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(div);
-        }
-        if (if_block)
-          if_block.d();
+        destroy_component(icon0);
+        destroy_component(icon1);
+        destroy_component(icon2);
+        destroy_component(icon3);
+        destroy_component(icon4);
+        destroy_component(icon5);
+        destroy_component(icon6);
+        destroy_component(icon7);
+        destroy_component(icon8);
+        destroy_component(icon9);
+        destroy_component(icon10);
+        destroy_component(icon11);
+        destroy_component(icon12);
+        destroy_component(icon13);
+        destroy_component(icon14);
+        destroy_component(icon15);
+        destroy_component(icon16);
+        destroy_component(icon17);
+        destroy_component(icon18);
+        destroy_component(icon19);
+        destroy_component(icon20);
+        destroy_component(icon21);
+        destroy_component(icon22);
+        destroy_component(icon23);
+        destroy_component(icon24);
+        destroy_component(icon25);
+        destroy_component(icon26);
+        destroy_component(icon27);
+        destroy_component(icon28);
+        destroy_component(icon29);
+        destroy_component(icon30);
+        destroy_component(icon31);
+        destroy_component(icon32);
+        destroy_component(icon33);
+        destroy_component(icon34);
+        destroy_component(icon35);
+        destroy_component(icon36);
+        destroy_component(icon37);
+        destroy_component(icon38);
+        destroy_component(icon39);
+        destroy_component(icon40);
+        destroy_component(icon41);
+        destroy_component(icon42);
+        destroy_component(icon43);
+        destroy_component(icon44);
       }
     };
   }
@@ -5228,7 +6338,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       p(ctx2, [dirty]) {
         const mainlayout_changes = {};
         if (dirty & /*$scope*/
-        8) {
+        1) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);

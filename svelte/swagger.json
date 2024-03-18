@@ -1347,7 +1347,7 @@
 								"type": "number"
 						},
 						"orgType": {
-								"type": "number"
+								"type": "string"
 						}
 								}
 							}
