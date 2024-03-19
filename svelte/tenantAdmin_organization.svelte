@@ -10,6 +10,9 @@
   import RiBuildingsBuilding2Line from 'svelte-icons-pack/ri/RiBuildingsBuilding2Line';
   import RiUserTeamLine from "svelte-icons-pack/ri/RiUserTeamLine";
   import RiBusinessBriefcaseLine from "svelte-icons-pack/ri/RiBusinessBriefcaseLine";
+  import PopUpOrgChild from './_components/PopUpOrgChild.svelte';
+  import { TenantAdminCreateOrganizationChild } from './jsApi.GEN';
+  import { notifier } from './_components/notifier';
 
   let segments = {/* segments */};
   let user = {/* user */};
@@ -18,6 +21,7 @@
     * @typedef {Object} Org
     * @property {string} id
     * @property {string} name
+    * @property {string} headTitle
     * @property {number} orgType
     * @property {string} parentId
     * @property {string} tenantCode
@@ -33,12 +37,125 @@
    */
   let orgs = [/* orgs */];
 
+  /**
+   * @type {Array<Org>}
+   */
+  let REFORMAT_ORGS = [];
+
+  function orgMaker(id) {
+    /**
+     * @type {Org}
+     */
+    let orgFormatted = {
+        id: '',
+        name: '',
+        orgType: 0,
+        parentId: '',
+        tenantCode: '',
+        createdAt: 0,
+        createdBy: '',
+        updatedAt: 0,
+        updatedBy: '',
+        deletedAt: 0,
+        children: [],
+        headTitle: ''
+    }
+    for (let i in orgs) {
+      if (orgs[i].id == String(id)) {
+        const children = orgs[i].children;
+        if (children && children.length) {
+          for (let j in children) {
+            const childId = children[j]
+            const child = orgMaker(childId)
+            orgFormatted.children = [...orgFormatted.children, child];
+          }
+        }
+        orgFormatted.id = orgs[i].id
+        orgFormatted.name = orgs[i].name
+        orgFormatted.headTitle = orgs[i].headTitle
+        orgFormatted.parentId = orgs[i].parentId
+        orgFormatted.createdAt = orgs[i].createdAt
+        orgFormatted.createdBy = orgs[i].createdBy
+        orgFormatted.updatedAt = orgs[i].updatedAt
+        orgFormatted.updatedBy = orgs[i].updatedBy
+        orgFormatted.deletedAt = orgs[i].deletedAt
+      }
+    }
+    return orgFormatted;
+  }
+
+  function reformatorgs() {
+    let toorgs = [];
+
+    if (orgs && orgs.length) {
+      for (let i in orgs) {
+        const id = orgs[i].id;
+        const coa = orgMaker(id);
+        toorgs = [...toorgs, coa];
+      }
+    }
+
+    if (toorgs && toorgs.length) {
+      toorgs = toorgs.filter(obj => obj.parentId <= 0);
+      toorgs.sort((a, b) => a.level - b.level);
+    }
+
+    return toorgs;
+  }
+
   onMount(() => {
     console.log('Segments:', segments);
     console.log('User:', user);
     console.log('Orgs:', orgs);
+    REFORMAT_ORGS = reformatorgs();
+
+    console.log('Reformatted ORGS:', REFORMAT_ORGS)
   })
+
+  let popUpOrgChild, isSubmitAddOrgChild = false;
+  let childName = '', headTitle = '', parentId = Number(orgs[0].id), orgType = 'department';
+  async function submitAddOrgChild() {
+    isSubmitAddOrgChild = true;
+    if (childName === '') {
+      isSubmitAddOrgChild = false;
+      notifier.showWarning('coa name cannot be empty');
+      return;
+    }
+    await TenantAdminCreateOrganizationChild(
+      {
+        name: childName,
+        headTitle: headTitle,
+        parentId: parentId,
+        orgType: orgType
+      },
+      // @ts-ignore
+      function (o) {
+        // @ts-ignore
+        if (o.error) {
+          popUpOrgChild.hide();
+          isSubmitAddOrgChild = false;
+          // @ts-ignore
+          notifier.showError(o.error);
+          // @ts-ignore
+          console.log(o.error);
+          return;
+        }
+        popUpOrgChild.hide();
+        isSubmitAddOrgChild = false;
+        console.log(o)
+        notifier.showSuccess('Department child created');
+      }
+    );
+  }
 </script>
+
+<PopUpOrgChild
+  bind:this={popUpOrgChild}
+  bind:isSubmitted={isSubmitAddOrgChild}
+  bind:childName={childName}
+  bind:headTitle={headTitle}
+  onSubmit={submitAddOrgChild}
+/>
 
 <MainLayout>
   <div>
@@ -56,7 +173,7 @@
           <span class="title">{orgs[0].name}</span>
         </div>
         <div class="options">
-          <button class="btn" title="Add department">
+          <button class="btn" title="Add department" on:click={() => popUpOrgChild.show()}>
             <Icon
               color="var(--gray-006)"
               className="icon"
@@ -99,54 +216,6 @@
               className="icon"
               size="16"
               src={RiBuildingsBuilding2Line}
-            />
-          </div>
-          <span class="title">{orgs[0].name}</span>
-        </div>
-        <div class="options">
-          <button class="btn" title="Add department">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemAddBoxLine}
-            />
-          </button>
-          <button class="btn" title="Edit company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiDesignPencilLine}
-            />
-          </button>
-          <button class="btn" title="Delete company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemDeleteBinLine}
-            />
-          </button>
-          <button class="btn" title="Info">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemInformationLine}
-            />
-          </button>
-        </div>
-      </div>
-      <div class="division">
-        <div class="info">
-          <span class="h-line"></span>
-          <div class="label">
-            <Icon
-              color="#FFF"
-              className="icon"
-              size="16"
-              src={RiUserTeamLine}
             />
           </div>
           <span class="title">{orgs[0].name}</span>
@@ -243,197 +312,6 @@
               className="icon"
               size="16"
               src={RiBusinessBriefcaseLine}
-            />
-          </div>
-          <span class="title">{orgs[0].name}</span>
-        </div>
-        <div class="options">
-          <button class="btn" title="Add department">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemAddBoxLine}
-            />
-          </button>
-          <button class="btn" title="Edit company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiDesignPencilLine}
-            />
-          </button>
-          <button class="btn" title="Delete company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemDeleteBinLine}
-            />
-          </button>
-          <button class="btn" title="Info">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemInformationLine}
-            />
-          </button>
-        </div>
-      </div>
-      <div class="department">
-        <div class="info">
-          <span class="h-line"></span>
-          <div class="label">
-            <Icon
-              color="#FFF"
-              className="icon"
-              size="16"
-              src={RiBuildingsBuilding2Line}
-            />
-          </div>
-          <span class="title">{orgs[0].name}</span>
-        </div>
-        <div class="options">
-          <button class="btn" title="Add department">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemAddBoxLine}
-            />
-          </button>
-          <button class="btn" title="Edit company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiDesignPencilLine}
-            />
-          </button>
-          <button class="btn" title="Delete company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemDeleteBinLine}
-            />
-          </button>
-          <button class="btn" title="Info">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemInformationLine}
-            />
-          </button>
-        </div>
-      </div>
-      <div class="division">
-        <div class="info">
-          <span class="h-line"></span>
-          <div class="label">
-            <Icon
-              color="#FFF"
-              className="icon"
-              size="16"
-              src={RiUserTeamLine}
-            />
-          </div>
-          <span class="title">{orgs[0].name}</span>
-        </div>
-        <div class="options">
-          <button class="btn" title="Add department">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemAddBoxLine}
-            />
-          </button>
-          <button class="btn" title="Edit company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiDesignPencilLine}
-            />
-          </button>
-          <button class="btn" title="Delete company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemDeleteBinLine}
-            />
-          </button>
-          <button class="btn" title="Info">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemInformationLine}
-            />
-          </button>
-        </div>
-      </div>
-      <div class="department">
-        <div class="info">
-          <span class="h-line"></span>
-          <div class="label">
-            <Icon
-              color="#FFF"
-              className="icon"
-              size="16"
-              src={RiBuildingsBuilding2Line}
-            />
-          </div>
-          <span class="title">{orgs[0].name}</span>
-        </div>
-        <div class="options">
-          <button class="btn" title="Add department">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemAddBoxLine}
-            />
-          </button>
-          <button class="btn" title="Edit company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiDesignPencilLine}
-            />
-          </button>
-          <button class="btn" title="Delete company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemDeleteBinLine}
-            />
-          </button>
-          <button class="btn" title="Info">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemInformationLine}
-            />
-          </button>
-        </div>
-      </div>
-      <div class="company">
-        <div class="info">
-          <div class="label">
-            <Icon
-              color="#FFF"
-              className="icon"
-              size="16"
-              src={RiBuildingsCommunityLine}
             />
           </div>
           <span class="title">{orgs[0].name}</span>

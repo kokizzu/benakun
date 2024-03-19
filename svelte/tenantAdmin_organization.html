@@ -511,6 +511,163 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   padding: 20px;
 }
 
+/* fakecss:./_components/InputBox.esbuild-svelte-fake-css */
+.input_box.svelte-msefpz.svelte-msefpz {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: var(--gray-007);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.input_box.with_password.svelte-msefpz input.svelte-msefpz {
+  padding-right: 40px !important;
+}
+.input_box.svelte-msefpz label.svelte-msefpz {
+  font-size: var(--font-base);
+  margin-left: 10px;
+}
+.input_box.svelte-msefpz input.svelte-msefpz {
+  width: 100%;
+  border: 1px solid var(--gray-003);
+  border-radius: 5px;
+  background-color: transparent;
+  padding: 10px 12px;
+}
+.input_box.svelte-msefpz input.svelte-msefpz:focus {
+  border-color: var(--blue-005);
+  outline: 1px solid var(--blue-005);
+}
+.input_box.svelte-msefpz .eye.svelte-msefpz {
+  position: absolute;
+  height: fit-content;
+  width: fit-content;
+  background-color: transparent;
+  padding: 0;
+  top: 30px;
+  bottom: auto;
+  right: 10px;
+  border: none;
+  cursor: pointer;
+}
+.input_box .eye:hover svg {
+  fill: var(--blue-005);
+}
+
+/* fakecss:./_components/PopUpOrgChild.esbuild-svelte-fake-css */
+@keyframes svelte-6z2gjm-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin {
+  animation: svelte-6z2gjm-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.popup_container.svelte-6z2gjm.svelte-6z2gjm {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2000;
+  background-color: rgba(0 0 0 / 40%);
+  backdrop-filter: blur(1px);
+  justify-content: center;
+  padding: 50px;
+  overflow: auto;
+}
+.popup_container.show.svelte-6z2gjm.svelte-6z2gjm {
+  display: flex;
+}
+.popup_container.svelte-6z2gjm .popup.svelte-6z2gjm {
+  border-radius: 8px;
+  background-color: #FFF;
+  height: fit-content;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+.popup_container.svelte-6z2gjm .popup header.svelte-6z2gjm {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--gray-004);
+}
+.popup_container.svelte-6z2gjm .popup header h2.svelte-6z2gjm {
+  margin: 0;
+}
+.popup_container.svelte-6z2gjm .popup header button.svelte-6z2gjm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.popup_container.svelte-6z2gjm .popup header button.svelte-6z2gjm:hover {
+  background-color: #ef444420;
+}
+.popup_container.svelte-6z2gjm .popup header button.svelte-6z2gjm:active {
+  background-color: #ef444430;
+}
+.popup_container.svelte-6z2gjm .popup .forms.svelte-6z2gjm {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.popup_container.svelte-6z2gjm .popup .foot.svelte-6z2gjm {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 20px;
+  border-top: 1px solid var(--gray-004);
+}
+.popup_container.svelte-6z2gjm .popup .foot .right.svelte-6z2gjm {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.popup_container.svelte-6z2gjm .popup .foot button.svelte-6z2gjm {
+  padding: 8px 13px;
+  border-radius: 9999px;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+  font-weight: 600;
+}
+.popup_container.svelte-6z2gjm .popup .foot button.ok.svelte-6z2gjm {
+  background-color: var(--green-006);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popup_container.svelte-6z2gjm .popup .foot button.ok.svelte-6z2gjm:hover {
+  background-color: var(--green-005);
+}
+.popup_container.svelte-6z2gjm .popup .foot button.cancel.svelte-6z2gjm {
+  background-color: #fbbf2430;
+  color: var(--amber-005);
+}
+.popup_container.svelte-6z2gjm .popup .foot button.cancel.svelte-6z2gjm:hover {
+  background-color: #fbbf2450;
+}
+
 /* fakecss:./tenantAdmin_organization.esbuild-svelte-fake-css */
 .org.svelte-1eu133j.svelte-1eu133j {
   display: flex;
@@ -635,7 +792,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   var require_axios = __commonJS({
     "node_modules/.pnpm/axios@1.6.2/node_modules/axios/dist/browser/axios.cjs"(exports, module) {
       "use strict";
-      function bind(fn, thisArg) {
+      function bind2(fn, thisArg) {
         return function wrap() {
           return fn.apply(thisArg, arguments);
         };
@@ -755,7 +912,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       var extend = (a, b, thisArg, { allOwnKeys } = {}) => {
         forEach(b, (val, key) => {
           if (thisArg && isFunction(val)) {
-            a[key] = bind(val, thisArg);
+            a[key] = bind2(val, thisArg);
           } else {
             a[key] = val;
           }
@@ -2615,13 +2772,13 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance8 = bind(Axios$1.prototype.request, context);
-        utils$1.extend(instance8, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance8, context, null, { allOwnKeys: true });
-        instance8.create = function create(instanceConfig) {
+        const instance10 = bind2(Axios$1.prototype.request, context);
+        utils$1.extend(instance10, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance10, context, null, { allOwnKeys: true });
+        instance10.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance8;
+        return instance10;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2721,7 +2878,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       exports.TenantAdminCreateCoaChild = async function TenantAdminCreateCoaChild(i, cb) {
         return await axios.post("/tenantAdmin/createCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminCreateOrganizationChild = async function TenantAdminCreateOrganizationChild(i, cb) {
+      exports.TenantAdminCreateOrganizationChild = async function TenantAdminCreateOrganizationChild2(i, cb) {
         return await axios.post("/tenantAdmin/createOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminDashboard = async function TenantAdminDashboard(i, cb) {
@@ -2845,6 +3002,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     }
     return -1;
   }
+  function null_to_empty(value) {
+    return value == null ? "" : value;
+  }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
@@ -2936,6 +3096,12 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     node.addEventListener(event, handler, options);
     return () => node.removeEventListener(event, handler, options);
   }
+  function prevent_default(fn) {
+    return function(event) {
+      event.preventDefault();
+      return fn.call(this, event);
+    };
+  }
   function attr(node, attribute, value) {
     if (value == null)
       node.removeAttribute(attribute);
@@ -2956,6 +3122,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       return;
     text2.data = /** @type {string} */
     data;
+  }
+  function set_input_value(input, value) {
+    input.value = value == null ? "" : value;
   }
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
@@ -3000,6 +3169,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   }
   function add_render_callback(fn) {
     render_callbacks.push(fn);
+  }
+  function add_flush_callback(fn) {
+    flush_callbacks.push(fn);
   }
   var seen_callbacks = /* @__PURE__ */ new Set();
   var flushidx = 0;
@@ -3170,6 +3342,13 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/Component.js
+  function bind(component, name, callback) {
+    const index = component.$.props[name];
+    if (index !== void 0) {
+      component.$.bound[index] = callback;
+      callback(component.$.ctx[index]);
+    }
+  }
   function create_component(block) {
     block && block.c();
   }
@@ -3205,7 +3384,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance8, create_fragment8, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance10, create_fragment10, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3231,7 +3410,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance8 ? instance8(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance10 ? instance10(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -3244,7 +3423,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment8 ? create_fragment8($.ctx) : false;
+    $.fragment = create_fragment10 ? create_fragment10($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -5079,10 +5258,857 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M7 5V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4zM4 16v3h16v-3H4zm0-2h16V7H4v7zM9 3v2h6V3H9zm2 8h2v2h-2v-2z"></path></g>'
   };
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ai/AiOutlineEye.js
+  var AiOutlineEye_default = {
+    a: {
+      viewBox: "0 0 1024 1024"
+    },
+    c: '<path d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 0 0 0 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"></path>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ai/AiOutlineEyeInvisible.js
+  var AiOutlineEyeInvisible_default = {
+    a: {
+      viewBox: "0 0 1024 1024"
+    },
+    c: '<path d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 0 0 0-51.5zm-63.57-320.64L836 122.88a8 8 0 0 0-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 0 0 0 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 0 0 0 11.31L155.17 889a8 8 0 0 0 11.31 0l712.15-712.12a8 8 0 0 0 0-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 0 0-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 0 1 146.2-106.69L401.31 546.2A112 112 0 0 1 396 512z"></path><path d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 0 0 227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 0 1-112 112z"></path>'
+  };
+
+  // _components/InputBox.svelte
+  function create_if_block2(ctx) {
+    let button;
+    let t;
+    let current;
+    let mounted;
+    let dispose;
+    let if_block0 = !/*isShowPassword*/
+    ctx[5] && create_if_block_22(ctx);
+    let if_block1 = (
+      /*isShowPassword*/
+      ctx[5] && create_if_block_12(ctx)
+    );
+    return {
+      c() {
+        button = element("button");
+        if (if_block0)
+          if_block0.c();
+        t = space();
+        if (if_block1)
+          if_block1.c();
+        attr(button, "class", "eye svelte-msefpz");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        if (if_block0)
+          if_block0.m(button, null);
+        append(button, t);
+        if (if_block1)
+          if_block1.m(button, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*toggleShowPassword*/
+            ctx[7]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (!/*isShowPassword*/
+        ctx2[5]) {
+          if (if_block0) {
+            if (dirty & /*isShowPassword*/
+            32) {
+              transition_in(if_block0, 1);
+            }
+          } else {
+            if_block0 = create_if_block_22(ctx2);
+            if_block0.c();
+            transition_in(if_block0, 1);
+            if_block0.m(button, t);
+          }
+        } else if (if_block0) {
+          group_outros();
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*isShowPassword*/
+          ctx2[5]
+        ) {
+          if (if_block1) {
+            if (dirty & /*isShowPassword*/
+            32) {
+              transition_in(if_block1, 1);
+            }
+          } else {
+            if_block1 = create_if_block_12(ctx2);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(button, null);
+          }
+        } else if (if_block1) {
+          group_outros();
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block0);
+        transition_in(if_block1);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block0);
+        transition_out(if_block1);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_22(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        color: "#495057",
+        size: "20",
+        src: AiOutlineEye_default
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_if_block_12(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        color: "#495057",
+        size: "20",
+        src: AiOutlineEyeInvisible_default
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_fragment7(ctx) {
+    let div;
+    let label_1;
+    let t0;
+    let t1;
+    let input;
+    let t2;
+    let div_class_value;
+    let current;
+    let mounted;
+    let dispose;
+    let if_block = (
+      /*type*/
+      ctx[3] === "password" && create_if_block2(ctx)
+    );
+    return {
+      c() {
+        div = element("div");
+        label_1 = element("label");
+        t0 = text(
+          /*label*/
+          ctx[2]
+        );
+        t1 = space();
+        input = element("input");
+        t2 = space();
+        if (if_block)
+          if_block.c();
+        attr(
+          label_1,
+          "for",
+          /*id*/
+          ctx[1]
+        );
+        attr(label_1, "class", "svelte-msefpz");
+        attr(
+          input,
+          "id",
+          /*id*/
+          ctx[1]
+        );
+        attr(
+          input,
+          "placeholder",
+          /*placeholder*/
+          ctx[4]
+        );
+        attr(input, "class", "svelte-msefpz");
+        attr(div, "class", div_class_value = null_to_empty(`input_box ${/*type*/
+        ctx[3] === "password" ? "with_password" : ""}`) + " svelte-msefpz");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        append(div, label_1);
+        append(label_1, t0);
+        append(div, t1);
+        append(div, input);
+        set_input_value(
+          input,
+          /*value*/
+          ctx[0]
+        );
+        ctx[9](input);
+        append(div, t2);
+        if (if_block)
+          if_block.m(div, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "input",
+            /*input_input_handler*/
+            ctx[8]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, [dirty]) {
+        if (!current || dirty & /*label*/
+        4)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[2]
+          );
+        if (!current || dirty & /*id*/
+        2) {
+          attr(
+            label_1,
+            "for",
+            /*id*/
+            ctx2[1]
+          );
+        }
+        if (!current || dirty & /*id*/
+        2) {
+          attr(
+            input,
+            "id",
+            /*id*/
+            ctx2[1]
+          );
+        }
+        if (!current || dirty & /*placeholder*/
+        16) {
+          attr(
+            input,
+            "placeholder",
+            /*placeholder*/
+            ctx2[4]
+          );
+        }
+        if (dirty & /*value*/
+        1 && input.value !== /*value*/
+        ctx2[0]) {
+          set_input_value(
+            input,
+            /*value*/
+            ctx2[0]
+          );
+        }
+        if (
+          /*type*/
+          ctx2[3] === "password"
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*type*/
+            8) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block2(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(div, null);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
+        if (!current || dirty & /*type*/
+        8 && div_class_value !== (div_class_value = null_to_empty(`input_box ${/*type*/
+        ctx2[3] === "password" ? "with_password" : ""}`) + " svelte-msefpz")) {
+          attr(div, "class", div_class_value);
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        ctx[9](null);
+        if (if_block)
+          if_block.d();
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function instance7($self, $props, $invalidate) {
+    let { id } = $props;
+    let { value } = $props;
+    let { label } = $props;
+    let { type = "text" } = $props;
+    let { placeholder = "" } = $props;
+    let isShowPassword = false;
+    let inputElm;
+    onMount(() => $invalidate(6, inputElm.type = type, inputElm));
+    function toggleShowPassword() {
+      $invalidate(5, isShowPassword = !isShowPassword);
+      if (isShowPassword)
+        $invalidate(6, inputElm.type = "text", inputElm);
+      else
+        $invalidate(6, inputElm.type = "password", inputElm);
+    }
+    function input_input_handler() {
+      value = this.value;
+      $invalidate(0, value);
+    }
+    function input_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        inputElm = $value;
+        $invalidate(6, inputElm);
+      });
+    }
+    $self.$set = ($props2) => {
+      if ("id" in $props2)
+        $invalidate(1, id = $props2.id);
+      if ("value" in $props2)
+        $invalidate(0, value = $props2.value);
+      if ("label" in $props2)
+        $invalidate(2, label = $props2.label);
+      if ("type" in $props2)
+        $invalidate(3, type = $props2.type);
+      if ("placeholder" in $props2)
+        $invalidate(4, placeholder = $props2.placeholder);
+    };
+    return [
+      value,
+      id,
+      label,
+      type,
+      placeholder,
+      isShowPassword,
+      inputElm,
+      toggleShowPassword,
+      input_input_handler,
+      input_binding
+    ];
+  }
+  var InputBox = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance7, create_fragment7, safe_not_equal, {
+        id: 1,
+        value: 0,
+        label: 2,
+        type: 3,
+        placeholder: 4
+      });
+    }
+  };
+  var InputBox_default = InputBox;
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fi/FiLoader.js
+  var FiLoader_default = {
+    a: {
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": "2",
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round"
+    },
+    c: '<line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/io/IoClose.js
+  var IoClose_default = {
+    a: {
+      viewBox: "0 0 512 512"
+    },
+    c: '<title></title><path d="M289.94,256l95-95A24,24,0,0,0,351,127l-95,95-95-95A24,24,0,0,0,127,161l95,95-95,95A24,24,0,1,0,161,385l95-95,95,95A24,24,0,0,0,385,351Z"></path>'
+  };
+
+  // _components/PopUpOrgChild.svelte
+  function create_if_block_13(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Ok";
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
+  }
+  function create_if_block3(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        className: "spin",
+        color: "#FFF",
+        size: "14",
+        src: FiLoader_default
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_fragment8(ctx) {
+    let div5;
+    let div4;
+    let header;
+    let h2;
+    let t0;
+    let t1;
+    let button0;
+    let icon;
+    let t2;
+    let div0;
+    let inputbox0;
+    let updating_value;
+    let t3;
+    let inputbox1;
+    let updating_value_1;
+    let t4;
+    let div3;
+    let div1;
+    let t5;
+    let div2;
+    let button1;
+    let t7;
+    let button2;
+    let t8;
+    let div5_class_value;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        size: "22",
+        color: "var(--red-005)",
+        src: IoClose_default
+      }
+    });
+    function inputbox0_value_binding(value) {
+      ctx[9](value);
+    }
+    let inputbox0_props = {
+      id: "childName",
+      label: "Name",
+      type: "text",
+      placeholder: "Organization name"
+    };
+    if (
+      /*childName*/
+      ctx[0] !== void 0
+    ) {
+      inputbox0_props.value = /*childName*/
+      ctx[0];
+    }
+    inputbox0 = new InputBox_default({ props: inputbox0_props });
+    binding_callbacks.push(() => bind(inputbox0, "value", inputbox0_value_binding));
+    function inputbox1_value_binding(value) {
+      ctx[10](value);
+    }
+    let inputbox1_props = {
+      id: "headTitle",
+      label: "Head Title",
+      type: "text",
+      placeholder: "Mr. Smith"
+    };
+    if (
+      /*headTitle*/
+      ctx[1] !== void 0
+    ) {
+      inputbox1_props.value = /*headTitle*/
+      ctx[1];
+    }
+    inputbox1 = new InputBox_default({ props: inputbox1_props });
+    binding_callbacks.push(() => bind(inputbox1, "value", inputbox1_value_binding));
+    let if_block0 = !/*isSubmitted*/
+    ctx[4] && create_if_block_13(ctx);
+    let if_block1 = (
+      /*isSubmitted*/
+      ctx[4] && create_if_block3(ctx)
+    );
+    return {
+      c() {
+        div5 = element("div");
+        div4 = element("div");
+        header = element("header");
+        h2 = element("h2");
+        t0 = text(
+          /*heading*/
+          ctx[2]
+        );
+        t1 = space();
+        button0 = element("button");
+        create_component(icon.$.fragment);
+        t2 = space();
+        div0 = element("div");
+        create_component(inputbox0.$.fragment);
+        t3 = space();
+        create_component(inputbox1.$.fragment);
+        t4 = space();
+        div3 = element("div");
+        div1 = element("div");
+        div1.innerHTML = ``;
+        t5 = space();
+        div2 = element("div");
+        button1 = element("button");
+        button1.textContent = "Cancel";
+        t7 = space();
+        button2 = element("button");
+        if (if_block0)
+          if_block0.c();
+        t8 = space();
+        if (if_block1)
+          if_block1.c();
+        attr(h2, "class", "svelte-6z2gjm");
+        attr(button0, "class", "svelte-6z2gjm");
+        attr(header, "class", "header svelte-6z2gjm");
+        attr(div0, "class", "forms svelte-6z2gjm");
+        attr(div1, "class", "left");
+        attr(button1, "class", "cancel svelte-6z2gjm");
+        attr(button2, "class", "ok svelte-6z2gjm");
+        attr(div2, "class", "right svelte-6z2gjm");
+        attr(div3, "class", "foot svelte-6z2gjm");
+        attr(div4, "class", "popup svelte-6z2gjm");
+        attr(div5, "class", div5_class_value = null_to_empty(`popup_container ${/*isShow*/
+        ctx[6] ? "show" : ""}`) + " svelte-6z2gjm");
+      },
+      m(target, anchor) {
+        insert(target, div5, anchor);
+        append(div5, div4);
+        append(div4, header);
+        append(header, h2);
+        append(h2, t0);
+        append(header, t1);
+        append(header, button0);
+        mount_component(icon, button0, null);
+        append(div4, t2);
+        append(div4, div0);
+        mount_component(inputbox0, div0, null);
+        append(div0, t3);
+        mount_component(inputbox1, div0, null);
+        append(div4, t4);
+        append(div4, div3);
+        append(div3, div1);
+        append(div3, t5);
+        append(div3, div2);
+        append(div2, button1);
+        append(div2, t7);
+        append(div2, button2);
+        if (if_block0)
+          if_block0.m(button2, null);
+        append(button2, t8);
+        if (if_block1)
+          if_block1.m(button2, null);
+        current = true;
+        if (!mounted) {
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*hide*/
+              ctx[5]
+            ),
+            listen(button1, "click", prevent_default(
+              /*cancel*/
+              ctx[7]
+            )),
+            listen(button2, "click", prevent_default(function() {
+              if (is_function(
+                /*onSubmit*/
+                ctx[3]
+              ))
+                ctx[3].apply(this, arguments);
+            }))
+          ];
+          mounted = true;
+        }
+      },
+      p(new_ctx, [dirty]) {
+        ctx = new_ctx;
+        if (!current || dirty & /*heading*/
+        4)
+          set_data(
+            t0,
+            /*heading*/
+            ctx[2]
+          );
+        const inputbox0_changes = {};
+        if (!updating_value && dirty & /*childName*/
+        1) {
+          updating_value = true;
+          inputbox0_changes.value = /*childName*/
+          ctx[0];
+          add_flush_callback(() => updating_value = false);
+        }
+        inputbox0.$set(inputbox0_changes);
+        const inputbox1_changes = {};
+        if (!updating_value_1 && dirty & /*headTitle*/
+        2) {
+          updating_value_1 = true;
+          inputbox1_changes.value = /*headTitle*/
+          ctx[1];
+          add_flush_callback(() => updating_value_1 = false);
+        }
+        inputbox1.$set(inputbox1_changes);
+        if (!/*isSubmitted*/
+        ctx[4]) {
+          if (if_block0) {
+          } else {
+            if_block0 = create_if_block_13(ctx);
+            if_block0.c();
+            if_block0.m(button2, t8);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        if (
+          /*isSubmitted*/
+          ctx[4]
+        ) {
+          if (if_block1) {
+            if (dirty & /*isSubmitted*/
+            16) {
+              transition_in(if_block1, 1);
+            }
+          } else {
+            if_block1 = create_if_block3(ctx);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(button2, null);
+          }
+        } else if (if_block1) {
+          group_outros();
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
+          });
+          check_outros();
+        }
+        if (!current || dirty & /*isShow*/
+        64 && div5_class_value !== (div5_class_value = null_to_empty(`popup_container ${/*isShow*/
+        ctx[6] ? "show" : ""}`) + " svelte-6z2gjm")) {
+          attr(div5, "class", div5_class_value);
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        transition_in(inputbox0.$.fragment, local);
+        transition_in(inputbox1.$.fragment, local);
+        transition_in(if_block1);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        transition_out(inputbox0.$.fragment, local);
+        transition_out(inputbox1.$.fragment, local);
+        transition_out(if_block1);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div5);
+        }
+        destroy_component(icon);
+        destroy_component(inputbox0);
+        destroy_component(inputbox1);
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
+  function instance8($self, $props, $invalidate) {
+    let { heading = "Add coa child" } = $props;
+    let { onSubmit = () => {
+    } } = $props;
+    let { isSubmitted = false } = $props;
+    let { childName = "" } = $props;
+    let { headTitle = "" } = $props;
+    let isShow = false;
+    const show = () => $invalidate(6, isShow = true);
+    const hide = () => $invalidate(6, isShow = false);
+    const cancel = () => {
+      $invalidate(6, isShow = false);
+      $invalidate(0, childName = "");
+    };
+    function inputbox0_value_binding(value) {
+      childName = value;
+      $invalidate(0, childName);
+    }
+    function inputbox1_value_binding(value) {
+      headTitle = value;
+      $invalidate(1, headTitle);
+    }
+    $self.$set = ($props2) => {
+      if ("heading" in $props2)
+        $invalidate(2, heading = $props2.heading);
+      if ("onSubmit" in $props2)
+        $invalidate(3, onSubmit = $props2.onSubmit);
+      if ("isSubmitted" in $props2)
+        $invalidate(4, isSubmitted = $props2.isSubmitted);
+      if ("childName" in $props2)
+        $invalidate(0, childName = $props2.childName);
+      if ("headTitle" in $props2)
+        $invalidate(1, headTitle = $props2.headTitle);
+    };
+    return [
+      childName,
+      headTitle,
+      heading,
+      onSubmit,
+      isSubmitted,
+      hide,
+      isShow,
+      cancel,
+      show,
+      inputbox0_value_binding,
+      inputbox1_value_binding
+    ];
+  }
+  var PopUpOrgChild = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance8, create_fragment8, safe_not_equal, {
+        heading: 2,
+        onSubmit: 3,
+        isSubmitted: 4,
+        childName: 0,
+        headTitle: 1,
+        show: 8,
+        hide: 5
+      });
+    }
+    get show() {
+      return this.$.ctx[8];
+    }
+    get hide() {
+      return this.$.ctx[5];
+    }
+  };
+  var PopUpOrgChild_default = PopUpOrgChild;
+
   // tenantAdmin_organization.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
   function create_default_slot(ctx) {
-    let div37;
-    let div36;
+    let div17;
+    let div16;
     let div3;
     let div1;
     let div0;
@@ -5168,115 +6194,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     let t29;
     let button15;
     let icon19;
-    let t30;
-    let div19;
-    let div17;
-    let span7;
-    let t31;
-    let div16;
-    let icon20;
-    let t32;
-    let span8;
-    let t34;
-    let div18;
-    let button16;
-    let icon21;
-    let t35;
-    let button17;
-    let icon22;
-    let t36;
-    let button18;
-    let icon23;
-    let t37;
-    let button19;
-    let icon24;
-    let t38;
-    let div23;
-    let div21;
-    let span9;
-    let t39;
-    let div20;
-    let icon25;
-    let t40;
-    let span10;
-    let t42;
-    let div22;
-    let button20;
-    let icon26;
-    let t43;
-    let button21;
-    let icon27;
-    let t44;
-    let button22;
-    let icon28;
-    let t45;
-    let button23;
-    let icon29;
-    let t46;
-    let div27;
-    let div25;
-    let span11;
-    let t47;
-    let div24;
-    let icon30;
-    let t48;
-    let span12;
-    let t50;
-    let div26;
-    let button24;
-    let icon31;
-    let t51;
-    let button25;
-    let icon32;
-    let t52;
-    let button26;
-    let icon33;
-    let t53;
-    let button27;
-    let icon34;
-    let t54;
-    let div31;
-    let div29;
-    let span13;
-    let t55;
-    let div28;
-    let icon35;
-    let t56;
-    let span14;
-    let t58;
-    let div30;
-    let button28;
-    let icon36;
-    let t59;
-    let button29;
-    let icon37;
-    let t60;
-    let button30;
-    let icon38;
-    let t61;
-    let button31;
-    let icon39;
-    let t62;
-    let div35;
-    let div33;
-    let div32;
-    let icon40;
-    let t63;
-    let span15;
-    let t65;
-    let div34;
-    let button32;
-    let icon41;
-    let t66;
-    let button33;
-    let icon42;
-    let t67;
-    let button34;
-    let icon43;
-    let t68;
-    let button35;
-    let icon44;
     let current;
+    let mounted;
+    let dispose;
     icon0 = new Icon_default({
       props: {
         color: "#FFF",
@@ -5402,7 +6322,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         color: "#FFF",
         className: "icon",
         size: "16",
-        src: RiUserTeamLine_default
+        src: RiBusinessBriefcaseLine_default
       }
     });
     icon16 = new Icon_default({
@@ -5437,210 +6357,10 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         src: RiSystemInformationLine_default
       }
     });
-    icon20 = new Icon_default({
-      props: {
-        color: "#FFF",
-        className: "icon",
-        size: "16",
-        src: RiBusinessBriefcaseLine_default
-      }
-    });
-    icon21 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemAddBoxLine_default
-      }
-    });
-    icon22 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiDesignPencilLine_default
-      }
-    });
-    icon23 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemDeleteBinLine_default
-      }
-    });
-    icon24 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemInformationLine_default
-      }
-    });
-    icon25 = new Icon_default({
-      props: {
-        color: "#FFF",
-        className: "icon",
-        size: "16",
-        src: RiBuildingsBuilding2Line_default
-      }
-    });
-    icon26 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemAddBoxLine_default
-      }
-    });
-    icon27 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiDesignPencilLine_default
-      }
-    });
-    icon28 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemDeleteBinLine_default
-      }
-    });
-    icon29 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemInformationLine_default
-      }
-    });
-    icon30 = new Icon_default({
-      props: {
-        color: "#FFF",
-        className: "icon",
-        size: "16",
-        src: RiUserTeamLine_default
-      }
-    });
-    icon31 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemAddBoxLine_default
-      }
-    });
-    icon32 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiDesignPencilLine_default
-      }
-    });
-    icon33 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemDeleteBinLine_default
-      }
-    });
-    icon34 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemInformationLine_default
-      }
-    });
-    icon35 = new Icon_default({
-      props: {
-        color: "#FFF",
-        className: "icon",
-        size: "16",
-        src: RiBuildingsBuilding2Line_default
-      }
-    });
-    icon36 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemAddBoxLine_default
-      }
-    });
-    icon37 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiDesignPencilLine_default
-      }
-    });
-    icon38 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemDeleteBinLine_default
-      }
-    });
-    icon39 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemInformationLine_default
-      }
-    });
-    icon40 = new Icon_default({
-      props: {
-        color: "#FFF",
-        className: "icon",
-        size: "16",
-        src: RiBuildingsCommunityLine_default
-      }
-    });
-    icon41 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemAddBoxLine_default
-      }
-    });
-    icon42 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiDesignPencilLine_default
-      }
-    });
-    icon43 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemDeleteBinLine_default
-      }
-    });
-    icon44 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemInformationLine_default
-      }
-    });
     return {
       c() {
-        div37 = element("div");
-        div36 = element("div");
+        div17 = element("div");
+        div16 = element("div");
         div3 = element("div");
         div1 = element("div");
         div0 = element("div");
@@ -5730,119 +6450,6 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         t29 = space();
         button15 = element("button");
         create_component(icon19.$.fragment);
-        t30 = space();
-        div19 = element("div");
-        div17 = element("div");
-        span7 = element("span");
-        t31 = space();
-        div16 = element("div");
-        create_component(icon20.$.fragment);
-        t32 = space();
-        span8 = element("span");
-        span8.textContent = `${orgs[0].name}`;
-        t34 = space();
-        div18 = element("div");
-        button16 = element("button");
-        create_component(icon21.$.fragment);
-        t35 = space();
-        button17 = element("button");
-        create_component(icon22.$.fragment);
-        t36 = space();
-        button18 = element("button");
-        create_component(icon23.$.fragment);
-        t37 = space();
-        button19 = element("button");
-        create_component(icon24.$.fragment);
-        t38 = space();
-        div23 = element("div");
-        div21 = element("div");
-        span9 = element("span");
-        t39 = space();
-        div20 = element("div");
-        create_component(icon25.$.fragment);
-        t40 = space();
-        span10 = element("span");
-        span10.textContent = `${orgs[0].name}`;
-        t42 = space();
-        div22 = element("div");
-        button20 = element("button");
-        create_component(icon26.$.fragment);
-        t43 = space();
-        button21 = element("button");
-        create_component(icon27.$.fragment);
-        t44 = space();
-        button22 = element("button");
-        create_component(icon28.$.fragment);
-        t45 = space();
-        button23 = element("button");
-        create_component(icon29.$.fragment);
-        t46 = space();
-        div27 = element("div");
-        div25 = element("div");
-        span11 = element("span");
-        t47 = space();
-        div24 = element("div");
-        create_component(icon30.$.fragment);
-        t48 = space();
-        span12 = element("span");
-        span12.textContent = `${orgs[0].name}`;
-        t50 = space();
-        div26 = element("div");
-        button24 = element("button");
-        create_component(icon31.$.fragment);
-        t51 = space();
-        button25 = element("button");
-        create_component(icon32.$.fragment);
-        t52 = space();
-        button26 = element("button");
-        create_component(icon33.$.fragment);
-        t53 = space();
-        button27 = element("button");
-        create_component(icon34.$.fragment);
-        t54 = space();
-        div31 = element("div");
-        div29 = element("div");
-        span13 = element("span");
-        t55 = space();
-        div28 = element("div");
-        create_component(icon35.$.fragment);
-        t56 = space();
-        span14 = element("span");
-        span14.textContent = `${orgs[0].name}`;
-        t58 = space();
-        div30 = element("div");
-        button28 = element("button");
-        create_component(icon36.$.fragment);
-        t59 = space();
-        button29 = element("button");
-        create_component(icon37.$.fragment);
-        t60 = space();
-        button30 = element("button");
-        create_component(icon38.$.fragment);
-        t61 = space();
-        button31 = element("button");
-        create_component(icon39.$.fragment);
-        t62 = space();
-        div35 = element("div");
-        div33 = element("div");
-        div32 = element("div");
-        create_component(icon40.$.fragment);
-        t63 = space();
-        span15 = element("span");
-        span15.textContent = `${orgs[0].name}`;
-        t65 = space();
-        div34 = element("div");
-        button32 = element("button");
-        create_component(icon41.$.fragment);
-        t66 = space();
-        button33 = element("button");
-        create_component(icon42.$.fragment);
-        t67 = space();
-        button34 = element("button");
-        create_component(icon43.$.fragment);
-        t68 = space();
-        button35 = element("button");
-        create_component(icon44.$.fragment);
         attr(div0, "class", "label svelte-1eu133j");
         attr(span0, "class", "title svelte-1eu133j");
         attr(div1, "class", "info svelte-1eu133j");
@@ -5897,82 +6504,13 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         attr(button15, "class", "btn svelte-1eu133j");
         attr(button15, "title", "Info");
         attr(div14, "class", "options svelte-1eu133j");
-        attr(div15, "class", "division svelte-1eu133j");
-        attr(span7, "class", "h-line svelte-1eu133j");
-        attr(div16, "class", "label svelte-1eu133j");
-        attr(span8, "class", "title svelte-1eu133j");
-        attr(div17, "class", "info svelte-1eu133j");
-        attr(button16, "class", "btn svelte-1eu133j");
-        attr(button16, "title", "Add department");
-        attr(button17, "class", "btn svelte-1eu133j");
-        attr(button17, "title", "Edit company");
-        attr(button18, "class", "btn svelte-1eu133j");
-        attr(button18, "title", "Delete company");
-        attr(button19, "class", "btn svelte-1eu133j");
-        attr(button19, "title", "Info");
-        attr(div18, "class", "options svelte-1eu133j");
-        attr(div19, "class", "job svelte-1eu133j");
-        attr(span9, "class", "h-line svelte-1eu133j");
-        attr(div20, "class", "label svelte-1eu133j");
-        attr(span10, "class", "title svelte-1eu133j");
-        attr(div21, "class", "info svelte-1eu133j");
-        attr(button20, "class", "btn svelte-1eu133j");
-        attr(button20, "title", "Add department");
-        attr(button21, "class", "btn svelte-1eu133j");
-        attr(button21, "title", "Edit company");
-        attr(button22, "class", "btn svelte-1eu133j");
-        attr(button22, "title", "Delete company");
-        attr(button23, "class", "btn svelte-1eu133j");
-        attr(button23, "title", "Info");
-        attr(div22, "class", "options svelte-1eu133j");
-        attr(div23, "class", "department svelte-1eu133j");
-        attr(span11, "class", "h-line svelte-1eu133j");
-        attr(div24, "class", "label svelte-1eu133j");
-        attr(span12, "class", "title svelte-1eu133j");
-        attr(div25, "class", "info svelte-1eu133j");
-        attr(button24, "class", "btn svelte-1eu133j");
-        attr(button24, "title", "Add department");
-        attr(button25, "class", "btn svelte-1eu133j");
-        attr(button25, "title", "Edit company");
-        attr(button26, "class", "btn svelte-1eu133j");
-        attr(button26, "title", "Delete company");
-        attr(button27, "class", "btn svelte-1eu133j");
-        attr(button27, "title", "Info");
-        attr(div26, "class", "options svelte-1eu133j");
-        attr(div27, "class", "division svelte-1eu133j");
-        attr(span13, "class", "h-line svelte-1eu133j");
-        attr(div28, "class", "label svelte-1eu133j");
-        attr(span14, "class", "title svelte-1eu133j");
-        attr(div29, "class", "info svelte-1eu133j");
-        attr(button28, "class", "btn svelte-1eu133j");
-        attr(button28, "title", "Add department");
-        attr(button29, "class", "btn svelte-1eu133j");
-        attr(button29, "title", "Edit company");
-        attr(button30, "class", "btn svelte-1eu133j");
-        attr(button30, "title", "Delete company");
-        attr(button31, "class", "btn svelte-1eu133j");
-        attr(button31, "title", "Info");
-        attr(div30, "class", "options svelte-1eu133j");
-        attr(div31, "class", "department svelte-1eu133j");
-        attr(div32, "class", "label svelte-1eu133j");
-        attr(span15, "class", "title svelte-1eu133j");
-        attr(div33, "class", "info svelte-1eu133j");
-        attr(button32, "class", "btn svelte-1eu133j");
-        attr(button32, "title", "Add department");
-        attr(button33, "class", "btn svelte-1eu133j");
-        attr(button33, "title", "Edit company");
-        attr(button34, "class", "btn svelte-1eu133j");
-        attr(button34, "title", "Delete company");
-        attr(button35, "class", "btn svelte-1eu133j");
-        attr(button35, "title", "Info");
-        attr(div34, "class", "options svelte-1eu133j");
-        attr(div35, "class", "company svelte-1eu133j");
-        attr(div36, "class", "org svelte-1eu133j");
+        attr(div15, "class", "job svelte-1eu133j");
+        attr(div16, "class", "org svelte-1eu133j");
       },
       m(target, anchor) {
-        insert(target, div37, anchor);
-        append(div37, div36);
-        append(div36, div3);
+        insert(target, div17, anchor);
+        append(div17, div16);
+        append(div16, div3);
         append(div3, div1);
         append(div1, div0);
         mount_component(icon0, div0, null);
@@ -5991,8 +6529,8 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         append(div2, t5);
         append(div2, button3);
         mount_component(icon4, button3, null);
-        append(div36, t6);
-        append(div36, div7);
+        append(div16, t6);
+        append(div16, div7);
         append(div7, div5);
         append(div5, span1);
         append(div5, t7);
@@ -6013,8 +6551,8 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         append(div6, t13);
         append(div6, button7);
         mount_component(icon9, button7, null);
-        append(div36, t14);
-        append(div36, div11);
+        append(div16, t14);
+        append(div16, div11);
         append(div11, div9);
         append(div9, span3);
         append(div9, t15);
@@ -6035,8 +6573,8 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         append(div10, t21);
         append(div10, button11);
         mount_component(icon14, button11, null);
-        append(div36, t22);
-        append(div36, div15);
+        append(div16, t22);
+        append(div16, div15);
         append(div15, div13);
         append(div13, span5);
         append(div13, t23);
@@ -6057,115 +6595,16 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         append(div14, t29);
         append(div14, button15);
         mount_component(icon19, button15, null);
-        append(div36, t30);
-        append(div36, div19);
-        append(div19, div17);
-        append(div17, span7);
-        append(div17, t31);
-        append(div17, div16);
-        mount_component(icon20, div16, null);
-        append(div17, t32);
-        append(div17, span8);
-        append(div19, t34);
-        append(div19, div18);
-        append(div18, button16);
-        mount_component(icon21, button16, null);
-        append(div18, t35);
-        append(div18, button17);
-        mount_component(icon22, button17, null);
-        append(div18, t36);
-        append(div18, button18);
-        mount_component(icon23, button18, null);
-        append(div18, t37);
-        append(div18, button19);
-        mount_component(icon24, button19, null);
-        append(div36, t38);
-        append(div36, div23);
-        append(div23, div21);
-        append(div21, span9);
-        append(div21, t39);
-        append(div21, div20);
-        mount_component(icon25, div20, null);
-        append(div21, t40);
-        append(div21, span10);
-        append(div23, t42);
-        append(div23, div22);
-        append(div22, button20);
-        mount_component(icon26, button20, null);
-        append(div22, t43);
-        append(div22, button21);
-        mount_component(icon27, button21, null);
-        append(div22, t44);
-        append(div22, button22);
-        mount_component(icon28, button22, null);
-        append(div22, t45);
-        append(div22, button23);
-        mount_component(icon29, button23, null);
-        append(div36, t46);
-        append(div36, div27);
-        append(div27, div25);
-        append(div25, span11);
-        append(div25, t47);
-        append(div25, div24);
-        mount_component(icon30, div24, null);
-        append(div25, t48);
-        append(div25, span12);
-        append(div27, t50);
-        append(div27, div26);
-        append(div26, button24);
-        mount_component(icon31, button24, null);
-        append(div26, t51);
-        append(div26, button25);
-        mount_component(icon32, button25, null);
-        append(div26, t52);
-        append(div26, button26);
-        mount_component(icon33, button26, null);
-        append(div26, t53);
-        append(div26, button27);
-        mount_component(icon34, button27, null);
-        append(div36, t54);
-        append(div36, div31);
-        append(div31, div29);
-        append(div29, span13);
-        append(div29, t55);
-        append(div29, div28);
-        mount_component(icon35, div28, null);
-        append(div29, t56);
-        append(div29, span14);
-        append(div31, t58);
-        append(div31, div30);
-        append(div30, button28);
-        mount_component(icon36, button28, null);
-        append(div30, t59);
-        append(div30, button29);
-        mount_component(icon37, button29, null);
-        append(div30, t60);
-        append(div30, button30);
-        mount_component(icon38, button30, null);
-        append(div30, t61);
-        append(div30, button31);
-        mount_component(icon39, button31, null);
-        append(div36, t62);
-        append(div36, div35);
-        append(div35, div33);
-        append(div33, div32);
-        mount_component(icon40, div32, null);
-        append(div33, t63);
-        append(div33, span15);
-        append(div35, t65);
-        append(div35, div34);
-        append(div34, button32);
-        mount_component(icon41, button32, null);
-        append(div34, t66);
-        append(div34, button33);
-        mount_component(icon42, button33, null);
-        append(div34, t67);
-        append(div34, button34);
-        mount_component(icon43, button34, null);
-        append(div34, t68);
-        append(div34, button35);
-        mount_component(icon44, button35, null);
         current = true;
+        if (!mounted) {
+          dispose = listen(
+            button0,
+            "click",
+            /*click_handler*/
+            ctx[9]
+          );
+          mounted = true;
+        }
       },
       p: noop,
       i(local) {
@@ -6191,31 +6630,6 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         transition_in(icon17.$.fragment, local);
         transition_in(icon18.$.fragment, local);
         transition_in(icon19.$.fragment, local);
-        transition_in(icon20.$.fragment, local);
-        transition_in(icon21.$.fragment, local);
-        transition_in(icon22.$.fragment, local);
-        transition_in(icon23.$.fragment, local);
-        transition_in(icon24.$.fragment, local);
-        transition_in(icon25.$.fragment, local);
-        transition_in(icon26.$.fragment, local);
-        transition_in(icon27.$.fragment, local);
-        transition_in(icon28.$.fragment, local);
-        transition_in(icon29.$.fragment, local);
-        transition_in(icon30.$.fragment, local);
-        transition_in(icon31.$.fragment, local);
-        transition_in(icon32.$.fragment, local);
-        transition_in(icon33.$.fragment, local);
-        transition_in(icon34.$.fragment, local);
-        transition_in(icon35.$.fragment, local);
-        transition_in(icon36.$.fragment, local);
-        transition_in(icon37.$.fragment, local);
-        transition_in(icon38.$.fragment, local);
-        transition_in(icon39.$.fragment, local);
-        transition_in(icon40.$.fragment, local);
-        transition_in(icon41.$.fragment, local);
-        transition_in(icon42.$.fragment, local);
-        transition_in(icon43.$.fragment, local);
-        transition_in(icon44.$.fragment, local);
         current = true;
       },
       o(local) {
@@ -6239,36 +6653,11 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         transition_out(icon17.$.fragment, local);
         transition_out(icon18.$.fragment, local);
         transition_out(icon19.$.fragment, local);
-        transition_out(icon20.$.fragment, local);
-        transition_out(icon21.$.fragment, local);
-        transition_out(icon22.$.fragment, local);
-        transition_out(icon23.$.fragment, local);
-        transition_out(icon24.$.fragment, local);
-        transition_out(icon25.$.fragment, local);
-        transition_out(icon26.$.fragment, local);
-        transition_out(icon27.$.fragment, local);
-        transition_out(icon28.$.fragment, local);
-        transition_out(icon29.$.fragment, local);
-        transition_out(icon30.$.fragment, local);
-        transition_out(icon31.$.fragment, local);
-        transition_out(icon32.$.fragment, local);
-        transition_out(icon33.$.fragment, local);
-        transition_out(icon34.$.fragment, local);
-        transition_out(icon35.$.fragment, local);
-        transition_out(icon36.$.fragment, local);
-        transition_out(icon37.$.fragment, local);
-        transition_out(icon38.$.fragment, local);
-        transition_out(icon39.$.fragment, local);
-        transition_out(icon40.$.fragment, local);
-        transition_out(icon41.$.fragment, local);
-        transition_out(icon42.$.fragment, local);
-        transition_out(icon43.$.fragment, local);
-        transition_out(icon44.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(div37);
+          detach(div17);
         }
         destroy_component(icon0);
         destroy_component(icon1);
@@ -6290,37 +6679,58 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         destroy_component(icon17);
         destroy_component(icon18);
         destroy_component(icon19);
-        destroy_component(icon20);
-        destroy_component(icon21);
-        destroy_component(icon22);
-        destroy_component(icon23);
-        destroy_component(icon24);
-        destroy_component(icon25);
-        destroy_component(icon26);
-        destroy_component(icon27);
-        destroy_component(icon28);
-        destroy_component(icon29);
-        destroy_component(icon30);
-        destroy_component(icon31);
-        destroy_component(icon32);
-        destroy_component(icon33);
-        destroy_component(icon34);
-        destroy_component(icon35);
-        destroy_component(icon36);
-        destroy_component(icon37);
-        destroy_component(icon38);
-        destroy_component(icon39);
-        destroy_component(icon40);
-        destroy_component(icon41);
-        destroy_component(icon42);
-        destroy_component(icon43);
-        destroy_component(icon44);
+        mounted = false;
+        dispose();
       }
     };
   }
-  function create_fragment7(ctx) {
+  function create_fragment9(ctx) {
+    let popuporgchild;
+    let updating_isSubmitted;
+    let updating_childName;
+    let updating_headTitle;
+    let t;
     let mainlayout;
     let current;
+    function popuporgchild_isSubmitted_binding(value) {
+      ctx[6](value);
+    }
+    function popuporgchild_childName_binding(value) {
+      ctx[7](value);
+    }
+    function popuporgchild_headTitle_binding(value) {
+      ctx[8](value);
+    }
+    let popuporgchild_props = { onSubmit: (
+      /*submitAddOrgChild*/
+      ctx[4]
+    ) };
+    if (
+      /*isSubmitAddOrgChild*/
+      ctx[1] !== void 0
+    ) {
+      popuporgchild_props.isSubmitted = /*isSubmitAddOrgChild*/
+      ctx[1];
+    }
+    if (
+      /*childName*/
+      ctx[2] !== void 0
+    ) {
+      popuporgchild_props.childName = /*childName*/
+      ctx[2];
+    }
+    if (
+      /*headTitle*/
+      ctx[3] !== void 0
+    ) {
+      popuporgchild_props.headTitle = /*headTitle*/
+      ctx[3];
+    }
+    popuporgchild = new PopUpOrgChild_default({ props: popuporgchild_props });
+    ctx[5](popuporgchild);
+    binding_callbacks.push(() => bind(popuporgchild, "isSubmitted", popuporgchild_isSubmitted_binding));
+    binding_callbacks.push(() => bind(popuporgchild, "childName", popuporgchild_childName_binding));
+    binding_callbacks.push(() => bind(popuporgchild, "headTitle", popuporgchild_headTitle_binding));
     mainlayout = new mainLayout_default({
       props: {
         $slots: { default: [create_default_slot] },
@@ -6329,16 +6739,43 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     });
     return {
       c() {
+        create_component(popuporgchild.$.fragment);
+        t = space();
         create_component(mainlayout.$.fragment);
       },
       m(target, anchor) {
+        mount_component(popuporgchild, target, anchor);
+        insert(target, t, anchor);
         mount_component(mainlayout, target, anchor);
         current = true;
       },
       p(ctx2, [dirty]) {
+        const popuporgchild_changes = {};
+        if (!updating_isSubmitted && dirty & /*isSubmitAddOrgChild*/
+        2) {
+          updating_isSubmitted = true;
+          popuporgchild_changes.isSubmitted = /*isSubmitAddOrgChild*/
+          ctx2[1];
+          add_flush_callback(() => updating_isSubmitted = false);
+        }
+        if (!updating_childName && dirty & /*childName*/
+        4) {
+          updating_childName = true;
+          popuporgchild_changes.childName = /*childName*/
+          ctx2[2];
+          add_flush_callback(() => updating_childName = false);
+        }
+        if (!updating_headTitle && dirty & /*headTitle*/
+        8) {
+          updating_headTitle = true;
+          popuporgchild_changes.headTitle = /*headTitle*/
+          ctx2[3];
+          add_flush_callback(() => updating_headTitle = false);
+        }
+        popuporgchild.$set(popuporgchild_changes);
         const mainlayout_changes = {};
-        if (dirty & /*$scope*/
-        1) {
+        if (dirty & /*$scope, popUpOrgChild*/
+        8193) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -6346,14 +6783,21 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       i(local) {
         if (current)
           return;
+        transition_in(popuporgchild.$.fragment, local);
         transition_in(mainlayout.$.fragment, local);
         current = true;
       },
       o(local) {
+        transition_out(popuporgchild.$.fragment, local);
         transition_out(mainlayout.$.fragment, local);
         current = false;
       },
       d(detaching) {
+        if (detaching) {
+          detach(t);
+        }
+        ctx[5](null);
+        destroy_component(popuporgchild, detaching);
         destroy_component(mainlayout, detaching);
       }
     };
@@ -6361,18 +6805,136 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   var segments2 = {/* segments */};
   var user2 = {/* user */};
   var orgs = [/* orgs */];
-  function instance7($self) {
+  function orgMaker(id) {
+    let orgFormatted = {
+      id: "",
+      name: "",
+      orgType: 0,
+      parentId: "",
+      tenantCode: "",
+      createdAt: 0,
+      createdBy: "",
+      updatedAt: 0,
+      updatedBy: "",
+      deletedAt: 0,
+      children: [],
+      headTitle: ""
+    };
+    for (let i in orgs) {
+      if (orgs[i].id == String(id)) {
+        const children2 = orgs[i].children;
+        if (children2 && children2.length) {
+          for (let j in children2) {
+            const childId = children2[j];
+            const child = orgMaker(childId);
+            orgFormatted.children = [...orgFormatted.children, child];
+          }
+        }
+        orgFormatted.id = orgs[i].id;
+        orgFormatted.name = orgs[i].name;
+        orgFormatted.headTitle = orgs[i].headTitle;
+        orgFormatted.parentId = orgs[i].parentId;
+        orgFormatted.createdAt = orgs[i].createdAt;
+        orgFormatted.createdBy = orgs[i].createdBy;
+        orgFormatted.updatedAt = orgs[i].updatedAt;
+        orgFormatted.updatedBy = orgs[i].updatedBy;
+        orgFormatted.deletedAt = orgs[i].deletedAt;
+      }
+    }
+    return orgFormatted;
+  }
+  function reformatorgs() {
+    let toorgs = [];
+    if (orgs && orgs.length) {
+      for (let i in orgs) {
+        const id = orgs[i].id;
+        const coa = orgMaker(id);
+        toorgs = [...toorgs, coa];
+      }
+    }
+    if (toorgs && toorgs.length) {
+      toorgs = toorgs.filter((obj) => obj.parentId <= 0);
+      toorgs.sort((a, b) => a.level - b.level);
+    }
+    return toorgs;
+  }
+  function instance9($self, $props, $invalidate) {
+    let REFORMAT_ORGS = [];
     onMount(() => {
       console.log("Segments:", segments2);
       console.log("User:", user2);
       console.log("Orgs:", orgs);
+      REFORMAT_ORGS = reformatorgs();
+      console.log("Reformatted ORGS:", REFORMAT_ORGS);
     });
-    return [];
+    let popUpOrgChild, isSubmitAddOrgChild = false;
+    let childName = "", headTitle = "", parentId = Number(orgs[0].id), orgType = "department";
+    async function submitAddOrgChild() {
+      $invalidate(1, isSubmitAddOrgChild = true);
+      if (childName === "") {
+        $invalidate(1, isSubmitAddOrgChild = false);
+        notifier.showWarning("coa name cannot be empty");
+        return;
+      }
+      await (0, import_jsApi.TenantAdminCreateOrganizationChild)(
+        {
+          name: childName,
+          headTitle,
+          parentId,
+          orgType
+        },
+        // @ts-ignore
+        function(o) {
+          if (o.error) {
+            popUpOrgChild.hide();
+            $invalidate(1, isSubmitAddOrgChild = false);
+            notifier.showError(o.error);
+            console.log(o.error);
+            return;
+          }
+          popUpOrgChild.hide();
+          $invalidate(1, isSubmitAddOrgChild = false);
+          console.log(o);
+          notifier.showSuccess("Department child created");
+        }
+      );
+    }
+    function popuporgchild_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        popUpOrgChild = $value;
+        $invalidate(0, popUpOrgChild);
+      });
+    }
+    function popuporgchild_isSubmitted_binding(value) {
+      isSubmitAddOrgChild = value;
+      $invalidate(1, isSubmitAddOrgChild);
+    }
+    function popuporgchild_childName_binding(value) {
+      childName = value;
+      $invalidate(2, childName);
+    }
+    function popuporgchild_headTitle_binding(value) {
+      headTitle = value;
+      $invalidate(3, headTitle);
+    }
+    const click_handler = () => popUpOrgChild.show();
+    return [
+      popUpOrgChild,
+      isSubmitAddOrgChild,
+      childName,
+      headTitle,
+      submitAddOrgChild,
+      popuporgchild_binding,
+      popuporgchild_isSubmitted_binding,
+      popuporgchild_childName_binding,
+      popuporgchild_headTitle_binding,
+      click_handler
+    ];
   }
   var TenantAdmin_organization = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance7, create_fragment7, safe_not_equal, {});
+      init(this, options, instance9, create_fragment9, safe_not_equal, {});
     }
   };
   var tenantAdmin_organization_default = TenantAdmin_organization;
