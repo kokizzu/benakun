@@ -934,13 +934,11 @@ exports.TenantAdminCreateCoaChild = async function TenantAdminCreateCoaChild( i,
  * @property {String} name
  * @property {String} headTitle
  * @property {number} parentId
- * @property {String} orgType
  */
 const TenantAdminCreateOrganizationChildIn = {
   name: '', // string
   headTitle: '', // string
   parentId: 0, // uint64
-  orgType: '', // string
 }
 /**
  * @typedef {Object} TenantAdminCreateOrganizationChildOut

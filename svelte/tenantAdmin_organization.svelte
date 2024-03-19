@@ -1,18 +1,10 @@
 <script>
   import MainLayout from './_layouts/mainLayout.svelte';
   import { onMount } from 'svelte';
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import RiBuildingsCommunityLine from 'svelte-icons-pack/ri/RiBuildingsCommunityLine';
-  import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
-  import RiDesignPencilLine from 'svelte-icons-pack/ri/RiDesignPencilLine';
-  import RiSystemDeleteBinLine from 'svelte-icons-pack/ri/RiSystemDeleteBinLine';
-  import RiSystemInformationLine from 'svelte-icons-pack/ri/RiSystemInformationLine';
-  import RiBuildingsBuilding2Line from 'svelte-icons-pack/ri/RiBuildingsBuilding2Line';
-  import RiUserTeamLine from "svelte-icons-pack/ri/RiUserTeamLine";
-  import RiBusinessBriefcaseLine from "svelte-icons-pack/ri/RiBusinessBriefcaseLine";
   import PopUpOrgChild from './_components/PopUpOrgChild.svelte';
   import { TenantAdminCreateOrganizationChild } from './jsApi.GEN';
   import { notifier } from './_components/notifier';
+  import OrgTree from './_components/OrgTree.svelte';
 
   let segments = {/* segments */};
   let user = {/* user */};
@@ -73,6 +65,8 @@
         orgFormatted.id = orgs[i].id
         orgFormatted.name = orgs[i].name
         orgFormatted.headTitle = orgs[i].headTitle
+        orgFormatted.orgType = orgs[i].orgType
+        orgFormatted.tenantCode = orgs[i].tenantCode
         orgFormatted.parentId = orgs[i].parentId
         orgFormatted.createdAt = orgs[i].createdAt
         orgFormatted.createdBy = orgs[i].createdBy
@@ -113,7 +107,7 @@
   })
 
   let popUpOrgChild, isSubmitAddOrgChild = false;
-  let childName = '', headTitle = '', parentId = Number(orgs[0].id), orgType = 'department';
+  let childName = '', headTitle = '', parentId = Number(orgs[0].id);
   async function submitAddOrgChild() {
     isSubmitAddOrgChild = true;
     if (childName === '') {
@@ -126,7 +120,6 @@
         name: childName,
         headTitle: headTitle,
         parentId: parentId,
-        orgType: orgType
       },
       // @ts-ignore
       function (o) {
@@ -159,308 +152,20 @@
 
 <MainLayout>
   <div>
-    <div class="org">
-      <div class="company">
-        <div class="info">
-          <div class="label">
-            <Icon
-              color="#FFF"
-              className="icon"
-              size="16"
-              src={RiBuildingsCommunityLine}
-            />
-          </div>
-          <span class="title">{orgs[0].name}</span>
-        </div>
-        <div class="options">
-          <button class="btn" title="Add department" on:click={() => popUpOrgChild.show()}>
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemAddBoxLine}
-            />
-          </button>
-          <button class="btn" title="Edit company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiDesignPencilLine}
-            />
-          </button>
-          <button class="btn" title="Delete company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemDeleteBinLine}
-            />
-          </button>
-          <button class="btn" title="Info">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemInformationLine}
-            />
-          </button>
-        </div>
+    {#if REFORMAT_ORGS && REFORMAT_ORGS.length}
+      <div class="orgs">
+        {#each REFORMAT_ORGS as org}
+          <OrgTree {org} />
+        {/each}
       </div>
-      <div class="department">
-        <div class="info">
-          <span class="h-line"></span>
-          <div class="label">
-            <Icon
-              color="#FFF"
-              className="icon"
-              size="16"
-              src={RiBuildingsBuilding2Line}
-            />
-          </div>
-          <span class="title">{orgs[0].name}</span>
-        </div>
-        <div class="options">
-          <button class="btn" title="Add department">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemAddBoxLine}
-            />
-          </button>
-          <button class="btn" title="Edit company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiDesignPencilLine}
-            />
-          </button>
-          <button class="btn" title="Delete company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemDeleteBinLine}
-            />
-          </button>
-          <button class="btn" title="Info">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemInformationLine}
-            />
-          </button>
-        </div>
-      </div>
-      <div class="division">
-        <div class="info">
-          <span class="h-line"></span>
-          <div class="label">
-            <Icon
-              color="#FFF"
-              className="icon"
-              size="16"
-              src={RiUserTeamLine}
-            />
-          </div>
-          <span class="title">{orgs[0].name}</span>
-        </div>
-        <div class="options">
-          <button class="btn" title="Add department">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemAddBoxLine}
-            />
-          </button>
-          <button class="btn" title="Edit company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiDesignPencilLine}
-            />
-          </button>
-          <button class="btn" title="Delete company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemDeleteBinLine}
-            />
-          </button>
-          <button class="btn" title="Info">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemInformationLine}
-            />
-          </button>
-        </div>
-      </div>
-      <div class="job">
-        <div class="info">
-          <span class="h-line"></span>
-          <div class="label">
-            <Icon
-              color="#FFF"
-              className="icon"
-              size="16"
-              src={RiBusinessBriefcaseLine}
-            />
-          </div>
-          <span class="title">{orgs[0].name}</span>
-        </div>
-        <div class="options">
-          <button class="btn" title="Add department">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemAddBoxLine}
-            />
-          </button>
-          <button class="btn" title="Edit company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiDesignPencilLine}
-            />
-          </button>
-          <button class="btn" title="Delete company">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemDeleteBinLine}
-            />
-          </button>
-          <button class="btn" title="Info">
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemInformationLine}
-            />
-          </button>
-        </div>
-      </div>
-    </div>
+    {/if}
   </div>
 </MainLayout>
 
 <style>
-  .org {
+  .orgs {
     display: flex;
     flex-direction: column;
     gap: 10px;
-  }
-
-  .org .company,
-  .org .department,
-  .org .division,
-  .org .job {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    gap: 40px;
-    padding: 5px 0;
-  }
-
-  .org .department {
-    padding-left: 30px;
-  }
-
-  .org .department .info .label {
-    background-color: var(--orange-006);
-  }
-
-  .org .division {
-    padding-left: 50px;
-  }
-
-  .org .division .info .label {
-    background-color: var(--green-006);
-  }
-
-  .org .job {
-    padding-left: 70px;
-  }
-
-  .org .job .info .label {
-    background-color: var(--gray-006);
-  }
-
-  .org .info {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    gap: 10px;
-    position: relative;
-  }
-
-  .org .info .h-line {
-    position: absolute;
-    left: -15px;
-    width: 1px;
-    height: 50px;
-    background-color: var(--gray-003);
-  }
-
-  .org .info .label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: fit-content;
-    height: fit-content;
-    padding: 7px;
-    border-radius: 9999px;
-    background-color: var(--blue-006);
-    color: #FFF;
-  }
-
-  .org .info .title {
-    font-size: 18px;
-    font-weight: 600;
-  }
-
-  .org .company:hover .options,
-  .org .department:hover .options,
-  .org .division:hover .options,
-  .org .job:hover .options {
-    display: flex;
-    cursor: pointer;
-  }
-
-  .org .options {
-    display: none;
-    flex-direction: row;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .org .options .btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    background-color: transparent;
-    border-radius: 5px;
-    padding: 5px;
-    cursor: pointer;
-  }
-
-  .org .options .btn:hover {
-    background-color: var(--gray-002);
-  }
-
-  .org .options .btn:active {
-    background-color: var(--gray-003);
   }
 </style>

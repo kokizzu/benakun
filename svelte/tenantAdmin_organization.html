@@ -668,55 +668,50 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   background-color: #fbbf2450;
 }
 
-/* fakecss:./tenantAdmin_organization.esbuild-svelte-fake-css */
-.org.svelte-1eu133j.svelte-1eu133j {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.org.svelte-1eu133j .company.svelte-1eu133j,
-.org.svelte-1eu133j .department.svelte-1eu133j,
-.org.svelte-1eu133j .division.svelte-1eu133j,
-.org.svelte-1eu133j .job.svelte-1eu133j {
+/* fakecss:./_components/OrgTree.esbuild-svelte-fake-css */
+.org.company.svelte-mdtr1j.svelte-mdtr1j,
+.org.department.svelte-mdtr1j.svelte-mdtr1j,
+.org.division.svelte-mdtr1j.svelte-mdtr1j,
+.org.job.svelte-mdtr1j.svelte-mdtr1j {
   display: flex;
   align-items: center;
   flex-direction: row;
   gap: 40px;
   padding: 5px 0;
 }
-.org.svelte-1eu133j .department.svelte-1eu133j {
+.org.department.svelte-mdtr1j.svelte-mdtr1j {
   padding-left: 30px;
 }
-.org.svelte-1eu133j .department .info .label.svelte-1eu133j {
+.org.department.svelte-mdtr1j .info .label.svelte-mdtr1j {
   background-color: var(--orange-006);
 }
-.org.svelte-1eu133j .division.svelte-1eu133j {
+.org.division.svelte-mdtr1j.svelte-mdtr1j {
   padding-left: 50px;
 }
-.org.svelte-1eu133j .division .info .label.svelte-1eu133j {
+.org.division.svelte-mdtr1j .info .label.svelte-mdtr1j {
   background-color: var(--green-006);
 }
-.org.svelte-1eu133j .job.svelte-1eu133j {
+.org.job.svelte-mdtr1j.svelte-mdtr1j {
   padding-left: 70px;
 }
-.org.svelte-1eu133j .job .info .label.svelte-1eu133j {
+.org.job.svelte-mdtr1j .info .label.svelte-mdtr1j {
   background-color: var(--gray-006);
 }
-.org.svelte-1eu133j .info.svelte-1eu133j {
+.org.svelte-mdtr1j .info.svelte-mdtr1j {
   display: flex;
   align-items: center;
   flex-direction: row;
   gap: 10px;
   position: relative;
 }
-.org.svelte-1eu133j .info .h-line.svelte-1eu133j {
+.org.svelte-mdtr1j .info .h-line.svelte-mdtr1j {
   position: absolute;
   left: -15px;
   width: 1px;
   height: 50px;
   background-color: var(--gray-003);
 }
-.org.svelte-1eu133j .info .label.svelte-1eu133j {
+.org.svelte-mdtr1j .info .label.svelte-mdtr1j {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -727,24 +722,24 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   background-color: var(--blue-006);
   color: #FFF;
 }
-.org.svelte-1eu133j .info .title.svelte-1eu133j {
+.org.svelte-mdtr1j .info .title.svelte-mdtr1j {
   font-size: 18px;
   font-weight: 600;
 }
-.org.svelte-1eu133j .company:hover .options.svelte-1eu133j,
-.org.svelte-1eu133j .department:hover .options.svelte-1eu133j,
-.org.svelte-1eu133j .division:hover .options.svelte-1eu133j,
-.org.svelte-1eu133j .job:hover .options.svelte-1eu133j {
+.org.company.svelte-mdtr1j:hover .options.svelte-mdtr1j,
+.org.department.svelte-mdtr1j:hover .options.svelte-mdtr1j,
+.org.division.svelte-mdtr1j:hover .options.svelte-mdtr1j,
+.org.job.svelte-mdtr1j:hover .options.svelte-mdtr1j {
   display: flex;
   cursor: pointer;
 }
-.org.svelte-1eu133j .options.svelte-1eu133j {
+.org.svelte-mdtr1j .options.svelte-mdtr1j {
   display: none;
   flex-direction: row;
   align-items: center;
   gap: 5px;
 }
-.org.svelte-1eu133j .options .btn.svelte-1eu133j {
+.org.svelte-mdtr1j .options .btn.svelte-mdtr1j {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -754,11 +749,18 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   padding: 5px;
   cursor: pointer;
 }
-.org.svelte-1eu133j .options .btn.svelte-1eu133j:hover {
+.org.svelte-mdtr1j .options .btn.svelte-mdtr1j:hover {
   background-color: var(--gray-002);
 }
-.org.svelte-1eu133j .options .btn.svelte-1eu133j:active {
+.org.svelte-mdtr1j .options .btn.svelte-mdtr1j:active {
   background-color: var(--gray-003);
+}
+
+/* fakecss:./tenantAdmin_organization.esbuild-svelte-fake-css */
+.orgs.svelte-18j6nhg {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 </style>
 <script>(() => {
@@ -2772,13 +2774,13 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance10 = bind2(Axios$1.prototype.request, context);
-        utils$1.extend(instance10, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance10, context, null, { allOwnKeys: true });
-        instance10.create = function create(instanceConfig) {
+        const instance11 = bind2(Axios$1.prototype.request, context);
+        utils$1.extend(instance11, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance11, context, null, { allOwnKeys: true });
+        instance11.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance10;
+        return instance11;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -3077,6 +3079,12 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       node.parentNode.removeChild(node);
     }
   }
+  function destroy_each(iterations, detaching) {
+    for (let i = 0; i < iterations.length; i += 1) {
+      if (iterations[i])
+        iterations[i].d(detaching);
+    }
+  }
   function element(name) {
     return document.createElement(name);
   }
@@ -3088,6 +3096,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   }
   function space() {
     return text(" ");
+  }
+  function empty() {
+    return text("");
   }
   function comment(content) {
     return document.createComment(content);
@@ -3274,6 +3285,11 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     }
   }
 
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/each.js
+  function ensure_array_like(array_like_or_iterator) {
+    return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
+  }
+
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/spread.js
   function get_spread_update(levels, updates) {
     const update2 = {};
@@ -3384,7 +3400,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance10, create_fragment10, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance11, create_fragment11, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3410,7 +3426,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance10 ? instance10(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance11 ? instance11(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -3423,7 +3439,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment10 ? create_fragment10($.ctx) : false;
+    $.fragment = create_fragment11 ? create_fragment11($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -5202,62 +5218,6 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   };
   var mainLayout_default = MainLayout;
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemAddBoxLine.js
-  var RiSystemAddBoxLine_default = {
-    a: {
-      viewBox: "0 0 24 24"
-    },
-    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6 6V7h2v4h4v2h-4v4h-2v-4H7v-2h4z"></path></g>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiDesignPencilLine.js
-  var RiDesignPencilLine_default = {
-    a: {
-      viewBox: "0 0 24 24"
-    },
-    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M15.728 9.686l-1.414-1.414L5 17.586V19h1.414l9.314-9.314zm1.414-1.414l1.414-1.414-1.414-1.414-1.414 1.414 1.414 1.414zM7.242 21H3v-4.243L16.435 3.322a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414L7.243 21z"></path></g>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemDeleteBinLine.js
-  var RiSystemDeleteBinLine_default = {
-    a: {
-      viewBox: "0 0 24 24"
-    },
-    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M17 6h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3zm1 2H6v12h12V8zm-9 3h2v6H9v-6zm4 0h2v6h-2v-6zM9 4v2h6V4H9z"></path></g>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemInformationLine.js
-  var RiSystemInformationLine_default = {
-    a: {
-      viewBox: "0 0 24 24"
-    },
-    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM11 7h2v2h-2V7zm0 4h2v6h-2v-6z"></path></g>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiBuildingsBuilding2Line.js
-  var RiBuildingsBuilding2Line_default = {
-    a: {
-      viewBox: "0 0 24 24"
-    },
-    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M3 19V5.7a1 1 0 0 1 .658-.94l9.671-3.516a.5.5 0 0 1 .671.47v4.953l6.316 2.105a1 1 0 0 1 .684.949V19h2v2H1v-2h2zm2 0h7V3.855L5 6.401V19zm14 0v-8.558l-5-1.667V19h5z"></path></g>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiUserTeamLine.js
-  var RiUserTeamLine_default = {
-    a: {
-      viewBox: "0 0 24 24"
-    },
-    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path fill-rule="nonzero" d="M12 11a5 5 0 0 1 5 5v6h-2v-6a3 3 0 0 0-2.824-2.995L12 13a3 3 0 0 0-2.995 2.824L9 16v6H7v-6a5 5 0 0 1 5-5zm-6.5 3c.279 0 .55.033.81.094a5.947 5.947 0 0 0-.301 1.575L6 16v.086a1.492 1.492 0 0 0-.356-.08L5.5 16a1.5 1.5 0 0 0-1.493 1.356L4 17.5V22H2v-4.5A3.5 3.5 0 0 1 5.5 14zm13 0a3.5 3.5 0 0 1 3.5 3.5V22h-2v-4.5a1.5 1.5 0 0 0-1.356-1.493L18.5 16c-.175 0-.343.03-.5.085V16c0-.666-.108-1.306-.309-1.904.259-.063.53-.096.809-.096zm-13-6a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm13 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm-13 2a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1zm13 0a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1zM12 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"></path></g>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiBusinessBriefcaseLine.js
-  var RiBusinessBriefcaseLine_default = {
-    a: {
-      viewBox: "0 0 24 24"
-    },
-    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M7 5V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4zM4 16v3h16v-3H4zm0-2h16V7H4v7zM9 3v2h6V3H9zm2 8h2v2h-2v-2z"></path></g>'
-  };
-
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ai/AiOutlineEye.js
   var AiOutlineEye_default = {
     a: {
@@ -6106,103 +6066,227 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
 
   // tenantAdmin_organization.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
-  function create_default_slot(ctx) {
-    let div17;
-    let div16;
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemAddBoxLine.js
+  var RiSystemAddBoxLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6 6V7h2v4h4v2h-4v4h-2v-4H7v-2h4z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiDesignPencilLine.js
+  var RiDesignPencilLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M15.728 9.686l-1.414-1.414L5 17.586V19h1.414l9.314-9.314zm1.414-1.414l1.414-1.414-1.414-1.414-1.414 1.414 1.414 1.414zM7.242 21H3v-4.243L16.435 3.322a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414L7.243 21z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemDeleteBinLine.js
+  var RiSystemDeleteBinLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M17 6h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3zm1 2H6v12h12V8zm-9 3h2v6H9v-6zm4 0h2v6h-2v-6zM9 4v2h6V4H9z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemInformationLine.js
+  var RiSystemInformationLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM11 7h2v2h-2V7zm0 4h2v6h-2v-6z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiBuildingsBuilding2Line.js
+  var RiBuildingsBuilding2Line_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M3 19V5.7a1 1 0 0 1 .658-.94l9.671-3.516a.5.5 0 0 1 .671.47v4.953l6.316 2.105a1 1 0 0 1 .684.949V19h2v2H1v-2h2zm2 0h7V3.855L5 6.401V19zm14 0v-8.558l-5-1.667V19h5z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiUserTeamLine.js
+  var RiUserTeamLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path fill-rule="nonzero" d="M12 11a5 5 0 0 1 5 5v6h-2v-6a3 3 0 0 0-2.824-2.995L12 13a3 3 0 0 0-2.995 2.824L9 16v6H7v-6a5 5 0 0 1 5-5zm-6.5 3c.279 0 .55.033.81.094a5.947 5.947 0 0 0-.301 1.575L6 16v.086a1.492 1.492 0 0 0-.356-.08L5.5 16a1.5 1.5 0 0 0-1.493 1.356L4 17.5V22H2v-4.5A3.5 3.5 0 0 1 5.5 14zm13 0a3.5 3.5 0 0 1 3.5 3.5V22h-2v-4.5a1.5 1.5 0 0 0-1.356-1.493L18.5 16c-.175 0-.343.03-.5.085V16c0-.666-.108-1.306-.309-1.904.259-.063.53-.096.809-.096zm-13-6a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm13 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm-13 2a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1zm13 0a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1zM12 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiBusinessBriefcaseLine.js
+  var RiBusinessBriefcaseLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M7 5V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4zM4 16v3h16v-3H4zm0-2h16V7H4v7zM9 3v2h6V3H9zm2 8h2v2h-2v-2z"></path></g>'
+  };
+
+  // _components/OrgTree.svelte
+  function get_each_context(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[3] = list[i];
+    return child_ctx;
+  }
+  function create_if_block4(ctx) {
+    let each_1_anchor;
+    let current;
+    let each_value = ensure_array_like(
+      /*org*/
+      ctx[0].children
+    );
+    let each_blocks = [];
+    for (let i = 0; i < each_value.length; i += 1) {
+      each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    }
+    const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
+      each_blocks[i] = null;
+    });
+    return {
+      c() {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        each_1_anchor = empty();
+      },
+      m(target, anchor) {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(target, anchor);
+          }
+        }
+        insert(target, each_1_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*org*/
+        1) {
+          each_value = ensure_array_like(
+            /*org*/
+            ctx2[0].children
+          );
+          let i;
+          for (i = 0; i < each_value.length; i += 1) {
+            const child_ctx = get_each_context(ctx2, each_value, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+              transition_in(each_blocks[i], 1);
+            } else {
+              each_blocks[i] = create_each_block(child_ctx);
+              each_blocks[i].c();
+              transition_in(each_blocks[i], 1);
+              each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+            }
+          }
+          group_outros();
+          for (i = each_value.length; i < each_blocks.length; i += 1) {
+            out(i);
+          }
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        for (let i = 0; i < each_value.length; i += 1) {
+          transition_in(each_blocks[i]);
+        }
+        current = true;
+      },
+      o(local) {
+        each_blocks = each_blocks.filter(Boolean);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          transition_out(each_blocks[i]);
+        }
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(each_1_anchor);
+        }
+        destroy_each(each_blocks, detaching);
+      }
+    };
+  }
+  function create_each_block(ctx) {
+    let orgtree;
+    let current;
+    orgtree = new OrgTree({ props: { org: (
+      /*child*/
+      ctx[3]
+    ) } });
+    return {
+      c() {
+        create_component(orgtree.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(orgtree, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const orgtree_changes = {};
+        if (dirty & /*org*/
+        1)
+          orgtree_changes.org = /*child*/
+          ctx2[3];
+        orgtree.$set(orgtree_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(orgtree.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(orgtree.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(orgtree, detaching);
+      }
+    };
+  }
+  function create_fragment9(ctx) {
     let div3;
     let div1;
+    let span0;
+    let t0;
     let div0;
     let icon0;
-    let t0;
-    let span0;
+    let t1;
+    let span1;
+    let t2_value = (
+      /*org*/
+      ctx[0].name + ""
+    );
     let t2;
+    let t3;
     let div2;
     let button0;
     let icon1;
-    let t3;
+    let t4;
     let button1;
     let icon2;
-    let t4;
+    let t5;
     let button2;
     let icon3;
-    let t5;
+    let t6;
     let button3;
     let icon4;
-    let t6;
-    let div7;
-    let div5;
-    let span1;
+    let div3_class_value;
     let t7;
-    let div4;
-    let icon5;
-    let t8;
-    let span2;
-    let t10;
-    let div6;
-    let button4;
-    let icon6;
-    let t11;
-    let button5;
-    let icon7;
-    let t12;
-    let button6;
-    let icon8;
-    let t13;
-    let button7;
-    let icon9;
-    let t14;
-    let div11;
-    let div9;
-    let span3;
-    let t15;
-    let div8;
-    let icon10;
-    let t16;
-    let span4;
-    let t18;
-    let div10;
-    let button8;
-    let icon11;
-    let t19;
-    let button9;
-    let icon12;
-    let t20;
-    let button10;
-    let icon13;
-    let t21;
-    let button11;
-    let icon14;
-    let t22;
-    let div15;
-    let div13;
-    let span5;
-    let t23;
-    let div12;
-    let icon15;
-    let t24;
-    let span6;
-    let t26;
-    let div14;
-    let button12;
-    let icon16;
-    let t27;
-    let button13;
-    let icon17;
-    let t28;
-    let button14;
-    let icon18;
-    let t29;
-    let button15;
-    let icon19;
+    let if_block_anchor;
     let current;
-    let mounted;
-    let dispose;
     icon0 = new Icon_default({
       props: {
         color: "#FFF",
         className: "icon",
         size: "16",
-        src: RiBuildingsCommunityLine_default
+        src: (
+          /*orgIcon*/
+          ctx[2]
+        )
       }
     });
     icon1 = new Icon_default({
@@ -6237,376 +6321,123 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         src: RiSystemInformationLine_default
       }
     });
-    icon5 = new Icon_default({
-      props: {
-        color: "#FFF",
-        className: "icon",
-        size: "16",
-        src: RiBuildingsBuilding2Line_default
-      }
-    });
-    icon6 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemAddBoxLine_default
-      }
-    });
-    icon7 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiDesignPencilLine_default
-      }
-    });
-    icon8 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemDeleteBinLine_default
-      }
-    });
-    icon9 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemInformationLine_default
-      }
-    });
-    icon10 = new Icon_default({
-      props: {
-        color: "#FFF",
-        className: "icon",
-        size: "16",
-        src: RiUserTeamLine_default
-      }
-    });
-    icon11 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemAddBoxLine_default
-      }
-    });
-    icon12 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiDesignPencilLine_default
-      }
-    });
-    icon13 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemDeleteBinLine_default
-      }
-    });
-    icon14 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemInformationLine_default
-      }
-    });
-    icon15 = new Icon_default({
-      props: {
-        color: "#FFF",
-        className: "icon",
-        size: "16",
-        src: RiBusinessBriefcaseLine_default
-      }
-    });
-    icon16 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemAddBoxLine_default
-      }
-    });
-    icon17 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiDesignPencilLine_default
-      }
-    });
-    icon18 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemDeleteBinLine_default
-      }
-    });
-    icon19 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemInformationLine_default
-      }
-    });
+    let if_block = (
+      /*org*/
+      ctx[0].children && create_if_block4(ctx)
+    );
     return {
       c() {
-        div17 = element("div");
-        div16 = element("div");
         div3 = element("div");
         div1 = element("div");
+        span0 = element("span");
+        t0 = space();
         div0 = element("div");
         create_component(icon0.$.fragment);
-        t0 = space();
-        span0 = element("span");
-        span0.textContent = `${orgs[0].name}`;
-        t2 = space();
+        t1 = space();
+        span1 = element("span");
+        t2 = text(t2_value);
+        t3 = space();
         div2 = element("div");
         button0 = element("button");
         create_component(icon1.$.fragment);
-        t3 = space();
+        t4 = space();
         button1 = element("button");
         create_component(icon2.$.fragment);
-        t4 = space();
+        t5 = space();
         button2 = element("button");
         create_component(icon3.$.fragment);
-        t5 = space();
+        t6 = space();
         button3 = element("button");
         create_component(icon4.$.fragment);
-        t6 = space();
-        div7 = element("div");
-        div5 = element("div");
-        span1 = element("span");
         t7 = space();
-        div4 = element("div");
-        create_component(icon5.$.fragment);
-        t8 = space();
-        span2 = element("span");
-        span2.textContent = `${orgs[0].name}`;
-        t10 = space();
-        div6 = element("div");
-        button4 = element("button");
-        create_component(icon6.$.fragment);
-        t11 = space();
-        button5 = element("button");
-        create_component(icon7.$.fragment);
-        t12 = space();
-        button6 = element("button");
-        create_component(icon8.$.fragment);
-        t13 = space();
-        button7 = element("button");
-        create_component(icon9.$.fragment);
-        t14 = space();
-        div11 = element("div");
-        div9 = element("div");
-        span3 = element("span");
-        t15 = space();
-        div8 = element("div");
-        create_component(icon10.$.fragment);
-        t16 = space();
-        span4 = element("span");
-        span4.textContent = `${orgs[0].name}`;
-        t18 = space();
-        div10 = element("div");
-        button8 = element("button");
-        create_component(icon11.$.fragment);
-        t19 = space();
-        button9 = element("button");
-        create_component(icon12.$.fragment);
-        t20 = space();
-        button10 = element("button");
-        create_component(icon13.$.fragment);
-        t21 = space();
-        button11 = element("button");
-        create_component(icon14.$.fragment);
-        t22 = space();
-        div15 = element("div");
-        div13 = element("div");
-        span5 = element("span");
-        t23 = space();
-        div12 = element("div");
-        create_component(icon15.$.fragment);
-        t24 = space();
-        span6 = element("span");
-        span6.textContent = `${orgs[0].name}`;
-        t26 = space();
-        div14 = element("div");
-        button12 = element("button");
-        create_component(icon16.$.fragment);
-        t27 = space();
-        button13 = element("button");
-        create_component(icon17.$.fragment);
-        t28 = space();
-        button14 = element("button");
-        create_component(icon18.$.fragment);
-        t29 = space();
-        button15 = element("button");
-        create_component(icon19.$.fragment);
-        attr(div0, "class", "label svelte-1eu133j");
-        attr(span0, "class", "title svelte-1eu133j");
-        attr(div1, "class", "info svelte-1eu133j");
-        attr(button0, "class", "btn svelte-1eu133j");
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+        attr(span0, "class", "h-line svelte-mdtr1j");
+        attr(div0, "class", "label svelte-mdtr1j");
+        attr(span1, "class", "title svelte-mdtr1j");
+        attr(div1, "class", "info svelte-mdtr1j");
+        attr(button0, "class", "btn svelte-mdtr1j");
         attr(button0, "title", "Add department");
-        attr(button1, "class", "btn svelte-1eu133j");
+        attr(button1, "class", "btn svelte-mdtr1j");
         attr(button1, "title", "Edit company");
-        attr(button2, "class", "btn svelte-1eu133j");
+        attr(button2, "class", "btn svelte-mdtr1j");
         attr(button2, "title", "Delete company");
-        attr(button3, "class", "btn svelte-1eu133j");
+        attr(button3, "class", "btn svelte-mdtr1j");
         attr(button3, "title", "Info");
-        attr(div2, "class", "options svelte-1eu133j");
-        attr(div3, "class", "company svelte-1eu133j");
-        attr(span1, "class", "h-line svelte-1eu133j");
-        attr(div4, "class", "label svelte-1eu133j");
-        attr(span2, "class", "title svelte-1eu133j");
-        attr(div5, "class", "info svelte-1eu133j");
-        attr(button4, "class", "btn svelte-1eu133j");
-        attr(button4, "title", "Add department");
-        attr(button5, "class", "btn svelte-1eu133j");
-        attr(button5, "title", "Edit company");
-        attr(button6, "class", "btn svelte-1eu133j");
-        attr(button6, "title", "Delete company");
-        attr(button7, "class", "btn svelte-1eu133j");
-        attr(button7, "title", "Info");
-        attr(div6, "class", "options svelte-1eu133j");
-        attr(div7, "class", "department svelte-1eu133j");
-        attr(span3, "class", "h-line svelte-1eu133j");
-        attr(div8, "class", "label svelte-1eu133j");
-        attr(span4, "class", "title svelte-1eu133j");
-        attr(div9, "class", "info svelte-1eu133j");
-        attr(button8, "class", "btn svelte-1eu133j");
-        attr(button8, "title", "Add department");
-        attr(button9, "class", "btn svelte-1eu133j");
-        attr(button9, "title", "Edit company");
-        attr(button10, "class", "btn svelte-1eu133j");
-        attr(button10, "title", "Delete company");
-        attr(button11, "class", "btn svelte-1eu133j");
-        attr(button11, "title", "Info");
-        attr(div10, "class", "options svelte-1eu133j");
-        attr(div11, "class", "division svelte-1eu133j");
-        attr(span5, "class", "h-line svelte-1eu133j");
-        attr(div12, "class", "label svelte-1eu133j");
-        attr(span6, "class", "title svelte-1eu133j");
-        attr(div13, "class", "info svelte-1eu133j");
-        attr(button12, "class", "btn svelte-1eu133j");
-        attr(button12, "title", "Add department");
-        attr(button13, "class", "btn svelte-1eu133j");
-        attr(button13, "title", "Edit company");
-        attr(button14, "class", "btn svelte-1eu133j");
-        attr(button14, "title", "Delete company");
-        attr(button15, "class", "btn svelte-1eu133j");
-        attr(button15, "title", "Info");
-        attr(div14, "class", "options svelte-1eu133j");
-        attr(div15, "class", "job svelte-1eu133j");
-        attr(div16, "class", "org svelte-1eu133j");
+        attr(div2, "class", "options svelte-mdtr1j");
+        attr(div3, "class", div3_class_value = "org " + /*orgType*/
+        ctx[1] + " svelte-mdtr1j");
       },
       m(target, anchor) {
-        insert(target, div17, anchor);
-        append(div17, div16);
-        append(div16, div3);
+        insert(target, div3, anchor);
         append(div3, div1);
+        append(div1, span0);
+        append(div1, t0);
         append(div1, div0);
         mount_component(icon0, div0, null);
-        append(div1, t0);
-        append(div1, span0);
-        append(div3, t2);
+        append(div1, t1);
+        append(div1, span1);
+        append(span1, t2);
+        append(div3, t3);
         append(div3, div2);
         append(div2, button0);
         mount_component(icon1, button0, null);
-        append(div2, t3);
+        append(div2, t4);
         append(div2, button1);
         mount_component(icon2, button1, null);
-        append(div2, t4);
+        append(div2, t5);
         append(div2, button2);
         mount_component(icon3, button2, null);
-        append(div2, t5);
+        append(div2, t6);
         append(div2, button3);
         mount_component(icon4, button3, null);
-        append(div16, t6);
-        append(div16, div7);
-        append(div7, div5);
-        append(div5, span1);
-        append(div5, t7);
-        append(div5, div4);
-        mount_component(icon5, div4, null);
-        append(div5, t8);
-        append(div5, span2);
-        append(div7, t10);
-        append(div7, div6);
-        append(div6, button4);
-        mount_component(icon6, button4, null);
-        append(div6, t11);
-        append(div6, button5);
-        mount_component(icon7, button5, null);
-        append(div6, t12);
-        append(div6, button6);
-        mount_component(icon8, button6, null);
-        append(div6, t13);
-        append(div6, button7);
-        mount_component(icon9, button7, null);
-        append(div16, t14);
-        append(div16, div11);
-        append(div11, div9);
-        append(div9, span3);
-        append(div9, t15);
-        append(div9, div8);
-        mount_component(icon10, div8, null);
-        append(div9, t16);
-        append(div9, span4);
-        append(div11, t18);
-        append(div11, div10);
-        append(div10, button8);
-        mount_component(icon11, button8, null);
-        append(div10, t19);
-        append(div10, button9);
-        mount_component(icon12, button9, null);
-        append(div10, t20);
-        append(div10, button10);
-        mount_component(icon13, button10, null);
-        append(div10, t21);
-        append(div10, button11);
-        mount_component(icon14, button11, null);
-        append(div16, t22);
-        append(div16, div15);
-        append(div15, div13);
-        append(div13, span5);
-        append(div13, t23);
-        append(div13, div12);
-        mount_component(icon15, div12, null);
-        append(div13, t24);
-        append(div13, span6);
-        append(div15, t26);
-        append(div15, div14);
-        append(div14, button12);
-        mount_component(icon16, button12, null);
-        append(div14, t27);
-        append(div14, button13);
-        mount_component(icon17, button13, null);
-        append(div14, t28);
-        append(div14, button14);
-        mount_component(icon18, button14, null);
-        append(div14, t29);
-        append(div14, button15);
-        mount_component(icon19, button15, null);
+        insert(target, t7, anchor);
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
         current = true;
-        if (!mounted) {
-          dispose = listen(
-            button0,
-            "click",
-            /*click_handler*/
-            ctx[9]
-          );
-          mounted = true;
+      },
+      p(ctx2, [dirty]) {
+        const icon0_changes = {};
+        if (dirty & /*orgIcon*/
+        4)
+          icon0_changes.src = /*orgIcon*/
+          ctx2[2];
+        icon0.$set(icon0_changes);
+        if ((!current || dirty & /*org*/
+        1) && t2_value !== (t2_value = /*org*/
+        ctx2[0].name + ""))
+          set_data(t2, t2_value);
+        if (!current || dirty & /*orgType*/
+        2 && div3_class_value !== (div3_class_value = "org " + /*orgType*/
+        ctx2[1] + " svelte-mdtr1j")) {
+          attr(div3, "class", div3_class_value);
+        }
+        if (
+          /*org*/
+          ctx2[0].children
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*org*/
+            1) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block4(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
         }
       },
-      p: noop,
       i(local) {
         if (current)
           return;
@@ -6615,21 +6446,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         transition_in(icon2.$.fragment, local);
         transition_in(icon3.$.fragment, local);
         transition_in(icon4.$.fragment, local);
-        transition_in(icon5.$.fragment, local);
-        transition_in(icon6.$.fragment, local);
-        transition_in(icon7.$.fragment, local);
-        transition_in(icon8.$.fragment, local);
-        transition_in(icon9.$.fragment, local);
-        transition_in(icon10.$.fragment, local);
-        transition_in(icon11.$.fragment, local);
-        transition_in(icon12.$.fragment, local);
-        transition_in(icon13.$.fragment, local);
-        transition_in(icon14.$.fragment, local);
-        transition_in(icon15.$.fragment, local);
-        transition_in(icon16.$.fragment, local);
-        transition_in(icon17.$.fragment, local);
-        transition_in(icon18.$.fragment, local);
-        transition_in(icon19.$.fragment, local);
+        transition_in(if_block);
         current = true;
       },
       o(local) {
@@ -6638,53 +6455,264 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         transition_out(icon2.$.fragment, local);
         transition_out(icon3.$.fragment, local);
         transition_out(icon4.$.fragment, local);
-        transition_out(icon5.$.fragment, local);
-        transition_out(icon6.$.fragment, local);
-        transition_out(icon7.$.fragment, local);
-        transition_out(icon8.$.fragment, local);
-        transition_out(icon9.$.fragment, local);
-        transition_out(icon10.$.fragment, local);
-        transition_out(icon11.$.fragment, local);
-        transition_out(icon12.$.fragment, local);
-        transition_out(icon13.$.fragment, local);
-        transition_out(icon14.$.fragment, local);
-        transition_out(icon15.$.fragment, local);
-        transition_out(icon16.$.fragment, local);
-        transition_out(icon17.$.fragment, local);
-        transition_out(icon18.$.fragment, local);
-        transition_out(icon19.$.fragment, local);
+        transition_out(if_block);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(div17);
+          detach(div3);
+          detach(t7);
+          detach(if_block_anchor);
         }
         destroy_component(icon0);
         destroy_component(icon1);
         destroy_component(icon2);
         destroy_component(icon3);
         destroy_component(icon4);
-        destroy_component(icon5);
-        destroy_component(icon6);
-        destroy_component(icon7);
-        destroy_component(icon8);
-        destroy_component(icon9);
-        destroy_component(icon10);
-        destroy_component(icon11);
-        destroy_component(icon12);
-        destroy_component(icon13);
-        destroy_component(icon14);
-        destroy_component(icon15);
-        destroy_component(icon16);
-        destroy_component(icon17);
-        destroy_component(icon18);
-        destroy_component(icon19);
-        mounted = false;
-        dispose();
+        if (if_block)
+          if_block.d(detaching);
       }
     };
   }
-  function create_fragment9(ctx) {
+  var OrgTypeCompany = 1;
+  var OrgTypeDept = 2;
+  var OrgTypeDivision = 3;
+  var OrgTypeJob = 4;
+  function instance9($self, $props, $invalidate) {
+    let { org = {
+      id: "",
+      name: "",
+      headTitle: "",
+      orgType: 0,
+      parentId: "",
+      tenantCode: "",
+      createdAt: 0,
+      createdBy: "",
+      updatedAt: 0,
+      updatedBy: "",
+      deletedAt: 0,
+      children: []
+    } } = $props;
+    let orgType = "company", orgIcon = RiBuildingsCommunityLine_default;
+    switch (org.orgType) {
+      case OrgTypeCompany:
+        orgType = "company", orgIcon = RiBuildingsCommunityLine_default;
+        break;
+      case OrgTypeDept:
+        orgType = "department", orgIcon = RiBuildingsBuilding2Line_default;
+        break;
+      case OrgTypeDivision:
+        orgType = "division", orgIcon = RiUserTeamLine_default;
+        break;
+      case OrgTypeJob:
+        orgType = "job", orgIcon = RiBusinessBriefcaseLine_default;
+        break;
+    }
+    $self.$set = ($props2) => {
+      if ("org" in $props2)
+        $invalidate(0, org = $props2.org);
+    };
+    return [org, orgType, orgIcon];
+  }
+  var OrgTree = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance9, create_fragment9, safe_not_equal, { org: 0 });
+    }
+  };
+  var OrgTree_default = OrgTree;
+
+  // tenantAdmin_organization.svelte
+  function get_each_context2(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[11] = list[i];
+    return child_ctx;
+  }
+  function create_if_block5(ctx) {
+    let div;
+    let current;
+    let each_value = ensure_array_like(
+      /*REFORMAT_ORGS*/
+      ctx[0]
+    );
+    let each_blocks = [];
+    for (let i = 0; i < each_value.length; i += 1) {
+      each_blocks[i] = create_each_block2(get_each_context2(ctx, each_value, i));
+    }
+    const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
+      each_blocks[i] = null;
+    });
+    return {
+      c() {
+        div = element("div");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        attr(div, "class", "orgs svelte-18j6nhg");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(div, null);
+          }
+        }
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*REFORMAT_ORGS*/
+        1) {
+          each_value = ensure_array_like(
+            /*REFORMAT_ORGS*/
+            ctx2[0]
+          );
+          let i;
+          for (i = 0; i < each_value.length; i += 1) {
+            const child_ctx = get_each_context2(ctx2, each_value, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+              transition_in(each_blocks[i], 1);
+            } else {
+              each_blocks[i] = create_each_block2(child_ctx);
+              each_blocks[i].c();
+              transition_in(each_blocks[i], 1);
+              each_blocks[i].m(div, null);
+            }
+          }
+          group_outros();
+          for (i = each_value.length; i < each_blocks.length; i += 1) {
+            out(i);
+          }
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        for (let i = 0; i < each_value.length; i += 1) {
+          transition_in(each_blocks[i]);
+        }
+        current = true;
+      },
+      o(local) {
+        each_blocks = each_blocks.filter(Boolean);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          transition_out(each_blocks[i]);
+        }
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        destroy_each(each_blocks, detaching);
+      }
+    };
+  }
+  function create_each_block2(ctx) {
+    let orgtree;
+    let current;
+    orgtree = new OrgTree_default({ props: { org: (
+      /*org*/
+      ctx[11]
+    ) } });
+    return {
+      c() {
+        create_component(orgtree.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(orgtree, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const orgtree_changes = {};
+        if (dirty & /*REFORMAT_ORGS*/
+        1)
+          orgtree_changes.org = /*org*/
+          ctx2[11];
+        orgtree.$set(orgtree_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(orgtree.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(orgtree.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(orgtree, detaching);
+      }
+    };
+  }
+  function create_default_slot(ctx) {
+    let div;
+    let current;
+    let if_block = (
+      /*REFORMAT_ORGS*/
+      ctx[0] && /*REFORMAT_ORGS*/
+      ctx[0].length && create_if_block5(ctx)
+    );
+    return {
+      c() {
+        div = element("div");
+        if (if_block)
+          if_block.c();
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        if (if_block)
+          if_block.m(div, null);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (
+          /*REFORMAT_ORGS*/
+          ctx2[0] && /*REFORMAT_ORGS*/
+          ctx2[0].length
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*REFORMAT_ORGS*/
+            1) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block5(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(div, null);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        if (if_block)
+          if_block.d();
+      }
+    };
+  }
+  function create_fragment10(ctx) {
     let popuporgchild;
     let updating_isSubmitted;
     let updating_childName;
@@ -6693,41 +6721,41 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     let mainlayout;
     let current;
     function popuporgchild_isSubmitted_binding(value) {
-      ctx[6](value);
-    }
-    function popuporgchild_childName_binding(value) {
       ctx[7](value);
     }
-    function popuporgchild_headTitle_binding(value) {
+    function popuporgchild_childName_binding(value) {
       ctx[8](value);
+    }
+    function popuporgchild_headTitle_binding(value) {
+      ctx[9](value);
     }
     let popuporgchild_props = { onSubmit: (
       /*submitAddOrgChild*/
-      ctx[4]
+      ctx[5]
     ) };
     if (
       /*isSubmitAddOrgChild*/
-      ctx[1] !== void 0
-    ) {
-      popuporgchild_props.isSubmitted = /*isSubmitAddOrgChild*/
-      ctx[1];
-    }
-    if (
-      /*childName*/
       ctx[2] !== void 0
     ) {
-      popuporgchild_props.childName = /*childName*/
+      popuporgchild_props.isSubmitted = /*isSubmitAddOrgChild*/
       ctx[2];
     }
     if (
-      /*headTitle*/
+      /*childName*/
       ctx[3] !== void 0
     ) {
-      popuporgchild_props.headTitle = /*headTitle*/
+      popuporgchild_props.childName = /*childName*/
       ctx[3];
     }
+    if (
+      /*headTitle*/
+      ctx[4] !== void 0
+    ) {
+      popuporgchild_props.headTitle = /*headTitle*/
+      ctx[4];
+    }
     popuporgchild = new PopUpOrgChild_default({ props: popuporgchild_props });
-    ctx[5](popuporgchild);
+    ctx[6](popuporgchild);
     binding_callbacks.push(() => bind(popuporgchild, "isSubmitted", popuporgchild_isSubmitted_binding));
     binding_callbacks.push(() => bind(popuporgchild, "childName", popuporgchild_childName_binding));
     binding_callbacks.push(() => bind(popuporgchild, "headTitle", popuporgchild_headTitle_binding));
@@ -6752,30 +6780,30 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       p(ctx2, [dirty]) {
         const popuporgchild_changes = {};
         if (!updating_isSubmitted && dirty & /*isSubmitAddOrgChild*/
-        2) {
+        4) {
           updating_isSubmitted = true;
           popuporgchild_changes.isSubmitted = /*isSubmitAddOrgChild*/
-          ctx2[1];
+          ctx2[2];
           add_flush_callback(() => updating_isSubmitted = false);
         }
         if (!updating_childName && dirty & /*childName*/
-        4) {
+        8) {
           updating_childName = true;
           popuporgchild_changes.childName = /*childName*/
-          ctx2[2];
+          ctx2[3];
           add_flush_callback(() => updating_childName = false);
         }
         if (!updating_headTitle && dirty & /*headTitle*/
-        8) {
+        16) {
           updating_headTitle = true;
           popuporgchild_changes.headTitle = /*headTitle*/
-          ctx2[3];
+          ctx2[4];
           add_flush_callback(() => updating_headTitle = false);
         }
         popuporgchild.$set(popuporgchild_changes);
         const mainlayout_changes = {};
-        if (dirty & /*$scope, popUpOrgChild*/
-        8193) {
+        if (dirty & /*$scope, REFORMAT_ORGS*/
+        16385) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -6796,7 +6824,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         if (detaching) {
           detach(t);
         }
-        ctx[5](null);
+        ctx[6](null);
         destroy_component(popuporgchild, detaching);
         destroy_component(mainlayout, detaching);
       }
@@ -6833,6 +6861,8 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         orgFormatted.id = orgs[i].id;
         orgFormatted.name = orgs[i].name;
         orgFormatted.headTitle = orgs[i].headTitle;
+        orgFormatted.orgType = orgs[i].orgType;
+        orgFormatted.tenantCode = orgs[i].tenantCode;
         orgFormatted.parentId = orgs[i].parentId;
         orgFormatted.createdAt = orgs[i].createdAt;
         orgFormatted.createdBy = orgs[i].createdBy;
@@ -6858,42 +6888,37 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     }
     return toorgs;
   }
-  function instance9($self, $props, $invalidate) {
+  function instance10($self, $props, $invalidate) {
     let REFORMAT_ORGS = [];
     onMount(() => {
       console.log("Segments:", segments2);
       console.log("User:", user2);
       console.log("Orgs:", orgs);
-      REFORMAT_ORGS = reformatorgs();
+      $invalidate(0, REFORMAT_ORGS = reformatorgs());
       console.log("Reformatted ORGS:", REFORMAT_ORGS);
     });
     let popUpOrgChild, isSubmitAddOrgChild = false;
-    let childName = "", headTitle = "", parentId = Number(orgs[0].id), orgType = "department";
+    let childName = "", headTitle = "", parentId = Number(orgs[0].id);
     async function submitAddOrgChild() {
-      $invalidate(1, isSubmitAddOrgChild = true);
+      $invalidate(2, isSubmitAddOrgChild = true);
       if (childName === "") {
-        $invalidate(1, isSubmitAddOrgChild = false);
+        $invalidate(2, isSubmitAddOrgChild = false);
         notifier.showWarning("coa name cannot be empty");
         return;
       }
       await (0, import_jsApi.TenantAdminCreateOrganizationChild)(
-        {
-          name: childName,
-          headTitle,
-          parentId,
-          orgType
-        },
+        { name: childName, headTitle, parentId },
         // @ts-ignore
         function(o) {
           if (o.error) {
             popUpOrgChild.hide();
-            $invalidate(1, isSubmitAddOrgChild = false);
+            $invalidate(2, isSubmitAddOrgChild = false);
             notifier.showError(o.error);
             console.log(o.error);
             return;
           }
           popUpOrgChild.hide();
-          $invalidate(1, isSubmitAddOrgChild = false);
+          $invalidate(2, isSubmitAddOrgChild = false);
           console.log(o);
           notifier.showSuccess("Department child created");
         }
@@ -6902,23 +6927,23 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     function popuporgchild_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpOrgChild = $value;
-        $invalidate(0, popUpOrgChild);
+        $invalidate(1, popUpOrgChild);
       });
     }
     function popuporgchild_isSubmitted_binding(value) {
       isSubmitAddOrgChild = value;
-      $invalidate(1, isSubmitAddOrgChild);
+      $invalidate(2, isSubmitAddOrgChild);
     }
     function popuporgchild_childName_binding(value) {
       childName = value;
-      $invalidate(2, childName);
+      $invalidate(3, childName);
     }
     function popuporgchild_headTitle_binding(value) {
       headTitle = value;
-      $invalidate(3, headTitle);
+      $invalidate(4, headTitle);
     }
-    const click_handler = () => popUpOrgChild.show();
     return [
+      REFORMAT_ORGS,
       popUpOrgChild,
       isSubmitAddOrgChild,
       childName,
@@ -6927,14 +6952,13 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       popuporgchild_binding,
       popuporgchild_isSubmitted_binding,
       popuporgchild_childName_binding,
-      popuporgchild_headTitle_binding,
-      click_handler
+      popuporgchild_headTitle_binding
     ];
   }
   var TenantAdmin_organization = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance9, create_fragment9, safe_not_equal, {});
+      init(this, options, instance10, create_fragment10, safe_not_equal, {});
     }
   };
   var tenantAdmin_organization_default = TenantAdmin_organization;

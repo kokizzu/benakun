@@ -18,7 +18,6 @@ type (
 		Name string `json:"name" form:"name" query:"name" long:"name" msg:"name"`
 		HeadTitle   string `json:"headTitle" form:"headTitle" query:"headTitle" long:"headTitle" msg:"headTitle"`
 		ParentId uint64 `json:"parentId" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
-		OrgType string `json:"orgType" form:"orgType" query:"orgType" long:"orgType" msg:"orgType"`
 	}
 
 	TenantAdminCreateOrganizationChildOut struct {
@@ -70,24 +69,18 @@ func (d *Domain) TenantAdminCreateOrganizationChild(in *TenantAdminCreateOrganiz
 		return
 	}
 
-	// Job is the lowest level, cannot create child for it
-	if parent.OrgType == mAuth.OrgTypeJob {
-		out.SetError(400, ErrTenantAdminCreateOrganizationJobCannotAddChild)
-		return
-	}
-
 	// Create child
 	child := wcAuth.NewOrgsMutator(d.AuthOltp)
-	// payload should be string for readability
-	switch in.OrgType {
-	case `company`:
-		child.SetOrgType(mAuth.OrgTypeCompany)
-	case `department`:
+	switch parent.OrgType{
+	case mAuth.OrgTypeCompany:
 		child.SetOrgType(mAuth.OrgTypeDept)
-	case `division`:
+	case mAuth.OrgTypeDept:
 		child.SetOrgType(mAuth.OrgTypeDivision)
-	case `job`:
+	case mAuth.OrgTypeDivision:
 		child.SetOrgType(mAuth.OrgTypeJob)
+	case mAuth.OrgTypeJob:
+		out.SetError(400, ErrTenantAdminCreateOrganizationJobCannotAddChild)
+		return
 	default:
 		out.SetError(400, ErrTenantAdminCreateOrganizationInvalidOrgType)
 		return
