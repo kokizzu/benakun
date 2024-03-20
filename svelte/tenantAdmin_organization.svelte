@@ -1,9 +1,6 @@
 <script>
   import MainLayout from './_layouts/mainLayout.svelte';
   import { onMount } from 'svelte';
-  import PopUpOrgChild from './_components/PopUpOrgChild.svelte';
-  import { TenantAdminCreateOrganizationChild } from './jsApi.GEN';
-  import { notifier } from './_components/notifier';
   import OrgTree from './_components/OrgTree.svelte';
 
   let segments = {/* segments */};
@@ -106,66 +103,66 @@
     console.log('Reformatted ORGS:', REFORMAT_ORGS)
   })
 
-  let popUpOrgChild, isSubmitAddOrgChild = false;
-  let childName = '', headTitle = '', parentId = Number(orgs[0].id);
-  async function submitAddOrgChild() {
-    isSubmitAddOrgChild = true;
-    if (childName === '') {
-      isSubmitAddOrgChild = false;
-      notifier.showWarning('coa name cannot be empty');
-      return;
-    }
-    await TenantAdminCreateOrganizationChild(
-      {
-        name: childName,
-        headTitle: headTitle,
-        parentId: parentId,
-      },
-      // @ts-ignore
-      function (o) {
-        // @ts-ignore
-        if (o.error) {
-          popUpOrgChild.hide();
-          isSubmitAddOrgChild = false;
-          // @ts-ignore
-          notifier.showError(o.error);
-          // @ts-ignore
-          console.log(o.error);
-          return;
-        }
-        popUpOrgChild.hide();
-        isSubmitAddOrgChild = false;
-        console.log(o)
-        notifier.showSuccess('Department child created');
-      }
-    );
+  function updateEventHandler(e) {
+    orgs = e.detail.orgs;
+    REFORMAT_ORGS = [];
+    REFORMAT_ORGS = reformatorgs();
+  }
+
+  let infoOrg = orgs.length > 0 ? orgs[0] : null;
+
+  function infoEventHandler(e) {
+    infoOrg = e.detail.org;
   }
 </script>
 
-<PopUpOrgChild
-  bind:this={popUpOrgChild}
-  bind:isSubmitted={isSubmitAddOrgChild}
-  bind:childName={childName}
-  bind:headTitle={headTitle}
-  onSubmit={submitAddOrgChild}
-/>
-
 <MainLayout>
-  <div>
+  <div class="orgs_container">
     {#if REFORMAT_ORGS && REFORMAT_ORGS.length}
       <div class="orgs">
-        {#each REFORMAT_ORGS as org}
-          <OrgTree {org} />
+        {#each REFORMAT_ORGS as org, _ (org.id)}
+          <OrgTree
+            org={org}
+            on:update={updateEventHandler}
+            on:info={infoEventHandler}
+          />
         {/each}
+      </div>
+      <div class="info">
+        <h4>{infoOrg.name}</h4>
+        <h4>{infoOrg.headTitle}</h4>
+        <h4>{infoOrg.updatedAt}</h4>
       </div>
     {/if}
   </div>
 </MainLayout>
 
 <style>
+  .orgs_container {
+    display: grid;
+    grid-template-columns: auto 400px;
+    gap: 20px;
+  }
   .orgs {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    user-select: none;
+    display: flex;
+    height: fit-content;
+    background-color: #FFF;
+    border: 1px solid var(--gray-003);
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 15px 20px 25px 20px;
+  }
+
+  .info {
+    min-height: 100px;
+    height: fit-content;
+    border: 1px solid var(--gray-003);
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 20px;
   }
 </style>

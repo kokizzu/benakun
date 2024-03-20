@@ -1117,12 +1117,10 @@ exports.TenantAdminTerminateStaff = async function TenantAdminTerminateStaff( i,
  * @typedef {Object} TenantAdminUpdateCoaChildIn
  * @property {number} id
  * @property {String} name
- * @property {number} parentId
  */
 const TenantAdminUpdateCoaChildIn = {
   id: 0, // uint64
   name: '', // string
-  parentId: 0, // uint64
 }
 /**
  * @typedef {Object} TenantAdminUpdateCoaChildOut
@@ -1144,6 +1142,41 @@ const TenantAdminUpdateCoaChildOut = {
  */
 exports.TenantAdminUpdateCoaChild = async function TenantAdminUpdateCoaChild( i, cb ) {
   return await axios.post( '/tenantAdmin/updateCoaChild', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminUpdateOrganizationChildIn
+ * @property {number} id
+ * @property {String} name
+ * @property {String} headTitle
+ */
+const TenantAdminUpdateOrganizationChildIn = {
+  id: 0, // uint64
+  name: '', // string
+  headTitle: '', // string
+}
+/**
+ * @typedef {Object} TenantAdminUpdateOrganizationChildOut
+ * @property {Object} orgs
+ */
+const TenantAdminUpdateOrganizationChildOut = {
+  orgs: { // []rqAuth.Orgs
+  }, // []rqAuth.Orgs
+}
+/**
+ * @callback TenantAdminUpdateOrganizationChildCallback
+ * @param {TenantAdminUpdateOrganizationChildOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminUpdateOrganizationChildIn} i
+ * @param {TenantAdminUpdateOrganizationChildCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminUpdateOrganizationChild = async function TenantAdminUpdateOrganizationChild( i, cb ) {
+  return await axios.post( '/tenantAdmin/updateOrganizationChild', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

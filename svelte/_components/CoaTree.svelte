@@ -68,20 +68,19 @@
     switch (coaState) {
       case 'edit':
         await TenantAdminUpdateCoaChild(
-          { name: coaName, parentId: Number(coa.parentId), id: Number(coa.id) },
+          { name: coaName, id: Number(coa.id) },
           // @ts-ignore
           function (o) {
+            isSubmitted = false;
+            popUpCoaChild.hide();
             // @ts-ignore
             if (o.error) {
-              isSubmitted = false;
               // @ts-ignore
               notifier.showError(o.error);
               // @ts-ignore
               console.log(o.error);
               return;
             }
-            isSubmitted = false;
-            popUpCoaChild.hide();
             notifier.showSuccess(coaName + ' edited');
             // @ts-ignore
             dispatch('update', { coas: o.coa })
@@ -90,19 +89,19 @@
         break;
       case 'add':
         await TenantAdminCreateCoaChild(
+          { name: coaName, parentId: Number(coa.id) },
           // @ts-ignore
-          { name: coaName, parentId: Number(coa.id) }, function (o) {
+          function (o) {
+            isSubmitted = false;
+            popUpCoaChild.hide();
             // @ts-ignore
             if (o.error) {
-              isSubmitted = false;
               // @ts-ignore
               notifier.showError(o.error);
               // @ts-ignore
               console.log(o.error);
               return;
             }
-            isSubmitted = false;
-            popUpCoaChild.hide();
             notifier.showSuccess('Coa child created');
             // @ts-ignore
             dispatch('update', { coas: o.coa })

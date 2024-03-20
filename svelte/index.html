@@ -2852,6 +2852,9 @@ a.active.svelte-1pvhujp {
       exports.TenantAdminUpdateCoaChild = async function TenantAdminUpdateCoaChild(i, cb) {
         return await axios.post("/tenantAdmin/updateCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminUpdateOrganizationChild = async function TenantAdminUpdateOrganizationChild(i, cb) {
+        return await axios.post("/tenantAdmin/updateOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };

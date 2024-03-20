@@ -669,49 +669,55 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
 }
 
 /* fakecss:./_components/OrgTree.esbuild-svelte-fake-css */
-.org.company.svelte-mdtr1j.svelte-mdtr1j,
-.org.department.svelte-mdtr1j.svelte-mdtr1j,
-.org.division.svelte-mdtr1j.svelte-mdtr1j,
-.org.job.svelte-mdtr1j.svelte-mdtr1j {
+.org.company.svelte-1jlxmqq.svelte-1jlxmqq,
+.org.department.svelte-1jlxmqq.svelte-1jlxmqq,
+.org.division.svelte-1jlxmqq.svelte-1jlxmqq,
+.org.job.svelte-1jlxmqq.svelte-1jlxmqq {
   display: flex;
   align-items: center;
   flex-direction: row;
   gap: 40px;
   padding: 5px 0;
 }
-.org.department.svelte-mdtr1j.svelte-mdtr1j {
+.org.svelte-1jlxmqq.svelte-1jlxmqq:hover {
+  background-color: var(--gray-001);
+}
+.org.department.svelte-1jlxmqq.svelte-1jlxmqq {
   padding-left: 30px;
 }
-.org.department.svelte-mdtr1j .info .label.svelte-mdtr1j {
+.org.department.svelte-1jlxmqq .info .label.svelte-1jlxmqq {
   background-color: var(--orange-006);
 }
-.org.division.svelte-mdtr1j.svelte-mdtr1j {
+.org.division.svelte-1jlxmqq.svelte-1jlxmqq {
   padding-left: 50px;
 }
-.org.division.svelte-mdtr1j .info .label.svelte-mdtr1j {
+.org.division.svelte-1jlxmqq .info .label.svelte-1jlxmqq {
   background-color: var(--green-006);
 }
-.org.job.svelte-mdtr1j.svelte-mdtr1j {
+.org.job.svelte-1jlxmqq.svelte-1jlxmqq {
   padding-left: 70px;
 }
-.org.job.svelte-mdtr1j .info .label.svelte-mdtr1j {
+.org.job.svelte-1jlxmqq .info .label.svelte-1jlxmqq {
   background-color: var(--gray-006);
 }
-.org.svelte-mdtr1j .info.svelte-mdtr1j {
+.org.svelte-1jlxmqq .info.svelte-1jlxmqq {
   display: flex;
   align-items: center;
   flex-direction: row;
   gap: 10px;
   position: relative;
 }
-.org.svelte-mdtr1j .info .h-line.svelte-mdtr1j {
+.org.svelte-1jlxmqq .info .h-line.svelte-1jlxmqq {
   position: absolute;
   left: -15px;
   width: 1px;
   height: 50px;
   background-color: var(--gray-003);
 }
-.org.svelte-mdtr1j .info .label.svelte-mdtr1j {
+.org.org.company.svelte-1jlxmqq .info .h-line.svelte-1jlxmqq {
+  display: none;
+}
+.org.svelte-1jlxmqq .info .label.svelte-1jlxmqq {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -722,24 +728,24 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   background-color: var(--blue-006);
   color: #FFF;
 }
-.org.svelte-mdtr1j .info .title.svelte-mdtr1j {
+.org.svelte-1jlxmqq .info .title.svelte-1jlxmqq {
   font-size: 18px;
   font-weight: 600;
 }
-.org.company.svelte-mdtr1j:hover .options.svelte-mdtr1j,
-.org.department.svelte-mdtr1j:hover .options.svelte-mdtr1j,
-.org.division.svelte-mdtr1j:hover .options.svelte-mdtr1j,
-.org.job.svelte-mdtr1j:hover .options.svelte-mdtr1j {
+.org.company.svelte-1jlxmqq:hover .options.svelte-1jlxmqq,
+.org.department.svelte-1jlxmqq:hover .options.svelte-1jlxmqq,
+.org.division.svelte-1jlxmqq:hover .options.svelte-1jlxmqq,
+.org.job.svelte-1jlxmqq:hover .options.svelte-1jlxmqq {
   display: flex;
   cursor: pointer;
 }
-.org.svelte-mdtr1j .options.svelte-mdtr1j {
+.org.svelte-1jlxmqq .options.svelte-1jlxmqq {
   display: none;
   flex-direction: row;
   align-items: center;
   gap: 5px;
 }
-.org.svelte-mdtr1j .options .btn.svelte-mdtr1j {
+.org.svelte-1jlxmqq .options .btn.svelte-1jlxmqq {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -749,18 +755,39 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   padding: 5px;
   cursor: pointer;
 }
-.org.svelte-mdtr1j .options .btn.svelte-mdtr1j:hover {
+.org.svelte-1jlxmqq .options .btn.svelte-1jlxmqq:hover {
   background-color: var(--gray-002);
 }
-.org.svelte-mdtr1j .options .btn.svelte-mdtr1j:active {
+.org.svelte-1jlxmqq .options .btn.svelte-1jlxmqq:active {
   background-color: var(--gray-003);
 }
 
 /* fakecss:./tenantAdmin_organization.esbuild-svelte-fake-css */
-.orgs.svelte-18j6nhg {
+.orgs_container.svelte-13slidq {
+  display: grid;
+  grid-template-columns: auto 400px;
+  gap: 20px;
+}
+.orgs.svelte-13slidq {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  user-select: none;
+  display: flex;
+  height: fit-content;
+  background-color: #FFF;
+  border: 1px solid var(--gray-003);
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 15px 20px 25px 20px;
+}
+.info.svelte-13slidq {
+  min-height: 100px;
+  height: fit-content;
+  border: 1px solid var(--gray-003);
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 20px;
 }
 </style>
 <script>(() => {
@@ -2901,6 +2928,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       exports.TenantAdminUpdateCoaChild = async function TenantAdminUpdateCoaChild(i, cb) {
         return await axios.post("/tenantAdmin/updateCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminUpdateOrganizationChild = async function TenantAdminUpdateOrganizationChild2(i, cb) {
+        return await axios.post("/tenantAdmin/updateOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -3079,12 +3109,6 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       node.parentNode.removeChild(node);
     }
   }
-  function destroy_each(iterations, detaching) {
-    for (let i = 0; i < iterations.length; i += 1) {
-      if (iterations[i])
-        iterations[i].d(detaching);
-    }
-  }
   function element(name) {
     return document.createElement(name);
   }
@@ -3137,8 +3161,18 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   function set_input_value(input, value) {
     input.value = value == null ? "" : value;
   }
+  function set_style(node, key, value, important) {
+    if (value == null) {
+      node.style.removeProperty(key);
+    } else {
+      node.style.setProperty(key, value, important ? "important" : "");
+    }
+  }
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
+  }
+  function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
+    return new CustomEvent(type, { detail, bubbles, cancelable });
   }
   function get_custom_elements_slots(element2) {
     const result = {};
@@ -3163,6 +3197,31 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   }
   function onMount(fn) {
     get_current_component().$.on_mount.push(fn);
+  }
+  function createEventDispatcher() {
+    const component = get_current_component();
+    return (type, detail, { cancelable = false } = {}) => {
+      const callbacks = component.$.callbacks[type];
+      if (callbacks) {
+        const event = custom_event(
+          /** @type {string} */
+          type,
+          detail,
+          { cancelable }
+        );
+        callbacks.slice().forEach((fn) => {
+          fn.call(component, event);
+        });
+        return !event.defaultPrevented;
+      }
+      return true;
+    };
+  }
+  function bubble(component, event) {
+    const callbacks = component.$.callbacks[event.type];
+    if (callbacks) {
+      callbacks.slice().forEach((fn) => fn.call(this, event));
+    }
   }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/scheduler.js
@@ -3288,6 +3347,80 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/each.js
   function ensure_array_like(array_like_or_iterator) {
     return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
+  }
+  function outro_and_destroy_block(block, lookup) {
+    transition_out(block, 1, 1, () => {
+      lookup.delete(block.key);
+    });
+  }
+  function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block3, next, get_context) {
+    let o = old_blocks.length;
+    let n = list.length;
+    let i = o;
+    const old_indexes = {};
+    while (i--)
+      old_indexes[old_blocks[i].key] = i;
+    const new_blocks = [];
+    const new_lookup = /* @__PURE__ */ new Map();
+    const deltas = /* @__PURE__ */ new Map();
+    const updates = [];
+    i = n;
+    while (i--) {
+      const child_ctx = get_context(ctx, list, i);
+      const key = get_key(child_ctx);
+      let block = lookup.get(key);
+      if (!block) {
+        block = create_each_block3(key, child_ctx);
+        block.c();
+      } else if (dynamic) {
+        updates.push(() => block.p(child_ctx, dirty));
+      }
+      new_lookup.set(key, new_blocks[i] = block);
+      if (key in old_indexes)
+        deltas.set(key, Math.abs(i - old_indexes[key]));
+    }
+    const will_move = /* @__PURE__ */ new Set();
+    const did_move = /* @__PURE__ */ new Set();
+    function insert2(block) {
+      transition_in(block, 1);
+      block.m(node, next);
+      lookup.set(block.key, block);
+      next = block.first;
+      n--;
+    }
+    while (o && n) {
+      const new_block = new_blocks[n - 1];
+      const old_block = old_blocks[o - 1];
+      const new_key = new_block.key;
+      const old_key = old_block.key;
+      if (new_block === old_block) {
+        next = new_block.first;
+        o--;
+        n--;
+      } else if (!new_lookup.has(old_key)) {
+        destroy(old_block, lookup);
+        o--;
+      } else if (!lookup.has(new_key) || will_move.has(new_key)) {
+        insert2(new_block);
+      } else if (did_move.has(old_key)) {
+        o--;
+      } else if (deltas.get(new_key) > deltas.get(old_key)) {
+        did_move.add(new_key);
+        insert2(new_block);
+      } else {
+        will_move.add(old_key);
+        o--;
+      }
+    }
+    while (o--) {
+      const old_block = old_blocks[o];
+      if (!new_lookup.has(old_block.key))
+        destroy(old_block, lookup);
+    }
+    while (n)
+      insert2(new_blocks[n - 1]);
+    run_all(updates);
+    return new_blocks;
   }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/spread.js
@@ -5218,6 +5351,62 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   };
   var mainLayout_default = MainLayout;
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemAddBoxLine.js
+  var RiSystemAddBoxLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6 6V7h2v4h4v2h-4v4h-2v-4H7v-2h4z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiDesignPencilLine.js
+  var RiDesignPencilLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M15.728 9.686l-1.414-1.414L5 17.586V19h1.414l9.314-9.314zm1.414-1.414l1.414-1.414-1.414-1.414-1.414 1.414 1.414 1.414zM7.242 21H3v-4.243L16.435 3.322a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414L7.243 21z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemDeleteBinLine.js
+  var RiSystemDeleteBinLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M17 6h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3zm1 2H6v12h12V8zm-9 3h2v6H9v-6zm4 0h2v6h-2v-6zM9 4v2h6V4H9z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemInformationLine.js
+  var RiSystemInformationLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM11 7h2v2h-2V7zm0 4h2v6h-2v-6z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiBuildingsBuilding2Line.js
+  var RiBuildingsBuilding2Line_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M3 19V5.7a1 1 0 0 1 .658-.94l9.671-3.516a.5.5 0 0 1 .671.47v4.953l6.316 2.105a1 1 0 0 1 .684.949V19h2v2H1v-2h2zm2 0h7V3.855L5 6.401V19zm14 0v-8.558l-5-1.667V19h5z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiUserTeamLine.js
+  var RiUserTeamLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path fill-rule="nonzero" d="M12 11a5 5 0 0 1 5 5v6h-2v-6a3 3 0 0 0-2.824-2.995L12 13a3 3 0 0 0-2.995 2.824L9 16v6H7v-6a5 5 0 0 1 5-5zm-6.5 3c.279 0 .55.033.81.094a5.947 5.947 0 0 0-.301 1.575L6 16v.086a1.492 1.492 0 0 0-.356-.08L5.5 16a1.5 1.5 0 0 0-1.493 1.356L4 17.5V22H2v-4.5A3.5 3.5 0 0 1 5.5 14zm13 0a3.5 3.5 0 0 1 3.5 3.5V22h-2v-4.5a1.5 1.5 0 0 0-1.356-1.493L18.5 16c-.175 0-.343.03-.5.085V16c0-.666-.108-1.306-.309-1.904.259-.063.53-.096.809-.096zm-13-6a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm13 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm-13 2a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1zm13 0a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1zM12 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiBusinessBriefcaseLine.js
+  var RiBusinessBriefcaseLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M7 5V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4zM4 16v3h16v-3H4zm0-2h16V7H4v7zM9 3v2h6V3H9zm2 8h2v2h-2v-2z"></path></g>'
+  };
+
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ai/AiOutlineEye.js
   var AiOutlineEye_default = {
     a: {
@@ -6064,85 +6253,88 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   };
   var PopUpOrgChild_default = PopUpOrgChild;
 
-  // tenantAdmin_organization.svelte
-  var import_jsApi = __toESM(require_jsApi_GEN());
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemAddBoxLine.js
-  var RiSystemAddBoxLine_default = {
-    a: {
-      viewBox: "0 0 24 24"
-    },
-    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6 6V7h2v4h4v2h-4v4h-2v-4H7v-2h4z"></path></g>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiDesignPencilLine.js
-  var RiDesignPencilLine_default = {
-    a: {
-      viewBox: "0 0 24 24"
-    },
-    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M15.728 9.686l-1.414-1.414L5 17.586V19h1.414l9.314-9.314zm1.414-1.414l1.414-1.414-1.414-1.414-1.414 1.414 1.414 1.414zM7.242 21H3v-4.243L16.435 3.322a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414L7.243 21z"></path></g>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemDeleteBinLine.js
-  var RiSystemDeleteBinLine_default = {
-    a: {
-      viewBox: "0 0 24 24"
-    },
-    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M17 6h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3zm1 2H6v12h12V8zm-9 3h2v6H9v-6zm4 0h2v6h-2v-6zM9 4v2h6V4H9z"></path></g>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemInformationLine.js
-  var RiSystemInformationLine_default = {
-    a: {
-      viewBox: "0 0 24 24"
-    },
-    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM11 7h2v2h-2V7zm0 4h2v6h-2v-6z"></path></g>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiBuildingsBuilding2Line.js
-  var RiBuildingsBuilding2Line_default = {
-    a: {
-      viewBox: "0 0 24 24"
-    },
-    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M3 19V5.7a1 1 0 0 1 .658-.94l9.671-3.516a.5.5 0 0 1 .671.47v4.953l6.316 2.105a1 1 0 0 1 .684.949V19h2v2H1v-2h2zm2 0h7V3.855L5 6.401V19zm14 0v-8.558l-5-1.667V19h5z"></path></g>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiUserTeamLine.js
-  var RiUserTeamLine_default = {
-    a: {
-      viewBox: "0 0 24 24"
-    },
-    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path fill-rule="nonzero" d="M12 11a5 5 0 0 1 5 5v6h-2v-6a3 3 0 0 0-2.824-2.995L12 13a3 3 0 0 0-2.995 2.824L9 16v6H7v-6a5 5 0 0 1 5-5zm-6.5 3c.279 0 .55.033.81.094a5.947 5.947 0 0 0-.301 1.575L6 16v.086a1.492 1.492 0 0 0-.356-.08L5.5 16a1.5 1.5 0 0 0-1.493 1.356L4 17.5V22H2v-4.5A3.5 3.5 0 0 1 5.5 14zm13 0a3.5 3.5 0 0 1 3.5 3.5V22h-2v-4.5a1.5 1.5 0 0 0-1.356-1.493L18.5 16c-.175 0-.343.03-.5.085V16c0-.666-.108-1.306-.309-1.904.259-.063.53-.096.809-.096zm-13-6a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm13 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm-13 2a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1zm13 0a.5.5 0 1 0 0 1 .5.5 0 0 0 0-1zM12 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"></path></g>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiBusinessBriefcaseLine.js
-  var RiBusinessBriefcaseLine_default = {
-    a: {
-      viewBox: "0 0 24 24"
-    },
-    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M7 5V2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4zM4 16v3h16v-3H4zm0-2h16V7H4v7zM9 3v2h6V3H9zm2 8h2v2h-2v-2z"></path></g>'
-  };
-
   // _components/OrgTree.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[3] = list[i];
+    child_ctx[25] = list[i];
+    child_ctx[27] = i;
     return child_ctx;
   }
+  function create_if_block_14(ctx) {
+    let button;
+    let icon;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemAddBoxLine_default
+      }
+    });
+    return {
+      c() {
+        button = element("button");
+        create_component(icon.$.fragment);
+        attr(button, "class", "btn svelte-1jlxmqq");
+        attr(button, "title", "Add child");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        mount_component(icon, button, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*click_handler*/
+            ctx[18]
+          );
+          mounted = true;
+        }
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        destroy_component(icon);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
   function create_if_block4(ctx) {
+    let each_blocks = [];
+    let each_1_lookup = /* @__PURE__ */ new Map();
     let each_1_anchor;
     let current;
     let each_value = ensure_array_like(
       /*org*/
       ctx[0].children
     );
-    let each_blocks = [];
+    const get_key = (ctx2) => (
+      /*child*/
+      ctx2[25].id
+    );
     for (let i = 0; i < each_value.length; i += 1) {
-      each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+      let child_ctx = get_each_context(ctx, each_value, i);
+      let key = get_key(child_ctx);
+      each_1_lookup.set(key, each_blocks[i] = create_each_block(key, child_ctx));
     }
-    const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
-      each_blocks[i] = null;
-    });
     return {
       c() {
         for (let i = 0; i < each_blocks.length; i += 1) {
@@ -6166,23 +6358,8 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
             /*org*/
             ctx2[0].children
           );
-          let i;
-          for (i = 0; i < each_value.length; i += 1) {
-            const child_ctx = get_each_context(ctx2, each_value, i);
-            if (each_blocks[i]) {
-              each_blocks[i].p(child_ctx, dirty);
-              transition_in(each_blocks[i], 1);
-            } else {
-              each_blocks[i] = create_each_block(child_ctx);
-              each_blocks[i].c();
-              transition_in(each_blocks[i], 1);
-              each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
-            }
-          }
           group_outros();
-          for (i = each_value.length; i < each_blocks.length; i += 1) {
-            out(i);
-          }
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block, each_1_anchor, get_each_context);
           check_outros();
         }
       },
@@ -6195,7 +6372,6 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         current = true;
       },
       o(local) {
-        each_blocks = each_blocks.filter(Boolean);
         for (let i = 0; i < each_blocks.length; i += 1) {
           transition_out(each_blocks[i]);
         }
@@ -6205,31 +6381,50 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         if (detaching) {
           detach(each_1_anchor);
         }
-        destroy_each(each_blocks, detaching);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].d(detaching);
+        }
       }
     };
   }
-  function create_each_block(ctx) {
+  function create_each_block(key_1, ctx) {
+    let first;
     let orgtree;
     let current;
     orgtree = new OrgTree({ props: { org: (
       /*child*/
-      ctx[3]
+      ctx[25]
     ) } });
+    orgtree.$on(
+      "update",
+      /*update_handler*/
+      ctx[20]
+    );
+    orgtree.$on(
+      "info",
+      /*info_handler*/
+      ctx[21]
+    );
     return {
+      key: key_1,
+      first: null,
       c() {
+        first = empty();
         create_component(orgtree.$.fragment);
+        this.first = first;
       },
       m(target, anchor) {
+        insert(target, first, anchor);
         mount_component(orgtree, target, anchor);
         current = true;
       },
-      p(ctx2, dirty) {
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
         const orgtree_changes = {};
         if (dirty & /*org*/
         1)
           orgtree_changes.org = /*child*/
-          ctx2[3];
+          ctx[25];
         orgtree.$set(orgtree_changes);
       },
       i(local) {
@@ -6243,41 +6438,100 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         current = false;
       },
       d(detaching) {
+        if (detaching) {
+          detach(first);
+        }
         destroy_component(orgtree, detaching);
       }
     };
   }
   function create_fragment9(ctx) {
+    let popuporgchild;
+    let updating_isSubmitted;
+    let updating_childName;
+    let updating_headTitle;
+    let updating_heading;
+    let t0;
     let div3;
     let div1;
     let span0;
-    let t0;
+    let t1;
     let div0;
     let icon0;
-    let t1;
+    let t2;
     let span1;
-    let t2_value = (
+    let t3_value = (
       /*org*/
       ctx[0].name + ""
     );
-    let t2;
     let t3;
+    let t4;
     let div2;
+    let t5;
     let button0;
     let icon1;
-    let t4;
+    let t6;
     let button1;
     let icon2;
-    let t5;
+    let t7;
     let button2;
     let icon3;
-    let t6;
-    let button3;
-    let icon4;
     let div3_class_value;
-    let t7;
-    let if_block_anchor;
+    let t8;
+    let if_block1_anchor;
     let current;
+    let mounted;
+    let dispose;
+    function popuporgchild_isSubmitted_binding(value) {
+      ctx[14](value);
+    }
+    function popuporgchild_childName_binding(value) {
+      ctx[15](value);
+    }
+    function popuporgchild_headTitle_binding(value) {
+      ctx[16](value);
+    }
+    function popuporgchild_heading_binding(value) {
+      ctx[17](value);
+    }
+    let popuporgchild_props = { onSubmit: (
+      /*submitAddOrgChild*/
+      ctx[10]
+    ) };
+    if (
+      /*isSubmitted*/
+      ctx[5] !== void 0
+    ) {
+      popuporgchild_props.isSubmitted = /*isSubmitted*/
+      ctx[5];
+    }
+    if (
+      /*orgName*/
+      ctx[7] !== void 0
+    ) {
+      popuporgchild_props.childName = /*orgName*/
+      ctx[7];
+    }
+    if (
+      /*headTitle*/
+      ctx[8] !== void 0
+    ) {
+      popuporgchild_props.headTitle = /*headTitle*/
+      ctx[8];
+    }
+    if (
+      /*popUpHeading*/
+      ctx[6] !== void 0
+    ) {
+      popuporgchild_props.heading = /*popUpHeading*/
+      ctx[6];
+    }
+    popuporgchild = new PopUpOrgChild_default({ props: popuporgchild_props });
+    ctx[13](popuporgchild);
+    binding_callbacks.push(() => bind(popuporgchild, "isSubmitted", popuporgchild_isSubmitted_binding));
+    binding_callbacks.push(() => bind(popuporgchild, "childName", popuporgchild_childName_binding));
+    binding_callbacks.push(() => bind(popuporgchild, "headTitle", popuporgchild_headTitle_binding));
+    binding_callbacks.push(() => bind(popuporgchild, "heading", popuporgchild_heading_binding));
     icon0 = new Icon_default({
       props: {
         color: "#FFF",
@@ -6289,15 +6543,11 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         )
       }
     });
+    let if_block0 = (
+      /*org*/
+      ctx[0].orgType !== OrgTypeJob && create_if_block_14(ctx)
+    );
     icon1 = new Icon_default({
-      props: {
-        color: "var(--gray-006)",
-        className: "icon",
-        size: "17",
-        src: RiSystemAddBoxLine_default
-      }
-    });
-    icon2 = new Icon_default({
       props: {
         color: "var(--gray-006)",
         className: "icon",
@@ -6305,7 +6555,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         src: RiDesignPencilLine_default
       }
     });
-    icon3 = new Icon_default({
+    icon2 = new Icon_default({
       props: {
         color: "var(--gray-006)",
         className: "icon",
@@ -6313,7 +6563,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         src: RiSystemDeleteBinLine_default
       }
     });
-    icon4 = new Icon_default({
+    icon3 = new Icon_default({
       props: {
         color: "var(--gray-006)",
         className: "icon",
@@ -6321,84 +6571,139 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         src: RiSystemInformationLine_default
       }
     });
-    let if_block = (
+    let if_block1 = (
       /*org*/
       ctx[0].children && create_if_block4(ctx)
     );
     return {
       c() {
+        create_component(popuporgchild.$.fragment);
+        t0 = space();
         div3 = element("div");
         div1 = element("div");
         span0 = element("span");
-        t0 = space();
+        t1 = space();
         div0 = element("div");
         create_component(icon0.$.fragment);
-        t1 = space();
+        t2 = space();
         span1 = element("span");
-        t2 = text(t2_value);
-        t3 = space();
+        t3 = text(t3_value);
+        t4 = space();
         div2 = element("div");
+        if (if_block0)
+          if_block0.c();
+        t5 = space();
         button0 = element("button");
         create_component(icon1.$.fragment);
-        t4 = space();
+        t6 = space();
         button1 = element("button");
         create_component(icon2.$.fragment);
-        t5 = space();
+        t7 = space();
         button2 = element("button");
         create_component(icon3.$.fragment);
-        t6 = space();
-        button3 = element("button");
-        create_component(icon4.$.fragment);
-        t7 = space();
-        if (if_block)
-          if_block.c();
-        if_block_anchor = empty();
-        attr(span0, "class", "h-line svelte-mdtr1j");
-        attr(div0, "class", "label svelte-mdtr1j");
-        attr(span1, "class", "title svelte-mdtr1j");
-        attr(div1, "class", "info svelte-mdtr1j");
-        attr(button0, "class", "btn svelte-mdtr1j");
-        attr(button0, "title", "Add department");
-        attr(button1, "class", "btn svelte-mdtr1j");
-        attr(button1, "title", "Edit company");
-        attr(button2, "class", "btn svelte-mdtr1j");
-        attr(button2, "title", "Delete company");
-        attr(button3, "class", "btn svelte-mdtr1j");
-        attr(button3, "title", "Info");
-        attr(div2, "class", "options svelte-mdtr1j");
+        t8 = space();
+        if (if_block1)
+          if_block1.c();
+        if_block1_anchor = empty();
+        attr(span0, "class", "h-line svelte-1jlxmqq");
+        attr(div0, "class", "label svelte-1jlxmqq");
+        attr(span1, "class", "title svelte-1jlxmqq");
+        attr(div1, "class", "info svelte-1jlxmqq");
+        attr(button0, "class", "btn svelte-1jlxmqq");
+        attr(button0, "title", "Edit organization");
+        attr(button1, "class", "btn svelte-1jlxmqq");
+        attr(button1, "title", "Delete organization");
+        attr(button2, "class", "btn svelte-1jlxmqq");
+        attr(button2, "title", "Info");
+        attr(div2, "class", "options svelte-1jlxmqq");
         attr(div3, "class", div3_class_value = "org " + /*orgType*/
-        ctx[1] + " svelte-mdtr1j");
+        ctx[1] + " svelte-1jlxmqq");
+        set_style(
+          div3,
+          "--indent-width",
+          /*indentWidth*/
+          ctx[3]
+        );
       },
       m(target, anchor) {
+        mount_component(popuporgchild, target, anchor);
+        insert(target, t0, anchor);
         insert(target, div3, anchor);
         append(div3, div1);
         append(div1, span0);
-        append(div1, t0);
+        append(div1, t1);
         append(div1, div0);
         mount_component(icon0, div0, null);
-        append(div1, t1);
+        append(div1, t2);
         append(div1, span1);
-        append(span1, t2);
-        append(div3, t3);
+        append(span1, t3);
+        append(div3, t4);
         append(div3, div2);
+        if (if_block0)
+          if_block0.m(div2, null);
+        append(div2, t5);
         append(div2, button0);
         mount_component(icon1, button0, null);
-        append(div2, t4);
+        append(div2, t6);
         append(div2, button1);
         mount_component(icon2, button1, null);
-        append(div2, t5);
+        append(div2, t7);
         append(div2, button2);
         mount_component(icon3, button2, null);
-        append(div2, t6);
-        append(div2, button3);
-        mount_component(icon4, button3, null);
-        insert(target, t7, anchor);
-        if (if_block)
-          if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
+        insert(target, t8, anchor);
+        if (if_block1)
+          if_block1.m(target, anchor);
+        insert(target, if_block1_anchor, anchor);
         current = true;
+        if (!mounted) {
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*click_handler_1*/
+              ctx[19]
+            ),
+            listen(
+              button2,
+              "click",
+              /*updateEventInfo*/
+              ctx[11]
+            )
+          ];
+          mounted = true;
+        }
       },
       p(ctx2, [dirty]) {
+        const popuporgchild_changes = {};
+        if (!updating_isSubmitted && dirty & /*isSubmitted*/
+        32) {
+          updating_isSubmitted = true;
+          popuporgchild_changes.isSubmitted = /*isSubmitted*/
+          ctx2[5];
+          add_flush_callback(() => updating_isSubmitted = false);
+        }
+        if (!updating_childName && dirty & /*orgName*/
+        128) {
+          updating_childName = true;
+          popuporgchild_changes.childName = /*orgName*/
+          ctx2[7];
+          add_flush_callback(() => updating_childName = false);
+        }
+        if (!updating_headTitle && dirty & /*headTitle*/
+        256) {
+          updating_headTitle = true;
+          popuporgchild_changes.headTitle = /*headTitle*/
+          ctx2[8];
+          add_flush_callback(() => updating_headTitle = false);
+        }
+        if (!updating_heading && dirty & /*popUpHeading*/
+        64) {
+          updating_heading = true;
+          popuporgchild_changes.heading = /*popUpHeading*/
+          ctx2[6];
+          add_flush_callback(() => updating_heading = false);
+        }
+        popuporgchild.$set(popuporgchild_changes);
         const icon0_changes = {};
         if (dirty & /*orgIcon*/
         4)
@@ -6406,34 +6711,66 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
           ctx2[2];
         icon0.$set(icon0_changes);
         if ((!current || dirty & /*org*/
-        1) && t2_value !== (t2_value = /*org*/
+        1) && t3_value !== (t3_value = /*org*/
         ctx2[0].name + ""))
-          set_data(t2, t2_value);
+          set_data(t3, t3_value);
+        if (
+          /*org*/
+          ctx2[0].orgType !== OrgTypeJob
+        ) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+            if (dirty & /*org*/
+            1) {
+              transition_in(if_block0, 1);
+            }
+          } else {
+            if_block0 = create_if_block_14(ctx2);
+            if_block0.c();
+            transition_in(if_block0, 1);
+            if_block0.m(div2, t5);
+          }
+        } else if (if_block0) {
+          group_outros();
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
+          check_outros();
+        }
         if (!current || dirty & /*orgType*/
         2 && div3_class_value !== (div3_class_value = "org " + /*orgType*/
-        ctx2[1] + " svelte-mdtr1j")) {
+        ctx2[1] + " svelte-1jlxmqq")) {
           attr(div3, "class", div3_class_value);
+        }
+        if (!current || dirty & /*indentWidth*/
+        8) {
+          set_style(
+            div3,
+            "--indent-width",
+            /*indentWidth*/
+            ctx2[3]
+          );
         }
         if (
           /*org*/
           ctx2[0].children
         ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
             if (dirty & /*org*/
             1) {
-              transition_in(if_block, 1);
+              transition_in(if_block1, 1);
             }
           } else {
-            if_block = create_if_block4(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+            if_block1 = create_if_block4(ctx2);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
           }
-        } else if (if_block) {
+        } else if (if_block1) {
           group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
           });
           check_outros();
         }
@@ -6441,36 +6778,44 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       i(local) {
         if (current)
           return;
+        transition_in(popuporgchild.$.fragment, local);
         transition_in(icon0.$.fragment, local);
+        transition_in(if_block0);
         transition_in(icon1.$.fragment, local);
         transition_in(icon2.$.fragment, local);
         transition_in(icon3.$.fragment, local);
-        transition_in(icon4.$.fragment, local);
-        transition_in(if_block);
+        transition_in(if_block1);
         current = true;
       },
       o(local) {
+        transition_out(popuporgchild.$.fragment, local);
         transition_out(icon0.$.fragment, local);
+        transition_out(if_block0);
         transition_out(icon1.$.fragment, local);
         transition_out(icon2.$.fragment, local);
         transition_out(icon3.$.fragment, local);
-        transition_out(icon4.$.fragment, local);
-        transition_out(if_block);
+        transition_out(if_block1);
         current = false;
       },
       d(detaching) {
         if (detaching) {
+          detach(t0);
           detach(div3);
-          detach(t7);
-          detach(if_block_anchor);
+          detach(t8);
+          detach(if_block1_anchor);
         }
+        ctx[13](null);
+        destroy_component(popuporgchild, detaching);
         destroy_component(icon0);
+        if (if_block0)
+          if_block0.d();
         destroy_component(icon1);
         destroy_component(icon2);
         destroy_component(icon3);
-        destroy_component(icon4);
-        if (if_block)
-          if_block.d(detaching);
+        if (if_block1)
+          if_block1.d(detaching);
+        mounted = false;
+        run_all(dispose);
       }
     };
   }
@@ -6479,6 +6824,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   var OrgTypeDivision = 3;
   var OrgTypeJob = 4;
   function instance9($self, $props, $invalidate) {
+    const dispatch = createEventDispatcher();
     let { org = {
       id: "",
       name: "",
@@ -6508,16 +6854,147 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         orgType = "job", orgIcon = RiBusinessBriefcaseLine_default;
         break;
     }
+    let { indent = 0 } = $props;
+    let indentWidth = "10px";
+    const toIndentWidth = (
+      /** @type {number} */
+      (i) => {
+        return `${i * 15 + 10}px`;
+      }
+    );
+    onMount(() => $invalidate(3, indentWidth = toIndentWidth(indent)));
+    let popUpOrgChild, isSubmitted = false, popUpHeading = "Add organization child";
+    let orgName = "", headTitle = "", orgState = "add";
+    const toggleAddOrEdit = (
+      /** @type {string}*/
+      (state) => {
+        if (state === "add")
+          orgState = "add", $invalidate(7, orgName = ""), $invalidate(8, headTitle = ""), $invalidate(6, popUpHeading = "Add coa child");
+        else
+          orgState = "edit", $invalidate(7, orgName = org.name), $invalidate(8, headTitle = org.headTitle), $invalidate(6, popUpHeading = "Edit: " + org.name);
+        popUpOrgChild.show();
+      }
+    );
+    async function submitAddOrgChild() {
+      $invalidate(5, isSubmitted = true);
+      if (orgName === "" || headTitle === "") {
+        $invalidate(5, isSubmitted = false);
+        notifier.showWarning("fields cannot be empty");
+        return;
+      }
+      switch (orgState) {
+        case "add":
+          await (0, import_jsApi.TenantAdminCreateOrganizationChild)(
+            {
+              name: orgName,
+              headTitle,
+              parentId: Number(org.id)
+            },
+            // @ts-ignore
+            function(o) {
+              $invalidate(5, isSubmitted = false);
+              popUpOrgChild.hide();
+              if (o.error) {
+                notifier.showError(o.error);
+                console.log(o.error);
+                return;
+              }
+              dispatch("update", { orgs: o.orgs });
+              notifier.showSuccess("Organization child created");
+            }
+          );
+          break;
+        case "edit":
+          await (0, import_jsApi.TenantAdminUpdateOrganizationChild)(
+            {
+              name: orgName,
+              id: Number(org.id),
+              headTitle
+            },
+            // @ts-ignore
+            function(o) {
+              $invalidate(5, isSubmitted = false);
+              popUpOrgChild.hide();
+              if (o.error) {
+                notifier.showError(o.error);
+                console.log(o.error);
+                return;
+              }
+              dispatch("update", { orgs: o.orgs });
+              notifier.showSuccess("Organization child updated");
+            }
+          );
+          break;
+      }
+    }
+    function updateEventInfo() {
+      dispatch("info", { org });
+    }
+    function popuporgchild_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        popUpOrgChild = $value;
+        $invalidate(4, popUpOrgChild);
+      });
+    }
+    function popuporgchild_isSubmitted_binding(value) {
+      isSubmitted = value;
+      $invalidate(5, isSubmitted);
+    }
+    function popuporgchild_childName_binding(value) {
+      orgName = value;
+      $invalidate(7, orgName);
+    }
+    function popuporgchild_headTitle_binding(value) {
+      headTitle = value;
+      $invalidate(8, headTitle);
+    }
+    function popuporgchild_heading_binding(value) {
+      popUpHeading = value;
+      $invalidate(6, popUpHeading);
+    }
+    const click_handler = () => toggleAddOrEdit("add");
+    const click_handler_1 = () => toggleAddOrEdit("edit");
+    function update_handler(event) {
+      bubble.call(this, $self, event);
+    }
+    function info_handler(event) {
+      bubble.call(this, $self, event);
+    }
     $self.$set = ($props2) => {
       if ("org" in $props2)
         $invalidate(0, org = $props2.org);
+      if ("indent" in $props2)
+        $invalidate(12, indent = $props2.indent);
     };
-    return [org, orgType, orgIcon];
+    return [
+      org,
+      orgType,
+      orgIcon,
+      indentWidth,
+      popUpOrgChild,
+      isSubmitted,
+      popUpHeading,
+      orgName,
+      headTitle,
+      toggleAddOrEdit,
+      submitAddOrgChild,
+      updateEventInfo,
+      indent,
+      popuporgchild_binding,
+      popuporgchild_isSubmitted_binding,
+      popuporgchild_childName_binding,
+      popuporgchild_headTitle_binding,
+      popuporgchild_heading_binding,
+      click_handler,
+      click_handler_1,
+      update_handler,
+      info_handler
+    ];
   }
   var OrgTree = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance9, create_fragment9, safe_not_equal, { org: 0 });
+      init(this, options, instance9, create_fragment9, safe_not_equal, { org: 0, indent: 12 });
     }
   };
   var OrgTree_default = OrgTree;
@@ -6525,66 +7002,111 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   // tenantAdmin_organization.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[11] = list[i];
+    child_ctx[7] = list[i];
+    child_ctx[9] = i;
     return child_ctx;
   }
   function create_if_block5(ctx) {
-    let div;
+    let div0;
+    let each_blocks = [];
+    let each_1_lookup = /* @__PURE__ */ new Map();
+    let t0;
+    let div1;
+    let h40;
+    let t1_value = (
+      /*infoOrg*/
+      ctx[1].name + ""
+    );
+    let t1;
+    let t2;
+    let h41;
+    let t3_value = (
+      /*infoOrg*/
+      ctx[1].headTitle + ""
+    );
+    let t3;
+    let t4;
+    let h42;
+    let t5_value = (
+      /*infoOrg*/
+      ctx[1].updatedAt + ""
+    );
+    let t5;
     let current;
     let each_value = ensure_array_like(
       /*REFORMAT_ORGS*/
       ctx[0]
     );
-    let each_blocks = [];
+    const get_key = (ctx2) => (
+      /*org*/
+      ctx2[7].id
+    );
     for (let i = 0; i < each_value.length; i += 1) {
-      each_blocks[i] = create_each_block2(get_each_context2(ctx, each_value, i));
+      let child_ctx = get_each_context2(ctx, each_value, i);
+      let key = get_key(child_ctx);
+      each_1_lookup.set(key, each_blocks[i] = create_each_block2(key, child_ctx));
     }
-    const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
-      each_blocks[i] = null;
-    });
     return {
       c() {
-        div = element("div");
+        div0 = element("div");
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(div, "class", "orgs svelte-18j6nhg");
+        t0 = space();
+        div1 = element("div");
+        h40 = element("h4");
+        t1 = text(t1_value);
+        t2 = space();
+        h41 = element("h4");
+        t3 = text(t3_value);
+        t4 = space();
+        h42 = element("h4");
+        t5 = text(t5_value);
+        attr(div0, "class", "orgs svelte-13slidq");
+        attr(div1, "class", "info svelte-13slidq");
       },
       m(target, anchor) {
-        insert(target, div, anchor);
+        insert(target, div0, anchor);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
-            each_blocks[i].m(div, null);
+            each_blocks[i].m(div0, null);
           }
         }
+        insert(target, t0, anchor);
+        insert(target, div1, anchor);
+        append(div1, h40);
+        append(h40, t1);
+        append(div1, t2);
+        append(div1, h41);
+        append(h41, t3);
+        append(div1, t4);
+        append(div1, h42);
+        append(h42, t5);
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*REFORMAT_ORGS*/
-        1) {
+        if (dirty & /*REFORMAT_ORGS, updateEventHandler, infoEventHandler*/
+        13) {
           each_value = ensure_array_like(
             /*REFORMAT_ORGS*/
             ctx2[0]
           );
-          let i;
-          for (i = 0; i < each_value.length; i += 1) {
-            const child_ctx = get_each_context2(ctx2, each_value, i);
-            if (each_blocks[i]) {
-              each_blocks[i].p(child_ctx, dirty);
-              transition_in(each_blocks[i], 1);
-            } else {
-              each_blocks[i] = create_each_block2(child_ctx);
-              each_blocks[i].c();
-              transition_in(each_blocks[i], 1);
-              each_blocks[i].m(div, null);
-            }
-          }
           group_outros();
-          for (i = each_value.length; i < each_blocks.length; i += 1) {
-            out(i);
-          }
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, div0, outro_and_destroy_block, create_each_block2, null, get_each_context2);
           check_outros();
         }
+        if ((!current || dirty & /*infoOrg*/
+        2) && t1_value !== (t1_value = /*infoOrg*/
+        ctx2[1].name + ""))
+          set_data(t1, t1_value);
+        if ((!current || dirty & /*infoOrg*/
+        2) && t3_value !== (t3_value = /*infoOrg*/
+        ctx2[1].headTitle + ""))
+          set_data(t3, t3_value);
+        if ((!current || dirty & /*infoOrg*/
+        2) && t5_value !== (t5_value = /*infoOrg*/
+        ctx2[1].updatedAt + ""))
+          set_data(t5, t5_value);
       },
       i(local) {
         if (current)
@@ -6595,7 +7117,6 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         current = true;
       },
       o(local) {
-        each_blocks = each_blocks.filter(Boolean);
         for (let i = 0; i < each_blocks.length; i += 1) {
           transition_out(each_blocks[i]);
         }
@@ -6603,33 +7124,54 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(div);
+          detach(div0);
+          detach(t0);
+          detach(div1);
         }
-        destroy_each(each_blocks, detaching);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].d();
+        }
       }
     };
   }
-  function create_each_block2(ctx) {
+  function create_each_block2(key_1, ctx) {
+    let first;
     let orgtree;
     let current;
     orgtree = new OrgTree_default({ props: { org: (
       /*org*/
-      ctx[11]
+      ctx[7]
     ) } });
+    orgtree.$on(
+      "update",
+      /*updateEventHandler*/
+      ctx[2]
+    );
+    orgtree.$on(
+      "info",
+      /*infoEventHandler*/
+      ctx[3]
+    );
     return {
+      key: key_1,
+      first: null,
       c() {
+        first = empty();
         create_component(orgtree.$.fragment);
+        this.first = first;
       },
       m(target, anchor) {
+        insert(target, first, anchor);
         mount_component(orgtree, target, anchor);
         current = true;
       },
-      p(ctx2, dirty) {
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
         const orgtree_changes = {};
         if (dirty & /*REFORMAT_ORGS*/
         1)
           orgtree_changes.org = /*org*/
-          ctx2[11];
+          ctx[7];
         orgtree.$set(orgtree_changes);
       },
       i(local) {
@@ -6643,6 +7185,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         current = false;
       },
       d(detaching) {
+        if (detaching) {
+          detach(first);
+        }
         destroy_component(orgtree, detaching);
       }
     };
@@ -6660,6 +7205,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         div = element("div");
         if (if_block)
           if_block.c();
+        attr(div, "class", "orgs_container svelte-13slidq");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -6713,52 +7259,8 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     };
   }
   function create_fragment10(ctx) {
-    let popuporgchild;
-    let updating_isSubmitted;
-    let updating_childName;
-    let updating_headTitle;
-    let t;
     let mainlayout;
     let current;
-    function popuporgchild_isSubmitted_binding(value) {
-      ctx[7](value);
-    }
-    function popuporgchild_childName_binding(value) {
-      ctx[8](value);
-    }
-    function popuporgchild_headTitle_binding(value) {
-      ctx[9](value);
-    }
-    let popuporgchild_props = { onSubmit: (
-      /*submitAddOrgChild*/
-      ctx[5]
-    ) };
-    if (
-      /*isSubmitAddOrgChild*/
-      ctx[2] !== void 0
-    ) {
-      popuporgchild_props.isSubmitted = /*isSubmitAddOrgChild*/
-      ctx[2];
-    }
-    if (
-      /*childName*/
-      ctx[3] !== void 0
-    ) {
-      popuporgchild_props.childName = /*childName*/
-      ctx[3];
-    }
-    if (
-      /*headTitle*/
-      ctx[4] !== void 0
-    ) {
-      popuporgchild_props.headTitle = /*headTitle*/
-      ctx[4];
-    }
-    popuporgchild = new PopUpOrgChild_default({ props: popuporgchild_props });
-    ctx[6](popuporgchild);
-    binding_callbacks.push(() => bind(popuporgchild, "isSubmitted", popuporgchild_isSubmitted_binding));
-    binding_callbacks.push(() => bind(popuporgchild, "childName", popuporgchild_childName_binding));
-    binding_callbacks.push(() => bind(popuporgchild, "headTitle", popuporgchild_headTitle_binding));
     mainlayout = new mainLayout_default({
       props: {
         $slots: { default: [create_default_slot] },
@@ -6767,43 +7269,16 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     });
     return {
       c() {
-        create_component(popuporgchild.$.fragment);
-        t = space();
         create_component(mainlayout.$.fragment);
       },
       m(target, anchor) {
-        mount_component(popuporgchild, target, anchor);
-        insert(target, t, anchor);
         mount_component(mainlayout, target, anchor);
         current = true;
       },
       p(ctx2, [dirty]) {
-        const popuporgchild_changes = {};
-        if (!updating_isSubmitted && dirty & /*isSubmitAddOrgChild*/
-        4) {
-          updating_isSubmitted = true;
-          popuporgchild_changes.isSubmitted = /*isSubmitAddOrgChild*/
-          ctx2[2];
-          add_flush_callback(() => updating_isSubmitted = false);
-        }
-        if (!updating_childName && dirty & /*childName*/
-        8) {
-          updating_childName = true;
-          popuporgchild_changes.childName = /*childName*/
-          ctx2[3];
-          add_flush_callback(() => updating_childName = false);
-        }
-        if (!updating_headTitle && dirty & /*headTitle*/
-        16) {
-          updating_headTitle = true;
-          popuporgchild_changes.headTitle = /*headTitle*/
-          ctx2[4];
-          add_flush_callback(() => updating_headTitle = false);
-        }
-        popuporgchild.$set(popuporgchild_changes);
         const mainlayout_changes = {};
-        if (dirty & /*$scope, REFORMAT_ORGS*/
-        16385) {
+        if (dirty & /*$scope, infoOrg, REFORMAT_ORGS*/
+        1027) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -6811,85 +7286,78 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       i(local) {
         if (current)
           return;
-        transition_in(popuporgchild.$.fragment, local);
         transition_in(mainlayout.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(popuporgchild.$.fragment, local);
         transition_out(mainlayout.$.fragment, local);
         current = false;
       },
       d(detaching) {
-        if (detaching) {
-          detach(t);
-        }
-        ctx[6](null);
-        destroy_component(popuporgchild, detaching);
         destroy_component(mainlayout, detaching);
       }
     };
   }
   var segments2 = {/* segments */};
   var user2 = {/* user */};
-  var orgs = [/* orgs */];
-  function orgMaker(id) {
-    let orgFormatted = {
-      id: "",
-      name: "",
-      orgType: 0,
-      parentId: "",
-      tenantCode: "",
-      createdAt: 0,
-      createdBy: "",
-      updatedAt: 0,
-      updatedBy: "",
-      deletedAt: 0,
-      children: [],
-      headTitle: ""
-    };
-    for (let i in orgs) {
-      if (orgs[i].id == String(id)) {
-        const children2 = orgs[i].children;
-        if (children2 && children2.length) {
-          for (let j in children2) {
-            const childId = children2[j];
-            const child = orgMaker(childId);
-            orgFormatted.children = [...orgFormatted.children, child];
-          }
-        }
-        orgFormatted.id = orgs[i].id;
-        orgFormatted.name = orgs[i].name;
-        orgFormatted.headTitle = orgs[i].headTitle;
-        orgFormatted.orgType = orgs[i].orgType;
-        orgFormatted.tenantCode = orgs[i].tenantCode;
-        orgFormatted.parentId = orgs[i].parentId;
-        orgFormatted.createdAt = orgs[i].createdAt;
-        orgFormatted.createdBy = orgs[i].createdBy;
-        orgFormatted.updatedAt = orgs[i].updatedAt;
-        orgFormatted.updatedBy = orgs[i].updatedBy;
-        orgFormatted.deletedAt = orgs[i].deletedAt;
-      }
-    }
-    return orgFormatted;
-  }
-  function reformatorgs() {
-    let toorgs = [];
-    if (orgs && orgs.length) {
-      for (let i in orgs) {
-        const id = orgs[i].id;
-        const coa = orgMaker(id);
-        toorgs = [...toorgs, coa];
-      }
-    }
-    if (toorgs && toorgs.length) {
-      toorgs = toorgs.filter((obj) => obj.parentId <= 0);
-      toorgs.sort((a, b) => a.level - b.level);
-    }
-    return toorgs;
-  }
   function instance10($self, $props, $invalidate) {
+    let orgs = [/* orgs */];
     let REFORMAT_ORGS = [];
+    function orgMaker(id) {
+      let orgFormatted = {
+        id: "",
+        name: "",
+        orgType: 0,
+        parentId: "",
+        tenantCode: "",
+        createdAt: 0,
+        createdBy: "",
+        updatedAt: 0,
+        updatedBy: "",
+        deletedAt: 0,
+        children: [],
+        headTitle: ""
+      };
+      for (let i in orgs) {
+        if (orgs[i].id == String(id)) {
+          const children2 = orgs[i].children;
+          if (children2 && children2.length) {
+            for (let j in children2) {
+              const childId = children2[j];
+              const child = orgMaker(childId);
+              orgFormatted.children = [...orgFormatted.children, child];
+            }
+          }
+          orgFormatted.id = orgs[i].id;
+          orgFormatted.name = orgs[i].name;
+          orgFormatted.headTitle = orgs[i].headTitle;
+          orgFormatted.orgType = orgs[i].orgType;
+          orgFormatted.tenantCode = orgs[i].tenantCode;
+          orgFormatted.parentId = orgs[i].parentId;
+          orgFormatted.createdAt = orgs[i].createdAt;
+          orgFormatted.createdBy = orgs[i].createdBy;
+          orgFormatted.updatedAt = orgs[i].updatedAt;
+          orgFormatted.updatedBy = orgs[i].updatedBy;
+          orgFormatted.deletedAt = orgs[i].deletedAt;
+        }
+      }
+      return orgFormatted;
+    }
+    function reformatorgs() {
+      let toorgs = [];
+      if (orgs && orgs.length) {
+        for (let i in orgs) {
+          const id = orgs[i].id;
+          const coa = orgMaker(id);
+          toorgs = [...toorgs, coa];
+        }
+      }
+      if (toorgs && toorgs.length) {
+        toorgs = toorgs.filter((obj) => obj.parentId <= 0);
+        toorgs.sort((a, b) => a.level - b.level);
+      }
+      return toorgs;
+    }
     onMount(() => {
       console.log("Segments:", segments2);
       console.log("User:", user2);
@@ -6897,63 +7365,16 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       $invalidate(0, REFORMAT_ORGS = reformatorgs());
       console.log("Reformatted ORGS:", REFORMAT_ORGS);
     });
-    let popUpOrgChild, isSubmitAddOrgChild = false;
-    let childName = "", headTitle = "", parentId = Number(orgs[0].id);
-    async function submitAddOrgChild() {
-      $invalidate(2, isSubmitAddOrgChild = true);
-      if (childName === "") {
-        $invalidate(2, isSubmitAddOrgChild = false);
-        notifier.showWarning("coa name cannot be empty");
-        return;
-      }
-      await (0, import_jsApi.TenantAdminCreateOrganizationChild)(
-        { name: childName, headTitle, parentId },
-        // @ts-ignore
-        function(o) {
-          if (o.error) {
-            popUpOrgChild.hide();
-            $invalidate(2, isSubmitAddOrgChild = false);
-            notifier.showError(o.error);
-            console.log(o.error);
-            return;
-          }
-          popUpOrgChild.hide();
-          $invalidate(2, isSubmitAddOrgChild = false);
-          console.log(o);
-          notifier.showSuccess("Department child created");
-        }
-      );
+    function updateEventHandler(e) {
+      orgs = e.detail.orgs;
+      $invalidate(0, REFORMAT_ORGS = []);
+      $invalidate(0, REFORMAT_ORGS = reformatorgs());
     }
-    function popuporgchild_binding($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        popUpOrgChild = $value;
-        $invalidate(1, popUpOrgChild);
-      });
+    let infoOrg = orgs.length > 0 ? orgs[0] : null;
+    function infoEventHandler(e) {
+      $invalidate(1, infoOrg = e.detail.org);
     }
-    function popuporgchild_isSubmitted_binding(value) {
-      isSubmitAddOrgChild = value;
-      $invalidate(2, isSubmitAddOrgChild);
-    }
-    function popuporgchild_childName_binding(value) {
-      childName = value;
-      $invalidate(3, childName);
-    }
-    function popuporgchild_headTitle_binding(value) {
-      headTitle = value;
-      $invalidate(4, headTitle);
-    }
-    return [
-      REFORMAT_ORGS,
-      popUpOrgChild,
-      isSubmitAddOrgChild,
-      childName,
-      headTitle,
-      submitAddOrgChild,
-      popuporgchild_binding,
-      popuporgchild_isSubmitted_binding,
-      popuporgchild_childName_binding,
-      popuporgchild_headTitle_binding
-    ];
+    return [REFORMAT_ORGS, infoOrg, updateEventHandler, infoEventHandler];
   }
   var TenantAdmin_organization = class extends SvelteComponent {
     constructor(options) {

@@ -2968,6 +2968,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       exports.TenantAdminUpdateCoaChild = async function TenantAdminUpdateCoaChild2(i, cb) {
         return await axios.post("/tenantAdmin/updateCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminUpdateOrganizationChild = async function TenantAdminUpdateOrganizationChild(i, cb) {
+        return await axios.post("/tenantAdmin/updateOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -5600,21 +5603,16 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       switch (coaState) {
         case "edit":
           await (0, import_jsApi.TenantAdminUpdateCoaChild)(
-            {
-              name: coaName,
-              parentId: Number(coa.parentId),
-              id: Number(coa.id)
-            },
+            { name: coaName, id: Number(coa.id) },
             // @ts-ignore
             function(o) {
+              $invalidate(7, isSubmitted = false);
+              popUpCoaChild.hide();
               if (o.error) {
-                $invalidate(7, isSubmitted = false);
                 notifier.showError(o.error);
                 console.log(o.error);
                 return;
               }
-              $invalidate(7, isSubmitted = false);
-              popUpCoaChild.hide();
               notifier.showSuccess(coaName + " edited");
               dispatch("update", { coas: o.coa });
             }
@@ -5622,17 +5620,16 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
           break;
         case "add":
           await (0, import_jsApi.TenantAdminCreateCoaChild)(
-            // @ts-ignore
             { name: coaName, parentId: Number(coa.id) },
+            // @ts-ignore
             function(o) {
+              $invalidate(7, isSubmitted = false);
+              popUpCoaChild.hide();
               if (o.error) {
-                $invalidate(7, isSubmitted = false);
                 notifier.showError(o.error);
                 console.log(o.error);
                 return;
               }
-              $invalidate(7, isSubmitted = false);
-              popUpCoaChild.hide();
               notifier.showSuccess("Coa child created");
               dispatch("update", { coas: o.coa });
             }

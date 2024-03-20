@@ -6,8 +6,14 @@
   import RiSystemDeleteBinLine from 'svelte-icons-pack/ri/RiSystemDeleteBinLine';
   import RiSystemInformationLine from 'svelte-icons-pack/ri/RiSystemInformationLine';
   import RiBuildingsBuilding2Line from 'svelte-icons-pack/ri/RiBuildingsBuilding2Line';
-  import RiUserTeamLine from "svelte-icons-pack/ri/RiUserTeamLine";
-  import RiBusinessBriefcaseLine from "svelte-icons-pack/ri/RiBusinessBriefcaseLine";
+  import RiUserTeamLine from 'svelte-icons-pack/ri/RiUserTeamLine';
+  import RiBusinessBriefcaseLine from 'svelte-icons-pack/ri/RiBusinessBriefcaseLine';
+  import { onMount, createEventDispatcher } from 'svelte';
+  import PopUpOrgChild from './PopUpOrgChild.svelte';
+  import { TenantAdminCreateOrganizationChild, TenantAdminUpdateOrganizationChild } from '../jsApi.GEN';
+  import { notifier } from './notifier';
+
+  const dispatch = createEventDispatcher();
 
   /**
     * @typedef {Object} Org
@@ -42,7 +48,7 @@
     children: []
   }
 
-  let orgType = 'company', orgIcon = RiBuildingsCommunityLine;
+  let orgType = 'company', orgIcon = RiBuildingsCommunityLine
   let OrgTypeCompany = 1, OrgTypeDept = 2, OrgTypeDivision = 3, OrgTypeJob = 4;
   switch (org.orgType) {
     case OrgTypeCompany:
@@ -58,9 +64,99 @@
       orgType = 'job', orgIcon = RiBusinessBriefcaseLine;
       break;
   }
+
+  export let indent = 0;
+  let indentWidth = '10px';
+  const toIndentWidth = (/** @type {number} */ i) => { return `${i * 15 + 10}px` }
+
+  onMount(() => indentWidth = toIndentWidth(indent))
+
+  let popUpOrgChild, isSubmitted = false, popUpHeading = 'Add organization child';
+  let orgName = '', headTitle = '', orgState = 'add';
+
+  const toggleAddOrEdit = (/** @type {string}*/ state) => {
+    if (state === 'add') orgState = 'add', orgName = '', headTitle = '', popUpHeading = 'Add coa child';
+    else orgState = 'edit', orgName = org.name, headTitle = org.headTitle, popUpHeading = 'Edit: ' + org.name;
+    popUpOrgChild.show();
+  }
+
+  async function submitAddOrgChild() {
+    isSubmitted = true;
+    if (orgName === '' || headTitle === '') {
+      isSubmitted = false;
+      notifier.showWarning('fields cannot be empty');
+      return;
+    }
+    switch (orgState) {
+      case 'add':
+        await TenantAdminCreateOrganizationChild(
+          {
+            name: orgName,
+            headTitle: headTitle,
+            parentId: Number(org.id),
+          },
+          // @ts-ignore
+          function (o) {
+            isSubmitted = false;
+            popUpOrgChild.hide();
+            // @ts-ignore
+            if (o.error) {
+              // @ts-ignore
+              notifier.showError(o.error);
+              // @ts-ignore
+              console.log(o.error);
+              return;
+            }
+            // @ts-ignore
+            dispatch('update', { orgs: o.orgs })
+            notifier.showSuccess('Organization child created');
+          }
+        );
+        break;
+      case 'edit':
+        await TenantAdminUpdateOrganizationChild(
+          {
+            name: orgName,
+            id: Number(org.id),
+            headTitle: headTitle,
+          },
+          // @ts-ignore
+          function (o) {
+            isSubmitted = false;
+            popUpOrgChild.hide();
+            // @ts-ignore
+            if (o.error) {
+              // @ts-ignore
+              notifier.showError(o.error);
+              // @ts-ignore
+              console.log(o.error);
+              return;
+            }
+            // @ts-ignore
+            dispatch('update', { orgs: o.orgs })
+            notifier.showSuccess('Organization child updated');
+          }
+        );
+        break;
+    }
+  }
+
+  function updateEventInfo() {
+    // @ts-ignore
+    dispatch('info', { org: org })
+  }
 </script>
 
-<div class="org {orgType}">
+<PopUpOrgChild
+  bind:this={popUpOrgChild}
+  bind:isSubmitted={isSubmitted}
+  bind:childName={orgName}
+  bind:headTitle={headTitle}
+  bind:heading={popUpHeading}
+  onSubmit={submitAddOrgChild}
+/>
+
+<div class="org {orgType}" style="--indent-width:{indentWidth};">
   <div class="info">
     <span class="h-line"></span>
     <div class="label">
@@ -74,15 +170,17 @@
     <span class="title">{org.name}</span>
   </div>
   <div class="options">
-    <button class="btn" title="Add department">
-      <Icon
-        color="var(--gray-006)"
-        className="icon"
-        size="17"
-        src={RiSystemAddBoxLine}
-      />
-    </button>
-    <button class="btn" title="Edit company">
+    {#if org.orgType !== OrgTypeJob}
+      <button class="btn" title="Add child" on:click={() => toggleAddOrEdit('add')}>
+        <Icon
+          color="var(--gray-006)"
+          className="icon"
+          size="17"
+          src={RiSystemAddBoxLine}
+        />
+      </button>
+    {/if}
+    <button class="btn" title="Edit organization" on:click={() => toggleAddOrEdit('edit')}>
       <Icon
         color="var(--gray-006)"
         className="icon"
@@ -90,7 +188,7 @@
         src={RiDesignPencilLine}
       />
     </button>
-    <button class="btn" title="Delete company">
+    <button class="btn" title="Delete organization">
       <Icon
         color="var(--gray-006)"
         className="icon"
@@ -98,7 +196,7 @@
         src={RiSystemDeleteBinLine}
       />
     </button>
-    <button class="btn" title="Info">
+    <button class="btn" title="Info" on:click={updateEventInfo}>
       <Icon
         color="var(--gray-006)"
         className="icon"
@@ -109,8 +207,8 @@
   </div>
 </div>
 {#if org.children}
-  {#each org.children as child}
-    <svelte:self org={child} />
+  {#each org.children as child, _ (child.id)}
+    <svelte:self org={child} on:update on:info />
   {/each}
 {/if}
 
@@ -124,6 +222,10 @@
     flex-direction: row;
     gap: 40px;
     padding: 5px 0;
+  }
+
+  .org:hover {
+    background-color: var(--gray-001);
   }
 
   .org.department {
@@ -164,6 +266,10 @@
     width: 1px;
     height: 50px;
     background-color: var(--gray-003);
+  }
+
+  .org.org.company .info .h-line {
+    display: none;
   }
 
   .org .info .label {
