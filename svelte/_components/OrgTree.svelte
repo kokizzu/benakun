@@ -221,11 +221,17 @@
     align-items: center;
     flex-direction: row;
     gap: 40px;
-    padding: 5px 0;
+    padding: 10px 0;
+    border-radius: 8px;
   }
 
   .org:hover {
     background-color: var(--gray-001);
+    cursor: move;
+  }
+
+  .org:active {
+    background-color: var(--gray-002);
   }
 
   .org.department {

@@ -94,22 +94,21 @@
     return toorgs;
   }
 
-  onMount(() => {
-    console.log('Segments:', segments);
-    console.log('User:', user);
-    console.log('Orgs:', orgs);
-    REFORMAT_ORGS = reformatorgs();
+  onMount(() => REFORMAT_ORGS = reformatorgs());
 
-    console.log('Reformatted ORGS:', REFORMAT_ORGS)
-  })
+  let infoOrg = orgs.length > 0 ? orgs[0] : null;
 
   function updateEventHandler(e) {
     orgs = e.detail.orgs;
+    for (let i in orgs) {
+      if (orgs[i].id == infoOrg.id) {
+        infoOrg = orgs[i];
+        break;
+      }
+    }
     REFORMAT_ORGS = [];
     REFORMAT_ORGS = reformatorgs();
   }
-
-  let infoOrg = orgs.length > 0 ? orgs[0] : null;
 
   function infoEventHandler(e) {
     infoOrg = e.detail.org;
@@ -146,7 +145,6 @@
   .orgs {
     display: flex;
     flex-direction: column;
-    gap: 10px;
     user-select: none;
     display: flex;
     height: fit-content;
@@ -164,5 +162,6 @@
     border-radius: 8px;
     overflow: hidden;
     padding: 20px;
+    background-color: #FFF;
   }
 </style>
