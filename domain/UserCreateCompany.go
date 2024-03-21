@@ -5,12 +5,14 @@ import (
 	"errors"
 	"fmt"
 	"math/big"
+	"strings"
 
 	"benakun/model/mAuth"
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
 
 	"github.com/kokizzu/gotro/D/Tt"
+	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/S"
 )
 
@@ -76,7 +78,7 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 	}
 
 	org := wcAuth.NewOrgsMutator(d.AuthOltp)
-	org.SetTenantCode(fmt.Sprintf("%s_%d", in.TenantCode, generate4RandomNumber()))
+	org.SetTenantCode(fmt.Sprintf("%s_%s", in.TenantCode, generate4RandomNumber()))
 	org.SetHeadTitle(in.HeadTitle)
 	org.SetName(in.CompanyName)
 	org.SetOrgType(mAuth.OrgTypeCompany)
@@ -132,9 +134,22 @@ func insertCoaLevel(ta *Tt.Adapter, tenantCode string, level float64, name strin
 	return nil
 }
 
-func generate4RandomNumber() int {
-	randomNumber, _ := rand.Int(rand.Reader, big.NewInt(9000))
-	return int(randomNumber.Int64()) + 1000
+func generate4RandomNumber() string {
+	to4Numbers := make([]int, 0)
+
+	for i := 0; i < 4; i++ {
+		rnum, _ := rand.Int(rand.Reader, big.NewInt(9))
+		to4Numbers = append(to4Numbers, int(rnum.Int64()))
+	}
+
+	strNumbers := make([]string, len(to4Numbers))
+	for i, num := range to4Numbers {
+		strNumbers[i] = I.ToS(int64(num))
+	}
+
+	res := strings.Join(strNumbers, "")
+
+	return res
 }
 
 func generateCoaLevels(ta *Tt.Adapter, tenantCode string) error {

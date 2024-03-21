@@ -25,6 +25,7 @@
    * @type {Array<Org>}
    */
   let orgs = [/* orgs */];
+  console.log(orgs)
 
   /**
    * @type {Array<Org>}
@@ -96,7 +97,10 @@
 
   onMount(() => REFORMAT_ORGS = reformatorgs());
 
-  let infoOrg = orgs.length > 0 ? orgs[0] : null;
+  let infoOrg;
+  if (orgs && orgs.length) {
+    infoOrg = orgs[0];
+  }
 
   function updateEventHandler(e) {
     orgs = e.detail.orgs;

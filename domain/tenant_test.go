@@ -5,6 +5,7 @@ import (
 
 	"github.com/goccy/go-json"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 type inviteJoin struct {
@@ -36,33 +37,40 @@ func TestInviteJoinCompany(t *testing.T) {
 	})
 }
 
-type createCoaChild struct{
-	Name string `json:"name"`
-	ParentId uint64 `json:"parentId"`
-}
-
 func TestCreateCoaChild(t *testing.T) {
 	d, closer := testDomain()
 	defer closer()
 
-	const py = `{
-		"name": "Makan",
-		"parentId": 185
-	}`
-
-	var pyJson createCoaChild
-
 	t.Run(`insertMustSucceed`, func(t *testing.T) {
-		err := json.Unmarshal([]byte(py), &pyJson)
-		assert.NoError(t, err)
-
 		in := TenantAdminCreateCoaChildIn{
 			RequestCommon: testAdminRequestCommon(TenantAdminCreateCoaChildAction),
-			Name: pyJson.Name,
-			ParentId: pyJson.ParentId,
+			Name: "makan",
+			ParentId: 1,
 		}
 
 		out := d.TenantAdminCreateCoaChild(&in)
 		assert.Empty(t, out.Error)
+	})
+}
+
+func TestTenantAdminOrganization(t *testing.T) {
+	d, closer := testDomain()
+	defer closer()
+
+	t.Run(`addDepartmentMustSucceed`, func(t *testing.T) {
+		in := TenantAdminCreateOrganizationChildIn{
+			RequestCommon: testAdminRequestCommon(TenantAdminCreateOrganizationChildAction),
+			Name: `Department 1`,
+			HeadTitle: `Mr. Habi`,
+			ParentId: 1,
+		}
+
+		out := d.TenantAdminCreateOrganizationChild(&in)
+		assert.Empty(t, out.Error)
+		require.Empty(t, out.Error)
+
+		if out.Orgs != nil {
+			t.Log(`Organization:`, out.Orgs)
+		}
 	})
 }

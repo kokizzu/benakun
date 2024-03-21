@@ -7305,6 +7305,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   }
   function instance10($self, $props, $invalidate) {
     let orgs = [/* orgs */];
+    console.log(orgs);
     let REFORMAT_ORGS = [];
     function orgMaker(id) {
       let orgFormatted = {
@@ -7362,7 +7363,10 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       return toorgs;
     }
     onMount(() => $invalidate(0, REFORMAT_ORGS = reformatorgs()));
-    let infoOrg = orgs.length > 0 ? orgs[0] : null;
+    let infoOrg;
+    if (orgs && orgs.length) {
+      infoOrg = orgs[0];
+    }
     function updateEventHandler(e) {
       orgs = e.detail.orgs;
       for (let i in orgs) {

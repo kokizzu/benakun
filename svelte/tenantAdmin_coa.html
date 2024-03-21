@@ -7032,9 +7032,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     return child_ctx;
   }
   function create_if_block5(ctx) {
+    let div;
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
-    let each_1_anchor;
     let current;
     let each_value = ensure_array_like(
       /*REFORMAT_COAS*/
@@ -7051,18 +7051,19 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     }
     return {
       c() {
+        div = element("div");
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        each_1_anchor = empty();
+        attr(div, "class", "coa_levels shadow svelte-fy8nxd");
       },
       m(target, anchor) {
+        insert(target, div, anchor);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
-            each_blocks[i].m(target, anchor);
+            each_blocks[i].m(div, null);
           }
         }
-        insert(target, each_1_anchor, anchor);
         current = true;
       },
       p(ctx2, dirty) {
@@ -7073,7 +7074,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
             ctx2[0]
           );
           group_outros();
-          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block2, each_1_anchor, get_each_context2);
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, div, outro_and_destroy_block, create_each_block2, null, get_each_context2);
           check_outros();
         }
       },
@@ -7093,10 +7094,10 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(each_1_anchor);
+          detach(div);
         }
         for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].d(detaching);
+          each_blocks[i].d();
         }
       }
     };
@@ -7393,7 +7394,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     };
   }
   function create_default_slot(ctx) {
-    let div;
+    let if_block_anchor;
     let current;
     let if_block = (
       /*REFORMAT_COAS*/
@@ -7402,15 +7403,14 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     );
     return {
       c() {
-        div = element("div");
         if (if_block)
           if_block.c();
-        attr(div, "class", "coa_levels shadow svelte-fy8nxd");
+        if_block_anchor = empty();
       },
       m(target, anchor) {
-        insert(target, div, anchor);
         if (if_block)
-          if_block.m(div, null);
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
         current = true;
       },
       p(ctx2, dirty) {
@@ -7429,7 +7429,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
             if_block = create_if_block5(ctx2);
             if_block.c();
             transition_in(if_block, 1);
-            if_block.m(div, null);
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
           }
         } else if (if_block) {
           group_outros();
@@ -7451,10 +7451,10 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(div);
+          detach(if_block_anchor);
         }
         if (if_block)
-          if_block.d();
+          if_block.d(detaching);
       }
     };
   }

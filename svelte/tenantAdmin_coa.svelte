@@ -153,8 +153,8 @@
 />
 
 <MainLayout>
-  <div class="coa_levels shadow">
-    {#if REFORMAT_COAS && REFORMAT_COAS.length}
+  {#if REFORMAT_COAS && REFORMAT_COAS.length}
+    <div class="coa_levels shadow">
       {#each REFORMAT_COAS as c, _ (c.id)}
         <div class="coa">
           <div class="parent">
@@ -185,8 +185,8 @@
           {/if}
         </div>
       {/each}
-    {/if}
-  </div>
+    </div>
+  {/if}
 </MainLayout>
 
 <style>
