@@ -26,10 +26,10 @@ type (
 const (
 	TenantAdminCreateCoaChildAction = `tenantAdmin/createCoaChild`
 
-	ErrTenantAdminCreateCoaChildUnauthorized      = `unauthorized user`
-	ErrTenantAdminCreateCoaChildTenantNotFound    = `tenant admin not found`
-	ErrTenantAdminCreateCoaChildCoaParentNotFound = `coa parent not found`
-	ErrTenantAdminCreateCoaChildCoaChildNotFound  = `coa child not found`
+	ErrTenantAdminCreateCoaChildUnauthorized      = `unauthorized user to create coa child`
+	ErrTenantAdminCreateCoaChildTenantNotFound    = `tenant admin not found to create coa child`
+	ErrTenantAdminCreateCoaChildCoaParentNotFound = `coa parent not found for this coa child`
+	ErrTenantAdminCreateCoaChildCoaChildNotFound  = `coa child not found when adds child to parent`
 )
 
 func (d *Domain) TenantAdminCreateCoaChild(in *TenantAdminCreateCoaChildIn) (out TenantAdminCreateCoaChildOut) {

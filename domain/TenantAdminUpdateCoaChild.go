@@ -26,10 +26,9 @@ type (
 const (
 	TenantAdminUpdateCoaChildAction = `tenantAdmin/updateCoaChild`
 
-	ErrTenantAdminUpdateCoaChildUnauthorized      = `unauthorized user`
-	ErrTenantAdminUpdateCoaChildTenantNotFound    = `tenant admin not found`
-	ErrTenantAdminUpdateCoaChildCoaParentNotFound = `coa parent not found`
-	ErrTenantAdminUpdateCoaChildCoaChildNotFound  = `coa child not found`
+	ErrTenantAdminUpdateCoaChildUnauthorized      = `unauthorized user to update coa child`
+	ErrTenantAdminUpdateCoaChildTenantNotFound    = `tenant admin not found to update coa child`
+	ErrTenantAdminUpdateCoaChildCoaChildNotFound  = `coa child not found, make sure the id is valid`
 	ErrTenantAdminUpdateCoaChildFailed = `failed to update coa child`
 )
 
@@ -59,7 +58,7 @@ func (d *Domain) TenantAdminUpdateCoaChild(in *TenantAdminUpdateCoaChildIn) (out
 	child := wcAuth.NewCoaMutator(d.AuthOltp)
 	child.Id = in.Id
 	if !child.FindById() {
-		out.SetError(400, ErrTenantAdminUpdateCoaChildTenantNotFound)
+		out.SetError(400, ErrTenantAdminUpdateCoaChildCoaChildNotFound)
 		return
 	}
 

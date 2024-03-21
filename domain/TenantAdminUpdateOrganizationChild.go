@@ -20,6 +20,7 @@ type (
 	}
 	TenantAdminUpdateOrganizationChildOut struct {
 		ResponseCommon
+		Org *rqAuth.Orgs `json:"org" form:"org" query:"org" long:"org" msg:"org"`
 		Orgs *[]rqAuth.Orgs `json:"orgs" form:"orgs" query:"orgs" long:"orgs" msg:"orgs"`
 	}
 )
@@ -73,6 +74,8 @@ func (d *Domain) TenantAdminUpdateOrganizationChild(in *TenantAdminUpdateOrganiz
 		out.SetError(400, ErrTenantAdminUpdateOrganizationChildFailed)
 		return
 	}
+
+	out.Org = &child.Orgs
 
 	org := wcAuth.NewOrgsMutator(d.AuthOltp)
 	orgs := org.FindOrgsByTenant(tenant.TenantCode)

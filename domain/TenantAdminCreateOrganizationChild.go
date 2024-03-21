@@ -22,6 +22,7 @@ type (
 
 	TenantAdminCreateOrganizationChildOut struct {
 		ResponseCommon
+		Org *rqAuth.Orgs `json:"org" form:"org" query:"org" long:"org" msg:"org"`
 		Orgs *[]rqAuth.Orgs `json:"orgs" form:"orgs" query:"orgs" long:"orgs" msg:"orgs"`
 	}
 )
@@ -50,14 +51,14 @@ func (d *Domain) TenantAdminCreateOrganizationChild(in *TenantAdminCreateOrganiz
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Id = sess.UserId
 	if !user.FindById() {
-		out.SetError(400, ErrTenantAdminCoaUnauthorized)
+		out.SetError(400, ErrTenantAdminCreateOrganizationChildUnauthorized)
 		return
 	}
 
 	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
 	tenant.TenantCode = user.TenantCode
 	if !tenant.FindByTenantCode() {
-		out.SetError(400, ErrTenantAdminCoaTenantNotFound)
+		out.SetError(400, ErrTenantAdminCreateOrganizationChildTenantNotFound)
 		return
 	}
 
@@ -99,7 +100,7 @@ func (d *Domain) TenantAdminCreateOrganizationChild(in *TenantAdminCreateOrganiz
 		return
 	}
 
-	// finc the created child to update parent
+	// find the created child to update parent
 	fchild := wcAuth.NewOrgsMutator(d.AuthOltp)
 	fchild.ParentId = parent.Id
 	fchild.Name = in.Name
@@ -108,6 +109,8 @@ func (d *Domain) TenantAdminCreateOrganizationChild(in *TenantAdminCreateOrganiz
 		out.SetError(400, ErrTenantAdminCreateOrganizationChildOrgChildNotFound)
 		return
 	}
+
+	out.Org = &fchild.Orgs
 
 	// update children for parent
 	children := parent.Children

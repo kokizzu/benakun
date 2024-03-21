@@ -26,8 +26,8 @@ type (
 const (
 	TenantAdminCoaAction = `tenantAdmin/coa`
 
-	ErrTenantAdminCoaUnauthorized   = `unauthorized user`
-	ErrTenantAdminCoaTenantNotFound = `tenant admin not found`
+	ErrTenantAdminCoaUnauthorized   = `unauthorized user for coa`
+	ErrTenantAdminCoaTenantNotFound = `tenant admin not found for coa`
 )
 
 func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
