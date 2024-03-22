@@ -65,8 +65,7 @@ func TestTenantAdminOrganization(t *testing.T) {
 		}
 
 		out := d.UserCreateCompany(&in)
-		assert.Empty(t, out.Error)
-		if out.Ok {
+		if assert.Empty(t, out.Error) {
 			t.Run(`createDepartmentMustSucceed`, func(t *testing.T) {
 				in := TenantAdminCreateOrganizationChildIn{
 					RequestCommon: testAdminRequestCommon(TenantAdminCreateOrganizationChildAction),
@@ -77,7 +76,7 @@ func TestTenantAdminOrganization(t *testing.T) {
 
 				out := d.TenantAdminCreateOrganizationChild(&in)
 				assert.Empty(t, out.Error)
-				if out.Orgs != nil {
+				if out.Org != nil {
 					t.Run(`createDevisionMustSucceed`, func(t *testing.T) {
 						in := TenantAdminCreateOrganizationChildIn{
 							RequestCommon: testAdminRequestCommon(TenantAdminCreateOrganizationChildAction),
@@ -88,6 +87,19 @@ func TestTenantAdminOrganization(t *testing.T) {
 
 						out := d.TenantAdminCreateOrganizationChild(&in)
 						assert.Empty(t, out.Error)
+						if out.Org != nil {
+							t.Run(`createJobMustSucceed`, func(t *testing.T) {
+								in := TenantAdminCreateOrganizationChildIn{
+									RequestCommon: testAdminRequestCommon(TenantAdminCreateOrganizationChildAction),
+									Name: `Job A`,
+									HeadTitle: `Habibi Job`,
+									ParentId: out.Org.Id,
+								}
+		
+								out := d.TenantAdminCreateOrganizationChild(&in)
+								assert.Empty(t, out.Error)
+							})
+						}
 					})
 				}
 			})

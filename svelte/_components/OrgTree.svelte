@@ -107,6 +107,7 @@
               console.log(o.error);
               return;
             }
+            console.log(o);
             // @ts-ignore
             dispatch('update', { orgs: o.orgs })
             notifier.showSuccess('Organization child created');
@@ -132,6 +133,7 @@
               console.log(o.error);
               return;
             }
+            console.log(o);
             // @ts-ignore
             dispatch('update', { orgs: o.orgs })
             notifier.showSuccess('Organization child updated');

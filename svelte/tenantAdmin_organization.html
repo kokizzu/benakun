@@ -6904,6 +6904,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
                 console.log(o.error);
                 return;
               }
+              console.log(o);
               dispatch("update", { orgs: o.orgs });
               notifier.showSuccess("Organization child created");
             }
@@ -6925,6 +6926,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
                 console.log(o.error);
                 return;
               }
+              console.log(o);
               dispatch("update", { orgs: o.orgs });
               notifier.showSuccess("Organization child updated");
             }
