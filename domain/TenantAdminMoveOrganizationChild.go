@@ -1,12 +1,5 @@
 package domain
 
-// TODO
-// move organization child to other parent
-// make sure it only works to move under the same company
-// organization type cannot be change,
-// that means organization child cannot be change to higher level
-// e.g. JobA cannot be change to DivB
-
 import (
 	"benakun/model/mAuth"
 	"benakun/model/mAuth/rqAuth"
@@ -23,7 +16,7 @@ type (
 	TenantAdminMoveOrganizationChildIn struct {
 		RequestCommon
 		Id uint64 `json:"id" form:"id" query:"id" long:"id" msg:"id"`
-		MoveTo string `json:"moveTo" form:"moveTo" query:"moveTo" long:"moveTo" msg:"moveTo"`
+		MoveToIdx int `json:"moveToIdx" form:"moveToIdx" query:"moveToIdx" long:"moveToIdx" msg:"moveToIdx"`
 		ToParentId uint64 `json:"ToParentId" form:"ToParentId" query:"ToParentId" long:"ToParentId" msg:"ToParentId"`
 	}
 
@@ -90,50 +83,22 @@ func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizatio
 		return
 	}
 
-	// default to first
-	if !(in.MoveTo == `first` || in.MoveTo == `end`) {
-		in.MoveTo = `first`
-	}
-
 	switch child.OrgType {
 	case mAuth.OrgTypeCompany:
 		out.SetError(400, ErrTenantAdminMoveOrganizationChildShouldNotCompany)
 		return
 	case mAuth.OrgTypeDept:
-		switch in.MoveTo {
-		case `first`:
-			moveChildToFirst(&parent.Children, child.Id)
-			parent.SetChildren(parent.Children)
-			if !parent.DoUpdateById() {
-				parent.HaveMutation()
-				out.SetError(400, ErrTenantAdminMoveOrganizationChildFailedMoveChildren)
-				return
-			}
-		case `end`:
-			moveChildToEnd(&parent.Children, child.Id)
-			parent.SetChildren(parent.Children)
-			if !parent.DoUpdateById() {
-				parent.HaveMutation()
-				out.SetError(400, ErrTenantAdminMoveOrganizationChildFailedMoveChildren)
-				return
-			}
+		children :=  moveElement(parent.Children, in.Id, in.MoveToIdx)
+		parent.SetChildren(children)
+		if !parent.DoUpdateById() {
+			parent.HaveMutation()
+			out.SetError(400, ErrTenantAdminMoveOrganizationChildFailedMoveChildren)
+			return
 		}
 	case mAuth.OrgTypeDivision:
 		if toParent.OrgType != mAuth.OrgTypeDept {
 			out.SetError(400, ErrTenantAdminMoveOrganizationChildMustSameParentType)
 			return
-		}
-
-		switch in.MoveTo {
-		case `first`:
-			if parent.Id != toParent.Id {
-				// TODO remove element
-			}
-			moveChildToFirst(&parent.Children, child.Id)
-			parent.SetChildren(parent.Children)
-		case `end`:
-			moveChildToEnd(&parent.Children, child.Id)
-			parent.SetChildren(parent.Children)
 		}
 
 		if !parent.DoUpdateById() {
@@ -146,40 +111,26 @@ func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizatio
 	return
 }
 
-func moveChildToFirst(children *[]any, elm any) {
-	elmIdx := 0
-
-	for i, v := range *children {
-		if v == elm {
-			elmIdx = i
+func moveElement(slice []any, element any, newIndex int) []any {
+	var elmIndex int
+	for i, v := range slice {
+		if v == element {
+			elmIndex = i
+			break
 		}
 	}
 
-	temp := (*children)[elmIdx]
-
-	for i := elmIdx; i > 0; i-- {
-		(*children)[i] = (*children)[i-1]
+	if newIndex < 0 {
+		newIndex = 0
+	}
+	
+	slice = append(slice[:elmIndex], slice[elmIndex+1:]...)
+	
+	if newIndex >= len(slice) {
+		slice = append(slice, element)
+	} else {
+		slice = append(slice[:newIndex], append([]any{element}, slice[newIndex:]...)...)
 	}
 
-	(*children)[0] = temp
+	return slice
 }
-
-func moveChildToEnd(children *[]any, elm any) {
-	elmIdx := 0
-
-	for i, v := range *children {
-		if v == elm {
-			elmIdx = i
-		}
-	}
-
-	element := (*children)[elmIdx]
-	*children = append((*children)[:elmIdx], (*children)[elmIdx+1:]...)
-
-	*children = append(*children, element)
-}
-
-// TODO
-// function removeElement
-// function addChildToFirst
-// function addChildToEnd
