@@ -4,6 +4,7 @@ import (
 	"benakun/model/mAuth"
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
+	"errors"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminMoveOrganizationChild.go
@@ -88,11 +89,8 @@ func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizatio
 		out.SetError(400, ErrTenantAdminMoveOrganizationChildShouldNotCompany)
 		return
 	case mAuth.OrgTypeDept:
-		children :=  moveElement(parent.Children, in.Id, in.MoveToIdx)
-		parent.SetChildren(children)
-		if !parent.DoUpdateById() {
-			parent.HaveMutation()
-			out.SetError(400, ErrTenantAdminMoveOrganizationChildFailedMoveChildren)
+		if parent.OrgType != mAuth.OrgTypeCompany {
+			out.SetError(400, ErrTenantAdminMoveOrganizationChildMustSameParentType)
 			return
 		}
 	case mAuth.OrgTypeDivision:
@@ -100,7 +98,43 @@ func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizatio
 			out.SetError(400, ErrTenantAdminMoveOrganizationChildMustSameParentType)
 			return
 		}
+	case mAuth.OrgTypeJob:
+		if toParent.OrgType != mAuth.OrgTypeDivision {
+			out.SetError(400, ErrTenantAdminMoveOrganizationChildMustSameParentType)
+			return
+		}
+	}
 
+	if in.ToParentId == parent.Id {
+		children, err := moveChildToIdx(parent.Children, in.Id, in.MoveToIdx)
+		if err != nil {
+			out.SetError(400, ErrTenantAdminMoveOrganizationChildOrgNotFound)
+			return
+		}
+
+		parent.SetChildren(children)
+		
+		if !parent.DoUpdateById() {
+			parent.HaveMutation()
+			out.SetError(400, ErrTenantAdminMoveOrganizationChildFailedMoveChildren)
+			return
+		}
+	} else {
+		children := insertChildToIndex(toParent.Children, in.Id, in.MoveToIdx)
+		toParent.SetChildren(children)
+		if !toParent.DoUpdateById() {
+			toParent.HaveMutation()
+			out.SetError(400, ErrTenantAdminMoveOrganizationChildFailedMoveChildren)
+			return
+		}
+
+		children, err := removeChild(parent.Children, in.Id)
+		if err != nil {
+			out.SetError(400, ErrTenantAdminMoveOrganizationChildOrgNotFound)
+			return
+		}
+
+		parent.SetChildren(children)
 		if !parent.DoUpdateById() {
 			parent.HaveMutation()
 			out.SetError(400, ErrTenantAdminMoveOrganizationChildFailedMoveChildren)
@@ -111,13 +145,17 @@ func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizatio
 	return
 }
 
-func moveElement(slice []any, element any, newIndex int) []any {
-	var elmIndex int
+func moveChildToIdx(slice []any, element any, newIndex int) ([]any, error) {
+	var elmIndex int = -1
 	for i, v := range slice {
 		if v == element {
 			elmIndex = i
 			break
 		}
+	}
+
+	if elmIndex == -1 {
+		return []any{}, errors.New("element not found")
 	}
 
 	if newIndex < 0 {
@@ -131,6 +169,42 @@ func moveElement(slice []any, element any, newIndex int) []any {
 	} else {
 		slice = append(slice[:newIndex], append([]any{element}, slice[newIndex:]...)...)
 	}
+
+	return slice, nil
+}
+
+func removeChild(slice []any, element any) ([]any, error) { 
+	var elmIndex int = -1
+	for i, v := range slice {
+		if v == element {
+			elmIndex = i
+			break
+		}
+	}
+
+	if elmIndex == -1 {
+		return []any{}, errors.New("element not found")
+	}
+
+	result := make([]any, len(slice)-1)
+	
+	copy(result, slice[:elmIndex]) 
+	copy(result[elmIndex:], slice[elmIndex+1:])
+	
+	return result, nil
+}
+
+func insertChildToIndex(slice []any, element any, newIndex int) []any {
+	if len(slice) < 1 || newIndex < 0 {
+		slice = append(slice, element)
+		return slice
+	}
+
+	slice = append(slice, 0)
+
+	copy(slice[newIndex+1:], slice[newIndex:])
+
+	slice[newIndex] = element
 
 	return slice
 }
