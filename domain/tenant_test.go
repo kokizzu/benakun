@@ -5,6 +5,7 @@ import (
 
 	"github.com/goccy/go-json"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 type inviteJoin struct {
@@ -65,6 +66,8 @@ func TestTenantAdminOrganization(t *testing.T) {
 		}
 
 		out := d.UserCreateCompany(&in)
+		require.Empty(t, out.Error)
+		require.NotEmpty(t, out.Company)
 		if assert.Empty(t, out.Error) {
 			t.Run(`createDepartmentMustSucceed`, func(t *testing.T) {
 				in := TenantAdminCreateOrganizationChildIn{
@@ -75,8 +78,10 @@ func TestTenantAdminOrganization(t *testing.T) {
 				}
 
 				out := d.TenantAdminCreateOrganizationChild(&in)
-				assert.Empty(t, out.Error)
-				if out.Org != nil {
+				require.Empty(t, out.Error)
+				assert.NotEmpty(t, out.Org)
+				assert.NotZero(t, out.Org.Id)
+				if assert.Empty(t, out.Error) {
 					t.Run(`createDevisionMustSucceed`, func(t *testing.T) {
 						in := TenantAdminCreateOrganizationChildIn{
 							RequestCommon: testAdminRequestCommon(TenantAdminCreateOrganizationChildAction),
@@ -86,8 +91,10 @@ func TestTenantAdminOrganization(t *testing.T) {
 						}
 
 						out := d.TenantAdminCreateOrganizationChild(&in)
-						assert.Empty(t, out.Error)
-						if out.Org != nil {
+						require.Empty(t, out.Error)
+						assert.NotEmpty(t, out.Org)
+						assert.NotZero(t, out.Org.Id)
+						if assert.Empty(t, out.Error) {
 							t.Run(`createJobMustSucceed`, func(t *testing.T) {
 								in := TenantAdminCreateOrganizationChildIn{
 									RequestCommon: testAdminRequestCommon(TenantAdminCreateOrganizationChildAction),

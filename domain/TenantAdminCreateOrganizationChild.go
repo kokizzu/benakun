@@ -32,8 +32,8 @@ const (
 
 	ErrTenantAdminCreateOrganizationChildUnauthorized      = `unauthorized user`
 	ErrTenantAdminCreateOrganizationChildTenantNotFound    = `tenant admin not found`
-	ErrTenantAdminCreateOrganizationChildOrgParentNotFound = `organization parent not found`
-	ErrTenantAdminCreateOrganizationChildOrgChildNotFound  = `organization child not found`
+	ErrTenantAdminCreateOrganizationChildOrgParentNotFound = `cannot found parent to create organization`
+	ErrTenantAdminCreateOrganizationChildOrgChildNotFound  = `organization child not found to create organization`
 	ErrTenantAdminCreateOrganizationOrgAlreadyExist = `organization already exist`
 	ErrTenantAdminCreateOrganizationChildFailed = `create organization child failed`
 	ErrTenantAdminCreateOrganizationInvalidOrgType = `invalid type of organization`
@@ -104,17 +104,14 @@ func (d *Domain) TenantAdminCreateOrganizationChild(in *TenantAdminCreateOrganiz
 	fchild := wcAuth.NewOrgsMutator(d.AuthOltp)
 	fchild.ParentId = parent.Id
 	fchild.Name = in.Name
-	childId := fchild.FindOrgChildIdByParentIdByName()
-	if childId == 0 {
-		out.SetError(400, ErrTenantAdminCreateOrganizationChildOrgChildNotFound)
-		return
-	}
+	
+	findChild := fchild.FindOrgChildByParentIdByName()
 
 	out.Org = &fchild.Orgs
 
 	// update children for parent
 	children := parent.Children
-	children = append(children, childId)
+	children = append(children, findChild.Id)
 	parent.SetChildren(children)
 	parent.SetUpdatedAt(in.UnixNow())
 	parent.SetUpdatedBy(sess.UserId)

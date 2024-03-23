@@ -247,25 +247,19 @@ FROM ` + o.SqlTableName() +
 	return
 }
 
-func (o *Orgs) FindOrgChildIdByParentIdByName() uint64 {
-	var res [][]any
+func (o *Orgs) FindOrgChildByParentIdByName() (org Orgs) {
 	const comment = `-- Org) FindOrgChildIdByParentIdByName`
 
 	whereAndSql := ` WHERE ` + o.SqlParentId() + ` = ` + I.ToS(int64(o.ParentId)) + ` AND ` + o.SqlName() + ` = ` + S.Z(o.Name)
 
 	queryRow := comment + `
-SELECT ` + o.SqlId() + `
-FROM ` + o.SqlTableName() + whereAndSql
+SELECT ` + o.SqlSelectAllFields() + `
+FROM ` + o.SqlTableName() + whereAndSql + ` LIMIT 1`
 
 	o.Adapter.QuerySql(queryRow, func(row []any) {
-		row[0] = X.ToS(row[0]) // ensure id is string
-		res = append(res, row)
+		row[0] = X.ToS(row[0])
+		org = *o.FromArray(row)
 	})
 
-	if len(res) > 0 {
-		pId := res[0][0].(string)
-		return S.ToU(pId)
-	}
-
-	return 0
+	return
 }

@@ -7415,12 +7415,6 @@ a.active.svelte-1pvhujp {
         $invalidate(12, isSubmitCreateCompany = false);
         console.log(o);
         notifier.showSuccess("Company created successfully");
-        setTimeout(
-          () => {
-            window.location.reload();
-          },
-          1200
-        );
       });
     }
     function inputbox_value_binding(value) {

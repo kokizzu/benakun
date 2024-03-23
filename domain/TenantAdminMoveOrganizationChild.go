@@ -77,6 +77,31 @@ func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizatio
 		return
 	}
 
+	// if organization move to the same parent
+	if parent.Id == in.ToParentId {
+		children, err := moveChildToIdx(parent.Children, in.Id, in.MoveToIdx)
+		if err != nil {
+			out.SetError(400, ErrTenantAdminMoveOrganizationChildOrgNotFound)
+			return
+		}
+
+		parent.SetChildren(children)
+		if !parent.DoUpdateById() {
+			parent.HaveMutation()
+			out.SetError(400, ErrTenantAdminMoveOrganizationChildFailedMoveChildren)
+			return
+		}
+
+		out.Org = &child.Orgs
+		
+		org := wcAuth.NewOrgsMutator(d.AuthOltp)
+		orgs := org.FindOrgsByTenant(tenant.TenantCode)
+		out.Orgs = &orgs
+
+		return
+	}
+
+	// if organization move to different parent
 	toParent := wcAuth.NewOrgsMutator(d.AuthOltp)
 	toParent.Id = in.ToParentId
 	if !toParent.FindById() {
@@ -84,12 +109,13 @@ func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizatio
 		return
 	}
 
+	// organization should move to the same parent type
 	switch child.OrgType {
 	case mAuth.OrgTypeCompany:
 		out.SetError(400, ErrTenantAdminMoveOrganizationChildShouldNotCompany)
 		return
 	case mAuth.OrgTypeDept:
-		if parent.OrgType != mAuth.OrgTypeCompany {
+		if toParent.OrgType != mAuth.OrgTypeCompany {
 			out.SetError(400, ErrTenantAdminMoveOrganizationChildMustSameParentType)
 			return
 		}
@@ -105,42 +131,35 @@ func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizatio
 		}
 	}
 
-	if in.ToParentId == parent.Id {
-		children, err := moveChildToIdx(parent.Children, in.Id, in.MoveToIdx)
-		if err != nil {
-			out.SetError(400, ErrTenantAdminMoveOrganizationChildOrgNotFound)
-			return
-		}
+	// operation if organization move to other parent
 
-		parent.SetChildren(children)
-		
-		if !parent.DoUpdateById() {
-			parent.HaveMutation()
-			out.SetError(400, ErrTenantAdminMoveOrganizationChildFailedMoveChildren)
-			return
-		}
-	} else {
-		children := insertChildToIndex(toParent.Children, in.Id, in.MoveToIdx)
-		toParent.SetChildren(children)
-		if !toParent.DoUpdateById() {
-			toParent.HaveMutation()
-			out.SetError(400, ErrTenantAdminMoveOrganizationChildFailedMoveChildren)
-			return
-		}
-
-		children, err := removeChild(parent.Children, in.Id)
-		if err != nil {
-			out.SetError(400, ErrTenantAdminMoveOrganizationChildOrgNotFound)
-			return
-		}
-
-		parent.SetChildren(children)
-		if !parent.DoUpdateById() {
-			parent.HaveMutation()
-			out.SetError(400, ErrTenantAdminMoveOrganizationChildFailedMoveChildren)
-			return
-		}
+	// add organization to parent destination
+	children := insertChildToIndex(toParent.Children, in.Id, in.MoveToIdx)
+	toParent.SetChildren(children)
+	if !toParent.DoUpdateById() {
+		toParent.HaveMutation()
+		out.SetError(400, ErrTenantAdminMoveOrganizationChildFailedMoveChildren)
+		return
 	}
+
+	// remove organization from previous parent
+	children, err := removeChild(parent.Children, in.Id)
+	if err != nil {
+		out.SetError(400, ErrTenantAdminMoveOrganizationChildOrgNotFound)
+		return
+	}
+	parent.SetChildren(children)
+	if !parent.DoUpdateById() {
+		parent.HaveMutation()
+		out.SetError(400, ErrTenantAdminMoveOrganizationChildFailedMoveChildren)
+		return
+	}
+
+	out.Org = &child.Orgs
+
+	org := wcAuth.NewOrgsMutator(d.AuthOltp)
+	orgs := org.FindOrgsByTenant(tenant.TenantCode)
+	out.Orgs = &orgs
 
 	return
 }
