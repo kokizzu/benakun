@@ -78,19 +78,9 @@ func (d *Domain) TenantAdminCreateCoaChild(in *TenantAdminCreateCoaChildIn) (out
 		return
 	}
 
-	// find child id
-	fchild := wcAuth.NewCoaMutator(d.AuthOltp)
-	fchild.ParentId = parent.Id
-	fchild.Name = in.Name
-	childId := fchild.FindCoaChildIdByParentIdByName()
-	if childId == 0 {
-		out.SetError(400, ErrTenantAdminCreateCoaChildCoaChildNotFound)
-		return
-	}
-
 	// update childrens of parent coa
 	children := parent.Children
-	children = append(children, childId)
+	children = append(children, child.Id)
 	parent.SetChildren(children)
 	parent.SetUpdatedAt(in.UnixNow())
 	parent.SetUpdatedBy(sess.UserId)

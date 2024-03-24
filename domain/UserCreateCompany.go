@@ -119,7 +119,7 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 	return
 }
 
-func insertCoaLevel(ta *Tt.Adapter, tenantCode string, level float64, name string, parentId uint64) error {
+func insertCoaLevel(ta *Tt.Adapter, tenantCode string, level float64, name string, parentId uint64) (uint64, error) {
 	coa := wcAuth.NewCoaMutator(ta)
 	coa.SetTenantCode(tenantCode)
 	coa.SetLevel(level)
@@ -128,7 +128,47 @@ func insertCoaLevel(ta *Tt.Adapter, tenantCode string, level float64, name strin
 		coa.SetParentId(parentId)
 	}
 	if !coa.DoInsert() {
-		return errors.New(ErrUserCreateCompanyCoaExist)
+		return 0, errors.New(ErrUserCreateCompanyCoaExist)
+	}
+
+	return coa.Id, nil
+}
+
+func generateCoaLevels(ta *Tt.Adapter, tenantCode string) error {
+	for lv, vl := range mAuth.CoaLevelDefaultList {
+		if _, err := insertCoaLevel(ta, tenantCode, float64(S.ToInt(lv)), vl.Name, 0); err != nil {
+			return err
+		}
+
+		if len(vl.ChildrenNames) > 0 {
+			parent := wcAuth.NewCoaMutator(ta)
+			parent.TenantCode = tenantCode
+			parent.Level = float64(S.ToInt(lv))
+
+			parentId := parent.FindCoaIdByTenantByLevel()
+			if parentId == 0 {
+				return errors.New(ErrUserCreateCompanyCoaExist)
+			}
+
+			var children = []any{}
+
+			for _, v := range vl.ChildrenNames {
+				childId, err := insertCoaLevel(ta, tenantCode, float64(S.ToInt(lv)), v, parentId)
+				if err != nil {
+					return err
+				}
+				
+				children = append(children, childId)
+			}
+
+			if len(children) > 0 {
+				parent.SetChildren(children)
+				parent.Id = parentId
+				if !parent.DoUpdateById() {
+					return errors.New(ErrUserCreateCompanyCoaExist)
+				}
+			}
+		}
 	}
 
 	return nil
@@ -147,52 +187,7 @@ func generate4RandomNumber() string {
 		strNumbers[i] = I.ToS(int64(num))
 	}
 
-	res := strings.Join(strNumbers, "")
+	result := strings.Join(strNumbers, "")
 
-	return res
-}
-
-func generateCoaLevels(ta *Tt.Adapter, tenantCode string) error {
-	for lv, vl := range mAuth.CoaLevelDefaultList {
-		if err := insertCoaLevel(ta, tenantCode, float64(S.ToInt(lv)), vl.Name, 0); err != nil {
-			return err
-		}
-		if len(vl.ChildrenNames) > 0 {
-			parent := wcAuth.NewCoaMutator(ta)
-			parent.TenantCode = tenantCode
-			parent.Level = float64(S.ToInt(lv))
-
-			parentId := parent.FindCoaIdByTenantByLevel()
-			if parentId == 0 {
-				return errors.New(ErrUserCreateCompanyCoaExist)
-			}
-
-			var children = []any{}
-
-			for _, v := range vl.ChildrenNames {
-				if err := insertCoaLevel(ta, tenantCode, float64(S.ToInt(lv)), v, parentId); err == nil {
-					child := wcAuth.NewCoaMutator(ta)
-					child.ParentId = parentId
-					child.Name = v
-
-					childId := child.FindCoaChildIdByParentIdByName()
-					if childId != 0 {
-						children = append(children, childId)
-					}
-				} else {
-					return err
-				}
-			}
-
-			if len(children) > 0 {
-				parent.SetChildren(children)
-				parent.Id = parentId
-				if !parent.DoUpdateById() {
-					return errors.New(ErrUserCreateCompanyCoaExist)
-				}
-			}
-		}
-	}
-
-	return nil
+	return result
 }

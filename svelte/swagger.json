@@ -1533,6 +1533,7 @@
 				}
 			}
 		},
+		"/tenantAdmin/moveOrganizationChild": {
 			"post": {
 				"security": [{
 					"CookieAuth": []

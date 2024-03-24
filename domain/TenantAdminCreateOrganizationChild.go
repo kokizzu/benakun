@@ -100,18 +100,11 @@ func (d *Domain) TenantAdminCreateOrganizationChild(in *TenantAdminCreateOrganiz
 		return
 	}
 
-	// find the created child to update parent
-	fchild := wcAuth.NewOrgsMutator(d.AuthOltp)
-	fchild.ParentId = parent.Id
-	fchild.Name = in.Name
-	
-	findChild := fchild.FindOrgChildByParentIdByName()
-
-	out.Org = &fchild.Orgs
+	out.Org = &child.Orgs
 
 	// update children for parent
 	children := parent.Children
-	children = append(children, findChild.Id)
+	children = append(children, child.Id)
 	parent.SetChildren(children)
 	parent.SetUpdatedAt(in.UnixNow())
 	parent.SetUpdatedBy(sess.UserId)
