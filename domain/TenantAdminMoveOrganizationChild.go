@@ -79,7 +79,7 @@ func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizatio
 
 	// if organization move to the same parent
 	if parent.Id == in.ToParentId {
-		children, err := moveChildToIdx(parent.Children, in.Id, in.MoveToIdx)
+		children, err := moveChildToIndex(parent.Children, in.Id, in.MoveToIdx)
 		if err != nil {
 			out.SetError(400, ErrTenantAdminMoveOrganizationChildOrgNotFound)
 			return
@@ -164,7 +164,7 @@ func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizatio
 	return
 }
 
-func moveChildToIdx(slice []any, element any, newIndex int) ([]any, error) {
+func moveChildToIndex(slice []any, element any, newIndex int) ([]any, error) {
 	var elmIndex int = -1
 	for i, v := range slice {
 		if v == element {
