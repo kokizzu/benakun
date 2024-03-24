@@ -1,7 +1,4 @@
 <script>
-  import SideMenu from './_components/partials/SideMenu.svelte';
-  import Navbar from './_components/partials/Navbar.svelte';
-  import Footer from './_components/partials/Footer.svelte';
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
   import { onMount } from 'svelte';
@@ -9,6 +6,7 @@
   import { notifier } from './_components/notifier.js';
   import CoaTree from './_components/CoaTree.svelte';
   import PopUpCoaChild from './_components/PopUpCoaChild.svelte';
+  import MainLayout from './_layouts/mainLayout.svelte';
 
   /**
    * @type {any}
@@ -18,12 +16,17 @@
   let coas = [/* coas */];
 
   /**
-     * @typedef {Object} CoA
-     * @property {string} id
-     * @property {string} name
-     * @property {number} level
-     * @property {string} parentId
-     * @property {Array<CoA>} children
+    * @typedef {Object} CoA
+    * @property {string} id
+    * @property {string} name
+    * @property {number} level
+    * @property {string} parentId
+    * @property {number} createdAt
+    * @property {string} createdBy
+    * @property {number} updatedAt
+    * @property {string} updatedBy
+    * @property {number} deletedAt
+    * @property {Array<CoA>} children
     */
   /**
    * @type {Array<CoA>}
@@ -31,12 +34,20 @@
   let REFORMAT_COAS = [];
 
   function coaMaker(id) {
+    /**
+     * @type {CoA}
+     */
     let coaFormatted = {
       id: '',
       name: '',
       level: 0,
       parentId: '',
-      children: []
+      children: [],
+      createdAt: undefined,
+      createdBy: '',
+      updatedAt: undefined,
+      updatedBy: '',
+      deletedAt: undefined
     }
     for (let i in coas) {
       if (coas[i].id == String(id)) {
@@ -47,14 +58,16 @@
             const child = coaMaker(childId)
             coaFormatted.children = [...coaFormatted.children, child];
           }
-        } else {
-          coaFormatted.children = [];
         }
-
-        coaFormatted.name = coas[i].name;
-        coaFormatted.level = coas[i].level;
-        coaFormatted.id = coas[i].id;
-        coaFormatted.parentId = coas[i].parentId;
+        coaFormatted.id = coas[i].id
+        coaFormatted.name = coas[i].name
+        coaFormatted.level = coas[i].level
+        coaFormatted.parentId = coas[i].parentId
+        coaFormatted.createdAt = coas[i].createdAt
+        coaFormatted.createdBy = coas[i].createdBy
+        coaFormatted.updatedAt = coas[i].updatedAt
+        coaFormatted.updatedBy = coas[i].updatedBy
+        coaFormatted.deletedAt = coas[i].deletedAt
       }
     }
     return coaFormatted;
@@ -79,7 +92,7 @@
     return toCoas;
   }
 
-  onMount(() => REFORMAT_COAS = reformatCoas());
+  onMount(() => {REFORMAT_COAS = reformatCoas(); console.log(REFORMAT_COAS); console.log(coas)});
 
   let popUpCoaChild;
 
@@ -96,7 +109,7 @@
     await TenantAdminCreateCoaChild(
       {
         name: childName,
-        parentId: childParentId
+        parentId: Number(childParentId)
       },
       // @ts-ignore
       function (o) {
@@ -139,48 +152,42 @@
   onSubmit={submitAddCoaChild}
 />
 
-<div class="root_layout">
-  <div class="root_container">
-    <SideMenu access={segments} />
-    <div class="root_content">
-      <Navbar {user} />
-      <div class="content">
-        <div class="coa_levels shadow">
-          {#if REFORMAT_COAS && REFORMAT_COAS.length}
-            {#each REFORMAT_COAS as c, _ (c.id)}
-              <div class="coa">
-                <div class="parent">
-                  <h5>{c.level}.&nbsp;{c.name}</h5>
-                  <div class="options">
-                    <button class="btn" title="Add child" on:click={() => {
-                      childParentId = c.id;
-                      popUpCoaChild.show();
-                    }}>
-                      <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
-                    </button>
-                  </div>
-                </div>
-                {#if c.children && c.children.length}
-                  <div class="children">
-                    {#each c.children as cc, idx (cc.id)}
-                      <CoaTree
-                        coa={cc}
-                        rootNum={idx+1}
-                        indent={1}
-                        on:update={updateEventHandler}
-                      />
-                    {/each}
-                  </div>
-                {/if}
-              </div>
-            {/each}
+<MainLayout>
+  {#if REFORMAT_COAS && REFORMAT_COAS.length}
+    <div class="coa_levels shadow">
+      {#each REFORMAT_COAS as c, _ (c.id)}
+        <div class="coa">
+          <div class="parent">
+            <h5>
+              <span class="label">{c.level}</span>
+              &nbsp;{c.name}
+            </h5>
+            <div class="options">
+              <button class="btn" title="Add child" on:click={() => {
+                childParentId = c.id;
+                popUpCoaChild.show();
+              }}>
+                <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
+              </button>
+            </div>
+          </div>
+          {#if c.children && c.children.length}
+            <div class="children">
+              {#each c.children as cc, idx (cc.id)}
+                <CoaTree
+                  coa={cc}
+                  num={`${idx+1}`}
+                  indent={1}
+                  on:update={updateEventHandler}
+                />
+              {/each}
+            </div>
           {/if}
         </div>
-      </div>
-      <Footer />
+      {/each}
     </div>
-  </div>
-</div>
+  {/if}
+</MainLayout>
 
 <style>
   .coa_levels {
@@ -191,6 +198,7 @@
     border: 1px solid var(--gray-003);
     border-radius: 8px;
     overflow: hidden;
+    padding-bottom: 10px;
   }
 
   .coa_levels .coa {
@@ -203,7 +211,6 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    /* justify-content: space-between; */
     gap: 20px;
     align-items: center;
     font-size: 22px;
@@ -216,6 +223,15 @@
     font-size: 18px;
     line-height: 2.2rem;
     margin: 0;
+    user-select: none;
+  }
+
+  .coa_levels .coa .parent h5 .label {
+    font-size: 14px;
+    padding: 3px 7px;
+    background-color: var(--blue-006);
+    color: #FFF;
+    border-radius: 9999px;
   }
 
   .coa_levels .coa .parent:hover .options {
@@ -250,7 +266,6 @@
   .coa_levels .coa .children {
     display: flex;
     flex-direction: column;
-    gap: 5px;
     overflow: hidden;
     padding: 0 20px 0 10px;
   }

@@ -187,7 +187,7 @@ func (c *Coa) FindCoaIdByTenantByLevel() uint64 {
 	var res [][]any
 	const comment = `-- Coa) FindCoaIdByTenantByLevel`
 
-	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode) + ` AND ` + c.SqlLevel() + ` = ` + I.ToS(int64(c.Level))
+	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode) + ` AND ` + c.SqlLevel() + ` = ` + I.ToS(int64(c.Level))  + ` AND "deletedAt" = 0`
 
 	queryRow := comment + `
 SELECT ` + c.SqlId() + `
@@ -206,25 +206,20 @@ FROM ` + c.SqlTableName() + whereAndSql
 	return 0
 }
 
-func (c *Coa) FindCoaChildIdByParentIdByName() uint64 {
-	var res [][]any
-	const comment = `-- Coa) FindCoaChildIdByParentIdByName`
+func (o *Orgs) FindOrgsByTenant(tenantCode string) (orgs []Orgs) {
+	const comment = "-- orgs) FindOrgsByTenant"
 
-	whereAndSql := ` WHERE ` + c.SqlParentId() + ` = ` + I.ToS(int64(c.ParentId)) + ` AND ` + c.SqlName() + ` = ` + S.Z(c.Name)
+	whereAndSql := ` WHERE ` + o.SqlTenantCode() + ` = '` + tenantCode + `'`
+	queryRows := comment +
+		`
+SELECT ` + o.SqlSelectAllFields() + `
+FROM ` + o.SqlTableName() +
+		whereAndSql
 
-	queryRow := comment + `
-SELECT ` + c.SqlId() + `
-FROM ` + c.SqlTableName() + whereAndSql
-
-	c.Adapter.QuerySql(queryRow, func(row []any) {
-		row[0] = X.ToS(row[0]) // ensure id is string
-		res = append(res, row)
+	o.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0])
+		orgs = append(orgs, *o.FromArray(row))
 	})
 
-	if len(res) > 0 {
-		pId := res[0][0].(string)
-		return S.ToU(pId)
-	}
-
-	return 0
+	return
 }

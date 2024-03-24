@@ -9,6 +9,7 @@
   export let onSubmit = () => {}
   export let isSubmitted = false;
   export let childName = '';
+  export let headTitle = '';
 
   let isShow = false;
   export const show = () => isShow = true;
@@ -29,7 +30,8 @@
       </button>
     </header>
     <div class="forms">
-      <InputBox id="childName" label="Nama" bind:value={childName} type="text" placeholder="Barang..." />
+      <InputBox id="childName" label="Name" bind:value={childName} type="text" placeholder="Organization name" />
+      <InputBox id="headTitle" label="Head Title" bind:value={headTitle} type="text" placeholder="Mr. Smith" />
     </div>
     <div class="foot">
       <div class="left">

@@ -27,6 +27,11 @@ type Coa struct {
 	Level      float64     `json:"level" form:"level" query:"level" long:"level" msg:"level"`
 	ParentId   uint64      `json:"parentId,string" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
 	Children   []any       `json:"children" form:"children" query:"children" long:"children" msg:"children"`
+	CreatedAt  int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy  uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt  int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy  uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt  int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
 }
 
 // NewCoa create new ORM reader/query object
@@ -70,6 +75,11 @@ func (c *Coa) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "level"
 	, "parentId"
 	, "children"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
 	`
 }
 
@@ -81,6 +91,11 @@ func (c *Coa) SqlSelectAllUncensoredFields() string { //nolint:dupl false positi
 	, "level"
 	, "parentId"
 	, "children"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
 	`
 }
 
@@ -93,6 +108,11 @@ func (c *Coa) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 3, c.Level},
 		A.X{`=`, 4, c.ParentId},
 		A.X{`=`, 5, c.Children},
+		A.X{`=`, 6, c.CreatedAt},
+		A.X{`=`, 7, c.CreatedBy},
+		A.X{`=`, 8, c.UpdatedAt},
+		A.X{`=`, 9, c.UpdatedBy},
+		A.X{`=`, 10, c.DeletedAt},
 	}
 }
 
@@ -156,6 +176,56 @@ func (c *Coa) SqlChildren() string { //nolint:dupl false positive
 	return `"children"`
 }
 
+// IdxCreatedAt return name of the index
+func (c *Coa) IdxCreatedAt() int { //nolint:dupl false positive
+	return 6
+}
+
+// SqlCreatedAt return name of the column being indexed
+func (c *Coa) SqlCreatedAt() string { //nolint:dupl false positive
+	return `"createdAt"`
+}
+
+// IdxCreatedBy return name of the index
+func (c *Coa) IdxCreatedBy() int { //nolint:dupl false positive
+	return 7
+}
+
+// SqlCreatedBy return name of the column being indexed
+func (c *Coa) SqlCreatedBy() string { //nolint:dupl false positive
+	return `"createdBy"`
+}
+
+// IdxUpdatedAt return name of the index
+func (c *Coa) IdxUpdatedAt() int { //nolint:dupl false positive
+	return 8
+}
+
+// SqlUpdatedAt return name of the column being indexed
+func (c *Coa) SqlUpdatedAt() string { //nolint:dupl false positive
+	return `"updatedAt"`
+}
+
+// IdxUpdatedBy return name of the index
+func (c *Coa) IdxUpdatedBy() int { //nolint:dupl false positive
+	return 9
+}
+
+// SqlUpdatedBy return name of the column being indexed
+func (c *Coa) SqlUpdatedBy() string { //nolint:dupl false positive
+	return `"updatedBy"`
+}
+
+// IdxDeletedAt return name of the index
+func (c *Coa) IdxDeletedAt() int { //nolint:dupl false positive
+	return 10
+}
+
+// SqlDeletedAt return name of the column being indexed
+func (c *Coa) SqlDeletedAt() string { //nolint:dupl false positive
+	return `"deletedAt"`
+}
+
 // ToArray receiver fields to slice
 func (c *Coa) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -169,6 +239,11 @@ func (c *Coa) ToArray() A.X { //nolint:dupl false positive
 		c.Level,      // 3
 		c.ParentId,   // 4
 		c.Children,   // 5
+		c.CreatedAt,  // 6
+		c.CreatedBy,  // 7
+		c.UpdatedAt,  // 8
+		c.UpdatedBy,  // 9
+		c.DeletedAt,  // 10
 	}
 }
 
@@ -180,6 +255,11 @@ func (c *Coa) FromArray(a A.X) *Coa { //nolint:dupl false positive
 	c.Level = X.ToF(a[3])
 	c.ParentId = X.ToU(a[4])
 	c.Children = X.ToArr(a[5])
+	c.CreatedAt = X.ToI(a[6])
+	c.CreatedBy = X.ToU(a[7])
+	c.UpdatedAt = X.ToI(a[8])
+	c.UpdatedBy = X.ToU(a[9])
+	c.DeletedAt = X.ToI(a[10])
 	return c
 }
 
@@ -191,6 +271,11 @@ func (c *Coa) FromUncensoredArray(a A.X) *Coa { //nolint:dupl false positive
 	c.Level = X.ToF(a[3])
 	c.ParentId = X.ToU(a[4])
 	c.Children = X.ToArr(a[5])
+	c.CreatedAt = X.ToI(a[6])
+	c.CreatedBy = X.ToU(a[7])
+	c.UpdatedAt = X.ToI(a[8])
+	c.UpdatedBy = X.ToU(a[9])
+	c.DeletedAt = X.ToI(a[10])
 	return c
 }
 
@@ -240,6 +325,11 @@ var CoaFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`level`:      Tt.Double,
 	`parentId`:   Tt.Unsigned,
 	`children`:   Tt.Array,
+	`createdAt`:  Tt.Integer,
+	`createdBy`:  Tt.Unsigned,
+	`updatedAt`:  Tt.Integer,
+	`updatedBy`:  Tt.Unsigned,
+	`deletedAt`:  Tt.Integer,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

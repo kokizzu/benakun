@@ -1,9 +1,6 @@
 <script>
   // @ts-nocheck
-  import SideMenu from './_components/partials/SideMenu.svelte';
   import AdminSubMenu from './_components/AdminSubMenu.svelte';
-  import Navbar from './_components/partials/Navbar.svelte';
-  import Footer from './_components/partials/Footer.svelte';
   import TableView from './_components/TableView.svelte';
   import { SuperAdminUserManagement } from './jsApi.GEN';
   import ModalForm from './_components/ModalForm.svelte';
@@ -11,6 +8,7 @@
 
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
+    import MainLayout from './_layouts/mainLayout.svelte';
 
   let segments = {/* segments */};
   let fields = [/* fields */];
@@ -79,29 +77,20 @@
   }
 </script>
 
-<div class="root_layout">
-  <div class="root_container">
-    <SideMenu access={segments} />
-    <div class="root_content">
-      <Navbar {user} />
-      <div class="content">
-        <AdminSubMenu />
-        <div class="user_management">
-          <ModalForm {fields} rowType="User" bind:this={form} onConfirm={saveRow}></ModalForm>
-          <section class="tableview_container">
-            <TableView {fields} bind:pager rows={users} onRefreshTableView={refreshTableView} onEditRow={editRow}>
-              <button on:click={addRow} class="action_btn">
-                <Icon size={17} color="#FFF" src={FaSolidPlusCircle} />
-                <span>Add</span>
-              </button>
-            </TableView>
-          </section>
-        </div>
-      </div>
-      <Footer />
-    </div>
+<MainLayout>
+  <AdminSubMenu />
+  <div class="user_management">
+    <ModalForm {fields} rowType="User" bind:this={form} onConfirm={saveRow}></ModalForm>
+    <section class="tableview_container">
+      <TableView {fields} bind:pager rows={users} onRefreshTableView={refreshTableView} onEditRow={editRow}>
+        <button on:click={addRow} class="action_btn">
+          <Icon size="17" color="#FFF" src={FaSolidPlusCircle} />
+          <span>Add</span>
+        </button>
+      </TableView>
+    </section>
   </div>
-</div>
+</MainLayout>
 
 <style>
   .user_management {

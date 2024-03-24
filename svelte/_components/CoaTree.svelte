@@ -4,21 +4,26 @@
   import RiDesignPencilLine from 'svelte-icons-pack/ri/RiDesignPencilLine';
   import RiDesignDragMoveLine from 'svelte-icons-pack/ri/RiDesignDragMoveLine';
   import RiSystemDeleteBinLine from 'svelte-icons-pack/ri/RiSystemDeleteBinLine';
+  import RiSystemArrowGoBackLine from 'svelte-icons-pack/ri/RiSystemArrowGoBackLine';
   import { onMount } from 'svelte';
   import PopUpCoaChild from './PopUpCoaChild.svelte';
   import { notifier } from './notifier.js';
-  import { TenantAdminCreateCoaChild, TenantAdminUpdateCoaChild } from '../jsApi.GEN';
+  import { TenantAdminCreateCoaChild, TenantAdminUpdateCoaChild, TenantAdminDeleteCoaChild } from '../jsApi.GEN';
   import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
-
   /**
-     * @typedef {Object} CoA
-     * @property {string} id
-     * @property {string} name
-     * @property {number} level
-     * @property {string} parentId
-     * @property {Array<CoA>} children
+    * @typedef {Object} CoA
+    * @property {string} id
+    * @property {string} name
+    * @property {number} level
+    * @property {string} parentId
+    * @property {number} createdAt
+    * @property {string} createdBy
+    * @property {number} updatedAt
+    * @property {string} updatedBy
+    * @property {number} deletedAt
+    * @property {Array<CoA>} children
     */
   /**
    * @type {CoA}
@@ -28,13 +33,17 @@
     name: '',
     level: 0,
     parentId: '',
-    children: []
+    children: [],
+    createdAt: 0,
+    createdBy: '',
+    updatedAt: 0,
+    updatedBy: '',
+    deletedAt: 0
   };
-  export let rootNum = '1';
-  export let num = 1;
+  export let num = '1';
   export let indent = 1;
   let indentWidth = '10px';
-  const toIndentWidth = (/** @type {number} */ i) => { return `${i * 10 + 10}px` }
+  const toIndentWidth = (/** @type {number} */ i) => { return `${i * 15 + 10}px` }
 
   let popUpCoaChild, heading = 'Add coa child';
 
@@ -59,24 +68,19 @@
     switch (coaState) {
       case 'edit':
         await TenantAdminUpdateCoaChild(
-          {
-            name: coaName,
-            parentId: coa.parentId,
-            id: coa.id
-          },
+          { name: coaName, id: Number(coa.id) },
           // @ts-ignore
           function (o) {
+            isSubmitted = false;
+            popUpCoaChild.hide();
             // @ts-ignore
             if (o.error) {
-              isSubmitted = false;
               // @ts-ignore
               notifier.showError(o.error);
               // @ts-ignore
               console.log(o.error);
               return;
             }
-            isSubmitted = false;
-            popUpCoaChild.hide();
             notifier.showSuccess(coaName + ' edited');
             // @ts-ignore
             dispatch('update', { coas: o.coa })
@@ -85,23 +89,19 @@
         break;
       case 'add':
         await TenantAdminCreateCoaChild(
-          {
-            name: coaName,
-            parentId: coa.id
-          },
+          { name: coaName, parentId: Number(coa.id) },
           // @ts-ignore
           function (o) {
+            isSubmitted = false;
+            popUpCoaChild.hide();
             // @ts-ignore
             if (o.error) {
-              isSubmitted = false;
               // @ts-ignore
               notifier.showError(o.error);
               // @ts-ignore
               console.log(o.error);
               return;
             }
-            isSubmitted = false;
-            popUpCoaChild.hide();
             notifier.showSuccess('Coa child created');
             // @ts-ignore
             dispatch('update', { coas: o.coa })
@@ -109,6 +109,28 @@
         );
         break;
     }
+  }
+
+  async function deleteCoaChild() {
+    isSubmitted = true;
+    await TenantAdminDeleteCoaChild(
+      // @ts-ignore
+      { id: Number(coa.id) }, function (o) {
+        // @ts-ignore
+        if (o.error) {
+          isSubmitted = false;
+          // @ts-ignore
+          notifier.showError(o.error);
+          // @ts-ignore
+          console.log(o.error);
+          return;
+        }
+        isSubmitted = false;
+        notifier.showSuccess(coa.name + ' deleted');
+        // @ts-ignore
+        dispatch('update', { coas: o.coa })
+      }
+    )
   }
 </script>
 
@@ -123,32 +145,47 @@
 <div>
   <div class="coa-child" style="--indent-width:{indentWidth};">
     <div class="left">
-      <h6>{coa.level}.{rootNum}{indent > 1 ? `.${num}` : ``}&nbsp;&nbsp;{coa.name}</h6>
+      <span class="h-line"></span>
+      <h6 class={`text ${coa.deletedAt > 0 ? 'deleted' : ''}`}>
+        <span class="label">{coa.level}.{num}</span>&nbsp;&nbsp;
+        <span class="name">{coa.name}</span>
+      </h6>
       <div class="options">
-        <button class="btn" title="Add child" on:click={() => toggleAddOrEdit('add')}>
-          <Icon
-            color="var(--gray-006)"
-            className="icon"
-            size="17"
-            src={RiSystemAddBoxLine}
-          />
-        </button>
-        <button class="btn" title="Edit" on:click={() => toggleAddOrEdit('edit')}>
-          <Icon
-            color="var(--gray-006)"
-            className="icon"
-            size="17"
-            src={RiDesignPencilLine}
-          />
-        </button>
-        <button class="btn" title="Delete">
-          <Icon
-            color="var(--gray-006)"
-            className="icon"
-            size="17"
-            src={RiSystemDeleteBinLine}
-          />
-        </button>
+        {#if coa.deletedAt === 0}
+          <button class="btn" title="Add child" on:click={() => toggleAddOrEdit('add')}>
+            <Icon
+              color="var(--gray-006)"
+              className="icon"
+              size="17"
+              src={RiSystemAddBoxLine}
+            />
+          </button>
+          <button class="btn" title="Edit" on:click={() => toggleAddOrEdit('edit')}>
+            <Icon
+              color="var(--gray-006)"
+              className="icon"
+              size="17"
+              src={RiDesignPencilLine}
+            />
+          </button>
+          <button class="btn" title="Delete" on:click={deleteCoaChild}>
+            <Icon
+              color="var(--gray-006)"
+              className="icon"
+              size="17"
+              src={RiSystemDeleteBinLine}
+            />
+          </button>
+        {:else}
+          <button class="btn" title="Rollback" on:click={() => notifier.showWarning('Not yet implemented')}>
+            <Icon
+              color="var(--gray-006)"
+              className="icon"
+              size="17"
+              src={RiSystemArrowGoBackLine}
+            />
+          </button>
+        {/if}
       </div>
     </div>
     <Icon
@@ -162,8 +199,7 @@
     {#each coa.children as ch, idx (ch.id)}
       <svelte:self
         coa={ch}
-        rootNum={rootNum}
-        num={idx+1}
+        num={`${num}.${idx+1}`}
         indent={indent + 1}
         on:update
       />
@@ -181,9 +217,10 @@
     align-items: center;
     padding: 5px 10px;
     margin-left: var(--indent-width);
-    cursor: pointer;
+    cursor: move;
     position: relative;
     border-radius: 8px;
+    user-select: none;
   }
 
   .coa-child:hover {
@@ -195,17 +232,46 @@
     flex-direction: row;
     align-items: center;
     gap: 30px;
+    position: relative;
   }
 
-  .coa-child .left h6 {
+  .coa-child .left .h-line {
+    position: absolute;
+    left: -14px;
+    width: 1px;
+    height: 41px;
+    background-color: var(--gray-003);
+  }
+
+  .coa-child .left .text {
     font-size: 14px;
     line-height: 2.2rem;
     font-weight: 500;
     margin: 0;
   }
 
+  .coa-child .left .text .label {
+    color: var(--blue-006);
+    font-weight: 600;
+    font-size: 10px;
+    background-color: #0077B620;
+    padding: 3px 6px;
+    border-radius: 9999px;
+    text-decoration: none;
+    width: fit-content;
+    height: fit-content;
+    line-height: 2.2rem;
+  }
+
+  .coa-child .left .text.deleted .name{
+    color: var(--red-005);
+    text-decoration: line-through;
+    line-height: 2.2rem;
+  }
+
   .coa-child:hover .left .options {
     display: flex;
+    cursor: pointer;
   }
 
   .coa-child .left .options {

@@ -27,7 +27,8 @@
   }
 
   a:hover {
-    color: var(--purple-002);
+    font-weight: 700;
+    background-color: var(--gray-002);
   }
 
   a.active {

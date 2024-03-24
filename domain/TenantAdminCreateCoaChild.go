@@ -15,7 +15,7 @@ type (
 	TenantAdminCreateCoaChildIn struct {
 		RequestCommon
 		Name     string `json:"name" form:"name" query:"name" long:"name" msg:"name"`
-		ParentId uint64 `json:"parentId,string" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
+		ParentId uint64 `json:"parentId" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
 	}
 	TenantAdminCreateCoaChildOut struct {
 		ResponseCommon
@@ -26,10 +26,10 @@ type (
 const (
 	TenantAdminCreateCoaChildAction = `tenantAdmin/createCoaChild`
 
-	ErrTenantAdminCreateCoaChildUnauthorized      = `unauthorized user`
-	ErrTenantAdminCreateCoaChildTenantNotFound    = `tenant admin not found`
-	ErrTenantAdminCreateCoaChildCoaParentNotFound = `coa parent not found`
-	ErrTenantAdminCreateCoaChildCoaChildNotFound  = `coa child not found`
+	ErrTenantAdminCreateCoaChildUnauthorized      = `unauthorized user to create coa child`
+	ErrTenantAdminCreateCoaChildTenantNotFound    = `tenant admin not found to create coa child`
+	ErrTenantAdminCreateCoaChildCoaParentNotFound = `coa parent not found for this coa child`
+	ErrTenantAdminCreateCoaChildCoaChildNotFound  = `coa child not found when adds child to parent`
 )
 
 func (d *Domain) TenantAdminCreateCoaChild(in *TenantAdminCreateCoaChildIn) (out TenantAdminCreateCoaChildOut) {
@@ -68,26 +68,25 @@ func (d *Domain) TenantAdminCreateCoaChild(in *TenantAdminCreateCoaChildIn) (out
 	child.SetLevel(parent.Level)
 	child.SetName(in.Name)
 	child.SetParentId(parent.Id)
+	child.SetCreatedAt(in.UnixNow())
+	child.SetCreatedBy(sess.UserId)
+	child.SetUpdatedAt(in.UnixNow())
+	child.SetUpdatedBy(sess.UserId)
+
 	if !child.DoInsert() {
 		out.SetError(400, ErrTenantAdminCreateCoaChildCoaParentNotFound)
 		return
 	}
 
-	// find child id
-	fchild := wcAuth.NewCoaMutator(d.AuthOltp)
-	fchild.ParentId = parent.Id
-	fchild.Name = in.Name
-	childId := fchild.FindCoaChildIdByParentIdByName()
-	if childId == 0 {
-		out.SetError(400, ErrTenantAdminCreateCoaChildCoaChildNotFound)
-		return
-	}
-
 	// update childrens of parent coa
 	children := parent.Children
-	children = append(children, childId)
+	children = append(children, child.Id)
 	parent.SetChildren(children)
+	parent.SetUpdatedAt(in.UnixNow())
+	parent.SetUpdatedBy(sess.UserId)
+	
 	if !parent.DoUpdateById() {
+		parent.HaveMutation()
 		out.SetError(400, ErrTenantAdminCreateCoaChildCoaParentNotFound)
 		return
 	}

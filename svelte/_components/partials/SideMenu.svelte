@@ -62,6 +62,7 @@
 <aside class="side_menu">
   <div class='side_menu_container'>
     <header>
+      <img src="/assets/icons/benakun-logo.png" alt="" />
       <h3>BenAkun</h3>
     </header>
     <div class="menu_container">
@@ -141,6 +142,7 @@
     padding          : 16px 0;
     width            : 260px;
     border-right: 1px solid var(--gray-002);
+    user-select: none;
   }
 
   .side_menu_container {
@@ -157,11 +159,17 @@
   .side_menu_container header {
     display         : flex;
     flex-direction  : row;
-    justify-content : space-between;
     align-items     : center;
+    gap: 10px;
     height: fit-content;
     flex-grow: 0;
-    margin: 20px 24px;
+    margin: 0 24px 20px 24px;
+    user-select: none;
+  }
+
+  .side_menu_container header img {
+    width : 40px;
+    height: 40px;
   }
 
   .side_menu_container header h3 {
@@ -207,11 +215,8 @@
   }
 
   .side_menu_container .menu_container .menu_list a:hover {
-    color: var(--purple-002);
-  }
-
-  :global(.side_menu_container .menu_container .menu_list a:hover .icon_dark) {
-    fill: var(--purple-002) !important;
+    font-weight: 700;
+    background-color: var(--gray-002);
   }
 
   .side_menu_container .menu_container .menu_list a.active {

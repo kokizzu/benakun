@@ -155,10 +155,15 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notLogin(d, in.RequestCommon, false) {
 			return ctx.Redirect(`/`, 302)
 		}
+		in.RequestCommon.Action = domain.TenantAdminOrganizationAction
+		out := d.TenantAdminOrganization(&domain.TenantAdminOrganizationIn{
+			RequestCommon: in.RequestCommon,
+		})
 		return views.RenderTenantAdminOrganization(ctx, M.SX{
 			`title`:    `Tenant Admin Organization`,
 			`user`:     user,
 			`segments`: segments,
+			`orgs`: out.Orgs,
 		})
 	})
 

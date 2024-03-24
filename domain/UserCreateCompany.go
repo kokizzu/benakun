@@ -5,12 +5,14 @@ import (
 	"errors"
 	"fmt"
 	"math/big"
+	"strings"
 
 	"benakun/model/mAuth"
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
 
 	"github.com/kokizzu/gotro/D/Tt"
+	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/S"
 )
 
@@ -76,7 +78,7 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 	}
 
 	org := wcAuth.NewOrgsMutator(d.AuthOltp)
-	org.SetTenantCode(fmt.Sprintf("%s_%d", in.TenantCode, generate4RandomNumber()))
+	org.SetTenantCode(fmt.Sprintf("%s_%s", in.TenantCode, generate4RandomNumber()))
 	org.SetHeadTitle(in.HeadTitle)
 	org.SetName(in.CompanyName)
 	org.SetOrgType(mAuth.OrgTypeCompany)
@@ -117,7 +119,7 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 	return
 }
 
-func insertCoaLevel(ta *Tt.Adapter, tenantCode string, level float64, name string, parentId uint64) error {
+func insertCoaLevel(ta *Tt.Adapter, tenantCode string, level float64, name string, parentId uint64) (uint64, error) {
 	coa := wcAuth.NewCoaMutator(ta)
 	coa.SetTenantCode(tenantCode)
 	coa.SetLevel(level)
@@ -126,22 +128,18 @@ func insertCoaLevel(ta *Tt.Adapter, tenantCode string, level float64, name strin
 		coa.SetParentId(parentId)
 	}
 	if !coa.DoInsert() {
-		return errors.New(ErrUserCreateCompanyCoaExist)
+		return 0, errors.New(ErrUserCreateCompanyCoaExist)
 	}
 
-	return nil
-}
-
-func generate4RandomNumber() int {
-	randomNumber, _ := rand.Int(rand.Reader, big.NewInt(9000))
-	return int(randomNumber.Int64()) + 1000
+	return coa.Id, nil
 }
 
 func generateCoaLevels(ta *Tt.Adapter, tenantCode string) error {
 	for lv, vl := range mAuth.CoaLevelDefaultList {
-		if err := insertCoaLevel(ta, tenantCode, float64(S.ToInt(lv)), vl.Name, 0); err != nil {
+		if _, err := insertCoaLevel(ta, tenantCode, float64(S.ToInt(lv)), vl.Name, 0); err != nil {
 			return err
 		}
+
 		if len(vl.ChildrenNames) > 0 {
 			parent := wcAuth.NewCoaMutator(ta)
 			parent.TenantCode = tenantCode
@@ -155,18 +153,12 @@ func generateCoaLevels(ta *Tt.Adapter, tenantCode string) error {
 			var children = []any{}
 
 			for _, v := range vl.ChildrenNames {
-				if err := insertCoaLevel(ta, tenantCode, float64(S.ToInt(lv)), v, parentId); err == nil {
-					child := wcAuth.NewCoaMutator(ta)
-					child.ParentId = parentId
-					child.Name = v
-
-					childId := child.FindCoaChildIdByParentIdByName()
-					if childId != 0 {
-						children = append(children, childId)
-					}
-				} else {
+				childId, err := insertCoaLevel(ta, tenantCode, float64(S.ToInt(lv)), v, parentId)
+				if err != nil {
 					return err
 				}
+				
+				children = append(children, childId)
 			}
 
 			if len(children) > 0 {
@@ -180,4 +172,22 @@ func generateCoaLevels(ta *Tt.Adapter, tenantCode string) error {
 	}
 
 	return nil
+}
+
+func generate4RandomNumber() string {
+	to4Numbers := make([]int, 0)
+
+	for i := 0; i < 4; i++ {
+		rnum, _ := rand.Int(rand.Reader, big.NewInt(9))
+		to4Numbers = append(to4Numbers, int(rnum.Int64()))
+	}
+
+	strNumbers := make([]string, len(to4Numbers))
+	for i, num := range to4Numbers {
+		strNumbers[i] = I.ToS(int64(num))
+	}
+
+	result := strings.Join(strNumbers, "")
+
+	return result
 }

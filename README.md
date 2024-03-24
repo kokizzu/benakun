@@ -37,7 +37,7 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
   - [ ] can manage accounts
   - [ ] can manage journals
   - [ ] can manage reports
-  - [ ] can manage CoA
+  - [x] can manage CoA
   - [ ] can manage entry-rule
   - [ ] can manage bank account
   - [ ] can manage external company (customer, supplier, etc)

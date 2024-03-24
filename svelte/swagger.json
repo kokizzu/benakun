@@ -1297,7 +1297,7 @@
 								"type": "string"
 						},
 						"parentId": {
-								"type": "string"
+								"type": "number"
 						}
 								}
 							}
@@ -1313,6 +1313,96 @@
 									"type": "object",
 									"properties": {
 										"coas": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tenantAdmin/createOrganizationChild": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"name": {
+								"type": "string"
+						},
+						"headTitle": {
+								"type": "string"
+						},
+						"parentId": {
+								"type": "number"
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminCreateOrganizationChild",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"org": {
+										"type": "object",
+										"properties": {
+												"id": {
+														"type": "number"
+												},
+												"tenantCode": {
+														"type": "string"
+												},
+												"name": {
+														"type": "string"
+												},
+												"headTitle": {
+														"type": "string"
+												},
+												"parentId": {
+														"type": "number"
+												},
+												"children": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"orgType": {
+														"type": "number"
+												},
+												"createdAt": {
+														"type": "number"
+												},
+												"createdBy": {
+														"type": "number"
+												},
+												"updatedAt": {
+														"type": "number"
+												},
+												"updatedBy": {
+														"type": "number"
+												},
+												"deletedAt": {
+														"type": "number"
+												}
+												}
+										},
+										"orgs": {
 										"type": "object",
 										"properties": {
 												}
@@ -1351,6 +1441,47 @@
 									"type": "object",
 									"properties": {
 										"staffs": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tenantAdmin/deleteCoaChild": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"id": {
+								"type": "number"
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminDeleteCoaChild",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"coas": {
 										"type": "object",
 										"properties": {
 												}
@@ -1402,6 +1533,96 @@
 				}
 			}
 		},
+		"/tenantAdmin/moveOrganizationChild": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"id": {
+								"type": "number"
+						},
+						"moveToIdx": {
+								"type": "number"
+						},
+						"toParentId": {
+								"type": "number"
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminMoveOrganizationChild",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"org": {
+										"type": "object",
+										"properties": {
+												"id": {
+														"type": "number"
+												},
+												"tenantCode": {
+														"type": "string"
+												},
+												"name": {
+														"type": "string"
+												},
+												"headTitle": {
+														"type": "string"
+												},
+												"parentId": {
+														"type": "number"
+												},
+												"children": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"orgType": {
+														"type": "number"
+												},
+												"createdAt": {
+														"type": "number"
+												},
+												"createdBy": {
+														"type": "number"
+												},
+												"updatedAt": {
+														"type": "number"
+												},
+												"updatedBy": {
+														"type": "number"
+												},
+												"deletedAt": {
+														"type": "number"
+												}
+												}
+										},
+										"orgs": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/tenantAdmin/organization": {
 			"post": {
 				"security": [{
@@ -1427,6 +1648,11 @@
 								"schema": {
 									"type": "object",
 									"properties": {
+										"orgs": {
+										"type": "object",
+										"properties": {
+												}
+										}
 									}
 								}
 							}
@@ -1487,12 +1713,9 @@
 								"type": "object",
 								"properties": {
 						"id": {
-								"type": "string"
+								"type": "number"
 						},
 						"name": {
-								"type": "string"
-						},
-						"parentId": {
 								"type": "string"
 						}
 								}
@@ -1509,6 +1732,96 @@
 									"type": "object",
 									"properties": {
 										"coas": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tenantAdmin/updateOrganizationChild": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"id": {
+								"type": "number"
+						},
+						"name": {
+								"type": "string"
+						},
+						"headTitle": {
+								"type": "string"
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminUpdateOrganizationChild",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"org": {
+										"type": "object",
+										"properties": {
+												"id": {
+														"type": "number"
+												},
+												"tenantCode": {
+														"type": "string"
+												},
+												"name": {
+														"type": "string"
+												},
+												"headTitle": {
+														"type": "string"
+												},
+												"parentId": {
+														"type": "number"
+												},
+												"children": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"orgType": {
+														"type": "number"
+												},
+												"createdAt": {
+														"type": "number"
+												},
+												"createdBy": {
+														"type": "number"
+												},
+												"updatedAt": {
+														"type": "number"
+												},
+												"updatedBy": {
+														"type": "number"
+												},
+												"deletedAt": {
+														"type": "number"
+												}
+												}
+										},
+										"orgs": {
 										"type": "object",
 										"properties": {
 												}

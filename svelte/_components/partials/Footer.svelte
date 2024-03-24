@@ -17,7 +17,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 30px 40px 0 40px;
+    margin: 30px 20px 0 20px;
     padding: 20px 0;
     border-top: 1px solid var(--gray-003);
     color: var(--gray-007);

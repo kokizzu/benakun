@@ -14,9 +14,8 @@ import (
 type (
 	TenantAdminUpdateCoaChildIn struct {
 		RequestCommon
-		Id         uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+		Id         uint64      `json:"id" form:"id" query:"id" long:"id" msg:"id"`
 		Name     	string `json:"name" form:"name" query:"name" long:"name" msg:"name"`
-		ParentId   uint64      `json:"parentId,string" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
 	}
 	TenantAdminUpdateCoaChildOut struct {
 		ResponseCommon
@@ -27,11 +26,10 @@ type (
 const (
 	TenantAdminUpdateCoaChildAction = `tenantAdmin/updateCoaChild`
 
-	ErrTenantAdminUpdateCoaChildUnauthorized      = `unauthorized user`
-	ErrTenantAdminUpdateCoaChildTenantNotFound    = `tenant admin not found`
-	ErrTenantAdminUpdateCoaChildCoaParentNotFound = `coa parent not found`
-	ErrTenantAdminUpdateCoaChildCoaChildNotFound  = `coa child not found`
-	ErrTenantAdminCreateCoaChildFailed = `failed to update coa child`
+	ErrTenantAdminUpdateCoaChildUnauthorized      = `unauthorized user to update coa child`
+	ErrTenantAdminUpdateCoaChildTenantNotFound    = `tenant admin not found to update coa child`
+	ErrTenantAdminUpdateCoaChildCoaChildNotFound  = `coa child not found, make sure the id is valid`
+	ErrTenantAdminUpdateCoaChildFailed = `failed to update coa child`
 )
 
 func (d *Domain) TenantAdminUpdateCoaChild(in *TenantAdminUpdateCoaChildIn) (out TenantAdminUpdateCoaChildOut) {
@@ -56,26 +54,21 @@ func (d *Domain) TenantAdminUpdateCoaChild(in *TenantAdminUpdateCoaChildIn) (out
 		return
 	}
 
-	// find parent id
-	parent := wcAuth.NewCoaMutator(d.AuthOltp)
-	parent.Id =  in.ParentId
-	if !parent.FindById() {
-		out.SetError(400, ErrTenantAdminUpdateCoaChildCoaChildNotFound)
-		return
-	}
-
 	// update coa child
 	child := wcAuth.NewCoaMutator(d.AuthOltp)
 	child.Id = in.Id
 	if !child.FindById() {
-		out.SetError(400, ErrTenantAdminUpdateCoaChildTenantNotFound)
+		out.SetError(400, ErrTenantAdminUpdateCoaChildCoaChildNotFound)
 		return
 	}
 
 	child.SetName(in.Name)
+	child.SetUpdatedAt(in.UnixNow())
+	child.SetUpdatedBy(sess.UserId)
+	
 	if !child.DoUpdateById() {
 		child.HaveMutation()
-		out.SetError(400, ErrTenantAdminCreateCoaChildFailed)
+		out.SetError(400, ErrTenantAdminUpdateCoaChildFailed)
 		return
 	}
 
