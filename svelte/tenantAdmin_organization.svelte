@@ -25,30 +25,25 @@
    * @type {Array<Org>}
    */
   let orgs = [/* orgs */];
-  console.log(orgs)
 
-  /**
-   * @type {Array<Org>}
-   */
+  /**  @type {Array<Org>} */
   let REFORMAT_ORGS = [];
 
   function orgMaker(id) {
-    /**
-     * @type {Org}
-     */
+    /** @type {Org} */
     let orgFormatted = {
-        id: '',
-        name: '',
-        orgType: 0,
-        parentId: '',
-        tenantCode: '',
-        createdAt: 0,
-        createdBy: '',
-        updatedAt: 0,
-        updatedBy: '',
-        deletedAt: 0,
-        children: [],
-        headTitle: ''
+      id: '',
+      name: '',
+      orgType: 0,
+      parentId: '',
+      tenantCode: '',
+      createdAt: 0,
+      createdBy: '',
+      updatedAt: 0,
+      updatedBy: '',
+      deletedAt: 0,
+      children: [],
+      headTitle: ''
     }
     for (let i in orgs) {
       if (orgs[i].id == String(id)) {
@@ -98,9 +93,7 @@
   onMount(() => REFORMAT_ORGS = reformatorgs());
 
   let infoOrg;
-  if (orgs && orgs.length) {
-    infoOrg = orgs[0];
-  }
+  if (orgs && orgs.length) infoOrg = orgs[0];
 
   function updateEventHandler(e) {
     orgs = e.detail.orgs;
@@ -117,6 +110,15 @@
   function infoEventHandler(e) {
     infoOrg = e.detail.org;
   }
+
+  /** @type {Org|null} */
+  let orgMoving = null;
+  
+  function orgMoveHandler(e) {
+    orgMoving = e.detail.org;
+
+    console.log(orgMoving);
+  }
 </script>
 
 <MainLayout>
@@ -128,6 +130,7 @@
             org={org}
             on:update={updateEventHandler}
             on:info={infoEventHandler}
+            on:moving={orgMoveHandler}
           />
         {/each}
       </div>

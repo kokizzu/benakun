@@ -254,6 +254,10 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`description`: `Restful API Documentation of Benakun`,
 		})
 	})
+
+	fw.Get(`/debug`, func(ctx *fiber.Ctx) error {
+		return views.RenderDebug(ctx, M.SX{})
+	})
 }
 
 func userInfoFromContext(c *fiber.Ctx, d *domain.Domain) (domain.UserProfileIn, *rqAuth.Users, M.SB) {

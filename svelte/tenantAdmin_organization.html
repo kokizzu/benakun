@@ -6265,8 +6265,8 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   var import_jsApi = __toESM(require_jsApi_GEN());
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[25] = list[i];
-    child_ctx[27] = i;
+    child_ctx[28] = list[i];
+    child_ctx[30] = i;
     return child_ctx;
   }
   function create_if_block_14(ctx) {
@@ -6299,7 +6299,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
             button,
             "click",
             /*click_handler*/
-            ctx[18]
+            ctx[19]
           );
           mounted = true;
         }
@@ -6336,7 +6336,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     );
     const get_key = (ctx2) => (
       /*child*/
-      ctx2[25].id
+      ctx2[28].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context(ctx, each_value, i);
@@ -6401,17 +6401,22 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     let current;
     orgtree = new OrgTree({ props: { org: (
       /*child*/
-      ctx[25]
+      ctx[28]
     ) } });
     orgtree.$on(
       "update",
       /*update_handler*/
-      ctx[20]
+      ctx[22]
     );
     orgtree.$on(
       "info",
       /*info_handler*/
-      ctx[21]
+      ctx[23]
+    );
+    orgtree.$on(
+      "moving",
+      /*moving_handler*/
+      ctx[24]
     );
     return {
       key: key_1,
@@ -6432,7 +6437,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         if (dirty & /*org*/
         1)
           orgtree_changes.org = /*child*/
-          ctx[25];
+          ctx[28];
         orgtree.$set(orgtree_changes);
       },
       i(local) {
@@ -6460,47 +6465,49 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     let updating_headTitle;
     let updating_heading;
     let t0;
+    let c;
+    let t1;
     let div3;
     let div1;
     let span0;
-    let t1;
+    let t2;
     let div0;
     let icon0;
-    let t2;
+    let t3;
     let span1;
-    let t3_value = (
+    let t4_value = (
       /*org*/
       ctx[0].name + ""
     );
-    let t3;
     let t4;
-    let div2;
     let t5;
+    let div2;
+    let t6;
     let button0;
     let icon1;
-    let t6;
+    let t7;
     let button1;
     let icon2;
-    let t7;
+    let t8;
     let button2;
     let icon3;
     let div3_class_value;
-    let t8;
+    let t9;
     let if_block1_anchor;
     let current;
     let mounted;
     let dispose;
     function popuporgchild_isSubmitted_binding(value) {
-      ctx[14](value);
-    }
-    function popuporgchild_childName_binding(value) {
       ctx[15](value);
     }
-    function popuporgchild_headTitle_binding(value) {
+    function popuporgchild_childName_binding(value) {
       ctx[16](value);
     }
-    function popuporgchild_heading_binding(value) {
+    function popuporgchild_headTitle_binding(value) {
       ctx[17](value);
+    }
+    function popuporgchild_heading_binding(value) {
+      ctx[18](value);
     }
     let popuporgchild_props = { onSubmit: (
       /*submitAddOrgChild*/
@@ -6535,7 +6542,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       ctx[6];
     }
     popuporgchild = new PopUpOrgChild_default({ props: popuporgchild_props });
-    ctx[13](popuporgchild);
+    ctx[14](popuporgchild);
     binding_callbacks.push(() => bind(popuporgchild, "isSubmitted", popuporgchild_isSubmitted_binding));
     binding_callbacks.push(() => bind(popuporgchild, "childName", popuporgchild_childName_binding));
     binding_callbacks.push(() => bind(popuporgchild, "headTitle", popuporgchild_headTitle_binding));
@@ -6587,29 +6594,31 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       c() {
         create_component(popuporgchild.$.fragment);
         t0 = space();
+        c = comment(" svelte-ignore a11y-no-static-element-interactions ");
+        t1 = space();
         div3 = element("div");
         div1 = element("div");
         span0 = element("span");
-        t1 = space();
+        t2 = space();
         div0 = element("div");
         create_component(icon0.$.fragment);
-        t2 = space();
+        t3 = space();
         span1 = element("span");
-        t3 = text(t3_value);
-        t4 = space();
+        t4 = text(t4_value);
+        t5 = space();
         div2 = element("div");
         if (if_block0)
           if_block0.c();
-        t5 = space();
+        t6 = space();
         button0 = element("button");
         create_component(icon1.$.fragment);
-        t6 = space();
+        t7 = space();
         button1 = element("button");
         create_component(icon2.$.fragment);
-        t7 = space();
+        t8 = space();
         button2 = element("button");
         create_component(icon3.$.fragment);
-        t8 = space();
+        t9 = space();
         if (if_block1)
           if_block1.c();
         if_block1_anchor = empty();
@@ -6632,33 +6641,36 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
           /*indentWidth*/
           ctx[3]
         );
+        attr(div3, "draggable", "true");
       },
       m(target, anchor) {
         mount_component(popuporgchild, target, anchor);
         insert(target, t0, anchor);
+        insert(target, c, anchor);
+        insert(target, t1, anchor);
         insert(target, div3, anchor);
         append(div3, div1);
         append(div1, span0);
-        append(div1, t1);
+        append(div1, t2);
         append(div1, div0);
         mount_component(icon0, div0, null);
-        append(div1, t2);
+        append(div1, t3);
         append(div1, span1);
-        append(span1, t3);
-        append(div3, t4);
+        append(span1, t4);
+        append(div3, t5);
         append(div3, div2);
         if (if_block0)
           if_block0.m(div2, null);
-        append(div2, t5);
+        append(div2, t6);
         append(div2, button0);
         mount_component(icon1, button0, null);
-        append(div2, t6);
+        append(div2, t7);
         append(div2, button1);
         mount_component(icon2, button1, null);
-        append(div2, t7);
+        append(div2, t8);
         append(div2, button2);
         mount_component(icon3, button2, null);
-        insert(target, t8, anchor);
+        insert(target, t9, anchor);
         if (if_block1)
           if_block1.m(target, anchor);
         insert(target, if_block1_anchor, anchor);
@@ -6669,13 +6681,19 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
               button0,
               "click",
               /*click_handler_1*/
-              ctx[19]
+              ctx[20]
             ),
             listen(
               button2,
               "click",
               /*updateEventInfo*/
               ctx[11]
+            ),
+            listen(
+              div3,
+              "dragstart",
+              /*dragstart_handler*/
+              ctx[21]
             )
           ];
           mounted = true;
@@ -6719,9 +6737,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
           ctx2[2];
         icon0.$set(icon0_changes);
         if ((!current || dirty & /*org*/
-        1) && t3_value !== (t3_value = /*org*/
+        1) && t4_value !== (t4_value = /*org*/
         ctx2[0].name + ""))
-          set_data(t3, t3_value);
+          set_data(t4, t4_value);
         if (
           /*org*/
           ctx2[0].orgType !== OrgTypeJob
@@ -6736,7 +6754,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
             if_block0 = create_if_block_14(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
-            if_block0.m(div2, t5);
+            if_block0.m(div2, t6);
           }
         } else if (if_block0) {
           group_outros();
@@ -6808,11 +6826,13 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       d(detaching) {
         if (detaching) {
           detach(t0);
+          detach(c);
+          detach(t1);
           detach(div3);
-          detach(t8);
+          detach(t9);
           detach(if_block1_anchor);
         }
-        ctx[13](null);
+        ctx[14](null);
         destroy_component(popuporgchild, detaching);
         destroy_component(icon0);
         if (if_block0)
@@ -6940,6 +6960,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     function updateEventInfo() {
       dispatch("info", { org });
     }
+    function updateOnMoving(org2) {
+      dispatch("moving", { org: org2 });
+    }
     function popuporgchild_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpOrgChild = $value;
@@ -6964,17 +6987,21 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     }
     const click_handler = () => toggleAddOrEdit("add");
     const click_handler_1 = () => toggleAddOrEdit("edit");
+    const dragstart_handler = () => updateOnMoving(org);
     function update_handler(event) {
       bubble.call(this, $self, event);
     }
     function info_handler(event) {
       bubble.call(this, $self, event);
     }
+    function moving_handler(event) {
+      bubble.call(this, $self, event);
+    }
     $self.$set = ($props2) => {
       if ("org" in $props2)
         $invalidate(0, org = $props2.org);
       if ("indent" in $props2)
-        $invalidate(12, indent = $props2.indent);
+        $invalidate(13, indent = $props2.indent);
     };
     return [
       org,
@@ -6989,6 +7016,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       toggleAddOrEdit,
       submitAddOrgChild,
       updateEventInfo,
+      updateOnMoving,
       indent,
       popuporgchild_binding,
       popuporgchild_isSubmitted_binding,
@@ -6997,14 +7025,16 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       popuporgchild_heading_binding,
       click_handler,
       click_handler_1,
+      dragstart_handler,
       update_handler,
-      info_handler
+      info_handler,
+      moving_handler
     ];
   }
   var OrgTree = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance9, create_fragment9, safe_not_equal, { org: 0, indent: 12 });
+      init(this, options, instance9, create_fragment9, safe_not_equal, { org: 0, indent: 13 });
     }
   };
   var OrgTree_default = OrgTree;
@@ -7012,8 +7042,8 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   // tenantAdmin_organization.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[7] = list[i];
-    child_ctx[9] = i;
+    child_ctx[9] = list[i];
+    child_ctx[11] = i;
     return child_ctx;
   }
   function create_if_block5(ctx) {
@@ -7049,7 +7079,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     );
     const get_key = (ctx2) => (
       /*org*/
-      ctx2[7].id
+      ctx2[9].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context2(ctx, each_value, i);
@@ -7095,8 +7125,8 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*REFORMAT_ORGS, updateEventHandler, infoEventHandler*/
-        13) {
+        if (dirty & /*REFORMAT_ORGS, updateEventHandler, infoEventHandler, orgMoveHandler*/
+        29) {
           each_value = ensure_array_like(
             /*REFORMAT_ORGS*/
             ctx2[0]
@@ -7150,7 +7180,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     let current;
     orgtree = new OrgTree_default({ props: { org: (
       /*org*/
-      ctx[7]
+      ctx[9]
     ) } });
     orgtree.$on(
       "update",
@@ -7161,6 +7191,11 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       "info",
       /*infoEventHandler*/
       ctx[3]
+    );
+    orgtree.$on(
+      "moving",
+      /*orgMoveHandler*/
+      ctx[4]
     );
     return {
       key: key_1,
@@ -7181,7 +7216,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         if (dirty & /*REFORMAT_ORGS*/
         1)
           orgtree_changes.org = /*org*/
-          ctx[7];
+          ctx[9];
         orgtree.$set(orgtree_changes);
       },
       i(local) {
@@ -7288,7 +7323,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       p(ctx2, [dirty]) {
         const mainlayout_changes = {};
         if (dirty & /*$scope, infoOrg, REFORMAT_ORGS*/
-        1027) {
+        4099) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -7310,7 +7345,6 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   }
   function instance10($self, $props, $invalidate) {
     let orgs = [/* orgs */];
-    console.log(orgs);
     let REFORMAT_ORGS = [];
     function orgMaker(id) {
       let orgFormatted = {
@@ -7369,9 +7403,8 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     }
     onMount(() => $invalidate(0, REFORMAT_ORGS = reformatorgs()));
     let infoOrg;
-    if (orgs && orgs.length) {
+    if (orgs && orgs.length)
       infoOrg = orgs[0];
-    }
     function updateEventHandler(e) {
       orgs = e.detail.orgs;
       for (let i in orgs) {
@@ -7386,7 +7419,12 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     function infoEventHandler(e) {
       $invalidate(1, infoOrg = e.detail.org);
     }
-    return [REFORMAT_ORGS, infoOrg, updateEventHandler, infoEventHandler];
+    let orgMoving = null;
+    function orgMoveHandler(e) {
+      orgMoving = e.detail.org;
+      console.log(orgMoving);
+    }
+    return [REFORMAT_ORGS, infoOrg, updateEventHandler, infoEventHandler, orgMoveHandler];
   }
   var TenantAdmin_organization = class extends SvelteComponent {
     constructor(options) {

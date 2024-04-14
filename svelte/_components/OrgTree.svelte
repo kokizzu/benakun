@@ -147,6 +147,10 @@
     // @ts-ignore
     dispatch('info', { org: org })
   }
+
+  function updateOnMoving(/** @type {Org}*/ org) {
+    dispatch('moving', { org: org })
+  }
 </script>
 
 <PopUpOrgChild
@@ -158,7 +162,13 @@
   onSubmit={submitAddOrgChild}
 />
 
-<div class="org {orgType}" style="--indent-width:{indentWidth};">
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div
+  class="org {orgType}"
+  style="--indent-width:{indentWidth};"
+  draggable="true"
+  on:dragstart={() => updateOnMoving(org)}
+  >
   <div class="info">
     <span class="h-line"></span>
     <div class="label">
@@ -210,7 +220,12 @@
 </div>
 {#if org.children}
   {#each org.children as child, _ (child.id)}
-    <svelte:self org={child} on:update on:info />
+    <svelte:self
+      org={child}
+      on:update
+      on:info
+      on:moving
+    />
   {/each}
 {/if}
 

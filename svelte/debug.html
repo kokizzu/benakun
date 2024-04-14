@@ -1,0 +1,1578 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/assets/favicons/favicon.png">
+  <title>/*! title */</title>
+</head>
+
+<body>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    :root {
+      -moz-tab-size: 4;
+      -o-tab-size: 4;
+      tab-size: 4;
+
+      /* Font Size */
+      --font-xs: 8px;
+      --font-sm: 10px;
+      --font-base: 13px;
+      --font-md: 16px;
+      --font-lg: 18px;
+      --font-xl: 24px;
+      --font-xxl: 32px;
+
+      /* Colors */
+      --purple-001: #7474ec;
+      --purple-002: #6464ee;
+      --purple-003: #5555eb;
+
+      --blue-001: #ADE8F4;
+      --blue-002: #90E0EF;
+      --blue-003: #48CAE4;
+      --blue-004: #00B4D8;
+      --blue-005: #0096C7;
+      --blue-006: #0077B6;
+      --blue-007: #023E8A;
+      --blue-008: #03045E;
+
+
+      --red-001: #f87171;
+      --red-002: #ef4444;
+      --red-005: #ef4444;
+      --red-006: #dc2626;
+
+      --yellow-001: #fbbf24;
+      --yellow-002: #f59e0b;
+
+      --green-000: #f0fdf4;
+      --green-001: #dcfce7;
+      --green-002: #bbf7d0;
+      --green-003: #86efac;
+      --green-004: #4ade80;
+      --green-005: #22c55e;
+      --green-006: #16a34a;
+      --green-007: #15803d;
+      --green-008: #166534;
+      --green-009: #14532d;
+      --green-010: #052e16;
+
+      --orange-000: #fff7ed;
+      --orange-001: #ffedd5;
+      --orange-002: #fed7aa;
+      --orange-003: #fdba74;
+      --orange-004: #fb923c;
+      --orange-005: #f97316;
+      --orange-006: #ea580c;
+      --orange-007: #c2410c;
+      --orange-008: #9a3412;
+      --orange-009: #7c2d12;
+      --orange-010: #431407;
+
+      --amber-000: #fffbeb;
+      --amber-001: #fef3c7;
+      --amber-002: #fde68a;
+      --amber-003: #fcd34d;
+      --amber-004: #fbbf24;
+      --amber-005: #f59e0b;
+      --amber-006: #d97706;
+      --amber-007: #b45309;
+      --amber-008: #92400e;
+      --amber-009: #78350f;
+      --amber-010: #451a03;
+
+      --gray-001: #F8F9FA;
+      --gray-002: #E9ECEF;
+      --gray-003: #DEE2E6;
+      --gray-004: #CED4DA;
+      --gray-005: #ADB5BD;
+      --gray-006: #6C757D;
+      --gray-007: #495057;
+      --gray-008: #343A40;
+      --gray-009: #212529;
+    }
+
+    *::selection {
+      background: var(--purple-002);
+      color: #ffff;
+    }
+
+    html {
+      max-width: 100%;
+      margin: auto;
+      line-height-step: 1.15;
+      -webkit-text-size-adjust: 100%;
+      font-size: var(--font-base);
+    }
+
+    body {
+      font-family: Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      color: var(--gray-007);
+    }
+
+    hr {
+      height: 0;
+      border-top-width: 1px;
+      width: 100%;
+      overflow: hidden;
+      color: var(--gray-001);
+      background-color: var(--gray-001);
+      margin: 0;
+    }
+
+    .text-capitalize {
+      text-transform: capitalize;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .shadow {
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 1px -1px rgb(0 0 0 / 0.1);
+    }
+
+    .root_layout {
+      display: block;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .root_layout .root_container {
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+      width: 100%;
+    }
+
+    .root_layout .root_container .root_content {
+      flex-grow: 1;
+      overflow-y: auto;
+      height: 100%;
+      position: relative;
+      background-color: var(--gray-001);
+    }
+
+    .root_layout .root_container .root_content .content {
+      width: 100%;
+      min-height: 80dvh;
+      padding: 20px;
+    }
+    
+    /* notifier */
+    .notifyjs-container {
+      z-index: 2100;
+      position: fixed;
+      bottom: 0;
+      right: .5em;
+      max-width: 304px;
+      width: 100%
+    }
+
+    .notifyjs-container .notifyjs-notification {
+      display: none;
+      position: relative;
+      padding: 1em 2em 1em 2.5em;
+      margin-bottom: .5em;
+      width: 100%;
+      border-width: 1px;
+      border-style: solid;
+      box-sizing: border-box
+    }
+
+    .notifyjs-container .notifyjs-notification p.progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 100%;
+      height: 2px;
+      content: " ";
+      margin-bottom: 0
+    }
+
+    .notifyjs-container .notifyjs-notification.alert-success {
+      color: #155724;
+      background-color: #D4EDDA;
+      border-color: #C3E6CB
+    }
+
+    .notifyjs-container .notifyjs-notification.alert-danger {
+      color: #721C24;
+      background-color: #F8D7DA;
+      border-color: #F5C6CB
+    }
+
+    .notifyjs-container .notifyjs-notification.alert-warning {
+      color: #856404;
+      background-color: #FFF3CD;
+      border-color: #FFEEBA
+    }
+
+    .notifyjs-container .notifyjs-notification.alert-info {
+      color: #0C5460;
+      background-color: #D1ECF1;
+      border-color: #BEE5EB
+    }
+
+    .notifyjs-container .notifyjs-notification.alert-success p.progress {
+      background: #155724
+    }
+
+    .notifyjs-container .notifyjs-notification.alert-danger p.progress {
+      background: #721C24
+    }
+
+    .notifyjs-container .notifyjs-notification.alert-warning p.progress {
+      background: #856404
+    }
+
+    .notifyjs-container .notifyjs-notification.alert-info p.progress {
+      background: #0C5460
+    }
+
+    .notifyjs-container .notifyjs-notification.alert-success .notifyjs-icon svg {
+      fill: #155724
+    }
+
+    .notifyjs-container .notifyjs-notification.alert-danger .notifyjs-icon svg {
+      fill: #721C24
+    }
+
+    .notifyjs-container .notifyjs-notification.alert-warning .notifyjs-icon svg {
+      fill: #856404
+    }
+
+    .notifyjs-container .notifyjs-notification.alert-info .notifyjs-icon svg {
+      fill: #0C5460
+    }
+
+    .notifyjs-container .notifyjs-notification .notifyjs-icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 10px
+    }
+
+    .notifyjs-container .notifyjs-notification .notifyjs-icon img,
+    .notifyjs-container .notifyjs-notification .notifyjs-icon svg {
+      width: 16px;
+      height: 16px
+    }
+  </style>
+
+
+<main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
+
+
+<style>/* fakecss:./debug.esbuild-svelte-fake-css */
+.hovering.svelte-rbe8dc {
+  border-color: orange;
+}
+.item.svelte-rbe8dc {
+  display: inline;
+}
+li.svelte-rbe8dc {
+  background-color: lightgray;
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 10px;
+  padding: 10px;
+}
+li.svelte-rbe8dc:hover {
+  background: orange;
+  color: white;
+}
+ul.svelte-rbe8dc {
+  border: solid lightgray 1px;
+  display: flex;
+  height: 40px;
+  padding: 10px;
+}
+</style>
+<script>(() => {
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/utils.js
+  function noop() {
+  }
+  var identity = (x) => x;
+  function run(fn) {
+    return fn();
+  }
+  function blank_object() {
+    return /* @__PURE__ */ Object.create(null);
+  }
+  function run_all(fns) {
+    fns.forEach(run);
+  }
+  function is_function(thing) {
+    return typeof thing === "function";
+  }
+  function safe_not_equal(a, b) {
+    return a != a ? b == b : a !== b || a && typeof a === "object" || typeof a === "function";
+  }
+  function is_empty(obj) {
+    return Object.keys(obj).length === 0;
+  }
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/environment.js
+  var is_client = typeof window !== "undefined";
+  var now = is_client ? () => window.performance.now() : () => Date.now();
+  var raf = is_client ? (cb) => requestAnimationFrame(cb) : noop;
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/loop.js
+  var tasks = /* @__PURE__ */ new Set();
+  function run_tasks(now2) {
+    tasks.forEach((task) => {
+      if (!task.c(now2)) {
+        tasks.delete(task);
+        task.f();
+      }
+    });
+    if (tasks.size !== 0)
+      raf(run_tasks);
+  }
+  function loop(callback) {
+    let task;
+    if (tasks.size === 0)
+      raf(run_tasks);
+    return {
+      promise: new Promise((fulfill) => {
+        tasks.add(task = { c: callback, f: fulfill });
+      }),
+      abort() {
+        tasks.delete(task);
+      }
+    };
+  }
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/globals.js
+  var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
+    // @ts-ignore Node typings have this
+    global
+  );
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  var ResizeObserverSingleton = class {
+    /**
+     * @private
+     * @readonly
+     * @type {WeakMap<Element, import('./private.js').Listener>}
+     */
+    _listeners = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
+    /**
+     * @private
+     * @type {ResizeObserver}
+     */
+    _observer = void 0;
+    /** @type {ResizeObserverOptions} */
+    options;
+    /** @param {ResizeObserverOptions} options */
+    constructor(options) {
+      this.options = options;
+    }
+    /**
+     * @param {Element} element
+     * @param {import('./private.js').Listener} listener
+     * @returns {() => void}
+     */
+    observe(element2, listener) {
+      this._listeners.set(element2, listener);
+      this._getObserver().observe(element2, this.options);
+      return () => {
+        this._listeners.delete(element2);
+        this._observer.unobserve(element2);
+      };
+    }
+    /**
+     * @private
+     */
+    _getObserver() {
+      return this._observer ?? (this._observer = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          ResizeObserverSingleton.entries.set(entry.target, entry);
+          this._listeners.get(entry.target)?.(entry);
+        }
+      }));
+    }
+  };
+  ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/dom.js
+  var is_hydrating = false;
+  function start_hydrating() {
+    is_hydrating = true;
+  }
+  function end_hydrating() {
+    is_hydrating = false;
+  }
+  function append(target, node) {
+    target.appendChild(node);
+  }
+  function get_root_for_style(node) {
+    if (!node)
+      return document;
+    const root = node.getRootNode ? node.getRootNode() : node.ownerDocument;
+    if (root && /** @type {ShadowRoot} */
+    root.host) {
+      return (
+        /** @type {ShadowRoot} */
+        root
+      );
+    }
+    return node.ownerDocument;
+  }
+  function append_empty_stylesheet(node) {
+    const style_element = element("style");
+    style_element.textContent = "/* empty */";
+    append_stylesheet(get_root_for_style(node), style_element);
+    return style_element.sheet;
+  }
+  function append_stylesheet(node, style) {
+    append(
+      /** @type {Document} */
+      node.head || node,
+      style
+    );
+    return style.sheet;
+  }
+  function insert(target, node, anchor) {
+    target.insertBefore(node, anchor || null);
+  }
+  function detach(node) {
+    if (node.parentNode) {
+      node.parentNode.removeChild(node);
+    }
+  }
+  function element(name) {
+    return document.createElement(name);
+  }
+  function text(data) {
+    return document.createTextNode(data);
+  }
+  function space() {
+    return text(" ");
+  }
+  function empty() {
+    return text("");
+  }
+  function listen(node, event, handler, options) {
+    node.addEventListener(event, handler, options);
+    return () => node.removeEventListener(event, handler, options);
+  }
+  function attr(node, attribute, value) {
+    if (value == null)
+      node.removeAttribute(attribute);
+    else if (node.getAttribute(attribute) !== value)
+      node.setAttribute(attribute, value);
+  }
+  function children(element2) {
+    return Array.from(element2.childNodes);
+  }
+  function set_data(text2, data) {
+    data = "" + data;
+    if (text2.data === data)
+      return;
+    text2.data = /** @type {string} */
+    data;
+  }
+  function toggle_class(element2, name, toggle) {
+    element2.classList.toggle(name, !!toggle);
+  }
+  function get_custom_elements_slots(element2) {
+    const result = {};
+    element2.childNodes.forEach(
+      /** @param {Element} node */
+      (node) => {
+        result[node.slot || "default"] = true;
+      }
+    );
+    return result;
+  }
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/style_manager.js
+  var managed_styles = /* @__PURE__ */ new Map();
+  var active = 0;
+  function hash(str) {
+    let hash2 = 5381;
+    let i = str.length;
+    while (i--)
+      hash2 = (hash2 << 5) - hash2 ^ str.charCodeAt(i);
+    return hash2 >>> 0;
+  }
+  function create_style_information(doc, node) {
+    const info = { stylesheet: append_empty_stylesheet(node), rules: {} };
+    managed_styles.set(doc, info);
+    return info;
+  }
+  function create_rule(node, a, b, duration, delay, ease, fn, uid = 0) {
+    const step = 16.666 / duration;
+    let keyframes = "{\n";
+    for (let p = 0; p <= 1; p += step) {
+      const t = a + (b - a) * ease(p);
+      keyframes += p * 100 + `%{${fn(t, 1 - t)}}
+`;
+    }
+    const rule = keyframes + `100% {${fn(b, 1 - b)}}
+}`;
+    const name = `__svelte_${hash(rule)}_${uid}`;
+    const doc = get_root_for_style(node);
+    const { stylesheet, rules } = managed_styles.get(doc) || create_style_information(doc, node);
+    if (!rules[name]) {
+      rules[name] = true;
+      stylesheet.insertRule(`@keyframes ${name} ${rule}`, stylesheet.cssRules.length);
+    }
+    const animation = node.style.animation || "";
+    node.style.animation = `${animation ? `${animation}, ` : ""}${name} ${duration}ms linear ${delay}ms 1 both`;
+    active += 1;
+    return name;
+  }
+  function delete_rule(node, name) {
+    const previous = (node.style.animation || "").split(", ");
+    const next = previous.filter(
+      name ? (anim) => anim.indexOf(name) < 0 : (anim) => anim.indexOf("__svelte") === -1
+      // remove all Svelte animations
+    );
+    const deleted = previous.length - next.length;
+    if (deleted) {
+      node.style.animation = next.join(", ");
+      active -= deleted;
+      if (!active)
+        clear_rules();
+    }
+  }
+  function clear_rules() {
+    raf(() => {
+      if (active)
+        return;
+      managed_styles.forEach((info) => {
+        const { ownerNode } = info.stylesheet;
+        if (ownerNode)
+          detach(ownerNode);
+      });
+      managed_styles.clear();
+    });
+  }
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/animations.js
+  function create_animation(node, from, fn, params) {
+    if (!from)
+      return noop;
+    const to = node.getBoundingClientRect();
+    if (from.left === to.left && from.right === to.right && from.top === to.top && from.bottom === to.bottom)
+      return noop;
+    const {
+      delay = 0,
+      duration = 300,
+      easing = identity,
+      // @ts-ignore todo: should this be separated from destructuring? Or start/end added to public api and documentation?
+      start: start_time = now() + delay,
+      // @ts-ignore todo:
+      end = start_time + duration,
+      tick = noop,
+      css
+    } = fn(node, { from, to }, params);
+    let running = true;
+    let started = false;
+    let name;
+    function start() {
+      if (css) {
+        name = create_rule(node, 0, 1, duration, delay, easing, css);
+      }
+      if (!delay) {
+        started = true;
+      }
+    }
+    function stop() {
+      if (css)
+        delete_rule(node, name);
+      running = false;
+    }
+    loop((now2) => {
+      if (!started && now2 >= start_time) {
+        started = true;
+      }
+      if (started && now2 >= end) {
+        tick(1, 0);
+        stop();
+      }
+      if (!running) {
+        return false;
+      }
+      if (started) {
+        const p = now2 - start_time;
+        const t = 0 + 1 * easing(p / duration);
+        tick(t, 1 - t);
+      }
+      return true;
+    });
+    start();
+    tick(0, 1);
+    return stop;
+  }
+  function fix_position(node) {
+    const style = getComputedStyle(node);
+    if (style.position !== "absolute" && style.position !== "fixed") {
+      const { width, height } = style;
+      const a = node.getBoundingClientRect();
+      node.style.position = "absolute";
+      node.style.width = width;
+      node.style.height = height;
+      add_transform(node, a);
+    }
+  }
+  function add_transform(node, a) {
+    const b = node.getBoundingClientRect();
+    if (a.left !== b.left || a.top !== b.top) {
+      const style = getComputedStyle(node);
+      const transform = style.transform === "none" ? "" : style.transform;
+      node.style.transform = `${transform} translate(${a.left - b.left}px, ${a.top - b.top}px)`;
+    }
+  }
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/lifecycle.js
+  var current_component;
+  function set_current_component(component) {
+    current_component = component;
+  }
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/scheduler.js
+  var dirty_components = [];
+  var binding_callbacks = [];
+  var render_callbacks = [];
+  var flush_callbacks = [];
+  var resolved_promise = /* @__PURE__ */ Promise.resolve();
+  var update_scheduled = false;
+  function schedule_update() {
+    if (!update_scheduled) {
+      update_scheduled = true;
+      resolved_promise.then(flush);
+    }
+  }
+  function add_render_callback(fn) {
+    render_callbacks.push(fn);
+  }
+  var seen_callbacks = /* @__PURE__ */ new Set();
+  var flushidx = 0;
+  function flush() {
+    if (flushidx !== 0) {
+      return;
+    }
+    const saved_component = current_component;
+    do {
+      try {
+        while (flushidx < dirty_components.length) {
+          const component = dirty_components[flushidx];
+          flushidx++;
+          set_current_component(component);
+          update(component.$);
+        }
+      } catch (e) {
+        dirty_components.length = 0;
+        flushidx = 0;
+        throw e;
+      }
+      set_current_component(null);
+      dirty_components.length = 0;
+      flushidx = 0;
+      while (binding_callbacks.length)
+        binding_callbacks.pop()();
+      for (let i = 0; i < render_callbacks.length; i += 1) {
+        const callback = render_callbacks[i];
+        if (!seen_callbacks.has(callback)) {
+          seen_callbacks.add(callback);
+          callback();
+        }
+      }
+      render_callbacks.length = 0;
+    } while (dirty_components.length);
+    while (flush_callbacks.length) {
+      flush_callbacks.pop()();
+    }
+    update_scheduled = false;
+    seen_callbacks.clear();
+    set_current_component(saved_component);
+  }
+  function update($) {
+    if ($.fragment !== null) {
+      $.update();
+      run_all($.before_update);
+      const dirty = $.dirty;
+      $.dirty = [-1];
+      $.fragment && $.fragment.p($.ctx, dirty);
+      $.after_update.forEach(add_render_callback);
+    }
+  }
+  function flush_render_callbacks(fns) {
+    const filtered = [];
+    const targets = [];
+    render_callbacks.forEach((c) => fns.indexOf(c) === -1 ? filtered.push(c) : targets.push(c));
+    targets.forEach((c) => c());
+    render_callbacks = filtered;
+  }
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/transitions.js
+  var outroing = /* @__PURE__ */ new Set();
+  function transition_in(block, local) {
+    if (block && block.i) {
+      outroing.delete(block);
+      block.i(local);
+    }
+  }
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/each.js
+  function ensure_array_like(array_like_or_iterator) {
+    return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
+  }
+  function destroy_block(block, lookup) {
+    block.d(1);
+    lookup.delete(block.key);
+  }
+  function fix_and_destroy_block(block, lookup) {
+    block.f();
+    destroy_block(block, lookup);
+  }
+  function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block2, next, get_context) {
+    let o = old_blocks.length;
+    let n = list.length;
+    let i = o;
+    const old_indexes = {};
+    while (i--)
+      old_indexes[old_blocks[i].key] = i;
+    const new_blocks = [];
+    const new_lookup = /* @__PURE__ */ new Map();
+    const deltas = /* @__PURE__ */ new Map();
+    const updates = [];
+    i = n;
+    while (i--) {
+      const child_ctx = get_context(ctx, list, i);
+      const key = get_key(child_ctx);
+      let block = lookup.get(key);
+      if (!block) {
+        block = create_each_block2(key, child_ctx);
+        block.c();
+      } else if (dynamic) {
+        updates.push(() => block.p(child_ctx, dirty));
+      }
+      new_lookup.set(key, new_blocks[i] = block);
+      if (key in old_indexes)
+        deltas.set(key, Math.abs(i - old_indexes[key]));
+    }
+    const will_move = /* @__PURE__ */ new Set();
+    const did_move = /* @__PURE__ */ new Set();
+    function insert2(block) {
+      transition_in(block, 1);
+      block.m(node, next);
+      lookup.set(block.key, block);
+      next = block.first;
+      n--;
+    }
+    while (o && n) {
+      const new_block = new_blocks[n - 1];
+      const old_block = old_blocks[o - 1];
+      const new_key = new_block.key;
+      const old_key = old_block.key;
+      if (new_block === old_block) {
+        next = new_block.first;
+        o--;
+        n--;
+      } else if (!new_lookup.has(old_key)) {
+        destroy(old_block, lookup);
+        o--;
+      } else if (!lookup.has(new_key) || will_move.has(new_key)) {
+        insert2(new_block);
+      } else if (did_move.has(old_key)) {
+        o--;
+      } else if (deltas.get(new_key) > deltas.get(old_key)) {
+        did_move.add(new_key);
+        insert2(new_block);
+      } else {
+        will_move.add(old_key);
+        o--;
+      }
+    }
+    while (o--) {
+      const old_block = old_blocks[o];
+      if (!new_lookup.has(old_block.key))
+        destroy(old_block, lookup);
+    }
+    while (n)
+      insert2(new_blocks[n - 1]);
+    run_all(updates);
+    return new_blocks;
+  }
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/boolean_attributes.js
+  var _boolean_attributes = (
+    /** @type {const} */
+    [
+      "allowfullscreen",
+      "allowpaymentrequest",
+      "async",
+      "autofocus",
+      "autoplay",
+      "checked",
+      "controls",
+      "default",
+      "defer",
+      "disabled",
+      "formnovalidate",
+      "hidden",
+      "inert",
+      "ismap",
+      "loop",
+      "multiple",
+      "muted",
+      "nomodule",
+      "novalidate",
+      "open",
+      "playsinline",
+      "readonly",
+      "required",
+      "reversed",
+      "selected"
+    ]
+  );
+  var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/Component.js
+  function mount_component(component, target, anchor) {
+    const { fragment, after_update } = component.$;
+    fragment && fragment.m(target, anchor);
+    add_render_callback(() => {
+      const new_on_destroy = component.$.on_mount.map(run).filter(is_function);
+      if (component.$.on_destroy) {
+        component.$.on_destroy.push(...new_on_destroy);
+      } else {
+        run_all(new_on_destroy);
+      }
+      component.$.on_mount = [];
+    });
+    after_update.forEach(add_render_callback);
+  }
+  function destroy_component(component, detaching) {
+    const $ = component.$;
+    if ($.fragment !== null) {
+      flush_render_callbacks($.after_update);
+      run_all($.on_destroy);
+      $.fragment && $.fragment.d(detaching);
+      $.on_destroy = $.fragment = null;
+      $.ctx = [];
+    }
+  }
+  function make_dirty(component, i) {
+    if (component.$.dirty[0] === -1) {
+      dirty_components.push(component);
+      schedule_update();
+      component.$.dirty.fill(0);
+    }
+    component.$.dirty[i / 31 | 0] |= 1 << i % 31;
+  }
+  function init(component, options, instance2, create_fragment2, not_equal, props, append_styles = null, dirty = [-1]) {
+    const parent_component = current_component;
+    set_current_component(component);
+    const $ = component.$ = {
+      fragment: null,
+      ctx: [],
+      // state
+      props,
+      update: noop,
+      not_equal,
+      bound: blank_object(),
+      // lifecycle
+      on_mount: [],
+      on_destroy: [],
+      on_disconnect: [],
+      before_update: [],
+      after_update: [],
+      context: new Map(options.context || (parent_component ? parent_component.$.context : [])),
+      // everything else
+      callbacks: blank_object(),
+      dirty,
+      skip_bound: false,
+      root: options.target || parent_component.$.root
+    };
+    append_styles && append_styles($.root);
+    let ready = false;
+    $.ctx = instance2 ? instance2(component, options.props || {}, (i, ret, ...rest) => {
+      const value = rest.length ? rest[0] : ret;
+      if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
+        if (!$.skip_bound && $.bound[i])
+          $.bound[i](value);
+        if (ready)
+          make_dirty(component, i);
+      }
+      return ret;
+    }) : [];
+    $.update();
+    ready = true;
+    run_all($.before_update);
+    $.fragment = create_fragment2 ? create_fragment2($.ctx) : false;
+    if (options.target) {
+      if (options.hydrate) {
+        start_hydrating();
+        const nodes = children(options.target);
+        $.fragment && $.fragment.l(nodes);
+        nodes.forEach(detach);
+      } else {
+        $.fragment && $.fragment.c();
+      }
+      if (options.intro)
+        transition_in(component.$.fragment);
+      mount_component(component, options.target, options.anchor);
+      end_hydrating();
+      flush();
+    }
+    set_current_component(parent_component);
+  }
+  var SvelteElement;
+  if (typeof HTMLElement === "function") {
+    SvelteElement = class extends HTMLElement {
+      /** The Svelte component constructor */
+      $ctor;
+      /** Slots */
+      $s;
+      /** The Svelte component instance */
+      $c;
+      /** Whether or not the custom element is connected */
+      $cn = false;
+      /** Component props data */
+      $d = {};
+      /** `true` if currently in the process of reflecting component props back to attributes */
+      $r = false;
+      /** @type {Record<string, CustomElementPropDefinition>} Props definition (name, reflected, type etc) */
+      $p_d = {};
+      /** @type {Record<string, Function[]>} Event listeners */
+      $l = {};
+      /** @type {Map<Function, Function>} Event listener unsubscribe functions */
+      $l_u = /* @__PURE__ */ new Map();
+      constructor($componentCtor, $slots, use_shadow_dom) {
+        super();
+        this.$ctor = $componentCtor;
+        this.$s = $slots;
+        if (use_shadow_dom) {
+          this.attachShadow({ mode: "open" });
+        }
+      }
+      addEventListener(type, listener, options) {
+        this.$l[type] = this.$l[type] || [];
+        this.$l[type].push(listener);
+        if (this.$c) {
+          const unsub = this.$c.$on(type, listener);
+          this.$l_u.set(listener, unsub);
+        }
+        super.addEventListener(type, listener, options);
+      }
+      removeEventListener(type, listener, options) {
+        super.removeEventListener(type, listener, options);
+        if (this.$c) {
+          const unsub = this.$l_u.get(listener);
+          if (unsub) {
+            unsub();
+            this.$l_u.delete(listener);
+          }
+        }
+      }
+      async connectedCallback() {
+        this.$cn = true;
+        if (!this.$c) {
+          let create_slot = function(name) {
+            return () => {
+              let node;
+              const obj = {
+                c: function create() {
+                  node = element("slot");
+                  if (name !== "default") {
+                    attr(node, "name", name);
+                  }
+                },
+                /**
+                 * @param {HTMLElement} target
+                 * @param {HTMLElement} [anchor]
+                 */
+                m: function mount(target, anchor) {
+                  insert(target, node, anchor);
+                },
+                d: function destroy(detaching) {
+                  if (detaching) {
+                    detach(node);
+                  }
+                }
+              };
+              return obj;
+            };
+          };
+          await Promise.resolve();
+          if (!this.$cn) {
+            return;
+          }
+          const $slots = {};
+          const existing_slots = get_custom_elements_slots(this);
+          for (const name of this.$s) {
+            if (name in existing_slots) {
+              $slots[name] = [create_slot(name)];
+            }
+          }
+          for (const attribute of this.attributes) {
+            const name = this.$g_p(attribute.name);
+            if (!(name in this.$d)) {
+              this.$d[name] = get_custom_element_value(name, attribute.value, this.$p_d, "toProp");
+            }
+          }
+          this.$c = new this.$ctor({
+            target: this.shadowRoot || this,
+            props: {
+              ...this.$d,
+              $slots,
+              $scope: {
+                ctx: []
+              }
+            }
+          });
+          const reflect_attributes = () => {
+            this.$r = true;
+            for (const key in this.$p_d) {
+              this.$d[key] = this.$c.$.ctx[this.$c.$.props[key]];
+              if (this.$p_d[key].reflect) {
+                const attribute_value = get_custom_element_value(
+                  key,
+                  this.$d[key],
+                  this.$p_d,
+                  "toAttribute"
+                );
+                if (attribute_value == null) {
+                  this.removeAttribute(this.$p_d[key].attribute || key);
+                } else {
+                  this.setAttribute(this.$p_d[key].attribute || key, attribute_value);
+                }
+              }
+            }
+            this.$r = false;
+          };
+          this.$c.$.after_update.push(reflect_attributes);
+          reflect_attributes();
+          for (const type in this.$l) {
+            for (const listener of this.$l[type]) {
+              const unsub = this.$c.$on(type, listener);
+              this.$l_u.set(listener, unsub);
+            }
+          }
+          this.$l = {};
+        }
+      }
+      // We don't need this when working within Svelte code, but for compatibility of people using this outside of Svelte
+      // and setting attributes through setAttribute etc, this is helpful
+      attributeChangedCallback(attr2, _oldValue, newValue) {
+        if (this.$r)
+          return;
+        attr2 = this.$g_p(attr2);
+        this.$d[attr2] = get_custom_element_value(attr2, newValue, this.$p_d, "toProp");
+        this.$c?.$set({ [attr2]: this.$d[attr2] });
+      }
+      disconnectedCallback() {
+        this.$cn = false;
+        Promise.resolve().then(() => {
+          if (!this.$cn) {
+            this.$c.$destroy();
+            this.$c = void 0;
+          }
+        });
+      }
+      $g_p(attribute_name) {
+        return Object.keys(this.$p_d).find(
+          (key) => this.$p_d[key].attribute === attribute_name || !this.$p_d[key].attribute && key.toLowerCase() === attribute_name
+        ) || attribute_name;
+      }
+    };
+  }
+  function get_custom_element_value(prop, value, props_definition, transform) {
+    const type = props_definition[prop]?.type;
+    value = type === "Boolean" && typeof value !== "boolean" ? value != null : value;
+    if (!transform || !props_definition[prop]) {
+      return value;
+    } else if (transform === "toAttribute") {
+      switch (type) {
+        case "Object":
+        case "Array":
+          return value == null ? null : JSON.stringify(value);
+        case "Boolean":
+          return value ? "" : null;
+        case "Number":
+          return value == null ? null : value;
+        default:
+          return value;
+      }
+    } else {
+      switch (type) {
+        case "Object":
+        case "Array":
+          return value && JSON.parse(value);
+        case "Boolean":
+          return value;
+        case "Number":
+          return value != null ? +value : value;
+        default:
+          return value;
+      }
+    }
+  }
+  var SvelteComponent = class {
+    /**
+     * ### PRIVATE API
+     *
+     * Do not use, may change at any time
+     *
+     * @type {any}
+     */
+    $ = void 0;
+    /**
+     * ### PRIVATE API
+     *
+     * Do not use, may change at any time
+     *
+     * @type {any}
+     */
+    $set = void 0;
+    /** @returns {void} */
+    $destroy() {
+      destroy_component(this, 1);
+      this.$destroy = noop;
+    }
+    /**
+     * @template {Extract<keyof Events, string>} K
+     * @param {K} type
+     * @param {((e: Events[K]) => void) | null | undefined} callback
+     * @returns {() => void}
+     */
+    $on(type, callback) {
+      if (!is_function(callback)) {
+        return noop;
+      }
+      const callbacks = this.$.callbacks[type] || (this.$.callbacks[type] = []);
+      callbacks.push(callback);
+      return () => {
+        const index = callbacks.indexOf(callback);
+        if (index !== -1)
+          callbacks.splice(index, 1);
+      };
+    }
+    /**
+     * @param {Partial<Props>} props
+     * @returns {void}
+     */
+    $set(props) {
+      if (this.$set && !is_empty(props)) {
+        this.$.skip_bound = true;
+        this.$set(props);
+        this.$.skip_bound = false;
+      }
+    }
+  };
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/version.js
+  var PUBLIC_VERSION = "4";
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  if (typeof window !== "undefined")
+    (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/easing/index.js
+  function cubicOut(t) {
+    const f = t - 1;
+    return f * f * f + 1;
+  }
+
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/animate/index.js
+  function flip(node, { from, to }, params = {}) {
+    const style = getComputedStyle(node);
+    const transform = style.transform === "none" ? "" : style.transform;
+    const [ox, oy] = style.transformOrigin.split(" ").map(parseFloat);
+    const dx = from.left + from.width * ox / to.width - (to.left + ox);
+    const dy = from.top + from.height * oy / to.height - (to.top + oy);
+    const { delay = 0, duration = (d) => Math.sqrt(d) * 120, easing = cubicOut } = params;
+    return {
+      delay,
+      duration: is_function(duration) ? duration(Math.sqrt(dx * dx + dy * dy)) : duration,
+      easing,
+      css: (t, u) => {
+        const x = u * dx;
+        const y = u * dy;
+        const sx = t + u * from.width / to.width;
+        const sy = t + u * from.height / to.height;
+        return `transform: ${transform} translate(${x}px, ${y}px) scale(${sx}, ${sy});`;
+      }
+    };
+  }
+
+  // debug.svelte
+  function get_each_context(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[7] = list[i];
+    child_ctx[9] = i;
+    return child_ctx;
+  }
+  function get_each_context_1(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[10] = list[i];
+    child_ctx[12] = i;
+    return child_ctx;
+  }
+  function create_each_block_1(key_1, ctx) {
+    let div;
+    let li;
+    let t0_value = (
+      /*item*/
+      ctx[10] + ""
+    );
+    let t0;
+    let li_draggable_value;
+    let t1;
+    let rect;
+    let stop_animation = noop;
+    let mounted;
+    let dispose;
+    function dragstart_handler(...args) {
+      return (
+        /*dragstart_handler*/
+        ctx[3](
+          /*basketIndex*/
+          ctx[9],
+          /*itemIndex*/
+          ctx[12],
+          ...args
+        )
+      );
+    }
+    return {
+      key: key_1,
+      first: null,
+      c() {
+        div = element("div");
+        li = element("li");
+        t0 = text(t0_value);
+        t1 = space();
+        attr(li, "draggable", li_draggable_value = true);
+        attr(li, "class", "svelte-rbe8dc");
+        attr(div, "class", "item svelte-rbe8dc");
+        this.first = div;
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        append(div, li);
+        append(li, t0);
+        append(div, t1);
+        if (!mounted) {
+          dispose = listen(li, "dragstart", dragstart_handler);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (dirty & /*baskets*/
+        1 && t0_value !== (t0_value = /*item*/
+        ctx[10] + ""))
+          set_data(t0, t0_value);
+      },
+      r() {
+        rect = div.getBoundingClientRect();
+      },
+      f() {
+        fix_position(div);
+        stop_animation();
+      },
+      a() {
+        stop_animation();
+        stop_animation = create_animation(div, rect, flip, {});
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_each_block(key_1, ctx) {
+    let div;
+    let b;
+    let t0_value = (
+      /*basket*/
+      ctx[7].name + ""
+    );
+    let t0;
+    let t1;
+    let ul;
+    let each_blocks = [];
+    let each_1_lookup = /* @__PURE__ */ new Map();
+    let t2;
+    let rect;
+    let stop_animation = noop;
+    let mounted;
+    let dispose;
+    let each_value_1 = ensure_array_like(
+      /*basket*/
+      ctx[7].items
+    );
+    const get_key = (ctx2) => (
+      /*item*/
+      ctx2[10]
+    );
+    for (let i = 0; i < each_value_1.length; i += 1) {
+      let child_ctx = get_each_context_1(ctx, each_value_1, i);
+      let key = get_key(child_ctx);
+      each_1_lookup.set(key, each_blocks[i] = create_each_block_1(key, child_ctx));
+    }
+    function dragenter_handler() {
+      return (
+        /*dragenter_handler*/
+        ctx[4](
+          /*basket*/
+          ctx[7]
+        )
+      );
+    }
+    function drop_handler(...args) {
+      return (
+        /*drop_handler*/
+        ctx[6](
+          /*basketIndex*/
+          ctx[9],
+          ...args
+        )
+      );
+    }
+    return {
+      key: key_1,
+      first: null,
+      c() {
+        div = element("div");
+        b = element("b");
+        t0 = text(t0_value);
+        t1 = space();
+        ul = element("ul");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        t2 = space();
+        attr(ul, "class", "svelte-rbe8dc");
+        toggle_class(
+          ul,
+          "hovering",
+          /*hoveringOverBasket*/
+          ctx[1] === /*basket*/
+          ctx[7].name
+        );
+        this.first = div;
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        append(div, b);
+        append(b, t0);
+        append(div, t1);
+        append(div, ul);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(ul, null);
+          }
+        }
+        append(div, t2);
+        if (!mounted) {
+          dispose = [
+            listen(ul, "dragenter", dragenter_handler),
+            listen(
+              ul,
+              "dragleave",
+              /*dragleave_handler*/
+              ctx[5]
+            ),
+            listen(ul, "drop", drop_handler),
+            listen(ul, "dragover", dragover_handler)
+          ];
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (dirty & /*baskets*/
+        1 && t0_value !== (t0_value = /*basket*/
+        ctx[7].name + ""))
+          set_data(t0, t0_value);
+        if (dirty & /*dragStart, baskets*/
+        1) {
+          each_value_1 = ensure_array_like(
+            /*basket*/
+            ctx[7].items
+          );
+          for (let i = 0; i < each_blocks.length; i += 1)
+            each_blocks[i].r();
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value_1, each_1_lookup, ul, fix_and_destroy_block, create_each_block_1, null, get_each_context_1);
+          for (let i = 0; i < each_blocks.length; i += 1)
+            each_blocks[i].a();
+        }
+        if (dirty & /*hoveringOverBasket, baskets*/
+        3) {
+          toggle_class(
+            ul,
+            "hovering",
+            /*hoveringOverBasket*/
+            ctx[1] === /*basket*/
+            ctx[7].name
+          );
+        }
+      },
+      r() {
+        rect = div.getBoundingClientRect();
+      },
+      f() {
+        fix_position(div);
+        stop_animation();
+      },
+      a() {
+        stop_animation();
+        stop_animation = create_animation(div, rect, flip, {});
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].d();
+        }
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
+  function create_fragment(ctx) {
+    let p;
+    let t1;
+    let each_blocks = [];
+    let each_1_lookup = /* @__PURE__ */ new Map();
+    let each_1_anchor;
+    let each_value = ensure_array_like(
+      /*baskets*/
+      ctx[0]
+    );
+    const get_key = (ctx2) => (
+      /*basket*/
+      ctx2[7]
+    );
+    for (let i = 0; i < each_value.length; i += 1) {
+      let child_ctx = get_each_context(ctx, each_value, i);
+      let key = get_key(child_ctx);
+      each_1_lookup.set(key, each_blocks[i] = create_each_block(key, child_ctx));
+    }
+    return {
+      c() {
+        p = element("p");
+        p.textContent = "Drag a fruit from one basket to another.";
+        t1 = space();
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        each_1_anchor = empty();
+      },
+      m(target, anchor) {
+        insert(target, p, anchor);
+        insert(target, t1, anchor);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(target, anchor);
+          }
+        }
+        insert(target, each_1_anchor, anchor);
+      },
+      p(ctx2, [dirty]) {
+        if (dirty & /*hoveringOverBasket, baskets, drop, dragStart*/
+        7) {
+          each_value = ensure_array_like(
+            /*baskets*/
+            ctx2[0]
+          );
+          for (let i = 0; i < each_blocks.length; i += 1)
+            each_blocks[i].r();
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, fix_and_destroy_block, create_each_block, each_1_anchor, get_each_context);
+          for (let i = 0; i < each_blocks.length; i += 1)
+            each_blocks[i].a();
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(p);
+          detach(t1);
+          detach(each_1_anchor);
+        }
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].d(detaching);
+        }
+      }
+    };
+  }
+  function dragStart(event, basketIndex, itemIndex) {
+    const data = { basketIndex, itemIndex };
+    event.dataTransfer.setData("text/plain", JSON.stringify(data));
+  }
+  var dragover_handler = () => false;
+  function instance($self, $props, $invalidate) {
+    let baskets = [
+      {
+        "name": "Basket 1",
+        "items": ["Orange", "Pineapple"]
+      },
+      {
+        "name": "Basket 2",
+        "items": ["Banana", "Apple"]
+      },
+      {
+        "name": "Basket 3",
+        "items": ["GrapeFruit"]
+      }
+    ];
+    let hoveringOverBasket;
+    function drop(event, basketIndex) {
+      event.preventDefault();
+      const json = event.dataTransfer.getData("text/plain");
+      const data = JSON.parse(json);
+      const [item] = baskets[data.basketIndex].items.splice(data.itemIndex, 1);
+      baskets[basketIndex].items.push(item);
+      $invalidate(0, baskets);
+      $invalidate(1, hoveringOverBasket = null);
+    }
+    const dragstart_handler = (basketIndex, itemIndex, event) => dragStart(event, basketIndex, itemIndex);
+    const dragenter_handler = (basket) => $invalidate(1, hoveringOverBasket = basket.name);
+    const dragleave_handler = () => $invalidate(1, hoveringOverBasket = null);
+    const drop_handler = (basketIndex, event) => drop(event, basketIndex);
+    return [
+      baskets,
+      hoveringOverBasket,
+      drop,
+      dragstart_handler,
+      dragenter_handler,
+      dragleave_handler,
+      drop_handler
+    ];
+  }
+  var Debug = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance, create_fragment, safe_not_equal, {});
+    }
+  };
+  var debug_default = Debug;
+
+  // debug.svelte.ts
+  var app = new debug_default({ target: document.getElementById("app") });
+})();
+</script>
+</body></html>
