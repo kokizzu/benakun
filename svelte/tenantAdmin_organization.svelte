@@ -2,6 +2,8 @@
   import MainLayout from './_layouts/mainLayout.svelte';
   import { onMount } from 'svelte';
   import OrgTree from './_components/OrgTree.svelte';
+  import { TenantAdminMoveOrganizationChild } from './jsApi.GEN';
+  import { notifier } from './_components/notifier';
 
   let segments = {/* segments */};
   let user = {/* user */};
@@ -28,6 +30,8 @@
 
   /**  @type {Array<Org>} */
   let REFORMAT_ORGS = [];
+
+  const OrgTypeCompany = 1, OrgTypeDept = 2, OrgTypeDivision = 3, OrgTypeJob = 4;
 
   function orgMaker(id) {
     /** @type {Org} */
@@ -90,7 +94,7 @@
     return toorgs;
   }
 
-  onMount(() => REFORMAT_ORGS = reformatorgs());
+  onMount(() => { REFORMAT_ORGS = reformatorgs(); console.log(orgs); });
 
   let infoOrg;
   if (orgs && orgs.length) infoOrg = orgs[0];
@@ -107,17 +111,36 @@
     REFORMAT_ORGS = reformatorgs();
   }
 
-  function infoEventHandler(e) {
-    infoOrg = e.detail.org;
-  }
+  const infoEventHandler = (e) => infoOrg = e.detail.org;
 
   /** @type {Org|null} */
   let orgMoving = null;
   
-  function orgMoveHandler(e) {
-    orgMoving = e.detail.org;
+  const orgMovingHandler = (e) => orgMoving = e.detail.org;
+  
+  const orgMovedHandler = async (e) => {
+    /** @type {Org} */
+    const parentOrg = e.detail.org;
+    if (!orgMoving) return;
 
-    console.log(orgMoving);
+    if (parentOrg.orgType !== orgMoving.orgType-1) return console.log(`CANNOT MOVE ${orgMoving.id} TO ${parentOrg.id} - WRONG ORG TYPE`);
+    if (parentOrg.id == orgMoving.parentId) return;
+
+    await TenantAdminMoveOrganizationChild(
+      { id: Number(orgMoving.id), moveToIdx: 0, toParentId: Number(parentOrg.id) },
+      /** @type {import('./jsApi.GEN').TenantAdminMoveOrganizationChildCallback}*/
+      function (/** @type {any} */o) {
+        if (o.error) {
+          notifier.showError(o.error);
+          console.log(o);
+          return;
+        }
+        console.log(o);
+        orgs = o.orgs;
+        REFORMAT_ORGS = [];
+        REFORMAT_ORGS = reformatorgs();
+      }
+    );
   }
 </script>
 
@@ -130,7 +153,8 @@
             org={org}
             on:update={updateEventHandler}
             on:info={infoEventHandler}
-            on:moving={orgMoveHandler}
+            on:moving={orgMovingHandler}
+            on:moved={orgMovedHandler}
           />
         {/each}
       </div>

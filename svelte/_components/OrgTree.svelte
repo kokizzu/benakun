@@ -88,69 +88,62 @@
       return;
     }
     switch (orgState) {
-      case 'add':
+      case 'add': {
         await TenantAdminCreateOrganizationChild(
-          {
-            name: orgName,
-            headTitle: headTitle,
-            parentId: Number(org.id),
-          },
-          // @ts-ignore
-          function (o) {
+          { name: orgName, headTitle: headTitle, parentId: Number(org.id) },
+          /** @type {import('../jsApi.GEN').TenantAdminUpdateOrganizationChildCallback}*/
+          function (/** @type {any} */ o) {
             isSubmitted = false;
             popUpOrgChild.hide();
-            // @ts-ignore
             if (o.error) {
-              // @ts-ignore
               notifier.showError(o.error);
-              // @ts-ignore
               console.log(o.error);
               return;
             }
-            console.log(o);
-            // @ts-ignore
-            dispatch('update', { orgs: o.orgs })
+            /** @type {Array<Org>} */
+            const orgs = o.orgs;
+            dispatch('update', { orgs: orgs })
             notifier.showSuccess('Organization child created');
           }
         );
         break;
-      case 'edit':
+      }
+      case 'edit': {
         await TenantAdminUpdateOrganizationChild(
-          {
-            name: orgName,
-            id: Number(org.id),
-            headTitle: headTitle,
-          },
-          // @ts-ignore
-          function (o) {
+          { name: orgName, id: Number(org.id), headTitle: headTitle },
+          /** @type {import('../jsApi.GEN').TenantAdminUpdateOrganizationChildCallback}*/
+          function (/** @type {any} */ o) {
             isSubmitted = false;
             popUpOrgChild.hide();
-            // @ts-ignore
             if (o.error) {
-              // @ts-ignore
               notifier.showError(o.error);
-              // @ts-ignore
-              console.log(o.error);
+              console.log(o);
               return;
             }
-            console.log(o);
-            // @ts-ignore
-            dispatch('update', { orgs: o.orgs })
+            /** @type {Array<Org>} */
+            const orgs = o.orgs;
+            dispatch('update', { orgs: orgs })
             notifier.showSuccess('Organization child updated');
           }
         );
         break;
+      }
     }
   }
 
-  function updateEventInfo() {
-    // @ts-ignore
-    dispatch('info', { org: org })
+  let isDragOver = false, isDragging = false;
+
+  const updateEventInfo = () => dispatch('info', { org: org });
+
+  const updateOnMoving = () => {
+    dispatch('moving', { org: org });
+    isDragging = true;
   }
 
-  function updateOnMoving(/** @type {Org}*/ org) {
-    dispatch('moving', { org: org })
-  }
+  const updateMovedOrg = () => {
+    dispatch('moved', { org: org });
+    isDragOver = false;
+  };
 </script>
 
 <PopUpOrgChild
@@ -164,10 +157,14 @@
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
-  class="org {orgType}"
+  class="org {orgType} {isDragOver ? 'drag-over' : ''} {isDragging ? 'dragging' : ''}"
   style="--indent-width:{indentWidth};"
   draggable="true"
-  on:dragstart={() => updateOnMoving(org)}
+  on:dragstart={updateOnMoving}
+  on:drop|preventDefault={updateMovedOrg}
+  on:dragover|preventDefault={() => (isDragOver = true)}
+  on:dragleave|preventDefault={() => (isDragOver = false)}
+  on:dragend={() => (isDragging = false)}
   >
   <div class="info">
     <span class="h-line"></span>
@@ -221,10 +218,15 @@
 {#if org.children}
   {#each org.children as child, _ (child.id)}
     <svelte:self
+      draggable="true"
       org={child}
       on:update
       on:info
       on:moving
+      on:moved
+      on:dragover
+      on:dragleave
+      on:dragend
     />
   {/each}
 {/if}
@@ -242,14 +244,22 @@
     border-radius: 8px;
   }
 
+  .org.drag-over {
+    background-color: var(--gray-002);
+  }
+
+  .org.dragging {
+    background-color: #FFF;
+  }
+
   .org:hover {
     background-color: var(--gray-001);
     cursor: move;
   }
 
-  .org:active {
+  /* .org:active {
     background-color: var(--gray-002);
-  }
+  } */
 
   .org.department {
     padding-left: 30px;

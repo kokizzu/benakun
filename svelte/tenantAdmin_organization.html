@@ -669,10 +669,10 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
 }
 
 /* fakecss:./_components/OrgTree.esbuild-svelte-fake-css */
-.org.company.svelte-ap0pfx.svelte-ap0pfx,
-.org.department.svelte-ap0pfx.svelte-ap0pfx,
-.org.division.svelte-ap0pfx.svelte-ap0pfx,
-.org.job.svelte-ap0pfx.svelte-ap0pfx {
+.org.company.svelte-1ulj5wo.svelte-1ulj5wo,
+.org.department.svelte-1ulj5wo.svelte-1ulj5wo,
+.org.division.svelte-1ulj5wo.svelte-1ulj5wo,
+.org.job.svelte-1ulj5wo.svelte-1ulj5wo {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -680,49 +680,52 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   padding: 10px 0;
   border-radius: 8px;
 }
-.org.svelte-ap0pfx.svelte-ap0pfx:hover {
+.org.drag-over.svelte-1ulj5wo.svelte-1ulj5wo {
+  background-color: var(--gray-002);
+}
+.org.dragging.svelte-1ulj5wo.svelte-1ulj5wo {
+  background-color: #FFF;
+}
+.org.svelte-1ulj5wo.svelte-1ulj5wo:hover {
   background-color: var(--gray-001);
   cursor: move;
 }
-.org.svelte-ap0pfx.svelte-ap0pfx:active {
-  background-color: var(--gray-002);
-}
-.org.department.svelte-ap0pfx.svelte-ap0pfx {
+.org.department.svelte-1ulj5wo.svelte-1ulj5wo {
   padding-left: 30px;
 }
-.org.department.svelte-ap0pfx .info .label.svelte-ap0pfx {
+.org.department.svelte-1ulj5wo .info .label.svelte-1ulj5wo {
   background-color: var(--orange-006);
 }
-.org.division.svelte-ap0pfx.svelte-ap0pfx {
+.org.division.svelte-1ulj5wo.svelte-1ulj5wo {
   padding-left: 50px;
 }
-.org.division.svelte-ap0pfx .info .label.svelte-ap0pfx {
+.org.division.svelte-1ulj5wo .info .label.svelte-1ulj5wo {
   background-color: var(--green-006);
 }
-.org.job.svelte-ap0pfx.svelte-ap0pfx {
+.org.job.svelte-1ulj5wo.svelte-1ulj5wo {
   padding-left: 70px;
 }
-.org.job.svelte-ap0pfx .info .label.svelte-ap0pfx {
+.org.job.svelte-1ulj5wo .info .label.svelte-1ulj5wo {
   background-color: var(--gray-006);
 }
-.org.svelte-ap0pfx .info.svelte-ap0pfx {
+.org.svelte-1ulj5wo .info.svelte-1ulj5wo {
   display: flex;
   align-items: center;
   flex-direction: row;
   gap: 10px;
   position: relative;
 }
-.org.svelte-ap0pfx .info .h-line.svelte-ap0pfx {
+.org.svelte-1ulj5wo .info .h-line.svelte-1ulj5wo {
   position: absolute;
   left: -15px;
   width: 1px;
   height: 50px;
   background-color: var(--gray-003);
 }
-.org.org.company.svelte-ap0pfx .info .h-line.svelte-ap0pfx {
+.org.org.company.svelte-1ulj5wo .info .h-line.svelte-1ulj5wo {
   display: none;
 }
-.org.svelte-ap0pfx .info .label.svelte-ap0pfx {
+.org.svelte-1ulj5wo .info .label.svelte-1ulj5wo {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -733,24 +736,24 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   background-color: var(--blue-006);
   color: #FFF;
 }
-.org.svelte-ap0pfx .info .title.svelte-ap0pfx {
+.org.svelte-1ulj5wo .info .title.svelte-1ulj5wo {
   font-size: 18px;
   font-weight: 600;
 }
-.org.company.svelte-ap0pfx:hover .options.svelte-ap0pfx,
-.org.department.svelte-ap0pfx:hover .options.svelte-ap0pfx,
-.org.division.svelte-ap0pfx:hover .options.svelte-ap0pfx,
-.org.job.svelte-ap0pfx:hover .options.svelte-ap0pfx {
+.org.company.svelte-1ulj5wo:hover .options.svelte-1ulj5wo,
+.org.department.svelte-1ulj5wo:hover .options.svelte-1ulj5wo,
+.org.division.svelte-1ulj5wo:hover .options.svelte-1ulj5wo,
+.org.job.svelte-1ulj5wo:hover .options.svelte-1ulj5wo {
   display: flex;
   cursor: pointer;
 }
-.org.svelte-ap0pfx .options.svelte-ap0pfx {
+.org.svelte-1ulj5wo .options.svelte-1ulj5wo {
   display: none;
   flex-direction: row;
   align-items: center;
   gap: 5px;
 }
-.org.svelte-ap0pfx .options .btn.svelte-ap0pfx {
+.org.svelte-1ulj5wo .options .btn.svelte-1ulj5wo {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -760,10 +763,10 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   padding: 5px;
   cursor: pointer;
 }
-.org.svelte-ap0pfx .options .btn.svelte-ap0pfx:hover {
+.org.svelte-1ulj5wo .options .btn.svelte-1ulj5wo:hover {
   background-color: var(--gray-002);
 }
-.org.svelte-ap0pfx .options .btn.svelte-ap0pfx:active {
+.org.svelte-1ulj5wo .options .btn.svelte-1ulj5wo:active {
   background-color: var(--gray-003);
 }
 
@@ -2924,7 +2927,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       exports.TenantAdminInviteUser = async function TenantAdminInviteUser(i, cb) {
         return await axios.post("/tenantAdmin/inviteUser", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminMoveOrganizationChild = async function TenantAdminMoveOrganizationChild(i, cb) {
+      exports.TenantAdminMoveOrganizationChild = async function TenantAdminMoveOrganizationChild2(i, cb) {
         return await axios.post("/tenantAdmin/moveOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminOrganization = async function TenantAdminOrganization(i, cb) {
@@ -6265,8 +6268,8 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   var import_jsApi = __toESM(require_jsApi_GEN());
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[28] = list[i];
-    child_ctx[30] = i;
+    child_ctx[37] = list[i];
+    child_ctx[39] = i;
     return child_ctx;
   }
   function create_if_block_14(ctx) {
@@ -6287,7 +6290,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       c() {
         button = element("button");
         create_component(icon.$.fragment);
-        attr(button, "class", "btn svelte-ap0pfx");
+        attr(button, "class", "btn svelte-1ulj5wo");
         attr(button, "title", "Add child");
       },
       m(target, anchor) {
@@ -6299,7 +6302,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
             button,
             "click",
             /*click_handler*/
-            ctx[19]
+            ctx[22]
           );
           mounted = true;
         }
@@ -6336,7 +6339,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     );
     const get_key = (ctx2) => (
       /*child*/
-      ctx2[28].id
+      ctx2[37].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context(ctx, each_value, i);
@@ -6360,7 +6363,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*org*/
+        if (dirty[0] & /*org*/
         1) {
           each_value = ensure_array_like(
             /*org*/
@@ -6399,24 +6402,49 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     let first;
     let orgtree;
     let current;
-    orgtree = new OrgTree({ props: { org: (
-      /*child*/
-      ctx[28]
-    ) } });
+    orgtree = new OrgTree({
+      props: {
+        draggable: "true",
+        org: (
+          /*child*/
+          ctx[37]
+        )
+      }
+    });
     orgtree.$on(
       "update",
       /*update_handler*/
-      ctx[22]
+      ctx[27]
     );
     orgtree.$on(
       "info",
       /*info_handler*/
-      ctx[23]
+      ctx[28]
     );
     orgtree.$on(
       "moving",
       /*moving_handler*/
-      ctx[24]
+      ctx[29]
+    );
+    orgtree.$on(
+      "moved",
+      /*moved_handler*/
+      ctx[30]
+    );
+    orgtree.$on(
+      "dragover",
+      /*dragover_handler*/
+      ctx[31]
+    );
+    orgtree.$on(
+      "dragleave",
+      /*dragleave_handler*/
+      ctx[32]
+    );
+    orgtree.$on(
+      "dragend",
+      /*dragend_handler*/
+      ctx[33]
     );
     return {
       key: key_1,
@@ -6434,10 +6462,10 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         const orgtree_changes = {};
-        if (dirty & /*org*/
+        if (dirty[0] & /*org*/
         1)
           orgtree_changes.org = /*child*/
-          ctx[28];
+          ctx[37];
         orgtree.$set(orgtree_changes);
       },
       i(local) {
@@ -6498,20 +6526,20 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     let mounted;
     let dispose;
     function popuporgchild_isSubmitted_binding(value) {
-      ctx[15](value);
+      ctx[18](value);
     }
     function popuporgchild_childName_binding(value) {
-      ctx[16](value);
+      ctx[19](value);
     }
     function popuporgchild_headTitle_binding(value) {
-      ctx[17](value);
+      ctx[20](value);
     }
     function popuporgchild_heading_binding(value) {
-      ctx[18](value);
+      ctx[21](value);
     }
     let popuporgchild_props = { onSubmit: (
       /*submitAddOrgChild*/
-      ctx[10]
+      ctx[12]
     ) };
     if (
       /*isSubmitted*/
@@ -6542,7 +6570,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       ctx[6];
     }
     popuporgchild = new PopUpOrgChild_default({ props: popuporgchild_props });
-    ctx[14](popuporgchild);
+    ctx[17](popuporgchild);
     binding_callbacks.push(() => bind(popuporgchild, "isSubmitted", popuporgchild_isSubmitted_binding));
     binding_callbacks.push(() => bind(popuporgchild, "childName", popuporgchild_childName_binding));
     binding_callbacks.push(() => bind(popuporgchild, "headTitle", popuporgchild_headTitle_binding));
@@ -6622,19 +6650,21 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         if (if_block1)
           if_block1.c();
         if_block1_anchor = empty();
-        attr(span0, "class", "h-line svelte-ap0pfx");
-        attr(div0, "class", "label svelte-ap0pfx");
-        attr(span1, "class", "title svelte-ap0pfx");
-        attr(div1, "class", "info svelte-ap0pfx");
-        attr(button0, "class", "btn svelte-ap0pfx");
+        attr(span0, "class", "h-line svelte-1ulj5wo");
+        attr(div0, "class", "label svelte-1ulj5wo");
+        attr(span1, "class", "title svelte-1ulj5wo");
+        attr(div1, "class", "info svelte-1ulj5wo");
+        attr(button0, "class", "btn svelte-1ulj5wo");
         attr(button0, "title", "Edit organization");
-        attr(button1, "class", "btn svelte-ap0pfx");
+        attr(button1, "class", "btn svelte-1ulj5wo");
         attr(button1, "title", "Delete organization");
-        attr(button2, "class", "btn svelte-ap0pfx");
+        attr(button2, "class", "btn svelte-1ulj5wo");
         attr(button2, "title", "Info");
-        attr(div2, "class", "options svelte-ap0pfx");
+        attr(div2, "class", "options svelte-1ulj5wo");
         attr(div3, "class", div3_class_value = "org " + /*orgType*/
-        ctx[1] + " svelte-ap0pfx");
+        ctx[1] + " " + /*isDragOver*/
+        (ctx[9] ? "drag-over" : "") + " " + /*isDragging*/
+        (ctx[10] ? "dragging" : "") + " svelte-1ulj5wo");
         set_style(
           div3,
           "--indent-width",
@@ -6681,48 +6711,66 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
               button0,
               "click",
               /*click_handler_1*/
-              ctx[20]
+              ctx[23]
             ),
             listen(
               button2,
               "click",
               /*updateEventInfo*/
-              ctx[11]
+              ctx[13]
             ),
             listen(
               div3,
               "dragstart",
-              /*dragstart_handler*/
-              ctx[21]
+              /*updateOnMoving*/
+              ctx[14]
+            ),
+            listen(div3, "drop", prevent_default(
+              /*updateMovedOrg*/
+              ctx[15]
+            )),
+            listen(div3, "dragover", prevent_default(
+              /*dragover_handler_1*/
+              ctx[24]
+            )),
+            listen(div3, "dragleave", prevent_default(
+              /*dragleave_handler_1*/
+              ctx[25]
+            )),
+            listen(
+              div3,
+              "dragend",
+              /*dragend_handler_1*/
+              ctx[26]
             )
           ];
           mounted = true;
         }
       },
-      p(ctx2, [dirty]) {
+      p(ctx2, dirty) {
         const popuporgchild_changes = {};
-        if (!updating_isSubmitted && dirty & /*isSubmitted*/
+        if (!updating_isSubmitted && dirty[0] & /*isSubmitted*/
         32) {
           updating_isSubmitted = true;
           popuporgchild_changes.isSubmitted = /*isSubmitted*/
           ctx2[5];
           add_flush_callback(() => updating_isSubmitted = false);
         }
-        if (!updating_childName && dirty & /*orgName*/
+        if (!updating_childName && dirty[0] & /*orgName*/
         128) {
           updating_childName = true;
           popuporgchild_changes.childName = /*orgName*/
           ctx2[7];
           add_flush_callback(() => updating_childName = false);
         }
-        if (!updating_headTitle && dirty & /*headTitle*/
+        if (!updating_headTitle && dirty[0] & /*headTitle*/
         256) {
           updating_headTitle = true;
           popuporgchild_changes.headTitle = /*headTitle*/
           ctx2[8];
           add_flush_callback(() => updating_headTitle = false);
         }
-        if (!updating_heading && dirty & /*popUpHeading*/
+        if (!updating_heading && dirty[0] & /*popUpHeading*/
         64) {
           updating_heading = true;
           popuporgchild_changes.heading = /*popUpHeading*/
@@ -6731,12 +6779,12 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         }
         popuporgchild.$set(popuporgchild_changes);
         const icon0_changes = {};
-        if (dirty & /*orgIcon*/
+        if (dirty[0] & /*orgIcon*/
         4)
           icon0_changes.src = /*orgIcon*/
           ctx2[2];
         icon0.$set(icon0_changes);
-        if ((!current || dirty & /*org*/
+        if ((!current || dirty[0] & /*org*/
         1) && t4_value !== (t4_value = /*org*/
         ctx2[0].name + ""))
           set_data(t4, t4_value);
@@ -6746,7 +6794,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
-            if (dirty & /*org*/
+            if (dirty[0] & /*org*/
             1) {
               transition_in(if_block0, 1);
             }
@@ -6763,12 +6811,14 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
           });
           check_outros();
         }
-        if (!current || dirty & /*orgType*/
-        2 && div3_class_value !== (div3_class_value = "org " + /*orgType*/
-        ctx2[1] + " svelte-ap0pfx")) {
+        if (!current || dirty[0] & /*orgType, isDragOver, isDragging*/
+        1538 && div3_class_value !== (div3_class_value = "org " + /*orgType*/
+        ctx2[1] + " " + /*isDragOver*/
+        (ctx2[9] ? "drag-over" : "") + " " + /*isDragging*/
+        (ctx2[10] ? "dragging" : "") + " svelte-1ulj5wo")) {
           attr(div3, "class", div3_class_value);
         }
-        if (!current || dirty & /*indentWidth*/
+        if (!current || dirty[0] & /*indentWidth*/
         8) {
           set_style(
             div3,
@@ -6783,7 +6833,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
-            if (dirty & /*org*/
+            if (dirty[0] & /*org*/
             1) {
               transition_in(if_block1, 1);
             }
@@ -6832,7 +6882,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
           detach(t9);
           detach(if_block1_anchor);
         }
-        ctx[14](null);
+        ctx[17](null);
         destroy_component(popuporgchild, detaching);
         destroy_component(icon0);
         if (if_block0)
@@ -6911,14 +6961,14 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         return;
       }
       switch (orgState) {
-        case "add":
+        case "add": {
           await (0, import_jsApi.TenantAdminCreateOrganizationChild)(
             {
               name: orgName,
               headTitle,
               parentId: Number(org.id)
             },
-            // @ts-ignore
+            /** @type {import('../jsApi.GEN').TenantAdminUpdateOrganizationChildCallback}*/
             function(o) {
               $invalidate(5, isSubmitted = false);
               popUpOrgChild.hide();
@@ -6927,42 +6977,48 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
                 console.log(o.error);
                 return;
               }
-              console.log(o);
-              dispatch("update", { orgs: o.orgs });
+              const orgs = o.orgs;
+              dispatch("update", { orgs });
               notifier.showSuccess("Organization child created");
             }
           );
           break;
-        case "edit":
+        }
+        case "edit": {
           await (0, import_jsApi.TenantAdminUpdateOrganizationChild)(
             {
               name: orgName,
               id: Number(org.id),
               headTitle
             },
-            // @ts-ignore
+            /** @type {import('../jsApi.GEN').TenantAdminUpdateOrganizationChildCallback}*/
             function(o) {
               $invalidate(5, isSubmitted = false);
               popUpOrgChild.hide();
               if (o.error) {
                 notifier.showError(o.error);
-                console.log(o.error);
+                console.log(o);
                 return;
               }
-              console.log(o);
-              dispatch("update", { orgs: o.orgs });
+              const orgs = o.orgs;
+              dispatch("update", { orgs });
               notifier.showSuccess("Organization child updated");
             }
           );
           break;
+        }
       }
     }
-    function updateEventInfo() {
-      dispatch("info", { org });
-    }
-    function updateOnMoving(org2) {
-      dispatch("moving", { org: org2 });
-    }
+    let isDragOver = false, isDragging = false;
+    const updateEventInfo = () => dispatch("info", { org });
+    const updateOnMoving = () => {
+      dispatch("moving", { org });
+      $invalidate(10, isDragging = true);
+    };
+    const updateMovedOrg = () => {
+      dispatch("moved", { org });
+      $invalidate(9, isDragOver = false);
+    };
     function popuporgchild_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpOrgChild = $value;
@@ -6987,7 +7043,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     }
     const click_handler = () => toggleAddOrEdit("add");
     const click_handler_1 = () => toggleAddOrEdit("edit");
-    const dragstart_handler = () => updateOnMoving(org);
+    const dragover_handler_1 = () => $invalidate(9, isDragOver = true);
+    const dragleave_handler_1 = () => $invalidate(9, isDragOver = false);
+    const dragend_handler_1 = () => $invalidate(10, isDragging = false);
     function update_handler(event) {
       bubble.call(this, $self, event);
     }
@@ -6997,11 +7055,23 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     function moving_handler(event) {
       bubble.call(this, $self, event);
     }
+    function moved_handler(event) {
+      bubble.call(this, $self, event);
+    }
+    function dragover_handler(event) {
+      bubble.call(this, $self, event);
+    }
+    function dragleave_handler(event) {
+      bubble.call(this, $self, event);
+    }
+    function dragend_handler(event) {
+      bubble.call(this, $self, event);
+    }
     $self.$set = ($props2) => {
       if ("org" in $props2)
         $invalidate(0, org = $props2.org);
       if ("indent" in $props2)
-        $invalidate(13, indent = $props2.indent);
+        $invalidate(16, indent = $props2.indent);
     };
     return [
       org,
@@ -7013,10 +7083,13 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       popUpHeading,
       orgName,
       headTitle,
+      isDragOver,
+      isDragging,
       toggleAddOrEdit,
       submitAddOrgChild,
       updateEventInfo,
       updateOnMoving,
+      updateMovedOrg,
       indent,
       popuporgchild_binding,
       popuporgchild_isSubmitted_binding,
@@ -7025,25 +7098,32 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       popuporgchild_heading_binding,
       click_handler,
       click_handler_1,
-      dragstart_handler,
+      dragover_handler_1,
+      dragleave_handler_1,
+      dragend_handler_1,
       update_handler,
       info_handler,
-      moving_handler
+      moving_handler,
+      moved_handler,
+      dragover_handler,
+      dragleave_handler,
+      dragend_handler
     ];
   }
   var OrgTree = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance9, create_fragment9, safe_not_equal, { org: 0, indent: 13 });
+      init(this, options, instance9, create_fragment9, safe_not_equal, { org: 0, indent: 16 }, null, [-1, -1]);
     }
   };
   var OrgTree_default = OrgTree;
 
   // tenantAdmin_organization.svelte
+  var import_jsApi2 = __toESM(require_jsApi_GEN());
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[9] = list[i];
-    child_ctx[11] = i;
+    child_ctx[10] = list[i];
+    child_ctx[12] = i;
     return child_ctx;
   }
   function create_if_block5(ctx) {
@@ -7079,7 +7159,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     );
     const get_key = (ctx2) => (
       /*org*/
-      ctx2[9].id
+      ctx2[10].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context2(ctx, each_value, i);
@@ -7125,8 +7205,8 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*REFORMAT_ORGS, updateEventHandler, infoEventHandler, orgMoveHandler*/
-        29) {
+        if (dirty & /*REFORMAT_ORGS, updateEventHandler, infoEventHandler, orgMovingHandler, orgMovedHandler*/
+        61) {
           each_value = ensure_array_like(
             /*REFORMAT_ORGS*/
             ctx2[0]
@@ -7180,7 +7260,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     let current;
     orgtree = new OrgTree_default({ props: { org: (
       /*org*/
-      ctx[9]
+      ctx[10]
     ) } });
     orgtree.$on(
       "update",
@@ -7194,8 +7274,13 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     );
     orgtree.$on(
       "moving",
-      /*orgMoveHandler*/
+      /*orgMovingHandler*/
       ctx[4]
+    );
+    orgtree.$on(
+      "moved",
+      /*orgMovedHandler*/
+      ctx[5]
     );
     return {
       key: key_1,
@@ -7216,7 +7301,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         if (dirty & /*REFORMAT_ORGS*/
         1)
           orgtree_changes.org = /*org*/
-          ctx[9];
+          ctx[10];
         orgtree.$set(orgtree_changes);
       },
       i(local) {
@@ -7323,7 +7408,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       p(ctx2, [dirty]) {
         const mainlayout_changes = {};
         if (dirty & /*$scope, infoOrg, REFORMAT_ORGS*/
-        4099) {
+        8195) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -7401,7 +7486,10 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       }
       return toorgs;
     }
-    onMount(() => $invalidate(0, REFORMAT_ORGS = reformatorgs()));
+    onMount(() => {
+      $invalidate(0, REFORMAT_ORGS = reformatorgs());
+      console.log(orgs);
+    });
     let infoOrg;
     if (orgs && orgs.length)
       infoOrg = orgs[0];
@@ -7416,15 +7504,45 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       $invalidate(0, REFORMAT_ORGS = []);
       $invalidate(0, REFORMAT_ORGS = reformatorgs());
     }
-    function infoEventHandler(e) {
-      $invalidate(1, infoOrg = e.detail.org);
-    }
+    const infoEventHandler = (e) => $invalidate(1, infoOrg = e.detail.org);
     let orgMoving = null;
-    function orgMoveHandler(e) {
-      orgMoving = e.detail.org;
-      console.log(orgMoving);
-    }
-    return [REFORMAT_ORGS, infoOrg, updateEventHandler, infoEventHandler, orgMoveHandler];
+    const orgMovingHandler = (e) => orgMoving = e.detail.org;
+    const orgMovedHandler = async (e) => {
+      const parentOrg = e.detail.org;
+      if (!orgMoving)
+        return;
+      if (parentOrg.orgType !== orgMoving.orgType - 1)
+        return console.log(`CANNOT MOVE ${orgMoving.id} TO ${parentOrg.id} - WRONG ORG TYPE`);
+      if (parentOrg.id == orgMoving.parentId)
+        return;
+      await (0, import_jsApi2.TenantAdminMoveOrganizationChild)(
+        {
+          id: Number(orgMoving.id),
+          moveToIdx: 0,
+          toParentId: Number(parentOrg.id)
+        },
+        /** @type {import('./jsApi.GEN').TenantAdminMoveOrganizationChildCallback}*/
+        function(o) {
+          if (o.error) {
+            notifier.showError(o.error);
+            console.log(o);
+            return;
+          }
+          console.log(o);
+          orgs = o.orgs;
+          $invalidate(0, REFORMAT_ORGS = []);
+          $invalidate(0, REFORMAT_ORGS = reformatorgs());
+        }
+      );
+    };
+    return [
+      REFORMAT_ORGS,
+      infoOrg,
+      updateEventHandler,
+      infoEventHandler,
+      orgMovingHandler,
+      orgMovedHandler
+    ];
   }
   var TenantAdmin_organization = class extends SvelteComponent {
     constructor(options) {

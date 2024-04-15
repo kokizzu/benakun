@@ -105,7 +105,7 @@ func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizatio
 	toParent := wcAuth.NewOrgsMutator(d.AuthOltp)
 	toParent.Id = in.ToParentId
 	if !toParent.FindById() {
-		out.SetError(400, ErrTenantAdminMoveOrganizationChildParentNotFound)
+		out.SetError(400, ErrTenantAdminMoveOrganizationChildToParentNotFound)
 		return
 	}
 
