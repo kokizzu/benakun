@@ -18,7 +18,7 @@ type (
 		RequestCommon
 		Id uint64 `json:"id" form:"id" query:"id" long:"id" msg:"id"`
 		MoveToIdx int `json:"moveToIdx" form:"moveToIdx" query:"moveToIdx" long:"moveToIdx" msg:"moveToIdx"`
-		ToParentId uint64 `json:"ToParentId" form:"ToParentId" query:"ToParentId" long:"ToParentId" msg:"ToParentId"`
+		ToParentId uint64 `json:"toParentId" form:"toParentId" query:"toParentId" long:"toParentId" msg:"toParentId"`
 	}
 
 	TenantAdminMoveOrganizationChildOut struct {
@@ -39,6 +39,7 @@ const (
 	ErrTenantAdminMoveOrganizationChildShouldNotCompany = `cannot move organization if type is company`
 	ErrTenantAdminMoveOrganizationChildFailedMoveChildren = `failed to move organization child`
 	ErrTenantAdminMoveOrganizationChildMustSameParentType = `cannot move to other parent if different organization type`
+	ErrTenantAdminMoveOrganizationChildFailedUpdateChild = `failed to update organization child`
 )
 
 func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizationChildIn) (out TenantAdminMoveOrganizationChildOut) {
@@ -135,6 +136,13 @@ func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizatio
 
 	// add organization to parent destination
 	children := insertChildToIndex(toParent.Children, in.Id, in.MoveToIdx)
+
+	child.SetParentId(in.ToParentId)
+	if !child.DoUpdateById() {
+		out.SetError(400, ErrTenantAdminMoveOrganizationChildFailedUpdateChild)
+		return
+	}
+
 	toParent.SetChildren(children)
 	if !toParent.DoUpdateById() {
 		toParent.HaveMutation()
