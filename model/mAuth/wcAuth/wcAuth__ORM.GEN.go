@@ -1007,6 +1007,295 @@ func (t *TenantsMutator) SetAll(from rqAuth.Tenants, excludeMap, forceMap M.SB) 
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
+// TransactionsMutator DAO writer/command struct
+type TransactionsMutator struct {
+	rqAuth.Transactions
+	mutations []A.X
+	logs      []A.X
+}
+
+// NewTransactionsMutator create new ORM writer/command object
+func NewTransactionsMutator(adapter *Tt.Adapter) (res *TransactionsMutator) {
+	res = &TransactionsMutator{Transactions: rqAuth.Transactions{Adapter: adapter}}
+	return
+}
+
+// Logs get array of logs [field, old, new]
+func (t *TransactionsMutator) Logs() []A.X { //nolint:dupl false positive
+	return t.logs
+}
+
+// HaveMutation check whether Set* methods ever called
+func (t *TransactionsMutator) HaveMutation() bool { //nolint:dupl false positive
+	return len(t.mutations) > 0
+}
+
+// ClearMutations clear all previously called Set* methods
+func (t *TransactionsMutator) ClearMutations() { //nolint:dupl false positive
+	t.mutations = []A.X{}
+	t.logs = []A.X{}
+}
+
+// func (t *TransactionsMutator) DoUpsert() bool { //nolint:dupl false positive
+//	arr := t.ToArray()
+//	_, err := t.Adapter.Upsert(t.SpaceName(), arr, A.X{
+//		A.X{`=`, 0, t.Id},
+//		A.X{`=`, 1, t.TenantCode},
+//		A.X{`=`, 2, t.CreatedAt},
+//		A.X{`=`, 3, t.CreatedBy},
+//		A.X{`=`, 4, t.UpdatedAt},
+//		A.X{`=`, 5, t.UpdatedBy},
+//		A.X{`=`, 6, t.DeletedAt},
+//		A.X{`=`, 7, t.CompletedAt},
+//		A.X{`=`, 8, t.CoaId},
+//		A.X{`=`, 9, t.Debit},
+//		A.X{`=`, 10, t.Kredit},
+//		A.X{`=`, 11, t.Price},
+//		A.X{`=`, 12, t.Descriptions},
+//		A.X{`=`, 13, t.Qty},
+//	})
+//	return !L.IsError(err, `Transactions.DoUpsert failed: `+t.SpaceName()+ `\n%#v`, arr)
+// }
+
+// DoInsert insert, error if already exists
+func (t *TransactionsMutator) DoInsert() bool { //nolint:dupl false positive
+	arr := t.ToArray()
+	_, err := t.Adapter.Insert(t.SpaceName(), arr)
+	return !L.IsError(err, `Transactions.DoInsert failed: `+t.SpaceName()+`\n%#v`, arr)
+}
+
+// DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
+// replace = upsert, only error when there's unique secondary key
+// previous name: DoReplace
+func (t *TransactionsMutator) DoUpsert() bool { //nolint:dupl false positive
+	arr := t.ToArray()
+	_, err := t.Adapter.Replace(t.SpaceName(), arr)
+	return !L.IsError(err, `Transactions.DoUpsert failed: `+t.SpaceName()+`\n%#v`, arr)
+}
+
+// SetId create mutations, should not duplicate
+func (t *TransactionsMutator) SetId(val uint64) bool { //nolint:dupl false positive
+	if val != t.Id {
+		t.mutations = append(t.mutations, A.X{`=`, 0, val})
+		t.logs = append(t.logs, A.X{`id`, t.Id, val})
+		t.Id = val
+		return true
+	}
+	return false
+}
+
+// SetTenantCode create mutations, should not duplicate
+func (t *TransactionsMutator) SetTenantCode(val string) bool { //nolint:dupl false positive
+	if val != t.TenantCode {
+		t.mutations = append(t.mutations, A.X{`=`, 1, val})
+		t.logs = append(t.logs, A.X{`tenantCode`, t.TenantCode, val})
+		t.TenantCode = val
+		return true
+	}
+	return false
+}
+
+// SetCreatedAt create mutations, should not duplicate
+func (t *TransactionsMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
+	if val != t.CreatedAt {
+		t.mutations = append(t.mutations, A.X{`=`, 2, val})
+		t.logs = append(t.logs, A.X{`createdAt`, t.CreatedAt, val})
+		t.CreatedAt = val
+		return true
+	}
+	return false
+}
+
+// SetCreatedBy create mutations, should not duplicate
+func (t *TransactionsMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
+	if val != t.CreatedBy {
+		t.mutations = append(t.mutations, A.X{`=`, 3, val})
+		t.logs = append(t.logs, A.X{`createdBy`, t.CreatedBy, val})
+		t.CreatedBy = val
+		return true
+	}
+	return false
+}
+
+// SetUpdatedAt create mutations, should not duplicate
+func (t *TransactionsMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
+	if val != t.UpdatedAt {
+		t.mutations = append(t.mutations, A.X{`=`, 4, val})
+		t.logs = append(t.logs, A.X{`updatedAt`, t.UpdatedAt, val})
+		t.UpdatedAt = val
+		return true
+	}
+	return false
+}
+
+// SetUpdatedBy create mutations, should not duplicate
+func (t *TransactionsMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
+	if val != t.UpdatedBy {
+		t.mutations = append(t.mutations, A.X{`=`, 5, val})
+		t.logs = append(t.logs, A.X{`updatedBy`, t.UpdatedBy, val})
+		t.UpdatedBy = val
+		return true
+	}
+	return false
+}
+
+// SetDeletedAt create mutations, should not duplicate
+func (t *TransactionsMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
+	if val != t.DeletedAt {
+		t.mutations = append(t.mutations, A.X{`=`, 6, val})
+		t.logs = append(t.logs, A.X{`deletedAt`, t.DeletedAt, val})
+		t.DeletedAt = val
+		return true
+	}
+	return false
+}
+
+// SetCompletedAt create mutations, should not duplicate
+func (t *TransactionsMutator) SetCompletedAt(val int64) bool { //nolint:dupl false positive
+	if val != t.CompletedAt {
+		t.mutations = append(t.mutations, A.X{`=`, 7, val})
+		t.logs = append(t.logs, A.X{`completedAt`, t.CompletedAt, val})
+		t.CompletedAt = val
+		return true
+	}
+	return false
+}
+
+// SetCoaId create mutations, should not duplicate
+func (t *TransactionsMutator) SetCoaId(val uint64) bool { //nolint:dupl false positive
+	if val != t.CoaId {
+		t.mutations = append(t.mutations, A.X{`=`, 8, val})
+		t.logs = append(t.logs, A.X{`coaId`, t.CoaId, val})
+		t.CoaId = val
+		return true
+	}
+	return false
+}
+
+// SetDebit create mutations, should not duplicate
+func (t *TransactionsMutator) SetDebit(val int64) bool { //nolint:dupl false positive
+	if val != t.Debit {
+		t.mutations = append(t.mutations, A.X{`=`, 9, val})
+		t.logs = append(t.logs, A.X{`debit`, t.Debit, val})
+		t.Debit = val
+		return true
+	}
+	return false
+}
+
+// SetKredit create mutations, should not duplicate
+func (t *TransactionsMutator) SetKredit(val int64) bool { //nolint:dupl false positive
+	if val != t.Kredit {
+		t.mutations = append(t.mutations, A.X{`=`, 10, val})
+		t.logs = append(t.logs, A.X{`kredit`, t.Kredit, val})
+		t.Kredit = val
+		return true
+	}
+	return false
+}
+
+// SetPrice create mutations, should not duplicate
+func (t *TransactionsMutator) SetPrice(val int64) bool { //nolint:dupl false positive
+	if val != t.Price {
+		t.mutations = append(t.mutations, A.X{`=`, 11, val})
+		t.logs = append(t.logs, A.X{`price`, t.Price, val})
+		t.Price = val
+		return true
+	}
+	return false
+}
+
+// SetDescriptions create mutations, should not duplicate
+func (t *TransactionsMutator) SetDescriptions(val string) bool { //nolint:dupl false positive
+	if val != t.Descriptions {
+		t.mutations = append(t.mutations, A.X{`=`, 12, val})
+		t.logs = append(t.logs, A.X{`descriptions`, t.Descriptions, val})
+		t.Descriptions = val
+		return true
+	}
+	return false
+}
+
+// SetQty create mutations, should not duplicate
+func (t *TransactionsMutator) SetQty(val int64) bool { //nolint:dupl false positive
+	if val != t.Qty {
+		t.mutations = append(t.mutations, A.X{`=`, 13, val})
+		t.logs = append(t.logs, A.X{`qty`, t.Qty, val})
+		t.Qty = val
+		return true
+	}
+	return false
+}
+
+// SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
+func (t *TransactionsMutator) SetAll(from rqAuth.Transactions, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
+	if excludeMap == nil { // list of fields to exclude
+		excludeMap = M.SB{}
+	}
+	if forceMap == nil { // list of fields to force overwrite
+		forceMap = M.SB{}
+	}
+	if !excludeMap[`id`] && (forceMap[`id`] || from.Id != 0) {
+		t.Id = from.Id
+		changed = true
+	}
+	if !excludeMap[`tenantCode`] && (forceMap[`tenantCode`] || from.TenantCode != ``) {
+		t.TenantCode = S.Trim(from.TenantCode)
+		changed = true
+	}
+	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
+		t.CreatedAt = from.CreatedAt
+		changed = true
+	}
+	if !excludeMap[`createdBy`] && (forceMap[`createdBy`] || from.CreatedBy != 0) {
+		t.CreatedBy = from.CreatedBy
+		changed = true
+	}
+	if !excludeMap[`updatedAt`] && (forceMap[`updatedAt`] || from.UpdatedAt != 0) {
+		t.UpdatedAt = from.UpdatedAt
+		changed = true
+	}
+	if !excludeMap[`updatedBy`] && (forceMap[`updatedBy`] || from.UpdatedBy != 0) {
+		t.UpdatedBy = from.UpdatedBy
+		changed = true
+	}
+	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
+		t.DeletedAt = from.DeletedAt
+		changed = true
+	}
+	if !excludeMap[`completedAt`] && (forceMap[`completedAt`] || from.CompletedAt != 0) {
+		t.CompletedAt = from.CompletedAt
+		changed = true
+	}
+	if !excludeMap[`coaId`] && (forceMap[`coaId`] || from.CoaId != 0) {
+		t.CoaId = from.CoaId
+		changed = true
+	}
+	if !excludeMap[`debit`] && (forceMap[`debit`] || from.Debit != 0) {
+		t.Debit = from.Debit
+		changed = true
+	}
+	if !excludeMap[`kredit`] && (forceMap[`kredit`] || from.Kredit != 0) {
+		t.Kredit = from.Kredit
+		changed = true
+	}
+	if !excludeMap[`price`] && (forceMap[`price`] || from.Price != 0) {
+		t.Price = from.Price
+		changed = true
+	}
+	if !excludeMap[`descriptions`] && (forceMap[`descriptions`] || from.Descriptions != ``) {
+		t.Descriptions = S.Trim(from.Descriptions)
+		changed = true
+	}
+	if !excludeMap[`qty`] && (forceMap[`qty`] || from.Qty != 0) {
+		t.Qty = from.Qty
+		changed = true
+	}
+	return
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
 // UsersMutator DAO writer/command struct
 type UsersMutator struct {
 	rqAuth.Users

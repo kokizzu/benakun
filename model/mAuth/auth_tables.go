@@ -124,6 +124,17 @@ var CoaLevelDefaultList = map[string]CoaLevelDefault{
 	},
 }
 
+const (
+	TableTransactions Tt.TableName = `transactions`
+	CompletedAt = `completedAt`
+	CoaId = `coaId`
+	Debit = `debit`
+	Kredit = `kredit`
+	Price = `price`
+	Description = `descriptions`
+	Qty = `qty`
+)
+
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableUsers: {
 		Fields: []Tt.Field{
@@ -211,6 +222,24 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedAt, Tt.Integer},
 		},
 		AutoIncrementId: true,
+	},
+	TableTransactions: {
+		Fields: []Tt.Field{
+			{Id, Tt.Unsigned},
+			{TenantCode, Tt.String},
+			{CreatedAt, Tt.Integer},
+			{CreatedBy, Tt.Unsigned},
+			{UpdatedAt, Tt.Integer},
+			{UpdatedBy, Tt.Unsigned},
+			{DeletedAt, Tt.Integer},
+			{CompletedAt, Tt.Integer},
+			{CoaId, Tt.Unsigned},
+			{Debit, Tt.Integer},
+			{Kredit, Tt.Integer},
+			{Price, Tt.Integer},
+			{Description, Tt.String},
+			{Qty, Tt.Integer},
+		},
 	},
 }
 

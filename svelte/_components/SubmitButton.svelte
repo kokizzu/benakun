@@ -10,10 +10,10 @@
 
 <button class={isFullWidth ? 'submit_btn full_width' : 'submit_btn'} on:click|preventDefault>
   {#if !isSubmitted}
-    <Icon color="#FFF" size={14} src={FiSend} />
+    <Icon color="#FFF" size="14" src={FiSend} />
   {/if}
   {#if isSubmitted}
-    <Icon className="spin" color="#FFF" size={14} src={FiLoader} />
+    <Icon className="spin" color="#FFF" size="14" src={FiLoader} />
   {/if}
   <span>{label}</span>
 </button>
