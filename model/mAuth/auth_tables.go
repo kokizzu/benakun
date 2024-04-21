@@ -128,8 +128,6 @@ const (
 	TableTransactions Tt.TableName = `transactions`
 	CompletedAt = `completedAt`
 	CoaId = `coaId`
-	Debit = `debit`
-	Kredit = `kredit`
 	Price = `price`
 	Description = `descriptions`
 	Qty = `qty`
@@ -234,8 +232,6 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedAt, Tt.Integer},
 			{CompletedAt, Tt.Integer},
 			{CoaId, Tt.Unsigned},
-			{Debit, Tt.Integer},
-			{Kredit, Tt.Integer},
 			{Price, Tt.Integer},
 			{Description, Tt.String},
 			{Qty, Tt.Integer},

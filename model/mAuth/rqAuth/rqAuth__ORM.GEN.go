@@ -1184,8 +1184,6 @@ type Transactions struct {
 	DeletedAt    int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
 	CompletedAt  int64       `json:"completedAt" form:"completedAt" query:"completedAt" long:"completedAt" msg:"completedAt"`
 	CoaId        uint64      `json:"coaId,string" form:"coaId" query:"coaId" long:"coaId" msg:"coaId"`
-	Debit        int64       `json:"debit" form:"debit" query:"debit" long:"debit" msg:"debit"`
-	Kredit       int64       `json:"kredit" form:"kredit" query:"kredit" long:"kredit" msg:"kredit"`
 	Price        int64       `json:"price" form:"price" query:"price" long:"price" msg:"price"`
 	Descriptions string      `json:"descriptions" form:"descriptions" query:"descriptions" long:"descriptions" msg:"descriptions"`
 	Qty          int64       `json:"qty" form:"qty" query:"qty" long:"qty" msg:"qty"`
@@ -1217,8 +1215,6 @@ func (t *Transactions) SqlSelectAllFields() string { //nolint:dupl false positiv
 	, "deletedAt"
 	, "completedAt"
 	, "coaId"
-	, "debit"
-	, "kredit"
 	, "price"
 	, "descriptions"
 	, "qty"
@@ -1236,8 +1232,6 @@ func (t *Transactions) SqlSelectAllUncensoredFields() string { //nolint:dupl fal
 	, "deletedAt"
 	, "completedAt"
 	, "coaId"
-	, "debit"
-	, "kredit"
 	, "price"
 	, "descriptions"
 	, "qty"
@@ -1256,11 +1250,9 @@ func (t *Transactions) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 6, t.DeletedAt},
 		A.X{`=`, 7, t.CompletedAt},
 		A.X{`=`, 8, t.CoaId},
-		A.X{`=`, 9, t.Debit},
-		A.X{`=`, 10, t.Kredit},
-		A.X{`=`, 11, t.Price},
-		A.X{`=`, 12, t.Descriptions},
-		A.X{`=`, 13, t.Qty},
+		A.X{`=`, 9, t.Price},
+		A.X{`=`, 10, t.Descriptions},
+		A.X{`=`, 11, t.Qty},
 	}
 }
 
@@ -1354,29 +1346,9 @@ func (t *Transactions) SqlCoaId() string { //nolint:dupl false positive
 	return `"coaId"`
 }
 
-// IdxDebit return name of the index
-func (t *Transactions) IdxDebit() int { //nolint:dupl false positive
-	return 9
-}
-
-// SqlDebit return name of the column being indexed
-func (t *Transactions) SqlDebit() string { //nolint:dupl false positive
-	return `"debit"`
-}
-
-// IdxKredit return name of the index
-func (t *Transactions) IdxKredit() int { //nolint:dupl false positive
-	return 10
-}
-
-// SqlKredit return name of the column being indexed
-func (t *Transactions) SqlKredit() string { //nolint:dupl false positive
-	return `"kredit"`
-}
-
 // IdxPrice return name of the index
 func (t *Transactions) IdxPrice() int { //nolint:dupl false positive
-	return 11
+	return 9
 }
 
 // SqlPrice return name of the column being indexed
@@ -1386,7 +1358,7 @@ func (t *Transactions) SqlPrice() string { //nolint:dupl false positive
 
 // IdxDescriptions return name of the index
 func (t *Transactions) IdxDescriptions() int { //nolint:dupl false positive
-	return 12
+	return 10
 }
 
 // SqlDescriptions return name of the column being indexed
@@ -1396,7 +1368,7 @@ func (t *Transactions) SqlDescriptions() string { //nolint:dupl false positive
 
 // IdxQty return name of the index
 func (t *Transactions) IdxQty() int { //nolint:dupl false positive
-	return 13
+	return 11
 }
 
 // SqlQty return name of the column being indexed
@@ -1416,11 +1388,9 @@ func (t *Transactions) ToArray() A.X { //nolint:dupl false positive
 		t.DeletedAt,    // 6
 		t.CompletedAt,  // 7
 		t.CoaId,        // 8
-		t.Debit,        // 9
-		t.Kredit,       // 10
-		t.Price,        // 11
-		t.Descriptions, // 12
-		t.Qty,          // 13
+		t.Price,        // 9
+		t.Descriptions, // 10
+		t.Qty,          // 11
 	}
 }
 
@@ -1435,11 +1405,9 @@ func (t *Transactions) FromArray(a A.X) *Transactions { //nolint:dupl false posi
 	t.DeletedAt = X.ToI(a[6])
 	t.CompletedAt = X.ToI(a[7])
 	t.CoaId = X.ToU(a[8])
-	t.Debit = X.ToI(a[9])
-	t.Kredit = X.ToI(a[10])
-	t.Price = X.ToI(a[11])
-	t.Descriptions = X.ToS(a[12])
-	t.Qty = X.ToI(a[13])
+	t.Price = X.ToI(a[9])
+	t.Descriptions = X.ToS(a[10])
+	t.Qty = X.ToI(a[11])
 	return t
 }
 
@@ -1454,11 +1422,9 @@ func (t *Transactions) FromUncensoredArray(a A.X) *Transactions { //nolint:dupl 
 	t.DeletedAt = X.ToI(a[6])
 	t.CompletedAt = X.ToI(a[7])
 	t.CoaId = X.ToU(a[8])
-	t.Debit = X.ToI(a[9])
-	t.Kredit = X.ToI(a[10])
-	t.Price = X.ToI(a[11])
-	t.Descriptions = X.ToS(a[12])
-	t.Qty = X.ToI(a[13])
+	t.Price = X.ToI(a[9])
+	t.Descriptions = X.ToS(a[10])
+	t.Qty = X.ToI(a[11])
 	return t
 }
 
@@ -1511,8 +1477,6 @@ var TransactionsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false posit
 	`deletedAt`:    Tt.Integer,
 	`completedAt`:  Tt.Integer,
 	`coaId`:        Tt.Unsigned,
-	`debit`:        Tt.Integer,
-	`kredit`:       Tt.Integer,
 	`price`:        Tt.Integer,
 	`descriptions`: Tt.String,
 	`qty`:          Tt.Integer,

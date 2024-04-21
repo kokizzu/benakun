@@ -1048,11 +1048,9 @@ func (t *TransactionsMutator) ClearMutations() { //nolint:dupl false positive
 //		A.X{`=`, 6, t.DeletedAt},
 //		A.X{`=`, 7, t.CompletedAt},
 //		A.X{`=`, 8, t.CoaId},
-//		A.X{`=`, 9, t.Debit},
-//		A.X{`=`, 10, t.Kredit},
-//		A.X{`=`, 11, t.Price},
-//		A.X{`=`, 12, t.Descriptions},
-//		A.X{`=`, 13, t.Qty},
+//		A.X{`=`, 9, t.Price},
+//		A.X{`=`, 10, t.Descriptions},
+//		A.X{`=`, 11, t.Qty},
 //	})
 //	return !L.IsError(err, `Transactions.DoUpsert failed: `+t.SpaceName()+ `\n%#v`, arr)
 // }
@@ -1172,32 +1170,10 @@ func (t *TransactionsMutator) SetCoaId(val uint64) bool { //nolint:dupl false po
 	return false
 }
 
-// SetDebit create mutations, should not duplicate
-func (t *TransactionsMutator) SetDebit(val int64) bool { //nolint:dupl false positive
-	if val != t.Debit {
-		t.mutations = append(t.mutations, A.X{`=`, 9, val})
-		t.logs = append(t.logs, A.X{`debit`, t.Debit, val})
-		t.Debit = val
-		return true
-	}
-	return false
-}
-
-// SetKredit create mutations, should not duplicate
-func (t *TransactionsMutator) SetKredit(val int64) bool { //nolint:dupl false positive
-	if val != t.Kredit {
-		t.mutations = append(t.mutations, A.X{`=`, 10, val})
-		t.logs = append(t.logs, A.X{`kredit`, t.Kredit, val})
-		t.Kredit = val
-		return true
-	}
-	return false
-}
-
 // SetPrice create mutations, should not duplicate
 func (t *TransactionsMutator) SetPrice(val int64) bool { //nolint:dupl false positive
 	if val != t.Price {
-		t.mutations = append(t.mutations, A.X{`=`, 11, val})
+		t.mutations = append(t.mutations, A.X{`=`, 9, val})
 		t.logs = append(t.logs, A.X{`price`, t.Price, val})
 		t.Price = val
 		return true
@@ -1208,7 +1184,7 @@ func (t *TransactionsMutator) SetPrice(val int64) bool { //nolint:dupl false pos
 // SetDescriptions create mutations, should not duplicate
 func (t *TransactionsMutator) SetDescriptions(val string) bool { //nolint:dupl false positive
 	if val != t.Descriptions {
-		t.mutations = append(t.mutations, A.X{`=`, 12, val})
+		t.mutations = append(t.mutations, A.X{`=`, 10, val})
 		t.logs = append(t.logs, A.X{`descriptions`, t.Descriptions, val})
 		t.Descriptions = val
 		return true
@@ -1219,7 +1195,7 @@ func (t *TransactionsMutator) SetDescriptions(val string) bool { //nolint:dupl f
 // SetQty create mutations, should not duplicate
 func (t *TransactionsMutator) SetQty(val int64) bool { //nolint:dupl false positive
 	if val != t.Qty {
-		t.mutations = append(t.mutations, A.X{`=`, 13, val})
+		t.mutations = append(t.mutations, A.X{`=`, 11, val})
 		t.logs = append(t.logs, A.X{`qty`, t.Qty, val})
 		t.Qty = val
 		return true
@@ -1269,14 +1245,6 @@ func (t *TransactionsMutator) SetAll(from rqAuth.Transactions, excludeMap, force
 	}
 	if !excludeMap[`coaId`] && (forceMap[`coaId`] || from.CoaId != 0) {
 		t.CoaId = from.CoaId
-		changed = true
-	}
-	if !excludeMap[`debit`] && (forceMap[`debit`] || from.Debit != 0) {
-		t.Debit = from.Debit
-		changed = true
-	}
-	if !excludeMap[`kredit`] && (forceMap[`kredit`] || from.Kredit != 0) {
-		t.Kredit = from.Kredit
 		changed = true
 	}
 	if !excludeMap[`price`] && (forceMap[`price`] || from.Price != 0) {
