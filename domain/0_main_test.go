@@ -7,6 +7,7 @@ import (
 	"net"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/kokizzu/gotro/D"
 	"github.com/kokizzu/gotro/D/Ch"
@@ -78,12 +79,13 @@ func TestMain(m *testing.M) {
 		// attach tarantool
 		eg.Go(func() error {
 			tdt := &Tt.TtDockerTest{
-				User:     "benakunT",
-				Password: "benakunPT",
+				User:     "testT",
+				Password: "passT",
 			}
 			img := tdt.ImageVersion(dockerPool, ``)
 			dockerPool.Spawn(img, func(res *dockertest.Resource) error {
 				t, err := tdt.ConnectCheck(res)
+				time.Sleep(1 * time.Second)
 				if err != nil {
 					return err
 				}
@@ -103,13 +105,14 @@ func TestMain(m *testing.M) {
 		// attach clickhouse
 		eg.Go(func() error {
 			cdt := &Ch.ChDockerTest{
-				User:     "benakunC",
-				Password: "benakunPC",
+				User:     "testC",
+				Password: "passC",
 				Database: "default",
 			}
 			img := cdt.ImageLatest(dockerPool)
 			dockerPool.Spawn(img, func(res *dockertest.Resource) error {
 				c, err := cdt.ConnectCheck(res)
+				time.Sleep(1 * time.Second)
 				if err != nil {
 					return err
 				}
