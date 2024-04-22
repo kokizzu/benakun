@@ -72,7 +72,7 @@ func TestMain(m *testing.M) {
 	} else {
 		// setup dockertest instance
 		dockerPool := D.InitDockerTest("")
-		dockerPool.Pool.MaxWait = 3 * time.Minute
+		dockerPool.Pool.MaxWait = 5 * time.Minute
 		defer dockerPool.Cleanup()
 
 		eg := errgroup.Group{}
