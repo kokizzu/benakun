@@ -78,8 +78,8 @@ func TestMain(m *testing.M) {
 		// attach tarantool
 		eg.Go(func() error {
 			tdt := &Tt.TtDockerTest{
-				User:     "testT",
-				Password: "passT",
+				User:     "benakunT",
+				Password: "benakunPT",
 			}
 			img := tdt.ImageVersion(dockerPool, ``)
 			dockerPool.Spawn(img, func(res *dockertest.Resource) error {
@@ -103,8 +103,8 @@ func TestMain(m *testing.M) {
 		// attach clickhouse
 		eg.Go(func() error {
 			cdt := &Ch.ChDockerTest{
-				User:     "testC",
-				Password: "passC",
+				User:     "benakunC",
+				Password: "benakunPC",
 				Database: "default",
 			}
 			img := cdt.ImageLatest(dockerPool)
