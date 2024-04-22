@@ -231,7 +231,6 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
 			{CompletedAt, Tt.Integer},
-			{CoaId, Tt.Unsigned},
 			{Price, Tt.Integer},
 			{Description, Tt.String},
 			{Qty, Tt.Integer},
