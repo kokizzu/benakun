@@ -6,6 +6,21 @@ import (
 
 // TODO: make this table per tenant (run ony migration per tenant
 
+func ValidPlanType(pType string) bool {
+	switch pType {
+		case `vision`:
+			return true
+		case `mission`:
+			return true
+		case `program`:
+			return true
+		case `activity`:
+			return true
+		default:
+			return false
+	}
+}
+
 const (
 	TablePlans Tt.TableName = `plans`
 
@@ -45,6 +60,7 @@ const (
 			- operational cost (office, electricity, internet, etc)
 	*/
 
+	ParentId    = `parentId`
 	CreatedAt   = `createdAt`
 	CreatedBy   = `createdBy`
 	UpdatedAt   = `updatedAt`
@@ -53,6 +69,7 @@ const (
 	Title       = `title`
 	Description = `description`
 	OrgId       = `orgId`
+	PerYear     = `perYear`
 	BudgetIDR   = `budgetIDR`
 	BudgetUSD   = `budgetUSD`
 	BudgetEUR   = `budgetEUR`
@@ -63,6 +80,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Fields: []Tt.Field{
 			{Id, Tt.Unsigned},
 			{PlanType, Tt.String},
+			{ParentId, Tt.Unsigned},
 			{CreatedAt, Tt.Integer},
 			{CreatedBy, Tt.Unsigned},
 			{UpdatedAt, Tt.Integer},
@@ -71,6 +89,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Title, Tt.String},
 			{Description, Tt.String},
 			{OrgId, Tt.Unsigned},
+			{PerYear, Tt.Integer},
 			{BudgetIDR, Tt.Integer},
 			{BudgetUSD, Tt.Integer},
 			{BudgetEUR, Tt.Integer},

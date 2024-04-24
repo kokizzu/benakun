@@ -3,22 +3,21 @@ package wcAuth
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 import (
-	"benakun/model/mAuth/rqAuth"
+	`benakun/model/mAuth/rqAuth`
 
-	"github.com/kokizzu/gotro/A"
-	"github.com/kokizzu/gotro/D/Tt"
-	"github.com/kokizzu/gotro/L"
-	"github.com/kokizzu/gotro/M"
-	"github.com/kokizzu/gotro/S"
-	"github.com/kokizzu/gotro/X"
+	`github.com/kokizzu/gotro/A`
+	`github.com/kokizzu/gotro/D/Tt`
+	`github.com/kokizzu/gotro/L`
+	`github.com/kokizzu/gotro/M`
+	`github.com/kokizzu/gotro/S`
+	`github.com/kokizzu/gotro/X`
 )
 
-// CoaMutator DAO writer/command struct
-//
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file wcAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type wcAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type wcAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcAuth__ORM.GEN.go
+// CoaMutator DAO writer/command struct
 type CoaMutator struct {
 	rqAuth.Coa
 	mutations []A.X
@@ -97,7 +96,7 @@ func (c *CoaMutator) DoInsert() bool { //nolint:dupl false positive
 			c.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `Coa.DoInsert failed: `+c.SpaceName()+`\n%#v`, arr)
+	return !L.IsError(err, `Coa.DoInsert failed: `+c.SpaceName() + `\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
@@ -112,7 +111,7 @@ func (c *CoaMutator) DoUpsert() bool { //nolint:dupl false positive
 			c.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `Coa.DoUpsert failed: `+c.SpaceName()+`\n%#v`, arr)
+	return !L.IsError(err, `Coa.DoUpsert failed: `+c.SpaceName()+ `\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate
@@ -370,7 +369,7 @@ func (o *OrgsMutator) DoInsert() bool { //nolint:dupl false positive
 			o.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `Orgs.DoInsert failed: `+o.SpaceName()+`\n%#v`, arr)
+	return !L.IsError(err, `Orgs.DoInsert failed: `+o.SpaceName() + `\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
@@ -385,7 +384,7 @@ func (o *OrgsMutator) DoUpsert() bool { //nolint:dupl false positive
 			o.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `Orgs.DoUpsert failed: `+o.SpaceName()+`\n%#v`, arr)
+	return !L.IsError(err, `Orgs.DoUpsert failed: `+o.SpaceName()+ `\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate
@@ -646,7 +645,7 @@ func (s *SessionsMutator) DoDeletePermanentBySessionToken() bool { //nolint:dupl
 func (s *SessionsMutator) DoInsert() bool { //nolint:dupl false positive
 	arr := s.ToArray()
 	_, err := s.Adapter.Insert(s.SpaceName(), arr)
-	return !L.IsError(err, `Sessions.DoInsert failed: `+s.SpaceName()+`\n%#v`, arr)
+	return !L.IsError(err, `Sessions.DoInsert failed: `+s.SpaceName() + `\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
@@ -655,7 +654,7 @@ func (s *SessionsMutator) DoInsert() bool { //nolint:dupl false positive
 func (s *SessionsMutator) DoUpsert() bool { //nolint:dupl false positive
 	arr := s.ToArray()
 	_, err := s.Adapter.Replace(s.SpaceName(), arr)
-	return !L.IsError(err, `Sessions.DoUpsert failed: `+s.SpaceName()+`\n%#v`, arr)
+	return !L.IsError(err, `Sessions.DoUpsert failed: `+s.SpaceName()+ `\n%#v`, arr)
 }
 
 // SetSessionToken create mutations, should not duplicate
@@ -871,7 +870,7 @@ func (t *TenantsMutator) DoInsert() bool { //nolint:dupl false positive
 			t.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `Tenants.DoInsert failed: `+t.SpaceName()+`\n%#v`, arr)
+	return !L.IsError(err, `Tenants.DoInsert failed: `+t.SpaceName() + `\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
@@ -886,7 +885,7 @@ func (t *TenantsMutator) DoUpsert() bool { //nolint:dupl false positive
 			t.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `Tenants.DoUpsert failed: `+t.SpaceName()+`\n%#v`, arr)
+	return !L.IsError(err, `Tenants.DoUpsert failed: `+t.SpaceName()+ `\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate
@@ -1047,10 +1046,9 @@ func (t *TransactionsMutator) ClearMutations() { //nolint:dupl false positive
 //		A.X{`=`, 5, t.UpdatedBy},
 //		A.X{`=`, 6, t.DeletedAt},
 //		A.X{`=`, 7, t.CompletedAt},
-//		A.X{`=`, 8, t.CoaId},
-//		A.X{`=`, 9, t.Price},
-//		A.X{`=`, 10, t.Descriptions},
-//		A.X{`=`, 11, t.Qty},
+//		A.X{`=`, 8, t.Price},
+//		A.X{`=`, 9, t.Descriptions},
+//		A.X{`=`, 10, t.Qty},
 //	})
 //	return !L.IsError(err, `Transactions.DoUpsert failed: `+t.SpaceName()+ `\n%#v`, arr)
 // }
@@ -1059,7 +1057,7 @@ func (t *TransactionsMutator) ClearMutations() { //nolint:dupl false positive
 func (t *TransactionsMutator) DoInsert() bool { //nolint:dupl false positive
 	arr := t.ToArray()
 	_, err := t.Adapter.Insert(t.SpaceName(), arr)
-	return !L.IsError(err, `Transactions.DoInsert failed: `+t.SpaceName()+`\n%#v`, arr)
+	return !L.IsError(err, `Transactions.DoInsert failed: `+t.SpaceName() + `\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
@@ -1068,7 +1066,7 @@ func (t *TransactionsMutator) DoInsert() bool { //nolint:dupl false positive
 func (t *TransactionsMutator) DoUpsert() bool { //nolint:dupl false positive
 	arr := t.ToArray()
 	_, err := t.Adapter.Replace(t.SpaceName(), arr)
-	return !L.IsError(err, `Transactions.DoUpsert failed: `+t.SpaceName()+`\n%#v`, arr)
+	return !L.IsError(err, `Transactions.DoUpsert failed: `+t.SpaceName()+ `\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate
@@ -1159,21 +1157,10 @@ func (t *TransactionsMutator) SetCompletedAt(val int64) bool { //nolint:dupl fal
 	return false
 }
 
-// SetCoaId create mutations, should not duplicate
-func (t *TransactionsMutator) SetCoaId(val uint64) bool { //nolint:dupl false positive
-	if val != t.CoaId {
-		t.mutations = append(t.mutations, A.X{`=`, 8, val})
-		t.logs = append(t.logs, A.X{`coaId`, t.CoaId, val})
-		t.CoaId = val
-		return true
-	}
-	return false
-}
-
 // SetPrice create mutations, should not duplicate
 func (t *TransactionsMutator) SetPrice(val int64) bool { //nolint:dupl false positive
 	if val != t.Price {
-		t.mutations = append(t.mutations, A.X{`=`, 9, val})
+		t.mutations = append(t.mutations, A.X{`=`, 8, val})
 		t.logs = append(t.logs, A.X{`price`, t.Price, val})
 		t.Price = val
 		return true
@@ -1184,7 +1171,7 @@ func (t *TransactionsMutator) SetPrice(val int64) bool { //nolint:dupl false pos
 // SetDescriptions create mutations, should not duplicate
 func (t *TransactionsMutator) SetDescriptions(val string) bool { //nolint:dupl false positive
 	if val != t.Descriptions {
-		t.mutations = append(t.mutations, A.X{`=`, 10, val})
+		t.mutations = append(t.mutations, A.X{`=`, 9, val})
 		t.logs = append(t.logs, A.X{`descriptions`, t.Descriptions, val})
 		t.Descriptions = val
 		return true
@@ -1195,7 +1182,7 @@ func (t *TransactionsMutator) SetDescriptions(val string) bool { //nolint:dupl f
 // SetQty create mutations, should not duplicate
 func (t *TransactionsMutator) SetQty(val int64) bool { //nolint:dupl false positive
 	if val != t.Qty {
-		t.mutations = append(t.mutations, A.X{`=`, 11, val})
+		t.mutations = append(t.mutations, A.X{`=`, 10, val})
 		t.logs = append(t.logs, A.X{`qty`, t.Qty, val})
 		t.Qty = val
 		return true
@@ -1241,10 +1228,6 @@ func (t *TransactionsMutator) SetAll(from rqAuth.Transactions, excludeMap, force
 	}
 	if !excludeMap[`completedAt`] && (forceMap[`completedAt`] || from.CompletedAt != 0) {
 		t.CompletedAt = from.CompletedAt
-		changed = true
-	}
-	if !excludeMap[`coaId`] && (forceMap[`coaId`] || from.CoaId != 0) {
-		t.CoaId = from.CoaId
 		changed = true
 	}
 	if !excludeMap[`price`] && (forceMap[`price`] || from.Price != 0) {
@@ -1370,7 +1353,7 @@ func (u *UsersMutator) DoInsert() bool { //nolint:dupl false positive
 			u.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `Users.DoInsert failed: `+u.SpaceName()+`\n%#v`, arr)
+	return !L.IsError(err, `Users.DoInsert failed: `+u.SpaceName() + `\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
@@ -1385,7 +1368,7 @@ func (u *UsersMutator) DoUpsert() bool { //nolint:dupl false positive
 			u.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `Users.DoUpsert failed: `+u.SpaceName()+`\n%#v`, arr)
+	return !L.IsError(err, `Users.DoUpsert failed: `+u.SpaceName()+ `\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate
@@ -1667,3 +1650,4 @@ func (u *UsersMutator) SetAll(from rqAuth.Users, excludeMap, forceMap M.SB) (cha
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+

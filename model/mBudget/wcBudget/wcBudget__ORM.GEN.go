@@ -3,22 +3,21 @@ package wcBudget
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 import (
-	"benakun/model/mBudget/rqBudget"
+	`benakun/model/mBudget/rqBudget`
 
-	"github.com/kokizzu/gotro/A"
-	"github.com/kokizzu/gotro/D/Tt"
-	"github.com/kokizzu/gotro/L"
-	"github.com/kokizzu/gotro/M"
-	"github.com/kokizzu/gotro/S"
-	"github.com/kokizzu/gotro/X"
+	`github.com/kokizzu/gotro/A`
+	`github.com/kokizzu/gotro/D/Tt`
+	`github.com/kokizzu/gotro/L`
+	`github.com/kokizzu/gotro/M`
+	`github.com/kokizzu/gotro/S`
+	`github.com/kokizzu/gotro/X`
 )
 
-// PlansMutator DAO writer/command struct
-//
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file wcBudget__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type wcBudget__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type wcBudget__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcBudget__ORM.GEN.go
+// PlansMutator DAO writer/command struct
 type PlansMutator struct {
 	rqBudget.Plans
 	mutations []A.X
@@ -73,17 +72,19 @@ func (p *PlansMutator) DoDeletePermanentById() bool { //nolint:dupl false positi
 //	_, err := p.Adapter.Upsert(p.SpaceName(), arr, A.X{
 //		A.X{`=`, 0, p.Id},
 //		A.X{`=`, 1, p.PlanType},
-//		A.X{`=`, 2, p.CreatedAt},
-//		A.X{`=`, 3, p.CreatedBy},
-//		A.X{`=`, 4, p.UpdatedAt},
-//		A.X{`=`, 5, p.UpdatedBy},
-//		A.X{`=`, 6, p.DeletedAt},
-//		A.X{`=`, 7, p.Title},
-//		A.X{`=`, 8, p.Description},
-//		A.X{`=`, 9, p.OrgId},
-//		A.X{`=`, 10, p.BudgetIDR},
-//		A.X{`=`, 11, p.BudgetUSD},
-//		A.X{`=`, 12, p.BudgetEUR},
+//		A.X{`=`, 2, p.ParentId},
+//		A.X{`=`, 3, p.CreatedAt},
+//		A.X{`=`, 4, p.CreatedBy},
+//		A.X{`=`, 5, p.UpdatedAt},
+//		A.X{`=`, 6, p.UpdatedBy},
+//		A.X{`=`, 7, p.DeletedAt},
+//		A.X{`=`, 8, p.Title},
+//		A.X{`=`, 9, p.Description},
+//		A.X{`=`, 10, p.OrgId},
+//		A.X{`=`, 11, p.PerYear},
+//		A.X{`=`, 12, p.BudgetIDR},
+//		A.X{`=`, 13, p.BudgetUSD},
+//		A.X{`=`, 14, p.BudgetEUR},
 //	})
 //	return !L.IsError(err, `Plans.DoUpsert failed: `+p.SpaceName()+ `\n%#v`, arr)
 // }
@@ -98,7 +99,7 @@ func (p *PlansMutator) DoInsert() bool { //nolint:dupl false positive
 			p.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `Plans.DoInsert failed: `+p.SpaceName()+`\n%#v`, arr)
+	return !L.IsError(err, `Plans.DoInsert failed: `+p.SpaceName() + `\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
@@ -113,7 +114,7 @@ func (p *PlansMutator) DoUpsert() bool { //nolint:dupl false positive
 			p.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `Plans.DoUpsert failed: `+p.SpaceName()+`\n%#v`, arr)
+	return !L.IsError(err, `Plans.DoUpsert failed: `+p.SpaceName()+ `\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate
@@ -138,10 +139,21 @@ func (p *PlansMutator) SetPlanType(val string) bool { //nolint:dupl false positi
 	return false
 }
 
+// SetParentId create mutations, should not duplicate
+func (p *PlansMutator) SetParentId(val uint64) bool { //nolint:dupl false positive
+	if val != p.ParentId {
+		p.mutations = append(p.mutations, A.X{`=`, 2, val})
+		p.logs = append(p.logs, A.X{`parentId`, p.ParentId, val})
+		p.ParentId = val
+		return true
+	}
+	return false
+}
+
 // SetCreatedAt create mutations, should not duplicate
 func (p *PlansMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.CreatedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 2, val})
+		p.mutations = append(p.mutations, A.X{`=`, 3, val})
 		p.logs = append(p.logs, A.X{`createdAt`, p.CreatedAt, val})
 		p.CreatedAt = val
 		return true
@@ -152,7 +164,7 @@ func (p *PlansMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positi
 // SetCreatedBy create mutations, should not duplicate
 func (p *PlansMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.CreatedBy {
-		p.mutations = append(p.mutations, A.X{`=`, 3, val})
+		p.mutations = append(p.mutations, A.X{`=`, 4, val})
 		p.logs = append(p.logs, A.X{`createdBy`, p.CreatedBy, val})
 		p.CreatedBy = val
 		return true
@@ -163,7 +175,7 @@ func (p *PlansMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false posit
 // SetUpdatedAt create mutations, should not duplicate
 func (p *PlansMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.UpdatedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 4, val})
+		p.mutations = append(p.mutations, A.X{`=`, 5, val})
 		p.logs = append(p.logs, A.X{`updatedAt`, p.UpdatedAt, val})
 		p.UpdatedAt = val
 		return true
@@ -174,7 +186,7 @@ func (p *PlansMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positi
 // SetUpdatedBy create mutations, should not duplicate
 func (p *PlansMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.UpdatedBy {
-		p.mutations = append(p.mutations, A.X{`=`, 5, val})
+		p.mutations = append(p.mutations, A.X{`=`, 6, val})
 		p.logs = append(p.logs, A.X{`updatedBy`, p.UpdatedBy, val})
 		p.UpdatedBy = val
 		return true
@@ -185,7 +197,7 @@ func (p *PlansMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false posit
 // SetDeletedAt create mutations, should not duplicate
 func (p *PlansMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.DeletedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 6, val})
+		p.mutations = append(p.mutations, A.X{`=`, 7, val})
 		p.logs = append(p.logs, A.X{`deletedAt`, p.DeletedAt, val})
 		p.DeletedAt = val
 		return true
@@ -196,7 +208,7 @@ func (p *PlansMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positi
 // SetTitle create mutations, should not duplicate
 func (p *PlansMutator) SetTitle(val string) bool { //nolint:dupl false positive
 	if val != p.Title {
-		p.mutations = append(p.mutations, A.X{`=`, 7, val})
+		p.mutations = append(p.mutations, A.X{`=`, 8, val})
 		p.logs = append(p.logs, A.X{`title`, p.Title, val})
 		p.Title = val
 		return true
@@ -207,7 +219,7 @@ func (p *PlansMutator) SetTitle(val string) bool { //nolint:dupl false positive
 // SetDescription create mutations, should not duplicate
 func (p *PlansMutator) SetDescription(val string) bool { //nolint:dupl false positive
 	if val != p.Description {
-		p.mutations = append(p.mutations, A.X{`=`, 8, val})
+		p.mutations = append(p.mutations, A.X{`=`, 9, val})
 		p.logs = append(p.logs, A.X{`description`, p.Description, val})
 		p.Description = val
 		return true
@@ -218,9 +230,20 @@ func (p *PlansMutator) SetDescription(val string) bool { //nolint:dupl false pos
 // SetOrgId create mutations, should not duplicate
 func (p *PlansMutator) SetOrgId(val uint64) bool { //nolint:dupl false positive
 	if val != p.OrgId {
-		p.mutations = append(p.mutations, A.X{`=`, 9, val})
+		p.mutations = append(p.mutations, A.X{`=`, 10, val})
 		p.logs = append(p.logs, A.X{`orgId`, p.OrgId, val})
 		p.OrgId = val
+		return true
+	}
+	return false
+}
+
+// SetPerYear create mutations, should not duplicate
+func (p *PlansMutator) SetPerYear(val int64) bool { //nolint:dupl false positive
+	if val != p.PerYear {
+		p.mutations = append(p.mutations, A.X{`=`, 11, val})
+		p.logs = append(p.logs, A.X{`perYear`, p.PerYear, val})
+		p.PerYear = val
 		return true
 	}
 	return false
@@ -229,7 +252,7 @@ func (p *PlansMutator) SetOrgId(val uint64) bool { //nolint:dupl false positive
 // SetBudgetIDR create mutations, should not duplicate
 func (p *PlansMutator) SetBudgetIDR(val int64) bool { //nolint:dupl false positive
 	if val != p.BudgetIDR {
-		p.mutations = append(p.mutations, A.X{`=`, 10, val})
+		p.mutations = append(p.mutations, A.X{`=`, 12, val})
 		p.logs = append(p.logs, A.X{`budgetIDR`, p.BudgetIDR, val})
 		p.BudgetIDR = val
 		return true
@@ -240,7 +263,7 @@ func (p *PlansMutator) SetBudgetIDR(val int64) bool { //nolint:dupl false positi
 // SetBudgetUSD create mutations, should not duplicate
 func (p *PlansMutator) SetBudgetUSD(val int64) bool { //nolint:dupl false positive
 	if val != p.BudgetUSD {
-		p.mutations = append(p.mutations, A.X{`=`, 11, val})
+		p.mutations = append(p.mutations, A.X{`=`, 13, val})
 		p.logs = append(p.logs, A.X{`budgetUSD`, p.BudgetUSD, val})
 		p.BudgetUSD = val
 		return true
@@ -251,7 +274,7 @@ func (p *PlansMutator) SetBudgetUSD(val int64) bool { //nolint:dupl false positi
 // SetBudgetEUR create mutations, should not duplicate
 func (p *PlansMutator) SetBudgetEUR(val int64) bool { //nolint:dupl false positive
 	if val != p.BudgetEUR {
-		p.mutations = append(p.mutations, A.X{`=`, 12, val})
+		p.mutations = append(p.mutations, A.X{`=`, 14, val})
 		p.logs = append(p.logs, A.X{`budgetEUR`, p.BudgetEUR, val})
 		p.BudgetEUR = val
 		return true
@@ -273,6 +296,10 @@ func (p *PlansMutator) SetAll(from rqBudget.Plans, excludeMap, forceMap M.SB) (c
 	}
 	if !excludeMap[`planType`] && (forceMap[`planType`] || from.PlanType != ``) {
 		p.PlanType = S.Trim(from.PlanType)
+		changed = true
+	}
+	if !excludeMap[`parentId`] && (forceMap[`parentId`] || from.ParentId != 0) {
+		p.ParentId = from.ParentId
 		changed = true
 	}
 	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
@@ -307,6 +334,10 @@ func (p *PlansMutator) SetAll(from rqBudget.Plans, excludeMap, forceMap M.SB) (c
 		p.OrgId = from.OrgId
 		changed = true
 	}
+	if !excludeMap[`perYear`] && (forceMap[`perYear`] || from.PerYear != 0) {
+		p.PerYear = from.PerYear
+		changed = true
+	}
 	if !excludeMap[`budgetIDR`] && (forceMap[`budgetIDR`] || from.BudgetIDR != 0) {
 		p.BudgetIDR = from.BudgetIDR
 		changed = true
@@ -323,3 +354,4 @@ func (p *PlansMutator) SetAll(from rqBudget.Plans, excludeMap, forceMap M.SB) (c
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+

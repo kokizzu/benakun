@@ -1415,6 +1415,70 @@
 				}
 			}
 		},
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"planType": {
+								"type": "string"
+						},
+						"title": {
+								"type": "string"
+						},
+						"description": {
+								"type": "string"
+						},
+						"parentId": {
+								"type": "number"
+						},
+						"orgId": {
+								"type": "number"
+						},
+						"perYear": {
+								"type": "number"
+						},
+						"budgetIDR": {
+								"type": "number"
+						},
+						"budgetUSD": {
+								"type": "number"
+						},
+						"budgetEUR": {
+								"type": "number"
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminCreatePlan",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"plans": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/tenantAdmin/dashboard": {
 			"post": {
 				"security": [{
@@ -1692,6 +1756,38 @@
 										"message": {
 												"type": "string"
 										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminTransaction",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
 									}
 								}
 							}

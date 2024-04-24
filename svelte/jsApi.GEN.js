@@ -992,6 +992,53 @@ exports.TenantAdminCreateOrganizationChild = async function TenantAdminCreateOrg
 }
 
 /**
+ * @typedef {Object} TenantAdminCreatePlanIn
+ * @property {String} planType
+ * @property {String} title
+ * @property {String} description
+ * @property {number} parentId
+ * @property {number} orgId
+ * @property {number} perYear
+ * @property {number} budgetIDR
+ * @property {number} budgetUSD
+ * @property {number} budgetEUR
+ */
+const TenantAdminCreatePlanIn = {
+  planType: '', // string
+  title: '', // string
+  description: '', // string
+  parentId: 0, // uint64
+  orgId: 0, // uint64
+  perYear: 0, // int64
+  budgetIDR: 0, // int64
+  budgetUSD: 0, // int64
+  budgetEUR: 0, // int64
+}
+/**
+ * @typedef {Object} TenantAdminCreatePlanOut
+ * @property {Object} plans
+ */
+const TenantAdminCreatePlanOut = {
+  plans: { // []rqBudget.Plans
+  }, // []rqBudget.Plans
+}
+/**
+ * @callback TenantAdminCreatePlanCallback
+ * @param {TenantAdminCreatePlanOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminCreatePlanIn} i
+ * @param {TenantAdminCreatePlanCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminCreatePlan = async function TenantAdminCreatePlan( i, cb ) {
+  return await axios.post( '/tenantAdmin/createCreatePlan', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} TenantAdminDashboardIn
  */
 const TenantAdminDashboardIn = {
@@ -1198,6 +1245,32 @@ const TenantAdminTerminateStaffOut = {
  */
 exports.TenantAdminTerminateStaff = async function TenantAdminTerminateStaff( i, cb ) {
   return await axios.post( '/tenantAdmin/terminateStaff', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminTransactionIn
+ */
+const TenantAdminTransactionIn = {
+}
+/**
+ * @typedef {Object} TenantAdminTransactionOut
+ */
+const TenantAdminTransactionOut = {
+}
+/**
+ * @callback TenantAdminTransactionCallback
+ * @param {TenantAdminTransactionOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminTransactionIn} i
+ * @param {TenantAdminTransactionCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminTransaction = async function TenantAdminTransaction( i, cb ) {
+  return await axios.post( '/tenantAdmin/transaction', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

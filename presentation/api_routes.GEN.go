@@ -200,6 +200,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// TenantAdminCreatePlan
+	fw.Post("/"+domain.TenantAdminCreatePlanAction, func(c *fiber.Ctx) error {
+		in := domain.TenantAdminCreatePlanIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminCreatePlanAction); err != nil {
+			return nil
+		}
+		out := d.TenantAdminCreatePlan(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// TenantAdminDashboard
 	fw.Post("/"+domain.TenantAdminDashboardAction, func(c *fiber.Ctx) error {
 		in := domain.TenantAdminDashboardIn{}
@@ -257,6 +267,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return nil
 		}
 		out := d.TenantAdminTerminateStaff(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// TenantAdminTransaction
+	fw.Post("/"+domain.TenantAdminTransactionAction, func(c *fiber.Ctx) error {
+		in := domain.TenantAdminTransactionIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminTransactionAction); err != nil {
+			return nil
+		}
+		out := d.TenantAdminTransaction(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
