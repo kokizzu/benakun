@@ -1,10 +1,6 @@
 <script>
-  import {onMount} from 'svelte';
-
+  /** @type {import('../types/user.js').User}*/ // @ts-ignore
   export let user = {};
-  onMount(() => {
-    console.log('onMount.ProfileHeader =', user);
-  });
 </script>
 
 <header class="navbar_container">
@@ -55,8 +51,9 @@
 
   .navbar_container .navbar .right .display_email {
     padding: 5px 15px;
-    border-radius: 9999px;
-    border: 1px solid var(--gray-003);
+    border-radius: 8px;
+    background-color: var(--violet-transparent);
+    color: var(--violet-007);
   }
 
   /* Responsive to mobile device */

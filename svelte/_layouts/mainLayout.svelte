@@ -1,12 +1,11 @@
 <script>
-  import SideMenu from "../_components/partials/SideMenu.svelte";
-  import Navbar from "../_components/partials/Navbar.svelte";
-  import Footer from "../_components/partials/Footer.svelte";
+  import SideMenu from '../_components/partials/SideMenu.svelte';
+  import Navbar from '../_components/partials/Navbar.svelte';
+  import Footer from '../_components/partials/Footer.svelte';
 
-  /**
-   * @type {any}
-   */
+  /** @type {import('../_components/types/access').Access} */ // @ts-ignore
   let segments = {/* segments */};
+  /** @type {import('../_components/types/user').User} */ // @ts-ignore
   let user = {/* user */}
 </script>
 
@@ -16,7 +15,6 @@
     <div class="root_content">
       <Navbar {user} />
       <div class="content">
-        <!-- Content here -->
         <slot />
       </div>
       <Footer />

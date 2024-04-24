@@ -12,22 +12,8 @@
   import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
-  /**
-    * @typedef {Object} CoA
-    * @property {string} id
-    * @property {string} name
-    * @property {number} level
-    * @property {string} parentId
-    * @property {number} createdAt
-    * @property {string} createdBy
-    * @property {number} updatedAt
-    * @property {string} updatedBy
-    * @property {number} deletedAt
-    * @property {Array<CoA>} children
-    */
-  /**
-   * @type {CoA}
-   */
+  
+  /** @type {import('./types/coa').CoA} */
   export let coa = {
     id: '',
     name: '',
@@ -69,20 +55,15 @@
       case 'edit':
         await TenantAdminUpdateCoaChild(
           { name: coaName, id: Number(coa.id) },
-          // @ts-ignore
-          function (o) {
+          /** @type {import('../jsApi.GEN').TenantAdminUpdateCoaChildCallback}*/ function (/** @type {any} */ o) {
             isSubmitted = false;
             popUpCoaChild.hide();
-            // @ts-ignore
             if (o.error) {
-              // @ts-ignore
               notifier.showError(o.error);
-              // @ts-ignore
-              console.log(o.error);
+              console.log(o);
               return;
             }
             notifier.showSuccess(coaName + ' edited');
-            // @ts-ignore
             dispatch('update', { coas: o.coa })
           }
         );
@@ -90,20 +71,15 @@
       case 'add':
         await TenantAdminCreateCoaChild(
           { name: coaName, parentId: Number(coa.id) },
-          // @ts-ignore
-          function (o) {
+          /** @type {import('../jsApi.GEN').TenantAdminCreateCoaChildCallback}*/ function (/** @type {any} */ o) {
             isSubmitted = false;
             popUpCoaChild.hide();
-            // @ts-ignore
             if (o.error) {
-              // @ts-ignore
               notifier.showError(o.error);
-              // @ts-ignore
-              console.log(o.error);
+              console.log(o);
               return;
             }
             notifier.showSuccess('Coa child created');
-            // @ts-ignore
             dispatch('update', { coas: o.coa })
           }
         );
@@ -114,20 +90,16 @@
   async function deleteCoaChild() {
     isSubmitted = true;
     await TenantAdminDeleteCoaChild(
-      // @ts-ignore
-      { id: Number(coa.id) }, function (o) {
-        // @ts-ignore
+      { id: Number(coa.id) },
+      /** @type {import('../jsApi.GEN').TenantAdminDeleteCoaChildCallback}*/ function (/** @type {any} */ o) {
         if (o.error) {
           isSubmitted = false;
-          // @ts-ignore
           notifier.showError(o.error);
-          // @ts-ignore
-          console.log(o.error);
+          console.log(o);
           return;
         }
         isSubmitted = false;
         notifier.showSuccess(coa.name + ' deleted');
-        // @ts-ignore
         dispatch('update', { coas: o.coa })
       }
     )

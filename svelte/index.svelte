@@ -1,14 +1,18 @@
 <script>
-  import { TenantAdminInviteJoin, UserCreateCompany, GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail } from './jsApi.GEN.js';
+  import { TenantAdminInviteUser, UserCreateCompany, GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail } from './jsApi.GEN.js';
   import { onMount, tick } from 'svelte';
-  import Footer from './_components/partials/Footer.svelte';
-  import SideMenu from './_components/partials/SideMenu.svelte';
-  import Navbar from './_components/partials/Navbar.svelte';
   import { notifier } from './_components/notifier.js';
   import InputBox from './_components/InputBox.svelte';
   import SubmitButton from './_components/SubmitButton.svelte';
+  import MainLayout from './_layouts/mainLayout.svelte';
 
+  /** @typedef {import('./_components/types/access.js').Access} Access*/
+  /** @typedef {import('./_components/types/user.js').User} User*/
+
+  /** @type User */ // @ts-ignore
   let user = {/* user */};
+
+  /** @type Access */ // @ts-ignore
   let segments = {/* segments */};
   let google = '#{google}';
 
@@ -16,6 +20,7 @@
     const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
     if (match) return match[2];
   }
+  
   // server state
   const title = '#{title}'; // /*! title */ {/* title */} [/* title */]
   // TODO: print session or fetch from cookie
@@ -31,9 +36,7 @@
   let mode = LOGIN, isSubmitted = false;
 
   async function onHashChange() {
-    console.log('onHashChange.start');
     const auth = getCookie('akun');
-    console.log(auth, user);
     if (auth && user && !auth.startsWith('TEMP__')) {
       location.hash = '';
       mode = USER;
@@ -47,15 +50,10 @@
     else if (hash === RESEND_VERIFICATION_EMAIL) mode = RESEND_VERIFICATION_EMAIL;
     else if (hash === FORGOT_PASSWORD) mode = FORGOT_PASSWORD;
     else location.hash = LOGIN;
-    console.log('onHashChange.tick');
     await tick();
   }
 
-  onMount(() => {
-    console.log('onMount.index');
-    onHashChange();
-    console.log('User = ', user);
-  });
+  onMount(() => onHashChange() );
 
   async function guestRegister() {
     isSubmitted = true;
@@ -71,13 +69,10 @@
       isSubmitted = false;
       return notifier.showWarning('Passwords do not match');
     }
-    // TODO: send to backend
     const i = { email, password };
-    await GuestRegister(i, async function (o) {
-      // TODO: codegen commonResponse (o.error, etc)
-      // TODO: codegen list of possible errors
-      console.log(o);
+    await GuestRegister(i, /** @type {import('./jsApi.GEN.js').GuestRegisterCallback}*/ async function (/** @type {any} */ o) {
       if (o.error) {
+        console.log(o);
         isSubmitted = false;
         return notifier.showError(o.error);
       }
@@ -100,14 +95,14 @@
       return notifier.showWarning('Password must be at least 12 characters');
     }
     const i = { email, password };
-    await GuestLogin(i, function (o) {
-      console.log('o.segments=', o.segments);
+    await GuestLogin(i, /** @type {import('./jsApi.GEN.js').GuestLoginCallback}*/ function (/** @type {any} */ o) {
       if (o.error) {
         isSubmitted = false;
-        return notifier.showError(o.error);
+        notifier.showError(o.error);
+        return;
       }
-      isSubmitted = false;
 
+      isSubmitted = false;
       notifier.showSuccess('Login success');
       user = o.user;
       segments = o.segments;
@@ -123,11 +118,12 @@
       return;
     }
     const i = { email };
-    await GuestResendVerificationEmail(i, function (o) {
-      console.log(o);
+    await GuestResendVerificationEmail(i, /** @type {import('./jsApi.GEN.js').GuestResendVerificationEmailCallback} */ function (/** @type {any} */ o) {
       if (o.error) {
+        console.log(o);
         isSubmitted = false;
-        return notifier.showError(o.error);
+        notifier.showError(o.error);
+        return;
       }
       isSubmitted = false;
       onHashChange();
@@ -143,11 +139,12 @@
       return;
     }
     const i = { email };
-    await GuestForgotPassword(i, function (o) {
-      console.log(o);
+    await GuestForgotPassword(i, /** @type {import('./jsApi.GEN.js').GuestForgotPasswordCallback}*/ function (/** @type {any} */ o) {
       if (o.error) {
+        console.log(o);
         isSubmitted = false;
-        return notifier.showError(o.error);
+        notifier.showError(o.error);
+        return;
       }
       onHashChange();
       notifier.showInfo('A reset password link has been sent to your email');
@@ -157,8 +154,11 @@
   let emailToInvite = '', isSubmitInvite = false;
   async function inviteUser() {
     isSubmitInvite = true;
-    await TenantAdminInviteJoin({email: emailToInvite}, function (o) {
+    await TenantAdminInviteUser(
+      {email: emailToInvite},
+      /** @type {import('./jsApi.GEN.js').TenantAdminInviteUserCallback} */ function (/** @type {any} */ o) {
       if (o.error) {
+        console.log(o);
         isSubmitInvite = false;
         notifier.showError(o.error);
         return;
@@ -177,65 +177,54 @@
       notifier.showWarning('All fields are required');
       return;
     }
-    await UserCreateCompany({tenantCode, companyName, headTitle},
-      function (o) {
+    await UserCreateCompany(
+      {tenantCode, companyName, headTitle},
+      /** @type {import('./jsApi.GEN.js').UserCreateCompanyCallback} */ function (/** @type {any} */ o) {
         if (o.error) {
+          console.log(o);
           isSubmitCreateCompany = false;
           notifier.showError(o.error);
-          console.log(o.error);
           return;
         }
         isSubmitCreateCompany = false;
         console.log(o);
         notifier.showSuccess('Company created successfully');
-        setTimeout(() => {
-          window.location.reload(); // reload page to refresh access
-        }, 1200);
+        setTimeout(() => window.location.reload(), 1200);
       }
     );
   }
 </script>
 
 <svelte:window on:hashchange={onHashChange} />
-{#if mode === USER}
-  <div class="root_layout">
-    <div class="root_container">
-      <SideMenu access={segments} />
-      <div class="root_content">
-        <Navbar {user} />
-        <div class="content">
-          <!-- Invite user to join company -->
-          {#if user.tenantCode}
-            <section class="invite_user">
-              <header>
-                <h2>Invite user</h2>
-              </header>
-              <div class="form">
-                <InputBox id="emailToInvite" label="Email to invite" bind:value={emailToInvite} type="email" placeholder="user@example.com" />
-                <SubmitButton on:click={inviteUser} isSubmitted={isSubmitInvite} isFullWidth />
-              </div>
-            </section>
-          {/if}
 
-          <!-- Create company -->
-          {#if !user.tenantCode && !user.invitationState}
-            <section class="create_company">
-              <header>
-                <h2>Create Company</h2>
-              </header>
-              <div class="form">
-                <InputBox id="tenantCode" label="Tenant Code" bind:value={tenantCode} type="text" placeholder="axrpr" />
-                <InputBox id="companyName" label="Company Name" bind:value={companyName} type="text" placeholder="My Company" />
-                <InputBox id="headTitle" label="Head Title" bind:value={headTitle} type="text" placeholder="Mr. Smith" />
-                <SubmitButton on:click={userCreateCompany} isSubmitted={isSubmitCreateCompany} isFullWidth />
-              </div>
-            </section>
-          {/if}
+{#if mode === USER}
+  <MainLayout>
+    {#if user.tenantCode}
+      <section class="invite_user">
+        <header>
+          <h2>Invite user</h2>
+        </header>
+        <div class="form">
+          <InputBox id="emailToInvite" label="Email to invite" bind:value={emailToInvite} type="email" placeholder="user@example.com" />
+          <SubmitButton on:click={inviteUser} isSubmitted={isSubmitInvite} isFullWidth />
         </div>
-        <Footer />
-      </div>
-    </div>
-  </div>
+      </section>
+    {/if}
+
+    {#if !user.tenantCode && !user.invitationState}
+      <section class="create_company">
+        <header>
+          <h2>Create Company</h2>
+        </header>
+        <div class="form">
+          <InputBox id="tenantCode" label="Tenant Code" bind:value={tenantCode} type="text" placeholder="axrpr" />
+          <InputBox id="companyName" label="Company Name" bind:value={companyName} type="text" placeholder="My Company" />
+          <InputBox id="headTitle" label="Head Title" bind:value={headTitle} type="text" placeholder="Mr. Smith" />
+          <SubmitButton on:click={userCreateCompany} isSubmitted={isSubmitCreateCompany} isFullWidth />
+        </div>
+      </section>
+    {/if}
+  </MainLayout>
 {:else}
   <section class="auth_section">
     <div class="main_container">

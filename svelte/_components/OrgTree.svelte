@@ -15,24 +15,9 @@
 
   const dispatch = createEventDispatcher();
 
-  /**
-    * @typedef {Object} Org
-    * @property {string} id
-    * @property {string} name
-    * @property {string} headTitle
-    * @property {number} orgType
-    * @property {string} parentId
-    * @property {string} tenantCode
-    * @property {number} createdAt
-    * @property {string} createdBy
-    * @property {number} updatedAt
-    * @property {string} updatedBy
-    * @property {number} deletedAt
-    * @property {Array<Org>} children
-    */
-  /**
-   * @type {Org}
-   */
+  /** @typedef {import('./types/organization.js').Org} Org */
+  
+  /** @type Org */
   export let org = {
     id: "",
     name: "",
@@ -51,18 +36,22 @@
   let orgType = 'company', orgIcon = RiBuildingsCommunityLine
   let OrgTypeCompany = 1, OrgTypeDept = 2, OrgTypeDivision = 3, OrgTypeJob = 4;
   switch (org.orgType) {
-    case OrgTypeCompany:
+    case OrgTypeCompany: {
       orgType = 'company', orgIcon = RiBuildingsCommunityLine;
       break;
-    case OrgTypeDept:
+    }
+    case OrgTypeDept: {
       orgType = 'department', orgIcon = RiBuildingsBuilding2Line;
       break;
-    case OrgTypeDivision:
+    }
+    case OrgTypeDivision: {
       orgType = 'division', orgIcon = RiUserTeamLine;
       break;
-    case OrgTypeJob:
+    }
+    case OrgTypeJob: {
       orgType = 'job', orgIcon = RiBusinessBriefcaseLine;
       break;
+    }
   }
 
   export let indent = 0;
@@ -170,9 +159,8 @@
     <span class="h-line"></span>
     <div class="label">
       <Icon
-        color="#FFF"
         className="icon"
-        size="16"
+        size="13"
         src={orgIcon}
       />
     </div>
@@ -257,16 +245,28 @@
     cursor: move;
   }
 
-  /* .org:active {
-    background-color: var(--gray-002);
-  } */
+  .org.company .info .label {
+    background-image: var(--blue-gradient);
+    color: var(--blue-006);
+    border: 1px solid var(--blue-003);
+  }
+
+  :global(.org.company .info .label .icon) {
+    fill: var(--blue-005);
+  }
 
   .org.department {
     padding-left: 30px;
   }
 
   .org.department .info .label {
-    background-color: var(--orange-006);
+    background-image: var(--orange-gradient);
+    color: var(--orange-006);
+    border: 1px solid var(--orange-003);
+  }
+
+  :global(.org.department .info .label .icon) {
+    fill: var(--orange-005);
   }
 
   .org.division {
@@ -274,7 +274,13 @@
   }
 
   .org.division .info .label {
-    background-color: var(--green-006);
+    background-image: var(--green-gradient);
+    color: var(--green-006);
+    border: 1px solid var(--green-003);
+  }
+
+  :global(.org.division .info .label .icon) {
+    fill: var(--green-006);
   }
 
   .org.job {
@@ -282,7 +288,13 @@
   }
 
   .org.job .info .label {
-    background-color: var(--gray-006);
+    background-image: var(--gray-gradient);
+    color: var(--gray-006);
+    border: 1px solid var(--gray-003);
+  }
+
+  :global(.org.job .info .label .icon) {
+    fill: var(--gray-007);
   }
 
   .org .info {
@@ -301,7 +313,7 @@
     background-color: var(--gray-003);
   }
 
-  .org.org.company .info .h-line {
+  .org.company .info .h-line {
     display: none;
   }
 
@@ -311,15 +323,12 @@
     justify-content: center;
     width: fit-content;
     height: fit-content;
-    padding: 7px;
-    border-radius: 9999px;
-    background-color: var(--blue-006);
-    color: #FFF;
+    padding: 5px;
+    border-radius: 5px;
   }
 
   .org .info .title {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 16px;
   }
 
   .org.company:hover .options,
