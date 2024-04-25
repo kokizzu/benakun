@@ -842,9 +842,11 @@ func (c *codegen) swaggerField(b *bytes.Buffer, field tfield, indent int, isEnd 
 }
 
 func (c *codegen) swaggerResponses(b *bytes.Buffer, name string, fields []tfield, indent int) {
+	_ = name
 	c.swaggerFields(b, fields, indent)
 }
 
 func (c *codegen) swaggerRequest(b *bytes.Buffer, name string, fields []tfield, indent int) {
+	_ = name
 	c.swaggerFields(b, fields, indent)
 }

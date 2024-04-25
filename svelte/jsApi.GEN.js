@@ -848,8 +848,11 @@ const TenantAdminBudgetingIn = {
 }
 /**
  * @typedef {Object} TenantAdminBudgetingOut
+ * @property {Object} orgs
  */
 const TenantAdminBudgetingOut = {
+  orgs: { // []rqAuth.Orgs
+  }, // []rqAuth.Orgs
 }
 /**
  * @callback TenantAdminBudgetingCallback
@@ -892,6 +895,53 @@ const TenantAdminCoaOut = {
  */
 exports.TenantAdminCoa = async function TenantAdminCoa( i, cb ) {
   return await axios.post( '/tenantAdmin/coa', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminCreateBudgetPlanIn
+ * @property {String} planType
+ * @property {String} title
+ * @property {String} description
+ * @property {number} parentId
+ * @property {number} orgId
+ * @property {number} perYear
+ * @property {number} budgetIDR
+ * @property {number} budgetUSD
+ * @property {number} budgetEUR
+ */
+const TenantAdminCreateBudgetPlanIn = {
+  planType: '', // string
+  title: '', // string
+  description: '', // string
+  parentId: 0, // uint64
+  orgId: 0, // uint64
+  perYear: 0, // int64
+  budgetIDR: 0, // int64
+  budgetUSD: 0, // int64
+  budgetEUR: 0, // int64
+}
+/**
+ * @typedef {Object} TenantAdminCreateBudgetPlanOut
+ * @property {Object} plans
+ */
+const TenantAdminCreateBudgetPlanOut = {
+  plans: { // []rqBudget.Plans
+  }, // []rqBudget.Plans
+}
+/**
+ * @callback TenantAdminCreateBudgetPlanCallback
+ * @param {TenantAdminCreateBudgetPlanOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminCreateBudgetPlanIn} i
+ * @param {TenantAdminCreateBudgetPlanCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminCreateBudgetPlan = async function TenantAdminCreateBudgetPlan( i, cb ) {
+  return await axios.post( '/tenantAdmin/createBudgetPlan', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -992,53 +1042,6 @@ exports.TenantAdminCreateOrganizationChild = async function TenantAdminCreateOrg
 }
 
 /**
- * @typedef {Object} TenantAdminCreatePlanIn
- * @property {String} planType
- * @property {String} title
- * @property {String} description
- * @property {number} parentId
- * @property {number} orgId
- * @property {number} perYear
- * @property {number} budgetIDR
- * @property {number} budgetUSD
- * @property {number} budgetEUR
- */
-const TenantAdminCreatePlanIn = {
-  planType: '', // string
-  title: '', // string
-  description: '', // string
-  parentId: 0, // uint64
-  orgId: 0, // uint64
-  perYear: 0, // int64
-  budgetIDR: 0, // int64
-  budgetUSD: 0, // int64
-  budgetEUR: 0, // int64
-}
-/**
- * @typedef {Object} TenantAdminCreatePlanOut
- * @property {Object} plans
- */
-const TenantAdminCreatePlanOut = {
-  plans: { // []rqBudget.Plans
-  }, // []rqBudget.Plans
-}
-/**
- * @callback TenantAdminCreatePlanCallback
- * @param {TenantAdminCreatePlanOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminCreatePlanIn} i
- * @param {TenantAdminCreatePlanCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminCreatePlan = async function TenantAdminCreatePlan( i, cb ) {
-  return await axios.post( '/tenantAdmin/createCreatePlan', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
  * @typedef {Object} TenantAdminDashboardIn
  */
 const TenantAdminDashboardIn = {
@@ -1094,6 +1097,37 @@ const TenantAdminDeleteCoaChildOut = {
  */
 exports.TenantAdminDeleteCoaChild = async function TenantAdminDeleteCoaChild( i, cb ) {
   return await axios.post( '/tenantAdmin/deleteCoaChild', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminGetBudgetPlansIn
+ * @property {number} orgId
+ */
+const TenantAdminGetBudgetPlansIn = {
+  orgId: 0, // uint64
+}
+/**
+ * @typedef {Object} TenantAdminGetBudgetPlansOut
+ * @property {Object} plans
+ */
+const TenantAdminGetBudgetPlansOut = {
+  plans: { // []rqBudget.Plans
+  }, // []rqBudget.Plans
+}
+/**
+ * @callback TenantAdminGetBudgetPlansCallback
+ * @param {TenantAdminGetBudgetPlansOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminGetBudgetPlansIn} i
+ * @param {TenantAdminGetBudgetPlansCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminGetBudgetPlans = async function TenantAdminGetBudgetPlans( i, cb ) {
+  return await axios.post( '/tenantAdmin/getBudgetPlans', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

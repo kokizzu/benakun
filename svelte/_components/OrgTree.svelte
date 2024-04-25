@@ -56,7 +56,7 @@
 
   export let indent = 0;
   let indentWidth = '10px';
-  const toIndentWidth = (/** @type {number} */ i) => { return `${i * 15 + 10}px` }
+  const toIndentWidth = (/** @type {number} */ i) => { return `${i * 15 + 15}px` }
 
   onMount(() => indentWidth = toIndentWidth(indent))
 
@@ -228,7 +228,7 @@
     align-items: center;
     flex-direction: row;
     gap: 40px;
-    padding: 10px 0;
+    padding: 10px;
     border-radius: 8px;
   }
 
@@ -245,6 +245,11 @@
     cursor: move;
   }
 
+  .org:hover .h-line,
+  .org.drag-over .h-line {
+    background-color: transparent !important;
+  }
+
   .org.company .info .label {
     background-image: var(--blue-gradient);
     color: var(--blue-006);
@@ -256,7 +261,7 @@
   }
 
   .org.department {
-    padding-left: 30px;
+    padding-left: 37px;
   }
 
   .org.department .info .label {
@@ -270,7 +275,7 @@
   }
 
   .org.division {
-    padding-left: 50px;
+    padding-left: 65px;
   }
 
   .org.division .info .label {
@@ -284,7 +289,7 @@
   }
 
   .org.job {
-    padding-left: 70px;
+    padding-left: 93px;
   }
 
   .org.job .info .label {
@@ -309,7 +314,7 @@
     position: absolute;
     left: -15px;
     width: 1px;
-    height: 50px;
+    height: 45px;
     background-color: var(--gray-003);
   }
 

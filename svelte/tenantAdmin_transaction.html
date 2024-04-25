@@ -2683,6 +2683,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       exports.TenantAdminCreateOrganizationChild = async function TenantAdminCreateOrganizationChild(i, cb) {
         return await axios.post("/tenantAdmin/createOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminCreatePlan = async function TenantAdminCreatePlan(i, cb) {
+        return await axios.post("/tenantAdmin/createCreatePlan", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.TenantAdminDashboard = async function TenantAdminDashboard(i, cb) {
         return await axios.post("/tenantAdmin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2700,6 +2703,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       };
       exports.TenantAdminTerminateStaff = async function TenantAdminTerminateStaff(i, cb) {
         return await axios.post("/tenantAdmin/terminateStaff", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.TenantAdminTransaction = async function TenantAdminTransaction(i, cb) {
+        return await axios.post("/tenantAdmin/transaction", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminUpdateCoaChild = async function TenantAdminUpdateCoaChild(i, cb) {
         return await axios.post("/tenantAdmin/updateCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));

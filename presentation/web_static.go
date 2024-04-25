@@ -143,10 +143,16 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notLogin(d, in.RequestCommon, false) {
 			return ctx.Redirect(`/`, 302)
 		}
+
+		in.RequestCommon.Action = domain.TenantAdminBudgetingAction
+		out := d.TenantAdminBudgeting(&domain.TenantAdminBudgetingIn{
+			RequestCommon: in.RequestCommon,
+		})
 		return views.RenderTenantAdminBudgeting(ctx, M.SX{
 			`title`:    `Tenant Admin Budgeting`,
 			`user`:     user,
 			`segments`: segments,
+			`orgs`: out.Orgs,
 		})
 	})
 
@@ -287,7 +293,7 @@ func userInfoFromContext(c *fiber.Ctx, d *domain.Domain) (domain.UserProfileIn, 
 
 func userInfoFromRequest(rc domain.RequestCommon, d *domain.Domain) (*rqAuth.Users, M.SB) {
 	var user *rqAuth.Users
-	segments := M.SB{}
+	var segments = M.SB{}
 	out := d.UserProfile(&domain.UserProfileIn{
 		RequestCommon: rc,
 	})

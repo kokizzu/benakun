@@ -8,14 +8,14 @@ import (
 	"benakun/model/mBudget/wcBudget"
 )
 
-//go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminCreatePlan.go
-//go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type TenantAdminCreatePlan.go
-//go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type TenantAdminCreatePlan.go
-//go:generate replacer -afterprefix "By\" form" "By,string\" form" type TenantAdminCreatePlan.go
-//go:generate farify doublequote --file TenantAdminCreatePlan.go
+//go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminCreateBudgetPlan.go
+//go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type TenantAdminCreateBudgetPlan.go
+//go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type TenantAdminCreateBudgetPlan.go
+//go:generate replacer -afterprefix "By\" form" "By,string\" form" type TenantAdminCreateBudgetPlan.go
+//go:generate farify doublequote --file TenantAdminCreateBudgetPlan.go
 
 type (
-	TenantAdminCreatePlanIn struct {
+	TenantAdminCreateBudgetPlanIn struct {
 		RequestCommon
 		PlanType string `json:"planType" form:"planType" query:"planType" long:"planType" msg:"planType"`
 		Title     string `json:"title" form:"title" query:"title" long:"title" msg:"title"`
@@ -27,25 +27,25 @@ type (
 		BudgetUSD int64 `json:"budgetUSD" form:"budgetUSD" query:"budgetUSD" long:"budgetUSD" msg:"budgetUSD"`
 		BudgetEUR int64 `json:"budgetEUR" form:"budgetEUR" query:"budgetEUR" long:"budgetEUR" msg:"budgetEUR"`
 	}
-	TenantAdminCreatePlanOut struct {
+	TenantAdminCreateBudgetPlanOut struct {
 		ResponseCommon
 		Plans *[]rqBudget.Plans `json:"plans" form:"plans" query:"plans" long:"plans" msg:"plans"`
 	}
 )
 
 const (
-	TenantAdminCreatePlanAction = `tenantAdmin/createCreatePlan`
+	TenantAdminCreateBudgetPlanAction = `tenantAdmin/createBudgetPlan`
 
-	ErrTenantAdminCreatePlanUnauthorized = `unauthorized user to create plan`
-	ErrTenantAdminCreatePlanTenantNotFound = `tenant admin not found to create plan`
-	ErrTenantAdminCreatePlanOrgNotFound = `organization not found to create plan`
-	ErrTenantAdminCreatePlanInvalidOrg = `invalid organization type to create plan`
-	ErrTenantAdminCreatePlanParentPlanNotFound = `parent plan not found, don't add parent instead`
-	ErrTenantAdminCreatePlanInvalidPlanType = `invalid plan type`
-	ErrTenantAdminCreatePlanFailed = `failed to create plan`
+	ErrTenantAdminCreateBudgetPlanUnauthorized = `unauthorized user to create plan`
+	ErrTenantAdminCreateBudgetPlanTenantNotFound = `tenant admin not found to create plan`
+	ErrTenantAdminCreateBudgetPlanOrgNotFound = `organization not found to create plan`
+	ErrTenantAdminCreateBudgetPlanInvalidOrg = `invalid organization type to create plan`
+	ErrTenantAdminCreateBudgetPlanParentPlanNotFound = `parent plan not found, don't add parent instead`
+	ErrTenantAdminCreateBudgetPlanInvalidPlanType = `invalid plan type`
+	ErrTenantAdminCreateBudgetPlanFailed = `failed to create plan`
 )
 
-func (d *Domain) TenantAdminCreatePlan(in *TenantAdminCreatePlanIn) (out TenantAdminCreatePlanOut) {
+func (d *Domain) TenantAdminCreateBudgetPlan(in *TenantAdminCreateBudgetPlanIn) (out TenantAdminCreateBudgetPlanOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 
 	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
@@ -56,26 +56,26 @@ func (d *Domain) TenantAdminCreatePlan(in *TenantAdminCreatePlanIn) (out TenantA
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Id = sess.UserId
 	if !user.FindById() {
-		out.SetError(400, ErrTenantAdminCreatePlanUnauthorized)
+		out.SetError(400, ErrTenantAdminCreateBudgetPlanUnauthorized)
 		return
 	}
 
 	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
 	tenant.TenantCode = user.TenantCode
 	if !tenant.FindByTenantCode() {
-		out.SetError(400, ErrTenantAdminCreatePlanTenantNotFound)
+		out.SetError(400, ErrTenantAdminCreateBudgetPlanTenantNotFound)
 		return
 	}
 
 	org := wcAuth.NewOrgsMutator(d.AuthOltp)
 	org.Id = in.OrgId
 	if !org.FindById() {
-		out.SetError(400, ErrTenantAdminCreatePlanOrgNotFound)
+		out.SetError(400, ErrTenantAdminCreateBudgetPlanOrgNotFound)
 		return
 	}
 
 	if org.OrgType == mAuth.OrgTypeJob {
-		out.SetError(400, ErrTenantAdminCreatePlanInvalidOrg)
+		out.SetError(400, ErrTenantAdminCreateBudgetPlanInvalidOrg)
 		return
 	}
 
@@ -83,13 +83,13 @@ func (d *Domain) TenantAdminCreatePlan(in *TenantAdminCreatePlanIn) (out TenantA
 		planParent := wcBudget.NewPlansMutator(d.AuthOltp)
 		planParent.Id = in.ParentId
 		if !planParent.FindById() {
-			out.SetError(400, ErrTenantAdminCreatePlanParentPlanNotFound)
+			out.SetError(400, ErrTenantAdminCreateBudgetPlanParentPlanNotFound)
 			return
 		}
 	}
 
 	if !mBudget.ValidPlanType(in.PlanType) {
-		out.SetError(400, ErrTenantAdminCreatePlanInvalidPlanType)
+		out.SetError(400, ErrTenantAdminCreateBudgetPlanInvalidPlanType)
 		return
 	}
 
@@ -105,7 +105,7 @@ func (d *Domain) TenantAdminCreatePlan(in *TenantAdminCreatePlanIn) (out TenantA
 	plan.BudgetEUR = in.BudgetEUR
 
 	if !plan.DoInsert() {
-		out.SetError(400, ErrTenantAdminCreatePlanFailed)
+		out.SetError(400, ErrTenantAdminCreateBudgetPlanFailed)
 		return
 	}
 

@@ -180,6 +180,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// TenantAdminCreateBudgetPlan
+	fw.Post("/"+domain.TenantAdminCreateBudgetPlanAction, func(c *fiber.Ctx) error {
+		in := domain.TenantAdminCreateBudgetPlanIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminCreateBudgetPlanAction); err != nil {
+			return nil
+		}
+		out := d.TenantAdminCreateBudgetPlan(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// TenantAdminCreateCoaChild
 	fw.Post("/"+domain.TenantAdminCreateCoaChildAction, func(c *fiber.Ctx) error {
 		in := domain.TenantAdminCreateCoaChildIn{}
@@ -200,16 +210,6 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
-	// TenantAdminCreatePlan
-	fw.Post("/"+domain.TenantAdminCreatePlanAction, func(c *fiber.Ctx) error {
-		in := domain.TenantAdminCreatePlanIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminCreatePlanAction); err != nil {
-			return nil
-		}
-		out := d.TenantAdminCreatePlan(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
-	})
-
 	// TenantAdminDashboard
 	fw.Post("/"+domain.TenantAdminDashboardAction, func(c *fiber.Ctx) error {
 		in := domain.TenantAdminDashboardIn{}
@@ -227,6 +227,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return nil
 		}
 		out := d.TenantAdminDeleteCoaChild(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// TenantAdminGetBudgetPlans
+	fw.Post("/"+domain.TenantAdminGetBudgetPlansAction, func(c *fiber.Ctx) error {
+		in := domain.TenantAdminGetBudgetPlansIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminGetBudgetPlansAction); err != nil {
+			return nil
+		}
+		out := d.TenantAdminGetBudgetPlans(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

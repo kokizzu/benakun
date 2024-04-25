@@ -3,21 +3,22 @@ package wcBudget
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 import (
-	`benakun/model/mBudget/rqBudget`
+	"benakun/model/mBudget/rqBudget"
 
-	`github.com/kokizzu/gotro/A`
-	`github.com/kokizzu/gotro/D/Tt`
-	`github.com/kokizzu/gotro/L`
-	`github.com/kokizzu/gotro/M`
-	`github.com/kokizzu/gotro/S`
-	`github.com/kokizzu/gotro/X`
+	"github.com/kokizzu/gotro/A"
+	"github.com/kokizzu/gotro/D/Tt"
+	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/gotro/S"
+	"github.com/kokizzu/gotro/X"
 )
 
+// PlansMutator DAO writer/command struct
+//
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file wcBudget__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type wcBudget__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type wcBudget__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcBudget__ORM.GEN.go
-// PlansMutator DAO writer/command struct
 type PlansMutator struct {
 	rqBudget.Plans
 	mutations []A.X
@@ -99,7 +100,7 @@ func (p *PlansMutator) DoInsert() bool { //nolint:dupl false positive
 			p.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `Plans.DoInsert failed: `+p.SpaceName() + `\n%#v`, arr)
+	return !L.IsError(err, `Plans.DoInsert failed: `+p.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
@@ -114,7 +115,7 @@ func (p *PlansMutator) DoUpsert() bool { //nolint:dupl false positive
 			p.Id = X.ToU(tup[0][0])
 		}
 	}
-	return !L.IsError(err, `Plans.DoUpsert failed: `+p.SpaceName()+ `\n%#v`, arr)
+	return !L.IsError(err, `Plans.DoUpsert failed: `+p.SpaceName()+`\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate
@@ -354,4 +355,3 @@ func (p *PlansMutator) SetAll(from rqBudget.Plans, excludeMap, forceMap M.SB) (c
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
-

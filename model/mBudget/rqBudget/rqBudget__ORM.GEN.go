@@ -3,38 +3,39 @@ package rqBudget
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 import (
-	`benakun/model/mBudget`
+	"benakun/model/mBudget"
 
-	`github.com/tarantool/go-tarantool`
+	"github.com/tarantool/go-tarantool"
 
-	`github.com/kokizzu/gotro/A`
-	`github.com/kokizzu/gotro/D/Tt`
-	`github.com/kokizzu/gotro/L`
-	`github.com/kokizzu/gotro/X`
+	"github.com/kokizzu/gotro/A"
+	"github.com/kokizzu/gotro/D/Tt"
+	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/X"
 )
 
+// Plans DAO reader/query struct
+//
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file rqBudget__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type rqBudget__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type rqBudget__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type rqBudget__ORM.GEN.go
-// Plans DAO reader/query struct
 type Plans struct {
-	Adapter *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-"`
-	Id          uint64
-	PlanType    string
-	ParentId    uint64
-	CreatedAt   int64
-	CreatedBy   uint64
-	UpdatedAt   int64
-	UpdatedBy   uint64
-	DeletedAt   int64
-	Title       string
-	Description string
-	OrgId       uint64
-	PerYear     int64
-	BudgetIDR   int64
-	BudgetUSD   int64
-	BudgetEUR   int64
+	Adapter     *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id          uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	PlanType    string      `json:"planType" form:"planType" query:"planType" long:"planType" msg:"planType"`
+	ParentId    uint64      `json:"parentId,string" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
+	CreatedAt   int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy   uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt   int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy   uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt   int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	Title       string      `json:"title" form:"title" query:"title" long:"title" msg:"title"`
+	Description string      `json:"description" form:"description" query:"description" long:"description" msg:"description"`
+	OrgId       uint64      `json:"orgId,string" form:"orgId" query:"orgId" long:"orgId" msg:"orgId"`
+	PerYear     int64       `json:"perYear" form:"perYear" query:"perYear" long:"perYear" msg:"perYear"`
+	BudgetIDR   int64       `json:"budgetIDR" form:"budgetIDR" query:"budgetIDR" long:"budgetIDR" msg:"budgetIDR"`
+	BudgetUSD   int64       `json:"budgetUSD" form:"budgetUSD" query:"budgetUSD" long:"budgetUSD" msg:"budgetUSD"`
+	BudgetEUR   int64       `json:"budgetEUR" form:"budgetEUR" query:"budgetEUR" long:"budgetEUR" msg:"budgetEUR"`
 }
 
 // NewPlans create new ORM reader/query object
@@ -377,7 +378,7 @@ func (p *Plans) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.
 
 // Total count number of rows
 func (p *Plans) Total() int64 { //nolint:dupl false positive
-	rows := p.Adapter.CallBoxSpace(p.SpaceName() + `:count`, A.X{})
+	rows := p.Adapter.CallBoxSpace(p.SpaceName()+`:count`, A.X{})
 	if len(rows) > 0 && len(rows[0]) > 0 {
 		return X.ToI(rows[0][0])
 	}
@@ -385,7 +386,7 @@ func (p *Plans) Total() int64 { //nolint:dupl false positive
 }
 
 // PlansFieldTypeMap returns key value of field name and key
-var PlansFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false positive
+var PlansFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`id`:          Tt.Unsigned,
 	`planType`:    Tt.String,
 	`parentId`:    Tt.Unsigned,
@@ -404,4 +405,3 @@ var PlansFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false positive
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
-

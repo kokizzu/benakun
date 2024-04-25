@@ -3,34 +3,35 @@ package rqAuth
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
 
 import (
-	`benakun/model/mAuth`
+	"benakun/model/mAuth"
 
-	`github.com/tarantool/go-tarantool`
+	"github.com/tarantool/go-tarantool"
 
-	`github.com/kokizzu/gotro/A`
-	`github.com/kokizzu/gotro/D/Tt`
-	`github.com/kokizzu/gotro/L`
-	`github.com/kokizzu/gotro/X`
+	"github.com/kokizzu/gotro/A"
+	"github.com/kokizzu/gotro/D/Tt"
+	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/X"
 )
 
+// Coa DAO reader/query struct
+//
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file rqAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type rqAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type rqAuth__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type rqAuth__ORM.GEN.go
-// Coa DAO reader/query struct
 type Coa struct {
-	Adapter *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-"`
-	Id         uint64
-	TenantCode string
-	Name       string
-	Level      float64
-	ParentId   uint64
-	Children   []any
-	CreatedAt  int64
-	CreatedBy  uint64
-	UpdatedAt  int64
-	UpdatedBy  uint64
-	DeletedAt  int64
+	Adapter    *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id         uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	TenantCode string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
+	Name       string      `json:"name" form:"name" query:"name" long:"name" msg:"name"`
+	Level      float64     `json:"level" form:"level" query:"level" long:"level" msg:"level"`
+	ParentId   uint64      `json:"parentId,string" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
+	Children   []any       `json:"children" form:"children" query:"children" long:"children" msg:"children"`
+	CreatedAt  int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy  uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt  int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy  uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt  int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
 }
 
 // NewCoa create new ORM reader/query object
@@ -309,7 +310,7 @@ func (c *Coa) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.Qu
 
 // Total count number of rows
 func (c *Coa) Total() int64 { //nolint:dupl false positive
-	rows := c.Adapter.CallBoxSpace(c.SpaceName() + `:count`, A.X{})
+	rows := c.Adapter.CallBoxSpace(c.SpaceName()+`:count`, A.X{})
 	if len(rows) > 0 && len(rows[0]) > 0 {
 		return X.ToI(rows[0][0])
 	}
@@ -317,7 +318,7 @@ func (c *Coa) Total() int64 { //nolint:dupl false positive
 }
 
 // CoaFieldTypeMap returns key value of field name and key
-var CoaFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false positive
+var CoaFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`id`:         Tt.Unsigned,
 	`tenantCode`: Tt.String,
 	`name`:       Tt.String,
@@ -335,19 +336,19 @@ var CoaFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false positive
 
 // Orgs DAO reader/query struct
 type Orgs struct {
-	Adapter *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-"`
-	Id         uint64
-	TenantCode string
-	Name       string
-	HeadTitle  string
-	ParentId   uint64
-	Children   []any
-	OrgType    uint64
-	CreatedAt  int64
-	CreatedBy  uint64
-	UpdatedAt  int64
-	UpdatedBy  uint64
-	DeletedAt  int64
+	Adapter    *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id         uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	TenantCode string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
+	Name       string      `json:"name" form:"name" query:"name" long:"name" msg:"name"`
+	HeadTitle  string      `json:"headTitle" form:"headTitle" query:"headTitle" long:"headTitle" msg:"headTitle"`
+	ParentId   uint64      `json:"parentId,string" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
+	Children   []any       `json:"children" form:"children" query:"children" long:"children" msg:"children"`
+	OrgType    uint64      `json:"orgType" form:"orgType" query:"orgType" long:"orgType" msg:"orgType"`
+	CreatedAt  int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy  uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt  int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy  uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt  int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
 }
 
 // NewOrgs create new ORM reader/query object
@@ -642,7 +643,7 @@ func (o *Orgs) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.Q
 
 // Total count number of rows
 func (o *Orgs) Total() int64 { //nolint:dupl false positive
-	rows := o.Adapter.CallBoxSpace(o.SpaceName() + `:count`, A.X{})
+	rows := o.Adapter.CallBoxSpace(o.SpaceName()+`:count`, A.X{})
 	if len(rows) > 0 && len(rows[0]) > 0 {
 		return X.ToI(rows[0][0])
 	}
@@ -650,7 +651,7 @@ func (o *Orgs) Total() int64 { //nolint:dupl false positive
 }
 
 // OrgsFieldTypeMap returns key value of field name and key
-var OrgsFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false positive
+var OrgsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`id`:         Tt.Unsigned,
 	`tenantCode`: Tt.String,
 	`name`:       Tt.String,
@@ -669,14 +670,14 @@ var OrgsFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false positive
 
 // Sessions DAO reader/query struct
 type Sessions struct {
-	Adapter *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-"`
-	SessionToken string
-	UserId       uint64
-	ExpiredAt    int64
-	Device       string
-	LoginAt      int64
-	LoginIPs     string
-	TenantCode   string
+	Adapter      *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	SessionToken string      `json:"sessionToken" form:"sessionToken" query:"sessionToken" long:"sessionToken" msg:"sessionToken"`
+	UserId       uint64      `json:"userId,string" form:"userId" query:"userId" long:"userId" msg:"userId"`
+	ExpiredAt    int64       `json:"expiredAt" form:"expiredAt" query:"expiredAt" long:"expiredAt" msg:"expiredAt"`
+	Device       string      `json:"device" form:"device" query:"device" long:"device" msg:"device"`
+	LoginAt      int64       `json:"loginAt" form:"loginAt" query:"loginAt" long:"loginAt" msg:"loginAt"`
+	LoginIPs     string      `json:"loginIPs" form:"loginIPs" query:"loginIPs" long:"loginIPs" msg:"loginIPs"`
+	TenantCode   string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
 }
 
 // NewSessions create new ORM reader/query object
@@ -888,7 +889,7 @@ func (s *Sessions) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, 
 
 // Total count number of rows
 func (s *Sessions) Total() int64 { //nolint:dupl false positive
-	rows := s.Adapter.CallBoxSpace(s.SpaceName() + `:count`, A.X{})
+	rows := s.Adapter.CallBoxSpace(s.SpaceName()+`:count`, A.X{})
 	if len(rows) > 0 && len(rows[0]) > 0 {
 		return X.ToI(rows[0][0])
 	}
@@ -896,7 +897,7 @@ func (s *Sessions) Total() int64 { //nolint:dupl false positive
 }
 
 // SessionsFieldTypeMap returns key value of field name and key
-var SessionsFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false positive
+var SessionsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`sessionToken`: Tt.String,
 	`userId`:       Tt.Unsigned,
 	`expiredAt`:    Tt.Integer,
@@ -910,14 +911,14 @@ var SessionsFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false positive
 
 // Tenants DAO reader/query struct
 type Tenants struct {
-	Adapter *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-"`
-	Id         uint64
-	TenantCode string
-	CreatedAt  int64
-	CreatedBy  uint64
-	UpdatedAt  int64
-	UpdatedBy  uint64
-	DeletedAt  int64
+	Adapter    *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id         uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	TenantCode string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
+	CreatedAt  int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy  uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt  int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy  uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt  int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
 }
 
 // NewTenants create new ORM reader/query object
@@ -1151,7 +1152,7 @@ func (t *Tenants) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, T
 
 // Total count number of rows
 func (t *Tenants) Total() int64 { //nolint:dupl false positive
-	rows := t.Adapter.CallBoxSpace(t.SpaceName() + `:count`, A.X{})
+	rows := t.Adapter.CallBoxSpace(t.SpaceName()+`:count`, A.X{})
 	if len(rows) > 0 && len(rows[0]) > 0 {
 		return X.ToI(rows[0][0])
 	}
@@ -1159,7 +1160,7 @@ func (t *Tenants) Total() int64 { //nolint:dupl false positive
 }
 
 // TenantsFieldTypeMap returns key value of field name and key
-var TenantsFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false positive
+var TenantsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`id`:         Tt.Unsigned,
 	`tenantCode`: Tt.String,
 	`createdAt`:  Tt.Integer,
@@ -1173,18 +1174,18 @@ var TenantsFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false positive
 
 // Transactions DAO reader/query struct
 type Transactions struct {
-	Adapter *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-"`
-	Id           uint64
-	TenantCode   string
-	CreatedAt    int64
-	CreatedBy    uint64
-	UpdatedAt    int64
-	UpdatedBy    uint64
-	DeletedAt    int64
-	CompletedAt  int64
-	Price        int64
-	Descriptions string
-	Qty          int64
+	Adapter      *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id           uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	TenantCode   string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
+	CreatedAt    int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy    uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt    int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy    uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt    int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	CompletedAt  int64       `json:"completedAt" form:"completedAt" query:"completedAt" long:"completedAt" msg:"completedAt"`
+	Price        int64       `json:"price" form:"price" query:"price" long:"price" msg:"price"`
+	Descriptions string      `json:"descriptions" form:"descriptions" query:"descriptions" long:"descriptions" msg:"descriptions"`
+	Qty          int64       `json:"qty" form:"qty" query:"qty" long:"qty" msg:"qty"`
 }
 
 // NewTransactions create new ORM reader/query object
@@ -1441,7 +1442,7 @@ func (t *Transactions) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A
 
 // Total count number of rows
 func (t *Transactions) Total() int64 { //nolint:dupl false positive
-	rows := t.Adapter.CallBoxSpace(t.SpaceName() + `:count`, A.X{})
+	rows := t.Adapter.CallBoxSpace(t.SpaceName()+`:count`, A.X{})
 	if len(rows) > 0 && len(rows[0]) > 0 {
 		return X.ToI(rows[0][0])
 	}
@@ -1449,7 +1450,7 @@ func (t *Transactions) Total() int64 { //nolint:dupl false positive
 }
 
 // TransactionsFieldTypeMap returns key value of field name and key
-var TransactionsFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false positive
+var TransactionsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`id`:           Tt.Unsigned,
 	`tenantCode`:   Tt.String,
 	`createdAt`:    Tt.Integer,
@@ -1467,25 +1468,25 @@ var TransactionsFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false posi
 
 // Users DAO reader/query struct
 type Users struct {
-	Adapter *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-"`
-	Id                 uint64
-	Email              string
-	Password           string
-	CreatedAt          int64
-	CreatedBy          uint64
-	UpdatedAt          int64
-	UpdatedBy          uint64
-	DeletedAt          int64
-	PasswordSetAt      int64
-	SecretCode         string
-	SecretCodeAt       int64
-	VerificationSentAt int64
-	VerifiedAt         int64
-	LastLoginAt        int64
-	FullName           string
-	TenantCode         string
-	Role               string
-	InvitationState    string
+	Adapter            *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id                 uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	Email              string      `json:"email" form:"email" query:"email" long:"email" msg:"email"`
+	Password           string      `json:"password" form:"password" query:"password" long:"password" msg:"password"`
+	CreatedAt          int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy          uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt          int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy          uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt          int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	PasswordSetAt      int64       `json:"passwordSetAt" form:"passwordSetAt" query:"passwordSetAt" long:"passwordSetAt" msg:"passwordSetAt"`
+	SecretCode         string      `json:"secretCode" form:"secretCode" query:"secretCode" long:"secretCode" msg:"secretCode"`
+	SecretCodeAt       int64       `json:"secretCodeAt" form:"secretCodeAt" query:"secretCodeAt" long:"secretCodeAt" msg:"secretCodeAt"`
+	VerificationSentAt int64       `json:"verificationSentAt" form:"verificationSentAt" query:"verificationSentAt" long:"verificationSentAt" msg:"verificationSentAt"`
+	VerifiedAt         int64       `json:"verifiedAt" form:"verifiedAt" query:"verifiedAt" long:"verifiedAt" msg:"verifiedAt"`
+	LastLoginAt        int64       `json:"lastLoginAt" form:"lastLoginAt" query:"lastLoginAt" long:"lastLoginAt" msg:"lastLoginAt"`
+	FullName           string      `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
+	TenantCode         string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
+	Role               string      `json:"role" form:"role" query:"role" long:"role" msg:"role"`
+	InvitationState    string      `json:"invitationState" form:"invitationState" query:"invitationState" long:"invitationState" msg:"invitationState"`
 }
 
 // NewUsers create new ORM reader/query object
@@ -1795,7 +1796,8 @@ func (u *Users) CensorFields() { //nolint:dupl false positive
 	u.Password = ``
 	u.SecretCode = ``
 	u.SecretCodeAt = 0
-	}
+}
+
 // ToArray receiver fields to slice
 func (u *Users) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -1898,7 +1900,7 @@ func (u *Users) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.
 
 // Total count number of rows
 func (u *Users) Total() int64 { //nolint:dupl false positive
-	rows := u.Adapter.CallBoxSpace(u.SpaceName() + `:count`, A.X{})
+	rows := u.Adapter.CallBoxSpace(u.SpaceName()+`:count`, A.X{})
 	if len(rows) > 0 && len(rows[0]) > 0 {
 		return X.ToI(rows[0][0])
 	}
@@ -1906,7 +1908,7 @@ func (u *Users) Total() int64 { //nolint:dupl false positive
 }
 
 // UsersFieldTypeMap returns key value of field name and key
-var UsersFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false positive
+var UsersFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`id`:                 Tt.Unsigned,
 	`email`:              Tt.String,
 	`password`:           Tt.String,
@@ -1928,4 +1930,3 @@ var UsersFieldTypeMap = map[string]Tt.DataType { //nolint:dupl false positive
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
-
