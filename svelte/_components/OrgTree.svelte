@@ -8,9 +8,15 @@
   import RiBuildingsBuilding2Line from 'svelte-icons-pack/ri/RiBuildingsBuilding2Line';
   import RiUserTeamLine from 'svelte-icons-pack/ri/RiUserTeamLine';
   import RiBusinessBriefcaseLine from 'svelte-icons-pack/ri/RiBusinessBriefcaseLine';
+  import RiSystemArrowGoBackLine from 'svelte-icons-pack/ri/RiSystemArrowGoBackLine';
   import { onMount, createEventDispatcher } from 'svelte';
   import PopUpOrgChild from './PopUpOrgChild.svelte';
-  import { TenantAdminCreateOrganizationChild, TenantAdminUpdateOrganizationChild } from '../jsApi.GEN';
+  import {
+    TenantAdminCreateOrganizationChild,
+    TenantAdminUpdateOrganizationChild,
+    TenantAdminDeleteOrganizationChild,
+    TenantAdminRestoreOrganizationChild
+  } from '../jsApi.GEN';
   import { notifier } from './notifier';
 
   const dispatch = createEventDispatcher();
@@ -133,6 +139,40 @@
     dispatch('moved', { org: org });
     isDragOver = false;
   };
+
+  async function deleteOrg() {
+    await TenantAdminDeleteOrganizationChild(
+      { id: Number(org.id) },
+      /** @type {import('../jsApi.GEN').TenantAdminDeleteOrganizationChildCallback}*/
+      function (/** @type {any} */ o) {
+        if (o.error) {
+          notifier.showError(o.error);
+          return;
+        }
+        /** @type {Array<Org>} */
+        const orgs = o.orgs;
+        dispatch('update', { orgs: orgs })
+        notifier.showSuccess(org.name + ' deleted');
+      }
+    )
+  }
+
+  async function restoreOrg() {
+    await TenantAdminRestoreOrganizationChild(
+      { id: Number(org.id) },
+      /** @type {import('../jsApi.GEN').TenantAdminRestoreOrganizationChildCallback}*/
+      function (/** @type {any} */ o) {
+        if (o.error) {
+          notifier.showError(o.error);
+          return;
+        }
+        /** @type {Array<Org>} */
+        const orgs = o.orgs;
+        dispatch('update', { orgs: orgs })
+        notifier.showSuccess(org.name + ' restored');
+      }
+    )
+  }
 </script>
 
 <PopUpOrgChild
@@ -164,43 +204,54 @@
         src={orgIcon}
       />
     </div>
-    <span class="title">{org.name}</span>
+    <span class="title {org.deletedAt > 0 ? 'deleted' : ''}">{org.name}</span>
   </div>
   <div class="options">
-    {#if org.orgType !== OrgTypeJob}
-      <button class="btn" title="Add child" on:click={() => toggleAddOrEdit('add')}>
+    {#if org.deletedAt === 0}
+      {#if org.orgType !== OrgTypeJob}
+        <button class="btn" title="Add child" on:click={() => toggleAddOrEdit('add')}>
+          <Icon
+            color="var(--gray-006)"
+            className="icon"
+            size="17"
+            src={RiSystemAddBoxLine}
+          />
+        </button>
+      {/if}
+      <button class="btn" title="Edit organization" on:click={() => toggleAddOrEdit('edit')}>
         <Icon
           color="var(--gray-006)"
           className="icon"
           size="17"
-          src={RiSystemAddBoxLine}
+          src={RiDesignPencilLine}
+        />
+      </button>
+      <button class="btn" title="Delete organization" on:click={deleteOrg}>
+        <Icon
+          color="var(--gray-006)"
+          className="icon"
+          size="17"
+          src={RiSystemDeleteBinLine}
+        />
+      </button>
+      <button class="btn" title="Info" on:click={updateEventInfo}>
+        <Icon
+          color="var(--gray-006)"
+          className="icon"
+          size="17"
+          src={RiSystemInformationLine}
+        />
+      </button>
+    {:else}
+      <button class="btn" title="Rollback" on:click={restoreOrg}>
+        <Icon
+          color="var(--gray-006)"
+          className="icon"
+          size="17"
+          src={RiSystemArrowGoBackLine}
         />
       </button>
     {/if}
-    <button class="btn" title="Edit organization" on:click={() => toggleAddOrEdit('edit')}>
-      <Icon
-        color="var(--gray-006)"
-        className="icon"
-        size="17"
-        src={RiDesignPencilLine}
-      />
-    </button>
-    <button class="btn" title="Delete organization">
-      <Icon
-        color="var(--gray-006)"
-        className="icon"
-        size="17"
-        src={RiSystemDeleteBinLine}
-      />
-    </button>
-    <button class="btn" title="Info" on:click={updateEventInfo}>
-      <Icon
-        color="var(--gray-006)"
-        className="icon"
-        size="17"
-        src={RiSystemInformationLine}
-      />
-    </button>
   </div>
 </div>
 {#if org.children}
@@ -334,6 +385,12 @@
 
   .org .info .title {
     font-size: 16px;
+  }
+
+  .org .info .title.deleted {
+    color: var(--red-005);
+    text-decoration: line-through;
+    line-height: 2.2rem;
   }
 
   .org.company:hover .options,

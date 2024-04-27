@@ -6,15 +6,22 @@ import (
 
 // TODO: make this table per tenant (run ony migration per tenant
 
+const (
+	PlanTypeVision		= `vision`
+	PlanTypeMission		= `mission` 
+	PlanTypeProgram		= `program`
+	PlanTypeActivity	= `activity`
+)
+
 func ValidPlanType(pType string) bool {
 	switch pType {
-		case `vision`:
+		case PlanTypeVision:
 			return true
-		case `mission`:
+		case PlanTypeMission:
 			return true
-		case `program`:
+		case PlanTypeProgram:
 			return true
-		case `activity`:
+		case PlanTypeActivity:
 			return true
 		default:
 			return false

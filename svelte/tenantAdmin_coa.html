@@ -3010,6 +3010,12 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       exports.TenantAdminOrganization = async function TenantAdminOrganization(i, cb) {
         return await axios.post("/tenantAdmin/organization", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminRestoreCoaChild = async function TenantAdminRestoreCoaChild2(i, cb) {
+        return await axios.post("/tenantAdmin/restoreCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.TenantAdminRestoreOrganizationChild = async function TenantAdminRestoreOrganizationChild(i, cb) {
+        return await axios.post("/tenantAdmin/restoreOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.TenantAdminTerminateStaff = async function TenantAdminTerminateStaff(i, cb) {
         return await axios.post("/tenantAdmin/terminateStaff", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -5017,8 +5023,8 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
           dispose = listen(
             button,
             "click",
-            /*click_handler_2*/
-            ctx[17]
+            /*restoreCoaChild*/
+            ctx[11]
           );
           mounted = true;
         }
@@ -5113,13 +5119,13 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
               button0,
               "click",
               /*click_handler*/
-              ctx[15]
+              ctx[16]
             ),
             listen(
               button1,
               "click",
               /*click_handler_1*/
-              ctx[16]
+              ctx[17]
             ),
             listen(
               button2,
@@ -5342,13 +5348,13 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     let t9;
     let current;
     function popupcoachild_isSubmitted_binding(value) {
-      ctx[12](value);
-    }
-    function popupcoachild_childName_binding(value) {
       ctx[13](value);
     }
-    function popupcoachild_heading_binding(value) {
+    function popupcoachild_childName_binding(value) {
       ctx[14](value);
+    }
+    function popupcoachild_heading_binding(value) {
+      ctx[15](value);
     }
     let popupcoachild_props = {
       onSubmit: (
@@ -5378,7 +5384,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       ctx[5];
     }
     popupcoachild = new PopUpCoaChild_default({ props: popupcoachild_props });
-    ctx[11](popupcoachild);
+    ctx[12](popupcoachild);
     binding_callbacks.push(() => bind(popupcoachild, "isSubmitted", popupcoachild_isSubmitted_binding));
     binding_callbacks.push(() => bind(popupcoachild, "childName", popupcoachild_childName_binding));
     binding_callbacks.push(() => bind(popupcoachild, "heading", popupcoachild_heading_binding));
@@ -5595,7 +5601,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
           detach(t0);
           detach(div3);
         }
-        ctx[11](null);
+        ctx[12](null);
         destroy_component(popupcoachild, detaching);
         if_blocks[current_block_type_index].d();
         destroy_component(icon);
@@ -5703,6 +5709,24 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         }
       );
     }
+    async function restoreCoaChild() {
+      $invalidate(7, isSubmitted = true);
+      await (0, import_jsApi.TenantAdminRestoreCoaChild)(
+        { id: Number(coa.id) },
+        /** @type {import('../jsApi.GEN').TenantAdminRestoreCoaChildCallback}*/
+        function(o) {
+          if (o.error) {
+            $invalidate(7, isSubmitted = false);
+            notifier.showError(o.error);
+            console.log(o);
+            return;
+          }
+          $invalidate(7, isSubmitted = false);
+          notifier.showSuccess(coa.name + " restored");
+          dispatch("update", { coas: o.coa });
+        }
+      );
+    }
     function popupcoachild_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpCoaChild = $value;
@@ -5723,7 +5747,6 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     }
     const click_handler = () => toggleAddOrEdit("add");
     const click_handler_1 = () => toggleAddOrEdit("edit");
-    const click_handler_2 = () => notifier.showWarning("Not yet implemented");
     function update_handler(event) {
       bubble.call(this, $self, event);
     }
@@ -5747,13 +5770,13 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       toggleAddOrEdit,
       submitAddOrEditChild,
       deleteCoaChild,
+      restoreCoaChild,
       popupcoachild_binding,
       popupcoachild_isSubmitted_binding,
       popupcoachild_childName_binding,
       popupcoachild_heading_binding,
       click_handler,
       click_handler_1,
-      click_handler_2,
       update_handler
     ];
   }

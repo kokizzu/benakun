@@ -8,7 +8,12 @@
   import { onMount } from 'svelte';
   import PopUpCoaChild from './PopUpCoaChild.svelte';
   import { notifier } from './notifier.js';
-  import { TenantAdminCreateCoaChild, TenantAdminUpdateCoaChild, TenantAdminDeleteCoaChild } from '../jsApi.GEN';
+  import {
+    TenantAdminCreateCoaChild,
+    TenantAdminUpdateCoaChild,
+    TenantAdminDeleteCoaChild,
+    TenantAdminRestoreCoaChild
+  } from '../jsApi.GEN';
   import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
@@ -104,6 +109,24 @@
       }
     )
   }
+
+  async function restoreCoaChild() {
+    isSubmitted = true;
+    await TenantAdminRestoreCoaChild(
+      { id: Number(coa.id) },
+      /** @type {import('../jsApi.GEN').TenantAdminRestoreCoaChildCallback}*/ function (/** @type {any} */ o) {
+        if (o.error) {
+          isSubmitted = false;
+          notifier.showError(o.error);
+          console.log(o);
+          return;
+        }
+        isSubmitted = false;
+        notifier.showSuccess(coa.name + ' restored');
+        dispatch('update', { coas: o.coa })
+      }
+    )
+  }
 </script>
 
 <PopUpCoaChild
@@ -149,7 +172,7 @@
             />
           </button>
         {:else}
-          <button class="btn" title="Rollback" on:click={() => notifier.showWarning('Not yet implemented')}>
+          <button class="btn" title="Rollback" on:click={restoreCoaChild}>
             <Icon
               color="var(--gray-006)"
               className="icon"

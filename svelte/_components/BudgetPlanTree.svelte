@@ -5,11 +5,10 @@
   import RiUserTeamLine from 'svelte-icons-pack/ri/RiUserTeamLine';
   import RiBusinessBriefcaseLine from 'svelte-icons-pack/ri/RiBusinessBriefcaseLine';
   import RiSystemArrowRightSLine from 'svelte-icons-pack/ri/RiSystemArrowRightSLine';
+  import { TenantAdminGetBudgetPlans } from '../jsApi.GEN.js';
+  import { notifier } from './notifier.js';
 
-  /** @typedef {import('./types/organization.js').Org} Org */
-  
-  /** @type Org */ //@ts-ignore
-  export let org = {}
+  export let org = /** @type {import('./types/organization.js').Org} */ ({});
 
   let orgType = 'company', orgIcon = RiBuildingsCommunityLine
   let OrgTypeCompany = 1, OrgTypeDept = 2, OrgTypeDivision = 3, OrgTypeJob = 4;
@@ -31,9 +30,43 @@
       break;
     }
   }
+  
+  /** @typedef {import('./types/budget.js').BudgetPlan} BudgetPlan */
+  let budgetPlans = /** @type {BudgetPlan[]} */ ([]);
+
+  let isSearching = false, isShowPlans = false;
+
+  async function getBugetPlans() {
+    isSearching = true;
+    await TenantAdminGetBudgetPlans(
+      { orgId: Number(org.id) },
+      /** @type {import('../jsApi.GEN').TenantAdminGetBudgetPlansCallback}*/
+      function (/** @type {any} */ o) {
+        isSearching = false;
+        if (o.error) {
+          notifier.showError(o.error);
+          return;
+        }
+        console.log(o);
+        budgetPlans = o.plans;
+      }
+    )
+  }
+
+  const toggleShowPlans = async () => {
+    if (isShowPlans) {
+      isShowPlans = false;
+      return;
+    } else {
+      isShowPlans = true;
+      if (budgetPlans.length === 0) {
+        await getBugetPlans();
+      }
+    }
+  }
 </script>
 
-<div class="org {orgType}">
+<button class="org {orgType}" on:click={toggleShowPlans}>
   <div class="info">
     <span class="h-line"></span>
     <div class="label">
@@ -55,10 +88,14 @@
       />
     </button>
   </div>
-</div>
+</button>
 {#if org.children}
   {#each org.children as child, _ (child.id)}
-    <svelte:self org={child} />
+    {#if child.deletedAt === 0}
+      {#if child.orgType !== OrgTypeJob}
+        <svelte:self org={child} />
+      {/if}
+    {/if}
   {/each}
 {/if}
 
@@ -75,6 +112,9 @@
     padding: 10px;
     border-radius: 8px;
     cursor: pointer;
+    border: none;
+    background-color: transparent;
+    color: var(--gray-007);
   }
 
   .org:hover {

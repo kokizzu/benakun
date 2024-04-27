@@ -1813,6 +1813,7 @@
 				}
 			}
 		},
+		"/tenantAdmin/restoreCoaChild": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -1853,6 +1854,7 @@
 				}
 			}
 		},
+		"/tenantAdmin/restoreOrganizationChild": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
