@@ -90,14 +90,14 @@
 
 <style>
   .orgs_container {
-    display: grid;
-    grid-template-columns: auto 400px;
-    gap: 20px;
+    display: flex;
+    width: 100%;
   }
   .orgs {
+    width: 700px;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
-    user-select: none;
     display: flex;
     height: fit-content;
     background-color: #FFF;

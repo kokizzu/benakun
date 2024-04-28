@@ -5,6 +5,9 @@
   import RiUserTeamLine from 'svelte-icons-pack/ri/RiUserTeamLine';
   import RiBusinessBriefcaseLine from 'svelte-icons-pack/ri/RiBusinessBriefcaseLine';
   import RiSystemArrowRightSLine from 'svelte-icons-pack/ri/RiSystemArrowRightSLine';
+  import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
+  import RiDesignPencilLine from 'svelte-icons-pack/ri/RiDesignPencilLine';
+  import RiSystemDeleteBinLine from 'svelte-icons-pack/ri/RiSystemDeleteBinLine';
   import { TenantAdminGetBudgetPlans } from '../jsApi.GEN.js';
   import { notifier } from './notifier.js';
 
@@ -59,36 +62,106 @@
       return;
     } else {
       isShowPlans = true;
-      if (budgetPlans.length === 0) {
+      if (!budgetPlans || budgetPlans.length === 0) {
         await getBugetPlans();
       }
     }
   }
 </script>
 
-<button class="org {orgType}" on:click={toggleShowPlans}>
-  <div class="info">
-    <span class="h-line"></span>
-    <div class="label">
-      <Icon
-        className="icon"
-        size="13"
-        src={orgIcon}
-      />
-    </div>
-    <span class="title">{org.name}</span>
-  </div>
-  <div class="options">
-    <button class="btn arrow show" title="Show plans">
-      <Icon
-        color="var(--gray-006)"
-        className="icon"
-        size="17"
-        src={RiSystemArrowRightSLine}
-      />
+<div class="org_container {orgType}">
+  <span class="h-line"></span>
+  <div class="org_wrapper">
+    <button class="org" on:click={toggleShowPlans}>
+      <div class="info">
+        <div class="label">
+          <Icon
+            className="icon"
+            size="13"
+            src={orgIcon}
+          />
+        </div>
+        <span class="title">{org.name}</span>
+      </div>
+      <div class="options">
+        <button class="btn arrow" title="Show plans">
+          <Icon
+            color="var(--gray-006)"
+            className="icon {isShowPlans ? 'rotate' : 'dropdown'}"
+            size="17"
+            src={RiSystemArrowRightSLine}
+          />
+        </button>
+      </div>
     </button>
+    {#if isShowPlans}
+      <div class="org_plans">
+        <div class="vision">
+          <div class="label">
+            <span>Vision</span>
+            <button>
+              <Icon
+                className="icon"
+                size="13"
+                src={RiSystemAddBoxLine}
+              />
+            </button>
+            <button>
+              <Icon
+                className="icon"
+                size="13"
+                src={RiDesignPencilLine}
+              />
+            </button>
+          </div>
+          <p>To be the leading software development company in the region,
+            providing innovative and high-quality solutions to our clients.</p>
+        </div>
+        <div class="mission">
+          <div class="label">
+            <span>Mission</span>
+            <button>
+              <Icon
+                className="icon"
+                size="13"
+                src={RiSystemAddBoxLine}
+              />
+            </button>
+            <button>
+              <Icon
+                className="icon"
+                size="13"
+                src={RiDesignPencilLine}
+              />
+            </button>
+          </div>
+          <p>To provide our clients with the best software solutions that meet their needs and exceed their expectations.
+            We strive to achieve this by leveraging the latest technologies,
+            hiring the best talent, and maintaining a culture of excellence.
+            Our goal is to achieve a customer satisfaction rate of 95% by the end of 2024.</p>
+        </div>
+        <div class="programs">
+          <div class="label">
+            <span>Programs</span>
+          </div>
+          <div class="program_list">
+            <div class="program">
+              <p class="name">Social Media Marketing Brand Awareness</p>
+              <div>
+                <span class="label">Activity</span>
+                <ul>
+                  <li>Content Marketing</li>
+                  <li>Social Media Marketing</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {/if}
   </div>
-</button>
+</div>
+
 {#if org.children}
   {#each org.children as child, _ (child.id)}
     {#if child.deletedAt === 0}
@@ -100,10 +173,100 @@
 {/if}
 
 <style>
-  .org.company,
-  .org.department,
-  .org.division,
-  .org.job {
+  :global(.org_container.company .org .info .label .icon) {
+    fill: var(--blue-005);
+  }
+
+  :global(.org_container.department .org .info .label .icon) {
+    fill: var(--orange-005);
+  }
+
+  :global(.org_container.division .org .info .label .icon) {
+    fill: var(--green-006);
+  }
+
+  :global(.org.job .info .label .icon) {
+    fill: var(--gray-007);
+  }
+
+  .org_container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  .org_container .h-line {
+    left: -15px;
+    width: 1px;
+    height: auto;
+    background-color: var(--gray-003);
+  }
+
+  .org_container.company .h-line {
+    display: none !important;
+  }
+
+  .org_container .org_wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .org_container .org_wrapper .org_plans{
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: var(--gray-001);
+  }
+
+
+  .org_container.company .org .info .label {
+    background-image: var(--blue-gradient);
+    color: var(--blue-006);
+    border: 1px solid var(--blue-003);
+  }
+
+  .org_container.department {
+    padding-left: 37px;
+  }
+
+  .org_container.department .org .info .label {
+    background-image: var(--orange-gradient);
+    color: var(--orange-006);
+    border: 1px solid var(--orange-003);
+  }
+
+  
+
+  .org_container.division{
+    padding-left: 65px;
+  }
+
+  .org_container.division .org .info .label {
+    background-image: var(--green-gradient);
+    color: var(--green-006);
+    border: 1px solid var(--green-003);
+  }
+
+  
+
+  .org_container.job {
+    padding-left: 93px;
+  }
+
+  .org_container.job .org .info .label {
+    background-image: var(--gray-gradient);
+    color: var(--gray-006);
+    border: 1px solid var(--gray-003);
+  }
+
+  
+
+  .org {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -129,57 +292,7 @@
     background-color: transparent !important;
   }
 
-  .org.company .info .label {
-    background-image: var(--blue-gradient);
-    color: var(--blue-006);
-    border: 1px solid var(--blue-003);
-  }
-
-  :global(.org.company .info .label .icon) {
-    fill: var(--blue-005);
-  }
-
-  .org.department {
-    padding-left: 37px;
-  }
-
-  .org.department .info .label {
-    background-image: var(--orange-gradient);
-    color: var(--orange-006);
-    border: 1px solid var(--orange-003);
-  }
-
-  :global(.org.department .info .label .icon) {
-    fill: var(--orange-005);
-  }
-
-  .org.division {
-    padding-left: 65px;
-  }
-
-  .org.division .info .label {
-    background-image: var(--green-gradient);
-    color: var(--green-006);
-    border: 1px solid var(--green-003);
-  }
-
-  :global(.org.division .info .label .icon) {
-    fill: var(--green-006);
-  }
-
-  .org.job {
-    padding-left: 93px;
-  }
-
-  .org.job .info .label {
-    background-image: var(--gray-gradient);
-    color: var(--gray-006);
-    border: 1px solid var(--gray-003);
-  }
-
-  :global(.org.job .info .label .icon) {
-    fill: var(--gray-007);
-  }
+  
 
   .org .info {
     display: flex;
@@ -187,18 +300,6 @@
     flex-direction: row;
     gap: 10px;
     position: relative;
-  }
-
-  .org .info .h-line {
-    position: absolute;
-    left: -15px;
-    width: 1px;
-    height: 45px;
-    background-color: var(--gray-003);
-  }
-
-  .org.company .info .h-line {
-    display: none;
   }
 
   .org .info .label {
@@ -232,6 +333,15 @@
     padding: 5px;
     cursor: pointer;
   }
+
+  :global(.dropdown) {
+		transition: all .2s ease-in-out;
+	}
+
+	:global(.rotate) {
+		transition: all .2s ease-in-out;
+		transform: rotate(90deg);
+	}
 
   .org .options .btn:hover {
     background-color: var(--gray-002);
