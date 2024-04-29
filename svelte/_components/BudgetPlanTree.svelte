@@ -8,8 +8,12 @@
   import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
   import RiDesignPencilLine from 'svelte-icons-pack/ri/RiDesignPencilLine';
   import RiSystemDeleteBinLine from 'svelte-icons-pack/ri/RiSystemDeleteBinLine';
-  import { TenantAdminGetBudgetPlans } from '../jsApi.GEN.js';
+  import {
+    TenantAdminGetBudgetPlans,
+    TenantAdminCreateBudgetPlan
+  } from '../jsApi.GEN.js';
   import { notifier } from './notifier.js';
+  import PopUpBudgetPlan from './PopUpBudgetPlan.svelte';
 
   export let org = /** @type {import('./types/organization.js').Org} */ ({});
 
@@ -67,7 +71,54 @@
       }
     }
   }
+
+  let popUpBudgetPlan = /** @type {PopUpBudgetPlan} */ ({});
+  let isSubmitAddPlan = false;
+
+  /** @type {import('../jsApi.GEN.js').TenantAdminCreateBudgetPlanIn} */
+  let payload = {
+    planType: '',
+    title: '',
+    description: '',
+    parentId: 0,
+    orgId: Number(org.id),
+    perYear: 0,
+    budgetIDR: 0,
+    budgetUSD: 0,
+    budgetEUR: 0
+  };
+
+  async function submitAddPlan() {
+    isSubmitAddPlan = true;
+    await TenantAdminCreateBudgetPlan( payload,
+      /** @type {import('../jsApi.GEN').TenantAdminCreateBudgetPlanCallback}*/
+      function (/** @type {any} */ o) {
+        isSubmitAddPlan = false;
+        if (o.error) {
+          notifier.showError(o.error);
+          console.log(o);
+          return;
+        }
+        notifier.showSuccess(payload.title + ' created');
+        const out = /** @type {import('../jsApi.GEN').TenantAdminGetBudgetPlansOut}*/ (o);
+        budgetPlans = out.plans;
+        popUpBudgetPlan.hide();
+      }
+    )
+  }
 </script>
+
+<PopUpBudgetPlan
+  bind:this={popUpBudgetPlan}
+  bind:isSubmitted={isSubmitAddPlan}
+  bind:title={payload.title}
+  bind:description={payload.description}
+  bind:perYear={payload.perYear}
+  bind:budgetIDR={payload.budgetIDR}
+  bind:budgetUSD={payload.budgetUSD}
+  bind:budgetEUR={payload.budgetEUR}
+  onSubmit={submitAddPlan}
+/>
 
 <div class="org_container {orgType}">
   <span class="h-line"></span>
@@ -120,7 +171,7 @@
         <div class="mission">
           <div class="label">
             <span>Mission</span>
-            <button>
+            <button on:click={() => popUpBudgetPlan.show()}>
               <Icon
                 className="icon"
                 size="13"

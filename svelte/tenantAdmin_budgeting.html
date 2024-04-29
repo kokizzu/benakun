@@ -547,6 +547,163 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   padding: 20px;
 }
 
+/* fakecss:./_components/InputBox.esbuild-svelte-fake-css */
+.input_box.svelte-msefpz.svelte-msefpz {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  color: var(--gray-007);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.input_box.with_password.svelte-msefpz input.svelte-msefpz {
+  padding-right: 40px !important;
+}
+.input_box.svelte-msefpz label.svelte-msefpz {
+  font-size: var(--font-base);
+  margin-left: 10px;
+}
+.input_box.svelte-msefpz input.svelte-msefpz {
+  width: 100%;
+  border: 1px solid var(--gray-003);
+  border-radius: 5px;
+  background-color: transparent;
+  padding: 10px 12px;
+}
+.input_box.svelte-msefpz input.svelte-msefpz:focus {
+  border-color: var(--blue-005);
+  outline: 1px solid var(--blue-005);
+}
+.input_box.svelte-msefpz .eye.svelte-msefpz {
+  position: absolute;
+  height: fit-content;
+  width: fit-content;
+  background-color: transparent;
+  padding: 0;
+  top: 30px;
+  bottom: auto;
+  right: 10px;
+  border: none;
+  cursor: pointer;
+}
+.input_box .eye:hover svg {
+  fill: var(--blue-005);
+}
+
+/* fakecss:./_components/PopUpBudgetPlan.esbuild-svelte-fake-css */
+@keyframes svelte-6z2gjm-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin {
+  animation: svelte-6z2gjm-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.popup_container.svelte-6z2gjm.svelte-6z2gjm {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2000;
+  background-color: rgba(0 0 0 / 40%);
+  backdrop-filter: blur(1px);
+  justify-content: center;
+  padding: 50px;
+  overflow: auto;
+}
+.popup_container.show.svelte-6z2gjm.svelte-6z2gjm {
+  display: flex;
+}
+.popup_container.svelte-6z2gjm .popup.svelte-6z2gjm {
+  border-radius: 8px;
+  background-color: #FFF;
+  height: fit-content;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+.popup_container.svelte-6z2gjm .popup header.svelte-6z2gjm {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--gray-004);
+}
+.popup_container.svelte-6z2gjm .popup header h2.svelte-6z2gjm {
+  margin: 0;
+}
+.popup_container.svelte-6z2gjm .popup header button.svelte-6z2gjm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.popup_container.svelte-6z2gjm .popup header button.svelte-6z2gjm:hover {
+  background-color: #ef444420;
+}
+.popup_container.svelte-6z2gjm .popup header button.svelte-6z2gjm:active {
+  background-color: #ef444430;
+}
+.popup_container.svelte-6z2gjm .popup .forms.svelte-6z2gjm {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.popup_container.svelte-6z2gjm .popup .foot.svelte-6z2gjm {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 20px;
+  border-top: 1px solid var(--gray-004);
+}
+.popup_container.svelte-6z2gjm .popup .foot .right.svelte-6z2gjm {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.popup_container.svelte-6z2gjm .popup .foot button.svelte-6z2gjm {
+  padding: 8px 13px;
+  border-radius: 9999px;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+  font-weight: 600;
+}
+.popup_container.svelte-6z2gjm .popup .foot button.ok.svelte-6z2gjm {
+  background-color: var(--green-006);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popup_container.svelte-6z2gjm .popup .foot button.ok.svelte-6z2gjm:hover {
+  background-color: var(--green-005);
+}
+.popup_container.svelte-6z2gjm .popup .foot button.cancel.svelte-6z2gjm {
+  background-color: #fbbf2430;
+  color: var(--amber-005);
+}
+.popup_container.svelte-6z2gjm .popup .foot button.cancel.svelte-6z2gjm:hover {
+  background-color: #fbbf2450;
+}
+
 /* fakecss:./_components/BudgetPlanTree.esbuild-svelte-fake-css */
 .org_container.company .org .info .label .icon {
   fill: var(--blue-005);
@@ -743,7 +900,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   var require_axios = __commonJS({
     "node_modules/.pnpm/axios@1.6.2/node_modules/axios/dist/browser/axios.cjs"(exports, module) {
       "use strict";
-      function bind(fn, thisArg) {
+      function bind2(fn, thisArg) {
         return function wrap() {
           return fn.apply(thisArg, arguments);
         };
@@ -863,7 +1020,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       var extend = (a, b, thisArg, { allOwnKeys } = {}) => {
         forEach(b, (val, key) => {
           if (thisArg && isFunction(val)) {
-            a[key] = bind(val, thisArg);
+            a[key] = bind2(val, thisArg);
           } else {
             a[key] = val;
           }
@@ -2723,13 +2880,13 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance9 = bind(Axios$1.prototype.request, context);
-        utils$1.extend(instance9, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance9, context, null, { allOwnKeys: true });
-        instance9.create = function create(instanceConfig) {
+        const instance11 = bind2(Axios$1.prototype.request, context);
+        utils$1.extend(instance11, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance11, context, null, { allOwnKeys: true });
+        instance11.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance9;
+        return instance11;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2826,7 +2983,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       exports.TenantAdminCoa = async function TenantAdminCoa(i, cb) {
         return await axios.post("/tenantAdmin/coa", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminCreateBudgetPlan = async function TenantAdminCreateBudgetPlan(i, cb) {
+      exports.TenantAdminCreateBudgetPlan = async function TenantAdminCreateBudgetPlan2(i, cb) {
         return await axios.post("/tenantAdmin/createBudgetPlan", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminCreateCoaChild = async function TenantAdminCreateCoaChild(i, cb) {
@@ -2977,6 +3134,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     }
     return -1;
   }
+  function null_to_empty(value) {
+    return value == null ? "" : value;
+  }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
@@ -3068,6 +3228,12 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     node.addEventListener(event, handler, options);
     return () => node.removeEventListener(event, handler, options);
   }
+  function prevent_default(fn) {
+    return function(event) {
+      event.preventDefault();
+      return fn.call(this, event);
+    };
+  }
   function attr(node, attribute, value) {
     if (value == null)
       node.removeAttribute(attribute);
@@ -3088,6 +3254,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       return;
     text2.data = /** @type {string} */
     data;
+  }
+  function set_input_value(input, value) {
+    input.value = value == null ? "" : value;
   }
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
@@ -3132,6 +3301,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   }
   function add_render_callback(fn) {
     render_callbacks.push(fn);
+  }
+  function add_flush_callback(fn) {
+    flush_callbacks.push(fn);
   }
   var seen_callbacks = /* @__PURE__ */ new Set();
   var flushidx = 0;
@@ -3381,6 +3553,13 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/Component.js
+  function bind(component, name, callback) {
+    const index = component.$.props[name];
+    if (index !== void 0) {
+      component.$.bound[index] = callback;
+      callback(component.$.ctx[index]);
+    }
+  }
   function create_component(block) {
     block && block.c();
   }
@@ -3416,7 +3595,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance9, create_fragment9, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance11, create_fragment11, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3442,7 +3621,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance9 ? instance9(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance11 ? instance11(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -3455,7 +3634,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment9 ? create_fragment9($.ctx) : false;
+    $.fragment = create_fragment11 ? create_fragment11($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -5263,10 +5442,1020 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
 
   // _components/BudgetPlanTree.svelte
   var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ai/AiOutlineEye.js
+  var AiOutlineEye_default = {
+    a: {
+      viewBox: "0 0 1024 1024"
+    },
+    c: '<path d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 0 0 0 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"></path>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ai/AiOutlineEyeInvisible.js
+  var AiOutlineEyeInvisible_default = {
+    a: {
+      viewBox: "0 0 1024 1024"
+    },
+    c: '<path d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 0 0 0-51.5zm-63.57-320.64L836 122.88a8 8 0 0 0-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 0 0 0 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 0 0 0 11.31L155.17 889a8 8 0 0 0 11.31 0l712.15-712.12a8 8 0 0 0 0-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 0 0-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 0 1 146.2-106.69L401.31 546.2A112 112 0 0 1 396 512z"></path><path d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 0 0 227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 0 1-112 112z"></path>'
+  };
+
+  // _components/InputBox.svelte
+  function create_if_block2(ctx) {
+    let button;
+    let t;
+    let current;
+    let mounted;
+    let dispose;
+    let if_block0 = !/*isShowPassword*/
+    ctx[5] && create_if_block_22(ctx);
+    let if_block1 = (
+      /*isShowPassword*/
+      ctx[5] && create_if_block_12(ctx)
+    );
+    return {
+      c() {
+        button = element("button");
+        if (if_block0)
+          if_block0.c();
+        t = space();
+        if (if_block1)
+          if_block1.c();
+        attr(button, "class", "eye svelte-msefpz");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        if (if_block0)
+          if_block0.m(button, null);
+        append(button, t);
+        if (if_block1)
+          if_block1.m(button, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*toggleShowPassword*/
+            ctx[7]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (!/*isShowPassword*/
+        ctx2[5]) {
+          if (if_block0) {
+            if (dirty & /*isShowPassword*/
+            32) {
+              transition_in(if_block0, 1);
+            }
+          } else {
+            if_block0 = create_if_block_22(ctx2);
+            if_block0.c();
+            transition_in(if_block0, 1);
+            if_block0.m(button, t);
+          }
+        } else if (if_block0) {
+          group_outros();
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*isShowPassword*/
+          ctx2[5]
+        ) {
+          if (if_block1) {
+            if (dirty & /*isShowPassword*/
+            32) {
+              transition_in(if_block1, 1);
+            }
+          } else {
+            if_block1 = create_if_block_12(ctx2);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(button, null);
+          }
+        } else if (if_block1) {
+          group_outros();
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block0);
+        transition_in(if_block1);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block0);
+        transition_out(if_block1);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_22(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        color: "#495057",
+        size: "20",
+        src: AiOutlineEye_default
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_if_block_12(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        color: "#495057",
+        size: "20",
+        src: AiOutlineEyeInvisible_default
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_fragment7(ctx) {
+    let div;
+    let label_1;
+    let t0;
+    let t1;
+    let input;
+    let t2;
+    let div_class_value;
+    let current;
+    let mounted;
+    let dispose;
+    let if_block = (
+      /*type*/
+      ctx[3] === "password" && create_if_block2(ctx)
+    );
+    return {
+      c() {
+        div = element("div");
+        label_1 = element("label");
+        t0 = text(
+          /*label*/
+          ctx[2]
+        );
+        t1 = space();
+        input = element("input");
+        t2 = space();
+        if (if_block)
+          if_block.c();
+        attr(
+          label_1,
+          "for",
+          /*id*/
+          ctx[1]
+        );
+        attr(label_1, "class", "svelte-msefpz");
+        attr(
+          input,
+          "id",
+          /*id*/
+          ctx[1]
+        );
+        attr(
+          input,
+          "placeholder",
+          /*placeholder*/
+          ctx[4]
+        );
+        attr(input, "class", "svelte-msefpz");
+        attr(div, "class", div_class_value = null_to_empty(`input_box ${/*type*/
+        ctx[3] === "password" ? "with_password" : ""}`) + " svelte-msefpz");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        append(div, label_1);
+        append(label_1, t0);
+        append(div, t1);
+        append(div, input);
+        set_input_value(
+          input,
+          /*value*/
+          ctx[0]
+        );
+        ctx[9](input);
+        append(div, t2);
+        if (if_block)
+          if_block.m(div, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "input",
+            /*input_input_handler*/
+            ctx[8]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, [dirty]) {
+        if (!current || dirty & /*label*/
+        4)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[2]
+          );
+        if (!current || dirty & /*id*/
+        2) {
+          attr(
+            label_1,
+            "for",
+            /*id*/
+            ctx2[1]
+          );
+        }
+        if (!current || dirty & /*id*/
+        2) {
+          attr(
+            input,
+            "id",
+            /*id*/
+            ctx2[1]
+          );
+        }
+        if (!current || dirty & /*placeholder*/
+        16) {
+          attr(
+            input,
+            "placeholder",
+            /*placeholder*/
+            ctx2[4]
+          );
+        }
+        if (dirty & /*value*/
+        1 && input.value !== /*value*/
+        ctx2[0]) {
+          set_input_value(
+            input,
+            /*value*/
+            ctx2[0]
+          );
+        }
+        if (
+          /*type*/
+          ctx2[3] === "password"
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*type*/
+            8) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block2(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(div, null);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
+        if (!current || dirty & /*type*/
+        8 && div_class_value !== (div_class_value = null_to_empty(`input_box ${/*type*/
+        ctx2[3] === "password" ? "with_password" : ""}`) + " svelte-msefpz")) {
+          attr(div, "class", div_class_value);
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        ctx[9](null);
+        if (if_block)
+          if_block.d();
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function instance7($self, $props, $invalidate) {
+    let { id } = $props;
+    let { value } = $props;
+    let { label } = $props;
+    let { type = "text" } = $props;
+    let { placeholder = "" } = $props;
+    let isShowPassword = false;
+    let inputElm;
+    onMount(() => $invalidate(6, inputElm.type = type, inputElm));
+    function toggleShowPassword() {
+      $invalidate(5, isShowPassword = !isShowPassword);
+      if (isShowPassword)
+        $invalidate(6, inputElm.type = "text", inputElm);
+      else
+        $invalidate(6, inputElm.type = "password", inputElm);
+    }
+    function input_input_handler() {
+      value = this.value;
+      $invalidate(0, value);
+    }
+    function input_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        inputElm = $value;
+        $invalidate(6, inputElm);
+      });
+    }
+    $self.$set = ($props2) => {
+      if ("id" in $props2)
+        $invalidate(1, id = $props2.id);
+      if ("value" in $props2)
+        $invalidate(0, value = $props2.value);
+      if ("label" in $props2)
+        $invalidate(2, label = $props2.label);
+      if ("type" in $props2)
+        $invalidate(3, type = $props2.type);
+      if ("placeholder" in $props2)
+        $invalidate(4, placeholder = $props2.placeholder);
+    };
+    return [
+      value,
+      id,
+      label,
+      type,
+      placeholder,
+      isShowPassword,
+      inputElm,
+      toggleShowPassword,
+      input_input_handler,
+      input_binding
+    ];
+  }
+  var InputBox = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance7, create_fragment7, safe_not_equal, {
+        id: 1,
+        value: 0,
+        label: 2,
+        type: 3,
+        placeholder: 4
+      });
+    }
+  };
+  var InputBox_default = InputBox;
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/fi/FiLoader.js
+  var FiLoader_default = {
+    a: {
+      viewBox: "0 0 24 24",
+      fill: "none",
+      stroke: "currentColor",
+      "stroke-width": "2",
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round"
+    },
+    c: '<line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/io/IoClose.js
+  var IoClose_default = {
+    a: {
+      viewBox: "0 0 512 512"
+    },
+    c: '<title></title><path d="M289.94,256l95-95A24,24,0,0,0,351,127l-95,95-95-95A24,24,0,0,0,127,161l95,95-95,95A24,24,0,1,0,161,385l95-95,95,95A24,24,0,0,0,385,351Z"></path>'
+  };
+
+  // _components/PopUpBudgetPlan.svelte
+  function create_if_block_13(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Submit";
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
+  }
+  function create_if_block3(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        className: "spin",
+        color: "#FFF",
+        size: "14",
+        src: FiLoader_default
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_fragment8(ctx) {
+    let div4;
+    let div3;
+    let header;
+    let h2;
+    let t1;
+    let button0;
+    let icon;
+    let t2;
+    let div0;
+    let inputbox0;
+    let updating_value;
+    let t3;
+    let inputbox1;
+    let updating_value_1;
+    let t4;
+    let inputbox2;
+    let updating_value_2;
+    let t5;
+    let inputbox3;
+    let updating_value_3;
+    let t6;
+    let inputbox4;
+    let updating_value_4;
+    let t7;
+    let inputbox5;
+    let updating_value_5;
+    let t8;
+    let div2;
+    let div1;
+    let button1;
+    let t10;
+    let button2;
+    let t11;
+    let div4_class_value;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        size: "22",
+        color: "var(--red-005)",
+        src: IoClose_default
+      }
+    });
+    function inputbox0_value_binding(value) {
+      ctx[12](value);
+    }
+    let inputbox0_props = {
+      id: "title",
+      label: "Title",
+      type: "text",
+      placeholder: "Title"
+    };
+    if (
+      /*title*/
+      ctx[0] !== void 0
+    ) {
+      inputbox0_props.value = /*title*/
+      ctx[0];
+    }
+    inputbox0 = new InputBox_default({ props: inputbox0_props });
+    binding_callbacks.push(() => bind(inputbox0, "value", inputbox0_value_binding));
+    function inputbox1_value_binding(value) {
+      ctx[13](value);
+    }
+    let inputbox1_props = {
+      id: "description",
+      label: "Description",
+      type: "text",
+      placeholder: "Description"
+    };
+    if (
+      /*description*/
+      ctx[1] !== void 0
+    ) {
+      inputbox1_props.value = /*description*/
+      ctx[1];
+    }
+    inputbox1 = new InputBox_default({ props: inputbox1_props });
+    binding_callbacks.push(() => bind(inputbox1, "value", inputbox1_value_binding));
+    function inputbox2_value_binding(value) {
+      ctx[14](value);
+    }
+    let inputbox2_props = {
+      id: "perYear",
+      label: "Per Year",
+      type: "number",
+      placeholder: "Per Year"
+    };
+    if (
+      /*perYear*/
+      ctx[2] !== void 0
+    ) {
+      inputbox2_props.value = /*perYear*/
+      ctx[2];
+    }
+    inputbox2 = new InputBox_default({ props: inputbox2_props });
+    binding_callbacks.push(() => bind(inputbox2, "value", inputbox2_value_binding));
+    function inputbox3_value_binding(value) {
+      ctx[15](value);
+    }
+    let inputbox3_props = {
+      id: "budgetIDR",
+      label: "Budget IDR",
+      type: "number",
+      placeholder: "Budget IDR"
+    };
+    if (
+      /*budgetIDR*/
+      ctx[3] !== void 0
+    ) {
+      inputbox3_props.value = /*budgetIDR*/
+      ctx[3];
+    }
+    inputbox3 = new InputBox_default({ props: inputbox3_props });
+    binding_callbacks.push(() => bind(inputbox3, "value", inputbox3_value_binding));
+    function inputbox4_value_binding(value) {
+      ctx[16](value);
+    }
+    let inputbox4_props = {
+      id: "budgetUSD",
+      label: "Budget USD",
+      type: "number",
+      placeholder: "Budget USD"
+    };
+    if (
+      /*budgetUSD*/
+      ctx[4] !== void 0
+    ) {
+      inputbox4_props.value = /*budgetUSD*/
+      ctx[4];
+    }
+    inputbox4 = new InputBox_default({ props: inputbox4_props });
+    binding_callbacks.push(() => bind(inputbox4, "value", inputbox4_value_binding));
+    function inputbox5_value_binding(value) {
+      ctx[17](value);
+    }
+    let inputbox5_props = {
+      id: "budgetEUR",
+      label: "Budget EUR",
+      type: "number",
+      placeholder: "Budget EUR"
+    };
+    if (
+      /*budgetEUR*/
+      ctx[5] !== void 0
+    ) {
+      inputbox5_props.value = /*budgetEUR*/
+      ctx[5];
+    }
+    inputbox5 = new InputBox_default({ props: inputbox5_props });
+    binding_callbacks.push(() => bind(inputbox5, "value", inputbox5_value_binding));
+    let if_block0 = !/*isSubmitted*/
+    ctx[7] && create_if_block_13(ctx);
+    let if_block1 = (
+      /*isSubmitted*/
+      ctx[7] && create_if_block3(ctx)
+    );
+    return {
+      c() {
+        div4 = element("div");
+        div3 = element("div");
+        header = element("header");
+        h2 = element("h2");
+        h2.textContent = "Add budget plan";
+        t1 = space();
+        button0 = element("button");
+        create_component(icon.$.fragment);
+        t2 = space();
+        div0 = element("div");
+        create_component(inputbox0.$.fragment);
+        t3 = space();
+        create_component(inputbox1.$.fragment);
+        t4 = space();
+        create_component(inputbox2.$.fragment);
+        t5 = space();
+        create_component(inputbox3.$.fragment);
+        t6 = space();
+        create_component(inputbox4.$.fragment);
+        t7 = space();
+        create_component(inputbox5.$.fragment);
+        t8 = space();
+        div2 = element("div");
+        div1 = element("div");
+        button1 = element("button");
+        button1.textContent = "Cancel";
+        t10 = space();
+        button2 = element("button");
+        if (if_block0)
+          if_block0.c();
+        t11 = space();
+        if (if_block1)
+          if_block1.c();
+        attr(h2, "class", "svelte-6z2gjm");
+        attr(button0, "class", "svelte-6z2gjm");
+        attr(header, "class", "header svelte-6z2gjm");
+        attr(div0, "class", "forms svelte-6z2gjm");
+        attr(button1, "class", "cancel svelte-6z2gjm");
+        attr(button2, "class", "ok svelte-6z2gjm");
+        attr(div1, "class", "right svelte-6z2gjm");
+        attr(div2, "class", "foot svelte-6z2gjm");
+        attr(div3, "class", "popup svelte-6z2gjm");
+        attr(div4, "class", div4_class_value = null_to_empty(`popup_container ${/*isShow*/
+        ctx[9] ? "show" : ""}`) + " svelte-6z2gjm");
+      },
+      m(target, anchor) {
+        insert(target, div4, anchor);
+        append(div4, div3);
+        append(div3, header);
+        append(header, h2);
+        append(header, t1);
+        append(header, button0);
+        mount_component(icon, button0, null);
+        append(div3, t2);
+        append(div3, div0);
+        mount_component(inputbox0, div0, null);
+        append(div0, t3);
+        mount_component(inputbox1, div0, null);
+        append(div0, t4);
+        mount_component(inputbox2, div0, null);
+        append(div0, t5);
+        mount_component(inputbox3, div0, null);
+        append(div0, t6);
+        mount_component(inputbox4, div0, null);
+        append(div0, t7);
+        mount_component(inputbox5, div0, null);
+        append(div3, t8);
+        append(div3, div2);
+        append(div2, div1);
+        append(div1, button1);
+        append(div1, t10);
+        append(div1, button2);
+        if (if_block0)
+          if_block0.m(button2, null);
+        append(button2, t11);
+        if (if_block1)
+          if_block1.m(button2, null);
+        current = true;
+        if (!mounted) {
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*hide*/
+              ctx[8]
+            ),
+            listen(button1, "click", prevent_default(
+              /*cancel*/
+              ctx[10]
+            )),
+            listen(button2, "click", prevent_default(function() {
+              if (is_function(
+                /*onSubmit*/
+                ctx[6]
+              ))
+                ctx[6].apply(this, arguments);
+            }))
+          ];
+          mounted = true;
+        }
+      },
+      p(new_ctx, [dirty]) {
+        ctx = new_ctx;
+        const inputbox0_changes = {};
+        if (!updating_value && dirty & /*title*/
+        1) {
+          updating_value = true;
+          inputbox0_changes.value = /*title*/
+          ctx[0];
+          add_flush_callback(() => updating_value = false);
+        }
+        inputbox0.$set(inputbox0_changes);
+        const inputbox1_changes = {};
+        if (!updating_value_1 && dirty & /*description*/
+        2) {
+          updating_value_1 = true;
+          inputbox1_changes.value = /*description*/
+          ctx[1];
+          add_flush_callback(() => updating_value_1 = false);
+        }
+        inputbox1.$set(inputbox1_changes);
+        const inputbox2_changes = {};
+        if (!updating_value_2 && dirty & /*perYear*/
+        4) {
+          updating_value_2 = true;
+          inputbox2_changes.value = /*perYear*/
+          ctx[2];
+          add_flush_callback(() => updating_value_2 = false);
+        }
+        inputbox2.$set(inputbox2_changes);
+        const inputbox3_changes = {};
+        if (!updating_value_3 && dirty & /*budgetIDR*/
+        8) {
+          updating_value_3 = true;
+          inputbox3_changes.value = /*budgetIDR*/
+          ctx[3];
+          add_flush_callback(() => updating_value_3 = false);
+        }
+        inputbox3.$set(inputbox3_changes);
+        const inputbox4_changes = {};
+        if (!updating_value_4 && dirty & /*budgetUSD*/
+        16) {
+          updating_value_4 = true;
+          inputbox4_changes.value = /*budgetUSD*/
+          ctx[4];
+          add_flush_callback(() => updating_value_4 = false);
+        }
+        inputbox4.$set(inputbox4_changes);
+        const inputbox5_changes = {};
+        if (!updating_value_5 && dirty & /*budgetEUR*/
+        32) {
+          updating_value_5 = true;
+          inputbox5_changes.value = /*budgetEUR*/
+          ctx[5];
+          add_flush_callback(() => updating_value_5 = false);
+        }
+        inputbox5.$set(inputbox5_changes);
+        if (!/*isSubmitted*/
+        ctx[7]) {
+          if (if_block0) {
+          } else {
+            if_block0 = create_if_block_13(ctx);
+            if_block0.c();
+            if_block0.m(button2, t11);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        if (
+          /*isSubmitted*/
+          ctx[7]
+        ) {
+          if (if_block1) {
+            if (dirty & /*isSubmitted*/
+            128) {
+              transition_in(if_block1, 1);
+            }
+          } else {
+            if_block1 = create_if_block3(ctx);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(button2, null);
+          }
+        } else if (if_block1) {
+          group_outros();
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
+          });
+          check_outros();
+        }
+        if (!current || dirty & /*isShow*/
+        512 && div4_class_value !== (div4_class_value = null_to_empty(`popup_container ${/*isShow*/
+        ctx[9] ? "show" : ""}`) + " svelte-6z2gjm")) {
+          attr(div4, "class", div4_class_value);
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        transition_in(inputbox0.$.fragment, local);
+        transition_in(inputbox1.$.fragment, local);
+        transition_in(inputbox2.$.fragment, local);
+        transition_in(inputbox3.$.fragment, local);
+        transition_in(inputbox4.$.fragment, local);
+        transition_in(inputbox5.$.fragment, local);
+        transition_in(if_block1);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        transition_out(inputbox0.$.fragment, local);
+        transition_out(inputbox1.$.fragment, local);
+        transition_out(inputbox2.$.fragment, local);
+        transition_out(inputbox3.$.fragment, local);
+        transition_out(inputbox4.$.fragment, local);
+        transition_out(inputbox5.$.fragment, local);
+        transition_out(if_block1);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div4);
+        }
+        destroy_component(icon);
+        destroy_component(inputbox0);
+        destroy_component(inputbox1);
+        destroy_component(inputbox2);
+        destroy_component(inputbox3);
+        destroy_component(inputbox4);
+        destroy_component(inputbox5);
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
+  function instance8($self, $props, $invalidate) {
+    let { onSubmit = () => {
+    } } = $props;
+    let { isSubmitted = false } = $props;
+    let { title = "" } = $props;
+    let { description = "" } = $props;
+    let { perYear = 0 } = $props;
+    let { budgetIDR = 0 } = $props;
+    let { budgetUSD = 0 } = $props;
+    let { budgetEUR = 0 } = $props;
+    let isShow = false;
+    const show = () => $invalidate(9, isShow = true);
+    const hide = () => $invalidate(9, isShow = false);
+    const cancel = () => {
+      $invalidate(9, isShow = false);
+    };
+    function inputbox0_value_binding(value) {
+      title = value;
+      $invalidate(0, title);
+    }
+    function inputbox1_value_binding(value) {
+      description = value;
+      $invalidate(1, description);
+    }
+    function inputbox2_value_binding(value) {
+      perYear = value;
+      $invalidate(2, perYear);
+    }
+    function inputbox3_value_binding(value) {
+      budgetIDR = value;
+      $invalidate(3, budgetIDR);
+    }
+    function inputbox4_value_binding(value) {
+      budgetUSD = value;
+      $invalidate(4, budgetUSD);
+    }
+    function inputbox5_value_binding(value) {
+      budgetEUR = value;
+      $invalidate(5, budgetEUR);
+    }
+    $self.$set = ($props2) => {
+      if ("onSubmit" in $props2)
+        $invalidate(6, onSubmit = $props2.onSubmit);
+      if ("isSubmitted" in $props2)
+        $invalidate(7, isSubmitted = $props2.isSubmitted);
+      if ("title" in $props2)
+        $invalidate(0, title = $props2.title);
+      if ("description" in $props2)
+        $invalidate(1, description = $props2.description);
+      if ("perYear" in $props2)
+        $invalidate(2, perYear = $props2.perYear);
+      if ("budgetIDR" in $props2)
+        $invalidate(3, budgetIDR = $props2.budgetIDR);
+      if ("budgetUSD" in $props2)
+        $invalidate(4, budgetUSD = $props2.budgetUSD);
+      if ("budgetEUR" in $props2)
+        $invalidate(5, budgetEUR = $props2.budgetEUR);
+    };
+    return [
+      title,
+      description,
+      perYear,
+      budgetIDR,
+      budgetUSD,
+      budgetEUR,
+      onSubmit,
+      isSubmitted,
+      hide,
+      isShow,
+      cancel,
+      show,
+      inputbox0_value_binding,
+      inputbox1_value_binding,
+      inputbox2_value_binding,
+      inputbox3_value_binding,
+      inputbox4_value_binding,
+      inputbox5_value_binding
+    ];
+  }
+  var PopUpBudgetPlan = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance8, create_fragment8, safe_not_equal, {
+        onSubmit: 6,
+        isSubmitted: 7,
+        title: 0,
+        description: 1,
+        perYear: 2,
+        budgetIDR: 3,
+        budgetUSD: 4,
+        budgetEUR: 5,
+        show: 11,
+        hide: 8
+      });
+    }
+    get show() {
+      return this.$.ctx[11];
+    }
+    get hide() {
+      return this.$.ctx[8];
+    }
+  };
+  var PopUpBudgetPlan_default = PopUpBudgetPlan;
+
+  // _components/BudgetPlanTree.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[8] = list[i];
-    child_ctx[10] = i;
+    child_ctx[21] = list[i];
+    child_ctx[23] = i;
     return child_ctx;
   }
   function create_if_block_32(ctx) {
@@ -5297,6 +6486,8 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     let t11;
     let div8;
     let current;
+    let mounted;
+    let dispose;
     icon0 = new Icon_default({
       props: {
         className: "icon",
@@ -5393,7 +6584,17 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         append(div9, t11);
         append(div9, div8);
         current = true;
+        if (!mounted) {
+          dispose = listen(
+            button2,
+            "click",
+            /*click_handler*/
+            ctx[17]
+          );
+          mounted = true;
+        }
       },
+      p: noop,
       i(local) {
         if (current)
           return;
@@ -5418,10 +6619,12 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         destroy_component(icon1);
         destroy_component(icon2);
         destroy_component(icon3);
+        mounted = false;
+        dispose();
       }
     };
   }
-  function create_if_block2(ctx) {
+  function create_if_block4(ctx) {
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
     let each_1_anchor;
@@ -5432,7 +6635,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     );
     const get_key = (ctx2) => (
       /*child*/
-      ctx2[8].id
+      ctx2[21].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context(ctx, each_value, i);
@@ -5491,12 +6694,12 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       }
     };
   }
-  function create_if_block_12(ctx) {
+  function create_if_block_14(ctx) {
     let if_block_anchor;
     let current;
     let if_block = (
       /*child*/
-      ctx[8].orgType !== OrgTypeJob && create_if_block_22(ctx)
+      ctx[21].orgType !== OrgTypeJob && create_if_block_23(ctx)
     );
     return {
       c() {
@@ -5513,7 +6716,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       p(ctx2, dirty) {
         if (
           /*child*/
-          ctx2[8].orgType !== OrgTypeJob
+          ctx2[21].orgType !== OrgTypeJob
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
@@ -5522,7 +6725,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block_22(ctx2);
+            if_block = create_if_block_23(ctx2);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -5554,12 +6757,12 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       }
     };
   }
-  function create_if_block_22(ctx) {
+  function create_if_block_23(ctx) {
     let budgetplantree;
     let current;
     budgetplantree = new BudgetPlanTree({ props: { org: (
       /*child*/
-      ctx[8]
+      ctx[21]
     ) } });
     return {
       c() {
@@ -5574,7 +6777,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         if (dirty & /*org*/
         1)
           budgetplantree_changes.org = /*child*/
-          ctx2[8];
+          ctx2[21];
         budgetplantree.$set(budgetplantree_changes);
       },
       i(local) {
@@ -5598,7 +6801,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     let current;
     let if_block = (
       /*child*/
-      ctx[8].deletedAt === 0 && create_if_block_12(ctx)
+      ctx[21].deletedAt === 0 && create_if_block_14(ctx)
     );
     return {
       key: key_1,
@@ -5621,7 +6824,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         ctx = new_ctx;
         if (
           /*child*/
-          ctx[8].deletedAt === 0
+          ctx[21].deletedAt === 0
         ) {
           if (if_block) {
             if_block.p(ctx, dirty);
@@ -5630,7 +6833,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block_12(ctx);
+            if_block = create_if_block_14(ctx);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -5663,33 +6866,125 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       }
     };
   }
-  function create_fragment7(ctx) {
+  function create_fragment9(ctx) {
+    let popupbudgetplan;
+    let updating_isSubmitted;
+    let updating_title;
+    let updating_description;
+    let updating_perYear;
+    let updating_budgetIDR;
+    let updating_budgetUSD;
+    let updating_budgetEUR;
+    let t0;
     let div4;
     let span0;
-    let t0;
+    let t1;
     let div3;
     let button1;
     let div1;
     let div0;
     let icon0;
-    let t1;
+    let t2;
     let span1;
-    let t2_value = (
+    let t3_value = (
       /*org*/
       ctx[0].name + ""
     );
-    let t2;
     let t3;
+    let t4;
     let div2;
     let button0;
     let icon1;
-    let t4;
-    let div4_class_value;
     let t5;
+    let div4_class_value;
+    let t6;
     let if_block1_anchor;
     let current;
     let mounted;
     let dispose;
+    function popupbudgetplan_isSubmitted_binding(value) {
+      ctx[10](value);
+    }
+    function popupbudgetplan_title_binding(value) {
+      ctx[11](value);
+    }
+    function popupbudgetplan_description_binding(value) {
+      ctx[12](value);
+    }
+    function popupbudgetplan_perYear_binding(value) {
+      ctx[13](value);
+    }
+    function popupbudgetplan_budgetIDR_binding(value) {
+      ctx[14](value);
+    }
+    function popupbudgetplan_budgetUSD_binding(value) {
+      ctx[15](value);
+    }
+    function popupbudgetplan_budgetEUR_binding(value) {
+      ctx[16](value);
+    }
+    let popupbudgetplan_props = { onSubmit: (
+      /*submitAddPlan*/
+      ctx[8]
+    ) };
+    if (
+      /*isSubmitAddPlan*/
+      ctx[5] !== void 0
+    ) {
+      popupbudgetplan_props.isSubmitted = /*isSubmitAddPlan*/
+      ctx[5];
+    }
+    if (
+      /*payload*/
+      ctx[6].title !== void 0
+    ) {
+      popupbudgetplan_props.title = /*payload*/
+      ctx[6].title;
+    }
+    if (
+      /*payload*/
+      ctx[6].description !== void 0
+    ) {
+      popupbudgetplan_props.description = /*payload*/
+      ctx[6].description;
+    }
+    if (
+      /*payload*/
+      ctx[6].perYear !== void 0
+    ) {
+      popupbudgetplan_props.perYear = /*payload*/
+      ctx[6].perYear;
+    }
+    if (
+      /*payload*/
+      ctx[6].budgetIDR !== void 0
+    ) {
+      popupbudgetplan_props.budgetIDR = /*payload*/
+      ctx[6].budgetIDR;
+    }
+    if (
+      /*payload*/
+      ctx[6].budgetUSD !== void 0
+    ) {
+      popupbudgetplan_props.budgetUSD = /*payload*/
+      ctx[6].budgetUSD;
+    }
+    if (
+      /*payload*/
+      ctx[6].budgetEUR !== void 0
+    ) {
+      popupbudgetplan_props.budgetEUR = /*payload*/
+      ctx[6].budgetEUR;
+    }
+    popupbudgetplan = new PopUpBudgetPlan_default({ props: popupbudgetplan_props });
+    ctx[9](popupbudgetplan);
+    binding_callbacks.push(() => bind(popupbudgetplan, "isSubmitted", popupbudgetplan_isSubmitted_binding));
+    binding_callbacks.push(() => bind(popupbudgetplan, "title", popupbudgetplan_title_binding));
+    binding_callbacks.push(() => bind(popupbudgetplan, "description", popupbudgetplan_description_binding));
+    binding_callbacks.push(() => bind(popupbudgetplan, "perYear", popupbudgetplan_perYear_binding));
+    binding_callbacks.push(() => bind(popupbudgetplan, "budgetIDR", popupbudgetplan_budgetIDR_binding));
+    binding_callbacks.push(() => bind(popupbudgetplan, "budgetUSD", popupbudgetplan_budgetUSD_binding));
+    binding_callbacks.push(() => bind(popupbudgetplan, "budgetEUR", popupbudgetplan_budgetEUR_binding));
     icon0 = new Icon_default({
       props: {
         className: "icon",
@@ -5715,29 +7010,31 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     );
     let if_block1 = (
       /*org*/
-      ctx[0].children && create_if_block2(ctx)
+      ctx[0].children && create_if_block4(ctx)
     );
     return {
       c() {
+        create_component(popupbudgetplan.$.fragment);
+        t0 = space();
         div4 = element("div");
         span0 = element("span");
-        t0 = space();
+        t1 = space();
         div3 = element("div");
         button1 = element("button");
         div1 = element("div");
         div0 = element("div");
         create_component(icon0.$.fragment);
-        t1 = space();
+        t2 = space();
         span1 = element("span");
-        t2 = text(t2_value);
-        t3 = space();
+        t3 = text(t3_value);
+        t4 = space();
         div2 = element("div");
         button0 = element("button");
         create_component(icon1.$.fragment);
-        t4 = space();
+        t5 = space();
         if (if_block0)
           if_block0.c();
-        t5 = space();
+        t6 = space();
         if (if_block1)
           if_block1.c();
         if_block1_anchor = empty();
@@ -5754,25 +7051,27 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         ctx[1] + " svelte-ifwcfc");
       },
       m(target, anchor) {
+        mount_component(popupbudgetplan, target, anchor);
+        insert(target, t0, anchor);
         insert(target, div4, anchor);
         append(div4, span0);
-        append(div4, t0);
+        append(div4, t1);
         append(div4, div3);
         append(div3, button1);
         append(button1, div1);
         append(div1, div0);
         mount_component(icon0, div0, null);
-        append(div1, t1);
+        append(div1, t2);
         append(div1, span1);
-        append(span1, t2);
-        append(button1, t3);
+        append(span1, t3);
+        append(button1, t4);
         append(button1, div2);
         append(div2, button0);
         mount_component(icon1, button0, null);
-        append(div3, t4);
+        append(div3, t5);
         if (if_block0)
           if_block0.m(div3, null);
-        insert(target, t5, anchor);
+        insert(target, t6, anchor);
         if (if_block1)
           if_block1.m(target, anchor);
         insert(target, if_block1_anchor, anchor);
@@ -5782,12 +7081,63 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
             button1,
             "click",
             /*toggleShowPlans*/
-            ctx[4]
+            ctx[7]
           );
           mounted = true;
         }
       },
       p(ctx2, [dirty]) {
+        const popupbudgetplan_changes = {};
+        if (!updating_isSubmitted && dirty & /*isSubmitAddPlan*/
+        32) {
+          updating_isSubmitted = true;
+          popupbudgetplan_changes.isSubmitted = /*isSubmitAddPlan*/
+          ctx2[5];
+          add_flush_callback(() => updating_isSubmitted = false);
+        }
+        if (!updating_title && dirty & /*payload*/
+        64) {
+          updating_title = true;
+          popupbudgetplan_changes.title = /*payload*/
+          ctx2[6].title;
+          add_flush_callback(() => updating_title = false);
+        }
+        if (!updating_description && dirty & /*payload*/
+        64) {
+          updating_description = true;
+          popupbudgetplan_changes.description = /*payload*/
+          ctx2[6].description;
+          add_flush_callback(() => updating_description = false);
+        }
+        if (!updating_perYear && dirty & /*payload*/
+        64) {
+          updating_perYear = true;
+          popupbudgetplan_changes.perYear = /*payload*/
+          ctx2[6].perYear;
+          add_flush_callback(() => updating_perYear = false);
+        }
+        if (!updating_budgetIDR && dirty & /*payload*/
+        64) {
+          updating_budgetIDR = true;
+          popupbudgetplan_changes.budgetIDR = /*payload*/
+          ctx2[6].budgetIDR;
+          add_flush_callback(() => updating_budgetIDR = false);
+        }
+        if (!updating_budgetUSD && dirty & /*payload*/
+        64) {
+          updating_budgetUSD = true;
+          popupbudgetplan_changes.budgetUSD = /*payload*/
+          ctx2[6].budgetUSD;
+          add_flush_callback(() => updating_budgetUSD = false);
+        }
+        if (!updating_budgetEUR && dirty & /*payload*/
+        64) {
+          updating_budgetEUR = true;
+          popupbudgetplan_changes.budgetEUR = /*payload*/
+          ctx2[6].budgetEUR;
+          add_flush_callback(() => updating_budgetEUR = false);
+        }
+        popupbudgetplan.$set(popupbudgetplan_changes);
         const icon0_changes = {};
         if (dirty & /*orgIcon*/
         4)
@@ -5795,9 +7145,9 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
           ctx2[2];
         icon0.$set(icon0_changes);
         if ((!current || dirty & /*org*/
-        1) && t2_value !== (t2_value = /*org*/
+        1) && t3_value !== (t3_value = /*org*/
         ctx2[0].name + ""))
-          set_data(t2, t2_value);
+          set_data(t3, t3_value);
         const icon1_changes = {};
         if (dirty & /*isShowPlans*/
         8)
@@ -5809,6 +7159,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
           ctx2[3]
         ) {
           if (if_block0) {
+            if_block0.p(ctx2, dirty);
             if (dirty & /*isShowPlans*/
             8) {
               transition_in(if_block0, 1);
@@ -5842,7 +7193,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block2(ctx2);
+            if_block1 = create_if_block4(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
@@ -5858,6 +7209,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       i(local) {
         if (current)
           return;
+        transition_in(popupbudgetplan.$.fragment, local);
         transition_in(icon0.$.fragment, local);
         transition_in(icon1.$.fragment, local);
         transition_in(if_block0);
@@ -5865,6 +7217,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         current = true;
       },
       o(local) {
+        transition_out(popupbudgetplan.$.fragment, local);
         transition_out(icon0.$.fragment, local);
         transition_out(icon1.$.fragment, local);
         transition_out(if_block0);
@@ -5873,10 +7226,13 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       },
       d(detaching) {
         if (detaching) {
+          detach(t0);
           detach(div4);
-          detach(t5);
+          detach(t6);
           detach(if_block1_anchor);
         }
+        ctx[9](null);
+        destroy_component(popupbudgetplan, detaching);
         destroy_component(icon0);
         destroy_component(icon1);
         if (if_block0)
@@ -5892,7 +7248,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   var OrgTypeDept = 2;
   var OrgTypeDivision = 3;
   var OrgTypeJob = 4;
-  function instance7($self, $props, $invalidate) {
+  function instance9($self, $props, $invalidate) {
     let { org = (
       /** @type {import('./types/organization.js').Org} */
       {}
@@ -5948,16 +7304,120 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
         }
       }
     };
+    let popUpBudgetPlan = (
+      /** @type {PopUpBudgetPlan} */
+      {}
+    );
+    let isSubmitAddPlan = false;
+    let payload = {
+      planType: "",
+      title: "",
+      description: "",
+      parentId: 0,
+      orgId: Number(org.id),
+      perYear: 0,
+      budgetIDR: 0,
+      budgetUSD: 0,
+      budgetEUR: 0
+    };
+    async function submitAddPlan() {
+      $invalidate(5, isSubmitAddPlan = true);
+      await (0, import_jsApi_GEN2.TenantAdminCreateBudgetPlan)(
+        payload,
+        /** @type {import('../jsApi.GEN').TenantAdminCreateBudgetPlanCallback}*/
+        function(o) {
+          $invalidate(5, isSubmitAddPlan = false);
+          if (o.error) {
+            notifier.showError(o.error);
+            console.log(o);
+            return;
+          }
+          notifier.showSuccess(payload.title + " created");
+          const out = (
+            /** @type {import('../jsApi.GEN').TenantAdminGetBudgetPlansOut}*/
+            o
+          );
+          budgetPlans = out.plans;
+          popUpBudgetPlan.hide();
+        }
+      );
+    }
+    function popupbudgetplan_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        popUpBudgetPlan = $value;
+        $invalidate(4, popUpBudgetPlan);
+      });
+    }
+    function popupbudgetplan_isSubmitted_binding(value) {
+      isSubmitAddPlan = value;
+      $invalidate(5, isSubmitAddPlan);
+    }
+    function popupbudgetplan_title_binding(value) {
+      if ($self.$.not_equal(payload.title, value)) {
+        payload.title = value;
+        $invalidate(6, payload);
+      }
+    }
+    function popupbudgetplan_description_binding(value) {
+      if ($self.$.not_equal(payload.description, value)) {
+        payload.description = value;
+        $invalidate(6, payload);
+      }
+    }
+    function popupbudgetplan_perYear_binding(value) {
+      if ($self.$.not_equal(payload.perYear, value)) {
+        payload.perYear = value;
+        $invalidate(6, payload);
+      }
+    }
+    function popupbudgetplan_budgetIDR_binding(value) {
+      if ($self.$.not_equal(payload.budgetIDR, value)) {
+        payload.budgetIDR = value;
+        $invalidate(6, payload);
+      }
+    }
+    function popupbudgetplan_budgetUSD_binding(value) {
+      if ($self.$.not_equal(payload.budgetUSD, value)) {
+        payload.budgetUSD = value;
+        $invalidate(6, payload);
+      }
+    }
+    function popupbudgetplan_budgetEUR_binding(value) {
+      if ($self.$.not_equal(payload.budgetEUR, value)) {
+        payload.budgetEUR = value;
+        $invalidate(6, payload);
+      }
+    }
+    const click_handler = () => popUpBudgetPlan.show();
     $self.$set = ($props2) => {
       if ("org" in $props2)
         $invalidate(0, org = $props2.org);
     };
-    return [org, orgType, orgIcon, isShowPlans, toggleShowPlans];
+    return [
+      org,
+      orgType,
+      orgIcon,
+      isShowPlans,
+      popUpBudgetPlan,
+      isSubmitAddPlan,
+      payload,
+      toggleShowPlans,
+      submitAddPlan,
+      popupbudgetplan_binding,
+      popupbudgetplan_isSubmitted_binding,
+      popupbudgetplan_title_binding,
+      popupbudgetplan_description_binding,
+      popupbudgetplan_perYear_binding,
+      popupbudgetplan_budgetIDR_binding,
+      popupbudgetplan_budgetUSD_binding,
+      popupbudgetplan_budgetEUR_binding,
+      click_handler
+    ];
   }
   var BudgetPlanTree = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance7, create_fragment7, safe_not_equal, { org: 0 });
+      init(this, options, instance9, create_fragment9, safe_not_equal, { org: 0 });
     }
   };
   var BudgetPlanTree_default = BudgetPlanTree;
@@ -5969,7 +7429,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     child_ctx[3] = i;
     return child_ctx;
   }
-  function create_if_block3(ctx) {
+  function create_if_block5(ctx) {
     let div;
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
@@ -6094,7 +7554,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     let if_block = (
       /*REFORMAT_ORGS*/
       ctx[0] && /*REFORMAT_ORGS*/
-      ctx[0].length && create_if_block3(ctx)
+      ctx[0].length && create_if_block5(ctx)
     );
     return {
       c() {
@@ -6122,7 +7582,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block3(ctx2);
+            if_block = create_if_block5(ctx2);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(div, null);
@@ -6154,7 +7614,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
       }
     };
   }
-  function create_fragment8(ctx) {
+  function create_fragment10(ctx) {
     let mainlayout;
     let current;
     mainlayout = new mainLayout_default({
@@ -6250,7 +7710,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
     }
     return toorgs;
   }
-  function instance8($self, $props, $invalidate) {
+  function instance10($self, $props, $invalidate) {
     let REFORMAT_ORGS = [];
     onMount(() => {
       $invalidate(0, REFORMAT_ORGS = reformatorgs());
@@ -6261,7 +7721,7 @@ footer.svelte-2g9e8f nav a.svelte-2g9e8f:hover {
   var TenantAdmin_budgeting = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance8, create_fragment8, safe_not_equal, {});
+      init(this, options, instance10, create_fragment10, safe_not_equal, {});
     }
   };
   var tenantAdmin_budgeting_default = TenantAdmin_budgeting;
