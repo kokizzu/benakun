@@ -176,7 +176,7 @@
 	.popup_container .popup .foot {
 		display: flex;
 		flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
 		gap: 10px;
 		align-items: center;
 		padding: 10px 20px;

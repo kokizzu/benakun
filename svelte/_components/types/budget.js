@@ -17,5 +17,6 @@
   * @property {number} updatedAt
   * @property {string} updatedBy
   * @property {number} deletedAt
+  * @property {BudgetPlan[]?} children?
   */
 module.exports = {};

@@ -41,6 +41,36 @@
   /** @typedef {import('./types/budget.js').BudgetPlan} BudgetPlan */
   let budgetPlans = /** @type {BudgetPlan[]} */ ([]);
 
+  let visionDesc = '', missionDesc = '';
+  let programsActivity = /** @type {BudgetPlan[]} */ ([]);
+
+  const PlanTypeVision = 'vision', PlanTypeMission = 'mission', PlanTypeProgram = 'program', PlanTypeActivity	= 'activity';
+
+  function activityMaker(/* @type {string} */ programId) {
+    let activities = /* @type {BudgetPlan[]} */ ([]);
+    for (let i in budgetPlans) {
+      if (budgetPlans[i].planType === PlanTypeActivity && budgetPlans[i].parentId === programId) {
+        activities = [...activities, budgetPlans[i]];
+      }
+    }
+
+    return activities
+  }
+
+  function reformatPrograms() {
+    if (!budgetPlans || budgetPlans.length === 0) return;
+    if (programsActivity && programsActivity.length > 0) programsActivity = [];
+
+    for (let i in budgetPlans) {
+      if (budgetPlans[i].planType === PlanTypeProgram) {
+        let program = /** @type {BudgetPlan} */ (budgetPlans[i]);
+        program.children = activityMaker(program.id);
+
+        programsActivity = [...programsActivity, program];
+      }
+    }
+  }
+
   let isSearching = false, isShowPlans = false;
 
   async function getBugetPlans() {
@@ -123,12 +153,12 @@
 <div class="org_container {orgType}">
   <span class="h-line"></span>
   <div class="org_wrapper">
-    <button class="org" on:click={toggleShowPlans}>
+    <button class="org {isShowPlans ? 'active' : ''}" on:click={toggleShowPlans}>
       <div class="info">
         <div class="label">
           <Icon
             className="icon"
-            size="13"
+            size="17"
             src={orgIcon}
           />
         </div>
@@ -147,20 +177,22 @@
     </button>
     {#if isShowPlans}
       <div class="org_plans">
-        <div class="vision">
+        <div class="plan vision">
           <div class="label">
             <span>Vision</span>
-            <button>
+            <button class="btn" on:click={() => popUpBudgetPlan.show()}>
               <Icon
                 className="icon"
-                size="13"
+                color="var(--gray-006)"
+                size="17"
                 src={RiSystemAddBoxLine}
               />
             </button>
-            <button>
+            <button class="btn">
               <Icon
                 className="icon"
-                size="13"
+                color="var(--gray-006)"
+                size="17"
                 src={RiDesignPencilLine}
               />
             </button>
@@ -168,20 +200,22 @@
           <p>To be the leading software development company in the region,
             providing innovative and high-quality solutions to our clients.</p>
         </div>
-        <div class="mission">
+        <div class="plan mission">
           <div class="label">
             <span>Mission</span>
-            <button on:click={() => popUpBudgetPlan.show()}>
+            <button class="btn" on:click={() => popUpBudgetPlan.show()}>
               <Icon
                 className="icon"
-                size="13"
+                color="var(--gray-006)"
+                size="17"
                 src={RiSystemAddBoxLine}
               />
             </button>
-            <button>
+            <button class="btn">
               <Icon
                 className="icon"
-                size="13"
+                color="var(--gray-006)"
+                size="17"
                 src={RiDesignPencilLine}
               />
             </button>
@@ -191,7 +225,7 @@
             hiring the best talent, and maintaining a culture of excellence.
             Our goal is to achieve a customer satisfaction rate of 95% by the end of 2024.</p>
         </div>
-        <div class="programs">
+        <div class="plan programs">
           <div class="label">
             <span>Programs</span>
           </div>
@@ -258,23 +292,6 @@
     display: none !important;
   }
 
-  .org_container .org_wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .org_container .org_wrapper .org_plans{
-    width: auto;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: var(--gray-001);
-  }
-
-
   .org_container.company .org .info .label {
     background-image: var(--blue-gradient);
     color: var(--blue-006);
@@ -291,8 +308,6 @@
     border: 1px solid var(--orange-003);
   }
 
-  
-
   .org_container.division{
     padding-left: 65px;
   }
@@ -302,8 +317,6 @@
     color: var(--green-006);
     border: 1px solid var(--green-003);
   }
-
-  
 
   .org_container.job {
     padding-left: 93px;
@@ -315,9 +328,7 @@
     border: 1px solid var(--gray-003);
   }
 
-  
-
-  .org {
+  .org_container .org {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -331,21 +342,28 @@
     color: var(--gray-007);
   }
 
-  .org:hover {
-    background-color: var(--gray-001);
+  .org_container.company .org:hover,
+  .org_container.company .org.active {
+    background-color: var(--blue-transparent);
+  }
+  .org_container.department .org:hover,
+  .org_container.department .org.active {
+    background-color: var(--orange-transparent);
+  }
+  .org_container.division .org:hover,
+  .org_container.division .org.active {
+    background-color: var(--green-transparent);
   }
 
-  .org:active {
+  .org_container .org:active {
     background-color: var(--gray-002);
   }
 
-  .org:hover .h-line {
+  .org_container .org:hover .h-line {
     background-color: transparent !important;
   }
-
   
-
-  .org .info {
+  .org_container .org .info {
     display: flex;
     align-items: center;
     flex-direction: row;
@@ -353,7 +371,7 @@
     position: relative;
   }
 
-  .org .info .label {
+  .org_container .org .info .label {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -363,18 +381,18 @@
     border-radius: 5px;
   }
 
-  .org .info .title {
+  .org_container .org .info .title {
     font-size: 16px;
   }
 
-  .org .options {
+  .org_container .org .options {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 5px;
   }
 
-  .org .options .btn {
+  .org_container .org .options .btn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -394,16 +412,78 @@
 		transform: rotate(90deg);
 	}
 
-  .org .options .btn:hover {
+  .org_container .org .options .btn:hover {
     background-color: var(--gray-002);
   }
 
-  .org .options .btn.arrow:hover,
-  .org .options .btn.arrow:active {
+  .org_container .org .options .btn.arrow:hover,
+  .org_container .org .options .btn.arrow:active {
     background-color: transparent;
   }
 
-  .org .options .btn:active {
+  .org_container .org .options .btn:active {
     background-color: var(--gray-003);
+  }
+
+  .org_container .org_wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .org_container .org_wrapper .org_plans{
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 10px;
+    border-radius: 8px;
+    background-color: var(--gray-001);
+  }
+
+  .org_container .org_wrapper .org_plans .plan {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+  }
+
+  .org_container .org_wrapper .org_plans .plan .label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--font-md);
+    font-weight: 600;
+  }
+
+  .org_container .org_wrapper .org_plans .plan .label span {
+    padding: 5px 0;
+  }
+
+  .org_container .org_wrapper .org_plans .plan .label .btn {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+  }
+
+  .org_container .org_wrapper .org_plans .plan:hover .label .btn {
+    display: flex;
+  }
+
+  .org_container .org_wrapper .org_plans .plan .label .btn:hover {
+    background-color: var(--gray-002);
+  }
+
+  .org_container .org_wrapper .org_plans .plan .label .btn:active {
+    background-color: var(--gray-003);
+  }
+
+  .org_container .org_wrapper .org_plans .plan p {
+    margin: 0;
   }
 </style>

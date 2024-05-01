@@ -16,15 +16,20 @@
 
 <style>
   .navbar_container {
-    top: 0;
-    position: sticky;
-    z-index: 800;
-    background-color: #FFF;
-    height: 60px;
-    padding: 0 40px;
     display: flex;
-    align-items: center;
-    border-bottom: 1px solid var(--gray-002);
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 20px;
+		background-color: #FFF;
+		position: sticky;
+    top: 0;
+    left: 0;
+		height: var(--navbar-height);
+		border-bottom: 1px solid var(--gray-003);
+		width: 100%;
+		z-index: 1200;
+		top: 0;
   }
 
   .navbar_container .navbar {

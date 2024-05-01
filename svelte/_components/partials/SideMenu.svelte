@@ -112,6 +112,10 @@
   }
 
   .side_menu {
+    position: fixed;
+    z-index: 800;
+    bottom: 0;
+    top: 0;
     display          : block;
     overflow-y       : auto;
     flex-direction   : row;

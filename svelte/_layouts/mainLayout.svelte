@@ -15,9 +15,9 @@
     <div class="root_content">
       <Navbar {user} />
       <div class="content">
-        <slot />
+        <main><slot /></main>
+        <Footer />
       </div>
-      <Footer />
     </div>
   </div>
 </div>
@@ -25,32 +25,41 @@
 <style>
   .root_layout {
     display: block;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100vh;
-    width: 100vw;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 100vh;
+		width: 100vw;
   }
 
   .root_layout .root_container {
-    display: flex;
-    flex-direction: row;
     height: 100%;
-    width: 100%;
+		width: 100%;
+		display: flex;
   }
 
   .root_layout .root_container .root_content {
-    flex-grow: 1;
-    overflow-y: auto;
-    height: 100%;
-    position: relative;
-    background-color: var(--gray-001);
+		margin-left: var(--sidemenu-width);
+		display: flex;
+		flex-direction: column;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		overflow-y: auto;
+		min-height: calc(100vh - var(--navbar-height));
+		transition: 0.3s;
+		width: 100%;
   }
 
   .root_layout .root_container .root_content .content {
     width: 100%;
-    min-height: 80dvh;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 30px;
+    min-height: calc(100vh - var(--navbar-height));
+    max-height: fit-content;
+    overflow: inherit;
   }
 </style>
