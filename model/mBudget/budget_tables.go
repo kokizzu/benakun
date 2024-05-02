@@ -11,6 +11,9 @@ const (
 	PlanTypeMission		= `mission` 
 	PlanTypeProgram		= `program`
 	PlanTypeActivity	= `activity`
+
+	TitleVision				= `Vision`
+	TitleMission			= `Mission`
 )
 
 func ValidPlanType(pType string) bool {

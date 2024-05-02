@@ -8,7 +8,7 @@ import (
 func (p *Plans) FindPlansByOrg(orgId uint64) (plans []Plans) {
 	const comment = "-- plans) FindPlansByOrg"
 
-	whereAndSql := ` WHERE ` + p.SqlOrgId() + ` = '` + I.UToS(orgId) + `'`
+	whereAndSql := ` WHERE ` + p.SqlOrgId() + ` = ` + I.UToS(orgId)
 	queryRows := comment +
 		`
 SELECT ` + p.SqlSelectAllFields() + `

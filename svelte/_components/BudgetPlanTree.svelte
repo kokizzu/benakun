@@ -15,6 +15,9 @@
   } from '../jsApi.GEN.js';
   import { notifier } from './notifier.js';
   import PopUpBudgetPlan from './PopUpBudgetPlan.svelte';
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
 
   export let org = /** @type {import('./types/organization.js').Org} */ ({});
 
@@ -42,14 +45,15 @@
   }
   
   /** @typedef {import('./types/budget.js').BudgetPlan} BudgetPlan */
+
   let budgetPlans = /** @type {BudgetPlan[]} */ ([]);
 
   let visionDesc = '', missionDesc = '';
   let programsActivity = /** @type {BudgetPlan[]} */ ([]);
   let planTypeToMod = PlanTypeVision, headingPopUp = 'Add budget plan';
 
-  function activityMaker(/* @type {string} */ programId) {
-    let activities = /* @type {BudgetPlan[]} */ ([]);
+  function activityMaker(/** @type {string} */ programId) {
+    let activities = /** @type {BudgetPlan[]} */ ([]);
     for (let i in budgetPlans) {
       if (budgetPlans[i].planType === PlanTypeActivity && budgetPlans[i].parentId === programId) {
         activities = [...activities, budgetPlans[i]];
@@ -75,6 +79,17 @@
 
   let isSearching = false, isShowPlans = false;
 
+  function reformatPlans() {
+    if (budgetPlans && budgetPlans.length > 0) {
+      for (let i in budgetPlans) {
+        if (budgetPlans[i].planType === PlanTypeMission) missionDesc = budgetPlans[i].description;
+        if (budgetPlans[i].planType === PlanTypeVision) visionDesc = budgetPlans[i].description;   
+      }
+    }
+
+    reformatPrograms();
+  }
+
   async function getBugetPlans() {
     isSearching = true;
     await TenantAdminGetBudgetPlans(
@@ -88,14 +103,7 @@
         }
         console.log(o);
         budgetPlans = o.plans;
-        if (budgetPlans && budgetPlans.length > 0) {
-          for (let i in budgetPlans) {
-            if (budgetPlans[i].planType === PlanTypeMission) missionDesc = budgetPlans[i].description;
-            if (budgetPlans[i].planType === PlanTypeVision) visionDesc = budgetPlans[i].description;   
-          }
-        }
-
-        reformatPrograms();
+        reformatPlans();
       }
     )
   }
@@ -128,8 +136,24 @@
     budgetEUR: 0
   };
 
+  const resetPayload = () => {
+    payload.planType = '';
+    payload.title = '';
+    payload.description = '';
+    payload.parentId = 0;
+    payload.perYear = 0;
+    payload.budgetIDR = 0;
+    payload.budgetUSD = 0;
+    payload.budgetEUR = 0;
+  }
+
   async function submitAddPlan() {
     isSubmitAddPlan = true;
+
+    payload.perYear = Number(payload.perYear);
+    payload.budgetIDR = Number(payload.budgetIDR);
+    payload.budgetUSD = Number(payload.budgetUSD);
+    payload.budgetEUR = Number(payload.budgetEUR);
     await TenantAdminCreateBudgetPlan( payload,
       /** @type {import('../jsApi.GEN').TenantAdminCreateBudgetPlanCallback}*/
       function (/** @type {any} */ o) {
@@ -142,12 +166,16 @@
         notifier.showSuccess(payload.title + ' created');
         const out = /** @type {import('../jsApi.GEN').TenantAdminGetBudgetPlansOut}*/ (o);
         budgetPlans = out.plans;
+
+        reformatPlans();
         popUpBudgetPlan.hide();
       }
     )
   }
 
   const togglePopUpAddEditVision = (/** @type {string} */ state) => {
+    resetPayload();
+
     payload.planType = PlanTypeVision;
     if (state === 'edit') {
       payload.description = visionDesc;
@@ -161,8 +189,27 @@
     popUpBudgetPlan.show();
   }
 
+  const togglePopUpAddEditMission = (/** @type {string} */ state) => {
+    resetPayload();
+    
+    payload.planType = PlanTypeMission;
+    if (state === 'edit') {
+      payload.description = missionDesc;
+      planTypeToMod = PlanTypeMission;
+      headingPopUp = 'Edit mission';
+    } else {
+      payload.description = '';
+      headingPopUp = 'Add mission';
+    }
+
+    popUpBudgetPlan.show();
+  }
+
   const togglePopUpAddProgram = () => {
+    resetPayload();
+
     planTypeToMod = PlanTypeProgram;
+    payload.planType = PlanTypeProgram;
     headingPopUp = 'Add program';
     popUpBudgetPlan.show();
   }
@@ -212,51 +259,77 @@
         <div class="plan vision">
           <div class="label">
             <span>Vision</span>
-            <button class="btn" on:click={() => togglePopUpAddEditVision('add')}>
-              <Icon
-                className="icon"
-                color="var(--gray-006)"
-                size="17"
-                src={RiSystemAddBoxLine}
-              />
-            </button>
-            <button class="btn" on:click={() => togglePopUpAddEditVision('edit')}>
-              <Icon
-                className="icon"
-                color="var(--gray-006)"
-                size="17"
-                src={RiDesignPencilLine}
-              />
-            </button>
+            {#if !visionDesc || visionDesc === ''}
+              <button
+                class="btn"
+                on:click={() => togglePopUpAddEditVision('add')}
+                title="Add vision"
+              >
+                <Icon
+                  className="icon"
+                  color="var(--gray-006)"
+                  size="17"
+                  src={RiSystemAddBoxLine}
+                />
+              </button>
+            {:else}
+              <button
+                class="btn"
+                on:click={() => togglePopUpAddEditVision('edit')}
+                title="Edit vision"
+              >
+                <Icon
+                  className="icon"
+                  color="var(--gray-006)"
+                  size="17"
+                  src={RiDesignPencilLine}
+                />
+              </button>
+            {/if}
           </div>
           <p>{visionDesc || '--'}</p>
         </div>
         <div class="plan mission">
           <div class="label">
             <span>Mission</span>
-            <button class="btn" on:click={() => popUpBudgetPlan.show()}>
-              <Icon
-                className="icon"
-                color="var(--gray-006)"
-                size="17"
-                src={RiSystemAddBoxLine}
-              />
-            </button>
-            <button class="btn">
-              <Icon
-                className="icon"
-                color="var(--gray-006)"
-                size="17"
-                src={RiDesignPencilLine}
-              />
-            </button>
+            {#if !missionDesc || missionDesc === ''}
+              <button
+                class="btn"
+                on:click={() => togglePopUpAddEditMission('add')}
+                title="Add mission"
+              >
+                <Icon
+                  className="icon"
+                  color="var(--gray-006)"
+                  size="17"
+                  src={RiSystemAddBoxLine}
+                />
+              </button>
+            {:else}  
+              <button
+                class="btn"
+                on:click={() => togglePopUpAddEditMission('edit')}
+                title="Edit mission"
+              >
+                <Icon
+                  className="icon"
+                  color="var(--gray-006)"
+                  size="17"
+                  src={RiDesignPencilLine}
+                />
+              </button>
+            {/if}
           </div>
           <p>{missionDesc || '--'}</p>
         </div>
         <div class="plan programs">
           <div class="label">
             <span>Programs</span>
-            <button class="btn" on:click={togglePopUpAddProgram}>
+            <button
+              class="btn"
+              on:click={togglePopUpAddProgram}
+              title="Add program"
+            >
               <Icon
                 className="icon"
                 color="var(--gray-006)"
@@ -268,7 +341,7 @@
           <div class="program_activity_list">
             {#if programsActivity && programsActivity.length > 0}
               {#each programsActivity as plan}
-                <PlanProgramTree {plan} />
+                <PlanProgramTree {plan} on:details={(e) => dispatch('details', e.detail)} />
               {/each}
             {/if}
           </div>
@@ -282,7 +355,7 @@
   {#each org.children as child, _ (child.id)}
     {#if child.deletedAt === 0}
       {#if child.orgType !== OrgTypeJob}
-        <svelte:self org={child} />
+        <svelte:self org={child} on:details />
       {/if}
     {/if}
   {/each}

@@ -1,6 +1,9 @@
 <script>
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaFolder from 'svelte-icons-pack/fa/FaFolder';
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
 
   /** @type {import('./types/budget.js').BudgetPlan} */
   export let plan = {
@@ -21,9 +24,11 @@
     deletedAt: 0,
     children: []
   };
+
+  const showDetails = () => dispatch('details', plan);
 </script>
 
-<button class="item">
+<button class="item {plan.planType === 'activity' ? 'activity' : ''}" on:click={showDetails}>
   <Icon
     className="icon"
     color="var(--gray-006)"
@@ -49,5 +54,9 @@
 
   .item:hover {
     background-color: var(--gray-002);
+  }
+
+  .item.activity {
+    margin-left: 30px !important;
   }
 </style>

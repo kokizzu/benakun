@@ -1,5 +1,6 @@
 <script>
   import InputBox from "./InputBox.svelte";
+	import InputCustom from "./InputCustom.svelte";
   import Icon from "svelte-icons-pack";
   import FiLoader from 'svelte-icons-pack/fi/FiLoader';
   import IoClose from 'svelte-icons-pack/io/IoClose';
@@ -68,11 +69,11 @@
 					placeholder="Budget EUR"
 				/>
 			{/if}
-			<InputBox
+			<InputCustom
         id="description"
         label="Description"
         bind:value={description}
-        type="text"
+        type="textarea"
         placeholder="Description"
       />
     </div>

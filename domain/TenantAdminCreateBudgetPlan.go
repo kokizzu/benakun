@@ -94,8 +94,17 @@ func (d *Domain) TenantAdminCreateBudgetPlan(in *TenantAdminCreateBudgetPlanIn) 
 	}
 
 	plan := wcBudget.NewPlansMutator(d.AuthOltp)
+
+	switch in.PlanType {
+	case mBudget.PlanTypeVision:
+		plan.Title = mBudget.TitleVision
+	case mBudget.PlanTypeMission:
+		plan.Title = mBudget.TitleMission
+	default:
+		plan.Title = in.Title
+	}
+
 	plan.PlanType = in.PlanType
-	plan.Title = in.Title
 	plan.Description = in.Description
 	plan.ParentId = in.ParentId
 	plan.OrgId = in.OrgId
@@ -103,6 +112,8 @@ func (d *Domain) TenantAdminCreateBudgetPlan(in *TenantAdminCreateBudgetPlanIn) 
 	plan.BudgetIDR = in.BudgetIDR
 	plan.BudgetUSD = in.BudgetUSD
 	plan.BudgetEUR = in.BudgetEUR
+	plan.CreatedAt = in.UnixNow()
+	plan.UpdatedAt = in.UnixNow()
 
 	if !plan.DoInsert() {
 		out.SetError(400, ErrTenantAdminCreateBudgetPlanFailed)
