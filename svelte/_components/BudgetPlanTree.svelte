@@ -8,6 +8,7 @@
   import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
   import RiDesignPencilLine from 'svelte-icons-pack/ri/RiDesignPencilLine';
   import RiSystemDeleteBinLine from 'svelte-icons-pack/ri/RiSystemDeleteBinLine';
+  import PlanProgramTree from './PlanProgramTree.svelte';
   import {
     TenantAdminGetBudgetPlans,
     TenantAdminCreateBudgetPlan
@@ -16,6 +17,8 @@
   import PopUpBudgetPlan from './PopUpBudgetPlan.svelte';
 
   export let org = /** @type {import('./types/organization.js').Org} */ ({});
+
+  const PlanTypeVision = 'vision', PlanTypeMission = 'mission', PlanTypeProgram = 'program', PlanTypeActivity	= 'activity';
 
   let orgType = 'company', orgIcon = RiBuildingsCommunityLine
   let OrgTypeCompany = 1, OrgTypeDept = 2, OrgTypeDivision = 3, OrgTypeJob = 4;
@@ -43,8 +46,7 @@
 
   let visionDesc = '', missionDesc = '';
   let programsActivity = /** @type {BudgetPlan[]} */ ([]);
-
-  const PlanTypeVision = 'vision', PlanTypeMission = 'mission', PlanTypeProgram = 'program', PlanTypeActivity	= 'activity';
+  let planTypeToMod = PlanTypeVision, headingPopUp = 'Add budget plan';
 
   function activityMaker(/* @type {string} */ programId) {
     let activities = /* @type {BudgetPlan[]} */ ([]);
@@ -86,6 +88,14 @@
         }
         console.log(o);
         budgetPlans = o.plans;
+        if (budgetPlans && budgetPlans.length > 0) {
+          for (let i in budgetPlans) {
+            if (budgetPlans[i].planType === PlanTypeMission) missionDesc = budgetPlans[i].description;
+            if (budgetPlans[i].planType === PlanTypeVision) visionDesc = budgetPlans[i].description;   
+          }
+        }
+
+        reformatPrograms();
       }
     )
   }
@@ -136,10 +146,32 @@
       }
     )
   }
+
+  const togglePopUpAddEditVision = (/** @type {string} */ state) => {
+    payload.planType = PlanTypeVision;
+    if (state === 'edit') {
+      payload.description = visionDesc;
+      planTypeToMod = PlanTypeVision;
+      headingPopUp = 'Edit vision';
+    } else {
+      payload.description = '';
+      headingPopUp = 'Add vision';
+    }
+
+    popUpBudgetPlan.show();
+  }
+
+  const togglePopUpAddProgram = () => {
+    planTypeToMod = PlanTypeProgram;
+    headingPopUp = 'Add program';
+    popUpBudgetPlan.show();
+  }
 </script>
 
 <PopUpBudgetPlan
   bind:this={popUpBudgetPlan}
+  bind:planType={planTypeToMod}
+  bind:heading={headingPopUp}
   bind:isSubmitted={isSubmitAddPlan}
   bind:title={payload.title}
   bind:description={payload.description}
@@ -180,7 +212,7 @@
         <div class="plan vision">
           <div class="label">
             <span>Vision</span>
-            <button class="btn" on:click={() => popUpBudgetPlan.show()}>
+            <button class="btn" on:click={() => togglePopUpAddEditVision('add')}>
               <Icon
                 className="icon"
                 color="var(--gray-006)"
@@ -188,7 +220,7 @@
                 src={RiSystemAddBoxLine}
               />
             </button>
-            <button class="btn">
+            <button class="btn" on:click={() => togglePopUpAddEditVision('edit')}>
               <Icon
                 className="icon"
                 color="var(--gray-006)"
@@ -197,8 +229,7 @@
               />
             </button>
           </div>
-          <p>To be the leading software development company in the region,
-            providing innovative and high-quality solutions to our clients.</p>
+          <p>{visionDesc || '--'}</p>
         </div>
         <div class="plan mission">
           <div class="label">
@@ -220,26 +251,26 @@
               />
             </button>
           </div>
-          <p>To provide our clients with the best software solutions that meet their needs and exceed their expectations.
-            We strive to achieve this by leveraging the latest technologies,
-            hiring the best talent, and maintaining a culture of excellence.
-            Our goal is to achieve a customer satisfaction rate of 95% by the end of 2024.</p>
+          <p>{missionDesc || '--'}</p>
         </div>
         <div class="plan programs">
           <div class="label">
             <span>Programs</span>
+            <button class="btn" on:click={togglePopUpAddProgram}>
+              <Icon
+                className="icon"
+                color="var(--gray-006)"
+                size="17"
+                src={RiSystemAddBoxLine}
+              />
+            </button>
           </div>
-          <div class="program_list">
-            <div class="program">
-              <p class="name">Social Media Marketing Brand Awareness</p>
-              <div>
-                <span class="label">Activity</span>
-                <ul>
-                  <li>Content Marketing</li>
-                  <li>Social Media Marketing</li>
-                </ul>
-              </div>
-            </div>
+          <div class="program_activity_list">
+            {#if programsActivity && programsActivity.length > 0}
+              {#each programsActivity as plan}
+                <PlanProgramTree {plan} />
+              {/each}
+            {/if}
           </div>
         </div>
       </div>
@@ -485,5 +516,15 @@
 
   .org_container .org_wrapper .org_plans .plan p {
     margin: 0;
+  }
+
+  .org_container .org_wrapper .org_plans .plan.programs {
+    gap: 8px;
+  }
+
+  .org_container .org_wrapper .org_plans .plan.programs .program_activity_list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 </style>

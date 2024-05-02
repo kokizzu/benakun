@@ -12,32 +12,62 @@
 	export let budgetIDR = 0;
 	export let budgetUSD = 0;
 	export let budgetEUR = 0;
+	export let planType = 'vision';
+	export let heading = 'Add budget plan';
 
   let isShow = false;
   export const show = () => isShow = true;
   export const hide = () => isShow = false;
 
-  const cancel = () => {
-    isShow = false;
-  }
+  const cancel = () => isShow = false;
 </script>
 
 <div class={`popup_container ${isShow ? 'show' : ''}`}>
   <div class="popup">
     <header class="header">
-      <h2>Add budget plan</h2>
+      <h2>{heading}</h2>
       <button on:click={hide}>
         <Icon size="22" color="var(--red-005)" src={IoClose}/>
       </button>
     </header>
     <div class="forms">
-      <InputBox
-        id="title"
-        label="Title"
-        bind:value={title}
-        type="text"
-        placeholder="Title"
-      />
+			{#if !(planType === 'vision' || planType === 'mission')}
+				<InputBox
+					id="title"
+					label="Title"
+					bind:value={title}
+					type="text"
+					placeholder="Title"
+				/>
+				<InputBox
+					id="perYear"
+					label="Per Year"
+					bind:value={perYear}
+					type="number"
+					placeholder="Per Year"
+				/>
+				<InputBox
+					id="budgetIDR"
+					label="Budget IDR"
+					bind:value={budgetIDR}
+					type="number"
+					placeholder="Budget IDR"
+				/>
+				<InputBox
+					id="budgetUSD"
+					label="Budget USD"
+					bind:value={budgetUSD}
+					type="number"
+					placeholder="Budget USD"
+				/>
+				<InputBox
+					id="budgetEUR"
+					label="Budget EUR"
+					bind:value={budgetEUR}
+					type="number"
+					placeholder="Budget EUR"
+				/>
+			{/if}
 			<InputBox
         id="description"
         label="Description"
@@ -45,34 +75,6 @@
         type="text"
         placeholder="Description"
       />
-			<InputBox
-        id="perYear"
-        label="Per Year"
-        bind:value={perYear}
-        type="number"
-        placeholder="Per Year"
-      />
-			<InputBox
-				id="budgetIDR"
-				label="Budget IDR"
-				bind:value={budgetIDR}
-				type="number"
-				placeholder="Budget IDR"
-			/>
-			<InputBox
-				id="budgetUSD"
-				label="Budget USD"
-				bind:value={budgetUSD}
-				type="number"
-				placeholder="Budget USD"
-			/>
-			<InputBox
-				id="budgetEUR"
-				label="Budget EUR"
-				bind:value={budgetEUR}
-				type="number"
-				placeholder="Budget EUR"
-			/>
     </div>
     <div class="foot">
       <div class="right">

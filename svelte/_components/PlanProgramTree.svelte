@@ -1,0 +1,53 @@
+<script>
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import FaFolder from 'svelte-icons-pack/fa/FaFolder';
+
+  /** @type {import('./types/budget.js').BudgetPlan} */
+  export let plan = {
+    id: '',
+    parentId: '',
+    title: '',
+    description: '',
+    orgId: '',
+    planType: '',
+    perYear: 0,
+    budgetIDR: 0,
+    budgetUSD: 0,
+    budgetEUR: 0,
+    createdAt: '',
+    createdBy: '',
+    updatedAt: 0,
+    updatedBy: '',
+    deletedAt: 0,
+    children: []
+  };
+</script>
+
+<button class="item">
+  <Icon
+    className="icon"
+    color="var(--gray-006)"
+    size="13"
+    src={FaFolder}
+  />
+  <span>{plan.title}</span>
+</button>
+
+<style>
+  .item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    color: var(--gray-007);
+    cursor: pointer;
+  }
+
+  .item:hover {
+    background-color: var(--gray-002);
+  }
+</style>
