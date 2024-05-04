@@ -12,8 +12,10 @@
 
   let headingPopUp = 'Add Activity';
 
+  // make it as payload
   let title = '', description = '', perYear = 0, budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
 
+  // reset payload
   const resetPayload = () => {
     title = '', description = '', perYear = 0, budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
   }
@@ -47,7 +49,7 @@
     isSubmitAddPlan = true;
     /** @type {import('../jsApi.GEN.js').TenantAdminCreateBudgetPlanIn} */
     const i = {
-      planType: plan.planType, title, description, parentId: Number(plan.parentId),
+      planType: 'activity', title, description, parentId: Number(plan.parentId),
       orgId: Number(plan.orgId), perYear, budgetIDR, budgetUSD, budgetEUR
     }
     await TenantAdminCreateBudgetPlan(
@@ -97,10 +99,8 @@
   onSubmit={submitAddPlan}
 />
 
-<button
-  class="item {plan.planType === 'activity' ? 'activity' : ''}"
-  on:click={showDetails}>
-  <div class="title">
+<div class="item {plan.planType === 'activity' ? 'activity' : ''}">
+  <button class="title" on:click={showDetails} title="click to show info">
     <Icon
       className="icon"
       color="var(--gray-006)"
@@ -108,10 +108,23 @@
       src={FaFolder}
     />
     <span>{plan.title}</span>
-  </div>
+  </button>
   <div class="options">
     <button
-      on:click={togglePopUpAdd}
+      on:click|preventDefault={togglePopUpEdit}
+      class="btn edit"
+      title="Edit mission"
+    >
+      <Icon
+        className="icon"
+        color="#FFF"
+        size="14"
+        src={RiDesignPencilLine}
+      />
+      <span>Edit</span>
+    </button>
+    <button
+      on:click|preventDefault={togglePopUpAdd}
       class="btn"
       title="Add mission"
     >
@@ -123,32 +136,20 @@
       />
       <span>Add</span>
     </button>
-    <button
-      on:click={togglePopUpEdit}
-      class="btn"
-      title="Edit mission"
-    >
-      <Icon
-        className="icon"
-        color="#FFF"
-        size="14"
-        src={RiDesignPencilLine}
-      />
-      <span>Edit</span>
-    </button>
   </div>
-</button>
+</div>
 
 <style>
   .item {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    gap: 10px;
     align-items: center;
     background-color: transparent;
     border: none;
     border-radius: 8px;
-    padding: 8px 0 8px 8px;
+    padding: 5px 0 5px 0;
     color: var(--gray-007);
     cursor: pointer;
   }
@@ -165,7 +166,24 @@
     margin-left: 30px !important;
   }
 
-  .item .title,
+  .item .title {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    color: var(--gray-007);
+    padding: 4px 8px;
+    cursor: pointer;
+  }
+
+  .item .title:hover {
+    background-color: var(--blue-transparent);
+  }
+
   .item .options {
     display: flex;
     flex-direction: row;
@@ -189,5 +207,13 @@
 
   .item .options .btn:hover {
     background-color: var(--blue-005);
+  }
+
+  .item .options .btn.edit {
+    background-color: var(--amber-006);
+  }
+
+  .item .options .btn.edit:hover {
+    background-color: var(--amber-005);
   }
 </style>

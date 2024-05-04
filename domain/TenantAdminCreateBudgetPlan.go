@@ -23,7 +23,7 @@ type (
 		ParentId uint64 `json:"parentId" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
 		OrgId uint64 `json:"orgId" form:"orgId" query:"orgId" long:"orgId" msg:"orgId"`
 		PerYear int64 `json:"perYear" form:"perYear" query:"perYear" long:"perYear" msg:"perYear"`
-		BudgetIDR int64 `json:"bugetIDR" form:"bugetIDR" query:"bugetIDR" long:"bugetIDR" msg:"bugetIDR"`
+		BudgetIDR int64 `json:"budgetIDR" form:"budgetIDR" query:"budgetIDR" long:"budgetIDR" msg:"budgetIDR"`
 		BudgetUSD int64 `json:"budgetUSD" form:"budgetUSD" query:"budgetUSD" long:"budgetUSD" msg:"budgetUSD"`
 		BudgetEUR int64 `json:"budgetEUR" form:"budgetEUR" query:"budgetEUR" long:"budgetEUR" msg:"budgetEUR"`
 	}

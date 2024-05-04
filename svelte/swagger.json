@@ -1967,6 +1967,7 @@
 				}
 			}
 		},
+		"/tenantAdmin/updateBudgetPlan": {
 			"post": {
 				"security": [{
 					"CookieAuth": []

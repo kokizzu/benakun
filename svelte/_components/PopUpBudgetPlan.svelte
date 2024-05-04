@@ -148,6 +148,7 @@
 
 	.popup_container .popup header h2 {
 		margin: 0;
+		text-transform: capitalize;
 	}
 
 	.popup_container .popup header button {

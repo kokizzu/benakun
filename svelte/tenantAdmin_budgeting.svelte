@@ -149,6 +149,7 @@
 
 <style>
   .orgs_container {
+    position: relative;
     display: flex;
     flex-direction: row;
     gap: 10px;
@@ -167,12 +168,13 @@
     border-radius: 8px;
     overflow: hidden;
     padding: 15px 20px 25px 20px;
-    transition : 0.3s;
+    transition : 0.5s;
   }
 
   .orgs_container .plan_detail {
-    position: relative;
-    display: none;
+    right: -420px;
+    position: fixed;
+    display: flex;
     flex-direction: column;
     gap: 3px;
     padding: 20px;
@@ -181,11 +183,12 @@
     border: 1px solid var(--gray-003);
     border-radius: 8px;
     height: fit-content;
-    transition : 0.3s;
+    transition : 0.5s;
   }
 
   .orgs_container .plan_detail.show {
-    display: flex;
+    position: relative;
+    right: 0;
     width: 400px;
   }
 
@@ -214,9 +217,13 @@
   .orgs_container .plan_detail main {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     padding: 0 !important;
     height: fit-content !important;
+  }
+
+  .orgs_container .plan_detail main h2 {
+    margin: 5px 0;
   }
 
   .orgs_container .plan_detail main .detail {
@@ -237,7 +244,7 @@
 
   .orgs_container .plan_detail main .detail p {
     margin: 0;
-    font-weight: 600;
+    font-weight: 500;
     font-size: var(--font-md);
   }
 </style>

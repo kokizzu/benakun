@@ -10,7 +10,8 @@
   import PlanProgramTree from './PlanProgramTree.svelte';
   import {
     TenantAdminGetBudgetPlans,
-    TenantAdminCreateBudgetPlan
+    TenantAdminCreateBudgetPlan,
+    TenantAdminUpdateBudgetPlan
   } from '../jsApi.GEN.js';
   import { notifier } from './notifier.js';
   import PopUpBudgetPlan from './PopUpBudgetPlan.svelte';
@@ -45,11 +46,33 @@
   
   /** @typedef {import('./types/budget.js').BudgetPlan} BudgetPlan */
 
+  // Budget plans to render
   let budgetPlans = /** @type {BudgetPlan[]} */ ([]);
 
+  // only show description for vision and mission
   let visionDesc = '', missionDesc = '';
+  // define vision and mission id for update
+  let visionId = 0, missionId = 0;
+
+  // programs and activities to render
   let programsActivity = /** @type {BudgetPlan[]} */ ([]);
-  let planTypeToMod = PlanTypeVision, headingPopUp = 'Add budget plan';
+
+  let headingPopUp = 'Add budget plan';
+
+  // make it as payload
+  let id = 0, planType = PlanTypeVision, title = '', description = '',
+    perYear = 0, budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
+
+  // reset payload
+  const resetPayload = () => {
+    planType = '', title = '', description = '';
+    perYear = 0, budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
+  }
+
+  // state render budget plans
+  let isSearching = false, isShowPlans = false;
+
+  // +==================== CONTROL FLOW, REFORMAT DATA ====================+
 
   function activityMaker(/** @type {string} */ programId) {
     let activities = /** @type {BudgetPlan[]} */ ([]);
@@ -76,18 +99,26 @@
     }
   }
 
-  let isSearching = false, isShowPlans = false;
-
+  // reformat budget plans data
   function reformatPlans() {
     if (budgetPlans && budgetPlans.length > 0) {
       for (let i in budgetPlans) {
-        if (budgetPlans[i].planType === PlanTypeMission) missionDesc = budgetPlans[i].description;
-        if (budgetPlans[i].planType === PlanTypeVision) visionDesc = budgetPlans[i].description;   
+        if (budgetPlans[i].planType === PlanTypeMission) {
+          missionDesc = budgetPlans[i].description;
+          missionId = Number(budgetPlans[i].id);
+        }
+        if (budgetPlans[i].planType === PlanTypeVision) {
+          visionDesc = budgetPlans[i].description;
+          visionId = Number(budgetPlans[i].id);
+          console.log('Vision ID:', visionId)
+        }
       }
     }
 
     reformatPrograms();
   }
+
+  // +================================================================+
 
   async function getBugetPlans() {
     isSearching = true;
@@ -119,51 +150,33 @@
     }
   }
 
+  // popup budget plan bindings
   let popUpBudgetPlan = /** @type {PopUpBudgetPlan} */ ({});
-  let isSubmitAddPlan = false;
 
-  /** @type {import('../jsApi.GEN.js').TenantAdminCreateBudgetPlanIn} */
-  let payload = {
-    planType: '',
-    title: '',
-    description: '',
-    parentId: 0,
-    orgId: Number(org.id),
-    perYear: 0,
-    budgetIDR: 0,
-    budgetUSD: 0,
-    budgetEUR: 0
-  };
+  // state submit
+  const submitStateAdd = 'add', submitStateEdit = 'edit';
+  const submitStateDelete = 'delete', submitStateRestore = 'restore';
 
-  const resetPayload = () => {
-    payload.planType = '';
-    payload.title = '';
-    payload.description = '';
-    payload.parentId = 0;
-    payload.perYear = 0;
-    payload.budgetIDR = 0;
-    payload.budgetUSD = 0;
-    payload.budgetEUR = 0;
-  }
+  let isSubmitPlan = false;
+  let submitState = submitStateAdd;
 
   async function submitAddPlan() {
-    isSubmitAddPlan = true;
-
-    payload.perYear = Number(payload.perYear);
-    payload.budgetIDR = Number(payload.budgetIDR);
-    payload.budgetUSD = Number(payload.budgetUSD);
-    payload.budgetEUR = Number(payload.budgetEUR);
-    await TenantAdminCreateBudgetPlan( payload,
-      /** @type {import('../jsApi.GEN').TenantAdminCreateBudgetPlanCallback}*/
+    isSubmitPlan = true;
+    /** @type {import('../jsApi.GEN.js').TenantAdminCreateBudgetPlanIn} */
+    const i = {
+      planType: planType, title, description, parentId: 0, orgId: Number(org.id), perYear: Number(perYear),
+      budgetIDR: Number(budgetIDR), budgetUSD: Number(budgetUSD), budgetEUR: Number(budgetEUR)
+    }
+    await TenantAdminCreateBudgetPlan( i, /** @type {import('../jsApi.GEN').TenantAdminCreateBudgetPlanCallback}*/
       function (/** @type {any} */ o) {
-        isSubmitAddPlan = false;
+        isSubmitPlan = false;
         if (o.error) {
           notifier.showError(o.error);
           console.log(o);
           return;
         }
-        notifier.showSuccess(payload.title + ' created');
-        const out = /** @type {import('../jsApi.GEN').TenantAdminGetBudgetPlansOut}*/ (o);
+        notifier.showSuccess(title + ' added');
+        const out = /** @type {import('../jsApi.GEN').TenantAdminCreateBudgetPlanOut}*/ (o);
         budgetPlans = out.plans;
 
         reformatPlans();
@@ -172,60 +185,116 @@
     )
   }
 
-  const togglePopUpAddEditVision = (/** @type {string} */ state) => {
-    resetPayload();
-
-    payload.planType = PlanTypeVision;
-    if (state === 'edit') {
-      payload.description = visionDesc;
-      planTypeToMod = PlanTypeVision;
-      headingPopUp = 'Edit vision';
-    } else {
-      payload.description = '';
-      headingPopUp = 'Add vision';
+  async function submitEditPlan() {
+    isSubmitPlan = true;
+    /** @type {import('../jsApi.GEN.js').TenantAdminUpdateBudgetPlanIn} */
+    const i = {
+      id, planType, title, description, perYear: Number(perYear),
+      budgetIDR: Number(budgetIDR), budgetUSD: Number(budgetUSD), budgetEUR: Number(budgetEUR)
     }
+    await TenantAdminUpdateBudgetPlan(i, /** @type {import('../jsApi.GEN').TenantAdminUpdateBudgetPlanCallback} */
+      function (/** @type {any} */ o) {
+        isSubmitPlan = false;
+        if (o.error) {
+          notifier.showError(o.error);
+          console.log(o);
+          return;
+        }
+        notifier.showSuccess(title + ' edited');
+        const out = /** @type {import('../jsApi.GEN').TenantAdminUpdateBudgetPlanOut}*/ (o);
+        budgetPlans = out.plans;
 
-    popUpBudgetPlan.show();
+        reformatPlans();
+        popUpBudgetPlan.hide();
+      }
+    )
   }
 
-  const togglePopUpAddEditMission = (/** @type {string} */ state) => {
+  async function submitPlan() {
+    switch (submitState) {
+      case submitStateAdd: {
+        await submitAddPlan();
+        break;
+      }
+      case submitStateEdit: {
+        await submitEditPlan();
+        break;
+      }
+      default: {
+        console.log('invalid submit state, use add, or edit');
+        return;
+      }
+    }
+  }
+
+  /**
+   * @param {string} state
+   * @param {string} [pType]
+   * @param {number} [toId]
+   */
+  function togglePopUp(state, pType, toId) {
+    if (!state || !pType) {
+      console.log('invalid toggle state, use add, or edit');
+      return;
+    }
+
     resetPayload();
+
+    switch (state) {
+      case submitStateAdd: {
+        submitState = submitStateAdd;
+        break;
+      }
+      case submitStateEdit: {
+        submitState = submitStateEdit;
+        id = Number(toId);
+        break;
+      }
+      default: {
+        console.log('invalid submit state, use add, or edit');
+        return;
+      }
+    }
     
-    payload.planType = PlanTypeMission;
-    if (state === 'edit') {
-      payload.description = missionDesc;
-      planTypeToMod = PlanTypeMission;
-      headingPopUp = 'Edit mission';
-    } else {
-      payload.description = '';
-      headingPopUp = 'Add mission';
+    switch (pType) {
+      case PlanTypeVision: {
+        planType = PlanTypeVision;
+        description = visionDesc;
+        break;
+      }
+      case PlanTypeMission: {
+        planType = PlanTypeMission;
+        description = missionDesc;
+        break;
+      }
+      case PlanTypeProgram: {
+        planType = PlanTypeProgram;
+        break;
+      }
+      default: {
+        console.log('invalid plan type, use vision, mission, or program');
+        return;
+      }
     }
 
-    popUpBudgetPlan.show();
-  }
+    headingPopUp = state + ' ' + planType;
 
-  const togglePopUpAddProgram = () => {
-    resetPayload();
-
-    planTypeToMod = PlanTypeProgram;
-    payload.planType = PlanTypeProgram;
-    headingPopUp = 'Add program';
     popUpBudgetPlan.show();
   }
 </script>
 
 <PopUpBudgetPlan
   bind:this={popUpBudgetPlan}
-  bind:planType={planTypeToMod}
+  bind:planType={planType}
+  bind:title={title}
+  bind:description={description}
+  bind:perYear={perYear}
+  bind:budgetIDR={budgetIDR}
+  bind:budgetUSD={budgetUSD}
+  bind:budgetEUR={budgetEUR}
   bind:heading={headingPopUp}
-  bind:isSubmitted={isSubmitAddPlan}
-  bind:title={payload.title}
-  bind:description={payload.description}
-  bind:perYear={payload.perYear}
-  bind:budgetIDR={payload.budgetIDR}
-  bind:budgetUSD={payload.budgetUSD}
-  bind:budgetEUR={payload.budgetEUR}
-  onSubmit={submitAddPlan}
+  bind:isSubmitted={isSubmitPlan}
+  onSubmit={submitPlan}
 />
 
 <div class="org_container {orgType}">
@@ -261,7 +330,7 @@
             {#if !visionDesc || visionDesc === ''}
               <button
                 class="btn"
-                on:click={() => togglePopUpAddEditVision('add')}
+                on:click={() => togglePopUp(submitStateAdd, PlanTypeVision, 0)}
                 title="Add vision"
               >
                 <Icon
@@ -275,7 +344,7 @@
             {:else}
               <button
                 class="btn"
-                on:click={() => togglePopUpAddEditVision('edit')}
+                on:click={() => togglePopUp(submitStateEdit, PlanTypeVision, visionId)}
                 title="Edit vision"
               >
                 <Icon
@@ -296,7 +365,7 @@
             {#if !missionDesc || missionDesc === ''}
               <button
                 class="btn"
-                on:click={() => togglePopUpAddEditMission('add')}
+                on:click={() => togglePopUp(submitStateAdd, PlanTypeMission, 0)}
                 title="Add mission"
               >
                 <Icon
@@ -310,7 +379,7 @@
             {:else}  
               <button
                 class="btn"
-                on:click={() => togglePopUpAddEditMission('edit')}
+                on:click={() => togglePopUp(submitStateEdit, PlanTypeMission, missionId)}
                 title="Edit mission"
               >
                 <Icon
@@ -330,7 +399,7 @@
             <span>Programs</span>
             <button
               class="btn"
-              on:click={togglePopUpAddProgram}
+              on:click={() => togglePopUp(submitStateAdd, PlanTypeProgram, 0)}
               title="Add program"
             >
               <Icon
