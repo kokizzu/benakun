@@ -43,6 +43,8 @@ const (
 	ErrTenantAdminCreateBudgetPlanParentPlanNotFound = `parent plan not found, don't add parent instead`
 	ErrTenantAdminCreateBudgetPlanInvalidPlanType = `invalid plan type`
 	ErrTenantAdminCreateBudgetPlanFailed = `failed to create plan`
+	ErrTenantAdminCreateBudgetPlanVisionExist = `vision already exist`
+	ErrTenantAdminCreateBudgetPlanMissionExist = `mission already exist`
 )
 
 func (d *Domain) TenantAdminCreateBudgetPlan(in *TenantAdminCreateBudgetPlanIn) (out TenantAdminCreateBudgetPlanOut) {
@@ -95,19 +97,28 @@ func (d *Domain) TenantAdminCreateBudgetPlan(in *TenantAdminCreateBudgetPlanIn) 
 
 	plan := wcBudget.NewPlansMutator(d.AuthOltp)
 
+	plan.PlanType = in.PlanType
+	plan.OrgId = in.OrgId
+	
 	switch in.PlanType {
 	case mBudget.PlanTypeVision:
+		if plan.IsVisionExist() {
+			out.SetError(400, ErrTenantAdminCreateBudgetPlanVisionExist)
+			return
+		}
 		plan.Title = mBudget.TitleVision
 	case mBudget.PlanTypeMission:
+		if plan.IsMissionExist() {
+			out.SetError(400, ErrTenantAdminCreateBudgetPlanMissionExist)
+			return
+		}
 		plan.Title = mBudget.TitleMission
 	default:
 		plan.Title = in.Title
 	}
 
-	plan.PlanType = in.PlanType
 	plan.Description = in.Description
 	plan.ParentId = in.ParentId
-	plan.OrgId = in.OrgId
 	plan.PerYear = in.PerYear
 	plan.BudgetIDR = in.BudgetIDR
 	plan.BudgetUSD = in.BudgetUSD

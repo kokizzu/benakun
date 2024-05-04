@@ -7,7 +7,6 @@
   import RiSystemArrowRightSLine from 'svelte-icons-pack/ri/RiSystemArrowRightSLine';
   import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
   import RiDesignPencilLine from 'svelte-icons-pack/ri/RiDesignPencilLine';
-  import RiSystemDeleteBinLine from 'svelte-icons-pack/ri/RiSystemDeleteBinLine';
   import PlanProgramTree from './PlanProgramTree.svelte';
   import {
     TenantAdminGetBudgetPlans,
@@ -248,7 +247,7 @@
           <Icon
             color="var(--gray-006)"
             className="icon {isShowPlans ? 'rotate' : 'dropdown'}"
-            size="17"
+            size="14"
             src={RiSystemArrowRightSLine}
           />
         </button>
@@ -267,10 +266,11 @@
               >
                 <Icon
                   className="icon"
-                  color="var(--gray-006)"
-                  size="17"
+                  color="#FFF"
+                  size="14"
                   src={RiSystemAddBoxLine}
                 />
+                <span>Add</span>
               </button>
             {:else}
               <button
@@ -280,10 +280,11 @@
               >
                 <Icon
                   className="icon"
-                  color="var(--gray-006)"
-                  size="17"
+                  color="#FFF"
+                  size="14"
                   src={RiDesignPencilLine}
                 />
+                <span>Edit</span>
               </button>
             {/if}
           </div>
@@ -300,10 +301,11 @@
               >
                 <Icon
                   className="icon"
-                  color="var(--gray-006)"
-                  size="17"
+                  color="#FFF"
+                  size="14"
                   src={RiSystemAddBoxLine}
                 />
+                <span>Add</span>
               </button>
             {:else}  
               <button
@@ -313,10 +315,11 @@
               >
                 <Icon
                   className="icon"
-                  color="var(--gray-006)"
-                  size="17"
+                  color="#FFF"
+                  size="14"
                   src={RiDesignPencilLine}
                 />
+                <span>Edit</span>
               </button>
             {/if}
           </div>
@@ -332,10 +335,11 @@
             >
               <Icon
                 className="icon"
-                color="var(--gray-006)"
-                size="17"
+                color="#FFF"
+                size="14"
                 src={RiSystemAddBoxLine}
               />
+              <span>Add</span>
             </button>
           </div>
           <div class="program_activity_list">
@@ -496,15 +500,28 @@
     gap: 5px;
   }
 
-  .org_container .org .options .btn {
+  .org_container .org .options .btn,
+  .org_container .org_wrapper .org_plans .plan .label .btn {
     display: flex;
     justify-content: center;
     align-items: center;
     border: none;
-    background-color: transparent;
+    background-color: var(--blue-006);
     border-radius: 5px;
-    padding: 5px;
+    padding: 4px 8px;
     cursor: pointer;
+    color: #FFF;
+    gap: 5px;
+    font-size: var(--font-sm);
+  }
+
+  .org_container .org_wrapper .org_plans .plan .label span {
+    padding: 0;
+  }
+
+  .org_container .org .options .btn:hover,
+  .org_container .org_wrapper .org_plans .plan .label .btn:hover {
+    background-color: var(--blue-005);
   }
 
   :global(.dropdown) {
@@ -516,10 +533,9 @@
 		transform: rotate(90deg);
 	}
 
-  .org_container .org .options .btn:hover {
-    background-color: var(--gray-002);
+  .org_container .org .options .btn.arrow {
+    background-color: transparent !important;
   }
-
   .org_container .org .options .btn.arrow:hover,
   .org_container .org .options .btn.arrow:active {
     background-color: transparent;
@@ -549,42 +565,17 @@
     display: flex;
     flex-direction: column;
     padding: 5px;
+    gap: 5px;
   }
 
   .org_container .org_wrapper .org_plans .plan .label {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     gap: 8px;
     font-size: var(--font-md);
     font-weight: 600;
-  }
-
-  .org_container .org_wrapper .org_plans .plan .label span {
-    padding: 5px 0;
-  }
-
-  .org_container .org_wrapper .org_plans .plan .label .btn {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    background-color: transparent;
-    border-radius: 5px;
-    padding: 5px;
-    cursor: pointer;
-  }
-
-  .org_container .org_wrapper .org_plans .plan:hover .label .btn {
-    display: flex;
-  }
-
-  .org_container .org_wrapper .org_plans .plan .label .btn:hover {
-    background-color: var(--gray-002);
-  }
-
-  .org_container .org_wrapper .org_plans .plan .label .btn:active {
-    background-color: var(--gray-003);
   }
 
   .org_container .org_wrapper .org_plans .plan p {
@@ -598,6 +589,5 @@
   .org_container .org_wrapper .org_plans .plan.programs .program_activity_list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
   }
 </style>

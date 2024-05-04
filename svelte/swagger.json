@@ -1967,6 +1967,67 @@
 				}
 			}
 		},
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"id": {
+								"type": "number"
+						},
+						"planType": {
+								"type": "string"
+						},
+						"title": {
+								"type": "string"
+						},
+						"description": {
+								"type": "string"
+						},
+						"perYear": {
+								"type": "number"
+						},
+						"budgetIDR": {
+								"type": "number"
+						},
+						"budgetUSD": {
+								"type": "number"
+						},
+						"budgetEUR": {
+								"type": "number"
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminUpdateBudgetPlan",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"plans": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/tenantAdmin/updateCoaChild": {
 			"post": {
 				"security": [{

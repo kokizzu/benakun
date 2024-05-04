@@ -1403,6 +1403,51 @@ exports.TenantAdminTransaction = async function TenantAdminTransaction( i, cb ) 
 }
 
 /**
+ * @typedef {Object} TenantAdminUpdateBudgetPlanIn
+ * @property {number} id
+ * @property {String} planType
+ * @property {String} title
+ * @property {String} description
+ * @property {number} perYear
+ * @property {number} budgetIDR
+ * @property {number} budgetUSD
+ * @property {number} budgetEUR
+ */
+const TenantAdminUpdateBudgetPlanIn = {
+  id: 0, // uint64
+  planType: '', // string
+  title: '', // string
+  description: '', // string
+  perYear: 0, // int64
+  budgetIDR: 0, // int64
+  budgetUSD: 0, // int64
+  budgetEUR: 0, // int64
+}
+/**
+ * @typedef {Object} TenantAdminUpdateBudgetPlanOut
+ * @property {Object} plans
+ */
+const TenantAdminUpdateBudgetPlanOut = {
+  plans: { // []rqBudget.Plans
+  }, // []rqBudget.Plans
+}
+/**
+ * @callback TenantAdminUpdateBudgetPlanCallback
+ * @param {TenantAdminUpdateBudgetPlanOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminUpdateBudgetPlanIn} i
+ * @param {TenantAdminUpdateBudgetPlanCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminUpdateBudgetPlan = async function TenantAdminUpdateBudgetPlan( i, cb ) {
+  return await axios.post( '/tenantAdmin/updateBudgetPlan', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} TenantAdminUpdateCoaChildIn
  * @property {number} id
  * @property {String} name

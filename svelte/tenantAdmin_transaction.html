@@ -2745,6 +2745,9 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       exports.TenantAdminTransaction = async function TenantAdminTransaction(i, cb) {
         return await axios.post("/tenantAdmin/transaction", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminUpdateBudgetPlan = async function TenantAdminUpdateBudgetPlan(i, cb) {
+        return await axios.post("/tenantAdmin/updateBudgetPlan", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.TenantAdminUpdateCoaChild = async function TenantAdminUpdateCoaChild(i, cb) {
         return await axios.post("/tenantAdmin/updateCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
