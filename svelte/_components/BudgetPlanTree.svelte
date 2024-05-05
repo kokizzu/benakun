@@ -87,7 +87,7 @@
 
   function reformatPrograms() {
     if (!budgetPlans || budgetPlans.length === 0) return;
-    if (programsActivity && programsActivity.length > 0) programsActivity = [];
+    programsActivity = [];
 
     for (let i in budgetPlans) {
       if (budgetPlans[i].planType === PlanTypeProgram) {
@@ -110,7 +110,6 @@
         if (budgetPlans[i].planType === PlanTypeVision) {
           visionDesc = budgetPlans[i].description;
           visionId = Number(budgetPlans[i].id);
-          console.log('Vision ID:', visionId)
         }
       }
     }
@@ -200,7 +199,7 @@
           console.log(o);
           return;
         }
-        notifier.showSuccess(title + ' edited');
+        notifier.showSuccess(planType + ' edited');
         const out = /** @type {import('../jsApi.GEN').TenantAdminUpdateBudgetPlanOut}*/ (o);
         budgetPlans = out.plans;
 
@@ -281,17 +280,23 @@
 
     popUpBudgetPlan.show();
   }
+
+  function onUpdateProgramActivity(e) {
+    const plans = /** @type {BudgetPlan[]}*/ (e.detail);
+    budgetPlans = plans;
+    reformatPlans();
+  }
 </script>
 
 <PopUpBudgetPlan
   bind:this={popUpBudgetPlan}
-  bind:planType={planType}
-  bind:title={title}
-  bind:description={description}
-  bind:perYear={perYear}
-  bind:budgetIDR={budgetIDR}
-  bind:budgetUSD={budgetUSD}
-  bind:budgetEUR={budgetEUR}
+  bind:planType
+  bind:title
+  bind:description
+  bind:perYear
+  bind:budgetIDR
+  bind:budgetUSD
+  bind:budgetEUR
   bind:heading={headingPopUp}
   bind:isSubmitted={isSubmitPlan}
   onSubmit={submitPlan}
@@ -413,8 +418,12 @@
           </div>
           <div class="program_activity_list">
             {#if programsActivity && programsActivity.length > 0}
-              {#each programsActivity as plan}
-                <PlanProgramTree {plan} on:details={(e) => dispatch('details', e.detail)} />
+              {#each programsActivity as plan, _ (plan.id)}
+                <PlanProgramTree
+                  {plan}
+                  on:details={(e) => dispatch('details', e.detail)}
+                  on:update={onUpdateProgramActivity}
+                />
               {/each}
             {/if}
           </div>
@@ -424,7 +433,7 @@
   </div>
 </div>
 
-{#if org.children}
+{#if org.children && org.children.length > 0}
   {#each org.children as child, _ (child.id)}
     {#if child.deletedAt === 0}
       {#if child.orgType !== OrgTypeJob}

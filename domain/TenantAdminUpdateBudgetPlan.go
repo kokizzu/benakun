@@ -73,25 +73,25 @@ func (d *Domain) TenantAdminUpdateBudgetPlan(in *TenantAdminUpdateBudgetPlanIn) 
 	}
 
 	if in.Description != plan.Description {
-		plan.Description = in.Description
+		plan.SetDescription(in.Description)
 	}
 
 	// vision and mission cannot edit fields other than description
 	if !(plan.PlanType == mBudget.PlanTypeVision || plan.PlanType == mBudget.PlanTypeMission) {
 		if in.Title != plan.Title {
-			plan.Title = in.Title
+			plan.SetTitle(in.Title)
 		}
 		if in.PerYear != plan.PerYear {
-			plan.PerYear = in.PerYear
+			plan.SetPerYear(in.PerYear)
 		}
 		if in.BudgetIDR != plan.BudgetIDR {
-			plan.BudgetIDR = in.BudgetIDR
+			plan.SetBudgetIDR(in.BudgetIDR)
 		}
 		if in.BudgetUSD != plan.BudgetUSD {
-			plan.BudgetUSD = in.BudgetUSD
+			plan.SetBudgetUSD(in.BudgetUSD)
 		}
 		if in.BudgetEUR != plan.BudgetEUR {
-			plan.BudgetEUR = in.BudgetEUR
+			plan.SetBudgetEUR(in.BudgetEUR)
 		}
 	}
 

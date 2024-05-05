@@ -3825,7 +3825,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       lookup.delete(block.key);
     });
   }
-  function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block4, next, get_context) {
+  function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block5, next, get_context) {
     let o = old_blocks.length;
     let n = list.length;
     let i = o;
@@ -3842,7 +3842,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       const key = get_key(child_ctx);
       let block = lookup.get(key);
       if (!block) {
-        block = create_each_block4(key, child_ctx);
+        block = create_each_block5(key, child_ctx);
         block.c();
       } else if (dynamic) {
         updates.push(() => block.p(child_ctx, dirty));
@@ -5859,6 +5859,14 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       viewBox: "0 0 512 512"
     },
     c: '<path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"></path>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiMediaSpeedMiniFill.js
+  var RiMediaSpeedMiniFill_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M4.788 17.444A.5.5 0 0 1 4 17.035V6.965a.5.5 0 0 1 .788-.409l7.133 5.036a.5.5 0 0 1 0 .816l-7.133 5.036zM13 6.965a.5.5 0 0 1 .788-.409l7.133 5.036a.5.5 0 0 1 0 .816l-7.133 5.036a.5.5 0 0 1-.788-.409V6.965z"></path></g>'
   };
 
   // _components/PlanProgramTree.svelte
@@ -8610,6 +8618,396 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
   var PopUpBudgetPlan_default = PopUpBudgetPlan;
 
   // _components/PlanProgramTree.svelte
+  function get_each_context2(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[33] = list[i];
+    child_ctx[35] = i;
+    return child_ctx;
+  }
+  function create_else_block2(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        className: "icon",
+        color: "var(--gray-006)",
+        size: "13",
+        src: RiMediaSpeedMiniFill_default
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_if_block_43(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        className: "icon",
+        color: "var(--gray-006)",
+        size: "13",
+        src: FaFolder_default
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_if_block_33(ctx) {
+    let button;
+    let icon;
+    let t0;
+    let span;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        className: "icon",
+        color: "#FFF",
+        size: "14",
+        src: RiSystemAddBoxLine_default
+      }
+    });
+    return {
+      c() {
+        button = element("button");
+        create_component(icon.$.fragment);
+        t0 = space();
+        span = element("span");
+        span.textContent = "Add";
+        attr(span, "class", "svelte-iqsukq");
+        attr(button, "class", "btn svelte-iqsukq");
+        attr(button, "title", "Add activity");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        mount_component(icon, button, null);
+        append(button, t0);
+        append(button, span);
+        current = true;
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*click_handler_1*/
+            ctx[24]
+          );
+          mounted = true;
+        }
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        destroy_component(icon);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block5(ctx) {
+    let each_blocks = [];
+    let each_1_lookup = /* @__PURE__ */ new Map();
+    let each_1_anchor;
+    let current;
+    let each_value = ensure_array_like(
+      /*plan*/
+      ctx[0].children
+    );
+    const get_key = (ctx2) => (
+      /*child*/
+      ctx2[33].id
+    );
+    for (let i = 0; i < each_value.length; i += 1) {
+      let child_ctx = get_each_context2(ctx, each_value, i);
+      let key = get_key(child_ctx);
+      each_1_lookup.set(key, each_blocks[i] = create_each_block2(key, child_ctx));
+    }
+    return {
+      c() {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        each_1_anchor = empty();
+      },
+      m(target, anchor) {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(target, anchor);
+          }
+        }
+        insert(target, each_1_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (dirty[0] & /*plan*/
+        1) {
+          each_value = ensure_array_like(
+            /*plan*/
+            ctx2[0].children
+          );
+          group_outros();
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block2, each_1_anchor, get_each_context2);
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        for (let i = 0; i < each_value.length; i += 1) {
+          transition_in(each_blocks[i]);
+        }
+        current = true;
+      },
+      o(local) {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          transition_out(each_blocks[i]);
+        }
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(each_1_anchor);
+        }
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].d(detaching);
+        }
+      }
+    };
+  }
+  function create_if_block_15(ctx) {
+    let if_block_anchor;
+    let current;
+    let if_block = (
+      /*child*/
+      ctx[33].planType === "activity" && create_if_block_25(ctx)
+    );
+    return {
+      c() {
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (
+          /*child*/
+          ctx2[33].planType === "activity"
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty[0] & /*plan*/
+            1) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block_25(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if (if_block)
+          if_block.d(detaching);
+      }
+    };
+  }
+  function create_if_block_25(ctx) {
+    let planprogramtree;
+    let current;
+    planprogramtree = new PlanProgramTree({ props: { plan: (
+      /*child*/
+      ctx[33]
+    ) } });
+    planprogramtree.$on(
+      "update",
+      /*update_handler*/
+      ctx[25]
+    );
+    planprogramtree.$on(
+      "details",
+      /*details_handler*/
+      ctx[26]
+    );
+    return {
+      c() {
+        create_component(planprogramtree.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(planprogramtree, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const planprogramtree_changes = {};
+        if (dirty[0] & /*plan*/
+        1)
+          planprogramtree_changes.plan = /*child*/
+          ctx2[33];
+        planprogramtree.$set(planprogramtree_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(planprogramtree.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(planprogramtree.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(planprogramtree, detaching);
+      }
+    };
+  }
+  function create_each_block2(key_1, ctx) {
+    let first;
+    let if_block_anchor;
+    let current;
+    let if_block = (
+      /*child*/
+      ctx[33].deletedAt === 0 && create_if_block_15(ctx)
+    );
+    return {
+      key: key_1,
+      first: null,
+      c() {
+        first = empty();
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+        this.first = first;
+      },
+      m(target, anchor) {
+        insert(target, first, anchor);
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (
+          /*child*/
+          ctx[33].deletedAt === 0
+        ) {
+          if (if_block) {
+            if_block.p(ctx, dirty);
+            if (dirty[0] & /*plan*/
+            1) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block_15(ctx);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(first);
+          detach(if_block_anchor);
+        }
+        if (if_block)
+          if_block.d(detaching);
+      }
+    };
+  }
   function create_fragment10(ctx) {
     let popupbudgetplan;
     let updating_planType;
@@ -8624,7 +9022,8 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     let t0;
     let div1;
     let button0;
-    let icon0;
+    let current_block_type_index;
+    let if_block0;
     let t1;
     let span0;
     let t2_value = (
@@ -8635,47 +9034,46 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     let t3;
     let div0;
     let button1;
-    let icon1;
+    let icon;
     let t4;
     let span1;
+    let button1_title_value;
     let t6;
-    let button2;
-    let icon2;
-    let t7;
-    let span2;
     let div1_class_value;
+    let t7;
+    let if_block2_anchor;
     let current;
     let mounted;
     let dispose;
     function popupbudgetplan_planType_binding(value) {
-      ctx[15](value);
+      ctx[14](value);
     }
     function popupbudgetplan_title_binding(value) {
-      ctx[16](value);
+      ctx[15](value);
     }
     function popupbudgetplan_description_binding(value) {
-      ctx[17](value);
+      ctx[16](value);
     }
     function popupbudgetplan_perYear_binding(value) {
-      ctx[18](value);
+      ctx[17](value);
     }
     function popupbudgetplan_budgetIDR_binding(value) {
-      ctx[19](value);
+      ctx[18](value);
     }
     function popupbudgetplan_budgetUSD_binding(value) {
-      ctx[20](value);
+      ctx[19](value);
     }
     function popupbudgetplan_budgetEUR_binding(value) {
-      ctx[21](value);
+      ctx[20](value);
     }
     function popupbudgetplan_heading_binding(value) {
-      ctx[22](value);
+      ctx[21](value);
     }
     function popupbudgetplan_isSubmitted_binding(value) {
-      ctx[23](value);
+      ctx[22](value);
     }
     let popupbudgetplan_props = { onSubmit: (
-      /*submitAddPlan*/
+      /*submitPlan*/
       ctx[11]
     ) };
     if (
@@ -8735,14 +9133,14 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       ctx[1];
     }
     if (
-      /*isSubmitAddPlan*/
+      /*isSubmitPlan*/
       ctx[9] !== void 0
     ) {
-      popupbudgetplan_props.isSubmitted = /*isSubmitAddPlan*/
+      popupbudgetplan_props.isSubmitted = /*isSubmitPlan*/
       ctx[9];
     }
     popupbudgetplan = new PopUpBudgetPlan_default({ props: popupbudgetplan_props });
-    ctx[14](popupbudgetplan);
+    ctx[13](popupbudgetplan);
     binding_callbacks.push(() => bind(popupbudgetplan, "planType", popupbudgetplan_planType_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "title", popupbudgetplan_title_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "description", popupbudgetplan_description_binding));
@@ -8752,15 +9150,19 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     binding_callbacks.push(() => bind(popupbudgetplan, "budgetEUR", popupbudgetplan_budgetEUR_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "heading", popupbudgetplan_heading_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "isSubmitted", popupbudgetplan_isSubmitted_binding));
-    icon0 = new Icon_default({
-      props: {
-        className: "icon",
-        color: "var(--gray-006)",
-        size: "13",
-        src: FaFolder_default
-      }
-    });
-    icon1 = new Icon_default({
+    const if_block_creators = [create_if_block_43, create_else_block2];
+    const if_blocks = [];
+    function select_block_type(ctx2, dirty) {
+      if (
+        /*plan*/
+        ctx2[0].planType === "program"
+      )
+        return 0;
+      return 1;
+    }
+    current_block_type_index = select_block_type(ctx, [-1, -1]);
+    if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    icon = new Icon_default({
       props: {
         className: "icon",
         color: "#FFF",
@@ -8768,46 +9170,46 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
         src: RiDesignPencilLine_default
       }
     });
-    icon2 = new Icon_default({
-      props: {
-        className: "icon",
-        color: "#FFF",
-        size: "14",
-        src: RiSystemAddBoxLine_default
-      }
-    });
+    let if_block1 = (
+      /*plan*/
+      ctx[0].planType === "program" && create_if_block_33(ctx)
+    );
+    let if_block2 = (
+      /*plan*/
+      ctx[0].children && /*plan*/
+      ctx[0].children.length > 0 && create_if_block5(ctx)
+    );
     return {
       c() {
         create_component(popupbudgetplan.$.fragment);
         t0 = space();
         div1 = element("div");
         button0 = element("button");
-        create_component(icon0.$.fragment);
+        if_block0.c();
         t1 = space();
         span0 = element("span");
         t2 = text(t2_value);
         t3 = space();
         div0 = element("div");
         button1 = element("button");
-        create_component(icon1.$.fragment);
+        create_component(icon.$.fragment);
         t4 = space();
         span1 = element("span");
         span1.textContent = "Edit";
         t6 = space();
-        button2 = element("button");
-        create_component(icon2.$.fragment);
+        if (if_block1)
+          if_block1.c();
         t7 = space();
-        span2 = element("span");
-        span2.textContent = "Add";
+        if (if_block2)
+          if_block2.c();
+        if_block2_anchor = empty();
         attr(span0, "class", "svelte-iqsukq");
         attr(button0, "class", "title svelte-iqsukq");
         attr(button0, "title", "click to show info");
         attr(span1, "class", "svelte-iqsukq");
         attr(button1, "class", "btn edit svelte-iqsukq");
-        attr(button1, "title", "Edit mission");
-        attr(span2, "class", "svelte-iqsukq");
-        attr(button2, "class", "btn svelte-iqsukq");
-        attr(button2, "title", "Add mission");
+        attr(button1, "title", button1_title_value = "Edit " + /*plan*/
+        ctx[0].planType);
         attr(div0, "class", "options svelte-iqsukq");
         attr(div1, "class", div1_class_value = "item " + /*plan*/
         (ctx[0].planType === "activity" ? "activity" : "") + " svelte-iqsukq");
@@ -8817,21 +9219,23 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
         insert(target, t0, anchor);
         insert(target, div1, anchor);
         append(div1, button0);
-        mount_component(icon0, button0, null);
+        if_blocks[current_block_type_index].m(button0, null);
         append(button0, t1);
         append(button0, span0);
         append(span0, t2);
         append(div1, t3);
         append(div1, div0);
         append(div0, button1);
-        mount_component(icon1, button1, null);
+        mount_component(icon, button1, null);
         append(button1, t4);
         append(button1, span1);
         append(div0, t6);
-        append(div0, button2);
-        mount_component(icon2, button2, null);
-        append(button2, t7);
-        append(button2, span2);
+        if (if_block1)
+          if_block1.m(div0, null);
+        insert(target, t7, anchor);
+        if (if_block2)
+          if_block2.m(target, anchor);
+        insert(target, if_block2_anchor, anchor);
         current = true;
         if (!mounted) {
           dispose = [
@@ -8841,131 +9245,209 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
               /*showDetails*/
               ctx[10]
             ),
-            listen(button1, "click", prevent_default(
-              /*togglePopUpEdit*/
-              ctx[13]
-            )),
-            listen(button2, "click", prevent_default(
-              /*togglePopUpAdd*/
-              ctx[12]
-            ))
+            listen(
+              button1,
+              "click",
+              /*click_handler*/
+              ctx[23]
+            )
           ];
           mounted = true;
         }
       },
-      p(ctx2, [dirty]) {
+      p(ctx2, dirty) {
         const popupbudgetplan_changes = {};
-        if (!updating_planType && dirty & /*plan*/
+        if (!updating_planType && dirty[0] & /*plan*/
         1) {
           updating_planType = true;
           popupbudgetplan_changes.planType = /*plan*/
           ctx2[0].planType;
           add_flush_callback(() => updating_planType = false);
         }
-        if (!updating_title && dirty & /*title*/
+        if (!updating_title && dirty[0] & /*title*/
         4) {
           updating_title = true;
           popupbudgetplan_changes.title = /*title*/
           ctx2[2];
           add_flush_callback(() => updating_title = false);
         }
-        if (!updating_description && dirty & /*description*/
+        if (!updating_description && dirty[0] & /*description*/
         8) {
           updating_description = true;
           popupbudgetplan_changes.description = /*description*/
           ctx2[3];
           add_flush_callback(() => updating_description = false);
         }
-        if (!updating_perYear && dirty & /*perYear*/
+        if (!updating_perYear && dirty[0] & /*perYear*/
         16) {
           updating_perYear = true;
           popupbudgetplan_changes.perYear = /*perYear*/
           ctx2[4];
           add_flush_callback(() => updating_perYear = false);
         }
-        if (!updating_budgetIDR && dirty & /*budgetIDR*/
+        if (!updating_budgetIDR && dirty[0] & /*budgetIDR*/
         32) {
           updating_budgetIDR = true;
           popupbudgetplan_changes.budgetIDR = /*budgetIDR*/
           ctx2[5];
           add_flush_callback(() => updating_budgetIDR = false);
         }
-        if (!updating_budgetUSD && dirty & /*budgetUSD*/
+        if (!updating_budgetUSD && dirty[0] & /*budgetUSD*/
         64) {
           updating_budgetUSD = true;
           popupbudgetplan_changes.budgetUSD = /*budgetUSD*/
           ctx2[6];
           add_flush_callback(() => updating_budgetUSD = false);
         }
-        if (!updating_budgetEUR && dirty & /*budgetEUR*/
+        if (!updating_budgetEUR && dirty[0] & /*budgetEUR*/
         128) {
           updating_budgetEUR = true;
           popupbudgetplan_changes.budgetEUR = /*budgetEUR*/
           ctx2[7];
           add_flush_callback(() => updating_budgetEUR = false);
         }
-        if (!updating_heading && dirty & /*headingPopUp*/
+        if (!updating_heading && dirty[0] & /*headingPopUp*/
         2) {
           updating_heading = true;
           popupbudgetplan_changes.heading = /*headingPopUp*/
           ctx2[1];
           add_flush_callback(() => updating_heading = false);
         }
-        if (!updating_isSubmitted && dirty & /*isSubmitAddPlan*/
+        if (!updating_isSubmitted && dirty[0] & /*isSubmitPlan*/
         512) {
           updating_isSubmitted = true;
-          popupbudgetplan_changes.isSubmitted = /*isSubmitAddPlan*/
+          popupbudgetplan_changes.isSubmitted = /*isSubmitPlan*/
           ctx2[9];
           add_flush_callback(() => updating_isSubmitted = false);
         }
         popupbudgetplan.$set(popupbudgetplan_changes);
-        if ((!current || dirty & /*plan*/
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type(ctx2, dirty);
+        if (current_block_type_index !== previous_block_index) {
+          group_outros();
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
+          });
+          check_outros();
+          if_block0 = if_blocks[current_block_type_index];
+          if (!if_block0) {
+            if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block0.c();
+          } else {
+          }
+          transition_in(if_block0, 1);
+          if_block0.m(button0, t1);
+        }
+        if ((!current || dirty[0] & /*plan*/
         1) && t2_value !== (t2_value = /*plan*/
         ctx2[0].title + ""))
           set_data(t2, t2_value);
-        if (!current || dirty & /*plan*/
+        if (!current || dirty[0] & /*plan*/
+        1 && button1_title_value !== (button1_title_value = "Edit " + /*plan*/
+        ctx2[0].planType)) {
+          attr(button1, "title", button1_title_value);
+        }
+        if (
+          /*plan*/
+          ctx2[0].planType === "program"
+        ) {
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
+            if (dirty[0] & /*plan*/
+            1) {
+              transition_in(if_block1, 1);
+            }
+          } else {
+            if_block1 = create_if_block_33(ctx2);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(div0, null);
+          }
+        } else if (if_block1) {
+          group_outros();
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
+          });
+          check_outros();
+        }
+        if (!current || dirty[0] & /*plan*/
         1 && div1_class_value !== (div1_class_value = "item " + /*plan*/
         (ctx2[0].planType === "activity" ? "activity" : "") + " svelte-iqsukq")) {
           attr(div1, "class", div1_class_value);
+        }
+        if (
+          /*plan*/
+          ctx2[0].children && /*plan*/
+          ctx2[0].children.length > 0
+        ) {
+          if (if_block2) {
+            if_block2.p(ctx2, dirty);
+            if (dirty[0] & /*plan*/
+            1) {
+              transition_in(if_block2, 1);
+            }
+          } else {
+            if_block2 = create_if_block5(ctx2);
+            if_block2.c();
+            transition_in(if_block2, 1);
+            if_block2.m(if_block2_anchor.parentNode, if_block2_anchor);
+          }
+        } else if (if_block2) {
+          group_outros();
+          transition_out(if_block2, 1, 1, () => {
+            if_block2 = null;
+          });
+          check_outros();
         }
       },
       i(local) {
         if (current)
           return;
         transition_in(popupbudgetplan.$.fragment, local);
-        transition_in(icon0.$.fragment, local);
-        transition_in(icon1.$.fragment, local);
-        transition_in(icon2.$.fragment, local);
+        transition_in(if_block0);
+        transition_in(icon.$.fragment, local);
+        transition_in(if_block1);
+        transition_in(if_block2);
         current = true;
       },
       o(local) {
         transition_out(popupbudgetplan.$.fragment, local);
-        transition_out(icon0.$.fragment, local);
-        transition_out(icon1.$.fragment, local);
-        transition_out(icon2.$.fragment, local);
+        transition_out(if_block0);
+        transition_out(icon.$.fragment, local);
+        transition_out(if_block1);
+        transition_out(if_block2);
         current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(t0);
           detach(div1);
+          detach(t7);
+          detach(if_block2_anchor);
         }
-        ctx[14](null);
+        ctx[13](null);
         destroy_component(popupbudgetplan, detaching);
-        destroy_component(icon0);
-        destroy_component(icon1);
-        destroy_component(icon2);
+        if_blocks[current_block_type_index].d();
+        destroy_component(icon);
+        if (if_block1)
+          if_block1.d();
+        if (if_block2)
+          if_block2.d(detaching);
         mounted = false;
         run_all(dispose);
       }
     };
   }
+  var PlanTypeActivity = "activity";
+  var submitStateAdd = "add";
+  var submitStateEdit = "edit";
   function instance10($self, $props, $invalidate) {
     const dispatch = createEventDispatcher();
-    let headingPopUp = "Add Activity";
-    let title = "", description = "", perYear = 0, budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
+    let headingPopUp = "Add activity";
+    let planType = PlanTypeActivity, title = "", description = "", perYear = 0, budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
     const resetPayload = () => {
-      $invalidate(2, title = ""), $invalidate(3, description = ""), $invalidate(4, perYear = 0), $invalidate(5, budgetIDR = 0), $invalidate(6, budgetUSD = 0), $invalidate(7, budgetEUR = 0);
+      planType = "", $invalidate(2, title = ""), $invalidate(3, description = "");
+      $invalidate(4, perYear = 0), $invalidate(5, budgetIDR = 0), $invalidate(6, budgetUSD = 0), $invalidate(7, budgetEUR = 0);
     };
     let { plan = {
       id: "",
@@ -8990,25 +9472,26 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       /** @type {PopUpBudgetPlan} */
       {}
     );
-    let isSubmitAddPlan = false;
+    let isSubmitPlan = false;
+    let submitState = submitStateAdd;
     async function submitAddPlan() {
-      $invalidate(9, isSubmitAddPlan = true);
+      $invalidate(9, isSubmitPlan = true);
       const i = {
         planType: "activity",
         title,
         description,
-        parentId: Number(plan.parentId),
+        parentId: Number(plan.id),
         orgId: Number(plan.orgId),
-        perYear,
-        budgetIDR,
-        budgetUSD,
-        budgetEUR
+        perYear: Number(perYear),
+        budgetIDR: Number(budgetIDR),
+        budgetUSD: Number(budgetUSD),
+        budgetEUR: Number(budgetEUR)
       };
       await (0, import_jsApi_GEN2.TenantAdminCreateBudgetPlan)(
         i,
         /** @type {import('../jsApi.GEN').TenantAdminCreateBudgetPlanCallback} */
         function(o) {
-          $invalidate(9, isSubmitAddPlan = false);
+          $invalidate(9, isSubmitPlan = false);
           if (o.error) {
             notifier.showError(o.error);
             console.log(o);
@@ -9024,17 +9507,75 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
         }
       );
     }
-    const togglePopUpAdd = () => {
-      resetPayload();
-      $invalidate(1, headingPopUp = "Add " + (plan.planType === "activity" ? "activity" : "program"));
+    async function submitEditPlan() {
+      $invalidate(9, isSubmitPlan = true);
+      const i = {
+        id: Number(plan.id),
+        planType,
+        title,
+        description,
+        perYear: Number(perYear),
+        budgetIDR: Number(budgetIDR),
+        budgetUSD: Number(budgetUSD),
+        budgetEUR: Number(budgetEUR)
+      };
+      await (0, import_jsApi_GEN2.TenantAdminUpdateBudgetPlan)(
+        i,
+        /** @type {import('../jsApi.GEN').TenantAdminUpdateBudgetPlanCallback} */
+        function(o) {
+          $invalidate(9, isSubmitPlan = false);
+          if (o.error) {
+            notifier.showError(o.error);
+            console.log(o);
+            return;
+          }
+          notifier.showSuccess(planType + " edited");
+          const out = (
+            /** @type {import('../jsApi.GEN').TenantAdminUpdateBudgetPlanOut}*/
+            o
+          );
+          dispatch("update", out.plans);
+          popUpBudgetPlan.hide();
+        }
+      );
+    }
+    async function submitPlan() {
+      switch (submitState) {
+        case submitStateAdd: {
+          await submitAddPlan();
+          break;
+        }
+        case submitStateEdit: {
+          await submitEditPlan();
+          break;
+        }
+        default: {
+          console.log("invalid submit state, use add, or edit");
+          return;
+        }
+      }
+    }
+    function togglePopUp(state) {
+      switch (state) {
+        case submitStateAdd: {
+          submitState = submitStateAdd;
+          $invalidate(1, headingPopUp = "Add activity");
+          break;
+        }
+        case submitStateEdit: {
+          submitState = submitStateEdit;
+          $invalidate(1, headingPopUp = "Edit " + plan.planType);
+          $invalidate(2, title = plan.title), $invalidate(3, description = plan.description), $invalidate(4, perYear = plan.perYear);
+          $invalidate(5, budgetIDR = plan.budgetIDR), $invalidate(6, budgetUSD = plan.budgetUSD), $invalidate(7, budgetEUR = plan.budgetEUR);
+          break;
+        }
+        default: {
+          console.log("invalid submit state, use add, or edit");
+          return;
+        }
+      }
       popUpBudgetPlan.show();
-    };
-    const togglePopUpEdit = () => {
-      resetPayload();
-      $invalidate(1, headingPopUp = "Edit " + (plan.planType === "activity" ? "activity" : "program"));
-      $invalidate(2, title = plan.title), $invalidate(3, description = plan.description), $invalidate(4, perYear = plan.perYear), $invalidate(5, budgetIDR = plan.budgetIDR), $invalidate(6, budgetUSD = plan.budgetUSD), $invalidate(7, budgetEUR = plan.budgetEUR);
-      popUpBudgetPlan.show();
-    };
+    }
     function popupbudgetplan_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpBudgetPlan = $value;
@@ -9076,8 +9617,16 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       $invalidate(1, headingPopUp);
     }
     function popupbudgetplan_isSubmitted_binding(value) {
-      isSubmitAddPlan = value;
-      $invalidate(9, isSubmitAddPlan);
+      isSubmitPlan = value;
+      $invalidate(9, isSubmitPlan);
+    }
+    const click_handler = () => togglePopUp(submitStateEdit);
+    const click_handler_1 = () => togglePopUp(submitStateAdd);
+    function update_handler(event) {
+      bubble.call(this, $self, event);
+    }
+    function details_handler(event) {
+      bubble.call(this, $self, event);
     }
     $self.$set = ($props2) => {
       if ("plan" in $props2)
@@ -9093,11 +9642,10 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       budgetUSD,
       budgetEUR,
       popUpBudgetPlan,
-      isSubmitAddPlan,
+      isSubmitPlan,
       showDetails,
-      submitAddPlan,
-      togglePopUpAdd,
-      togglePopUpEdit,
+      submitPlan,
+      togglePopUp,
       popupbudgetplan_binding,
       popupbudgetplan_planType_binding,
       popupbudgetplan_title_binding,
@@ -9107,31 +9655,36 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       popupbudgetplan_budgetUSD_binding,
       popupbudgetplan_budgetEUR_binding,
       popupbudgetplan_heading_binding,
-      popupbudgetplan_isSubmitted_binding
+      popupbudgetplan_isSubmitted_binding,
+      click_handler,
+      click_handler_1,
+      update_handler,
+      details_handler
     ];
   }
   var PlanProgramTree = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance10, create_fragment10, safe_not_equal, { plan: 0 });
+      init(this, options, instance10, create_fragment10, safe_not_equal, { plan: 0 }, null, [-1, -1]);
     }
   };
   var PlanProgramTree_default = PlanProgramTree;
 
   // _components/BudgetPlanTree.svelte
   var import_jsApi_GEN3 = __toESM(require_jsApi_GEN());
-  function get_each_context2(ctx, list, i) {
+  function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[51] = list[i];
-    child_ctx[53] = i;
+    child_ctx[52] = list[i];
+    child_ctx[54] = i;
     return child_ctx;
   }
   function get_each_context_12(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[54] = list[i];
+    child_ctx[55] = list[i];
+    child_ctx[54] = i;
     return child_ctx;
   }
-  function create_if_block_33(ctx) {
+  function create_if_block_34(ctx) {
     let div7;
     let div1;
     let div0;
@@ -9185,7 +9738,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     }
     current_block_type_index = select_block_type(ctx, [-1, -1]);
     if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-    const if_block_creators_1 = [create_if_block_53, create_else_block2];
+    const if_block_creators_1 = [create_if_block_53, create_else_block3];
     const if_blocks_1 = [];
     function select_block_type_1(ctx2, dirty) {
       if (!/*missionDesc*/
@@ -9207,7 +9760,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     let if_block2 = (
       /*programsActivity*/
       ctx[7] && /*programsActivity*/
-      ctx[7].length > 0 && create_if_block_43(ctx)
+      ctx[7].length > 0 && create_if_block_44(ctx)
     );
     return {
       c() {
@@ -9301,7 +9854,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
             button,
             "click",
             /*click_handler_4*/
-            ctx[37]
+            ctx[38]
           );
           mounted = true;
         }
@@ -9367,7 +9920,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
               transition_in(if_block2, 1);
             }
           } else {
-            if_block2 = create_if_block_43(ctx2);
+            if_block2 = create_if_block_44(ctx2);
             if_block2.c();
             transition_in(if_block2, 1);
             if_block2.m(div5, null);
@@ -9448,7 +10001,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
             button,
             "click",
             /*click_handler_1*/
-            ctx[34]
+            ctx[35]
           );
           mounted = true;
         }
@@ -9512,7 +10065,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
             button,
             "click",
             /*click_handler*/
-            ctx[33]
+            ctx[34]
           );
           mounted = true;
         }
@@ -9538,7 +10091,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       }
     };
   }
-  function create_else_block2(ctx) {
+  function create_else_block3(ctx) {
     let button;
     let icon;
     let t0;
@@ -9576,7 +10129,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
             button,
             "click",
             /*click_handler_3*/
-            ctx[36]
+            ctx[37]
           );
           mounted = true;
         }
@@ -9640,7 +10193,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
             button,
             "click",
             /*click_handler_2*/
-            ctx[35]
+            ctx[36]
           );
           mounted = true;
         }
@@ -9666,20 +10219,24 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       }
     };
   }
-  function create_if_block_43(ctx) {
+  function create_if_block_44(ctx) {
+    let each_blocks = [];
+    let each_1_lookup = /* @__PURE__ */ new Map();
     let each_1_anchor;
     let current;
     let each_value_1 = ensure_array_like(
       /*programsActivity*/
       ctx[7]
     );
-    let each_blocks = [];
+    const get_key = (ctx2) => (
+      /*plan*/
+      ctx2[55].id
+    );
     for (let i = 0; i < each_value_1.length; i += 1) {
-      each_blocks[i] = create_each_block_12(get_each_context_12(ctx, each_value_1, i));
+      let child_ctx = get_each_context_12(ctx, each_value_1, i);
+      let key = get_key(child_ctx);
+      each_1_lookup.set(key, each_blocks[i] = create_each_block_12(key, child_ctx));
     }
-    const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
-      each_blocks[i] = null;
-    });
     return {
       c() {
         for (let i = 0; i < each_blocks.length; i += 1) {
@@ -9697,29 +10254,14 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*programsActivity, dispatch*/
-        524416) {
+        if (dirty[0] & /*programsActivity, dispatch, onUpdateProgramActivity*/
+        8913024) {
           each_value_1 = ensure_array_like(
             /*programsActivity*/
             ctx2[7]
           );
-          let i;
-          for (i = 0; i < each_value_1.length; i += 1) {
-            const child_ctx = get_each_context_12(ctx2, each_value_1, i);
-            if (each_blocks[i]) {
-              each_blocks[i].p(child_ctx, dirty);
-              transition_in(each_blocks[i], 1);
-            } else {
-              each_blocks[i] = create_each_block_12(child_ctx);
-              each_blocks[i].c();
-              transition_in(each_blocks[i], 1);
-              each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
-            }
-          }
           group_outros();
-          for (i = each_value_1.length; i < each_blocks.length; i += 1) {
-            out(i);
-          }
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value_1, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block_12, each_1_anchor, get_each_context_12);
           check_outros();
         }
       },
@@ -9732,7 +10274,6 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
         current = true;
       },
       o(local) {
-        each_blocks = each_blocks.filter(Boolean);
         for (let i = 0; i < each_blocks.length; i += 1) {
           transition_out(each_blocks[i]);
         }
@@ -9742,36 +10283,50 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
         if (detaching) {
           detach(each_1_anchor);
         }
-        destroy_each(each_blocks, detaching);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].d(detaching);
+        }
       }
     };
   }
-  function create_each_block_12(ctx) {
+  function create_each_block_12(key_1, ctx) {
+    let first;
     let planprogramtree;
     let current;
     planprogramtree = new PlanProgramTree_default({ props: { plan: (
       /*plan*/
-      ctx[54]
+      ctx[55]
     ) } });
     planprogramtree.$on(
       "details",
       /*details_handler_1*/
-      ctx[38]
+      ctx[39]
+    );
+    planprogramtree.$on(
+      "update",
+      /*onUpdateProgramActivity*/
+      ctx[23]
     );
     return {
+      key: key_1,
+      first: null,
       c() {
+        first = empty();
         create_component(planprogramtree.$.fragment);
+        this.first = first;
       },
       m(target, anchor) {
+        insert(target, first, anchor);
         mount_component(planprogramtree, target, anchor);
         current = true;
       },
-      p(ctx2, dirty) {
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
         const planprogramtree_changes = {};
         if (dirty[0] & /*programsActivity*/
         128)
           planprogramtree_changes.plan = /*plan*/
-          ctx2[54];
+          ctx[55];
         planprogramtree.$set(planprogramtree_changes);
       },
       i(local) {
@@ -9785,11 +10340,14 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
         current = false;
       },
       d(detaching) {
+        if (detaching) {
+          detach(first);
+        }
         destroy_component(planprogramtree, detaching);
       }
     };
   }
-  function create_if_block5(ctx) {
+  function create_if_block6(ctx) {
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
     let each_1_anchor;
@@ -9800,12 +10358,12 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     );
     const get_key = (ctx2) => (
       /*child*/
-      ctx2[51].id
+      ctx2[52].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
-      let child_ctx = get_each_context2(ctx, each_value, i);
+      let child_ctx = get_each_context3(ctx, each_value, i);
       let key = get_key(child_ctx);
-      each_1_lookup.set(key, each_blocks[i] = create_each_block2(key, child_ctx));
+      each_1_lookup.set(key, each_blocks[i] = create_each_block3(key, child_ctx));
     }
     return {
       c() {
@@ -9831,7 +10389,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
             ctx2[0].children
           );
           group_outros();
-          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block2, each_1_anchor, get_each_context2);
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block3, each_1_anchor, get_each_context3);
           check_outros();
         }
       },
@@ -9859,12 +10417,12 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       }
     };
   }
-  function create_if_block_15(ctx) {
+  function create_if_block_16(ctx) {
     let if_block_anchor;
     let current;
     let if_block = (
       /*child*/
-      ctx[51].orgType !== OrgTypeJob && create_if_block_25(ctx)
+      ctx[52].orgType !== OrgTypeJob && create_if_block_26(ctx)
     );
     return {
       c() {
@@ -9881,7 +10439,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       p(ctx2, dirty) {
         if (
           /*child*/
-          ctx2[51].orgType !== OrgTypeJob
+          ctx2[52].orgType !== OrgTypeJob
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
@@ -9890,7 +10448,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block_25(ctx2);
+            if_block = create_if_block_26(ctx2);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -9922,17 +10480,17 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       }
     };
   }
-  function create_if_block_25(ctx) {
+  function create_if_block_26(ctx) {
     let budgetplantree;
     let current;
     budgetplantree = new BudgetPlanTree({ props: { org: (
       /*child*/
-      ctx[51]
+      ctx[52]
     ) } });
     budgetplantree.$on(
       "details",
       /*details_handler*/
-      ctx[39]
+      ctx[40]
     );
     return {
       c() {
@@ -9947,7 +10505,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
         if (dirty[0] & /*org*/
         1)
           budgetplantree_changes.org = /*child*/
-          ctx2[51];
+          ctx2[52];
         budgetplantree.$set(budgetplantree_changes);
       },
       i(local) {
@@ -9965,13 +10523,13 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       }
     };
   }
-  function create_each_block2(key_1, ctx) {
+  function create_each_block3(key_1, ctx) {
     let first;
     let if_block_anchor;
     let current;
     let if_block = (
       /*child*/
-      ctx[51].deletedAt === 0 && create_if_block_15(ctx)
+      ctx[52].deletedAt === 0 && create_if_block_16(ctx)
     );
     return {
       key: key_1,
@@ -9994,7 +10552,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
         ctx = new_ctx;
         if (
           /*child*/
-          ctx[51].deletedAt === 0
+          ctx[52].deletedAt === 0
         ) {
           if (if_block) {
             if_block.p(ctx, dirty);
@@ -10003,7 +10561,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block_15(ctx);
+            if_block = create_if_block_16(ctx);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -10076,31 +10634,31 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     let mounted;
     let dispose;
     function popupbudgetplan_planType_binding(value) {
-      ctx[24](value);
-    }
-    function popupbudgetplan_title_binding(value) {
       ctx[25](value);
     }
-    function popupbudgetplan_description_binding(value) {
+    function popupbudgetplan_title_binding(value) {
       ctx[26](value);
     }
-    function popupbudgetplan_perYear_binding(value) {
+    function popupbudgetplan_description_binding(value) {
       ctx[27](value);
     }
-    function popupbudgetplan_budgetIDR_binding(value) {
+    function popupbudgetplan_perYear_binding(value) {
       ctx[28](value);
     }
-    function popupbudgetplan_budgetUSD_binding(value) {
+    function popupbudgetplan_budgetIDR_binding(value) {
       ctx[29](value);
     }
-    function popupbudgetplan_budgetEUR_binding(value) {
+    function popupbudgetplan_budgetUSD_binding(value) {
       ctx[30](value);
     }
-    function popupbudgetplan_heading_binding(value) {
+    function popupbudgetplan_budgetEUR_binding(value) {
       ctx[31](value);
     }
-    function popupbudgetplan_isSubmitted_binding(value) {
+    function popupbudgetplan_heading_binding(value) {
       ctx[32](value);
+    }
+    function popupbudgetplan_isSubmitted_binding(value) {
+      ctx[33](value);
     }
     let popupbudgetplan_props = { onSubmit: (
       /*submitPlan*/
@@ -10170,7 +10728,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       ctx[18];
     }
     popupbudgetplan = new PopUpBudgetPlan_default({ props: popupbudgetplan_props });
-    ctx[23](popupbudgetplan);
+    ctx[24](popupbudgetplan);
     binding_callbacks.push(() => bind(popupbudgetplan, "planType", popupbudgetplan_planType_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "title", popupbudgetplan_title_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "description", popupbudgetplan_description_binding));
@@ -10201,11 +10759,12 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     });
     let if_block0 = (
       /*isShowPlans*/
-      ctx[16] && create_if_block_33(ctx)
+      ctx[16] && create_if_block_34(ctx)
     );
     let if_block1 = (
       /*org*/
-      ctx[0].children && create_if_block5(ctx)
+      ctx[0].children && /*org*/
+      ctx[0].children.length > 0 && create_if_block6(ctx)
     );
     return {
       c() {
@@ -10380,7 +10939,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_33(ctx2);
+            if_block0 = create_if_block_34(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(div3, null);
@@ -10399,7 +10958,8 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
         }
         if (
           /*org*/
-          ctx2[0].children
+          ctx2[0].children && /*org*/
+          ctx2[0].children.length > 0
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
@@ -10408,7 +10968,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block5(ctx2);
+            if_block1 = create_if_block6(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
@@ -10446,7 +11006,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
           detach(t6);
           detach(if_block1_anchor);
         }
-        ctx[23](null);
+        ctx[24](null);
         destroy_component(popupbudgetplan, detaching);
         destroy_component(icon0);
         destroy_component(icon1);
@@ -10462,13 +11022,13 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
   var PlanTypeVision = "vision";
   var PlanTypeMission = "mission";
   var PlanTypeProgram = "program";
-  var PlanTypeActivity = "activity";
+  var PlanTypeActivity2 = "activity";
   var OrgTypeCompany = 1;
   var OrgTypeDept = 2;
   var OrgTypeDivision = 3;
   var OrgTypeJob = 4;
-  var submitStateAdd = "add";
-  var submitStateEdit = "edit";
+  var submitStateAdd2 = "add";
+  var submitStateEdit2 = "edit";
   function instance11($self, $props, $invalidate) {
     const dispatch = createEventDispatcher();
     let { org = (
@@ -10517,7 +11077,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
         []
       );
       for (let i in budgetPlans) {
-        if (budgetPlans[i].planType === PlanTypeActivity && budgetPlans[i].parentId === programId) {
+        if (budgetPlans[i].planType === PlanTypeActivity2 && budgetPlans[i].parentId === programId) {
           activities = [...activities, budgetPlans[i]];
         }
       }
@@ -10526,8 +11086,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     function reformatPrograms() {
       if (!budgetPlans || budgetPlans.length === 0)
         return;
-      if (programsActivity && programsActivity.length > 0)
-        $invalidate(7, programsActivity = []);
+      $invalidate(7, programsActivity = []);
       for (let i in budgetPlans) {
         if (budgetPlans[i].planType === PlanTypeProgram) {
           let program = (
@@ -10549,7 +11108,6 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
           if (budgetPlans[i].planType === PlanTypeVision) {
             $invalidate(3, visionDesc = budgetPlans[i].description);
             $invalidate(5, visionId = Number(budgetPlans[i].id));
-            console.log("Vision ID:", visionId);
           }
         }
       }
@@ -10588,7 +11146,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       {}
     );
     let isSubmitPlan = false;
-    let submitState = submitStateAdd;
+    let submitState = submitStateAdd2;
     async function submitAddPlan() {
       $invalidate(18, isSubmitPlan = true);
       const i = {
@@ -10645,7 +11203,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
             console.log(o);
             return;
           }
-          notifier.showSuccess(title + " edited");
+          notifier.showSuccess(planType + " edited");
           const out = (
             /** @type {import('../jsApi.GEN').TenantAdminUpdateBudgetPlanOut}*/
             o
@@ -10658,11 +11216,11 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     }
     async function submitPlan() {
       switch (submitState) {
-        case submitStateAdd: {
+        case submitStateAdd2: {
           await submitAddPlan();
           break;
         }
-        case submitStateEdit: {
+        case submitStateEdit2: {
           await submitEditPlan();
           break;
         }
@@ -10679,12 +11237,12 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       }
       resetPayload();
       switch (state) {
-        case submitStateAdd: {
-          submitState = submitStateAdd;
+        case submitStateAdd2: {
+          submitState = submitStateAdd2;
           break;
         }
-        case submitStateEdit: {
-          submitState = submitStateEdit;
+        case submitStateEdit2: {
+          submitState = submitStateEdit2;
           id = Number(toId);
           break;
         }
@@ -10715,6 +11273,14 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       }
       $invalidate(8, headingPopUp = state + " " + planType);
       popUpBudgetPlan.show();
+    }
+    function onUpdateProgramActivity(e) {
+      const plans = (
+        /** @type {BudgetPlan[]}*/
+        e.detail
+      );
+      budgetPlans = plans;
+      reformatPlans();
     }
     function popupbudgetplan_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
@@ -10758,11 +11324,11 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       isSubmitPlan = value;
       $invalidate(18, isSubmitPlan);
     }
-    const click_handler = () => togglePopUp(submitStateAdd, PlanTypeVision, 0);
-    const click_handler_1 = () => togglePopUp(submitStateEdit, PlanTypeVision, visionId);
-    const click_handler_2 = () => togglePopUp(submitStateAdd, PlanTypeMission, 0);
-    const click_handler_3 = () => togglePopUp(submitStateEdit, PlanTypeMission, missionId);
-    const click_handler_4 = () => togglePopUp(submitStateAdd, PlanTypeProgram, 0);
+    const click_handler = () => togglePopUp(submitStateAdd2, PlanTypeVision, 0);
+    const click_handler_1 = () => togglePopUp(submitStateEdit2, PlanTypeVision, visionId);
+    const click_handler_2 = () => togglePopUp(submitStateAdd2, PlanTypeMission, 0);
+    const click_handler_3 = () => togglePopUp(submitStateEdit2, PlanTypeMission, missionId);
+    const click_handler_4 = () => togglePopUp(submitStateAdd2, PlanTypeProgram, 0);
     const details_handler_1 = (e) => dispatch("details", e.detail);
     function details_handler(event) {
       bubble.call(this, $self, event);
@@ -10795,6 +11361,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       toggleShowPlans,
       submitPlan,
       togglePopUp,
+      onUpdateProgramActivity,
       popupbudgetplan_binding,
       popupbudgetplan_planType_binding,
       popupbudgetplan_title_binding,
@@ -10824,13 +11391,13 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
 
   // tenantAdmin_budgeting.svelte
   var import_formatter = __toESM(require_formatter());
-  function get_each_context3(ctx, list, i) {
+  function get_each_context4(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[5] = list[i];
     child_ctx[7] = i;
     return child_ctx;
   }
-  function create_if_block6(ctx) {
+  function create_if_block7(ctx) {
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
     let each_1_anchor;
@@ -10844,9 +11411,9 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       ctx2[5].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
-      let child_ctx = get_each_context3(ctx, each_value, i);
+      let child_ctx = get_each_context4(ctx, each_value, i);
       let key = get_key(child_ctx);
-      each_1_lookup.set(key, each_blocks[i] = create_each_block3(key, child_ctx));
+      each_1_lookup.set(key, each_blocks[i] = create_each_block4(key, child_ctx));
     }
     return {
       c() {
@@ -10872,7 +11439,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
             ctx2[0]
           );
           group_outros();
-          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block3, each_1_anchor, get_each_context3);
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block4, each_1_anchor, get_each_context4);
           check_outros();
         }
       },
@@ -10900,7 +11467,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       }
     };
   }
-  function create_each_block3(key_1, ctx) {
+  function create_each_block4(key_1, ctx) {
     let first;
     let budgetplantree;
     let current;
@@ -11037,7 +11604,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     let if_block = (
       /*REFORMAT_ORGS*/
       ctx[0] && /*REFORMAT_ORGS*/
-      ctx[0].length && create_if_block6(ctx)
+      ctx[0].length && create_if_block7(ctx)
     );
     return {
       c() {
@@ -11199,7 +11766,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block6(ctx2);
+            if_block = create_if_block7(ctx2);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(div0, null);

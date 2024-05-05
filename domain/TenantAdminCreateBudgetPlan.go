@@ -81,18 +81,18 @@ func (d *Domain) TenantAdminCreateBudgetPlan(in *TenantAdminCreateBudgetPlanIn) 
 		return
 	}
 
-	if in.ParentId != 0 {
+	if !mBudget.ValidPlanType(in.PlanType) {
+		out.SetError(400, ErrTenantAdminCreateBudgetPlanInvalidPlanType)
+		return
+	}
+
+	if in.PlanType == mBudget.PlanTypeActivity {
 		planParent := wcBudget.NewPlansMutator(d.AuthOltp)
 		planParent.Id = in.ParentId
 		if !planParent.FindById() {
 			out.SetError(400, ErrTenantAdminCreateBudgetPlanParentPlanNotFound)
 			return
 		}
-	}
-
-	if !mBudget.ValidPlanType(in.PlanType) {
-		out.SetError(400, ErrTenantAdminCreateBudgetPlanInvalidPlanType)
-		return
 	}
 
 	plan := wcBudget.NewPlansMutator(d.AuthOltp)

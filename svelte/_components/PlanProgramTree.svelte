@@ -1,6 +1,7 @@
 <script>
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import FaFolder from 'svelte-icons-pack/fa/FaFolder';
+  import RiMediaSpeedMiniFill from "svelte-icons-pack/ri/RiMediaSpeedMiniFill";
   import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
   import RiDesignPencilLine from 'svelte-icons-pack/ri/RiDesignPencilLine';
   import { createEventDispatcher } from 'svelte';
@@ -10,14 +11,18 @@
 
   const dispatch = createEventDispatcher();
 
-  let headingPopUp = 'Add Activity';
+  const PlanTypeProgram = 'program', PlanTypeActivity	= 'activity';
+
+  let headingPopUp = 'Add activity';
 
   // make it as payload
-  let title = '', description = '', perYear = 0, budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
+  let planType = PlanTypeActivity, title = '', description = '',
+  perYear = 0, budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
 
   // reset payload
   const resetPayload = () => {
-    title = '', description = '', perYear = 0, budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
+    planType = '', title = '', description = '';
+    perYear = 0, budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
   }
 
   /** @type {import('./types/budget.js').BudgetPlan} */
@@ -40,22 +45,30 @@
     children: []
   };
 
+  // forward event to the root component, to show program/activity details
   const showDetails = () => dispatch('details', plan);
 
   let popUpBudgetPlan = /** @type {PopUpBudgetPlan} */ ({});
-  let isSubmitAddPlan = false;
+
+
+  // state submit
+  const submitStateAdd = 'add', submitStateEdit = 'edit';
+  const submitStateDelete = 'delete', submitStateRestore = 'restore';
+
+  let isSubmitPlan = false;
+  let submitState = submitStateAdd;
 
   async function submitAddPlan() {
-    isSubmitAddPlan = true;
+    isSubmitPlan = true;
     /** @type {import('../jsApi.GEN.js').TenantAdminCreateBudgetPlanIn} */
     const i = {
-      planType: 'activity', title, description, parentId: Number(plan.parentId),
-      orgId: Number(plan.orgId), perYear, budgetIDR, budgetUSD, budgetEUR
+      planType: 'activity', title, description, parentId: Number(plan.id), orgId: Number(plan.orgId),
+      perYear: Number(perYear), budgetIDR: Number(budgetIDR), budgetUSD: Number(budgetUSD), budgetEUR: Number(budgetEUR)
     }
     await TenantAdminCreateBudgetPlan(
       i, /** @type {import('../jsApi.GEN').TenantAdminCreateBudgetPlanCallback} */
       function (/** @type {any} */ o) {
-        isSubmitAddPlan = false;
+        isSubmitPlan = false;
         if (o.error) {
           notifier.showError(o.error);
           console.log(o);
@@ -70,17 +83,67 @@
     )
   }
 
-  const togglePopUpAdd = () => {
-    resetPayload();
-    headingPopUp = 'Add ' + (plan.planType === 'activity' ? 'activity' : 'program');
-    popUpBudgetPlan.show();
+  async function submitEditPlan() {
+    isSubmitPlan = true;
+    /** @type {import('../jsApi.GEN.js').TenantAdminUpdateBudgetPlanIn} */
+    const i = {
+      id: Number(plan.id), planType, title, description, perYear: Number(perYear),
+      budgetIDR: Number(budgetIDR), budgetUSD: Number(budgetUSD), budgetEUR: Number(budgetEUR)
+    }
+    await TenantAdminUpdateBudgetPlan(i, /** @type {import('../jsApi.GEN').TenantAdminUpdateBudgetPlanCallback} */
+      function (/** @type {any} */ o) {
+        isSubmitPlan = false;
+        if (o.error) {
+          notifier.showError(o.error);
+          console.log(o);
+          return;
+        }
+        notifier.showSuccess(planType + ' edited');
+        const out = /** @type {import('../jsApi.GEN').TenantAdminUpdateBudgetPlanOut}*/ (o);
+        dispatch('update', out.plans);
+
+        popUpBudgetPlan.hide();
+      }
+    )
   }
 
-  const togglePopUpEdit = () => {
-    resetPayload();
-    headingPopUp = 'Edit ' + (plan.planType === 'activity' ? 'activity' : 'program');
+  async function submitPlan() {
+    switch (submitState) {
+      case submitStateAdd: {
+        await submitAddPlan();
+        break;
+      }
+      case submitStateEdit: {
+        await submitEditPlan();
+        break;
+      }
+      default: {
+        console.log('invalid submit state, use add, or edit');
+        return;
+      }
+    }
+  }
 
-    title = plan.title, description = plan.description, perYear = plan.perYear, budgetIDR = plan.budgetIDR, budgetUSD = plan.budgetUSD, budgetEUR = plan.budgetEUR;
+  function togglePopUp(state) {
+    switch (state) {
+      case submitStateAdd: {
+        submitState = submitStateAdd;
+        headingPopUp = 'Add activity';
+        break;
+      }
+      case submitStateEdit: {
+        submitState = submitStateEdit;
+        headingPopUp = 'Edit ' + plan.planType;
+        title = plan.title, description = plan.description, perYear = plan.perYear;
+        budgetIDR = plan.budgetIDR, budgetUSD = plan.budgetUSD, budgetEUR = plan.budgetEUR;
+        break;
+      }
+      default: {
+        console.log('invalid submit state, use add, or edit');
+        return;
+      }
+    }
+
     popUpBudgetPlan.show();
   }
 </script>
@@ -95,25 +158,34 @@
   bind:budgetUSD
   bind:budgetEUR
   bind:heading={headingPopUp}
-  bind:isSubmitted={isSubmitAddPlan}
-  onSubmit={submitAddPlan}
+  bind:isSubmitted={isSubmitPlan}
+  onSubmit={submitPlan}
 />
 
 <div class="item {plan.planType === 'activity' ? 'activity' : ''}">
   <button class="title" on:click={showDetails} title="click to show info">
-    <Icon
-      className="icon"
-      color="var(--gray-006)"
-      size="13"
-      src={FaFolder}
-    />
+    {#if plan.planType === 'program'}
+      <Icon
+        className="icon"
+        color="var(--gray-006)"
+        size="13"
+        src={FaFolder}
+      />
+    {:else}
+      <Icon
+        className="icon"
+        color="var(--gray-006)"
+        size="13"
+        src={RiMediaSpeedMiniFill}
+      />
+    {/if}
     <span>{plan.title}</span>
   </button>
   <div class="options">
     <button
-      on:click|preventDefault={togglePopUpEdit}
+      on:click={() => togglePopUp(submitStateEdit)}
       class="btn edit"
-      title="Edit mission"
+      title="Edit {plan.planType}"
     >
       <Icon
         className="icon"
@@ -123,21 +195,37 @@
       />
       <span>Edit</span>
     </button>
-    <button
-      on:click|preventDefault={togglePopUpAdd}
-      class="btn"
-      title="Add mission"
-    >
-      <Icon
-        className="icon"
-        color="#FFF"
-        size="14"
-        src={RiSystemAddBoxLine}
-      />
-      <span>Add</span>
-    </button>
+    {#if plan.planType === 'program'}
+      <button
+        on:click={() => togglePopUp(submitStateAdd)}
+        class="btn"
+        title="Add activity"
+      >
+        <Icon
+          className="icon"
+          color="#FFF"
+          size="14"
+          src={RiSystemAddBoxLine}
+        />
+        <span>Add</span>
+      </button>
+    {/if}
   </div>
 </div>
+
+{#if plan.children && plan.children.length > 0}
+  {#each plan.children as child, _ (child.id)}
+    {#if child.deletedAt === 0}
+      {#if child.planType === 'activity'}
+        <svelte:self
+          plan={child}
+          on:update
+          on:details
+        />
+      {/if}
+    {/if}
+  {/each}
+{/if}
 
 <style>
   .item {
