@@ -13,12 +13,301 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-// PlansMutator DAO writer/command struct
+// BankAccountsMutator DAO writer/command struct
 //
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file wcBudget__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type wcBudget__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type wcBudget__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcBudget__ORM.GEN.go
+type BankAccountsMutator struct {
+	rqBudget.BankAccounts
+	mutations []A.X
+	logs      []A.X
+}
+
+// NewBankAccountsMutator create new ORM writer/command object
+func NewBankAccountsMutator(adapter *Tt.Adapter) (res *BankAccountsMutator) {
+	res = &BankAccountsMutator{BankAccounts: rqBudget.BankAccounts{Adapter: adapter}}
+	return
+}
+
+// Logs get array of logs [field, old, new]
+func (b *BankAccountsMutator) Logs() []A.X { //nolint:dupl false positive
+	return b.logs
+}
+
+// HaveMutation check whether Set* methods ever called
+func (b *BankAccountsMutator) HaveMutation() bool { //nolint:dupl false positive
+	return len(b.mutations) > 0
+}
+
+// ClearMutations clear all previously called Set* methods
+func (b *BankAccountsMutator) ClearMutations() { //nolint:dupl false positive
+	b.mutations = []A.X{}
+	b.logs = []A.X{}
+}
+
+// func (b *BankAccountsMutator) DoUpsert() bool { //nolint:dupl false positive
+//	arr := b.ToArray()
+//	_, err := b.Adapter.Upsert(b.SpaceName(), arr, A.X{
+//		A.X{`=`, 0, b.Id},
+//		A.X{`=`, 1, b.CreatedAt},
+//		A.X{`=`, 2, b.CreatedBy},
+//		A.X{`=`, 3, b.UpdatedAt},
+//		A.X{`=`, 4, b.UpdatedBy},
+//		A.X{`=`, 5, b.DeletedAt},
+//		A.X{`=`, 6, b.Name},
+//		A.X{`=`, 7, b.ParentBankAccountId},
+//		A.X{`=`, 8, b.AccountNumber},
+//		A.X{`=`, 9, b.BankName},
+//		A.X{`=`, 10, b.AccountName},
+//		A.X{`=`, 11, b.IsProfitCenter},
+//		A.X{`=`, 12, b.IsCostCenter},
+//		A.X{`=`, 13, b.StaffId},
+//	})
+//	return !L.IsError(err, `BankAccounts.DoUpsert failed: `+b.SpaceName()+ `\n%#v`, arr)
+// }
+
+// DoInsert insert, error if already exists
+func (b *BankAccountsMutator) DoInsert() bool { //nolint:dupl false positive
+	arr := b.ToArray()
+	_, err := b.Adapter.Insert(b.SpaceName(), arr)
+	return !L.IsError(err, `BankAccounts.DoInsert failed: `+b.SpaceName()+`\n%#v`, arr)
+}
+
+// DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
+// replace = upsert, only error when there's unique secondary key
+// previous name: DoReplace
+func (b *BankAccountsMutator) DoUpsert() bool { //nolint:dupl false positive
+	arr := b.ToArray()
+	_, err := b.Adapter.Replace(b.SpaceName(), arr)
+	return !L.IsError(err, `BankAccounts.DoUpsert failed: `+b.SpaceName()+`\n%#v`, arr)
+}
+
+// SetId create mutations, should not duplicate
+func (b *BankAccountsMutator) SetId(val uint64) bool { //nolint:dupl false positive
+	if val != b.Id {
+		b.mutations = append(b.mutations, A.X{`=`, 0, val})
+		b.logs = append(b.logs, A.X{`id`, b.Id, val})
+		b.Id = val
+		return true
+	}
+	return false
+}
+
+// SetCreatedAt create mutations, should not duplicate
+func (b *BankAccountsMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
+	if val != b.CreatedAt {
+		b.mutations = append(b.mutations, A.X{`=`, 1, val})
+		b.logs = append(b.logs, A.X{`createdAt`, b.CreatedAt, val})
+		b.CreatedAt = val
+		return true
+	}
+	return false
+}
+
+// SetCreatedBy create mutations, should not duplicate
+func (b *BankAccountsMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
+	if val != b.CreatedBy {
+		b.mutations = append(b.mutations, A.X{`=`, 2, val})
+		b.logs = append(b.logs, A.X{`createdBy`, b.CreatedBy, val})
+		b.CreatedBy = val
+		return true
+	}
+	return false
+}
+
+// SetUpdatedAt create mutations, should not duplicate
+func (b *BankAccountsMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
+	if val != b.UpdatedAt {
+		b.mutations = append(b.mutations, A.X{`=`, 3, val})
+		b.logs = append(b.logs, A.X{`updatedAt`, b.UpdatedAt, val})
+		b.UpdatedAt = val
+		return true
+	}
+	return false
+}
+
+// SetUpdatedBy create mutations, should not duplicate
+func (b *BankAccountsMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
+	if val != b.UpdatedBy {
+		b.mutations = append(b.mutations, A.X{`=`, 4, val})
+		b.logs = append(b.logs, A.X{`updatedBy`, b.UpdatedBy, val})
+		b.UpdatedBy = val
+		return true
+	}
+	return false
+}
+
+// SetDeletedAt create mutations, should not duplicate
+func (b *BankAccountsMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
+	if val != b.DeletedAt {
+		b.mutations = append(b.mutations, A.X{`=`, 5, val})
+		b.logs = append(b.logs, A.X{`deletedAt`, b.DeletedAt, val})
+		b.DeletedAt = val
+		return true
+	}
+	return false
+}
+
+// SetName create mutations, should not duplicate
+func (b *BankAccountsMutator) SetName(val string) bool { //nolint:dupl false positive
+	if val != b.Name {
+		b.mutations = append(b.mutations, A.X{`=`, 6, val})
+		b.logs = append(b.logs, A.X{`name`, b.Name, val})
+		b.Name = val
+		return true
+	}
+	return false
+}
+
+// SetParentBankAccountId create mutations, should not duplicate
+func (b *BankAccountsMutator) SetParentBankAccountId(val uint64) bool { //nolint:dupl false positive
+	if val != b.ParentBankAccountId {
+		b.mutations = append(b.mutations, A.X{`=`, 7, val})
+		b.logs = append(b.logs, A.X{`parentBankAccountId`, b.ParentBankAccountId, val})
+		b.ParentBankAccountId = val
+		return true
+	}
+	return false
+}
+
+// SetAccountNumber create mutations, should not duplicate
+func (b *BankAccountsMutator) SetAccountNumber(val int64) bool { //nolint:dupl false positive
+	if val != b.AccountNumber {
+		b.mutations = append(b.mutations, A.X{`=`, 8, val})
+		b.logs = append(b.logs, A.X{`accountNumber`, b.AccountNumber, val})
+		b.AccountNumber = val
+		return true
+	}
+	return false
+}
+
+// SetBankName create mutations, should not duplicate
+func (b *BankAccountsMutator) SetBankName(val string) bool { //nolint:dupl false positive
+	if val != b.BankName {
+		b.mutations = append(b.mutations, A.X{`=`, 9, val})
+		b.logs = append(b.logs, A.X{`bankName`, b.BankName, val})
+		b.BankName = val
+		return true
+	}
+	return false
+}
+
+// SetAccountName create mutations, should not duplicate
+func (b *BankAccountsMutator) SetAccountName(val string) bool { //nolint:dupl false positive
+	if val != b.AccountName {
+		b.mutations = append(b.mutations, A.X{`=`, 10, val})
+		b.logs = append(b.logs, A.X{`accountName`, b.AccountName, val})
+		b.AccountName = val
+		return true
+	}
+	return false
+}
+
+// SetIsProfitCenter create mutations, should not duplicate
+func (b *BankAccountsMutator) SetIsProfitCenter(val bool) bool { //nolint:dupl false positive
+	if val != b.IsProfitCenter {
+		b.mutations = append(b.mutations, A.X{`=`, 11, val})
+		b.logs = append(b.logs, A.X{`isProfitCenter `, b.IsProfitCenter, val})
+		b.IsProfitCenter = val
+		return true
+	}
+	return false
+}
+
+// SetIsCostCenter create mutations, should not duplicate
+func (b *BankAccountsMutator) SetIsCostCenter(val bool) bool { //nolint:dupl false positive
+	if val != b.IsCostCenter {
+		b.mutations = append(b.mutations, A.X{`=`, 12, val})
+		b.logs = append(b.logs, A.X{`isCostCenter`, b.IsCostCenter, val})
+		b.IsCostCenter = val
+		return true
+	}
+	return false
+}
+
+// SetStaffId create mutations, should not duplicate
+func (b *BankAccountsMutator) SetStaffId(val uint64) bool { //nolint:dupl false positive
+	if val != b.StaffId {
+		b.mutations = append(b.mutations, A.X{`=`, 13, val})
+		b.logs = append(b.logs, A.X{`staffId`, b.StaffId, val})
+		b.StaffId = val
+		return true
+	}
+	return false
+}
+
+// SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
+func (b *BankAccountsMutator) SetAll(from rqBudget.BankAccounts, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
+	if excludeMap == nil { // list of fields to exclude
+		excludeMap = M.SB{}
+	}
+	if forceMap == nil { // list of fields to force overwrite
+		forceMap = M.SB{}
+	}
+	if !excludeMap[`id`] && (forceMap[`id`] || from.Id != 0) {
+		b.Id = from.Id
+		changed = true
+	}
+	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
+		b.CreatedAt = from.CreatedAt
+		changed = true
+	}
+	if !excludeMap[`createdBy`] && (forceMap[`createdBy`] || from.CreatedBy != 0) {
+		b.CreatedBy = from.CreatedBy
+		changed = true
+	}
+	if !excludeMap[`updatedAt`] && (forceMap[`updatedAt`] || from.UpdatedAt != 0) {
+		b.UpdatedAt = from.UpdatedAt
+		changed = true
+	}
+	if !excludeMap[`updatedBy`] && (forceMap[`updatedBy`] || from.UpdatedBy != 0) {
+		b.UpdatedBy = from.UpdatedBy
+		changed = true
+	}
+	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
+		b.DeletedAt = from.DeletedAt
+		changed = true
+	}
+	if !excludeMap[`name`] && (forceMap[`name`] || from.Name != ``) {
+		b.Name = S.Trim(from.Name)
+		changed = true
+	}
+	if !excludeMap[`parentBankAccountId`] && (forceMap[`parentBankAccountId`] || from.ParentBankAccountId != 0) {
+		b.ParentBankAccountId = from.ParentBankAccountId
+		changed = true
+	}
+	if !excludeMap[`accountNumber`] && (forceMap[`accountNumber`] || from.AccountNumber != 0) {
+		b.AccountNumber = from.AccountNumber
+		changed = true
+	}
+	if !excludeMap[`bankName`] && (forceMap[`bankName`] || from.BankName != ``) {
+		b.BankName = S.Trim(from.BankName)
+		changed = true
+	}
+	if !excludeMap[`accountName`] && (forceMap[`accountName`] || from.AccountName != ``) {
+		b.AccountName = S.Trim(from.AccountName)
+		changed = true
+	}
+	if !excludeMap[`isProfitCenter `] && (forceMap[`isProfitCenter `] || from.IsProfitCenter != false) {
+		b.IsProfitCenter = from.IsProfitCenter
+		changed = true
+	}
+	if !excludeMap[`isCostCenter`] && (forceMap[`isCostCenter`] || from.IsCostCenter != false) {
+		b.IsCostCenter = from.IsCostCenter
+		changed = true
+	}
+	if !excludeMap[`staffId`] && (forceMap[`staffId`] || from.StaffId != 0) {
+		b.StaffId = from.StaffId
+		changed = true
+	}
+	return
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
+// PlansMutator DAO writer/command struct
 type PlansMutator struct {
 	rqBudget.Plans
 	mutations []A.X

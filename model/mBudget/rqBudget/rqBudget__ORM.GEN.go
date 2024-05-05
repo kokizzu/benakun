@@ -13,12 +13,360 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-// Plans DAO reader/query struct
+// BankAccounts DAO reader/query struct
 //
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file rqBudget__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type rqBudget__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type rqBudget__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type rqBudget__ORM.GEN.go
+type BankAccounts struct {
+	Adapter             *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id                  uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	CreatedAt           int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy           uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt           int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy           uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt           int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	Name                string      `json:"name" form:"name" query:"name" long:"name" msg:"name"`
+	ParentBankAccountId uint64      `json:"parentBankAccountId,string" form:"parentBankAccountId" query:"parentBankAccountId" long:"parentBankAccountId" msg:"parentBankAccountId"`
+	AccountNumber       int64       `json:"accountNumber" form:"accountNumber" query:"accountNumber" long:"accountNumber" msg:"accountNumber"`
+	BankName            string      `json:"bankName" form:"bankName" query:"bankName" long:"bankName" msg:"bankName"`
+	AccountName         string      `json:"accountName" form:"accountName" query:"accountName" long:"accountName" msg:"accountName"`
+	IsProfitCenter      bool        `json:"isProfitCenter" form:"isProfitCenter" query:"isProfitCenter" long:"isProfitCenter" msg:"isProfitCenter"`
+	IsCostCenter        bool        `json:"isCostCenter" form:"isCostCenter" query:"isCostCenter" long:"isCostCenter" msg:"isCostCenter"`
+	StaffId             uint64      `json:"staffId,string" form:"staffId" query:"staffId" long:"staffId" msg:"staffId"`
+}
+
+// NewBankAccounts create new ORM reader/query object
+func NewBankAccounts(adapter *Tt.Adapter) *BankAccounts {
+	return &BankAccounts{Adapter: adapter}
+}
+
+// SpaceName returns full package and table name
+func (b *BankAccounts) SpaceName() string { //nolint:dupl false positive
+	return string(mBudget.TableBankAccounts) // casting required to string from Tt.TableName
+}
+
+// SqlTableName returns quoted table name
+func (b *BankAccounts) SqlTableName() string { //nolint:dupl false positive
+	return `"bankAccounts"`
+}
+
+// SqlSelectAllFields generate Sql select fields
+func (b *BankAccounts) SqlSelectAllFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
+	, "name"
+	, "parentBankAccountId"
+	, "accountNumber"
+	, "bankName"
+	, "accountName"
+	, "isProfitCenter "
+	, "isCostCenter"
+	, "staffId"
+	`
+}
+
+// SqlSelectAllUncensoredFields generate Sql select fields
+func (b *BankAccounts) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
+	, "name"
+	, "parentBankAccountId"
+	, "accountNumber"
+	, "bankName"
+	, "accountName"
+	, "isProfitCenter "
+	, "isCostCenter"
+	, "staffId"
+	`
+}
+
+// ToUpdateArray generate slice of update command
+func (b *BankAccounts) ToUpdateArray() A.X { //nolint:dupl false positive
+	return A.X{
+		A.X{`=`, 0, b.Id},
+		A.X{`=`, 1, b.CreatedAt},
+		A.X{`=`, 2, b.CreatedBy},
+		A.X{`=`, 3, b.UpdatedAt},
+		A.X{`=`, 4, b.UpdatedBy},
+		A.X{`=`, 5, b.DeletedAt},
+		A.X{`=`, 6, b.Name},
+		A.X{`=`, 7, b.ParentBankAccountId},
+		A.X{`=`, 8, b.AccountNumber},
+		A.X{`=`, 9, b.BankName},
+		A.X{`=`, 10, b.AccountName},
+		A.X{`=`, 11, b.IsProfitCenter},
+		A.X{`=`, 12, b.IsCostCenter},
+		A.X{`=`, 13, b.StaffId},
+	}
+}
+
+// IdxId return name of the index
+func (b *BankAccounts) IdxId() int { //nolint:dupl false positive
+	return 0
+}
+
+// SqlId return name of the column being indexed
+func (b *BankAccounts) SqlId() string { //nolint:dupl false positive
+	return `"id"`
+}
+
+// IdxCreatedAt return name of the index
+func (b *BankAccounts) IdxCreatedAt() int { //nolint:dupl false positive
+	return 1
+}
+
+// SqlCreatedAt return name of the column being indexed
+func (b *BankAccounts) SqlCreatedAt() string { //nolint:dupl false positive
+	return `"createdAt"`
+}
+
+// IdxCreatedBy return name of the index
+func (b *BankAccounts) IdxCreatedBy() int { //nolint:dupl false positive
+	return 2
+}
+
+// SqlCreatedBy return name of the column being indexed
+func (b *BankAccounts) SqlCreatedBy() string { //nolint:dupl false positive
+	return `"createdBy"`
+}
+
+// IdxUpdatedAt return name of the index
+func (b *BankAccounts) IdxUpdatedAt() int { //nolint:dupl false positive
+	return 3
+}
+
+// SqlUpdatedAt return name of the column being indexed
+func (b *BankAccounts) SqlUpdatedAt() string { //nolint:dupl false positive
+	return `"updatedAt"`
+}
+
+// IdxUpdatedBy return name of the index
+func (b *BankAccounts) IdxUpdatedBy() int { //nolint:dupl false positive
+	return 4
+}
+
+// SqlUpdatedBy return name of the column being indexed
+func (b *BankAccounts) SqlUpdatedBy() string { //nolint:dupl false positive
+	return `"updatedBy"`
+}
+
+// IdxDeletedAt return name of the index
+func (b *BankAccounts) IdxDeletedAt() int { //nolint:dupl false positive
+	return 5
+}
+
+// SqlDeletedAt return name of the column being indexed
+func (b *BankAccounts) SqlDeletedAt() string { //nolint:dupl false positive
+	return `"deletedAt"`
+}
+
+// IdxName return name of the index
+func (b *BankAccounts) IdxName() int { //nolint:dupl false positive
+	return 6
+}
+
+// SqlName return name of the column being indexed
+func (b *BankAccounts) SqlName() string { //nolint:dupl false positive
+	return `"name"`
+}
+
+// IdxParentBankAccountId return name of the index
+func (b *BankAccounts) IdxParentBankAccountId() int { //nolint:dupl false positive
+	return 7
+}
+
+// SqlParentBankAccountId return name of the column being indexed
+func (b *BankAccounts) SqlParentBankAccountId() string { //nolint:dupl false positive
+	return `"parentBankAccountId"`
+}
+
+// IdxAccountNumber return name of the index
+func (b *BankAccounts) IdxAccountNumber() int { //nolint:dupl false positive
+	return 8
+}
+
+// SqlAccountNumber return name of the column being indexed
+func (b *BankAccounts) SqlAccountNumber() string { //nolint:dupl false positive
+	return `"accountNumber"`
+}
+
+// IdxBankName return name of the index
+func (b *BankAccounts) IdxBankName() int { //nolint:dupl false positive
+	return 9
+}
+
+// SqlBankName return name of the column being indexed
+func (b *BankAccounts) SqlBankName() string { //nolint:dupl false positive
+	return `"bankName"`
+}
+
+// IdxAccountName return name of the index
+func (b *BankAccounts) IdxAccountName() int { //nolint:dupl false positive
+	return 10
+}
+
+// SqlAccountName return name of the column being indexed
+func (b *BankAccounts) SqlAccountName() string { //nolint:dupl false positive
+	return `"accountName"`
+}
+
+// IdxIsProfitCenter return name of the index
+func (b *BankAccounts) IdxIsProfitCenter() int { //nolint:dupl false positive
+	return 11
+}
+
+// SqlIsProfitCenter return name of the column being indexed
+func (b *BankAccounts) SqlIsProfitCenter() string { //nolint:dupl false positive
+	return `"isProfitCenter "`
+}
+
+// IdxIsCostCenter return name of the index
+func (b *BankAccounts) IdxIsCostCenter() int { //nolint:dupl false positive
+	return 12
+}
+
+// SqlIsCostCenter return name of the column being indexed
+func (b *BankAccounts) SqlIsCostCenter() string { //nolint:dupl false positive
+	return `"isCostCenter"`
+}
+
+// IdxStaffId return name of the index
+func (b *BankAccounts) IdxStaffId() int { //nolint:dupl false positive
+	return 13
+}
+
+// SqlStaffId return name of the column being indexed
+func (b *BankAccounts) SqlStaffId() string { //nolint:dupl false positive
+	return `"staffId"`
+}
+
+// ToArray receiver fields to slice
+func (b *BankAccounts) ToArray() A.X { //nolint:dupl false positive
+	return A.X{
+		b.Id,                  // 0
+		b.CreatedAt,           // 1
+		b.CreatedBy,           // 2
+		b.UpdatedAt,           // 3
+		b.UpdatedBy,           // 4
+		b.DeletedAt,           // 5
+		b.Name,                // 6
+		b.ParentBankAccountId, // 7
+		b.AccountNumber,       // 8
+		b.BankName,            // 9
+		b.AccountName,         // 10
+		b.IsProfitCenter,      // 11
+		b.IsCostCenter,        // 12
+		b.StaffId,             // 13
+	}
+}
+
+// FromArray convert slice to receiver fields
+func (b *BankAccounts) FromArray(a A.X) *BankAccounts { //nolint:dupl false positive
+	b.Id = X.ToU(a[0])
+	b.CreatedAt = X.ToI(a[1])
+	b.CreatedBy = X.ToU(a[2])
+	b.UpdatedAt = X.ToI(a[3])
+	b.UpdatedBy = X.ToU(a[4])
+	b.DeletedAt = X.ToI(a[5])
+	b.Name = X.ToS(a[6])
+	b.ParentBankAccountId = X.ToU(a[7])
+	b.AccountNumber = X.ToI(a[8])
+	b.BankName = X.ToS(a[9])
+	b.AccountName = X.ToS(a[10])
+	b.IsProfitCenter = X.ToBool(a[11])
+	b.IsCostCenter = X.ToBool(a[12])
+	b.StaffId = X.ToU(a[13])
+	return b
+}
+
+// FromUncensoredArray convert slice to receiver fields
+func (b *BankAccounts) FromUncensoredArray(a A.X) *BankAccounts { //nolint:dupl false positive
+	b.Id = X.ToU(a[0])
+	b.CreatedAt = X.ToI(a[1])
+	b.CreatedBy = X.ToU(a[2])
+	b.UpdatedAt = X.ToI(a[3])
+	b.UpdatedBy = X.ToU(a[4])
+	b.DeletedAt = X.ToI(a[5])
+	b.Name = X.ToS(a[6])
+	b.ParentBankAccountId = X.ToU(a[7])
+	b.AccountNumber = X.ToI(a[8])
+	b.BankName = X.ToS(a[9])
+	b.AccountName = X.ToS(a[10])
+	b.IsProfitCenter = X.ToBool(a[11])
+	b.IsCostCenter = X.ToBool(a[12])
+	b.StaffId = X.ToU(a[13])
+	return b
+}
+
+// FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
+func (b *BankAccounts) FindOffsetLimit(offset, limit uint32, idx string) []BankAccounts { //nolint:dupl false positive
+	var rows []BankAccounts
+	res, err := b.Adapter.Select(b.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `BankAccounts.FindOffsetLimit failed: `+b.SpaceName()) {
+		return rows
+	}
+	for _, row := range res.Tuples() {
+		item := BankAccounts{}
+		rows = append(rows, *item.FromArray(row))
+	}
+	return rows
+}
+
+// FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
+func (b *BankAccounts) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
+	var rows []A.X
+	res, err := b.Adapter.Select(b.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `BankAccounts.FindOffsetLimit failed: `+b.SpaceName()) {
+		return rows, Tt.QueryMetaFrom(res, err)
+	}
+	tuples := res.Tuples()
+	rows = make([]A.X, len(tuples))
+	for z, row := range tuples {
+		rows[z] = row
+	}
+	return rows, Tt.QueryMetaFrom(res, nil)
+}
+
+// Total count number of rows
+func (b *BankAccounts) Total() int64 { //nolint:dupl false positive
+	rows := b.Adapter.CallBoxSpace(b.SpaceName()+`:count`, A.X{})
+	if len(rows) > 0 && len(rows[0]) > 0 {
+		return X.ToI(rows[0][0])
+	}
+	return 0
+}
+
+// BankAccountsFieldTypeMap returns key value of field name and key
+var BankAccountsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
+	`id`:                  Tt.Unsigned,
+	`createdAt`:           Tt.Integer,
+	`createdBy`:           Tt.Unsigned,
+	`updatedAt`:           Tt.Integer,
+	`updatedBy`:           Tt.Unsigned,
+	`deletedAt`:           Tt.Integer,
+	`name`:                Tt.String,
+	`parentBankAccountId`: Tt.Unsigned,
+	`accountNumber`:       Tt.Integer,
+	`bankName`:            Tt.String,
+	`accountName`:         Tt.String,
+	`isProfitCenter `:     Tt.Boolean,
+	`isCostCenter`:        Tt.Boolean,
+	`staffId`:             Tt.Unsigned,
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
+// Plans DAO reader/query struct
 type Plans struct {
 	Adapter     *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	Id          uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`

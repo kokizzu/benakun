@@ -85,6 +85,22 @@ const (
 	BudgetEUR   = `budgetEUR`
 )
 
+const (
+	// id, name, parentBankAccountId=0, accountNumber, bankName, accountName,
+	// isProfitCenter (customer), isCostCenter (supplier/staff), staffId=0
+
+	TableBankAccounts Tt.TableName = `bankAccounts`
+
+	BankAccountName			= `name`
+	ParentBankAccountId	= `parentBankAccountId`
+	AccountNumber 			= `accountNumber`
+	BankName 						= `bankName`
+	AccountName 				= `accountName`
+	IsProfitCenter 			= `isProfitCenter `
+	IsCostCenter				= `isCostCenter`
+	StaffId							= `staffId`
+)
+
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TablePlans: {
 		Fields: []Tt.Field{
@@ -106,5 +122,23 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,
+	},
+	TableBankAccounts: {
+		Fields: []Tt.Field{
+			{Id, Tt.Unsigned},
+			{CreatedAt, Tt.Integer},
+			{CreatedBy, Tt.Unsigned},
+			{UpdatedAt, Tt.Integer},
+			{UpdatedBy, Tt.Unsigned},
+			{DeletedAt, Tt.Integer},
+			{BankAccountName, Tt.String},
+			{ParentBankAccountId, Tt.Unsigned},
+			{AccountNumber, Tt.Integer},
+			{BankName, Tt.String},
+			{AccountName, Tt.String},
+			{IsProfitCenter, Tt.Boolean},
+			{IsCostCenter, Tt.Boolean},
+			{StaffId, Tt.Unsigned},
+		},
 	},
 }
