@@ -368,13 +368,15 @@ func (p *PlansMutator) DoDeletePermanentById() bool { //nolint:dupl false positi
 //		A.X{`=`, 5, p.UpdatedAt},
 //		A.X{`=`, 6, p.UpdatedBy},
 //		A.X{`=`, 7, p.DeletedAt},
-//		A.X{`=`, 8, p.Title},
-//		A.X{`=`, 9, p.Description},
-//		A.X{`=`, 10, p.OrgId},
-//		A.X{`=`, 11, p.PerYear},
-//		A.X{`=`, 12, p.BudgetIDR},
-//		A.X{`=`, 13, p.BudgetUSD},
-//		A.X{`=`, 14, p.BudgetEUR},
+//		A.X{`=`, 8, p.DeletedBy},
+//		A.X{`=`, 9, p.RestoredBy},
+//		A.X{`=`, 10, p.Title},
+//		A.X{`=`, 11, p.Description},
+//		A.X{`=`, 12, p.OrgId},
+//		A.X{`=`, 13, p.PerYear},
+//		A.X{`=`, 14, p.BudgetIDR},
+//		A.X{`=`, 15, p.BudgetUSD},
+//		A.X{`=`, 16, p.BudgetEUR},
 //	})
 //	return !L.IsError(err, `Plans.DoUpsert failed: `+p.SpaceName()+ `\n%#v`, arr)
 // }
@@ -495,10 +497,32 @@ func (p *PlansMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positi
 	return false
 }
 
+// SetDeletedBy create mutations, should not duplicate
+func (p *PlansMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
+	if val != p.DeletedBy {
+		p.mutations = append(p.mutations, A.X{`=`, 8, val})
+		p.logs = append(p.logs, A.X{`deletedBy`, p.DeletedBy, val})
+		p.DeletedBy = val
+		return true
+	}
+	return false
+}
+
+// SetRestoredBy create mutations, should not duplicate
+func (p *PlansMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
+	if val != p.RestoredBy {
+		p.mutations = append(p.mutations, A.X{`=`, 9, val})
+		p.logs = append(p.logs, A.X{`restoredBy`, p.RestoredBy, val})
+		p.RestoredBy = val
+		return true
+	}
+	return false
+}
+
 // SetTitle create mutations, should not duplicate
 func (p *PlansMutator) SetTitle(val string) bool { //nolint:dupl false positive
 	if val != p.Title {
-		p.mutations = append(p.mutations, A.X{`=`, 8, val})
+		p.mutations = append(p.mutations, A.X{`=`, 10, val})
 		p.logs = append(p.logs, A.X{`title`, p.Title, val})
 		p.Title = val
 		return true
@@ -509,7 +533,7 @@ func (p *PlansMutator) SetTitle(val string) bool { //nolint:dupl false positive
 // SetDescription create mutations, should not duplicate
 func (p *PlansMutator) SetDescription(val string) bool { //nolint:dupl false positive
 	if val != p.Description {
-		p.mutations = append(p.mutations, A.X{`=`, 9, val})
+		p.mutations = append(p.mutations, A.X{`=`, 11, val})
 		p.logs = append(p.logs, A.X{`description`, p.Description, val})
 		p.Description = val
 		return true
@@ -520,7 +544,7 @@ func (p *PlansMutator) SetDescription(val string) bool { //nolint:dupl false pos
 // SetOrgId create mutations, should not duplicate
 func (p *PlansMutator) SetOrgId(val uint64) bool { //nolint:dupl false positive
 	if val != p.OrgId {
-		p.mutations = append(p.mutations, A.X{`=`, 10, val})
+		p.mutations = append(p.mutations, A.X{`=`, 12, val})
 		p.logs = append(p.logs, A.X{`orgId`, p.OrgId, val})
 		p.OrgId = val
 		return true
@@ -531,7 +555,7 @@ func (p *PlansMutator) SetOrgId(val uint64) bool { //nolint:dupl false positive
 // SetPerYear create mutations, should not duplicate
 func (p *PlansMutator) SetPerYear(val int64) bool { //nolint:dupl false positive
 	if val != p.PerYear {
-		p.mutations = append(p.mutations, A.X{`=`, 11, val})
+		p.mutations = append(p.mutations, A.X{`=`, 13, val})
 		p.logs = append(p.logs, A.X{`perYear`, p.PerYear, val})
 		p.PerYear = val
 		return true
@@ -542,7 +566,7 @@ func (p *PlansMutator) SetPerYear(val int64) bool { //nolint:dupl false positive
 // SetBudgetIDR create mutations, should not duplicate
 func (p *PlansMutator) SetBudgetIDR(val int64) bool { //nolint:dupl false positive
 	if val != p.BudgetIDR {
-		p.mutations = append(p.mutations, A.X{`=`, 12, val})
+		p.mutations = append(p.mutations, A.X{`=`, 14, val})
 		p.logs = append(p.logs, A.X{`budgetIDR`, p.BudgetIDR, val})
 		p.BudgetIDR = val
 		return true
@@ -553,7 +577,7 @@ func (p *PlansMutator) SetBudgetIDR(val int64) bool { //nolint:dupl false positi
 // SetBudgetUSD create mutations, should not duplicate
 func (p *PlansMutator) SetBudgetUSD(val int64) bool { //nolint:dupl false positive
 	if val != p.BudgetUSD {
-		p.mutations = append(p.mutations, A.X{`=`, 13, val})
+		p.mutations = append(p.mutations, A.X{`=`, 15, val})
 		p.logs = append(p.logs, A.X{`budgetUSD`, p.BudgetUSD, val})
 		p.BudgetUSD = val
 		return true
@@ -564,7 +588,7 @@ func (p *PlansMutator) SetBudgetUSD(val int64) bool { //nolint:dupl false positi
 // SetBudgetEUR create mutations, should not duplicate
 func (p *PlansMutator) SetBudgetEUR(val int64) bool { //nolint:dupl false positive
 	if val != p.BudgetEUR {
-		p.mutations = append(p.mutations, A.X{`=`, 14, val})
+		p.mutations = append(p.mutations, A.X{`=`, 16, val})
 		p.logs = append(p.logs, A.X{`budgetEUR`, p.BudgetEUR, val})
 		p.BudgetEUR = val
 		return true
@@ -610,6 +634,14 @@ func (p *PlansMutator) SetAll(from rqBudget.Plans, excludeMap, forceMap M.SB) (c
 	}
 	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
 		p.DeletedAt = from.DeletedAt
+		changed = true
+	}
+	if !excludeMap[`deletedBy`] && (forceMap[`deletedBy`] || from.DeletedBy != 0) {
+		p.DeletedBy = from.DeletedBy
+		changed = true
+	}
+	if !excludeMap[`restoredBy`] && (forceMap[`restoredBy`] || from.RestoredBy != 0) {
+		p.RestoredBy = from.RestoredBy
 		changed = true
 	}
 	if !excludeMap[`title`] && (forceMap[`title`] || from.Title != ``) {

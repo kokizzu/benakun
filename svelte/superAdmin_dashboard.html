@@ -325,18 +325,18 @@
   stroke: var(--gray-006) !important;
 }
 .admin_submenu a:hover .nav_icon_dark path {
-  stroke: var(--purple-002) !important;
+  stroke: var(--blue-006) !important;
 }
 .admin_submenu a .nav_icon_active path {
-  stroke: var(--purple-002) !important;
+  stroke: var(--blue-006) !important;
 }
-.admin_submenu.svelte-1dmgied.svelte-1dmgied {
+.admin_submenu.svelte-50hpr3.svelte-50hpr3 {
   display: flex;
   flex-direction: row;
   align-items: stretch;
   gap: 10px;
 }
-.admin_submenu.svelte-1dmgied a.svelte-1dmgied {
+.admin_submenu.svelte-50hpr3 a.svelte-50hpr3 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -350,12 +350,12 @@
   border-radius: 999px;
   background-color: var(--gray-002);
 }
-.admin_submenu.svelte-1dmgied a.svelte-1dmgied:hover {
-  color: var(--purple-001);
+.admin_submenu.svelte-50hpr3 a.svelte-50hpr3:hover {
+  color: var(--blue-005);
 }
-.admin_submenu.svelte-1dmgied a.active.svelte-1dmgied {
-  color: var(--purple-002);
-  border: 1px solid var(--purple-001);
+.admin_submenu.svelte-50hpr3 a.active.svelte-50hpr3 {
+  color: var(--blue-006);
+  border: 1px solid var(--blue-005);
   background-color: #7474ec30;
 }
 
@@ -3777,7 +3777,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
         span2 = element("span");
         span2.textContent = "Tenants";
         attr(a0, "href", "/superAdmin/dashboard");
-        attr(a0, "class", "svelte-1dmgied");
+        attr(a0, "class", "svelte-50hpr3");
         toggle_class(
           a0,
           "active",
@@ -3785,7 +3785,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
           ctx[0] === "dashboard"
         );
         attr(a1, "href", "/superAdmin/userManagement");
-        attr(a1, "class", "svelte-1dmgied");
+        attr(a1, "class", "svelte-50hpr3");
         toggle_class(
           a1,
           "active",
@@ -3793,14 +3793,14 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
           ctx[0] === "userManagement"
         );
         attr(a2, "href", "/superAdmin/tenantManagement");
-        attr(a2, "class", "svelte-1dmgied");
+        attr(a2, "class", "svelte-50hpr3");
         toggle_class(
           a2,
           "active",
           /*segment2*/
           ctx[0] === "tenantManagement"
         );
-        attr(nav, "class", "admin_submenu svelte-1dmgied");
+        attr(nav, "class", "admin_submenu svelte-50hpr3");
       },
       m(target, anchor) {
         insert(target, nav, anchor);

@@ -1,6 +1,7 @@
 package mBudget
 
 import (
+	"github.com/kokizzu/gotro/D/Ch"
 	"github.com/kokizzu/gotro/D/Tt"
 )
 
@@ -99,6 +100,8 @@ const (
 	IsProfitCenter 			= `isProfitCenter `
 	IsCostCenter				= `isCostCenter`
 	StaffId							= `staffId`
+	DeletedBy						= `deletedBy`
+	RestoredBy					= `restoredBy` 
 )
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
@@ -112,6 +115,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UpdatedAt, Tt.Integer},
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
+			{DeletedBy, Tt.Unsigned},
+			{RestoredBy, Tt.Unsigned},
 			{Title, Tt.String},
 			{Description, Tt.String},
 			{OrgId, Tt.Unsigned},
@@ -140,5 +145,43 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{IsCostCenter, Tt.Boolean},
 			{StaffId, Tt.Unsigned},
 		},
+	},
+}
+
+const (
+	TableActionLogs Ch.TableName = `actionLogs`
+
+	RequestId  = `requestId`
+	Error      = `error`
+	ActorId    = `actorId`
+	IpAddr4    = `ipAddr4`
+	IpAddr6    = `ipAddr6`
+	UserAgent  = `userAgent`
+	Action     = `action`
+	Traces     = `traces`
+	StatusCode = `statusCode`
+
+	Latency = `latency` // in seconds
+
+	RefId = `refId`
+)
+
+var ClickhouseTables = map[Ch.TableName]*Ch.TableProp{
+	TableActionLogs: {
+		Fields: []Ch.Field{
+			{CreatedAt, Ch.DateTime},
+			{RequestId, Ch.String},
+			{ActorId, Ch.UInt64},
+			{Action, Ch.String},
+			{StatusCode, Ch.Int16},
+			{Traces, Ch.String},
+			{Error, Ch.String},
+			{IpAddr4, Ch.IPv4},
+			{IpAddr6, Ch.IPv6},
+			{UserAgent, Ch.String},
+			{Latency, Ch.Float64},
+			{RefId, Ch.UInt64},
+		},
+		Orders: []string{CreatedAt, RequestId, ActorId, Action},
 	},
 }

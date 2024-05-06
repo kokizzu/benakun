@@ -33,11 +33,11 @@
   }
 
   :global(.admin_submenu a:hover .nav_icon_dark path) {
-    stroke: var(--purple-002) !important;
+    stroke: var(--blue-006) !important;
   }
 
   :global(.admin_submenu a .nav_icon_active path) {
-    stroke: var(--purple-002) !important;
+    stroke: var(--blue-006) !important;
   }
   .admin_submenu {
     display: flex;
@@ -62,12 +62,12 @@
   }
 
   .admin_submenu a:hover {
-    color: var(--purple-001);
+    color: var(--blue-005);
   }
 
   .admin_submenu a.active {
-    color: var(--purple-002);
-    border: 1px solid var(--purple-001);
+    color: var(--blue-006);
+    border: 1px solid var(--blue-005);
     background-color: #7474ec30;
   }
 </style>

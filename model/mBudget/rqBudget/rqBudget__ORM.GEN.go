@@ -377,6 +377,8 @@ type Plans struct {
 	UpdatedAt   int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
 	UpdatedBy   uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
 	DeletedAt   int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	DeletedBy   uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
+	RestoredBy  uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
 	Title       string      `json:"title" form:"title" query:"title" long:"title" msg:"title"`
 	Description string      `json:"description" form:"description" query:"description" long:"description" msg:"description"`
 	OrgId       uint64      `json:"orgId,string" form:"orgId" query:"orgId" long:"orgId" msg:"orgId"`
@@ -429,6 +431,8 @@ func (p *Plans) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
 	, "title"
 	, "description"
 	, "orgId"
@@ -449,6 +453,8 @@ func (p *Plans) SqlSelectAllUncensoredFields() string { //nolint:dupl false posi
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
 	, "title"
 	, "description"
 	, "orgId"
@@ -470,13 +476,15 @@ func (p *Plans) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 5, p.UpdatedAt},
 		A.X{`=`, 6, p.UpdatedBy},
 		A.X{`=`, 7, p.DeletedAt},
-		A.X{`=`, 8, p.Title},
-		A.X{`=`, 9, p.Description},
-		A.X{`=`, 10, p.OrgId},
-		A.X{`=`, 11, p.PerYear},
-		A.X{`=`, 12, p.BudgetIDR},
-		A.X{`=`, 13, p.BudgetUSD},
-		A.X{`=`, 14, p.BudgetEUR},
+		A.X{`=`, 8, p.DeletedBy},
+		A.X{`=`, 9, p.RestoredBy},
+		A.X{`=`, 10, p.Title},
+		A.X{`=`, 11, p.Description},
+		A.X{`=`, 12, p.OrgId},
+		A.X{`=`, 13, p.PerYear},
+		A.X{`=`, 14, p.BudgetIDR},
+		A.X{`=`, 15, p.BudgetUSD},
+		A.X{`=`, 16, p.BudgetEUR},
 	}
 }
 
@@ -560,9 +568,29 @@ func (p *Plans) SqlDeletedAt() string { //nolint:dupl false positive
 	return `"deletedAt"`
 }
 
+// IdxDeletedBy return name of the index
+func (p *Plans) IdxDeletedBy() int { //nolint:dupl false positive
+	return 8
+}
+
+// SqlDeletedBy return name of the column being indexed
+func (p *Plans) SqlDeletedBy() string { //nolint:dupl false positive
+	return `"deletedBy"`
+}
+
+// IdxRestoredBy return name of the index
+func (p *Plans) IdxRestoredBy() int { //nolint:dupl false positive
+	return 9
+}
+
+// SqlRestoredBy return name of the column being indexed
+func (p *Plans) SqlRestoredBy() string { //nolint:dupl false positive
+	return `"restoredBy"`
+}
+
 // IdxTitle return name of the index
 func (p *Plans) IdxTitle() int { //nolint:dupl false positive
-	return 8
+	return 10
 }
 
 // SqlTitle return name of the column being indexed
@@ -572,7 +600,7 @@ func (p *Plans) SqlTitle() string { //nolint:dupl false positive
 
 // IdxDescription return name of the index
 func (p *Plans) IdxDescription() int { //nolint:dupl false positive
-	return 9
+	return 11
 }
 
 // SqlDescription return name of the column being indexed
@@ -582,7 +610,7 @@ func (p *Plans) SqlDescription() string { //nolint:dupl false positive
 
 // IdxOrgId return name of the index
 func (p *Plans) IdxOrgId() int { //nolint:dupl false positive
-	return 10
+	return 12
 }
 
 // SqlOrgId return name of the column being indexed
@@ -592,7 +620,7 @@ func (p *Plans) SqlOrgId() string { //nolint:dupl false positive
 
 // IdxPerYear return name of the index
 func (p *Plans) IdxPerYear() int { //nolint:dupl false positive
-	return 11
+	return 13
 }
 
 // SqlPerYear return name of the column being indexed
@@ -602,7 +630,7 @@ func (p *Plans) SqlPerYear() string { //nolint:dupl false positive
 
 // IdxBudgetIDR return name of the index
 func (p *Plans) IdxBudgetIDR() int { //nolint:dupl false positive
-	return 12
+	return 14
 }
 
 // SqlBudgetIDR return name of the column being indexed
@@ -612,7 +640,7 @@ func (p *Plans) SqlBudgetIDR() string { //nolint:dupl false positive
 
 // IdxBudgetUSD return name of the index
 func (p *Plans) IdxBudgetUSD() int { //nolint:dupl false positive
-	return 13
+	return 15
 }
 
 // SqlBudgetUSD return name of the column being indexed
@@ -622,7 +650,7 @@ func (p *Plans) SqlBudgetUSD() string { //nolint:dupl false positive
 
 // IdxBudgetEUR return name of the index
 func (p *Plans) IdxBudgetEUR() int { //nolint:dupl false positive
-	return 14
+	return 16
 }
 
 // SqlBudgetEUR return name of the column being indexed
@@ -645,13 +673,15 @@ func (p *Plans) ToArray() A.X { //nolint:dupl false positive
 		p.UpdatedAt,   // 5
 		p.UpdatedBy,   // 6
 		p.DeletedAt,   // 7
-		p.Title,       // 8
-		p.Description, // 9
-		p.OrgId,       // 10
-		p.PerYear,     // 11
-		p.BudgetIDR,   // 12
-		p.BudgetUSD,   // 13
-		p.BudgetEUR,   // 14
+		p.DeletedBy,   // 8
+		p.RestoredBy,  // 9
+		p.Title,       // 10
+		p.Description, // 11
+		p.OrgId,       // 12
+		p.PerYear,     // 13
+		p.BudgetIDR,   // 14
+		p.BudgetUSD,   // 15
+		p.BudgetEUR,   // 16
 	}
 }
 
@@ -665,13 +695,15 @@ func (p *Plans) FromArray(a A.X) *Plans { //nolint:dupl false positive
 	p.UpdatedAt = X.ToI(a[5])
 	p.UpdatedBy = X.ToU(a[6])
 	p.DeletedAt = X.ToI(a[7])
-	p.Title = X.ToS(a[8])
-	p.Description = X.ToS(a[9])
-	p.OrgId = X.ToU(a[10])
-	p.PerYear = X.ToI(a[11])
-	p.BudgetIDR = X.ToI(a[12])
-	p.BudgetUSD = X.ToI(a[13])
-	p.BudgetEUR = X.ToI(a[14])
+	p.DeletedBy = X.ToU(a[8])
+	p.RestoredBy = X.ToU(a[9])
+	p.Title = X.ToS(a[10])
+	p.Description = X.ToS(a[11])
+	p.OrgId = X.ToU(a[12])
+	p.PerYear = X.ToI(a[13])
+	p.BudgetIDR = X.ToI(a[14])
+	p.BudgetUSD = X.ToI(a[15])
+	p.BudgetEUR = X.ToI(a[16])
 	return p
 }
 
@@ -685,13 +717,15 @@ func (p *Plans) FromUncensoredArray(a A.X) *Plans { //nolint:dupl false positive
 	p.UpdatedAt = X.ToI(a[5])
 	p.UpdatedBy = X.ToU(a[6])
 	p.DeletedAt = X.ToI(a[7])
-	p.Title = X.ToS(a[8])
-	p.Description = X.ToS(a[9])
-	p.OrgId = X.ToU(a[10])
-	p.PerYear = X.ToI(a[11])
-	p.BudgetIDR = X.ToI(a[12])
-	p.BudgetUSD = X.ToI(a[13])
-	p.BudgetEUR = X.ToI(a[14])
+	p.DeletedBy = X.ToU(a[8])
+	p.RestoredBy = X.ToU(a[9])
+	p.Title = X.ToS(a[10])
+	p.Description = X.ToS(a[11])
+	p.OrgId = X.ToU(a[12])
+	p.PerYear = X.ToI(a[13])
+	p.BudgetIDR = X.ToI(a[14])
+	p.BudgetUSD = X.ToI(a[15])
+	p.BudgetEUR = X.ToI(a[16])
 	return p
 }
 
@@ -743,6 +777,8 @@ var PlansFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`updatedAt`:   Tt.Integer,
 	`updatedBy`:   Tt.Unsigned,
 	`deletedAt`:   Tt.Integer,
+	`deletedBy`:   Tt.Unsigned,
+	`restoredBy`:  Tt.Unsigned,
 	`title`:       Tt.String,
 	`description`: Tt.String,
 	`orgId`:       Tt.Unsigned,
