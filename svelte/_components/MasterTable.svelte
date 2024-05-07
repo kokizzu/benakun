@@ -19,9 +19,11 @@
 	import RiSystemInformationLine from 'svelte-icons-pack/ri/RiSystemInformationLine';
 	import FaSolidChartLine from 'svelte-icons-pack/fa/FaSolidChartLine';
 
-	// @typedef {import('.')}
+	/** @typedef {import('./types/access').Access} Access */
+	
 
-	export let ACCESS = {};
+	export let ACCESS = /** @type {Access} */ ({});
+	export let FIELDS = ({})
 
 	let paginationShow = [1, 2, 3, 4, 5];
 	let currentPage = 1, paginationTotal = 1;
