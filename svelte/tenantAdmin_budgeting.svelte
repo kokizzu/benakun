@@ -246,5 +246,6 @@
     margin: 0;
     font-weight: 500;
     font-size: var(--font-md);
+    line-height: 1.2em;
   }
 </style>

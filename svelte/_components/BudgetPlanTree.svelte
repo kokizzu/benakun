@@ -168,6 +168,7 @@
     }
     await TenantAdminCreateBudgetPlan( i, /** @type {import('../jsApi.GEN').TenantAdminCreateBudgetPlanCallback}*/
       function (/** @type {any} */ o) {
+        resetPayload();
         isSubmitPlan = false;
         if (o.error) {
           notifier.showError(o.error);
@@ -193,6 +194,7 @@
     }
     await TenantAdminUpdateBudgetPlan(i, /** @type {import('../jsApi.GEN').TenantAdminUpdateBudgetPlanCallback} */
       function (/** @type {any} */ o) {
+        resetPayload();
         isSubmitPlan = false;
         if (o.error) {
           notifier.showError(o.error);
@@ -310,7 +312,7 @@
         <div class="label">
           <Icon
             className="icon"
-            size="17"
+            size="13"
             src={orgIcon}
           />
         </div>

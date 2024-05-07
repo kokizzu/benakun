@@ -19,6 +19,10 @@
   let isShow = false;
   export const show = () => isShow = true;
   export const hide = () => isShow = false;
+	export const reset = () => {
+		title = '', description = '', perYear = 0;
+		budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
+  }
 
   const cancel = () => isShow = false;
 </script>

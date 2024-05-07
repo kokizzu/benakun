@@ -1,8 +1,10 @@
 package domain
 
 import (
+	"benakun/model/mAuth"
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
+	"benakun/model/zCrud"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -16,9 +18,15 @@ import (
 type (
 	TenantAdminDashboardIn struct {
 		RequestCommon
+		Cmd      string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
+		User     rqAuth.Users  `json:"user" form:"user" query:"user" long:"user" msg:"user"`
+		WithMeta bool          `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
+		Pager    zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 	}
 	TenantAdminDashboardOut struct {
 		ResponseCommon
+		Pager zCrud.PagerOut `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		Meta  *zCrud.Meta    `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
 		Staffs []rqAuth.StaffWithInvitation `json:"staffs" form:"staffs" query:"staffs" long:"staffs" msg:"staffs"`
 	}
 )
@@ -29,6 +37,44 @@ const (
 	ErrTenantAdminDashboardUnauthorized   = `unauthorized user`
 	ErrTenantAdminDashboardTenantNotFound = `tenant admin not found`
 )
+
+
+var TenantAdminDashboardMeta = zCrud.Meta{
+	Fields: []zCrud.Field{
+		{
+			Name:      mAuth.Id,
+			Label:     "ID",
+			DataType:  zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeHidden,
+		},
+		{
+			Name: mAuth.Email,
+			Label: "Email",
+			DataType: zCrud.DataTypeString,
+			InputType: zCrud.InputTypeEmail,
+		},
+		{
+			Name: mAuth.FullName,
+			Label: "Full Name",
+			DataType: zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name: mAuth.Role,
+			Label: "Role",
+			DataType: zCrud.DataTypeString,
+			InputType: zCrud.InputTypeCombobox,
+			Ref:  []string{
+				UserSegment, DataEntrySegment, TenantAdminSegment, ReportViewerSegment,
+			},
+		},
+		{
+			Name: mAuth.InvitationState,
+			Label: "Status",
+			ReadOnly: true,
+		},
+	},
+}
 
 func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdminDashboardOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
@@ -50,6 +96,10 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 	if !tenant.FindByTenantCode() {
 		out.SetError(400, ErrTenantAdminDashboardTenantNotFound)
 		return
+	}
+
+	if in.WithMeta {
+		out.Meta = &TenantAdminDashboardMeta
 	}
 
 	staffs := user.FindUsersByTenant(tenant.TenantCode)

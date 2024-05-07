@@ -320,46 +320,7 @@
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>/* fakecss:./_components/AdminSubMenu.esbuild-svelte-fake-css */
-.admin_submenu a .nav_icon_dark path {
-  stroke: var(--gray-006) !important;
-}
-.admin_submenu a:hover .nav_icon_dark path {
-  stroke: var(--blue-006) !important;
-}
-.admin_submenu a .nav_icon_active path {
-  stroke: var(--blue-006) !important;
-}
-.admin_submenu.svelte-50hpr3.svelte-50hpr3 {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  gap: 10px;
-}
-.admin_submenu.svelte-50hpr3 a.svelte-50hpr3 {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  padding: 5px 15px;
-  text-decoration: none;
-  color: var(--gray-007);
-  font-weight: 600;
-  border: 1px solid var(--gray-002);
-  border-radius: 999px;
-  background-color: var(--gray-002);
-}
-.admin_submenu.svelte-50hpr3 a.svelte-50hpr3:hover {
-  color: var(--blue-005);
-}
-.admin_submenu.svelte-50hpr3 a.active.svelte-50hpr3 {
-  color: var(--blue-006);
-  border: 1px solid var(--blue-005);
-  background-color: #7474ec30;
-}
-
-/* fakecss:./_components/TableView.esbuild-svelte-fake-css */
+<style>/* fakecss:./_components/TableView.esbuild-svelte-fake-css */
 .action_options_container.svelte-v5jroc.svelte-v5jroc {
   display: flex;
   flex-direction: row;
@@ -2960,13 +2921,13 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance11 = bind2(Axios$1.prototype.request, context);
-        utils$1.extend(instance11, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance11, context, null, { allOwnKeys: true });
-        instance11.create = function create(instanceConfig) {
+        const instance10 = bind2(Axios$1.prototype.request, context);
+        utils$1.extend(instance10, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance10, context, null, { allOwnKeys: true });
+        instance10.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance11;
+        return instance10;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -3700,7 +3661,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance11, create_fragment11, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance10, create_fragment10, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3726,7 +3687,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance11 ? instance11(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance10 ? instance10(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -3739,7 +3700,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment11 ? create_fragment11($.ctx) : false;
+    $.fragment = create_fragment10 ? create_fragment10($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -4008,6 +3969,9 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
+  // _components/TableView.svelte
+  var import_formatter = __toESM(require_formatter());
+
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/Icon.svelte
   function create_fragment(ctx) {
     let svg;
@@ -4143,235 +4107,6 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     }
   };
   var Icon_default = Icon;
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/hi/HiOutlinePresentationChartBar.js
-  var HiOutlinePresentationChartBar_default = {
-    a: {
-      viewBox: "0 0 24 24",
-      fill: "none"
-    },
-    c: '<path d="M8 13V12M12 13V10M16 13V8M8 21L12 17L16 21M3 4H21M4 4H20V16C20 16.5523 19.5523 17 19 17H5C4.44772 17 4 16.5523 4 16V4Z" stroke="#374151" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/hi/HiOutlineUserGroup.js
-  var HiOutlineUserGroup_default = {
-    a: {
-      viewBox: "0 0 24 24",
-      fill: "none"
-    },
-    c: '<path d="M17 20H22V18C22 16.3431 20.6569 15 19 15C18.0444 15 17.1931 15.4468 16.6438 16.1429M17 20H7M17 20V18C17 17.3438 16.8736 16.717 16.6438 16.1429M7 20H2V18C2 16.3431 3.34315 15 5 15C5.95561 15 6.80686 15.4468 7.35625 16.1429M7 20V18C7 17.3438 7.12642 16.717 7.35625 16.1429M7.35625 16.1429C8.0935 14.301 9.89482 13 12 13C14.1052 13 15.9065 14.301 16.6438 16.1429M15 7C15 8.65685 13.6569 10 12 10C10.3431 10 9 8.65685 9 7C9 5.34315 10.3431 4 12 4C13.6569 4 15 5.34315 15 7ZM21 10C21 11.1046 20.1046 12 19 12C17.8954 12 17 11.1046 17 10C17 8.89543 17.8954 8 19 8C20.1046 8 21 8.89543 21 10ZM7 10C7 11.1046 6.10457 12 5 12C3.89543 12 3 11.1046 3 10C3 8.89543 3.89543 8 5 8C6.10457 8 7 8.89543 7 10Z" stroke="#4A5568" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/hi/HiOutlineUserAdd.js
-  var HiOutlineUserAdd_default = {
-    a: {
-      viewBox: "0 0 24 24",
-      fill: "none"
-    },
-    c: '<path d="M18 9V12M18 12V15M18 12H21M18 12H15M13 7C13 9.20914 11.2091 11 9 11C6.79086 11 5 9.20914 5 7C5 4.79086 6.79086 3 9 3C11.2091 3 13 4.79086 13 7ZM3 20C3 16.6863 5.68629 14 9 14C12.3137 14 15 16.6863 15 20V21H3V20Z" stroke="#4A5568" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>'
-  };
-
-  // _components/AdminSubMenu.svelte
-  function create_fragment2(ctx) {
-    let nav;
-    let a0;
-    let icon0;
-    let t0;
-    let span0;
-    let t2;
-    let a1;
-    let icon1;
-    let t3;
-    let span1;
-    let t5;
-    let a2;
-    let icon2;
-    let t6;
-    let span2;
-    let current;
-    icon0 = new Icon_default({
-      props: {
-        className: (
-          /*segment2*/
-          ctx[0] === "dashboard" ? "nav_icon_active" : "nav_icon_dark"
-        ),
-        size: "20",
-        src: HiOutlinePresentationChartBar_default
-      }
-    });
-    icon1 = new Icon_default({
-      props: {
-        className: (
-          /*segment2*/
-          ctx[0] === "userManagement" ? "nav_icon_active" : "nav_icon_dark"
-        ),
-        size: "20",
-        src: HiOutlineUserGroup_default
-      }
-    });
-    icon2 = new Icon_default({
-      props: {
-        className: (
-          /*segment2*/
-          ctx[0] === "tenantManagement" ? "nav_icon_active" : "nav_icon_dark"
-        ),
-        size: "20",
-        src: HiOutlineUserAdd_default
-      }
-    });
-    return {
-      c() {
-        nav = element("nav");
-        a0 = element("a");
-        create_component(icon0.$.fragment);
-        t0 = space();
-        span0 = element("span");
-        span0.textContent = "Dashboard";
-        t2 = space();
-        a1 = element("a");
-        create_component(icon1.$.fragment);
-        t3 = space();
-        span1 = element("span");
-        span1.textContent = "Users";
-        t5 = space();
-        a2 = element("a");
-        create_component(icon2.$.fragment);
-        t6 = space();
-        span2 = element("span");
-        span2.textContent = "Tenants";
-        attr(a0, "href", "/superAdmin/dashboard");
-        attr(a0, "class", "svelte-50hpr3");
-        toggle_class(
-          a0,
-          "active",
-          /*segment2*/
-          ctx[0] === "dashboard"
-        );
-        attr(a1, "href", "/superAdmin/userManagement");
-        attr(a1, "class", "svelte-50hpr3");
-        toggle_class(
-          a1,
-          "active",
-          /*segment2*/
-          ctx[0] === "userManagement"
-        );
-        attr(a2, "href", "/superAdmin/tenantManagement");
-        attr(a2, "class", "svelte-50hpr3");
-        toggle_class(
-          a2,
-          "active",
-          /*segment2*/
-          ctx[0] === "tenantManagement"
-        );
-        attr(nav, "class", "admin_submenu svelte-50hpr3");
-      },
-      m(target, anchor) {
-        insert(target, nav, anchor);
-        append(nav, a0);
-        mount_component(icon0, a0, null);
-        append(a0, t0);
-        append(a0, span0);
-        append(nav, t2);
-        append(nav, a1);
-        mount_component(icon1, a1, null);
-        append(a1, t3);
-        append(a1, span1);
-        append(nav, t5);
-        append(nav, a2);
-        mount_component(icon2, a2, null);
-        append(a2, t6);
-        append(a2, span2);
-        current = true;
-      },
-      p(ctx2, [dirty]) {
-        const icon0_changes = {};
-        if (dirty & /*segment2*/
-        1)
-          icon0_changes.className = /*segment2*/
-          ctx2[0] === "dashboard" ? "nav_icon_active" : "nav_icon_dark";
-        icon0.$set(icon0_changes);
-        if (!current || dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a0,
-            "active",
-            /*segment2*/
-            ctx2[0] === "dashboard"
-          );
-        }
-        const icon1_changes = {};
-        if (dirty & /*segment2*/
-        1)
-          icon1_changes.className = /*segment2*/
-          ctx2[0] === "userManagement" ? "nav_icon_active" : "nav_icon_dark";
-        icon1.$set(icon1_changes);
-        if (!current || dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a1,
-            "active",
-            /*segment2*/
-            ctx2[0] === "userManagement"
-          );
-        }
-        const icon2_changes = {};
-        if (dirty & /*segment2*/
-        1)
-          icon2_changes.className = /*segment2*/
-          ctx2[0] === "tenantManagement" ? "nav_icon_active" : "nav_icon_dark";
-        icon2.$set(icon2_changes);
-        if (!current || dirty & /*segment2*/
-        1) {
-          toggle_class(
-            a2,
-            "active",
-            /*segment2*/
-            ctx2[0] === "tenantManagement"
-          );
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon0.$.fragment, local);
-        transition_in(icon1.$.fragment, local);
-        transition_in(icon2.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon0.$.fragment, local);
-        transition_out(icon1.$.fragment, local);
-        transition_out(icon2.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(nav);
-        }
-        destroy_component(icon0);
-        destroy_component(icon1);
-        destroy_component(icon2);
-      }
-    };
-  }
-  function instance2($self, $props, $invalidate) {
-    let segment2;
-    onMount(() => {
-      console.log("onMount.AdminSubMenu");
-      $invalidate(0, segment2 = window.location.pathname.split("/").pop() || "");
-    });
-    return [segment2];
-  }
-  var AdminSubMenu = class extends SvelteComponent {
-    constructor(options) {
-      super();
-      init(this, options, instance2, create_fragment2, safe_not_equal, {});
-    }
-  };
-  var AdminSubMenu_default = AdminSubMenu;
-
-  // _components/TableView.svelte
-  var import_formatter = __toESM(require_formatter());
 
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/hi/HiOutlinePencil.js
   var HiOutlinePencil_default = {
@@ -5356,7 +5091,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       }
     };
   }
-  function create_fragment3(ctx) {
+  function create_fragment2(ctx) {
     let section;
     let div1;
     let div0;
@@ -5926,7 +5661,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       }
     };
   }
-  function instance3($self, $props, $invalidate) {
+  function instance2($self, $props, $invalidate) {
     let allowPrevPage;
     let allowNextPage;
     let { $slots: slots = {}, $scope } = $props;
@@ -6085,8 +5820,8 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       init(
         this,
         options,
-        instance3,
-        create_fragment3,
+        instance2,
+        create_fragment2,
         safe_not_equal,
         {
           arrayOfArray: 17,
@@ -7283,7 +7018,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       }
     };
   }
-  function create_fragment4(ctx) {
+  function create_fragment3(ctx) {
     let if_block_anchor;
     let current;
     let if_block = (
@@ -7346,7 +7081,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       }
     };
   }
-  function instance4($self, $props, $invalidate) {
+  function instance3($self, $props, $invalidate) {
     let { $slots: slots = {}, $scope } = $props;
     let { fields: fields2 = [] } = $props;
     let { visible = false } = $props;
@@ -7480,7 +7215,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
   var ModalForm = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance4, create_fragment4, safe_not_equal, {
+      init(this, options, instance3, create_fragment3, safe_not_equal, {
         fields: 3,
         visible: 1,
         loading: 2,
@@ -7670,8 +7405,24 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     c: '<path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4Zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7ZM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5ZM10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3ZM13 8h-2V6h2v2Z"></path>'
   };
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiUserGroup2Line.js
+  var RiUserGroup2Line_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M9.55 11.5a2.25 2.25 0 1 1 0-4.5 2.25 2.25 0 0 1 0 4.5zm.45 8.248V16.4c0-.488.144-.937.404-1.338a6.473 6.473 0 0 0-5.033 1.417A8.012 8.012 0 0 0 10 19.749zM4.453 14.66A8.462 8.462 0 0 1 9.5 13c1.043 0 2.043.188 2.967.532.878-.343 1.925-.532 3.033-.532 1.66 0 3.185.424 4.206 1.156a8 8 0 1 0-15.253.504zm14.426 1.426C18.486 15.553 17.171 15 15.5 15c-2.006 0-3.5.797-3.5 1.4V20a7.996 7.996 0 0 0 6.88-3.914zM12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm3.5-9.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiUserSpyLine.js
+  var RiUserSpyLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path fill-rule="nonzero" d="M17 13a4 4 0 1 1-4 4h-2a4 4 0 1 1-.535-2h3.07A3.998 3.998 0 0 1 17 13zM7 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM16 3a4 4 0 0 1 4 4v3h2v2H2v-2h2V7a4 4 0 0 1 4-4h8zm0 2H8c-1.054 0-2 .95-2 2v3h12V7c0-1.054-.95-2-2-2z"></path></g>'
+  };
+
   // _components/partials/SubMenuLink.svelte
-  function create_fragment5(ctx) {
+  function create_fragment4(ctx) {
     let a;
     let icon_1;
     let t0;
@@ -7768,7 +7519,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       }
     };
   }
-  function instance5($self, $props, $invalidate) {
+  function instance4($self, $props, $invalidate) {
     let { href = "" } = $props;
     let { icon = {} } = $props;
     let { title = "" } = $props;
@@ -7785,7 +7536,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
   var SubMenuLink = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance5, create_fragment5, safe_not_equal, { href: 0, icon: 1, title: 2 });
+      init(this, options, instance4, create_fragment4, safe_not_equal, { href: 0, icon: 1, title: 2 });
     }
   };
   var SubMenuLink_default = SubMenuLink;
@@ -8048,15 +7799,31 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     let icon;
     let t0;
     let span;
+    let t2;
+    let div;
+    let submenulink0;
+    let t3;
+    let submenulink1;
     let current;
     icon = new Icon_default({
       props: {
         size: "18",
-        className: (
-          /*segment1*/
-          ctx[1] === "superAdmin" ? "icon_active" : "icon_dark"
-        ),
+        className: window.location.pathname === "/superAdmin/dashboard" ? "icon_active" : "icon_dark",
         src: RiUserAdminLine_default
+      }
+    });
+    submenulink0 = new SubMenuLink_default({
+      props: {
+        title: "Users",
+        href: "/superAdmin/userManagement",
+        icon: RiUserGroup2Line_default
+      }
+    });
+    submenulink1 = new SubMenuLink_default({
+      props: {
+        title: "Tenants",
+        href: "/superAdmin/tenantManagement",
+        icon: RiUserSpyLine_default
       }
     });
     return {
@@ -8066,54 +7833,52 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
         t0 = space();
         span = element("span");
         span.textContent = "Super Admin";
+        t2 = space();
+        div = element("div");
+        create_component(submenulink0.$.fragment);
+        t3 = space();
+        create_component(submenulink1.$.fragment);
         attr(a, "href", "/superAdmin/dashboard");
         attr(a, "class", "svelte-rvgb98");
-        toggle_class(
-          a,
-          "active",
-          /*segment1*/
-          ctx[1] === "superAdmin"
-        );
+        toggle_class(a, "active", window.location.pathname === "/superAdmin/dashboard");
+        attr(div, "class", "submenu svelte-rvgb98");
       },
       m(target, anchor) {
         insert(target, a, anchor);
         mount_component(icon, a, null);
         append(a, t0);
         append(a, span);
+        insert(target, t2, anchor);
+        insert(target, div, anchor);
+        mount_component(submenulink0, div, null);
+        append(div, t3);
+        mount_component(submenulink1, div, null);
         current = true;
       },
-      p(ctx2, dirty) {
-        const icon_changes = {};
-        if (dirty & /*segment1*/
-        2)
-          icon_changes.className = /*segment1*/
-          ctx2[1] === "superAdmin" ? "icon_active" : "icon_dark";
-        icon.$set(icon_changes);
-        if (!current || dirty & /*segment1*/
-        2) {
-          toggle_class(
-            a,
-            "active",
-            /*segment1*/
-            ctx2[1] === "superAdmin"
-          );
-        }
-      },
+      p: noop,
       i(local) {
         if (current)
           return;
         transition_in(icon.$.fragment, local);
+        transition_in(submenulink0.$.fragment, local);
+        transition_in(submenulink1.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
+        transition_out(submenulink0.$.fragment, local);
+        transition_out(submenulink1.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(a);
+          detach(t2);
+          detach(div);
         }
         destroy_component(icon);
+        destroy_component(submenulink0);
+        destroy_component(submenulink1);
       }
     };
   }
@@ -8252,7 +8017,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       }
     };
   }
-  function create_fragment6(ctx) {
+  function create_fragment5(ctx) {
     let aside;
     let div1;
     let header;
@@ -8584,7 +8349,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       }
     };
   }
-  function instance6($self, $props, $invalidate) {
+  function instance5($self, $props, $invalidate) {
     let { access = {} } = $props;
     let segment1;
     onMount(() => $invalidate(1, segment1 = window.location.pathname.split("/")[1]));
@@ -8611,13 +8376,13 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
   var SideMenu = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance6, create_fragment6, safe_not_equal, { access: 0 });
+      init(this, options, instance5, create_fragment5, safe_not_equal, { access: 0 });
     }
   };
   var SideMenu_default = SideMenu;
 
   // _components/partials/Navbar.svelte
-  function create_fragment7(ctx) {
+  function create_fragment6(ctx) {
     let header;
     let nav;
     let div0;
@@ -8669,7 +8434,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       }
     };
   }
-  function instance7($self, $props, $invalidate) {
+  function instance6($self, $props, $invalidate) {
     let { user: user2 = {} } = $props;
     $self.$set = ($props2) => {
       if ("user" in $props2)
@@ -8680,13 +8445,13 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
   var Navbar = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance7, create_fragment7, safe_not_equal, { user: 0 });
+      init(this, options, instance6, create_fragment6, safe_not_equal, { user: 0 });
     }
   };
   var Navbar_default = Navbar;
 
   // _components/partials/Footer.svelte
-  function create_fragment8(ctx) {
+  function create_fragment7(ctx) {
     let footer;
     let p;
     let t2;
@@ -8720,20 +8485,20 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       }
     };
   }
-  function instance8($self) {
+  function instance7($self) {
     const year = new Date().getFullYear();
     return [year];
   }
   var Footer = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance8, create_fragment8, safe_not_equal, {});
+      init(this, options, instance7, create_fragment7, safe_not_equal, {});
     }
   };
   var Footer_default = Footer;
 
   // _layouts/mainLayout.svelte
-  function create_fragment9(ctx) {
+  function create_fragment8(ctx) {
     let div3;
     let div2;
     let sidemenu;
@@ -8852,7 +8617,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
   }
   var segments = {/* segments */};
   var user = {/* user */};
-  function instance9($self, $props, $invalidate) {
+  function instance8($self, $props, $invalidate) {
     let { $slots: slots = {}, $scope } = $props;
     $self.$set = ($props2) => {
       if ("$scope" in $props2)
@@ -8863,7 +8628,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
   var MainLayout = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance9, create_fragment9, safe_not_equal, {});
+      init(this, options, instance8, create_fragment8, safe_not_equal, {});
     }
   };
   var mainLayout_default = MainLayout;
@@ -8931,16 +8696,13 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     };
   }
   function create_default_slot(ctx) {
-    let adminsubmenu;
-    let t0;
     let div;
     let modalform;
-    let t1;
+    let t;
     let section;
     let tableview;
     let updating_pager;
     let current;
-    adminsubmenu = new AdminSubMenu_default({});
     let modalform_props = {
       fields,
       rowType: "User",
@@ -8982,22 +8744,18 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     binding_callbacks.push(() => bind(tableview, "pager", tableview_pager_binding));
     return {
       c() {
-        create_component(adminsubmenu.$.fragment);
-        t0 = space();
         div = element("div");
         create_component(modalform.$.fragment);
-        t1 = space();
+        t = space();
         section = element("section");
         create_component(tableview.$.fragment);
         attr(section, "class", "tableview_container");
         attr(div, "class", "user_management svelte-3ntwg6");
       },
       m(target, anchor) {
-        mount_component(adminsubmenu, target, anchor);
-        insert(target, t0, anchor);
         insert(target, div, anchor);
         mount_component(modalform, div, null);
-        append(div, t1);
+        append(div, t);
         append(div, section);
         mount_component(tableview, section, null);
         current = true;
@@ -9026,30 +8784,26 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
       i(local) {
         if (current)
           return;
-        transition_in(adminsubmenu.$.fragment, local);
         transition_in(modalform.$.fragment, local);
         transition_in(tableview.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(adminsubmenu.$.fragment, local);
         transition_out(modalform.$.fragment, local);
         transition_out(tableview.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(t0);
           detach(div);
         }
-        destroy_component(adminsubmenu, detaching);
         ctx[7](null);
         destroy_component(modalform);
         destroy_component(tableview);
       }
     };
   }
-  function create_fragment10(ctx) {
+  function create_fragment9(ctx) {
     let mainlayout;
     let current;
     mainlayout = new mainLayout_default({
@@ -9090,9 +8844,12 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
     };
   }
   var fields = [/* fields */];
-  function instance10($self, $props, $invalidate) {
+  function instance9($self, $props, $invalidate) {
     let users = [/* users */];
     let pager = {/* pager */};
+    console.log("Fields:", fields);
+    console.log("Users:", users);
+    console.log("Pager:", pager);
     function handleResponse(res) {
       console.log(res);
       if (res.error) {
@@ -9163,7 +8920,7 @@ footer.svelte-avwtdg nav a.svelte-avwtdg:hover {
   var SuperAdmin_userManagement = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance10, create_fragment10, safe_not_equal, {});
+      init(this, options, instance9, create_fragment9, safe_not_equal, {});
     }
   };
   var superAdmin_userManagement_default = SuperAdmin_userManagement;

@@ -1,6 +1,4 @@
 <script>
-  // @ts-nocheck
-  import AdminSubMenu from './_components/AdminSubMenu.svelte';
   import TableView from './_components/TableView.svelte';
   import { SuperAdminTenantManagement } from './jsApi.GEN';
   import ModalForm from './_components/ModalForm.svelte';
@@ -83,7 +81,6 @@
 </script>
 
 <MainLayout>
-  <AdminSubMenu />
   <div class="tenant_management">
     <ModalForm {fields} rowType="Tenant" bind:this={form} onConfirm={saveRow}></ModalForm>
     <section class="tableview_container">

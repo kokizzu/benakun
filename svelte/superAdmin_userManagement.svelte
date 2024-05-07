@@ -1,6 +1,4 @@
 <script>
-  // @ts-nocheck
-  import AdminSubMenu from './_components/AdminSubMenu.svelte';
   import TableView from './_components/TableView.svelte';
   import { SuperAdminUserManagement } from './jsApi.GEN';
   import ModalForm from './_components/ModalForm.svelte';
@@ -15,6 +13,10 @@
   let users = [/* users */];
   let pager = {/* pager */};
   let user = {/* user */};
+
+  console.log('Fields:', fields);
+  console.log('Users:', users);
+  console.log('Pager:', pager);
 
   // return true if got error
   function handleResponse(res) {
@@ -78,7 +80,6 @@
 </script>
 
 <MainLayout>
-  <AdminSubMenu />
   <div class="user_management">
     <ModalForm {fields} rowType="User" bind:this={form} onConfirm={saveRow}></ModalForm>
     <section class="tableview_container">

@@ -7,6 +7,7 @@
   import { notifier } from './_components/notifier.js';
   import ConfirmPopUp from './_components/ConfirmPopUp.svelte';
   import MainLayout from './_layouts/mainLayout.svelte';
+  import MasterTable from './_components/MasterTable.svelte';
 
   let segments = {/* segments */};
   let user = {/* user */};
@@ -120,6 +121,9 @@
         </tr>
       </tfoot>
     </table>
+  </div>
+  <div>
+    <MasterTable />
   </div>
 </MainLayout>
 
