@@ -38,7 +38,6 @@ const (
 	ErrTenantAdminDashboardTenantNotFound = `tenant admin not found`
 )
 
-
 var TenantAdminDashboardMeta = zCrud.Meta{
 	Fields: []zCrud.Field{
 		{
@@ -102,8 +101,11 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 		out.Meta = &TenantAdminDashboardMeta
 	}
 
-	staffs := user.FindUsersByTenant(tenant.TenantCode)
+	switch in.Cmd {
+	case zCrud.CmdList:
+		staffs := user.FindUsersByTenant(tenant.TenantCode)
+		out.Staffs = staffs
+	}
 
-	out.Staffs = staffs
 	return
 }

@@ -1,4 +1,5 @@
 <script>
+	// @ts-nocheck
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import RiDesignBallPenLine from 'svelte-icons-pack/ri/RiDesignBallPenLine';
   import AiOutlineEyeInvisible from 'svelte-icons-pack/ai/AiOutlineEyeInvisible';
@@ -19,16 +20,22 @@
 	import RiSystemInformationLine from 'svelte-icons-pack/ri/RiSystemInformationLine';
 	import FaSolidChartLine from 'svelte-icons-pack/fa/FaSolidChartLine';
 
-	/** @typedef {import('./types/access').Access} Access */
-	
+	/** @typedef {import('./types/master.js').Field} Field */
+	/** @typedef {import('./types/access.js').Access} Access */
+	/** @typedef {import('./types/master.js').PagerOut} PagerOut */
 
-	export let ACCESS = /** @type {Access} */ ({});
-	export let FIELDS = ({})
+	export const URL = window.location.pathname;
+	export let ACCESS = /** @type Access */ ({});
+	export let FIELDS = /** @type Field[] */  ([]);
+	export let PAGER = /** @type PagerOut */ ({});
+	export let MASTER_ROWS = /** @type any[] */ ([]);
+	export let PURPOSE = 'staff';
+	
+	console.log(ACCESS, FIELDS, PAGER, MASTER_ROWS, PURPOSE);
 
 	let paginationShow = [1, 2, 3, 4, 5];
 	let currentPage = 1, paginationTotal = 1;
 	let sortTableAsc = false;
-	
 </script>
 
 
@@ -76,9 +83,11 @@
 			<thead>
 				<tr>
 					<th class="no">No</th>
-						<th class="a_row">Actions</th>
+					<th class="a_row">Actions</th>
+					{#if FIELDS && FIELDS.length > 0}
+						{#each FIELDS as f, _ (f.name)}
 							<th class="sort_column">
-								<span>Name</span>
+								<span>{f.label}</span>
 								{#if sortTableAsc}
 									<Icon className="sort_icon" size="15" color="var(--gray-007)" src={IoArrowUpSharp}/>
 								{/if}
@@ -86,10 +95,24 @@
 									<Icon size="15" color="var(--gray-007)" src={IoArrowDownSharp}/>
 								{/if}
 							</th>
+						{/each}
+					{/if}
 				</tr>
 			</thead>
 			<tbody>
-				<td>hahaha</td>
+				{#if MASTER_ROWS && MASTER_ROWS.length}
+					{#each MASTER_ROWS as row, _ (row.id)}
+						<tr>
+							<th>{MASTER_ROWS.indexOf(row) + 1}</th>
+							<td>OO</td>
+							{#if FIELDS && FIELDS.length > 0}
+								{#each FIELDS as f, _ (f.name)}
+									<td>{row[f.name]}</td>
+								{/each}
+							{/if}
+						</tr>
+					{/each}
+				{/if}
 			</tbody>
 		</table>
 	</div>

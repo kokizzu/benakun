@@ -19,6 +19,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	fw.Get(`/tos`, func(c *fiber.Ctx) error {
 		return c.SendString(`TODO: replace with real terms of service`)
 	})
+
 	fw.Get(`/`, func(c *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(c, d)
 		google := d.GuestExternalAuth(&domain.GuestExternalAuthIn{
@@ -122,19 +123,25 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	})
 
 	fw.Get(`/`+domain.TenantAdminDashboardAction, func(ctx *fiber.Ctx) error {
-		in, user, segments := userInfoFromContext(ctx, d)
-		if notLogin(d, in.RequestCommon, false) {
+		var in domain.TenantAdminDashboardIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminDashboardAction)
+		if err != nil {
+			return err
+		}
+		if notLogin(d, in.RequestCommon, true) {
 			return ctx.Redirect(`/`, 302)
 		}
-		in.RequestCommon.Action = domain.TenantAdminDashboardAction
-		out := d.TenantAdminDashboard(&domain.TenantAdminDashboardIn{
-			RequestCommon: in.RequestCommon,
-		})
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Cmd = zCrud.CmdList
+		out := d.TenantAdminDashboard(&in)
 		return views.RenderTenantAdminDashboard(ctx, M.SX{
 			`title`:    `Tenant Admin Dashboard`,
 			`user`:     user,
 			`segments`: segments,
 			`staffs`:   out.Staffs,
+			`fields`: out.Meta.Fields,
+			`pager`:    out.Pager,
 		})
 	})
 

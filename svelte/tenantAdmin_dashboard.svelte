@@ -1,7 +1,4 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import CgTrash from "svelte-icons-pack/cg/CgTrash";
-  import HiOutlinePencilAlt from "svelte-icons-pack/hi/HiOutlinePencilAlt";
   import { onMount } from 'svelte';
   import {TenantAdminTerminateStaff} from './jsApi.GEN.js';
   import { notifier } from './_components/notifier.js';
@@ -9,9 +6,23 @@
   import MainLayout from './_layouts/mainLayout.svelte';
   import MasterTable from './_components/MasterTable.svelte';
 
-  let segments = {/* segments */};
-  let user = {/* user */};
-  let staffs = [/* staffs */];
+  /** @typedef {import('./_components/types/master.js').Field} Field */
+	/** @typedef {import('./_components/types/access.js').Access} Access */
+	/** @typedef {import('./_components/types/master.js').PagerOut} PagerOut */
+  /** @typedef {import('./_components/types/user.js').User} User */
+  /** @typedef {import('./_components/types/user.js').Staff} Staff */
+
+  let segments = /** @type Access */ ({/* segments */});
+  let user = /** @type User */ ({/* user */});
+  let staffs = /** @type Staff[] */ ([/* staffs */]);
+  let fields = /** @type Field[] */ ([/* fields */]);
+  let pager = /** @type PagerOut */ ({/* pager */});
+
+  console.log('segments =', segments);
+  console.log('user =', user);
+  console.log('staffs =', staffs);
+  console.log('fields =', fields);
+  console.log('pager =', pager);
 
   let staffStatus = [];
   let tableReady = false;
@@ -20,7 +31,6 @@
   let confirm_popup;
 
   onMount(()=> {
-    console.log('Staff =', staffs)
     if (staffs && staffs.length) {
       for (let i = 0; i < staffs.length; i++) {
         const invSts = staffs[i]['invitationState'].split(' ');
@@ -70,129 +80,16 @@
 <ConfirmPopUp action={confirmAction} question={confirmQuestion} visible={confirmVisible} />
 
 <MainLayout>
-  <div class="staff_table">
-    <table>
-      <thead>
-        <tr>
-          <th class="primary" scope="col">User ID</th>
-          <th scope="col">Email</th>
-          <th scope="col">Full Name</th>
-          <th scope="col">Role</th>
-          <th scope="col">Status</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#if tableReady}
-        {#if staffs && staffs.length}
-          {#each staffs as staff, idx}
-            <tr>
-              <td class="text-center">{staff.id}</td>
-              <td>{staff.email}</td>
-              <td>{staff.fullName || '--'}</td>
-              <td class="text-capitalize">{staff.role}</td>
-              <td>{staffStatus[idx]}</td>
-              <td>
-                <div class="action_btns">
-                <button
-                  class="btn delete_btn"
-                  title="Terminate staff"
-                  on:click|preventDefault={() => confirmTerminateStaff(staff.email)}
-                >
-                  <Icon size="15" src={CgTrash} />
-                </button>
-                <button class="btn edit_btn">
-                  <Icon size="15" src={HiOutlinePencilAlt} />
-                </button>
-                </div>
-              </td>
-            </tr>
-          {/each}
-        {/if}
-        {/if}
-      </tbody>
-      <tfoot>
-        <tr>
-          {#if staffs && staffs.length}
-          <td colspan="6"><i>Total Staff: {staffs.length}</i></td>
-          {:else}
-            <td colspan="6"><i>Total Staff: 0</i></td>
-          {/if}
-        </tr>
-      </tfoot>
-    </table>
-  </div>
   <div>
-    <MasterTable />
+    <MasterTable
+      ACCESS={segments}
+      FIELDS={fields}
+      PAGER={pager}
+      MASTER_ROWS={staffs}
+      PURPOSE='staff'
+    />
   </div>
 </MainLayout>
 
 <style>
-  .staff_table {
-    width: fit-content;
-    height: fit-content;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .staff_table .action_btns {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    gap: 0;
-  }
-
-  .staff_table .btn {
-    padding: 6px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    border-radius: 9999px;
-    color: var(--gray-008);
-  }
-
-  .staff_table .btn:hover {
-    background-color: var(--gray-002);
-  }
-
-  :global(.staff_table .delete_btn:hover svg) {
-    color: var(--red-002);
-  }
-
-  :global(.staff_table .edit_btn:hover svg path) {
-    stroke: var(--yellow-002);
-  }
-
-  table {
-    text-align: left;
-    position: relative;
-    border-collapse: collapse;
-  }
-
-  .staff_table table thead tr th {
-    border: 1px solid var(--gray-008);
-  }
-  
-  td, th {
-    border: 1px solid var(--gray-002);
-    padding: 10px;
-  }
-  th {
-    background: var(--gray-009);
-    color: white;
-    border-radius: 0;
-    position: sticky;
-    top: 0;
-    padding: 10px;
-  }
-  
-  tfoot > tr {
-    background-color: var(--gray-002);
-    font-weight: 700;
-    color: var(--blue-006);
-  }
-
 </style>
