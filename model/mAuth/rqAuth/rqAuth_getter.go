@@ -15,8 +15,9 @@ type StaffWithInvitation struct {
 	Id              uint64 `json:"id" form:"id" query:"id" long:"id" msg:"id"`
 	Email           string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
 	FullName        string `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
-	InvitationState string `json:"invitationState" form:"invitationState" query:"invitationState" long:"invitationState" msg:"invitationState"`
+	InvitationState	string `json:"invitationState" form:"invitationState" query:"invitationState" long:"invitationState" msg:"invitationState"`
 	Role            string `json:"role" form:"role" query:"role" long:"role" msg:"role"`
+	Date 						string `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
 }
 
 const (
@@ -146,12 +147,14 @@ FROM ` + u.SqlTableName() + whereAndSql
 	if len(res) > 0 {
 		for _, stf := range res {
 			if len(stf) >= 5 {
+				invState, invStateDate := staffState(X.ToS(stf[StaffIdxInvitationState]), tenantCode)
 				st := StaffWithInvitation{
 					Id:              X.ToU(stf[StaffIdxId]),
 					Email:           X.ToS(stf[StaffIdxEmail]),
 					FullName:        X.ToS(stf[StaffIdxFullName]),
-					InvitationState: X.ToS(stf[StaffIdxInvitationState]),
+					InvitationState: 				 invState,
 					Role:            X.ToS(stf[StaffIdxRole]),
+					Date: 					 invStateDate,
 				}
 				staffs = append(staffs, st)
 			}
@@ -161,6 +164,25 @@ FROM ` + u.SqlTableName() + whereAndSql
 	}
 
 	return
+}
+
+func staffState(states, tenantCode string) (string, string) {
+	sliceStates := S.Split(S.Trim(states), ` `)
+	if len(sliceStates) == 0 || states == `` {
+		return ``, ``
+	}
+	for _, state := range sliceStates {
+		if state == `` {
+			continue
+		}
+		parts := S.Split(state, `:`)
+		if len(parts) == 4 {
+			if parts[1] == tenantCode {
+				return parts[2], parts[3]
+			}
+		} 
+	}
+	return ``, ``
 }
 
 func (c *Coa) FindCoasByTenant(tenantCode string) (coas []Coa) {

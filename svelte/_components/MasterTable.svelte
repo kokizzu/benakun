@@ -1,5 +1,4 @@
 <script>
-	// @ts-nocheck
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import RiDesignBallPenLine from 'svelte-icons-pack/ri/RiDesignBallPenLine';
   import AiOutlineEyeInvisible from 'svelte-icons-pack/ai/AiOutlineEyeInvisible';
@@ -30,54 +29,49 @@
 	export let PAGER = /** @type PagerOut */ ({});
 	export let MASTER_ROWS = /** @type any[] */ ([]);
 	export let PURPOSE = 'staff';
+	export let CAN_SEARCH_ROW = true;
 	
 	console.log(ACCESS, FIELDS, PAGER, MASTER_ROWS, PURPOSE);
 
 	let paginationShow = [1, 2, 3, 4, 5];
 	let currentPage = 1, paginationTotal = 1;
 	let sortTableAsc = false;
+
+	let isAjaxSubmitted = false;
 </script>
 
 
 <div class="table_root">
-  <div class="actions_container">
+	<div class="actions_container">
     <div class="left">
-      <div class="debug">
-        <div class="showing">
-          <p>Debug table <span class="text-sky">1</span>/<span class="text-sky">100</span> of <span class="text-sky">100</span> record(s)</p>
-        </div>
-        <button class="btn">
-          <Icon color="#FFF" size="16" src={AiOutlineEyeInvisible}/>
-        </button>
-      </div>
       <div class="actions_btn">
-          <button class="btn add" title="Create new">
-            <Icon color="#FFF" size="18" src={CgMathPlus}/>
-          </button>
-          <button class="btn export" title="Export to Excel">
-            <Icon color="#FFF" size="18" src={AiOutlineFileExcel}/>
-          </button>
+				<button class="btn add" title="invite user">
+					<Icon color="#FFF" size="18" src={CgMathPlus}/>
+				</button>
       </div>
+			{#if isAjaxSubmitted}
         <div class="loader">
-          <Icon className="spin" color="var(--sky-007)" size="28" src={FiLoader} />
+          <Icon className="spin" color="var(--violet-007)" size="28" src={FiLoader} />
         </div>
+      {/if}
     </div>
     <div class="right">
-			<div class="search_handler">
-				<input
-					placeholder="Search..."
-					type="text"
-					name="searchRow"
-					id="searchRow"
-					class="search"
-				/>
-				<button class="search_btn">
-					<Icon color="#FFF" size="16" src={IoSearch}/>
-				</button>
-			</div>
+			{#if CAN_SEARCH_ROW}
+      	<div class="search_handler">
+        	<input
+          	placeholder="Search..."
+          	type="text"
+          	name="searchRow"
+          	id="searchRow"
+          	class="search"
+        	/>
+        	<button class="search_btn">
+          	<Icon color="#FFF" size="16" src={IoSearch}/>
+        	</button>
+      	</div>
+			{/if}
     </div>
   </div>
-
 	<div class="table_container">
 		<table>
 			<thead>
@@ -120,7 +114,7 @@
   <div class="pagination_container">
     <div class="filter">
       <div class="showing">
-        <p>Showing <span class="text-sky">10</span>/<span class="text-sky">20</span> of <span class="text-sky">40</span> record(s)</p>
+        <p>Showing <span class="text-violet">10</span>/<span class="text-violet">20</span> of <span class="text-violet">40</span> record(s)</p>
       </div>
       <div class="row_to_show">
         <button class="btn" >
@@ -150,6 +144,10 @@
 </div>
 
 <style>
+	p {
+		margin: 0;
+	}
+
 	.popup_container {
 		position: fixed;
 		width: 100%;
@@ -262,12 +260,12 @@
   }
 
 	.popup_container .popup .foot button.restore {
-		background-color: var(--sky-006);
-		border: 1px solid var(--sky-006);
+		background-color: var(--violet-006);
+		border: 1px solid var(--violet-006);
 	}
 
   .popup_container .popup .foot button.restore:hover {
-    background-color: var(--sky-005);
+    background-color: var(--violet-005);
   }
 
 	.popup_container .popup .foot button.ok {
@@ -350,15 +348,15 @@
 		border-radius: 999px;
 	}
 
-	.table_root .actions_container .left .debug .showing .text-sky {
-		color: var(--sky-006);
+	.table_root .actions_container .left .debug .showing .text-violet {
+		color: var(--violet-006);
 		font-weight: 600;
 		padding: 5px;
 	}
 
 	.table_root .actions_container .left .debug .btn {
 		border: none;
-		background-color: var(--sky-006);
+		background-color: var(--violet-006);
 		color: #FFF;
 		width: fit-content;
 		padding: 4px 10px;
@@ -372,7 +370,7 @@
 	}
 
 	.table_root .actions_container .left .debug .btn:hover {
-		background-color: var(--sky-005);
+		background-color: var(--violet-005);
 	}
 
   .table_root .actions_container .right .search_handler {
@@ -391,14 +389,14 @@
   }
 
   .table_root .actions_container .right .search_handler input.search:focus {
-    border-color: var(--sky-005);
-    outline: 1px solid var(--sky-005);
+    border-color: var(--violet-005);
+    outline: 1px solid var(--violet-005);
   }
 
   .table_root .actions_container .right .search_handler .search_btn {
     position: absolute;
     right: 5px;
-    background-color: var(--sky-006);
+    background-color: var(--violet-006);
     padding: 6px 12px;
     display: flex;
     justify-content: center;
@@ -410,7 +408,7 @@
   }
 
   .table_root .actions_container .right .search_handler .search_btn:hover {
-    background-color: var(--sky-005);
+    background-color: var(--violet-005);
   }
 
   .table_root .actions_container .actions_btn {
@@ -552,12 +550,12 @@
 	}
 
   .table_root .table_container table tbody tr td .actions .btn.info {
-		background-color: var(--sky-005);
+		background-color: var(--violet-005);
 		color: #FFF;
 	}
 
 	.table_root .table_container table tbody tr td .actions .btn.info:hover {
-		background-color: var(--sky-006);
+		background-color: var(--violet-006);
 	}
 
   .table_root .pagination_container {
@@ -576,8 +574,8 @@
 		border-radius: 999px;
 	}
 
-	.table_root .pagination_container .filter .showing .text-sky {
-		color: var(--sky-006);
+	.table_root .pagination_container .filter .showing .text-violet {
+		color: var(--violet-006);
 		font-weight: 600;
 		padding: 5px;
 	}
@@ -590,7 +588,7 @@
 
 	.table_root .pagination_container .filter .row_to_show .btn {
 		border: none;
-		background-color: var(--sky-006);
+		background-color: var(--violet-006);
 		color: #FFF;
 		width: fit-content;
 		padding: 4px 10px;
@@ -604,7 +602,7 @@
 	}
 
 	.table_root .pagination_container .filter .row_to_show .btn:hover {
-		background-color: var(--sky-005);
+		background-color: var(--violet-005);
 	}
 
 	.table_root .pagination_container .filter .row_to_show .rows {
@@ -627,8 +625,8 @@
 	}
 
 	.table_root .pagination_container .filter .row_to_show .rows button:hover {
-		background-color: #0ea5e920;
-		color: var(--sky-007);
+		background-color: var(--violet-transparent);
+		color: var(--violet-007);
 	}
 
 	.table_root .pagination_container .pagination {
@@ -641,7 +639,7 @@
 
 	.table_root .pagination_container .pagination .btn {
 		border: none;
-		background-color: #FFF;
+		background-color: transparent;
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
@@ -659,21 +657,21 @@
 	}
 
 	.table_root .pagination_container .pagination .btn.active {
-		background-color: #0ea5e920;
-		color: var(--sky-006);
+		background-color: var(--violet-transparent);
+		color: var(--violet-006);
 		font-weight: 600;
-		border: 1px solid var(--sky-004);
+		border: 1px solid var(--violet-004);
 	}
 
 	.table_root .pagination_container .pagination .btn.to {
-		background-color: var(--sky-006);
+		background-color: var(--violet-006);
 		color: #FFF;
 		font-weight: 600;
 		border: none;
 	}
 
 	.table_root .pagination_container .pagination .btn.to:hover {
-		background-color: var(--sky-005);
+		background-color: var(--violet-005);
 	}
 
 	.table_root .pagination_container .pagination .btn.to:disabled {
