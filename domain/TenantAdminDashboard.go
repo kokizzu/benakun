@@ -19,7 +19,7 @@ type (
 	TenantAdminDashboardIn struct {
 		RequestCommon
 		Cmd      string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		User     rqAuth.Users  `json:"user" form:"user" query:"user" long:"user" msg:"user"`
+		Staff    rqAuth.StaffWithInvitation `json:"staff" form:"staff" query:"staff" long:"staff" msg:"staff"`
 		WithMeta bool          `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
 		Pager    zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 	}
@@ -36,6 +36,7 @@ const (
 
 	ErrTenantAdminDashboardUnauthorized   = `unauthorized user`
 	ErrTenantAdminDashboardTenantNotFound = `tenant admin not found`
+	ErrStaffIdNotFound = `staff id not found`
 )
 
 var TenantAdminDashboardMeta = zCrud.Meta{
@@ -102,6 +103,25 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 	}
 
 	switch in.Cmd {
+	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
+		user := wcAuth.NewUsersMutator(d.AuthOltp)
+		user.Id = in.Staff.Id
+		if in.Staff.Id > 0 {
+			if !user.FindById() {
+				out.SetError(400, ErrStaffIdNotFound)
+				return
+			}
+
+			
+		} else {
+
+		}
+
+		if in.Pager.Page == 0 {
+			break
+		}
+
+		fallthrough
 	case zCrud.CmdList:
 		staffs := user.FindUsersByTenant(tenant.TenantCode)
 		out.Staffs = staffs

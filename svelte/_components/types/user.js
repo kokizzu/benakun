@@ -25,7 +25,7 @@ module.exports = {};
 
 /**
  * @typedef {Object} Staff
- * @property {string} id
+ * @property {number} id
  * @property {string} email
  * @property {string} fullName
  * @property {string} invitationState

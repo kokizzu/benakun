@@ -12,12 +12,20 @@ import (
 )
 
 type StaffWithInvitation struct {
-	Id              string `json:"id" form:"id" query:"id" long:"id" msg:"id"`
+	Id              uint64 `json:"id" form:"id" query:"id" long:"id" msg:"id"`
 	Email           string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
 	FullName        string `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
 	InvitationState string `json:"invitationState" form:"invitationState" query:"invitationState" long:"invitationState" msg:"invitationState"`
 	Role            string `json:"role" form:"role" query:"role" long:"role" msg:"role"`
 }
+
+const (
+	StaffIdxId int = iota
+	StaffIdxEmail
+	StaffIdxFullName
+	StaffIdxInvitationState
+	StaffIdxRole
+)
 
 func (u *Users) CheckPassword(pass string) error {
 	return S.CheckPassword(u.Password, pass)
@@ -139,11 +147,11 @@ FROM ` + u.SqlTableName() + whereAndSql
 		for _, stf := range res {
 			if len(stf) >= 5 {
 				st := StaffWithInvitation{
-					Id:              stf[0].(string),
-					Email:           stf[1].(string),
-					FullName:        stf[2].(string),
-					InvitationState: stf[3].(string),
-					Role:            stf[4].(string),
+					Id:              X.ToU(stf[StaffIdxId]),
+					Email:           X.ToS(stf[StaffIdxEmail]),
+					FullName:        X.ToS(stf[StaffIdxFullName]),
+					InvitationState: X.ToS(stf[StaffIdxInvitationState]),
+					Role:            X.ToS(stf[StaffIdxRole]),
 				}
 				staffs = append(staffs, st)
 			}
