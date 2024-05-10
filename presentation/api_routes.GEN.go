@@ -250,16 +250,6 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
-	// TenantAdminInviteUser
-	fw.Post("/"+domain.TenantAdminInviteUserAction, func(c *fiber.Ctx) error {
-		in := domain.TenantAdminInviteUserIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminInviteUserAction); err != nil {
-			return nil
-		}
-		out := d.TenantAdminInviteUser(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
-	})
-
 	// TenantAdminMoveOrganizationChild
 	fw.Post("/"+domain.TenantAdminMoveOrganizationChildAction, func(c *fiber.Ctx) error {
 		in := domain.TenantAdminMoveOrganizationChildIn{}
@@ -297,16 +287,6 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return nil
 		}
 		out := d.TenantAdminRestoreOrganizationChild(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
-	})
-
-	// TenantAdminTerminateStaff
-	fw.Post("/"+domain.TenantAdminTerminateStaffAction, func(c *fiber.Ctx) error {
-		in := domain.TenantAdminTerminateStaffIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminTerminateStaffAction); err != nil {
-			return nil
-		}
-		out := d.TenantAdminTerminateStaff(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

@@ -21,10 +21,10 @@ import (
 type (
 	TenantAdminDashboardIn struct {
 		RequestCommon
-		Cmd      string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		Staff    rqAuth.StaffWithInvitation `json:"staff" form:"staff" query:"staff" long:"staff" msg:"staff"`
-		WithMeta bool          `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
-		Pager    zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		Cmd      		string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
+		StaffEmail	string				`json:"staffEmail" form:"staffEmail" query:"staffEmail" long:"staffEmail" msg:"staffEmail"`
+		WithMeta		bool          `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
+		Pager    		zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 	}
 	TenantAdminDashboardOut struct {
 		ResponseCommon
@@ -39,8 +39,11 @@ const (
 
 	ErrTenantAdminDashboardUnauthorized   = `unauthorized user`
 	ErrTenantAdminDashboardTenantNotFound = `tenant admin not found`
-	ErrTenantAdminDashboardStaffIdRequired = `staff id is required`
-	ErrStaffIdNotFound = `staff id not found`
+	ErrTenantAdminDashboardStaffEmailRequired = `staff email is required`
+	ErrTenantAdminDashboardStaffNotFound = `staff not found` 
+	ErrTenantAdminDashboardInvalidStaff = `invalid staff`
+	ErrTenantAdminDashboardEmptyState = `failed to modify staff, state is empty`
+	ErrTenantAdminDashboardFailed = `failed to update staff`
 )
 
 var TenantAdminDashboardMeta = zCrud.Meta{
@@ -112,85 +115,70 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 	}
 
 	switch in.Cmd {
-	case zCrud.CmdUpsert:
-		if in.Staff.Email != `` {
+	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
+		if in.StaffEmail != `` {
 			user := wcAuth.NewUsersMutator(d.AuthOltp)
-			user.Email = in.Staff.Email
+			user.Email = in.StaffEmail
 			if !user.FindByEmail() {
-				out.SetError(400, ErrTenantAdminInviteUserUserNotFound)
+				out.SetError(400, ErrTenantAdminDashboardStaffNotFound)
 				return
 			}
 
-			if user.TenantCode != `` {
-				out.SetError(400, ErrTenantAdminInviteUserInvalidInvitation)
-				return
-			}
-
-			mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
-			if errors.Is(err, mAuth.ErrInvitationStateEmpty) {
-				invState := mAuth.InviteState{
-					TenantCode: tenant.TenantCode,
-					State:      mAuth.InvitationStateInvited,
-					Date:       T.DateStr(),
-				}
-				user.SetInvitationState(invState.ToStateString())
-			} else {
-				err := mapState.ModifyState(tenant.TenantCode, mAuth.InvitationStateInvited)
-				if err != nil {
-					out.SetError(400, err.Error())
+			if in.Cmd == zCrud.CmdUpsert {
+				if user.TenantCode != `` {
+					out.SetError(400, ErrTenantAdminDashboardInvalidStaff)
 					return
 				}
-				user.SetInvitationState(mapState.ToStateString())
+
+				mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
+				if errors.Is(err, mAuth.ErrInvitationStateEmpty) {
+					invState := mAuth.InviteState{
+						TenantCode: tenant.TenantCode,
+						State:      mAuth.InvitationStateInvited,
+						Date:       T.DateStr(),
+					}
+					user.SetInvitationState(invState.ToStateString())
+				} else {
+					err := mapState.ModifyState(tenant.TenantCode, mAuth.InvitationStateInvited)
+					if err != nil {
+						out.SetError(400, err.Error())
+						return
+					}
+					user.SetInvitationState(mapState.ToStateString())
+				}
+			} else if in.Cmd == zCrud.CmdDelete {
+				mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
+				if errors.Is(err, mAuth.ErrInvitationStateEmpty) {
+					out.SetError(400, ErrTenantAdminDashboardEmptyState)
+					return
+				} else {
+					err := mapState.ModifyState(tenant.TenantCode, mAuth.InvitationStateTerminated)
+					if err != nil {
+						out.SetError(400, err.Error())
+						return
+					}
+					user.SetInvitationState(mapState.ToStateString())
+				}
+
+				user.SetRole(UserSegment)
 			}
 
 			if !user.DoUpdateByEmail() {
 				user.HaveMutation()
-				out.SetError(500, ErrTenantAdminInviteUserInviteFailed)
+				out.SetError(500, ErrTenantAdminDashboardFailed)
 				return
 			}
 
-			d.runSubtask(func() {
-				inviteRespUrl := in.Host + `/` + UserResponseInvitationAction + `?tenantCode=` + tenant.TenantCode + `&response=`
-				err := d.Mailer.SendInviteUserEmail(tenant.TenantCode, user.Email, inviteRespUrl)
-				L.IsError(err, `SendInviteUserEmail`)
-				// TODO: insert failed event to clickhouse
-			})
-		} else {
-			out.SetError(400, ErrTenantAdminDashboardStaffIdRequired)
-			return
-		}
-
-		if in.Pager.Page == 0 {
-			break
-		}
-
-		fallthrough
-	case zCrud.CmdDelete:
-		user := wcAuth.NewUsersMutator(d.AuthOltp)
-		user.Email = in.Staff.Email
-		if !user.FindByEmail() {
-			out.SetError(400, ErrTenantAdminTerminateStaffUserNotFound)
-			return
-		}
-
-		mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
-		if errors.Is(err, mAuth.ErrInvitationStateEmpty) {
-			out.SetError(400, ErrTenantAdminTerminateStaffEmptyState)
-			return
-		} else {
-			err := mapState.ModifyState(tenant.TenantCode, mAuth.InvitationStateTerminated)
-			if err != nil {
-				out.SetError(400, err.Error())
-				return
+			if in.Cmd == zCrud.CmdUpsert {
+				d.runSubtask(func() {
+					inviteRespUrl := in.Host + `/` + UserResponseInvitationAction + `?tenantCode=` + tenant.TenantCode + `&response=`
+					err := d.Mailer.SendInviteUserEmail(tenant.TenantCode, user.Email, inviteRespUrl)
+					L.IsError(err, `SendInviteUserEmail`)
+					// TODO: insert failed event to clickhouse
+				})
 			}
-			user.SetInvitationState(mapState.ToStateString())
-		}
-
-		user.SetRole(UserSegment)
-
-		if !user.DoUpdateByEmail() {
-			user.HaveMutation()
-			out.SetError(500, ErrTenantAdminTerminateStaffFailed)
+		} else {
+			out.SetError(400, ErrTenantAdminDashboardStaffEmailRequired)
 			return
 		}
 

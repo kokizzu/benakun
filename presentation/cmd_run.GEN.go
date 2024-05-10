@@ -204,14 +204,6 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminGetBudgetPlans(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
-	case domain.TenantAdminInviteUserAction:
-		in := domain.TenantAdminInviteUserIn{}
-		if !in.RequestCommon.FromCli(action, payload, &in) {
-			return
-		}
-		out := b.TenantAdminInviteUser(&in)
-		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
-
 	case domain.TenantAdminMoveOrganizationChildAction:
 		in := domain.TenantAdminMoveOrganizationChildIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
@@ -242,14 +234,6 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.TenantAdminRestoreOrganizationChild(&in)
-		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
-
-	case domain.TenantAdminTerminateStaffAction:
-		in := domain.TenantAdminTerminateStaffIn{}
-		if !in.RequestCommon.FromCli(action, payload, &in) {
-			return
-		}
-		out := b.TenantAdminTerminateStaff(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.TenantAdminTransactionAction:

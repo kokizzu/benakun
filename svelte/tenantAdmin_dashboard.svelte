@@ -1,6 +1,5 @@
 <script>
   import { onMount } from 'svelte';
-  import {TenantAdminTerminateStaff} from './jsApi.GEN.js';
   import { notifier } from './_components/notifier.js';
   import ConfirmPopUp from './_components/ConfirmPopUp.svelte';
   import MainLayout from './_layouts/mainLayout.svelte';
@@ -82,6 +81,7 @@
 <MainLayout>
   <div>
     <MasterTable
+      URL='/tenantAdmin/dashboard'
       ACCESS={segments}
       FIELDS={fields}
       PAGER={pager}

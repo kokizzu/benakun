@@ -18,9 +18,13 @@
 	import FaChartBar from 'svelte-icons-pack/fa/FaChartBar';
 	import RiSystemInformationLine from 'svelte-icons-pack/ri/RiSystemInformationLine';
 	import FaSolidChartLine from 'svelte-icons-pack/fa/FaSolidChartLine';
+	import RiSystemDeleteBin5Line from 'svelte-icons-pack/ri/RiSystemDeleteBin5Line';
+  import PopUpInviteUser from './PopUpInviteUser.svelte';
+	import { TenantAdminDashboard } from '../jsApi.GEN.js';
+	import { notifier } from './notifier';
 
 	/** @typedef {import('./types/master.js').Field} Field */
-	/** @typedef {import('./types/access.js').Access} Access */
+	/** @typedef {import('./types/access.js').Access} Access */ //@ts-ignore
 	/** @typedef {import('./types/master.js').PagerOut} PagerOut */
 
 	export const URL = window.location.pathname;
@@ -38,14 +42,101 @@
 	let sortTableAsc = false;
 
 	let isAjaxSubmitted = false;
+
+	let isSubmitInviteUser = false, emailToInvite = '';
+	let popUpInviteUser;
+	async function onSubmitInviteUser() {
+		isSubmitInviteUser = true;
+		await TenantAdminDashboard(
+			{
+				cmd: 'upsert',
+				staffEmail: emailToInvite,
+				withMeta: true,
+				// @ts-ignore
+				pager: { 
+					page: 1,
+					perPage: 0,
+					filters: {},
+					order: [],
+  			},
+			},
+			/** @type {import('../jsApi.GEN.js').TenantAdminDashboardCallback} */
+			function (/** @type any */ o) {
+				isSubmitInviteUser = false
+				popUpInviteUser.hide();
+				if (o.error) {
+					notifier.showError(o.error);
+					console.log(o);
+					return;
+				}
+
+				MASTER_ROWS = o.staffs;
+				notifier.showSuccess('user invited successfully');
+			}
+		);
+	}
+
+	function handleAdd() {
+		switch (PURPOSE) {
+			case 'staff': {
+				popUpInviteUser.show();
+				break;
+			}
+			default: {
+				console.log('default');
+			}
+		}
+	}
+
+	async function handleDelete(row) {
+		switch (PURPOSE) {
+			case 'staff': {
+				isAjaxSubmitted = true;
+				const i = {
+					cmd: 'delete',
+					staffEmail: row.email,
+					withMeta: true,
+					pager: {
+						page: 0,
+						perPage: 0,
+						filters: undefined,
+						order: []
+					}
+				};
+				await TenantAdminDashboard(
+					//@ts-ignore
+					i,
+					/** @type {import('../jsApi.GEN.js').TenantAdminDashboardCallback} */
+					function(/** @type any */ o) {
+						isAjaxSubmitted = false;
+						if (o.error) {
+							notifier.showError(o.error);
+							console.log(o);
+							return;
+						}
+
+						MASTER_ROWS = o.staffs;
+						console.log(o);
+					}
+				)
+			}
+		}
+	}
 </script>
 
+{#if PURPOSE === 'staff'}
+	<PopUpInviteUser
+		bind:this={popUpInviteUser}
+		onSubmit={onSubmitInviteUser}
+		bind:email={emailToInvite}
+	/>
+{/if}
 
 <div class="table_root">
 	<div class="actions_container">
     <div class="left">
       <div class="actions_btn">
-				<button class="btn add" title="invite user">
+				<button class="btn add" on:click={handleAdd}>
 					<Icon color="#FFF" size="18" src={CgMathPlus}/>
 				</button>
       </div>
@@ -98,7 +189,20 @@
 					{#each MASTER_ROWS as row, _ (row.id)}
 						<tr>
 							<th>{MASTER_ROWS.indexOf(row) + 1}</th>
-							<td>OO</td>
+							<td class="a_row">
+								<div class="actions">
+									<button class="btn edit" title="Edit">
+										<Icon size="13" color="#FFF" src={RiDesignBallPenLine}/>
+									</button>
+									<button
+										class="btn delete"
+										title="delete"
+										on:click={() => handleDelete(row)}
+									>
+										<Icon size="13" color="#FFF" src={RiSystemDeleteBin5Line}/>
+									</button>
+								</div>
+							</td>
 							{#if FIELDS && FIELDS.length > 0}
 								{#each FIELDS as f, _ (f.name)}
 									<td>{row[f.name]}</td>
@@ -557,6 +661,14 @@
 	.table_root .table_container table tbody tr td .actions .btn.info:hover {
 		background-color: var(--violet-006);
 	}
+
+	.table_root .table_container table tbody tr td .actions .btn.delete {
+    background-color: var(--red-006);
+  }
+
+  .table_root .table_container table tbody tr td .actions .btn.delete:hover {
+    background-color: var(--red-005);
+  }
 
   .table_root .pagination_container {
 		display: flex;

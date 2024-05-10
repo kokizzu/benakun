@@ -1043,14 +1043,56 @@ exports.TenantAdminCreateOrganizationChild = async function TenantAdminCreateOrg
 
 /**
  * @typedef {Object} TenantAdminDashboardIn
+ * @property {String} cmd
+ * @property {String} staffEmail
+ * @property {Object} withMeta
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
  */
 const TenantAdminDashboardIn = {
+  cmd: '', // string
+  staffEmail: '', // string
+  withMeta: false, // bool
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
 }
 /**
  * @typedef {Object} TenantAdminDashboardOut
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
  * @property {Object} staffs
  */
 const TenantAdminDashboardOut = {
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
   staffs: { // []rqAuth.StaffWithInvitation
   }, // []rqAuth.StaffWithInvitation
 }
@@ -1159,36 +1201,6 @@ const TenantAdminGetBudgetPlansOut = {
  */
 exports.TenantAdminGetBudgetPlans = async function TenantAdminGetBudgetPlans( i, cb ) {
   return await axios.post( '/tenantAdmin/getBudgetPlans', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
- * @typedef {Object} TenantAdminInviteUserIn
- * @property {String} email
- */
-const TenantAdminInviteUserIn = {
-  email: '', // string
-}
-/**
- * @typedef {Object} TenantAdminInviteUserOut
- * @property {String} message
- */
-const TenantAdminInviteUserOut = {
-  message: '', // string
-}
-/**
- * @callback TenantAdminInviteUserCallback
- * @param {TenantAdminInviteUserOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminInviteUserIn} i
- * @param {TenantAdminInviteUserCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminInviteUser = async function TenantAdminInviteUser( i, cb ) {
-  return await axios.post( '/tenantAdmin/inviteUser', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -1342,36 +1354,6 @@ const TenantAdminRestoreOrganizationChildOut = {
  */
 exports.TenantAdminRestoreOrganizationChild = async function TenantAdminRestoreOrganizationChild( i, cb ) {
   return await axios.post( '/tenantAdmin/restoreOrganizationChild', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
- * @typedef {Object} TenantAdminTerminateStaffIn
- * @property {String} email
- */
-const TenantAdminTerminateStaffIn = {
-  email: '', // string
-}
-/**
- * @typedef {Object} TenantAdminTerminateStaffOut
- * @property {String} message
- */
-const TenantAdminTerminateStaffOut = {
-  message: '', // string
-}
-/**
- * @callback TenantAdminTerminateStaffCallback
- * @param {TenantAdminTerminateStaffOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminTerminateStaffIn} i
- * @param {TenantAdminTerminateStaffCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminTerminateStaff = async function TenantAdminTerminateStaff( i, cb ) {
-  return await axios.post( '/tenantAdmin/terminateStaff', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
