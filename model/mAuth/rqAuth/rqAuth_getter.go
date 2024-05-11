@@ -129,11 +129,11 @@ func (u *Users) FindByTenantCode() bool {
 	return false
 }
 
-func (u *Users) FindUsersByTenant(tenantCode string) (staffs []StaffWithInvitation) {
+func (u *Users) FindUsersByTenant() (staffs []StaffWithInvitation) {
 	var res [][]any
 	const comment = `-- Users) FindByTenant`
 
-	whereAndSql := ` WHERE ` + u.SqlInvitationState() + `LIKE '%tenant:` + tenantCode + `:%'`
+	whereAndSql := ` WHERE ` + u.SqlInvitationState() + `LIKE '%tenant:` + u.TenantCode + `:%'`
 
 	queryRows := comment + `
 SELECT ` + u.SqlId() + `, ` + u.SqlEmail() + `, ` + u.SqlFullName() + `, ` + u.SqlInvitationState() + `, ` + u.SqlRole() + `
@@ -147,7 +147,7 @@ FROM ` + u.SqlTableName() + whereAndSql
 	if len(res) > 0 {
 		for _, stf := range res {
 			if len(stf) >= 5 {
-				invState, invStateDate := staffState(X.ToS(stf[StaffIdxInvitationState]), tenantCode)
+				invState, invStateDate := staffState(X.ToS(stf[StaffIdxInvitationState]), u.TenantCode)
 				st := StaffWithInvitation{
 					Id:              X.ToU(stf[StaffIdxId]),
 					Email:           X.ToS(stf[StaffIdxEmail]),
@@ -166,7 +166,7 @@ FROM ` + u.SqlTableName() + whereAndSql
 	return
 }
 
-func staffState(states, tenantCode string) (string, string) {
+func staffState(states, tenantCode string) (invState string, invStateDate string) {
 	sliceStates := S.Split(S.Trim(states), ` `)
 	if len(sliceStates) == 0 || states == `` {
 		return ``, ``
@@ -249,6 +249,35 @@ FROM ` + o.SqlTableName() +
 	o.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0])
 		orgs = append(orgs, *o.FromArray(row))
+	})
+
+	return
+}
+
+// TODO: find staff
+func (u *Users) FindStaffByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
+	const comment = `-- Users) FindStaffByPagination`
+
+	validFields := UsersFieldTypeMap
+	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
+
+	queryCount := comment + `
+SELECT COUNT(1)
+FROM ` + u.SqlTableName() + whereAndSql + `
+LIMIT 1`
+	u.Adapter.QuerySql(queryCount, func(row []any) {
+		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
+	})
+
+	orderBySql := out.OrderBySqlTt(in.Order, validFields)
+	limitOffsetSql := out.LimitOffsetSql()
+
+	queryRows := comment + `
+SELECT ` + meta.ToSelect() + `
+FROM ` + u.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+	u.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
 	})
 
 	return

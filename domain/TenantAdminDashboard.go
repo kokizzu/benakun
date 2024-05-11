@@ -188,8 +188,12 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 
 		fallthrough
 	case zCrud.CmdList:
-		staffs := user.FindUsersByTenant(tenant.TenantCode)
+		L.Print(in.Pager.Filters)
+		staffs := user.FindUsersByTenant()
 		out.Staffs = staffs
+
+		// TODO: do like this
+		// out.Staffs = user.FindStaffByPagination()
 	}
 
 	return

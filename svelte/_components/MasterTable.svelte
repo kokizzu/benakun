@@ -22,6 +22,7 @@
   import PopUpInviteUser from './PopUpInviteUser.svelte';
 	import { TenantAdminDashboard } from '../jsApi.GEN.js';
 	import { notifier } from './notifier';
+    import InputCustom from './InputCustom.svelte';
 
 	/** @typedef {import('./types/master.js').Field} Field */
 	/** @typedef {import('./types/access.js').Access} Access */ //@ts-ignore
@@ -29,13 +30,21 @@
 
 	export const URL = window.location.pathname;
 	export let ACCESS = /** @type Access */ ({});
-	export let FIELDS = /** @type Field[] */  ([]);
-	export let PAGER = /** @type PagerOut */ ({});
-	export let MASTER_ROWS = /** @type any[] */ ([]);
+	export let FIELDS = /** @type Field[] */  ([]); // bind
+	export let PAGER = /** @type PagerOut */ ({}); // bind
+	export let MASTER_ROWS = /** @type any[] */ ([]); // bind
 	export let PURPOSE = 'staff';
 	export let CAN_SEARCH_ROW = true;
-	
-	console.log(ACCESS, FIELDS, PAGER, MASTER_ROWS, PURPOSE);
+	export let CAN_EDIT_ROW = true;
+
+	let toFilterValues = /** @type string[] */ ([]);
+	let toFilterValue = '';
+	if (FIELDS && FIELDS.length > 0) {
+		FIELDS.forEach((f) => {
+			toFilterValues = [...toFilterValues, f.label];
+		})
+		toFilterValue = toFilterValues[0];
+	}
 
 	let paginationShow = [1, 2, 3, 4, 5];
 	let currentPage = 1, paginationTotal = 1;
@@ -97,7 +106,7 @@
 					staffEmail: row.email,
 					withMeta: true,
 					pager: {
-						page: 0,
+						page: 1,
 						perPage: 0,
 						filters: undefined,
 						order: []
@@ -117,11 +126,18 @@
 
 						MASTER_ROWS = o.staffs;
 						console.log(o);
+						notifier.showSuccess(row.email + ' terminated');
 					}
 				)
 			}
 		}
 	}
+
+	export let GoToPage = function(page) {}
+	export let NextPage = function(page) {}
+	export let PreviousPage = function(page) {}
+	export let FirstPage = function() {}
+	export let LastPage = function() {}
 </script>
 
 {#if PURPOSE === 'staff'}
@@ -147,6 +163,14 @@
       {/if}
     </div>
     <div class="right">
+			<div class="filter_search">
+				<select name="filter" id="filter" bind:value={toFilterValue} placeholder="Filter">
+          <option value="" disabled>-- Filter --</option>
+          {#each toFilterValues as v}
+            <option value={v}>{v}</option>
+          {/each}
+        </select>
+			</div>
 			{#if CAN_SEARCH_ROW}
       	<div class="search_handler">
         	<input
@@ -163,6 +187,7 @@
 			{/if}
     </div>
   </div>
+
 	<div class="table_container">
 		<table>
 			<thead>
@@ -191,9 +216,11 @@
 							<th>{MASTER_ROWS.indexOf(row) + 1}</th>
 							<td class="a_row">
 								<div class="actions">
-									<button class="btn edit" title="Edit">
-										<Icon size="13" color="#FFF" src={RiDesignBallPenLine}/>
-									</button>
+									{#if CAN_EDIT_ROW}
+										<button class="btn edit" title="Edit">
+											<Icon size="13" color="#FFF" src={RiDesignBallPenLine}/>
+										</button>
+									{/if}
 									<button
 										class="btn delete"
 										title="delete"
@@ -228,19 +255,43 @@
       </div>
     </div>
     <div class="pagination">
-      <button disabled={currentPage == 1} class="btn to" title="Go to first page">
+      <button
+				disabled={currentPage == 1}
+				class="btn to"
+				title="Go to first page"
+				on:click={FirstPage}
+			>
         <Icon size="16" src={CgChevronDoubleLeft}/>
       </button>
-      <button disabled={currentPage == 1} class="btn to" title="Go to previous page">
+      <button
+				disabled={currentPage == 1}
+				class="btn to"
+				title="Go to previous page"
+				on:click={PreviousPage}
+			>
         <Icon size="16" src={CgChevronLeft}/>
       </button>
       {#each paginationShow as i}
-        <button disabled={currentPage == i} class={currentPage === i ? 'btn active' : 'btn'} title={`Go to page ${i}`}>{i}</button>
+        <button
+					disabled={currentPage == i}
+					class={currentPage === i ? 'btn active' : 'btn'}
+					title={`Go to page ${i}`}
+					on:click={() => GoToPage(i)}
+				>{i}</button>
       {/each}
-      <button disabled={currentPage == paginationTotal} class="btn to" title="Go to next page">
+      <button
+				disabled={currentPage == paginationTotal}
+				class="btn to" title="Go to next page"
+				on:click={NextPage}
+			>
         <Icon size="16" src={CgChevronRight}/>
       </button>
-      <button disabled={currentPage == paginationTotal} class="btn to" title="Go to last page">
+      <button
+				disabled={currentPage == paginationTotal}
+				class="btn to"
+				title="Go to last page"
+				on:click={LastPage}
+			>
         <Icon size="16" src={CgChevronDoubleRight}/>
       </button>
     </div>
@@ -477,6 +528,20 @@
 		background-color: var(--violet-005);
 	}
 
+	.table_root .actions_container .right .filter_search {
+		display: flex;
+		width: fit-content;
+		height: fit-content;
+	}
+
+	.table_root .actions_container .right .filter_search #filter {
+		padding: 10px 15px;
+		border-radius: 999px;
+		background-color: #FFF;
+		border: 1px solid var(--gray-005);
+		cursor: pointer;
+	}
+
   .table_root .actions_container .right .search_handler {
     display: flex;
     flex-direction: row;
@@ -492,7 +557,8 @@
     width: 300px;
   }
 
-  .table_root .actions_container .right .search_handler input.search:focus {
+  .table_root .actions_container .right .search_handler input.search:focus,
+	.table_root .actions_container .right .filter_search #filter:focus {
     border-color: var(--violet-005);
     outline: 1px solid var(--violet-005);
   }
