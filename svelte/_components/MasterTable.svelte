@@ -95,53 +95,8 @@
 		);
 	}
 
-	function handleAdd() {
-		switch (PURPOSE) {
-			case 'staff': {
-				popUpInviteUser.show();
-				break;
-			}
-			default: {
-				console.log('default');
-			}
-		}
-	}
-
-	async function handleDelete(row) {
-		switch (PURPOSE) {
-			case 'staff': {
-				isAjaxSubmitted = true;
-				const i = {
-					cmd: 'delete',
-					staffEmail: row.email,
-					withMeta: true,
-					pager: {
-						page: 1,
-						perPage: 0,
-						filters: undefined,
-						order: []
-					}
-				};
-				await TenantAdminDashboard(
-					//@ts-ignore
-					i,
-					/** @type {import('../jsApi.GEN.js').TenantAdminDashboardCallback} */
-					function(/** @type any */ o) {
-						isAjaxSubmitted = false;
-						if (o.error) {
-							notifier.showError(o.error);
-							console.log(o);
-							return;
-						}
-
-						MASTER_ROWS = o.staffs;
-						console.log(o);
-						notifier.showSuccess(row.email + ' terminated');
-					}
-				)
-			}
-		}
-	}
+	export let handleAdd = function() {}
+	export let handleDelete = function(row) {}
 
 	export let GoToPage = function(page) {}
 	export let NextPage = function(page) {}
@@ -175,7 +130,7 @@
     <div class="left">
 			<div class="debug">
         <div class="showing">
-          <p>Debug table <span class="text-sky">1</span>/<span class="text-sky">10</span> of <span class="text-sky">10</span> record(s)</p>
+          <p>Debug table <span class="text-violet">1</span>/<span class="text-violet">10</span> of <span class="text-violet">10</span> record(s)</p>
         </div>
         <button class="btn" on:click={() => filterTable.Show()}>
           <Icon color="#FFF" size="16" src={AiOutlineEyeInvisible}/>
