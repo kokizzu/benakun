@@ -23,6 +23,8 @@
 	import { TenantAdminDashboard } from '../jsApi.GEN.js';
 	import { notifier } from './notifier';
     import InputCustom from './InputCustom.svelte';
+    import { onMount } from 'svelte';
+		import FilterTable from './FilterTable.svelte';
 
 	/** @typedef {import('./types/master.js').Field} Field */
 	/** @typedef {import('./types/access.js').Access} Access */ //@ts-ignore
@@ -37,20 +39,28 @@
 	export let CAN_SEARCH_ROW = true;
 	export let CAN_EDIT_ROW = true;
 
-	let toFilterValues = /** @type string[] */ ([]);
-	let toFilterValue = '';
-	if (FIELDS && FIELDS.length > 0) {
-		FIELDS.forEach((f) => {
-			toFilterValues = [...toFilterValues, f.label];
-		})
-		toFilterValue = toFilterValues[0];
-	}
+
+  let filterTable = null, filterTableReady = false, isAjaxSubmitted = false;
+	let filterColumns = [];
 
 	let paginationShow = [1, 2, 3, 4, 5];
 	let currentPage = 1, paginationTotal = 1;
 	let sortTableAsc = false;
 
-	let isAjaxSubmitted = false;
+	onMount(() => {
+		filterTable = FilterTable, filterTableReady = true;
+		if (FIELDS && FIELDS.length > 0) {
+			FIELDS.forEach((col, idx) => {
+				filterColumns.push({
+					key: col.name,
+					label: col.label,
+					filterState: '',
+					isApllied: false,
+					isVisible: idx > 5 ? false : true
+				})
+			});
+		}
+	})
 
 	let isSubmitInviteUser = false, emailToInvite = '';
 	let popUpInviteUser;
@@ -138,6 +148,10 @@
 	export let PreviousPage = function(page) {}
 	export let FirstPage = function() {}
 	export let LastPage = function() {}
+
+	function filterTableOK() {
+		filterTable.Hide();
+	}
 </script>
 
 {#if PURPOSE === 'staff'}
@@ -148,9 +162,25 @@
 	/>
 {/if}
 
+{#if filterTableReady}
+  <FilterTable
+		bind:this={filterTable}
+		bind:filterColumns
+		on:click={filterTableOK}
+	/>
+{/if}
+
 <div class="table_root">
 	<div class="actions_container">
     <div class="left">
+			<div class="debug">
+        <div class="showing">
+          <p>Debug table <span class="text-sky">1</span>/<span class="text-sky">10</span> of <span class="text-sky">10</span> record(s)</p>
+        </div>
+        <button class="btn" on:click={() => filterTable.Show()}>
+          <Icon color="#FFF" size="16" src={AiOutlineEyeInvisible}/>
+        </button>
+      </div>
       <div class="actions_btn">
 				<button class="btn add" on:click={handleAdd}>
 					<Icon color="#FFF" size="18" src={CgMathPlus}/>
@@ -163,14 +193,14 @@
       {/if}
     </div>
     <div class="right">
-			<div class="filter_search">
+			<!-- <div class="filter_search">
 				<select name="filter" id="filter" bind:value={toFilterValue} placeholder="Filter">
           <option value="" disabled>-- Filter --</option>
           {#each toFilterValues as v}
             <option value={v}>{v}</option>
           {/each}
         </select>
-			</div>
+			</div> -->
 			{#if CAN_SEARCH_ROW}
       	<div class="search_handler">
         	<input
