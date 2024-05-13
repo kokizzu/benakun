@@ -10,46 +10,27 @@
 
   let segments = /** @type Access */ ({/* segments */});
   let user = /** @type User */ ({/* user */});
-  let staffs = /** @type any[][] */ ([/* staffs */]);
   let fields = /** @type Field[] */ ([/* fields */]);
   let pager = /** @type PagerOut */ ({/* pager */});
+
+  let staffs = /** @type any[][] */ ([/* staffs */]);
 
   console.log('segments =', segments);
   console.log('user =', user);
   console.log('staffs =', staffs);
   console.log('fields =', fields);
   console.log('pager =', pager);
-
-  function GoToPage(page) {
-    console.log('gotoPage', page);
-  }
-
-  function NextPage(page) {
-    console.log('nextPage', page);
-  }
-  function PreviousPage(page) {
-    console.log('previousPage', page);
-  }
-	function FirstPage() {
-    console.log('firstPage');
-  }
-	function LastPage() {
-    console.log('lastPage');
-  }
 </script>
 
 <MainLayout>
   <div>
     <MasterTable
-      URL='/tenantAdmin/dashboard'
       ACCESS={segments}
       bind:FIELDS={fields}
       bind:PAGER={pager}
       bind:MASTER_ROWS={staffs}
       CAN_EDIT_ROW={false}
       CAN_SEARCH_ROW={true}
-
-      {GoToPage} {NextPage} {PreviousPage} {FirstPage} {LastPage}
     />
   </div>
 </MainLayout>

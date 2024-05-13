@@ -2,7 +2,6 @@
   import Icon from 'svelte-icons-pack/Icon.svelte';
   import RiDesignBallPenLine from 'svelte-icons-pack/ri/RiDesignBallPenLine';
   import AiOutlineEyeInvisible from 'svelte-icons-pack/ai/AiOutlineEyeInvisible';
-  import CgMathPlus from 'svelte-icons-pack/cg/CgMathPlus';
   import AiOutlineFileExcel from 'svelte-icons-pack/ai/AiOutlineFileExcel';
   import IoSearch from 'svelte-icons-pack/io/IoSearch';
   import IoClose from 'svelte-icons-pack/io/IoClose';
@@ -19,9 +18,8 @@
 	import RiSystemInformationLine from 'svelte-icons-pack/ri/RiSystemInformationLine';
 	import FaSolidChartLine from 'svelte-icons-pack/fa/FaSolidChartLine';
 	import RiSystemDeleteBin5Line from 'svelte-icons-pack/ri/RiSystemDeleteBin5Line';
-  import PopUpInviteUser from './PopUpInviteUser.svelte';
-	import { TenantAdminDashboard } from '../jsApi.GEN.js';
-	import { notifier } from './notifier';
+	import RiSystemFilterLine from 'svelte-icons-pack/ri/RiSystemFilterLine';
+	import RiSystemArrowGoBackLine from 'svelte-icons-pack/ri/RiSystemArrowGoBackLine';
 	import { onMount } from 'svelte';
 	import FilterTable from './FilterTable.svelte';
 	import { datetime } from './formatter';
@@ -31,12 +29,15 @@
 	/** @typedef {import('./types/master.js').PagerOut} PagerOut */ // @ts-ignore
 	/** @typedef {import('./types/master.js').PagerIn} PagerIn */
 
-	export let ACCESS					= /** @type Access */ ({});
-	export let FIELDS					= /** @type Field[] */  ([]); // bind
+	export let FIELDS					= /** @type Field[] */  ([]);	// bind
 	export let PAGER					= /** @type PagerOut */ ({}); // bind
-	export let MASTER_ROWS		= /** @type any[][] */ ([]); // bind
-	export let CAN_SEARCH_ROW = true;
-	export let CAN_EDIT_ROW 	= true;
+	export let MASTER_ROWS		= /** @type any[][] */	([]); // bind
+	
+	export let ACCESS						= /** @type Access */ ({});
+	export let CAN_SEARCH_ROW 	= true;
+	export let CAN_EDIT_ROW 		= true;
+	export let CAN_DELETE_ROW 	= false;
+	export let CAN_RESTORE_ROW	= false;
 
 	// State for loading if hit ajax
 	let isAjaxSubmitted = false;
@@ -76,6 +77,9 @@
 
 	// Refresh Pagination
 	function getPaginationShow() {
+		totalPages = PAGER.pages;
+		currentPage = PAGER.page;
+
     totalRound = Math.ceil(totalPages / currentRows) * currentRows;
 		paginationTotal = totalRound / currentRows, paginationsAll = [];
 		if (currentRows > PAGER.countResult) paginationTotal = 1;
@@ -117,15 +121,10 @@
 	})
 
 	// Export function, forward parameter to parent
-	export let HandleAdd = function() {}
-	export let HandleDelete = function(/** @type any[]*/ row) {}
-	export let HandleEdit = function(/** @type any[]*/ row) {}
-	export let GoToPage = function(/** @type number */ page) {}
-	export let NextPage = function(/** @type number */ page) {}
-	export let PreviousPage = function(/** @type number */ page) {}
-	export let FirstPage = function() {}
-	export let LastPage = function() {}
-	export let OnRefreshTableView = function(/** @type PagerIn */ pagerIn) {}
+	export let OnRestore = async function(/** @type any[]*/ row) {}
+	export let OnDelete = async function(/** @type any[]*/ row) {}
+	export let OnEdit = async function(/** @type any[]*/ row) {}
+	export let OnRefresh = async function(/** @type PagerIn */ pagerIn) {}
 
 	function ApplyFilter() {
 		// Hide FilterTable.svelte
@@ -137,16 +136,38 @@
 			let value = filtersMap[ key ];
 			if (value) filters[ key ] = value.split('|');
 		}
-		OnRefreshTableView({ ...PAGER, filters });
+		OnRefresh({ ...PAGER, filters });
 		// Refresh pagination view
 		getPaginationShow();
 	}
 
 	// Apply row counts
-	function ToRow(/** @type number */ row) {
-		currentRows = row;
+	async function toRow(/** @type number */ perPage) {
+		currentRows = perPage;
 		showRowsNum = false;
-		OnRefreshTableView({ ...PAGER, perPage: row });
+		await OnRefresh({ ...PAGER, perPage });
+		// Refresh pagination view
+		getPaginationShow();
+	}
+
+	// Go to page, last page, first page
+	async function goToPage(/** @type number */ page) {
+		currentPage = page;
+		await OnRefresh({ ...PAGER, page });
+		// Refresh pagination view
+		getPaginationShow();
+	}
+
+	// Restore row
+	async function restoreRow(/** @type any[] */ row) {
+		await OnRestore(row);
+		// Refresh pagination view
+		getPaginationShow();
+	}
+
+	// Delete row
+	async function deleteRow(/** @type any[] */ row) {
+		await OnDelete(row);
 		// Refresh pagination view
 		getPaginationShow();
 	}
@@ -164,20 +185,13 @@
 <div class="table_root">
 	<div class="actions_container">
     <div class="left">
-			<div class="debug">
-        <div class="showing">
-          <p>
-						Debug table <span class="text-violet">1</span>/<span class="text-violet">10</span> of <span class="text-violet">10</span> record(s)
-					</p>
-        </div>
-        <button class="btn" on:click={() => filterTable.Show()}>
-          <Icon color="#FFF" size="16" src={AiOutlineEyeInvisible}/>
-        </button>
-      </div>
       <div class="actions_btn">
-				<button class="btn add" on:click={HandleAdd}>
-					<Icon color="#FFF" size="18" src={CgMathPlus}/>
+				<button class="btn" on:click={() => filterTable.Show()}>
+					<span>Filter table</span>
+					<Icon color="var(--gray-007)" size="16" src={RiSystemFilterLine}/>
 				</button>
+				<!-- Action buttons -->
+				<slot />
       </div>
 			{#if isAjaxSubmitted}
         <div class="loader">
@@ -196,7 +210,7 @@
           	class="search"
         	/>
         	<button class="search_btn">
-          	<Icon color="#FFF" size="16" src={IoSearch}/>
+          	<Icon color="var(--gray-007)" size="16" src={IoSearch}/>
         	</button>
       	</div>
 			{/if}
@@ -227,7 +241,7 @@
 				{#if MASTER_ROWS && MASTER_ROWS.length}
 					{#each MASTER_ROWS as row}
 						<tr>
-							<th>{MASTER_ROWS.indexOf(row) + 1}</th>
+							<td class="num_row">{MASTER_ROWS.indexOf(row) + 1}</td>
 							<td class="a_row">
 								{#if ACCESS.superAdmin
 									|| ACCESS.tenantAdmin
@@ -236,17 +250,28 @@
 								}
 									<div class="actions">	
 										{#if CAN_EDIT_ROW}
-											<button class="btn edit" title="Edit" on:click={() => HandleEdit(row)}>
-												<Icon size="13" color="#FFF" src={RiDesignBallPenLine}/>
+											<button class="btn edit" title="Edit" on:click={() => OnEdit(row)}>
+												<Icon size="15" color="var(--gray-007)" src={RiDesignBallPenLine}/>
 											</button>
 										{/if}
-										<button
-											class="btn delete"
-											title="delete"
-											on:click={() => HandleDelete(row)}
-										>
-											<Icon size="13" color="#FFF" src={RiSystemDeleteBin5Line}/>
-										</button>
+										{#if CAN_DELETE_ROW}
+											<button
+												class="btn delete"
+												title="delete"
+												on:click={() => deleteRow(row)}
+											>
+												<Icon size="15" color="var(--gray-007)" src={RiSystemDeleteBin5Line}/>
+											</button>
+										{/if}
+										{#if CAN_RESTORE_ROW}
+											<button
+												class="btn info"
+												title="restore"
+												on:click={() => restoreRow(row)}
+											>
+												<Icon size="15" color="var(--gray-007)" src={RiSystemArrowGoBackLine}/>
+											</button>
+										{/if}
 									</div>
 								{:else}
 									<span>--</span>
@@ -279,7 +304,7 @@
 				{#if showRowsNum}
           <div class="rows">
             {#each rowsToShow as r}
-              <button on:click={() => ToRow(r)}>{r}</button>
+              <button on:click={() => toRow(r)}>{r}</button>
             {/each}
           </div>
         {/if}
@@ -294,7 +319,7 @@
 				disabled={currentPage == 1}
 				class="btn to"
 				title="Go to first page"
-				on:click={FirstPage}
+				on:click={() => goToPage(1)}
 			>
         <Icon size="16" src={CgChevronDoubleLeft}/>
       </button>
@@ -302,7 +327,7 @@
 				disabled={currentPage == 1}
 				class="btn to"
 				title="Go to previous page"
-				on:click={() => PreviousPage(currentPage - 1)}
+				on:click={() => goToPage(currentPage - 1)}
 			>
         <Icon size="16" src={CgChevronLeft}/>
       </button>
@@ -311,13 +336,13 @@
 					disabled={currentPage == i}
 					class={currentPage === i ? 'btn active' : 'btn'}
 					title={`Go to page ${i}`}
-					on:click={() => GoToPage(i)}
+					on:click={() => goToPage(i)}
 				>{i}</button>
       {/each}
       <button
 				disabled={currentPage == paginationTotal}
 				class="btn to" title="Go to next page"
-				on:click={() => NextPage(currentPage + 1)}
+				on:click={() => goToPage(currentPage + 1)}
 			>
         <Icon size="16" src={CgChevronRight}/>
       </button>
@@ -325,7 +350,7 @@
 				disabled={currentPage == paginationTotal}
 				class="btn to"
 				title="Go to last page"
-				on:click={LastPage}
+				on:click={() => goToPage(paginationTotal)}
 			>
         <Icon size="16" src={CgChevronDoubleRight}/>
       </button>
@@ -334,148 +359,6 @@
 </div>
 
 <style>
-	p {
-		margin: 0;
-	}
-
-	.popup_container {
-		position: fixed;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		z-index: 2000;
-		background-color: rgba(0 0 0 / 40%);
-		backdrop-filter: blur(1px);
-		display: flex;
-		justify-content: center;
-		padding: 50px;
-    overflow: auto;
-	}
-
-	.popup_container .popup {
-		border-radius: 8px;
-		background-color: #FFF;
-		height: fit-content;
-		width: 500px;
-		display: flex;
-		flex-direction: column;
-	}
-
-	.popup_container .popup header {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		padding: 15px 20px;
-		border-bottom: 1px solid var(--gray-004);
-	}
-
-	.popup_container .popup header button {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		padding: 5px;
-		border-radius: 50%;
-		border: none;
-		background-color: transparent;
-		cursor: pointer;
-	}
-
-	.popup_container .popup header button:hover {
-		background-color: #ef444420;
-	}
-
-	.popup_container .popup .forms {
-		padding: 20px;
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-	}
-
-	.popup_container .popup .foot {
-		display: flex;
-		flex-direction: row;
-    justify-content: space-between;
-		gap: 10px;
-		align-items: center;
-		padding: 15px 20px;
-		border-top: 1px solid var(--gray-004);
-	}
-
-	.popup_container .popup .foot .left {
-		display: flex;
-		flex-direction: row;
-		gap: 10px;
-		align-items: center;
-	}
-
-  .popup_container .popup .foot .right {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-  }
-
-	.popup_container .popup .foot button {
-		padding: 8px 13px;
-		border-radius: 9999px;
-		border: none;
-		color: #FFF;
-		cursor: pointer;
-		font-weight: 600;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-  .popup_container .popup .foot button.reset {
-		background-color: var(--amber-006);
-		border: 1px solid var(--amber-006);
-	}
-
-  .popup_container .popup .foot button.reset:hover {
-    background-color: var(--amber-005);
-  }
-
-	.popup_container .popup .foot button.delete {
-		background-color: var(--red-006);
-		border: 1px solid var(--red-006);
-	}
-
-  .popup_container .popup .foot button.delete:hover {
-    background-color: var(--red-005);
-  }
-
-	.popup_container .popup .foot button.restore {
-		background-color: var(--violet-006);
-		border: 1px solid var(--violet-006);
-	}
-
-  .popup_container .popup .foot button.restore:hover {
-    background-color: var(--violet-005);
-  }
-
-	.popup_container .popup .foot button.ok {
-		background-color: var(--green-006);
-		border: 1px solid var(--green-006);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-	}
-
-	.popup_container .popup .foot button.ok:hover {
-		background-color: var(--green-005);
-	}
-
-	.popup_container .popup .foot button.cancel {
-		background-color: #fbbf2420;
-		color: var(--amber-005);
-		border: 1px solid var(--amber-005);
-	}
-
   @keyframes spin {
     from {
       transform: rotate(0deg);
@@ -510,14 +393,24 @@
   .table_root {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
+		background-color: #FFF;
+		box-shadow: var(--shadow-md);
+		border-radius: 10px;
+		border: 1px solid var(--gray-003);
+		padding: 20px 0;
   }
+
+	.table_root p {
+		margin: 0;
+	}
 
   .table_root .actions_container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+		padding: 0 15px;
   }
 
   .table_root .actions_container .left,
@@ -526,16 +419,6 @@
 		flex-direction: row;
 		align-items: center;
     gap: 10px;
-	}
-
-	.table_root .actions_container .left .debug {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: 8px;
-		padding: 5px 5px 5px 20px;
-		border: 1px solid var(--gray-004);
-		border-radius: 999px;
 	}
 
 	.table_root .actions_container .left .debug .showing .text-violet {
@@ -563,20 +446,6 @@
 		background-color: var(--violet-005);
 	}
 
-	.table_root .actions_container .right .filter_search {
-		display: flex;
-		width: fit-content;
-		height: fit-content;
-	}
-
-	.table_root .actions_container .right .filter_search #filter {
-		padding: 10px 15px;
-		border-radius: 999px;
-		background-color: #FFF;
-		border: 1px solid var(--gray-005);
-		cursor: pointer;
-	}
-
   .table_root .actions_container .right .search_handler {
     display: flex;
     flex-direction: row;
@@ -586,34 +455,33 @@
   }
 
   .table_root .actions_container .right .search_handler input.search {
-    padding: 10px 50px 10px 15px;
-    border-radius: 999px;
-    border: 1px solid var(--gray-005);
+    padding: 12px 50px 12px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--gray-003);
+		background-color: var(--gray-001);
     width: 300px;
   }
 
-  .table_root .actions_container .right .search_handler input.search:focus,
-	.table_root .actions_container .right .filter_search #filter:focus {
-    border-color: var(--violet-005);
-    outline: 1px solid var(--violet-005);
+  .table_root .actions_container .right .search_handler input.search:focus {
+    border-color: none;
+    outline: 2px solid var(--violet-005);
   }
 
   .table_root .actions_container .right .search_handler .search_btn {
     position: absolute;
-    right: 5px;
-    background-color: var(--violet-006);
-    padding: 6px 12px;
+    background-color: var(--gray-003);
+    padding: 12px 12px;
     display: flex;
     justify-content: center;
     align-items: center;
     border: none;
-    border-radius: 999px;
-    top: 5px;
+		border-radius: 0 8px 8px 0;
     cursor: pointer;
+		right: 0;
   }
 
   .table_root .actions_container .right .search_handler .search_btn:hover {
-    background-color: var(--violet-005);
+    background-color: var(--gray-004);
   }
 
   .table_root .actions_container .actions_btn {
@@ -625,24 +493,19 @@
 
   .table_root .actions_container .actions_btn .btn {
     border: none;
-		color: #FFF;
+		color: var(--gray-007);
+		background-color: var(--gray-001);
+		border: 1px solid var(--gray-003);
+		font-weight: 600;
 		width: fit-content;
-		padding: 7px 15px;
-		border-radius: 9999px;
+		padding: 10px 15px;
+		border-radius: 8px;
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
 		align-items: center;
-		gap: 3px;
+		gap: 5px;
 		cursor: pointer;
-  }
-
-  .table_root .actions_container .actions_btn .btn.add {
-    background-color: var(--green-006);
-  }
-
-  .table_root .actions_container .actions_btn .btn.add:hover {
-    background-color: var(--green-005);
   }
 
   .table_root .actions_container .actions_btn .btn.export {
@@ -662,9 +525,9 @@
   .table_root .table_container table {
 		width: 100%;
     background: #fff;
-    border: 1px solid var(--gray-004);
+    border-top: 1px solid var(--gray-003);
+    border-bottom: 1px solid var(--gray-003);
     box-shadow: none;
-    border-radius: 8px;
     text-align: left;
     border-collapse: separate;
     border-spacing: 0;
@@ -673,17 +536,17 @@
 
 	.table_root .table_container table thead {
 		box-shadow: none;
+		border-bottom: 1px solid var(--gray-003);
 	}
 
   .table_root .table_container table thead tr th{
     padding: 12px;
 		background-color: var(--gray-001);
-		border-right: 1px solid var(--gray-004);
-		border-bottom: 1px solid var(--gray-004);
 		-webkit-user-select: none;
   	-ms-user-select: none;
   	user-select: none;
 		text-transform: capitalize;
+		border-bottom: 1px solid var(--gray-003);
   }
 
   .table_root .table_container table thead tr th.no {
@@ -706,9 +569,13 @@
 
   .table_root .table_container table tbody tr td {
     padding: 8px 12px;
-		border-right: 1px solid var(--gray-004);
-		border-bottom: 1px solid var(--gray-004);
   }
+
+	.table_root .table_container table tbody tr td.num_row {
+		border-right: 1px solid var(--gray-003);
+		font-weight: 600;
+		text-align: center;
+	}
 
 	.table_root .table_container table tbody tr:last-child td,
 	.table_root .table_container table tbody tr:last-child th {
@@ -732,49 +599,28 @@
 	.table_root .table_container table tbody tr td .actions {
 		display: flex;
 		flex-direction: row;
-		gap: 5px;
 	}
 
 	.table_root .table_container table tbody tr td .actions .btn {
 		border: none;
 		padding: 5px 10px;
 		border-radius: 999px;
+		background-color: transparent;
 		cursor: pointer;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 	}
 
-	.table_root .table_container table tbody tr td .actions .btn.edit {
-		background-color: var(--amber-005);
-		color: #FFF;
+	.table_root .table_container table tbody tr td .actions .btn:hover {
+		background-color: var(--gray-002);
 	}
-
-	.table_root .table_container table tbody tr td .actions .btn.edit:hover {
-		background-color: var(--amber-006);
-	}
-
-  .table_root .table_container table tbody tr td .actions .btn.info {
-		background-color: var(--violet-005);
-		color: #FFF;
-	}
-
-	.table_root .table_container table tbody tr td .actions .btn.info:hover {
-		background-color: var(--violet-006);
-	}
-
-	.table_root .table_container table tbody tr td .actions .btn.delete {
-    background-color: var(--red-006);
-  }
-
-  .table_root .table_container table tbody tr td .actions .btn.delete:hover {
-    background-color: var(--red-005);
-  }
 
   .table_root .pagination_container {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
+		padding: 0 15px;
 	}
 
 	.table_root .pagination_container .filter {
@@ -782,9 +628,6 @@
 		flex-direction: row;
 		align-items: center;
 		gap: 8px;
-		padding: 5px 5px 5px 20px;
-		border: 1px solid var(--gray-004);
-		border-radius: 999px;
 	}
 
 	.table_root .pagination_container .filter .showing .text-violet {

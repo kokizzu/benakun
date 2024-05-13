@@ -141,6 +141,8 @@
       --gray-008: #343A40;
       --gray-009: #212529;
       --gray-gradient: linear-gradient(to bottom, var(--gray-000), var(--gray-002));
+
+      --shadow-md: rgba(0, 0, 0, 0.06) 0px 8px 20px;
     }
 
     *::selection {
@@ -574,168 +576,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   overflow: inherit;
 }
 
-/* fakecss:./_components/InputBox.esbuild-svelte-fake-css */
-.input_box.svelte-msefpz.svelte-msefpz {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  color: var(--gray-007);
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.input_box.with_password.svelte-msefpz input.svelte-msefpz {
-  padding-right: 40px !important;
-}
-.input_box.svelte-msefpz label.svelte-msefpz {
-  font-size: var(--font-base);
-  margin-left: 10px;
-}
-.input_box.svelte-msefpz input.svelte-msefpz {
-  width: 100%;
-  border: 1px solid var(--gray-003);
-  border-radius: 5px;
-  background-color: transparent;
-  padding: 10px 12px;
-}
-.input_box.svelte-msefpz input.svelte-msefpz:focus {
-  border-color: var(--blue-005);
-  outline: 1px solid var(--blue-005);
-}
-.input_box.svelte-msefpz .eye.svelte-msefpz {
-  position: absolute;
-  height: fit-content;
-  width: fit-content;
-  background-color: transparent;
-  padding: 0;
-  top: 30px;
-  bottom: auto;
-  right: 10px;
-  border: none;
-  cursor: pointer;
-}
-.input_box .eye:hover svg {
-  fill: var(--blue-005);
-}
-
-/* fakecss:./_components/PopUpInviteUser.esbuild-svelte-fake-css */
-@keyframes svelte-19kcmoe-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-.spin {
-  animation: svelte-19kcmoe-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-.popup_container.svelte-19kcmoe.svelte-19kcmoe {
-  display: none;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 2000;
-  background-color: rgba(0 0 0 / 40%);
-  backdrop-filter: blur(1px);
-  justify-content: center;
-  padding: 50px;
-  overflow: auto;
-}
-.popup_container.show.svelte-19kcmoe.svelte-19kcmoe {
-  display: flex;
-}
-.popup_container.svelte-19kcmoe .popup.svelte-19kcmoe {
-  border-radius: 8px;
-  background-color: #FFF;
-  height: fit-content;
-  width: 500px;
-  display: flex;
-  flex-direction: column;
-}
-.popup_container.svelte-19kcmoe .popup header.svelte-19kcmoe {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  border-bottom: 1px solid var(--gray-004);
-}
-.popup_container.svelte-19kcmoe .popup header h2.svelte-19kcmoe {
-  margin: 0;
-}
-.popup_container.svelte-19kcmoe .popup header button.svelte-19kcmoe {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-  border-radius: 50%;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-}
-.popup_container.svelte-19kcmoe .popup header button.svelte-19kcmoe:hover {
-  background-color: #ef444420;
-}
-.popup_container.svelte-19kcmoe .popup header button.svelte-19kcmoe:active {
-  background-color: #ef444430;
-}
-.popup_container.svelte-19kcmoe .popup .forms.svelte-19kcmoe {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.popup_container.svelte-19kcmoe .popup .foot.svelte-19kcmoe {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 10px;
-  align-items: center;
-  padding: 10px 20px;
-  border-top: 1px solid var(--gray-004);
-}
-.popup_container.svelte-19kcmoe .popup .foot .right.svelte-19kcmoe {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-}
-.popup_container.svelte-19kcmoe .popup .foot button.svelte-19kcmoe {
-  padding: 8px 13px;
-  border-radius: 9999px;
-  border: none;
-  color: #FFF;
-  cursor: pointer;
-  font-weight: 600;
-}
-.popup_container.svelte-19kcmoe .popup .foot button.ok.svelte-19kcmoe {
-  background-color: var(--green-006);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.popup_container.svelte-19kcmoe .popup .foot button.ok.svelte-19kcmoe:hover {
-  background-color: var(--green-005);
-}
-.popup_container.svelte-19kcmoe .popup .foot button.ok.svelte-19kcmoe:disabled {
-  cursor: not-allowed;
-  background-color: var(--gray-003);
-  color: var(--gray-007);
-}
-.popup_container.svelte-19kcmoe .popup .foot button.cancel.svelte-19kcmoe {
-  background-color: #fbbf2430;
-  color: var(--amber-005);
-}
-.popup_container.svelte-19kcmoe .popup .foot button.cancel.svelte-19kcmoe:hover {
-  background-color: #fbbf2450;
-}
-
 /* fakecss:./_components/FilterTable.esbuild-svelte-fake-css */
 .popup_filter_container.svelte-1mdb6l3.svelte-1mdb6l3 {
   position: fixed;
@@ -864,10 +704,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 }
 
 /* fakecss:./_components/MasterTable.esbuild-svelte-fake-css */
-p.svelte-1rnmrzr.svelte-1rnmrzr {
-  margin: 0;
-}
-@keyframes svelte-1rnmrzr-spin {
+@keyframes svelte-1lad585-spin {
   from {
     transform: rotate(0deg);
   }
@@ -876,7 +713,7 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
   }
 }
 .spin {
-  animation: svelte-1rnmrzr-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: svelte-1lad585-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 .dropdown {
   transition: all .2s ease-in-out;
@@ -892,39 +729,39 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
 .sort_icon {
   margin-bottom: -5px;
 }
-.table_root.svelte-1rnmrzr.svelte-1rnmrzr {
+.table_root.svelte-1lad585.svelte-1lad585 {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
+  background-color: #FFF;
+  box-shadow: var(--shadow-md);
+  border-radius: 10px;
+  border: 1px solid var(--gray-003);
+  padding: 20px 0;
 }
-.table_root.svelte-1rnmrzr .actions_container.svelte-1rnmrzr {
+.table_root.svelte-1lad585 p.svelte-1lad585 {
+  margin: 0;
+}
+.table_root.svelte-1lad585 .actions_container.svelte-1lad585 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 0 15px;
 }
-.table_root.svelte-1rnmrzr .actions_container .left.svelte-1rnmrzr,
-.table_root.svelte-1rnmrzr .actions_container .right.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .actions_container .left.svelte-1lad585,
+.table_root.svelte-1lad585 .actions_container .right.svelte-1lad585 {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
 }
-.table_root.svelte-1rnmrzr .actions_container .left .debug.svelte-1rnmrzr {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 5px 5px 20px;
-  border: 1px solid var(--gray-004);
-  border-radius: 999px;
-}
-.table_root.svelte-1rnmrzr .actions_container .left .debug .showing .text-violet.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .actions_container .left .debug .showing .text-violet.svelte-1lad585 {
   color: var(--violet-006);
   font-weight: 600;
   padding: 5px;
 }
-.table_root.svelte-1rnmrzr .actions_container .left .debug .btn.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .actions_container .left .debug .btn.svelte-1lad585 {
   border: none;
   background-color: var(--violet-006);
   color: #FFF;
@@ -938,181 +775,169 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
   gap: 3px;
   cursor: pointer;
 }
-.table_root.svelte-1rnmrzr .actions_container .left .debug .btn.svelte-1rnmrzr:hover {
+.table_root.svelte-1lad585 .actions_container .left .debug .btn.svelte-1lad585:hover {
   background-color: var(--violet-005);
 }
-.table_root.svelte-1rnmrzr .actions_container .right .search_handler.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .actions_container .right .search_handler.svelte-1lad585 {
   display: flex;
   flex-direction: row;
   width: fit-content;
   height: fit-content;
   position: relative;
 }
-.table_root.svelte-1rnmrzr .actions_container .right .search_handler input.search.svelte-1rnmrzr {
-  padding: 10px 50px 10px 15px;
-  border-radius: 999px;
-  border: 1px solid var(--gray-005);
+.table_root.svelte-1lad585 .actions_container .right .search_handler input.search.svelte-1lad585 {
+  padding: 12px 50px 12px 15px;
+  border-radius: 8px;
+  border: 1px solid var(--gray-003);
+  background-color: var(--gray-001);
   width: 300px;
 }
-.table_root.svelte-1rnmrzr .actions_container .right .search_handler input.search.svelte-1rnmrzr:focus {
-  border-color: var(--violet-005);
-  outline: 1px solid var(--violet-005);
+.table_root.svelte-1lad585 .actions_container .right .search_handler input.search.svelte-1lad585:focus {
+  border-color: none;
+  outline: 2px solid var(--violet-005);
 }
-.table_root.svelte-1rnmrzr .actions_container .right .search_handler .search_btn.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .actions_container .right .search_handler .search_btn.svelte-1lad585 {
   position: absolute;
-  right: 5px;
-  background-color: var(--violet-006);
-  padding: 6px 12px;
+  background-color: var(--gray-003);
+  padding: 12px 12px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
-  border-radius: 999px;
-  top: 5px;
+  border-radius: 0 8px 8px 0;
   cursor: pointer;
+  right: 0;
 }
-.table_root.svelte-1rnmrzr .actions_container .right .search_handler .search_btn.svelte-1rnmrzr:hover {
-  background-color: var(--violet-005);
+.table_root.svelte-1lad585 .actions_container .right .search_handler .search_btn.svelte-1lad585:hover {
+  background-color: var(--gray-004);
 }
-.table_root.svelte-1rnmrzr .actions_container .actions_btn.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .actions_container .actions_btn.svelte-1lad585 {
   display: flex;
   flex-direction: row;
   gap: 10px;
   align-items: center;
 }
-.table_root.svelte-1rnmrzr .actions_container .actions_btn .btn.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .actions_container .actions_btn .btn.svelte-1lad585 {
   border: none;
-  color: #FFF;
+  color: var(--gray-007);
+  background-color: var(--gray-001);
+  border: 1px solid var(--gray-003);
+  font-weight: 600;
   width: fit-content;
-  padding: 7px 15px;
-  border-radius: 9999px;
+  padding: 10px 15px;
+  border-radius: 8px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  gap: 3px;
+  gap: 5px;
   cursor: pointer;
 }
-.table_root.svelte-1rnmrzr .actions_container .actions_btn .btn.add.svelte-1rnmrzr {
-  background-color: var(--green-006);
-}
-.table_root.svelte-1rnmrzr .actions_container .actions_btn .btn.add.svelte-1rnmrzr:hover {
-  background-color: var(--green-005);
-}
-.table_root.svelte-1rnmrzr .table_container.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .table_container.svelte-1lad585 {
   overflow-x: auto;
   scrollbar-color: var(--gray-003) transparent;
   scrollbar-width: thin;
 }
-.table_root.svelte-1rnmrzr .table_container table.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .table_container table.svelte-1lad585 {
   width: 100%;
   background: #fff;
-  border: 1px solid var(--gray-004);
+  border-top: 1px solid var(--gray-003);
+  border-bottom: 1px solid var(--gray-003);
   box-shadow: none;
-  border-radius: 8px;
   text-align: left;
   border-collapse: separate;
   border-spacing: 0;
   overflow: hidden;
 }
-.table_root.svelte-1rnmrzr .table_container table thead.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .table_container table thead.svelte-1lad585 {
   box-shadow: none;
+  border-bottom: 1px solid var(--gray-003);
 }
-.table_root.svelte-1rnmrzr .table_container table thead tr th.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .table_container table thead tr th.svelte-1lad585 {
   padding: 12px;
   background-color: var(--gray-001);
-  border-right: 1px solid var(--gray-004);
-  border-bottom: 1px solid var(--gray-004);
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
   text-transform: capitalize;
+  border-bottom: 1px solid var(--gray-003);
 }
-.table_root.svelte-1rnmrzr .table_container table thead tr th.no.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .table_container table thead tr th.no.svelte-1lad585 {
   width: 30px;
 }
-.table_root.svelte-1rnmrzr .table_container table thead tr th.a_row.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .table_container table thead tr th.a_row.svelte-1lad585 {
   max-width: fit-content;
 }
-.table_root.svelte-1rnmrzr .table_container table thead tr th.svelte-1rnmrzr:last-child {
+.table_root.svelte-1lad585 .table_container table thead tr th.svelte-1lad585:last-child {
   border-right: none;
 }
-.table_root.svelte-1rnmrzr .table_container table thead tr th.sort_column.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .table_container table thead tr th.sort_column.svelte-1lad585 {
   cursor: pointer;
   text-wrap: nowrap;
 }
-.table_root.svelte-1rnmrzr .table_container table tbody tr td.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .table_container table tbody tr td.svelte-1lad585 {
   padding: 8px 12px;
-  border-right: 1px solid var(--gray-004);
-  border-bottom: 1px solid var(--gray-004);
 }
-.table_root.svelte-1rnmrzr .table_container table tbody tr:last-child td.svelte-1rnmrzr,
-.table_root.svelte-1rnmrzr .table_container table tbody tr:last-child th.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .table_container table tbody tr td.num_row.svelte-1lad585 {
+  border-right: 1px solid var(--gray-003);
+  font-weight: 600;
+  text-align: center;
+}
+.table_root.svelte-1lad585 .table_container table tbody tr:last-child td.svelte-1lad585,
+.table_root.svelte-1lad585 .table_container table tbody tr:last-child th.svelte-1lad585 {
   border-bottom: none !important;
 }
-.table_root.svelte-1rnmrzr .table_container table tbody tr:last-child td.svelte-1rnmrzr:last-child {
+.table_root.svelte-1lad585 .table_container table tbody tr:last-child td.svelte-1lad585:last-child {
   border-right: none !important;
 }
-.table_root.svelte-1rnmrzr .table_container table tbody tr td.svelte-1rnmrzr:last-child {
+.table_root.svelte-1lad585 .table_container table tbody tr td.svelte-1lad585:last-child {
   border-right: none !important;
 }
-.table_root.svelte-1rnmrzr .table_container table tbody tr th.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .table_container table tbody tr th.svelte-1lad585 {
   text-align: center;
   border-right: 1px solid var(--gray-004);
   border-bottom: 1px solid var(--gray-004);
 }
-.table_root.svelte-1rnmrzr .table_container table tbody tr td .actions.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .table_container table tbody tr td .actions.svelte-1lad585 {
   display: flex;
   flex-direction: row;
-  gap: 5px;
 }
-.table_root.svelte-1rnmrzr .table_container table tbody tr td .actions .btn.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .table_container table tbody tr td .actions .btn.svelte-1lad585 {
   border: none;
   padding: 5px 10px;
   border-radius: 999px;
+  background-color: transparent;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.table_root.svelte-1rnmrzr .table_container table tbody tr td .actions .btn.edit.svelte-1rnmrzr {
-  background-color: var(--amber-005);
-  color: #FFF;
+.table_root.svelte-1lad585 .table_container table tbody tr td .actions .btn.svelte-1lad585:hover {
+  background-color: var(--gray-002);
 }
-.table_root.svelte-1rnmrzr .table_container table tbody tr td .actions .btn.edit.svelte-1rnmrzr:hover {
-  background-color: var(--amber-006);
-}
-.table_root.svelte-1rnmrzr .table_container table tbody tr td .actions .btn.delete.svelte-1rnmrzr {
-  background-color: var(--red-006);
-}
-.table_root.svelte-1rnmrzr .table_container table tbody tr td .actions .btn.delete.svelte-1rnmrzr:hover {
-  background-color: var(--red-005);
-}
-.table_root.svelte-1rnmrzr .pagination_container.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .pagination_container.svelte-1lad585 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding: 0 15px;
 }
-.table_root.svelte-1rnmrzr .pagination_container .filter.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .pagination_container .filter.svelte-1lad585 {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 8px;
-  padding: 5px 5px 5px 20px;
-  border: 1px solid var(--gray-004);
-  border-radius: 999px;
 }
-.table_root.svelte-1rnmrzr .pagination_container .filter .showing .text-violet.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .pagination_container .filter .showing .text-violet.svelte-1lad585 {
   color: var(--violet-006);
   font-weight: 600;
   padding: 5px;
 }
-.table_root.svelte-1rnmrzr .pagination_container .filter .row_to_show.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .pagination_container .filter .row_to_show.svelte-1lad585 {
   position: relative;
   width: fit-content;
   height: fit-content;
 }
-.table_root.svelte-1rnmrzr .pagination_container .filter .row_to_show .btn.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .pagination_container .filter .row_to_show .btn.svelte-1lad585 {
   border: none;
   background-color: var(--violet-006);
   color: #FFF;
@@ -1126,10 +951,10 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
   gap: 3px;
   cursor: pointer;
 }
-.table_root.svelte-1rnmrzr .pagination_container .filter .row_to_show .btn.svelte-1rnmrzr:hover {
+.table_root.svelte-1lad585 .pagination_container .filter .row_to_show .btn.svelte-1lad585:hover {
   background-color: var(--violet-005);
 }
-.table_root.svelte-1rnmrzr .pagination_container .filter .row_to_show .rows.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .pagination_container .filter .row_to_show .rows.svelte-1lad585 {
   display: flex;
   flex-direction: column-reverse;
   position: absolute;
@@ -1139,25 +964,25 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
   border: 1px solid var(--gray-004);
   background-color: #FFF;
 }
-.table_root.svelte-1rnmrzr .pagination_container .filter .row_to_show .rows button.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .pagination_container .filter .row_to_show .rows button.svelte-1lad585 {
   border: none;
   background-color: transparent;
   padding: 5px;
   cursor: pointer;
   color: var(--gray-007);
 }
-.table_root.svelte-1rnmrzr .pagination_container .filter .row_to_show .rows button.svelte-1rnmrzr:hover {
+.table_root.svelte-1lad585 .pagination_container .filter .row_to_show .rows button.svelte-1lad585:hover {
   background-color: var(--violet-transparent);
   color: var(--violet-007);
 }
-.table_root.svelte-1rnmrzr .pagination_container .pagination.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .pagination_container .pagination.svelte-1lad585 {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 5px;
   overflow: hidden;
 }
-.table_root.svelte-1rnmrzr .pagination_container .pagination .btn.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .pagination_container .pagination .btn.svelte-1lad585 {
   border: none;
   background-color: transparent;
   display: flex;
@@ -1171,25 +996,25 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
   color: var(--gray-007);
   border: 1px solid transparent;
 }
-.table_root.svelte-1rnmrzr .pagination_container .pagination .btn.svelte-1rnmrzr:hover {
+.table_root.svelte-1lad585 .pagination_container .pagination .btn.svelte-1lad585:hover {
   border: 1px solid var(--gray-004);
 }
-.table_root.svelte-1rnmrzr .pagination_container .pagination .btn.active.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .pagination_container .pagination .btn.active.svelte-1lad585 {
   background-color: var(--violet-transparent);
   color: var(--violet-006);
   font-weight: 600;
   border: 1px solid var(--violet-004);
 }
-.table_root.svelte-1rnmrzr .pagination_container .pagination .btn.to.svelte-1rnmrzr {
+.table_root.svelte-1lad585 .pagination_container .pagination .btn.to.svelte-1lad585 {
   background-color: var(--violet-006);
   color: #FFF;
   font-weight: 600;
   border: none;
 }
-.table_root.svelte-1rnmrzr .pagination_container .pagination .btn.to.svelte-1rnmrzr:hover {
+.table_root.svelte-1lad585 .pagination_container .pagination .btn.to.svelte-1lad585:hover {
   background-color: var(--violet-005);
 }
-.table_root.svelte-1rnmrzr .pagination_container .pagination .btn.to.svelte-1rnmrzr:disabled {
+.table_root.svelte-1lad585 .pagination_container .pagination .btn.to.svelte-1lad585:disabled {
   background-color: var(--gray-002);
   color: var(--gray-006);
   font-weight: 600;
@@ -1197,23 +1022,39 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
   cursor: not-allowed;
 }
 @media only screen and (max-width : 768px) {
-  .table_root.svelte-1rnmrzr .actions_container.svelte-1rnmrzr {
+  .table_root.svelte-1lad585 .actions_container.svelte-1lad585 {
     flex-wrap: wrap;
     gap: 10px;
   }
-  .table_root.svelte-1rnmrzr .actions_container .left.svelte-1rnmrzr {
+  .table_root.svelte-1lad585 .actions_container .left.svelte-1lad585 {
     flex-wrap: wrap;
   }
-  .table_root.svelte-1rnmrzr .table_container.svelte-1rnmrzr {
+  .table_root.svelte-1lad585 .table_container.svelte-1lad585 {
     overflow-x: scroll;
   }
-  .table_root.svelte-1rnmrzr .pagination_container.svelte-1rnmrzr {
+  .table_root.svelte-1lad585 .pagination_container.svelte-1lad585 {
     flex-wrap: wrap;
     gap: 10px;
   }
-  .table_root.svelte-1rnmrzr .pagination_container .pagination.svelte-1rnmrzr {
+  .table_root.svelte-1lad585 .pagination_container .pagination.svelte-1lad585 {
     gap: 2px;
   }
+}
+
+/* fakecss:./superAdmin_tenantManagement.esbuild-svelte-fake-css */
+.btn.svelte-11wwlie {
+  border: none;
+  background-color: var(--gray-001);
+  border: 1px solid var(--gray-003);
+  width: fit-content;
+  padding: 10px 15px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
 }
 </style>
 <script>(() => {
@@ -3339,7 +3180,7 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       exports.TenantAdminCreateOrganizationChild = async function TenantAdminCreateOrganizationChild(i, cb) {
         return await axios.post("/tenantAdmin/createOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminDashboard = async function TenantAdminDashboard2(i, cb) {
+      exports.TenantAdminDashboard = async function TenantAdminDashboard(i, cb) {
         return await axios.post("/tenantAdmin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminDeleteCoaChild = async function TenantAdminDeleteCoaChild(i, cb) {
@@ -3614,6 +3455,9 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
   }
   function empty() {
     return text("");
+  }
+  function comment(content) {
+    return document.createComment(content);
   }
   function listen(node, event, handler, options) {
     node.addEventListener(event, handler, options);
@@ -4300,82 +4144,6 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
-  // _components/partials/SideMenu.svelte
-  var import_jsApi_GEN = __toESM(require_jsApi_GEN());
-
-  // _components/notifier.js
-  var Notifier = function() {
-    let a = {
-      container: null,
-      default_time: 4500,
-      vanish_time: 300,
-      fps: 30,
-      success: {
-        classes: "alert-success",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)" /></svg>'
-      },
-      error: {
-        classes: "alert-danger",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" /></svg>'
-      },
-      warning: {
-        classes: "alert-warning",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3.09 0c-.06 0-.1.04-.13.09l-2.94 6.81c-.02.05-.03.13-.03.19v.81c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-.81c0-.05-.01-.14-.03-.19l-2.94-6.81c-.02-.05-.07-.09-.13-.09h-.81zm-.09 3h1v2h-1v-2zm0 3h1v1h-1v-1z" /></svg>'
-      },
-      info: {
-        classes: "alert-info",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-1.5 2.5c-.83 0-1.5.67-1.5 1.5h1c0-.28.22-.5.5-.5s.5.22.5.5-1 1.64-1 2.5c0 .86.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h-1c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-.36 1-1.84 1-2.5 0-.81-.67-1.5-1.5-1.5z" transform="translate(2)"/></svg>'
-      }
-    }, b = function(a2, b2, c, d, e, f, g) {
-      this.pushed = false, this.element = document.createElement("div"), this.element.className = "notifyjs-notification " + c.classes, this.element.innerHTML = "<div class='notifyjs-icon'>" + c.icon + "</div>" + b2, a2.appendChild(this.element);
-      let h = document.createElement("p");
-      h.className = "progress", this.element.appendChild(h), this.callback = g;
-      let j = this;
-      this.push = function() {
-        if (!j.pushed) {
-          j.pushed = true;
-          let a3 = 0, b3 = 1e3 / f;
-          j.element.style.display = "block", j.interval = setInterval(function() {
-            a3++;
-            let c2 = 100 * (1 - b3 * a3 / d);
-            h.style.right = c2 + "%", 0 >= c2 && ("function" == typeof g && g(), j.clear());
-          }, b3);
-        }
-      }, this.clear = function() {
-        if (j.pushed) {
-          let a3 = 1e3 / f, b3 = 1;
-          "undefined" != typeof j.interval && clearInterval(j.interval), j.interval = setInterval(function() {
-            b3 -= 1 / (e / a3), j.element.style.opacity = b3, 0 >= b3 && (clearInterval(j.interval), j.destroy());
-          }, a3);
-        }
-      }, this.destroy = function() {
-        j.pushed && (j.pushed = false, "undefined" != typeof j.interval && clearInterval(j.interval), a2.removeChild(j.element));
-      };
-    };
-    return function Notifier2(c) {
-      this.options = Object.assign({}, a), this.options = Object.assign(this.options, c), null === this.options.container && (this.options.container = document.createElement("div"), document.getElementsByTagName("body")[0].appendChild(this.options.container)), this.options.container.className += " notifyjs-container", this.notify = function(a2, c2, d, e) {
-        return "undefined" == typeof this.options[a2] ? void console.error("Notify.js: Error, undefined '" + a2 + "' notification type") : ("undefined" == typeof d && (d = this.options.default_time), new b(this.options.container, c2, this.options[a2], d, this.options.vanish_time, this.options.fps, e));
-      };
-      this.showInfo = function(infoMsg) {
-        let notification = this.notify("info", infoMsg);
-        notification.push();
-      };
-      this.showSuccess = function(okMsg) {
-        let notification = this.notify("success", okMsg);
-        notification.push();
-      };
-      this.showError = function(errMsg) {
-        let notification = this.notify("error", errMsg);
-        notification.push();
-      };
-      this.showWarning = function(warnMsg) {
-        let notification = this.notify("warning", warnMsg);
-        notification.push();
-      };
-    };
-  }();
-  var notifier = new Notifier();
-
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/Icon.svelte
   function create_fragment(ctx) {
     let svg;
@@ -4511,6 +4279,91 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     }
   };
   var Icon_default = Icon;
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/cg/CgMathPlus.js
+  var CgMathPlus_default = {
+    a: {
+      viewBox: "0 0 24 24",
+      fill: "none"
+    },
+    c: '<path d="M12 4C11.4477 4 11 4.44772 11 5V11H5C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13H11V19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19V13H19C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11H13V5C13 4.44772 12.5523 4 12 4Z" fill="currentColor"></path>'
+  };
+
+  // _components/partials/SideMenu.svelte
+  var import_jsApi_GEN = __toESM(require_jsApi_GEN());
+
+  // _components/notifier.js
+  var Notifier = function() {
+    let a = {
+      container: null,
+      default_time: 4500,
+      vanish_time: 300,
+      fps: 30,
+      success: {
+        classes: "alert-success",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)" /></svg>'
+      },
+      error: {
+        classes: "alert-danger",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" /></svg>'
+      },
+      warning: {
+        classes: "alert-warning",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3.09 0c-.06 0-.1.04-.13.09l-2.94 6.81c-.02.05-.03.13-.03.19v.81c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-.81c0-.05-.01-.14-.03-.19l-2.94-6.81c-.02-.05-.07-.09-.13-.09h-.81zm-.09 3h1v2h-1v-2zm0 3h1v1h-1v-1z" /></svg>'
+      },
+      info: {
+        classes: "alert-info",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-1.5 2.5c-.83 0-1.5.67-1.5 1.5h1c0-.28.22-.5.5-.5s.5.22.5.5-1 1.64-1 2.5c0 .86.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h-1c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-.36 1-1.84 1-2.5 0-.81-.67-1.5-1.5-1.5z" transform="translate(2)"/></svg>'
+      }
+    }, b = function(a2, b2, c, d, e, f, g) {
+      this.pushed = false, this.element = document.createElement("div"), this.element.className = "notifyjs-notification " + c.classes, this.element.innerHTML = "<div class='notifyjs-icon'>" + c.icon + "</div>" + b2, a2.appendChild(this.element);
+      let h = document.createElement("p");
+      h.className = "progress", this.element.appendChild(h), this.callback = g;
+      let j = this;
+      this.push = function() {
+        if (!j.pushed) {
+          j.pushed = true;
+          let a3 = 0, b3 = 1e3 / f;
+          j.element.style.display = "block", j.interval = setInterval(function() {
+            a3++;
+            let c2 = 100 * (1 - b3 * a3 / d);
+            h.style.right = c2 + "%", 0 >= c2 && ("function" == typeof g && g(), j.clear());
+          }, b3);
+        }
+      }, this.clear = function() {
+        if (j.pushed) {
+          let a3 = 1e3 / f, b3 = 1;
+          "undefined" != typeof j.interval && clearInterval(j.interval), j.interval = setInterval(function() {
+            b3 -= 1 / (e / a3), j.element.style.opacity = b3, 0 >= b3 && (clearInterval(j.interval), j.destroy());
+          }, a3);
+        }
+      }, this.destroy = function() {
+        j.pushed && (j.pushed = false, "undefined" != typeof j.interval && clearInterval(j.interval), a2.removeChild(j.element));
+      };
+    };
+    return function Notifier2(c) {
+      this.options = Object.assign({}, a), this.options = Object.assign(this.options, c), null === this.options.container && (this.options.container = document.createElement("div"), document.getElementsByTagName("body")[0].appendChild(this.options.container)), this.options.container.className += " notifyjs-container", this.notify = function(a2, c2, d, e) {
+        return "undefined" == typeof this.options[a2] ? void console.error("Notify.js: Error, undefined '" + a2 + "' notification type") : ("undefined" == typeof d && (d = this.options.default_time), new b(this.options.container, c2, this.options[a2], d, this.options.vanish_time, this.options.fps, e));
+      };
+      this.showInfo = function(infoMsg) {
+        let notification = this.notify("info", infoMsg);
+        notification.push();
+      };
+      this.showSuccess = function(okMsg) {
+        let notification = this.notify("success", okMsg);
+        notification.push();
+      };
+      this.showError = function(errMsg) {
+        let notification = this.notify("error", errMsg);
+        notification.push();
+      };
+      this.showWarning = function(warnMsg) {
+        let notification = this.notify("warning", warnMsg);
+        notification.push();
+      };
+    };
+  }();
+  var notifier = new Notifier();
 
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ai/AiOutlineWarning.js
   var AiOutlineWarning_default = {
@@ -5624,12 +5477,12 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     };
   }
   function instance4($self, $props, $invalidate) {
-    let { user: user3 = {} } = $props;
+    let { user: user2 = {} } = $props;
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(0, user3 = $props2.user);
+        $invalidate(0, user2 = $props2.user);
     };
-    return [user3];
+    return [user2];
   }
   var Navbar = class extends SvelteComponent {
     constructor(options) {
@@ -5830,23 +5683,6 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M17.849 11.808l-.707-.707-9.9 9.9H3v-4.243L14.313 5.444l5.657 5.657a1 1 0 0 1 0 1.414l-7.07 7.071-1.415-1.414 6.364-6.364zm-2.121-2.121l-1.415-1.414L5 17.586v1.415h1.414l9.314-9.314zm2.828-7.071l2.829 2.828a1 1 0 0 1 0 1.414L19.97 8.273 15.728 4.03l1.414-1.414a1 1 0 0 1 1.414 0z"></path></g>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ai/AiOutlineEyeInvisible.js
-  var AiOutlineEyeInvisible_default = {
-    a: {
-      viewBox: "0 0 1024 1024"
-    },
-    c: '<path d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 0 0 0-51.5zm-63.57-320.64L836 122.88a8 8 0 0 0-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 0 0 0 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 0 0 0 11.31L155.17 889a8 8 0 0 0 11.31 0l712.15-712.12a8 8 0 0 0 0-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 0 0-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 0 1 146.2-106.69L401.31 546.2A112 112 0 0 1 396 512z"></path><path d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 0 0 227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 0 1-112 112z"></path>'
-  };
-
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/cg/CgMathPlus.js
-  var CgMathPlus_default = {
-    a: {
-      viewBox: "0 0 24 24",
-      fill: "none"
-    },
-    c: '<path d="M12 4C11.4477 4 11 4.44772 11 5V11H5C4.44772 11 4 11.4477 4 12C4 12.5523 4.44772 13 5 13H11V19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19V13H19C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11H13V5C13 4.44772 12.5523 4 12 4Z" fill="currentColor"></path>'
-  };
-
   // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/io/IoSearch.js
   var IoSearch_default = {
     a: {
@@ -5945,8 +5781,21 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M4 8h16v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8zm2 2v10h12V10H6zm3 2h2v6H9v-6zm4 0h2v6h-2v-6zM7 5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v2h5v2H2V5h5zm2-1v1h6V4H9z"></path></g>'
   };
 
-  // _components/MasterTable.svelte
-  var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemFilterLine.js
+  var RiSystemFilterLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0H24V24H0z"></path>\n<path d="M21 4v2h-1l-5 7.5V22H9v-8.5L4 6H3V4h18zM6.404 6L11 12.894V20h2v-7.106L17.596 6H6.404z"></path></g>'
+  };
+
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiSystemArrowGoBackLine.js
+  var RiSystemArrowGoBackLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M5.828 7l2.536 2.536L6.95 10.95 2 6l4.95-4.95 1.414 1.414L5.828 5H13a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H5.828z"></path></g>'
+  };
 
   // _components/FilterTable.svelte
   function get_each_context(ctx, list, i) {
@@ -6397,65 +6246,65 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
   var import_formatter = __toESM(require_formatter());
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[41] = list[i];
+    child_ctx[47] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[44] = list[i];
+    child_ctx[50] = list[i];
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[47] = list[i];
+    child_ctx[53] = list[i];
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[50] = list[i];
-    child_ctx[52] = i;
+    child_ctx[56] = list[i];
+    child_ctx[58] = i;
     return child_ctx;
   }
   function get_each_context_4(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[50] = list[i];
-    child_ctx[54] = i;
+    child_ctx[56] = list[i];
+    child_ctx[60] = i;
     return child_ctx;
   }
-  function create_if_block_11(ctx) {
+  function create_if_block_13(ctx) {
     let filtertable;
     let updating_filterColumns;
     let updating_filtersMap;
     let current;
     function filtertable_filterColumns_binding(value) {
-      ctx[28](value);
+      ctx[31](value);
     }
     function filtertable_filtersMap_binding(value) {
-      ctx[29](value);
+      ctx[32](value);
     }
     let filtertable_props = {};
     if (
       /*filterColumns*/
-      ctx[15] !== void 0
+      ctx[10] !== void 0
     ) {
       filtertable_props.filterColumns = /*filterColumns*/
-      ctx[15];
+      ctx[10];
     }
     if (
       /*filtersMap*/
-      ctx[16] !== void 0
+      ctx[11] !== void 0
     ) {
       filtertable_props.filtersMap = /*filtersMap*/
-      ctx[16];
+      ctx[11];
     }
     filtertable = new FilterTable_default({ props: filtertable_props });
-    ctx[27](filtertable);
+    ctx[30](filtertable);
     binding_callbacks.push(() => bind(filtertable, "filterColumns", filtertable_filterColumns_binding));
     binding_callbacks.push(() => bind(filtertable, "filtersMap", filtertable_filtersMap_binding));
     filtertable.$on(
       "click",
       /*ApplyFilter*/
-      ctx[23]
+      ctx[19]
     );
     return {
       c() {
@@ -6468,17 +6317,17 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       p(ctx2, dirty) {
         const filtertable_changes = {};
         if (!updating_filterColumns && dirty[0] & /*filterColumns*/
-        32768) {
+        1024) {
           updating_filterColumns = true;
           filtertable_changes.filterColumns = /*filterColumns*/
-          ctx2[15];
+          ctx2[10];
           add_flush_callback(() => updating_filterColumns = false);
         }
         if (!updating_filtersMap && dirty[0] & /*filtersMap*/
-        65536) {
+        2048) {
           updating_filtersMap = true;
           filtertable_changes.filtersMap = /*filtersMap*/
-          ctx2[16];
+          ctx2[11];
           add_flush_callback(() => updating_filtersMap = false);
         }
         filtertable.$set(filtertable_changes);
@@ -6494,12 +6343,12 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
         current = false;
       },
       d(detaching) {
-        ctx[27](null);
+        ctx[30](null);
         destroy_component(filtertable, detaching);
       }
     };
   }
-  function create_if_block_10(ctx) {
+  function create_if_block_122(ctx) {
     let div;
     let icon;
     let current;
@@ -6540,7 +6389,7 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       }
     };
   }
-  function create_if_block_9(ctx) {
+  function create_if_block_11(ctx) {
     let div;
     let input;
     let t;
@@ -6548,7 +6397,11 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     let icon;
     let current;
     icon = new Icon_default({
-      props: { color: "#FFF", size: "16", src: IoSearch_default }
+      props: {
+        color: "var(--gray-007)",
+        size: "16",
+        src: IoSearch_default
+      }
     });
     return {
       c() {
@@ -6561,9 +6414,9 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
         attr(input, "type", "text");
         attr(input, "name", "searchRow");
         attr(input, "id", "searchRow");
-        attr(input, "class", "search svelte-1rnmrzr");
-        attr(button, "class", "search_btn svelte-1rnmrzr");
-        attr(div, "class", "search_handler svelte-1rnmrzr");
+        attr(input, "class", "search svelte-1lad585");
+        attr(button, "class", "search_btn svelte-1lad585");
+        attr(div, "class", "search_handler svelte-1lad585");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -6591,18 +6444,18 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       }
     };
   }
-  function create_if_block_6(ctx) {
+  function create_if_block_8(ctx) {
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
     let each_1_anchor;
     let current;
     let each_value_4 = ensure_array_like(
       /*FIELDS*/
-      ctx[1]
+      ctx[0]
     );
     const get_key = (ctx2) => (
       /*f*/
-      ctx2[50].name
+      ctx2[56].name
     );
     for (let i = 0; i < each_value_4.length; i += 1) {
       let child_ctx = get_each_context_4(ctx, each_value_4, i);
@@ -6627,10 +6480,10 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*FIELDS*/
-        2) {
+        1) {
           each_value_4 = ensure_array_like(
             /*FIELDS*/
-            ctx2[1]
+            ctx2[0]
           );
           group_outros();
           each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value_4, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block_4, each_1_anchor, get_each_context_4);
@@ -6661,7 +6514,7 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       }
     };
   }
-  function create_if_block_8(ctx) {
+  function create_if_block_10(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -6695,7 +6548,7 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       }
     };
   }
-  function create_if_block_7(ctx) {
+  function create_if_block_9(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -6733,15 +6586,15 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     let span;
     let t0_value = (
       /*f*/
-      ctx[50].label + ""
+      ctx[56].label + ""
     );
     let t0;
     let t1;
     let t2;
     let t3;
     let current;
-    let if_block0 = sortTableAsc && create_if_block_8(ctx);
-    let if_block1 = !sortTableAsc && create_if_block_7(ctx);
+    let if_block0 = sortTableAsc && create_if_block_10(ctx);
+    let if_block1 = !sortTableAsc && create_if_block_9(ctx);
     return {
       key: key_1,
       first: null,
@@ -6756,7 +6609,7 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
         if (if_block1)
           if_block1.c();
         t3 = space();
-        attr(th, "class", "sort_column svelte-1rnmrzr");
+        attr(th, "class", "sort_column svelte-1lad585");
         this.first = th;
       },
       m(target, anchor) {
@@ -6775,8 +6628,8 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if ((!current || dirty[0] & /*FIELDS*/
-        2) && t0_value !== (t0_value = /*f*/
-        ctx[50].label + ""))
+        1) && t0_value !== (t0_value = /*f*/
+        ctx[56].label + ""))
           set_data(t0, t0_value);
       },
       i(local) {
@@ -6802,12 +6655,12 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       }
     };
   }
-  function create_if_block_13(ctx) {
+  function create_if_block_14(ctx) {
     let each_1_anchor;
     let current;
     let each_value_2 = ensure_array_like(
       /*MASTER_ROWS*/
-      ctx[2]
+      ctx[1]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value_2.length; i += 1) {
@@ -6833,11 +6686,11 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*FIELDS, MASTER_ROWS, HandleDelete, HandleEdit, CAN_EDIT_ROW, ACCESS*/
-        215) {
+        if (dirty[0] & /*FIELDS, MASTER_ROWS, restoreRow, CAN_RESTORE_ROW, deleteRow, CAN_DELETE_ROW, OnEdit, CAN_EDIT_ROW, ACCESS*/
+        12583159) {
           each_value_2 = ensure_array_like(
             /*MASTER_ROWS*/
-            ctx2[2]
+            ctx2[1]
           );
           let i;
           for (i = 0; i < each_value_2.length; i += 1) {
@@ -6904,79 +6757,113 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
   }
   function create_if_block_42(ctx) {
     let div;
-    let t;
-    let button;
-    let icon;
+    let t0;
+    let t1;
     let current;
-    let mounted;
-    let dispose;
-    let if_block = (
+    let if_block0 = (
       /*CAN_EDIT_ROW*/
-      ctx[4] && create_if_block_52(ctx)
+      ctx[4] && create_if_block_7(ctx)
     );
-    icon = new Icon_default({
-      props: {
-        size: "13",
-        color: "#FFF",
-        src: RiSystemDeleteBin5Line_default
-      }
-    });
-    function click_handler_2() {
-      return (
-        /*click_handler_2*/
-        ctx[32](
-          /*row*/
-          ctx[47]
-        )
-      );
-    }
+    let if_block1 = (
+      /*CAN_DELETE_ROW*/
+      ctx[5] && create_if_block_6(ctx)
+    );
+    let if_block2 = (
+      /*CAN_RESTORE_ROW*/
+      ctx[6] && create_if_block_52(ctx)
+    );
     return {
       c() {
         div = element("div");
-        if (if_block)
-          if_block.c();
-        t = space();
-        button = element("button");
-        create_component(icon.$.fragment);
-        attr(button, "class", "btn delete svelte-1rnmrzr");
-        attr(button, "title", "delete");
-        attr(div, "class", "actions svelte-1rnmrzr");
+        if (if_block0)
+          if_block0.c();
+        t0 = space();
+        if (if_block1)
+          if_block1.c();
+        t1 = space();
+        if (if_block2)
+          if_block2.c();
+        attr(div, "class", "actions svelte-1lad585");
       },
       m(target, anchor) {
         insert(target, div, anchor);
-        if (if_block)
-          if_block.m(div, null);
-        append(div, t);
-        append(div, button);
-        mount_component(icon, button, null);
+        if (if_block0)
+          if_block0.m(div, null);
+        append(div, t0);
+        if (if_block1)
+          if_block1.m(div, null);
+        append(div, t1);
+        if (if_block2)
+          if_block2.m(div, null);
         current = true;
-        if (!mounted) {
-          dispose = listen(button, "click", click_handler_2);
-          mounted = true;
-        }
       },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
+      p(ctx2, dirty) {
         if (
           /*CAN_EDIT_ROW*/
-          ctx[4]
+          ctx2[4]
         ) {
-          if (if_block) {
-            if_block.p(ctx, dirty);
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
             if (dirty[0] & /*CAN_EDIT_ROW*/
             16) {
-              transition_in(if_block, 1);
+              transition_in(if_block0, 1);
             }
           } else {
-            if_block = create_if_block_52(ctx);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(div, t);
+            if_block0 = create_if_block_7(ctx2);
+            if_block0.c();
+            transition_in(if_block0, 1);
+            if_block0.m(div, t0);
           }
-        } else if (if_block) {
+        } else if (if_block0) {
           group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*CAN_DELETE_ROW*/
+          ctx2[5]
+        ) {
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
+            if (dirty[0] & /*CAN_DELETE_ROW*/
+            32) {
+              transition_in(if_block1, 1);
+            }
+          } else {
+            if_block1 = create_if_block_6(ctx2);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(div, t1);
+          }
+        } else if (if_block1) {
+          group_outros();
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*CAN_RESTORE_ROW*/
+          ctx2[6]
+        ) {
+          if (if_block2) {
+            if_block2.p(ctx2, dirty);
+            if (dirty[0] & /*CAN_RESTORE_ROW*/
+            64) {
+              transition_in(if_block2, 1);
+            }
+          } else {
+            if_block2 = create_if_block_52(ctx2);
+            if_block2.c();
+            transition_in(if_block2, 1);
+            if_block2.m(div, null);
+          }
+        } else if (if_block2) {
+          group_outros();
+          transition_out(if_block2, 1, 1, () => {
+            if_block2 = null;
           });
           check_outros();
         }
@@ -6984,28 +6871,31 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       i(local) {
         if (current)
           return;
-        transition_in(if_block);
-        transition_in(icon.$.fragment, local);
+        transition_in(if_block0);
+        transition_in(if_block1);
+        transition_in(if_block2);
         current = true;
       },
       o(local) {
-        transition_out(if_block);
-        transition_out(icon.$.fragment, local);
+        transition_out(if_block0);
+        transition_out(if_block1);
+        transition_out(if_block2);
         current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(div);
         }
-        if (if_block)
-          if_block.d();
-        destroy_component(icon);
-        mounted = false;
-        dispose();
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        if (if_block2)
+          if_block2.d();
       }
     };
   }
-  function create_if_block_52(ctx) {
+  function create_if_block_7(ctx) {
     let button;
     let icon;
     let current;
@@ -7013,17 +6903,17 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     let dispose;
     icon = new Icon_default({
       props: {
-        size: "13",
-        color: "#FFF",
+        size: "15",
+        color: "var(--gray-007)",
         src: RiDesignBallPenLine_default
       }
     });
     function click_handler_1() {
       return (
         /*click_handler_1*/
-        ctx[31](
+        ctx[34](
           /*row*/
-          ctx[47]
+          ctx[53]
         )
       );
     }
@@ -7031,7 +6921,7 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       c() {
         button = element("button");
         create_component(icon.$.fragment);
-        attr(button, "class", "btn edit svelte-1rnmrzr");
+        attr(button, "class", "btn edit svelte-1lad585");
         attr(button, "title", "Edit");
       },
       m(target, anchor) {
@@ -7066,11 +6956,133 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       }
     };
   }
+  function create_if_block_6(ctx) {
+    let button;
+    let icon;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        size: "15",
+        color: "var(--gray-007)",
+        src: RiSystemDeleteBin5Line_default
+      }
+    });
+    function click_handler_2() {
+      return (
+        /*click_handler_2*/
+        ctx[35](
+          /*row*/
+          ctx[53]
+        )
+      );
+    }
+    return {
+      c() {
+        button = element("button");
+        create_component(icon.$.fragment);
+        attr(button, "class", "btn delete svelte-1lad585");
+        attr(button, "title", "delete");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        mount_component(icon, button, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(button, "click", click_handler_2);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        destroy_component(icon);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_52(ctx) {
+    let button;
+    let icon;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        size: "15",
+        color: "var(--gray-007)",
+        src: RiSystemArrowGoBackLine_default
+      }
+    });
+    function click_handler_3() {
+      return (
+        /*click_handler_3*/
+        ctx[36](
+          /*row*/
+          ctx[53]
+        )
+      );
+    }
+    return {
+      c() {
+        button = element("button");
+        create_component(icon.$.fragment);
+        attr(button, "class", "btn info svelte-1lad585");
+        attr(button, "title", "restore");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        mount_component(icon, button, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(button, "click", click_handler_3);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        destroy_component(icon);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
   function create_if_block_22(ctx) {
     let each_1_anchor;
     let each_value_3 = ensure_array_like(
       /*FIELDS*/
-      ctx[1]
+      ctx[0]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value_3.length; i += 1) {
@@ -7093,10 +7105,10 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*MASTER_ROWS, FIELDS*/
-        6) {
+        3) {
           each_value_3 = ensure_array_like(
             /*FIELDS*/
-            ctx2[1]
+            ctx2[0]
           );
           let i;
           for (i = 0; i < each_value_3.length; i += 1) {
@@ -7127,9 +7139,9 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     let td;
     let t_value = (
       /*row*/
-      ctx[47][
+      ctx[53][
         /*idx*/
-        ctx[52]
+        ctx[58]
       ] + ""
     );
     let t;
@@ -7137,7 +7149,7 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-1rnmrzr");
+        attr(td, "class", "svelte-1lad585");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -7145,10 +7157,10 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*MASTER_ROWS*/
-        4 && t_value !== (t_value = /*row*/
-        ctx2[47][
+        2 && t_value !== (t_value = /*row*/
+        ctx2[53][
           /*idx*/
-          ctx2[52]
+          ctx2[58]
         ] + ""))
           set_data(t, t_value);
       },
@@ -7163,9 +7175,9 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     let td;
     let t_value = (0, import_formatter.datetime)(
       /*row*/
-      ctx[47][
+      ctx[53][
         /*idx*/
-        ctx[52]
+        ctx[58]
       ]
     ) + "";
     let t;
@@ -7173,7 +7185,7 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-1rnmrzr");
+        attr(td, "class", "svelte-1lad585");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -7181,11 +7193,11 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*MASTER_ROWS*/
-        4 && t_value !== (t_value = (0, import_formatter.datetime)(
+        2 && t_value !== (t_value = (0, import_formatter.datetime)(
           /*row*/
-          ctx2[47][
+          ctx2[53][
             /*idx*/
-            ctx2[52]
+            ctx2[58]
           ]
         ) + ""))
           set_data(t, t_value);
@@ -7202,9 +7214,9 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     function select_block_type_1(ctx2, dirty) {
       if (
         /*f*/
-        ctx2[50].name === "createdAt" || /*f*/
-        ctx2[50].name === "updatedAt" || /*f*/
-        ctx2[50].name === "deletedAt"
+        ctx2[56].name === "createdAt" || /*f*/
+        ctx2[56].name === "updatedAt" || /*f*/
+        ctx2[56].name === "deletedAt"
       )
         return create_if_block_32;
       return create_else_block;
@@ -7242,17 +7254,17 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
   }
   function create_each_block_2(ctx) {
     let tr;
-    let th;
+    let td0;
     let t0_value = (
       /*MASTER_ROWS*/
-      ctx[2].indexOf(
+      ctx[1].indexOf(
         /*row*/
-        ctx[47]
+        ctx[53]
       ) + 1 + ""
     );
     let t0;
     let t1;
-    let td;
+    let td1;
     let current_block_type_index;
     let if_block0;
     let t2;
@@ -7263,10 +7275,10 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     function select_block_type(ctx2, dirty) {
       if (
         /*ACCESS*/
-        ctx2[0].superAdmin || /*ACCESS*/
-        ctx2[0].tenantAdmin || /*ACCESS*/
-        ctx2[0].entryUser || /*ACCESS*/
-        ctx2[0].reportViewer
+        ctx2[2].superAdmin || /*ACCESS*/
+        ctx2[2].tenantAdmin || /*ACCESS*/
+        ctx2[2].entryUser || /*ACCESS*/
+        ctx2[2].reportViewer
       )
         return 0;
       return 1;
@@ -7275,31 +7287,31 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     let if_block1 = (
       /*FIELDS*/
-      ctx[1] && /*FIELDS*/
-      ctx[1].length > 0 && create_if_block_22(ctx)
+      ctx[0] && /*FIELDS*/
+      ctx[0].length > 0 && create_if_block_22(ctx)
     );
     return {
       c() {
         tr = element("tr");
-        th = element("th");
+        td0 = element("td");
         t0 = text(t0_value);
         t1 = space();
-        td = element("td");
+        td1 = element("td");
         if_block0.c();
         t2 = space();
         if (if_block1)
           if_block1.c();
         t3 = space();
-        attr(th, "class", "svelte-1rnmrzr");
-        attr(td, "class", "a_row svelte-1rnmrzr");
+        attr(td0, "class", "num_row svelte-1lad585");
+        attr(td1, "class", "a_row svelte-1lad585");
       },
       m(target, anchor) {
         insert(target, tr, anchor);
-        append(tr, th);
-        append(th, t0);
+        append(tr, td0);
+        append(td0, t0);
         append(tr, t1);
-        append(tr, td);
-        if_blocks[current_block_type_index].m(td, null);
+        append(tr, td1);
+        if_blocks[current_block_type_index].m(td1, null);
         append(tr, t2);
         if (if_block1)
           if_block1.m(tr, null);
@@ -7308,10 +7320,10 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       },
       p(ctx2, dirty) {
         if ((!current || dirty[0] & /*MASTER_ROWS*/
-        4) && t0_value !== (t0_value = /*MASTER_ROWS*/
-        ctx2[2].indexOf(
+        2) && t0_value !== (t0_value = /*MASTER_ROWS*/
+        ctx2[1].indexOf(
           /*row*/
-          ctx2[47]
+          ctx2[53]
         ) + 1 + ""))
           set_data(t0, t0_value);
         let previous_block_index = current_block_type_index;
@@ -7332,12 +7344,12 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
             if_block0.p(ctx2, dirty);
           }
           transition_in(if_block0, 1);
-          if_block0.m(td, null);
+          if_block0.m(td1, null);
         }
         if (
           /*FIELDS*/
-          ctx2[1] && /*FIELDS*/
-          ctx2[1].length > 0
+          ctx2[0] && /*FIELDS*/
+          ctx2[0].length > 0
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
@@ -7375,7 +7387,7 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     let div;
     let each_value_1 = ensure_array_like(
       /*rowsToShow*/
-      ctx[21]
+      ctx[17]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value_1.length; i += 1) {
@@ -7387,7 +7399,7 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(div, "class", "rows svelte-1rnmrzr");
+        attr(div, "class", "rows svelte-1lad585");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -7398,11 +7410,11 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
         }
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*ToRow, rowsToShow*/
-        18874368) {
+        if (dirty[0] & /*toRow, rowsToShow*/
+        1179648) {
           each_value_1 = ensure_array_like(
             /*rowsToShow*/
-            ctx2[21]
+            ctx2[17]
           );
           let i;
           for (i = 0; i < each_value_1.length; i += 1) {
@@ -7433,12 +7445,12 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     let button;
     let mounted;
     let dispose;
-    function click_handler_3() {
+    function click_handler_4() {
       return (
-        /*click_handler_3*/
-        ctx[33](
+        /*click_handler_4*/
+        ctx[37](
           /*r*/
-          ctx[44]
+          ctx[50]
         )
       );
     }
@@ -7446,13 +7458,13 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       c() {
         button = element("button");
         button.textContent = `${/*r*/
-        ctx[44]}`;
-        attr(button, "class", "svelte-1rnmrzr");
+        ctx[50]}`;
+        attr(button, "class", "svelte-1lad585");
       },
       m(target, anchor) {
         insert(target, button, anchor);
         if (!mounted) {
-          dispose = listen(button, "click", click_handler_3);
+          dispose = listen(button, "click", click_handler_4);
           mounted = true;
         }
       },
@@ -7472,7 +7484,7 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     let button;
     let t_value = (
       /*i*/
-      ctx[41] + ""
+      ctx[47] + ""
     );
     let t;
     let button_disabled_value;
@@ -7480,12 +7492,12 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     let button_title_value;
     let mounted;
     let dispose;
-    function click_handler_5() {
+    function click_handler_7() {
       return (
-        /*click_handler_5*/
-        ctx[35](
+        /*click_handler_7*/
+        ctx[40](
           /*i*/
-          ctx[41]
+          ctx[47]
         )
       );
     }
@@ -7493,40 +7505,48 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       c() {
         button = element("button");
         t = text(t_value);
-        button.disabled = button_disabled_value = currentPage == /*i*/
-        ctx[41];
-        attr(button, "class", button_class_value = null_to_empty(currentPage === /*i*/
-        ctx[41] ? "btn active" : "btn") + " svelte-1rnmrzr");
+        button.disabled = button_disabled_value = /*currentPage*/
+        ctx[14] == /*i*/
+        ctx[47];
+        attr(button, "class", button_class_value = null_to_empty(
+          /*currentPage*/
+          ctx[14] === /*i*/
+          ctx[47] ? "btn active" : "btn"
+        ) + " svelte-1lad585");
         attr(button, "title", button_title_value = `Go to page ${/*i*/
-        ctx[41]}`);
+        ctx[47]}`);
       },
       m(target, anchor) {
         insert(target, button, anchor);
         append(button, t);
         if (!mounted) {
-          dispose = listen(button, "click", click_handler_5);
+          dispose = listen(button, "click", click_handler_7);
           mounted = true;
         }
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if (dirty[0] & /*paginationShow*/
-        262144 && t_value !== (t_value = /*i*/
-        ctx[41] + ""))
+        8192 && t_value !== (t_value = /*i*/
+        ctx[47] + ""))
           set_data(t, t_value);
-        if (dirty[0] & /*paginationShow*/
-        262144 && button_disabled_value !== (button_disabled_value = currentPage == /*i*/
-        ctx[41])) {
+        if (dirty[0] & /*currentPage, paginationShow*/
+        24576 && button_disabled_value !== (button_disabled_value = /*currentPage*/
+        ctx[14] == /*i*/
+        ctx[47])) {
           button.disabled = button_disabled_value;
         }
-        if (dirty[0] & /*paginationShow*/
-        262144 && button_class_value !== (button_class_value = null_to_empty(currentPage === /*i*/
-        ctx[41] ? "btn active" : "btn") + " svelte-1rnmrzr")) {
+        if (dirty[0] & /*currentPage, paginationShow*/
+        24576 && button_class_value !== (button_class_value = null_to_empty(
+          /*currentPage*/
+          ctx[14] === /*i*/
+          ctx[47] ? "btn active" : "btn"
+        ) + " svelte-1lad585")) {
           attr(button, "class", button_class_value);
         }
         if (dirty[0] & /*paginationShow*/
-        262144 && button_title_value !== (button_title_value = `Go to page ${/*i*/
-        ctx[41]}`)) {
+        8192 && button_title_value !== (button_title_value = `Go to page ${/*i*/
+        ctx[47]}`)) {
           attr(button, "title", button_title_value);
         }
       },
@@ -7541,130 +7561,133 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
   }
   function create_fragment8(ctx) {
     let t0;
-    let div12;
-    let div5;
+    let div10;
     let div3;
     let div1;
     let div0;
-    let t8;
     let button0;
+    let span0;
+    let t2;
     let icon0;
-    let t9;
+    let t3;
+    let c;
+    let t4;
+    let t5;
+    let t6;
     let div2;
-    let button1;
-    let icon1;
-    let t10;
-    let t11;
+    let t7;
     let div4;
-    let t12;
-    let div6;
     let table;
     let thead;
     let tr;
     let th0;
-    let t14;
+    let t9;
     let th1;
-    let t16;
-    let t17;
+    let t11;
+    let t12;
     let tbody;
-    let t18;
-    let div11;
+    let t13;
     let div9;
     let div7;
-    let t26;
+    let div5;
+    let t21;
+    let div6;
+    let t22;
+    let button1;
+    let span4;
+    let t23;
+    let t24;
+    let icon1;
+    let t25;
     let div8;
-    let t27;
     let button2;
-    let span6;
-    let t28;
-    let t29;
     let icon2;
-    let t30;
-    let div10;
+    let button2_disabled_value;
+    let t26;
     let button3;
     let icon3;
     let button3_disabled_value;
-    let t31;
+    let t27;
+    let t28;
     let button4;
     let icon4;
     let button4_disabled_value;
-    let t32;
-    let t33;
+    let t29;
     let button5;
     let icon5;
     let button5_disabled_value;
-    let t34;
-    let button6;
-    let icon6;
-    let button6_disabled_value;
     let current;
     let mounted;
     let dispose;
     let if_block0 = (
       /*filterTableReady*/
-      ctx[14] && create_if_block_11(ctx)
+      ctx[9] && create_if_block_13(ctx)
     );
     icon0 = new Icon_default({
       props: {
-        color: "#FFF",
+        color: "var(--gray-007)",
         size: "16",
-        src: AiOutlineEyeInvisible_default
+        src: RiSystemFilterLine_default
       }
     });
-    icon1 = new Icon_default({
-      props: {
-        color: "#FFF",
-        size: "18",
-        src: CgMathPlus_default
-      }
-    });
-    let if_block1 = isAjaxSubmitted && create_if_block_10(ctx);
+    const default_slot_template = (
+      /*#slots*/
+      ctx[29].default
+    );
+    const default_slot = create_slot(
+      default_slot_template,
+      ctx,
+      /*$scope*/
+      ctx[28],
+      null
+    );
+    let if_block1 = isAjaxSubmitted && create_if_block_122(ctx);
     let if_block2 = (
       /*CAN_SEARCH_ROW*/
-      ctx[3] && create_if_block_9(ctx)
+      ctx[3] && create_if_block_11(ctx)
     );
     let if_block3 = (
       /*FIELDS*/
-      ctx[1] && /*FIELDS*/
-      ctx[1].length > 0 && create_if_block_6(ctx)
+      ctx[0] && /*FIELDS*/
+      ctx[0].length > 0 && create_if_block_8(ctx)
     );
     let if_block4 = (
       /*MASTER_ROWS*/
-      ctx[2] && /*MASTER_ROWS*/
-      ctx[2].length && create_if_block_13(ctx)
+      ctx[1] && /*MASTER_ROWS*/
+      ctx[1].length && create_if_block_14(ctx)
     );
     let if_block5 = (
       /*showRowsNum*/
-      ctx[20] && create_if_block3(ctx)
+      ctx[16] && create_if_block3(ctx)
     );
-    icon2 = new Icon_default({
+    icon1 = new Icon_default({
       props: {
         className: (
           /*showRowsNum*/
-          ctx[20] ? "dropdown" : "rotate_right"
+          ctx[16] ? "dropdown" : "rotate_right"
         ),
         size: "13",
         src: CgChevronDown_default
       }
     });
-    icon3 = new Icon_default({
+    icon2 = new Icon_default({
       props: { size: "16", src: CgChevronDoubleLeft_default }
     });
-    icon4 = new Icon_default({
+    icon3 = new Icon_default({
       props: { size: "16", src: CgChevronLeft_default }
     });
     let each_value = ensure_array_like(
       /*paginationShow*/
-      ctx[18]
+      ctx[13]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value.length; i += 1) {
       each_blocks[i] = create_each_block2(get_each_context2(ctx, each_value, i));
     }
-    icon5 = new Icon_default({
+    icon4 = new Icon_default({
       props: { size: "16", src: CgChevronRight_default }
     });
-    icon6 = new Icon_default({
+    icon5 = new Icon_default({
       props: { size: "16", src: CgChevronDoubleRight_default }
     });
     return {
@@ -7672,184 +7695,188 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
         if (if_block0)
           if_block0.c();
         t0 = space();
-        div12 = element("div");
-        div5 = element("div");
+        div10 = element("div");
         div3 = element("div");
         div1 = element("div");
         div0 = element("div");
-        div0.innerHTML = `<p class="svelte-1rnmrzr">Debug table <span class="text-violet svelte-1rnmrzr">1</span>/<span class="text-violet svelte-1rnmrzr">10</span> of <span class="text-violet svelte-1rnmrzr">10</span> record(s)</p>`;
-        t8 = space();
         button0 = element("button");
+        span0 = element("span");
+        span0.textContent = "Filter table";
+        t2 = space();
         create_component(icon0.$.fragment);
-        t9 = space();
-        div2 = element("div");
-        button1 = element("button");
-        create_component(icon1.$.fragment);
-        t10 = space();
+        t3 = space();
+        c = comment(" Action buttons ");
+        t4 = space();
+        if (default_slot)
+          default_slot.c();
+        t5 = space();
         if (if_block1)
           if_block1.c();
-        t11 = space();
-        div4 = element("div");
+        t6 = space();
+        div2 = element("div");
         if (if_block2)
           if_block2.c();
-        t12 = space();
-        div6 = element("div");
+        t7 = space();
+        div4 = element("div");
         table = element("table");
         thead = element("thead");
         tr = element("tr");
         th0 = element("th");
         th0.textContent = "No";
-        t14 = space();
+        t9 = space();
         th1 = element("th");
         th1.textContent = "Actions";
-        t16 = space();
+        t11 = space();
         if (if_block3)
           if_block3.c();
-        t17 = space();
+        t12 = space();
         tbody = element("tbody");
         if (if_block4)
           if_block4.c();
-        t18 = space();
-        div11 = element("div");
+        t13 = space();
         div9 = element("div");
         div7 = element("div");
-        div7.innerHTML = `<p class="svelte-1rnmrzr">Showing <span class="text-violet svelte-1rnmrzr">10</span>/<span class="text-violet svelte-1rnmrzr">20</span> of <span class="text-violet svelte-1rnmrzr">40</span> record(s)</p>`;
-        t26 = space();
-        div8 = element("div");
+        div5 = element("div");
+        div5.innerHTML = `<p class="svelte-1lad585">Showing <span class="text-violet svelte-1lad585">10</span>/<span class="text-violet svelte-1lad585">20</span> of <span class="text-violet svelte-1lad585">40</span> record(s)</p>`;
+        t21 = space();
+        div6 = element("div");
         if (if_block5)
           if_block5.c();
-        t27 = space();
-        button2 = element("button");
-        span6 = element("span");
-        t28 = text(
+        t22 = space();
+        button1 = element("button");
+        span4 = element("span");
+        t23 = text(
           /*currentRows*/
-          ctx[19]
+          ctx[15]
         );
-        t29 = space();
+        t24 = space();
+        create_component(icon1.$.fragment);
+        t25 = space();
+        div8 = element("div");
+        button2 = element("button");
         create_component(icon2.$.fragment);
-        t30 = space();
-        div10 = element("div");
+        t26 = space();
         button3 = element("button");
         create_component(icon3.$.fragment);
-        t31 = space();
-        button4 = element("button");
-        create_component(icon4.$.fragment);
-        t32 = space();
+        t27 = space();
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        t33 = space();
+        t28 = space();
+        button4 = element("button");
+        create_component(icon4.$.fragment);
+        t29 = space();
         button5 = element("button");
         create_component(icon5.$.fragment);
-        t34 = space();
-        button6 = element("button");
-        create_component(icon6.$.fragment);
-        attr(div0, "class", "showing");
-        attr(button0, "class", "btn svelte-1rnmrzr");
-        attr(div1, "class", "debug svelte-1rnmrzr");
-        attr(button1, "class", "btn add svelte-1rnmrzr");
-        attr(div2, "class", "actions_btn svelte-1rnmrzr");
-        attr(div3, "class", "left svelte-1rnmrzr");
-        attr(div4, "class", "right svelte-1rnmrzr");
-        attr(div5, "class", "actions_container svelte-1rnmrzr");
-        attr(th0, "class", "no svelte-1rnmrzr");
-        attr(th1, "class", "a_row svelte-1rnmrzr");
-        attr(thead, "class", "svelte-1rnmrzr");
-        attr(table, "class", "svelte-1rnmrzr");
-        attr(div6, "class", "table_container svelte-1rnmrzr");
-        attr(div7, "class", "showing");
-        attr(button2, "class", "btn svelte-1rnmrzr");
-        attr(div8, "class", "row_to_show svelte-1rnmrzr");
-        attr(div9, "class", "filter svelte-1rnmrzr");
-        button3.disabled = button3_disabled_value = currentPage == 1;
-        attr(button3, "class", "btn to svelte-1rnmrzr");
-        attr(button3, "title", "Go to first page");
-        button4.disabled = button4_disabled_value = currentPage == 1;
-        attr(button4, "class", "btn to svelte-1rnmrzr");
-        attr(button4, "title", "Go to previous page");
-        button5.disabled = button5_disabled_value = currentPage == /*paginationTotal*/
-        ctx[17];
-        attr(button5, "class", "btn to svelte-1rnmrzr");
-        attr(button5, "title", "Go to next page");
-        button6.disabled = button6_disabled_value = currentPage == /*paginationTotal*/
-        ctx[17];
-        attr(button6, "class", "btn to svelte-1rnmrzr");
-        attr(button6, "title", "Go to last page");
-        attr(div10, "class", "pagination svelte-1rnmrzr");
-        attr(div11, "class", "pagination_container svelte-1rnmrzr");
-        attr(div12, "class", "table_root svelte-1rnmrzr");
+        attr(button0, "class", "btn svelte-1lad585");
+        attr(div0, "class", "actions_btn svelte-1lad585");
+        attr(div1, "class", "left svelte-1lad585");
+        attr(div2, "class", "right svelte-1lad585");
+        attr(div3, "class", "actions_container svelte-1lad585");
+        attr(th0, "class", "no svelte-1lad585");
+        attr(th1, "class", "a_row svelte-1lad585");
+        attr(thead, "class", "svelte-1lad585");
+        attr(table, "class", "svelte-1lad585");
+        attr(div4, "class", "table_container svelte-1lad585");
+        attr(div5, "class", "showing");
+        attr(button1, "class", "btn svelte-1lad585");
+        attr(div6, "class", "row_to_show svelte-1lad585");
+        attr(div7, "class", "filter svelte-1lad585");
+        button2.disabled = button2_disabled_value = /*currentPage*/
+        ctx[14] == 1;
+        attr(button2, "class", "btn to svelte-1lad585");
+        attr(button2, "title", "Go to first page");
+        button3.disabled = button3_disabled_value = /*currentPage*/
+        ctx[14] == 1;
+        attr(button3, "class", "btn to svelte-1lad585");
+        attr(button3, "title", "Go to previous page");
+        button4.disabled = button4_disabled_value = /*currentPage*/
+        ctx[14] == /*paginationTotal*/
+        ctx[12];
+        attr(button4, "class", "btn to svelte-1lad585");
+        attr(button4, "title", "Go to next page");
+        button5.disabled = button5_disabled_value = /*currentPage*/
+        ctx[14] == /*paginationTotal*/
+        ctx[12];
+        attr(button5, "class", "btn to svelte-1lad585");
+        attr(button5, "title", "Go to last page");
+        attr(div8, "class", "pagination svelte-1lad585");
+        attr(div9, "class", "pagination_container svelte-1lad585");
+        attr(div10, "class", "table_root svelte-1lad585");
       },
       m(target, anchor) {
         if (if_block0)
           if_block0.m(target, anchor);
         insert(target, t0, anchor);
-        insert(target, div12, anchor);
-        append(div12, div5);
-        append(div5, div3);
+        insert(target, div10, anchor);
+        append(div10, div3);
         append(div3, div1);
         append(div1, div0);
-        append(div1, t8);
-        append(div1, button0);
+        append(div0, button0);
+        append(button0, span0);
+        append(button0, t2);
         mount_component(icon0, button0, null);
-        append(div3, t9);
-        append(div3, div2);
-        append(div2, button1);
-        mount_component(icon1, button1, null);
-        append(div3, t10);
+        append(div0, t3);
+        append(div0, c);
+        append(div0, t4);
+        if (default_slot) {
+          default_slot.m(div0, null);
+        }
+        append(div1, t5);
         if (if_block1)
-          if_block1.m(div3, null);
-        append(div5, t11);
-        append(div5, div4);
+          if_block1.m(div1, null);
+        append(div3, t6);
+        append(div3, div2);
         if (if_block2)
-          if_block2.m(div4, null);
-        append(div12, t12);
-        append(div12, div6);
-        append(div6, table);
+          if_block2.m(div2, null);
+        append(div10, t7);
+        append(div10, div4);
+        append(div4, table);
         append(table, thead);
         append(thead, tr);
         append(tr, th0);
-        append(tr, t14);
+        append(tr, t9);
         append(tr, th1);
-        append(tr, t16);
+        append(tr, t11);
         if (if_block3)
           if_block3.m(tr, null);
-        append(table, t17);
+        append(table, t12);
         append(table, tbody);
         if (if_block4)
           if_block4.m(tbody, null);
-        append(div12, t18);
-        append(div12, div11);
-        append(div11, div9);
+        append(div10, t13);
+        append(div10, div9);
         append(div9, div7);
-        append(div9, t26);
-        append(div9, div8);
+        append(div7, div5);
+        append(div7, t21);
+        append(div7, div6);
         if (if_block5)
-          if_block5.m(div8, null);
-        append(div8, t27);
+          if_block5.m(div6, null);
+        append(div6, t22);
+        append(div6, button1);
+        append(button1, span4);
+        append(span4, t23);
+        append(button1, t24);
+        mount_component(icon1, button1, null);
+        append(div9, t25);
+        append(div9, div8);
         append(div8, button2);
-        append(button2, span6);
-        append(span6, t28);
-        append(button2, t29);
         mount_component(icon2, button2, null);
-        append(div11, t30);
-        append(div11, div10);
-        append(div10, button3);
+        append(div8, t26);
+        append(div8, button3);
         mount_component(icon3, button3, null);
-        append(div10, t31);
-        append(div10, button4);
-        mount_component(icon4, button4, null);
-        append(div10, t32);
+        append(div8, t27);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
-            each_blocks[i].m(div10, null);
+            each_blocks[i].m(div8, null);
           }
         }
-        append(div10, t33);
-        append(div10, button5);
+        append(div8, t28);
+        append(div8, button4);
+        mount_component(icon4, button4, null);
+        append(div8, t29);
+        append(div8, button5);
         mount_component(icon5, button5, null);
-        append(div10, t34);
-        append(div10, button6);
-        mount_component(icon6, button6, null);
         current = true;
         if (!mounted) {
           dispose = [
@@ -7857,65 +7884,55 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
               button0,
               "click",
               /*click_handler*/
-              ctx[30]
+              ctx[33]
             ),
-            listen(button1, "click", function() {
-              if (is_function(
-                /*HandleAdd*/
-                ctx[5]
-              ))
-                ctx[5].apply(this, arguments);
-            }),
+            listen(
+              button1,
+              "click",
+              /*toggleRowsNum*/
+              ctx[18]
+            ),
             listen(
               button2,
               "click",
-              /*toggleRowsNum*/
-              ctx[22]
+              /*click_handler_5*/
+              ctx[38]
             ),
-            listen(button3, "click", function() {
-              if (is_function(
-                /*FirstPage*/
-                ctx[11]
-              ))
-                ctx[11].apply(this, arguments);
-            }),
+            listen(
+              button3,
+              "click",
+              /*click_handler_6*/
+              ctx[39]
+            ),
             listen(
               button4,
               "click",
-              /*click_handler_4*/
-              ctx[34]
+              /*click_handler_8*/
+              ctx[41]
             ),
             listen(
               button5,
               "click",
-              /*click_handler_6*/
-              ctx[36]
-            ),
-            listen(button6, "click", function() {
-              if (is_function(
-                /*LastPage*/
-                ctx[12]
-              ))
-                ctx[12].apply(this, arguments);
-            })
+              /*click_handler_9*/
+              ctx[42]
+            )
           ];
           mounted = true;
         }
       },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
+      p(ctx2, dirty) {
         if (
           /*filterTableReady*/
-          ctx[14]
+          ctx2[9]
         ) {
           if (if_block0) {
-            if_block0.p(ctx, dirty);
+            if_block0.p(ctx2, dirty);
             if (dirty[0] & /*filterTableReady*/
-            16384) {
+            512) {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_11(ctx);
+            if_block0 = create_if_block_13(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(t0.parentNode, t0);
@@ -7927,9 +7944,32 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
           });
           check_outros();
         }
+        if (default_slot) {
+          if (default_slot.p && (!current || dirty[0] & /*$scope*/
+          268435456)) {
+            update_slot_base(
+              default_slot,
+              default_slot_template,
+              ctx2,
+              /*$scope*/
+              ctx2[28],
+              !current ? get_all_dirty_from_scope(
+                /*$scope*/
+                ctx2[28]
+              ) : get_slot_changes(
+                default_slot_template,
+                /*$scope*/
+                ctx2[28],
+                dirty,
+                null
+              ),
+              null
+            );
+          }
+        }
         if (
           /*CAN_SEARCH_ROW*/
-          ctx[3]
+          ctx2[3]
         ) {
           if (if_block2) {
             if (dirty[0] & /*CAN_SEARCH_ROW*/
@@ -7937,10 +7977,10 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
               transition_in(if_block2, 1);
             }
           } else {
-            if_block2 = create_if_block_9(ctx);
+            if_block2 = create_if_block_11(ctx2);
             if_block2.c();
             transition_in(if_block2, 1);
-            if_block2.m(div4, null);
+            if_block2.m(div2, null);
           }
         } else if (if_block2) {
           group_outros();
@@ -7951,17 +7991,17 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
         }
         if (
           /*FIELDS*/
-          ctx[1] && /*FIELDS*/
-          ctx[1].length > 0
+          ctx2[0] && /*FIELDS*/
+          ctx2[0].length > 0
         ) {
           if (if_block3) {
-            if_block3.p(ctx, dirty);
+            if_block3.p(ctx2, dirty);
             if (dirty[0] & /*FIELDS*/
-            2) {
+            1) {
               transition_in(if_block3, 1);
             }
           } else {
-            if_block3 = create_if_block_6(ctx);
+            if_block3 = create_if_block_8(ctx2);
             if_block3.c();
             transition_in(if_block3, 1);
             if_block3.m(tr, null);
@@ -7975,17 +8015,17 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
         }
         if (
           /*MASTER_ROWS*/
-          ctx[2] && /*MASTER_ROWS*/
-          ctx[2].length
+          ctx2[1] && /*MASTER_ROWS*/
+          ctx2[1].length
         ) {
           if (if_block4) {
-            if_block4.p(ctx, dirty);
+            if_block4.p(ctx2, dirty);
             if (dirty[0] & /*MASTER_ROWS*/
-            4) {
+            2) {
               transition_in(if_block4, 1);
             }
           } else {
-            if_block4 = create_if_block_13(ctx);
+            if_block4 = create_if_block_14(ctx2);
             if_block4.c();
             transition_in(if_block4, 1);
             if_block4.m(tbody, null);
@@ -7999,47 +8039,57 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
         }
         if (
           /*showRowsNum*/
-          ctx[20]
+          ctx2[16]
         ) {
           if (if_block5) {
-            if_block5.p(ctx, dirty);
+            if_block5.p(ctx2, dirty);
           } else {
-            if_block5 = create_if_block3(ctx);
+            if_block5 = create_if_block3(ctx2);
             if_block5.c();
-            if_block5.m(div8, t27);
+            if_block5.m(div6, t22);
           }
         } else if (if_block5) {
           if_block5.d(1);
           if_block5 = null;
         }
         if (!current || dirty[0] & /*currentRows*/
-        524288)
+        32768)
           set_data(
-            t28,
+            t23,
             /*currentRows*/
-            ctx[19]
+            ctx2[15]
           );
-        const icon2_changes = {};
+        const icon1_changes = {};
         if (dirty[0] & /*showRowsNum*/
-        1048576)
-          icon2_changes.className = /*showRowsNum*/
-          ctx[20] ? "dropdown" : "rotate_right";
-        icon2.$set(icon2_changes);
-        if (dirty[0] & /*paginationShow, GoToPage*/
-        262400) {
+        65536)
+          icon1_changes.className = /*showRowsNum*/
+          ctx2[16] ? "dropdown" : "rotate_right";
+        icon1.$set(icon1_changes);
+        if (!current || dirty[0] & /*currentPage*/
+        16384 && button2_disabled_value !== (button2_disabled_value = /*currentPage*/
+        ctx2[14] == 1)) {
+          button2.disabled = button2_disabled_value;
+        }
+        if (!current || dirty[0] & /*currentPage*/
+        16384 && button3_disabled_value !== (button3_disabled_value = /*currentPage*/
+        ctx2[14] == 1)) {
+          button3.disabled = button3_disabled_value;
+        }
+        if (dirty[0] & /*currentPage, paginationShow, goToPage*/
+        2121728) {
           each_value = ensure_array_like(
             /*paginationShow*/
-            ctx[18]
+            ctx2[13]
           );
           let i;
           for (i = 0; i < each_value.length; i += 1) {
-            const child_ctx = get_each_context2(ctx, each_value, i);
+            const child_ctx = get_each_context2(ctx2, each_value, i);
             if (each_blocks[i]) {
               each_blocks[i].p(child_ctx, dirty);
             } else {
               each_blocks[i] = create_each_block2(child_ctx);
               each_blocks[i].c();
-              each_blocks[i].m(div10, t33);
+              each_blocks[i].m(div8, t28);
             }
           }
           for (; i < each_blocks.length; i += 1) {
@@ -8047,15 +8097,17 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
           }
           each_blocks.length = each_value.length;
         }
-        if (!current || dirty[0] & /*paginationTotal*/
-        131072 && button5_disabled_value !== (button5_disabled_value = currentPage == /*paginationTotal*/
-        ctx[17])) {
-          button5.disabled = button5_disabled_value;
+        if (!current || dirty[0] & /*currentPage, paginationTotal*/
+        20480 && button4_disabled_value !== (button4_disabled_value = /*currentPage*/
+        ctx2[14] == /*paginationTotal*/
+        ctx2[12])) {
+          button4.disabled = button4_disabled_value;
         }
-        if (!current || dirty[0] & /*paginationTotal*/
-        131072 && button6_disabled_value !== (button6_disabled_value = currentPage == /*paginationTotal*/
-        ctx[17])) {
-          button6.disabled = button6_disabled_value;
+        if (!current || dirty[0] & /*currentPage, paginationTotal*/
+        20480 && button5_disabled_value !== (button5_disabled_value = /*currentPage*/
+        ctx2[14] == /*paginationTotal*/
+        ctx2[12])) {
+          button5.disabled = button5_disabled_value;
         }
       },
       i(local) {
@@ -8063,42 +8115,43 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
           return;
         transition_in(if_block0);
         transition_in(icon0.$.fragment, local);
-        transition_in(icon1.$.fragment, local);
+        transition_in(default_slot, local);
         transition_in(if_block1);
         transition_in(if_block2);
         transition_in(if_block3);
         transition_in(if_block4);
+        transition_in(icon1.$.fragment, local);
         transition_in(icon2.$.fragment, local);
         transition_in(icon3.$.fragment, local);
         transition_in(icon4.$.fragment, local);
         transition_in(icon5.$.fragment, local);
-        transition_in(icon6.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(if_block0);
         transition_out(icon0.$.fragment, local);
-        transition_out(icon1.$.fragment, local);
+        transition_out(default_slot, local);
         transition_out(if_block1);
         transition_out(if_block2);
         transition_out(if_block3);
         transition_out(if_block4);
+        transition_out(icon1.$.fragment, local);
         transition_out(icon2.$.fragment, local);
         transition_out(icon3.$.fragment, local);
         transition_out(icon4.$.fragment, local);
         transition_out(icon5.$.fragment, local);
-        transition_out(icon6.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(t0);
-          detach(div12);
+          detach(div10);
         }
         if (if_block0)
           if_block0.d(detaching);
         destroy_component(icon0);
-        destroy_component(icon1);
+        if (default_slot)
+          default_slot.d(detaching);
         if (if_block1)
           if_block1.d();
         if (if_block2)
@@ -8109,25 +8162,21 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
           if_block4.d();
         if (if_block5)
           if_block5.d();
+        destroy_component(icon1);
         destroy_component(icon2);
         destroy_component(icon3);
-        destroy_component(icon4);
         destroy_each(each_blocks, detaching);
+        destroy_component(icon4);
         destroy_component(icon5);
-        destroy_component(icon6);
         mounted = false;
         run_all(dispose);
       }
     };
   }
   var isAjaxSubmitted = false;
-  var currentPage = 1;
   var sortTableAsc = false;
   function instance8($self, $props, $invalidate) {
-    let { ACCESS = (
-      /** @type Access */
-      {}
-    ) } = $props;
+    let { $slots: slots = {}, $scope } = $props;
     let { FIELDS = (
       /** @type Field[] */
       []
@@ -8140,8 +8189,14 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       /** @type any[][] */
       []
     ) } = $props;
+    let { ACCESS = (
+      /** @type Access */
+      {}
+    ) } = $props;
     let { CAN_SEARCH_ROW = true } = $props;
     let { CAN_EDIT_ROW = true } = $props;
+    let { CAN_DELETE_ROW = false } = $props;
+    let { CAN_RESTORE_ROW = false } = $props;
     let filterTable = null;
     let filterTableReady = false;
     let filterColumns = [];
@@ -8155,19 +8210,22 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       /** @type number[] */
       []
     );
+    let currentPage = 1;
     let totalPages = 0;
     let totalRound = 0;
     let currentRows = PAGER.perPage;
     let rowsToShow = [10, 20, 40, 60, 70, 100, 200];
     let showRowsNum = false;
     function toggleRowsNum() {
-      $invalidate(20, showRowsNum = !showRowsNum);
+      $invalidate(16, showRowsNum = !showRowsNum);
     }
     function getPaginationShow() {
+      totalPages = PAGER.pages;
+      $invalidate(14, currentPage = PAGER.page);
       totalRound = Math.ceil(totalPages / currentRows) * currentRows;
-      $invalidate(17, paginationTotal = totalRound / currentRows), paginationsAll = [];
+      $invalidate(12, paginationTotal = totalRound / currentRows), paginationsAll = [];
       if (currentRows > PAGER.countResult)
-        $invalidate(17, paginationTotal = 1);
+        $invalidate(12, paginationTotal = 1);
       for (let i = 0; i < paginationTotal; i++) {
         paginationsAll = [...paginationsAll, i + 1];
       }
@@ -8183,35 +8241,25 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       } else {
         start = currentPage - 3, end = currentPage + 2;
       }
-      $invalidate(18, paginationShow = paginationsAll.slice(start, end));
+      $invalidate(13, paginationShow = paginationsAll.slice(start, end));
     }
     onMount(() => {
-      $invalidate(13, filterTable = FilterTable_default);
-      $invalidate(14, filterTableReady = true);
+      $invalidate(8, filterTable = FilterTable_default);
+      $invalidate(9, filterTableReady = true);
       totalPages = PAGER.pages;
       if (FIELDS && FIELDS.length > 0) {
-        $invalidate(15, filterColumns = []);
-        FIELDS.forEach((col) => $invalidate(15, filterColumns = [...filterColumns, { key: col.name, label: col.label }]));
+        $invalidate(10, filterColumns = []);
+        FIELDS.forEach((col) => $invalidate(10, filterColumns = [...filterColumns, { key: col.name, label: col.label }]));
       }
       getPaginationShow();
     });
-    let { HandleAdd = function() {
+    let { OnRestore = async function(row) {
     } } = $props;
-    let { HandleDelete = function(row) {
+    let { OnDelete = async function(row) {
     } } = $props;
-    let { HandleEdit = function(row) {
+    let { OnEdit = async function(row) {
     } } = $props;
-    let { GoToPage: GoToPage2 = function(page) {
-    } } = $props;
-    let { NextPage: NextPage2 = function(page) {
-    } } = $props;
-    let { PreviousPage: PreviousPage2 = function(page) {
-    } } = $props;
-    let { FirstPage: FirstPage2 = function() {
-    } } = $props;
-    let { LastPage: LastPage2 = function() {
-    } } = $props;
-    let { OnRefreshTableView = function(pagerIn) {
+    let { OnRefresh = async function(pagerIn) {
     } } = $props;
     function ApplyFilter() {
       filterTable.Hide();
@@ -8221,96 +8269,111 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
         if (value)
           filters[key] = value.split("|");
       }
-      OnRefreshTableView({ ...PAGER, filters });
+      OnRefresh({ ...PAGER, filters });
       getPaginationShow();
     }
-    function ToRow(row) {
-      $invalidate(19, currentRows = row);
-      $invalidate(20, showRowsNum = false);
-      OnRefreshTableView({ ...PAGER, perPage: row });
+    async function toRow(perPage) {
+      $invalidate(15, currentRows = perPage);
+      $invalidate(16, showRowsNum = false);
+      await OnRefresh({ ...PAGER, perPage });
+      getPaginationShow();
+    }
+    async function goToPage(page) {
+      $invalidate(14, currentPage = page);
+      await OnRefresh({ ...PAGER, page });
+      getPaginationShow();
+    }
+    async function restoreRow(row) {
+      await OnRestore(row);
+      getPaginationShow();
+    }
+    async function deleteRow(row) {
+      await OnDelete(row);
       getPaginationShow();
     }
     function filtertable_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         filterTable = $value;
-        $invalidate(13, filterTable);
+        $invalidate(8, filterTable);
       });
     }
     function filtertable_filterColumns_binding(value) {
       filterColumns = value;
-      $invalidate(15, filterColumns);
+      $invalidate(10, filterColumns);
     }
     function filtertable_filtersMap_binding(value) {
       filtersMap = value;
-      $invalidate(16, filtersMap);
+      $invalidate(11, filtersMap);
     }
     const click_handler = () => filterTable.Show();
-    const click_handler_1 = (row) => HandleEdit(row);
-    const click_handler_2 = (row) => HandleDelete(row);
-    const click_handler_3 = (r) => ToRow(r);
-    const click_handler_4 = () => PreviousPage2(currentPage - 1);
-    const click_handler_5 = (i) => GoToPage2(i);
-    const click_handler_6 = () => NextPage2(currentPage + 1);
+    const click_handler_1 = (row) => OnEdit(row);
+    const click_handler_2 = (row) => deleteRow(row);
+    const click_handler_3 = (row) => restoreRow(row);
+    const click_handler_4 = (r) => toRow(r);
+    const click_handler_5 = () => goToPage(1);
+    const click_handler_6 = () => goToPage(currentPage - 1);
+    const click_handler_7 = (i) => goToPage(i);
+    const click_handler_8 = () => goToPage(currentPage + 1);
+    const click_handler_9 = () => goToPage(paginationTotal);
     $self.$set = ($props2) => {
-      if ("ACCESS" in $props2)
-        $invalidate(0, ACCESS = $props2.ACCESS);
       if ("FIELDS" in $props2)
-        $invalidate(1, FIELDS = $props2.FIELDS);
+        $invalidate(0, FIELDS = $props2.FIELDS);
       if ("PAGER" in $props2)
-        $invalidate(25, PAGER = $props2.PAGER);
+        $invalidate(24, PAGER = $props2.PAGER);
       if ("MASTER_ROWS" in $props2)
-        $invalidate(2, MASTER_ROWS = $props2.MASTER_ROWS);
+        $invalidate(1, MASTER_ROWS = $props2.MASTER_ROWS);
+      if ("ACCESS" in $props2)
+        $invalidate(2, ACCESS = $props2.ACCESS);
       if ("CAN_SEARCH_ROW" in $props2)
         $invalidate(3, CAN_SEARCH_ROW = $props2.CAN_SEARCH_ROW);
       if ("CAN_EDIT_ROW" in $props2)
         $invalidate(4, CAN_EDIT_ROW = $props2.CAN_EDIT_ROW);
-      if ("HandleAdd" in $props2)
-        $invalidate(5, HandleAdd = $props2.HandleAdd);
-      if ("HandleDelete" in $props2)
-        $invalidate(6, HandleDelete = $props2.HandleDelete);
-      if ("HandleEdit" in $props2)
-        $invalidate(7, HandleEdit = $props2.HandleEdit);
-      if ("GoToPage" in $props2)
-        $invalidate(8, GoToPage2 = $props2.GoToPage);
-      if ("NextPage" in $props2)
-        $invalidate(9, NextPage2 = $props2.NextPage);
-      if ("PreviousPage" in $props2)
-        $invalidate(10, PreviousPage2 = $props2.PreviousPage);
-      if ("FirstPage" in $props2)
-        $invalidate(11, FirstPage2 = $props2.FirstPage);
-      if ("LastPage" in $props2)
-        $invalidate(12, LastPage2 = $props2.LastPage);
-      if ("OnRefreshTableView" in $props2)
-        $invalidate(26, OnRefreshTableView = $props2.OnRefreshTableView);
+      if ("CAN_DELETE_ROW" in $props2)
+        $invalidate(5, CAN_DELETE_ROW = $props2.CAN_DELETE_ROW);
+      if ("CAN_RESTORE_ROW" in $props2)
+        $invalidate(6, CAN_RESTORE_ROW = $props2.CAN_RESTORE_ROW);
+      if ("OnRestore" in $props2)
+        $invalidate(25, OnRestore = $props2.OnRestore);
+      if ("OnDelete" in $props2)
+        $invalidate(26, OnDelete = $props2.OnDelete);
+      if ("OnEdit" in $props2)
+        $invalidate(7, OnEdit = $props2.OnEdit);
+      if ("OnRefresh" in $props2)
+        $invalidate(27, OnRefresh = $props2.OnRefresh);
+      if ("$scope" in $props2)
+        $invalidate(28, $scope = $props2.$scope);
     };
     return [
-      ACCESS,
       FIELDS,
       MASTER_ROWS,
+      ACCESS,
       CAN_SEARCH_ROW,
       CAN_EDIT_ROW,
-      HandleAdd,
-      HandleDelete,
-      HandleEdit,
-      GoToPage2,
-      NextPage2,
-      PreviousPage2,
-      FirstPage2,
-      LastPage2,
+      CAN_DELETE_ROW,
+      CAN_RESTORE_ROW,
+      OnEdit,
       filterTable,
       filterTableReady,
       filterColumns,
       filtersMap,
       paginationTotal,
       paginationShow,
+      currentPage,
       currentRows,
       showRowsNum,
       rowsToShow,
       toggleRowsNum,
       ApplyFilter,
-      ToRow,
+      toRow,
+      goToPage,
+      restoreRow,
+      deleteRow,
       PAGER,
-      OnRefreshTableView,
+      OnRestore,
+      OnDelete,
+      OnRefresh,
+      $scope,
+      slots,
       filtertable_binding,
       filtertable_filterColumns_binding,
       filtertable_filtersMap_binding,
@@ -8320,7 +8383,10 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       click_handler_3,
       click_handler_4,
       click_handler_5,
-      click_handler_6
+      click_handler_6,
+      click_handler_7,
+      click_handler_8,
+      click_handler_9
     ];
   }
   var MasterTable = class extends SvelteComponent {
@@ -8333,21 +8399,18 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
         create_fragment8,
         safe_not_equal,
         {
-          ACCESS: 0,
-          FIELDS: 1,
-          PAGER: 25,
-          MASTER_ROWS: 2,
+          FIELDS: 0,
+          PAGER: 24,
+          MASTER_ROWS: 1,
+          ACCESS: 2,
           CAN_SEARCH_ROW: 3,
           CAN_EDIT_ROW: 4,
-          HandleAdd: 5,
-          HandleDelete: 6,
-          HandleEdit: 7,
-          GoToPage: 8,
-          NextPage: 9,
-          PreviousPage: 10,
-          FirstPage: 11,
-          LastPage: 12,
-          OnRefreshTableView: 26
+          CAN_DELETE_ROW: 5,
+          CAN_RESTORE_ROW: 6,
+          OnRestore: 25,
+          OnDelete: 26,
+          OnEdit: 7,
+          OnRefresh: 27
         },
         null,
         [-1, -1]
@@ -8358,6 +8421,55 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
 
   // superAdmin_tenantManagement.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
+  function create_default_slot_1(ctx) {
+    let button;
+    let icon;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        color: "var(--gray-007)",
+        size: "16",
+        src: CgMathPlus_default
+      }
+    });
+    return {
+      c() {
+        button = element("button");
+        create_component(icon.$.fragment);
+        attr(button, "class", "btn svelte-11wwlie");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        mount_component(icon, button, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(button, "click", AddRow);
+          mounted = true;
+        }
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        destroy_component(icon);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
   function create_default_slot(ctx) {
     let div;
     let mastertable;
@@ -8366,27 +8478,34 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     let updating_MASTER_ROWS;
     let current;
     function mastertable_FIELDS_binding(value) {
-      ctx[4](value);
+      ctx[6](value);
     }
     function mastertable_PAGER_binding(value) {
-      ctx[5](value);
+      ctx[7](value);
     }
     function mastertable_MASTER_ROWS_binding(value) {
-      ctx[6](value);
+      ctx[8](value);
     }
     let mastertable_props = {
       ACCESS: segments2,
       CAN_EDIT_ROW: true,
       CAN_SEARCH_ROW: true,
-      GoToPage,
-      NextPage,
-      PreviousPage,
-      FirstPage,
-      LastPage,
-      OnRefreshTableView: (
-        /*OnRefreshTableView*/
+      CAN_DELETE_ROW: true,
+      CAN_RESTORE_ROW: true,
+      OnRefresh: (
+        /*OnRefresh*/
         ctx[3]
-      )
+      ),
+      OnRestore: (
+        /*OnRestore*/
+        ctx[4]
+      ),
+      OnDelete: (
+        /*OnDelete*/
+        ctx[5]
+      ),
+      $slots: { default: [create_default_slot_1] },
+      $scope: { ctx }
     };
     if (
       /*fields*/
@@ -8425,6 +8544,10 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       },
       p(ctx2, dirty) {
         const mastertable_changes = {};
+        if (dirty & /*$scope*/
+        512) {
+          mastertable_changes.$scope = { dirty, ctx: ctx2 };
+        }
         if (!updating_FIELDS && dirty & /*fields*/
         1) {
           updating_FIELDS = true;
@@ -8486,7 +8609,7 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       p(ctx2, [dirty]) {
         const mainlayout_changes = {};
         if (dirty & /*$scope, fields, pager, tenants*/
-        135) {
+        519) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -8510,24 +8633,8 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
     /** @type Access */
     {/* segments */}
   );
-  var user2 = (
-    /** @type User */
-    {/* user */}
-  );
-  function GoToPage(page) {
-    console.log("gotoPage", page);
-  }
-  function NextPage(page) {
-    console.log("nextPage", page);
-  }
-  function PreviousPage(page) {
-    console.log("previousPage", page);
-  }
-  function FirstPage() {
-    console.log("firstPage");
-  }
-  function LastPage() {
-    console.log("lastPage");
+  function AddRow() {
+    console.log("AddRow");
   }
   function instance9($self, $props, $invalidate) {
     let fields = (
@@ -8542,12 +8649,7 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       /** @type any[][] */
       [/* tenants */]
     );
-    console.log("segments =", segments2);
-    console.log("user =", user2);
-    console.log("tenants =", tenants);
-    console.log("fields =", fields);
-    console.log("pager =", pager);
-    async function OnRefreshTableView(pagerIn) {
+    async function OnRefresh(pagerIn) {
       const i = { pager: pagerIn, cmd: "list" };
       await (0, import_jsApi.SuperAdminTenantManagement)(
         // @ts-ignore
@@ -8561,6 +8663,51 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
           }
           console.log(o);
           $invalidate(2, tenants = o.tenants);
+          $invalidate(1, pager = o.pager);
+        }
+      );
+    }
+    async function OnRestore(row) {
+      const i = {
+        pager,
+        tenant: { id: row[0] },
+        cmd: "restore"
+      };
+      await (0, import_jsApi.SuperAdminTenantManagement)(
+        // @ts-ignore
+        i,
+        /** @type {import('./jsApi.GEN').SuperAdminTenantManagementCallback} */
+        /** @returns {void} */
+        function(o) {
+          if (o.error) {
+            console.log(o);
+            return;
+          }
+          console.log(o);
+          $invalidate(2, tenants = o.tenants);
+          $invalidate(1, pager = o.pager);
+        }
+      );
+    }
+    async function OnDelete(row) {
+      const i = {
+        pager,
+        tenant: { id: row[0] },
+        cmd: "delete"
+      };
+      await (0, import_jsApi.SuperAdminTenantManagement)(
+        // @ts-ignore
+        i,
+        /** @type {import('./jsApi.GEN').SuperAdminTenantManagementCallback} */
+        /** @returns {void} */
+        function(o) {
+          if (o.error) {
+            console.log(o);
+            return;
+          }
+          console.log(o);
+          $invalidate(2, tenants = o.tenants);
+          $invalidate(1, pager = o.pager);
         }
       );
     }
@@ -8580,7 +8727,9 @@ p.svelte-1rnmrzr.svelte-1rnmrzr {
       fields,
       pager,
       tenants,
-      OnRefreshTableView,
+      OnRefresh,
+      OnRestore,
+      OnDelete,
       mastertable_FIELDS_binding,
       mastertable_PAGER_binding,
       mastertable_MASTER_ROWS_binding
