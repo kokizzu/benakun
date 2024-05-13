@@ -7,16 +7,14 @@
 	import IoClose from 'svelte-icons-pack/io/IoClose';
 
   /**
-    * @typedef {Object} column
+    * @typedef {Object} FilterTable
     * @property {string} key
     * @property {string} label
-    * @property {string} filterState
-    * @property {boolean} isApllied 
-    * @property {boolean} isVisible
     */
 
-  /** @type {column[]} */
+  /** @type {FilterTable[]} */
   export let filterColumns = [];
+	export let filterMap = {};
 
 	let isVisible = false;
 
@@ -39,25 +37,14 @@
 						<div class="row">
 							<div class="inputs">
 								<label for={col.key}>{col.label}</label>
-								<input type="text" name={col.key} id={col.key} bind:value={col.filterState}/>
+								<input
+									type="text"
+									name={col.key}
+									id={col.key}
+									bind:value={filterMap[col.key]}
+								/>
 							</div>
 							<div class="actions">
-								<button title="Apply filter" class="filter {col.isApllied ? 'on' : ''}" on:click|preventDefault={() => col.isApllied = !col.isApllied}>
-									{#if col.isApllied}
-										<Icon size="14" color="#FFF" src={RiSystemFilterLine}/>
-									{/if}
-									{#if !col.isApllied}
-										<Icon size="14" color="var(--gray-007)" src={RiSystemFilterOffLine}/>
-									{/if}
-								</button>
-								<button title="Toggle visibility column" class="visibility {col.isVisible ? 'on' : ''}" on:click|preventDefault={() => col.isVisible = !col.isVisible}>
-									{#if col.isVisible}
-										<Icon size="14" color="#FFF" src={AiOutlineEye}/>
-									{/if}
-									{#if !col.isVisible}
-										<Icon size="14" color="var(--gray-007)" src={AiOutlineEyeInvisible}/>
-									{/if}
-								</button>
 							</div>
 						</div>
 					{/each}
@@ -93,7 +80,7 @@
 		border-radius: 8px;
 		background-color: #FFF;
 		height: fit-content;
-		width: 700px;
+		width: 600px;
 		display: flex;
 		flex-direction: column;
 	}
@@ -105,6 +92,10 @@
 		align-items: center;
 		padding: 15px 20px;
 		border-bottom: 1px solid var(--gray-004);
+	}
+
+	.popup_filter_container .popup header h2 {
+		margin: 0;
 	}
 
 	.popup_filter_container .popup header button {
@@ -138,7 +129,7 @@
 
 	.popup_filter_container .popup .filters .row .inputs {
 		display: flex;
-		width: 75%;
+		width: 100%;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;

@@ -1,101 +1,58 @@
 <script>
-  import TableView from './_components/TableView.svelte';
-  import { SuperAdminTenantManagement } from './jsApi.GEN';
-  import ModalForm from './_components/ModalForm.svelte';
-  import { notifier } from './_components/notifier.js';
-
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
-  import { onMount } from 'svelte';
   import MainLayout from './_layouts/mainLayout.svelte';
+  import MasterTable from './_components/MasterTable.svelte';
 
-  let segments = {/* segments */};
-  let fields = [/* fields */];
-  let tenants = [/* tenants */] || [];
-  let pager = {/* pager */};
-  let user = {/* user */};
+  /** @typedef {import('./_components/types/master.js').Field} Field */
+	/** @typedef {import('./_components/types/access.js').Access} Access */
+	/** @typedef {import('./_components/types/master.js').PagerOut} PagerOut */
+  /** @typedef {import('./_components/types/user.js').User} User */
 
-  onMount(() => {
-    tenants = tenants || [];
-    console.log('tenants', tenants);
-  });
+  let segments = /** @type Access */ ({/* segments */});
+  let user = /** @type User */ ({/* user */});
+  let tenants = /** @type any[][] */ ([/* tenants */]);
+  let fields = /** @type Field[] */ ([/* fields */]);
+  let pager = /** @type PagerOut */ ({/* pager */});
 
-  // return true if got error
-  function handleResponse(res) {
-    console.log(res);
-    if (res.error) {
-      notifier.showError(res.error);
-      return true;
-    }
-    if (res.tenants && res.tenants.length) tenants = res.tenants;
-    if (res.pager && res.pager.page) pager = res.pager;
+  console.log('segments =', segments);
+  console.log('user =', user);
+  console.log('tenants =', tenants);
+  console.log('fields =', fields);
+  console.log('pager =', pager);
+
+  function GoToPage(page) {
+    console.log('gotoPage', page);
   }
 
-  async function refreshTableView(pagerIn) {
-    await SuperAdminTenantManagement(
-      {
-        pager: pagerIn,
-        cmd: 'list',
-      },
-      function (res) {
-        handleResponse(res);
-      }
-    );
+  function NextPage(page) {
+    console.log('nextPage', page);
   }
-
-  let form = ModalForm; // for lookup
-
-  async function editRow(id, row) {
-    await SuperAdminTenantManagement(
-      {
-        tenant: { id },
-        cmd: 'form',
-      },
-      function (res) {
-        if (!handleResponse(res)) form.showModal(res.tenant);
-      }
-    );
+  function PreviousPage(page) {
+    console.log('previousPage', page);
   }
-
-  function addRow() {
-    form.showModal({ id: '' });
+	function FirstPage() {
+    console.log('firstPage');
   }
-
-  async function saveRow(action, row) {
-    let tenant = { ...row };
-    if (!tenant.id) tenant.id = '0';
-    await SuperAdminTenantManagement(
-      {
-        tenant: tenant,
-        cmd: action,
-        pager: pager, // force refresh page, will be slow
-      },
-      function (res) {
-        if (handleResponse(res)) {
-          return form.setLoading(false); // has error
-        }
-        form.hideModal(); // success
-      }
-    );
+	function LastPage() {
+    console.log('lastPage');
   }
 </script>
 
 <MainLayout>
-  <div class="tenant_management">
-    <ModalForm {fields} rowType="Tenant" bind:this={form} onConfirm={saveRow}></ModalForm>
-    <section class="tableview_container">
-      <TableView {fields} bind:pager rows={tenants} onRefreshTableView={refreshTableView} onEditRow={editRow}>
-        <button on:click={addRow} class="action_btn">
-          <Icon size="17" color="#FFF" src={FaSolidPlusCircle} />
-          <span>Add</span>
-        </button>
-      </TableView>
-    </section>
+  <div>
+    <MasterTable
+      URL='/superAdmin/tenantManagement'
+      ACCESS={segments}
+      bind:FIELDS={fields}
+      bind:PAGER={pager}
+      bind:MASTER_ROWS={tenants}
+      PURPOSE='tenant'
+      CAN_EDIT_ROW={false}
+      CAN_SEARCH_ROW={true}
+
+      {GoToPage} {NextPage} {PreviousPage} {FirstPage} {LastPage}
+    />
   </div>
 </MainLayout>
 
 <style>
-  .tenant_management {
-    margin-top: 30px;
-  }
 </style>

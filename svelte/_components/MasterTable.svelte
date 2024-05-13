@@ -22,46 +22,62 @@
   import PopUpInviteUser from './PopUpInviteUser.svelte';
 	import { TenantAdminDashboard } from '../jsApi.GEN.js';
 	import { notifier } from './notifier';
-    import InputCustom from './InputCustom.svelte';
-    import { onMount } from 'svelte';
-		import FilterTable from './FilterTable.svelte';
+	import InputCustom from './InputCustom.svelte';
+	import { onMount } from 'svelte';
+	import FilterTable from './FilterTable.svelte';
+	import { datetime } from './formatter';
 
-	/** @typedef {import('./types/master.js').Field} Field */
+	/** @typedef {import('./types/master.js').Field} Field */ //@ts-ignore
 	/** @typedef {import('./types/access.js').Access} Access */ //@ts-ignore
-	/** @typedef {import('./types/master.js').PagerOut} PagerOut */
+	/** @typedef {import('./types/master.js').PagerOut} PagerOut */ //@ts-ignore
 
 	export const URL = window.location.pathname;
 	export let ACCESS = /** @type Access */ ({});
 	export let FIELDS = /** @type Field[] */  ([]); // bind
 	export let PAGER = /** @type PagerOut */ ({}); // bind
-	export let MASTER_ROWS = /** @type any[] */ ([]); // bind
+	export let MASTER_ROWS = /** @type any[][] */ ([]); // bind
 	export let PURPOSE = 'staff';
 	export let CAN_SEARCH_ROW = true;
 	export let CAN_EDIT_ROW = true;
 
+	// State for loading if hit ajax
+	let isAjaxSubmitted = false;
 
-  let filterTable = null, filterTableReady = false, isAjaxSubmitted = false;
+	// Binding component FilterTable.svelte 
+  let filterTable = null;
+	// For readiness of component FilterTable.svelte, prevent race condition
+	let filterTableReady = false;
+	// Key and label of column to filter
 	let filterColumns = [];
+	// Binding value of column, for payloaf
+	let filterMap = {};
 
+	// Pagination total, based on total pages
+	let paginationTotal = 1;
+	// Pagination to show, based on total pagination
 	let paginationShow = [1, 2, 3, 4, 5];
-	let currentPage = 1, paginationTotal = 1;
+	// Current page describe which page is currently rendered
+	let currentPage = 1;
+	// State for sort, wheter is ascending or descending
 	let sortTableAsc = false;
 
 	onMount(() => {
-		filterTable = FilterTable, filterTableReady = true;
+		// FilterTable.svelte component is rendered
+		filterTable = FilterTable;
+		// FilterTable.svelte component is ready
+		filterTableReady = true;
+
+		// Loop column/fields, fill variable filterColumn for filters
 		if (FIELDS && FIELDS.length > 0) {
-			FIELDS.forEach((col, idx) => {
-				filterColumns.push({
-					key: col.name,
-					label: col.label,
-					filterState: '',
-					isApllied: false,
-					isVisible: idx > 5 ? false : true
-				})
-			});
+			filterColumns = [];
+			FIELDS.forEach((col) => filterColumns = [...filterColumns, {
+				key: col.name,
+				label: col.label
+			}]);
 		}
 	})
 
+	// DEPRECATED =====+
 	let isSubmitInviteUser = false, emailToInvite = '';
 	let popUpInviteUser;
 	async function onSubmitInviteUser() {
@@ -94,6 +110,7 @@
 			}
 		);
 	}
+	// END =======+
 
 	export let handleAdd = function() {}
 	export let handleDelete = function(row) {}
@@ -103,9 +120,10 @@
 	export let PreviousPage = function(page) {}
 	export let FirstPage = function() {}
 	export let LastPage = function() {}
+	export let OnRefreshTableView = function( pager ) {}
 
-	function filterTableOK() {
-		filterTable.Hide();
+	function ApplyFilterTable() {
+		OnRefreshTableView({ ...PAGER, filters: filterMap })
 	}
 </script>
 
@@ -121,7 +139,8 @@
   <FilterTable
 		bind:this={filterTable}
 		bind:filterColumns
-		on:click={filterTableOK}
+		bind:filterMap
+		on:click={ApplyFilterTable}
 	/>
 {/if}
 
@@ -196,28 +215,43 @@
 			</thead>
 			<tbody>
 				{#if MASTER_ROWS && MASTER_ROWS.length}
-					{#each MASTER_ROWS as row, _ (row.id)}
+					{#each MASTER_ROWS as row}
 						<tr>
 							<th>{MASTER_ROWS.indexOf(row) + 1}</th>
 							<td class="a_row">
-								<div class="actions">
-									{#if CAN_EDIT_ROW}
-										<button class="btn edit" title="Edit">
-											<Icon size="13" color="#FFF" src={RiDesignBallPenLine}/>
+								{#if ACCESS.superAdmin
+									|| ACCESS.tenantAdmin
+									|| ACCESS.entryUser
+									|| ACCESS.reportViewer
+								}
+									<div class="actions">	
+										{#if CAN_EDIT_ROW}
+											<button class="btn edit" title="Edit">
+												<Icon size="13" color="#FFF" src={RiDesignBallPenLine}/>
+											</button>
+										{/if}
+										<button
+											class="btn delete"
+											title="delete"
+											on:click={() => handleDelete(row)}
+										>
+											<Icon size="13" color="#FFF" src={RiSystemDeleteBin5Line}/>
 										</button>
-									{/if}
-									<button
-										class="btn delete"
-										title="delete"
-										on:click={() => handleDelete(row)}
-									>
-										<Icon size="13" color="#FFF" src={RiSystemDeleteBin5Line}/>
-									</button>
-								</div>
+									</div>
+								{:else}
+									<span>--</span>
+								{/if}
 							</td>
 							{#if FIELDS && FIELDS.length > 0}
-								{#each FIELDS as f, _ (f.name)}
-									<td>{row[f.name]}</td>
+								{#each FIELDS as f, idx}
+									{#if f.name === 'createdAt' ||
+										f.name === 'updatedAt' ||
+										f.name === 'deletedAt'
+									}
+										<td>{datetime(row[idx])}</td>
+									{:else}
+										<td>{row[idx]}</td>
+									{/if}
 								{/each}
 							{/if}
 						</tr>

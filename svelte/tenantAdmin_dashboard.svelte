@@ -10,7 +10,7 @@
 
   let segments = /** @type Access */ ({/* segments */});
   let user = /** @type User */ ({/* user */});
-  let staffs = /** @type Staff[] */ ([/* staffs */]);
+  let staffs = /** @type any[][] */ ([/* staffs */]);
   let fields = /** @type Field[] */ ([/* fields */]);
   let pager = /** @type PagerOut */ ({/* pager */});
 
