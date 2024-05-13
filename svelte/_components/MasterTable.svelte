@@ -22,23 +22,21 @@
   import PopUpInviteUser from './PopUpInviteUser.svelte';
 	import { TenantAdminDashboard } from '../jsApi.GEN.js';
 	import { notifier } from './notifier';
-	import InputCustom from './InputCustom.svelte';
 	import { onMount } from 'svelte';
 	import FilterTable from './FilterTable.svelte';
 	import { datetime } from './formatter';
 
-	/** @typedef {import('./types/master.js').Field} Field */ //@ts-ignore
-	/** @typedef {import('./types/access.js').Access} Access */ //@ts-ignore
-	/** @typedef {import('./types/master.js').PagerOut} PagerOut */ //@ts-ignore
+	/** @typedef {import('./types/master.js').Field} Field */
+	/** @typedef {import('./types/access.js').Access} Access */
+	/** @typedef {import('./types/master.js').PagerOut} PagerOut */ // @ts-ignore
+	/** @typedef {import('./types/master.js').PagerIn} PagerIn */
 
-	export const URL = window.location.pathname;
-	export let ACCESS = /** @type Access */ ({});
-	export let FIELDS = /** @type Field[] */  ([]); // bind
-	export let PAGER = /** @type PagerOut */ ({}); // bind
-	export let MASTER_ROWS = /** @type any[][] */ ([]); // bind
-	export let PURPOSE = 'staff';
+	export let ACCESS					= /** @type Access */ ({});
+	export let FIELDS					= /** @type Field[] */  ([]); // bind
+	export let PAGER					= /** @type PagerOut */ ({}); // bind
+	export let MASTER_ROWS		= /** @type any[][] */ ([]); // bind
 	export let CAN_SEARCH_ROW = true;
-	export let CAN_EDIT_ROW = true;
+	export let CAN_EDIT_ROW 	= true;
 
 	// State for loading if hit ajax
 	let isAjaxSubmitted = false;
@@ -50,23 +48,62 @@
 	// Key and label of column to filter
 	let filterColumns = [];
 	// Binding value of column, for payloaf
-	let filterMap = {};
+	let filtersMap = {};
 
 	// Pagination total, based on total pages
 	let paginationTotal = 1;
+	// Pagination all, based on total pages
+	let paginationsAll = /** @type number[] */ ([]);
 	// Pagination to show, based on total pagination
-	let paginationShow = [1, 2, 3, 4, 5];
+	let paginationShow = /** @type number[] */ ([]);
 	// Current page describe which page is currently rendered
 	let currentPage = 1;
 	// State for sort, wheter is ascending or descending
 	let sortTableAsc = false;
+	// Total Pages
+	let totalPages = 0;
+	// Total rows but rounded by current rows
+	let totalRound = 0;
+	// Rows per page
+	let currentRows = PAGER.perPage;
+	// Rows per page options
+	let rowsToShow = [10, 20, 40, 60, 70, 100, 200];
+	// State for show rows options
+	let showRowsNum = false;
+
+	// Toggle show rows options
+	function toggleRowsNum() { showRowsNum = !showRowsNum }
+
+	// Refresh Pagination
+	function getPaginationShow() {
+    totalRound = Math.ceil(totalPages / currentRows) * currentRows;
+		paginationTotal = totalRound / currentRows, paginationsAll = [];
+		if (currentRows > PAGER.countResult) paginationTotal = 1;
+		for (let i = 0; i < paginationTotal; i++) {
+			paginationsAll = [...paginationsAll, i+1]
+		}
+		let start = 0, end = 0;
+		if (paginationTotal < 5) {
+			start = 0, end = paginationTotal
+		} else if ((currentPage < 5) && ((currentPage - 3) < 0) ) {
+			start = 0, end = 5;
+		} else if ((currentPage > (paginationTotal-5)) && ((currentPage + 3) < paginationTotal)) {
+			start = (currentPage - 3), end = (currentPage + 2);
+		} else if ((currentPage + 3) >= paginationTotal) {
+			start = (paginationTotal - 5), end = paginationTotal;
+		} else {
+			start = (currentPage - 3), end = (currentPage + 2);
+		}
+		paginationShow = paginationsAll.slice(start, end);
+	}
 
 	onMount(() => {
 		// FilterTable.svelte component is rendered
 		filterTable = FilterTable;
 		// FilterTable.svelte component is ready
 		filterTableReady = true;
-
+		// Total pages
+		totalPages = PAGER.pages;
 		// Loop column/fields, fill variable filterColumn for filters
 		if (FIELDS && FIELDS.length > 0) {
 			filterColumns = [];
@@ -75,72 +112,52 @@
 				label: col.label
 			}]);
 		}
+		// Calculate pagination
+		getPaginationShow();
 	})
 
-	// DEPRECATED =====+
-	let isSubmitInviteUser = false, emailToInvite = '';
-	let popUpInviteUser;
-	async function onSubmitInviteUser() {
-		isSubmitInviteUser = true;
-		await TenantAdminDashboard(
-			{
-				cmd: 'upsert',
-				staffEmail: emailToInvite,
-				withMeta: true,
-				// @ts-ignore
-				pager: { 
-					page: 1,
-					perPage: 0,
-					filters: {},
-					order: [],
-  			},
-			},
-			/** @type {import('../jsApi.GEN.js').TenantAdminDashboardCallback} */
-			function (/** @type any */ o) {
-				isSubmitInviteUser = false
-				popUpInviteUser.hide();
-				if (o.error) {
-					notifier.showError(o.error);
-					console.log(o);
-					return;
-				}
-
-				MASTER_ROWS = o.staffs;
-				notifier.showSuccess('user invited successfully');
-			}
-		);
-	}
-	// END =======+
-
-	export let handleAdd = function() {}
-	export let handleDelete = function(row) {}
-
-	export let GoToPage = function(page) {}
-	export let NextPage = function(page) {}
-	export let PreviousPage = function(page) {}
+	// Export function, forward parameter to parent
+	export let HandleAdd = function() {}
+	export let HandleDelete = function(/** @type any[]*/ row) {}
+	export let HandleEdit = function(/** @type any[]*/ row) {}
+	export let GoToPage = function(/** @type number */ page) {}
+	export let NextPage = function(/** @type number */ page) {}
+	export let PreviousPage = function(/** @type number */ page) {}
 	export let FirstPage = function() {}
 	export let LastPage = function() {}
-	export let OnRefreshTableView = function( pager ) {}
+	export let OnRefreshTableView = function(/** @type PagerIn */ pagerIn) {}
 
-	function ApplyFilterTable() {
-		OnRefreshTableView({ ...PAGER, filters: filterMap })
+	function ApplyFilter() {
+		// Hide FilterTable.svelte
+		filterTable.Hide();
+		// Make a 'filters' payload from variable filtersMap
+		// Make it with format { key: [value, value] }
+		let filters = {};
+		for (let key in filtersMap) {
+			let value = filtersMap[ key ];
+			if (value) filters[ key ] = value.split('|');
+		}
+		OnRefreshTableView({ ...PAGER, filters });
+		// Refresh pagination view
+		getPaginationShow();
+	}
+
+	// Apply row counts
+	function ToRow(/** @type number */ row) {
+		currentRows = row;
+		showRowsNum = false;
+		OnRefreshTableView({ ...PAGER, perPage: row });
+		// Refresh pagination view
+		getPaginationShow();
 	}
 </script>
-
-{#if PURPOSE === 'staff'}
-	<PopUpInviteUser
-		bind:this={popUpInviteUser}
-		onSubmit={onSubmitInviteUser}
-		bind:email={emailToInvite}
-	/>
-{/if}
 
 {#if filterTableReady}
   <FilterTable
 		bind:this={filterTable}
 		bind:filterColumns
-		bind:filterMap
-		on:click={ApplyFilterTable}
+		bind:filtersMap
+		on:click={ApplyFilter}
 	/>
 {/if}
 
@@ -149,14 +166,16 @@
     <div class="left">
 			<div class="debug">
         <div class="showing">
-          <p>Debug table <span class="text-violet">1</span>/<span class="text-violet">10</span> of <span class="text-violet">10</span> record(s)</p>
+          <p>
+						Debug table <span class="text-violet">1</span>/<span class="text-violet">10</span> of <span class="text-violet">10</span> record(s)
+					</p>
         </div>
         <button class="btn" on:click={() => filterTable.Show()}>
           <Icon color="#FFF" size="16" src={AiOutlineEyeInvisible}/>
         </button>
       </div>
       <div class="actions_btn">
-				<button class="btn add" on:click={handleAdd}>
+				<button class="btn add" on:click={HandleAdd}>
 					<Icon color="#FFF" size="18" src={CgMathPlus}/>
 				</button>
       </div>
@@ -167,14 +186,6 @@
       {/if}
     </div>
     <div class="right">
-			<!-- <div class="filter_search">
-				<select name="filter" id="filter" bind:value={toFilterValue} placeholder="Filter">
-          <option value="" disabled>-- Filter --</option>
-          {#each toFilterValues as v}
-            <option value={v}>{v}</option>
-          {/each}
-        </select>
-			</div> -->
 			{#if CAN_SEARCH_ROW}
       	<div class="search_handler">
         	<input
@@ -191,7 +202,6 @@
 			{/if}
     </div>
   </div>
-
 	<div class="table_container">
 		<table>
 			<thead>
@@ -226,14 +236,14 @@
 								}
 									<div class="actions">	
 										{#if CAN_EDIT_ROW}
-											<button class="btn edit" title="Edit">
+											<button class="btn edit" title="Edit" on:click={() => HandleEdit(row)}>
 												<Icon size="13" color="#FFF" src={RiDesignBallPenLine}/>
 											</button>
 										{/if}
 										<button
 											class="btn delete"
 											title="delete"
-											on:click={() => handleDelete(row)}
+											on:click={() => HandleDelete(row)}
 										>
 											<Icon size="13" color="#FFF" src={RiSystemDeleteBin5Line}/>
 										</button>
@@ -260,16 +270,22 @@
 			</tbody>
 		</table>
 	</div>
-
   <div class="pagination_container">
     <div class="filter">
       <div class="showing">
         <p>Showing <span class="text-violet">10</span>/<span class="text-violet">20</span> of <span class="text-violet">40</span> record(s)</p>
       </div>
       <div class="row_to_show">
-        <button class="btn" >
-          <span>30</span>
-          <Icon size="13" src={CgChevronDown}/>
+				{#if showRowsNum}
+          <div class="rows">
+            {#each rowsToShow as r}
+              <button on:click={() => ToRow(r)}>{r}</button>
+            {/each}
+          </div>
+        {/if}
+        <button class="btn" on:click={toggleRowsNum}>
+          <span>{currentRows}</span>
+          <Icon className={showRowsNum ? 'dropdown' : 'rotate_right'} size="13" src={CgChevronDown}/>
         </button>
       </div>
     </div>
@@ -286,7 +302,7 @@
 				disabled={currentPage == 1}
 				class="btn to"
 				title="Go to previous page"
-				on:click={PreviousPage}
+				on:click={() => PreviousPage(currentPage - 1)}
 			>
         <Icon size="16" src={CgChevronLeft}/>
       </button>
@@ -301,7 +317,7 @@
       <button
 				disabled={currentPage == paginationTotal}
 				class="btn to" title="Go to next page"
-				on:click={NextPage}
+				on:click={() => NextPage(currentPage + 1)}
 			>
         <Icon size="16" src={CgChevronRight}/>
       </button>
@@ -479,7 +495,7 @@
 
 	:global(.rotate) {
 		transition: all .2s ease-in-out;
-		transform: rotate(90deg);
+		transform: rotate(180deg);
 	}
 
 	:global(.rotate_right) {

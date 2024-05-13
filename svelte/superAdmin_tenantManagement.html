@@ -736,107 +736,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   background-color: #fbbf2450;
 }
 
-/* fakecss:./_components/InputCustom.esbuild-svelte-fake-css */
-.input_box.svelte-1c7n2md.svelte-1c7n2md.svelte-1c7n2md {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  color: var(--gray-007);
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.input_box.bool.svelte-1c7n2md.svelte-1c7n2md.svelte-1c7n2md {
-  width: fit-content;
-}
-.input_box.svelte-1c7n2md .label.svelte-1c7n2md.svelte-1c7n2md {
-  font-size: var(--font-base);
-  margin-left: 10px;
-}
-.input_box.svelte-1c7n2md input.svelte-1c7n2md.svelte-1c7n2md,
-.input_box.svelte-1c7n2md textarea.svelte-1c7n2md.svelte-1c7n2md {
-  width: 100%;
-  border: 1px solid var(--gray-003);
-  border-radius: 5px;
-  background-color: transparent;
-  padding: 10px 12px;
-}
-.input_box.svelte-1c7n2md input.svelte-1c7n2md.svelte-1c7n2md:focus,
-.input_box.svelte-1c7n2md textarea.svelte-1c7n2md.svelte-1c7n2md:focus {
-  border-color: var(--sky-005);
-  outline: 1px solid var(--sky-005);
-}
-.input_box.svelte-1c7n2md textarea.svelte-1c7n2md.svelte-1c7n2md {
-  resize: vertical;
-  height: 90px;
-  min-height: 50px;
-  max-height: 300px;
-}
-.input_box.svelte-1c7n2md select.svelte-1c7n2md.svelte-1c7n2md {
-  cursor: pointer;
-  width: 100%;
-  border: 1px solid var(--gray-003);
-  border-radius: 5px;
-  background-color: transparent;
-  padding: 10px 12px;
-}
-.input_box.svelte-1c7n2md select.svelte-1c7n2md.svelte-1c7n2md:focus {
-  border-color: var(--sky-005);
-  outline: 1px solid var(--sky-005);
-}
-.switcher.svelte-1c7n2md.svelte-1c7n2md.svelte-1c7n2md {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 24px;
-  margin-left: 0 !important;
-}
-.switcher.svelte-1c7n2md input.svelte-1c7n2md.svelte-1c7n2md {
-  opacity: 0 !important;
-  width: 0 !important;
-  height: 0 !important;
-}
-.switcher.svelte-1c7n2md .slider.svelte-1c7n2md.svelte-1c7n2md {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: var(--gray-005);
-  -webkit-transition: .2s;
-  transition: .2s;
-}
-.switcher.svelte-1c7n2md .slider.svelte-1c7n2md.svelte-1c7n2md:before {
-  position: absolute;
-  content: "";
-  height: 16px;
-  width: 16px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .2s;
-  transition: .2s;
-}
-.switcher.svelte-1c7n2md input.svelte-1c7n2md:checked + .slider.svelte-1c7n2md {
-  background-color: var(--sky-006) !important;
-}
-.switcher.svelte-1c7n2md input.svelte-1c7n2md:focus + .slider.svelte-1c7n2md {
-  box-shadow: 0 0 1px var(--sky-006) !important;
-}
-.switcher.svelte-1c7n2md input.svelte-1c7n2md:checked + .slider.svelte-1c7n2md:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-.switcher.svelte-1c7n2md .slider.svelte-1c7n2md.svelte-1c7n2md {
-  border-radius: 34px;
-}
-.switcher.svelte-1c7n2md .slider.svelte-1c7n2md.svelte-1c7n2md:before {
-  border-radius: 50%;
-}
-
 /* fakecss:./_components/FilterTable.esbuild-svelte-fake-css */
 .popup_filter_container.svelte-1mdb6l3.svelte-1mdb6l3 {
   position: fixed;
@@ -965,10 +864,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 }
 
 /* fakecss:./_components/MasterTable.esbuild-svelte-fake-css */
-p.svelte-1j4u0yv.svelte-1j4u0yv {
+p.svelte-1rnmrzr.svelte-1rnmrzr {
   margin: 0;
 }
-@keyframes svelte-1j4u0yv-spin {
+@keyframes svelte-1rnmrzr-spin {
   from {
     transform: rotate(0deg);
   }
@@ -977,14 +876,14 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
   }
 }
 .spin {
-  animation: svelte-1j4u0yv-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: svelte-1rnmrzr-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 .dropdown {
   transition: all .2s ease-in-out;
 }
 .rotate {
   transition: all .2s ease-in-out;
-  transform: rotate(90deg);
+  transform: rotate(180deg);
 }
 .rotate_right {
   transition: all .2s ease-in-out;
@@ -993,25 +892,25 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
 .sort_icon {
   margin-bottom: -5px;
 }
-.table_root.svelte-1j4u0yv.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr.svelte-1rnmrzr {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.table_root.svelte-1j4u0yv .actions_container.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .actions_container.svelte-1rnmrzr {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-.table_root.svelte-1j4u0yv .actions_container .left.svelte-1j4u0yv,
-.table_root.svelte-1j4u0yv .actions_container .right.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .actions_container .left.svelte-1rnmrzr,
+.table_root.svelte-1rnmrzr .actions_container .right.svelte-1rnmrzr {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
 }
-.table_root.svelte-1j4u0yv .actions_container .left .debug.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .actions_container .left .debug.svelte-1rnmrzr {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1020,12 +919,12 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
   border: 1px solid var(--gray-004);
   border-radius: 999px;
 }
-.table_root.svelte-1j4u0yv .actions_container .left .debug .showing .text-violet.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .actions_container .left .debug .showing .text-violet.svelte-1rnmrzr {
   color: var(--violet-006);
   font-weight: 600;
   padding: 5px;
 }
-.table_root.svelte-1j4u0yv .actions_container .left .debug .btn.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .actions_container .left .debug .btn.svelte-1rnmrzr {
   border: none;
   background-color: var(--violet-006);
   color: #FFF;
@@ -1039,27 +938,27 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
   gap: 3px;
   cursor: pointer;
 }
-.table_root.svelte-1j4u0yv .actions_container .left .debug .btn.svelte-1j4u0yv:hover {
+.table_root.svelte-1rnmrzr .actions_container .left .debug .btn.svelte-1rnmrzr:hover {
   background-color: var(--violet-005);
 }
-.table_root.svelte-1j4u0yv .actions_container .right .search_handler.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .actions_container .right .search_handler.svelte-1rnmrzr {
   display: flex;
   flex-direction: row;
   width: fit-content;
   height: fit-content;
   position: relative;
 }
-.table_root.svelte-1j4u0yv .actions_container .right .search_handler input.search.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .actions_container .right .search_handler input.search.svelte-1rnmrzr {
   padding: 10px 50px 10px 15px;
   border-radius: 999px;
   border: 1px solid var(--gray-005);
   width: 300px;
 }
-.table_root.svelte-1j4u0yv .actions_container .right .search_handler input.search.svelte-1j4u0yv:focus {
+.table_root.svelte-1rnmrzr .actions_container .right .search_handler input.search.svelte-1rnmrzr:focus {
   border-color: var(--violet-005);
   outline: 1px solid var(--violet-005);
 }
-.table_root.svelte-1j4u0yv .actions_container .right .search_handler .search_btn.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .actions_container .right .search_handler .search_btn.svelte-1rnmrzr {
   position: absolute;
   right: 5px;
   background-color: var(--violet-006);
@@ -1072,16 +971,16 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
   top: 5px;
   cursor: pointer;
 }
-.table_root.svelte-1j4u0yv .actions_container .right .search_handler .search_btn.svelte-1j4u0yv:hover {
+.table_root.svelte-1rnmrzr .actions_container .right .search_handler .search_btn.svelte-1rnmrzr:hover {
   background-color: var(--violet-005);
 }
-.table_root.svelte-1j4u0yv .actions_container .actions_btn.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .actions_container .actions_btn.svelte-1rnmrzr {
   display: flex;
   flex-direction: row;
   gap: 10px;
   align-items: center;
 }
-.table_root.svelte-1j4u0yv .actions_container .actions_btn .btn.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .actions_container .actions_btn .btn.svelte-1rnmrzr {
   border: none;
   color: #FFF;
   width: fit-content;
@@ -1094,18 +993,18 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
   gap: 3px;
   cursor: pointer;
 }
-.table_root.svelte-1j4u0yv .actions_container .actions_btn .btn.add.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .actions_container .actions_btn .btn.add.svelte-1rnmrzr {
   background-color: var(--green-006);
 }
-.table_root.svelte-1j4u0yv .actions_container .actions_btn .btn.add.svelte-1j4u0yv:hover {
+.table_root.svelte-1rnmrzr .actions_container .actions_btn .btn.add.svelte-1rnmrzr:hover {
   background-color: var(--green-005);
 }
-.table_root.svelte-1j4u0yv .table_container.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .table_container.svelte-1rnmrzr {
   overflow-x: auto;
   scrollbar-color: var(--gray-003) transparent;
   scrollbar-width: thin;
 }
-.table_root.svelte-1j4u0yv .table_container table.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .table_container table.svelte-1rnmrzr {
   width: 100%;
   background: #fff;
   border: 1px solid var(--gray-004);
@@ -1116,10 +1015,10 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
   border-spacing: 0;
   overflow: hidden;
 }
-.table_root.svelte-1j4u0yv .table_container table thead.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .table_container table thead.svelte-1rnmrzr {
   box-shadow: none;
 }
-.table_root.svelte-1j4u0yv .table_container table thead tr th.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .table_container table thead tr th.svelte-1rnmrzr {
   padding: 12px;
   background-color: var(--gray-001);
   border-right: 1px solid var(--gray-004);
@@ -1129,45 +1028,45 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
   user-select: none;
   text-transform: capitalize;
 }
-.table_root.svelte-1j4u0yv .table_container table thead tr th.no.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .table_container table thead tr th.no.svelte-1rnmrzr {
   width: 30px;
 }
-.table_root.svelte-1j4u0yv .table_container table thead tr th.a_row.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .table_container table thead tr th.a_row.svelte-1rnmrzr {
   max-width: fit-content;
 }
-.table_root.svelte-1j4u0yv .table_container table thead tr th.svelte-1j4u0yv:last-child {
+.table_root.svelte-1rnmrzr .table_container table thead tr th.svelte-1rnmrzr:last-child {
   border-right: none;
 }
-.table_root.svelte-1j4u0yv .table_container table thead tr th.sort_column.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .table_container table thead tr th.sort_column.svelte-1rnmrzr {
   cursor: pointer;
   text-wrap: nowrap;
 }
-.table_root.svelte-1j4u0yv .table_container table tbody tr td.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .table_container table tbody tr td.svelte-1rnmrzr {
   padding: 8px 12px;
   border-right: 1px solid var(--gray-004);
   border-bottom: 1px solid var(--gray-004);
 }
-.table_root.svelte-1j4u0yv .table_container table tbody tr:last-child td.svelte-1j4u0yv,
-.table_root.svelte-1j4u0yv .table_container table tbody tr:last-child th.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .table_container table tbody tr:last-child td.svelte-1rnmrzr,
+.table_root.svelte-1rnmrzr .table_container table tbody tr:last-child th.svelte-1rnmrzr {
   border-bottom: none !important;
 }
-.table_root.svelte-1j4u0yv .table_container table tbody tr:last-child td.svelte-1j4u0yv:last-child {
+.table_root.svelte-1rnmrzr .table_container table tbody tr:last-child td.svelte-1rnmrzr:last-child {
   border-right: none !important;
 }
-.table_root.svelte-1j4u0yv .table_container table tbody tr td.svelte-1j4u0yv:last-child {
+.table_root.svelte-1rnmrzr .table_container table tbody tr td.svelte-1rnmrzr:last-child {
   border-right: none !important;
 }
-.table_root.svelte-1j4u0yv .table_container table tbody tr th.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .table_container table tbody tr th.svelte-1rnmrzr {
   text-align: center;
   border-right: 1px solid var(--gray-004);
   border-bottom: 1px solid var(--gray-004);
 }
-.table_root.svelte-1j4u0yv .table_container table tbody tr td .actions.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .table_container table tbody tr td .actions.svelte-1rnmrzr {
   display: flex;
   flex-direction: row;
   gap: 5px;
 }
-.table_root.svelte-1j4u0yv .table_container table tbody tr td .actions .btn.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .table_container table tbody tr td .actions .btn.svelte-1rnmrzr {
   border: none;
   padding: 5px 10px;
   border-radius: 999px;
@@ -1176,25 +1075,25 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
   justify-content: center;
   align-items: center;
 }
-.table_root.svelte-1j4u0yv .table_container table tbody tr td .actions .btn.edit.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .table_container table tbody tr td .actions .btn.edit.svelte-1rnmrzr {
   background-color: var(--amber-005);
   color: #FFF;
 }
-.table_root.svelte-1j4u0yv .table_container table tbody tr td .actions .btn.edit.svelte-1j4u0yv:hover {
+.table_root.svelte-1rnmrzr .table_container table tbody tr td .actions .btn.edit.svelte-1rnmrzr:hover {
   background-color: var(--amber-006);
 }
-.table_root.svelte-1j4u0yv .table_container table tbody tr td .actions .btn.delete.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .table_container table tbody tr td .actions .btn.delete.svelte-1rnmrzr {
   background-color: var(--red-006);
 }
-.table_root.svelte-1j4u0yv .table_container table tbody tr td .actions .btn.delete.svelte-1j4u0yv:hover {
+.table_root.svelte-1rnmrzr .table_container table tbody tr td .actions .btn.delete.svelte-1rnmrzr:hover {
   background-color: var(--red-005);
 }
-.table_root.svelte-1j4u0yv .pagination_container.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .pagination_container.svelte-1rnmrzr {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.table_root.svelte-1j4u0yv .pagination_container .filter.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .pagination_container .filter.svelte-1rnmrzr {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1203,17 +1102,17 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
   border: 1px solid var(--gray-004);
   border-radius: 999px;
 }
-.table_root.svelte-1j4u0yv .pagination_container .filter .showing .text-violet.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .pagination_container .filter .showing .text-violet.svelte-1rnmrzr {
   color: var(--violet-006);
   font-weight: 600;
   padding: 5px;
 }
-.table_root.svelte-1j4u0yv .pagination_container .filter .row_to_show.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .pagination_container .filter .row_to_show.svelte-1rnmrzr {
   position: relative;
   width: fit-content;
   height: fit-content;
 }
-.table_root.svelte-1j4u0yv .pagination_container .filter .row_to_show .btn.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .pagination_container .filter .row_to_show .btn.svelte-1rnmrzr {
   border: none;
   background-color: var(--violet-006);
   color: #FFF;
@@ -1227,28 +1126,38 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
   gap: 3px;
   cursor: pointer;
 }
-.table_root.svelte-1j4u0yv .pagination_container .filter .row_to_show .btn.svelte-1j4u0yv:hover {
+.table_root.svelte-1rnmrzr .pagination_container .filter .row_to_show .btn.svelte-1rnmrzr:hover {
   background-color: var(--violet-005);
 }
-.table_root.svelte-1j4u0yv .pagination_container .filter .row_to_show .rows button.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .pagination_container .filter .row_to_show .rows.svelte-1rnmrzr {
+  display: flex;
+  flex-direction: column-reverse;
+  position: absolute;
+  width: 100%;
+  top: -180px;
+  border-radius: 5px;
+  border: 1px solid var(--gray-004);
+  background-color: #FFF;
+}
+.table_root.svelte-1rnmrzr .pagination_container .filter .row_to_show .rows button.svelte-1rnmrzr {
   border: none;
   background-color: transparent;
   padding: 5px;
   cursor: pointer;
   color: var(--gray-007);
 }
-.table_root.svelte-1j4u0yv .pagination_container .filter .row_to_show .rows button.svelte-1j4u0yv:hover {
+.table_root.svelte-1rnmrzr .pagination_container .filter .row_to_show .rows button.svelte-1rnmrzr:hover {
   background-color: var(--violet-transparent);
   color: var(--violet-007);
 }
-.table_root.svelte-1j4u0yv .pagination_container .pagination.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .pagination_container .pagination.svelte-1rnmrzr {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 5px;
   overflow: hidden;
 }
-.table_root.svelte-1j4u0yv .pagination_container .pagination .btn.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .pagination_container .pagination .btn.svelte-1rnmrzr {
   border: none;
   background-color: transparent;
   display: flex;
@@ -1262,25 +1171,25 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
   color: var(--gray-007);
   border: 1px solid transparent;
 }
-.table_root.svelte-1j4u0yv .pagination_container .pagination .btn.svelte-1j4u0yv:hover {
+.table_root.svelte-1rnmrzr .pagination_container .pagination .btn.svelte-1rnmrzr:hover {
   border: 1px solid var(--gray-004);
 }
-.table_root.svelte-1j4u0yv .pagination_container .pagination .btn.active.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .pagination_container .pagination .btn.active.svelte-1rnmrzr {
   background-color: var(--violet-transparent);
   color: var(--violet-006);
   font-weight: 600;
   border: 1px solid var(--violet-004);
 }
-.table_root.svelte-1j4u0yv .pagination_container .pagination .btn.to.svelte-1j4u0yv {
+.table_root.svelte-1rnmrzr .pagination_container .pagination .btn.to.svelte-1rnmrzr {
   background-color: var(--violet-006);
   color: #FFF;
   font-weight: 600;
   border: none;
 }
-.table_root.svelte-1j4u0yv .pagination_container .pagination .btn.to.svelte-1j4u0yv:hover {
+.table_root.svelte-1rnmrzr .pagination_container .pagination .btn.to.svelte-1rnmrzr:hover {
   background-color: var(--violet-005);
 }
-.table_root.svelte-1j4u0yv .pagination_container .pagination .btn.to.svelte-1j4u0yv:disabled {
+.table_root.svelte-1rnmrzr .pagination_container .pagination .btn.to.svelte-1rnmrzr:disabled {
   background-color: var(--gray-002);
   color: var(--gray-006);
   font-weight: 600;
@@ -1288,21 +1197,21 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
   cursor: not-allowed;
 }
 @media only screen and (max-width : 768px) {
-  .table_root.svelte-1j4u0yv .actions_container.svelte-1j4u0yv {
+  .table_root.svelte-1rnmrzr .actions_container.svelte-1rnmrzr {
     flex-wrap: wrap;
     gap: 10px;
   }
-  .table_root.svelte-1j4u0yv .actions_container .left.svelte-1j4u0yv {
+  .table_root.svelte-1rnmrzr .actions_container .left.svelte-1rnmrzr {
     flex-wrap: wrap;
   }
-  .table_root.svelte-1j4u0yv .table_container.svelte-1j4u0yv {
+  .table_root.svelte-1rnmrzr .table_container.svelte-1rnmrzr {
     overflow-x: scroll;
   }
-  .table_root.svelte-1j4u0yv .pagination_container.svelte-1j4u0yv {
+  .table_root.svelte-1rnmrzr .pagination_container.svelte-1rnmrzr {
     flex-wrap: wrap;
     gap: 10px;
   }
-  .table_root.svelte-1j4u0yv .pagination_container .pagination.svelte-1j4u0yv {
+  .table_root.svelte-1rnmrzr .pagination_container .pagination.svelte-1rnmrzr {
     gap: 2px;
   }
 }
@@ -3318,13 +3227,13 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance12 = bind2(Axios$1.prototype.request, context);
-        utils$1.extend(instance12, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance12, context, null, { allOwnKeys: true });
-        instance12.create = function create(instanceConfig) {
+        const instance10 = bind2(Axios$1.prototype.request, context);
+        utils$1.extend(instance10, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance10, context, null, { allOwnKeys: true });
+        instance10.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance12;
+        return instance10;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -3409,7 +3318,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       exports.SuperAdminDashboard = async function SuperAdminDashboard(i, cb) {
         return await axios.post("/superAdmin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.SuperAdminTenantManagement = async function SuperAdminTenantManagement(i, cb) {
+      exports.SuperAdminTenantManagement = async function SuperAdminTenantManagement2(i, cb) {
         return await axios.post("/superAdmin/tenantManagement", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.SuperAdminUserManagement = async function SuperAdminUserManagement(i, cb) {
@@ -3705,9 +3614,6 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
   }
   function empty() {
     return text("");
-  }
-  function comment(content) {
-    return document.createComment(content);
   }
   function listen(node, event, handler, options) {
     node.addEventListener(event, handler, options);
@@ -4086,7 +3992,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance12, create_fragment12, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance10, create_fragment10, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -4112,7 +4018,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance12 ? instance12(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance10 ? instance10(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -4125,7 +4031,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment12 ? create_fragment12($.ctx) : false;
+    $.fragment = create_fragment10 ? create_fragment10($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -6039,786 +5945,6 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
     c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M4 8h16v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8zm2 2v10h12V10H6zm3 2h2v6H9v-6zm4 0h2v6h-2v-6zM7 5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v2h5v2H2V5h5zm2-1v1h6V4H9z"></path></g>'
   };
 
-  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ai/AiOutlineEye.js
-  var AiOutlineEye_default = {
-    a: {
-      viewBox: "0 0 1024 1024"
-    },
-    c: '<path d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 0 0 0 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"></path>'
-  };
-
-  // _components/InputBox.svelte
-  function create_if_block2(ctx) {
-    let button;
-    let t;
-    let current;
-    let mounted;
-    let dispose;
-    let if_block0 = !/*isShowPassword*/
-    ctx[5] && create_if_block_22(ctx);
-    let if_block1 = (
-      /*isShowPassword*/
-      ctx[5] && create_if_block_12(ctx)
-    );
-    return {
-      c() {
-        button = element("button");
-        if (if_block0)
-          if_block0.c();
-        t = space();
-        if (if_block1)
-          if_block1.c();
-        attr(button, "class", "eye svelte-msefpz");
-      },
-      m(target, anchor) {
-        insert(target, button, anchor);
-        if (if_block0)
-          if_block0.m(button, null);
-        append(button, t);
-        if (if_block1)
-          if_block1.m(button, null);
-        current = true;
-        if (!mounted) {
-          dispose = listen(
-            button,
-            "click",
-            /*toggleShowPassword*/
-            ctx[7]
-          );
-          mounted = true;
-        }
-      },
-      p(ctx2, dirty) {
-        if (!/*isShowPassword*/
-        ctx2[5]) {
-          if (if_block0) {
-            if (dirty & /*isShowPassword*/
-            32) {
-              transition_in(if_block0, 1);
-            }
-          } else {
-            if_block0 = create_if_block_22(ctx2);
-            if_block0.c();
-            transition_in(if_block0, 1);
-            if_block0.m(button, t);
-          }
-        } else if (if_block0) {
-          group_outros();
-          transition_out(if_block0, 1, 1, () => {
-            if_block0 = null;
-          });
-          check_outros();
-        }
-        if (
-          /*isShowPassword*/
-          ctx2[5]
-        ) {
-          if (if_block1) {
-            if (dirty & /*isShowPassword*/
-            32) {
-              transition_in(if_block1, 1);
-            }
-          } else {
-            if_block1 = create_if_block_12(ctx2);
-            if_block1.c();
-            transition_in(if_block1, 1);
-            if_block1.m(button, null);
-          }
-        } else if (if_block1) {
-          group_outros();
-          transition_out(if_block1, 1, 1, () => {
-            if_block1 = null;
-          });
-          check_outros();
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(if_block0);
-        transition_in(if_block1);
-        current = true;
-      },
-      o(local) {
-        transition_out(if_block0);
-        transition_out(if_block1);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(button);
-        }
-        if (if_block0)
-          if_block0.d();
-        if (if_block1)
-          if_block1.d();
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_if_block_22(ctx) {
-    let icon;
-    let current;
-    icon = new Icon_default({
-      props: {
-        color: "#495057",
-        size: "20",
-        src: AiOutlineEye_default
-      }
-    });
-    return {
-      c() {
-        create_component(icon.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(icon, target, anchor);
-        current = true;
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(icon, detaching);
-      }
-    };
-  }
-  function create_if_block_12(ctx) {
-    let icon;
-    let current;
-    icon = new Icon_default({
-      props: {
-        color: "#495057",
-        size: "20",
-        src: AiOutlineEyeInvisible_default
-      }
-    });
-    return {
-      c() {
-        create_component(icon.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(icon, target, anchor);
-        current = true;
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(icon, detaching);
-      }
-    };
-  }
-  function create_fragment7(ctx) {
-    let div;
-    let label_1;
-    let t0;
-    let t1;
-    let input;
-    let t2;
-    let div_class_value;
-    let current;
-    let mounted;
-    let dispose;
-    let if_block = (
-      /*type*/
-      ctx[3] === "password" && create_if_block2(ctx)
-    );
-    return {
-      c() {
-        div = element("div");
-        label_1 = element("label");
-        t0 = text(
-          /*label*/
-          ctx[2]
-        );
-        t1 = space();
-        input = element("input");
-        t2 = space();
-        if (if_block)
-          if_block.c();
-        attr(
-          label_1,
-          "for",
-          /*id*/
-          ctx[1]
-        );
-        attr(label_1, "class", "svelte-msefpz");
-        attr(
-          input,
-          "id",
-          /*id*/
-          ctx[1]
-        );
-        attr(
-          input,
-          "placeholder",
-          /*placeholder*/
-          ctx[4]
-        );
-        attr(input, "class", "svelte-msefpz");
-        attr(div, "class", div_class_value = null_to_empty(`input_box ${/*type*/
-        ctx[3] === "password" ? "with_password" : ""}`) + " svelte-msefpz");
-      },
-      m(target, anchor) {
-        insert(target, div, anchor);
-        append(div, label_1);
-        append(label_1, t0);
-        append(div, t1);
-        append(div, input);
-        set_input_value(
-          input,
-          /*value*/
-          ctx[0]
-        );
-        ctx[9](input);
-        append(div, t2);
-        if (if_block)
-          if_block.m(div, null);
-        current = true;
-        if (!mounted) {
-          dispose = listen(
-            input,
-            "input",
-            /*input_input_handler*/
-            ctx[8]
-          );
-          mounted = true;
-        }
-      },
-      p(ctx2, [dirty]) {
-        if (!current || dirty & /*label*/
-        4)
-          set_data(
-            t0,
-            /*label*/
-            ctx2[2]
-          );
-        if (!current || dirty & /*id*/
-        2) {
-          attr(
-            label_1,
-            "for",
-            /*id*/
-            ctx2[1]
-          );
-        }
-        if (!current || dirty & /*id*/
-        2) {
-          attr(
-            input,
-            "id",
-            /*id*/
-            ctx2[1]
-          );
-        }
-        if (!current || dirty & /*placeholder*/
-        16) {
-          attr(
-            input,
-            "placeholder",
-            /*placeholder*/
-            ctx2[4]
-          );
-        }
-        if (dirty & /*value*/
-        1 && input.value !== /*value*/
-        ctx2[0]) {
-          set_input_value(
-            input,
-            /*value*/
-            ctx2[0]
-          );
-        }
-        if (
-          /*type*/
-          ctx2[3] === "password"
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*type*/
-            8) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block2(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(div, null);
-          }
-        } else if (if_block) {
-          group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
-          });
-          check_outros();
-        }
-        if (!current || dirty & /*type*/
-        8 && div_class_value !== (div_class_value = null_to_empty(`input_box ${/*type*/
-        ctx2[3] === "password" ? "with_password" : ""}`) + " svelte-msefpz")) {
-          attr(div, "class", div_class_value);
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(if_block);
-        current = true;
-      },
-      o(local) {
-        transition_out(if_block);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(div);
-        }
-        ctx[9](null);
-        if (if_block)
-          if_block.d();
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function instance7($self, $props, $invalidate) {
-    let { id } = $props;
-    let { value } = $props;
-    let { label } = $props;
-    let { type = "text" } = $props;
-    let { placeholder = "" } = $props;
-    let isShowPassword = false;
-    let inputElm;
-    onMount(() => $invalidate(6, inputElm.type = type, inputElm));
-    function toggleShowPassword() {
-      $invalidate(5, isShowPassword = !isShowPassword);
-      if (isShowPassword)
-        $invalidate(6, inputElm.type = "text", inputElm);
-      else
-        $invalidate(6, inputElm.type = "password", inputElm);
-    }
-    function input_input_handler() {
-      value = this.value;
-      $invalidate(0, value);
-    }
-    function input_binding($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        inputElm = $value;
-        $invalidate(6, inputElm);
-      });
-    }
-    $self.$set = ($props2) => {
-      if ("id" in $props2)
-        $invalidate(1, id = $props2.id);
-      if ("value" in $props2)
-        $invalidate(0, value = $props2.value);
-      if ("label" in $props2)
-        $invalidate(2, label = $props2.label);
-      if ("type" in $props2)
-        $invalidate(3, type = $props2.type);
-      if ("placeholder" in $props2)
-        $invalidate(4, placeholder = $props2.placeholder);
-    };
-    return [
-      value,
-      id,
-      label,
-      type,
-      placeholder,
-      isShowPassword,
-      inputElm,
-      toggleShowPassword,
-      input_input_handler,
-      input_binding
-    ];
-  }
-  var InputBox = class extends SvelteComponent {
-    constructor(options) {
-      super();
-      init(this, options, instance7, create_fragment7, safe_not_equal, {
-        id: 1,
-        value: 0,
-        label: 2,
-        type: 3,
-        placeholder: 4
-      });
-    }
-  };
-  var InputBox_default = InputBox;
-
-  // _components/PopUpInviteUser.svelte
-  function create_if_block_13(ctx) {
-    let span;
-    return {
-      c() {
-        span = element("span");
-        span.textContent = "Ok";
-      },
-      m(target, anchor) {
-        insert(target, span, anchor);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(span);
-        }
-      }
-    };
-  }
-  function create_if_block3(ctx) {
-    let icon;
-    let current;
-    icon = new Icon_default({
-      props: {
-        className: "spin",
-        color: "#FFF",
-        size: "14",
-        src: FiLoader_default
-      }
-    });
-    return {
-      c() {
-        create_component(icon.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(icon, target, anchor);
-        current = true;
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(icon, detaching);
-      }
-    };
-  }
-  function create_fragment8(ctx) {
-    let div5;
-    let div4;
-    let header;
-    let h2;
-    let t0;
-    let t1;
-    let button0;
-    let icon;
-    let t2;
-    let div0;
-    let inputbox;
-    let updating_value;
-    let t3;
-    let div3;
-    let div1;
-    let t4;
-    let div2;
-    let button1;
-    let t6;
-    let button2;
-    let t7;
-    let div5_class_value;
-    let current;
-    let mounted;
-    let dispose;
-    icon = new Icon_default({
-      props: {
-        size: "22",
-        color: "var(--red-005)",
-        src: IoClose_default
-      }
-    });
-    function inputbox_value_binding(value) {
-      ctx[8](value);
-    }
-    let inputbox_props = {
-      id: "email",
-      label: "Nama",
-      type: "email",
-      placeholder: "name@example.com"
-    };
-    if (
-      /*email*/
-      ctx[0] !== void 0
-    ) {
-      inputbox_props.value = /*email*/
-      ctx[0];
-    }
-    inputbox = new InputBox_default({ props: inputbox_props });
-    binding_callbacks.push(() => bind(inputbox, "value", inputbox_value_binding));
-    let if_block0 = !/*isSubmitted*/
-    ctx[3] && create_if_block_13(ctx);
-    let if_block1 = (
-      /*isSubmitted*/
-      ctx[3] && create_if_block3(ctx)
-    );
-    return {
-      c() {
-        div5 = element("div");
-        div4 = element("div");
-        header = element("header");
-        h2 = element("h2");
-        t0 = text(
-          /*heading*/
-          ctx[1]
-        );
-        t1 = space();
-        button0 = element("button");
-        create_component(icon.$.fragment);
-        t2 = space();
-        div0 = element("div");
-        create_component(inputbox.$.fragment);
-        t3 = space();
-        div3 = element("div");
-        div1 = element("div");
-        div1.innerHTML = ``;
-        t4 = space();
-        div2 = element("div");
-        button1 = element("button");
-        button1.textContent = "Cancel";
-        t6 = space();
-        button2 = element("button");
-        if (if_block0)
-          if_block0.c();
-        t7 = space();
-        if (if_block1)
-          if_block1.c();
-        attr(h2, "class", "svelte-19kcmoe");
-        attr(button0, "class", "svelte-19kcmoe");
-        attr(header, "class", "header svelte-19kcmoe");
-        attr(div0, "class", "forms svelte-19kcmoe");
-        attr(div1, "class", "left");
-        attr(button1, "class", "cancel svelte-19kcmoe");
-        attr(button2, "class", "ok svelte-19kcmoe");
-        button2.disabled = /*isSubmitted*/
-        ctx[3];
-        attr(div2, "class", "right svelte-19kcmoe");
-        attr(div3, "class", "foot svelte-19kcmoe");
-        attr(div4, "class", "popup svelte-19kcmoe");
-        attr(div5, "class", div5_class_value = null_to_empty(`popup_container ${/*isShow*/
-        ctx[5] ? "show" : ""}`) + " svelte-19kcmoe");
-      },
-      m(target, anchor) {
-        insert(target, div5, anchor);
-        append(div5, div4);
-        append(div4, header);
-        append(header, h2);
-        append(h2, t0);
-        append(header, t1);
-        append(header, button0);
-        mount_component(icon, button0, null);
-        append(div4, t2);
-        append(div4, div0);
-        mount_component(inputbox, div0, null);
-        append(div4, t3);
-        append(div4, div3);
-        append(div3, div1);
-        append(div3, t4);
-        append(div3, div2);
-        append(div2, button1);
-        append(div2, t6);
-        append(div2, button2);
-        if (if_block0)
-          if_block0.m(button2, null);
-        append(button2, t7);
-        if (if_block1)
-          if_block1.m(button2, null);
-        current = true;
-        if (!mounted) {
-          dispose = [
-            listen(
-              button0,
-              "click",
-              /*hide*/
-              ctx[4]
-            ),
-            listen(button1, "click", prevent_default(
-              /*cancel*/
-              ctx[6]
-            )),
-            listen(button2, "click", prevent_default(
-              /*click_handler*/
-              ctx[9]
-            ))
-          ];
-          mounted = true;
-        }
-      },
-      p(ctx2, [dirty]) {
-        if (!current || dirty & /*heading*/
-        2)
-          set_data(
-            t0,
-            /*heading*/
-            ctx2[1]
-          );
-        const inputbox_changes = {};
-        if (!updating_value && dirty & /*email*/
-        1) {
-          updating_value = true;
-          inputbox_changes.value = /*email*/
-          ctx2[0];
-          add_flush_callback(() => updating_value = false);
-        }
-        inputbox.$set(inputbox_changes);
-        if (!/*isSubmitted*/
-        ctx2[3]) {
-          if (if_block0) {
-          } else {
-            if_block0 = create_if_block_13(ctx2);
-            if_block0.c();
-            if_block0.m(button2, t7);
-          }
-        } else if (if_block0) {
-          if_block0.d(1);
-          if_block0 = null;
-        }
-        if (
-          /*isSubmitted*/
-          ctx2[3]
-        ) {
-          if (if_block1) {
-            if (dirty & /*isSubmitted*/
-            8) {
-              transition_in(if_block1, 1);
-            }
-          } else {
-            if_block1 = create_if_block3(ctx2);
-            if_block1.c();
-            transition_in(if_block1, 1);
-            if_block1.m(button2, null);
-          }
-        } else if (if_block1) {
-          group_outros();
-          transition_out(if_block1, 1, 1, () => {
-            if_block1 = null;
-          });
-          check_outros();
-        }
-        if (!current || dirty & /*isSubmitted*/
-        8) {
-          button2.disabled = /*isSubmitted*/
-          ctx2[3];
-        }
-        if (!current || dirty & /*isShow*/
-        32 && div5_class_value !== (div5_class_value = null_to_empty(`popup_container ${/*isShow*/
-        ctx2[5] ? "show" : ""}`) + " svelte-19kcmoe")) {
-          attr(div5, "class", div5_class_value);
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        transition_in(inputbox.$.fragment, local);
-        transition_in(if_block1);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        transition_out(inputbox.$.fragment, local);
-        transition_out(if_block1);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(div5);
-        }
-        destroy_component(icon);
-        destroy_component(inputbox);
-        if (if_block0)
-          if_block0.d();
-        if (if_block1)
-          if_block1.d();
-        mounted = false;
-        run_all(dispose);
-      }
-    };
-  }
-  function instance8($self, $props, $invalidate) {
-    let { heading = "Invite user" } = $props;
-    let { onSubmit = () => {
-    } } = $props;
-    let { isSubmitted = false } = $props;
-    let { email = "" } = $props;
-    let isShow = false;
-    const show = () => $invalidate(5, isShow = true);
-    const hide = () => $invalidate(5, isShow = false);
-    const cancel = () => {
-      $invalidate(5, isShow = false);
-      $invalidate(0, email = "");
-    };
-    function inputbox_value_binding(value) {
-      email = value;
-      $invalidate(0, email);
-    }
-    const click_handler = () => {
-      if (!email || email == "")
-        return;
-      else
-        onSubmit();
-    };
-    $self.$set = ($props2) => {
-      if ("heading" in $props2)
-        $invalidate(1, heading = $props2.heading);
-      if ("onSubmit" in $props2)
-        $invalidate(2, onSubmit = $props2.onSubmit);
-      if ("isSubmitted" in $props2)
-        $invalidate(3, isSubmitted = $props2.isSubmitted);
-      if ("email" in $props2)
-        $invalidate(0, email = $props2.email);
-    };
-    return [
-      email,
-      heading,
-      onSubmit,
-      isSubmitted,
-      hide,
-      isShow,
-      cancel,
-      show,
-      inputbox_value_binding,
-      click_handler
-    ];
-  }
-  var PopUpInviteUser = class extends SvelteComponent {
-    constructor(options) {
-      super();
-      init(this, options, instance8, create_fragment8, safe_not_equal, {
-        heading: 1,
-        onSubmit: 2,
-        isSubmitted: 3,
-        email: 0,
-        show: 7,
-        hide: 4
-      });
-    }
-    get show() {
-      return this.$.ctx[7];
-    }
-    get hide() {
-      return this.$.ctx[4];
-    }
-  };
-  var PopUpInviteUser_default = PopUpInviteUser;
-
   // _components/MasterTable.svelte
   var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
 
@@ -6830,7 +5956,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
     child_ctx[11] = i;
     return child_ctx;
   }
-  function create_if_block4(ctx) {
+  function create_if_block2(ctx) {
     let div3;
     let div2;
     let header;
@@ -6858,7 +5984,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
     let if_block = (
       /*filterColumns*/
       ctx[1] && /*filterColumns*/
-      ctx[1].length && create_if_block_14(ctx)
+      ctx[1].length && create_if_block_12(ctx)
     );
     return {
       c() {
@@ -6940,7 +6066,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
           if (if_block) {
             if_block.p(ctx2, dirty);
           } else {
-            if_block = create_if_block_14(ctx2);
+            if_block = create_if_block_12(ctx2);
             if_block.c();
             if_block.m(div0, null);
           }
@@ -6971,7 +6097,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function create_if_block_14(ctx) {
+  function create_if_block_12(ctx) {
     let each_1_anchor;
     let each_value = ensure_array_like(
       /*filterColumns*/
@@ -6997,7 +6123,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
         insert(target, each_1_anchor, anchor);
       },
       p(ctx2, dirty) {
-        if (dirty & /*filterColumns, filterMap*/
+        if (dirty & /*filterColumns, filtersMap*/
         3) {
           each_value = ensure_array_like(
             /*filterColumns*/
@@ -7088,7 +6214,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
         append(div0, input);
         set_input_value(
           input,
-          /*filterMap*/
+          /*filtersMap*/
           ctx[0][
             /*col*/
             ctx[9].key
@@ -7123,15 +6249,15 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
         ctx[9].key)) {
           attr(input, "id", input_id_value);
         }
-        if (dirty & /*filterMap, filterColumns*/
-        3 && input.value !== /*filterMap*/
+        if (dirty & /*filtersMap, filterColumns*/
+        3 && input.value !== /*filtersMap*/
         ctx[0][
           /*col*/
           ctx[9].key
         ]) {
           set_input_value(
             input,
-            /*filterMap*/
+            /*filtersMap*/
             ctx[0][
               /*col*/
               ctx[9].key
@@ -7148,12 +6274,12 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function create_fragment9(ctx) {
+  function create_fragment7(ctx) {
     let if_block_anchor;
     let current;
     let if_block = (
       /*isVisible*/
-      ctx[2] && create_if_block4(ctx)
+      ctx[2] && create_if_block2(ctx)
     );
     return {
       c() {
@@ -7179,7 +6305,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block4(ctx2);
+            if_block = create_if_block2(ctx2);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -7211,9 +6337,9 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function instance9($self, $props, $invalidate) {
+  function instance7($self, $props, $invalidate) {
     let { filterColumns = [] } = $props;
-    let { filterMap = {} } = $props;
+    let { filtersMap = {} } = $props;
     let isVisible = false;
     function Show() {
       $invalidate(2, isVisible = true);
@@ -7226,18 +6352,18 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
     }
     const click_handler_1 = () => $invalidate(2, isVisible = false);
     function input_input_handler(col) {
-      filterMap[col.key] = this.value;
-      $invalidate(0, filterMap);
+      filtersMap[col.key] = this.value;
+      $invalidate(0, filtersMap);
     }
     const click_handler_2 = () => $invalidate(2, isVisible = false);
     $self.$set = ($props2) => {
       if ("filterColumns" in $props2)
         $invalidate(1, filterColumns = $props2.filterColumns);
-      if ("filterMap" in $props2)
-        $invalidate(0, filterMap = $props2.filterMap);
+      if ("filtersMap" in $props2)
+        $invalidate(0, filtersMap = $props2.filtersMap);
     };
     return [
-      filterMap,
+      filtersMap,
       filterColumns,
       isVisible,
       Show,
@@ -7251,9 +6377,9 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
   var FilterTable = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance9, create_fragment9, safe_not_equal, {
+      init(this, options, instance7, create_fragment7, safe_not_equal, {
         filterColumns: 1,
-        filterMap: 0,
+        filtersMap: 0,
         Show: 3,
         Hide: 4
       });
@@ -7271,91 +6397,40 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
   var import_formatter = __toESM(require_formatter());
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[34] = list[i];
+    child_ctx[41] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[37] = list[i];
+    child_ctx[44] = list[i];
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[40] = list[i];
-    child_ctx[42] = i;
+    child_ctx[47] = list[i];
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[40] = list[i];
-    child_ctx[44] = i;
+    child_ctx[50] = list[i];
+    child_ctx[52] = i;
+    return child_ctx;
+  }
+  function get_each_context_4(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[50] = list[i];
+    child_ctx[54] = i;
     return child_ctx;
   }
   function create_if_block_11(ctx) {
-    let popupinviteuser;
-    let updating_email;
-    let current;
-    function popupinviteuser_email_binding(value) {
-      ctx[26](value);
-    }
-    let popupinviteuser_props = { onSubmit: (
-      /*onSubmitInviteUser*/
-      ctx[20]
-    ) };
-    if (
-      /*emailToInvite*/
-      ctx[17] !== void 0
-    ) {
-      popupinviteuser_props.email = /*emailToInvite*/
-      ctx[17];
-    }
-    popupinviteuser = new PopUpInviteUser_default({ props: popupinviteuser_props });
-    ctx[25](popupinviteuser);
-    binding_callbacks.push(() => bind(popupinviteuser, "email", popupinviteuser_email_binding));
-    return {
-      c() {
-        create_component(popupinviteuser.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(popupinviteuser, target, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        const popupinviteuser_changes = {};
-        if (!updating_email && dirty[0] & /*emailToInvite*/
-        131072) {
-          updating_email = true;
-          popupinviteuser_changes.email = /*emailToInvite*/
-          ctx2[17];
-          add_flush_callback(() => updating_email = false);
-        }
-        popupinviteuser.$set(popupinviteuser_changes);
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(popupinviteuser.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(popupinviteuser.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        ctx[25](null);
-        destroy_component(popupinviteuser, detaching);
-      }
-    };
-  }
-  function create_if_block_10(ctx) {
     let filtertable;
     let updating_filterColumns;
-    let updating_filterMap;
+    let updating_filtersMap;
     let current;
     function filtertable_filterColumns_binding(value) {
       ctx[28](value);
     }
-    function filtertable_filterMap_binding(value) {
+    function filtertable_filtersMap_binding(value) {
       ctx[29](value);
     }
     let filtertable_props = {};
@@ -7367,20 +6442,20 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       ctx[15];
     }
     if (
-      /*filterMap*/
+      /*filtersMap*/
       ctx[16] !== void 0
     ) {
-      filtertable_props.filterMap = /*filterMap*/
+      filtertable_props.filtersMap = /*filtersMap*/
       ctx[16];
     }
     filtertable = new FilterTable_default({ props: filtertable_props });
     ctx[27](filtertable);
     binding_callbacks.push(() => bind(filtertable, "filterColumns", filtertable_filterColumns_binding));
-    binding_callbacks.push(() => bind(filtertable, "filterMap", filtertable_filterMap_binding));
+    binding_callbacks.push(() => bind(filtertable, "filtersMap", filtertable_filtersMap_binding));
     filtertable.$on(
       "click",
-      /*ApplyFilterTable*/
-      ctx[21]
+      /*ApplyFilter*/
+      ctx[23]
     );
     return {
       c() {
@@ -7399,12 +6474,12 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
           ctx2[15];
           add_flush_callback(() => updating_filterColumns = false);
         }
-        if (!updating_filterMap && dirty[0] & /*filterMap*/
+        if (!updating_filtersMap && dirty[0] & /*filtersMap*/
         65536) {
-          updating_filterMap = true;
-          filtertable_changes.filterMap = /*filterMap*/
+          updating_filtersMap = true;
+          filtertable_changes.filtersMap = /*filtersMap*/
           ctx2[16];
-          add_flush_callback(() => updating_filterMap = false);
+          add_flush_callback(() => updating_filtersMap = false);
         }
         filtertable.$set(filtertable_changes);
       },
@@ -7424,7 +6499,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function create_if_block_9(ctx) {
+  function create_if_block_10(ctx) {
     let div;
     let icon;
     let current;
@@ -7465,7 +6540,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function create_if_block_8(ctx) {
+  function create_if_block_9(ctx) {
     let div;
     let input;
     let t;
@@ -7486,9 +6561,9 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
         attr(input, "type", "text");
         attr(input, "name", "searchRow");
         attr(input, "id", "searchRow");
-        attr(input, "class", "search svelte-1j4u0yv");
-        attr(button, "class", "search_btn svelte-1j4u0yv");
-        attr(div, "class", "search_handler svelte-1j4u0yv");
+        attr(input, "class", "search svelte-1rnmrzr");
+        attr(button, "class", "search_btn svelte-1rnmrzr");
+        attr(div, "class", "search_handler svelte-1rnmrzr");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -7516,23 +6591,23 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function create_if_block_52(ctx) {
+  function create_if_block_6(ctx) {
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
     let each_1_anchor;
     let current;
-    let each_value_3 = ensure_array_like(
+    let each_value_4 = ensure_array_like(
       /*FIELDS*/
-      ctx[2]
+      ctx[1]
     );
     const get_key = (ctx2) => (
       /*f*/
-      ctx2[40].name
+      ctx2[50].name
     );
-    for (let i = 0; i < each_value_3.length; i += 1) {
-      let child_ctx = get_each_context_3(ctx, each_value_3, i);
+    for (let i = 0; i < each_value_4.length; i += 1) {
+      let child_ctx = get_each_context_4(ctx, each_value_4, i);
       let key = get_key(child_ctx);
-      each_1_lookup.set(key, each_blocks[i] = create_each_block_3(key, child_ctx));
+      each_1_lookup.set(key, each_blocks[i] = create_each_block_4(key, child_ctx));
     }
     return {
       c() {
@@ -7552,20 +6627,20 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*FIELDS*/
-        4) {
-          each_value_3 = ensure_array_like(
+        2) {
+          each_value_4 = ensure_array_like(
             /*FIELDS*/
-            ctx2[2]
+            ctx2[1]
           );
           group_outros();
-          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value_3, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block_3, each_1_anchor, get_each_context_3);
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value_4, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block_4, each_1_anchor, get_each_context_4);
           check_outros();
         }
       },
       i(local) {
         if (current)
           return;
-        for (let i = 0; i < each_value_3.length; i += 1) {
+        for (let i = 0; i < each_value_4.length; i += 1) {
           transition_in(each_blocks[i]);
         }
         current = true;
@@ -7586,7 +6661,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function create_if_block_7(ctx) {
+  function create_if_block_8(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -7620,7 +6695,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function create_if_block_6(ctx) {
+  function create_if_block_7(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -7653,20 +6728,20 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function create_each_block_3(key_1, ctx) {
+  function create_each_block_4(key_1, ctx) {
     let th;
     let span;
     let t0_value = (
       /*f*/
-      ctx[40].label + ""
+      ctx[50].label + ""
     );
     let t0;
     let t1;
     let t2;
     let t3;
     let current;
-    let if_block0 = sortTableAsc && create_if_block_7(ctx);
-    let if_block1 = !sortTableAsc && create_if_block_6(ctx);
+    let if_block0 = sortTableAsc && create_if_block_8(ctx);
+    let if_block1 = !sortTableAsc && create_if_block_7(ctx);
     return {
       key: key_1,
       first: null,
@@ -7681,7 +6756,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
         if (if_block1)
           if_block1.c();
         t3 = space();
-        attr(th, "class", "sort_column svelte-1j4u0yv");
+        attr(th, "class", "sort_column svelte-1rnmrzr");
         this.first = th;
       },
       m(target, anchor) {
@@ -7700,8 +6775,8 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if ((!current || dirty[0] & /*FIELDS*/
-        4) && t0_value !== (t0_value = /*f*/
-        ctx[40].label + ""))
+        2) && t0_value !== (t0_value = /*f*/
+        ctx[50].label + ""))
           set_data(t0, t0_value);
       },
       i(local) {
@@ -7727,16 +6802,16 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function create_if_block5(ctx) {
+  function create_if_block_13(ctx) {
     let each_1_anchor;
     let current;
-    let each_value_1 = ensure_array_like(
+    let each_value_2 = ensure_array_like(
       /*MASTER_ROWS*/
-      ctx[0]
+      ctx[2]
     );
     let each_blocks = [];
-    for (let i = 0; i < each_value_1.length; i += 1) {
-      each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+    for (let i = 0; i < each_value_2.length; i += 1) {
+      each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
     }
     const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
       each_blocks[i] = null;
@@ -7758,27 +6833,27 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*FIELDS, MASTER_ROWS, handleDelete, CAN_EDIT_ROW, ACCESS*/
-        167) {
-          each_value_1 = ensure_array_like(
+        if (dirty[0] & /*FIELDS, MASTER_ROWS, HandleDelete, HandleEdit, CAN_EDIT_ROW, ACCESS*/
+        215) {
+          each_value_2 = ensure_array_like(
             /*MASTER_ROWS*/
-            ctx2[0]
+            ctx2[2]
           );
           let i;
-          for (i = 0; i < each_value_1.length; i += 1) {
-            const child_ctx = get_each_context_1(ctx2, each_value_1, i);
+          for (i = 0; i < each_value_2.length; i += 1) {
+            const child_ctx = get_each_context_2(ctx2, each_value_2, i);
             if (each_blocks[i]) {
               each_blocks[i].p(child_ctx, dirty);
               transition_in(each_blocks[i], 1);
             } else {
-              each_blocks[i] = create_each_block_1(child_ctx);
+              each_blocks[i] = create_each_block_2(child_ctx);
               each_blocks[i].c();
               transition_in(each_blocks[i], 1);
               each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
             }
           }
           group_outros();
-          for (i = each_value_1.length; i < each_blocks.length; i += 1) {
+          for (i = each_value_2.length; i < each_blocks.length; i += 1) {
             out(i);
           }
           check_outros();
@@ -7787,7 +6862,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       i(local) {
         if (current)
           return;
-        for (let i = 0; i < each_value_1.length; i += 1) {
+        for (let i = 0; i < each_value_2.length; i += 1) {
           transition_in(each_blocks[i]);
         }
         current = true;
@@ -7827,7 +6902,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function create_if_block_32(ctx) {
+  function create_if_block_42(ctx) {
     let div;
     let t;
     let button;
@@ -7837,7 +6912,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
     let dispose;
     let if_block = (
       /*CAN_EDIT_ROW*/
-      ctx[5] && create_if_block_42(ctx)
+      ctx[4] && create_if_block_52(ctx)
     );
     icon = new Icon_default({
       props: {
@@ -7846,12 +6921,12 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
         src: RiSystemDeleteBin5Line_default
       }
     });
-    function click_handler_1() {
+    function click_handler_2() {
       return (
-        /*click_handler_1*/
-        ctx[31](
+        /*click_handler_2*/
+        ctx[32](
           /*row*/
-          ctx[37]
+          ctx[47]
         )
       );
     }
@@ -7863,9 +6938,9 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
         t = space();
         button = element("button");
         create_component(icon.$.fragment);
-        attr(button, "class", "btn delete svelte-1j4u0yv");
+        attr(button, "class", "btn delete svelte-1rnmrzr");
         attr(button, "title", "delete");
-        attr(div, "class", "actions svelte-1j4u0yv");
+        attr(div, "class", "actions svelte-1rnmrzr");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -7876,7 +6951,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
         mount_component(icon, button, null);
         current = true;
         if (!mounted) {
-          dispose = listen(button, "click", click_handler_1);
+          dispose = listen(button, "click", click_handler_2);
           mounted = true;
         }
       },
@@ -7884,15 +6959,16 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
         ctx = new_ctx;
         if (
           /*CAN_EDIT_ROW*/
-          ctx[5]
+          ctx[4]
         ) {
           if (if_block) {
+            if_block.p(ctx, dirty);
             if (dirty[0] & /*CAN_EDIT_ROW*/
-            32) {
+            16) {
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block_42(ctx);
+            if_block = create_if_block_52(ctx);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(div, t);
@@ -7929,10 +7005,12 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function create_if_block_42(ctx) {
+  function create_if_block_52(ctx) {
     let button;
     let icon;
     let current;
+    let mounted;
+    let dispose;
     icon = new Icon_default({
       props: {
         size: "13",
@@ -7940,17 +7018,33 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
         src: RiDesignBallPenLine_default
       }
     });
+    function click_handler_1() {
+      return (
+        /*click_handler_1*/
+        ctx[31](
+          /*row*/
+          ctx[47]
+        )
+      );
+    }
     return {
       c() {
         button = element("button");
         create_component(icon.$.fragment);
-        attr(button, "class", "btn edit svelte-1j4u0yv");
+        attr(button, "class", "btn edit svelte-1rnmrzr");
         attr(button, "title", "Edit");
       },
       m(target, anchor) {
         insert(target, button, anchor);
         mount_component(icon, button, null);
         current = true;
+        if (!mounted) {
+          dispose = listen(button, "click", click_handler_1);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
       },
       i(local) {
         if (current)
@@ -7967,18 +7061,20 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
           detach(button);
         }
         destroy_component(icon);
+        mounted = false;
+        dispose();
       }
     };
   }
-  function create_if_block_15(ctx) {
+  function create_if_block_22(ctx) {
     let each_1_anchor;
-    let each_value_2 = ensure_array_like(
+    let each_value_3 = ensure_array_like(
       /*FIELDS*/
-      ctx[2]
+      ctx[1]
     );
     let each_blocks = [];
-    for (let i = 0; i < each_value_2.length; i += 1) {
-      each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+    for (let i = 0; i < each_value_3.length; i += 1) {
+      each_blocks[i] = create_each_block_3(get_each_context_3(ctx, each_value_3, i));
     }
     return {
       c() {
@@ -7997,18 +7093,18 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*MASTER_ROWS, FIELDS*/
-        5) {
-          each_value_2 = ensure_array_like(
+        6) {
+          each_value_3 = ensure_array_like(
             /*FIELDS*/
-            ctx2[2]
+            ctx2[1]
           );
           let i;
-          for (i = 0; i < each_value_2.length; i += 1) {
-            const child_ctx = get_each_context_2(ctx2, each_value_2, i);
+          for (i = 0; i < each_value_3.length; i += 1) {
+            const child_ctx = get_each_context_3(ctx2, each_value_3, i);
             if (each_blocks[i]) {
               each_blocks[i].p(child_ctx, dirty);
             } else {
-              each_blocks[i] = create_each_block_2(child_ctx);
+              each_blocks[i] = create_each_block_3(child_ctx);
               each_blocks[i].c();
               each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
             }
@@ -8016,7 +7112,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
           for (; i < each_blocks.length; i += 1) {
             each_blocks[i].d(1);
           }
-          each_blocks.length = each_value_2.length;
+          each_blocks.length = each_value_3.length;
         }
       },
       d(detaching) {
@@ -8031,9 +7127,9 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
     let td;
     let t_value = (
       /*row*/
-      ctx[37][
+      ctx[47][
         /*idx*/
-        ctx[42]
+        ctx[52]
       ] + ""
     );
     let t;
@@ -8041,7 +7137,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-1j4u0yv");
+        attr(td, "class", "svelte-1rnmrzr");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -8049,10 +7145,10 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*MASTER_ROWS*/
-        1 && t_value !== (t_value = /*row*/
-        ctx2[37][
+        4 && t_value !== (t_value = /*row*/
+        ctx2[47][
           /*idx*/
-          ctx2[42]
+          ctx2[52]
         ] + ""))
           set_data(t, t_value);
       },
@@ -8063,13 +7159,13 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function create_if_block_23(ctx) {
+  function create_if_block_32(ctx) {
     let td;
     let t_value = (0, import_formatter.datetime)(
       /*row*/
-      ctx[37][
+      ctx[47][
         /*idx*/
-        ctx[42]
+        ctx[52]
       ]
     ) + "";
     let t;
@@ -8077,7 +7173,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-1j4u0yv");
+        attr(td, "class", "svelte-1rnmrzr");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -8085,11 +7181,11 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*MASTER_ROWS*/
-        1 && t_value !== (t_value = (0, import_formatter.datetime)(
+        4 && t_value !== (t_value = (0, import_formatter.datetime)(
           /*row*/
-          ctx2[37][
+          ctx2[47][
             /*idx*/
-            ctx2[42]
+            ctx2[52]
           ]
         ) + ""))
           set_data(t, t_value);
@@ -8101,16 +7197,16 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function create_each_block_2(ctx) {
+  function create_each_block_3(ctx) {
     let if_block_anchor;
     function select_block_type_1(ctx2, dirty) {
       if (
         /*f*/
-        ctx2[40].name === "createdAt" || /*f*/
-        ctx2[40].name === "updatedAt" || /*f*/
-        ctx2[40].name === "deletedAt"
+        ctx2[50].name === "createdAt" || /*f*/
+        ctx2[50].name === "updatedAt" || /*f*/
+        ctx2[50].name === "deletedAt"
       )
-        return create_if_block_23;
+        return create_if_block_32;
       return create_else_block;
     }
     let current_block_type = select_block_type_1(ctx, [-1, -1]);
@@ -8144,14 +7240,14 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function create_each_block_1(ctx) {
+  function create_each_block_2(ctx) {
     let tr;
     let th;
     let t0_value = (
       /*MASTER_ROWS*/
-      ctx[0].indexOf(
+      ctx[2].indexOf(
         /*row*/
-        ctx[37]
+        ctx[47]
       ) + 1 + ""
     );
     let t0;
@@ -8162,15 +7258,15 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
     let t2;
     let t3;
     let current;
-    const if_block_creators = [create_if_block_32, create_else_block_1];
+    const if_block_creators = [create_if_block_42, create_else_block_1];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (
         /*ACCESS*/
-        ctx2[1].superAdmin || /*ACCESS*/
-        ctx2[1].tenantAdmin || /*ACCESS*/
-        ctx2[1].entryUser || /*ACCESS*/
-        ctx2[1].reportViewer
+        ctx2[0].superAdmin || /*ACCESS*/
+        ctx2[0].tenantAdmin || /*ACCESS*/
+        ctx2[0].entryUser || /*ACCESS*/
+        ctx2[0].reportViewer
       )
         return 0;
       return 1;
@@ -8179,8 +7275,8 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
     if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     let if_block1 = (
       /*FIELDS*/
-      ctx[2] && /*FIELDS*/
-      ctx[2].length > 0 && create_if_block_15(ctx)
+      ctx[1] && /*FIELDS*/
+      ctx[1].length > 0 && create_if_block_22(ctx)
     );
     return {
       c() {
@@ -8194,8 +7290,8 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
         if (if_block1)
           if_block1.c();
         t3 = space();
-        attr(th, "class", "svelte-1j4u0yv");
-        attr(td, "class", "a_row svelte-1j4u0yv");
+        attr(th, "class", "svelte-1rnmrzr");
+        attr(td, "class", "a_row svelte-1rnmrzr");
       },
       m(target, anchor) {
         insert(target, tr, anchor);
@@ -8212,10 +7308,10 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       },
       p(ctx2, dirty) {
         if ((!current || dirty[0] & /*MASTER_ROWS*/
-        1) && t0_value !== (t0_value = /*MASTER_ROWS*/
-        ctx2[0].indexOf(
+        4) && t0_value !== (t0_value = /*MASTER_ROWS*/
+        ctx2[2].indexOf(
           /*row*/
-          ctx2[37]
+          ctx2[47]
         ) + 1 + ""))
           set_data(t0, t0_value);
         let previous_block_index = current_block_type_index;
@@ -8240,13 +7336,13 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
         }
         if (
           /*FIELDS*/
-          ctx2[2] && /*FIELDS*/
-          ctx2[2].length > 0
+          ctx2[1] && /*FIELDS*/
+          ctx2[1].length > 0
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
           } else {
-            if_block1 = create_if_block_15(ctx2);
+            if_block1 = create_if_block_22(ctx2);
             if_block1.c();
             if_block1.m(tr, t3);
           }
@@ -8275,43 +7371,88 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function create_each_block2(ctx) {
-    let button;
-    let t_value = (
-      /*i*/
-      ctx[34] + ""
+  function create_if_block3(ctx) {
+    let div;
+    let each_value_1 = ensure_array_like(
+      /*rowsToShow*/
+      ctx[21]
     );
-    let t;
-    let button_disabled_value;
-    let button_class_value;
-    let button_title_value;
+    let each_blocks = [];
+    for (let i = 0; i < each_value_1.length; i += 1) {
+      each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+    }
+    return {
+      c() {
+        div = element("div");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        attr(div, "class", "rows svelte-1rnmrzr");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(div, null);
+          }
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty[0] & /*ToRow, rowsToShow*/
+        18874368) {
+          each_value_1 = ensure_array_like(
+            /*rowsToShow*/
+            ctx2[21]
+          );
+          let i;
+          for (i = 0; i < each_value_1.length; i += 1) {
+            const child_ctx = get_each_context_1(ctx2, each_value_1, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block_1(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(div, null);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value_1.length;
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        destroy_each(each_blocks, detaching);
+      }
+    };
+  }
+  function create_each_block_1(ctx) {
+    let button;
     let mounted;
     let dispose;
-    function click_handler_2() {
+    function click_handler_3() {
       return (
-        /*click_handler_2*/
-        ctx[32](
-          /*i*/
-          ctx[34]
+        /*click_handler_3*/
+        ctx[33](
+          /*r*/
+          ctx[44]
         )
       );
     }
     return {
       c() {
         button = element("button");
-        t = text(t_value);
-        button.disabled = button_disabled_value = currentPage == /*i*/
-        ctx[34];
-        attr(button, "class", button_class_value = null_to_empty(currentPage === /*i*/
-        ctx[34] ? "btn active" : "btn") + " svelte-1j4u0yv");
-        attr(button, "title", button_title_value = `Go to page ${/*i*/
-        ctx[34]}`);
+        button.textContent = `${/*r*/
+        ctx[44]}`;
+        attr(button, "class", "svelte-1rnmrzr");
       },
       m(target, anchor) {
         insert(target, button, anchor);
-        append(button, t);
         if (!mounted) {
-          dispose = listen(button, "click", click_handler_2);
+          dispose = listen(button, "click", click_handler_3);
           mounted = true;
         }
       },
@@ -8327,62 +7468,132 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function create_fragment10(ctx) {
+  function create_each_block2(ctx) {
+    let button;
+    let t_value = (
+      /*i*/
+      ctx[41] + ""
+    );
+    let t;
+    let button_disabled_value;
+    let button_class_value;
+    let button_title_value;
+    let mounted;
+    let dispose;
+    function click_handler_5() {
+      return (
+        /*click_handler_5*/
+        ctx[35](
+          /*i*/
+          ctx[41]
+        )
+      );
+    }
+    return {
+      c() {
+        button = element("button");
+        t = text(t_value);
+        button.disabled = button_disabled_value = currentPage == /*i*/
+        ctx[41];
+        attr(button, "class", button_class_value = null_to_empty(currentPage === /*i*/
+        ctx[41] ? "btn active" : "btn") + " svelte-1rnmrzr");
+        attr(button, "title", button_title_value = `Go to page ${/*i*/
+        ctx[41]}`);
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        append(button, t);
+        if (!mounted) {
+          dispose = listen(button, "click", click_handler_5);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (dirty[0] & /*paginationShow*/
+        262144 && t_value !== (t_value = /*i*/
+        ctx[41] + ""))
+          set_data(t, t_value);
+        if (dirty[0] & /*paginationShow*/
+        262144 && button_disabled_value !== (button_disabled_value = currentPage == /*i*/
+        ctx[41])) {
+          button.disabled = button_disabled_value;
+        }
+        if (dirty[0] & /*paginationShow*/
+        262144 && button_class_value !== (button_class_value = null_to_empty(currentPage === /*i*/
+        ctx[41] ? "btn active" : "btn") + " svelte-1rnmrzr")) {
+          attr(button, "class", button_class_value);
+        }
+        if (dirty[0] & /*paginationShow*/
+        262144 && button_title_value !== (button_title_value = `Go to page ${/*i*/
+        ctx[41]}`)) {
+          attr(button, "title", button_title_value);
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_fragment8(ctx) {
     let t0;
-    let t1;
     let div12;
     let div5;
     let div3;
     let div1;
     let div0;
-    let t9;
+    let t8;
     let button0;
     let icon0;
-    let t10;
+    let t9;
     let div2;
     let button1;
     let icon1;
+    let t10;
     let t11;
-    let t12;
     let div4;
-    let c;
-    let t13;
-    let t14;
+    let t12;
     let div6;
     let table;
     let thead;
     let tr;
     let th0;
-    let t16;
+    let t14;
     let th1;
-    let t18;
-    let t19;
+    let t16;
+    let t17;
     let tbody;
-    let t20;
+    let t18;
     let div11;
     let div9;
     let div7;
-    let t28;
+    let t26;
     let div8;
+    let t27;
     let button2;
     let span6;
-    let t30;
+    let t28;
+    let t29;
     let icon2;
-    let t31;
+    let t30;
     let div10;
     let button3;
     let icon3;
     let button3_disabled_value;
-    let t32;
+    let t31;
     let button4;
     let icon4;
     let button4_disabled_value;
+    let t32;
     let t33;
-    let t34;
     let button5;
     let icon5;
     let button5_disabled_value;
-    let t35;
+    let t34;
     let button6;
     let icon6;
     let button6_disabled_value;
@@ -8390,12 +7601,8 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
     let mounted;
     let dispose;
     let if_block0 = (
-      /*PURPOSE*/
-      ctx[3] === "staff" && create_if_block_11(ctx)
-    );
-    let if_block1 = (
       /*filterTableReady*/
-      ctx[14] && create_if_block_10(ctx)
+      ctx[14] && create_if_block_11(ctx)
     );
     icon0 = new Icon_default({
       props: {
@@ -8411,23 +7618,34 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
         src: CgMathPlus_default
       }
     });
-    let if_block2 = isAjaxSubmitted && create_if_block_9(ctx);
-    let if_block3 = (
+    let if_block1 = isAjaxSubmitted && create_if_block_10(ctx);
+    let if_block2 = (
       /*CAN_SEARCH_ROW*/
-      ctx[4] && create_if_block_8(ctx)
+      ctx[3] && create_if_block_9(ctx)
+    );
+    let if_block3 = (
+      /*FIELDS*/
+      ctx[1] && /*FIELDS*/
+      ctx[1].length > 0 && create_if_block_6(ctx)
     );
     let if_block4 = (
-      /*FIELDS*/
-      ctx[2] && /*FIELDS*/
-      ctx[2].length > 0 && create_if_block_52(ctx)
+      /*MASTER_ROWS*/
+      ctx[2] && /*MASTER_ROWS*/
+      ctx[2].length && create_if_block_13(ctx)
     );
     let if_block5 = (
-      /*MASTER_ROWS*/
-      ctx[0] && /*MASTER_ROWS*/
-      ctx[0].length && create_if_block5(ctx)
+      /*showRowsNum*/
+      ctx[20] && create_if_block3(ctx)
     );
     icon2 = new Icon_default({
-      props: { size: "13", src: CgChevronDown_default }
+      props: {
+        className: (
+          /*showRowsNum*/
+          ctx[20] ? "dropdown" : "rotate_right"
+        ),
+        size: "13",
+        src: CgChevronDown_default
+      }
     });
     icon3 = new Icon_default({
       props: { size: "16", src: CgChevronDoubleLeft_default }
@@ -8437,7 +7655,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
     });
     let each_value = ensure_array_like(
       /*paginationShow*/
-      ctx[19]
+      ctx[18]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value.length; i += 1) {
@@ -8454,180 +7672,182 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
         if (if_block0)
           if_block0.c();
         t0 = space();
-        if (if_block1)
-          if_block1.c();
-        t1 = space();
         div12 = element("div");
         div5 = element("div");
         div3 = element("div");
         div1 = element("div");
         div0 = element("div");
-        div0.innerHTML = `<p class="svelte-1j4u0yv">Debug table <span class="text-violet svelte-1j4u0yv">1</span>/<span class="text-violet svelte-1j4u0yv">10</span> of <span class="text-violet svelte-1j4u0yv">10</span> record(s)</p>`;
-        t9 = space();
+        div0.innerHTML = `<p class="svelte-1rnmrzr">Debug table <span class="text-violet svelte-1rnmrzr">1</span>/<span class="text-violet svelte-1rnmrzr">10</span> of <span class="text-violet svelte-1rnmrzr">10</span> record(s)</p>`;
+        t8 = space();
         button0 = element("button");
         create_component(icon0.$.fragment);
-        t10 = space();
+        t9 = space();
         div2 = element("div");
         button1 = element("button");
         create_component(icon1.$.fragment);
+        t10 = space();
+        if (if_block1)
+          if_block1.c();
         t11 = space();
+        div4 = element("div");
         if (if_block2)
           if_block2.c();
         t12 = space();
-        div4 = element("div");
-        c = comment(' <div class="filter_search">\n				<select name="filter" id="filter" bind:value={toFilterValue} placeholder="Filter">\n          <option value="" disabled>-- Filter --</option>\n          {#each toFilterValues as v}\n            <option value={v}>{v}</option>\n          {/each}\n        </select>\n			</div> ');
-        t13 = space();
-        if (if_block3)
-          if_block3.c();
-        t14 = space();
         div6 = element("div");
         table = element("table");
         thead = element("thead");
         tr = element("tr");
         th0 = element("th");
         th0.textContent = "No";
-        t16 = space();
+        t14 = space();
         th1 = element("th");
         th1.textContent = "Actions";
-        t18 = space();
+        t16 = space();
+        if (if_block3)
+          if_block3.c();
+        t17 = space();
+        tbody = element("tbody");
         if (if_block4)
           if_block4.c();
-        t19 = space();
-        tbody = element("tbody");
-        if (if_block5)
-          if_block5.c();
-        t20 = space();
+        t18 = space();
         div11 = element("div");
         div9 = element("div");
         div7 = element("div");
-        div7.innerHTML = `<p class="svelte-1j4u0yv">Showing <span class="text-violet svelte-1j4u0yv">10</span>/<span class="text-violet svelte-1j4u0yv">20</span> of <span class="text-violet svelte-1j4u0yv">40</span> record(s)</p>`;
-        t28 = space();
+        div7.innerHTML = `<p class="svelte-1rnmrzr">Showing <span class="text-violet svelte-1rnmrzr">10</span>/<span class="text-violet svelte-1rnmrzr">20</span> of <span class="text-violet svelte-1rnmrzr">40</span> record(s)</p>`;
+        t26 = space();
         div8 = element("div");
+        if (if_block5)
+          if_block5.c();
+        t27 = space();
         button2 = element("button");
         span6 = element("span");
-        span6.textContent = "30";
-        t30 = space();
+        t28 = text(
+          /*currentRows*/
+          ctx[19]
+        );
+        t29 = space();
         create_component(icon2.$.fragment);
-        t31 = space();
+        t30 = space();
         div10 = element("div");
         button3 = element("button");
         create_component(icon3.$.fragment);
-        t32 = space();
+        t31 = space();
         button4 = element("button");
         create_component(icon4.$.fragment);
-        t33 = space();
+        t32 = space();
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        t34 = space();
+        t33 = space();
         button5 = element("button");
         create_component(icon5.$.fragment);
-        t35 = space();
+        t34 = space();
         button6 = element("button");
         create_component(icon6.$.fragment);
         attr(div0, "class", "showing");
-        attr(button0, "class", "btn svelte-1j4u0yv");
-        attr(div1, "class", "debug svelte-1j4u0yv");
-        attr(button1, "class", "btn add svelte-1j4u0yv");
-        attr(div2, "class", "actions_btn svelte-1j4u0yv");
-        attr(div3, "class", "left svelte-1j4u0yv");
-        attr(div4, "class", "right svelte-1j4u0yv");
-        attr(div5, "class", "actions_container svelte-1j4u0yv");
-        attr(th0, "class", "no svelte-1j4u0yv");
-        attr(th1, "class", "a_row svelte-1j4u0yv");
-        attr(thead, "class", "svelte-1j4u0yv");
-        attr(table, "class", "svelte-1j4u0yv");
-        attr(div6, "class", "table_container svelte-1j4u0yv");
+        attr(button0, "class", "btn svelte-1rnmrzr");
+        attr(div1, "class", "debug svelte-1rnmrzr");
+        attr(button1, "class", "btn add svelte-1rnmrzr");
+        attr(div2, "class", "actions_btn svelte-1rnmrzr");
+        attr(div3, "class", "left svelte-1rnmrzr");
+        attr(div4, "class", "right svelte-1rnmrzr");
+        attr(div5, "class", "actions_container svelte-1rnmrzr");
+        attr(th0, "class", "no svelte-1rnmrzr");
+        attr(th1, "class", "a_row svelte-1rnmrzr");
+        attr(thead, "class", "svelte-1rnmrzr");
+        attr(table, "class", "svelte-1rnmrzr");
+        attr(div6, "class", "table_container svelte-1rnmrzr");
         attr(div7, "class", "showing");
-        attr(button2, "class", "btn svelte-1j4u0yv");
-        attr(div8, "class", "row_to_show svelte-1j4u0yv");
-        attr(div9, "class", "filter svelte-1j4u0yv");
+        attr(button2, "class", "btn svelte-1rnmrzr");
+        attr(div8, "class", "row_to_show svelte-1rnmrzr");
+        attr(div9, "class", "filter svelte-1rnmrzr");
         button3.disabled = button3_disabled_value = currentPage == 1;
-        attr(button3, "class", "btn to svelte-1j4u0yv");
+        attr(button3, "class", "btn to svelte-1rnmrzr");
         attr(button3, "title", "Go to first page");
         button4.disabled = button4_disabled_value = currentPage == 1;
-        attr(button4, "class", "btn to svelte-1j4u0yv");
+        attr(button4, "class", "btn to svelte-1rnmrzr");
         attr(button4, "title", "Go to previous page");
-        button5.disabled = button5_disabled_value = currentPage == paginationTotal;
-        attr(button5, "class", "btn to svelte-1j4u0yv");
+        button5.disabled = button5_disabled_value = currentPage == /*paginationTotal*/
+        ctx[17];
+        attr(button5, "class", "btn to svelte-1rnmrzr");
         attr(button5, "title", "Go to next page");
-        button6.disabled = button6_disabled_value = currentPage == paginationTotal;
-        attr(button6, "class", "btn to svelte-1j4u0yv");
+        button6.disabled = button6_disabled_value = currentPage == /*paginationTotal*/
+        ctx[17];
+        attr(button6, "class", "btn to svelte-1rnmrzr");
         attr(button6, "title", "Go to last page");
-        attr(div10, "class", "pagination svelte-1j4u0yv");
-        attr(div11, "class", "pagination_container svelte-1j4u0yv");
-        attr(div12, "class", "table_root svelte-1j4u0yv");
+        attr(div10, "class", "pagination svelte-1rnmrzr");
+        attr(div11, "class", "pagination_container svelte-1rnmrzr");
+        attr(div12, "class", "table_root svelte-1rnmrzr");
       },
       m(target, anchor) {
         if (if_block0)
           if_block0.m(target, anchor);
         insert(target, t0, anchor);
-        if (if_block1)
-          if_block1.m(target, anchor);
-        insert(target, t1, anchor);
         insert(target, div12, anchor);
         append(div12, div5);
         append(div5, div3);
         append(div3, div1);
         append(div1, div0);
-        append(div1, t9);
+        append(div1, t8);
         append(div1, button0);
         mount_component(icon0, button0, null);
-        append(div3, t10);
+        append(div3, t9);
         append(div3, div2);
         append(div2, button1);
         mount_component(icon1, button1, null);
-        append(div3, t11);
-        if (if_block2)
-          if_block2.m(div3, null);
-        append(div5, t12);
+        append(div3, t10);
+        if (if_block1)
+          if_block1.m(div3, null);
+        append(div5, t11);
         append(div5, div4);
-        append(div4, c);
-        append(div4, t13);
-        if (if_block3)
-          if_block3.m(div4, null);
-        append(div12, t14);
+        if (if_block2)
+          if_block2.m(div4, null);
+        append(div12, t12);
         append(div12, div6);
         append(div6, table);
         append(table, thead);
         append(thead, tr);
         append(tr, th0);
-        append(tr, t16);
+        append(tr, t14);
         append(tr, th1);
-        append(tr, t18);
-        if (if_block4)
-          if_block4.m(tr, null);
-        append(table, t19);
+        append(tr, t16);
+        if (if_block3)
+          if_block3.m(tr, null);
+        append(table, t17);
         append(table, tbody);
-        if (if_block5)
-          if_block5.m(tbody, null);
-        append(div12, t20);
+        if (if_block4)
+          if_block4.m(tbody, null);
+        append(div12, t18);
         append(div12, div11);
         append(div11, div9);
         append(div9, div7);
-        append(div9, t28);
+        append(div9, t26);
         append(div9, div8);
+        if (if_block5)
+          if_block5.m(div8, null);
+        append(div8, t27);
         append(div8, button2);
         append(button2, span6);
-        append(button2, t30);
+        append(span6, t28);
+        append(button2, t29);
         mount_component(icon2, button2, null);
-        append(div11, t31);
+        append(div11, t30);
         append(div11, div10);
         append(div10, button3);
         mount_component(icon3, button3, null);
-        append(div10, t32);
+        append(div10, t31);
         append(div10, button4);
         mount_component(icon4, button4, null);
-        append(div10, t33);
+        append(div10, t32);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
             each_blocks[i].m(div10, null);
           }
         }
-        append(div10, t34);
+        append(div10, t33);
         append(div10, button5);
         mount_component(icon5, button5, null);
-        append(div10, t35);
+        append(div10, t34);
         append(div10, button6);
         mount_component(icon6, button6, null);
         current = true;
@@ -8641,11 +7861,17 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
             ),
             listen(button1, "click", function() {
               if (is_function(
-                /*handleAdd*/
-                ctx[6]
+                /*HandleAdd*/
+                ctx[5]
               ))
-                ctx[6].apply(this, arguments);
+                ctx[5].apply(this, arguments);
             }),
+            listen(
+              button2,
+              "click",
+              /*toggleRowsNum*/
+              ctx[22]
+            ),
             listen(button3, "click", function() {
               if (is_function(
                 /*FirstPage*/
@@ -8653,20 +7879,18 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
               ))
                 ctx[11].apply(this, arguments);
             }),
-            listen(button4, "click", function() {
-              if (is_function(
-                /*PreviousPage*/
-                ctx[10]
-              ))
-                ctx[10].apply(this, arguments);
-            }),
-            listen(button5, "click", function() {
-              if (is_function(
-                /*NextPage*/
-                ctx[9]
-              ))
-                ctx[9].apply(this, arguments);
-            }),
+            listen(
+              button4,
+              "click",
+              /*click_handler_4*/
+              ctx[34]
+            ),
+            listen(
+              button5,
+              "click",
+              /*click_handler_6*/
+              ctx[36]
+            ),
             listen(button6, "click", function() {
               if (is_function(
                 /*LastPage*/
@@ -8681,13 +7905,13 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if (
-          /*PURPOSE*/
-          ctx[3] === "staff"
+          /*filterTableReady*/
+          ctx[14]
         ) {
           if (if_block0) {
             if_block0.p(ctx, dirty);
-            if (dirty[0] & /*PURPOSE*/
-            8) {
+            if (dirty[0] & /*filterTableReady*/
+            16384) {
               transition_in(if_block0, 1);
             }
           } else {
@@ -8704,42 +7928,43 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
           check_outros();
         }
         if (
-          /*filterTableReady*/
-          ctx[14]
+          /*CAN_SEARCH_ROW*/
+          ctx[3]
         ) {
-          if (if_block1) {
-            if_block1.p(ctx, dirty);
-            if (dirty[0] & /*filterTableReady*/
-            16384) {
-              transition_in(if_block1, 1);
+          if (if_block2) {
+            if (dirty[0] & /*CAN_SEARCH_ROW*/
+            8) {
+              transition_in(if_block2, 1);
             }
           } else {
-            if_block1 = create_if_block_10(ctx);
-            if_block1.c();
-            transition_in(if_block1, 1);
-            if_block1.m(t1.parentNode, t1);
+            if_block2 = create_if_block_9(ctx);
+            if_block2.c();
+            transition_in(if_block2, 1);
+            if_block2.m(div4, null);
           }
-        } else if (if_block1) {
+        } else if (if_block2) {
           group_outros();
-          transition_out(if_block1, 1, 1, () => {
-            if_block1 = null;
+          transition_out(if_block2, 1, 1, () => {
+            if_block2 = null;
           });
           check_outros();
         }
         if (
-          /*CAN_SEARCH_ROW*/
-          ctx[4]
+          /*FIELDS*/
+          ctx[1] && /*FIELDS*/
+          ctx[1].length > 0
         ) {
           if (if_block3) {
-            if (dirty[0] & /*CAN_SEARCH_ROW*/
-            16) {
+            if_block3.p(ctx, dirty);
+            if (dirty[0] & /*FIELDS*/
+            2) {
               transition_in(if_block3, 1);
             }
           } else {
-            if_block3 = create_if_block_8(ctx);
+            if_block3 = create_if_block_6(ctx);
             if_block3.c();
             transition_in(if_block3, 1);
-            if_block3.m(div4, null);
+            if_block3.m(tr, null);
           }
         } else if (if_block3) {
           group_outros();
@@ -8749,21 +7974,21 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
           check_outros();
         }
         if (
-          /*FIELDS*/
-          ctx[2] && /*FIELDS*/
-          ctx[2].length > 0
+          /*MASTER_ROWS*/
+          ctx[2] && /*MASTER_ROWS*/
+          ctx[2].length
         ) {
           if (if_block4) {
             if_block4.p(ctx, dirty);
-            if (dirty[0] & /*FIELDS*/
+            if (dirty[0] & /*MASTER_ROWS*/
             4) {
               transition_in(if_block4, 1);
             }
           } else {
-            if_block4 = create_if_block_52(ctx);
+            if_block4 = create_if_block_13(ctx);
             if_block4.c();
             transition_in(if_block4, 1);
-            if_block4.m(tr, null);
+            if_block4.m(tbody, null);
           }
         } else if (if_block4) {
           group_outros();
@@ -8773,34 +7998,38 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
           check_outros();
         }
         if (
-          /*MASTER_ROWS*/
-          ctx[0] && /*MASTER_ROWS*/
-          ctx[0].length
+          /*showRowsNum*/
+          ctx[20]
         ) {
           if (if_block5) {
             if_block5.p(ctx, dirty);
-            if (dirty[0] & /*MASTER_ROWS*/
-            1) {
-              transition_in(if_block5, 1);
-            }
           } else {
-            if_block5 = create_if_block5(ctx);
+            if_block5 = create_if_block3(ctx);
             if_block5.c();
-            transition_in(if_block5, 1);
-            if_block5.m(tbody, null);
+            if_block5.m(div8, t27);
           }
         } else if (if_block5) {
-          group_outros();
-          transition_out(if_block5, 1, 1, () => {
-            if_block5 = null;
-          });
-          check_outros();
+          if_block5.d(1);
+          if_block5 = null;
         }
+        if (!current || dirty[0] & /*currentRows*/
+        524288)
+          set_data(
+            t28,
+            /*currentRows*/
+            ctx[19]
+          );
+        const icon2_changes = {};
+        if (dirty[0] & /*showRowsNum*/
+        1048576)
+          icon2_changes.className = /*showRowsNum*/
+          ctx[20] ? "dropdown" : "rotate_right";
+        icon2.$set(icon2_changes);
         if (dirty[0] & /*paginationShow, GoToPage*/
-        524544) {
+        262400) {
           each_value = ensure_array_like(
             /*paginationShow*/
-            ctx[19]
+            ctx[18]
           );
           let i;
           for (i = 0; i < each_value.length; i += 1) {
@@ -8810,7 +8039,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
             } else {
               each_blocks[i] = create_each_block2(child_ctx);
               each_blocks[i].c();
-              each_blocks[i].m(div10, t34);
+              each_blocks[i].m(div10, t33);
             }
           }
           for (; i < each_blocks.length; i += 1) {
@@ -8818,18 +8047,27 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
           }
           each_blocks.length = each_value.length;
         }
+        if (!current || dirty[0] & /*paginationTotal*/
+        131072 && button5_disabled_value !== (button5_disabled_value = currentPage == /*paginationTotal*/
+        ctx[17])) {
+          button5.disabled = button5_disabled_value;
+        }
+        if (!current || dirty[0] & /*paginationTotal*/
+        131072 && button6_disabled_value !== (button6_disabled_value = currentPage == /*paginationTotal*/
+        ctx[17])) {
+          button6.disabled = button6_disabled_value;
+        }
       },
       i(local) {
         if (current)
           return;
         transition_in(if_block0);
-        transition_in(if_block1);
         transition_in(icon0.$.fragment, local);
         transition_in(icon1.$.fragment, local);
+        transition_in(if_block1);
         transition_in(if_block2);
         transition_in(if_block3);
         transition_in(if_block4);
-        transition_in(if_block5);
         transition_in(icon2.$.fragment, local);
         transition_in(icon3.$.fragment, local);
         transition_in(icon4.$.fragment, local);
@@ -8839,13 +8077,12 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       },
       o(local) {
         transition_out(if_block0);
-        transition_out(if_block1);
         transition_out(icon0.$.fragment, local);
         transition_out(icon1.$.fragment, local);
+        transition_out(if_block1);
         transition_out(if_block2);
         transition_out(if_block3);
         transition_out(if_block4);
-        transition_out(if_block5);
         transition_out(icon2.$.fragment, local);
         transition_out(icon3.$.fragment, local);
         transition_out(icon4.$.fragment, local);
@@ -8856,15 +8093,14 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       d(detaching) {
         if (detaching) {
           detach(t0);
-          detach(t1);
           detach(div12);
         }
         if (if_block0)
           if_block0.d(detaching);
-        if (if_block1)
-          if_block1.d(detaching);
         destroy_component(icon0);
         destroy_component(icon1);
+        if (if_block1)
+          if_block1.d();
         if (if_block2)
           if_block2.d();
         if (if_block3)
@@ -8885,11 +8121,9 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
     };
   }
   var isAjaxSubmitted = false;
-  var paginationTotal = 1;
   var currentPage = 1;
   var sortTableAsc = false;
-  function instance10($self, $props, $invalidate) {
-    const URL = window.location.pathname;
+  function instance8($self, $props, $invalidate) {
     let { ACCESS = (
       /** @type Access */
       {}
@@ -8906,56 +8140,66 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       /** @type any[][] */
       []
     ) } = $props;
-    let { PURPOSE = "staff" } = $props;
     let { CAN_SEARCH_ROW = true } = $props;
     let { CAN_EDIT_ROW = true } = $props;
     let filterTable = null;
     let filterTableReady = false;
     let filterColumns = [];
-    let filterMap = {};
-    let paginationShow = [1, 2, 3, 4, 5];
+    let filtersMap = {};
+    let paginationTotal = 1;
+    let paginationsAll = (
+      /** @type number[] */
+      []
+    );
+    let paginationShow = (
+      /** @type number[] */
+      []
+    );
+    let totalPages = 0;
+    let totalRound = 0;
+    let currentRows = PAGER.perPage;
+    let rowsToShow = [10, 20, 40, 60, 70, 100, 200];
+    let showRowsNum = false;
+    function toggleRowsNum() {
+      $invalidate(20, showRowsNum = !showRowsNum);
+    }
+    function getPaginationShow() {
+      totalRound = Math.ceil(totalPages / currentRows) * currentRows;
+      $invalidate(17, paginationTotal = totalRound / currentRows), paginationsAll = [];
+      if (currentRows > PAGER.countResult)
+        $invalidate(17, paginationTotal = 1);
+      for (let i = 0; i < paginationTotal; i++) {
+        paginationsAll = [...paginationsAll, i + 1];
+      }
+      let start = 0, end = 0;
+      if (paginationTotal < 5) {
+        start = 0, end = paginationTotal;
+      } else if (currentPage < 5 && currentPage - 3 < 0) {
+        start = 0, end = 5;
+      } else if (currentPage > paginationTotal - 5 && currentPage + 3 < paginationTotal) {
+        start = currentPage - 3, end = currentPage + 2;
+      } else if (currentPage + 3 >= paginationTotal) {
+        start = paginationTotal - 5, end = paginationTotal;
+      } else {
+        start = currentPage - 3, end = currentPage + 2;
+      }
+      $invalidate(18, paginationShow = paginationsAll.slice(start, end));
+    }
     onMount(() => {
       $invalidate(13, filterTable = FilterTable_default);
       $invalidate(14, filterTableReady = true);
+      totalPages = PAGER.pages;
       if (FIELDS && FIELDS.length > 0) {
         $invalidate(15, filterColumns = []);
         FIELDS.forEach((col) => $invalidate(15, filterColumns = [...filterColumns, { key: col.name, label: col.label }]));
       }
+      getPaginationShow();
     });
-    let isSubmitInviteUser = false, emailToInvite = "";
-    let popUpInviteUser;
-    async function onSubmitInviteUser() {
-      isSubmitInviteUser = true;
-      await (0, import_jsApi_GEN2.TenantAdminDashboard)(
-        {
-          cmd: "upsert",
-          staffEmail: emailToInvite,
-          withMeta: true,
-          // @ts-ignore
-          pager: {
-            page: 1,
-            perPage: 0,
-            filters: {},
-            order: []
-          }
-        },
-        /** @type {import('../jsApi.GEN.js').TenantAdminDashboardCallback} */
-        function(o) {
-          isSubmitInviteUser = false;
-          popUpInviteUser.hide();
-          if (o.error) {
-            notifier.showError(o.error);
-            console.log(o);
-            return;
-          }
-          $invalidate(0, MASTER_ROWS = o.staffs);
-          notifier.showSuccess("user invited successfully");
-        }
-      );
-    }
-    let { handleAdd = function() {
+    let { HandleAdd = function() {
     } } = $props;
-    let { handleDelete = function(row) {
+    let { HandleDelete = function(row) {
+    } } = $props;
+    let { HandleEdit = function(row) {
     } } = $props;
     let { GoToPage: GoToPage2 = function(page) {
     } } = $props;
@@ -8967,20 +8211,24 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
     } } = $props;
     let { LastPage: LastPage2 = function() {
     } } = $props;
-    let { OnRefreshTableView = function(pager) {
+    let { OnRefreshTableView = function(pagerIn) {
     } } = $props;
-    function ApplyFilterTable() {
-      OnRefreshTableView({ ...PAGER, filters: filterMap });
+    function ApplyFilter() {
+      filterTable.Hide();
+      let filters = {};
+      for (let key in filtersMap) {
+        let value = filtersMap[key];
+        if (value)
+          filters[key] = value.split("|");
+      }
+      OnRefreshTableView({ ...PAGER, filters });
+      getPaginationShow();
     }
-    function popupinviteuser_binding($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        popUpInviteUser = $value;
-        $invalidate(18, popUpInviteUser);
-      });
-    }
-    function popupinviteuser_email_binding(value) {
-      emailToInvite = value;
-      $invalidate(17, emailToInvite);
+    function ToRow(row) {
+      $invalidate(19, currentRows = row);
+      $invalidate(20, showRowsNum = false);
+      OnRefreshTableView({ ...PAGER, perPage: row });
+      getPaginationShow();
     }
     function filtertable_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
@@ -8992,32 +8240,36 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       filterColumns = value;
       $invalidate(15, filterColumns);
     }
-    function filtertable_filterMap_binding(value) {
-      filterMap = value;
-      $invalidate(16, filterMap);
+    function filtertable_filtersMap_binding(value) {
+      filtersMap = value;
+      $invalidate(16, filtersMap);
     }
     const click_handler = () => filterTable.Show();
-    const click_handler_1 = (row) => handleDelete(row);
-    const click_handler_2 = (i) => GoToPage2(i);
+    const click_handler_1 = (row) => HandleEdit(row);
+    const click_handler_2 = (row) => HandleDelete(row);
+    const click_handler_3 = (r) => ToRow(r);
+    const click_handler_4 = () => PreviousPage2(currentPage - 1);
+    const click_handler_5 = (i) => GoToPage2(i);
+    const click_handler_6 = () => NextPage2(currentPage + 1);
     $self.$set = ($props2) => {
       if ("ACCESS" in $props2)
-        $invalidate(1, ACCESS = $props2.ACCESS);
+        $invalidate(0, ACCESS = $props2.ACCESS);
       if ("FIELDS" in $props2)
-        $invalidate(2, FIELDS = $props2.FIELDS);
+        $invalidate(1, FIELDS = $props2.FIELDS);
       if ("PAGER" in $props2)
-        $invalidate(23, PAGER = $props2.PAGER);
+        $invalidate(25, PAGER = $props2.PAGER);
       if ("MASTER_ROWS" in $props2)
-        $invalidate(0, MASTER_ROWS = $props2.MASTER_ROWS);
-      if ("PURPOSE" in $props2)
-        $invalidate(3, PURPOSE = $props2.PURPOSE);
+        $invalidate(2, MASTER_ROWS = $props2.MASTER_ROWS);
       if ("CAN_SEARCH_ROW" in $props2)
-        $invalidate(4, CAN_SEARCH_ROW = $props2.CAN_SEARCH_ROW);
+        $invalidate(3, CAN_SEARCH_ROW = $props2.CAN_SEARCH_ROW);
       if ("CAN_EDIT_ROW" in $props2)
-        $invalidate(5, CAN_EDIT_ROW = $props2.CAN_EDIT_ROW);
-      if ("handleAdd" in $props2)
-        $invalidate(6, handleAdd = $props2.handleAdd);
-      if ("handleDelete" in $props2)
-        $invalidate(7, handleDelete = $props2.handleDelete);
+        $invalidate(4, CAN_EDIT_ROW = $props2.CAN_EDIT_ROW);
+      if ("HandleAdd" in $props2)
+        $invalidate(5, HandleAdd = $props2.HandleAdd);
+      if ("HandleDelete" in $props2)
+        $invalidate(6, HandleDelete = $props2.HandleDelete);
+      if ("HandleEdit" in $props2)
+        $invalidate(7, HandleEdit = $props2.HandleEdit);
       if ("GoToPage" in $props2)
         $invalidate(8, GoToPage2 = $props2.GoToPage);
       if ("NextPage" in $props2)
@@ -9029,17 +8281,17 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       if ("LastPage" in $props2)
         $invalidate(12, LastPage2 = $props2.LastPage);
       if ("OnRefreshTableView" in $props2)
-        $invalidate(24, OnRefreshTableView = $props2.OnRefreshTableView);
+        $invalidate(26, OnRefreshTableView = $props2.OnRefreshTableView);
     };
     return [
-      MASTER_ROWS,
       ACCESS,
       FIELDS,
-      PURPOSE,
+      MASTER_ROWS,
       CAN_SEARCH_ROW,
       CAN_EDIT_ROW,
-      handleAdd,
-      handleDelete,
+      HandleAdd,
+      HandleDelete,
+      HandleEdit,
       GoToPage2,
       NextPage2,
       PreviousPage2,
@@ -9048,23 +8300,27 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       filterTable,
       filterTableReady,
       filterColumns,
-      filterMap,
-      emailToInvite,
-      popUpInviteUser,
+      filtersMap,
+      paginationTotal,
       paginationShow,
-      onSubmitInviteUser,
-      ApplyFilterTable,
-      URL,
+      currentRows,
+      showRowsNum,
+      rowsToShow,
+      toggleRowsNum,
+      ApplyFilter,
+      ToRow,
       PAGER,
       OnRefreshTableView,
-      popupinviteuser_binding,
-      popupinviteuser_email_binding,
       filtertable_binding,
       filtertable_filterColumns_binding,
-      filtertable_filterMap_binding,
+      filtertable_filtersMap_binding,
       click_handler,
       click_handler_1,
-      click_handler_2
+      click_handler_2,
+      click_handler_3,
+      click_handler_4,
+      click_handler_5,
+      click_handler_6
     ];
   }
   var MasterTable = class extends SvelteComponent {
@@ -9073,38 +8329,35 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       init(
         this,
         options,
-        instance10,
-        create_fragment10,
+        instance8,
+        create_fragment8,
         safe_not_equal,
         {
-          URL: 22,
-          ACCESS: 1,
-          FIELDS: 2,
-          PAGER: 23,
-          MASTER_ROWS: 0,
-          PURPOSE: 3,
-          CAN_SEARCH_ROW: 4,
-          CAN_EDIT_ROW: 5,
-          handleAdd: 6,
-          handleDelete: 7,
+          ACCESS: 0,
+          FIELDS: 1,
+          PAGER: 25,
+          MASTER_ROWS: 2,
+          CAN_SEARCH_ROW: 3,
+          CAN_EDIT_ROW: 4,
+          HandleAdd: 5,
+          HandleDelete: 6,
+          HandleEdit: 7,
           GoToPage: 8,
           NextPage: 9,
           PreviousPage: 10,
           FirstPage: 11,
           LastPage: 12,
-          OnRefreshTableView: 24
+          OnRefreshTableView: 26
         },
         null,
         [-1, -1]
       );
     }
-    get URL() {
-      return this.$.ctx[22];
-    }
   };
   var MasterTable_default = MasterTable;
 
   // superAdmin_tenantManagement.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
   function create_default_slot(ctx) {
     let div;
     let mastertable;
@@ -9113,46 +8366,48 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
     let updating_MASTER_ROWS;
     let current;
     function mastertable_FIELDS_binding(value) {
-      ctx[3](value);
-    }
-    function mastertable_PAGER_binding(value) {
       ctx[4](value);
     }
-    function mastertable_MASTER_ROWS_binding(value) {
+    function mastertable_PAGER_binding(value) {
       ctx[5](value);
     }
+    function mastertable_MASTER_ROWS_binding(value) {
+      ctx[6](value);
+    }
     let mastertable_props = {
-      URL: "/superAdmin/tenantManagement",
       ACCESS: segments2,
-      PURPOSE: "tenant",
-      CAN_EDIT_ROW: false,
+      CAN_EDIT_ROW: true,
       CAN_SEARCH_ROW: true,
       GoToPage,
       NextPage,
       PreviousPage,
       FirstPage,
-      LastPage
+      LastPage,
+      OnRefreshTableView: (
+        /*OnRefreshTableView*/
+        ctx[3]
+      )
     };
     if (
       /*fields*/
-      ctx[1] !== void 0
+      ctx[0] !== void 0
     ) {
       mastertable_props.FIELDS = /*fields*/
-      ctx[1];
+      ctx[0];
     }
     if (
       /*pager*/
-      ctx[2] !== void 0
+      ctx[1] !== void 0
     ) {
       mastertable_props.PAGER = /*pager*/
-      ctx[2];
+      ctx[1];
     }
     if (
       /*tenants*/
-      ctx[0] !== void 0
+      ctx[2] !== void 0
     ) {
       mastertable_props.MASTER_ROWS = /*tenants*/
-      ctx[0];
+      ctx[2];
     }
     mastertable = new MasterTable_default({ props: mastertable_props });
     binding_callbacks.push(() => bind(mastertable, "FIELDS", mastertable_FIELDS_binding));
@@ -9171,24 +8426,24 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       p(ctx2, dirty) {
         const mastertable_changes = {};
         if (!updating_FIELDS && dirty & /*fields*/
-        2) {
+        1) {
           updating_FIELDS = true;
           mastertable_changes.FIELDS = /*fields*/
-          ctx2[1];
+          ctx2[0];
           add_flush_callback(() => updating_FIELDS = false);
         }
         if (!updating_PAGER && dirty & /*pager*/
-        4) {
+        2) {
           updating_PAGER = true;
           mastertable_changes.PAGER = /*pager*/
-          ctx2[2];
+          ctx2[1];
           add_flush_callback(() => updating_PAGER = false);
         }
         if (!updating_MASTER_ROWS && dirty & /*tenants*/
-        1) {
+        4) {
           updating_MASTER_ROWS = true;
           mastertable_changes.MASTER_ROWS = /*tenants*/
-          ctx2[0];
+          ctx2[2];
           add_flush_callback(() => updating_MASTER_ROWS = false);
         }
         mastertable.$set(mastertable_changes);
@@ -9211,7 +8466,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       }
     };
   }
-  function create_fragment11(ctx) {
+  function create_fragment9(ctx) {
     let mainlayout;
     let current;
     mainlayout = new mainLayout_default({
@@ -9231,7 +8486,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       p(ctx2, [dirty]) {
         const mainlayout_changes = {};
         if (dirty & /*$scope, fields, pager, tenants*/
-        71) {
+        135) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -9274,11 +8529,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
   function LastPage() {
     console.log("lastPage");
   }
-  function instance11($self, $props, $invalidate) {
-    let tenants = (
-      /** @type any[][] */
-      [/* tenants */]
-    );
+  function instance9($self, $props, $invalidate) {
     let fields = (
       /** @type Field[] */
       [/* fields */]
@@ -9287,27 +8538,49 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
       /** @type PagerOut */
       {/* pager */}
     );
+    let tenants = (
+      /** @type any[][] */
+      [/* tenants */]
+    );
     console.log("segments =", segments2);
     console.log("user =", user2);
     console.log("tenants =", tenants);
     console.log("fields =", fields);
     console.log("pager =", pager);
+    async function OnRefreshTableView(pagerIn) {
+      const i = { pager: pagerIn, cmd: "list" };
+      await (0, import_jsApi.SuperAdminTenantManagement)(
+        // @ts-ignore
+        i,
+        /** @type {import('./jsApi.GEN').SuperAdminTenantManagementCallback} */
+        /** @returns {void} */
+        function(o) {
+          if (o.error) {
+            console.log(o);
+            return;
+          }
+          console.log(o);
+          $invalidate(2, tenants = o.tenants);
+        }
+      );
+    }
     function mastertable_FIELDS_binding(value) {
       fields = value;
-      $invalidate(1, fields);
+      $invalidate(0, fields);
     }
     function mastertable_PAGER_binding(value) {
       pager = value;
-      $invalidate(2, pager);
+      $invalidate(1, pager);
     }
     function mastertable_MASTER_ROWS_binding(value) {
       tenants = value;
-      $invalidate(0, tenants);
+      $invalidate(2, tenants);
     }
     return [
-      tenants,
       fields,
       pager,
+      tenants,
+      OnRefreshTableView,
       mastertable_FIELDS_binding,
       mastertable_PAGER_binding,
       mastertable_MASTER_ROWS_binding
@@ -9316,7 +8589,7 @@ p.svelte-1j4u0yv.svelte-1j4u0yv {
   var SuperAdmin_tenantManagement = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance11, create_fragment11, safe_not_equal, {});
+      init(this, options, instance9, create_fragment9, safe_not_equal, {});
     }
   };
   var superAdmin_tenantManagement_default = SuperAdmin_tenantManagement;

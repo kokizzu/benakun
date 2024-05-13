@@ -46,7 +46,6 @@
       bind:FIELDS={fields}
       bind:PAGER={pager}
       bind:MASTER_ROWS={staffs}
-      PURPOSE='staff'
       CAN_EDIT_ROW={false}
       CAN_SEARCH_ROW={true}
 

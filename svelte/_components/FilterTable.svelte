@@ -14,7 +14,7 @@
 
   /** @type {FilterTable[]} */
   export let filterColumns = [];
-	export let filterMap = {};
+	export let filtersMap = {};
 
 	let isVisible = false;
 
@@ -41,7 +41,7 @@
 									type="text"
 									name={col.key}
 									id={col.key}
-									bind:value={filterMap[col.key]}
+									bind:value={filtersMap[col.key]}
 								/>
 							</div>
 							<div class="actions">
