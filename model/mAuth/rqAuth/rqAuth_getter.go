@@ -197,9 +197,9 @@ func (u *Users) FindStaffByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *
 
 	validFields := UsersFieldTypeMap
 	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
-	whereAndSql2 := `AND (` + u.SqlInvitationState() + ` LIKE '%tenant:` + u.TenantCode + `:%')`
+	whereAndSql2 := `AND (` + u.SqlInvitationState() + ` LIKE ` + S.Z(`'%tenant:`+u.TenantCode+`:%`)
 	if whereAndSql == `` {
-		whereAndSql2 = ` WHERE ` + u.SqlInvitationState() + ` LIKE '%tenant:` + u.TenantCode + `:%'`
+		whereAndSql2 = ` WHERE ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`'%tenant:`+u.TenantCode+`:%`)
 	}
 
 	queryCount := comment + `
