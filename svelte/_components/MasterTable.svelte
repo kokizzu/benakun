@@ -51,6 +51,9 @@
 	// Binding value of column, for payloaf
 	let filtersMap = {};
 
+	// Index of field 'deletedAt', for marker deleted rows
+	let deletedIndex = 0;
+
 	// Pagination total, based on total pages
 	let paginationTotal = 1;
 	// Pagination all, based on total pages
@@ -118,10 +121,14 @@
 		// Loop column/fields, fill variable filterColumn for filters
 		if (FIELDS && FIELDS.length > 0) {
 			filterColumns = [];
-			FIELDS.forEach((col) => filterColumns = [...filterColumns, {
-				key: col.name,
-				label: col.label
-			}]);
+			FIELDS.forEach((col, idx) => {
+				if (col.name === 'deletedAt') deletedIndex = idx;
+				else if (col.name === 'invitationState') deletedIndex = idx;
+				filterColumns = [...filterColumns, {
+					key: col.name,
+					label: col.label
+				}]
+			});
 		}
 		// Calculate pagination
 		getPaginationShow();
@@ -254,7 +261,12 @@
 			<tbody>
 				{#if MASTER_ROWS && MASTER_ROWS.length}
 					{#each MASTER_ROWS as row}
-						<tr>
+						<tr class={
+							(CAN_DELETE_ROW && row[deletedIndex] > 0)
+							|| (CAN_DELETE_ROW && row[deletedIndex] === 'terminated')
+								? 'deleted'
+								: ''
+						}>
 							<td class="num_row">{MASTER_ROWS.indexOf(row) + 1}</td>
 							<td class="a_row">
 								{#if ACCESS.superAdmin
@@ -546,6 +558,10 @@
 		text-transform: capitalize;
 		border-bottom: 1px solid var(--gray-003);
   }
+
+	.table_root .table_container table tbody tr.deleted {
+		color: var(--red-005);
+	}
 
   .table_root .table_container table thead tr th.no {
     width: 30px;

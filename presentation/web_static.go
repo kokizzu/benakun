@@ -221,7 +221,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
 		// out := d.SuperAdminDashboard(&in)
 		return views.RenderSuperAdminDashboard(ctx, M.SX{
-			`title`:    `Users`,
+			`title`:    `Super Admin Dashboard`,
 			`segments`: segments,
 			`user`:     user,
 		})
@@ -241,7 +241,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.Cmd = zCrud.CmdList
 		out := d.SuperAdminUserManagement(&in)
 		return views.RenderSuperAdminUserManagement(ctx, M.SX{
-			`title`:    `Users`,
+			`title`:    `Super Admin User Management`,
 			`segments`: segments,
 			`users`:    out.Users,
 			`fields`:   out.Meta.Fields,
@@ -264,7 +264,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.Cmd = zCrud.CmdList
 		out := d.SuperAdminTenantManagement(&in)
 		return views.RenderSuperAdminTenantManagement(ctx, M.SX{
-			`title`:    `Users`,
+			`title`:    `Super Admin Tenant Management`,
 			`segments`: segments,
 			`tenants`:  out.Tenants,
 			`fields`:   out.Meta.Fields,
