@@ -40,7 +40,7 @@ const (
 	ErrTenantAdminDashboardUnauthorized   = `unauthorized user`
 	ErrTenantAdminDashboardTenantNotFound = `tenant admin not found`
 	ErrTenantAdminDashboardStaffEmailRequired = `staff email is required`
-	ErrTenantAdminDashboardStaffNotFound = `staff not found` 
+	ErrTenantAdminDashboardUserNotFound = `user not found` 
 	ErrTenantAdminDashboardInvalidStaff = `invalid staff`
 	ErrTenantAdminDashboardEmptyState = `failed to modify staff, state is empty`
 	ErrTenantAdminDashboardFailed = `failed to update staff`
@@ -120,7 +120,7 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 			user := wcAuth.NewUsersMutator(d.AuthOltp)
 			user.Email = in.StaffEmail
 			if !user.FindByEmail() {
-				out.SetError(400, ErrTenantAdminDashboardStaffNotFound)
+				out.SetError(400, ErrTenantAdminDashboardUserNotFound)
 				return
 			}
 
@@ -161,6 +161,19 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 				}
 
 				user.SetRole(UserSegment)
+			} else if in.Cmd == zCrud.CmdRestore {
+				mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
+				if errors.Is(err, mAuth.ErrInvitationStateEmpty) {
+					out.SetError(400, ErrTenantAdminDashboardEmptyState)
+					return
+				} else {
+					err := mapState.ModifyState(tenant.TenantCode, mAuth.InvitationStateInvited)
+					if err != nil {
+						out.SetError(400, err.Error())
+						return
+					}
+					user.SetInvitationState(mapState.ToStateString())
+				}
 			}
 
 			if !user.DoUpdateByEmail() {
@@ -169,7 +182,7 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 				return
 			}
 
-			if in.Cmd == zCrud.CmdUpsert {
+			if in.Cmd == zCrud.CmdUpsert || in.Cmd == zCrud.CmdRestore {
 				d.runSubtask(func() {
 					inviteRespUrl := in.Host + `/` + UserResponseInvitationAction + `?tenantCode=` + tenant.TenantCode + `&response=`
 					err := d.Mailer.SendInviteUserEmail(tenant.TenantCode, user.Email, inviteRespUrl)

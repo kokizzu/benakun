@@ -22,13 +22,3 @@
  * @property {number} verifiedAt
  */
 module.exports = {};
-
-/**
- * @typedef {Object} Staff
- * @property {number} id
- * @property {string} email
- * @property {string} fullName
- * @property {string} invitationState
- * @property {string} role
- */
-module.exports = {};

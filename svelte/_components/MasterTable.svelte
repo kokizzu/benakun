@@ -68,7 +68,7 @@
 	// Rows per page
 	let currentRows = PAGER.perPage;
 	// Rows per page options
-	let rowsToShow = [10, 20, 40, 60, 70, 100, 200];
+	let rowsToShow = [10, 1, 40, 60, 70, 100, 200];
 	// State for show rows options
 	let showRowsNum = false;
 	// Total rows
@@ -412,7 +412,6 @@
     display: flex;
     flex-direction: column;
 		background-color: #FFF;
-		box-shadow: var(--shadow-md);
 		border-radius: 10px;
 		border: 1px solid var(--gray-003);
 		padding: 0 0 20px 0;
@@ -429,7 +428,7 @@
     justify-content: space-between;
     align-items: center;
 		padding: 10px 15px;
-		background: linear-gradient(66deg, rgb(230, 251, 254) 0%, rgb(237, 221, 251) 100%);
+		background-color: #FFF;
   }
 
   .table_root .actions_container .left,
@@ -483,7 +482,8 @@
 
   .table_root .actions_container .right .search_handler input.search:focus {
     border-color: none;
-		outline: none;
+		outline: 1px solid var(--gray-003);
+		box-shadow: var(--shadow-md);
   }
 
   .table_root .actions_container .right .search_handler .search_btn {
@@ -512,14 +512,6 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-  }
-
-  .table_root .actions_container .actions_btn .btn.export {
-    background-color: var(--gray-007);
-  }
-
-  .table_root .actions_container .actions_btn .btn.export:hover {
-    background-color: var(--gray-006);
   }
 
 	.table_root .table_container {
@@ -609,8 +601,8 @@
 
 	.table_root .table_container table tbody tr td .actions .btn {
 		border: none;
-		padding: 5px 10px;
-		border-radius: 999px;
+		padding: 6px;
+		border-radius: 8px;
 		background-color: transparent;
 		cursor: pointer;
 		display: flex;
@@ -650,10 +642,12 @@
 
 	.table_root .pagination_container .filter .row_to_show .btn {
 		border: none;
-		background-color: var(--violet-006);
-		color: #FFF;
+		background-color: transparent;
+		color: var(--gray-007);
 		width: fit-content;
-		padding: 4px 10px;
+		padding: 5px 7px;
+		font-weight: 600;
+		border: 1px solid var(--gray-003);
 		border-radius: 9999px;
 		display: flex;
 		flex-direction: row;
@@ -664,7 +658,7 @@
 	}
 
 	.table_root .pagination_container .filter .row_to_show .btn:hover {
-		background-color: var(--violet-005);
+		background-color: var(--gray-002);
 	}
 
 	.table_root .pagination_container .filter .row_to_show .rows {
@@ -745,10 +739,6 @@
 	}
 
 	@media only screen and (max-width : 768px) {
-		.popup_container {
-			padding: 15px;
-		}
-		
 		.table_root .actions_container {
 			flex-wrap: wrap;
 			gap: 10px;

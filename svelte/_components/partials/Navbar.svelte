@@ -21,7 +21,7 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0 20px;
-		background-color: #FFF;
+    background: linear-gradient(66deg, rgb(230, 251, 254) 0%, rgb(237, 221, 251) 100%);
 		position: sticky;
     top: 0;
     left: 0;
@@ -57,8 +57,9 @@
   .navbar_container .navbar .right .display_email {
     padding: 5px 15px;
     border-radius: 8px;
-    background-color: var(--violet-transparent);
-    color: var(--violet-007);
+    background-color: #0000000e;
+    color: var(--gray-009);
+    font-weight: 600;
   }
 
   /* Responsive to mobile device */

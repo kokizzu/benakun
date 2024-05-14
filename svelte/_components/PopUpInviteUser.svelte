@@ -11,8 +11,8 @@
   export let email = '';
 
   let isShow = false;
-  export const show = () => isShow = true;
-  export const hide = () => isShow = false;
+  export const Show = () => isShow = true;
+  export const Hide = () => isShow = false;
 
   const cancel = () => {
     isShow = false;
@@ -24,7 +24,7 @@
   <div class="popup">
     <header class="header">
       <h2>{heading}</h2>
-      <button on:click={hide}>
+      <button on:click={Hide}>
         <Icon size="22" color="var(--red-005)" src={IoClose}/>
       </button>
     </header>

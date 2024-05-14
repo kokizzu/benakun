@@ -1093,8 +1093,8 @@ const TenantAdminDashboardOut = {
     }, // sync.Mutex
     cachedSelect: '', // string
   }, // zCrud.Meta
-  staffs: { // []rqAuth.StaffWithInvitation
-  }, // []rqAuth.StaffWithInvitation
+  staffs: { // [][]any
+  }, // [][]any
 }
 /**
  * @callback TenantAdminDashboardCallback

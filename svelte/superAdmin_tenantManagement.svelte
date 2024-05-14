@@ -36,10 +36,6 @@
     )
   }
 
-  function AddRow() {
-    console.log('AddRow');
-  }
-
   async function OnRestore(/** @type any[] */ row) {
     const i = {
       pager,
@@ -90,6 +86,10 @@
         pager = o.pager;
       }
     )
+  }
+
+  function AddRow() {
+    console.log('AddRow');
   }
 </script>
 
