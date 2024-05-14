@@ -611,7 +611,11 @@
 	}
 
 	.table_root .table_container table tbody tr td .actions .btn:hover {
-		background-color: var(--gray-002);
+		background-color: var(--violet-transparent);
+	}
+
+	:global(.table_root .table_container table tbody tr td .actions .btn:hover svg) {
+		fill: var(--violet-005);
 	}
 
   .table_root .pagination_container {

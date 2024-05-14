@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"math/big"
 	"strings"
+	"unicode"
 
 	"benakun/model/mAuth"
 	"benakun/model/mAuth/rqAuth"
@@ -55,7 +56,7 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 		return
 	}
 
-	if in.TenantCode == `` {
+	if in.TenantCode == `` || !isLetter(in.TenantCode){
 		out.SetError(400, ErrUserCreateCompanyTenantCodeInvalid)
 		return
 	}
@@ -78,7 +79,7 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 	}
 
 	org := wcAuth.NewOrgsMutator(d.AuthOltp)
-	org.SetTenantCode(fmt.Sprintf("%s_%s", in.TenantCode, generate4RandomNumber()))
+	org.SetTenantCode(fmt.Sprintf("%s-%s", in.TenantCode, generate4RandomNumber()))
 	org.SetHeadTitle(in.HeadTitle)
 	org.SetName(in.CompanyName)
 	org.SetOrgType(mAuth.OrgTypeCompany)
@@ -190,4 +191,13 @@ func generate4RandomNumber() string {
 	result := strings.Join(strNumbers, "")
 
 	return result
+}
+
+func isLetter(s string) bool {
+	for _, r := range s {
+		if !unicode.IsLetter(r) {
+			return false
+		}
+	}
+	return true
 }
