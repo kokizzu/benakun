@@ -216,6 +216,26 @@
       min-height: 80dvh;
       padding: 20px;
     }
+
+    .action_btn {
+      border: none;
+      color: var(--gray-007);
+      background-color: transparent;
+      font-weight: 600;
+      width: fit-content;
+      padding: 8px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .action_btn:hover {
+      background-color: var(--violet-transparent);
+    }
     
     /* notifier */
     .notifyjs-container {
@@ -704,7 +724,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 }
 
 /* fakecss:./_components/MasterTable.esbuild-svelte-fake-css */
-@keyframes svelte-1lad585-spin {
+@keyframes svelte-ch3c5u-spin {
   from {
     transform: rotate(0deg);
   }
@@ -712,8 +732,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     transform: rotate(360deg);
   }
 }
+.action_btn:hover svg {
+  fill: var(--violet-005);
+}
 .spin {
-  animation: svelte-1lad585-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: svelte-ch3c5u-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 .dropdown {
   transition: all .2s ease-in-out;
@@ -729,39 +752,40 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 .sort_icon {
   margin-bottom: -5px;
 }
-.table_root.svelte-1lad585.svelte-1lad585 {
+.table_root.svelte-ch3c5u.svelte-ch3c5u {
   display: flex;
   flex-direction: column;
-  gap: 15px;
   background-color: #FFF;
   box-shadow: var(--shadow-md);
   border-radius: 10px;
   border: 1px solid var(--gray-003);
-  padding: 20px 0;
+  padding: 0 0 20px 0;
+  overflow: hidden;
 }
-.table_root.svelte-1lad585 p.svelte-1lad585 {
+.table_root.svelte-ch3c5u p.svelte-ch3c5u {
   margin: 0;
 }
-.table_root.svelte-1lad585 .actions_container.svelte-1lad585 {
+.table_root.svelte-ch3c5u .actions_container.svelte-ch3c5u {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0 15px;
+  padding: 10px 15px;
+  background: linear-gradient(66deg, rgb(230, 251, 254) 0%, rgb(237, 221, 251) 100%);
 }
-.table_root.svelte-1lad585 .actions_container .left.svelte-1lad585,
-.table_root.svelte-1lad585 .actions_container .right.svelte-1lad585 {
+.table_root.svelte-ch3c5u .actions_container .left.svelte-ch3c5u,
+.table_root.svelte-ch3c5u .actions_container .right.svelte-ch3c5u {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
 }
-.table_root.svelte-1lad585 .actions_container .left .debug .showing .text-violet.svelte-1lad585 {
+.table_root.svelte-ch3c5u .actions_container .left .debug .showing .text-violet.svelte-ch3c5u {
   color: var(--violet-006);
   font-weight: 600;
   padding: 5px;
 }
-.table_root.svelte-1lad585 .actions_container .left .debug .btn.svelte-1lad585 {
+.table_root.svelte-ch3c5u .actions_container .left .debug .btn.svelte-ch3c5u {
   border: none;
   background-color: var(--violet-006);
   color: #FFF;
@@ -775,70 +799,57 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   gap: 3px;
   cursor: pointer;
 }
-.table_root.svelte-1lad585 .actions_container .left .debug .btn.svelte-1lad585:hover {
+.table_root.svelte-ch3c5u .actions_container .left .debug .btn.svelte-ch3c5u:hover {
   background-color: var(--violet-005);
 }
-.table_root.svelte-1lad585 .actions_container .right .search_handler.svelte-1lad585 {
+.table_root.svelte-ch3c5u .actions_container .right .search_handler.svelte-ch3c5u {
   display: flex;
   flex-direction: row;
   width: fit-content;
   height: fit-content;
   position: relative;
 }
-.table_root.svelte-1lad585 .actions_container .right .search_handler input.search.svelte-1lad585 {
-  padding: 12px 50px 12px 15px;
+.table_root.svelte-ch3c5u .actions_container .right .search_handler input.search.svelte-ch3c5u {
+  padding: 12px 40px 12px 15px;
   border-radius: 8px;
-  border: 1px solid var(--gray-003);
+  border: none;
   background-color: var(--gray-001);
-  width: 300px;
+  width: 370px;
 }
-.table_root.svelte-1lad585 .actions_container .right .search_handler input.search.svelte-1lad585:focus {
+.table_root.svelte-ch3c5u .actions_container .right .search_handler input.search.svelte-ch3c5u:focus {
   border-color: none;
-  outline: 2px solid var(--violet-005);
+  outline: none;
 }
-.table_root.svelte-1lad585 .actions_container .right .search_handler .search_btn.svelte-1lad585 {
+.table_root.svelte-ch3c5u .actions_container .right .search_handler .search_btn.svelte-ch3c5u {
   position: absolute;
-  background-color: var(--gray-003);
-  padding: 12px 12px;
+  background-color: transparent;
+  padding: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
-  border-radius: 0 8px 8px 0;
-  cursor: pointer;
-  right: 0;
-}
-.table_root.svelte-1lad585 .actions_container .right .search_handler .search_btn.svelte-1lad585:hover {
-  background-color: var(--gray-004);
-}
-.table_root.svelte-1lad585 .actions_container .actions_btn.svelte-1lad585 {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-}
-.table_root.svelte-1lad585 .actions_container .actions_btn .btn.svelte-1lad585 {
-  border: none;
-  color: var(--gray-007);
-  background-color: var(--gray-001);
-  border: 1px solid var(--gray-003);
-  font-weight: 600;
-  width: fit-content;
-  padding: 10px 15px;
   border-radius: 8px;
+  cursor: pointer;
+  right: 5px;
+  top: 3px;
+}
+.table_root.svelte-ch3c5u .actions_container .right .search_handler .search_btn.svelte-ch3c5u:hover {
+  background-color: var(--violet-transparent);
+}
+.table_root .actions_container .right .search_handler .search_btn:hover svg {
+  fill: var(--violet-005);
+}
+.table_root.svelte-ch3c5u .actions_container .actions_btn.svelte-ch3c5u {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
   align-items: center;
-  gap: 5px;
-  cursor: pointer;
 }
-.table_root.svelte-1lad585 .table_container.svelte-1lad585 {
+.table_root.svelte-ch3c5u .table_container.svelte-ch3c5u {
   overflow-x: auto;
   scrollbar-color: var(--gray-003) transparent;
   scrollbar-width: thin;
 }
-.table_root.svelte-1lad585 .table_container table.svelte-1lad585 {
+.table_root.svelte-ch3c5u .table_container table.svelte-ch3c5u {
   width: 100%;
   background: #fff;
   border-top: 1px solid var(--gray-003);
@@ -849,11 +860,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   border-spacing: 0;
   overflow: hidden;
 }
-.table_root.svelte-1lad585 .table_container table thead.svelte-1lad585 {
+.table_root.svelte-ch3c5u .table_container table thead.svelte-ch3c5u {
   box-shadow: none;
   border-bottom: 1px solid var(--gray-003);
 }
-.table_root.svelte-1lad585 .table_container table thead tr th.svelte-1lad585 {
+.table_root.svelte-ch3c5u .table_container table thead tr th.svelte-ch3c5u {
   padding: 12px;
   background-color: var(--gray-001);
   -webkit-user-select: none;
@@ -862,47 +873,47 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   text-transform: capitalize;
   border-bottom: 1px solid var(--gray-003);
 }
-.table_root.svelte-1lad585 .table_container table thead tr th.no.svelte-1lad585 {
+.table_root.svelte-ch3c5u .table_container table thead tr th.no.svelte-ch3c5u {
   width: 30px;
 }
-.table_root.svelte-1lad585 .table_container table thead tr th.a_row.svelte-1lad585 {
+.table_root.svelte-ch3c5u .table_container table thead tr th.a_row.svelte-ch3c5u {
   max-width: fit-content;
 }
-.table_root.svelte-1lad585 .table_container table thead tr th.svelte-1lad585:last-child {
+.table_root.svelte-ch3c5u .table_container table thead tr th.svelte-ch3c5u:last-child {
   border-right: none;
 }
-.table_root.svelte-1lad585 .table_container table thead tr th.sort_column.svelte-1lad585 {
+.table_root.svelte-ch3c5u .table_container table thead tr th.sort_column.svelte-ch3c5u {
   cursor: pointer;
   text-wrap: nowrap;
 }
-.table_root.svelte-1lad585 .table_container table tbody tr td.svelte-1lad585 {
+.table_root.svelte-ch3c5u .table_container table tbody tr td.svelte-ch3c5u {
   padding: 8px 12px;
 }
-.table_root.svelte-1lad585 .table_container table tbody tr td.num_row.svelte-1lad585 {
+.table_root.svelte-ch3c5u .table_container table tbody tr td.num_row.svelte-ch3c5u {
   border-right: 1px solid var(--gray-003);
   font-weight: 600;
   text-align: center;
 }
-.table_root.svelte-1lad585 .table_container table tbody tr:last-child td.svelte-1lad585,
-.table_root.svelte-1lad585 .table_container table tbody tr:last-child th.svelte-1lad585 {
+.table_root.svelte-ch3c5u .table_container table tbody tr:last-child td.svelte-ch3c5u,
+.table_root.svelte-ch3c5u .table_container table tbody tr:last-child th.svelte-ch3c5u {
   border-bottom: none !important;
 }
-.table_root.svelte-1lad585 .table_container table tbody tr:last-child td.svelte-1lad585:last-child {
+.table_root.svelte-ch3c5u .table_container table tbody tr:last-child td.svelte-ch3c5u:last-child {
   border-right: none !important;
 }
-.table_root.svelte-1lad585 .table_container table tbody tr td.svelte-1lad585:last-child {
+.table_root.svelte-ch3c5u .table_container table tbody tr td.svelte-ch3c5u:last-child {
   border-right: none !important;
 }
-.table_root.svelte-1lad585 .table_container table tbody tr th.svelte-1lad585 {
+.table_root.svelte-ch3c5u .table_container table tbody tr th.svelte-ch3c5u {
   text-align: center;
   border-right: 1px solid var(--gray-004);
   border-bottom: 1px solid var(--gray-004);
 }
-.table_root.svelte-1lad585 .table_container table tbody tr td .actions.svelte-1lad585 {
+.table_root.svelte-ch3c5u .table_container table tbody tr td .actions.svelte-ch3c5u {
   display: flex;
   flex-direction: row;
 }
-.table_root.svelte-1lad585 .table_container table tbody tr td .actions .btn.svelte-1lad585 {
+.table_root.svelte-ch3c5u .table_container table tbody tr td .actions .btn.svelte-ch3c5u {
   border: none;
   padding: 5px 10px;
   border-radius: 999px;
@@ -912,32 +923,32 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   justify-content: center;
   align-items: center;
 }
-.table_root.svelte-1lad585 .table_container table tbody tr td .actions .btn.svelte-1lad585:hover {
+.table_root.svelte-ch3c5u .table_container table tbody tr td .actions .btn.svelte-ch3c5u:hover {
   background-color: var(--gray-002);
 }
-.table_root.svelte-1lad585 .pagination_container.svelte-1lad585 {
+.table_root.svelte-ch3c5u .pagination_container.svelte-ch3c5u {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0 15px;
+  padding: 15px 15px 0 15px;
 }
-.table_root.svelte-1lad585 .pagination_container .filter.svelte-1lad585 {
+.table_root.svelte-ch3c5u .pagination_container .filter.svelte-ch3c5u {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 8px;
 }
-.table_root.svelte-1lad585 .pagination_container .filter .showing .text-violet.svelte-1lad585 {
+.table_root.svelte-ch3c5u .pagination_container .filter .showing .text-violet.svelte-ch3c5u {
   color: var(--violet-006);
   font-weight: 600;
   padding: 5px;
 }
-.table_root.svelte-1lad585 .pagination_container .filter .row_to_show.svelte-1lad585 {
+.table_root.svelte-ch3c5u .pagination_container .filter .row_to_show.svelte-ch3c5u {
   position: relative;
   width: fit-content;
   height: fit-content;
 }
-.table_root.svelte-1lad585 .pagination_container .filter .row_to_show .btn.svelte-1lad585 {
+.table_root.svelte-ch3c5u .pagination_container .filter .row_to_show .btn.svelte-ch3c5u {
   border: none;
   background-color: var(--violet-006);
   color: #FFF;
@@ -951,10 +962,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   gap: 3px;
   cursor: pointer;
 }
-.table_root.svelte-1lad585 .pagination_container .filter .row_to_show .btn.svelte-1lad585:hover {
+.table_root.svelte-ch3c5u .pagination_container .filter .row_to_show .btn.svelte-ch3c5u:hover {
   background-color: var(--violet-005);
 }
-.table_root.svelte-1lad585 .pagination_container .filter .row_to_show .rows.svelte-1lad585 {
+.table_root.svelte-ch3c5u .pagination_container .filter .row_to_show .rows.svelte-ch3c5u {
   display: flex;
   flex-direction: column-reverse;
   position: absolute;
@@ -964,25 +975,25 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   border: 1px solid var(--gray-004);
   background-color: #FFF;
 }
-.table_root.svelte-1lad585 .pagination_container .filter .row_to_show .rows button.svelte-1lad585 {
+.table_root.svelte-ch3c5u .pagination_container .filter .row_to_show .rows button.svelte-ch3c5u {
   border: none;
   background-color: transparent;
   padding: 5px;
   cursor: pointer;
   color: var(--gray-007);
 }
-.table_root.svelte-1lad585 .pagination_container .filter .row_to_show .rows button.svelte-1lad585:hover {
+.table_root.svelte-ch3c5u .pagination_container .filter .row_to_show .rows button.svelte-ch3c5u:hover {
   background-color: var(--violet-transparent);
   color: var(--violet-007);
 }
-.table_root.svelte-1lad585 .pagination_container .pagination.svelte-1lad585 {
+.table_root.svelte-ch3c5u .pagination_container .pagination.svelte-ch3c5u {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 5px;
   overflow: hidden;
 }
-.table_root.svelte-1lad585 .pagination_container .pagination .btn.svelte-1lad585 {
+.table_root.svelte-ch3c5u .pagination_container .pagination .btn.svelte-ch3c5u {
   border: none;
   background-color: transparent;
   display: flex;
@@ -996,25 +1007,25 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   color: var(--gray-007);
   border: 1px solid transparent;
 }
-.table_root.svelte-1lad585 .pagination_container .pagination .btn.svelte-1lad585:hover {
+.table_root.svelte-ch3c5u .pagination_container .pagination .btn.svelte-ch3c5u:hover {
   border: 1px solid var(--gray-004);
 }
-.table_root.svelte-1lad585 .pagination_container .pagination .btn.active.svelte-1lad585 {
+.table_root.svelte-ch3c5u .pagination_container .pagination .btn.active.svelte-ch3c5u {
   background-color: var(--violet-transparent);
   color: var(--violet-006);
   font-weight: 600;
   border: 1px solid var(--violet-004);
 }
-.table_root.svelte-1lad585 .pagination_container .pagination .btn.to.svelte-1lad585 {
+.table_root.svelte-ch3c5u .pagination_container .pagination .btn.to.svelte-ch3c5u {
   background-color: var(--violet-006);
   color: #FFF;
   font-weight: 600;
   border: none;
 }
-.table_root.svelte-1lad585 .pagination_container .pagination .btn.to.svelte-1lad585:hover {
+.table_root.svelte-ch3c5u .pagination_container .pagination .btn.to.svelte-ch3c5u:hover {
   background-color: var(--violet-005);
 }
-.table_root.svelte-1lad585 .pagination_container .pagination .btn.to.svelte-1lad585:disabled {
+.table_root.svelte-ch3c5u .pagination_container .pagination .btn.to.svelte-ch3c5u:disabled {
   background-color: var(--gray-002);
   color: var(--gray-006);
   font-weight: 600;
@@ -1022,21 +1033,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   cursor: not-allowed;
 }
 @media only screen and (max-width : 768px) {
-  .table_root.svelte-1lad585 .actions_container.svelte-1lad585 {
+  .table_root.svelte-ch3c5u .actions_container.svelte-ch3c5u {
     flex-wrap: wrap;
     gap: 10px;
   }
-  .table_root.svelte-1lad585 .actions_container .left.svelte-1lad585 {
+  .table_root.svelte-ch3c5u .actions_container .left.svelte-ch3c5u {
     flex-wrap: wrap;
   }
-  .table_root.svelte-1lad585 .table_container.svelte-1lad585 {
+  .table_root.svelte-ch3c5u .table_container.svelte-ch3c5u {
     overflow-x: scroll;
   }
-  .table_root.svelte-1lad585 .pagination_container.svelte-1lad585 {
+  .table_root.svelte-ch3c5u .pagination_container.svelte-ch3c5u {
     flex-wrap: wrap;
     gap: 10px;
   }
-  .table_root.svelte-1lad585 .pagination_container .pagination.svelte-1lad585 {
+  .table_root.svelte-ch3c5u .pagination_container .pagination.svelte-ch3c5u {
     gap: 2px;
   }
 }
@@ -6221,29 +6232,29 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var import_formatter = __toESM(require_formatter());
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[47] = list[i];
+    child_ctx[49] = list[i];
     return child_ctx;
   }
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[50] = list[i];
+    child_ctx[52] = list[i];
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[53] = list[i];
+    child_ctx[55] = list[i];
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[56] = list[i];
-    child_ctx[58] = i;
+    child_ctx[58] = list[i];
+    child_ctx[60] = i;
     return child_ctx;
   }
   function get_each_context_4(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[56] = list[i];
-    child_ctx[60] = i;
+    child_ctx[58] = list[i];
+    child_ctx[62] = i;
     return child_ctx;
   }
   function create_if_block_13(ctx) {
@@ -6252,10 +6263,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let updating_filtersMap;
     let current;
     function filtertable_filterColumns_binding(value) {
-      ctx[31](value);
+      ctx[33](value);
     }
     function filtertable_filtersMap_binding(value) {
-      ctx[32](value);
+      ctx[34](value);
     }
     let filtertable_props = {};
     if (
@@ -6273,13 +6284,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       ctx[11];
     }
     filtertable = new FilterTable_default({ props: filtertable_props });
-    ctx[30](filtertable);
+    ctx[32](filtertable);
     binding_callbacks.push(() => bind(filtertable, "filterColumns", filtertable_filterColumns_binding));
     binding_callbacks.push(() => bind(filtertable, "filtersMap", filtertable_filtersMap_binding));
     filtertable.$on(
       "click",
       /*ApplyFilter*/
-      ctx[19]
+      ctx[21]
     );
     return {
       c() {
@@ -6318,7 +6329,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         current = false;
       },
       d(detaching) {
-        ctx[30](null);
+        ctx[32](null);
         destroy_component(filtertable, detaching);
       }
     };
@@ -6366,10 +6377,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   }
   function create_if_block_11(ctx) {
     let div;
-    let input;
-    let t;
     let button;
     let icon;
+    let t;
+    let input;
     let current;
     icon = new Icon_default({
       props: {
@@ -6381,24 +6392,25 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     return {
       c() {
         div = element("div");
-        input = element("input");
-        t = space();
         button = element("button");
         create_component(icon.$.fragment);
+        t = space();
+        input = element("input");
+        attr(button, "class", "search_btn svelte-ch3c5u");
+        attr(button, "title", "Search");
         attr(input, "placeholder", "Search...");
         attr(input, "type", "text");
         attr(input, "name", "searchRow");
         attr(input, "id", "searchRow");
-        attr(input, "class", "search svelte-1lad585");
-        attr(button, "class", "search_btn svelte-1lad585");
-        attr(div, "class", "search_handler svelte-1lad585");
+        attr(input, "class", "search svelte-ch3c5u");
+        attr(div, "class", "search_handler svelte-ch3c5u");
       },
       m(target, anchor) {
         insert(target, div, anchor);
-        append(div, input);
-        append(div, t);
         append(div, button);
         mount_component(icon, button, null);
+        append(div, t);
+        append(div, input);
         current = true;
       },
       i(local) {
@@ -6430,7 +6442,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     const get_key = (ctx2) => (
       /*f*/
-      ctx2[56].name
+      ctx2[58].name
     );
     for (let i = 0; i < each_value_4.length; i += 1) {
       let child_ctx = get_each_context_4(ctx, each_value_4, i);
@@ -6561,7 +6573,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let span;
     let t0_value = (
       /*f*/
-      ctx[56].label + ""
+      ctx[58].label + ""
     );
     let t0;
     let t1;
@@ -6584,7 +6596,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (if_block1)
           if_block1.c();
         t3 = space();
-        attr(th, "class", "sort_column svelte-1lad585");
+        attr(th, "class", "sort_column svelte-ch3c5u");
         this.first = th;
       },
       m(target, anchor) {
@@ -6604,7 +6616,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         ctx = new_ctx;
         if ((!current || dirty[0] & /*FIELDS*/
         1) && t0_value !== (t0_value = /*f*/
-        ctx[56].label + ""))
+        ctx[58].label + ""))
           set_data(t0, t0_value);
       },
       i(local) {
@@ -6662,7 +6674,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*FIELDS, MASTER_ROWS, restoreRow, CAN_RESTORE_ROW, deleteRow, CAN_DELETE_ROW, OnEdit, CAN_EDIT_ROW, ACCESS*/
-        12583159) {
+        50331895) {
           each_value_2 = ensure_array_like(
             /*MASTER_ROWS*/
             ctx2[1]
@@ -6758,7 +6770,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t1 = space();
         if (if_block2)
           if_block2.c();
-        attr(div, "class", "actions svelte-1lad585");
+        attr(div, "class", "actions svelte-ch3c5u");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -6886,9 +6898,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function click_handler_1() {
       return (
         /*click_handler_1*/
-        ctx[34](
+        ctx[36](
           /*row*/
-          ctx[53]
+          ctx[55]
         )
       );
     }
@@ -6896,7 +6908,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       c() {
         button = element("button");
         create_component(icon.$.fragment);
-        attr(button, "class", "btn edit svelte-1lad585");
+        attr(button, "class", "btn edit svelte-ch3c5u");
         attr(button, "title", "Edit");
       },
       m(target, anchor) {
@@ -6947,9 +6959,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function click_handler_2() {
       return (
         /*click_handler_2*/
-        ctx[35](
+        ctx[37](
           /*row*/
-          ctx[53]
+          ctx[55]
         )
       );
     }
@@ -6957,7 +6969,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       c() {
         button = element("button");
         create_component(icon.$.fragment);
-        attr(button, "class", "btn delete svelte-1lad585");
+        attr(button, "class", "btn delete svelte-ch3c5u");
         attr(button, "title", "delete");
       },
       m(target, anchor) {
@@ -7008,9 +7020,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function click_handler_3() {
       return (
         /*click_handler_3*/
-        ctx[36](
+        ctx[38](
           /*row*/
-          ctx[53]
+          ctx[55]
         )
       );
     }
@@ -7018,7 +7030,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       c() {
         button = element("button");
         create_component(icon.$.fragment);
-        attr(button, "class", "btn info svelte-1lad585");
+        attr(button, "class", "btn info svelte-ch3c5u");
         attr(button, "title", "restore");
       },
       m(target, anchor) {
@@ -7114,17 +7126,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let td;
     let t_value = (
       /*row*/
-      ctx[53][
+      (ctx[55][
         /*idx*/
-        ctx[58]
-      ] + ""
+        ctx[60]
+      ] || "--") + ""
     );
     let t;
     return {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-1lad585");
+        attr(td, "class", "svelte-ch3c5u");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -7133,10 +7145,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*MASTER_ROWS*/
         2 && t_value !== (t_value = /*row*/
-        ctx2[53][
+        (ctx2[55][
           /*idx*/
-          ctx2[58]
-        ] + ""))
+          ctx2[60]
+        ] || "--") + ""))
           set_data(t, t_value);
       },
       d(detaching) {
@@ -7150,9 +7162,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let td;
     let t_value = (0, import_formatter.datetime)(
       /*row*/
-      ctx[53][
+      ctx[55][
         /*idx*/
-        ctx[58]
+        ctx[60]
       ]
     ) + "";
     let t;
@@ -7160,7 +7172,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       c() {
         td = element("td");
         t = text(t_value);
-        attr(td, "class", "svelte-1lad585");
+        attr(td, "class", "svelte-ch3c5u");
       },
       m(target, anchor) {
         insert(target, td, anchor);
@@ -7170,9 +7182,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (dirty[0] & /*MASTER_ROWS*/
         2 && t_value !== (t_value = (0, import_formatter.datetime)(
           /*row*/
-          ctx2[53][
+          ctx2[55][
             /*idx*/
-            ctx2[58]
+            ctx2[60]
           ]
         ) + ""))
           set_data(t, t_value);
@@ -7189,14 +7201,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function select_block_type_1(ctx2, dirty) {
       if (
         /*f*/
-        ctx2[56].name === "createdAt" || /*f*/
-        ctx2[56].name === "updatedAt" || /*f*/
-        ctx2[56].name === "deletedAt"
+        ctx2[58].name === "createdAt" || /*f*/
+        ctx2[58].name === "updatedAt" || /*f*/
+        ctx2[58].name === "deletedAt"
       )
         return create_if_block_32;
       return create_else_block;
     }
-    let current_block_type = select_block_type_1(ctx, [-1, -1]);
+    let current_block_type = select_block_type_1(ctx, [-1, -1, -1]);
     let if_block = current_block_type(ctx);
     return {
       c() {
@@ -7234,7 +7246,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /*MASTER_ROWS*/
       ctx[1].indexOf(
         /*row*/
-        ctx[53]
+        ctx[55]
       ) + 1 + ""
     );
     let t0;
@@ -7258,7 +7270,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type(ctx, [-1, -1]);
+    current_block_type_index = select_block_type(ctx, [-1, -1, -1]);
     if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     let if_block1 = (
       /*FIELDS*/
@@ -7277,8 +7289,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (if_block1)
           if_block1.c();
         t3 = space();
-        attr(td0, "class", "num_row svelte-1lad585");
-        attr(td1, "class", "a_row svelte-1lad585");
+        attr(td0, "class", "num_row svelte-ch3c5u");
+        attr(td1, "class", "a_row svelte-ch3c5u");
       },
       m(target, anchor) {
         insert(target, tr, anchor);
@@ -7298,7 +7310,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         2) && t0_value !== (t0_value = /*MASTER_ROWS*/
         ctx2[1].indexOf(
           /*row*/
-          ctx2[53]
+          ctx2[55]
         ) + 1 + ""))
           set_data(t0, t0_value);
         let previous_block_index = current_block_type_index;
@@ -7362,7 +7374,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let div;
     let each_value_1 = ensure_array_like(
       /*rowsToShow*/
-      ctx[17]
+      ctx[19]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value_1.length; i += 1) {
@@ -7374,7 +7386,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(div, "class", "rows svelte-1lad585");
+        attr(div, "class", "rows svelte-ch3c5u");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -7386,10 +7398,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*toRow, rowsToShow*/
-        1179648) {
+        4718592) {
           each_value_1 = ensure_array_like(
             /*rowsToShow*/
-            ctx2[17]
+            ctx2[19]
           );
           let i;
           for (i = 0; i < each_value_1.length; i += 1) {
@@ -7423,9 +7435,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function click_handler_4() {
       return (
         /*click_handler_4*/
-        ctx[37](
+        ctx[39](
           /*r*/
-          ctx[50]
+          ctx[52]
         )
       );
     }
@@ -7433,8 +7445,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       c() {
         button = element("button");
         button.textContent = `${/*r*/
-        ctx[50]}`;
-        attr(button, "class", "svelte-1lad585");
+        ctx[52]}`;
+        attr(button, "class", "svelte-ch3c5u");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -7459,7 +7471,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let button;
     let t_value = (
       /*i*/
-      ctx[47] + ""
+      ctx[49] + ""
     );
     let t;
     let button_disabled_value;
@@ -7470,9 +7482,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function click_handler_7() {
       return (
         /*click_handler_7*/
-        ctx[40](
+        ctx[42](
           /*i*/
-          ctx[47]
+          ctx[49]
         )
       );
     }
@@ -7482,14 +7494,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t = text(t_value);
         button.disabled = button_disabled_value = /*currentPage*/
         ctx[14] == /*i*/
-        ctx[47];
+        ctx[49];
         attr(button, "class", button_class_value = null_to_empty(
           /*currentPage*/
           ctx[14] === /*i*/
-          ctx[47] ? "btn active" : "btn"
-        ) + " svelte-1lad585");
+          ctx[49] ? "btn active" : "btn"
+        ) + " svelte-ch3c5u");
         attr(button, "title", button_title_value = `Go to page ${/*i*/
-        ctx[47]}`);
+        ctx[49]}`);
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -7503,25 +7515,25 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         ctx = new_ctx;
         if (dirty[0] & /*paginationShow*/
         8192 && t_value !== (t_value = /*i*/
-        ctx[47] + ""))
+        ctx[49] + ""))
           set_data(t, t_value);
         if (dirty[0] & /*currentPage, paginationShow*/
         24576 && button_disabled_value !== (button_disabled_value = /*currentPage*/
         ctx[14] == /*i*/
-        ctx[47])) {
+        ctx[49])) {
           button.disabled = button_disabled_value;
         }
         if (dirty[0] & /*currentPage, paginationShow*/
         24576 && button_class_value !== (button_class_value = null_to_empty(
           /*currentPage*/
           ctx[14] === /*i*/
-          ctx[47] ? "btn active" : "btn"
-        ) + " svelte-1lad585")) {
+          ctx[49] ? "btn active" : "btn"
+        ) + " svelte-ch3c5u")) {
           attr(button, "class", button_class_value);
         }
         if (dirty[0] & /*paginationShow*/
         8192 && button_title_value !== (button_title_value = `Go to page ${/*i*/
-        ctx[47]}`)) {
+        ctx[49]}`)) {
           attr(button, "title", button_title_value);
         }
       },
@@ -7541,53 +7553,62 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let div1;
     let div0;
     let button0;
-    let span0;
-    let t2;
     let icon0;
-    let t3;
+    let t1;
     let c;
+    let t2;
+    let t3;
     let t4;
-    let t5;
-    let t6;
     let div2;
-    let t7;
+    let t5;
     let div4;
     let table;
     let thead;
     let tr;
     let th0;
-    let t9;
+    let t7;
     let th1;
-    let t11;
-    let t12;
+    let t9;
+    let t10;
     let tbody;
-    let t13;
+    let t11;
     let div9;
     let div7;
     let div5;
-    let t21;
+    let p;
+    let t12;
+    let span0;
+    let t13;
+    let t14;
+    let span1;
+    let t15;
+    let t16;
+    let span2;
+    let t17;
+    let t18;
+    let t19;
     let div6;
-    let t22;
+    let t20;
     let button1;
-    let span4;
-    let t23;
-    let t24;
+    let span3;
+    let t21;
+    let t22;
     let icon1;
-    let t25;
+    let t23;
     let div8;
     let button2;
     let icon2;
     let button2_disabled_value;
-    let t26;
+    let t24;
     let button3;
     let icon3;
     let button3_disabled_value;
-    let t27;
-    let t28;
+    let t25;
+    let t26;
     let button4;
     let icon4;
     let button4_disabled_value;
-    let t29;
+    let t27;
     let button5;
     let icon5;
     let button5_disabled_value;
@@ -7607,13 +7628,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     });
     const default_slot_template = (
       /*#slots*/
-      ctx[29].default
+      ctx[31].default
     );
     const default_slot = create_slot(
       default_slot_template,
       ctx,
       /*$scope*/
-      ctx[28],
+      ctx[30],
       null
     );
     let if_block1 = isAjaxSubmitted && create_if_block_122(ctx);
@@ -7675,109 +7696,130 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         div1 = element("div");
         div0 = element("div");
         button0 = element("button");
-        span0 = element("span");
-        span0.textContent = "Filter table";
-        t2 = space();
         create_component(icon0.$.fragment);
-        t3 = space();
+        t1 = space();
         c = comment(" Action buttons ");
-        t4 = space();
+        t2 = space();
         if (default_slot)
           default_slot.c();
-        t5 = space();
+        t3 = space();
         if (if_block1)
           if_block1.c();
-        t6 = space();
+        t4 = space();
         div2 = element("div");
         if (if_block2)
           if_block2.c();
-        t7 = space();
+        t5 = space();
         div4 = element("div");
         table = element("table");
         thead = element("thead");
         tr = element("tr");
         th0 = element("th");
         th0.textContent = "No";
-        t9 = space();
+        t7 = space();
         th1 = element("th");
         th1.textContent = "Actions";
-        t11 = space();
+        t9 = space();
         if (if_block3)
           if_block3.c();
-        t12 = space();
+        t10 = space();
         tbody = element("tbody");
         if (if_block4)
           if_block4.c();
-        t13 = space();
+        t11 = space();
         div9 = element("div");
         div7 = element("div");
         div5 = element("div");
-        div5.innerHTML = `<p class="svelte-1lad585">Showing <span class="text-violet svelte-1lad585">10</span>/<span class="text-violet svelte-1lad585">20</span> of <span class="text-violet svelte-1lad585">40</span> record(s)</p>`;
-        t21 = space();
-        div6 = element("div");
-        if (if_block5)
-          if_block5.c();
-        t22 = space();
-        button1 = element("button");
-        span4 = element("span");
-        t23 = text(
+        p = element("p");
+        t12 = text("Showing ");
+        span0 = element("span");
+        t13 = text(
+          /*totalRowsCurrent*/
+          ctx[18]
+        );
+        t14 = text("/");
+        span1 = element("span");
+        t15 = text(
           /*currentRows*/
           ctx[15]
         );
-        t24 = space();
+        t16 = text(" of ");
+        span2 = element("span");
+        t17 = text(
+          /*totalRows*/
+          ctx[17]
+        );
+        t18 = text(" record(s)");
+        t19 = space();
+        div6 = element("div");
+        if (if_block5)
+          if_block5.c();
+        t20 = space();
+        button1 = element("button");
+        span3 = element("span");
+        t21 = text(
+          /*currentRows*/
+          ctx[15]
+        );
+        t22 = space();
         create_component(icon1.$.fragment);
-        t25 = space();
+        t23 = space();
         div8 = element("div");
         button2 = element("button");
         create_component(icon2.$.fragment);
-        t26 = space();
+        t24 = space();
         button3 = element("button");
         create_component(icon3.$.fragment);
-        t27 = space();
+        t25 = space();
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        t28 = space();
+        t26 = space();
         button4 = element("button");
         create_component(icon4.$.fragment);
-        t29 = space();
+        t27 = space();
         button5 = element("button");
         create_component(icon5.$.fragment);
-        attr(button0, "class", "btn svelte-1lad585");
-        attr(div0, "class", "actions_btn svelte-1lad585");
-        attr(div1, "class", "left svelte-1lad585");
-        attr(div2, "class", "right svelte-1lad585");
-        attr(div3, "class", "actions_container svelte-1lad585");
-        attr(th0, "class", "no svelte-1lad585");
-        attr(th1, "class", "a_row svelte-1lad585");
-        attr(thead, "class", "svelte-1lad585");
-        attr(table, "class", "svelte-1lad585");
-        attr(div4, "class", "table_container svelte-1lad585");
+        attr(button0, "class", "action_btn svelte-ch3c5u");
+        attr(button0, "title", "filter table");
+        attr(div0, "class", "actions_btn svelte-ch3c5u");
+        attr(div1, "class", "left svelte-ch3c5u");
+        attr(div2, "class", "right svelte-ch3c5u");
+        attr(div3, "class", "actions_container svelte-ch3c5u");
+        attr(th0, "class", "no svelte-ch3c5u");
+        attr(th1, "class", "a_row svelte-ch3c5u");
+        attr(thead, "class", "svelte-ch3c5u");
+        attr(table, "class", "svelte-ch3c5u");
+        attr(div4, "class", "table_container svelte-ch3c5u");
+        attr(span0, "class", "text-violet svelte-ch3c5u");
+        attr(span1, "class", "text-violet svelte-ch3c5u");
+        attr(span2, "class", "text-violet svelte-ch3c5u");
+        attr(p, "class", "svelte-ch3c5u");
         attr(div5, "class", "showing");
-        attr(button1, "class", "btn svelte-1lad585");
-        attr(div6, "class", "row_to_show svelte-1lad585");
-        attr(div7, "class", "filter svelte-1lad585");
+        attr(button1, "class", "btn svelte-ch3c5u");
+        attr(div6, "class", "row_to_show svelte-ch3c5u");
+        attr(div7, "class", "filter svelte-ch3c5u");
         button2.disabled = button2_disabled_value = /*currentPage*/
         ctx[14] == 1;
-        attr(button2, "class", "btn to svelte-1lad585");
+        attr(button2, "class", "btn to svelte-ch3c5u");
         attr(button2, "title", "Go to first page");
         button3.disabled = button3_disabled_value = /*currentPage*/
         ctx[14] == 1;
-        attr(button3, "class", "btn to svelte-1lad585");
+        attr(button3, "class", "btn to svelte-ch3c5u");
         attr(button3, "title", "Go to previous page");
         button4.disabled = button4_disabled_value = /*currentPage*/
         ctx[14] == /*paginationTotal*/
         ctx[12];
-        attr(button4, "class", "btn to svelte-1lad585");
+        attr(button4, "class", "btn to svelte-ch3c5u");
         attr(button4, "title", "Go to next page");
         button5.disabled = button5_disabled_value = /*currentPage*/
         ctx[14] == /*paginationTotal*/
         ctx[12];
-        attr(button5, "class", "btn to svelte-1lad585");
+        attr(button5, "class", "btn to svelte-ch3c5u");
         attr(button5, "title", "Go to last page");
-        attr(div8, "class", "pagination svelte-1lad585");
-        attr(div9, "class", "pagination_container svelte-1lad585");
-        attr(div10, "class", "table_root svelte-1lad585");
+        attr(div8, "class", "pagination svelte-ch3c5u");
+        attr(div9, "class", "pagination_container svelte-ch3c5u");
+        attr(div10, "class", "table_root svelte-ch3c5u");
       },
       m(target, anchor) {
         if (if_block0)
@@ -7788,68 +7830,77 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(div3, div1);
         append(div1, div0);
         append(div0, button0);
-        append(button0, span0);
-        append(button0, t2);
         mount_component(icon0, button0, null);
-        append(div0, t3);
+        append(div0, t1);
         append(div0, c);
-        append(div0, t4);
+        append(div0, t2);
         if (default_slot) {
           default_slot.m(div0, null);
         }
-        append(div1, t5);
+        append(div1, t3);
         if (if_block1)
           if_block1.m(div1, null);
-        append(div3, t6);
+        append(div3, t4);
         append(div3, div2);
         if (if_block2)
           if_block2.m(div2, null);
-        append(div10, t7);
+        append(div10, t5);
         append(div10, div4);
         append(div4, table);
         append(table, thead);
         append(thead, tr);
         append(tr, th0);
-        append(tr, t9);
+        append(tr, t7);
         append(tr, th1);
-        append(tr, t11);
+        append(tr, t9);
         if (if_block3)
           if_block3.m(tr, null);
-        append(table, t12);
+        append(table, t10);
         append(table, tbody);
         if (if_block4)
           if_block4.m(tbody, null);
-        append(div10, t13);
+        append(div10, t11);
         append(div10, div9);
         append(div9, div7);
         append(div7, div5);
-        append(div7, t21);
+        append(div5, p);
+        append(p, t12);
+        append(p, span0);
+        append(span0, t13);
+        append(p, t14);
+        append(p, span1);
+        append(span1, t15);
+        append(p, t16);
+        append(p, span2);
+        append(span2, t17);
+        append(p, t18);
+        append(div7, t19);
         append(div7, div6);
         if (if_block5)
           if_block5.m(div6, null);
-        append(div6, t22);
+        append(div6, t20);
         append(div6, button1);
-        append(button1, span4);
-        append(span4, t23);
-        append(button1, t24);
+        append(button1, span3);
+        append(span3, t21);
+        append(button1, t22);
         mount_component(icon1, button1, null);
-        append(div9, t25);
+        append(div9, t23);
         append(div9, div8);
         append(div8, button2);
         mount_component(icon2, button2, null);
-        append(div8, t26);
+        append(div8, t24);
         append(div8, button3);
         mount_component(icon3, button3, null);
-        append(div8, t27);
+        append(div8, t25);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
             each_blocks[i].m(div8, null);
           }
         }
-        append(div8, t28);
+        append(div8, t26);
         append(div8, button4);
         mount_component(icon4, button4, null);
-        append(div8, t29);
+        append(div8, t27);
         append(div8, button5);
         mount_component(icon5, button5, null);
         current = true;
@@ -7859,37 +7910,37 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               button0,
               "click",
               /*click_handler*/
-              ctx[33]
+              ctx[35]
             ),
             listen(
               button1,
               "click",
               /*toggleRowsNum*/
-              ctx[18]
+              ctx[20]
             ),
             listen(
               button2,
               "click",
               /*click_handler_5*/
-              ctx[38]
+              ctx[40]
             ),
             listen(
               button3,
               "click",
               /*click_handler_6*/
-              ctx[39]
+              ctx[41]
             ),
             listen(
               button4,
               "click",
               /*click_handler_8*/
-              ctx[41]
+              ctx[43]
             ),
             listen(
               button5,
               "click",
               /*click_handler_9*/
-              ctx[42]
+              ctx[44]
             )
           ];
           mounted = true;
@@ -7921,20 +7972,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         if (default_slot) {
           if (default_slot.p && (!current || dirty[0] & /*$scope*/
-          268435456)) {
+          1073741824)) {
             update_slot_base(
               default_slot,
               default_slot_template,
               ctx2,
               /*$scope*/
-              ctx2[28],
+              ctx2[30],
               !current ? get_all_dirty_from_scope(
                 /*$scope*/
-                ctx2[28]
+                ctx2[30]
               ) : get_slot_changes(
                 default_slot_template,
                 /*$scope*/
-                ctx2[28],
+                ctx2[30],
                 dirty,
                 null
               ),
@@ -8012,6 +8063,27 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           });
           check_outros();
         }
+        if (!current || dirty[0] & /*totalRowsCurrent*/
+        262144)
+          set_data(
+            t13,
+            /*totalRowsCurrent*/
+            ctx2[18]
+          );
+        if (!current || dirty[0] & /*currentRows*/
+        32768)
+          set_data(
+            t15,
+            /*currentRows*/
+            ctx2[15]
+          );
+        if (!current || dirty[0] & /*totalRows*/
+        131072)
+          set_data(
+            t17,
+            /*totalRows*/
+            ctx2[17]
+          );
         if (
           /*showRowsNum*/
           ctx2[16]
@@ -8021,7 +8093,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           } else {
             if_block5 = create_if_block3(ctx2);
             if_block5.c();
-            if_block5.m(div6, t22);
+            if_block5.m(div6, t20);
           }
         } else if (if_block5) {
           if_block5.d(1);
@@ -8030,7 +8102,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (!current || dirty[0] & /*currentRows*/
         32768)
           set_data(
-            t23,
+            t21,
             /*currentRows*/
             ctx2[15]
           );
@@ -8051,7 +8123,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           button3.disabled = button3_disabled_value;
         }
         if (dirty[0] & /*currentPage, paginationShow, goToPage*/
-        2121728) {
+        8413184) {
           each_value = ensure_array_like(
             /*paginationShow*/
             ctx2[13]
@@ -8064,7 +8136,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             } else {
               each_blocks[i] = create_each_block2(child_ctx);
               each_blocks[i].c();
-              each_blocks[i].m(div8, t28);
+              each_blocks[i].m(div8, t26);
             }
           }
           for (; i < each_blocks.length; i += 1) {
@@ -8191,12 +8263,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let currentRows = PAGER.perPage;
     let rowsToShow = [10, 20, 40, 60, 70, 100, 200];
     let showRowsNum = false;
+    let totalRows = PAGER.countResult;
+    let totalRowsCurrent = 0;
     function toggleRowsNum() {
       $invalidate(16, showRowsNum = !showRowsNum);
     }
     function getPaginationShow() {
+      $invalidate(17, totalRows = PAGER.countResult);
       totalPages = PAGER.pages;
       $invalidate(14, currentPage = PAGER.page);
+      if (MASTER_ROWS && MASTER_ROWS.length)
+        $invalidate(18, totalRowsCurrent = MASTER_ROWS.length);
+      else
+        $invalidate(18, totalRowsCurrent = 0);
       totalRound = Math.ceil(totalPages / currentRows) * currentRows;
       $invalidate(12, paginationTotal = totalRound / currentRows), paginationsAll = [];
       if (currentRows > PAGER.countResult)
@@ -8294,7 +8373,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       if ("FIELDS" in $props2)
         $invalidate(0, FIELDS = $props2.FIELDS);
       if ("PAGER" in $props2)
-        $invalidate(24, PAGER = $props2.PAGER);
+        $invalidate(26, PAGER = $props2.PAGER);
       if ("MASTER_ROWS" in $props2)
         $invalidate(1, MASTER_ROWS = $props2.MASTER_ROWS);
       if ("ACCESS" in $props2)
@@ -8308,15 +8387,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       if ("CAN_RESTORE_ROW" in $props2)
         $invalidate(6, CAN_RESTORE_ROW = $props2.CAN_RESTORE_ROW);
       if ("OnRestore" in $props2)
-        $invalidate(25, OnRestore = $props2.OnRestore);
+        $invalidate(27, OnRestore = $props2.OnRestore);
       if ("OnDelete" in $props2)
-        $invalidate(26, OnDelete = $props2.OnDelete);
+        $invalidate(28, OnDelete = $props2.OnDelete);
       if ("OnEdit" in $props2)
         $invalidate(7, OnEdit = $props2.OnEdit);
       if ("OnRefresh" in $props2)
-        $invalidate(27, OnRefresh = $props2.OnRefresh);
+        $invalidate(29, OnRefresh = $props2.OnRefresh);
       if ("$scope" in $props2)
-        $invalidate(28, $scope = $props2.$scope);
+        $invalidate(30, $scope = $props2.$scope);
     };
     return [
       FIELDS,
@@ -8336,6 +8415,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       currentPage,
       currentRows,
       showRowsNum,
+      totalRows,
+      totalRowsCurrent,
       rowsToShow,
       toggleRowsNum,
       ApplyFilter,
@@ -8375,20 +8456,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         safe_not_equal,
         {
           FIELDS: 0,
-          PAGER: 24,
+          PAGER: 26,
           MASTER_ROWS: 1,
           ACCESS: 2,
           CAN_SEARCH_ROW: 3,
           CAN_EDIT_ROW: 4,
           CAN_DELETE_ROW: 5,
           CAN_RESTORE_ROW: 6,
-          OnRestore: 25,
-          OnDelete: 26,
+          OnRestore: 27,
+          OnDelete: 28,
           OnEdit: 7,
-          OnRefresh: 27
+          OnRefresh: 29
         },
         null,
-        [-1, -1]
+        [-1, -1, -1]
       );
     }
   };
@@ -8414,7 +8495,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let mastertable_props = {
       ACCESS: segments2,
       CAN_EDIT_ROW: false,
-      CAN_SEARCH_ROW: true
+      CAN_SEARCH_ROW: true,
+      CAN_DELETE_ROW: true,
+      CAN_RESTORE_ROW: true
     };
     if (
       /*fields*/

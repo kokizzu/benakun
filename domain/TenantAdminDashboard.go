@@ -30,7 +30,7 @@ type (
 		ResponseCommon
 		Pager zCrud.PagerOut `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 		Meta  *zCrud.Meta    `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
-		Staffs []rqAuth.StaffWithInvitation `json:"staffs" form:"staffs" query:"staffs" long:"staffs" msg:"staffs"`
+		Staffs [][]any `json:"staffs" form:"staffs" query:"staffs" long:"staffs" msg:"staffs"`
 	}
 )
 
@@ -189,11 +189,9 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 		fallthrough
 	case zCrud.CmdList:
 		L.Print(in.Pager.Filters)
-		staffs := user.FindUsersByTenant()
-		out.Staffs = staffs
-
-		// TODO: do like this
-		// out.Staffs = user.FindStaffByPagination()
+		staff := rqAuth.NewUsers(d.AuthOltp)
+		staff.TenantCode = user.TenantCode
+		out.Staffs = staff.FindStaffByPagination(&TenantAdminDashboardMeta, &in.Pager, &out.Pager)
 	}
 
 	return

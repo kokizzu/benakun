@@ -1,9 +1,10 @@
 <script>
   import Icon from 'svelte-icons-pack/Icon.svelte';
-  import CgMathPlus from 'svelte-icons-pack/cg/CgMathPlus';
+  import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
   import MainLayout from './_layouts/mainLayout.svelte';
   import MasterTable from './_components/MasterTable.svelte';
   import { SuperAdminTenantManagement } from './jsApi.GEN';
+  import { notifier } from './_components/notifier';
 
   /** @typedef {import('./_components/types/master.js').Field} Field */
 	/** @typedef {import('./_components/types/access.js').Access} Access */
@@ -53,10 +54,12 @@
       function(/** @type any */ o) {
         if (o.error) {
           console.log(o);
+          notifier.showError(o.error);
           return;
         }
 
         console.log(o);
+        notifier.showSuccess(o.tenant.tenantCode + ' restored');
         tenants = o.tenants;
         pager = o.pager;
       }
@@ -77,10 +80,12 @@
       function(/** @type any */ o) {
         if (o.error) {
           console.log(o);
+          notifier.showError(o.error);
           return;
         }
 
         console.log(o);
+        notifier.showSuccess(o.tenant.tenantCode + ' deleted');
         tenants = o.tenants;
         pager = o.pager;
       }
@@ -105,26 +110,20 @@
       {OnRestore}
       {OnDelete}
     >
-      <button class="btn" on:click={AddRow}>
-        <Icon color="var(--gray-007)" size="16" src={CgMathPlus}/>
+      <button
+        class="action_btn"
+        on:click={AddRow}
+        title="add tenant"
+      >
+        <Icon
+          color="var(--gray-007)"
+          size="16"
+          src={RiSystemAddBoxLine}
+        />
       </button>
     </MasterTable>
   </div>
 </MainLayout>
 
 <style>
-  .btn {
-    border: none;
-    background-color: var(--gray-001);
-    border: 1px solid var(--gray-003);
-		width: fit-content;
-		padding: 10px 15px;
-		border-radius: 8px;
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-start;
-		align-items: center;
-		gap: 5px;
-		cursor: pointer;
-  }
 </style>

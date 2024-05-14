@@ -17,16 +17,7 @@ type StaffWithInvitation struct {
 	FullName        string `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
 	InvitationState	string `json:"invitationState" form:"invitationState" query:"invitationState" long:"invitationState" msg:"invitationState"`
 	Role            string `json:"role" form:"role" query:"role" long:"role" msg:"role"`
-	Date 						string `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
 }
-
-const (
-	StaffIdxId int = iota
-	StaffIdxEmail
-	StaffIdxFullName
-	StaffIdxInvitationState
-	StaffIdxRole
-)
 
 func (u *Users) CheckPassword(pass string) error {
 	return S.CheckPassword(u.Password, pass)
@@ -131,62 +122,6 @@ func (u *Users) FindByTenantCode() bool {
 	return false
 }
 
-func (u *Users) FindUsersByTenant() (staffs []StaffWithInvitation) {
-	var res [][]any
-	const comment = `-- Users) FindByTenant`
-
-	whereAndSql := ` WHERE ` + u.SqlInvitationState() + `LIKE '%tenant:` + u.TenantCode + `:%'`
-
-	queryRows := comment + `
-SELECT ` + u.SqlId() + `, ` + u.SqlEmail() + `, ` + u.SqlFullName() + `, ` + u.SqlInvitationState() + `, ` + u.SqlRole() + `
-FROM ` + u.SqlTableName() + whereAndSql
-
-	u.Adapter.QuerySql(queryRows, func(row []any) {
-		row[0] = X.ToS(row[0]) // ensure id is string
-		res = append(res, row)
-	})
-
-	if len(res) > 0 {
-		for _, stf := range res {
-			if len(stf) >= 5 {
-				invState, invStateDate := staffState(X.ToS(stf[StaffIdxInvitationState]), u.TenantCode)
-				st := StaffWithInvitation{
-					Id:              X.ToU(stf[StaffIdxId]),
-					Email:           X.ToS(stf[StaffIdxEmail]),
-					FullName:        X.ToS(stf[StaffIdxFullName]),
-					InvitationState: 				 invState,
-					Role:            X.ToS(stf[StaffIdxRole]),
-					Date: 					 invStateDate,
-				}
-				staffs = append(staffs, st)
-			}
-		}
-	} else {
-		return []StaffWithInvitation{}
-	}
-
-	return
-}
-
-func staffState(states, tenantCode string) (invState string, invStateDate string) {
-	sliceStates := S.Split(S.Trim(states), ` `)
-	if len(sliceStates) == 0 || states == `` {
-		return ``, ``
-	}
-	for _, state := range sliceStates {
-		if state == `` {
-			continue
-		}
-		parts := S.Split(state, `:`)
-		if len(parts) == 4 {
-			if parts[1] == tenantCode {
-				return parts[2], parts[3]
-			}
-		} 
-	}
-	return ``, ``
-}
-
 func (c *Coa) FindCoasByTenant(tenantCode string) (coas []Coa) {
 	var res [][]any
 	const comment = `-- Coa) FindCoasByTenant`
@@ -262,25 +197,52 @@ func (u *Users) FindStaffByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *
 
 	validFields := UsersFieldTypeMap
 	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
+	whereAndSql2 := `AND (` + u.SqlInvitationState() + ` LIKE '%tenant:` + u.TenantCode + `:%')`
+	if whereAndSql == `` {
+		whereAndSql2 = ` WHERE ` + u.SqlInvitationState() + ` LIKE '%tenant:` + u.TenantCode + `:%'`
+	}
 
 	queryCount := comment + `
 SELECT COUNT(1)
-FROM ` + u.SqlTableName() + whereAndSql + `
+FROM ` + u.SqlTableName() + whereAndSql + whereAndSql2 + `
 LIMIT 1`
 	u.Adapter.QuerySql(queryCount, func(row []any) {
 		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
 	})
+
+	L.Print(`Query FindStaffByPagination:`, queryCount)
 
 	orderBySql := out.OrderBySqlTt(in.Order, validFields)
 	limitOffsetSql := out.LimitOffsetSql()
 
 	queryRows := comment + `
 SELECT ` + meta.ToSelect() + `
-FROM ` + u.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+FROM ` + u.SqlTableName() + whereAndSql  + whereAndSql2 + orderBySql + limitOffsetSql
 	u.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
+		invState := staffState(X.ToS(row[4]), u.TenantCode)
+		row[4] = invState 
 		res = append(res, row)
 	})
 
 	return
+}
+
+func staffState(states, tenantCode string) (invState string) {
+	sliceStates := S.Split(S.Trim(states), ` `)
+	if len(sliceStates) == 0 || states == `` {
+		return ``
+	}
+	for _, state := range sliceStates {
+		if state == `` {
+			continue
+		}
+		parts := S.Split(state, `:`)
+		if len(parts) == 4 {
+			if parts[1] == tenantCode {
+				return parts[2]
+			}
+		} 
+	}
+	return ``
 }

@@ -12,7 +12,6 @@
   let user = /** @type User */ ({/* user */});
   let fields = /** @type Field[] */ ([/* fields */]);
   let pager = /** @type PagerOut */ ({/* pager */});
-
   let staffs = /** @type any[][] */ ([/* staffs */]);
 
   console.log('segments =', segments);
@@ -29,8 +28,11 @@
       bind:FIELDS={fields}
       bind:PAGER={pager}
       bind:MASTER_ROWS={staffs}
+      
       CAN_EDIT_ROW={false}
-      CAN_SEARCH_ROW={true}
+      CAN_SEARCH_ROW
+      CAN_DELETE_ROW
+      CAN_RESTORE_ROW
     />
   </div>
 </MainLayout>

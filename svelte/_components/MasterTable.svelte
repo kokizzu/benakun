@@ -71,14 +71,21 @@
 	let rowsToShow = [10, 20, 40, 60, 70, 100, 200];
 	// State for show rows options
 	let showRowsNum = false;
+	// Total rows
+	let totalRows = PAGER.countResult;
+	// Total rows current
+	let totalRowsCurrent = 0
 
 	// Toggle show rows options
 	function toggleRowsNum() { showRowsNum = !showRowsNum }
 
 	// Refresh Pagination
 	function getPaginationShow() {
+		totalRows = PAGER.countResult;
 		totalPages = PAGER.pages;
 		currentPage = PAGER.page;
+		if (MASTER_ROWS && MASTER_ROWS.length) totalRowsCurrent = MASTER_ROWS.length;
+		else totalRowsCurrent = 0;
 
     totalRound = Math.ceil(totalPages / currentRows) * currentRows;
 		paginationTotal = totalRound / currentRows, paginationsAll = [];
@@ -186,9 +193,12 @@
 	<div class="actions_container">
     <div class="left">
       <div class="actions_btn">
-				<button class="btn" on:click={() => filterTable.Show()}>
-					<span>Filter table</span>
-					<Icon color="var(--gray-007)" size="16" src={RiSystemFilterLine}/>
+				<button class="action_btn" on:click={() => filterTable.Show()} title="filter table">
+					<Icon
+						color="var(--gray-007)"
+						size="16"
+						src={RiSystemFilterLine}
+					/>
 				</button>
 				<!-- Action buttons -->
 				<slot />
@@ -202,6 +212,13 @@
     <div class="right">
 			{#if CAN_SEARCH_ROW}
       	<div class="search_handler">
+        	<button class="search_btn" title="Search">
+          	<Icon
+							color="var(--gray-007)"
+							size="16"
+							src={IoSearch}
+						/>
+        	</button>
         	<input
           	placeholder="Search..."
           	type="text"
@@ -209,9 +226,6 @@
           	id="searchRow"
           	class="search"
         	/>
-        	<button class="search_btn">
-          	<Icon color="var(--gray-007)" size="16" src={IoSearch}/>
-        	</button>
       	</div>
 			{/if}
     </div>
@@ -285,7 +299,7 @@
 									}
 										<td>{datetime(row[idx])}</td>
 									{:else}
-										<td>{row[idx]}</td>
+										<td>{row[idx] || '--'}</td>
 									{/if}
 								{/each}
 							{/if}
@@ -298,7 +312,7 @@
   <div class="pagination_container">
     <div class="filter">
       <div class="showing">
-        <p>Showing <span class="text-violet">10</span>/<span class="text-violet">20</span> of <span class="text-violet">40</span> record(s)</p>
+        <p>Showing <span class="text-violet">{totalRowsCurrent}</span>/<span class="text-violet">{currentRows}</span> of <span class="text-violet">{totalRows}</span> record(s)</p>
       </div>
       <div class="row_to_show">
 				{#if showRowsNum}
@@ -368,6 +382,10 @@
     }
   }
 
+	:global(.action_btn:hover svg) {
+		fill: var(--violet-005);
+	}
+
   :global(.spin) {
     animation: spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
@@ -393,12 +411,12 @@
   .table_root {
     display: flex;
     flex-direction: column;
-    gap: 15px;
 		background-color: #FFF;
 		box-shadow: var(--shadow-md);
 		border-radius: 10px;
 		border: 1px solid var(--gray-003);
-		padding: 20px 0;
+		padding: 0 0 20px 0;
+		overflow: hidden;
   }
 
 	.table_root p {
@@ -410,7 +428,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-		padding: 0 15px;
+		padding: 10px 15px;
+		background: linear-gradient(66deg, rgb(230, 251, 254) 0%, rgb(237, 221, 251) 100%);
   }
 
   .table_root .actions_container .left,
@@ -451,61 +470,48 @@
     flex-direction: row;
     width: fit-content;
     height: fit-content;
-    position: relative;
+		position: relative;
   }
 
   .table_root .actions_container .right .search_handler input.search {
-    padding: 12px 50px 12px 15px;
+    padding: 12px 40px 12px 15px;
     border-radius: 8px;
-    border: 1px solid var(--gray-003);
+    border: none;
 		background-color: var(--gray-001);
-    width: 300px;
+    width: 370px;
   }
 
   .table_root .actions_container .right .search_handler input.search:focus {
     border-color: none;
-    outline: 2px solid var(--violet-005);
+		outline: none;
   }
 
   .table_root .actions_container .right .search_handler .search_btn {
-    position: absolute;
-    background-color: var(--gray-003);
-    padding: 12px 12px;
+		position: absolute;
+    background-color: transparent;
+    padding: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
     border: none;
-		border-radius: 0 8px 8px 0;
+		border-radius: 8px;
     cursor: pointer;
-		right: 0;
+		right: 5px;
+		top: 3px;
   }
 
   .table_root .actions_container .right .search_handler .search_btn:hover {
-    background-color: var(--gray-004);
+    background-color: var(--violet-transparent);
   }
+
+	:global(.table_root .actions_container .right .search_handler .search_btn:hover svg) {
+		fill: var(--violet-005);
+	}
 
   .table_root .actions_container .actions_btn {
     display: flex;
     flex-direction: row;
-    gap: 10px;
     align-items: center;
-  }
-
-  .table_root .actions_container .actions_btn .btn {
-    border: none;
-		color: var(--gray-007);
-		background-color: var(--gray-001);
-		border: 1px solid var(--gray-003);
-		font-weight: 600;
-		width: fit-content;
-		padding: 10px 15px;
-		border-radius: 8px;
-		display: flex;
-		flex-direction: row;
-		justify-content: flex-start;
-		align-items: center;
-		gap: 5px;
-		cursor: pointer;
   }
 
   .table_root .actions_container .actions_btn .btn.export {
@@ -620,7 +626,7 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		padding: 0 15px;
+		padding: 15px 15px 0 15px;
 	}
 
 	.table_root .pagination_container .filter {
