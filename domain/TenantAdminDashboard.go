@@ -117,37 +117,37 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 	switch in.Cmd {
 	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
 		if in.StaffEmail != `` {
-			user := wcAuth.NewUsersMutator(d.AuthOltp)
-			user.Email = in.StaffEmail
-			if !user.FindByEmail() {
+			staff := wcAuth.NewUsersMutator(d.AuthOltp)
+			staff.Email = in.StaffEmail
+			if !staff.FindByEmail() {
 				out.SetError(400, ErrTenantAdminDashboardUserNotFound)
 				return
 			}
 
 			if in.Cmd == zCrud.CmdUpsert {
-				if user.TenantCode != `` {
+				if staff.TenantCode != `` {
 					out.SetError(400, ErrTenantAdminDashboardInvalidStaff)
 					return
 				}
 
-				mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
+				mapState, err := mAuth.ToInvitationStateMap(staff.InvitationState)
 				if errors.Is(err, mAuth.ErrInvitationStateEmpty) {
 					invState := mAuth.InviteState{
 						TenantCode: tenant.TenantCode,
 						State:      mAuth.InvitationStateInvited,
 						Date:       T.DateStr(),
 					}
-					user.SetInvitationState(invState.ToStateString())
+					staff.SetInvitationState(invState.ToStateString())
 				} else {
 					err := mapState.ModifyState(tenant.TenantCode, mAuth.InvitationStateInvited)
 					if err != nil {
 						out.SetError(400, err.Error())
 						return
 					}
-					user.SetInvitationState(mapState.ToStateString())
+					staff.SetInvitationState(mapState.ToStateString())
 				}
 			} else if in.Cmd == zCrud.CmdDelete {
-				mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
+				mapState, err := mAuth.ToInvitationStateMap(staff.InvitationState)
 				if errors.Is(err, mAuth.ErrInvitationStateEmpty) {
 					out.SetError(400, ErrTenantAdminDashboardEmptyState)
 					return
@@ -157,12 +157,12 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 						out.SetError(400, err.Error())
 						return
 					}
-					user.SetInvitationState(mapState.ToStateString())
+					staff.SetInvitationState(mapState.ToStateString())
 				}
 
-				user.SetRole(UserSegment)
+				staff.SetRole(UserSegment)
 			} else if in.Cmd == zCrud.CmdRestore {
-				mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
+				mapState, err := mAuth.ToInvitationStateMap(staff.InvitationState)
 				if errors.Is(err, mAuth.ErrInvitationStateEmpty) {
 					out.SetError(400, ErrTenantAdminDashboardEmptyState)
 					return
@@ -172,12 +172,14 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 						out.SetError(400, err.Error())
 						return
 					}
-					user.SetInvitationState(mapState.ToStateString())
+					staff.SetInvitationState(mapState.ToStateString())
 				}
 			}
 
-			if !user.DoUpdateByEmail() {
-				user.HaveMutation()
+			staff.SetUpdatedAt(in.UnixNow())
+			staff.SetUpdatedBy(user.Id)
+			if !staff.DoUpdateByEmail() {
+				staff.HaveMutation()
 				out.SetError(500, ErrTenantAdminDashboardFailed)
 				return
 			}
@@ -185,7 +187,7 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 			if in.Cmd == zCrud.CmdUpsert || in.Cmd == zCrud.CmdRestore {
 				d.runSubtask(func() {
 					inviteRespUrl := in.Host + `/` + UserResponseInvitationAction + `?tenantCode=` + tenant.TenantCode + `&response=`
-					err := d.Mailer.SendInviteUserEmail(tenant.TenantCode, user.Email, inviteRespUrl)
+					err := d.Mailer.SendInviteUserEmail(tenant.TenantCode, staff.Email, inviteRespUrl)
 					L.IsError(err, `SendInviteUserEmail`)
 					// TODO: insert failed event to clickhouse
 				})
