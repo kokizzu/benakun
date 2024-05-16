@@ -3331,6 +3331,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.SuperAdminUserManagement = async function SuperAdminUserManagement(i, cb) {
         return await axios.post("/superAdmin/userManagement", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminBankAccounts = async function TenantAdminBankAccounts(i, cb) {
+        return await axios.post("/tenantAdmin/bankAccounts", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.TenantAdminBudgeting = async function TenantAdminBudgeting(i, cb) {
         return await axios.post("/tenantAdmin/budgeting", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -4628,6 +4631,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path fill-rule="nonzero" d="M17 13a4 4 0 1 1-4 4h-2a4 4 0 1 1-.535-2h3.07A3.998 3.998 0 0 1 17 13zM7 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM16 3a4 4 0 0 1 4 4v3h2v2H2v-2h2V7a4 4 0 0 1 4-4h8zm0 2H8c-1.054 0-2 .95-2 2v3h12V7c0-1.054-.95-2-2-2z"></path></g>'
   };
 
+  // node_modules/.pnpm/svelte-icons-pack@2.1.0/node_modules/svelte-icons-pack/ri/RiBuildingsBankLine.js
+  var RiBuildingsBankLine_default = {
+    a: {
+      viewBox: "0 0 24 24"
+    },
+    c: '<g><path fill="none" d="M0 0h24v24H0z"></path>\n<path d="M2 20h20v2H2v-2zm2-8h2v7H4v-7zm5 0h2v7H9v-7zm4 0h2v7h-2v-7zm5 0h2v7h-2v-7zM2 7l10-5 10 5v4H2V7zm2 1.236V9h16v-.764l-8-4-8 4zM12 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"></path></g>'
+  };
+
   // _components/partials/SubMenuLink.svelte
   function create_fragment2(ctx) {
     let a;
@@ -4909,6 +4920,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let submenulink1;
     let t4;
     let submenulink2;
+    let t5;
+    let submenulink3;
     let current;
     icon = new Icon_default({
       props: {
@@ -4938,6 +4951,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         icon: BsPostcard_default
       }
     });
+    submenulink3 = new SubMenuLink_default({
+      props: {
+        title: "Bank Accounts",
+        href: "/tenantAdmin/bankAccounts",
+        icon: RiBuildingsBankLine_default
+      }
+    });
     return {
       c() {
         a = element("a");
@@ -4952,6 +4972,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         create_component(submenulink1.$.fragment);
         t4 = space();
         create_component(submenulink2.$.fragment);
+        t5 = space();
+        create_component(submenulink3.$.fragment);
         attr(a, "href", "/tenantAdmin/dashboard");
         attr(a, "class", "svelte-rvgb98");
         toggle_class(a, "active", window.location.pathname === "/tenantAdmin/dashboard");
@@ -4969,6 +4991,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         mount_component(submenulink1, div, null);
         append(div, t4);
         mount_component(submenulink2, div, null);
+        append(div, t5);
+        mount_component(submenulink3, div, null);
         current = true;
       },
       p: noop,
@@ -4979,6 +5003,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_in(submenulink0.$.fragment, local);
         transition_in(submenulink1.$.fragment, local);
         transition_in(submenulink2.$.fragment, local);
+        transition_in(submenulink3.$.fragment, local);
         current = true;
       },
       o(local) {
@@ -4986,6 +5011,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_out(submenulink0.$.fragment, local);
         transition_out(submenulink1.$.fragment, local);
         transition_out(submenulink2.$.fragment, local);
+        transition_out(submenulink3.$.fragment, local);
         current = false;
       },
       d(detaching) {
@@ -4998,6 +5024,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         destroy_component(submenulink0);
         destroy_component(submenulink1);
         destroy_component(submenulink2);
+        destroy_component(submenulink3);
       }
     };
   }

@@ -22,6 +22,7 @@ var allCommands = []string{
 	domain.SuperAdminDashboardAction,
 	domain.SuperAdminTenantManagementAction,
 	domain.SuperAdminUserManagementAction,
+	domain.TenantAdminBankAccountsAction,
 	domain.TenantAdminBudgetingAction,
 	domain.TenantAdminCoaAction,
 	domain.TenantAdminCreateBudgetPlanAction,

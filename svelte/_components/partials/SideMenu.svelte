@@ -13,8 +13,9 @@
   import AiOutlineHome from 'svelte-icons-pack/ai/AiOutlineHome';
   import RiBuildingsCommunityLine from 'svelte-icons-pack/ri/RiBuildingsCommunityLine';
   import BsPostcard from 'svelte-icons-pack/bs/BsPostcard';
-  import HiOutlineUserGroup from "svelte-icons-pack/ri/RiUserGroup2Line.js";
-  import HiOutlineUserAdd from "svelte-icons-pack/ri/RiUserSpyLine.js";
+  import HiOutlineUserGroup from 'svelte-icons-pack/ri/RiUserGroup2Line.js';
+  import HiOutlineUserAdd from 'svelte-icons-pack/ri/RiUserSpyLine.js';
+  import RiBuildingsBankLine from 'svelte-icons-pack/ri/RiBuildingsBankLine';
   import SubMenuLink from './SubMenuLink.svelte';
 
   /** @typedef {import('../types/access.js').Access} Access*/
@@ -73,6 +74,7 @@
             <SubMenuLink title='Organization' href='/tenantAdmin/organization' icon={RiEditorOrganizationChart}/>
             <SubMenuLink title='Budgeting' href='/tenantAdmin/budgeting' icon={AiOutlineWallet}/>
             <SubMenuLink title='Chart of Acount' href='/tenantAdmin/coa' icon={BsPostcard}/>
+            <SubMenuLink title='Bank Accounts' href='/tenantAdmin/bankAccounts' icon={RiBuildingsBankLine}/>
           </div>
         {/if}
         {#if access.superAdmin }

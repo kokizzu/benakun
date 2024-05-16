@@ -842,6 +842,32 @@ exports.SuperAdminUserManagement = async function SuperAdminUserManagement( i, c
 }
 
 /**
+ * @typedef {Object} TenantAdminBankAccountsIn
+ */
+const TenantAdminBankAccountsIn = {
+}
+/**
+ * @typedef {Object} TenantAdminBankAccountsOut
+ */
+const TenantAdminBankAccountsOut = {
+}
+/**
+ * @callback TenantAdminBankAccountsCallback
+ * @param {TenantAdminBankAccountsOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminBankAccountsIn} i
+ * @param {TenantAdminBankAccountsCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminBankAccounts = async function TenantAdminBankAccounts( i, cb ) {
+  return await axios.post( '/tenantAdmin/bankAccounts', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} TenantAdminBudgetingIn
  */
 const TenantAdminBudgetingIn = {

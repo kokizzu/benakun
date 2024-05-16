@@ -209,6 +209,18 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.TenantAdminBankAccountsAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notLogin(d, in.RequestCommon, false) {
+			return ctx.Redirect(`/`, 302)
+		}
+		return views.RenderTenantAdminBankAccounts(ctx, M.SX{
+			`title`:    `Tenant Admin Bank Accounts`,
+			`user`:     user,
+			`segments`: segments,
+		})
+	})
+
 	fw.Get(`/`+domain.SuperAdminDashboardAction, func(ctx *fiber.Ctx) error {
 		var in domain.SuperAdminDashboardIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.SuperAdminDashboardAction)
