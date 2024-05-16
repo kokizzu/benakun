@@ -155,7 +155,7 @@
             <button
               on:click={() => killSession(session.sessionToken)}
               class="kill_session"
-              title="Kill this session"
+              title="kill this session"
             >
               <Icon color="#FFF" size="12" src={FaSolidTimes} />
             </button>
@@ -307,7 +307,7 @@
 
   .sessions_container .sessions .session .kill_session {
     border: none;
-    background-color: var(--red-002);
+    background-color: var(--red-005);
     padding: 5px;
     border-radius: 50%;
     position: absolute;
@@ -319,7 +319,7 @@
   }
 
   .sessions_container .sessions .session .kill_session:hover {
-    background-color: var(--red-001);
+    background-color: var(--red-004);
   }
 
   /* Responsive to mobile device */

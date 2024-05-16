@@ -20,6 +20,7 @@
 	import RiSystemDeleteBin5Line from 'svelte-icons-pack/ri/RiSystemDeleteBin5Line';
 	import RiSystemFilterLine from 'svelte-icons-pack/ri/RiSystemFilterLine';
 	import RiSystemArrowGoBackLine from 'svelte-icons-pack/ri/RiSystemArrowGoBackLine';
+	import InputCustom from './InputCustom.svelte';
 	import { onMount } from 'svelte';
 	import FilterTable from './FilterTable.svelte';
 	import { datetime } from './formatter';
@@ -34,6 +35,7 @@
 	export let MASTER_ROWS		= /** @type any[][] */	([]); // bind
 	
 	export let ACCESS						= /** @type Access */ ({});
+	export let ARRAY_OF_ARRAY		= true;
 	export let CAN_SEARCH_ROW 	= true;
 	export let CAN_EDIT_ROW 		= true;
 	export let CAN_DELETE_ROW 	= false;
@@ -53,6 +55,9 @@
 
 	// Index of field 'deletedAt', for marker deleted rows
 	let deletedIndex = 0;
+
+	// PopUp for modify rows
+	let showPopUp = false;
 
 	// Pagination total, based on total pages
 	let paginationTotal = 1;
@@ -77,7 +82,10 @@
 	// Total rows
 	let totalRows = PAGER.countResult;
 	// Total rows current
-	let totalRowsCurrent = 0
+	let totalRowsCurrent = 0;
+
+	// Payloads for modify rows
+	let payloads = [];
 
 	// Toggle show rows options
 	function toggleRowsNum() { showRowsNum = !showRowsNum }
@@ -111,6 +119,16 @@
 		paginationShow = paginationsAll.slice(start, end);
 	}
 
+	/**
+	 * @param {any} row
+	 * @param {number} i
+	 * @param {Field} field
+	 */
+	function Cell( row, i, field ) {
+		if( ARRAY_OF_ARRAY ) return row[ i ] || '';
+		return row[ field.name ] || '';
+	}
+
 	onMount(() => {
 		// FilterTable.svelte component is rendered
 		filterTable = FilterTable;
@@ -132,12 +150,16 @@
 		}
 		// Calculate pagination
 		getPaginationShow();
+		// Fill initial payloads
+		if (FIELDS && FIELDS.length > 0) {
+			FIELDS.forEach(() => payloads = [...payloads, '']);
+		}
 	})
 
 	// Export function, forward parameter to parent
 	export let OnRestore = async function(/** @type any[]*/ row) {}
 	export let OnDelete = async function(/** @type any[]*/ row) {}
-	export let OnEdit = async function(/** @type any[]*/ row) {}
+	export let OnEdit = function(/** @type any */ id, /** @type any[]*/ payloads) {}
 	export let OnRefresh = async function(/** @type PagerIn */ pagerIn) {}
 
 	function ApplyFilter() {
@@ -185,6 +207,24 @@
 		// Refresh pagination view
 		getPaginationShow();
 	}
+
+	// Row ID to modify
+	let idToMod = '';
+
+	function toggleShowPopUp(/** @type any */ id, /** @type any[]*/ row) {
+		payloads = [];
+		FIELDS.forEach((_, i) => {
+			payloads = [...payloads, row[i]]
+		});
+
+		showPopUp = true;
+		idToMod = id;
+	}
+
+	function handleSubmitEdit() {
+		showPopUp = false;
+		OnEdit(idToMod, payloads);
+	}
 </script>
 
 {#if filterTableReady}
@@ -196,11 +236,46 @@
 	/>
 {/if}
 
+{#if showPopUp}
+	<div class="popup_container">
+		<div class="popup">
+			<header>
+				<h2>Edit row</h2>
+				<button on:click={() => showPopUp = false}>
+					<Icon size="22" color="var(--red-005)" src={IoClose}/>
+				</button>
+			</header>
+			<div class="forms">
+					{#each (FIELDS || []) as field, idx}
+						{#if field.name !== 'id'}
+							{#if !field.readOnly}
+								<InputCustom
+									id={field.name}
+									label={field.label}
+									placeholder={field.description}
+									bind:value={payloads[idx]}
+									type={field.type || 'text'}
+								/>
+							{/if}
+						{/if}
+					{/each}
+			</div>
+			<div class="foot">
+				<button class="ok" on:click={handleSubmitEdit}>Save</button>
+			</div>
+		</div>
+	</div>
+{/if}
+
 <div class="table_root">
 	<div class="actions_container">
     <div class="left">
       <div class="actions_btn">
-				<button class="action_btn" on:click={() => filterTable.Show()} title="filter table">
+				<button
+					class="action_btn"
+					on:click={() => filterTable.Show()}
+					title="filter table"
+				>
 					<Icon
 						color="var(--gray-007)"
 						size="16"
@@ -242,9 +317,10 @@
 			<thead>
 				<tr>
 					<th class="no">No</th>
-					<th class="a_row">Actions</th>
-					{#if FIELDS && FIELDS.length > 0}
-						{#each FIELDS as f, _ (f.name)}
+					{#each (FIELDS || []) as f, _ (f.name)}
+						{#if f.name === 'id'}
+							<th class="a_row">Actions</th>
+						{:else}
 							<th class="sort_column">
 								<span>{f.label}</span>
 								{#if sortTableAsc}
@@ -254,20 +330,21 @@
 									<Icon size="15" color="var(--gray-007)" src={IoArrowDownSharp}/>
 								{/if}
 							</th>
-						{/each}
-					{/if}
+						{/if}
+					{/each}
 				</tr>
 			</thead>
 			<tbody>
-				{#if MASTER_ROWS && MASTER_ROWS.length}
-					{#each MASTER_ROWS as row}
-						<tr class={
-							(CAN_DELETE_ROW && row[deletedIndex] > 0)
-							|| (CAN_DELETE_ROW && row[deletedIndex] === 'terminated')
-								? 'deleted'
-								: ''
-						}>
-							<td class="num_row">{MASTER_ROWS.indexOf(row) + 1}</td>
+				{#each (MASTER_ROWS || []) as row}
+					<tr class={
+						(CAN_DELETE_ROW && row[deletedIndex] > 0)
+						|| (CAN_DELETE_ROW && row[deletedIndex] === 'terminated')
+							? 'deleted'
+							: ''
+					}>
+						<td class="num_row">{MASTER_ROWS.indexOf(row) + 1}</td>
+						{#each (FIELDS || []) as f, idx}
+							{#if f.name === 'id'}
 							<td class="a_row">
 								{#if ACCESS.superAdmin
 									|| ACCESS.tenantAdmin
@@ -276,7 +353,7 @@
 								}
 									<div class="actions">	
 										{#if CAN_EDIT_ROW}
-											<button class="btn edit" title="Edit" on:click={() => OnEdit(row)}>
+											<button class="btn edit" title="Edit" on:click={() => toggleShowPopUp(Cell(row, idx, f), row)}>
 												<Icon size="15" color="var(--gray-007)" src={RiDesignBallPenLine}/>
 											</button>
 										{/if}
@@ -303,28 +380,21 @@
 									<span>--</span>
 								{/if}
 							</td>
-							{#if FIELDS && FIELDS.length > 0}
-								{#each FIELDS as f, idx}
-									{#if f.name === 'createdAt' ||
-										f.name === 'updatedAt' ||
-										f.name === 'deletedAt'
-									}
-										<td>{datetime(row[idx])}</td>
-									{:else}
-										<td>{row[idx] || '--'}</td>
-									{/if}
-								{/each}
+							{:else if f.inputType === 'datetime'}
+								<td>{(row[idx]) ? datetime(row[idx]) : '--'}</td>
+							{:else}
+								<td>{row[idx] || '--'}</td>
 							{/if}
-						</tr>
-					{/each}
-				{/if}
+						{/each}
+					</tr>
+				{/each}
 			</tbody>
 		</table>
 	</div>
   <div class="pagination_container">
     <div class="filter">
       <div class="showing">
-        <p>Showing <span class="text-violet">{totalRowsCurrent}</span>/<span class="text-violet">{currentRows}</span> of <span class="text-violet">{totalRows}</span> record(s)</p>
+        <p>Showing <span class="text-violet">{totalRowsCurrent}</span> /
       </div>
       <div class="row_to_show">
 				{#if showRowsNum}
@@ -339,7 +409,11 @@
           <Icon className={showRowsNum ? 'dropdown' : 'rotate_right'} size="13" src={CgChevronDown}/>
         </button>
       </div>
+			<p>record(s)</p>
     </div>
+		<div>
+			<p>Total:<span class="text-violet">{totalRows}</span></p>
+		</div>
     <div class="pagination">
       <button
 				disabled={currentPage == 1}
@@ -385,6 +459,101 @@
 </div>
 
 <style>
+	.popup_container {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		z-index: 2000;
+		background-color: rgba(0 0 0 / 40%);
+		backdrop-filter: blur(1px);
+		display: flex;
+		justify-content: center;
+		padding: 50px;
+    overflow: auto;
+	}
+
+	.popup_container .popup {
+		border-radius: 8px;
+		background-color: #FFF;
+		height: fit-content;
+		width: 500px;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.popup_container .popup header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		padding: 15px 20px;
+		border-bottom: 1px solid var(--gray-004);
+	}
+
+	.popup_container .popup header h2 {
+		margin: 0;
+	}
+
+	.popup_container .popup header button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 5px;
+		border-radius: 50%;
+		border: none;
+		background-color: transparent;
+		cursor: pointer;
+	}
+
+	.popup_container .popup header button:hover {
+		background-color: #ef444420;
+	}
+
+	.popup_container .popup .forms {
+		padding: 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.popup_container .popup .foot {
+		display: flex;
+		flex-direction: row;
+    justify-content: flex-end;
+		gap: 10px;
+		align-items: center;
+		padding: 10px 20px;
+		border-top: 1px solid var(--gray-004);
+	}
+
+	.popup_container .popup .foot button {
+		padding: 8px 13px;
+		border-radius: 9999px;
+		border: none;
+		color: #FFF;
+		cursor: pointer;
+		font-weight: 600;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.popup_container .popup .foot button.ok {
+		background-color: var(--green-006);
+		border: 1px solid var(--green-006);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	}
+
+	.popup_container .popup .foot button.ok:hover {
+		background-color: var(--green-005);
+	}
+
   @keyframes spin {
     from {
       transform: rotate(0deg);
@@ -430,6 +599,12 @@
 		overflow: hidden;
   }
 
+	.table_root .text-violet {
+		color: var(--violet-005);
+		font-weight: 600;
+		padding: 5px;
+	}
+
 	.table_root p {
 		margin: 0;
 	}
@@ -449,12 +624,6 @@
 		flex-direction: row;
 		align-items: center;
     gap: 10px;
-	}
-
-	.table_root .actions_container .left .debug .showing .text-violet {
-		color: var(--violet-006);
-		font-weight: 600;
-		padding: 5px;
 	}
 
 	.table_root .actions_container .left .debug .btn {
@@ -638,6 +807,7 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
+		align-items: center;
 		padding: 15px 15px 0 15px;
 	}
 
@@ -648,12 +818,6 @@
 		gap: 8px;
 	}
 
-	.table_root .pagination_container .filter .showing .text-violet {
-		color: var(--violet-006);
-		font-weight: 600;
-		padding: 5px;
-	}
-
 	.table_root .pagination_container .filter .row_to_show {
 		position: relative;
 		width: fit-content;
@@ -662,12 +826,12 @@
 
 	.table_root .pagination_container .filter .row_to_show .btn {
 		border: none;
-		background-color: transparent;
-		color: var(--gray-007);
+		background-color: var(--violet-transparent);
+		color: var(--violet-005);
 		width: fit-content;
-		padding: 5px 7px;
+		padding: 3px 3px 3px 6px;
 		font-weight: 600;
-		border: 1px solid var(--gray-003);
+		border: none;
 		border-radius: 9999px;
 		display: flex;
 		flex-direction: row;
@@ -678,7 +842,7 @@
 	}
 
 	.table_root .pagination_container .filter .row_to_show .btn:hover {
-		background-color: var(--gray-002);
+		background-color: var(--violet-002);
 	}
 
 	.table_root .pagination_container .filter .row_to_show .rows {

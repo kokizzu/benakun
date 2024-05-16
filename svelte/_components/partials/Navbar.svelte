@@ -21,7 +21,8 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0 20px;
-    background: linear-gradient(66deg, rgb(230, 251, 254) 0%, rgb(237, 221, 251) 100%);
+    /* background: linear-gradient(66deg, rgb(230, 251, 254) 0%, rgb(237, 221, 251) 100%); */
+    background-color: #FFF;
 		position: sticky;
     top: 0;
     left: 0;

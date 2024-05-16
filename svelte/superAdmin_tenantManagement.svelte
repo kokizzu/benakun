@@ -88,6 +88,11 @@
     )
   }
 
+  function OnEdit(/** @type any */ id, /** @type any[]*/ payloads) {
+    console.log('ID:', id);
+    console.log('Payloads:', payloads);
+  }
+
   function AddRow() {
     console.log('AddRow');
   }
@@ -109,6 +114,7 @@
       {OnRefresh}
       {OnRestore}
       {OnDelete}
+      {OnEdit}
     >
       <button
         class="action_btn"

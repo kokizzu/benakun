@@ -210,8 +210,6 @@ LIMIT 1`
 		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
 	})
 
-	L.Print(`Query FindStaffByPagination:`, queryCount)
-
 	orderBySql := out.OrderBySqlTt(in.Order, validFields)
 	limitOffsetSql := out.LimitOffsetSql()
 
