@@ -843,13 +843,116 @@ exports.SuperAdminUserManagement = async function SuperAdminUserManagement( i, c
 
 /**
  * @typedef {Object} TenantAdminBankAccountsIn
+ * @property {String} cmd
+ * @property {number} account.id
+ * @property {number} account.createdAt
+ * @property {number} account.createdBy
+ * @property {number} account.updatedAt
+ * @property {number} account.updatedBy
+ * @property {number} account.deletedAt
+ * @property {String} account.name
+ * @property {number} account.parentBankAccountId
+ * @property {number} account.accountNumber
+ * @property {String} account.bankName
+ * @property {String} account.accountName
+ * @property {Object} account.isProfitCenter
+ * @property {Object} account.isCostCenter
+ * @property {number} account.staffId
+ * @property {Object} withMeta
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
  */
 const TenantAdminBankAccountsIn = {
+  cmd: '', // string
+  account: { // rqBudget.BankAccounts
+    id: 0, // uint64
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    name: '', // string
+    parentBankAccountId: 0, // uint64
+    accountNumber: 0, // int64
+    bankName: '', // string
+    accountName: '', // string
+    isProfitCenter: false, // bool
+    isCostCenter: false, // bool
+    staffId: 0, // uint64
+  }, // rqBudget.BankAccounts
+  withMeta: false, // bool
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
 }
 /**
  * @typedef {Object} TenantAdminBankAccountsOut
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
+ * @property {number} account.id
+ * @property {number} account.createdAt
+ * @property {number} account.createdBy
+ * @property {number} account.updatedAt
+ * @property {number} account.updatedBy
+ * @property {number} account.deletedAt
+ * @property {String} account.name
+ * @property {number} account.parentBankAccountId
+ * @property {number} account.accountNumber
+ * @property {String} account.bankName
+ * @property {String} account.accountName
+ * @property {Object} account.isProfitCenter
+ * @property {Object} account.isCostCenter
+ * @property {number} account.staffId
+ * @property {Object} accounts
  */
 const TenantAdminBankAccountsOut = {
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
+  account: { // rqBudget.BankAccounts
+    id: 0, // uint64
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    name: '', // string
+    parentBankAccountId: 0, // uint64
+    accountNumber: 0, // int64
+    bankName: '', // string
+    accountName: '', // string
+    isProfitCenter: false, // bool
+    isCostCenter: false, // bool
+    staffId: 0, // uint64
+  }, // rqBudget.BankAccounts
+  accounts: { // [][]any
+  }, // [][]any
 }
 /**
  * @callback TenantAdminBankAccountsCallback

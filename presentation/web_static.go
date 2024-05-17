@@ -210,14 +210,25 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	})
 
 	fw.Get(`/`+domain.TenantAdminBankAccountsAction, func(ctx *fiber.Ctx) error {
-		in, user, segments := userInfoFromContext(ctx, d)
-		if notLogin(d, in.RequestCommon, false) {
+		var in domain.TenantAdminBankAccountsIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminBankAccountsAction)
+		if err != nil {
+			return err
+		}
+		if notLogin(d, in.RequestCommon, true) {
 			return ctx.Redirect(`/`, 302)
 		}
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Cmd = zCrud.CmdList
+		out := d.TenantAdminBankAccounts(&in)
 		return views.RenderTenantAdminBankAccounts(ctx, M.SX{
 			`title`:    `Tenant Admin Bank Accounts`,
 			`user`:     user,
 			`segments`: segments,
+			`accounts`: out.Accounts,
+			`fields`: out.Meta.Fields,
+			`pager`: out.Pager,
 		})
 	})
 

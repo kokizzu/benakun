@@ -242,7 +242,11 @@
 			<header>
 				<h2>Edit row</h2>
 				<button on:click={() => showPopUp = false}>
-					<Icon size="22" color="var(--red-005)" src={IoClose}/>
+					<Icon
+						size="22"
+						color="var(--red-005)"
+						src={IoClose}
+					/>
 				</button>
 			</header>
 			<div class="forms">
@@ -287,7 +291,12 @@
       </div>
 			{#if isAjaxSubmitted}
         <div class="loader">
-          <Icon className="spin" color="var(--violet-007)" size="28" src={FiLoader} />
+          <Icon
+						className="spin"
+						color="var(--violet-007)"
+						size="28"
+						src={FiLoader}
+					/>
         </div>
       {/if}
     </div>
@@ -321,15 +330,7 @@
 						{#if f.name === 'id'}
 							<th class="a_row">Actions</th>
 						{:else}
-							<th class="sort_column">
-								<span>{f.label}</span>
-								{#if sortTableAsc}
-									<Icon className="sort_icon" size="15" color="var(--gray-007)" src={IoArrowUpSharp}/>
-								{/if}
-								{#if !sortTableAsc}
-									<Icon size="15" color="var(--gray-007)" src={IoArrowDownSharp}/>
-								{/if}
-							</th>
+							<th>{f.label}</th>
 						{/if}
 					{/each}
 				</tr>
@@ -353,27 +354,44 @@
 								}
 									<div class="actions">	
 										{#if CAN_EDIT_ROW}
-											<button class="btn edit" title="Edit" on:click={() => toggleShowPopUp(Cell(row, idx, f), row)}>
-												<Icon size="15" color="var(--gray-007)" src={RiDesignBallPenLine}/>
+											<button
+												class="btn edit"
+												title="Edit"
+												on:click={() => toggleShowPopUp(Cell(row, idx, f), row)}
+											>
+												<Icon
+													size="15"
+													color="var(--gray-007)"
+													src={RiDesignBallPenLine}
+												/>
 											</button>
 										{/if}
-										{#if CAN_DELETE_ROW}
-											<button
-												class="btn delete"
-												title="delete"
-												on:click={() => deleteRow(row)}
-											>
-												<Icon size="15" color="var(--gray-007)" src={RiSystemDeleteBin5Line}/>
-											</button>
-										{/if}
-										{#if CAN_RESTORE_ROW}
-											<button
-												class="btn info"
-												title="restore"
-												on:click={() => restoreRow(row)}
-											>
-												<Icon size="15" color="var(--gray-007)" src={RiSystemArrowGoBackLine}/>
-											</button>
+										{#if CAN_DELETE_ROW || CAN_RESTORE_ROW}
+											{#if (row[deletedIndex] > 0) || (row[deletedIndex] === 'terminated')}
+												<button
+													class="btn info"
+													title="restore"
+													on:click={() => restoreRow(row)}
+												>
+													<Icon
+														size="15"
+														color="var(--gray-007)"
+														src={RiSystemArrowGoBackLine}
+													/>
+												</button>
+											{:else}
+												<button
+													class="btn delete"
+													title="delete"
+													on:click={() => deleteRow(row)}
+												>
+													<Icon
+														size="15"
+														color="var(--gray-007)"
+														src={RiSystemDeleteBin5Line}
+													/>
+												</button>
+											{/if}
 										{/if}
 									</div>
 								{:else}
@@ -394,7 +412,7 @@
   <div class="pagination_container">
     <div class="filter">
       <div class="showing">
-        <p>Showing <span class="text-violet">{totalRowsCurrent}</span> /
+        <p>Showing <span class="text-violet">{totalRowsCurrent}</span> / </p>
       </div>
       <div class="row_to_show">
 				{#if showRowsNum}
@@ -406,7 +424,11 @@
         {/if}
         <button class="btn" on:click={toggleRowsNum}>
           <span>{currentRows}</span>
-          <Icon className={showRowsNum ? 'dropdown' : 'rotate_right'} size="13" src={CgChevronDown}/>
+          <Icon
+						className={showRowsNum ? 'rotate_right' : 'dropdown'}
+						size="13"
+						src={CgChevronRight}
+					/>
         </button>
       </div>
 			<p>record(s)</p>
@@ -721,9 +743,6 @@
   .table_root .table_container table thead tr th{
     padding: 12px;
 		background-color: var(--gray-001);
-		-webkit-user-select: none;
-  	-ms-user-select: none;
-  	user-select: none;
 		text-transform: capitalize;
 		border-bottom: 1px solid var(--gray-003);
   }
@@ -743,11 +762,6 @@
 
 	.table_root .table_container table thead tr th:last-child {
 		border-right: none;
-	}
-
-	.table_root .table_container table thead tr th.sort_column {
-		cursor: pointer;
-		text-wrap: nowrap;
 	}
 
   .table_root .table_container table tbody tr td {
@@ -831,13 +845,13 @@
 		width: fit-content;
 		padding: 3px 3px 3px 6px;
 		font-weight: 600;
-		border: none;
+		border: 1px solid var(--violet-004);
 		border-radius: 9999px;
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
 		align-items: center;
-		gap: 3px;
+		gap: 1px;
 		cursor: pointer;
 	}
 

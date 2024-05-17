@@ -92,7 +92,7 @@ const (
 
 	TableBankAccounts Tt.TableName = `bankAccounts`
 
-	BankAccountName			= `name`
+	Name								= `name`
 	ParentBankAccountId	= `parentBankAccountId`
 	AccountNumber 			= `accountNumber`
 	BankName 						= `bankName`
@@ -136,7 +136,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UpdatedAt, Tt.Integer},
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
-			{BankAccountName, Tt.String},
+			{Name, Tt.String},
 			{ParentBankAccountId, Tt.Unsigned},
 			{AccountNumber, Tt.Integer},
 			{BankName, Tt.String},
@@ -145,6 +145,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{IsCostCenter, Tt.Boolean},
 			{StaffId, Tt.Unsigned},
 		},
+		AutoIncrementId: true,
+		Engine: Tt.Vinyl,
 	},
 }
 

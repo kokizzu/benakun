@@ -52,6 +52,24 @@ func (b *BankAccounts) SqlTableName() string { //nolint:dupl false positive
 	return `"bankAccounts"`
 }
 
+func (b *BankAccounts) UniqueIndexId() string { //nolint:dupl false positive
+	return `id`
+}
+
+// FindById Find one by Id
+func (b *BankAccounts) FindById() bool { //nolint:dupl false positive
+	res, err := b.Adapter.Select(b.SpaceName(), b.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{b.Id})
+	if L.IsError(err, `BankAccounts.FindById failed: `+b.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		b.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
 // SqlSelectAllFields generate Sql select fields
 func (b *BankAccounts) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "id"
@@ -252,8 +270,12 @@ func (b *BankAccounts) SqlStaffId() string { //nolint:dupl false positive
 
 // ToArray receiver fields to slice
 func (b *BankAccounts) ToArray() A.X { //nolint:dupl false positive
+	var id any = nil
+	if b.Id != 0 {
+		id = b.Id
+	}
 	return A.X{
-		b.Id,                  // 0
+		id,
 		b.CreatedAt,           // 1
 		b.CreatedBy,           // 2
 		b.UpdatedAt,           // 3

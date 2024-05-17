@@ -47,6 +47,27 @@ func (b *BankAccountsMutator) ClearMutations() { //nolint:dupl false positive
 	b.logs = []A.X{}
 }
 
+// DoOverwriteById update all columns, error if not exists, not using mutations/Set*
+func (b *BankAccountsMutator) DoOverwriteById() bool { //nolint:dupl false positive
+	_, err := b.Adapter.Update(b.SpaceName(), b.UniqueIndexId(), A.X{b.Id}, b.ToUpdateArray())
+	return !L.IsError(err, `BankAccounts.DoOverwriteById failed: `+b.SpaceName())
+}
+
+// DoUpdateById update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (b *BankAccountsMutator) DoUpdateById() bool { //nolint:dupl false positive
+	if !b.HaveMutation() {
+		return true
+	}
+	_, err := b.Adapter.Update(b.SpaceName(), b.UniqueIndexId(), A.X{b.Id}, b.mutations)
+	return !L.IsError(err, `BankAccounts.DoUpdateById failed: `+b.SpaceName())
+}
+
+// DoDeletePermanentById permanent delete
+func (b *BankAccountsMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
+	_, err := b.Adapter.Delete(b.SpaceName(), b.UniqueIndexId(), A.X{b.Id})
+	return !L.IsError(err, `BankAccounts.DoDeletePermanentById failed: `+b.SpaceName())
+}
+
 // func (b *BankAccountsMutator) DoUpsert() bool { //nolint:dupl false positive
 //	arr := b.ToArray()
 //	_, err := b.Adapter.Upsert(b.SpaceName(), arr, A.X{
@@ -71,7 +92,13 @@ func (b *BankAccountsMutator) ClearMutations() { //nolint:dupl false positive
 // DoInsert insert, error if already exists
 func (b *BankAccountsMutator) DoInsert() bool { //nolint:dupl false positive
 	arr := b.ToArray()
-	_, err := b.Adapter.Insert(b.SpaceName(), arr)
+	row, err := b.Adapter.Insert(b.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			b.Id = X.ToU(tup[0][0])
+		}
+	}
 	return !L.IsError(err, `BankAccounts.DoInsert failed: `+b.SpaceName()+`\n%#v`, arr)
 }
 
@@ -80,7 +107,13 @@ func (b *BankAccountsMutator) DoInsert() bool { //nolint:dupl false positive
 // previous name: DoReplace
 func (b *BankAccountsMutator) DoUpsert() bool { //nolint:dupl false positive
 	arr := b.ToArray()
-	_, err := b.Adapter.Replace(b.SpaceName(), arr)
+	row, err := b.Adapter.Replace(b.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			b.Id = X.ToU(tup[0][0])
+		}
+	}
 	return !L.IsError(err, `BankAccounts.DoUpsert failed: `+b.SpaceName()+`\n%#v`, arr)
 }
 
