@@ -40,6 +40,8 @@ const (
 	ErrTenantAdminBankAccountsTenantNotFound = `tenant not found`
 	ErrTenantAdminBankAccountsNotFound = `bank account not found`
 	ErrTenantAdminBankAccountsSaveFailed = `bank account save failed`
+	ErrTenantAdminBankAccountsParentNotFound = `parent bank account not found`
+	ErrTenantAdminBankAccountsParentHaveChild = `parent bank account already have child`
 )
 
 var TenantAdminBankAccountsMeta = zCrud.Meta{
@@ -141,7 +143,22 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 				}
 			}
 		} else {
-			account.SetCreatedAt(in.UnixNow())
+			if in.Account.ParentBankAccountId > 0 {
+				parentAccount := rqBudget.NewBankAccounts(d.AuthOltp)
+				parentAccount.Id = in.Account.ParentBankAccountId
+
+				if !parentAccount.FindById() {
+					out.SetError(400, ErrTenantAdminBankAccountsParentNotFound)
+					return
+				}
+
+				if parentAccount.ChildBankAccountId > 0 {
+					out.SetError(400, ErrTenantAdminBankAccountsParentHaveChild)
+					return
+				}
+
+				account.SetParentBankAccountId(in.Account.ParentBankAccountId)
+			}
 		}
 
 		account.SetAccountName(in.Account.AccountName)

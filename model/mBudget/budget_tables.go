@@ -94,6 +94,7 @@ const (
 
 	Name								= `name`
 	ParentBankAccountId	= `parentBankAccountId`
+	ChildBankAccountId	= `childBankAccountId`
 	AccountNumber 			= `accountNumber`
 	BankName 						= `bankName`
 	AccountName 				= `accountName`
@@ -138,6 +139,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedAt, Tt.Integer},
 			{Name, Tt.String},
 			{ParentBankAccountId, Tt.Unsigned},
+			{ChildBankAccountId, Tt.Unsigned},
 			{AccountNumber, Tt.Integer},
 			{BankName, Tt.String},
 			{AccountName, Tt.String},

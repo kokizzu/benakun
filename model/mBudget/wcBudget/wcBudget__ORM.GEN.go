@@ -79,12 +79,13 @@ func (b *BankAccountsMutator) DoDeletePermanentById() bool { //nolint:dupl false
 //		A.X{`=`, 5, b.DeletedAt},
 //		A.X{`=`, 6, b.Name},
 //		A.X{`=`, 7, b.ParentBankAccountId},
-//		A.X{`=`, 8, b.AccountNumber},
-//		A.X{`=`, 9, b.BankName},
-//		A.X{`=`, 10, b.AccountName},
-//		A.X{`=`, 11, b.IsProfitCenter},
-//		A.X{`=`, 12, b.IsCostCenter},
-//		A.X{`=`, 13, b.StaffId},
+//		A.X{`=`, 8, b.ChildBankAccountId},
+//		A.X{`=`, 9, b.AccountNumber},
+//		A.X{`=`, 10, b.BankName},
+//		A.X{`=`, 11, b.AccountName},
+//		A.X{`=`, 12, b.IsProfitCenter},
+//		A.X{`=`, 13, b.IsCostCenter},
+//		A.X{`=`, 14, b.StaffId},
 //	})
 //	return !L.IsError(err, `BankAccounts.DoUpsert failed: `+b.SpaceName()+ `\n%#v`, arr)
 // }
@@ -205,10 +206,21 @@ func (b *BankAccountsMutator) SetParentBankAccountId(val uint64) bool { //nolint
 	return false
 }
 
+// SetChildBankAccountId create mutations, should not duplicate
+func (b *BankAccountsMutator) SetChildBankAccountId(val uint64) bool { //nolint:dupl false positive
+	if val != b.ChildBankAccountId {
+		b.mutations = append(b.mutations, A.X{`=`, 8, val})
+		b.logs = append(b.logs, A.X{`childBankAccountId`, b.ChildBankAccountId, val})
+		b.ChildBankAccountId = val
+		return true
+	}
+	return false
+}
+
 // SetAccountNumber create mutations, should not duplicate
 func (b *BankAccountsMutator) SetAccountNumber(val int64) bool { //nolint:dupl false positive
 	if val != b.AccountNumber {
-		b.mutations = append(b.mutations, A.X{`=`, 8, val})
+		b.mutations = append(b.mutations, A.X{`=`, 9, val})
 		b.logs = append(b.logs, A.X{`accountNumber`, b.AccountNumber, val})
 		b.AccountNumber = val
 		return true
@@ -219,7 +231,7 @@ func (b *BankAccountsMutator) SetAccountNumber(val int64) bool { //nolint:dupl f
 // SetBankName create mutations, should not duplicate
 func (b *BankAccountsMutator) SetBankName(val string) bool { //nolint:dupl false positive
 	if val != b.BankName {
-		b.mutations = append(b.mutations, A.X{`=`, 9, val})
+		b.mutations = append(b.mutations, A.X{`=`, 10, val})
 		b.logs = append(b.logs, A.X{`bankName`, b.BankName, val})
 		b.BankName = val
 		return true
@@ -230,7 +242,7 @@ func (b *BankAccountsMutator) SetBankName(val string) bool { //nolint:dupl false
 // SetAccountName create mutations, should not duplicate
 func (b *BankAccountsMutator) SetAccountName(val string) bool { //nolint:dupl false positive
 	if val != b.AccountName {
-		b.mutations = append(b.mutations, A.X{`=`, 10, val})
+		b.mutations = append(b.mutations, A.X{`=`, 11, val})
 		b.logs = append(b.logs, A.X{`accountName`, b.AccountName, val})
 		b.AccountName = val
 		return true
@@ -241,7 +253,7 @@ func (b *BankAccountsMutator) SetAccountName(val string) bool { //nolint:dupl fa
 // SetIsProfitCenter create mutations, should not duplicate
 func (b *BankAccountsMutator) SetIsProfitCenter(val bool) bool { //nolint:dupl false positive
 	if val != b.IsProfitCenter {
-		b.mutations = append(b.mutations, A.X{`=`, 11, val})
+		b.mutations = append(b.mutations, A.X{`=`, 12, val})
 		b.logs = append(b.logs, A.X{`isProfitCenter `, b.IsProfitCenter, val})
 		b.IsProfitCenter = val
 		return true
@@ -252,7 +264,7 @@ func (b *BankAccountsMutator) SetIsProfitCenter(val bool) bool { //nolint:dupl f
 // SetIsCostCenter create mutations, should not duplicate
 func (b *BankAccountsMutator) SetIsCostCenter(val bool) bool { //nolint:dupl false positive
 	if val != b.IsCostCenter {
-		b.mutations = append(b.mutations, A.X{`=`, 12, val})
+		b.mutations = append(b.mutations, A.X{`=`, 13, val})
 		b.logs = append(b.logs, A.X{`isCostCenter`, b.IsCostCenter, val})
 		b.IsCostCenter = val
 		return true
@@ -263,7 +275,7 @@ func (b *BankAccountsMutator) SetIsCostCenter(val bool) bool { //nolint:dupl fal
 // SetStaffId create mutations, should not duplicate
 func (b *BankAccountsMutator) SetStaffId(val uint64) bool { //nolint:dupl false positive
 	if val != b.StaffId {
-		b.mutations = append(b.mutations, A.X{`=`, 13, val})
+		b.mutations = append(b.mutations, A.X{`=`, 14, val})
 		b.logs = append(b.logs, A.X{`staffId`, b.StaffId, val})
 		b.StaffId = val
 		return true
@@ -309,6 +321,10 @@ func (b *BankAccountsMutator) SetAll(from rqBudget.BankAccounts, excludeMap, for
 	}
 	if !excludeMap[`parentBankAccountId`] && (forceMap[`parentBankAccountId`] || from.ParentBankAccountId != 0) {
 		b.ParentBankAccountId = from.ParentBankAccountId
+		changed = true
+	}
+	if !excludeMap[`childBankAccountId`] && (forceMap[`childBankAccountId`] || from.ChildBankAccountId != 0) {
+		b.ChildBankAccountId = from.ChildBankAccountId
 		changed = true
 	}
 	if !excludeMap[`accountNumber`] && (forceMap[`accountNumber`] || from.AccountNumber != 0) {
