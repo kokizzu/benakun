@@ -336,76 +336,87 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each (MASTER_ROWS || []) as row}
-					<tr class={
-						(CAN_DELETE_ROW && row[deletedIndex] > 0)
-						|| (CAN_DELETE_ROW && row[deletedIndex] === 'terminated')
-							? 'deleted'
-							: ''
-					}>
-						<td class="num_row">{MASTER_ROWS.indexOf(row) + 1}</td>
-						{#each (FIELDS || []) as f, idx}
-							{#if f.name === 'id'}
-							<td class="a_row">
-								{#if ACCESS.superAdmin
-									|| ACCESS.tenantAdmin
-									|| ACCESS.entryUser
-									|| ACCESS.reportViewer
-								}
-									<div class="actions">	
-										{#if CAN_EDIT_ROW}
-											<button
-												class="btn edit"
-												title="Edit"
-												on:click={() => toggleShowPopUp(Cell(row, idx, f), row)}
-											>
-												<Icon
-													size="15"
-													color="var(--gray-007)"
-													src={RiDesignBallPenLine}
-												/>
-											</button>
+				{#if MASTER_ROWS && MASTER_ROWS.length > 0}
+					{#each MASTER_ROWS as row}
+						<tr class={
+							(CAN_DELETE_ROW && row[deletedIndex] > 0)
+							|| (CAN_DELETE_ROW && row[deletedIndex] === 'terminated')
+								? 'deleted'
+								: ''
+						}>
+							<td class="num_row">{MASTER_ROWS.indexOf(row) + 1}</td>
+							{#each (FIELDS || []) as f, idx}
+								{#if f.name === 'id'}
+									<td class="a_row">
+										{#if ACCESS.superAdmin
+											|| ACCESS.tenantAdmin
+											|| ACCESS.entryUser
+											|| ACCESS.reportViewer
+										}
+											<div class="actions">	
+												{#if CAN_EDIT_ROW}
+													<button
+														class="btn edit"
+														title="Edit"
+														on:click={() => toggleShowPopUp(Cell(row, idx, f), row)}
+													>
+														<Icon
+															size="15"
+															color="var(--gray-007)"
+															src={RiDesignBallPenLine}
+														/>
+													</button>
+												{/if}
+												{#if CAN_DELETE_ROW || CAN_RESTORE_ROW}
+													{#if (row[deletedIndex] > 0) || (row[deletedIndex] === 'terminated')}
+														<button
+															class="btn info"
+															title="restore"
+															on:click={() => restoreRow(row)}
+														>
+															<Icon
+																size="15"
+																color="var(--gray-007)"
+																src={RiSystemArrowGoBackLine}
+															/>
+														</button>
+													{:else}
+														<button
+															class="btn delete"
+															title="delete"
+															on:click={() => deleteRow(row)}
+														>
+															<Icon
+																size="15"
+																color="var(--gray-007)"
+																src={RiSystemDeleteBin5Line}
+															/>
+														</button>
+													{/if}
+												{/if}
+											</div>
+										{:else}
+											<span>--</span>
 										{/if}
-										{#if CAN_DELETE_ROW || CAN_RESTORE_ROW}
-											{#if (row[deletedIndex] > 0) || (row[deletedIndex] === 'terminated')}
-												<button
-													class="btn info"
-													title="restore"
-													on:click={() => restoreRow(row)}
-												>
-													<Icon
-														size="15"
-														color="var(--gray-007)"
-														src={RiSystemArrowGoBackLine}
-													/>
-												</button>
-											{:else}
-												<button
-													class="btn delete"
-													title="delete"
-													on:click={() => deleteRow(row)}
-												>
-													<Icon
-														size="15"
-														color="var(--gray-007)"
-														src={RiSystemDeleteBin5Line}
-													/>
-												</button>
-											{/if}
-										{/if}
-									</div>
+									</td>
+								{:else if f.inputType === 'datetime'}
+									<td>{(row[idx]) ? datetime(row[idx]) : '--'}</td>
 								{:else}
-									<span>--</span>
+									<td>{row[idx] || '--'}</td>
 								{/if}
-							</td>
-							{:else if f.inputType === 'datetime'}
-								<td>{(row[idx]) ? datetime(row[idx]) : '--'}</td>
-							{:else}
-								<td>{row[idx] || '--'}</td>
-							{/if}
+							{/each}
+						</tr>
+					{/each}
+				{:else}
+					{#each (Array(5).fill()) as _, i}
+						<tr>
+							<td class="num_row">{i + 1}</td>
+							{#each (FIELDS || []) as _}
+								<td>-</td>
+							{/each}
+						</tr>
 						{/each}
-					</tr>
-				{/each}
+				{/if}
 			</tbody>
 		</table>
 	</div>

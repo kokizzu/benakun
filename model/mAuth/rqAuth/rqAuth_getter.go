@@ -11,12 +11,66 @@ import (
 	"benakun/model/zCrud"
 )
 
-type StaffWithInvitation struct {
-	Id              uint64 `json:"id" form:"id" query:"id" long:"id" msg:"id"`
+type Staff struct {
+	Id              string `json:"id" form:"id" query:"id" long:"id" msg:"id"`
 	Email           string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
 	FullName        string `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
-	InvitationState	string `json:"invitationState" form:"invitationState" query:"invitationState" long:"invitationState" msg:"invitationState"`
-	Role            string `json:"role" form:"role" query:"role" long:"role" msg:"role"`
+}
+
+func (u *Users) FindStaffsByTenantCode(tenantCode string) (staffs []Staff) {
+	var res [][]any
+	const comment = `-- Users) FindStaffByTenantCode`
+
+	whereAndSql := ` WHERE `+u.SqlInvitationState()+` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
+
+	queryRows := comment+`
+SELECT `+u.SqlId()+`, `+u.SqlEmail()+`, `+u.SqlFullName()+`
+FROM `+u.SqlTableName()+whereAndSql
+
+
+	u.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
+	if len(res) > 0 {
+		for _, stf := range res {
+			if len(stf) == 3 {
+				st := Staff{
+					Id: X.ToS(stf[0]),
+					Email: X.ToS(stf[1]),
+					FullName: X.ToS(stf[2]),
+				}
+
+				staffs = append(staffs, st)
+			}
+		}
+	}
+
+	return
+}
+
+func (u *Users) FindStaffByIdByTenantCode(id uint64, tenantCode string) bool {
+	var res [][]any
+	const comment = `-- Users) FindStaffByIdByTenantCode`
+
+	whereAndSql := ` WHERE `+u.SqlId()+` = `+S.Z(I.UToS(id))+` AND `+u.SqlTenantCode()+` = `+S.Z(tenantCode)
+
+	queryRows := comment+`
+SELECT `+u.SqlSelectAllFields()+`
+FROM `+u.SqlTableName()+whereAndSql+` LIMIT 1`
+
+	u.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0])
+		res = append(res, row)
+	})
+
+	if len(res) == 1 {
+		u.FromArray(res[0])
+		return true
+	}
+
+	return false
 }
 
 func (u *Users) CheckPassword(pass string) error {

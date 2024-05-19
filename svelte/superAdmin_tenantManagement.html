@@ -8107,6 +8107,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     child_ctx[62] = list[i];
     return child_ctx;
   }
+  function get_each_context_4(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[71] = list[i];
+    child_ctx[59] = i;
+    return child_ctx;
+  }
+  function get_each_context_5(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[71] = list[i];
+    return child_ctx;
+  }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[65] = list[i];
@@ -8118,20 +8129,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     child_ctx[70] = i;
     return child_ctx;
   }
-  function get_each_context_4(ctx, list, i) {
+  function get_each_context_6(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[68] = list[i];
-    child_ctx[72] = i;
+    child_ctx[71] = i;
     return child_ctx;
   }
-  function get_each_context_5(ctx, list, i) {
+  function get_each_context_7(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[73] = list[i];
-    child_ctx[74] = list;
+    child_ctx[76] = list[i];
+    child_ctx[77] = list;
     child_ctx[70] = i;
     return child_ctx;
   }
-  function create_if_block_132(ctx) {
+  function create_if_block_14(ctx) {
     let filtertable;
     let updating_filterColumns;
     let updating_filtersMap;
@@ -8208,7 +8219,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_10(ctx) {
+  function create_if_block_11(ctx) {
     let div3;
     let div2;
     let header;
@@ -8231,13 +8242,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         src: IoClose_default
       }
     });
-    let each_value_5 = ensure_array_like(
+    let each_value_7 = ensure_array_like(
       /*FIELDS*/
       ctx[0] || []
     );
     let each_blocks = [];
-    for (let i = 0; i < each_value_5.length; i += 1) {
-      each_blocks[i] = create_each_block_5(get_each_context_5(ctx, each_value_5, i));
+    for (let i = 0; i < each_value_7.length; i += 1) {
+      each_blocks[i] = create_each_block_7(get_each_context_7(ctx, each_value_7, i));
     }
     const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
       each_blocks[i] = null;
@@ -8310,25 +8321,25 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       p(ctx2, dirty) {
         if (dirty[0] & /*FIELDS, payloads*/
         1048577) {
-          each_value_5 = ensure_array_like(
+          each_value_7 = ensure_array_like(
             /*FIELDS*/
             ctx2[0] || []
           );
           let i;
-          for (i = 0; i < each_value_5.length; i += 1) {
-            const child_ctx = get_each_context_5(ctx2, each_value_5, i);
+          for (i = 0; i < each_value_7.length; i += 1) {
+            const child_ctx = get_each_context_7(ctx2, each_value_7, i);
             if (each_blocks[i]) {
               each_blocks[i].p(child_ctx, dirty);
               transition_in(each_blocks[i], 1);
             } else {
-              each_blocks[i] = create_each_block_5(child_ctx);
+              each_blocks[i] = create_each_block_7(child_ctx);
               each_blocks[i].c();
               transition_in(each_blocks[i], 1);
               each_blocks[i].m(div0, null);
             }
           }
           group_outros();
-          for (i = each_value_5.length; i < each_blocks.length; i += 1) {
+          for (i = each_value_7.length; i < each_blocks.length; i += 1) {
             out(i);
           }
           check_outros();
@@ -8338,7 +8349,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (current)
           return;
         transition_in(icon.$.fragment, local);
-        for (let i = 0; i < each_value_5.length; i += 1) {
+        for (let i = 0; i < each_value_7.length; i += 1) {
           transition_in(each_blocks[i]);
         }
         current = true;
@@ -8362,11 +8373,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_11(ctx) {
+  function create_if_block_122(ctx) {
     let if_block_anchor;
     let current;
     let if_block = !/*field*/
-    ctx[73].readOnly && create_if_block_122(ctx);
+    ctx[76].readOnly && create_if_block_132(ctx);
     return {
       c() {
         if (if_block)
@@ -8381,7 +8392,168 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         if (!/*field*/
-        ctx2[73].readOnly) {
+        ctx2[76].readOnly) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty[0] & /*FIELDS*/
+            1) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block_132(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if (if_block)
+          if_block.d(detaching);
+      }
+    };
+  }
+  function create_if_block_132(ctx) {
+    let inputcustom;
+    let updating_value;
+    let current;
+    function inputcustom_value_binding(value) {
+      ctx[43](
+        value,
+        /*idx*/
+        ctx[70]
+      );
+    }
+    let inputcustom_props = {
+      id: (
+        /*field*/
+        ctx[76].name
+      ),
+      label: (
+        /*field*/
+        ctx[76].label
+      ),
+      placeholder: (
+        /*field*/
+        ctx[76].description
+      ),
+      type: (
+        /*field*/
+        ctx[76].type || "text"
+      )
+    };
+    if (
+      /*payloads*/
+      ctx[20][
+        /*idx*/
+        ctx[70]
+      ] !== void 0
+    ) {
+      inputcustom_props.value = /*payloads*/
+      ctx[20][
+        /*idx*/
+        ctx[70]
+      ];
+    }
+    inputcustom = new InputCustom_default({ props: inputcustom_props });
+    binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding));
+    return {
+      c() {
+        create_component(inputcustom.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(inputcustom, target, anchor);
+        current = true;
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        const inputcustom_changes = {};
+        if (dirty[0] & /*FIELDS*/
+        1)
+          inputcustom_changes.id = /*field*/
+          ctx[76].name;
+        if (dirty[0] & /*FIELDS*/
+        1)
+          inputcustom_changes.label = /*field*/
+          ctx[76].label;
+        if (dirty[0] & /*FIELDS*/
+        1)
+          inputcustom_changes.placeholder = /*field*/
+          ctx[76].description;
+        if (dirty[0] & /*FIELDS*/
+        1)
+          inputcustom_changes.type = /*field*/
+          ctx[76].type || "text";
+        if (!updating_value && dirty[0] & /*payloads*/
+        1048576) {
+          updating_value = true;
+          inputcustom_changes.value = /*payloads*/
+          ctx[20][
+            /*idx*/
+            ctx[70]
+          ];
+          add_flush_callback(() => updating_value = false);
+        }
+        inputcustom.$set(inputcustom_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(inputcustom.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(inputcustom.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(inputcustom, detaching);
+      }
+    };
+  }
+  function create_each_block_7(ctx) {
+    let if_block_anchor;
+    let current;
+    let if_block = (
+      /*field*/
+      ctx[76].name !== "id" && create_if_block_122(ctx)
+    );
+    return {
+      c() {
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (
+          /*field*/
+          ctx2[76].name !== "id"
+        ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
             if (dirty[0] & /*FIELDS*/
@@ -8421,168 +8593,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_122(ctx) {
-    let inputcustom;
-    let updating_value;
-    let current;
-    function inputcustom_value_binding(value) {
-      ctx[43](
-        value,
-        /*idx*/
-        ctx[70]
-      );
-    }
-    let inputcustom_props = {
-      id: (
-        /*field*/
-        ctx[73].name
-      ),
-      label: (
-        /*field*/
-        ctx[73].label
-      ),
-      placeholder: (
-        /*field*/
-        ctx[73].description
-      ),
-      type: (
-        /*field*/
-        ctx[73].type || "text"
-      )
-    };
-    if (
-      /*payloads*/
-      ctx[20][
-        /*idx*/
-        ctx[70]
-      ] !== void 0
-    ) {
-      inputcustom_props.value = /*payloads*/
-      ctx[20][
-        /*idx*/
-        ctx[70]
-      ];
-    }
-    inputcustom = new InputCustom_default({ props: inputcustom_props });
-    binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding));
-    return {
-      c() {
-        create_component(inputcustom.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(inputcustom, target, anchor);
-        current = true;
-      },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
-        const inputcustom_changes = {};
-        if (dirty[0] & /*FIELDS*/
-        1)
-          inputcustom_changes.id = /*field*/
-          ctx[73].name;
-        if (dirty[0] & /*FIELDS*/
-        1)
-          inputcustom_changes.label = /*field*/
-          ctx[73].label;
-        if (dirty[0] & /*FIELDS*/
-        1)
-          inputcustom_changes.placeholder = /*field*/
-          ctx[73].description;
-        if (dirty[0] & /*FIELDS*/
-        1)
-          inputcustom_changes.type = /*field*/
-          ctx[73].type || "text";
-        if (!updating_value && dirty[0] & /*payloads*/
-        1048576) {
-          updating_value = true;
-          inputcustom_changes.value = /*payloads*/
-          ctx[20][
-            /*idx*/
-            ctx[70]
-          ];
-          add_flush_callback(() => updating_value = false);
-        }
-        inputcustom.$set(inputcustom_changes);
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(inputcustom.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(inputcustom.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(inputcustom, detaching);
-      }
-    };
-  }
-  function create_each_block_5(ctx) {
-    let if_block_anchor;
-    let current;
-    let if_block = (
-      /*field*/
-      ctx[73].name !== "id" && create_if_block_11(ctx)
-    );
-    return {
-      c() {
-        if (if_block)
-          if_block.c();
-        if_block_anchor = empty();
-      },
-      m(target, anchor) {
-        if (if_block)
-          if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        if (
-          /*field*/
-          ctx2[73].name !== "id"
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty[0] & /*FIELDS*/
-            1) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block_11(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        } else if (if_block) {
-          group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
-          });
-          check_outros();
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(if_block);
-        current = true;
-      },
-      o(local) {
-        transition_out(if_block);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(if_block_anchor);
-        }
-        if (if_block)
-          if_block.d(detaching);
-      }
-    };
-  }
-  function create_if_block_9(ctx) {
+  function create_if_block_10(ctx) {
     let div;
     let icon;
     let current;
@@ -8623,7 +8634,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_82(ctx) {
+  function create_if_block_9(ctx) {
     let div;
     let button;
     let icon;
@@ -8679,7 +8690,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_else_block_3(ctx) {
+  function create_else_block_4(ctx) {
     let th;
     let t_value = (
       /*f*/
@@ -8709,7 +8720,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_72(ctx) {
+  function create_if_block_82(ctx) {
     let th;
     return {
       c() {
@@ -8728,7 +8739,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_each_block_4(key_1, ctx) {
+  function create_each_block_6(key_1, ctx) {
     let first;
     let if_block_anchor;
     function select_block_type(ctx2, dirty) {
@@ -8736,8 +8747,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         /*f*/
         ctx2[68].name === "id"
       )
-        return create_if_block_72;
-      return create_else_block_3;
+        return create_if_block_82;
+      return create_else_block_4;
     }
     let current_block_type = select_block_type(ctx, [-1, -1, -1]);
     let if_block = current_block_type(ctx);
@@ -8774,6 +8785,227 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           detach(if_block_anchor);
         }
         if_block.d(detaching);
+      }
+    };
+  }
+  function create_else_block_3(ctx) {
+    let each_1_anchor;
+    let each_value_4 = ensure_array_like(Array(5).fill());
+    let each_blocks = [];
+    for (let i = 0; i < each_value_4.length; i += 1) {
+      each_blocks[i] = create_each_block_4(get_each_context_4(ctx, each_value_4, i));
+    }
+    return {
+      c() {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        each_1_anchor = empty();
+      },
+      m(target, anchor) {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(target, anchor);
+          }
+        }
+        insert(target, each_1_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty[0] & /*FIELDS*/
+        1) {
+          each_value_4 = ensure_array_like(Array(5).fill());
+          let i;
+          for (i = 0; i < each_value_4.length; i += 1) {
+            const child_ctx = get_each_context_4(ctx2, each_value_4, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block_4(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value_4.length;
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(each_1_anchor);
+        }
+        destroy_each(each_blocks, detaching);
+      }
+    };
+  }
+  function create_if_block_15(ctx) {
+    let each_1_anchor;
+    let current;
+    let each_value_2 = ensure_array_like(
+      /*MASTER_ROWS*/
+      ctx[1]
+    );
+    let each_blocks = [];
+    for (let i = 0; i < each_value_2.length; i += 1) {
+      each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+    }
+    const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
+      each_blocks[i] = null;
+    });
+    return {
+      c() {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        each_1_anchor = empty();
+      },
+      m(target, anchor) {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(target, anchor);
+          }
+        }
+        insert(target, each_1_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (dirty[0] & /*CAN_DELETE_ROW, MASTER_ROWS, deletedIndex, FIELDS, restoreRow, deleteRow, CAN_RESTORE_ROW, toggleShowPopUp, Cell, CAN_EDIT_ROW, ACCESS*/
+        947914871) {
+          each_value_2 = ensure_array_like(
+            /*MASTER_ROWS*/
+            ctx2[1]
+          );
+          let i;
+          for (i = 0; i < each_value_2.length; i += 1) {
+            const child_ctx = get_each_context_2(ctx2, each_value_2, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+              transition_in(each_blocks[i], 1);
+            } else {
+              each_blocks[i] = create_each_block_2(child_ctx);
+              each_blocks[i].c();
+              transition_in(each_blocks[i], 1);
+              each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+            }
+          }
+          group_outros();
+          for (i = each_value_2.length; i < each_blocks.length; i += 1) {
+            out(i);
+          }
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        for (let i = 0; i < each_value_2.length; i += 1) {
+          transition_in(each_blocks[i]);
+        }
+        current = true;
+      },
+      o(local) {
+        each_blocks = each_blocks.filter(Boolean);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          transition_out(each_blocks[i]);
+        }
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(each_1_anchor);
+        }
+        destroy_each(each_blocks, detaching);
+      }
+    };
+  }
+  function create_each_block_5(ctx) {
+    let td;
+    return {
+      c() {
+        td = element("td");
+        td.textContent = "-";
+        attr(td, "class", "svelte-18m4e7v");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(td);
+        }
+      }
+    };
+  }
+  function create_each_block_4(ctx) {
+    let tr;
+    let td;
+    let t1;
+    let t2;
+    let each_value_5 = ensure_array_like(
+      /*FIELDS*/
+      ctx[0] || []
+    );
+    let each_blocks = [];
+    for (let i = 0; i < each_value_5.length; i += 1) {
+      each_blocks[i] = create_each_block_5(get_each_context_5(ctx, each_value_5, i));
+    }
+    return {
+      c() {
+        tr = element("tr");
+        td = element("td");
+        td.textContent = `${/*i*/
+        ctx[59] + 1}`;
+        t1 = space();
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        t2 = space();
+        attr(td, "class", "num_row svelte-18m4e7v");
+      },
+      m(target, anchor) {
+        insert(target, tr, anchor);
+        append(tr, td);
+        append(tr, t1);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(tr, null);
+          }
+        }
+        append(tr, t2);
+      },
+      p(ctx2, dirty) {
+        if (dirty[0] & /*FIELDS*/
+        1) {
+          each_value_5 = ensure_array_like(
+            /*FIELDS*/
+            ctx2[0] || []
+          );
+          let i;
+          for (i = 0; i < each_value_5.length; i += 1) {
+            const child_ctx = get_each_context_5(ctx2, each_value_5, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block_5(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(tr, t2);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value_5.length;
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(tr);
+        }
+        destroy_each(each_blocks, detaching);
       }
     };
   }
@@ -8815,7 +9047,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_62(ctx) {
+  function create_if_block_72(ctx) {
     let td;
     let t_value = (
       /*row*/
@@ -8865,14 +9097,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_14(ctx) {
+  function create_if_block_23(ctx) {
     let td;
     let current_block_type_index;
     let if_block;
     let current;
-    const if_block_creators = [create_if_block_23, create_else_block_12];
+    const if_block_creators = [create_if_block_33, create_else_block_12];
     const if_blocks = [];
-    function select_block_type_2(ctx2, dirty) {
+    function select_block_type_3(ctx2, dirty) {
       if (
         /*ACCESS*/
         ctx2[2].superAdmin || /*ACCESS*/
@@ -8883,7 +9115,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type_2(ctx, [-1, -1, -1]);
+    current_block_type_index = select_block_type_3(ctx, [-1, -1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -8898,7 +9130,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         let previous_block_index = current_block_type_index;
-        current_block_type_index = select_block_type_2(ctx2, dirty);
+        current_block_type_index = select_block_type_3(ctx2, dirty);
         if (current_block_type_index === previous_block_index) {
           if_blocks[current_block_type_index].p(ctx2, dirty);
         } else {
@@ -8956,18 +9188,18 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_23(ctx) {
+  function create_if_block_33(ctx) {
     let div;
     let t;
     let current;
     let if_block0 = (
       /*CAN_EDIT_ROW*/
-      ctx[4] && create_if_block_53(ctx)
+      ctx[4] && create_if_block_62(ctx)
     );
     let if_block1 = (
       /*CAN_DELETE_ROW*/
       (ctx[5] || /*CAN_RESTORE_ROW*/
-      ctx[6]) && create_if_block_33(ctx)
+      ctx[6]) && create_if_block_43(ctx)
     );
     return {
       c() {
@@ -9000,7 +9232,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_53(ctx2);
+            if_block0 = create_if_block_62(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(div, t);
@@ -9024,7 +9256,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_33(ctx2);
+            if_block1 = create_if_block_43(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(div, null);
@@ -9060,7 +9292,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_53(ctx) {
+  function create_if_block_62(ctx) {
     let button;
     let icon;
     let current;
@@ -9125,14 +9357,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_33(ctx) {
+  function create_if_block_43(ctx) {
     let current_block_type_index;
     let if_block;
     let if_block_anchor;
     let current;
-    const if_block_creators = [create_if_block_43, create_else_block2];
+    const if_block_creators = [create_if_block_53, create_else_block2];
     const if_blocks = [];
-    function select_block_type_3(ctx2, dirty) {
+    function select_block_type_4(ctx2, dirty) {
       if (
         /*row*/
         ctx2[65][
@@ -9147,7 +9379,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type_3(ctx, [-1, -1, -1]);
+    current_block_type_index = select_block_type_4(ctx, [-1, -1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -9161,7 +9393,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         let previous_block_index = current_block_type_index;
-        current_block_type_index = select_block_type_3(ctx2, dirty);
+        current_block_type_index = select_block_type_4(ctx2, dirty);
         if (current_block_type_index === previous_block_index) {
           if_blocks[current_block_type_index].p(ctx2, dirty);
         } else {
@@ -9260,7 +9492,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_43(ctx) {
+  function create_if_block_53(ctx) {
     let button;
     let icon;
     let current;
@@ -9326,9 +9558,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let if_block;
     let if_block_anchor;
     let current;
-    const if_block_creators = [create_if_block_14, create_if_block_62, create_else_block_2];
+    const if_block_creators = [create_if_block_23, create_if_block_72, create_else_block_2];
     const if_blocks = [];
-    function select_block_type_1(ctx2, dirty) {
+    function select_block_type_2(ctx2, dirty) {
       if (
         /*f*/
         ctx2[68].name === "id"
@@ -9341,7 +9573,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         return 1;
       return 2;
     }
-    current_block_type_index = select_block_type_1(ctx, [-1, -1, -1]);
+    current_block_type_index = select_block_type_2(ctx, [-1, -1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -9355,7 +9587,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         let previous_block_index = current_block_type_index;
-        current_block_type_index = select_block_type_1(ctx2, dirty);
+        current_block_type_index = select_block_type_2(ctx2, dirty);
         if (current_block_type_index === previous_block_index) {
           if_blocks[current_block_type_index].p(ctx2, dirty);
         } else {
@@ -9728,10 +9960,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let tr;
     let th;
     let t8;
-    let each_blocks_2 = [];
+    let each_blocks_1 = [];
     let each0_lookup = /* @__PURE__ */ new Map();
     let t9;
     let tbody;
+    let current_block_type_index;
+    let if_block4;
     let t10;
     let div10;
     let div7;
@@ -9780,11 +10014,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let dispose;
     let if_block0 = (
       /*filterTableReady*/
-      ctx[8] && create_if_block_132(ctx)
+      ctx[8] && create_if_block_14(ctx)
     );
     let if_block1 = (
       /*showPopUp*/
-      ctx[12] && create_if_block_10(ctx)
+      ctx[12] && create_if_block_11(ctx)
     );
     icon0 = new Icon_default({
       props: {
@@ -9804,12 +10038,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       ctx[37],
       null
     );
-    let if_block2 = isAjaxSubmitted && create_if_block_9(ctx);
+    let if_block2 = isAjaxSubmitted && create_if_block_10(ctx);
     let if_block3 = (
       /*CAN_SEARCH_ROW*/
-      ctx[3] && create_if_block_82(ctx)
+      ctx[3] && create_if_block_9(ctx)
     );
-    let each_value_4 = ensure_array_like(
+    let each_value_6 = ensure_array_like(
       /*FIELDS*/
       ctx[0] || []
     );
@@ -9817,23 +10051,25 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /*f*/
       ctx2[68].name
     );
-    for (let i = 0; i < each_value_4.length; i += 1) {
-      let child_ctx = get_each_context_4(ctx, each_value_4, i);
+    for (let i = 0; i < each_value_6.length; i += 1) {
+      let child_ctx = get_each_context_6(ctx, each_value_6, i);
       let key = get_key(child_ctx);
-      each0_lookup.set(key, each_blocks_2[i] = create_each_block_4(key, child_ctx));
+      each0_lookup.set(key, each_blocks_1[i] = create_each_block_6(key, child_ctx));
     }
-    let each_value_2 = ensure_array_like(
-      /*MASTER_ROWS*/
-      ctx[1] || []
-    );
-    let each_blocks_1 = [];
-    for (let i = 0; i < each_value_2.length; i += 1) {
-      each_blocks_1[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
+    const if_block_creators = [create_if_block_15, create_else_block_3];
+    const if_blocks = [];
+    function select_block_type_1(ctx2, dirty) {
+      if (
+        /*MASTER_ROWS*/
+        ctx2[1] && /*MASTER_ROWS*/
+        ctx2[1].length > 0
+      )
+        return 0;
+      return 1;
     }
-    const out = (i) => transition_out(each_blocks_1[i], 1, 1, () => {
-      each_blocks_1[i] = null;
-    });
-    let if_block4 = (
+    current_block_type_index = select_block_type_1(ctx, [-1, -1, -1]);
+    if_block4 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    let if_block5 = (
       /*showRowsNum*/
       ctx[17] && create_if_block4(ctx)
     );
@@ -9901,14 +10137,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         th = element("th");
         th.textContent = "No";
         t8 = space();
-        for (let i = 0; i < each_blocks_2.length; i += 1) {
-          each_blocks_2[i].c();
-        }
-        t9 = space();
-        tbody = element("tbody");
         for (let i = 0; i < each_blocks_1.length; i += 1) {
           each_blocks_1[i].c();
         }
+        t9 = space();
+        tbody = element("tbody");
+        if_block4.c();
         t10 = space();
         div10 = element("div");
         div7 = element("div");
@@ -9923,8 +10157,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t13 = text(" /");
         t14 = space();
         div6 = element("div");
-        if (if_block4)
-          if_block4.c();
+        if (if_block5)
+          if_block5.c();
         t15 = space();
         button1 = element("button");
         span1 = element("span");
@@ -10037,18 +10271,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(thead, tr);
         append(tr, th);
         append(tr, t8);
-        for (let i = 0; i < each_blocks_2.length; i += 1) {
-          if (each_blocks_2[i]) {
-            each_blocks_2[i].m(tr, null);
+        for (let i = 0; i < each_blocks_1.length; i += 1) {
+          if (each_blocks_1[i]) {
+            each_blocks_1[i].m(tr, null);
           }
         }
         append(table, t9);
         append(table, tbody);
-        for (let i = 0; i < each_blocks_1.length; i += 1) {
-          if (each_blocks_1[i]) {
-            each_blocks_1[i].m(tbody, null);
-          }
-        }
+        if_blocks[current_block_type_index].m(tbody, null);
         append(div11, t10);
         append(div11, div10);
         append(div10, div7);
@@ -10060,8 +10290,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(p0, t13);
         append(div7, t14);
         append(div7, div6);
-        if (if_block4)
-          if_block4.m(div6, null);
+        if (if_block5)
+          if_block5.m(div6, null);
         append(div6, t15);
         append(div6, button1);
         append(button1, span1);
@@ -10150,7 +10380,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_132(ctx2);
+            if_block0 = create_if_block_14(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(t0.parentNode, t0);
@@ -10173,7 +10403,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_10(ctx2);
+            if_block1 = create_if_block_11(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(t1.parentNode, t1);
@@ -10218,7 +10448,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               transition_in(if_block3, 1);
             }
           } else {
-            if_block3 = create_if_block_82(ctx2);
+            if_block3 = create_if_block_9(ctx2);
             if_block3.c();
             transition_in(if_block3, 1);
             if_block3.m(div2, null);
@@ -10232,36 +10462,31 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         if (dirty[0] & /*FIELDS*/
         1) {
-          each_value_4 = ensure_array_like(
+          each_value_6 = ensure_array_like(
             /*FIELDS*/
             ctx2[0] || []
           );
-          each_blocks_2 = update_keyed_each(each_blocks_2, dirty, get_key, 1, ctx2, each_value_4, each0_lookup, tr, destroy_block, create_each_block_4, null, get_each_context_4);
+          each_blocks_1 = update_keyed_each(each_blocks_1, dirty, get_key, 1, ctx2, each_value_6, each0_lookup, tr, destroy_block, create_each_block_6, null, get_each_context_6);
         }
-        if (dirty[0] & /*CAN_DELETE_ROW, MASTER_ROWS, deletedIndex, FIELDS, restoreRow, deleteRow, CAN_RESTORE_ROW, toggleShowPopUp, Cell, CAN_EDIT_ROW, ACCESS*/
-        947914871) {
-          each_value_2 = ensure_array_like(
-            /*MASTER_ROWS*/
-            ctx2[1] || []
-          );
-          let i;
-          for (i = 0; i < each_value_2.length; i += 1) {
-            const child_ctx = get_each_context_2(ctx2, each_value_2, i);
-            if (each_blocks_1[i]) {
-              each_blocks_1[i].p(child_ctx, dirty);
-              transition_in(each_blocks_1[i], 1);
-            } else {
-              each_blocks_1[i] = create_each_block_2(child_ctx);
-              each_blocks_1[i].c();
-              transition_in(each_blocks_1[i], 1);
-              each_blocks_1[i].m(tbody, null);
-            }
-          }
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type_1(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
+        } else {
           group_outros();
-          for (i = each_value_2.length; i < each_blocks_1.length; i += 1) {
-            out(i);
-          }
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
+          });
           check_outros();
+          if_block4 = if_blocks[current_block_type_index];
+          if (!if_block4) {
+            if_block4 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block4.c();
+          } else {
+            if_block4.p(ctx2, dirty);
+          }
+          transition_in(if_block4, 1);
+          if_block4.m(tbody, null);
         }
         if (!current || dirty[0] & /*totalRowsCurrent*/
         524288)
@@ -10274,16 +10499,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           /*showRowsNum*/
           ctx2[17]
         ) {
-          if (if_block4) {
-            if_block4.p(ctx2, dirty);
+          if (if_block5) {
+            if_block5.p(ctx2, dirty);
           } else {
-            if_block4 = create_if_block4(ctx2);
-            if_block4.c();
-            if_block4.m(div6, t15);
+            if_block5 = create_if_block4(ctx2);
+            if_block5.c();
+            if_block5.m(div6, t15);
           }
-        } else if (if_block4) {
-          if_block4.d(1);
-          if_block4 = null;
+        } else if (if_block5) {
+          if_block5.d(1);
+          if_block5 = null;
         }
         if (!current || dirty[0] & /*currentRows*/
         65536)
@@ -10359,9 +10584,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_in(default_slot, local);
         transition_in(if_block2);
         transition_in(if_block3);
-        for (let i = 0; i < each_value_2.length; i += 1) {
-          transition_in(each_blocks_1[i]);
-        }
+        transition_in(if_block4);
         transition_in(icon1.$.fragment, local);
         transition_in(icon2.$.fragment, local);
         transition_in(icon3.$.fragment, local);
@@ -10376,10 +10599,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_out(default_slot, local);
         transition_out(if_block2);
         transition_out(if_block3);
-        each_blocks_1 = each_blocks_1.filter(Boolean);
-        for (let i = 0; i < each_blocks_1.length; i += 1) {
-          transition_out(each_blocks_1[i]);
-        }
+        transition_out(if_block4);
         transition_out(icon1.$.fragment, local);
         transition_out(icon2.$.fragment, local);
         transition_out(icon3.$.fragment, local);
@@ -10404,12 +10624,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           if_block2.d();
         if (if_block3)
           if_block3.d();
-        for (let i = 0; i < each_blocks_2.length; i += 1) {
-          each_blocks_2[i].d();
+        for (let i = 0; i < each_blocks_1.length; i += 1) {
+          each_blocks_1[i].d();
         }
-        destroy_each(each_blocks_1, detaching);
-        if (if_block4)
-          if_block4.d();
+        if_blocks[current_block_type_index].d();
+        if (if_block5)
+          if_block5.d();
         destroy_component(icon1);
         destroy_component(icon2);
         destroy_component(icon3);
@@ -10975,7 +11195,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         // @ts-ignore
         i,
         /** @type {import('./jsApi.GEN').SuperAdminTenantManagementCallback} */
-        /** @returns {void} */
+        /** @returns {Promise<any>} */
         function(o) {
           if (o.error) {
             console.log(o);
@@ -10997,7 +11217,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         // @ts-ignore
         i,
         /** @type {import('./jsApi.GEN').SuperAdminTenantManagementCallback} */
-        /** @returns {void} */
+        /** @returns {Promise<any>} */
         function(o) {
           if (o.error) {
             console.log(o);
@@ -11021,7 +11241,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         // @ts-ignore
         i,
         /** @type {import('./jsApi.GEN').SuperAdminTenantManagementCallback} */
-        /** @returns {void} */
+        /** @returns {Promise<any>} */
         function(o) {
           if (o.error) {
             console.log(o);

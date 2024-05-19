@@ -81,7 +81,7 @@ func (d *Domain) TenantAdminCreateBudgetPlan(in *TenantAdminCreateBudgetPlanIn) 
 		return
 	}
 
-	if !mBudget.ValidPlanType(in.PlanType) {
+	if !mBudget.IsValidPlanType(in.PlanType) {
 		out.SetError(400, ErrTenantAdminCreateBudgetPlanInvalidPlanType)
 		return
 	}

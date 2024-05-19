@@ -17,7 +17,7 @@ const (
 	TitleMission			= `Mission`
 )
 
-func ValidPlanType(pType string) bool {
+func IsValidPlanType(pType string) bool {
 	switch pType {
 		case PlanTypeVision:
 			return true

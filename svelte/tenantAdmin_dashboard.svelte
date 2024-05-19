@@ -23,17 +23,17 @@
   // Binding component PopUpInviteUser.svelte
   let popUpInviteUser = null;
   // For readiness of component PopUpInviteUser.svelte, prevent race condition
-	let popUpInviteUserReady = false;
+	let isPopUpInviteUserReady = false;
 
   onMount(() => {
-    popUpInviteUserReady = true;
+    isPopUpInviteUserReady = true;
   })
 
   async function OnRefresh(/** @type PagerIn */ pagerIn) {
     const i = { pager: pagerIn, cmd: 'list' };
     await TenantAdminDashboard( // @ts-ignore
       i, /** @type {import('./jsApi.GEN').TenantAdminDashboardCallback} */
-      /** @returns {void} */
+      /** @returns {Promise<any>} */
       function(/** @type any */ o) {
         if (o.error) {
           console.log(o);
@@ -57,7 +57,7 @@
     };
     await TenantAdminDashboard( // @ts-ignore
       i, /** @type {import('./jsApi.GEN').TenantAdminDashboardCallback} */
-      /** @returns {void} */
+      /** @returns {Promise<any>} */
       function(/** @type any */ o) {
         if (o.error) {
           console.log(o);
@@ -82,7 +82,7 @@
     };
     await TenantAdminDashboard( // @ts-ignore
       i, /** @type {import('./jsApi.GEN').TenantAdminDashboardCallback} */
-      /** @returns {void} */
+      /** @returns {Promise<any>} */
       function(/** @type any */ o) {
         if (o.error) {
           console.log(o);
@@ -114,7 +114,7 @@
     };
     await TenantAdminDashboard( // @ts-ignore
       i, /** @type {import('./jsApi.GEN').TenantAdminDashboardCallback} */
-      /** @returns {void} */
+      /** @returns {Promise<any>} */
       function(/** @type any */ o) {
         email = '';
         isSubmitted = false;
@@ -133,7 +133,7 @@
   }
 </script>
 
-{#if popUpInviteUserReady}
+{#if isPopUpInviteUserReady}
   <PopUpInviteUser
     bind:this={popUpInviteUser}
     bind:email
@@ -161,10 +161,10 @@
       {OnDelete}
     >
       <button
-      class="action_btn"
-      on:click={() => popUpInviteUser.Show()}
-      title="invite user"
-    >
+        class="action_btn"
+        on:click={() => popUpInviteUser.Show()}
+        title="invite user"
+      >
       <Icon
         color="var(--gray-007)"
         size="16"

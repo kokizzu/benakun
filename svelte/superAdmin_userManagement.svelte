@@ -18,8 +18,8 @@
 
   console.log('Fields:', fields);
 
-  function AddRow() {
-    console.log('AddRow');
+  function addUser() {
+    console.log('addUser');
   }
 </script>
 
@@ -38,7 +38,7 @@
     >
       <button
         class="action_btn"
-        on:click={AddRow}
+        on:click={addUser}
         title="add user"
       >
         <Icon

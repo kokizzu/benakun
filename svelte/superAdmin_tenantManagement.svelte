@@ -22,7 +22,7 @@
     const i = { pager: pagerIn, cmd: 'list' };
     await SuperAdminTenantManagement( // @ts-ignore
       i, /** @type {import('./jsApi.GEN').SuperAdminTenantManagementCallback} */
-      /** @returns {void} */
+      /** @returns {Promise<any>} */
       function(/** @type any */ o) {
         if (o.error) {
           console.log(o);
@@ -46,7 +46,7 @@
     };
     await SuperAdminTenantManagement( // @ts-ignore
       i, /** @type {import('./jsApi.GEN').SuperAdminTenantManagementCallback} */
-      /** @returns {void} */
+      /** @returns {Promise<any>} */
       function(/** @type any */ o) {
         if (o.error) {
           console.log(o);
@@ -72,7 +72,7 @@
     };
     await SuperAdminTenantManagement( // @ts-ignore
       i, /** @type {import('./jsApi.GEN').SuperAdminTenantManagementCallback} */
-      /** @returns {void} */
+      /** @returns {Promise<any>} */
       function(/** @type any */ o) {
         if (o.error) {
           console.log(o);

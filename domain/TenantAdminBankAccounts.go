@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
 	"benakun/model/mBudget"
 	"benakun/model/mBudget/rqBudget"
@@ -28,6 +29,7 @@ type (
 		ResponseCommon
 		Pager zCrud.PagerOut `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 		Meta  *zCrud.Meta    `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
+		Staffs *[]rqAuth.Staff `json:"staffs" form:"staffs" query:"staffs" long:"staffs" msg:"staffs"`
 		Account *rqBudget.BankAccounts `json:"account" form:"account" query:"account" long:"account" msg:"account"`
 		Accounts [][]any `json:"accounts" form:"accounts" query:"accounts" long:"accounts" msg:"accounts"`
 	}
@@ -42,6 +44,7 @@ const (
 	ErrTenantAdminBankAccountsSaveFailed = `bank account save failed`
 	ErrTenantAdminBankAccountsParentNotFound = `parent bank account not found`
 	ErrTenantAdminBankAccountsParentHaveChild = `parent bank account already have child`
+	ErrTenantAdminBankAccountsStaffNotFound = `staff not found to choose account's owner`
 )
 
 var TenantAdminBankAccountsMeta = zCrud.Meta{
@@ -76,7 +79,7 @@ var TenantAdminBankAccountsMeta = zCrud.Meta{
 		},
 		{
 			Name: mBudget.IsCostCenter,
-			Label: "Const Center ?",
+			Label: "Cost Center ?",
 			InputType: zCrud.InputTypeCheckbox,
 		},
 	},
@@ -112,6 +115,12 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 	case zCrud.CmdForm:
 		if in.Account.Id <= 0 {
 			out.Meta = &SuperAdminUserManagementMeta
+			
+			staff := rqAuth.NewUsers(d.AuthOltp)
+			staffs := staff.FindStaffsByTenantCode(tenant.TenantCode)
+
+			out.Staffs = &staffs
+			return
 		}
 
 		account := rqBudget.NewBankAccounts(d.AuthOltp)
@@ -158,6 +167,15 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 				}
 
 				account.SetParentBankAccountId(in.Account.ParentBankAccountId)
+			}
+			if in.Account.StaffId > 0 {
+				staff := rqAuth.NewUsers(d.AuthOltp)
+				if !staff.FindStaffByIdByTenantCode(in.Account.StaffId, tenant.TenantCode) {
+					out.SetError(400, ErrTenantAdminBankAccountsStaffNotFound)
+					return
+				}
+
+				account.SetStaffId(staff.Id)
 			}
 		}
 
