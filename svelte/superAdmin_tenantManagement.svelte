@@ -88,7 +88,7 @@
     )
   }
 
-  function OnEdit(/** @type any */ id, /** @type any[]*/ payloads) {
+  async function OnEdit(/** @type any */ id, /** @type any[]*/ payloads) {
     console.log('ID:', id);
     console.log('Payloads:', payloads);
   }

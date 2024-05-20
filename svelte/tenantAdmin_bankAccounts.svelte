@@ -20,7 +20,10 @@
   let fields = /** @type Field[] */ ([/* fields */]);
   let pager = /** @type PagerOut */ ({/* pager */});
   let accounts = /** @type any[][] */ ([/* accounts */]);
-  
+
+  console.log('Fields:', fields);
+  console.log('Accounts:', accounts);
+
   // Binding component PopUpAddBankAccount.svelte
   let popUpAddBankAccount = null;
   // For readiness of component PopUpAddBankAccount.svelte, prevent race condition
@@ -28,7 +31,109 @@
 
   onMount(() => {
     isPopUpAddBankAccountReady = true;
-  })
+  });
+
+  async function OnRefresh(/** @type PagerIn */ pagerIn) {
+    const i = { pager: pagerIn, cmd: 'list' };
+    await TenantAdminBankAccounts( // @ts-ignore
+      i, /** @type {import('./jsApi.GEN').TenantAdminBankAccountsCallback} */
+      /** @returns {Promise<any>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+
+        console.log(o);
+        pager = o.pager;
+      }
+    );
+  }
+
+  async function OnRestore(/** @type any[] */ row) {
+    const i = {
+      pager,
+      account: {
+        id: row[0]
+      },
+      cmd: 'restore'
+    };
+    await TenantAdminBankAccounts( // @ts-ignore
+      i, /** @type {import('./jsApi.GEN').TenantAdminBankAccountsCallback} */
+      /** @returns {Promise<any>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return;
+        }
+
+        console.log(o);
+        notifier.showSuccess('account '+row[1]+' restored');
+        accounts = o.accounts;
+        pager = o.pager;
+      }
+    );
+  }
+
+  async function OnDelete(/** @type any[] */ row) {
+    const i = {
+      pager,
+      account: {
+        id: row[0]
+      },
+      cmd: 'delete'
+    };
+    await TenantAdminBankAccounts( // @ts-ignore
+      i, /** @type {import('./jsApi.GEN').TenantAdminBankAccountsCallback} */
+      /** @returns {Promise<any>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+
+        console.log(o);
+        notifier.showSuccess('account '+row[1]+' deleted');
+        accounts = o.accounts;
+        pager = o.pager;
+      }
+    );
+  }
+
+  async function OnEdit(/** @type any */ id, /** @type any[]*/ payloads) {
+    const i = {
+      pager,
+      account: {
+        id: payloads[0],
+        name: payloads[1],
+        accountName: payloads[2],
+        accountNumber: payloads[3],
+        bankName: payloads[4],
+        isProfitCenter: payloads[5],
+        isCostCenter: payloads[6]
+      },
+      cmd: 'upsert'
+    };
+    await TenantAdminBankAccounts( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        isSubmitAddBankAccount = false;
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+        console.log(o);
+        pager = o.pager;
+        accounts = o.accounts;
+        popUpAddBankAccount.Reset();
+      }
+    );
+  }
 
   let isSubmitAddBankAccount = false;
   async function addAccount(/** @type BankAccount*/ bankAccount) {
@@ -74,10 +179,15 @@
       bind:PAGER={pager}
       bind:MASTER_ROWS={accounts}
       
-      CAN_EDIT_ROW={false}
+      CAN_EDIT_ROW
       CAN_SEARCH_ROW
       CAN_DELETE_ROW
       CAN_RESTORE_ROW
+
+      {OnDelete}
+      {OnRestore}
+      {OnRefresh}
+      {OnEdit}
     >
     <button
       class="action_btn"

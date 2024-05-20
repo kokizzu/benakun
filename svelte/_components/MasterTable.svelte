@@ -54,7 +54,7 @@
 	let filtersMap = {};
 
 	// Index of field 'deletedAt', for marker deleted rows
-	let deletedIndex = 0;
+	let deletedIndex = -1;
 
 	// PopUp for modify rows
 	let showPopUp = false;
@@ -159,7 +159,7 @@
 	// Export function, forward parameter to parent
 	export let OnRestore = async function(/** @type any[]*/ row) {}
 	export let OnDelete = async function(/** @type any[]*/ row) {}
-	export let OnEdit = function(/** @type any */ id, /** @type any[]*/ payloads) {}
+	export let OnEdit = async function(/** @type any */ id, /** @type any[]*/ payloads) {}
 	export let OnRefresh = async function(/** @type PagerIn */ pagerIn) {}
 
 	function ApplyFilter() {
@@ -258,7 +258,7 @@
 									label={field.label}
 									placeholder={field.description}
 									bind:value={payloads[idx]}
-									type={field.type || 'text'}
+									type={field.inputType}
 								/>
 							{/if}
 						{/if}
@@ -339,10 +339,10 @@
 				{#if MASTER_ROWS && MASTER_ROWS.length > 0}
 					{#each MASTER_ROWS as row}
 						<tr class={
-							(CAN_DELETE_ROW && row[deletedIndex] > 0)
-							|| (CAN_DELETE_ROW && row[deletedIndex] === 'terminated')
-								? 'deleted'
-								: ''
+							(CAN_DELETE_ROW && (
+								(row[deletedIndex] > 0) || (row[deletedIndex] === 'terminated')
+							))
+								? 'deleted' : ''
 						}>
 							<td class="num_row">{MASTER_ROWS.indexOf(row) + 1}</td>
 							{#each (FIELDS || []) as f, idx}
@@ -402,7 +402,12 @@
 								{:else if f.inputType === 'datetime'}
 									<td>{(row[idx]) ? datetime(row[idx]) : '--'}</td>
 								{:else}
-									<td>{row[idx] || '--'}</td>
+									<td>
+										{(typeof row[idx] === 'boolean')
+											? (row[idx] ? 'Yes' : 'No')
+											: (row[idx] || '--')
+										}
+									</td>
 								{/if}
 							{/each}
 						</tr>

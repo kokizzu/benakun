@@ -83,6 +83,7 @@ var TenantAdminDashboardMeta = zCrud.Meta{
 		{
 			Name: mAuth.UpdatedAt,
 			Label: "Updated At",
+			InputType: zCrud.InputTypeDateTime,
 			ReadOnly: true,
 		},
 	},

@@ -62,6 +62,12 @@ var TenantAdminBankAccountsMeta = zCrud.Meta{
 			InputType: zCrud.InputTypeText,
 		},
 		{
+			Name: mBudget.AccountName,
+			Label: "Account Name",
+			DataType: zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
 			Name: mBudget.AccountNumber,
 			Label: "Account Number",
 			DataType: zCrud.DataTypeInt,
@@ -75,12 +81,26 @@ var TenantAdminBankAccountsMeta = zCrud.Meta{
 		{
 			Name: mBudget.IsProfitCenter,
 			Label: "Profit Center ?",
+			DataType: zCrud.DataTypeBool,
 			InputType: zCrud.InputTypeCheckbox,
 		},
 		{
 			Name: mBudget.IsCostCenter,
 			Label: "Cost Center ?",
+			DataType: zCrud.DataTypeBool,
 			InputType: zCrud.InputTypeCheckbox,
+		},
+		{
+			Name: mBudget.UpdatedAt,
+			Label: "Updated At",
+			InputType: zCrud.InputTypeDateTime,
+			ReadOnly: true,
+		},
+		{
+			Name: mBudget.DeletedAt,
+			Label: "Deleted At",
+			InputType: zCrud.InputTypeDateTime,
+			ReadOnly: true,
 		},
 	},
 }
@@ -179,10 +199,18 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 			}
 		}
 
-		account.SetAccountName(in.Account.AccountName)
-		account.SetBankName(in.Account.BankName)
-		account.SetName(in.Account.Name)
-		account.SetAccountNumber(in.Account.AccountNumber)
+		if in.Account.AccountName != `` {
+			account.SetAccountName(in.Account.AccountName)
+		}
+		if in.Account.BankName != `` {
+			account.SetBankName(in.Account.BankName)
+		}
+		if in.Account.Name != `` {
+			account.SetName(in.Account.Name)
+		}
+		if in.Account.AccountNumber > 0 {
+			account.SetAccountNumber(in.Account.AccountNumber)
+		}
 		account.SetIsProfitCenter(in.Account.IsProfitCenter)
 		account.SetIsCostCenter(in.Account.IsCostCenter)
 
