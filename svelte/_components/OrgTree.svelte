@@ -277,6 +277,7 @@
   .org.job {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     flex-direction: row;
     gap: 40px;
     padding: 10px;
@@ -393,16 +394,9 @@
     line-height: 2.2rem;
   }
 
-  .org.company:hover .options,
-  .org.department:hover .options,
-  .org.division:hover .options,
-  .org.job:hover .options {
+  .org .options {
     display: flex;
     cursor: pointer;
-  }
-
-  .org .options {
-    display: none;
     flex-direction: row;
     align-items: center;
     gap: 5px;

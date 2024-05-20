@@ -13,6 +13,9 @@
   import AiOutlineHome from 'svelte-icons-pack/ai/AiOutlineHome';
   import RiBuildingsCommunityLine from 'svelte-icons-pack/ri/RiBuildingsCommunityLine';
   import BsPostcard from 'svelte-icons-pack/bs/BsPostcard';
+  import HiOutlineUserGroup from 'svelte-icons-pack/ri/RiUserGroup2Line.js';
+  import HiOutlineUserAdd from 'svelte-icons-pack/ri/RiUserSpyLine.js';
+  import RiBuildingsBankLine from 'svelte-icons-pack/ri/RiBuildingsBankLine';
   import SubMenuLink from './SubMenuLink.svelte';
 
   /** @typedef {import('../types/access.js').Access} Access*/
@@ -71,13 +74,18 @@
             <SubMenuLink title='Organization' href='/tenantAdmin/organization' icon={RiEditorOrganizationChart}/>
             <SubMenuLink title='Budgeting' href='/tenantAdmin/budgeting' icon={AiOutlineWallet}/>
             <SubMenuLink title='Chart of Acount' href='/tenantAdmin/coa' icon={BsPostcard}/>
+            <SubMenuLink title='Bank Accounts' href='/tenantAdmin/bankAccounts' icon={RiBuildingsBankLine}/>
           </div>
         {/if}
         {#if access.superAdmin }
-          <a href='/superAdmin/dashboard' class:active={segment1 === 'superAdmin'}>
-            <Icon size="18" className={segment1 === 'superAdmin'  ? 'icon_active' : 'icon_dark'} src={RiUserAdminLine}/>
+          <a href='/superAdmin/dashboard' class:active={window.location.pathname === '/superAdmin/dashboard'}>
+            <Icon size="18" className={window.location.pathname === '/superAdmin/dashboard'  ? 'icon_active' : 'icon_dark'} src={RiUserAdminLine}/>
             <span>Super Admin</span>
           </a>
+          <div class="submenu">
+            <SubMenuLink title='Users' href='/superAdmin/userManagement' icon={HiOutlineUserGroup}/>
+            <SubMenuLink title='Tenants' href='/superAdmin/tenantManagement' icon={HiOutlineUserAdd}/>
+          </div>
         {/if}
       </nav>
       <nav class="menu_list">

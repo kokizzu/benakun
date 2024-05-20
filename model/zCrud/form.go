@@ -23,6 +23,7 @@ const (
 	DataTypeInt    DataType = `int`
 	DataTypeFloat  DataType = `float`
 	DataTypeIntArr DataType = `intArr`
+	DataTypeBool	 DataType = `bool`
 
 	InputTypeText     InputType = `text`
 	InputTypeTextArea InputType = `textarea`

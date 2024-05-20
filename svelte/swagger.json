@@ -1210,6 +1210,212 @@
 				}
 			}
 		},
+		"/tenantAdmin/bankAccounts": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"cmd": {
+								"type": "string"
+						},
+						"account": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"name": {
+										"type": "string"
+								},
+								"parentBankAccountId": {
+										"type": "number"
+								},
+								"accountNumber": {
+										"type": "number"
+								},
+								"bankName": {
+										"type": "string"
+								},
+								"accountName": {
+										"type": "string"
+								},
+								"isProfitCenter": {
+									"type": "boolean"
+								},
+								"isCostCenter": {
+									"type": "boolean"
+								},
+								"staffId": {
+										"type": "number"
+								}
+								}
+						},
+						"withMeta": {
+							"type": "boolean"
+						},
+						"pager": {
+						"type": "object",
+						"properties": {
+								"page": {
+										"type": "number"
+								},
+								"perPage": {
+										"type": "number"
+								},
+								"filters": {
+								"type": "object",
+								"properties": {
+										}
+								},
+								"order": {
+										"type": "array",
+											"items": {
+												"type": "string"
+											}
+										}
+								}
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminBankAccounts",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"pager": {
+										"type": "object",
+										"properties": {
+												"page": {
+														"type": "number"
+												},
+												"perPage": {
+														"type": "number"
+												},
+												"pages": {
+														"type": "number"
+												},
+												"total": {
+														"type": "number"
+												},
+												"filters": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"order": {
+														"type": "array",
+															"items": {
+																"type": "string"
+															}
+														}
+												}
+										},
+										"meta": {
+										"type": "object",
+										"properties": {
+												"fields": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"mutex": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"cachedSelect": {
+														"type": "string"
+												}
+												}
+										},
+										"account": {
+										"type": "object",
+										"properties": {
+												"id": {
+														"type": "number"
+												},
+												"createdAt": {
+														"type": "number"
+												},
+												"createdBy": {
+														"type": "number"
+												},
+												"updatedAt": {
+														"type": "number"
+												},
+												"updatedBy": {
+														"type": "number"
+												},
+												"deletedAt": {
+														"type": "number"
+												},
+												"name": {
+														"type": "string"
+												},
+												"parentBankAccountId": {
+														"type": "number"
+												},
+												"accountNumber": {
+														"type": "number"
+												},
+												"bankName": {
+														"type": "string"
+												},
+												"accountName": {
+														"type": "string"
+												},
+												"isProfitCenter": {
+													"type": "boolean"
+												},
+												"isCostCenter": {
+													"type": "boolean"
+												},
+												"staffId": {
+														"type": "number"
+												}
+												}
+										},
+										"accounts": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/tenantAdmin/budgeting": {
 			"post": {
 				"security": [{
@@ -1497,6 +1703,37 @@
 							"schema": {
 								"type": "object",
 								"properties": {
+						"cmd": {
+								"type": "string"
+						},
+						"staffEmail": {
+								"type": "string"
+						},
+						"withMeta": {
+							"type": "boolean"
+						},
+						"pager": {
+						"type": "object",
+						"properties": {
+								"page": {
+										"type": "number"
+								},
+								"perPage": {
+										"type": "number"
+								},
+								"filters": {
+								"type": "object",
+								"properties": {
+										}
+								},
+								"order": {
+										"type": "array",
+											"items": {
+												"type": "string"
+											}
+										}
+								}
+						}
 								}
 							}
 						}
@@ -1510,6 +1747,52 @@
 								"schema": {
 									"type": "object",
 									"properties": {
+										"pager": {
+										"type": "object",
+										"properties": {
+												"page": {
+														"type": "number"
+												},
+												"perPage": {
+														"type": "number"
+												},
+												"pages": {
+														"type": "number"
+												},
+												"total": {
+														"type": "number"
+												},
+												"filters": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"order": {
+														"type": "array",
+															"items": {
+																"type": "string"
+															}
+														}
+												}
+										},
+										"meta": {
+										"type": "object",
+										"properties": {
+												"fields": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"mutex": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"cachedSelect": {
+														"type": "string"
+												}
+												}
+										},
 										"staffs": {
 										"type": "object",
 										"properties": {
@@ -1637,45 +1920,6 @@
 										"type": "object",
 										"properties": {
 												}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/tenantAdmin/inviteUser": {
-			"post": {
-				"security": [{
-					"CookieAuth": []
-				}],
-				"tags": ["API"],
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-						"email": {
-								"type": "string"
-						}
-								}
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "TenantAdminInviteUser",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"message": {
-												"type": "string"
 										}
 									}
 								}
@@ -1886,45 +2130,6 @@
 										"type": "object",
 										"properties": {
 												}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/tenantAdmin/terminateStaff": {
-			"post": {
-				"security": [{
-					"CookieAuth": []
-				}],
-				"tags": ["API"],
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-						"email": {
-								"type": "string"
-						}
-								}
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "TenantAdminTerminateStaff",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"message": {
-												"type": "string"
 										}
 									}
 								}

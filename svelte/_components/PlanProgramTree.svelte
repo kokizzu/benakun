@@ -266,6 +266,7 @@
     color: var(--gray-007);
     padding: 4px 8px;
     cursor: pointer;
+    text-align: left;
   }
 
   .item .title:hover {

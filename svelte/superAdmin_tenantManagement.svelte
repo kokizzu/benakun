@@ -1,104 +1,135 @@
 <script>
-  // @ts-nocheck
-  import AdminSubMenu from './_components/AdminSubMenu.svelte';
-  import TableView from './_components/TableView.svelte';
-  import { SuperAdminTenantManagement } from './jsApi.GEN';
-  import ModalForm from './_components/ModalForm.svelte';
-  import { notifier } from './_components/notifier.js';
-
   import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidPlusCircle from 'svelte-icons-pack/fa/FaSolidPlusCircle';
-  import { onMount } from 'svelte';
+  import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
   import MainLayout from './_layouts/mainLayout.svelte';
+  import MasterTable from './_components/MasterTable.svelte';
+  import { SuperAdminTenantManagement } from './jsApi.GEN';
+  import { notifier } from './_components/notifier';
 
-  let segments = {/* segments */};
-  let fields = [/* fields */];
-  let tenants = [/* tenants */] || [];
-  let pager = {/* pager */};
-  let user = {/* user */};
+  /** @typedef {import('./_components/types/master.js').Field} Field */
+	/** @typedef {import('./_components/types/access.js').Access} Access */
+  /** @typedef {import('./_components/types/master.js').PagerIn} PagerIn */
+	/** @typedef {import('./_components/types/master.js').PagerOut} PagerOut */
+  /** @typedef {import('./_components/types/user.js').User} User */
 
-  onMount(() => {
-    tenants = tenants || [];
-    console.log('tenants', tenants);
-  });
+  let segments  = /** @type Access */ ({/* segments */});
+  let user      = /** @type User */ ({/* user */});
+  let fields    = /** @type Field[] */ ([/* fields */]);
+  let pager     = /** @type PagerOut */ ({/* pager */});
+  let tenants   = /** @type any[][] */ ([/* tenants */]);
 
-  // return true if got error
-  function handleResponse(res) {
-    console.log(res);
-    if (res.error) {
-      notifier.showError(res.error);
-      return true;
-    }
-    if (res.tenants && res.tenants.length) tenants = res.tenants;
-    if (res.pager && res.pager.page) pager = res.pager;
-  }
-
-  async function refreshTableView(pagerIn) {
-    await SuperAdminTenantManagement(
-      {
-        pager: pagerIn,
-        cmd: 'list',
-      },
-      function (res) {
-        handleResponse(res);
-      }
-    );
-  }
-
-  let form = ModalForm; // for lookup
-
-  async function editRow(id, row) {
-    await SuperAdminTenantManagement(
-      {
-        tenant: { id },
-        cmd: 'form',
-      },
-      function (res) {
-        if (!handleResponse(res)) form.showModal(res.tenant);
-      }
-    );
-  }
-
-  function addRow() {
-    form.showModal({ id: '' });
-  }
-
-  async function saveRow(action, row) {
-    let tenant = { ...row };
-    if (!tenant.id) tenant.id = '0';
-    await SuperAdminTenantManagement(
-      {
-        tenant: tenant,
-        cmd: action,
-        pager: pager, // force refresh page, will be slow
-      },
-      function (res) {
-        if (handleResponse(res)) {
-          return form.setLoading(false); // has error
+  async function OnRefresh(/** @type PagerIn */ pagerIn) {
+    const i = { pager: pagerIn, cmd: 'list' };
+    await SuperAdminTenantManagement( // @ts-ignore
+      i, /** @type {import('./jsApi.GEN').SuperAdminTenantManagementCallback} */
+      /** @returns {Promise<any>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          return;
         }
-        form.hideModal(); // success
+
+        console.log(o);
+        tenants = o.tenants;
+        pager = o.pager;
       }
-    );
+    )
+  }
+
+  async function OnRestore(/** @type any[] */ row) {
+    const i = {
+      pager,
+      tenant: {
+        id: row[0]
+      },
+      cmd: 'restore'
+    };
+    await SuperAdminTenantManagement( // @ts-ignore
+      i, /** @type {import('./jsApi.GEN').SuperAdminTenantManagementCallback} */
+      /** @returns {Promise<any>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return;
+        }
+
+        console.log(o);
+        notifier.showSuccess(o.tenant.tenantCode + ' restored');
+        tenants = o.tenants;
+        pager = o.pager;
+      }
+    )
+  }
+
+  async function OnDelete(/** @type any[] */ row) {
+    const i = {
+      pager,
+      tenant: {
+        id: row[0]
+      },
+      cmd: 'delete'
+    };
+    await SuperAdminTenantManagement( // @ts-ignore
+      i, /** @type {import('./jsApi.GEN').SuperAdminTenantManagementCallback} */
+      /** @returns {Promise<any>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return;
+        }
+
+        console.log(o);
+        notifier.showSuccess(o.tenant.tenantCode + ' deleted');
+        tenants = o.tenants;
+        pager = o.pager;
+      }
+    )
+  }
+
+  async function OnEdit(/** @type any */ id, /** @type any[]*/ payloads) {
+    console.log('ID:', id);
+    console.log('Payloads:', payloads);
+  }
+
+  function AddRow() {
+    console.log('AddRow');
   }
 </script>
 
 <MainLayout>
-  <AdminSubMenu />
-  <div class="tenant_management">
-    <ModalForm {fields} rowType="Tenant" bind:this={form} onConfirm={saveRow}></ModalForm>
-    <section class="tableview_container">
-      <TableView {fields} bind:pager rows={tenants} onRefreshTableView={refreshTableView} onEditRow={editRow}>
-        <button on:click={addRow} class="action_btn">
-          <Icon size="17" color="#FFF" src={FaSolidPlusCircle} />
-          <span>Add</span>
-        </button>
-      </TableView>
-    </section>
+  <div>
+    <MasterTable
+      ACCESS={segments}
+      bind:FIELDS={fields}
+      bind:PAGER={pager}
+      bind:MASTER_ROWS={tenants}
+
+      CAN_EDIT_ROW
+      CAN_SEARCH_ROW
+      CAN_DELETE_ROW
+      CAN_RESTORE_ROW
+
+      {OnRefresh}
+      {OnRestore}
+      {OnDelete}
+      {OnEdit}
+    >
+      <button
+        class="action_btn"
+        on:click={AddRow}
+        title="add tenant"
+      >
+        <Icon
+          color="var(--gray-007)"
+          size="16"
+          src={RiSystemAddBoxLine}
+        />
+      </button>
+    </MasterTable>
   </div>
 </MainLayout>
 
 <style>
-  .tenant_management {
-    margin-top: 30px;
-  }
 </style>

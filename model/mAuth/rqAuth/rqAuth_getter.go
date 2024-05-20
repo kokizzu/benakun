@@ -11,12 +11,66 @@ import (
 	"benakun/model/zCrud"
 )
 
-type StaffWithInvitation struct {
+type Staff struct {
 	Id              string `json:"id" form:"id" query:"id" long:"id" msg:"id"`
 	Email           string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
 	FullName        string `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
-	InvitationState string `json:"invitationState" form:"invitationState" query:"invitationState" long:"invitationState" msg:"invitationState"`
-	Role            string `json:"role" form:"role" query:"role" long:"role" msg:"role"`
+}
+
+func (u *Users) FindStaffsByTenantCode(tenantCode string) (staffs []Staff) {
+	var res [][]any
+	const comment = `-- Users) FindStaffByTenantCode`
+
+	whereAndSql := ` WHERE `+u.SqlInvitationState()+` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
+
+	queryRows := comment+`
+SELECT `+u.SqlId()+`, `+u.SqlEmail()+`, `+u.SqlFullName()+`
+FROM `+u.SqlTableName()+whereAndSql
+
+
+	u.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
+	if len(res) > 0 {
+		for _, stf := range res {
+			if len(stf) == 3 {
+				st := Staff{
+					Id: X.ToS(stf[0]),
+					Email: X.ToS(stf[1]),
+					FullName: X.ToS(stf[2]),
+				}
+
+				staffs = append(staffs, st)
+			}
+		}
+	}
+
+	return
+}
+
+func (u *Users) FindStaffByIdByTenantCode(id uint64, tenantCode string) bool {
+	var res [][]any
+	const comment = `-- Users) FindStaffByIdByTenantCode`
+
+	whereAndSql := ` WHERE `+u.SqlId()+` = `+S.Z(I.UToS(id))+` AND `+u.SqlTenantCode()+` = `+S.Z(tenantCode)
+
+	queryRows := comment+`
+SELECT `+u.SqlSelectAllFields()+`
+FROM `+u.SqlTableName()+whereAndSql+` LIMIT 1`
+
+	u.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0])
+		res = append(res, row)
+	})
+
+	if len(res) == 1 {
+		u.FromArray(res[0])
+		return true
+	}
+
+	return false
 }
 
 func (u *Users) CheckPassword(pass string) error {
@@ -43,6 +97,8 @@ func (u *Users) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud
 
 	validFields := UsersFieldTypeMap
 	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
+
+	L.Print(`whereAndSQL:`, whereAndSql)
 
 	queryCount := comment + `
 SELECT COUNT(1)
@@ -120,41 +176,6 @@ func (u *Users) FindByTenantCode() bool {
 	return false
 }
 
-func (u *Users) FindUsersByTenant(tenantCode string) (staffs []StaffWithInvitation) {
-	var res [][]any
-	const comment = `-- Users) FindByTenant`
-
-	whereAndSql := ` WHERE ` + u.SqlInvitationState() + `LIKE '%tenant:` + tenantCode + `:%'`
-
-	queryRows := comment + `
-SELECT ` + u.SqlId() + `, ` + u.SqlEmail() + `, ` + u.SqlFullName() + `, ` + u.SqlInvitationState() + `, ` + u.SqlRole() + `
-FROM ` + u.SqlTableName() + whereAndSql
-
-	u.Adapter.QuerySql(queryRows, func(row []any) {
-		row[0] = X.ToS(row[0]) // ensure id is string
-		res = append(res, row)
-	})
-
-	if len(res) > 0 {
-		for _, stf := range res {
-			if len(stf) >= 5 {
-				st := StaffWithInvitation{
-					Id:              stf[0].(string),
-					Email:           stf[1].(string),
-					FullName:        stf[2].(string),
-					InvitationState: stf[3].(string),
-					Role:            stf[4].(string),
-				}
-				staffs = append(staffs, st)
-			}
-		}
-	} else {
-		return []StaffWithInvitation{}
-	}
-
-	return
-}
-
 func (c *Coa) FindCoasByTenant(tenantCode string) (coas []Coa) {
 	var res [][]any
 	const comment = `-- Coa) FindCoasByTenant`
@@ -222,4 +243,58 @@ FROM ` + o.SqlTableName() +
 	})
 
 	return
+}
+
+// TODO: find staff
+func (u *Users) FindStaffByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
+	const comment = `-- Users) FindStaffByPagination`
+
+	validFields := UsersFieldTypeMap
+	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
+	whereAndSql2 := `AND (` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+u.TenantCode+`:%`)
+	if whereAndSql == `` {
+		whereAndSql2 = ` WHERE ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+u.TenantCode+`:%`)
+	}
+
+	queryCount := comment + `
+SELECT COUNT(1)
+FROM ` + u.SqlTableName() + whereAndSql + whereAndSql2 + `
+LIMIT 1`
+	u.Adapter.QuerySql(queryCount, func(row []any) {
+		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
+	})
+
+	orderBySql := out.OrderBySqlTt(in.Order, validFields)
+	limitOffsetSql := out.LimitOffsetSql()
+
+	queryRows := comment + `
+SELECT ` + meta.ToSelect() + `
+FROM ` + u.SqlTableName() + whereAndSql  + whereAndSql2 + orderBySql + limitOffsetSql
+	u.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		invState := staffState(X.ToS(row[4]), u.TenantCode)
+		row[4] = invState 
+		res = append(res, row)
+	})
+
+	return
+}
+
+func staffState(states, tenantCode string) (invState string) {
+	sliceStates := S.Split(S.Trim(states), ` `)
+	if len(sliceStates) == 0 || states == `` {
+		return ``
+	}
+	for _, state := range sliceStates {
+		if state == `` {
+			continue
+		}
+		parts := S.Split(state, `:`)
+		if len(parts) == 4 {
+			if parts[1] == tenantCode {
+				return parts[2]
+			}
+		} 
+	}
+	return ``
 }

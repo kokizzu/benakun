@@ -1,36 +1,54 @@
 <script>
-  /** Input type:
-    * text (default)
-    * number
-    * phone
-    * date
-    * bool
-    * select
-    * email
-    */
+  import { onMount } from 'svelte';
+  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import AiOutlineEye from 'svelte-icons-pack/ai/AiOutlineEye';
+  import AiOutlineEyeInvisible from 'svelte-icons-pack/ai/AiOutlineEyeInvisible';
+
+  // ==== Input type ======
+  // text (default)
+  // textarea
+  // email
+  // password
+  // number
+  // phone
+  // date
+  // bool
+  // select
 
   export let type = 'text';
   export let id;
   export let value;
 
   /** @type {Array<any>|Object} */
-  export let values = [];
+  export let values = [] || {};
   export let label;
   export let placeholder = '';
   export let isObject = false;
 
   if (isObject) value = value+'';
+  let isShowPassword = false;
+  let inputElm;
+  
+  onMount(() => {
+    if (type === 'password') inputElm.type = type;
+  });
+
+  function toggleShowPassword() {
+    isShowPassword = !isShowPassword;
+    if (isShowPassword) inputElm.type = 'text';
+    else inputElm.type = 'password';
+  }
 </script>
 
 <div>
-  <div class={type == 'bool' ? 'input_box bool' : 'input_box'}>
-    {#if type == 'bool'}
+  <div class="input_box {type == 'bool' ? 'bool' : ''} {type == 'password' ? 'with_password' : ''}">
+    {#if type === 'bool' || type === 'checkbox'}
       <label class="label" for={id}>{label}</label>
       <label class="switcher" for={id}>
         <input type="checkbox" id={id} bind:checked={value}>
         <span class="slider"></span>
       </label>
-    {:else if type == 'select'}
+    {:else if type == 'select' || type === 'combobox'}
       {#if isObject}
         <label class="label" for={id}>{label}</label>
         <select name={id} id={id} bind:value={value} {placeholder}>
@@ -48,24 +66,37 @@
           {/each}
         </select>
       {/if}
-    {:else if type == 'number'}
+    {:else if type === 'number'}
       <label class="label" for={id}>{label}</label>
       <input type="number" bind:value={value} {id} {placeholder}/>
-    {:else if type == 'float'}
+    {:else if type === 'float'}
       <label class="label" for={id}>{label}</label>
       <input type="number" bind:value={value} {id} {placeholder}/>
-    {:else if type == 'textarea'}
+    {:else if type === 'textarea'}
       <label class="label" for={id}>{label}</label>
       <textarea bind:value={value} {id} {placeholder}></textarea>
-    {:else if type == 'text'}
+    {:else if type === 'text'}
       <label class="label" for={id}>{label}</label>
       <input type="text" bind:value={value} {id} {placeholder}/>
-    {:else if type == 'email'}
+    {:else if type === 'email'}
       <label class="label" for={id}>{label}</label>
       <input type="email" bind:value={value} {id} {placeholder}/>
-    {:else if type == 'date'}
+    {:else if type === 'date'}
       <label class="label" for={id}>{label}</label>
       <input type="date" bind:value={value} {id} {placeholder}/>
+    {:else if type === 'password'}
+      <label for={id}>{label}</label>
+      <input bind:value={value} {id} bind:this={inputElm} {placeholder}/>
+      {#if type === 'password'}
+        <button class="eye" on:click={toggleShowPassword}>
+          {#if !isShowPassword}
+            <Icon color="#495057" size="20" src={AiOutlineEye}/>
+          {/if}
+          {#if isShowPassword}
+            <Icon color="#495057" size="20" src={AiOutlineEyeInvisible}/>
+          {/if}
+        </button>
+      {/if}
     {:else}
       <label class="label" for={id}>{label}</label>
       <input type="text" bind:value={value} {id} {placeholder}/>
@@ -83,6 +114,10 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
+  }
+
+  .input_box.with_password input{
+    padding-right: 40px !important;
   }
 
   .input_box.bool {
@@ -189,5 +224,22 @@
 
   .switcher .slider:before {
     border-radius: 50%;
+  }
+
+  .input_box .eye {
+    position: absolute;
+    height: fit-content;
+    width: fit-content;
+    background-color: transparent;
+    padding: 0;
+    top: 30px;
+    bottom: auto;
+    right: 10px;
+    border: none;
+    cursor: pointer;
+  }
+
+  :global(.input_box .eye:hover svg) {
+    fill: var(--blue-005);
   }
 </style>

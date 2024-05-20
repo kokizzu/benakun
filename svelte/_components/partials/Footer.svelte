@@ -35,6 +35,7 @@
     color: var(--gray-007);
   }
   footer nav a:hover {
-    color: var(--purple-002);
+    color: var(--sky-007);
+    text-decoration: underline;
   }
 </style>

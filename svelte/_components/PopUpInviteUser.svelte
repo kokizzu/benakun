@@ -1,92 +1,47 @@
 <script>
-  import InputBox from "./InputBox.svelte";
-	import InputCustom from "./InputCustom.svelte";
-  import Icon from "svelte-icons-pack";
+  import InputBox from './InputBox.svelte';
+  import Icon from 'svelte-icons-pack';
   import FiLoader from 'svelte-icons-pack/fi/FiLoader';
   import IoClose from 'svelte-icons-pack/io/IoClose';
 
+  export let heading = 'Invite user';
+
   export let onSubmit = () => {}
   export let isSubmitted = false;
-	export let title = '';
-	export let description = '';
-	export let perYear = 0;
-	export let budgetIDR = 0;
-	export let budgetUSD = 0;
-	export let budgetEUR = 0;
-	export let planType = 'vision';
-	export let heading = 'Add budget plan';
+  export let email = '';
 
   let isShow = false;
-  export const show = () => isShow = true;
-  export const hide = () => isShow = false;
-	export const reset = () => {
-		title = '', description = '', perYear = 0;
-		budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
-  }
+  export const Show = () => isShow = true;
+  export const Hide = () => isShow = false;
 
-  const cancel = () => isShow = false;
+  const cancel = () => {
+    isShow = false;
+    email = '';
+  }
 </script>
 
 <div class={`popup_container ${isShow ? 'show' : ''}`}>
   <div class="popup">
     <header class="header">
       <h2>{heading}</h2>
-      <button on:click={hide}>
+      <button on:click={Hide}>
         <Icon size="22" color="var(--red-005)" src={IoClose}/>
       </button>
     </header>
     <div class="forms">
-			{#if !(planType === 'vision' || planType === 'mission')}
-				<InputBox
-					id="title"
-					label="Title"
-					bind:value={title}
-					type="text"
-					placeholder="Title"
-				/>
-				<InputBox
-					id="perYear"
-					label="Per Year"
-					bind:value={perYear}
-					type="number"
-					placeholder="Per Year"
-				/>
-				<InputBox
-					id="budgetIDR"
-					label="Budget IDR"
-					bind:value={budgetIDR}
-					type="number"
-					placeholder="Budget IDR"
-				/>
-				<InputBox
-					id="budgetUSD"
-					label="Budget USD"
-					bind:value={budgetUSD}
-					type="number"
-					placeholder="Budget USD"
-				/>
-				<InputBox
-					id="budgetEUR"
-					label="Budget EUR"
-					bind:value={budgetEUR}
-					type="number"
-					placeholder="Budget EUR"
-				/>
-			{/if}
-			<InputCustom
-        id="description"
-        label="Description"
-        bind:value={description}
-        type="textarea"
-        placeholder="Description"
-      />
+      <InputBox id="email" label="Nama" bind:value={email} type="email" placeholder="name@example.com" />
     </div>
     <div class="foot">
+      <div class="left">
+      </div>
       <div class="right">
         <button class="cancel" on:click|preventDefault={cancel}>Cancel</button>
-        <button class="ok" on:click|preventDefault={onSubmit}>
+        <button class="ok" on:click|preventDefault={() => {
+					if (!email || email == '') return;
+					else onSubmit();
+				}} disabled={isSubmitted}>
           {#if !isSubmitted}
-            <span>Submit</span>
+            <span>Ok</span>
           {/if}
           {#if isSubmitted}
             <Icon className="spin" color="#FFF" size="14" src={FiLoader} />
@@ -152,7 +107,6 @@
 
 	.popup_container .popup header h2 {
 		margin: 0;
-		text-transform: capitalize;
 	}
 
 	.popup_container .popup header button {
@@ -184,7 +138,7 @@
 	.popup_container .popup .foot {
 		display: flex;
 		flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
 		gap: 10px;
 		align-items: center;
 		padding: 10px 20px;
@@ -216,6 +170,12 @@
 
 	.popup_container .popup .foot button.ok:hover {
 		background-color: var(--green-005);
+	}
+
+	.popup_container .popup .foot button.ok:disabled {
+		cursor: not-allowed;
+		background-color: var(--gray-003);
+		color: var(--gray-007);
 	}
 
 	.popup_container .popup .foot button.cancel {
