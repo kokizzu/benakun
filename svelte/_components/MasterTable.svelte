@@ -413,14 +413,12 @@
 						</tr>
 					{/each}
 				{:else}
-					{#each (Array(5).fill()) as _, i}
-						<tr>
-							<td class="num_row">{i + 1}</td>
-							{#each (FIELDS || []) as _}
-								<td>-</td>
-							{/each}
-						</tr>
+					<tr>
+						<td class="num_row">1</td>
+						{#each (FIELDS || []) as _}
+							<td>no-data</td>
 						{/each}
+					</tr>
 				{/if}
 			</tbody>
 		</table>

@@ -962,11 +962,12 @@ func (t *Tenants) UniqueIndexTenantCode() string { //nolint:dupl false positive
 // FindByTenantCode Find one by TenantCode
 func (t *Tenants) FindByTenantCode() bool { //nolint:dupl false positive
 	res, err := t.Adapter.Select(t.SpaceName(), t.UniqueIndexTenantCode(), 0, 1, tarantool.IterEq, A.X{t.TenantCode})
+	L.Print(`Err:`, err)
 	if L.IsError(err, `Tenants.FindByTenantCode failed: `+t.SpaceName()) {
 		return false
 	}
 	rows := res.Tuples()
-	if len(rows) == 1 {
+	if len(rows) >= 1 {
 		t.FromArray(rows[0])
 		return true
 	}

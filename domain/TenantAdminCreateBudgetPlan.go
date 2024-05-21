@@ -64,7 +64,7 @@ func (d *Domain) TenantAdminCreateBudgetPlan(in *TenantAdminCreateBudgetPlanIn) 
 
 	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
 	tenant.TenantCode = user.TenantCode
-	if !tenant.FindByTenantCode() {
+	if !tenant.FindByTenantCode() && !sess.IsSuperAdmin {
 		out.SetError(400, ErrTenantAdminCreateBudgetPlanTenantNotFound)
 		return
 	}

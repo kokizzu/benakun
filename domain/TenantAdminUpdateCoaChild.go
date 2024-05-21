@@ -49,7 +49,7 @@ func (d *Domain) TenantAdminUpdateCoaChild(in *TenantAdminUpdateCoaChildIn) (out
 
 	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
 	tenant.TenantCode = user.TenantCode
-	if !tenant.FindByTenantCode() {
+	if !tenant.FindByTenantCode() && !sess.IsSuperAdmin {
 		out.SetError(400, ErrTenantAdminUpdateCoaChildTenantNotFound)
 		return
 	}

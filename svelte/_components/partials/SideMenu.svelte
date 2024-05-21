@@ -11,6 +11,7 @@
   import AiOutlineWallet from 'svelte-icons-pack/ai/AiOutlineWallet';
   import RiUserAdminLine from 'svelte-icons-pack/ri/RiUserAdminLine';
   import AiOutlineHome from 'svelte-icons-pack/ai/AiOutlineHome';
+  import CgBox from 'svelte-icons-pack/cg/CgBox';
   import RiBuildingsCommunityLine from 'svelte-icons-pack/ri/RiBuildingsCommunityLine';
   import BsPostcard from 'svelte-icons-pack/bs/BsPostcard';
   import HiOutlineUserGroup from 'svelte-icons-pack/ri/RiUserGroup2Line.js';
@@ -75,6 +76,7 @@
             <SubMenuLink title='Budgeting' href='/tenantAdmin/budgeting' icon={AiOutlineWallet}/>
             <SubMenuLink title='Chart of Acount' href='/tenantAdmin/coa' icon={BsPostcard}/>
             <SubMenuLink title='Bank Accounts' href='/tenantAdmin/bankAccounts' icon={RiBuildingsBankLine}/>
+            <SubMenuLink title='Products' href='/tenantAdmin/products' icon={CgBox}/>
           </div>
         {/if}
         {#if access.superAdmin }

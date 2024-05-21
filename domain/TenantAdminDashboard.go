@@ -92,22 +92,30 @@ var TenantAdminDashboardMeta = zCrud.Meta{
 func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdminDashboardOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 
+	L.Print(`Trigger 1`)
 	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
+		L.Print(`Trigger 2`)
 		return
 	}
 
+	L.Print(`Trigger 3`)
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
+	L.Print(`Trigger 4`)
 	user.Id = sess.UserId
 	if !user.FindById() {
 		out.SetError(fiber.StatusBadRequest, ErrTenantAdminDashboardUnauthorized)
+		L.Print(`Trigger 5`)
 		return
 	}
 
+	L.Print(`Trigger 6`)
 	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
+	L.Print(`Trigger 7`)
 	tenant.TenantCode = user.TenantCode
-	if !tenant.FindByTenantCode() {
+	if !tenant.FindByTenantCode() && !sess.IsSuperAdmin {
 		out.SetError(400, ErrTenantAdminDashboardTenantNotFound)
+		L.Print(`Trigger 8`)
 		return
 	}
 
@@ -118,20 +126,26 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 	switch in.Cmd {
 	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
 		if in.StaffEmail != `` {
+			L.Print(`Trigger 9`)
 			staff := wcAuth.NewUsersMutator(d.AuthOltp)
 			staff.Email = in.StaffEmail
+			L.Print(`Trigger 10`)
 			if !staff.FindByEmail() {
 				out.SetError(400, ErrTenantAdminDashboardUserNotFound)
+				L.Print(`Trigger 11`)
 				return
 			}
 
 			if in.Cmd == zCrud.CmdUpsert {
 				if staff.TenantCode != `` {
 					out.SetError(400, ErrTenantAdminDashboardInvalidStaff)
+					L.Print(`Trigger 12`)
 					return
 				}
 
+				L.Print(`Trigger 13`)
 				mapState, err := mAuth.ToInvitationStateMap(staff.InvitationState)
+				L.Print(`Trigger 14`)
 				if errors.Is(err, mAuth.ErrInvitationStateEmpty) {
 					invState := mAuth.InviteState{
 						TenantCode: tenant.TenantCode,
@@ -143,6 +157,7 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 					err := mapState.ModifyState(tenant.TenantCode, mAuth.InvitationStateInvited)
 					if err != nil {
 						out.SetError(400, err.Error())
+						L.Print(`Trigger 15`)
 						return
 					}
 					staff.SetInvitationState(mapState.ToStateString())
@@ -204,7 +219,6 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 
 		fallthrough
 	case zCrud.CmdList:
-		L.Print(in.Pager.Filters)
 		staff := rqAuth.NewUsers(d.AuthOltp)
 		staff.TenantCode = user.TenantCode
 		out.Staffs = staff.FindStaffByPagination(&TenantAdminDashboardMeta, &in.Pager, &out.Pager)

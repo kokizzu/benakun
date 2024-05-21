@@ -122,7 +122,7 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 
 	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
 	tenant.TenantCode = user.TenantCode
-	if !tenant.FindByTenantCode() {
+	if !tenant.FindByTenantCode() && !sess.IsSuperAdmin {
 		out.SetError(400, ErrTenantAdminBankAccountsTenantNotFound)
 		return
 	}
