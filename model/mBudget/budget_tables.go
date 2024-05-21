@@ -137,6 +137,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UpdatedAt, Tt.Integer},
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
+			{DeletedBy, Tt.Unsigned},
+			{RestoredBy, Tt.Unsigned},
 			{Name, Tt.String},
 			{ParentBankAccountId, Tt.Unsigned},
 			{ChildBankAccountId, Tt.Unsigned},

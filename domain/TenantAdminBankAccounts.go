@@ -165,10 +165,12 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 			if in.Cmd == zCrud.CmdDelete {
 				if account.DeletedAt == 0 {
 					account.SetDeletedAt(in.UnixNow())
+					account.SetDeletedBy(sess.UserId)
 				}
 			} else if in.Cmd == zCrud.CmdRestore {
 				if account.DeletedAt > 0 {
 					account.SetDeletedAt(0)
+					account.SetRestoredBy(sess.UserId)
 				}
 			}
 		} else {
@@ -220,7 +222,6 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 			if account.Id == 0 {
 				account.SetCreatedAt(in.UnixNow())
 				account.SetCreatedBy(sess.UserId)
-				account.SetStaffId(sess.UserId)
 			}
 		}
 

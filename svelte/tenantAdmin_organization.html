@@ -6367,7 +6367,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function instance8($self, $props, $invalidate) {
-    let { heading = "Add coa child" } = $props;
+    let { heading = "Add organization child" } = $props;
     let { onSubmit = () => {
     } } = $props;
     let { isSubmitted = false } = $props;
@@ -6440,8 +6440,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var import_jsApi = __toESM(require_jsApi_GEN());
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[39] = list[i];
-    child_ctx[41] = i;
+    child_ctx[40] = list[i];
+    child_ctx[42] = i;
     return child_ctx;
   }
   function create_else_block(ctx) {
@@ -6474,7 +6474,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*restoreOrg*/
-            ctx[17]
+            ctx[18]
           );
           mounted = true;
         }
@@ -6580,19 +6580,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               button0,
               "click",
               /*click_handler_1*/
-              ctx[25]
+              ctx[26]
             ),
             listen(
               button1,
               "click",
               /*deleteOrg*/
-              ctx[16]
+              ctx[17]
             ),
             listen(
               button2,
               "click",
               /*updateEventInfo*/
-              ctx[13]
+              ctx[14]
             )
           ];
           mounted = true;
@@ -6688,7 +6688,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*click_handler*/
-            ctx[24]
+            ctx[25]
           );
           mounted = true;
         }
@@ -6725,7 +6725,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     const get_key = (ctx2) => (
       /*child*/
-      ctx2[39].id
+      ctx2[40].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context(ctx, each_value, i);
@@ -6793,44 +6793,44 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         draggable: "true",
         org: (
           /*child*/
-          ctx[39]
+          ctx[40]
         )
       }
     });
     orgtree.$on(
       "update",
       /*update_handler*/
-      ctx[29]
+      ctx[30]
     );
     orgtree.$on(
       "info",
       /*info_handler*/
-      ctx[30]
+      ctx[31]
     );
     orgtree.$on(
       "moving",
       /*moving_handler*/
-      ctx[31]
+      ctx[32]
     );
     orgtree.$on(
       "moved",
       /*moved_handler*/
-      ctx[32]
+      ctx[33]
     );
     orgtree.$on(
       "dragover",
       /*dragover_handler*/
-      ctx[33]
+      ctx[34]
     );
     orgtree.$on(
       "dragleave",
       /*dragleave_handler*/
-      ctx[34]
+      ctx[35]
     );
     orgtree.$on(
       "dragend",
       /*dragend_handler*/
-      ctx[35]
+      ctx[36]
     );
     return {
       key: key_1,
@@ -6851,7 +6851,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (dirty[0] & /*org*/
         1)
           orgtree_changes.org = /*child*/
-          ctx[39];
+          ctx[40];
         orgtree.$set(orgtree_changes);
       },
       i(local) {
@@ -6906,20 +6906,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let mounted;
     let dispose;
     function popuporgchild_isSubmitted_binding(value) {
-      ctx[20](value);
-    }
-    function popuporgchild_childName_binding(value) {
       ctx[21](value);
     }
-    function popuporgchild_headTitle_binding(value) {
+    function popuporgchild_childName_binding(value) {
       ctx[22](value);
     }
-    function popuporgchild_heading_binding(value) {
+    function popuporgchild_headTitle_binding(value) {
       ctx[23](value);
+    }
+    function popuporgchild_heading_binding(value) {
+      ctx[24](value);
     }
     let popuporgchild_props = { onSubmit: (
       /*submitAddOrgChild*/
-      ctx[12]
+      ctx[13]
     ) };
     if (
       /*isSubmitted*/
@@ -6950,7 +6950,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       ctx[6];
     }
     popuporgchild = new PopUpOrgChild_default({ props: popuporgchild_props });
-    ctx[19](popuporgchild);
+    ctx[20](popuporgchild);
     binding_callbacks.push(() => bind(popuporgchild, "isSubmitted", popuporgchild_isSubmitted_binding));
     binding_callbacks.push(() => bind(popuporgchild, "childName", popuporgchild_childName_binding));
     binding_callbacks.push(() => bind(popuporgchild, "headTitle", popuporgchild_headTitle_binding));
@@ -7049,25 +7049,25 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               div3,
               "dragstart",
               /*updateOnMoving*/
-              ctx[14]
+              ctx[15]
             ),
             listen(div3, "drop", prevent_default(
               /*updateMovedOrg*/
-              ctx[15]
+              ctx[16]
             )),
             listen(div3, "dragover", prevent_default(
               /*dragover_handler_1*/
-              ctx[26]
+              ctx[27]
             )),
             listen(div3, "dragleave", prevent_default(
               /*dragleave_handler_1*/
-              ctx[27]
+              ctx[28]
             )),
             listen(
               div3,
               "dragend",
               /*dragend_handler_1*/
-              ctx[28]
+              ctx[29]
             )
           ];
           mounted = true;
@@ -7204,7 +7204,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           detach(t6);
           detach(if_block1_anchor);
         }
-        ctx[19](null);
+        ctx[20](null);
         destroy_component(popuporgchild, detaching);
         destroy_component(icon);
         if_blocks[current_block_type_index].d();
@@ -7254,6 +7254,22 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         break;
       }
     }
+    const getOrgType = (type = 0) => {
+      switch (type) {
+        case OrgTypeCompany: {
+          return "comppany";
+        }
+        case OrgTypeDept: {
+          return "department";
+        }
+        case OrgTypeDivision: {
+          return "division";
+        }
+        case OrgTypeJob: {
+          return "job";
+        }
+      }
+    };
     let { indent = 0 } = $props;
     let indentWidth = "10px";
     const toIndentWidth = (
@@ -7265,16 +7281,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     onMount(() => $invalidate(3, indentWidth = toIndentWidth(indent)));
     let popUpOrgChild, isSubmitted = false, popUpHeading = "Add organization child";
     let orgName = "", headTitle = "", orgState = "add";
-    const toggleAddOrEdit = (
-      /** @type {string}*/
-      (state) => {
-        if (state === "add")
-          orgState = "add", $invalidate(7, orgName = ""), $invalidate(8, headTitle = ""), $invalidate(6, popUpHeading = "Add coa child");
-        else
-          orgState = "edit", $invalidate(7, orgName = org.name), $invalidate(8, headTitle = org.headTitle), $invalidate(6, popUpHeading = "Edit: " + org.name);
-        popUpOrgChild.show();
-      }
-    );
+    const toggleAddOrEdit = (state, type) => {
+      if (state === "add")
+        orgState = "add", $invalidate(
+          /** @type {string}*/
+          7,
+          orgName = ""
+        ), $invalidate(8, headTitle = ""), $invalidate(6, popUpHeading = "Add " + type);
+      else
+        orgState = "edit", $invalidate(7, orgName = org.name), $invalidate(8, headTitle = org.headTitle), $invalidate(6, popUpHeading = "Edit " + type + ": " + org.name);
+      popUpOrgChild.show();
+    };
     async function submitAddOrgChild() {
       $invalidate(5, isSubmitted = true);
       if (orgName === "" || headTitle === "") {
@@ -7393,8 +7410,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       popUpHeading = value;
       $invalidate(6, popUpHeading);
     }
-    const click_handler = () => toggleAddOrEdit("add");
-    const click_handler_1 = () => toggleAddOrEdit("edit");
+    const click_handler = () => toggleAddOrEdit("add", getOrgType(org.orgType));
+    const click_handler_1 = () => toggleAddOrEdit("edit", getOrgType(org.orgType));
     const dragover_handler_1 = () => $invalidate(9, isDragOver = true);
     const dragleave_handler_1 = () => $invalidate(9, isDragOver = false);
     const dragend_handler_1 = () => $invalidate(10, isDragging = false);
@@ -7423,7 +7440,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       if ("org" in $props2)
         $invalidate(0, org = $props2.org);
       if ("indent" in $props2)
-        $invalidate(18, indent = $props2.indent);
+        $invalidate(19, indent = $props2.indent);
     };
     return [
       org,
@@ -7437,6 +7454,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       headTitle,
       isDragOver,
       isDragging,
+      getOrgType,
       toggleAddOrEdit,
       submitAddOrgChild,
       updateEventInfo,
@@ -7467,7 +7485,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var OrgTree = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance9, create_fragment9, safe_not_equal, { org: 0, indent: 18 }, null, [-1, -1]);
+      init(this, options, instance9, create_fragment9, safe_not_equal, { org: 0, indent: 19 }, null, [-1, -1]);
     }
   };
   var OrgTree_default = OrgTree;

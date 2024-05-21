@@ -60,6 +60,23 @@
     }
   }
 
+  const getOrgType = (type = 0) => {
+    switch (type) {
+    case OrgTypeCompany: {
+      return 'comppany';
+    }
+    case OrgTypeDept: {
+      return 'department';
+    }
+    case OrgTypeDivision: {
+      return 'division';
+    }
+    case OrgTypeJob: {
+      return 'job';
+    }
+  }
+  }
+
   export let indent = 0;
   let indentWidth = '10px';
   const toIndentWidth = (/** @type {number} */ i) => { return `${i * 15 + 15}px` }
@@ -69,9 +86,9 @@
   let popUpOrgChild, isSubmitted = false, popUpHeading = 'Add organization child';
   let orgName = '', headTitle = '', orgState = 'add';
 
-  const toggleAddOrEdit = (/** @type {string}*/ state) => {
-    if (state === 'add') orgState = 'add', orgName = '', headTitle = '', popUpHeading = 'Add coa child';
-    else orgState = 'edit', orgName = org.name, headTitle = org.headTitle, popUpHeading = 'Edit: ' + org.name;
+  const toggleAddOrEdit = (/** @type {string}*/ state, /** @type {string}*/  type) => {
+    if (state === 'add') orgState = 'add', orgName = '', headTitle = '', popUpHeading = 'Add '+type;
+    else orgState = 'edit', orgName = org.name, headTitle = org.headTitle, popUpHeading = 'Edit '+type+': '+org.name;
     popUpOrgChild.show();
   }
 
@@ -209,7 +226,7 @@
   <div class="options">
     {#if org.deletedAt === 0}
       {#if org.orgType !== OrgTypeJob}
-        <button class="btn" title="Add child" on:click={() => toggleAddOrEdit('add')}>
+        <button class="btn" title="Add child" on:click={() => toggleAddOrEdit('add', getOrgType(org.orgType))}>
           <Icon
             color="var(--gray-006)"
             className="icon"
@@ -218,7 +235,7 @@
           />
         </button>
       {/if}
-      <button class="btn" title="Edit organization" on:click={() => toggleAddOrEdit('edit')}>
+      <button class="btn" title="Edit organization" on:click={() => toggleAddOrEdit('edit', getOrgType(org.orgType))}>
         <Icon
           color="var(--gray-006)"
           className="icon"

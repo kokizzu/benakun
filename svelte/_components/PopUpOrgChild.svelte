@@ -4,7 +4,7 @@
   import FiLoader from 'svelte-icons-pack/fi/FiLoader';
   import IoClose from 'svelte-icons-pack/io/IoClose';
 
-  export let heading = 'Add coa child';
+  export let heading = 'Add organization child';
 
   export let onSubmit = () => {}
   export let isSubmitted = false;

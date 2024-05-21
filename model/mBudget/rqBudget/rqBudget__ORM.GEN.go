@@ -27,6 +27,8 @@ type BankAccounts struct {
 	UpdatedAt           int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
 	UpdatedBy           uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
 	DeletedAt           int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	DeletedBy           uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
+	RestoredBy          uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
 	Name                string      `json:"name" form:"name" query:"name" long:"name" msg:"name"`
 	ParentBankAccountId uint64      `json:"parentBankAccountId,string" form:"parentBankAccountId" query:"parentBankAccountId" long:"parentBankAccountId" msg:"parentBankAccountId"`
 	ChildBankAccountId  uint64      `json:"childBankAccountId,string" form:"childBankAccountId" query:"childBankAccountId" long:"childBankAccountId" msg:"childBankAccountId"`
@@ -79,6 +81,8 @@ func (b *BankAccounts) SqlSelectAllFields() string { //nolint:dupl false positiv
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
 	, "name"
 	, "parentBankAccountId"
 	, "childBankAccountId"
@@ -99,6 +103,8 @@ func (b *BankAccounts) SqlSelectAllUncensoredFields() string { //nolint:dupl fal
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
 	, "name"
 	, "parentBankAccountId"
 	, "childBankAccountId"
@@ -120,15 +126,17 @@ func (b *BankAccounts) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 3, b.UpdatedAt},
 		A.X{`=`, 4, b.UpdatedBy},
 		A.X{`=`, 5, b.DeletedAt},
-		A.X{`=`, 6, b.Name},
-		A.X{`=`, 7, b.ParentBankAccountId},
-		A.X{`=`, 8, b.ChildBankAccountId},
-		A.X{`=`, 9, b.AccountNumber},
-		A.X{`=`, 10, b.BankName},
-		A.X{`=`, 11, b.AccountName},
-		A.X{`=`, 12, b.IsProfitCenter},
-		A.X{`=`, 13, b.IsCostCenter},
-		A.X{`=`, 14, b.StaffId},
+		A.X{`=`, 6, b.DeletedBy},
+		A.X{`=`, 7, b.RestoredBy},
+		A.X{`=`, 8, b.Name},
+		A.X{`=`, 9, b.ParentBankAccountId},
+		A.X{`=`, 10, b.ChildBankAccountId},
+		A.X{`=`, 11, b.AccountNumber},
+		A.X{`=`, 12, b.BankName},
+		A.X{`=`, 13, b.AccountName},
+		A.X{`=`, 14, b.IsProfitCenter},
+		A.X{`=`, 15, b.IsCostCenter},
+		A.X{`=`, 16, b.StaffId},
 	}
 }
 
@@ -192,9 +200,29 @@ func (b *BankAccounts) SqlDeletedAt() string { //nolint:dupl false positive
 	return `"deletedAt"`
 }
 
+// IdxDeletedBy return name of the index
+func (b *BankAccounts) IdxDeletedBy() int { //nolint:dupl false positive
+	return 6
+}
+
+// SqlDeletedBy return name of the column being indexed
+func (b *BankAccounts) SqlDeletedBy() string { //nolint:dupl false positive
+	return `"deletedBy"`
+}
+
+// IdxRestoredBy return name of the index
+func (b *BankAccounts) IdxRestoredBy() int { //nolint:dupl false positive
+	return 7
+}
+
+// SqlRestoredBy return name of the column being indexed
+func (b *BankAccounts) SqlRestoredBy() string { //nolint:dupl false positive
+	return `"restoredBy"`
+}
+
 // IdxName return name of the index
 func (b *BankAccounts) IdxName() int { //nolint:dupl false positive
-	return 6
+	return 8
 }
 
 // SqlName return name of the column being indexed
@@ -204,7 +232,7 @@ func (b *BankAccounts) SqlName() string { //nolint:dupl false positive
 
 // IdxParentBankAccountId return name of the index
 func (b *BankAccounts) IdxParentBankAccountId() int { //nolint:dupl false positive
-	return 7
+	return 9
 }
 
 // SqlParentBankAccountId return name of the column being indexed
@@ -214,7 +242,7 @@ func (b *BankAccounts) SqlParentBankAccountId() string { //nolint:dupl false pos
 
 // IdxChildBankAccountId return name of the index
 func (b *BankAccounts) IdxChildBankAccountId() int { //nolint:dupl false positive
-	return 8
+	return 10
 }
 
 // SqlChildBankAccountId return name of the column being indexed
@@ -224,7 +252,7 @@ func (b *BankAccounts) SqlChildBankAccountId() string { //nolint:dupl false posi
 
 // IdxAccountNumber return name of the index
 func (b *BankAccounts) IdxAccountNumber() int { //nolint:dupl false positive
-	return 9
+	return 11
 }
 
 // SqlAccountNumber return name of the column being indexed
@@ -234,7 +262,7 @@ func (b *BankAccounts) SqlAccountNumber() string { //nolint:dupl false positive
 
 // IdxBankName return name of the index
 func (b *BankAccounts) IdxBankName() int { //nolint:dupl false positive
-	return 10
+	return 12
 }
 
 // SqlBankName return name of the column being indexed
@@ -244,7 +272,7 @@ func (b *BankAccounts) SqlBankName() string { //nolint:dupl false positive
 
 // IdxAccountName return name of the index
 func (b *BankAccounts) IdxAccountName() int { //nolint:dupl false positive
-	return 11
+	return 13
 }
 
 // SqlAccountName return name of the column being indexed
@@ -254,7 +282,7 @@ func (b *BankAccounts) SqlAccountName() string { //nolint:dupl false positive
 
 // IdxIsProfitCenter return name of the index
 func (b *BankAccounts) IdxIsProfitCenter() int { //nolint:dupl false positive
-	return 12
+	return 14
 }
 
 // SqlIsProfitCenter return name of the column being indexed
@@ -264,7 +292,7 @@ func (b *BankAccounts) SqlIsProfitCenter() string { //nolint:dupl false positive
 
 // IdxIsCostCenter return name of the index
 func (b *BankAccounts) IdxIsCostCenter() int { //nolint:dupl false positive
-	return 13
+	return 15
 }
 
 // SqlIsCostCenter return name of the column being indexed
@@ -274,7 +302,7 @@ func (b *BankAccounts) SqlIsCostCenter() string { //nolint:dupl false positive
 
 // IdxStaffId return name of the index
 func (b *BankAccounts) IdxStaffId() int { //nolint:dupl false positive
-	return 14
+	return 16
 }
 
 // SqlStaffId return name of the column being indexed
@@ -295,15 +323,17 @@ func (b *BankAccounts) ToArray() A.X { //nolint:dupl false positive
 		b.UpdatedAt,           // 3
 		b.UpdatedBy,           // 4
 		b.DeletedAt,           // 5
-		b.Name,                // 6
-		b.ParentBankAccountId, // 7
-		b.ChildBankAccountId,  // 8
-		b.AccountNumber,       // 9
-		b.BankName,            // 10
-		b.AccountName,         // 11
-		b.IsProfitCenter,      // 12
-		b.IsCostCenter,        // 13
-		b.StaffId,             // 14
+		b.DeletedBy,           // 6
+		b.RestoredBy,          // 7
+		b.Name,                // 8
+		b.ParentBankAccountId, // 9
+		b.ChildBankAccountId,  // 10
+		b.AccountNumber,       // 11
+		b.BankName,            // 12
+		b.AccountName,         // 13
+		b.IsProfitCenter,      // 14
+		b.IsCostCenter,        // 15
+		b.StaffId,             // 16
 	}
 }
 
@@ -315,15 +345,17 @@ func (b *BankAccounts) FromArray(a A.X) *BankAccounts { //nolint:dupl false posi
 	b.UpdatedAt = X.ToI(a[3])
 	b.UpdatedBy = X.ToU(a[4])
 	b.DeletedAt = X.ToI(a[5])
-	b.Name = X.ToS(a[6])
-	b.ParentBankAccountId = X.ToU(a[7])
-	b.ChildBankAccountId = X.ToU(a[8])
-	b.AccountNumber = X.ToI(a[9])
-	b.BankName = X.ToS(a[10])
-	b.AccountName = X.ToS(a[11])
-	b.IsProfitCenter = X.ToBool(a[12])
-	b.IsCostCenter = X.ToBool(a[13])
-	b.StaffId = X.ToU(a[14])
+	b.DeletedBy = X.ToU(a[6])
+	b.RestoredBy = X.ToU(a[7])
+	b.Name = X.ToS(a[8])
+	b.ParentBankAccountId = X.ToU(a[9])
+	b.ChildBankAccountId = X.ToU(a[10])
+	b.AccountNumber = X.ToI(a[11])
+	b.BankName = X.ToS(a[12])
+	b.AccountName = X.ToS(a[13])
+	b.IsProfitCenter = X.ToBool(a[14])
+	b.IsCostCenter = X.ToBool(a[15])
+	b.StaffId = X.ToU(a[16])
 	return b
 }
 
@@ -335,15 +367,17 @@ func (b *BankAccounts) FromUncensoredArray(a A.X) *BankAccounts { //nolint:dupl 
 	b.UpdatedAt = X.ToI(a[3])
 	b.UpdatedBy = X.ToU(a[4])
 	b.DeletedAt = X.ToI(a[5])
-	b.Name = X.ToS(a[6])
-	b.ParentBankAccountId = X.ToU(a[7])
-	b.ChildBankAccountId = X.ToU(a[8])
-	b.AccountNumber = X.ToI(a[9])
-	b.BankName = X.ToS(a[10])
-	b.AccountName = X.ToS(a[11])
-	b.IsProfitCenter = X.ToBool(a[12])
-	b.IsCostCenter = X.ToBool(a[13])
-	b.StaffId = X.ToU(a[14])
+	b.DeletedBy = X.ToU(a[6])
+	b.RestoredBy = X.ToU(a[7])
+	b.Name = X.ToS(a[8])
+	b.ParentBankAccountId = X.ToU(a[9])
+	b.ChildBankAccountId = X.ToU(a[10])
+	b.AccountNumber = X.ToI(a[11])
+	b.BankName = X.ToS(a[12])
+	b.AccountName = X.ToS(a[13])
+	b.IsProfitCenter = X.ToBool(a[14])
+	b.IsCostCenter = X.ToBool(a[15])
+	b.StaffId = X.ToU(a[16])
 	return b
 }
 
@@ -393,6 +427,8 @@ var BankAccountsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false posit
 	`updatedAt`:           Tt.Integer,
 	`updatedBy`:           Tt.Unsigned,
 	`deletedAt`:           Tt.Integer,
+	`deletedBy`:           Tt.Unsigned,
+	`restoredBy`:          Tt.Unsigned,
 	`name`:                Tt.String,
 	`parentBankAccountId`: Tt.Unsigned,
 	`childBankAccountId`:  Tt.Unsigned,
