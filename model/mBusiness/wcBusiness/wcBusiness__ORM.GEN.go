@@ -249,7 +249,7 @@ func (p *ProductsMutator) SetKind(val string) bool { //nolint:dupl false positiv
 }
 
 // SetCogsIDR create mutations, should not duplicate
-func (p *ProductsMutator) SetCogsIDR(val string) bool { //nolint:dupl false positive
+func (p *ProductsMutator) SetCogsIDR(val int64) bool { //nolint:dupl false positive
 	if val != p.CogsIDR {
 		p.mutations = append(p.mutations, A.X{`=`, 12, val})
 		p.logs = append(p.logs, A.X{`cogsIDR`, p.CogsIDR, val})
@@ -315,8 +315,8 @@ func (p *ProductsMutator) SetAll(from rqBusiness.Products, excludeMap, forceMap 
 		p.Kind = S.Trim(from.Kind)
 		changed = true
 	}
-	if !excludeMap[`cogsIDR`] && (forceMap[`cogsIDR`] || from.CogsIDR != ``) {
-		p.CogsIDR = S.Trim(from.CogsIDR)
+	if !excludeMap[`cogsIDR`] && (forceMap[`cogsIDR`] || from.CogsIDR != 0) {
+		p.CogsIDR = from.CogsIDR
 		changed = true
 	}
 	return

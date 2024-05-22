@@ -130,6 +130,7 @@
         console.log(o);
         pager = o.pager;
         accounts = o.accounts;
+        notifier.showSuccess(payloads[1]+' edited')
         popUpAddBankAccount.Reset();
       }
     );
@@ -156,6 +157,7 @@
         console.log(o);
         pager = o.pager;
         accounts = o.accounts;
+        notifier.showSuccess('bank account created')
         popUpAddBankAccount.Reset();
       }
     );

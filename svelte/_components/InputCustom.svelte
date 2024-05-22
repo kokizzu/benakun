@@ -77,7 +77,7 @@
       <textarea bind:value={value} {id} {placeholder}></textarea>
     {:else if type === 'text'}
       <label class="label" for={id}>{label}</label>
-      <input type="text" bind:value={value} {id} {placeholder}/>
+      <input type="text" bind:value={value} {id} {placeholder} autocomplete="off" />
     {:else if type === 'email'}
       <label class="label" for={id}>{label}</label>
       <input type="email" bind:value={value} {id} {placeholder}/>

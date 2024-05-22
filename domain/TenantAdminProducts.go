@@ -4,6 +4,7 @@ import (
 	"benakun/model/mAuth/wcAuth"
 	"benakun/model/mBusiness"
 	"benakun/model/mBusiness/rqBusiness"
+	"benakun/model/mBusiness/wcBusiness"
 	"benakun/model/zCrud"
 
 	"github.com/gofiber/fiber/v2"
@@ -37,6 +38,9 @@ const (
 
 	ErrTenantAdminProductsUnauthorized   = `unauthorized user`
 	ErrTenantAdminProductsTenantNotFound = `tenant admin not found`
+	ErrTenantAdminProductsProductNotFound = `product not found`
+	ErrTenantAdminProductsRuleNotValid		= `invalid product rule (must be fifo, lifo, average)`
+	ErrTenantAdminProductsKindNotValid		= `invalid product kind (must be goods, service)`
 )
 
 var TenantAdminProductsMeta = zCrud.Meta{
@@ -46,6 +50,63 @@ var TenantAdminProductsMeta = zCrud.Meta{
 			Label: "ID",
 			DataType: zCrud.DataTypeInt,
 			ReadOnly: true,
+		},
+		{
+			Name: mBusiness.Name,
+			Label: "Name",
+			DataType: zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name: mBusiness.Detail,
+			Label: "Detail",
+			DataType: zCrud.DataTypeString,
+			InputType: zCrud.InputTypeTextArea,
+		},
+		{
+			Name: mBusiness.Rule,
+			Label: "Rule",
+			DataType: zCrud.DataTypeString,
+			InputType: zCrud.InputTypeCombobox,
+			Ref: []string{
+				mBusiness.RuleTypeFIFO, mBusiness.RuleTypeLIFO, mBusiness.RuleTypeAVERAGE,
+			},
+		},
+		{
+			Name: mBusiness.Kind,
+			Label: "Kind",
+			DataType: zCrud.DataTypeString,
+			InputType: zCrud.InputTypeCombobox,
+			Ref: []string{
+				mBusiness.KindTypeGOODS, mBusiness.KindTypeService,
+			},
+		},
+		{
+			Name: mBusiness.CogsIDR,
+			Label: "COGS (in IDR)",
+			DataType: zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeNumber,
+		},
+		{
+			Name:      mBusiness.CreatedAt,
+			Label:     `Created At`,
+			ReadOnly:  true,
+			DataType:  zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeDateTime,
+		},
+		{
+			Name:      mBusiness.UpdatedAt,
+			Label:     `Updated At`,
+			ReadOnly:  true,
+			DataType:  zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeDateTime,
+		},
+		{
+			Name:      mBusiness.DeletedAt,
+			Label:     `Deleted At`,
+			ReadOnly:  true,
+			DataType:  zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeDateTime,
 		},
 	},
 }
@@ -75,6 +136,88 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 
 	if in.WithMeta {
 		out.Meta = &TenantAdminProductsMeta
+	}
+
+	switch in.Cmd {
+	case zCrud.CmdForm:
+		if in.Product.Id <= 0 {
+			out.Meta = &TenantAdminProductsMeta
+			return
+		}
+
+		product := rqBusiness.NewProducts(d.AuthOltp)
+		product.Id = in.Product.Id
+		if !product.FindById() {
+			out.SetError(400, ErrTenantAdminProductsProductNotFound)
+			return
+		}
+
+		out.Product = product
+	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
+		product := wcBusiness.NewProductsMutator(d.AuthOltp)
+		product.Id = in.Product.Id
+		if product.Id > 0 {
+			if !product.FindById() {
+				out.SetError(400, ErrTenantAdminProductsProductNotFound)
+				return
+			}
+
+			if in.Cmd == zCrud.CmdDelete {
+				if product.DeletedAt == 0 {
+					product.SetDeletedAt(in.UnixNow())
+					product.SetDeletedBy(sess.UserId)
+				}
+			} else if in.Cmd == zCrud.CmdRestore {
+				if product.DeletedAt > 0 {
+					product.SetDeletedAt(0)
+					product.SetRestoredBy(sess.UserId)
+				}
+			}
+		}
+
+		if in.Product.Name != `` {
+			product.SetName(in.Product.Name)
+		}
+		if in.Product.Detail != `` {
+			product.SetDetail(in.Product.Detail)
+		}
+		if in.Product.Rule != `` {
+			if !mBusiness.IsValidProductRule(in.Product.Rule) {
+				out.SetError(400, ErrTenantAdminProductsRuleNotValid)
+				return
+			}
+			product.SetRule(in.Product.Rule)
+		}
+		if in.Product.Kind != `` {
+			if !mBusiness.IsValidProductKind(in.Product.Kind) {
+				out.SetError(400, ErrTenantAdminProductsKindNotValid)
+				return
+			}
+			product.SetKind(in.Product.Kind)
+		}
+		if in.Product.CogsIDR > 0 {
+			product.SetCogsIDR(in.Product.CogsIDR)
+		}
+
+		if product.HaveMutation() {
+			product.SetUpdatedAt(in.UnixNow())
+			product.SetUpdatedBy(sess.UserId)
+			if product.Id == 0 {
+				product.SetCreatedAt(in.UnixNow())
+				product.SetCreatedBy(sess.UserId)
+			}
+		}
+
+		out.Product = &product.Products
+
+		if in.Pager.Page == 0 {
+			break
+		}
+
+		fallthrough
+	case zCrud.CmdList:
+		r := rqBusiness.NewProducts(d.AuthOltp)
+		out.Products = r.FindByPagination(&TenantAdminProductsMeta, &in.Pager, &out.Pager)
 	}
 
 	return

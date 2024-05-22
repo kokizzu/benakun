@@ -12,9 +12,33 @@ const (
 	RuleTypeAVERAGE = `average`
 
 	// Kind type
-	KindTypeGOOD 		= `good`
+	KindTypeGOODS 		= `goods`
 	KindTypeService = `service`
 )
+
+func IsValidProductRule(rule string) bool {
+	switch rule {
+	case RuleTypeFIFO:
+		return true
+	case RuleTypeLIFO:
+		return true
+	case RuleTypeAVERAGE:
+		return true
+	default:
+		return false
+	}
+}
+
+func IsValidProductKind(kind string) bool {
+	switch kind {
+	case KindTypeGOODS:
+		return true
+	case KindTypeService:
+		return true
+	default:
+		return false
+	}
+}
 
 const (
 	TableProducts Tt.TableName = `products`
@@ -50,7 +74,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Detail, Tt.String},
 			{Rule, Tt.String},
 			{Kind, Tt.String},
-			{CogsIDR, Tt.String},
+			{CogsIDR, Tt.Integer},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,

@@ -250,19 +250,19 @@
 				</button>
 			</header>
 			<div class="forms">
-					{#each (FIELDS || []) as field, idx}
-						{#if field.name !== 'id'}
-							{#if !field.readOnly}
-								<InputCustom
-									id={field.name}
-									label={field.label}
-									placeholder={field.description}
-									bind:value={payloads[idx]}
-									type={field.inputType}
-								/>
-							{/if}
+				{#each (FIELDS || []) as field, idx}
+					{#if field.name !== 'id'}
+						{#if !field.readOnly}
+							<InputCustom
+								id={field.name}
+								label={field.label}
+								placeholder={field.description}
+								bind:value={payloads[idx]}
+								type={field.inputType}
+							/>
 						{/if}
-					{/each}
+					{/if}
+				{/each}
 			</div>
 			<div class="foot">
 				<button class="ok" on:click={handleSubmitEdit}>Save</button>
