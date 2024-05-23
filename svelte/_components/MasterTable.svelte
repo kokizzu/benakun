@@ -1,25 +1,19 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import RiDesignBallPenLine from 'svelte-icons-pack/ri/RiDesignBallPenLine';
-  import AiOutlineEyeInvisible from 'svelte-icons-pack/ai/AiOutlineEyeInvisible';
-  import AiOutlineFileExcel from 'svelte-icons-pack/ai/AiOutlineFileExcel';
-  import IoSearch from 'svelte-icons-pack/io/IoSearch';
-  import IoClose from 'svelte-icons-pack/io/IoClose';
-  import FiLoader from 'svelte-icons-pack/fi/FiLoader';
-  import CgChevronDown from 'svelte-icons-pack/cg/CgChevronDown';
-	import CgChevronLeft from 'svelte-icons-pack/cg/CgChevronLeft';
-  import CgChevronRight from 'svelte-icons-pack/cg/CgChevronRight';
-  import CgChevronDoubleRight from 'svelte-icons-pack/cg/CgChevronDoubleRight';
-  import CgChevronDoubleLeft from 'svelte-icons-pack/cg/CgChevronDoubleLeft';
-	import IoArrowUpSharp from 'svelte-icons-pack/io/IoArrowUpSharp';
-	import IoArrowDownSharp from 'svelte-icons-pack/io/IoArrowDownSharp';
-	import RiDeviceDatabase2Line from 'svelte-icons-pack/ri/RiDeviceDatabase2Line';
-	import FaChartBar from 'svelte-icons-pack/fa/FaChartBar';
-	import RiSystemInformationLine from 'svelte-icons-pack/ri/RiSystemInformationLine';
-	import FaSolidChartLine from 'svelte-icons-pack/fa/FaSolidChartLine';
-	import RiSystemDeleteBin5Line from 'svelte-icons-pack/ri/RiSystemDeleteBin5Line';
-	import RiSystemFilterLine from 'svelte-icons-pack/ri/RiSystemFilterLine';
-	import RiSystemArrowGoBackLine from 'svelte-icons-pack/ri/RiSystemArrowGoBackLine';
+	import { Icon } from 'svelte-icons-pack';
+  import {
+		RiDesignBallPenLine,
+		RiSystemDeleteBin5Line,
+		RiSystemFilterLine,
+		RiArrowsArrowGoBackLine
+	} from 'svelte-icons-pack/ri';
+  import { IoSearch, IoClose } from 'svelte-icons-pack/io';
+  import { FiLoader } from 'svelte-icons-pack/fi';
+	import {
+		CgChevronLeft,
+		CgChevronRight,
+		CgChevronDoubleRight,
+		CgChevronDoubleLeft
+	} from 'svelte-icons-pack/cg';
 	import InputCustom from './InputCustom.svelte';
 	import { onMount } from 'svelte';
 	import FilterTable from './FilterTable.svelte';
@@ -383,7 +377,7 @@
 															<Icon
 																size="15"
 																color="var(--gray-007)"
-																src={RiSystemArrowGoBackLine}
+																src={RiArrowsArrowGoBackLine}
 															/>
 														</button>
 													{:else}

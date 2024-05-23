@@ -1,14 +1,16 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import RiBuildingsCommunityLine from 'svelte-icons-pack/ri/RiBuildingsCommunityLine';
-  import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
-  import RiDesignPencilLine from 'svelte-icons-pack/ri/RiDesignPencilLine';
-  import RiSystemDeleteBinLine from 'svelte-icons-pack/ri/RiSystemDeleteBinLine';
-  import RiSystemInformationLine from 'svelte-icons-pack/ri/RiSystemInformationLine';
-  import RiBuildingsBuilding2Line from 'svelte-icons-pack/ri/RiBuildingsBuilding2Line';
-  import RiUserTeamLine from 'svelte-icons-pack/ri/RiUserTeamLine';
-  import RiBusinessBriefcaseLine from 'svelte-icons-pack/ri/RiBusinessBriefcaseLine';
-  import RiSystemArrowGoBackLine from 'svelte-icons-pack/ri/RiSystemArrowGoBackLine';
+	import { Icon } from 'svelte-icons-pack';
+  import {
+    RiBuildingsCommunityLine,
+    RiSystemAddBoxLine,
+    RiDesignPencilLine,
+    RiSystemDeleteBinLine,
+    RiSystemInformationLine,
+    RiBuildingsBuilding2Line,
+    RiUserFacesGroup3Line,
+    RiBusinessBriefcaseLine,
+    RiArrowsArrowRightSLine
+   } from 'svelte-icons-pack/ri';
   import { onMount, createEventDispatcher } from 'svelte';
   import PopUpOrgChild from './PopUpOrgChild.svelte';
   import {
@@ -51,9 +53,9 @@
       break;
     }
     case OrgTypeDivision: {
-      orgType = 'division', orgIcon = RiUserTeamLine;
+      orgType = 'division', orgIcon = RiUserFacesGroup3Line;
       break;
-    }
+    }RiArrowsArrowRightSLine
     case OrgTypeJob: {
       orgType = 'job', orgIcon = RiBusinessBriefcaseLine;
       break;
@@ -265,7 +267,7 @@
           color="var(--gray-006)"
           className="icon"
           size="17"
-          src={RiSystemArrowGoBackLine}
+          src={RiArrowsArrowRightSLine}
         />
       </button>
     {/if}

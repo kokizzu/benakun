@@ -1,9 +1,9 @@
 <script>
+	import { Icon } from 'svelte-icons-pack';
+  import { FiLoader } from 'svelte-icons-pack/fi';
+  import { IoClose } from 'svelte-icons-pack/io';
   import { onMount } from 'svelte';
   import InputCustom from './InputCustom.svelte';
-  import Icon from 'svelte-icons-pack';
-  import FiLoader from 'svelte-icons-pack/fi/FiLoader';
-  import IoClose from 'svelte-icons-pack/io/IoClose';
 
   // @ts-ignore
   /** @typedef {import('../_components/types/master').Field} Field */

@@ -1,10 +1,12 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
-  import RiDesignPencilLine from 'svelte-icons-pack/ri/RiDesignPencilLine';
-  import RiDesignDragMoveLine from 'svelte-icons-pack/ri/RiDesignDragMoveLine';
-  import RiSystemDeleteBinLine from 'svelte-icons-pack/ri/RiSystemDeleteBinLine';
-  import RiSystemArrowGoBackLine from 'svelte-icons-pack/ri/RiSystemArrowGoBackLine';
+  import { Icon } from 'svelte-icons-pack';
+  import {
+    RiSystemAddBoxLine,
+    RiDesignPencilLine,
+    RiArrowsDragMove2Fill,
+    RiSystemDeleteBinLine,
+    RiArrowsArrowGoBackLine
+   } from 'svelte-icons-pack/ri';
   import { onMount } from 'svelte';
   import PopUpCoaChild from './PopUpCoaChild.svelte';
   import { notifier } from './notifier.js';
@@ -177,7 +179,7 @@
               color="var(--gray-006)"
               className="icon"
               size="17"
-              src={RiSystemArrowGoBackLine}
+              src={RiArrowsArrowGoBackLine}
             />
           </button>
         {/if}
@@ -187,9 +189,9 @@
       color="var(--gray-006)"
       className="icon_drag"
       size="17"
-      src={RiDesignDragMoveLine}
+      src={RiArrowsDragMove2Fill}
     />
-  </div>
+  </div>RiArrowsArrowGoBackLine
   {#if coa.children && coa.children.length}
     {#each coa.children as ch, idx (ch.id)}
       <svelte:self

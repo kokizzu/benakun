@@ -1,4 +1,7 @@
 <script>
+    // DEPRECATED !!!!!!!!
+    // Use MasterTable.svelte instead
+
     // @ts-nocheck
     import { onMount } from 'svelte';
     import { datetime } from './formatter.js';

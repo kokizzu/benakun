@@ -1,6 +1,6 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FiLoader from 'svelte-icons-pack/fi/FiLoader';
+  import { Icon } from 'svelte-icons-pack';
+  import { FiLoader } from 'svelte-icons-pack/fi';
   import { fade } from 'svelte/transition';
 
   export let visible = false;

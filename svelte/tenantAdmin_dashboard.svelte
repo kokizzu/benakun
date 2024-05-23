@@ -1,6 +1,6 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import RiBusinessMailAddLine from 'svelte-icons-pack/ri/RiBusinessMailAddLine';
+  import { Icon } from 'svelte-icons-pack';
+  import { RiBusinessMailAddLine } from 'svelte-icons-pack/ri';
   import MainLayout from './_layouts/mainLayout.svelte';
   import MasterTable from './_components/MasterTable.svelte';
   import PopUpInviteUser from './_components/PopUpInviteUser.svelte';

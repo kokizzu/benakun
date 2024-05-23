@@ -1,5 +1,5 @@
 <script>
-  import { TenantAdminInviteUser, UserCreateCompany, GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail } from './jsApi.GEN.js';
+  import { UserCreateCompany, GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail } from './jsApi.GEN.js';
   import { onMount, tick } from 'svelte';
   import { notifier } from './_components/notifier.js';
   import InputBox from './_components/InputBox.svelte';
@@ -151,23 +151,6 @@
     });
   }
 
-  let emailToInvite = '', isSubmitInvite = false;
-  async function inviteUser() {
-    isSubmitInvite = true;
-    await TenantAdminInviteUser(
-      {email: emailToInvite},
-      /** @type {import('./jsApi.GEN.js').TenantAdminInviteUserCallback} */ function (/** @type {any} */ o) {
-      if (o.error) {
-        console.log(o);
-        isSubmitInvite = false;
-        notifier.showError(o.error);
-        return;
-      }
-      isSubmitInvite = false;
-      notifier.showSuccess('User invited successfully');
-    })
-  }
-
   let tenantCode = '', companyName = '', headTitle = '';
   let isSubmitCreateCompany = false;
   async function userCreateCompany() {
@@ -199,18 +182,6 @@
 
 {#if mode === USER}
   <MainLayout>
-    {#if user.tenantCode}
-      <section class="invite_user">
-        <header>
-          <h2>Invite user</h2>
-        </header>
-        <div class="form">
-          <InputBox id="emailToInvite" label="Email to invite" bind:value={emailToInvite} type="email" placeholder="user@example.com" />
-          <SubmitButton on:click={inviteUser} isSubmitted={isSubmitInvite} isFullWidth />
-        </div>
-      </section>
-    {/if}
-
     {#if !user.tenantCode && !user.invitationState}
       <section class="create_company">
         <header>
@@ -454,7 +425,6 @@
     text-decoration: underline;
   }
 
-  .invite_user,
   .create_company {
     display: flex;
     flex-direction: column;
@@ -471,12 +441,5 @@
   .create_company header h2 {
     margin: 0;
     text-align: center;
-  }
-
-  .invite_user .form,
-  .create_company .form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
   }
 </style>

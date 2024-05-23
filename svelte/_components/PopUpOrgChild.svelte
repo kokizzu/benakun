@@ -1,8 +1,8 @@
 <script>
-  import InputBox from "./InputBox.svelte";
-  import Icon from "svelte-icons-pack";
-  import FiLoader from 'svelte-icons-pack/fi/FiLoader';
-  import IoClose from 'svelte-icons-pack/io/IoClose';
+	import { Icon } from 'svelte-icons-pack';
+  import { FiLoader } from 'svelte-icons-pack/fi';
+  import { IoClose } from 'svelte-icons-pack/io';
+	import InputBox from './InputBox.svelte';
 
   export let heading = 'Add organization child';
 

@@ -1,6 +1,6 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaSolidArrowRight from 'svelte-icons-pack/fa/FaSolidArrowRight';
+  import { Icon } from 'svelte-icons-pack';
+  import { FaSolidArrowRight } from 'svelte-icons-pack/fa';
 
   function backHome() {
     window.location.href = '/';

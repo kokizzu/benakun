@@ -1,6 +1,6 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
+  import { Icon } from 'svelte-icons-pack';
+  import { RiSystemAddBoxLine } from 'svelte-icons-pack/ri';
   import MainLayout from './_layouts/mainLayout.svelte';
   import MasterTable from './_components/MasterTable.svelte';
   import { SuperAdminTenantManagement } from './jsApi.GEN';

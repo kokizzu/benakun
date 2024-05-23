@@ -1,6 +1,6 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import ImArrowLeft2 from "svelte-icons-pack/im/ImArrowLeft2";
+  import { Icon } from 'svelte-icons-pack';
+  import { ImArrowLeft2 } from 'svelte-icons-pack/im';
 </script>
 
 <button class="back_btn" on:click|preventDefault>

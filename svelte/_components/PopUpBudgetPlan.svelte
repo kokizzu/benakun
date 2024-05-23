@@ -1,9 +1,9 @@
 <script>
+  import { Icon } from 'svelte-icons-pack';
+  import { FiLoader } from 'svelte-icons-pack/fi';
+  import { IoClose } from 'svelte-icons-pack/io';
   import InputBox from "./InputBox.svelte";
 	import InputCustom from "./InputCustom.svelte";
-  import Icon from "svelte-icons-pack";
-  import FiLoader from 'svelte-icons-pack/fi/FiLoader';
-  import IoClose from 'svelte-icons-pack/io/IoClose';
 
   export let onSubmit = () => {}
   export let isSubmitted = false;

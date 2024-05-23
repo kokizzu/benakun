@@ -1,8 +1,8 @@
 <script>
+  import { Icon } from 'svelte-icons-pack';
+  import { FiLoader } from 'svelte-icons-pack/fi';
+  import { IoClose } from 'svelte-icons-pack/io';
   import InputCustom from './InputCustom.svelte';
-  import Icon from 'svelte-icons-pack';
-  import FiLoader from 'svelte-icons-pack/fi/FiLoader';
-  import IoClose from 'svelte-icons-pack/io/IoClose';
   import { TenantAdminBankAccounts } from '../jsApi.GEN';
   import { notifier } from './notifier';
 

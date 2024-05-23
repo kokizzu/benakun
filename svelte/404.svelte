@@ -1,5 +1,5 @@
 <script>
-  import BackHomeBtn from "./_components/BackHomeBtn.svelte";
+  import BackHomeBtn from './_components/BackHomeBtn.svelte';
 
   let title = '#{title}';
   let description = '#{description}';
