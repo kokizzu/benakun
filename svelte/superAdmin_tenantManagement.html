@@ -8945,6 +8945,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       type: (
         /*field*/
         ctx[75].inputType
+      ),
+      values: (
+        /*field*/
+        ctx[75].ref
       )
     };
     if (
@@ -8989,6 +8993,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         1)
           inputcustom_changes.type = /*field*/
           ctx[75].inputType;
+        if (dirty[0] & /*FIELDS*/
+        1)
+          inputcustom_changes.values = /*field*/
+          ctx[75].ref;
         if (!updating_value && dirty[0] & /*payloads*/
         1048576) {
           updating_value = true;

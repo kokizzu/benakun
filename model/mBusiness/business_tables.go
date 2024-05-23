@@ -44,6 +44,7 @@ const (
 	TableProducts Tt.TableName = `products`
 
 	Id		      = `id`
+	TenantCode	= `tenantCode`
 	CreatedAt   = `createdAt`
 	CreatedBy   = `createdBy`
 	UpdatedAt   = `updatedAt`
@@ -63,6 +64,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableProducts: {
 		Fields: []Tt.Field{
 			{Id, Tt.Unsigned},
+			{TenantCode, Tt.String},
 			{CreatedAt, Tt.Integer},
 			{CreatedBy, Tt.Unsigned},
 			{UpdatedAt, Tt.Integer},

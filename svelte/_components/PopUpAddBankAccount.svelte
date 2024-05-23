@@ -140,16 +140,18 @@
         type="bool"
       />
       {#if isStaffAccount}
-        {#if isStaffsReady}
-        <InputCustom
-          bind:value={staffId}
-          id="staffId"
-          label="Staff"
-          type="select"
-          placeholder="John Doe (johndoe@example.com)"
-          values={staffsObj}
-          isObject
-        />
+        {#if isStaffsReady && staffsObj == {}}
+          <InputCustom
+            bind:value={staffId}
+            id="staffId"
+            label="Staff"
+            type="select"
+            placeholder="John Doe (johndoe@example.com)"
+            values={staffsObj}
+            isObject
+          />
+        {:else}
+          <p>No staffs</p>
         {/if}
       {/if}
     </div>

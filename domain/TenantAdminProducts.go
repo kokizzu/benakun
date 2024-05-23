@@ -29,7 +29,7 @@ type (
 		Pager zCrud.PagerOut `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 		Meta  *zCrud.Meta    `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
 		Product *rqBusiness.Products `json:"product" form:"product" query:"product" long:"product" msg:"product"`
-		Products [][]any `json:"staffs" form:"staffs" query:"staffs" long:"staffs" msg:"staffs"`
+		Products [][]any `json:"products" form:"products" query:"products" long:"products" msg:"products"`
 	}
 )
 
@@ -41,6 +41,7 @@ const (
 	ErrTenantAdminProductsProductNotFound = `product not found`
 	ErrTenantAdminProductsRuleNotValid		= `invalid product rule (must be fifo, lifo, average)`
 	ErrTenantAdminProductsKindNotValid		= `invalid product kind (must be goods, service)`
+	ErrTenantAdminProductsSaveFailed = `product save failed`
 )
 
 var TenantAdminProductsMeta = zCrud.Meta{
@@ -206,6 +207,10 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 				product.SetCreatedAt(in.UnixNow())
 				product.SetCreatedBy(sess.UserId)
 			}
+		}
+
+		if !product.DoUpsert() {
+			out.SetError(500, ErrTenantAdminProductsSaveFailed)
 		}
 
 		out.Product = &product.Products

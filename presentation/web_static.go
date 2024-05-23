@@ -123,18 +123,27 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	})
 
 	fw.Get(`/`+domain.TenantAdminDashboardAction, func(ctx *fiber.Ctx) error {
+		L.Print(`TenantAdmin Dashboard 1`)
 		var in domain.TenantAdminDashboardIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminDashboardAction)
+		L.Print(`TenantAdmin Dashboard 2`)
 		if err != nil {
+			L.Print(`TenantAdmin Dashboard 3`)
 			return err
 		}
-		if notLogin(d, in.RequestCommon, true) {
+		L.Print(`TenantAdmin Dashboard 4`)
+		if notLogin(d, in.RequestCommon, false) {
+			L.Print(`TenantAdmin Dashboard 5`)
 			return ctx.Redirect(`/`, 302)
 		}
+		L.Print(`TenantAdmin Dashboard 6`)
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		L.Print(`TenantAdmin Dashboard 7`)
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
+		L.Print(`TenantAdmin Dashboard 8`)
 		out := d.TenantAdminDashboard(&in)
+		L.Print(`TenantAdmin Dashboard 9`)
 		return views.RenderTenantAdminDashboard(ctx, M.SX{
 			`title`:    `Tenant Admin Dashboard`,
 			`user`:     user,
@@ -151,7 +160,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if err != nil {
 			return err
 		}
-		if notLogin(d, in.RequestCommon, true) {
+		if notLogin(d, in.RequestCommon, false) {
 			return ctx.Redirect(`/`, 302)
 		}
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
@@ -239,7 +248,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if err != nil {
 			return err
 		}
-		if notLogin(d, in.RequestCommon, true) {
+		if notLogin(d, in.RequestCommon, false) {
 			return ctx.Redirect(`/`, 302)
 		}
 		user, segments := userInfoFromRequest(in.RequestCommon, d)

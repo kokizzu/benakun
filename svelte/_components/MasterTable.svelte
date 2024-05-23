@@ -259,6 +259,7 @@
 								placeholder={field.description}
 								bind:value={payloads[idx]}
 								type={field.inputType}
+								values={field.ref}
 							/>
 						{/if}
 					{/if}

@@ -1,8 +1,9 @@
 package domain
 
 import (
-	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
+	"benakun/model/mFinance/rqFinance"
+	"benakun/model/mFinance/wcFinance"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -19,7 +20,7 @@ type (
 	}
 	TenantAdminCoaOut struct {
 		ResponseCommon
-		Coas *[]rqAuth.Coa `json:"coa" form:"coa" query:"coa" long:"coa" msg:"coa"`
+		Coas *[]rqFinance.Coa `json:"coa" form:"coa" query:"coa" long:"coa" msg:"coa"`
 	}
 )
 
@@ -52,7 +53,7 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 		return
 	}
 
-	coa := wcAuth.NewCoaMutator(d.AuthOltp)
+	coa := wcFinance.NewCoaMutator(d.AuthOltp)
 	coas := coa.FindCoasByTenant(tenant.TenantCode)
 
 	out.Coas = &coas

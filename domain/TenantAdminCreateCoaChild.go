@@ -1,8 +1,9 @@
 package domain
 
 import (
-	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
+	"benakun/model/mFinance/rqFinance"
+	"benakun/model/mFinance/wcFinance"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminCreateCoaChild.go
@@ -19,7 +20,7 @@ type (
 	}
 	TenantAdminCreateCoaChildOut struct {
 		ResponseCommon
-		Coas *[]rqAuth.Coa `json:"coa" form:"coa" query:"coa" long:"coa" msg:"coa"`
+		Coas *[]rqFinance.Coa `json:"coa" form:"coa" query:"coa" long:"coa" msg:"coa"`
 	}
 )
 
@@ -55,7 +56,7 @@ func (d *Domain) TenantAdminCreateCoaChild(in *TenantAdminCreateCoaChildIn) (out
 	}
 
 	// find parent id
-	parent := wcAuth.NewCoaMutator(d.AuthOltp)
+	parent := wcFinance.NewCoaMutator(d.AuthOltp)
 	parent.Id = in.ParentId
 	if !parent.FindById() {
 		out.SetError(400, ErrTenantAdminCreateCoaChildCoaParentNotFound)
@@ -63,7 +64,7 @@ func (d *Domain) TenantAdminCreateCoaChild(in *TenantAdminCreateCoaChildIn) (out
 	}
 
 	// insert coa child
-	child := wcAuth.NewCoaMutator(d.AuthOltp)
+	child := wcFinance.NewCoaMutator(d.AuthOltp)
 	child.SetTenantCode(tenant.TenantCode)
 	child.SetLevel(parent.Level)
 	child.SetName(in.Name)
@@ -92,7 +93,7 @@ func (d *Domain) TenantAdminCreateCoaChild(in *TenantAdminCreateCoaChildIn) (out
 	}
 
 	// retrieve owned coa
-	coa := wcAuth.NewCoaMutator(d.AuthOltp)
+	coa := wcFinance.NewCoaMutator(d.AuthOltp)
 	coas := coa.FindCoasByTenant(tenant.TenantCode)
 
 	out.Coas = &coas

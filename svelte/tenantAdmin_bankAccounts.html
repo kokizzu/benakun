@@ -9062,6 +9062,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       type: (
         /*field*/
         ctx[75].inputType
+      ),
+      values: (
+        /*field*/
+        ctx[75].ref
       )
     };
     if (
@@ -9106,6 +9110,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         1)
           inputcustom_changes.type = /*field*/
           ctx[75].inputType;
+        if (dirty[0] & /*FIELDS*/
+        1)
+          inputcustom_changes.values = /*field*/
+          ctx[75].ref;
         if (!updating_value && dirty[0] & /*payloads*/
         1048576) {
           updating_value = true;
@@ -11520,47 +11528,53 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // _components/PopUpAddBankAccount.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
   function create_if_block_24(ctx) {
+    let current_block_type_index;
+    let if_block;
     let if_block_anchor;
     let current;
-    let if_block = (
-      /*isStaffsReady*/
-      ctx[4] && create_if_block_34(ctx)
-    );
+    const if_block_creators = [create_if_block_34, create_else_block3];
+    const if_blocks = [];
+    function select_block_type(ctx2, dirty) {
+      if (
+        /*isStaffsReady*/
+        ctx2[4] && /*staffsObj*/
+        ctx2[13] == {}
+      )
+        return 0;
+      return 1;
+    }
+    current_block_type_index = select_block_type(ctx, -1);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
-        if (if_block)
-          if_block.c();
+        if_block.c();
         if_block_anchor = empty();
       },
       m(target, anchor) {
-        if (if_block)
-          if_block.m(target, anchor);
+        if_blocks[current_block_type_index].m(target, anchor);
         insert(target, if_block_anchor, anchor);
         current = true;
       },
       p(ctx2, dirty) {
-        if (
-          /*isStaffsReady*/
-          ctx2[4]
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*isStaffsReady*/
-            16) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block_34(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        } else if (if_block) {
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
+        } else {
           group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
           });
           check_outros();
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block.c();
+          } else {
+            if_block.p(ctx2, dirty);
+          }
+          transition_in(if_block, 1);
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
         }
       },
       i(local) {
@@ -11577,8 +11591,27 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (detaching) {
           detach(if_block_anchor);
         }
-        if (if_block)
-          if_block.d(detaching);
+        if_blocks[current_block_type_index].d(detaching);
+      }
+    };
+  }
+  function create_else_block3(ctx) {
+    let p;
+    return {
+      c() {
+        p = element("p");
+        p.textContent = "No staffs";
+      },
+      m(target, anchor) {
+        insert(target, p, anchor);
+      },
+      p: noop,
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(p);
+        }
       }
     };
   }
@@ -12814,6 +12847,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           console.log(o);
           $invalidate(1, pager = o.pager);
           $invalidate(2, accounts = o.accounts);
+          notifier.showSuccess(payloads[1] + " edited");
           popUpAddBankAccount.Reset();
         }
       );
@@ -12841,6 +12875,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           console.log(o);
           $invalidate(1, pager = o.pager);
           $invalidate(2, accounts = o.accounts);
+          notifier.showSuccess("bank account created");
           popUpAddBankAccount.Reset();
         }
       );

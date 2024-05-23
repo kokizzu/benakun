@@ -160,17 +160,19 @@
       {OnRestore}
       {OnDelete}
     >
-      <button
-        class="action_btn"
-        on:click={() => popUpInviteUser.Show()}
-        title="invite user"
-      >
-      <Icon
-        color="var(--gray-007)"
-        size="16"
-        src={RiBusinessMailAddLine}
-      />
-    </button>
+      {#if user.tenantCode !== ''}
+        <button
+          class="action_btn"
+          on:click={() => popUpInviteUser.Show()}
+          title="invite user"
+        >
+          <Icon
+            color="var(--gray-007)"
+            size="16"
+            src={RiBusinessMailAddLine}
+          />
+        </button>
+      {/if}
     </MasterTable>
   </div>
 </MainLayout>

@@ -22,6 +22,7 @@ import (
 type Products struct {
 	Adapter    *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	Id         uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	TenantCode string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
 	CreatedAt  int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
 	CreatedBy  uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
 	UpdatedAt  int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
@@ -72,6 +73,7 @@ func (p *Products) FindById() bool { //nolint:dupl false positive
 // SqlSelectAllFields generate Sql select fields
 func (p *Products) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "id"
+	, "tenantCode"
 	, "createdAt"
 	, "createdBy"
 	, "updatedAt"
@@ -90,6 +92,7 @@ func (p *Products) SqlSelectAllFields() string { //nolint:dupl false positive
 // SqlSelectAllUncensoredFields generate Sql select fields
 func (p *Products) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
 	return ` "id"
+	, "tenantCode"
 	, "createdAt"
 	, "createdBy"
 	, "updatedAt"
@@ -109,18 +112,19 @@ func (p *Products) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 func (p *Products) ToUpdateArray() A.X { //nolint:dupl false positive
 	return A.X{
 		A.X{`=`, 0, p.Id},
-		A.X{`=`, 1, p.CreatedAt},
-		A.X{`=`, 2, p.CreatedBy},
-		A.X{`=`, 3, p.UpdatedAt},
-		A.X{`=`, 4, p.UpdatedBy},
-		A.X{`=`, 5, p.DeletedAt},
-		A.X{`=`, 6, p.DeletedBy},
-		A.X{`=`, 7, p.RestoredBy},
-		A.X{`=`, 8, p.Name},
-		A.X{`=`, 9, p.Detail},
-		A.X{`=`, 10, p.Rule},
-		A.X{`=`, 11, p.Kind},
-		A.X{`=`, 12, p.CogsIDR},
+		A.X{`=`, 1, p.TenantCode},
+		A.X{`=`, 2, p.CreatedAt},
+		A.X{`=`, 3, p.CreatedBy},
+		A.X{`=`, 4, p.UpdatedAt},
+		A.X{`=`, 5, p.UpdatedBy},
+		A.X{`=`, 6, p.DeletedAt},
+		A.X{`=`, 7, p.DeletedBy},
+		A.X{`=`, 8, p.RestoredBy},
+		A.X{`=`, 9, p.Name},
+		A.X{`=`, 10, p.Detail},
+		A.X{`=`, 11, p.Rule},
+		A.X{`=`, 12, p.Kind},
+		A.X{`=`, 13, p.CogsIDR},
 	}
 }
 
@@ -134,9 +138,19 @@ func (p *Products) SqlId() string { //nolint:dupl false positive
 	return `"id"`
 }
 
+// IdxTenantCode return name of the index
+func (p *Products) IdxTenantCode() int { //nolint:dupl false positive
+	return 1
+}
+
+// SqlTenantCode return name of the column being indexed
+func (p *Products) SqlTenantCode() string { //nolint:dupl false positive
+	return `"tenantCode"`
+}
+
 // IdxCreatedAt return name of the index
 func (p *Products) IdxCreatedAt() int { //nolint:dupl false positive
-	return 1
+	return 2
 }
 
 // SqlCreatedAt return name of the column being indexed
@@ -146,7 +160,7 @@ func (p *Products) SqlCreatedAt() string { //nolint:dupl false positive
 
 // IdxCreatedBy return name of the index
 func (p *Products) IdxCreatedBy() int { //nolint:dupl false positive
-	return 2
+	return 3
 }
 
 // SqlCreatedBy return name of the column being indexed
@@ -156,7 +170,7 @@ func (p *Products) SqlCreatedBy() string { //nolint:dupl false positive
 
 // IdxUpdatedAt return name of the index
 func (p *Products) IdxUpdatedAt() int { //nolint:dupl false positive
-	return 3
+	return 4
 }
 
 // SqlUpdatedAt return name of the column being indexed
@@ -166,7 +180,7 @@ func (p *Products) SqlUpdatedAt() string { //nolint:dupl false positive
 
 // IdxUpdatedBy return name of the index
 func (p *Products) IdxUpdatedBy() int { //nolint:dupl false positive
-	return 4
+	return 5
 }
 
 // SqlUpdatedBy return name of the column being indexed
@@ -176,7 +190,7 @@ func (p *Products) SqlUpdatedBy() string { //nolint:dupl false positive
 
 // IdxDeletedAt return name of the index
 func (p *Products) IdxDeletedAt() int { //nolint:dupl false positive
-	return 5
+	return 6
 }
 
 // SqlDeletedAt return name of the column being indexed
@@ -186,7 +200,7 @@ func (p *Products) SqlDeletedAt() string { //nolint:dupl false positive
 
 // IdxDeletedBy return name of the index
 func (p *Products) IdxDeletedBy() int { //nolint:dupl false positive
-	return 6
+	return 7
 }
 
 // SqlDeletedBy return name of the column being indexed
@@ -196,7 +210,7 @@ func (p *Products) SqlDeletedBy() string { //nolint:dupl false positive
 
 // IdxRestoredBy return name of the index
 func (p *Products) IdxRestoredBy() int { //nolint:dupl false positive
-	return 7
+	return 8
 }
 
 // SqlRestoredBy return name of the column being indexed
@@ -206,7 +220,7 @@ func (p *Products) SqlRestoredBy() string { //nolint:dupl false positive
 
 // IdxName return name of the index
 func (p *Products) IdxName() int { //nolint:dupl false positive
-	return 8
+	return 9
 }
 
 // SqlName return name of the column being indexed
@@ -216,7 +230,7 @@ func (p *Products) SqlName() string { //nolint:dupl false positive
 
 // IdxDetail return name of the index
 func (p *Products) IdxDetail() int { //nolint:dupl false positive
-	return 9
+	return 10
 }
 
 // SqlDetail return name of the column being indexed
@@ -226,7 +240,7 @@ func (p *Products) SqlDetail() string { //nolint:dupl false positive
 
 // IdxRule return name of the index
 func (p *Products) IdxRule() int { //nolint:dupl false positive
-	return 10
+	return 11
 }
 
 // SqlRule return name of the column being indexed
@@ -236,7 +250,7 @@ func (p *Products) SqlRule() string { //nolint:dupl false positive
 
 // IdxKind return name of the index
 func (p *Products) IdxKind() int { //nolint:dupl false positive
-	return 11
+	return 12
 }
 
 // SqlKind return name of the column being indexed
@@ -246,7 +260,7 @@ func (p *Products) SqlKind() string { //nolint:dupl false positive
 
 // IdxCogsIDR return name of the index
 func (p *Products) IdxCogsIDR() int { //nolint:dupl false positive
-	return 12
+	return 13
 }
 
 // SqlCogsIDR return name of the column being indexed
@@ -262,54 +276,57 @@ func (p *Products) ToArray() A.X { //nolint:dupl false positive
 	}
 	return A.X{
 		id,
-		p.CreatedAt,  // 1
-		p.CreatedBy,  // 2
-		p.UpdatedAt,  // 3
-		p.UpdatedBy,  // 4
-		p.DeletedAt,  // 5
-		p.DeletedBy,  // 6
-		p.RestoredBy, // 7
-		p.Name,       // 8
-		p.Detail,     // 9
-		p.Rule,       // 10
-		p.Kind,       // 11
-		p.CogsIDR,    // 12
+		p.TenantCode, // 1
+		p.CreatedAt,  // 2
+		p.CreatedBy,  // 3
+		p.UpdatedAt,  // 4
+		p.UpdatedBy,  // 5
+		p.DeletedAt,  // 6
+		p.DeletedBy,  // 7
+		p.RestoredBy, // 8
+		p.Name,       // 9
+		p.Detail,     // 10
+		p.Rule,       // 11
+		p.Kind,       // 12
+		p.CogsIDR,    // 13
 	}
 }
 
 // FromArray convert slice to receiver fields
 func (p *Products) FromArray(a A.X) *Products { //nolint:dupl false positive
 	p.Id = X.ToU(a[0])
-	p.CreatedAt = X.ToI(a[1])
-	p.CreatedBy = X.ToU(a[2])
-	p.UpdatedAt = X.ToI(a[3])
-	p.UpdatedBy = X.ToU(a[4])
-	p.DeletedAt = X.ToI(a[5])
-	p.DeletedBy = X.ToU(a[6])
-	p.RestoredBy = X.ToU(a[7])
-	p.Name = X.ToS(a[8])
-	p.Detail = X.ToS(a[9])
-	p.Rule = X.ToS(a[10])
-	p.Kind = X.ToS(a[11])
-	p.CogsIDR = X.ToI(a[12])
+	p.TenantCode = X.ToS(a[1])
+	p.CreatedAt = X.ToI(a[2])
+	p.CreatedBy = X.ToU(a[3])
+	p.UpdatedAt = X.ToI(a[4])
+	p.UpdatedBy = X.ToU(a[5])
+	p.DeletedAt = X.ToI(a[6])
+	p.DeletedBy = X.ToU(a[7])
+	p.RestoredBy = X.ToU(a[8])
+	p.Name = X.ToS(a[9])
+	p.Detail = X.ToS(a[10])
+	p.Rule = X.ToS(a[11])
+	p.Kind = X.ToS(a[12])
+	p.CogsIDR = X.ToI(a[13])
 	return p
 }
 
 // FromUncensoredArray convert slice to receiver fields
 func (p *Products) FromUncensoredArray(a A.X) *Products { //nolint:dupl false positive
 	p.Id = X.ToU(a[0])
-	p.CreatedAt = X.ToI(a[1])
-	p.CreatedBy = X.ToU(a[2])
-	p.UpdatedAt = X.ToI(a[3])
-	p.UpdatedBy = X.ToU(a[4])
-	p.DeletedAt = X.ToI(a[5])
-	p.DeletedBy = X.ToU(a[6])
-	p.RestoredBy = X.ToU(a[7])
-	p.Name = X.ToS(a[8])
-	p.Detail = X.ToS(a[9])
-	p.Rule = X.ToS(a[10])
-	p.Kind = X.ToS(a[11])
-	p.CogsIDR = X.ToI(a[12])
+	p.TenantCode = X.ToS(a[1])
+	p.CreatedAt = X.ToI(a[2])
+	p.CreatedBy = X.ToU(a[3])
+	p.UpdatedAt = X.ToI(a[4])
+	p.UpdatedBy = X.ToU(a[5])
+	p.DeletedAt = X.ToI(a[6])
+	p.DeletedBy = X.ToU(a[7])
+	p.RestoredBy = X.ToU(a[8])
+	p.Name = X.ToS(a[9])
+	p.Detail = X.ToS(a[10])
+	p.Rule = X.ToS(a[11])
+	p.Kind = X.ToS(a[12])
+	p.CogsIDR = X.ToI(a[13])
 	return p
 }
 
@@ -354,6 +371,7 @@ func (p *Products) Total() int64 { //nolint:dupl false positive
 // ProductsFieldTypeMap returns key value of field name and key
 var ProductsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`id`:         Tt.Unsigned,
+	`tenantCode`: Tt.String,
 	`createdAt`:  Tt.Integer,
 	`createdBy`:  Tt.Unsigned,
 	`updatedAt`:  Tt.Integer,
