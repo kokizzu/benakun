@@ -45,8 +45,8 @@
           return
         }
 
-        console.log(o);
         pager = o.pager;
+        accounts = o.accounts;
       }
     );
   }
@@ -69,7 +69,6 @@
           return;
         }
 
-        console.log(o);
         notifier.showSuccess('account '+row[1]+' restored');
         accounts = o.accounts;
         pager = o.pager;
@@ -95,7 +94,6 @@
           return
         }
 
-        console.log(o);
         notifier.showSuccess('account '+row[1]+' deleted');
         accounts = o.accounts;
         pager = o.pager;
@@ -121,13 +119,12 @@
       i, /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
       /** @returns {Promise<void>} */
       function(/** @type any */ o) {
-        isSubmitAddBankAccount = false;
         if (o.error) {
           console.log(o);
           notifier.showError(o.error);
           return
         }
-        console.log(o);
+
         pager = o.pager;
         accounts = o.accounts;
         notifier.showSuccess(payloads[1]+' edited')
@@ -154,11 +151,13 @@
           notifier.showError(o.error);
           return
         }
-        console.log(o);
+        
         pager = o.pager;
         accounts = o.accounts;
         notifier.showSuccess('bank account created')
         popUpAddBankAccount.Reset();
+        
+        OnRefresh(pager);
       }
     );
     popUpAddBankAccount.Hide();

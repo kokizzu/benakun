@@ -11962,9 +11962,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     return child_ctx;
   }
   function create_if_block7(ctx) {
+    let div;
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
-    let each_1_anchor;
     let current;
     let each_value = ensure_array_like(
       /*REFORMAT_ORGS*/
@@ -11981,18 +11981,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     return {
       c() {
+        div = element("div");
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        each_1_anchor = empty();
+        attr(div, "class", "orgs svelte-e20ejy");
       },
       m(target, anchor) {
+        insert(target, div, anchor);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
-            each_blocks[i].m(target, anchor);
+            each_blocks[i].m(div, null);
           }
         }
-        insert(target, each_1_anchor, anchor);
         current = true;
       },
       p(ctx2, dirty) {
@@ -12003,7 +12004,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
           group_outros();
-          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block4, each_1_anchor, get_each_context4);
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, div, outro_and_destroy_block, create_each_block4, null, get_each_context4);
           check_outros();
         }
       },
@@ -12023,10 +12024,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(each_1_anchor);
+          detach(div);
         }
         for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].d(detaching);
+          each_blocks[i].d();
         }
       }
     };
@@ -12085,8 +12086,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function create_default_slot(ctx) {
-    let div7;
-    let div0;
+    let div6;
     let t0;
     let article;
     let button;
@@ -12099,7 +12099,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     let t3;
     let t4;
-    let div1;
+    let div0;
     let span0;
     let t6;
     let p0;
@@ -12109,7 +12109,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     let t7;
     let t8;
-    let div2;
+    let div1;
     let span1;
     let t10;
     let p1;
@@ -12119,7 +12119,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     let t11;
     let t12;
-    let div3;
+    let div2;
     let span2;
     let t14;
     let p2;
@@ -12130,7 +12130,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     let t16;
     let t17;
-    let div4;
+    let div3;
     let span3;
     let t19;
     let p3;
@@ -12141,7 +12141,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     let t21;
     let t22;
-    let div5;
+    let div4;
     let span4;
     let t24;
     let p4;
@@ -12152,7 +12152,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     let t26;
     let t27;
-    let div6;
+    let div5;
     let span5;
     let t29;
     let p5;
@@ -12172,8 +12172,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     return {
       c() {
-        div7 = element("div");
-        div0 = element("div");
+        div6 = element("div");
         if (if_block)
           if_block.c();
         t0 = space();
@@ -12185,21 +12184,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         h2 = element("h2");
         t3 = text(t3_value);
         t4 = space();
-        div1 = element("div");
+        div0 = element("div");
         span0 = element("span");
         span0.textContent = "Description";
         t6 = space();
         p0 = element("p");
         t7 = text(t7_value);
         t8 = space();
-        div2 = element("div");
+        div1 = element("div");
         span1 = element("span");
         span1.textContent = "Per Year";
         t10 = space();
         p1 = element("p");
         t11 = text(t11_value);
         t12 = space();
-        div3 = element("div");
+        div2 = element("div");
         span2 = element("span");
         span2.textContent = "Budget IDR";
         t14 = space();
@@ -12207,7 +12206,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t15 = text("Rp ");
         t16 = text(t16_value);
         t17 = space();
-        div4 = element("div");
+        div3 = element("div");
         span3 = element("span");
         span3.textContent = "Budget USD";
         t19 = space();
@@ -12215,7 +12214,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t20 = text("$ ");
         t21 = text(t21_value);
         t22 = space();
-        div5 = element("div");
+        div4 = element("div");
         span4 = element("span");
         span4.textContent = "Budget EUR";
         t24 = space();
@@ -12223,88 +12222,86 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t25 = text("\u20AC ");
         t26 = text(t26_value);
         t27 = space();
-        div6 = element("div");
+        div5 = element("div");
         span5 = element("span");
         span5.textContent = "Last modified";
         t29 = space();
         p5 = element("p");
         t30 = text(t30_value);
-        attr(div0, "class", "orgs svelte-e20ejy");
         attr(button, "class", "close svelte-e20ejy");
         attr(h2, "class", "svelte-e20ejy");
         attr(span0, "class", "svelte-e20ejy");
         attr(p0, "class", "svelte-e20ejy");
-        attr(div1, "class", "detail svelte-e20ejy");
+        attr(div0, "class", "detail svelte-e20ejy");
         attr(span1, "class", "svelte-e20ejy");
         attr(p1, "class", "svelte-e20ejy");
-        attr(div2, "class", "detail svelte-e20ejy");
+        attr(div1, "class", "detail svelte-e20ejy");
         attr(span2, "class", "svelte-e20ejy");
         attr(p2, "class", "svelte-e20ejy");
-        attr(div3, "class", "detail svelte-e20ejy");
+        attr(div2, "class", "detail svelte-e20ejy");
         attr(span3, "class", "svelte-e20ejy");
         attr(p3, "class", "svelte-e20ejy");
-        attr(div4, "class", "detail svelte-e20ejy");
+        attr(div3, "class", "detail svelte-e20ejy");
         attr(span4, "class", "svelte-e20ejy");
         attr(p4, "class", "svelte-e20ejy");
-        attr(div5, "class", "detail svelte-e20ejy");
+        attr(div4, "class", "detail svelte-e20ejy");
         attr(span5, "class", "svelte-e20ejy");
         attr(p5, "class", "svelte-e20ejy");
-        attr(div6, "class", "detail svelte-e20ejy");
+        attr(div5, "class", "detail svelte-e20ejy");
         attr(main, "class", "svelte-e20ejy");
         attr(article, "class", article_class_value = "plan_detail " + /*isShowPlanDetail*/
         (ctx[2] ? "show" : "") + " svelte-e20ejy");
-        attr(div7, "class", "orgs_container svelte-e20ejy");
+        attr(div6, "class", "orgs_container svelte-e20ejy");
       },
       m(target, anchor) {
-        insert(target, div7, anchor);
-        append(div7, div0);
+        insert(target, div6, anchor);
         if (if_block)
-          if_block.m(div0, null);
-        append(div7, t0);
-        append(div7, article);
+          if_block.m(div6, null);
+        append(div6, t0);
+        append(div6, article);
         append(article, button);
         append(article, t2);
         append(article, main);
         append(main, h2);
         append(h2, t3);
         append(main, t4);
-        append(main, div1);
-        append(div1, span0);
-        append(div1, t6);
-        append(div1, p0);
+        append(main, div0);
+        append(div0, span0);
+        append(div0, t6);
+        append(div0, p0);
         append(p0, t7);
         append(main, t8);
-        append(main, div2);
-        append(div2, span1);
-        append(div2, t10);
-        append(div2, p1);
+        append(main, div1);
+        append(div1, span1);
+        append(div1, t10);
+        append(div1, p1);
         append(p1, t11);
         append(main, t12);
-        append(main, div3);
-        append(div3, span2);
-        append(div3, t14);
-        append(div3, p2);
+        append(main, div2);
+        append(div2, span2);
+        append(div2, t14);
+        append(div2, p2);
         append(p2, t15);
         append(p2, t16);
         append(main, t17);
-        append(main, div4);
-        append(div4, span3);
-        append(div4, t19);
-        append(div4, p3);
+        append(main, div3);
+        append(div3, span3);
+        append(div3, t19);
+        append(div3, p3);
         append(p3, t20);
         append(p3, t21);
         append(main, t22);
-        append(main, div5);
-        append(div5, span4);
-        append(div5, t24);
-        append(div5, p4);
+        append(main, div4);
+        append(div4, span4);
+        append(div4, t24);
+        append(div4, p4);
         append(p4, t25);
         append(p4, t26);
         append(main, t27);
-        append(main, div6);
-        append(div6, span5);
-        append(div6, t29);
-        append(div6, p5);
+        append(main, div5);
+        append(div5, span5);
+        append(div5, t29);
+        append(div5, p5);
         append(p5, t30);
         current = true;
         if (!mounted) {
@@ -12333,7 +12330,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             if_block = create_if_block7(ctx2);
             if_block.c();
             transition_in(if_block, 1);
-            if_block.m(div0, null);
+            if_block.m(div6, t0);
           }
         } else if (if_block) {
           group_outros();
@@ -12390,7 +12387,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(div7);
+          detach(div6);
         }
         if (if_block)
           if_block.d();

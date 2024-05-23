@@ -129,6 +129,11 @@
 		return row[ field.name ] || '';
 	}
 
+	// Trigger function "getPaginationShow()" if variable "PAGER" changed
+	$: {
+		if (PAGER) getPaginationShow();
+	}
+
 	onMount(() => {
 		// FilterTable.svelte component is rendered
 		filterTable = FilterTable;
@@ -760,6 +765,8 @@
 		background-color: var(--gray-001);
 		text-transform: capitalize;
 		border-bottom: 1px solid var(--gray-003);
+		min-width: fit-content;
+    text-wrap: nowrap;
   }
 
 	.table_root .table_container table tbody tr.deleted {

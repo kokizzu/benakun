@@ -104,16 +104,16 @@
 
 <MainLayout>
   <div class="orgs_container">
-    <div class="orgs">
-      {#if REFORMAT_ORGS && REFORMAT_ORGS.length}
+    {#if REFORMAT_ORGS && REFORMAT_ORGS.length}
+      <div class="orgs">
         {#each REFORMAT_ORGS as org, _ (org.id)}
           <BudgetPlanTree
             org={org}
             on:details={onPlanDetails}
           />
         {/each}
-      {/if}
-    </div>
+      </div>
+    {/if}
     <article class="plan_detail {isShowPlanDetail ? 'show' : ''}">
       <button class="close" on:click={() => isShowPlanDetail = false}>close</button>
       <main>
