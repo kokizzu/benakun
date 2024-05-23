@@ -93,32 +93,18 @@ var TenantAdminDashboardMeta = zCrud.Meta{
 func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdminDashboardOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 
-	L.Print(`Trigger 1`)
 	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
-		L.Print(`Trigger 2`)
 		return
 	}
 
-	L.Print(`Trigger 3`)
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
-	L.Print(`Trigger 4`)
 	user.Id = sess.UserId
 	if !user.FindById() {
 		out.SetError(fiber.StatusBadRequest, ErrTenantAdminDashboardUnauthorized)
-		L.Print(`Trigger 5`)
 		return
 	}
 
-	L.Print(`Trigger 6`)
-	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
-	L.Print(`Trigger 7`)
-	tenant.TenantCode = user.TenantCode
-	if !tenant.FindByTenantCode() && !sess.IsSuperAdmin {
-		out.SetError(400, ErrTenantAdminDashboardTenantNotFound)
-		L.Print(`Trigger 8`)
-		return
-	}
 
 	if in.WithMeta {
 		out.Meta = &TenantAdminDashboardMeta
@@ -126,6 +112,13 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 
 	switch in.Cmd {
 	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
+		tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
+		tenant.TenantCode = user.TenantCode
+		if !tenant.FindByTenantCode() {
+			out.SetError(400, ErrTenantAdminDashboardNotTenant)
+			return
+		}
+
 		if in.StaffEmail != `` {
 			staff := wcAuth.NewUsersMutator(d.AuthOltp)
 			staff.Email = in.StaffEmail
@@ -135,10 +128,6 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 			}
 
 			if in.Cmd == zCrud.CmdUpsert {
-				if tenant.TenantCode == `` {
-					out.SetError(400, ErrTenantAdminDashboardNotTenant)
-					return
-				}
 				if staff.TenantCode != `` {
 					out.SetError(400, ErrTenantAdminDashboardInvalidStaff)
 					return

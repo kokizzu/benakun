@@ -37,11 +37,11 @@ const (
 	TenantAdminProductsAction = `tenantAdmin/products`
 
 	ErrTenantAdminProductsUnauthorized   = `unauthorized user`
-	ErrTenantAdminProductsTenantNotFound = `tenant admin not found`
 	ErrTenantAdminProductsProductNotFound = `product not found`
 	ErrTenantAdminProductsRuleNotValid		= `invalid product rule (must be fifo, lifo, average)`
 	ErrTenantAdminProductsKindNotValid		= `invalid product kind (must be goods, service)`
 	ErrTenantAdminProductsSaveFailed = `product save failed`
+	ErrTenantAdminProductsNotTenant = `must be tenant admin to do this operation`
 )
 
 var TenantAdminProductsMeta = zCrud.Meta{
@@ -84,7 +84,7 @@ var TenantAdminProductsMeta = zCrud.Meta{
 		},
 		{
 			Name: mBusiness.CogsIDR,
-			Label: "COGS (in IDR)",
+			Label: "Cogs (IDR)",
 			DataType: zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeNumber,
 		},
@@ -128,13 +128,6 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 		return
 	}
 
-	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
-	tenant.TenantCode = user.TenantCode
-	if !tenant.FindByTenantCode() && !sess.IsSuperAdmin {
-		out.SetError(400, ErrTenantAdminProductsTenantNotFound)
-		return
-	}
-
 	if in.WithMeta {
 		out.Meta = &TenantAdminProductsMeta
 	}
@@ -155,6 +148,13 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 
 		out.Product = product
 	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
+		tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
+		tenant.TenantCode = user.TenantCode
+		if !tenant.FindByTenantCode() && !sess.IsSuperAdmin {
+			out.SetError(400, ErrTenantAdminProductsNotTenant)
+			return
+		}
+
 		product := wcBusiness.NewProductsMutator(d.AuthOltp)
 		product.Id = in.Product.Id
 		if product.Id > 0 {
@@ -175,6 +175,8 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 				}
 			}
 		}
+
+		product.SetTenantCode(user.TenantCode)
 
 		if in.Product.Name != `` {
 			product.SetName(in.Product.Name)

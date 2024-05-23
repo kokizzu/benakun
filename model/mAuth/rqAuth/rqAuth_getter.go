@@ -176,8 +176,6 @@ func (u *Users) FindByTenantCode() bool {
 	return false
 }
 
-
-
 func (o *Orgs) FindOrgsByTenant(tenantCode string) (orgs []Orgs) {
 	const comment = "-- orgs) FindOrgsByTenant"
 
