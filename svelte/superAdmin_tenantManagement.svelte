@@ -1,6 +1,4 @@
 <script>
-  import { Icon } from './node_modules/svelte-icons-pack/dist';
-  import { RiSystemAddBoxLine } from './node_modules/svelte-icons-pack/dist/ri';
   import MainLayout from './_layouts/mainLayout.svelte';
   import MasterTable from './_components/MasterTable.svelte';
   import { SuperAdminTenantManagement } from './jsApi.GEN';
@@ -11,12 +9,14 @@
   /** @typedef {import('./_components/types/master.js').PagerIn} PagerIn */
 	/** @typedef {import('./_components/types/master.js').PagerOut} PagerOut */
   /** @typedef {import('./_components/types/user.js').User} User */
+  /** @typedef {import('./_components/types/tenant.js').Tenant} Tenant */
 
   let segments  = /** @type Access */ ({/* segments */});
   let user      = /** @type User */ ({/* user */});
   let fields    = /** @type Field[] */ ([/* fields */]);
   let pager     = /** @type PagerOut */ ({/* pager */});
   let tenants   = /** @type any[][] */ ([/* tenants */]);
+  let tenant    = /** @type Tenant */ ({/* tenant */});
 
   async function OnRefresh(/** @type PagerIn */ pagerIn) {
     const i = { pager: pagerIn, cmd: 'list' };
@@ -29,9 +29,9 @@
           return;
         }
 
-        console.log(o);
         tenants = o.tenants;
         pager = o.pager;
+        tenant = o.tenant;
       }
     )
   }
@@ -54,10 +54,11 @@
           return;
         }
 
-        console.log(o);
-        notifier.showSuccess(o.tenant.tenantCode + ' restored');
         tenants = o.tenants;
         pager = o.pager;
+        tenant = o.tenant;
+
+        notifier.showSuccess(tenant.tenantCode + ' restored');
       }
     )
   }
@@ -80,21 +81,13 @@
           return;
         }
 
-        console.log(o);
-        notifier.showSuccess(o.tenant.tenantCode + ' deleted');
         tenants = o.tenants;
         pager = o.pager;
+        tenant = o.tenant;
+
+        notifier.showSuccess(tenant.tenantCode + ' deleted');
       }
     )
-  }
-
-  async function OnEdit(/** @type any */ id, /** @type any[]*/ payloads) {
-    console.log('ID:', id);
-    console.log('Payloads:', payloads);
-  }
-
-  function AddRow() {
-    console.log('AddRow');
   }
 </script>
 
@@ -106,28 +99,15 @@
       bind:PAGER={pager}
       bind:MASTER_ROWS={tenants}
 
-      CAN_EDIT_ROW
       CAN_SEARCH_ROW
       CAN_DELETE_ROW
       CAN_RESTORE_ROW
+      CAN_EDIT_ROW={false}
 
       {OnRefresh}
       {OnRestore}
       {OnDelete}
-      {OnEdit}
-    >
-      <button
-        class="action_btn"
-        on:click={AddRow}
-        title="add tenant"
-      >
-        <Icon
-          color="var(--gray-007)"
-          size="16"
-          src={RiSystemAddBoxLine}
-        />
-      </button>
-    </MasterTable>
+    />
   </div>
 </MainLayout>
 

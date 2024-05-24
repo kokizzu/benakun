@@ -270,13 +270,27 @@ func (d *Domain) MustTenantAdmin(in RequestCommon, out *ResponseCommon) (sess *S
 	sess = d.MustLogin(in, out)
 	if sess == nil {
 		return nil
-	}	
+	}
+	
 	if sess.TenantCode == ``{
 		if !sess.IsSuperAdmin {
 			out.SetError(403, ErrSessionUserNotTenantAdmin)
 			return nil
 		}
+	} else {
+		tenant := rqAuth.NewTenants(d.AuthOltp)
+		tenant.TenantCode = sess.TenantCode
+		if !tenant.FindByTenantCode() {
+			out.SetError(403, ErrSessionUserNotTenantAdmin)
+			return nil
+		}
+
+		if tenant.DeletedAt > 0 {
+			out.SetError(403, ErrSessionUserNotTenantAdmin)
+			return nil
+		}
 	}
+
 	sess.IsTenantAdmin = true
 	return sess
 }

@@ -12,11 +12,13 @@
 	/** @typedef {import('./_components/types/access.js').Access} Access */
   /** @typedef {import('./_components/types/master.js').PagerIn} PagerIn */
 	/** @typedef {import('./_components/types/master.js').PagerOut} PagerOut */
+  /** @typedef {import('./_components/types/user.js').User} User */
   /** @typedef {import('./_components/types/product.js').Product} Product */
 
   let segments = /** @type Access */ ({/* segments */});
   let fields = /** @type Field[] */ ([/* fields */]);
   let pager = /** @type PagerOut */ ({/* pager */});
+  let user = /** @type User */ ({/* user */});
   let product = {/* product */}
   let products = /** @type any[][] */ ([/* products */]);
 
@@ -198,17 +200,19 @@
       {OnRefresh}
       {OnEdit}
     >
-      <button
-        class="action_btn"
-        on:click={() => popUpForms.Show()}
-        title="add account"
-      >
-        <Icon
-          color="var(--gray-007)"
-          size="16"
-          src={RiSystemAddBoxLine}
-        />
-      </button>
+      {#if user.tenantCode !== ''}
+        <button
+          class="action_btn"
+          on:click={() => popUpForms.Show()}
+          title="add account"
+        >
+          <Icon
+            color="var(--gray-007)"
+            size="16"
+            src={RiSystemAddBoxLine}
+          />
+        </button>
+      {/if}
     </MasterTable>
   </div>
 </MainLayout>

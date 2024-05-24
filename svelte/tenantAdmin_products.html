@@ -5802,12 +5802,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function instance4($self, $props, $invalidate) {
-    let { user: user2 = {} } = $props;
+    let { user: user3 = {} } = $props;
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(0, user2 = $props2.user);
+        $invalidate(0, user3 = $props2.user);
     };
-    return [user2];
+    return [user3];
   }
   var Navbar = class extends SvelteComponent {
     constructor(options) {
@@ -11999,7 +11999,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 
   // tenantAdmin_products.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
-  function create_if_block6(ctx) {
+  function create_if_block_17(ctx) {
     let poupforms;
     let updating_isSubmitAddProduct;
     let current;
@@ -12066,7 +12066,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_default_slot_1(ctx) {
+  function create_if_block6(ctx) {
     let button;
     let icon;
     let current;
@@ -12118,6 +12118,45 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         destroy_component(icon);
         mounted = false;
         dispose();
+      }
+    };
+  }
+  function create_default_slot_1(ctx) {
+    let if_block_anchor;
+    let current;
+    let if_block = user2.tenantCode !== "" && create_if_block6(ctx);
+    return {
+      c() {
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (user2.tenantCode !== "")
+          if_block.p(ctx2, dirty);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if (if_block)
+          if_block.d(detaching);
       }
     };
   }
@@ -12250,7 +12289,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     let if_block = (
       /*isPopUpFormsReady*/
-      ctx[3] && create_if_block6(ctx)
+      ctx[3] && create_if_block_17(ctx)
     );
     mainlayout = new mainLayout_default({
       props: {
@@ -12284,7 +12323,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block6(ctx2);
+            if_block = create_if_block_17(ctx2);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(t.parentNode, t);
@@ -12328,6 +12367,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var segments2 = (
     /** @type Access */
     {/* segments */}
+  );
+  var user2 = (
+    /** @type User */
+    {/* user */}
   );
   function instance11($self, $props, $invalidate) {
     let fields = (

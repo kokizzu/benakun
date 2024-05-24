@@ -150,7 +150,7 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
 		tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
 		tenant.TenantCode = user.TenantCode
-		if !tenant.FindByTenantCode() && !sess.IsSuperAdmin {
+		if !tenant.FindByTenantCode() {
 			out.SetError(400, ErrTenantAdminProductsNotTenant)
 			return
 		}
@@ -224,6 +224,7 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 		fallthrough
 	case zCrud.CmdList:
 		r := rqBusiness.NewProducts(d.AuthOltp)
+		r.TenantCode = user.TenantCode
 		out.Products = r.FindByPagination(&TenantAdminProductsMeta, &in.Pager, &out.Pager)
 	}
 

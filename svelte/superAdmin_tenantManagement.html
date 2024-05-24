@@ -4366,6 +4366,82 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
+  // _components/partials/SideMenu.svelte
+  var import_jsApi_GEN = __toESM(require_jsApi_GEN());
+
+  // _components/notifier.js
+  var Notifier = function() {
+    let a = {
+      container: null,
+      default_time: 4500,
+      vanish_time: 300,
+      fps: 30,
+      success: {
+        classes: "alert-success",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)" /></svg>'
+      },
+      error: {
+        classes: "alert-danger",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" /></svg>'
+      },
+      warning: {
+        classes: "alert-warning",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3.09 0c-.06 0-.1.04-.13.09l-2.94 6.81c-.02.05-.03.13-.03.19v.81c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-.81c0-.05-.01-.14-.03-.19l-2.94-6.81c-.02-.05-.07-.09-.13-.09h-.81zm-.09 3h1v2h-1v-2zm0 3h1v1h-1v-1z" /></svg>'
+      },
+      info: {
+        classes: "alert-info",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-1.5 2.5c-.83 0-1.5.67-1.5 1.5h1c0-.28.22-.5.5-.5s.5.22.5.5-1 1.64-1 2.5c0 .86.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h-1c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-.36 1-1.84 1-2.5 0-.81-.67-1.5-1.5-1.5z" transform="translate(2)"/></svg>'
+      }
+    }, b = function(a2, b2, c, d, e, f, g) {
+      this.pushed = false, this.element = document.createElement("div"), this.element.className = "notifyjs-notification " + c.classes, this.element.innerHTML = "<div class='notifyjs-icon'>" + c.icon + "</div>" + b2, a2.appendChild(this.element);
+      let h = document.createElement("p");
+      h.className = "progress", this.element.appendChild(h), this.callback = g;
+      let j = this;
+      this.push = function() {
+        if (!j.pushed) {
+          j.pushed = true;
+          let a3 = 0, b3 = 1e3 / f;
+          j.element.style.display = "block", j.interval = setInterval(function() {
+            a3++;
+            let c2 = 100 * (1 - b3 * a3 / d);
+            h.style.right = c2 + "%", 0 >= c2 && ("function" == typeof g && g(), j.clear());
+          }, b3);
+        }
+      }, this.clear = function() {
+        if (j.pushed) {
+          let a3 = 1e3 / f, b3 = 1;
+          "undefined" != typeof j.interval && clearInterval(j.interval), j.interval = setInterval(function() {
+            b3 -= 1 / (e / a3), j.element.style.opacity = b3, 0 >= b3 && (clearInterval(j.interval), j.destroy());
+          }, a3);
+        }
+      }, this.destroy = function() {
+        j.pushed && (j.pushed = false, "undefined" != typeof j.interval && clearInterval(j.interval), a2.removeChild(j.element));
+      };
+    };
+    return function Notifier2(c) {
+      this.options = Object.assign({}, a), this.options = Object.assign(this.options, c), null === this.options.container && (this.options.container = document.createElement("div"), document.getElementsByTagName("body")[0].appendChild(this.options.container)), this.options.container.className += " notifyjs-container", this.notify = function(a2, c2, d, e) {
+        return "undefined" == typeof this.options[a2] ? void console.error("Notify.js: Error, undefined '" + a2 + "' notification type") : ("undefined" == typeof d && (d = this.options.default_time), new b(this.options.container, c2, this.options[a2], d, this.options.vanish_time, this.options.fps, e));
+      };
+      this.showInfo = function(infoMsg) {
+        let notification = this.notify("info", infoMsg);
+        notification.push();
+      };
+      this.showSuccess = function(okMsg) {
+        let notification = this.notify("success", okMsg);
+        notification.push();
+      };
+      this.showError = function(errMsg) {
+        let notification = this.notify("error", errMsg);
+        notification.push();
+      };
+      this.showWarning = function(warnMsg) {
+        let notification = this.notify("warning", warnMsg);
+        notification.push();
+      };
+    };
+  }();
+  var notifier = new Notifier();
+
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/Icon.svelte
   function create_fragment(ctx) {
     let svg;
@@ -4525,95 +4601,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   };
   var Icon_default = Icon;
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ri/index.js
-  var RiDesignBallPenLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M17.8492 11.6983L17.1421 10.9912L7.24264 20.8907H3V16.648L14.3137 5.33432L19.9706 10.9912C20.3611 11.3817 20.3611 12.0149 19.9706 12.4054L12.8995 19.4765L11.4853 18.0622L17.8492 11.6983ZM15.7279 9.57696L14.3137 8.16274L5 17.4765V18.8907H6.41421L15.7279 9.57696ZM18.5563 2.50589L21.3848 5.33432C21.7753 5.72484 21.7753 6.35801 21.3848 6.74853L19.9706 8.16274L15.7279 3.9201L17.1421 2.50589C17.5327 2.11537 18.1658 2.11537 18.5563 2.50589Z"></path>' };
-  var RiBuildingsCommunityLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 21H3C2.44772 21 2 20.5523 2 20V12.4868C2 12.1978 2.12501 11.9229 2.34282 11.733L6 8.54435V4C6 3.44772 6.44772 3 7 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21ZM9 19H12V12.9416L8 9.45402L4 12.9416V19H7V15H9V19ZM14 19H20V5H8V7.12729C8.23444 7.12729 8.46888 7.20938 8.65718 7.37355L13.6572 11.733C13.875 11.9229 14 12.1978 14 12.4868V19ZM16 11H18V13H16V11ZM16 15H18V17H16V15ZM16 7H18V9H16V7ZM12 7H14V9H12V7Z"></path>' };
-  var RiBuildingsBankLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 20H22V22H2V20ZM4 12H6V19H4V12ZM9 12H11V19H9V12ZM13 12H15V19H13V12ZM18 12H20V19H18V12ZM2 7L12 2L22 7V11H2V7ZM4 8.23607V9H20V8.23607L12 4.23607L4 8.23607ZM12 8C11.4477 8 11 7.55228 11 7C11 6.44772 11.4477 6 12 6C12.5523 6 13 6.44772 13 7C13 7.55228 12.5523 8 12 8Z"></path>' };
-  var RiUserFacesAdminLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M12 14V16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM21 17H22V22H14V17H15V16C15 14.3431 16.3431 13 18 13C19.6569 13 21 14.3431 21 16V17ZM19 17V16C19 15.4477 18.5523 15 18 15C17.4477 15 17 15.4477 17 16V17H19Z"></path>' };
-  var RiUserFacesGroup2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M9.55 11.5C8.30736 11.5 7.3 10.4926 7.3 9.25C7.3 8.00736 8.30736 7 9.55 7C10.7926 7 11.8 8.00736 11.8 9.25C11.8 10.4926 10.7926 11.5 9.55 11.5ZM10 19.748V16.4C10 15.9116 10.1442 15.4627 10.4041 15.0624C10.1087 15.0213 9.80681 15 9.5 15C7.93201 15 6.49369 15.5552 5.37091 16.4797C6.44909 18.0721 8.08593 19.2553 10 19.748ZM4.45286 14.66C5.86432 13.6168 7.61013 13 9.5 13C10.5435 13 11.5431 13.188 12.4667 13.5321C13.3447 13.1888 14.3924 13 15.5 13C17.1597 13 18.6849 13.4239 19.706 14.1563C19.8976 13.4703 20 12.7471 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 12.9325 4.15956 13.8278 4.45286 14.66ZM18.8794 16.0859C18.4862 15.5526 17.1708 15 15.5 15C13.4939 15 12 15.7967 12 16.4V20C14.9255 20 17.4843 18.4296 18.8794 16.0859ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM15.5 12.5C14.3954 12.5 13.5 11.6046 13.5 10.5C13.5 9.39543 14.3954 8.5 15.5 8.5C16.6046 8.5 17.5 9.39543 17.5 10.5C17.5 11.6046 16.6046 12.5 15.5 12.5Z"></path>' };
-  var RiUserFacesContactsLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M19 7H24V9H19V7ZM17 12H24V14H17V12ZM20 17H24V19H20V17ZM2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11Z"></path>' };
-  var RiSystemDeleteBin5Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8ZM6 10V20H18V10H6ZM9 12H11V18H9V12ZM13 12H15V18H13V12ZM7 5V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V5H22V7H2V5H7ZM9 4V5H15V4H9Z"></path>' };
-  var RiSystemAddBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5ZM11 11V7H13V11H17V13H13V17H11V13H7V11H11Z"></path>' };
-  var RiSystemFilterLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 4V6H20L15 13.5V22H9V13.5L4 6H3V4H21ZM6.4037 6L11 12.8944V20H13V12.8944L17.5963 6H6.4037Z"></path>' };
-  var RiArrowsArrowGoBackLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M5.82843 6.99955L8.36396 9.53509L6.94975 10.9493L2 5.99955L6.94975 1.0498L8.36396 2.46402L5.82843 4.99955H13C17.4183 4.99955 21 8.58127 21 12.9996C21 17.4178 17.4183 20.9996 13 20.9996H4V18.9996H13C16.3137 18.9996 19 16.3133 19 12.9996C19 9.68584 16.3137 6.99955 13 6.99955H5.82843Z"></path>' };
-  var RiEditorOrganizationChart = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M15 3C15.5523 3 16 3.44772 16 4V8C16 8.55228 15.5523 9 15 9H13V11H17C17.5523 11 18 11.4477 18 12V15H20C20.5523 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H14C13.4477 21 13 20.5523 13 20V16C13 15.4477 13.4477 15 14 15H16V13H8V15H10C10.5523 15 11 15.4477 11 16V20C11 20.5523 10.5523 21 10 21H4C3.44772 21 3 20.5523 3 20V16C3 15.4477 3.44772 15 4 15H6V12C6 11.4477 6.44772 11 7 11H11V9H9C8.44772 9 8 8.55228 8 8V4C8 3.44772 8.44772 3 9 3H15ZM9 17H5V19H9V17ZM19 17H15V19H19V17ZM14 5H10V7H14V5Z"></path>' };
-
-  // _components/partials/SideMenu.svelte
-  var import_jsApi_GEN = __toESM(require_jsApi_GEN());
-
-  // _components/notifier.js
-  var Notifier = function() {
-    let a = {
-      container: null,
-      default_time: 4500,
-      vanish_time: 300,
-      fps: 30,
-      success: {
-        classes: "alert-success",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)" /></svg>'
-      },
-      error: {
-        classes: "alert-danger",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" /></svg>'
-      },
-      warning: {
-        classes: "alert-warning",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3.09 0c-.06 0-.1.04-.13.09l-2.94 6.81c-.02.05-.03.13-.03.19v.81c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-.81c0-.05-.01-.14-.03-.19l-2.94-6.81c-.02-.05-.07-.09-.13-.09h-.81zm-.09 3h1v2h-1v-2zm0 3h1v1h-1v-1z" /></svg>'
-      },
-      info: {
-        classes: "alert-info",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-1.5 2.5c-.83 0-1.5.67-1.5 1.5h1c0-.28.22-.5.5-.5s.5.22.5.5-1 1.64-1 2.5c0 .86.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h-1c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-.36 1-1.84 1-2.5 0-.81-.67-1.5-1.5-1.5z" transform="translate(2)"/></svg>'
-      }
-    }, b = function(a2, b2, c, d, e, f, g) {
-      this.pushed = false, this.element = document.createElement("div"), this.element.className = "notifyjs-notification " + c.classes, this.element.innerHTML = "<div class='notifyjs-icon'>" + c.icon + "</div>" + b2, a2.appendChild(this.element);
-      let h = document.createElement("p");
-      h.className = "progress", this.element.appendChild(h), this.callback = g;
-      let j = this;
-      this.push = function() {
-        if (!j.pushed) {
-          j.pushed = true;
-          let a3 = 0, b3 = 1e3 / f;
-          j.element.style.display = "block", j.interval = setInterval(function() {
-            a3++;
-            let c2 = 100 * (1 - b3 * a3 / d);
-            h.style.right = c2 + "%", 0 >= c2 && ("function" == typeof g && g(), j.clear());
-          }, b3);
-        }
-      }, this.clear = function() {
-        if (j.pushed) {
-          let a3 = 1e3 / f, b3 = 1;
-          "undefined" != typeof j.interval && clearInterval(j.interval), j.interval = setInterval(function() {
-            b3 -= 1 / (e / a3), j.element.style.opacity = b3, 0 >= b3 && (clearInterval(j.interval), j.destroy());
-          }, a3);
-        }
-      }, this.destroy = function() {
-        j.pushed && (j.pushed = false, "undefined" != typeof j.interval && clearInterval(j.interval), a2.removeChild(j.element));
-      };
-    };
-    return function Notifier2(c) {
-      this.options = Object.assign({}, a), this.options = Object.assign(this.options, c), null === this.options.container && (this.options.container = document.createElement("div"), document.getElementsByTagName("body")[0].appendChild(this.options.container)), this.options.container.className += " notifyjs-container", this.notify = function(a2, c2, d, e) {
-        return "undefined" == typeof this.options[a2] ? void console.error("Notify.js: Error, undefined '" + a2 + "' notification type") : ("undefined" == typeof d && (d = this.options.default_time), new b(this.options.container, c2, this.options[a2], d, this.options.vanish_time, this.options.fps, e));
-      };
-      this.showInfo = function(infoMsg) {
-        let notification = this.notify("info", infoMsg);
-        notification.push();
-      };
-      this.showSuccess = function(okMsg) {
-        let notification = this.notify("success", okMsg);
-        notification.push();
-      };
-      this.showError = function(errMsg) {
-        let notification = this.notify("error", errMsg);
-        notification.push();
-      };
-      this.showWarning = function(warnMsg) {
-        let notification = this.notify("warning", warnMsg);
-        notification.push();
-      };
-    };
-  }();
-  var notifier = new Notifier();
-
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ai/index.js
   var AiOutlineHome = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 0 0-44.4 0L77.5 505a63.9 63.9 0 0 0-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0 0 18.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"></path>' };
   var AiOutlineWallet = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 464H528V448h312v128zm0 264H184V184h656v200H496c-17.7 0-32 14.3-32 32v192c0 17.7 14.3 32 32 32h344v200zM580 512a40 40 0 1 0 80 0 40 40 0 1 0-80 0z"></path>' };
@@ -4624,6 +4611,18 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/fa/index.js
   var FaSolidSliders = { a: { viewBox: "0 0 512 512" }, c: '<path d="M0 416c0 17.7 14.3 32 32 32l54.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 448c17.7 0 32-14.3 32-32s-14.3-32-32-32l-246.7 0c-12.3-28.3-40.5-48-73.3-48s-61 19.7-73.3 48L32 384c-17.7 0-32 14.3-32 32zm128 0a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM320 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm32-80c-32.8 0-61 19.7-73.3 48L32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l246.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48l54.7 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-54.7 0c-12.3-28.3-40.5-48-73.3-48zM192 128a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm73.3-64C253 35.7 224.8 16 192 16s-61 19.7-73.3 48L32 64C14.3 64 0 78.3 0 96s14.3 32 32 32l86.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 128c17.7 0 32-14.3 32-32s-14.3-32-32-32L265.3 64z"></path>' };
   var FaCircleUser = { a: { viewBox: "0 0 512 512" }, c: '<path d="M406.5 399.6C387.4 352.9 341.5 320 288 320H224c-53.5 0-99.4 32.9-118.5 79.6C69.9 362.2 48 311.7 48 256C48 141.1 141.1 48 256 48s208 93.1 208 208c0 55.7-21.9 106.2-57.5 143.6zm-40.1 32.7C334.4 452.4 296.6 464 256 464s-78.4-11.6-110.5-31.7c7.3-36.7 39.7-64.3 78.5-64.3h64c38.8 0 71.2 27.6 78.5 64.3zM256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-272a40 40 0 1 1 0-80 40 40 0 1 1 0 80zm-88-40a88 88 0 1 0 176 0 88 88 0 1 0 -176 0z"></path>' };
+
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ri/index.js
+  var RiDesignBallPenLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M17.8492 11.6983L17.1421 10.9912L7.24264 20.8907H3V16.648L14.3137 5.33432L19.9706 10.9912C20.3611 11.3817 20.3611 12.0149 19.9706 12.4054L12.8995 19.4765L11.4853 18.0622L17.8492 11.6983ZM15.7279 9.57696L14.3137 8.16274L5 17.4765V18.8907H6.41421L15.7279 9.57696ZM18.5563 2.50589L21.3848 5.33432C21.7753 5.72484 21.7753 6.35801 21.3848 6.74853L19.9706 8.16274L15.7279 3.9201L17.1421 2.50589C17.5327 2.11537 18.1658 2.11537 18.5563 2.50589Z"></path>' };
+  var RiBuildingsCommunityLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 21H3C2.44772 21 2 20.5523 2 20V12.4868C2 12.1978 2.12501 11.9229 2.34282 11.733L6 8.54435V4C6 3.44772 6.44772 3 7 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21ZM9 19H12V12.9416L8 9.45402L4 12.9416V19H7V15H9V19ZM14 19H20V5H8V7.12729C8.23444 7.12729 8.46888 7.20938 8.65718 7.37355L13.6572 11.733C13.875 11.9229 14 12.1978 14 12.4868V19ZM16 11H18V13H16V11ZM16 15H18V17H16V15ZM16 7H18V9H16V7ZM12 7H14V9H12V7Z"></path>' };
+  var RiBuildingsBankLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 20H22V22H2V20ZM4 12H6V19H4V12ZM9 12H11V19H9V12ZM13 12H15V19H13V12ZM18 12H20V19H18V12ZM2 7L12 2L22 7V11H2V7ZM4 8.23607V9H20V8.23607L12 4.23607L4 8.23607ZM12 8C11.4477 8 11 7.55228 11 7C11 6.44772 11.4477 6 12 6C12.5523 6 13 6.44772 13 7C13 7.55228 12.5523 8 12 8Z"></path>' };
+  var RiUserFacesAdminLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M12 14V16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM21 17H22V22H14V17H15V16C15 14.3431 16.3431 13 18 13C19.6569 13 21 14.3431 21 16V17ZM19 17V16C19 15.4477 18.5523 15 18 15C17.4477 15 17 15.4477 17 16V17H19Z"></path>' };
+  var RiUserFacesGroup2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M9.55 11.5C8.30736 11.5 7.3 10.4926 7.3 9.25C7.3 8.00736 8.30736 7 9.55 7C10.7926 7 11.8 8.00736 11.8 9.25C11.8 10.4926 10.7926 11.5 9.55 11.5ZM10 19.748V16.4C10 15.9116 10.1442 15.4627 10.4041 15.0624C10.1087 15.0213 9.80681 15 9.5 15C7.93201 15 6.49369 15.5552 5.37091 16.4797C6.44909 18.0721 8.08593 19.2553 10 19.748ZM4.45286 14.66C5.86432 13.6168 7.61013 13 9.5 13C10.5435 13 11.5431 13.188 12.4667 13.5321C13.3447 13.1888 14.3924 13 15.5 13C17.1597 13 18.6849 13.4239 19.706 14.1563C19.8976 13.4703 20 12.7471 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 12.9325 4.15956 13.8278 4.45286 14.66ZM18.8794 16.0859C18.4862 15.5526 17.1708 15 15.5 15C13.4939 15 12 15.7967 12 16.4V20C14.9255 20 17.4843 18.4296 18.8794 16.0859ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM15.5 12.5C14.3954 12.5 13.5 11.6046 13.5 10.5C13.5 9.39543 14.3954 8.5 15.5 8.5C16.6046 8.5 17.5 9.39543 17.5 10.5C17.5 11.6046 16.6046 12.5 15.5 12.5Z"></path>' };
+  var RiUserFacesContactsLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M19 7H24V9H19V7ZM17 12H24V14H17V12ZM20 17H24V19H20V17ZM2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11Z"></path>' };
+  var RiSystemDeleteBin5Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8ZM6 10V20H18V10H6ZM9 12H11V18H9V12ZM13 12H15V18H13V12ZM7 5V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V5H22V7H2V5H7ZM9 4V5H15V4H9Z"></path>' };
+  var RiSystemFilterLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 4V6H20L15 13.5V22H9V13.5L4 6H3V4H21ZM6.4037 6L11 12.8944V20H13V12.8944L17.5963 6H6.4037Z"></path>' };
+  var RiArrowsArrowGoBackLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M5.82843 6.99955L8.36396 9.53509L6.94975 10.9493L2 5.99955L6.94975 1.0498L8.36396 2.46402L5.82843 4.99955H13C17.4183 4.99955 21 8.58127 21 12.9996C21 17.4178 17.4183 20.9996 13 20.9996H4V18.9996H13C16.3137 18.9996 19 16.3133 19 12.9996C19 9.68584 16.3137 6.99955 13 6.99955H5.82843Z"></path>' };
+  var RiEditorOrganizationChart = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M15 3C15.5523 3 16 3.44772 16 4V8C16 8.55228 15.5523 9 15 9H13V11H17C17.5523 11 18 11.4477 18 12V15H20C20.5523 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H14C13.4477 21 13 20.5523 13 20V16C13 15.4477 13.4477 15 14 15H16V13H8V15H10C10.5523 15 11 15.4477 11 16V20C11 20.5523 10.5523 21 10 21H4C3.44772 21 3 20.5523 3 20V16C3 15.4477 3.44772 15 4 15H6V12C6 11.4477 6.44772 11 7 11H11V9H9C8.44772 9 8 8.55228 8 8V4C8 3.44772 8.44772 3 9 3H15ZM9 17H5V19H9V17ZM19 17H15V19H19V17ZM14 5H10V7H14V5Z"></path>' };
 
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/cg/index.js
   var CgChevronDoubleRight = { a: { viewBox: "0 0 24 24", fill: "none" }, c: '<path d="M5.63605 7.75735L7.05026 6.34314L12.7071 12L7.05029 17.6568L5.63608 16.2426L9.87869 12L5.63605 7.75735Z" fill="currentColor"></path><path d="M12.7071 6.34314L11.2929 7.75735L15.5356 12L11.2929 16.2426L12.7072 17.6568L18.364 12L12.7071 6.34314Z" fill="currentColor"></path>' };
@@ -11042,7 +11041,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     } } = $props;
     let { OnDelete = async function(row) {
     } } = $props;
-    let { OnEdit: OnEdit2 = async function(id, payloads2) {
+    let { OnEdit = async function(id, payloads2) {
     } } = $props;
     let { OnRefresh = async function(pagerIn) {
     } } = $props;
@@ -11091,7 +11090,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     function handleSubmitEdit() {
       $invalidate(12, showPopUp = false);
-      OnEdit2(idToMod, payloads);
+      OnEdit(idToMod, payloads);
     }
     function filtertable_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
@@ -11148,7 +11147,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       if ("OnDelete" in $props2)
         $invalidate(34, OnDelete = $props2.OnDelete);
       if ("OnEdit" in $props2)
-        $invalidate(35, OnEdit2 = $props2.OnEdit);
+        $invalidate(35, OnEdit = $props2.OnEdit);
       if ("OnRefresh" in $props2)
         $invalidate(36, OnRefresh = $props2.OnRefresh);
       if ("$scope" in $props2)
@@ -11199,7 +11198,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       ARRAY_OF_ARRAY,
       OnRestore,
       OnDelete,
-      OnEdit2,
+      OnEdit,
       OnRefresh,
       $scope,
       slots,
@@ -11253,56 +11252,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 
   // superAdmin_tenantManagement.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
-  function create_default_slot_1(ctx) {
-    let button;
-    let icon;
-    let current;
-    let mounted;
-    let dispose;
-    icon = new Icon_default({
-      props: {
-        color: "var(--gray-007)",
-        size: "16",
-        src: RiSystemAddBoxLine
-      }
-    });
-    return {
-      c() {
-        button = element("button");
-        create_component(icon.$.fragment);
-        attr(button, "class", "action_btn");
-        attr(button, "title", "add tenant");
-      },
-      m(target, anchor) {
-        insert(target, button, anchor);
-        mount_component(icon, button, null);
-        current = true;
-        if (!mounted) {
-          dispose = listen(button, "click", AddRow);
-          mounted = true;
-        }
-      },
-      p: noop,
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(button);
-        }
-        destroy_component(icon);
-        mounted = false;
-        dispose();
-      }
-    };
-  }
   function create_default_slot(ctx) {
     let div;
     let mastertable;
@@ -11321,10 +11270,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     let mastertable_props = {
       ACCESS: segments2,
-      CAN_EDIT_ROW: true,
       CAN_SEARCH_ROW: true,
       CAN_DELETE_ROW: true,
       CAN_RESTORE_ROW: true,
+      CAN_EDIT_ROW: false,
       OnRefresh: (
         /*OnRefresh*/
         ctx[3]
@@ -11336,10 +11285,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       OnDelete: (
         /*OnDelete*/
         ctx[5]
-      ),
-      OnEdit,
-      $slots: { default: [create_default_slot_1] },
-      $scope: { ctx }
+      )
     };
     if (
       /*fields*/
@@ -11378,10 +11324,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         const mastertable_changes = {};
-        if (dirty & /*$scope*/
-        512) {
-          mastertable_changes.$scope = { dirty, ctx: ctx2 };
-        }
         if (!updating_FIELDS && dirty & /*fields*/
         1) {
           updating_FIELDS = true;
@@ -11443,7 +11385,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       p(ctx2, [dirty]) {
         const mainlayout_changes = {};
         if (dirty & /*$scope, fields, pager, tenants*/
-        519) {
+        1031) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -11467,17 +11409,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     /** @type Access */
     {/* segments */}
   );
-  async function OnEdit(id, payloads) {
-    console.log(
-      /** @type any[]*/
-      "ID:",
-      id
-    );
-    console.log("Payloads:", payloads);
-  }
-  function AddRow() {
-    console.log("AddRow");
-  }
   function instance10($self, $props, $invalidate) {
     let fields = (
       /** @type Field[] */
@@ -11491,6 +11422,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /** @type any[][] */
       [/* tenants */]
     );
+    let tenant = (
+      /** @type Tenant */
+      {/* tenant */}
+    );
     async function OnRefresh(pagerIn) {
       const i = { pager: pagerIn, cmd: "list" };
       await (0, import_jsApi.SuperAdminTenantManagement)(
@@ -11503,9 +11438,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             console.log(o);
             return;
           }
-          console.log(o);
           $invalidate(2, tenants = o.tenants);
           $invalidate(1, pager = o.pager);
+          tenant = o.tenant;
         }
       );
     }
@@ -11526,10 +11461,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             notifier.showError(o.error);
             return;
           }
-          console.log(o);
-          notifier.showSuccess(o.tenant.tenantCode + " restored");
           $invalidate(2, tenants = o.tenants);
           $invalidate(1, pager = o.pager);
+          tenant = o.tenant;
+          notifier.showSuccess(tenant.tenantCode + " restored");
         }
       );
     }
@@ -11550,10 +11485,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             notifier.showError(o.error);
             return;
           }
-          console.log(o);
-          notifier.showSuccess(o.tenant.tenantCode + " deleted");
           $invalidate(2, tenants = o.tenants);
           $invalidate(1, pager = o.pager);
+          tenant = o.tenant;
+          notifier.showSuccess(tenant.tenantCode + " deleted");
         }
       );
     }

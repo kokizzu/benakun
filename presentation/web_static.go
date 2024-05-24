@@ -318,6 +318,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`fields`:   out.Meta.Fields,
 			`pager`:    out.Pager,
 			`user`:     user,
+			`tenant`: out.Tenant,
 		})
 	})
 

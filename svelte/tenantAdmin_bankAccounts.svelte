@@ -127,8 +127,7 @@
 
         pager = o.pager;
         accounts = o.accounts;
-        notifier.showSuccess(payloads[1]+' edited')
-        popUpAddBankAccount.Reset();
+        notifier.showSuccess(payloads[1]+' edited');
       }
     );
   }
@@ -190,17 +189,19 @@
       {OnRefresh}
       {OnEdit}
     >
-    <button
-      class="action_btn"
-      on:click={() => popUpAddBankAccount.Show()}
-      title="add account"
-    >
-      <Icon
-        color="var(--gray-007)"
-        size="16"
-        src={RiSystemAddBoxLine}
-      />
-    </button>
+      {#if user.tenantCode !== ''}
+        <button
+          class="action_btn"
+          on:click={() => popUpAddBankAccount.Show()}
+          title="add account"
+        >
+          <Icon
+            color="var(--gray-007)"
+            size="16"
+            src={RiSystemAddBoxLine}
+          />
+        </button>
+      {/if}
     </MasterTable>
   </div>
 </MainLayout>

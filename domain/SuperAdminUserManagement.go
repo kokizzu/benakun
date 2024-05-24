@@ -47,12 +47,13 @@ var SuperAdminUserManagementMeta = zCrud.Meta{
 			Label:     "ID",
 			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeHidden,
+			ReadOnly: true,
 		},
 		{
 			Name:      mAuth.TenantCode,
 			Label:     "Tenant Code",
 			DataType:  zCrud.DataTypeString,
-			InputType: zCrud.InputTypeCombobox,
+			ReadOnly: true,
 		},
 		{
 			Name:      mAuth.Email,
@@ -83,22 +84,8 @@ var SuperAdminUserManagementMeta = zCrud.Meta{
 			InputType: zCrud.InputTypeDateTime,
 		},
 		{
-			Name:      mAuth.UpdatedAt,
-			Label:     `Updated At`,
-			ReadOnly:  true,
-			DataType:  zCrud.DataTypeInt,
-			InputType: zCrud.InputTypeDateTime,
-		},
-		{
 			Name:      mAuth.DeletedAt,
 			Label:     `Deleted At`,
-			ReadOnly:  true,
-			DataType:  zCrud.DataTypeInt,
-			InputType: zCrud.InputTypeDateTime,
-		},
-		{
-			Name:      mAuth.VerifiedAt,
-			Label:     `Verified At`,
 			ReadOnly:  true,
 			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeDateTime,
@@ -171,7 +158,10 @@ func (d *Domain) SuperAdminUserManagement(in *SuperAdminUserManagementIn) (out S
 				return
 			}
 		}
-		user.SetFullName(in.User.FullName)
+
+		if in.User.FullName != user.FullName {
+			user.SetFullName(in.User.FullName)
+		}
 
 		if user.SetRole(in.User.Role) {
 			if in.User.Role != UserSegment &&
