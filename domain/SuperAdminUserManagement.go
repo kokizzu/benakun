@@ -75,6 +75,7 @@ var SuperAdminUserManagementMeta = zCrud.Meta{
 			Ref: []string{
 				UserSegment, DataEntrySegment, TenantAdminSegment, ReportViewerSegment,
 			},
+			ReadOnly: true,
 		},
 		{
 			Name:      mAuth.CreatedAt,

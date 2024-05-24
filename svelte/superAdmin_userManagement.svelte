@@ -3,10 +3,10 @@
   import { RiSystemAddBoxLine } from './node_modules/svelte-icons-pack/dist/ri';
   import MainLayout from './_layouts/mainLayout.svelte';
   import MasterTable from './_components/MasterTable.svelte';
-  import PoUpForms from './_components/PoUpForms.svelte';
   import { SuperAdminUserManagement } from './jsApi.GEN';
   import { notifier } from './_components/notifier';
   import { onMount } from 'svelte';
+  import PopUpAddUser from './_components/PopUpAddUser.svelte';
 
   /** @typedef {import('./_components/types/master.js').Field} Field */
 	/** @typedef {import('./_components/types/access.js').Access} Access */
@@ -20,10 +20,10 @@
   let pager     = /** @type PagerOut */ ({/* pager */});
   let users   = /** @type any[][] */ ([/* users */]);
 
-  let isPopUpFormsReady = false;
-  let popUpForms = null;
+  let isPopUpAddUserReady = false;
+  let popUpAddUser = null;
   onMount(() => {
-    isPopUpFormsReady = true;
+    isPopUpAddUserReady = true;
   })
 
   async function OnRefresh(/** @type PagerIn */ pagerIn) {
@@ -129,9 +129,9 @@
   }
 </script>
 
-{#if isPopUpFormsReady}
-  <PoUpForms
-    bind:this={popUpForms}
+{#if isPopUpAddUserReady}
+  <PopUpAddUser
+    bind:this={popUpAddUser}
     heading="Add user"
     FIELDS={fields}
   />
@@ -157,7 +157,7 @@
     >
     <button
       class="action_btn"
-      on:click={() => popUpForms.Show()}
+      on:click={() => popUpAddUser.Show()}
       title="add account"
     >
       <Icon

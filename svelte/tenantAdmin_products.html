@@ -11697,10 +11697,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
       each_blocks[i] = null;
     });
-    let if_block0 = !/*isSubmitAddProduct*/
+    let if_block0 = !/*isSubmitted*/
     ctx[2] && create_if_block_16(ctx);
     let if_block1 = (
-      /*isSubmitAddProduct*/
+      /*isSubmitted*/
       ctx[2] && create_if_block5(ctx)
     );
     return {
@@ -11743,7 +11743,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         attr(div1, "class", "left");
         attr(button1, "class", "cancel svelte-19kcmoe");
         attr(button2, "class", "ok svelte-19kcmoe");
-        button2.disabled = /*isSubmitAddProduct*/
+        button2.disabled = /*isSubmitted*/
         ctx[2];
         attr(div2, "class", "right svelte-19kcmoe");
         attr(div3, "class", "foot svelte-19kcmoe");
@@ -11834,7 +11834,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           }
           check_outros();
         }
-        if (!/*isSubmitAddProduct*/
+        if (!/*isSubmitted*/
         ctx2[2]) {
           if (if_block0) {
           } else {
@@ -11847,11 +11847,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           if_block0 = null;
         }
         if (
-          /*isSubmitAddProduct*/
+          /*isSubmitted*/
           ctx2[2]
         ) {
           if (if_block1) {
-            if (dirty & /*isSubmitAddProduct*/
+            if (dirty & /*isSubmitted*/
             4) {
               transition_in(if_block1, 1);
             }
@@ -11868,9 +11868,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           });
           check_outros();
         }
-        if (!current || dirty & /*isSubmitAddProduct*/
+        if (!current || dirty & /*isSubmitted*/
         4) {
-          button2.disabled = /*isSubmitAddProduct*/
+          button2.disabled = /*isSubmitted*/
           ctx2[2];
         }
         if (!current || dirty & /*isShow*/
@@ -11919,7 +11919,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /** @type Field[] */
       []
     ) } = $props;
-    let { isSubmitAddProduct = false } = $props;
+    let { isSubmitted = false } = $props;
     let isShow = false;
     let payloads = [];
     onMount(() => {
@@ -11952,15 +11952,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         $invalidate(0, heading = $props2.heading);
       if ("FIELDS" in $props2)
         $invalidate(1, FIELDS = $props2.FIELDS);
-      if ("isSubmitAddProduct" in $props2)
-        $invalidate(2, isSubmitAddProduct = $props2.isSubmitAddProduct);
+      if ("isSubmitted" in $props2)
+        $invalidate(2, isSubmitted = $props2.isSubmitted);
       if ("OnSubmit" in $props2)
         $invalidate(3, OnSubmit = $props2.OnSubmit);
     };
     return [
       heading,
       FIELDS,
-      isSubmitAddProduct,
+      isSubmitted,
       OnSubmit,
       Hide,
       isShow,
@@ -11978,7 +11978,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       init(this, options, instance10, create_fragment10, safe_not_equal, {
         heading: 0,
         FIELDS: 1,
-        isSubmitAddProduct: 2,
+        isSubmitted: 2,
         OnSubmit: 3,
         Show: 8,
         Hide: 4,
@@ -12001,9 +12001,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var import_jsApi = __toESM(require_jsApi_GEN());
   function create_if_block_17(ctx) {
     let poupforms;
-    let updating_isSubmitAddProduct;
+    let updating_isSubmitted;
     let current;
-    function poupforms_isSubmitAddProduct_binding(value) {
+    function poupforms_isSubmitted_binding(value) {
       ctx[12](value);
     }
     let poupforms_props = {
@@ -12021,12 +12021,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /*isSubmitAddProduct*/
       ctx[5] !== void 0
     ) {
-      poupforms_props.isSubmitAddProduct = /*isSubmitAddProduct*/
+      poupforms_props.isSubmitted = /*isSubmitAddProduct*/
       ctx[5];
     }
     poupforms = new PoUpForms_default({ props: poupforms_props });
     ctx[11](poupforms);
-    binding_callbacks.push(() => bind(poupforms, "isSubmitAddProduct", poupforms_isSubmitAddProduct_binding));
+    binding_callbacks.push(() => bind(poupforms, "isSubmitted", poupforms_isSubmitted_binding));
     return {
       c() {
         create_component(poupforms.$.fragment);
@@ -12041,12 +12041,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         1)
           poupforms_changes.FIELDS = /*fields*/
           ctx2[0];
-        if (!updating_isSubmitAddProduct && dirty & /*isSubmitAddProduct*/
+        if (!updating_isSubmitted && dirty & /*isSubmitAddProduct*/
         32) {
-          updating_isSubmitAddProduct = true;
-          poupforms_changes.isSubmitAddProduct = /*isSubmitAddProduct*/
+          updating_isSubmitted = true;
+          poupforms_changes.isSubmitted = /*isSubmitAddProduct*/
           ctx2[5];
-          add_flush_callback(() => updating_isSubmitAddProduct = false);
+          add_flush_callback(() => updating_isSubmitted = false);
         }
         poupforms.$set(poupforms_changes);
       },
@@ -12524,7 +12524,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         $invalidate(4, popUpForms);
       });
     }
-    function poupforms_isSubmitAddProduct_binding(value) {
+    function poupforms_isSubmitted_binding(value) {
       isSubmitAddProduct = value;
       $invalidate(5, isSubmitAddProduct);
     }
@@ -12554,7 +12554,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       OnEdit,
       OnAddProduct,
       poupforms_binding,
-      poupforms_isSubmitAddProduct_binding,
+      poupforms_isSubmitted_binding,
       click_handler,
       mastertable_FIELDS_binding,
       mastertable_PAGER_binding,

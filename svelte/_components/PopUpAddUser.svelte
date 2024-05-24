@@ -8,7 +8,7 @@
   // @ts-ignore
   /** @typedef {import('../_components/types/master').Field} Field */
 
-  export let heading = 'Add product';
+  export let heading = 'Add user';
   export let FIELDS = /** @type Field[] */ ([]);
   export let isSubmitted = false;
   let isShow = false;

@@ -177,7 +177,7 @@
     bind:this={popUpForms}
     heading="Add product"
     FIELDS={fields}
-    bind:isSubmitAddProduct
+    bind:isSubmitted={isSubmitAddProduct}
     OnSubmit={OnAddProduct}
   />
 {/if}

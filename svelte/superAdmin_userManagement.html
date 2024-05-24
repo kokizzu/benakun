@@ -1255,7 +1255,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   }
 }
 
-/* fakecss:./_components/PoUpForms.esbuild-svelte-fake-css */
+/* fakecss:./_components/PopUpAddUser.esbuild-svelte-fake-css */
 @keyframes svelte-19kcmoe-spin {
   from {
     transform: rotate(0deg);
@@ -11368,7 +11368,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   };
   var MasterTable_default = MasterTable;
 
-  // _components/PoUpForms.svelte
+  // superAdmin_userManagement.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
+
+  // _components/PopUpAddUser.svelte
   function get_each_context4(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[12] = list[i];
@@ -11697,10 +11700,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
       each_blocks[i] = null;
     });
-    let if_block0 = !/*isSubmitAddProduct*/
+    let if_block0 = !/*isSubmitted*/
     ctx[2] && create_if_block_16(ctx);
     let if_block1 = (
-      /*isSubmitAddProduct*/
+      /*isSubmitted*/
       ctx[2] && create_if_block5(ctx)
     );
     return {
@@ -11743,7 +11746,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         attr(div1, "class", "left");
         attr(button1, "class", "cancel svelte-19kcmoe");
         attr(button2, "class", "ok svelte-19kcmoe");
-        button2.disabled = /*isSubmitAddProduct*/
+        button2.disabled = /*isSubmitted*/
         ctx[2];
         attr(div2, "class", "right svelte-19kcmoe");
         attr(div3, "class", "foot svelte-19kcmoe");
@@ -11834,7 +11837,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           }
           check_outros();
         }
-        if (!/*isSubmitAddProduct*/
+        if (!/*isSubmitted*/
         ctx2[2]) {
           if (if_block0) {
           } else {
@@ -11847,11 +11850,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           if_block0 = null;
         }
         if (
-          /*isSubmitAddProduct*/
+          /*isSubmitted*/
           ctx2[2]
         ) {
           if (if_block1) {
-            if (dirty & /*isSubmitAddProduct*/
+            if (dirty & /*isSubmitted*/
             4) {
               transition_in(if_block1, 1);
             }
@@ -11868,9 +11871,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           });
           check_outros();
         }
-        if (!current || dirty & /*isSubmitAddProduct*/
+        if (!current || dirty & /*isSubmitted*/
         4) {
-          button2.disabled = /*isSubmitAddProduct*/
+          button2.disabled = /*isSubmitted*/
           ctx2[2];
         }
         if (!current || dirty & /*isShow*/
@@ -11914,12 +11917,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function instance10($self, $props, $invalidate) {
-    let { heading = "Add product" } = $props;
+    let { heading = "Add user" } = $props;
     let { FIELDS = (
       /** @type Field[] */
       []
     ) } = $props;
-    let { isSubmitAddProduct = false } = $props;
+    let { isSubmitted = false } = $props;
     let isShow = false;
     let payloads = [];
     onMount(() => {
@@ -11952,15 +11955,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         $invalidate(0, heading = $props2.heading);
       if ("FIELDS" in $props2)
         $invalidate(1, FIELDS = $props2.FIELDS);
-      if ("isSubmitAddProduct" in $props2)
-        $invalidate(2, isSubmitAddProduct = $props2.isSubmitAddProduct);
+      if ("isSubmitted" in $props2)
+        $invalidate(2, isSubmitted = $props2.isSubmitted);
       if ("OnSubmit" in $props2)
         $invalidate(3, OnSubmit = $props2.OnSubmit);
     };
     return [
       heading,
       FIELDS,
-      isSubmitAddProduct,
+      isSubmitted,
       OnSubmit,
       Hide,
       isShow,
@@ -11972,13 +11975,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       click_handler
     ];
   }
-  var PoUpForms = class extends SvelteComponent {
+  var PopUpAddUser = class extends SvelteComponent {
     constructor(options) {
       super();
       init(this, options, instance10, create_fragment10, safe_not_equal, {
         heading: 0,
         FIELDS: 1,
-        isSubmitAddProduct: 2,
+        isSubmitted: 2,
         OnSubmit: 3,
         Show: 8,
         Hide: 4,
@@ -11995,51 +11998,50 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       return this.$.ctx[9];
     }
   };
-  var PoUpForms_default = PoUpForms;
+  var PopUpAddUser_default = PopUpAddUser;
 
   // superAdmin_userManagement.svelte
-  var import_jsApi = __toESM(require_jsApi_GEN());
   function create_if_block6(ctx) {
-    let poupforms;
+    let popupadduser;
     let current;
-    let poupforms_props = {
+    let popupadduser_props = {
       heading: "Add user",
       FIELDS: (
         /*fields*/
         ctx[0]
       )
     };
-    poupforms = new PoUpForms_default({ props: poupforms_props });
-    ctx[9](poupforms);
+    popupadduser = new PopUpAddUser_default({ props: popupadduser_props });
+    ctx[9](popupadduser);
     return {
       c() {
-        create_component(poupforms.$.fragment);
+        create_component(popupadduser.$.fragment);
       },
       m(target, anchor) {
-        mount_component(poupforms, target, anchor);
+        mount_component(popupadduser, target, anchor);
         current = true;
       },
       p(ctx2, dirty) {
-        const poupforms_changes = {};
+        const popupadduser_changes = {};
         if (dirty & /*fields*/
         1)
-          poupforms_changes.FIELDS = /*fields*/
+          popupadduser_changes.FIELDS = /*fields*/
           ctx2[0];
-        poupforms.$set(poupforms_changes);
+        popupadduser.$set(popupadduser_changes);
       },
       i(local) {
         if (current)
           return;
-        transition_in(poupforms.$.fragment, local);
+        transition_in(popupadduser.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(poupforms.$.fragment, local);
+        transition_out(popupadduser.$.fragment, local);
         current = false;
       },
       d(detaching) {
         ctx[9](null);
-        destroy_component(poupforms, detaching);
+        destroy_component(popupadduser, detaching);
       }
     };
   }
@@ -12176,7 +12178,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         const mastertable_changes = {};
-        if (dirty & /*$scope, popUpForms*/
+        if (dirty & /*$scope, popUpAddUser*/
         32784) {
           mastertable_changes.$scope = { dirty, ctx: ctx2 };
         }
@@ -12226,7 +12228,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let mainlayout;
     let current;
     let if_block = (
-      /*isPopUpFormsReady*/
+      /*isPopUpAddUserReady*/
       ctx[3] && create_if_block6(ctx)
     );
     mainlayout = new mainLayout_default({
@@ -12251,12 +12253,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, [dirty]) {
         if (
-          /*isPopUpFormsReady*/
+          /*isPopUpAddUserReady*/
           ctx2[3]
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
-            if (dirty & /*isPopUpFormsReady*/
+            if (dirty & /*isPopUpAddUserReady*/
             8) {
               transition_in(if_block, 1);
             }
@@ -12274,7 +12276,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           check_outros();
         }
         const mainlayout_changes = {};
-        if (dirty & /*$scope, fields, pager, users, popUpForms*/
+        if (dirty & /*$scope, fields, pager, users, popUpAddUser*/
         32791) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
@@ -12323,10 +12325,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /** @type any[][] */
       [/* users */]
     );
-    let isPopUpFormsReady = false;
-    let popUpForms = null;
+    let isPopUpAddUserReady = false;
+    let popUpAddUser = null;
     onMount(() => {
-      $invalidate(3, isPopUpFormsReady = true);
+      $invalidate(3, isPopUpAddUserReady = true);
     });
     async function OnRefresh(pagerIn) {
       const i = { pager: pagerIn, cmd: "list" };
@@ -12421,13 +12423,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
       );
     }
-    function poupforms_binding($value) {
+    function popupadduser_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
-        popUpForms = $value;
-        $invalidate(4, popUpForms);
+        popUpAddUser = $value;
+        $invalidate(4, popUpAddUser);
       });
     }
-    const click_handler = () => popUpForms.Show();
+    const click_handler = () => popUpAddUser.Show();
     function mastertable_FIELDS_binding(value) {
       fields = value;
       $invalidate(0, fields);
@@ -12444,13 +12446,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       fields,
       pager,
       users,
-      isPopUpFormsReady,
-      popUpForms,
+      isPopUpAddUserReady,
+      popUpAddUser,
       OnRefresh,
       OnRestore,
       OnDelete,
       OnEdit,
-      poupforms_binding,
+      popupadduser_binding,
       click_handler,
       mastertable_FIELDS_binding,
       mastertable_PAGER_binding,
