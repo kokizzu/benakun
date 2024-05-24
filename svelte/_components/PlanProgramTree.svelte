@@ -1,11 +1,11 @@
 <script>
-  import { Icon } from 'svelte-icons-pack';
-  import { FaFolder } from 'svelte-icons-pack/fa';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import { FaFolder } from '../node_modules/svelte-icons-pack/dist/fa';
   import {
     RiMediaSpeedMiniFill,
     RiSystemAddBoxLine,
     RiDesignPencilLine
-  } from 'svelte-icons-pack/ri';
+  } from '../node_modules/svelte-icons-pack/dist/ri';
   import { createEventDispatcher } from 'svelte';
   import { TenantAdminCreateBudgetPlan, TenantAdminUpdateBudgetPlan } from '../jsApi.GEN.js';
   import PopUpBudgetPlan from './PopUpBudgetPlan.svelte';

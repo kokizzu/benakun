@@ -1,12 +1,12 @@
 <script>
-  import { Icon } from 'svelte-icons-pack';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import {
     RiSystemAddBoxLine,
     RiDesignPencilLine,
     RiArrowsDragMove2Fill,
     RiSystemDeleteBinLine,
     RiArrowsArrowGoBackLine
-   } from 'svelte-icons-pack/ri';
+   } from '../node_modules/svelte-icons-pack/dist/ri';
   import { onMount } from 'svelte';
   import PopUpCoaChild from './PopUpCoaChild.svelte';
   import { notifier } from './notifier.js';

@@ -1,5 +1,11 @@
 <script>
-  import { UserCreateCompany, GuestForgotPassword, GuestLogin, GuestRegister, GuestResendVerificationEmail } from './jsApi.GEN.js';
+  import {
+    UserCreateCompany,
+    GuestForgotPassword,
+    GuestLogin,
+    GuestRegister,
+    GuestResendVerificationEmail
+  } from './jsApi.GEN.js';
   import { onMount, tick } from 'svelte';
   import { notifier } from './_components/notifier.js';
   import InputBox from './_components/InputBox.svelte';

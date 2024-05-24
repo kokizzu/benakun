@@ -2,16 +2,16 @@
   import { UserLogout } from '../../jsApi.GEN.js';
   import { onMount } from 'svelte';
   import { notifier } from '../notifier.js'
-  import { Icon } from 'svelte-icons-pack';
+  import { Icon } from '../../node_modules/svelte-icons-pack/dist';
   import {
     AiOutlineWarning,
     AiOutlineWallet,
     AiOutlineHome
-  } from 'svelte-icons-pack/ai';
+  } from '../../node_modules/svelte-icons-pack/dist/ai';
   import {
     FaCircleUser,
     FaSolidSliders,
-  } from 'svelte-icons-pack/fa';
+  } from '../../node_modules/svelte-icons-pack/dist/fa';
   import {
     RiEditorOrganizationChart,
     RiUserFacesAdminLine,
@@ -19,9 +19,9 @@
     RiBuildingsBankLine,
     RiUserFacesGroup2Line,
     RiUserFacesContactsLine
-  } from 'svelte-icons-pack/ri';
-  import { CgLogOut, CgBox } from 'svelte-icons-pack/cg';
-  import { BsPostcard } from 'svelte-icons-pack/bs';
+  } from '../../node_modules/svelte-icons-pack/dist/ri';
+  import { CgLogOut, CgBox } from '../../node_modules/svelte-icons-pack/dist/cg';
+  import { BsPostcard } from '../../node_modules/svelte-icons-pack/dist/bs';
   import SubMenuLink from './SubMenuLink.svelte';
 
   /** @typedef {import('../types/access.js').Access} Access*/

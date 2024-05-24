@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
-  import { Icon } from 'svelte-icons-pack';
-  import { AiOutlineEye, AiOutlineEyeInvisible } from 'svelte-icons-pack/ai';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import { AiOutlineEye, AiOutlineEyeInvisible } from '../node_modules/svelte-icons-pack/dist/ai';
 
   // ==== Input type ======
   // text (default)

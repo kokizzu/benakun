@@ -1,19 +1,19 @@
 <script>
-	import { Icon } from 'svelte-icons-pack';
+	import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import {
 		RiDesignBallPenLine,
 		RiSystemDeleteBin5Line,
 		RiSystemFilterLine,
 		RiArrowsArrowGoBackLine
-	} from 'svelte-icons-pack/ri';
-  import { IoSearch, IoClose } from 'svelte-icons-pack/io';
-  import { FiLoader } from 'svelte-icons-pack/fi';
+	} from '../node_modules/svelte-icons-pack/dist/ri';
+  import { IoSearch, IoClose } from '../node_modules/svelte-icons-pack/dist/io';
+  import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
 	import {
 		CgChevronLeft,
 		CgChevronRight,
 		CgChevronDoubleRight,
 		CgChevronDoubleLeft
-	} from 'svelte-icons-pack/cg';
+	} from '../node_modules/svelte-icons-pack/dist/cg';
 	import InputCustom from './InputCustom.svelte';
 	import { onMount } from 'svelte';
 	import FilterTable from './FilterTable.svelte';

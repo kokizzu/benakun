@@ -1,6 +1,6 @@
 <script>
-  import { Icon } from 'svelte-icons-pack';
-  import { IoClose } from 'svelte-icons-pack/io';
+  import { Icon } from './node_modules/svelte-icons-pack/dist';
+  import { IoClose } from './node_modules/svelte-icons-pack/dist/io';
   import { notifier } from './_components/notifier.js';
   import { datetime } from './_components/formatter';
   import { onMount } from 'svelte';

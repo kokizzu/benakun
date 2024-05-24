@@ -1,5 +1,5 @@
 <script>
-	import { Icon } from 'svelte-icons-pack';
+	import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import {
     RiBuildingsCommunityLine,
     RiSystemAddBoxLine,
@@ -10,7 +10,7 @@
     RiUserFacesGroup3Line,
     RiBusinessBriefcaseLine,
     RiArrowsArrowRightSLine
-   } from 'svelte-icons-pack/ri';
+   } from '../node_modules/svelte-icons-pack/dist/ri';
   import { onMount, createEventDispatcher } from 'svelte';
   import PopUpOrgChild from './PopUpOrgChild.svelte';
   import {

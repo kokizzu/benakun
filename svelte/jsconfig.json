@@ -9,7 +9,9 @@
 		"sourceMap": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"checkJs": true
+		"checkJs": true,
+		"paths": {
+			"svelte-icons-pack": ["./node_modules/svelte-icons-pack/dist"]}
 	},
 	"include": ["./**/*.js", "./**/*.svelte"]
 }
