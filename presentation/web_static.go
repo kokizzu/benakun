@@ -244,6 +244,10 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`, 302)
 		}
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
+
+		r := rqAuth.NewUsers(d.AuthOltp)
+		staffs := r.FindStaffsChoicesByTenantCode(user.TenantCode)
+		
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.TenantAdminBankAccounts(&in)
@@ -254,6 +258,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`accounts`: out.Accounts,
 			`fields`: out.Meta.Fields,
 			`pager`: out.Pager,
+			`staffs`: staffs,
 		})
 	})
 

@@ -27,6 +27,7 @@
 	export let FIELDS					= /** @type Field[] */  ([]);	// bind
 	export let PAGER					= /** @type PagerOut */ ({}); // bind
 	export let MASTER_ROWS		= /** @type any[][] */	([]); // bind
+	export let REFS						= {};
 	
 	export let ACCESS						= /** @type Access */ ({});
 	export let ARRAY_OF_ARRAY		= true;
@@ -252,14 +253,28 @@
 				{#each (FIELDS || []) as field, idx}
 					{#if field.name !== 'id'}
 						{#if !field.readOnly}
-							<InputCustom
-								id={field.name}
-								label={field.label}
-								placeholder={field.description}
-								bind:value={payloads[idx]}
-								type={field.inputType}
-								values={field.ref}
-							/>
+							{#if field.inputType === 'combobox'}
+								<InputCustom
+									id={field.name}
+									label={field.label}
+									placeholder={field.description}
+									bind:value={payloads[idx]}
+									type={field.inputType}
+									values={REFS[field.name]
+										? REFS[field.name]
+										: field.ref
+										}
+									isObject={true}
+								/>
+							{:else}
+								<InputCustom
+									id={field.name}
+									label={field.label}
+									placeholder={field.description}
+									bind:value={payloads[idx]}
+									type={field.inputType}
+								/>
+							{/if}
 						{/if}
 					{/if}
 				{/each}
@@ -401,6 +416,8 @@
 									</td>
 								{:else if f.inputType === 'datetime'}
 									<td>{(row[idx]) ? datetime(row[idx]) : '--'}</td>
+								{:else if f.inputType === 'combobox' && REFS[f.name]}
+									<td>{REFS[f.name][row[idx]] || '--'}</td>	
 								{:else}
 									<td>
 										{(typeof row[idx] === 'boolean')
