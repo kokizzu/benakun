@@ -1,8 +1,7 @@
 <script>
   import { onMount } from 'svelte';
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import AiOutlineEye from 'svelte-icons-pack/ai/AiOutlineEye';
-  import AiOutlineEyeInvisible from 'svelte-icons-pack/ai/AiOutlineEyeInvisible';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import { AiOutlineEye, AiOutlineEyeInvisible } from '../node_modules/svelte-icons-pack/dist/ai';
 
   export let id;
   export let value;

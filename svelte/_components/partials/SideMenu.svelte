@@ -2,20 +2,26 @@
   import { UserLogout } from '../../jsApi.GEN.js';
   import { onMount } from 'svelte';
   import { notifier } from '../notifier.js'
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import AiOutlineWarning from 'svelte-icons-pack/ai/AiOutlineWarning';
-  import FaUserCircle from 'svelte-icons-pack/fa/FaUserCircle';
-  import RiEditorOrganizationChart from 'svelte-icons-pack/ri/RiEditorOrganizationChart';
-  import FaSolidSlidersH from 'svelte-icons-pack/fa/FaSolidSlidersH';
-  import CgLogOut from 'svelte-icons-pack/cg/CgLogOut';
-  import AiOutlineWallet from 'svelte-icons-pack/ai/AiOutlineWallet';
-  import RiUserAdminLine from 'svelte-icons-pack/ri/RiUserAdminLine';
-  import AiOutlineHome from 'svelte-icons-pack/ai/AiOutlineHome';
-  import RiBuildingsCommunityLine from 'svelte-icons-pack/ri/RiBuildingsCommunityLine';
-  import BsPostcard from 'svelte-icons-pack/bs/BsPostcard';
-  import HiOutlineUserGroup from 'svelte-icons-pack/ri/RiUserGroup2Line.js';
-  import HiOutlineUserAdd from 'svelte-icons-pack/ri/RiUserSpyLine.js';
-  import RiBuildingsBankLine from 'svelte-icons-pack/ri/RiBuildingsBankLine';
+  import { Icon } from '../../node_modules/svelte-icons-pack/dist';
+  import {
+    AiOutlineWarning,
+    AiOutlineWallet,
+    AiOutlineHome
+  } from '../../node_modules/svelte-icons-pack/dist/ai';
+  import {
+    FaCircleUser,
+    FaSolidSliders,
+  } from '../../node_modules/svelte-icons-pack/dist/fa';
+  import {
+    RiEditorOrganizationChart,
+    RiUserFacesAdminLine,
+    RiBuildingsCommunityLine,
+    RiBuildingsBankLine,
+    RiUserFacesGroup2Line,
+    RiUserFacesContactsLine
+  } from '../../node_modules/svelte-icons-pack/dist/ri';
+  import { CgLogOut, CgBox } from '../../node_modules/svelte-icons-pack/dist/cg';
+  import { BsPostcard } from '../../node_modules/svelte-icons-pack/dist/bs';
   import SubMenuLink from './SubMenuLink.svelte';
 
   /** @typedef {import('../types/access.js').Access} Access*/
@@ -61,7 +67,7 @@
         {/if}
         {#if access.entryUser }
           <a href='/entryUser/dashboard' class:active={segment1 === 'entryUser'}>
-            <Icon size="18" className={segment1 === 'entryUser'  ? 'icon_active' : 'icon_dark'} src={FaSolidSlidersH}/>
+            <Icon size="18" className={segment1 === 'entryUser'  ? 'icon_active' : 'icon_dark'} src={FaSolidSliders}/>
             <span>Entry User</span>
           </a>
         {/if}
@@ -75,23 +81,24 @@
             <SubMenuLink title='Budgeting' href='/tenantAdmin/budgeting' icon={AiOutlineWallet}/>
             <SubMenuLink title='Chart of Acount' href='/tenantAdmin/coa' icon={BsPostcard}/>
             <SubMenuLink title='Bank Accounts' href='/tenantAdmin/bankAccounts' icon={RiBuildingsBankLine}/>
+            <SubMenuLink title='Products' href='/tenantAdmin/products' icon={CgBox}/>
           </div>
         {/if}
         {#if access.superAdmin }
           <a href='/superAdmin/dashboard' class:active={window.location.pathname === '/superAdmin/dashboard'}>
-            <Icon size="18" className={window.location.pathname === '/superAdmin/dashboard'  ? 'icon_active' : 'icon_dark'} src={RiUserAdminLine}/>
+            <Icon size="18" className={window.location.pathname === '/superAdmin/dashboard'  ? 'icon_active' : 'icon_dark'} src={RiUserFacesAdminLine}/>
             <span>Super Admin</span>
           </a>
           <div class="submenu">
-            <SubMenuLink title='Users' href='/superAdmin/userManagement' icon={HiOutlineUserGroup}/>
-            <SubMenuLink title='Tenants' href='/superAdmin/tenantManagement' icon={HiOutlineUserAdd}/>
+            <SubMenuLink title='Users' href='/superAdmin/userManagement' icon={RiUserFacesGroup2Line}/>
+            <SubMenuLink title='Tenants' href='/superAdmin/tenantManagement' icon={RiUserFacesContactsLine}/>
           </div>
         {/if}
       </nav>
       <nav class="menu_list">
         {#if access.user}
           <a href='/user/profile' class:active={segment1 === 'user'}>
-            <Icon size="18" className={segment1 === 'user' ? 'icon_active' : 'icon_dark'} src={FaUserCircle}/>
+            <Icon size="18" className={segment1 === 'user' ? 'icon_active' : 'icon_dark'} src={FaCircleUser}/>
             <span>Profile</span>
           </a>
         {/if}

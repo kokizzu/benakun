@@ -1,8 +1,8 @@
 <script>
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
+  import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
   import InputCustom from './InputCustom.svelte';
-  import Icon from 'svelte-icons-pack';
-  import FiLoader from 'svelte-icons-pack/fi/FiLoader';
-  import IoClose from 'svelte-icons-pack/io/IoClose';
   import { TenantAdminBankAccounts } from '../jsApi.GEN';
   import { notifier } from './notifier';
 
@@ -140,16 +140,18 @@
         type="bool"
       />
       {#if isStaffAccount}
-        {#if isStaffsReady}
-        <InputCustom
-          bind:value={staffId}
-          id="staffId"
-          label="Staff"
-          type="select"
-          placeholder="John Doe (johndoe@example.com)"
-          values={staffsObj}
-          isObject
-        />
+        {#if isStaffsReady && staffsObj == {}}
+          <InputCustom
+            bind:value={staffId}
+            id="staffId"
+            label="Staff"
+            type="select"
+            placeholder="John Doe (johndoe@example.com)"
+            values={staffsObj}
+            isObject
+          />
+        {:else}
+          <p>No staffs</p>
         {/if}
       {/if}
     </div>

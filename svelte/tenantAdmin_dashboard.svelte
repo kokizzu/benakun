@@ -1,6 +1,6 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import RiBusinessMailAddLine from 'svelte-icons-pack/ri/RiBusinessMailAddLine';
+  import { Icon } from './node_modules/svelte-icons-pack/dist';
+  import { RiBusinessMailAddLine } from './node_modules/svelte-icons-pack/dist/ri';
   import MainLayout from './_layouts/mainLayout.svelte';
   import MasterTable from './_components/MasterTable.svelte';
   import PopUpInviteUser from './_components/PopUpInviteUser.svelte';
@@ -160,17 +160,19 @@
       {OnRestore}
       {OnDelete}
     >
-      <button
-        class="action_btn"
-        on:click={() => popUpInviteUser.Show()}
-        title="invite user"
-      >
-      <Icon
-        color="var(--gray-007)"
-        size="16"
-        src={RiBusinessMailAddLine}
-      />
-    </button>
+      {#if user.tenantCode !== ''}
+        <button
+          class="action_btn"
+          on:click={() => popUpInviteUser.Show()}
+          title="invite user"
+        >
+          <Icon
+            color="var(--gray-007)"
+            size="16"
+            src={RiBusinessMailAddLine}
+          />
+        </button>
+      {/if}
     </MasterTable>
   </div>
 </MainLayout>

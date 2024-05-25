@@ -45,6 +45,7 @@ const (
 	ErrTenantAdminBankAccountsParentNotFound = `parent bank account not found`
 	ErrTenantAdminBankAccountsParentHaveChild = `parent bank account already have child`
 	ErrTenantAdminBankAccountsStaffNotFound = `staff not found to choose account's owner`
+	ErrTenantAdminBankAccountsNotTenant = `must be tenant admin to do this operation`
 )
 
 var TenantAdminBankAccountsMeta = zCrud.Meta{
@@ -122,7 +123,7 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 
 	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
 	tenant.TenantCode = user.TenantCode
-	if !tenant.FindByTenantCode() {
+	if !tenant.FindByTenantCode() && !sess.IsSuperAdmin {
 		out.SetError(400, ErrTenantAdminBankAccountsTenantNotFound)
 		return
 	}
@@ -136,6 +137,10 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 		if in.Account.Id <= 0 {
 			out.Meta = &SuperAdminUserManagementMeta
 			
+			if user.Role != TenantAdminSegment {
+				out.SetError(400, ErrTenantAdminBankAccountsNotTenant)
+				return
+			}
 			staff := rqAuth.NewUsers(d.AuthOltp)
 			staffs := staff.FindStaffsByTenantCode(tenant.TenantCode)
 
@@ -153,6 +158,11 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 		
 		out.Account = account
 	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
+		if user.Role != TenantAdminSegment {
+			out.SetError(400, ErrTenantAdminBankAccountsNotTenant)
+			return
+		}
+
 		account := wcBudget.NewBankAccountsMutator(d.AuthOltp)
 		account.Id = in.Account.Id
 
@@ -165,10 +175,12 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 			if in.Cmd == zCrud.CmdDelete {
 				if account.DeletedAt == 0 {
 					account.SetDeletedAt(in.UnixNow())
+					account.SetDeletedBy(sess.UserId)
 				}
 			} else if in.Cmd == zCrud.CmdRestore {
 				if account.DeletedAt > 0 {
 					account.SetDeletedAt(0)
+					account.SetRestoredBy(sess.UserId)
 				}
 			}
 		} else {
@@ -199,6 +211,8 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 			}
 		}
 
+		account.SetTenantCode(user.TenantCode)
+
 		if in.Account.AccountName != `` {
 			account.SetAccountName(in.Account.AccountName)
 		}
@@ -220,7 +234,6 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 			if account.Id == 0 {
 				account.SetCreatedAt(in.UnixNow())
 				account.SetCreatedBy(sess.UserId)
-				account.SetStaffId(sess.UserId)
 			}
 		}
 
@@ -237,6 +250,7 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 		fallthrough
 	case zCrud.CmdList:
 		accounts := rqBudget.NewBankAccounts(d.AuthOltp)
+		accounts.TenantCode = user.TenantCode
 		out.Accounts = accounts.FindByPagination(&TenantAdminBankAccountsMeta, &in.Pager, &out.Pager)
 	}
 

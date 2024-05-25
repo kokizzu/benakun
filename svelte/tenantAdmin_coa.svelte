@@ -1,6 +1,6 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
+  import { Icon } from './node_modules/svelte-icons-pack/dist';
+  import { RiSystemAddBoxLine } from './node_modules/svelte-icons-pack/dist/ri';
   import { onMount } from 'svelte';
   import { TenantAdminCreateCoaChild } from './jsApi.GEN.js';
   import { notifier } from './_components/notifier.js';

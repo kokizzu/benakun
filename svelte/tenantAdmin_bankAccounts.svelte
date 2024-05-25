@@ -1,6 +1,6 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
+  import { Icon } from './node_modules/svelte-icons-pack/dist';
+  import { RiSystemAddBoxLine } from './node_modules/svelte-icons-pack/dist/ri';
   import MainLayout from './_layouts/mainLayout.svelte';
   import MasterTable from './_components/MasterTable.svelte';
   import PopUpAddBankAccount from './_components/PopUpAddBankAccount.svelte';
@@ -45,8 +45,8 @@
           return
         }
 
-        console.log(o);
         pager = o.pager;
+        accounts = o.accounts;
       }
     );
   }
@@ -69,7 +69,6 @@
           return;
         }
 
-        console.log(o);
         notifier.showSuccess('account '+row[1]+' restored');
         accounts = o.accounts;
         pager = o.pager;
@@ -95,7 +94,6 @@
           return
         }
 
-        console.log(o);
         notifier.showSuccess('account '+row[1]+' deleted');
         accounts = o.accounts;
         pager = o.pager;
@@ -121,16 +119,15 @@
       i, /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
       /** @returns {Promise<void>} */
       function(/** @type any */ o) {
-        isSubmitAddBankAccount = false;
         if (o.error) {
           console.log(o);
           notifier.showError(o.error);
           return
         }
-        console.log(o);
+
         pager = o.pager;
         accounts = o.accounts;
-        popUpAddBankAccount.Reset();
+        notifier.showSuccess(payloads[1]+' edited');
       }
     );
   }
@@ -153,10 +150,13 @@
           notifier.showError(o.error);
           return
         }
-        console.log(o);
+        
         pager = o.pager;
         accounts = o.accounts;
+        notifier.showSuccess('bank account created')
         popUpAddBankAccount.Reset();
+        
+        OnRefresh(pager);
       }
     );
     popUpAddBankAccount.Hide();
@@ -189,17 +189,19 @@
       {OnRefresh}
       {OnEdit}
     >
-    <button
-      class="action_btn"
-      on:click={() => popUpAddBankAccount.Show()}
-      title="add account"
-    >
-      <Icon
-        color="var(--gray-007)"
-        size="16"
-        src={RiSystemAddBoxLine}
-      />
-    </button>
+      {#if user.tenantCode !== ''}
+        <button
+          class="action_btn"
+          on:click={() => popUpAddBankAccount.Show()}
+          title="add account"
+        >
+          <Icon
+            color="var(--gray-007)"
+            size="16"
+            src={RiSystemAddBoxLine}
+          />
+        </button>
+      {/if}
     </MasterTable>
   </div>
 </MainLayout>

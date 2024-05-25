@@ -22,11 +22,14 @@ import (
 type BankAccounts struct {
 	Adapter             *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	Id                  uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	TenantCode          string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
 	CreatedAt           int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
 	CreatedBy           uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
 	UpdatedAt           int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
 	UpdatedBy           uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
 	DeletedAt           int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	DeletedBy           uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
+	RestoredBy          uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
 	Name                string      `json:"name" form:"name" query:"name" long:"name" msg:"name"`
 	ParentBankAccountId uint64      `json:"parentBankAccountId,string" form:"parentBankAccountId" query:"parentBankAccountId" long:"parentBankAccountId" msg:"parentBankAccountId"`
 	ChildBankAccountId  uint64      `json:"childBankAccountId,string" form:"childBankAccountId" query:"childBankAccountId" long:"childBankAccountId" msg:"childBankAccountId"`
@@ -74,11 +77,14 @@ func (b *BankAccounts) FindById() bool { //nolint:dupl false positive
 // SqlSelectAllFields generate Sql select fields
 func (b *BankAccounts) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "id"
+	, "tenantCode"
 	, "createdAt"
 	, "createdBy"
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
 	, "name"
 	, "parentBankAccountId"
 	, "childBankAccountId"
@@ -94,11 +100,14 @@ func (b *BankAccounts) SqlSelectAllFields() string { //nolint:dupl false positiv
 // SqlSelectAllUncensoredFields generate Sql select fields
 func (b *BankAccounts) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
 	return ` "id"
+	, "tenantCode"
 	, "createdAt"
 	, "createdBy"
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
 	, "name"
 	, "parentBankAccountId"
 	, "childBankAccountId"
@@ -115,20 +124,23 @@ func (b *BankAccounts) SqlSelectAllUncensoredFields() string { //nolint:dupl fal
 func (b *BankAccounts) ToUpdateArray() A.X { //nolint:dupl false positive
 	return A.X{
 		A.X{`=`, 0, b.Id},
-		A.X{`=`, 1, b.CreatedAt},
-		A.X{`=`, 2, b.CreatedBy},
-		A.X{`=`, 3, b.UpdatedAt},
-		A.X{`=`, 4, b.UpdatedBy},
-		A.X{`=`, 5, b.DeletedAt},
-		A.X{`=`, 6, b.Name},
-		A.X{`=`, 7, b.ParentBankAccountId},
-		A.X{`=`, 8, b.ChildBankAccountId},
-		A.X{`=`, 9, b.AccountNumber},
-		A.X{`=`, 10, b.BankName},
-		A.X{`=`, 11, b.AccountName},
-		A.X{`=`, 12, b.IsProfitCenter},
-		A.X{`=`, 13, b.IsCostCenter},
-		A.X{`=`, 14, b.StaffId},
+		A.X{`=`, 1, b.TenantCode},
+		A.X{`=`, 2, b.CreatedAt},
+		A.X{`=`, 3, b.CreatedBy},
+		A.X{`=`, 4, b.UpdatedAt},
+		A.X{`=`, 5, b.UpdatedBy},
+		A.X{`=`, 6, b.DeletedAt},
+		A.X{`=`, 7, b.DeletedBy},
+		A.X{`=`, 8, b.RestoredBy},
+		A.X{`=`, 9, b.Name},
+		A.X{`=`, 10, b.ParentBankAccountId},
+		A.X{`=`, 11, b.ChildBankAccountId},
+		A.X{`=`, 12, b.AccountNumber},
+		A.X{`=`, 13, b.BankName},
+		A.X{`=`, 14, b.AccountName},
+		A.X{`=`, 15, b.IsProfitCenter},
+		A.X{`=`, 16, b.IsCostCenter},
+		A.X{`=`, 17, b.StaffId},
 	}
 }
 
@@ -142,9 +154,19 @@ func (b *BankAccounts) SqlId() string { //nolint:dupl false positive
 	return `"id"`
 }
 
+// IdxTenantCode return name of the index
+func (b *BankAccounts) IdxTenantCode() int { //nolint:dupl false positive
+	return 1
+}
+
+// SqlTenantCode return name of the column being indexed
+func (b *BankAccounts) SqlTenantCode() string { //nolint:dupl false positive
+	return `"tenantCode"`
+}
+
 // IdxCreatedAt return name of the index
 func (b *BankAccounts) IdxCreatedAt() int { //nolint:dupl false positive
-	return 1
+	return 2
 }
 
 // SqlCreatedAt return name of the column being indexed
@@ -154,7 +176,7 @@ func (b *BankAccounts) SqlCreatedAt() string { //nolint:dupl false positive
 
 // IdxCreatedBy return name of the index
 func (b *BankAccounts) IdxCreatedBy() int { //nolint:dupl false positive
-	return 2
+	return 3
 }
 
 // SqlCreatedBy return name of the column being indexed
@@ -164,7 +186,7 @@ func (b *BankAccounts) SqlCreatedBy() string { //nolint:dupl false positive
 
 // IdxUpdatedAt return name of the index
 func (b *BankAccounts) IdxUpdatedAt() int { //nolint:dupl false positive
-	return 3
+	return 4
 }
 
 // SqlUpdatedAt return name of the column being indexed
@@ -174,7 +196,7 @@ func (b *BankAccounts) SqlUpdatedAt() string { //nolint:dupl false positive
 
 // IdxUpdatedBy return name of the index
 func (b *BankAccounts) IdxUpdatedBy() int { //nolint:dupl false positive
-	return 4
+	return 5
 }
 
 // SqlUpdatedBy return name of the column being indexed
@@ -184,7 +206,7 @@ func (b *BankAccounts) SqlUpdatedBy() string { //nolint:dupl false positive
 
 // IdxDeletedAt return name of the index
 func (b *BankAccounts) IdxDeletedAt() int { //nolint:dupl false positive
-	return 5
+	return 6
 }
 
 // SqlDeletedAt return name of the column being indexed
@@ -192,9 +214,29 @@ func (b *BankAccounts) SqlDeletedAt() string { //nolint:dupl false positive
 	return `"deletedAt"`
 }
 
+// IdxDeletedBy return name of the index
+func (b *BankAccounts) IdxDeletedBy() int { //nolint:dupl false positive
+	return 7
+}
+
+// SqlDeletedBy return name of the column being indexed
+func (b *BankAccounts) SqlDeletedBy() string { //nolint:dupl false positive
+	return `"deletedBy"`
+}
+
+// IdxRestoredBy return name of the index
+func (b *BankAccounts) IdxRestoredBy() int { //nolint:dupl false positive
+	return 8
+}
+
+// SqlRestoredBy return name of the column being indexed
+func (b *BankAccounts) SqlRestoredBy() string { //nolint:dupl false positive
+	return `"restoredBy"`
+}
+
 // IdxName return name of the index
 func (b *BankAccounts) IdxName() int { //nolint:dupl false positive
-	return 6
+	return 9
 }
 
 // SqlName return name of the column being indexed
@@ -204,7 +246,7 @@ func (b *BankAccounts) SqlName() string { //nolint:dupl false positive
 
 // IdxParentBankAccountId return name of the index
 func (b *BankAccounts) IdxParentBankAccountId() int { //nolint:dupl false positive
-	return 7
+	return 10
 }
 
 // SqlParentBankAccountId return name of the column being indexed
@@ -214,7 +256,7 @@ func (b *BankAccounts) SqlParentBankAccountId() string { //nolint:dupl false pos
 
 // IdxChildBankAccountId return name of the index
 func (b *BankAccounts) IdxChildBankAccountId() int { //nolint:dupl false positive
-	return 8
+	return 11
 }
 
 // SqlChildBankAccountId return name of the column being indexed
@@ -224,7 +266,7 @@ func (b *BankAccounts) SqlChildBankAccountId() string { //nolint:dupl false posi
 
 // IdxAccountNumber return name of the index
 func (b *BankAccounts) IdxAccountNumber() int { //nolint:dupl false positive
-	return 9
+	return 12
 }
 
 // SqlAccountNumber return name of the column being indexed
@@ -234,7 +276,7 @@ func (b *BankAccounts) SqlAccountNumber() string { //nolint:dupl false positive
 
 // IdxBankName return name of the index
 func (b *BankAccounts) IdxBankName() int { //nolint:dupl false positive
-	return 10
+	return 13
 }
 
 // SqlBankName return name of the column being indexed
@@ -244,7 +286,7 @@ func (b *BankAccounts) SqlBankName() string { //nolint:dupl false positive
 
 // IdxAccountName return name of the index
 func (b *BankAccounts) IdxAccountName() int { //nolint:dupl false positive
-	return 11
+	return 14
 }
 
 // SqlAccountName return name of the column being indexed
@@ -254,7 +296,7 @@ func (b *BankAccounts) SqlAccountName() string { //nolint:dupl false positive
 
 // IdxIsProfitCenter return name of the index
 func (b *BankAccounts) IdxIsProfitCenter() int { //nolint:dupl false positive
-	return 12
+	return 15
 }
 
 // SqlIsProfitCenter return name of the column being indexed
@@ -264,7 +306,7 @@ func (b *BankAccounts) SqlIsProfitCenter() string { //nolint:dupl false positive
 
 // IdxIsCostCenter return name of the index
 func (b *BankAccounts) IdxIsCostCenter() int { //nolint:dupl false positive
-	return 13
+	return 16
 }
 
 // SqlIsCostCenter return name of the column being indexed
@@ -274,7 +316,7 @@ func (b *BankAccounts) SqlIsCostCenter() string { //nolint:dupl false positive
 
 // IdxStaffId return name of the index
 func (b *BankAccounts) IdxStaffId() int { //nolint:dupl false positive
-	return 14
+	return 17
 }
 
 // SqlStaffId return name of the column being indexed
@@ -290,60 +332,69 @@ func (b *BankAccounts) ToArray() A.X { //nolint:dupl false positive
 	}
 	return A.X{
 		id,
-		b.CreatedAt,           // 1
-		b.CreatedBy,           // 2
-		b.UpdatedAt,           // 3
-		b.UpdatedBy,           // 4
-		b.DeletedAt,           // 5
-		b.Name,                // 6
-		b.ParentBankAccountId, // 7
-		b.ChildBankAccountId,  // 8
-		b.AccountNumber,       // 9
-		b.BankName,            // 10
-		b.AccountName,         // 11
-		b.IsProfitCenter,      // 12
-		b.IsCostCenter,        // 13
-		b.StaffId,             // 14
+		b.TenantCode,          // 1
+		b.CreatedAt,           // 2
+		b.CreatedBy,           // 3
+		b.UpdatedAt,           // 4
+		b.UpdatedBy,           // 5
+		b.DeletedAt,           // 6
+		b.DeletedBy,           // 7
+		b.RestoredBy,          // 8
+		b.Name,                // 9
+		b.ParentBankAccountId, // 10
+		b.ChildBankAccountId,  // 11
+		b.AccountNumber,       // 12
+		b.BankName,            // 13
+		b.AccountName,         // 14
+		b.IsProfitCenter,      // 15
+		b.IsCostCenter,        // 16
+		b.StaffId,             // 17
 	}
 }
 
 // FromArray convert slice to receiver fields
 func (b *BankAccounts) FromArray(a A.X) *BankAccounts { //nolint:dupl false positive
 	b.Id = X.ToU(a[0])
-	b.CreatedAt = X.ToI(a[1])
-	b.CreatedBy = X.ToU(a[2])
-	b.UpdatedAt = X.ToI(a[3])
-	b.UpdatedBy = X.ToU(a[4])
-	b.DeletedAt = X.ToI(a[5])
-	b.Name = X.ToS(a[6])
-	b.ParentBankAccountId = X.ToU(a[7])
-	b.ChildBankAccountId = X.ToU(a[8])
-	b.AccountNumber = X.ToI(a[9])
-	b.BankName = X.ToS(a[10])
-	b.AccountName = X.ToS(a[11])
-	b.IsProfitCenter = X.ToBool(a[12])
-	b.IsCostCenter = X.ToBool(a[13])
-	b.StaffId = X.ToU(a[14])
+	b.TenantCode = X.ToS(a[1])
+	b.CreatedAt = X.ToI(a[2])
+	b.CreatedBy = X.ToU(a[3])
+	b.UpdatedAt = X.ToI(a[4])
+	b.UpdatedBy = X.ToU(a[5])
+	b.DeletedAt = X.ToI(a[6])
+	b.DeletedBy = X.ToU(a[7])
+	b.RestoredBy = X.ToU(a[8])
+	b.Name = X.ToS(a[9])
+	b.ParentBankAccountId = X.ToU(a[10])
+	b.ChildBankAccountId = X.ToU(a[11])
+	b.AccountNumber = X.ToI(a[12])
+	b.BankName = X.ToS(a[13])
+	b.AccountName = X.ToS(a[14])
+	b.IsProfitCenter = X.ToBool(a[15])
+	b.IsCostCenter = X.ToBool(a[16])
+	b.StaffId = X.ToU(a[17])
 	return b
 }
 
 // FromUncensoredArray convert slice to receiver fields
 func (b *BankAccounts) FromUncensoredArray(a A.X) *BankAccounts { //nolint:dupl false positive
 	b.Id = X.ToU(a[0])
-	b.CreatedAt = X.ToI(a[1])
-	b.CreatedBy = X.ToU(a[2])
-	b.UpdatedAt = X.ToI(a[3])
-	b.UpdatedBy = X.ToU(a[4])
-	b.DeletedAt = X.ToI(a[5])
-	b.Name = X.ToS(a[6])
-	b.ParentBankAccountId = X.ToU(a[7])
-	b.ChildBankAccountId = X.ToU(a[8])
-	b.AccountNumber = X.ToI(a[9])
-	b.BankName = X.ToS(a[10])
-	b.AccountName = X.ToS(a[11])
-	b.IsProfitCenter = X.ToBool(a[12])
-	b.IsCostCenter = X.ToBool(a[13])
-	b.StaffId = X.ToU(a[14])
+	b.TenantCode = X.ToS(a[1])
+	b.CreatedAt = X.ToI(a[2])
+	b.CreatedBy = X.ToU(a[3])
+	b.UpdatedAt = X.ToI(a[4])
+	b.UpdatedBy = X.ToU(a[5])
+	b.DeletedAt = X.ToI(a[6])
+	b.DeletedBy = X.ToU(a[7])
+	b.RestoredBy = X.ToU(a[8])
+	b.Name = X.ToS(a[9])
+	b.ParentBankAccountId = X.ToU(a[10])
+	b.ChildBankAccountId = X.ToU(a[11])
+	b.AccountNumber = X.ToI(a[12])
+	b.BankName = X.ToS(a[13])
+	b.AccountName = X.ToS(a[14])
+	b.IsProfitCenter = X.ToBool(a[15])
+	b.IsCostCenter = X.ToBool(a[16])
+	b.StaffId = X.ToU(a[17])
 	return b
 }
 
@@ -388,11 +439,14 @@ func (b *BankAccounts) Total() int64 { //nolint:dupl false positive
 // BankAccountsFieldTypeMap returns key value of field name and key
 var BankAccountsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`id`:                  Tt.Unsigned,
+	`tenantCode`:          Tt.String,
 	`createdAt`:           Tt.Integer,
 	`createdBy`:           Tt.Unsigned,
 	`updatedAt`:           Tt.Integer,
 	`updatedBy`:           Tt.Unsigned,
 	`deletedAt`:           Tt.Integer,
+	`deletedBy`:           Tt.Unsigned,
+	`restoredBy`:          Tt.Unsigned,
 	`name`:                Tt.String,
 	`parentBankAccountId`: Tt.Unsigned,
 	`childBankAccountId`:  Tt.Unsigned,
@@ -410,6 +464,7 @@ var BankAccountsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false posit
 type Plans struct {
 	Adapter     *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	Id          uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	TenantCode  string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
 	PlanType    string      `json:"planType" form:"planType" query:"planType" long:"planType" msg:"planType"`
 	ParentId    uint64      `json:"parentId,string" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
 	CreatedAt   int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
@@ -464,6 +519,7 @@ func (p *Plans) FindById() bool { //nolint:dupl false positive
 // SqlSelectAllFields generate Sql select fields
 func (p *Plans) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "id"
+	, "tenantCode"
 	, "planType"
 	, "parentId"
 	, "createdAt"
@@ -486,6 +542,7 @@ func (p *Plans) SqlSelectAllFields() string { //nolint:dupl false positive
 // SqlSelectAllUncensoredFields generate Sql select fields
 func (p *Plans) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
 	return ` "id"
+	, "tenantCode"
 	, "planType"
 	, "parentId"
 	, "createdAt"
@@ -509,22 +566,23 @@ func (p *Plans) SqlSelectAllUncensoredFields() string { //nolint:dupl false posi
 func (p *Plans) ToUpdateArray() A.X { //nolint:dupl false positive
 	return A.X{
 		A.X{`=`, 0, p.Id},
-		A.X{`=`, 1, p.PlanType},
-		A.X{`=`, 2, p.ParentId},
-		A.X{`=`, 3, p.CreatedAt},
-		A.X{`=`, 4, p.CreatedBy},
-		A.X{`=`, 5, p.UpdatedAt},
-		A.X{`=`, 6, p.UpdatedBy},
-		A.X{`=`, 7, p.DeletedAt},
-		A.X{`=`, 8, p.DeletedBy},
-		A.X{`=`, 9, p.RestoredBy},
-		A.X{`=`, 10, p.Title},
-		A.X{`=`, 11, p.Description},
-		A.X{`=`, 12, p.OrgId},
-		A.X{`=`, 13, p.PerYear},
-		A.X{`=`, 14, p.BudgetIDR},
-		A.X{`=`, 15, p.BudgetUSD},
-		A.X{`=`, 16, p.BudgetEUR},
+		A.X{`=`, 1, p.TenantCode},
+		A.X{`=`, 2, p.PlanType},
+		A.X{`=`, 3, p.ParentId},
+		A.X{`=`, 4, p.CreatedAt},
+		A.X{`=`, 5, p.CreatedBy},
+		A.X{`=`, 6, p.UpdatedAt},
+		A.X{`=`, 7, p.UpdatedBy},
+		A.X{`=`, 8, p.DeletedAt},
+		A.X{`=`, 9, p.DeletedBy},
+		A.X{`=`, 10, p.RestoredBy},
+		A.X{`=`, 11, p.Title},
+		A.X{`=`, 12, p.Description},
+		A.X{`=`, 13, p.OrgId},
+		A.X{`=`, 14, p.PerYear},
+		A.X{`=`, 15, p.BudgetIDR},
+		A.X{`=`, 16, p.BudgetUSD},
+		A.X{`=`, 17, p.BudgetEUR},
 	}
 }
 
@@ -538,9 +596,19 @@ func (p *Plans) SqlId() string { //nolint:dupl false positive
 	return `"id"`
 }
 
+// IdxTenantCode return name of the index
+func (p *Plans) IdxTenantCode() int { //nolint:dupl false positive
+	return 1
+}
+
+// SqlTenantCode return name of the column being indexed
+func (p *Plans) SqlTenantCode() string { //nolint:dupl false positive
+	return `"tenantCode"`
+}
+
 // IdxPlanType return name of the index
 func (p *Plans) IdxPlanType() int { //nolint:dupl false positive
-	return 1
+	return 2
 }
 
 // SqlPlanType return name of the column being indexed
@@ -550,7 +618,7 @@ func (p *Plans) SqlPlanType() string { //nolint:dupl false positive
 
 // IdxParentId return name of the index
 func (p *Plans) IdxParentId() int { //nolint:dupl false positive
-	return 2
+	return 3
 }
 
 // SqlParentId return name of the column being indexed
@@ -560,7 +628,7 @@ func (p *Plans) SqlParentId() string { //nolint:dupl false positive
 
 // IdxCreatedAt return name of the index
 func (p *Plans) IdxCreatedAt() int { //nolint:dupl false positive
-	return 3
+	return 4
 }
 
 // SqlCreatedAt return name of the column being indexed
@@ -570,7 +638,7 @@ func (p *Plans) SqlCreatedAt() string { //nolint:dupl false positive
 
 // IdxCreatedBy return name of the index
 func (p *Plans) IdxCreatedBy() int { //nolint:dupl false positive
-	return 4
+	return 5
 }
 
 // SqlCreatedBy return name of the column being indexed
@@ -580,7 +648,7 @@ func (p *Plans) SqlCreatedBy() string { //nolint:dupl false positive
 
 // IdxUpdatedAt return name of the index
 func (p *Plans) IdxUpdatedAt() int { //nolint:dupl false positive
-	return 5
+	return 6
 }
 
 // SqlUpdatedAt return name of the column being indexed
@@ -590,7 +658,7 @@ func (p *Plans) SqlUpdatedAt() string { //nolint:dupl false positive
 
 // IdxUpdatedBy return name of the index
 func (p *Plans) IdxUpdatedBy() int { //nolint:dupl false positive
-	return 6
+	return 7
 }
 
 // SqlUpdatedBy return name of the column being indexed
@@ -600,7 +668,7 @@ func (p *Plans) SqlUpdatedBy() string { //nolint:dupl false positive
 
 // IdxDeletedAt return name of the index
 func (p *Plans) IdxDeletedAt() int { //nolint:dupl false positive
-	return 7
+	return 8
 }
 
 // SqlDeletedAt return name of the column being indexed
@@ -610,7 +678,7 @@ func (p *Plans) SqlDeletedAt() string { //nolint:dupl false positive
 
 // IdxDeletedBy return name of the index
 func (p *Plans) IdxDeletedBy() int { //nolint:dupl false positive
-	return 8
+	return 9
 }
 
 // SqlDeletedBy return name of the column being indexed
@@ -620,7 +688,7 @@ func (p *Plans) SqlDeletedBy() string { //nolint:dupl false positive
 
 // IdxRestoredBy return name of the index
 func (p *Plans) IdxRestoredBy() int { //nolint:dupl false positive
-	return 9
+	return 10
 }
 
 // SqlRestoredBy return name of the column being indexed
@@ -630,7 +698,7 @@ func (p *Plans) SqlRestoredBy() string { //nolint:dupl false positive
 
 // IdxTitle return name of the index
 func (p *Plans) IdxTitle() int { //nolint:dupl false positive
-	return 10
+	return 11
 }
 
 // SqlTitle return name of the column being indexed
@@ -640,7 +708,7 @@ func (p *Plans) SqlTitle() string { //nolint:dupl false positive
 
 // IdxDescription return name of the index
 func (p *Plans) IdxDescription() int { //nolint:dupl false positive
-	return 11
+	return 12
 }
 
 // SqlDescription return name of the column being indexed
@@ -650,7 +718,7 @@ func (p *Plans) SqlDescription() string { //nolint:dupl false positive
 
 // IdxOrgId return name of the index
 func (p *Plans) IdxOrgId() int { //nolint:dupl false positive
-	return 12
+	return 13
 }
 
 // SqlOrgId return name of the column being indexed
@@ -660,7 +728,7 @@ func (p *Plans) SqlOrgId() string { //nolint:dupl false positive
 
 // IdxPerYear return name of the index
 func (p *Plans) IdxPerYear() int { //nolint:dupl false positive
-	return 13
+	return 14
 }
 
 // SqlPerYear return name of the column being indexed
@@ -670,7 +738,7 @@ func (p *Plans) SqlPerYear() string { //nolint:dupl false positive
 
 // IdxBudgetIDR return name of the index
 func (p *Plans) IdxBudgetIDR() int { //nolint:dupl false positive
-	return 14
+	return 15
 }
 
 // SqlBudgetIDR return name of the column being indexed
@@ -680,7 +748,7 @@ func (p *Plans) SqlBudgetIDR() string { //nolint:dupl false positive
 
 // IdxBudgetUSD return name of the index
 func (p *Plans) IdxBudgetUSD() int { //nolint:dupl false positive
-	return 15
+	return 16
 }
 
 // SqlBudgetUSD return name of the column being indexed
@@ -690,7 +758,7 @@ func (p *Plans) SqlBudgetUSD() string { //nolint:dupl false positive
 
 // IdxBudgetEUR return name of the index
 func (p *Plans) IdxBudgetEUR() int { //nolint:dupl false positive
-	return 16
+	return 17
 }
 
 // SqlBudgetEUR return name of the column being indexed
@@ -706,66 +774,69 @@ func (p *Plans) ToArray() A.X { //nolint:dupl false positive
 	}
 	return A.X{
 		id,
-		p.PlanType,    // 1
-		p.ParentId,    // 2
-		p.CreatedAt,   // 3
-		p.CreatedBy,   // 4
-		p.UpdatedAt,   // 5
-		p.UpdatedBy,   // 6
-		p.DeletedAt,   // 7
-		p.DeletedBy,   // 8
-		p.RestoredBy,  // 9
-		p.Title,       // 10
-		p.Description, // 11
-		p.OrgId,       // 12
-		p.PerYear,     // 13
-		p.BudgetIDR,   // 14
-		p.BudgetUSD,   // 15
-		p.BudgetEUR,   // 16
+		p.TenantCode,  // 1
+		p.PlanType,    // 2
+		p.ParentId,    // 3
+		p.CreatedAt,   // 4
+		p.CreatedBy,   // 5
+		p.UpdatedAt,   // 6
+		p.UpdatedBy,   // 7
+		p.DeletedAt,   // 8
+		p.DeletedBy,   // 9
+		p.RestoredBy,  // 10
+		p.Title,       // 11
+		p.Description, // 12
+		p.OrgId,       // 13
+		p.PerYear,     // 14
+		p.BudgetIDR,   // 15
+		p.BudgetUSD,   // 16
+		p.BudgetEUR,   // 17
 	}
 }
 
 // FromArray convert slice to receiver fields
 func (p *Plans) FromArray(a A.X) *Plans { //nolint:dupl false positive
 	p.Id = X.ToU(a[0])
-	p.PlanType = X.ToS(a[1])
-	p.ParentId = X.ToU(a[2])
-	p.CreatedAt = X.ToI(a[3])
-	p.CreatedBy = X.ToU(a[4])
-	p.UpdatedAt = X.ToI(a[5])
-	p.UpdatedBy = X.ToU(a[6])
-	p.DeletedAt = X.ToI(a[7])
-	p.DeletedBy = X.ToU(a[8])
-	p.RestoredBy = X.ToU(a[9])
-	p.Title = X.ToS(a[10])
-	p.Description = X.ToS(a[11])
-	p.OrgId = X.ToU(a[12])
-	p.PerYear = X.ToI(a[13])
-	p.BudgetIDR = X.ToI(a[14])
-	p.BudgetUSD = X.ToI(a[15])
-	p.BudgetEUR = X.ToI(a[16])
+	p.TenantCode = X.ToS(a[1])
+	p.PlanType = X.ToS(a[2])
+	p.ParentId = X.ToU(a[3])
+	p.CreatedAt = X.ToI(a[4])
+	p.CreatedBy = X.ToU(a[5])
+	p.UpdatedAt = X.ToI(a[6])
+	p.UpdatedBy = X.ToU(a[7])
+	p.DeletedAt = X.ToI(a[8])
+	p.DeletedBy = X.ToU(a[9])
+	p.RestoredBy = X.ToU(a[10])
+	p.Title = X.ToS(a[11])
+	p.Description = X.ToS(a[12])
+	p.OrgId = X.ToU(a[13])
+	p.PerYear = X.ToI(a[14])
+	p.BudgetIDR = X.ToI(a[15])
+	p.BudgetUSD = X.ToI(a[16])
+	p.BudgetEUR = X.ToI(a[17])
 	return p
 }
 
 // FromUncensoredArray convert slice to receiver fields
 func (p *Plans) FromUncensoredArray(a A.X) *Plans { //nolint:dupl false positive
 	p.Id = X.ToU(a[0])
-	p.PlanType = X.ToS(a[1])
-	p.ParentId = X.ToU(a[2])
-	p.CreatedAt = X.ToI(a[3])
-	p.CreatedBy = X.ToU(a[4])
-	p.UpdatedAt = X.ToI(a[5])
-	p.UpdatedBy = X.ToU(a[6])
-	p.DeletedAt = X.ToI(a[7])
-	p.DeletedBy = X.ToU(a[8])
-	p.RestoredBy = X.ToU(a[9])
-	p.Title = X.ToS(a[10])
-	p.Description = X.ToS(a[11])
-	p.OrgId = X.ToU(a[12])
-	p.PerYear = X.ToI(a[13])
-	p.BudgetIDR = X.ToI(a[14])
-	p.BudgetUSD = X.ToI(a[15])
-	p.BudgetEUR = X.ToI(a[16])
+	p.TenantCode = X.ToS(a[1])
+	p.PlanType = X.ToS(a[2])
+	p.ParentId = X.ToU(a[3])
+	p.CreatedAt = X.ToI(a[4])
+	p.CreatedBy = X.ToU(a[5])
+	p.UpdatedAt = X.ToI(a[6])
+	p.UpdatedBy = X.ToU(a[7])
+	p.DeletedAt = X.ToI(a[8])
+	p.DeletedBy = X.ToU(a[9])
+	p.RestoredBy = X.ToU(a[10])
+	p.Title = X.ToS(a[11])
+	p.Description = X.ToS(a[12])
+	p.OrgId = X.ToU(a[13])
+	p.PerYear = X.ToI(a[14])
+	p.BudgetIDR = X.ToI(a[15])
+	p.BudgetUSD = X.ToI(a[16])
+	p.BudgetEUR = X.ToI(a[17])
 	return p
 }
 
@@ -810,6 +881,7 @@ func (p *Plans) Total() int64 { //nolint:dupl false positive
 // PlansFieldTypeMap returns key value of field name and key
 var PlansFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`id`:          Tt.Unsigned,
+	`tenantCode`:  Tt.String,
 	`planType`:    Tt.String,
 	`parentId`:    Tt.Unsigned,
 	`createdAt`:   Tt.Integer,

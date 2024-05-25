@@ -1,10 +1,10 @@
 <script>
+  import { Icon } from './node_modules/svelte-icons-pack/dist';
+  import { IoClose } from './node_modules/svelte-icons-pack/dist/io';
   import { notifier } from './_components/notifier.js';
-  import Icon from 'svelte-icons-pack/Icon.svelte';
   import { datetime } from './_components/formatter';
   import { onMount } from 'svelte';
   import { UserChangePassword, UserSessionKill, UserSessionsActive, UserUpdateProfile } from './jsApi.GEN.js';
-  import FaSolidTimes from 'svelte-icons-pack/fa/FaSolidTimes';
   import InputBox from './_components/InputBox.svelte';
   import SubmitButton from './_components/SubmitButton.svelte';
   import { localeDatetime } from './_components/formatter.js';
@@ -157,7 +157,7 @@
               class="kill_session"
               title="kill this session"
             >
-              <Icon color="#FFF" size="12" src={FaSolidTimes} />
+              <Icon color="#FFF" size="12" src={IoClose} />
             </button>
           </div>
         {/each}

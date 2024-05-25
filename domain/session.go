@@ -33,6 +33,7 @@ type Session struct {
 
 	// not saved but retrieved from SUPERADMIN_EMAILS env
 	IsSuperAdmin bool
+	IsTenantAdmin bool
 
 	Segments M.SB
 }
@@ -194,6 +195,7 @@ const (
 	ErrSegmentNotAllowed = `session segment not allowed`
 
 	ErrSessionUserNotSuperAdmin = `session email is not superadmin`
+	ErrSessionUserNotTenantAdmin = `session user is not tenant admin`
 )
 
 func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session) {
@@ -238,6 +240,7 @@ func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 	}
 
 	sess.Roles = []string{user.Role}
+	sess.TenantCode = user.TenantCode
 	segment := d.segmentsFromSession(sess)
 
 	sess.Segments = segment
@@ -260,6 +263,35 @@ func (d *Domain) MustSuperAdmin(in RequestCommon, out *ResponseCommon) (sess *Se
 		return nil
 	}
 	sess.IsSuperAdmin = true
+	return sess
+}
+
+func (d *Domain) MustTenantAdmin(in RequestCommon, out *ResponseCommon) (sess *Session) {
+	sess = d.MustLogin(in, out)
+	if sess == nil {
+		return nil
+	}
+	
+	if sess.TenantCode == ``{
+		if !sess.IsSuperAdmin {
+			out.SetError(403, ErrSessionUserNotTenantAdmin)
+			return nil
+		}
+	} else {
+		tenant := rqAuth.NewTenants(d.AuthOltp)
+		tenant.TenantCode = sess.TenantCode
+		if !tenant.FindByTenantCode() {
+			out.SetError(403, ErrSessionUserNotTenantAdmin)
+			return nil
+		}
+
+		if tenant.DeletedAt > 0 {
+			out.SetError(403, ErrSessionUserNotTenantAdmin)
+			return nil
+		}
+	}
+
+	sess.IsTenantAdmin = true
 	return sess
 }
 

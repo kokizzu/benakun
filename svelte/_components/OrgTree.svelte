@@ -1,14 +1,16 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import RiBuildingsCommunityLine from 'svelte-icons-pack/ri/RiBuildingsCommunityLine';
-  import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
-  import RiDesignPencilLine from 'svelte-icons-pack/ri/RiDesignPencilLine';
-  import RiSystemDeleteBinLine from 'svelte-icons-pack/ri/RiSystemDeleteBinLine';
-  import RiSystemInformationLine from 'svelte-icons-pack/ri/RiSystemInformationLine';
-  import RiBuildingsBuilding2Line from 'svelte-icons-pack/ri/RiBuildingsBuilding2Line';
-  import RiUserTeamLine from 'svelte-icons-pack/ri/RiUserTeamLine';
-  import RiBusinessBriefcaseLine from 'svelte-icons-pack/ri/RiBusinessBriefcaseLine';
-  import RiSystemArrowGoBackLine from 'svelte-icons-pack/ri/RiSystemArrowGoBackLine';
+	import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import {
+    RiBuildingsCommunityLine,
+    RiSystemAddBoxLine,
+    RiDesignPencilLine,
+    RiSystemDeleteBinLine,
+    RiSystemInformationLine,
+    RiBuildingsBuilding2Line,
+    RiUserFacesGroup3Line,
+    RiBusinessBriefcaseLine,
+    RiArrowsArrowRightSLine
+   } from '../node_modules/svelte-icons-pack/dist/ri';
   import { onMount, createEventDispatcher } from 'svelte';
   import PopUpOrgChild from './PopUpOrgChild.svelte';
   import {
@@ -51,13 +53,30 @@
       break;
     }
     case OrgTypeDivision: {
-      orgType = 'division', orgIcon = RiUserTeamLine;
+      orgType = 'division', orgIcon = RiUserFacesGroup3Line;
       break;
-    }
+    }RiArrowsArrowRightSLine
     case OrgTypeJob: {
       orgType = 'job', orgIcon = RiBusinessBriefcaseLine;
       break;
     }
+  }
+
+  const getOrgType = (type = 0) => {
+    switch (type) {
+    case OrgTypeCompany: {
+      return 'comppany';
+    }
+    case OrgTypeDept: {
+      return 'department';
+    }
+    case OrgTypeDivision: {
+      return 'division';
+    }
+    case OrgTypeJob: {
+      return 'job';
+    }
+  }
   }
 
   export let indent = 0;
@@ -69,9 +88,9 @@
   let popUpOrgChild, isSubmitted = false, popUpHeading = 'Add organization child';
   let orgName = '', headTitle = '', orgState = 'add';
 
-  const toggleAddOrEdit = (/** @type {string}*/ state) => {
-    if (state === 'add') orgState = 'add', orgName = '', headTitle = '', popUpHeading = 'Add coa child';
-    else orgState = 'edit', orgName = org.name, headTitle = org.headTitle, popUpHeading = 'Edit: ' + org.name;
+  const toggleAddOrEdit = (/** @type {string}*/ state, /** @type {string}*/  type) => {
+    if (state === 'add') orgState = 'add', orgName = '', headTitle = '', popUpHeading = 'Add '+type;
+    else orgState = 'edit', orgName = org.name, headTitle = org.headTitle, popUpHeading = 'Edit '+type+': '+org.name;
     popUpOrgChild.show();
   }
 
@@ -209,7 +228,7 @@
   <div class="options">
     {#if org.deletedAt === 0}
       {#if org.orgType !== OrgTypeJob}
-        <button class="btn" title="Add child" on:click={() => toggleAddOrEdit('add')}>
+        <button class="btn" title="Add child" on:click={() => toggleAddOrEdit('add', getOrgType(org.orgType))}>
           <Icon
             color="var(--gray-006)"
             className="icon"
@@ -218,7 +237,7 @@
           />
         </button>
       {/if}
-      <button class="btn" title="Edit organization" on:click={() => toggleAddOrEdit('edit')}>
+      <button class="btn" title="Edit organization" on:click={() => toggleAddOrEdit('edit', getOrgType(org.orgType))}>
         <Icon
           color="var(--gray-006)"
           className="icon"
@@ -248,7 +267,7 @@
           color="var(--gray-006)"
           className="icon"
           size="17"
-          src={RiSystemArrowGoBackLine}
+          src={RiArrowsArrowRightSLine}
         />
       </button>
     {/if}

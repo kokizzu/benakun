@@ -1,6 +1,6 @@
 <script>
-  import { onMount } from "svelte";
-  import BackHomeBtn from "./_components/BackHomeBtn.svelte";
+  import { onMount } from 'svelte';
+  import BackHomeBtn from './_components/BackHomeBtn.svelte';
 
   let message = '#{message}';
 

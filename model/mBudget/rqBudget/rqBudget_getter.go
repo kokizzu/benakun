@@ -4,6 +4,8 @@ import (
 	"benakun/model/zCrud"
 
 	"github.com/kokizzu/gotro/I"
+	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 )
 
@@ -66,10 +68,14 @@ func (b *BankAccounts) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zC
 
 	validFields := BankAccountsFieldTypeMap
 	whereAndSql := z3.WhereAndSqlTt(z2.Filters, validFields)
+	whereAndSql2 := `AND `+b.SqlTenantCode()+` = `+S.Z(b.TenantCode)
+	if whereAndSql == `` {
+		whereAndSql2 = ` WHERE `+b.SqlTenantCode()+` = `+S.Z(b.TenantCode)
+	}
 
 	queryCount := comment + `
 SELECT COUNT(1)
-FROM ` + b.SqlTableName() + whereAndSql + `
+FROM ` + b.SqlTableName() + whereAndSql + whereAndSql2 + ` 
 LIMIT 1`
 	b.Adapter.QuerySql(queryCount, func(row []any) {
 		z3.CalculatePages(z2.Page, z2.PerPage, int(X.ToI(row[0])))
@@ -80,11 +86,13 @@ LIMIT 1`
 
 	queryRows := comment + `
 SELECT ` + z.ToSelect() + `
-FROM ` + b.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+FROM ` + b.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
 	b.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
 	})
+
+	L.Print(`Query rows find bankAccounts:`, queryRows)
 
 	return
 }

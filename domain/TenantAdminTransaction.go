@@ -2,8 +2,6 @@ package domain
 
 import (
 	"benakun/model/mAuth/wcAuth"
-
-	"github.com/gofiber/fiber/v2"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminTransaction.go
@@ -25,7 +23,8 @@ type (
 const (
 	TenantAdminTransactionAction = `tenantAdmin/transaction`
 
-	ErrTenantAdminTransactionUnauthorized                 = `unauthorized user`
+	ErrTenantAdminTransactionUnauthorized  = `unauthorized user`
+	ErrTenantAdminTransactionTenantNotFound  = `tenant admin not found`
 )
 
 func (d *Domain) TenantAdminTransaction(in *TenantAdminTransactionIn) (out TenantAdminTransactionOut) {
@@ -39,7 +38,14 @@ func (d *Domain) TenantAdminTransaction(in *TenantAdminTransactionIn) (out Tenan
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Id = sess.UserId
 	if !user.FindById() {
-		out.SetError(fiber.StatusBadRequest, ErrTenantAdminTransactionUnauthorized)
+		out.SetError(400, ErrTenantAdminTransactionUnauthorized)
+		return
+	}
+
+	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
+	tenant.TenantCode = user.TenantCode
+	if !tenant.FindByTenantCode() && !sess.IsSuperAdmin {
+		out.SetError(400, ErrTenantAdminTransactionTenantNotFound)
 		return
 	}
 

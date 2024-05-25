@@ -1,10 +1,6 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-	import AiOutlineEye from 'svelte-icons-pack/ai/AiOutlineEye';
-	import AiOutlineEyeInvisible from 'svelte-icons-pack/ai/AiOutlineEyeInvisible';
-	import RiSystemFilterOffLine from 'svelte-icons-pack/ri/RiSystemFilterOffLine';
-	import RiSystemFilterLine from 'svelte-icons-pack/ri/RiSystemFilterLine';
-	import IoClose from 'svelte-icons-pack/io/IoClose';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+	import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
 
   /**
     * @typedef {Object} FilterTable
@@ -161,51 +157,6 @@
 		display: flex;
 		flex-direction: row;
 		gap: 8px;
-	}
-
-	.popup_filter_container .popup .filters .row .actions .filter {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-color: var(--gray-001);
-		border: 1px solid var(--gray-003);
-		padding: 8px;
-		border-radius: 50%;
-		cursor: pointer;
-	}
-
-  .popup_filter_container .popup .filters .row .actions .filter:hover,
-  .popup_filter_container .popup .filters .row .actions .visibility:hover {
-		border: 1px solid var(--gray-005);
-	}
-
-  .popup_filter_container .popup .filters .row .actions .filter.on {
-    background-color: var(--amber-005);
-    border: 1px solid var(--amber-004);
-  }
-
-	.popup_filter_container .popup .filters .row .actions .filter.on:hover {
-		background-color: var(--amber-006);
-	}
-
-	.popup_filter_container .popup .filters .row .actions .visibility {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background-color: var(--gray-001);
-		border: 1px solid var(--gray-003);
-		padding: 8px;
-		border-radius: 50%;
-		cursor: pointer;
-	}
-
-  .popup_filter_container .popup .filters .row .actions .visibility.on {
-    background-color: var(--sky-005);
-    border: 1px solid var(--sky-004);
-  }
-
-	.popup_filter_container .popup .filters .row .actions .visibility.on:hover {
-		background-color: var(--sky-006);
 	}
 
 	.popup_filter_container .popup .foot {

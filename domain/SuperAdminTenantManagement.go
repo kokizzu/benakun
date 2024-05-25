@@ -47,12 +47,13 @@ var SuperAdminTenantManagementMeta = zCrud.Meta{
 			Label:     "ID",
 			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeHidden,
+			ReadOnly: true,
 		},
 		{
 			Name:      mAuth.TenantCode,
 			Label:     "Tenant Code",
 			DataType:  zCrud.DataTypeString,
-			InputType: zCrud.InputTypeCombobox,
+			ReadOnly: true,
 		},
 		{
 			Name:      mAuth.CreatedAt,

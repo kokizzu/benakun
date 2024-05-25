@@ -1,13 +1,20 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
+  import { Icon } from '../../node_modules/svelte-icons-pack/dist';
 
   export let href = '';
-  export let icon = {};
+  export let icon = /** @type {import('svelte-icons-pack').IconType} */ ({});
   export let title = '';
 </script>
 
 <a href={href} class:active={window.location.pathname === href}>
-  <Icon size="18" className={window.location.pathname === href  ? 'icon_active' : 'icon_dark'} src={icon}/>
+  <Icon
+    size="18"
+    className={window.location.pathname === href
+      ? 'icon_active'
+      : 'icon_dark'
+    }
+    src={icon}
+  />
   <span>{title}</span>
 </a>
 

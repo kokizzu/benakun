@@ -72,6 +72,7 @@ const (
 	*/
 
 	ParentId    = `parentId`
+	TenantCode	= `tenantCode`
 	CreatedAt   = `createdAt`
 	CreatedBy   = `createdBy`
 	UpdatedAt   = `updatedAt`
@@ -109,6 +110,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TablePlans: {
 		Fields: []Tt.Field{
 			{Id, Tt.Unsigned},
+			{TenantCode, Tt.String},
 			{PlanType, Tt.String},
 			{ParentId, Tt.Unsigned},
 			{CreatedAt, Tt.Integer},
@@ -132,11 +134,14 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableBankAccounts: {
 		Fields: []Tt.Field{
 			{Id, Tt.Unsigned},
+			{TenantCode, Tt.String},
 			{CreatedAt, Tt.Integer},
 			{CreatedBy, Tt.Unsigned},
 			{UpdatedAt, Tt.Integer},
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
+			{DeletedBy, Tt.Unsigned},
+			{RestoredBy, Tt.Unsigned},
 			{Name, Tt.String},
 			{ParentBankAccountId, Tt.Unsigned},
 			{ChildBankAccountId, Tt.Unsigned},

@@ -1,8 +1,7 @@
 <script>
   import { onMount } from 'svelte';
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import AiOutlineEye from 'svelte-icons-pack/ai/AiOutlineEye';
-  import AiOutlineEyeInvisible from 'svelte-icons-pack/ai/AiOutlineEyeInvisible';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import { AiOutlineEye, AiOutlineEyeInvisible } from '../node_modules/svelte-icons-pack/dist/ai';
 
   // ==== Input type ======
   // text (default)
@@ -77,7 +76,7 @@
       <textarea bind:value={value} {id} {placeholder}></textarea>
     {:else if type === 'text'}
       <label class="label" for={id}>{label}</label>
-      <input type="text" bind:value={value} {id} {placeholder}/>
+      <input type="text" bind:value={value} {id} {placeholder} autocomplete="off" />
     {:else if type === 'email'}
       <label class="label" for={id}>{label}</label>
       <input type="email" bind:value={value} {id} {placeholder}/>

@@ -850,8 +850,11 @@ exports.SuperAdminUserManagement = async function SuperAdminUserManagement( i, c
  * @property {number} account.updatedAt
  * @property {number} account.updatedBy
  * @property {number} account.deletedAt
+ * @property {number} account.deletedBy
+ * @property {number} account.restoredBy
  * @property {String} account.name
  * @property {number} account.parentBankAccountId
+ * @property {number} account.childBankAccountId
  * @property {number} account.accountNumber
  * @property {String} account.bankName
  * @property {String} account.accountName
@@ -873,8 +876,11 @@ const TenantAdminBankAccountsIn = {
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
     name: '', // string
     parentBankAccountId: 0, // uint64
+    childBankAccountId: 0, // uint64
     accountNumber: 0, // int64
     bankName: '', // string
     accountName: '', // string
@@ -902,14 +908,18 @@ const TenantAdminBankAccountsIn = {
  * @property {Object} meta.fields
  * @property {Object} meta.mutex
  * @property {String} meta.cachedSelect
+ * @property {Object} staffs
  * @property {number} account.id
  * @property {number} account.createdAt
  * @property {number} account.createdBy
  * @property {number} account.updatedAt
  * @property {number} account.updatedBy
  * @property {number} account.deletedAt
+ * @property {number} account.deletedBy
+ * @property {number} account.restoredBy
  * @property {String} account.name
  * @property {number} account.parentBankAccountId
+ * @property {number} account.childBankAccountId
  * @property {number} account.accountNumber
  * @property {String} account.bankName
  * @property {String} account.accountName
@@ -935,6 +945,8 @@ const TenantAdminBankAccountsOut = {
     }, // sync.Mutex
     cachedSelect: '', // string
   }, // zCrud.Meta
+  staffs: { // []rqAuth.Staff
+  }, // []rqAuth.Staff
   account: { // rqBudget.BankAccounts
     id: 0, // uint64
     createdAt: 0, // int64
@@ -942,8 +954,11 @@ const TenantAdminBankAccountsOut = {
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
     name: '', // string
     parentBankAccountId: 0, // uint64
+    childBankAccountId: 0, // uint64
     accountNumber: 0, // int64
     bankName: '', // string
     accountName: '', // string
@@ -1421,6 +1436,131 @@ const TenantAdminOrganizationOut = {
  */
 exports.TenantAdminOrganization = async function TenantAdminOrganization( i, cb ) {
   return await axios.post( '/tenantAdmin/organization', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminProductsIn
+ * @property {String} cmd
+ * @property {Object} withMeta
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {number} product.id
+ * @property {number} product.createdAt
+ * @property {number} product.createdBy
+ * @property {number} product.updatedAt
+ * @property {number} product.updatedBy
+ * @property {number} product.deletedAt
+ * @property {number} product.deletedBy
+ * @property {number} product.restoredBy
+ * @property {String} product.name
+ * @property {String} product.detail
+ * @property {String} product.rule
+ * @property {String} product.kind
+ * @property {String} product.cogsIDR
+ */
+const TenantAdminProductsIn = {
+  cmd: '', // string
+  withMeta: false, // bool
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
+  product: { // rqBusiness.Products
+    id: 0, // uint64
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    name: '', // string
+    detail: '', // string
+    rule: '', // string
+    kind: '', // string
+    cogsIDR: '', // string
+  }, // rqBusiness.Products
+}
+/**
+ * @typedef {Object} TenantAdminProductsOut
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
+ * @property {number} product.id
+ * @property {number} product.createdAt
+ * @property {number} product.createdBy
+ * @property {number} product.updatedAt
+ * @property {number} product.updatedBy
+ * @property {number} product.deletedAt
+ * @property {number} product.deletedBy
+ * @property {number} product.restoredBy
+ * @property {String} product.name
+ * @property {String} product.detail
+ * @property {String} product.rule
+ * @property {String} product.kind
+ * @property {String} product.cogsIDR
+ * @property {Object} products
+ */
+const TenantAdminProductsOut = {
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
+  product: { // rqBusiness.Products
+    id: 0, // uint64
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    name: '', // string
+    detail: '', // string
+    rule: '', // string
+    kind: '', // string
+    cogsIDR: '', // string
+  }, // rqBusiness.Products
+  products: { // [][]any
+  }, // [][]any
+}
+/**
+ * @callback TenantAdminProductsCallback
+ * @param {TenantAdminProductsOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminProductsIn} i
+ * @param {TenantAdminProductsCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminProducts = async function TenantAdminProducts( i, cb ) {
+  return await axios.post( '/tenantAdmin/products', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

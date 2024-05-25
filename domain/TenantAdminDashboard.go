@@ -44,6 +44,7 @@ const (
 	ErrTenantAdminDashboardInvalidStaff = `invalid staff`
 	ErrTenantAdminDashboardEmptyState = `failed to modify staff, state is empty`
 	ErrTenantAdminDashboardFailed = `failed to update staff`
+	ErrTenantAdminDashboardNotTenant = `cannot invite user if not tenant`
 )
 
 var TenantAdminDashboardMeta = zCrud.Meta{
@@ -104,12 +105,6 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 		return
 	}
 
-	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
-	tenant.TenantCode = user.TenantCode
-	if !tenant.FindByTenantCode() {
-		out.SetError(400, ErrTenantAdminDashboardTenantNotFound)
-		return
-	}
 
 	if in.WithMeta {
 		out.Meta = &TenantAdminDashboardMeta
@@ -117,6 +112,13 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 
 	switch in.Cmd {
 	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
+		tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
+		tenant.TenantCode = user.TenantCode
+		if !tenant.FindByTenantCode() {
+			out.SetError(400, ErrTenantAdminDashboardNotTenant)
+			return
+		}
+
 		if in.StaffEmail != `` {
 			staff := wcAuth.NewUsersMutator(d.AuthOltp)
 			staff.Email = in.StaffEmail
@@ -204,7 +206,6 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 
 		fallthrough
 	case zCrud.CmdList:
-		L.Print(in.Pager.Filters)
 		staff := rqAuth.NewUsers(d.AuthOltp)
 		staff.TenantCode = user.TenantCode
 		out.Staffs = staff.FindStaffByPagination(&TenantAdminDashboardMeta, &in.Pager, &out.Pager)

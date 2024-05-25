@@ -1,12 +1,14 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import RiBuildingsCommunityLine from 'svelte-icons-pack/ri/RiBuildingsCommunityLine';
-  import RiBuildingsBuilding2Line from 'svelte-icons-pack/ri/RiBuildingsBuilding2Line';
-  import RiUserTeamLine from 'svelte-icons-pack/ri/RiUserTeamLine';
-  import RiBusinessBriefcaseLine from 'svelte-icons-pack/ri/RiBusinessBriefcaseLine';
-  import RiSystemArrowRightSLine from 'svelte-icons-pack/ri/RiSystemArrowRightSLine';
-  import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
-  import RiDesignPencilLine from 'svelte-icons-pack/ri/RiDesignPencilLine';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import {
+    RiBuildingsCommunityLine,
+    RiBuildingsBuilding2Line,
+    RiUserFacesGroup3Line,
+    RiBusinessBriefcaseLine,
+    RiSystemAddBoxLine,
+    RiDesignPencilLine,
+    RiArrowsArrowRightSLine
+   } from '../node_modules/svelte-icons-pack/dist/ri';
   import PlanProgramTree from './PlanProgramTree.svelte';
   import {
     TenantAdminGetBudgetPlans,
@@ -35,7 +37,7 @@
       break;
     }
     case OrgTypeDivision: {
-      orgType = 'division', orgIcon = RiUserTeamLine;
+      orgType = 'division', orgIcon = RiUserFacesGroup3Line;
       break;
     }
     case OrgTypeJob: {
@@ -324,7 +326,7 @@
             color="var(--gray-006)"
             className="icon {isShowPlans ? 'rotate' : 'dropdown'}"
             size="14"
-            src={RiSystemArrowRightSLine}
+            src={RiArrowsArrowRightSLine}
           />
         </button>
       </div>

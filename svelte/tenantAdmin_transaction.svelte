@@ -1,7 +1,7 @@
 <script>
+  import { Icon } from './node_modules/svelte-icons-pack/dist';
+  import { IoSearch } from './node_modules/svelte-icons-pack/dist/io';
   import MainLayout from './_layouts/mainLayout.svelte';
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import IoSearch from 'svelte-icons-pack/io/IoSearch';
 
   let search = '';
 </script>

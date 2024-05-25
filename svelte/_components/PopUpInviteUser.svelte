@@ -1,8 +1,8 @@
 <script>
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
+  import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
   import InputBox from './InputBox.svelte';
-  import Icon from 'svelte-icons-pack';
-  import FiLoader from 'svelte-icons-pack/fi/FiLoader';
-  import IoClose from 'svelte-icons-pack/io/IoClose';
 
   export let heading = 'Invite user';
 

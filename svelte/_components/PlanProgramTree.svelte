@@ -1,9 +1,11 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FaFolder from 'svelte-icons-pack/fa/FaFolder';
-  import RiMediaSpeedMiniFill from "svelte-icons-pack/ri/RiMediaSpeedMiniFill";
-  import RiSystemAddBoxLine from 'svelte-icons-pack/ri/RiSystemAddBoxLine';
-  import RiDesignPencilLine from 'svelte-icons-pack/ri/RiDesignPencilLine';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import { FaFolder } from '../node_modules/svelte-icons-pack/dist/fa';
+  import {
+    RiMediaSpeedMiniFill,
+    RiSystemAddBoxLine,
+    RiDesignPencilLine
+  } from '../node_modules/svelte-icons-pack/dist/ri';
   import { createEventDispatcher } from 'svelte';
   import { TenantAdminCreateBudgetPlan, TenantAdminUpdateBudgetPlan } from '../jsApi.GEN.js';
   import PopUpBudgetPlan from './PopUpBudgetPlan.svelte';

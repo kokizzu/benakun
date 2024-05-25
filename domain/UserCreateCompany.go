@@ -1,16 +1,17 @@
 package domain
 
 import (
+	"benakun/model/mAuth"
+	"benakun/model/mAuth/rqAuth"
+	"benakun/model/mAuth/wcAuth"
+	"benakun/model/mFinance"
+	"benakun/model/mFinance/wcFinance"
 	"crypto/rand"
 	"errors"
 	"fmt"
 	"math/big"
 	"strings"
 	"unicode"
-
-	"benakun/model/mAuth"
-	"benakun/model/mAuth/rqAuth"
-	"benakun/model/mAuth/wcAuth"
 
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/I"
@@ -121,7 +122,7 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 }
 
 func insertCoaLevel(ta *Tt.Adapter, tenantCode string, level float64, name string, parentId uint64) (uint64, error) {
-	coa := wcAuth.NewCoaMutator(ta)
+	coa := wcFinance.NewCoaMutator(ta)
 	coa.SetTenantCode(tenantCode)
 	coa.SetLevel(level)
 	coa.SetName(name)
@@ -136,13 +137,13 @@ func insertCoaLevel(ta *Tt.Adapter, tenantCode string, level float64, name strin
 }
 
 func generateCoaLevels(ta *Tt.Adapter, tenantCode string) error {
-	for lv, vl := range mAuth.CoaLevelDefaultList {
+	for lv, vl := range mFinance.CoaLevelDefaultList {
 		if _, err := insertCoaLevel(ta, tenantCode, float64(S.ToInt(lv)), vl.Name, 0); err != nil {
 			return err
 		}
 
 		if len(vl.ChildrenNames) > 0 {
-			parent := wcAuth.NewCoaMutator(ta)
+			parent := wcFinance.NewCoaMutator(ta)
 			parent.TenantCode = tenantCode
 			parent.Level = float64(S.ToInt(lv))
 

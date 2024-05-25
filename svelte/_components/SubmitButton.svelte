@@ -1,7 +1,6 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import FiSend from 'svelte-icons-pack/fi/FiSend';
-  import FiLoader from 'svelte-icons-pack/fi/FiLoader';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import { FiSend, FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
 
   export let isSubmitted = false;
   export let isFullWidth = false;

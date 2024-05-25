@@ -1,25 +1,19 @@
 <script>
-  import Icon from 'svelte-icons-pack/Icon.svelte';
-  import RiDesignBallPenLine from 'svelte-icons-pack/ri/RiDesignBallPenLine';
-  import AiOutlineEyeInvisible from 'svelte-icons-pack/ai/AiOutlineEyeInvisible';
-  import AiOutlineFileExcel from 'svelte-icons-pack/ai/AiOutlineFileExcel';
-  import IoSearch from 'svelte-icons-pack/io/IoSearch';
-  import IoClose from 'svelte-icons-pack/io/IoClose';
-  import FiLoader from 'svelte-icons-pack/fi/FiLoader';
-  import CgChevronDown from 'svelte-icons-pack/cg/CgChevronDown';
-	import CgChevronLeft from 'svelte-icons-pack/cg/CgChevronLeft';
-  import CgChevronRight from 'svelte-icons-pack/cg/CgChevronRight';
-  import CgChevronDoubleRight from 'svelte-icons-pack/cg/CgChevronDoubleRight';
-  import CgChevronDoubleLeft from 'svelte-icons-pack/cg/CgChevronDoubleLeft';
-	import IoArrowUpSharp from 'svelte-icons-pack/io/IoArrowUpSharp';
-	import IoArrowDownSharp from 'svelte-icons-pack/io/IoArrowDownSharp';
-	import RiDeviceDatabase2Line from 'svelte-icons-pack/ri/RiDeviceDatabase2Line';
-	import FaChartBar from 'svelte-icons-pack/fa/FaChartBar';
-	import RiSystemInformationLine from 'svelte-icons-pack/ri/RiSystemInformationLine';
-	import FaSolidChartLine from 'svelte-icons-pack/fa/FaSolidChartLine';
-	import RiSystemDeleteBin5Line from 'svelte-icons-pack/ri/RiSystemDeleteBin5Line';
-	import RiSystemFilterLine from 'svelte-icons-pack/ri/RiSystemFilterLine';
-	import RiSystemArrowGoBackLine from 'svelte-icons-pack/ri/RiSystemArrowGoBackLine';
+	import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import {
+		RiDesignBallPenLine,
+		RiSystemDeleteBin5Line,
+		RiSystemFilterLine,
+		RiArrowsArrowGoBackLine
+	} from '../node_modules/svelte-icons-pack/dist/ri';
+  import { IoSearch, IoClose } from '../node_modules/svelte-icons-pack/dist/io';
+  import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
+	import {
+		CgChevronLeft,
+		CgChevronRight,
+		CgChevronDoubleRight,
+		CgChevronDoubleLeft
+	} from '../node_modules/svelte-icons-pack/dist/cg';
 	import InputCustom from './InputCustom.svelte';
 	import { onMount } from 'svelte';
 	import FilterTable from './FilterTable.svelte';
@@ -127,6 +121,11 @@
 	function Cell( row, i, field ) {
 		if( ARRAY_OF_ARRAY ) return row[ i ] || '';
 		return row[ field.name ] || '';
+	}
+
+	// Trigger function "getPaginationShow()" if variable "PAGER" changed
+	$: {
+		if (PAGER) getPaginationShow();
 	}
 
 	onMount(() => {
@@ -250,19 +249,20 @@
 				</button>
 			</header>
 			<div class="forms">
-					{#each (FIELDS || []) as field, idx}
-						{#if field.name !== 'id'}
-							{#if !field.readOnly}
-								<InputCustom
-									id={field.name}
-									label={field.label}
-									placeholder={field.description}
-									bind:value={payloads[idx]}
-									type={field.inputType}
-								/>
-							{/if}
+				{#each (FIELDS || []) as field, idx}
+					{#if field.name !== 'id'}
+						{#if !field.readOnly}
+							<InputCustom
+								id={field.name}
+								label={field.label}
+								placeholder={field.description}
+								bind:value={payloads[idx]}
+								type={field.inputType}
+								values={field.ref}
+							/>
 						{/if}
-					{/each}
+					{/if}
+				{/each}
 			</div>
 			<div class="foot">
 				<button class="ok" on:click={handleSubmitEdit}>Save</button>
@@ -377,7 +377,7 @@
 															<Icon
 																size="15"
 																color="var(--gray-007)"
-																src={RiSystemArrowGoBackLine}
+																src={RiArrowsArrowGoBackLine}
 															/>
 														</button>
 													{:else}
@@ -413,14 +413,12 @@
 						</tr>
 					{/each}
 				{:else}
-					{#each (Array(5).fill()) as _, i}
-						<tr>
-							<td class="num_row">{i + 1}</td>
-							{#each (FIELDS || []) as _}
-								<td>-</td>
-							{/each}
-						</tr>
+					<tr>
+						<td class="num_row">1</td>
+						{#each (FIELDS || []) as _}
+							<td>no-data</td>
 						{/each}
+					</tr>
 				{/if}
 			</tbody>
 		</table>
@@ -761,6 +759,8 @@
 		background-color: var(--gray-001);
 		text-transform: capitalize;
 		border-bottom: 1px solid var(--gray-003);
+		min-width: fit-content;
+    text-wrap: nowrap;
   }
 
 	.table_root .table_container table tbody tr.deleted {

@@ -1,8 +1,9 @@
 package domain
 
 import (
-	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
+	"benakun/model/mFinance/rqFinance"
+	"benakun/model/mFinance/wcFinance"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminDeleteCoaChild.go
@@ -18,7 +19,7 @@ type (
 	}
 	TenantAdminDeleteCoaChildOut struct {
 		ResponseCommon
-		Coas *[]rqAuth.Coa `json:"coa" form:"coa" query:"coa" long:"coa" msg:"coa"`
+		Coas *[]rqFinance.Coa `json:"coa" form:"coa" query:"coa" long:"coa" msg:"coa"`
 	}
 )
 
@@ -50,12 +51,12 @@ func (d *Domain) TenantAdminDeleteCoaChild(in *TenantAdminDeleteCoaChildIn) (out
 
 	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
 	tenant.TenantCode = user.TenantCode
-	if !tenant.FindByTenantCode() {
+	if !tenant.FindByTenantCode() && !sess.IsSuperAdmin {
 		out.SetError(400, ErrTenantAdminDeleteCoaChildTenantNotFound)
 		return
 	}
 
-	child := wcAuth.NewCoaMutator(d.AuthOltp)
+	child := wcFinance.NewCoaMutator(d.AuthOltp)
 	child.Id = in.Id
 	if !child.FindById() {
 		out.SetError(400, ErrTenantAdminDeleteCoaChildTenantNotFound)
@@ -79,7 +80,7 @@ func (d *Domain) TenantAdminDeleteCoaChild(in *TenantAdminDeleteCoaChildIn) (out
 	}
 
 	// retrieve owned coa
-	coa := wcAuth.NewCoaMutator(d.AuthOltp)
+	coa := wcFinance.NewCoaMutator(d.AuthOltp)
 	coas := coa.FindCoasByTenant(tenant.TenantCode)
 
 	out.Coas = &coas
