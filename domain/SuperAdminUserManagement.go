@@ -5,6 +5,8 @@ import (
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
 	"benakun/model/zCrud"
+
+	"github.com/kokizzu/gotro/T"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file SuperAdminUserManagement.go
@@ -16,10 +18,11 @@ import (
 type (
 	SuperAdminUserManagementIn struct {
 		RequestCommon
-		Cmd      string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		User     rqAuth.Users  `json:"user" form:"user" query:"user" long:"user" msg:"user"`
-		WithMeta bool          `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
-		Pager    zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		Cmd      		string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
+		TenantAdmin string				`json:"tenantAdmin" form:"tenantAdmin" query:"tenantAdmin" long:"tenantAdmin" msg:"tenantAdmin"`
+		User     		rqAuth.Users  `json:"user" form:"user" query:"user" long:"user" msg:"user"`
+		WithMeta 		bool          `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
+		Pager    		zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 	}
 	SuperAdminUserManagementOut struct {
 		ResponseCommon
@@ -35,9 +38,12 @@ const (
 	SuperAdminUserManagementAction = `superAdmin/userManagement`
 	ErrUserIdNotFound              = `user id not found`
 	ErrTenantCodeNotFound          = `tenant code is not allready`
-	ErrInvalidSegment              = `invalid segment`
+	ErrInvalidRole              	 = `invalid role`
 	ErrUserSaveFailed              = `user save failed`
 	ErrUsersEmailDuplicate         = `email already by another user`
+	ErrUsersEmailEmpty						 = `email cannot be empty`
+	ErrSuperAdminUserManagementTenantAdminEmpty		 = `tenant admin cannot be empty`
+	ErrSuperAdminUserManagementTenantCodeEmpty = `tenant code cannot be empty`
 )
 
 var SuperAdminUserManagementMeta = zCrud.Meta{
@@ -73,7 +79,7 @@ var SuperAdminUserManagementMeta = zCrud.Meta{
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeCombobox,
 			Ref: []string{
-				UserSegment, DataEntrySegment, TenantAdminSegment, ReportViewerSegment,
+				mAuth.RoleUser, mAuth.RoleDataEntry, mAuth.RoleReportViewer, mAuth.RoleTenantAdmin,
 			},
 			ReadOnly: true,
 		},
@@ -137,7 +143,17 @@ func (d *Domain) SuperAdminUserManagement(in *SuperAdminUserManagementIn) (out S
 				return
 			}
 
-			if in.Cmd == zCrud.CmdDelete {
+			if in.Cmd == zCrud.CmdUpsert {
+				if in.User.Email != `` && in.User.Email != user.Email {
+					dup := rqAuth.NewUsers(d.AuthOltp)
+					dup.Email = in.User.Email
+					if dup.FindByEmail() {
+						out.SetError(400, ErrUsersEmailDuplicate)
+						return
+					}
+					user.SetEmail(in.User.Email)
+				}
+			} else if in.Cmd == zCrud.CmdDelete {
 				if user.DeletedAt == 0 {
 					user.SetDeletedAt(in.UnixNow())
 				}
@@ -147,16 +163,66 @@ func (d *Domain) SuperAdminUserManagement(in *SuperAdminUserManagementIn) (out S
 				}
 			}
 		} else {
-			user.SetCreatedAt(in.UnixNow())
-		}
-
-		if user.SetEmail(in.User.Email) {
-			user.SetVerifiedAt(0)
-			dup := rqAuth.NewUsers(d.AuthOltp)
-			dup.Email = in.User.Email
-			if dup.FindByEmail() && dup.Id != user.Id {
-				out.SetError(400, ErrUsersEmailDuplicate)
+			if in.User.Email != `` {
+				dup := rqAuth.NewUsers(d.AuthOltp)
+				dup.Email = in.User.Email
+				if dup.FindByEmail() {
+					out.SetError(400, ErrUsersEmailDuplicate)
+					return
+				}
+				user.SetEmail(in.User.Email)
+				user.SetVerifiedAt(0)
+			} else {
+				out.SetError(400, ErrUsersEmailEmpty)
 				return
+			}
+			
+			user.SetEncryptedPassword(mAuth.DefaultPassword, in.UnixNow())
+
+			if in.User.Role != `` {
+				if !mAuth.IsValidRole(in.User.Role) {
+					out.SetError(400, ErrInvalidRole)
+					return
+				}
+
+				switch in.User.Role {
+				case mAuth.RoleDataEntry, mAuth.RoleReportViewer:
+					if in.TenantAdmin != `` {
+						tenantAdmin := rqAuth.NewTenants(d.AuthOltp)
+						tenantAdmin.TenantCode = in.TenantAdmin
+						if !tenantAdmin.FindByTenantCode() {
+							out.SetError(400, ErrTenantCodeNotFound)
+							return
+						}
+
+						invState := mAuth.InviteState{
+							TenantCode: in.TenantAdmin,
+							State: mAuth.InvitationStateAccepted,
+							Date: T.DateStr(),
+						}
+
+						user.SetInvitationState(invState.ToStateString())
+					} else {
+						out.SetError(400, ErrSuperAdminUserManagementTenantAdminEmpty)
+						return
+					}
+				case mAuth.RoleTenantAdmin:
+					if in.User.TenantCode != `` {
+						tenant := rqAuth.NewTenants(d.AuthOltp)
+						tenant.TenantCode = in.User.TenantCode
+						if !tenant.FindByTenantCode() {
+							out.SetError(400, ErrTenantCodeNotFound)
+							return
+						}
+						user.SetTenantCode(in.User.TenantCode)
+					} else {
+						out.SetError(400, ErrSuperAdminUserManagementTenantCodeEmpty)
+						return
+					}
+				}
+				user.SetRole(in.User.Role)
+			} else {
+				user.SetRole(mAuth.RoleUser)
 			}
 		}
 
@@ -164,31 +230,12 @@ func (d *Domain) SuperAdminUserManagement(in *SuperAdminUserManagementIn) (out S
 			user.SetFullName(in.User.FullName)
 		}
 
-		if user.SetRole(in.User.Role) {
-			if in.User.Role != UserSegment &&
-				in.User.Role != DataEntrySegment &&
-				in.User.Role != TenantAdminSegment &&
-				in.User.Role != ReportViewerSegment {
-				out.SetError(400, ErrInvalidSegment)
-				return
-			}
-		}
-
-		if in.User.TenantCode != "" {
-			tenant := rqAuth.NewTenants(d.AuthOltp)
-			tenant.TenantCode = in.User.TenantCode
-			if !tenant.FindByTenantCode() {
-				out.SetError(400, ErrTenantCodeNotFound)
-				return
-			}
-			user.SetTenantCode(in.User.TenantCode)
-		}
-
 		if user.HaveMutation() {
 			user.SetUpdatedAt(in.UnixNow())
 			user.SetUpdatedBy(sess.UserId)
 			if user.Id == 0 {
 				user.SetCreatedAt(in.UnixNow())
+				user.SetCreatedBy(sess.UserId)
 			}
 		}
 

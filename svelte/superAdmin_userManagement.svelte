@@ -101,6 +101,7 @@
   async function OnEdit(/** @type any */ id, /** @type any[]*/ payloads) {
     /** @type User */ //@ts-ignore
     const u = {
+      id,
       email: payloads[2],
       fullName: payloads[3],
       role: payloads[4],
@@ -127,13 +128,40 @@
       }
     );
   }
+
+  async function onAddUser(/** @type Object */ payload) {
+    const i = {
+      pager,
+      tenantAdmin: payload.tenantAdmin,
+      user: payload.user,
+      cmd: 'upsert'
+    };
+    await SuperAdminUserManagement( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').SuperAdminUserManagementCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+
+        pager = o.pager;
+        users = o.users;
+        user = o.user;
+
+        notifier.showSuccess('user '+user.email+' created')
+      }
+    );
+    popUpAddUser.Hide();
+  }
 </script>
 
 {#if isPopUpAddUserReady}
   <PopUpAddUser
     bind:this={popUpAddUser}
     heading="Add user"
-    FIELDS={fields}
+    OnSubmit={onAddUser}
   />
 {/if}
 

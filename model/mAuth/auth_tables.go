@@ -6,6 +6,26 @@ import (
 )
 
 const (
+	RoleUser				 = `user`	
+	RoleTenantAdmin  = `tenantAdmin`
+	RoleDataEntry    = `dataEntry`
+	RoleReportViewer = `reportViewer`
+)
+
+func IsValidRole(role string) bool {
+	switch role {
+	case RoleTenantAdmin:
+		return true
+	case RoleDataEntry:
+		return true
+	case RoleReportViewer:
+		return true
+	default:
+		return false
+	}
+}
+
+const (
 	TableUsers Tt.TableName = `users`
 
 	Id                 = `id`
@@ -28,6 +48,8 @@ const (
 	InvitedAt          = `invitedAt`
 	InvitationState    = `invitationState`
 )
+
+const DefaultPassword	= `user12345678`
 
 const (
 	TableSessions Tt.TableName = `sessions`

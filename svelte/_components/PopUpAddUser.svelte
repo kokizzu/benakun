@@ -2,38 +2,93 @@
 	import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
-  import { onMount } from 'svelte';
   import InputCustom from './InputCustom.svelte';
+  import { SuperAdminTenantManagement } from '../jsApi.GEN';
+  import { notifier } from './notifier';
 
   // @ts-ignore
-  /** @typedef {import('../_components/types/master').Field} Field */
+  /** @typedef {import('../_components/types/user').User} User */
 
   export let heading = 'Add user';
-  export let FIELDS = /** @type Field[] */ ([]);
   export let isSubmitted = false;
+
+  export let OnSubmit = async function(/** @type Object */ payload) {};
+
   let isShow = false;
-  let payloads = [];
-
-  onMount(() => {
-    if (FIELDS && FIELDS.length > 0) {
-      FIELDS.forEach(() => payloads = [...payloads, '']);
-		}
-  })
-
-  export let OnSubmit = async function(/** @type any[] */ payloads) {}  
-
   export const Show = () => isShow = true;
   export const Hide = () => isShow = false;
 
+  let email = '';
+  let fullName = '';
+  let tenantCode = '';
+  let role = '';
+
+  const RoleUser    = `user`,
+    RoleTenantAdmin = `tenantAdmin`,
+    RoleDataEntry   = `dataEntry`,
+    RoleReportViewer = `reportViewer`;
+
+  const roles = [RoleUser, RoleTenantAdmin, RoleDataEntry, RoleReportViewer];
+
+  let tenantAdmin = '';
+
+  let isRequireTenantAdmin = false;
+  let isTenantsReady = false;
+  let tenants = [];
+
+  const getTenants = async () => {
+    await SuperAdminTenantManagement( // @ts-ignore
+      { cmd: 'list' }, /** @type {import('../jsApi.GEN').SuperAdminTenantManagementCallback} */
+      /** @returns {Promise<any>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+        const tnts = /** @type any[] */ (o.tenants);
+        if (tnts && tnts.length > 0) {
+          tenants = [];
+          tnts.forEach(t => {
+            tenants = [...tenants, t[1]];
+          })
+          isTenantsReady = true;
+        }
+      }
+    );
+  }
+
+  $: {
+    if (role === RoleReportViewer || role === RoleDataEntry) {
+      isRequireTenantAdmin = true;
+      if (!isTenantsReady) (async () => { await getTenants() })();
+    }
+  }
+
   export const Reset = () => {
-    payloads = [];
-    if (FIELDS && FIELDS.length > 0) {
-			FIELDS.forEach(() => payloads = [...payloads, '']);
-		}
+    email = '';
+    fullName = '';
+    role = '';
+    tenantCode = '';
+    tenantAdmin = '';
   }
   
   const cancel = () => {
     isShow = false;
+  }
+
+  function submitAddUser() {
+    const payload = {
+      tenantAdmin: tenantAdmin,
+      user: {
+        email,
+        fullName,
+        tenantCode,
+        role
+      }
+    }
+
+    OnSubmit(payload);
   }
 </script>
 
@@ -46,27 +101,47 @@
       </button>
     </header>
     <div class="forms">
-      {#each (FIELDS || []) as field, idx}
-        {#if field.name !== 'id'}
-          {#if !field.readOnly}
-            <InputCustom
-              id={field.name}
-              label={field.label}
-              placeholder={field.description}
-              bind:value={payloads[idx]}
-              type={field.inputType}
-              values={field.ref}
-            />
-          {/if}
+      <InputCustom
+        id="email"
+        label="Email"
+        placeholder="email@example.com"
+        bind:value={email}
+        type="email"
+      />
+      <InputCustom
+        id="fullName"
+        label="Full Name"
+        placeholder="John Doe"
+        bind:value={fullName}
+        type="text"
+      />
+      <InputCustom
+        id="role"
+        label="Role"
+        bind:value={role}
+        type="combobox"
+        values={roles}
+      />
+      {#if isRequireTenantAdmin}
+        {#if isTenantsReady}
+          <InputCustom
+            id="tenantAdmin"
+            label="TenantAdmin"
+            bind:value={tenantAdmin}
+            type="combobox"
+            values={tenants}
+          />
+        {:else}
+          <p>Tenants empty</p>
         {/if}
-      {/each}
+      {/if}
     </div>
     <div class="foot">
       <div class="left">
       </div>
       <div class="right">
         <button class="cancel" on:click|preventDefault={cancel}>Cancel</button>
-        <button class="ok" on:click|preventDefault={() => OnSubmit(payloads)} disabled={isSubmitted}>
+        <button class="ok" on:click|preventDefault={submitAddUser} disabled={isSubmitted}>
           {#if !isSubmitted}
             <span>Ok</span>
           {/if}

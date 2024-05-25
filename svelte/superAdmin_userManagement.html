@@ -3474,7 +3474,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.SuperAdminDashboard = async function SuperAdminDashboard(i, cb) {
         return await axios.post("/superAdmin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.SuperAdminTenantManagement = async function SuperAdminTenantManagement(i, cb) {
+      exports.SuperAdminTenantManagement = async function SuperAdminTenantManagement2(i, cb) {
         return await axios.post("/superAdmin/tenantManagement", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.SuperAdminUserManagement = async function SuperAdminUserManagement2(i, cb) {
@@ -3995,7 +3995,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     block.d(1);
     lookup.delete(block.key);
   }
-  function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block5, next, get_context) {
+  function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block4, next, get_context) {
     let o = old_blocks.length;
     let n = list.length;
     let i = o;
@@ -4012,7 +4012,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       const key = get_key(child_ctx);
       let block = lookup.get(key);
       if (!block) {
-        block = create_each_block5(key, child_ctx);
+        block = create_each_block4(key, child_ctx);
         block.c();
       } else if (dynamic) {
         updates.push(() => block.p(child_ctx, dirty));
@@ -11369,54 +11369,57 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var MasterTable_default = MasterTable;
 
   // superAdmin_userManagement.svelte
-  var import_jsApi = __toESM(require_jsApi_GEN());
+  var import_jsApi2 = __toESM(require_jsApi_GEN());
 
   // _components/PopUpAddUser.svelte
-  function get_each_context4(ctx, list, i) {
-    const child_ctx = ctx.slice();
-    child_ctx[12] = list[i];
-    child_ctx[13] = list;
-    child_ctx[14] = i;
-    return child_ctx;
-  }
+  var import_jsApi = __toESM(require_jsApi_GEN());
   function create_if_block_24(ctx) {
+    let current_block_type_index;
+    let if_block;
     let if_block_anchor;
     let current;
-    let if_block = !/*field*/
-    ctx[12].readOnly && create_if_block_34(ctx);
+    const if_block_creators = [create_if_block_34, create_else_block3];
+    const if_blocks = [];
+    function select_block_type(ctx2, dirty) {
+      if (
+        /*isTenantsReady*/
+        ctx2[4]
+      )
+        return 0;
+      return 1;
+    }
+    current_block_type_index = select_block_type(ctx, -1);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
-        if (if_block)
-          if_block.c();
+        if_block.c();
         if_block_anchor = empty();
       },
       m(target, anchor) {
-        if (if_block)
-          if_block.m(target, anchor);
+        if_blocks[current_block_type_index].m(target, anchor);
         insert(target, if_block_anchor, anchor);
         current = true;
       },
       p(ctx2, dirty) {
-        if (!/*field*/
-        ctx2[12].readOnly) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*FIELDS*/
-            2) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block_34(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        } else if (if_block) {
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
+        } else {
           group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
           });
           check_outros();
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block.c();
+          } else {
+            if_block.p(ctx2, dirty);
+          }
+          transition_in(if_block, 1);
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
         }
       },
       i(local) {
@@ -11433,8 +11436,27 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (detaching) {
           detach(if_block_anchor);
         }
-        if (if_block)
-          if_block.d(detaching);
+        if_blocks[current_block_type_index].d(detaching);
+      }
+    };
+  }
+  function create_else_block3(ctx) {
+    let p;
+    return {
+      c() {
+        p = element("p");
+        p.textContent = "Tenants empty";
+      },
+      m(target, anchor) {
+        insert(target, p, anchor);
+      },
+      p: noop,
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(p);
+        }
       }
     };
   }
@@ -11443,46 +11465,23 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let updating_value;
     let current;
     function inputcustom_value_binding(value) {
-      ctx[10](
-        value,
-        /*idx*/
-        ctx[14]
-      );
+      ctx[20](value);
     }
     let inputcustom_props = {
-      id: (
-        /*field*/
-        ctx[12].name
-      ),
-      label: (
-        /*field*/
-        ctx[12].label
-      ),
-      placeholder: (
-        /*field*/
-        ctx[12].description
-      ),
-      type: (
-        /*field*/
-        ctx[12].inputType
-      ),
+      id: "tenantAdmin",
+      label: "TenantAdmin",
+      type: "combobox",
       values: (
-        /*field*/
-        ctx[12].ref
+        /*tenants*/
+        ctx[10]
       )
     };
     if (
-      /*payloads*/
-      ctx[6][
-        /*idx*/
-        ctx[14]
-      ] !== void 0
+      /*tenantAdmin*/
+      ctx[8] !== void 0
     ) {
-      inputcustom_props.value = /*payloads*/
-      ctx[6][
-        /*idx*/
-        ctx[14]
-      ];
+      inputcustom_props.value = /*tenantAdmin*/
+      ctx[8];
     }
     inputcustom = new InputCustom_default({ props: inputcustom_props });
     binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding));
@@ -11494,37 +11493,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         mount_component(inputcustom, target, anchor);
         current = true;
       },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
+      p(ctx2, dirty) {
         const inputcustom_changes = {};
-        if (dirty & /*FIELDS*/
-        2)
-          inputcustom_changes.id = /*field*/
-          ctx[12].name;
-        if (dirty & /*FIELDS*/
-        2)
-          inputcustom_changes.label = /*field*/
-          ctx[12].label;
-        if (dirty & /*FIELDS*/
-        2)
-          inputcustom_changes.placeholder = /*field*/
-          ctx[12].description;
-        if (dirty & /*FIELDS*/
-        2)
-          inputcustom_changes.type = /*field*/
-          ctx[12].inputType;
-        if (dirty & /*FIELDS*/
-        2)
-          inputcustom_changes.values = /*field*/
-          ctx[12].ref;
-        if (!updating_value && dirty & /*payloads*/
-        64) {
+        if (dirty & /*tenants*/
+        1024)
+          inputcustom_changes.values = /*tenants*/
+          ctx2[10];
+        if (!updating_value && dirty & /*tenantAdmin*/
+        256) {
           updating_value = true;
-          inputcustom_changes.value = /*payloads*/
-          ctx[6][
-            /*idx*/
-            ctx[14]
-          ];
+          inputcustom_changes.value = /*tenantAdmin*/
+          ctx2[8];
           add_flush_callback(() => updating_value = false);
         }
         inputcustom.$set(inputcustom_changes);
@@ -11541,69 +11520,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       d(detaching) {
         destroy_component(inputcustom, detaching);
-      }
-    };
-  }
-  function create_each_block4(ctx) {
-    let if_block_anchor;
-    let current;
-    let if_block = (
-      /*field*/
-      ctx[12].name !== "id" && create_if_block_24(ctx)
-    );
-    return {
-      c() {
-        if (if_block)
-          if_block.c();
-        if_block_anchor = empty();
-      },
-      m(target, anchor) {
-        if (if_block)
-          if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        if (
-          /*field*/
-          ctx2[12].name !== "id"
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*FIELDS*/
-            2) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block_24(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        } else if (if_block) {
-          group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
-          });
-          check_outros();
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(if_block);
-        current = true;
-      },
-      o(local) {
-        transition_out(if_block);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(if_block_anchor);
-        }
-        if (if_block)
-          if_block.d(detaching);
       }
     };
   }
@@ -11669,15 +11585,24 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let icon;
     let t2;
     let div0;
+    let inputcustom0;
+    let updating_value;
     let t3;
+    let inputcustom1;
+    let updating_value_1;
+    let t4;
+    let inputcustom2;
+    let updating_value_2;
+    let t5;
+    let t6;
     let div3;
     let div1;
-    let t4;
+    let t7;
     let div2;
     let button1;
-    let t6;
+    let t9;
     let button2;
-    let t7;
+    let t10;
     let div5_class_value;
     let current;
     let mounted;
@@ -11689,22 +11614,72 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         src: IoClose
       }
     });
-    let each_value = ensure_array_like(
-      /*FIELDS*/
-      ctx[1] || []
-    );
-    let each_blocks = [];
-    for (let i = 0; i < each_value.length; i += 1) {
-      each_blocks[i] = create_each_block4(get_each_context4(ctx, each_value, i));
+    function inputcustom0_value_binding(value) {
+      ctx[17](value);
     }
-    const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
-      each_blocks[i] = null;
-    });
-    let if_block0 = !/*isSubmitted*/
-    ctx[2] && create_if_block_16(ctx);
-    let if_block1 = (
+    let inputcustom0_props = {
+      id: "email",
+      label: "Email",
+      placeholder: "email@example.com",
+      type: "email"
+    };
+    if (
+      /*email*/
+      ctx[6] !== void 0
+    ) {
+      inputcustom0_props.value = /*email*/
+      ctx[6];
+    }
+    inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
+    binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
+    function inputcustom1_value_binding(value) {
+      ctx[18](value);
+    }
+    let inputcustom1_props = {
+      id: "fullName",
+      label: "Full Name",
+      placeholder: "John Doe",
+      type: "text"
+    };
+    if (
+      /*fullName*/
+      ctx[7] !== void 0
+    ) {
+      inputcustom1_props.value = /*fullName*/
+      ctx[7];
+    }
+    inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
+    binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
+    function inputcustom2_value_binding(value) {
+      ctx[19](value);
+    }
+    let inputcustom2_props = {
+      id: "role",
+      label: "Role",
+      type: "combobox",
+      values: (
+        /*roles*/
+        ctx[11]
+      )
+    };
+    if (
+      /*role*/
+      ctx[3] !== void 0
+    ) {
+      inputcustom2_props.value = /*role*/
+      ctx[3];
+    }
+    inputcustom2 = new InputCustom_default({ props: inputcustom2_props });
+    binding_callbacks.push(() => bind(inputcustom2, "value", inputcustom2_value_binding));
+    let if_block0 = (
+      /*isRequireTenantAdmin*/
+      ctx[9] && create_if_block_24(ctx)
+    );
+    let if_block1 = !/*isSubmitted*/
+    ctx[1] && create_if_block_16(ctx);
+    let if_block2 = (
       /*isSubmitted*/
-      ctx[2] && create_if_block5(ctx)
+      ctx[1] && create_if_block5(ctx)
     );
     return {
       c() {
@@ -11721,24 +11696,29 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         create_component(icon.$.fragment);
         t2 = space();
         div0 = element("div");
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].c();
-        }
+        create_component(inputcustom0.$.fragment);
         t3 = space();
+        create_component(inputcustom1.$.fragment);
+        t4 = space();
+        create_component(inputcustom2.$.fragment);
+        t5 = space();
+        if (if_block0)
+          if_block0.c();
+        t6 = space();
         div3 = element("div");
         div1 = element("div");
         div1.innerHTML = ``;
-        t4 = space();
+        t7 = space();
         div2 = element("div");
         button1 = element("button");
         button1.textContent = "Cancel";
-        t6 = space();
+        t9 = space();
         button2 = element("button");
-        if (if_block0)
-          if_block0.c();
-        t7 = space();
         if (if_block1)
           if_block1.c();
+        t10 = space();
+        if (if_block2)
+          if_block2.c();
         attr(h2, "class", "svelte-19kcmoe");
         attr(button0, "class", "svelte-19kcmoe");
         attr(header, "class", "header svelte-19kcmoe");
@@ -11747,7 +11727,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         attr(button1, "class", "cancel svelte-19kcmoe");
         attr(button2, "class", "ok svelte-19kcmoe");
         button2.disabled = /*isSubmitted*/
-        ctx[2];
+        ctx[1];
         attr(div2, "class", "right svelte-19kcmoe");
         attr(div3, "class", "foot svelte-19kcmoe");
         attr(div4, "class", "popup svelte-19kcmoe");
@@ -11765,24 +11745,27 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         mount_component(icon, button0, null);
         append(div4, t2);
         append(div4, div0);
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          if (each_blocks[i]) {
-            each_blocks[i].m(div0, null);
-          }
-        }
-        append(div4, t3);
+        mount_component(inputcustom0, div0, null);
+        append(div0, t3);
+        mount_component(inputcustom1, div0, null);
+        append(div0, t4);
+        mount_component(inputcustom2, div0, null);
+        append(div0, t5);
+        if (if_block0)
+          if_block0.m(div0, null);
+        append(div4, t6);
         append(div4, div3);
         append(div3, div1);
-        append(div3, t4);
+        append(div3, t7);
         append(div3, div2);
         append(div2, button1);
-        append(div2, t6);
+        append(div2, t9);
         append(div2, button2);
-        if (if_block0)
-          if_block0.m(button2, null);
-        append(button2, t7);
         if (if_block1)
           if_block1.m(button2, null);
+        append(button2, t10);
+        if (if_block2)
+          if_block2.m(button2, null);
         current = true;
         if (!mounted) {
           dispose = [
@@ -11790,15 +11773,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               button0,
               "click",
               /*Hide*/
-              ctx[4]
+              ctx[2]
             ),
             listen(button1, "click", prevent_default(
               /*cancel*/
-              ctx[7]
+              ctx[12]
             )),
             listen(button2, "click", prevent_default(
-              /*click_handler*/
-              ctx[11]
+              /*submitAddUser*/
+              ctx[13]
             ))
           ];
           mounted = true;
@@ -11812,69 +11795,94 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             /*heading*/
             ctx2[0]
           );
-        if (dirty & /*FIELDS, payloads*/
-        66) {
-          each_value = ensure_array_like(
-            /*FIELDS*/
-            ctx2[1] || []
-          );
-          let i;
-          for (i = 0; i < each_value.length; i += 1) {
-            const child_ctx = get_each_context4(ctx2, each_value, i);
-            if (each_blocks[i]) {
-              each_blocks[i].p(child_ctx, dirty);
-              transition_in(each_blocks[i], 1);
-            } else {
-              each_blocks[i] = create_each_block4(child_ctx);
-              each_blocks[i].c();
-              transition_in(each_blocks[i], 1);
-              each_blocks[i].m(div0, null);
+        const inputcustom0_changes = {};
+        if (!updating_value && dirty & /*email*/
+        64) {
+          updating_value = true;
+          inputcustom0_changes.value = /*email*/
+          ctx2[6];
+          add_flush_callback(() => updating_value = false);
+        }
+        inputcustom0.$set(inputcustom0_changes);
+        const inputcustom1_changes = {};
+        if (!updating_value_1 && dirty & /*fullName*/
+        128) {
+          updating_value_1 = true;
+          inputcustom1_changes.value = /*fullName*/
+          ctx2[7];
+          add_flush_callback(() => updating_value_1 = false);
+        }
+        inputcustom1.$set(inputcustom1_changes);
+        const inputcustom2_changes = {};
+        if (!updating_value_2 && dirty & /*role*/
+        8) {
+          updating_value_2 = true;
+          inputcustom2_changes.value = /*role*/
+          ctx2[3];
+          add_flush_callback(() => updating_value_2 = false);
+        }
+        inputcustom2.$set(inputcustom2_changes);
+        if (
+          /*isRequireTenantAdmin*/
+          ctx2[9]
+        ) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+            if (dirty & /*isRequireTenantAdmin*/
+            512) {
+              transition_in(if_block0, 1);
             }
+          } else {
+            if_block0 = create_if_block_24(ctx2);
+            if_block0.c();
+            transition_in(if_block0, 1);
+            if_block0.m(div0, null);
           }
+        } else if (if_block0) {
           group_outros();
-          for (i = each_value.length; i < each_blocks.length; i += 1) {
-            out(i);
-          }
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
           check_outros();
         }
         if (!/*isSubmitted*/
-        ctx2[2]) {
-          if (if_block0) {
+        ctx2[1]) {
+          if (if_block1) {
           } else {
-            if_block0 = create_if_block_16(ctx2);
-            if_block0.c();
-            if_block0.m(button2, t7);
+            if_block1 = create_if_block_16(ctx2);
+            if_block1.c();
+            if_block1.m(button2, t10);
           }
-        } else if (if_block0) {
-          if_block0.d(1);
-          if_block0 = null;
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
         }
         if (
           /*isSubmitted*/
-          ctx2[2]
+          ctx2[1]
         ) {
-          if (if_block1) {
+          if (if_block2) {
             if (dirty & /*isSubmitted*/
-            4) {
-              transition_in(if_block1, 1);
+            2) {
+              transition_in(if_block2, 1);
             }
           } else {
-            if_block1 = create_if_block5(ctx2);
-            if_block1.c();
-            transition_in(if_block1, 1);
-            if_block1.m(button2, null);
+            if_block2 = create_if_block5(ctx2);
+            if_block2.c();
+            transition_in(if_block2, 1);
+            if_block2.m(button2, null);
           }
-        } else if (if_block1) {
+        } else if (if_block2) {
           group_outros();
-          transition_out(if_block1, 1, 1, () => {
-            if_block1 = null;
+          transition_out(if_block2, 1, 1, () => {
+            if_block2 = null;
           });
           check_outros();
         }
         if (!current || dirty & /*isSubmitted*/
-        4) {
+        2) {
           button2.disabled = /*isSubmitted*/
-          ctx2[2];
+          ctx2[1];
         }
         if (!current || dirty & /*isShow*/
         32 && div5_class_value !== (div5_class_value = null_to_empty(`popup_container ${/*isShow*/
@@ -11886,19 +11894,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (current)
           return;
         transition_in(icon.$.fragment, local);
-        for (let i = 0; i < each_value.length; i += 1) {
-          transition_in(each_blocks[i]);
-        }
-        transition_in(if_block1);
+        transition_in(inputcustom0.$.fragment, local);
+        transition_in(inputcustom1.$.fragment, local);
+        transition_in(inputcustom2.$.fragment, local);
+        transition_in(if_block0);
+        transition_in(if_block2);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
-        each_blocks = each_blocks.filter(Boolean);
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          transition_out(each_blocks[i]);
-        }
-        transition_out(if_block1);
+        transition_out(inputcustom0.$.fragment, local);
+        transition_out(inputcustom1.$.fragment, local);
+        transition_out(inputcustom2.$.fragment, local);
+        transition_out(if_block0);
+        transition_out(if_block2);
         current = false;
       },
       d(detaching) {
@@ -11906,11 +11915,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           detach(div5);
         }
         destroy_component(icon);
-        destroy_each(each_blocks, detaching);
+        destroy_component(inputcustom0);
+        destroy_component(inputcustom1);
+        destroy_component(inputcustom2);
         if (if_block0)
           if_block0.d();
         if (if_block1)
           if_block1.d();
+        if (if_block2)
+          if_block2.d();
         mounted = false;
         run_all(dispose);
       }
@@ -11918,61 +11931,125 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   }
   function instance10($self, $props, $invalidate) {
     let { heading = "Add user" } = $props;
-    let { FIELDS = (
-      /** @type Field[] */
-      []
-    ) } = $props;
     let { isSubmitted = false } = $props;
-    let isShow = false;
-    let payloads = [];
-    onMount(() => {
-      if (FIELDS && FIELDS.length > 0) {
-        FIELDS.forEach(() => $invalidate(6, payloads = [...payloads, ""]));
-      }
-    });
-    let { OnSubmit = async function(payloads2) {
+    let { OnSubmit = async function(payload) {
     } } = $props;
+    let isShow = false;
     const Show = () => $invalidate(5, isShow = true);
     const Hide = () => $invalidate(5, isShow = false);
+    let email = "";
+    let fullName = "";
+    let tenantCode = "";
+    let role = "";
+    const RoleUser = `user`, RoleTenantAdmin = `tenantAdmin`, RoleDataEntry = `dataEntry`, RoleReportViewer = `reportViewer`;
+    const roles = [RoleUser, RoleTenantAdmin, RoleDataEntry, RoleReportViewer];
+    let tenantAdmin = "";
+    let isRequireTenantAdmin = false;
+    let isTenantsReady = false;
+    let tenants = [];
+    const getTenants = async () => {
+      await (0, import_jsApi.SuperAdminTenantManagement)(
+        // @ts-ignore
+        { cmd: "list" },
+        /** @type {import('../jsApi.GEN').SuperAdminTenantManagementCallback} */
+        /** @returns {Promise<any>} */
+        function(o) {
+          if (o.error) {
+            console.log(o);
+            notifier.showError(o.error);
+            return;
+          }
+          const tnts = (
+            /** @type any[] */
+            o.tenants
+          );
+          if (tnts && tnts.length > 0) {
+            $invalidate(10, tenants = []);
+            tnts.forEach((t) => {
+              $invalidate(10, tenants = [...tenants, t[1]]);
+            });
+            $invalidate(4, isTenantsReady = true);
+          }
+        }
+      );
+    };
     const Reset = () => {
-      $invalidate(6, payloads = []);
-      if (FIELDS && FIELDS.length > 0) {
-        FIELDS.forEach(() => $invalidate(6, payloads = [...payloads, ""]));
-      }
+      $invalidate(6, email = "");
+      $invalidate(7, fullName = "");
+      $invalidate(3, role = "");
+      tenantCode = "";
+      $invalidate(8, tenantAdmin = "");
     };
     const cancel = () => {
       $invalidate(5, isShow = false);
     };
-    function inputcustom_value_binding(value, idx) {
-      if ($self.$.not_equal(payloads[idx], value)) {
-        payloads[idx] = value;
-        $invalidate(6, payloads);
-      }
+    function submitAddUser() {
+      const payload = {
+        tenantAdmin,
+        user: { email, fullName, tenantCode, role }
+      };
+      OnSubmit(payload);
     }
-    const click_handler = () => OnSubmit(payloads);
+    function inputcustom0_value_binding(value) {
+      email = value;
+      $invalidate(6, email);
+    }
+    function inputcustom1_value_binding(value) {
+      fullName = value;
+      $invalidate(7, fullName);
+    }
+    function inputcustom2_value_binding(value) {
+      role = value;
+      $invalidate(3, role);
+    }
+    function inputcustom_value_binding(value) {
+      tenantAdmin = value;
+      $invalidate(8, tenantAdmin);
+    }
     $self.$set = ($props2) => {
       if ("heading" in $props2)
         $invalidate(0, heading = $props2.heading);
-      if ("FIELDS" in $props2)
-        $invalidate(1, FIELDS = $props2.FIELDS);
       if ("isSubmitted" in $props2)
-        $invalidate(2, isSubmitted = $props2.isSubmitted);
+        $invalidate(1, isSubmitted = $props2.isSubmitted);
       if ("OnSubmit" in $props2)
-        $invalidate(3, OnSubmit = $props2.OnSubmit);
+        $invalidate(14, OnSubmit = $props2.OnSubmit);
+    };
+    $self.$.update = () => {
+      if ($self.$.dirty & /*role, isTenantsReady*/
+      24) {
+        $: {
+          if (role === RoleReportViewer || role === RoleDataEntry) {
+            $invalidate(9, isRequireTenantAdmin = true);
+            if (!isTenantsReady)
+              (async () => {
+                await getTenants();
+              })();
+          }
+        }
+      }
     };
     return [
       heading,
-      FIELDS,
       isSubmitted,
-      OnSubmit,
       Hide,
+      role,
+      isTenantsReady,
       isShow,
-      payloads,
+      email,
+      fullName,
+      tenantAdmin,
+      isRequireTenantAdmin,
+      tenants,
+      roles,
       cancel,
+      submitAddUser,
+      OnSubmit,
       Show,
       Reset,
-      inputcustom_value_binding,
-      click_handler
+      inputcustom0_value_binding,
+      inputcustom1_value_binding,
+      inputcustom2_value_binding,
+      inputcustom_value_binding
     ];
   }
   var PopUpAddUser = class extends SvelteComponent {
@@ -11980,22 +12057,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       super();
       init(this, options, instance10, create_fragment10, safe_not_equal, {
         heading: 0,
-        FIELDS: 1,
-        isSubmitted: 2,
-        OnSubmit: 3,
-        Show: 8,
-        Hide: 4,
-        Reset: 9
+        isSubmitted: 1,
+        OnSubmit: 14,
+        Show: 15,
+        Hide: 2,
+        Reset: 16
       });
     }
     get Show() {
-      return this.$.ctx[8];
+      return this.$.ctx[15];
     }
     get Hide() {
-      return this.$.ctx[4];
+      return this.$.ctx[2];
     }
     get Reset() {
-      return this.$.ctx[9];
+      return this.$.ctx[16];
     }
   };
   var PopUpAddUser_default = PopUpAddUser;
@@ -12006,13 +12082,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     let popupadduser_props = {
       heading: "Add user",
-      FIELDS: (
-        /*fields*/
-        ctx[0]
+      OnSubmit: (
+        /*onAddUser*/
+        ctx[9]
       )
     };
     popupadduser = new PopUpAddUser_default({ props: popupadduser_props });
-    ctx[9](popupadduser);
+    ctx[10](popupadduser);
     return {
       c() {
         create_component(popupadduser.$.fragment);
@@ -12023,10 +12099,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         const popupadduser_changes = {};
-        if (dirty & /*fields*/
-        1)
-          popupadduser_changes.FIELDS = /*fields*/
-          ctx2[0];
         popupadduser.$set(popupadduser_changes);
       },
       i(local) {
@@ -12040,7 +12112,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         current = false;
       },
       d(detaching) {
-        ctx[9](null);
+        ctx[10](null);
         destroy_component(popupadduser, detaching);
       }
     };
@@ -12074,7 +12146,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*click_handler*/
-            ctx[10]
+            ctx[11]
           );
           mounted = true;
         }
@@ -12108,13 +12180,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let updating_MASTER_ROWS;
     let current;
     function mastertable_FIELDS_binding(value) {
-      ctx[11](value);
-    }
-    function mastertable_PAGER_binding(value) {
       ctx[12](value);
     }
-    function mastertable_MASTER_ROWS_binding(value) {
+    function mastertable_PAGER_binding(value) {
       ctx[13](value);
+    }
+    function mastertable_MASTER_ROWS_binding(value) {
+      ctx[14](value);
     }
     let mastertable_props = {
       ACCESS: segments2,
@@ -12179,7 +12251,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       p(ctx2, dirty) {
         const mastertable_changes = {};
         if (dirty & /*$scope, popUpAddUser*/
-        32784) {
+        65552) {
           mastertable_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_FIELDS && dirty & /*fields*/
@@ -12277,7 +12349,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         const mainlayout_changes = {};
         if (dirty & /*$scope, fields, pager, users, popUpAddUser*/
-        32791) {
+        65559) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -12332,7 +12404,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     });
     async function OnRefresh(pagerIn) {
       const i = { pager: pagerIn, cmd: "list" };
-      await (0, import_jsApi.SuperAdminUserManagement)(
+      await (0, import_jsApi2.SuperAdminUserManagement)(
         // @ts-ignore
         i,
         /** @type {import('./jsApi.GEN').SuperAdminUserManagementCallback} */
@@ -12355,7 +12427,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         user: { id: row[0] },
         cmd: "restore"
       };
-      await (0, import_jsApi.SuperAdminUserManagement)(
+      await (0, import_jsApi2.SuperAdminUserManagement)(
         // @ts-ignore
         i,
         /** @type {import('./jsApi.GEN').SuperAdminUserManagementCallback} */
@@ -12379,7 +12451,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         user: { id: row[0] },
         cmd: "delete"
       };
-      await (0, import_jsApi.SuperAdminUserManagement)(
+      await (0, import_jsApi2.SuperAdminUserManagement)(
         // @ts-ignore
         i,
         /** @type {import('./jsApi.GEN').SuperAdminUserManagementCallback} */
@@ -12399,13 +12471,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     async function OnEdit(id, payloads) {
       const u = {
-        email: payloads[2],
+        id,
         /** @type any[]*/
+        email: payloads[2],
         fullName: payloads[3],
         role: payloads[4]
       };
       const i = { pager, user: u, cmd: "upsert" };
-      await (0, import_jsApi.SuperAdminUserManagement)(
+      await (0, import_jsApi2.SuperAdminUserManagement)(
         // @ts-ignore
         i,
         /** @type {import('../jsApi.GEN').SuperAdminUserManagementCallback} */
@@ -12422,6 +12495,32 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           notifier.showSuccess("user " + user2.email + " edited");
         }
       );
+    }
+    async function onAddUser(payload) {
+      const i = {
+        pager,
+        tenantAdmin: payload.tenantAdmin,
+        user: payload.user,
+        cmd: "upsert"
+      };
+      await (0, import_jsApi2.SuperAdminUserManagement)(
+        // @ts-ignore
+        i,
+        /** @type {import('../jsApi.GEN').SuperAdminUserManagementCallback} */
+        /** @returns {Promise<void>} */
+        function(o) {
+          if (o.error) {
+            console.log(o);
+            notifier.showError(o.error);
+            return;
+          }
+          $invalidate(1, pager = o.pager);
+          $invalidate(2, users = o.users);
+          user2 = o.user;
+          notifier.showSuccess("user " + user2.email + " created");
+        }
+      );
+      popUpAddUser.Hide();
     }
     function popupadduser_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
@@ -12452,6 +12551,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       OnRestore,
       OnDelete,
       OnEdit,
+      onAddUser,
       popupadduser_binding,
       click_handler,
       mastertable_FIELDS_binding,
