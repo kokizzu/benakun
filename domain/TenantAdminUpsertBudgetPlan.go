@@ -30,6 +30,7 @@ const (
 	ErrTenantAdminUpsertBudgetPlanUnauthorized       = `unauthorized user to upsert plan`
 	ErrTenantAdminUpsertBudgetPlanTenantNotFound     = `tenant admin not found to upsert plan`
 	ErrTenantAdminUpsertBudgetPlanOrgNotFound        = `organization not found to upsert plan`
+	ErrTenantAdminUpsertBudgetPlanOrgDiffer          = `cannot overwrite different organization's plan`
 	ErrTenantAdminUpsertBudgetPlanParentPlanNotFound = `parent plan not found, don't add parent instead`
 	ErrTenantAdminUpsertBudgetPlanNotFound           = `plan to update not found`
 	ErrTenantAdminUpsertBudgetPlanInvalidPlanType    = `invalid plan type`

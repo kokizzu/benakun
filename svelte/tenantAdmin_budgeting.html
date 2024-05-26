@@ -3689,7 +3689,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminUpdateOrganizationChild = async function TenantAdminUpdateOrganizationChild(i, cb) {
         return await axios.post("/tenantAdmin/updateOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminUpsertBudgetPlan = async function TenantAdminUpsertBudgetPlan2(i, cb) {
+      exports.TenantAdminUpsertBudgetPlan = async function TenantAdminUpsertBudgetPlan3(i, cb) {
         return await axios.post("/tenantAdmin/upsertBudgetPlan", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
@@ -9783,7 +9783,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let updating_yearOf;
     let updating_budgetIDR;
     let updating_budgetUSD;
-    let updating_budgetEUR;
+    let updating_quantity;
     let updating_heading;
     let updating_isSubmitted;
     let t0;
@@ -9830,7 +9830,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function popupbudgetplan_budgetUSD_binding(value) {
       ctx[19](value);
     }
-    function popupbudgetplan_budgetEUR_binding(value) {
+    function popupbudgetplan_quantity_binding(value) {
       ctx[20](value);
     }
     function popupbudgetplan_heading_binding(value) {
@@ -9886,10 +9886,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       ctx[6];
     }
     if (
-      /*budgetEUR*/
+      /*quantity*/
       ctx[7] !== void 0
     ) {
-      popupbudgetplan_props.budgetEUR = /*budgetEUR*/
+      popupbudgetplan_props.quantity = /*quantity*/
       ctx[7];
     }
     if (
@@ -9914,7 +9914,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     binding_callbacks.push(() => bind(popupbudgetplan, "yearOf", popupbudgetplan_yearOf_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "budgetIDR", popupbudgetplan_budgetIDR_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "budgetUSD", popupbudgetplan_budgetUSD_binding));
-    binding_callbacks.push(() => bind(popupbudgetplan, "budgetEUR", popupbudgetplan_budgetEUR_binding));
+    binding_callbacks.push(() => bind(popupbudgetplan, "quantity", popupbudgetplan_quantity_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "heading", popupbudgetplan_heading_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "isSubmitted", popupbudgetplan_isSubmitted_binding));
     const if_block_creators = [create_if_block_43, create_else_block2];
@@ -10066,12 +10066,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           ctx2[6];
           add_flush_callback(() => updating_budgetUSD = false);
         }
-        if (!updating_budgetEUR && dirty[0] & /*budgetEUR*/
+        if (!updating_quantity && dirty[0] & /*quantity*/
         128) {
-          updating_budgetEUR = true;
-          popupbudgetplan_changes.budgetEUR = /*budgetEUR*/
+          updating_quantity = true;
+          popupbudgetplan_changes.quantity = /*quantity*/
           ctx2[7];
-          add_flush_callback(() => updating_budgetEUR = false);
+          add_flush_callback(() => updating_quantity = false);
         }
         if (!updating_heading && dirty[0] & /*headingPopUp*/
         2) {
@@ -10211,10 +10211,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   function instance10($self, $props, $invalidate) {
     const dispatch = createEventDispatcher();
     let headingPopUp = "Add activity";
-    let planType = PlanTypeActivity, title = "", description = "", yearOf = 0, budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
+    let planType = PlanTypeActivity, title = "", description = "", yearOf = 0, budgetIDR = 0, budgetUSD = 0, quantity = 0, unit = "";
     const resetPayload = () => {
       planType = "", $invalidate(2, title = ""), $invalidate(3, description = "");
-      $invalidate(4, yearOf = 0), $invalidate(5, budgetIDR = 0), $invalidate(6, budgetUSD = 0), $invalidate(7, budgetEUR = 0);
+      $invalidate(4, yearOf = 0), $invalidate(5, budgetIDR = 0), $invalidate(6, budgetUSD = 0), $invalidate(7, quantity = 0), unit = "";
     };
     let { plan = {
       id: "",
@@ -10226,7 +10226,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       yearOf: 0,
       budgetIDR: 0,
       budgetUSD: 0,
-      budgetEUR: 0,
+      quantity: 0,
+      unit: "",
       createdAt: "",
       createdBy: "",
       updatedAt: 0,
@@ -10241,54 +10242,24 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     let isSubmitPlan = false;
     let submitState = submitStateAdd;
-    async function submitAddPlan() {
+    async function submitUpsertPlan() {
       $invalidate(9, isSubmitPlan = true);
       const i = {
-        planType: "activity",
-        title,
-        description,
-        parentId: Number(plan.id),
-        orgId: Number(plan.orgId),
-        yearOf: Number(yearOf),
-        budgetIDR: Number(budgetIDR),
-        budgetUSD: Number(budgetUSD),
-        budgetEUR: Number(budgetEUR)
-      };
-      await (0, import_jsApi_GEN2.TenantAdminCreateBudgetPlan)(
-        i,
-        /** @type {import('../jsApi.GEN').TenantAdminCreateBudgetPlanCallback} */
-        function(o) {
-          $invalidate(9, isSubmitPlan = false);
-          if (o.error) {
-            notifier.showError(o.error);
-            console.log(o);
-            return;
-          }
-          notifier.showSuccess(title + " added");
-          const out = (
-            /** @type {import('../jsApi.GEN').TenantAdminGetBudgetPlansOut}*/
-            o
-          );
-          dispatch("update", out.plans);
-          popUpBudgetPlan.hide();
+        plan: {
+          id: "" + plan.id,
+          planType,
+          title,
+          description,
+          yearOf: Number(yearOf),
+          budgetIDR: Number(budgetIDR),
+          budgetUSD: Number(budgetUSD),
+          quantity: Number(quantity),
+          unit
         }
-      );
-    }
-    async function submitEditPlan() {
-      $invalidate(9, isSubmitPlan = true);
-      const i = {
-        id: Number(plan.id),
-        planType,
-        title,
-        description,
-        yearOf: Number(yearOf),
-        budgetIDR: Number(budgetIDR),
-        budgetUSD: Number(budgetUSD),
-        budgetEUR: Number(budgetEUR)
       };
-      await (0, import_jsApi_GEN2.TenantAdminUpdateBudgetPlan)(
+      await (0, import_jsApi_GEN2.TenantAdminUpsertBudgetPlan)(
         i,
-        /** @type {import('../jsApi.GEN').TenantAdminUpdateBudgetPlanCallback} */
+        /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanCallback} */
         function(o) {
           $invalidate(9, isSubmitPlan = false);
           if (o.error) {
@@ -10298,7 +10269,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           }
           notifier.showSuccess(planType + " edited");
           const out = (
-            /** @type {import('../jsApi.GEN').TenantAdminUpdateBudgetPlanOut}*/
+            /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanOut}*/
             o
           );
           dispatch("update", out.plans);
@@ -10308,12 +10279,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     async function submitPlan() {
       switch (submitState) {
-        case submitStateAdd: {
-          await submitAddPlan();
-          break;
-        }
+        case submitStateAdd:
         case submitStateEdit: {
-          await submitEditPlan();
+          await submitUpsertPlan();
           break;
         }
         default: {
@@ -10333,7 +10301,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           submitState = submitStateEdit;
           $invalidate(1, headingPopUp = "Edit " + plan.planType);
           $invalidate(2, title = plan.title), $invalidate(3, description = plan.description), $invalidate(4, yearOf = plan.yearOf);
-          $invalidate(5, budgetIDR = plan.budgetIDR), $invalidate(6, budgetUSD = plan.budgetUSD), $invalidate(7, budgetEUR = plan.budgetEUR);
+          $invalidate(5, budgetIDR = plan.budgetIDR), $invalidate(6, budgetUSD = plan.budgetUSD), $invalidate(7, quantity = plan.quantity), unit = plan.unit;
           break;
         }
         default: {
@@ -10375,9 +10343,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       budgetUSD = value;
       $invalidate(6, budgetUSD);
     }
-    function popupbudgetplan_budgetEUR_binding(value) {
-      budgetEUR = value;
-      $invalidate(7, budgetEUR);
+    function popupbudgetplan_quantity_binding(value) {
+      quantity = value;
+      $invalidate(7, quantity);
     }
     function popupbudgetplan_heading_binding(value) {
       headingPopUp = value;
@@ -10407,7 +10375,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       yearOf,
       budgetIDR,
       budgetUSD,
-      budgetEUR,
+      quantity,
       popUpBudgetPlan,
       isSubmitPlan,
       showDetails,
@@ -10420,7 +10388,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       popupbudgetplan_yearOf_binding,
       popupbudgetplan_budgetIDR_binding,
       popupbudgetplan_budgetUSD_binding,
-      popupbudgetplan_budgetEUR_binding,
+      popupbudgetplan_quantity_binding,
       popupbudgetplan_heading_binding,
       popupbudgetplan_isSubmitted_binding,
       click_handler,
