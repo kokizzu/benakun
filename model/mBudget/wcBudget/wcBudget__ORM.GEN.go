@@ -471,10 +471,11 @@ func (p *PlansMutator) DoDeletePermanentById() bool { //nolint:dupl false positi
 //		A.X{`=`, 11, p.Title},
 //		A.X{`=`, 12, p.Description},
 //		A.X{`=`, 13, p.OrgId},
-//		A.X{`=`, 14, p.PerYear},
+//		A.X{`=`, 14, p.YearOf},
 //		A.X{`=`, 15, p.BudgetIDR},
 //		A.X{`=`, 16, p.BudgetUSD},
-//		A.X{`=`, 17, p.BudgetEUR},
+//		A.X{`=`, 17, p.Quantity},
+//		A.X{`=`, 18, p.Unit},
 //	})
 //	return !L.IsError(err, `Plans.DoUpsert failed: `+p.SpaceName()+ `\n%#v`, arr)
 // }
@@ -661,12 +662,12 @@ func (p *PlansMutator) SetOrgId(val uint64) bool { //nolint:dupl false positive
 	return false
 }
 
-// SetPerYear create mutations, should not duplicate
-func (p *PlansMutator) SetPerYear(val int64) bool { //nolint:dupl false positive
-	if val != p.PerYear {
+// SetYearOf create mutations, should not duplicate
+func (p *PlansMutator) SetYearOf(val int64) bool { //nolint:dupl false positive
+	if val != p.YearOf {
 		p.mutations = append(p.mutations, A.X{`=`, 14, val})
-		p.logs = append(p.logs, A.X{`perYear`, p.PerYear, val})
-		p.PerYear = val
+		p.logs = append(p.logs, A.X{`yearOf`, p.YearOf, val})
+		p.YearOf = val
 		return true
 	}
 	return false
@@ -694,12 +695,23 @@ func (p *PlansMutator) SetBudgetUSD(val int64) bool { //nolint:dupl false positi
 	return false
 }
 
-// SetBudgetEUR create mutations, should not duplicate
-func (p *PlansMutator) SetBudgetEUR(val int64) bool { //nolint:dupl false positive
-	if val != p.BudgetEUR {
+// SetQuantity create mutations, should not duplicate
+func (p *PlansMutator) SetQuantity(val int64) bool { //nolint:dupl false positive
+	if val != p.Quantity {
 		p.mutations = append(p.mutations, A.X{`=`, 17, val})
-		p.logs = append(p.logs, A.X{`budgetEUR`, p.BudgetEUR, val})
-		p.BudgetEUR = val
+		p.logs = append(p.logs, A.X{`quantity`, p.Quantity, val})
+		p.Quantity = val
+		return true
+	}
+	return false
+}
+
+// SetUnit create mutations, should not duplicate
+func (p *PlansMutator) SetUnit(val string) bool { //nolint:dupl false positive
+	if val != p.Unit {
+		p.mutations = append(p.mutations, A.X{`=`, 18, val})
+		p.logs = append(p.logs, A.X{`unit`, p.Unit, val})
+		p.Unit = val
 		return true
 	}
 	return false
@@ -769,8 +781,8 @@ func (p *PlansMutator) SetAll(from rqBudget.Plans, excludeMap, forceMap M.SB) (c
 		p.OrgId = from.OrgId
 		changed = true
 	}
-	if !excludeMap[`perYear`] && (forceMap[`perYear`] || from.PerYear != 0) {
-		p.PerYear = from.PerYear
+	if !excludeMap[`yearOf`] && (forceMap[`yearOf`] || from.YearOf != 0) {
+		p.YearOf = from.YearOf
 		changed = true
 	}
 	if !excludeMap[`budgetIDR`] && (forceMap[`budgetIDR`] || from.BudgetIDR != 0) {
@@ -781,8 +793,12 @@ func (p *PlansMutator) SetAll(from rqBudget.Plans, excludeMap, forceMap M.SB) (c
 		p.BudgetUSD = from.BudgetUSD
 		changed = true
 	}
-	if !excludeMap[`budgetEUR`] && (forceMap[`budgetEUR`] || from.BudgetEUR != 0) {
-		p.BudgetEUR = from.BudgetEUR
+	if !excludeMap[`quantity`] && (forceMap[`quantity`] || from.Quantity != 0) {
+		p.Quantity = from.Quantity
+		changed = true
+	}
+	if !excludeMap[`unit`] && (forceMap[`unit`] || from.Unit != ``) {
+		p.Unit = S.Trim(from.Unit)
 		changed = true
 	}
 	return

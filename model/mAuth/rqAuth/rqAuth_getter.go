@@ -1,6 +1,8 @@
 package rqAuth
 
 import (
+	"benakun/model/mAuth"
+
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
@@ -12,21 +14,20 @@ import (
 )
 
 type Staff struct {
-	Id              string `json:"id" form:"id" query:"id" long:"id" msg:"id"`
-	Email           string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
-	FullName        string `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
+	Id       string `json:"id" form:"id" query:"id" long:"id" msg:"id"`
+	Email    string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
+	FullName string `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
 }
 
 func (u *Users) FindStaffsByTenantCode(tenantCode string) (staffs []Staff) {
 	var res [][]any
 	const comment = `-- Users) FindStaffByTenantCode`
 
-	whereAndSql := ` WHERE `+u.SqlInvitationState()+` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
+	whereAndSql := ` WHERE ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
 
-	queryRows := comment+`
-SELECT `+u.SqlId()+`, `+u.SqlEmail()+`, `+u.SqlFullName()+`
-FROM `+u.SqlTableName()+whereAndSql
-
+	queryRows := comment + `
+SELECT ` + u.SqlId() + `, ` + u.SqlEmail() + `, ` + u.SqlFullName() + `
+FROM ` + u.SqlTableName() + whereAndSql
 
 	u.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
@@ -37,8 +38,8 @@ FROM `+u.SqlTableName()+whereAndSql
 		for _, stf := range res {
 			if len(stf) == 3 {
 				st := Staff{
-					Id: X.ToS(stf[0]),
-					Email: X.ToS(stf[1]),
+					Id:       X.ToS(stf[0]),
+					Email:    X.ToS(stf[1]),
 					FullName: X.ToS(stf[2]),
 				}
 
@@ -81,9 +82,9 @@ func (u *Users) FindStaffByIdByTenantCode(id uint64, tenantCode string) bool {
 
 	whereAndSql := ` WHERE `+u.SqlId()+` = `+I.UToS(id)+` AND `+u.SqlInvitationState()+` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
 
-	queryRows := comment+`
-SELECT `+u.SqlSelectAllFields()+`
-FROM `+u.SqlTableName()+whereAndSql+` LIMIT 1`
+	queryRows := comment + `
+SELECT ` + u.SqlSelectAllFields() + `
+FROM ` + u.SqlTableName() + whereAndSql + ` LIMIT 1`
 
 
 	u.Adapter.QuerySql(queryRows, func(row []any) {
@@ -205,7 +206,7 @@ func (u *Users) FindByTenantCode() bool {
 func (o *Orgs) FindOrgsByTenant(tenantCode string) (orgs []Orgs) {
 	const comment = "-- orgs) FindOrgsByTenant"
 
-	whereAndSql := ` WHERE ` + o.SqlTenantCode() + ` = '` + tenantCode + `'`
+	whereAndSql := ` WHERE ` + o.SqlTenantCode() + ` = ` + S.Z(tenantCode)
 	queryRows := comment +
 		`
 SELECT ` + o.SqlSelectAllFields() + `
@@ -218,6 +219,25 @@ FROM ` + o.SqlTableName() +
 	})
 
 	return
+}
+
+func (o *Orgs) FindCompanyByTenantCode() bool {
+	const comment = "-- orgs) FindCompanyByTenantCode"
+
+	whereAndSql := ` WHERE 
+` + o.SqlTenantCode() + ` = ` + S.Z(o.TenantCode) + `
+AND ` + o.SqlOrgType() + ` = ` + I.ToS(mAuth.OrgTypeCompany)
+	queryRows := comment +
+		`
+SELECT ` + o.SqlSelectAllFields() + `
+FROM ` + o.SqlTableName() +
+		whereAndSql
+
+	o.Adapter.QuerySql(queryRows, func(row []any) {
+		o.FromArray(row)
+	})
+
+	return o.Id > 0
 }
 
 // TODO: find staff
@@ -244,11 +264,11 @@ LIMIT 1`
 
 	queryRows := comment + `
 SELECT ` + meta.ToSelect() + `
-FROM ` + u.SqlTableName() + whereAndSql  + whereAndSql2 + orderBySql + limitOffsetSql
+FROM ` + u.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
 	u.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		invState := staffState(X.ToS(row[4]), u.TenantCode)
-		row[4] = invState 
+		row[4] = invState
 		res = append(res, row)
 	})
 
@@ -269,7 +289,7 @@ func staffState(states, tenantCode string) (invState string) {
 			if parts[1] == tenantCode {
 				return parts[2]
 			}
-		} 
+		}
 	}
 	return ``
 }

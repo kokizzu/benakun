@@ -83,10 +83,11 @@
     description: '',
     orgId: '',
     planType: '',
-    perYear: 0,
+    yearOf: 0,
     budgetIDR: 0,
     budgetUSD: 0,
-    budgetEUR: 0,
+    quantity: 0,
+	 unit: '',
     createdAt: '',
     createdBy: '',
     updatedAt: 0,
@@ -123,8 +124,8 @@
           <p>{planDetail.description || '--'}</p>
         </div>
         <div class="detail">
-          <span>Per Year</span>
-          <p>{planDetail.perYear || '0'}</p>
+          <span>Year</span>
+          <p>{planDetail.yearOf || '0'}</p>
         </div>
         <div class="detail">
           <span>Budget IDR</span>
@@ -135,8 +136,8 @@
           <p>$ {planDetail.budgetUSD || '0'}</p>
         </div>
         <div class="detail">
-          <span>Budget EUR</span>
-          <p>€ {planDetail.budgetEUR || '0'}</p>
+          <span>Qty</span>
+          <p>{planDetail.quantity || '0'} {planDetail.unit || ''}</p>
         </div>
         <div class="detail">
           <span>Last modified</span>

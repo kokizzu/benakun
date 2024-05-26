@@ -9,10 +9,11 @@
   export let isSubmitted = false;
 	export let title = '';
 	export let description = '';
-	export let perYear = 0;
+	export let yearOf = 0;
 	export let budgetIDR = 0;
 	export let budgetUSD = 0;
-	export let budgetEUR = 0;
+	export let quantity = 0;
+	export let unit = '';
 	export let planType = 'vision';
 	export let heading = 'Add budget plan';
 
@@ -20,8 +21,8 @@
   export const show = () => isShow = true;
   export const hide = () => isShow = false;
 	export const reset = () => {
-		title = '', description = '', perYear = 0;
-		budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
+		title = '', description = '', yearOf = 0;
+		budgetIDR = 0, budgetUSD = 0, quantity = 0, unit = '';
   }
 
   const cancel = () => isShow = false;
@@ -45,11 +46,11 @@
 					placeholder="Title"
 				/>
 				<InputBox
-					id="perYear"
-					label="Per Year"
-					bind:value={perYear}
+					id="yearOf"
+					label="Year"
+					bind:value={yearOf}
 					type="number"
-					placeholder="Per Year"
+					placeholder="Budget Year"
 				/>
 				<InputBox
 					id="budgetIDR"
@@ -66,11 +67,18 @@
 					placeholder="Budget USD"
 				/>
 				<InputBox
-					id="budgetEUR"
-					label="Budget EUR"
-					bind:value={budgetEUR}
+					id="quantity"
+					label="Qty"
+					bind:value={quantity}
 					type="number"
-					placeholder="Budget EUR"
+					placeholder="quantity"
+				/>
+				<InputBox
+					id="unit"
+					label="Unit"
+					bind:value={unit}
+					type="text"
+					placeholder="unit"
 				/>
 			{/if}
 			<InputCustom

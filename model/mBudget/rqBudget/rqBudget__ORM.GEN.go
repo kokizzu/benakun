@@ -477,10 +477,11 @@ type Plans struct {
 	Title       string      `json:"title" form:"title" query:"title" long:"title" msg:"title"`
 	Description string      `json:"description" form:"description" query:"description" long:"description" msg:"description"`
 	OrgId       uint64      `json:"orgId,string" form:"orgId" query:"orgId" long:"orgId" msg:"orgId"`
-	PerYear     int64       `json:"perYear" form:"perYear" query:"perYear" long:"perYear" msg:"perYear"`
+	YearOf      int64       `json:"yearOf" form:"yearOf" query:"yearOf" long:"yearOf" msg:"yearOf"`
 	BudgetIDR   int64       `json:"budgetIDR" form:"budgetIDR" query:"budgetIDR" long:"budgetIDR" msg:"budgetIDR"`
 	BudgetUSD   int64       `json:"budgetUSD" form:"budgetUSD" query:"budgetUSD" long:"budgetUSD" msg:"budgetUSD"`
-	BudgetEUR   int64       `json:"budgetEUR" form:"budgetEUR" query:"budgetEUR" long:"budgetEUR" msg:"budgetEUR"`
+	Quantity    int64       `json:"quantity" form:"quantity" query:"quantity" long:"quantity" msg:"quantity"`
+	Unit        string      `json:"unit" form:"unit" query:"unit" long:"unit" msg:"unit"`
 }
 
 // NewPlans create new ORM reader/query object
@@ -532,10 +533,11 @@ func (p *Plans) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "title"
 	, "description"
 	, "orgId"
-	, "perYear"
+	, "yearOf"
 	, "budgetIDR"
 	, "budgetUSD"
-	, "budgetEUR"
+	, "quantity"
+	, "unit"
 	`
 }
 
@@ -555,10 +557,11 @@ func (p *Plans) SqlSelectAllUncensoredFields() string { //nolint:dupl false posi
 	, "title"
 	, "description"
 	, "orgId"
-	, "perYear"
+	, "yearOf"
 	, "budgetIDR"
 	, "budgetUSD"
-	, "budgetEUR"
+	, "quantity"
+	, "unit"
 	`
 }
 
@@ -579,10 +582,11 @@ func (p *Plans) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 11, p.Title},
 		A.X{`=`, 12, p.Description},
 		A.X{`=`, 13, p.OrgId},
-		A.X{`=`, 14, p.PerYear},
+		A.X{`=`, 14, p.YearOf},
 		A.X{`=`, 15, p.BudgetIDR},
 		A.X{`=`, 16, p.BudgetUSD},
-		A.X{`=`, 17, p.BudgetEUR},
+		A.X{`=`, 17, p.Quantity},
+		A.X{`=`, 18, p.Unit},
 	}
 }
 
@@ -726,14 +730,14 @@ func (p *Plans) SqlOrgId() string { //nolint:dupl false positive
 	return `"orgId"`
 }
 
-// IdxPerYear return name of the index
-func (p *Plans) IdxPerYear() int { //nolint:dupl false positive
+// IdxYearOf return name of the index
+func (p *Plans) IdxYearOf() int { //nolint:dupl false positive
 	return 14
 }
 
-// SqlPerYear return name of the column being indexed
-func (p *Plans) SqlPerYear() string { //nolint:dupl false positive
-	return `"perYear"`
+// SqlYearOf return name of the column being indexed
+func (p *Plans) SqlYearOf() string { //nolint:dupl false positive
+	return `"yearOf"`
 }
 
 // IdxBudgetIDR return name of the index
@@ -756,14 +760,24 @@ func (p *Plans) SqlBudgetUSD() string { //nolint:dupl false positive
 	return `"budgetUSD"`
 }
 
-// IdxBudgetEUR return name of the index
-func (p *Plans) IdxBudgetEUR() int { //nolint:dupl false positive
+// IdxQuantity return name of the index
+func (p *Plans) IdxQuantity() int { //nolint:dupl false positive
 	return 17
 }
 
-// SqlBudgetEUR return name of the column being indexed
-func (p *Plans) SqlBudgetEUR() string { //nolint:dupl false positive
-	return `"budgetEUR"`
+// SqlQuantity return name of the column being indexed
+func (p *Plans) SqlQuantity() string { //nolint:dupl false positive
+	return `"quantity"`
+}
+
+// IdxUnit return name of the index
+func (p *Plans) IdxUnit() int { //nolint:dupl false positive
+	return 18
+}
+
+// SqlUnit return name of the column being indexed
+func (p *Plans) SqlUnit() string { //nolint:dupl false positive
+	return `"unit"`
 }
 
 // ToArray receiver fields to slice
@@ -787,10 +801,11 @@ func (p *Plans) ToArray() A.X { //nolint:dupl false positive
 		p.Title,       // 11
 		p.Description, // 12
 		p.OrgId,       // 13
-		p.PerYear,     // 14
+		p.YearOf,      // 14
 		p.BudgetIDR,   // 15
 		p.BudgetUSD,   // 16
-		p.BudgetEUR,   // 17
+		p.Quantity,    // 17
+		p.Unit,        // 18
 	}
 }
 
@@ -810,10 +825,11 @@ func (p *Plans) FromArray(a A.X) *Plans { //nolint:dupl false positive
 	p.Title = X.ToS(a[11])
 	p.Description = X.ToS(a[12])
 	p.OrgId = X.ToU(a[13])
-	p.PerYear = X.ToI(a[14])
+	p.YearOf = X.ToI(a[14])
 	p.BudgetIDR = X.ToI(a[15])
 	p.BudgetUSD = X.ToI(a[16])
-	p.BudgetEUR = X.ToI(a[17])
+	p.Quantity = X.ToI(a[17])
+	p.Unit = X.ToS(a[18])
 	return p
 }
 
@@ -833,10 +849,11 @@ func (p *Plans) FromUncensoredArray(a A.X) *Plans { //nolint:dupl false positive
 	p.Title = X.ToS(a[11])
 	p.Description = X.ToS(a[12])
 	p.OrgId = X.ToU(a[13])
-	p.PerYear = X.ToI(a[14])
+	p.YearOf = X.ToI(a[14])
 	p.BudgetIDR = X.ToI(a[15])
 	p.BudgetUSD = X.ToI(a[16])
-	p.BudgetEUR = X.ToI(a[17])
+	p.Quantity = X.ToI(a[17])
+	p.Unit = X.ToS(a[18])
 	return p
 }
 
@@ -894,10 +911,11 @@ var PlansFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`title`:       Tt.String,
 	`description`: Tt.String,
 	`orgId`:       Tt.Unsigned,
-	`perYear`:     Tt.Integer,
+	`yearOf`:      Tt.Integer,
 	`budgetIDR`:   Tt.Integer,
 	`budgetUSD`:   Tt.Integer,
-	`budgetEUR`:   Tt.Integer,
+	`quantity`:    Tt.Integer,
+	`unit`:        Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
