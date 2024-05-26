@@ -368,7 +368,7 @@ ul.svelte-rbe8dc {
 }
 </style>
 <script>(() => {
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/utils.js
+  // node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
   var identity = (x) => x;
@@ -391,12 +391,12 @@ ul.svelte-rbe8dc {
     return Object.keys(obj).length === 0;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/environment.js
+  // node_modules/svelte/src/runtime/internal/environment.js
   var is_client = typeof window !== "undefined";
   var now = is_client ? () => window.performance.now() : () => Date.now();
   var raf = is_client ? (cb) => requestAnimationFrame(cb) : noop;
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/loop.js
+  // node_modules/svelte/src/runtime/internal/loop.js
   var tasks = /* @__PURE__ */ new Set();
   function run_tasks(now2) {
     tasks.forEach((task) => {
@@ -422,13 +422,13 @@ ul.svelte-rbe8dc {
     };
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/globals.js
+  // node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
     // @ts-ignore Node typings have this
     global
   );
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  // node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
   var ResizeObserverSingleton = class {
     /**
      * @private
@@ -474,7 +474,7 @@ ul.svelte-rbe8dc {
   };
   ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/dom.js
+  // node_modules/svelte/src/runtime/internal/dom.js
   var is_hydrating = false;
   function start_hydrating() {
     is_hydrating = true;
@@ -566,7 +566,7 @@ ul.svelte-rbe8dc {
     return result;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/style_manager.js
+  // node_modules/svelte/src/runtime/internal/style_manager.js
   var managed_styles = /* @__PURE__ */ new Map();
   var active = 0;
   function hash(str) {
@@ -630,7 +630,7 @@ ul.svelte-rbe8dc {
     });
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/animations.js
+  // node_modules/svelte/src/runtime/internal/animations.js
   function create_animation(node, from, fn, params) {
     if (!from)
       return noop;
@@ -706,13 +706,13 @@ ul.svelte-rbe8dc {
     }
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/lifecycle.js
+  // node_modules/svelte/src/runtime/internal/lifecycle.js
   var current_component;
   function set_current_component(component) {
     current_component = component;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/scheduler.js
+  // node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
   var binding_callbacks = [];
   var render_callbacks = [];
@@ -787,7 +787,7 @@ ul.svelte-rbe8dc {
     render_callbacks = filtered;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/transitions.js
+  // node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
   function transition_in(block, local) {
     if (block && block.i) {
@@ -796,7 +796,7 @@ ul.svelte-rbe8dc {
     }
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/each.js
+  // node_modules/svelte/src/runtime/internal/each.js
   function ensure_array_like(array_like_or_iterator) {
     return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
   }
@@ -878,7 +878,7 @@ ul.svelte-rbe8dc {
     return new_blocks;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/boolean_attributes.js
+  // node_modules/svelte/src/shared/boolean_attributes.js
   var _boolean_attributes = (
     /** @type {const} */
     [
@@ -911,7 +911,7 @@ ul.svelte-rbe8dc {
   );
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/Component.js
+  // node_modules/svelte/src/runtime/internal/Component.js
   function mount_component(component, target, anchor) {
     const { fragment, after_update } = component.$;
     fragment && fragment.m(target, anchor);
@@ -1079,7 +1079,7 @@ ul.svelte-rbe8dc {
             };
           };
           await Promise.resolve();
-          if (!this.$cn) {
+          if (!this.$cn || this.$c) {
             return;
           }
           const $slots = {};
@@ -1093,6 +1093,12 @@ ul.svelte-rbe8dc {
             const name = this.$g_p(attribute.name);
             if (!(name in this.$d)) {
               this.$d[name] = get_custom_element_value(name, attribute.value, this.$p_d, "toProp");
+            }
+          }
+          for (const key in this.$p_d) {
+            if (!(key in this.$d) && this[key] !== void 0) {
+              this.$d[key] = this[key];
+              delete this[key];
             }
           }
           this.$c = new this.$ctor({
@@ -1148,7 +1154,7 @@ ul.svelte-rbe8dc {
       disconnectedCallback() {
         this.$cn = false;
         Promise.resolve().then(() => {
-          if (!this.$cn) {
+          if (!this.$cn && this.$c) {
             this.$c.$destroy();
             this.$c = void 0;
           }
@@ -1245,20 +1251,20 @@ ul.svelte-rbe8dc {
     }
   };
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/version.js
+  // node_modules/svelte/src/shared/version.js
   var PUBLIC_VERSION = "4";
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  // node_modules/svelte/src/runtime/internal/disclose-version/index.js
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/easing/index.js
+  // node_modules/svelte/src/runtime/easing/index.js
   function cubicOut(t) {
     const f = t - 1;
     return f * f * f + 1;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/animate/index.js
+  // node_modules/svelte/src/runtime/animate/index.js
   function flip(node, { from, to }, params = {}) {
     const style = getComputedStyle(node);
     const transform = style.transform === "none" ? "" : style.transform;

@@ -32,7 +32,7 @@ type Session struct {
 	Roles      []string
 
 	// not saved but retrieved from SUPERADMIN_EMAILS env
-	IsSuperAdmin bool
+	IsSuperAdmin  bool
 	IsTenantAdmin bool
 
 	Segments M.SB
@@ -194,7 +194,7 @@ const (
 
 	ErrSegmentNotAllowed = `session segment not allowed`
 
-	ErrSessionUserNotSuperAdmin = `session email is not superadmin`
+	ErrSessionUserNotSuperAdmin  = `session email is not superadmin`
 	ErrSessionUserNotTenantAdmin = `session user is not tenant admin`
 )
 
@@ -271,8 +271,8 @@ func (d *Domain) MustTenantAdmin(in RequestCommon, out *ResponseCommon) (sess *S
 	if sess == nil {
 		return nil
 	}
-	
-	if sess.TenantCode == ``{
+
+	if sess.TenantCode == `` {
 		if !sess.IsSuperAdmin {
 			out.SetError(403, ErrSessionUserNotTenantAdmin)
 			return nil

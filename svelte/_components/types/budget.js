@@ -8,10 +8,11 @@
   * @property {string} description
   * @property {string} orgId
   * @property {string} planType
-  * @property {number} perYear
+  * @property {number} yearOf
   * @property {number} budgetIDR
   * @property {number} budgetUSD
-  * @property {number} budgetEUR
+  * @property {number} quantity
+  * @property {string} unit
   * @property {string} createdAt
   * @property {string} createdBy
   * @property {number} updatedAt

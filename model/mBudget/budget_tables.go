@@ -8,27 +8,27 @@ import (
 // TODO: make this table per tenant (run ony migration per tenant
 
 const (
-	PlanTypeVision		= `vision`
-	PlanTypeMission		= `mission` 
-	PlanTypeProgram		= `program`
-	PlanTypeActivity	= `activity`
+	PlanTypeVision   = `vision`
+	PlanTypeMission  = `mission`
+	PlanTypeProgram  = `program`
+	PlanTypeActivity = `activity`
 
-	TitleVision				= `Vision`
-	TitleMission			= `Mission`
+	TitleVision  = `Vision`
+	TitleMission = `Mission`
 )
 
 func IsValidPlanType(pType string) bool {
 	switch pType {
-		case PlanTypeVision:
-			return true
-		case PlanTypeMission:
-			return true
-		case PlanTypeProgram:
-			return true
-		case PlanTypeActivity:
-			return true
-		default:
-			return false
+	case PlanTypeVision:
+		return true
+	case PlanTypeMission:
+		return true
+	case PlanTypeProgram:
+		return true
+	case PlanTypeActivity:
+		return true
+	default:
+		return false
 	}
 }
 
@@ -72,7 +72,7 @@ const (
 	*/
 
 	ParentId    = `parentId`
-	TenantCode	= `tenantCode`
+	TenantCode  = `tenantCode`
 	CreatedAt   = `createdAt`
 	CreatedBy   = `createdBy`
 	UpdatedAt   = `updatedAt`
@@ -81,10 +81,11 @@ const (
 	Title       = `title`
 	Description = `description`
 	OrgId       = `orgId`
-	PerYear     = `perYear`
+	YearOf      = `yearOf`
 	BudgetIDR   = `budgetIDR`
 	BudgetUSD   = `budgetUSD`
-	BudgetEUR   = `budgetEUR`
+	Quantity    = `quantity`
+	Unit        = `unit`
 )
 
 const (
@@ -93,17 +94,17 @@ const (
 
 	TableBankAccounts Tt.TableName = `bankAccounts`
 
-	Name								= `name`
-	ParentBankAccountId	= `parentBankAccountId`
-	ChildBankAccountId	= `childBankAccountId`
-	AccountNumber 			= `accountNumber`
-	BankName 						= `bankName`
-	AccountName 				= `accountName`
-	IsProfitCenter 			= `isProfitCenter `
-	IsCostCenter				= `isCostCenter`
-	StaffId							= `staffId`
-	DeletedBy						= `deletedBy`
-	RestoredBy					= `restoredBy` 
+	Name                = `name`
+	ParentBankAccountId = `parentBankAccountId`
+	ChildBankAccountId  = `childBankAccountId`
+	AccountNumber       = `accountNumber`
+	BankName            = `bankName`
+	AccountName         = `accountName`
+	IsProfitCenter      = `isProfitCenter `
+	IsCostCenter        = `isCostCenter`
+	StaffId             = `staffId`
+	DeletedBy           = `deletedBy`
+	RestoredBy          = `restoredBy`
 )
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
@@ -123,10 +124,11 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Title, Tt.String},
 			{Description, Tt.String},
 			{OrgId, Tt.Unsigned},
-			{PerYear, Tt.Integer},
+			{YearOf, Tt.Integer},
 			{BudgetIDR, Tt.Integer},
 			{BudgetUSD, Tt.Integer},
-			{BudgetEUR, Tt.Integer},
+			{Quantity, Tt.Integer},
+			{Unit, Tt.String},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,
@@ -153,7 +155,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{StaffId, Tt.Unsigned},
 		},
 		AutoIncrementId: true,
-		Engine: Tt.Vinyl,
+		Engine:          Tt.Vinyl,
 	},
 }
 

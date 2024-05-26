@@ -11,9 +11,8 @@
    } from '../node_modules/svelte-icons-pack/dist/ri';
   import PlanProgramTree from './PlanProgramTree.svelte';
   import {
-    TenantAdminGetBudgetPlans,
-    TenantAdminCreateBudgetPlan,
-    TenantAdminUpdateBudgetPlan
+	  TenantAdminGetBudgetPlans,
+	  TenantAdminUpsertBudgetPlan,
   } from '../jsApi.GEN.js';
   import { notifier } from './notifier.js';
   import PopUpBudgetPlan from './PopUpBudgetPlan.svelte';
@@ -63,12 +62,12 @@
 
   // make it as payload
   let id = 0, planType = PlanTypeVision, title = '', description = '',
-    perYear = 0, budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
+    yearOf = 0, budgetIDR = 0, budgetUSD = 0, unit = '', quantity = 0;
 
   // reset payload
   const resetPayload = () => {
     planType = '', title = '', description = '';
-    perYear = 0, budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
+    yearOf = 0, budgetIDR = 0, budgetUSD = 0, unit = '', quantity = 0;
   }
 
   // state render budget plans
@@ -161,40 +160,16 @@
   let isSubmitPlan = false;
   let submitState = submitStateAdd;
 
-  async function submitAddPlan() {
-    isSubmitPlan = true;
-    /** @type {import('../jsApi.GEN.js').TenantAdminCreateBudgetPlanIn} */
-    const i = {
-      planType: planType, title, description, parentId: 0, orgId: Number(org.id), perYear: Number(perYear),
-      budgetIDR: Number(budgetIDR), budgetUSD: Number(budgetUSD), budgetEUR: Number(budgetEUR)
-    }
-    await TenantAdminCreateBudgetPlan( i, /** @type {import('../jsApi.GEN').TenantAdminCreateBudgetPlanCallback}*/
-      function (/** @type {any} */ o) {
-        resetPayload();
-        isSubmitPlan = false;
-        if (o.error) {
-          notifier.showError(o.error);
-          console.log(o);
-          return;
-        }
-        notifier.showSuccess(title + ' added');
-        const out = /** @type {import('../jsApi.GEN').TenantAdminCreateBudgetPlanOut}*/ (o);
-        budgetPlans = out.plans;
 
-        reformatPlans();
-        popUpBudgetPlan.hide();
-      }
-    )
-  }
-
-  async function submitEditPlan() {
+  async function submitUpsertPlan() {
     isSubmitPlan = true;
-    /** @type {import('../jsApi.GEN.js').TenantAdminUpdateBudgetPlanIn} */
+	 const idStr = id + "";
+    /** @type {import('../jsApi.GEN.js').TenantAdminUpsertBudgetPlanIn} */
     const i = {
-      id, planType, title, description, perYear: Number(perYear),
-      budgetIDR: Number(budgetIDR), budgetUSD: Number(budgetUSD), budgetEUR: Number(budgetEUR)
+      plan: {id: idStr, planType, title, description, yearOf: Number(yearOf),
+      budgetIDR: Number(budgetIDR), budgetUSD: Number(budgetUSD), unit, quantity}
     }
-    await TenantAdminUpdateBudgetPlan(i, /** @type {import('../jsApi.GEN').TenantAdminUpdateBudgetPlanCallback} */
+    await TenantAdminUpsertBudgetPlan(i, /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanCallback} */
       function (/** @type {any} */ o) {
         resetPayload();
         isSubmitPlan = false;
@@ -204,7 +179,7 @@
           return;
         }
         notifier.showSuccess(planType + ' edited');
-        const out = /** @type {import('../jsApi.GEN').TenantAdminUpdateBudgetPlanOut}*/ (o);
+        const out = /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanOut}*/ (o);
         budgetPlans = out.plans;
 
         reformatPlans();
@@ -215,12 +190,9 @@
 
   async function submitPlan() {
     switch (submitState) {
-      case submitStateAdd: {
-        await submitAddPlan();
-        break;
-      }
+      case submitStateAdd:
       case submitStateEdit: {
-        await submitEditPlan();
+        await submitUpsertPlan();
         break;
       }
       default: {
@@ -297,10 +269,11 @@
   bind:planType
   bind:title
   bind:description
-  bind:perYear
+  bind:yearOf
   bind:budgetIDR
   bind:budgetUSD
-  bind:budgetEUR
+  bind:unit
+  bind:quantity
   bind:heading={headingPopUp}
   bind:isSubmitted={isSubmitPlan}
   onSubmit={submitPlan}

@@ -19,12 +19,12 @@
 
   // make it as payload
   let planType = PlanTypeActivity, title = '', description = '',
-  perYear = 0, budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
+  yearOf = 0, budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
 
   // reset payload
   const resetPayload = () => {
     planType = '', title = '', description = '';
-    perYear = 0, budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
+    yearOf = 0, budgetIDR = 0, budgetUSD = 0, budgetEUR = 0;
   }
 
   /** @type {import('./types/budget.js').BudgetPlan} */
@@ -35,7 +35,7 @@
     description: '',
     orgId: '',
     planType: '',
-    perYear: 0,
+    yearOf: 0,
     budgetIDR: 0,
     budgetUSD: 0,
     budgetEUR: 0,
@@ -65,7 +65,7 @@
     /** @type {import('../jsApi.GEN.js').TenantAdminCreateBudgetPlanIn} */
     const i = {
       planType: 'activity', title, description, parentId: Number(plan.id), orgId: Number(plan.orgId),
-      perYear: Number(perYear), budgetIDR: Number(budgetIDR), budgetUSD: Number(budgetUSD), budgetEUR: Number(budgetEUR)
+      yearOf: Number(yearOf), budgetIDR: Number(budgetIDR), budgetUSD: Number(budgetUSD), budgetEUR: Number(budgetEUR)
     }
     await TenantAdminCreateBudgetPlan(
       i, /** @type {import('../jsApi.GEN').TenantAdminCreateBudgetPlanCallback} */
@@ -89,7 +89,7 @@
     isSubmitPlan = true;
     /** @type {import('../jsApi.GEN.js').TenantAdminUpdateBudgetPlanIn} */
     const i = {
-      id: Number(plan.id), planType, title, description, perYear: Number(perYear),
+      id: Number(plan.id), planType, title, description, yearOf: Number(yearOf),
       budgetIDR: Number(budgetIDR), budgetUSD: Number(budgetUSD), budgetEUR: Number(budgetEUR)
     }
     await TenantAdminUpdateBudgetPlan(i, /** @type {import('../jsApi.GEN').TenantAdminUpdateBudgetPlanCallback} */
@@ -136,7 +136,7 @@
       case submitStateEdit: {
         submitState = submitStateEdit;
         headingPopUp = 'Edit ' + plan.planType;
-        title = plan.title, description = plan.description, perYear = plan.perYear;
+        title = plan.title, description = plan.description, yearOf = plan.yearOf;
         budgetIDR = plan.budgetIDR, budgetUSD = plan.budgetUSD, budgetEUR = plan.budgetEUR;
         break;
       }
@@ -155,7 +155,7 @@
   bind:planType={plan.planType}
   bind:title
   bind:description
-  bind:perYear
+  bind:yearOf
   bind:budgetIDR
   bind:budgetUSD
   bind:budgetEUR
