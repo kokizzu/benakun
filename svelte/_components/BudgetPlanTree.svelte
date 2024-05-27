@@ -165,7 +165,7 @@
     isSubmitPlan = true;
 	 const idStr = id + "";
     /** @type {import('../jsApi.GEN.js').TenantAdminUpsertBudgetPlanIn} */
-    const i = {
+    const i = { //@ts-ignore
       plan: {id: idStr, planType, title, description, yearOf: Number(yearOf),
       budgetIDR: Number(budgetIDR), budgetUSD: Number(budgetUSD), unit, quantity}
     }

@@ -191,7 +191,7 @@
       size="17"
       src={RiArrowsDragMove2Fill}
     />
-  </div>RiArrowsArrowGoBackLine
+  </div>
   {#if coa.children && coa.children.length}
     {#each coa.children as ch, idx (ch.id)}
       <svelte:self
