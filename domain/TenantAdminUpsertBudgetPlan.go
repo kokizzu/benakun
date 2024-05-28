@@ -61,12 +61,11 @@ func (d *Domain) TenantAdminUpsertBudgetPlan(in *TenantAdminUpsertBudgetPlanIn) 
 		return
 	}
 
-	if hostmap[in.Host].OrgId <= 0 {
-		out.SetError(400, ErrTenantAdminUpsertBudgetPlanOrgNotFound)
-		return
-	}
-
-	// TODO: check privilege of this user to that organization
+	// TODO: use it on production
+	// if hostmap[in.Host].OrgId <= 0 {
+	// 	out.SetError(400, ErrTenantAdminUpsertBudgetPlanOrgNotFound)
+	// 	return
+	// }
 
 	if !mBudget.IsValidPlanType(in.Plan.PlanType) {
 		out.SetError(400, ErrTenantAdminUpsertBudgetPlanInvalidPlanType)
@@ -110,7 +109,6 @@ func (d *Domain) TenantAdminUpsertBudgetPlan(in *TenantAdminUpsertBudgetPlanIn) 
 	default:
 	}
 
-	plan.UpdatedAt = in.UnixNow()
 	plan.UpdatedAt = in.UnixNow()
 
 	if !plan.DoUpsert() {

@@ -1050,39 +1050,6 @@ exports.TenantAdminCoa = async function TenantAdminCoa( i, cb ) {
 }
 
 /**
- * @typedef {Object} TenantAdminCreateCoaChildIn
- * @property {String} name
- * @property {number} parentId
- */
-const TenantAdminCreateCoaChildIn = {
-  name: '', // string
-  parentId: 0, // uint64
-}
-/**
- * @typedef {Object} TenantAdminCreateCoaChildOut
- * @property {Object} coas
- */
-const TenantAdminCreateCoaChildOut = {
-  coas: { // []rqFinance.Coa
-  }, // []rqFinance.Coa
-}
-/**
- * @callback TenantAdminCreateCoaChildCallback
- * @param {TenantAdminCreateCoaChildOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminCreateCoaChildIn} i
- * @param {TenantAdminCreateCoaChildCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminCreateCoaChild = async function TenantAdminCreateCoaChild( i, cb ) {
-  return await axios.post( '/tenantAdmin/createCoaChild', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
  * @typedef {Object} TenantAdminCreateOrganizationChildIn
  * @property {String} name
  * @property {String} headTitle
@@ -1617,39 +1584,6 @@ exports.TenantAdminTransaction = async function TenantAdminTransaction( i, cb ) 
 }
 
 /**
- * @typedef {Object} TenantAdminUpdateCoaChildIn
- * @property {number} id
- * @property {String} name
- */
-const TenantAdminUpdateCoaChildIn = {
-  id: 0, // uint64
-  name: '', // string
-}
-/**
- * @typedef {Object} TenantAdminUpdateCoaChildOut
- * @property {Object} coas
- */
-const TenantAdminUpdateCoaChildOut = {
-  coas: { // []rqFinance.Coa
-  }, // []rqFinance.Coa
-}
-/**
- * @callback TenantAdminUpdateCoaChildCallback
- * @param {TenantAdminUpdateCoaChildOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminUpdateCoaChildIn} i
- * @param {TenantAdminUpdateCoaChildCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminUpdateCoaChild = async function TenantAdminUpdateCoaChild( i, cb ) {
-  return await axios.post( '/tenantAdmin/updateCoaChild', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
  * @typedef {Object} TenantAdminUpdateOrganizationChildIn
  * @property {number} id
  * @property {String} name
@@ -1776,6 +1710,60 @@ const TenantAdminUpsertBudgetPlanOut = {
  */
 exports.TenantAdminUpsertBudgetPlan = async function TenantAdminUpsertBudgetPlan( i, cb ) {
   return await axios.post( '/tenantAdmin/upsertBudgetPlan', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminUpsertCoaChildIn
+ * @property {number} coa.id
+ * @property {String} coa.tenantCode
+ * @property {String} coa.name
+ * @property {number} coa.level
+ * @property {number} coa.parentId
+ * @property {Object} coa.children
+ * @property {number} coa.createdAt
+ * @property {number} coa.createdBy
+ * @property {number} coa.updatedAt
+ * @property {number} coa.updatedBy
+ * @property {number} coa.deletedAt
+ */
+const TenantAdminUpsertCoaChildIn = {
+  coa: { // rqFinance.Coa
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    level: 0, // float64
+    parentId: 0, // uint64
+    children: { // []any
+    }, // []any
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+  }, // rqFinance.Coa
+}
+/**
+ * @typedef {Object} TenantAdminUpsertCoaChildOut
+ * @property {Object} coas
+ */
+const TenantAdminUpsertCoaChildOut = {
+  coas: { // []rqFinance.Coa
+  }, // []rqFinance.Coa
+}
+/**
+ * @callback TenantAdminUpsertCoaChildCallback
+ * @param {TenantAdminUpsertCoaChildOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminUpsertCoaChildIn} i
+ * @param {TenantAdminUpsertCoaChildCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminUpsertCoaChild = async function TenantAdminUpsertCoaChild( i, cb ) {
+  return await axios.post( '/tenantAdmin/createCoaChild', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

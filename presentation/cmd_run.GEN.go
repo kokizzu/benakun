@@ -156,14 +156,6 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminCoa(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
-	case domain.TenantAdminCreateCoaChildAction:
-		in := domain.TenantAdminCreateCoaChildIn{}
-		if !in.RequestCommon.FromCli(action, payload, &in) {
-			return
-		}
-		out := b.TenantAdminCreateCoaChild(&in)
-		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
-
 	case domain.TenantAdminCreateOrganizationChildAction:
 		in := domain.TenantAdminCreateOrganizationChildIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
@@ -252,14 +244,6 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminTransaction(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
-	case domain.TenantAdminUpdateCoaChildAction:
-		in := domain.TenantAdminUpdateCoaChildIn{}
-		if !in.RequestCommon.FromCli(action, payload, &in) {
-			return
-		}
-		out := b.TenantAdminUpdateCoaChild(&in)
-		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
-
 	case domain.TenantAdminUpdateOrganizationChildAction:
 		in := domain.TenantAdminUpdateOrganizationChildIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
@@ -274,6 +258,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.TenantAdminUpsertBudgetPlan(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.TenantAdminUpsertCoaChildAction:
+		in := domain.TenantAdminUpsertCoaChildIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.TenantAdminUpsertCoaChild(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.UserAutoLoginLinkAction:
