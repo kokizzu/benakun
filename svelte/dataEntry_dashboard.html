@@ -2676,12 +2676,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminCoa = async function TenantAdminCoa(i, cb) {
         return await axios.post("/tenantAdmin/coa", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminCreateCoaChild = async function TenantAdminCreateCoaChild(i, cb) {
-        return await axios.post("/tenantAdmin/createCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.TenantAdminCreateOrganizationChild = async function TenantAdminCreateOrganizationChild(i, cb) {
-        return await axios.post("/tenantAdmin/createOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
       exports.TenantAdminDashboard = async function TenantAdminDashboard(i, cb) {
         return await axios.post("/tenantAdmin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2712,14 +2706,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminTransaction = async function TenantAdminTransaction(i, cb) {
         return await axios.post("/tenantAdmin/transaction", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminUpdateCoaChild = async function TenantAdminUpdateCoaChild(i, cb) {
-        return await axios.post("/tenantAdmin/updateCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.TenantAdminUpdateOrganizationChild = async function TenantAdminUpdateOrganizationChild(i, cb) {
-        return await axios.post("/tenantAdmin/updateOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
       exports.TenantAdminUpsertBudgetPlan = async function TenantAdminUpsertBudgetPlan(i, cb) {
         return await axios.post("/tenantAdmin/upsertBudgetPlan", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.TenantAdminUpsertCoaChild = async function TenantAdminUpsertCoaChild(i, cb) {
+        return await axios.post("/tenantAdmin/createCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.TenantAdminUpsertOrganizationChild = async function TenantAdminUpsertOrganizationChild(i, cb) {
+        return await axios.post("/tenantAdmin/updateOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));

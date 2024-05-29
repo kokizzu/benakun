@@ -71,7 +71,23 @@ func (d *Domain) TenantAdminUpsertCoaChild(in *TenantAdminUpsertCoaChildIn) (out
 			out.SetError(400, ErrTenantAdminUpsertCoaChildCoaChildNotFound)
 			return
 		}
+	} else {
+		coa.SetCreatedAt(in.UnixNow())
+		coa.SetCreatedBy(sess.UserId)
+	}
 
+	coa.SetAll(in.Coa, nil, nil)
+	coa.SetUpdatedAt(in.UnixNow())
+	coa.SetUpdatedBy(sess.UserId)
+	coa.SetTenantCode(tenant.TenantCode)
+
+	if !coa.DoUpsert() {
+		coa.HaveMutation()
+		out.SetError(400, ErrTenantAdminUpsertCoaChildFailedSave)
+		return
+	}
+
+	if in.Coa.Id <= 0 {
 		// update childrens of parent coa
 		children := parent.Children
 		children = append(children, coa.Id)
@@ -84,15 +100,6 @@ func (d *Domain) TenantAdminUpsertCoaChild(in *TenantAdminUpsertCoaChildIn) (out
 			out.SetError(400, ErrTenantAdminUpsertCoaChildCoaParentNotFound)
 			return
 		}
-	}
-
-	coa.SetAll(in.Coa, nil, nil)
-
-	coa.UpdatedAt = in.UnixNow()
-
-	if !coa.DoUpsert() {
-		out.SetError(400, ErrTenantAdminUpsertCoaChildFailedSave)
-		return
 	}
 
 	// retrieve owned coa

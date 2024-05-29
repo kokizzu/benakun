@@ -2,41 +2,26 @@
   import { Icon } from './node_modules/svelte-icons-pack/dist';
   import { RiSystemAddBoxLine } from './node_modules/svelte-icons-pack/dist/ri';
   import { onMount } from 'svelte';
-  import { TenantAdminCreateCoaChild } from './jsApi.GEN.js';
+  import { TenantAdminUpsertCoaChild } from './jsApi.GEN.js';
   import { notifier } from './_components/notifier.js';
   import CoaTree from './_components/CoaTree.svelte';
   import PopUpCoaChild from './_components/PopUpCoaChild.svelte';
   import MainLayout from './_layouts/mainLayout.svelte';
 
-  /**
-   * @type {any}
-   */
-  let segments = {/* segments */};
-  let user = {/* user */};
-  let coas = [/* coas */];
+  /** @typedef {import('./_components/types/user').User} User */
+  /** @typedef {import('./_components/types/access').Access} Access */
+  /** @typedef {import('./_components/types/coa').CoA} CoA */
 
-  /**
-    * @typedef {Object} CoA
-    * @property {string} id
-    * @property {string} name
-    * @property {number} level
-    * @property {string} parentId
-    * @property {number} createdAt
-    * @property {string} createdBy
-    * @property {number} updatedAt
-    * @property {string} updatedBy
-    * @property {number} deletedAt
-    * @property {Array<CoA>} children
-    */
-  /**
-   * @type {Array<CoA>}
-   */
-  let REFORMAT_COAS = [];
+  let segments  = /** @type Access */ ({/* segments */});
+  let user      = /** @type User */   ({/* user */});
+  let coas      = /** @type CoA[] */  ([/* coas */]);
 
-  function coaMaker(id) {
-    /**
-     * @type {CoA}
-     */
+  console.log('COAs:', coas)
+  
+  let REFORMAT_COAS = /** @type CoA[] */ ([]);
+
+  function coaMaker(/** @type string */ id) {
+    /** @type CoA */
     let coaFormatted = {
       id: '',
       name: '',
@@ -50,12 +35,12 @@
       deletedAt: undefined
     }
     for (let i in coas) {
-      if (coas[i].id == String(id)) {
-        const children = coas[i].children;
+      if (coas[i].id == String(id)) { // @ts-ignore
+        const children = /** @type string[] */ (coas[i].children);
         if (children && children.length) {
           for (let j in children) {
             const childId = children[j]
-            const child = coaMaker(childId)
+            const child = coaMaker(childId); // @ts-ignore
             coaFormatted.children = [...coaFormatted.children, child];
           }
         }
@@ -92,7 +77,7 @@
     return toCoas;
   }
 
-  onMount(() => {REFORMAT_COAS = reformatCoas(); console.log(REFORMAT_COAS); console.log(coas)});
+  onMount(() => REFORMAT_COAS = reformatCoas());
 
   let popUpCoaChild;
 
@@ -106,27 +91,25 @@
       notifier.showWarning('coa name cannot be empty');
       return;
     }
-    await TenantAdminCreateCoaChild(
-      {
-        name: childName,
-        parentId: Number(childParentId)
-      },
-      // @ts-ignore
-      function (o) {
-        // @ts-ignore
+
+    /** @type CoA */ //@ts-ignore
+    const coa = {
+      name: childName,
+      parentId: childParentId
+    }
+
+    await TenantAdminUpsertCoaChild( // @ts-ignore
+      {coa: coa}, /** @type {import('./jsApi.GEN').TenantAdminUpsertCoaChildCallback}*/
+      function (/** @type any */ o) {
+        isSubmitted = false;
+        popUpCoaChild.hide();
         if (o.error) {
-          popUpCoaChild.hide();
-          isSubmitted = false;
-          // @ts-ignore
           notifier.showError(o.error);
-          // @ts-ignore
           console.log(o.error);
           return;
         }
-        popUpCoaChild.hide();
-        isSubmitted = false;
-        // @ts-ignore
-        coas = o.coa;
+        
+        coas = o.coas;
 
         REFORMAT_COAS = [];
         REFORMAT_COAS = reformatCoas();

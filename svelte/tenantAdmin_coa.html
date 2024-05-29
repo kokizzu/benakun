@@ -3033,12 +3033,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminCoa = async function TenantAdminCoa(i, cb) {
         return await axios.post("/tenantAdmin/coa", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminCreateCoaChild = async function TenantAdminCreateCoaChild3(i, cb) {
-        return await axios.post("/tenantAdmin/createCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.TenantAdminCreateOrganizationChild = async function TenantAdminCreateOrganizationChild(i, cb) {
-        return await axios.post("/tenantAdmin/createOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
       exports.TenantAdminDashboard = async function TenantAdminDashboard(i, cb) {
         return await axios.post("/tenantAdmin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -3069,14 +3063,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminTransaction = async function TenantAdminTransaction(i, cb) {
         return await axios.post("/tenantAdmin/transaction", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminUpdateCoaChild = async function TenantAdminUpdateCoaChild2(i, cb) {
-        return await axios.post("/tenantAdmin/updateCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.TenantAdminUpdateOrganizationChild = async function TenantAdminUpdateOrganizationChild(i, cb) {
-        return await axios.post("/tenantAdmin/updateOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
       exports.TenantAdminUpsertBudgetPlan = async function TenantAdminUpsertBudgetPlan(i, cb) {
         return await axios.post("/tenantAdmin/upsertBudgetPlan", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.TenantAdminUpsertCoaChild = async function TenantAdminUpsertCoaChild3(i, cb) {
+        return await axios.post("/tenantAdmin/createCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.TenantAdminUpsertOrganizationChild = async function TenantAdminUpsertOrganizationChild(i, cb) {
+        return await axios.post("/tenantAdmin/updateOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -5676,42 +5670,27 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         notifier.showWarning("Coa name cannot be empty");
         return;
       }
-      switch (coaState) {
-        case "edit":
-          await (0, import_jsApi.TenantAdminUpdateCoaChild)(
-            { name: coaName, id: Number(coa.id) },
-            /** @type {import('../jsApi.GEN').TenantAdminUpdateCoaChildCallback}*/
-            function(o) {
-              $invalidate(7, isSubmitted = false);
-              popUpCoaChild.hide();
-              if (o.error) {
-                notifier.showError(o.error);
-                console.log(o);
-                return;
-              }
-              notifier.showSuccess(coaName + " edited");
-              dispatch("update", { coas: o.coa });
-            }
-          );
-          break;
-        case "add":
-          await (0, import_jsApi.TenantAdminCreateCoaChild)(
-            { name: coaName, parentId: Number(coa.id) },
-            /** @type {import('../jsApi.GEN').TenantAdminCreateCoaChildCallback}*/
-            function(o) {
-              $invalidate(7, isSubmitted = false);
-              popUpCoaChild.hide();
-              if (o.error) {
-                notifier.showError(o.error);
-                console.log(o);
-                return;
-              }
-              notifier.showSuccess("Coa child created");
-              dispatch("update", { coas: o.coa });
-            }
-          );
-          break;
-      }
+      let coaPayload = {
+        id: coaState === "edit" ? coa.id : "0",
+        name: coaName,
+        parentId: coa.id
+      };
+      await (0, import_jsApi.TenantAdminUpsertCoaChild)(
+        //@ts-ignore
+        { coa: coaPayload },
+        /** @type {import('../jsApi.GEN').TenantAdminUpsertCoaChildCallback}*/
+        function(o) {
+          $invalidate(7, isSubmitted = false);
+          popUpCoaChild.hide();
+          if (o.error) {
+            notifier.showError(o.error);
+            console.log(o);
+            return;
+          }
+          notifier.showSuccess("Coa child updated");
+          dispatch("update", { coas: o.coas });
+        }
+      );
     }
     async function deleteCoaChild() {
       $invalidate(7, isSubmitted = true);
@@ -7611,8 +7590,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function instance10($self, $props, $invalidate) {
-    let coas = [/* coas */];
-    let REFORMAT_COAS = [];
+    let coas = (
+      /** @type CoA[] */
+      [/* coas */]
+    );
+    console.log("COAs:", coas);
+    let REFORMAT_COAS = (
+      /** @type CoA[] */
+      []
+    );
     function coaMaker(id) {
       let coaFormatted = {
         id: "",
@@ -7628,7 +7614,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       };
       for (let i in coas) {
         if (coas[i].id == String(id)) {
-          const children2 = coas[i].children;
+          const children2 = (
+            /** @type string[] */
+            coas[i].children
+          );
           if (children2 && children2.length) {
             for (let j in children2) {
               const childId = children2[j];
@@ -7664,11 +7653,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
       return toCoas;
     }
-    onMount(() => {
-      $invalidate(0, REFORMAT_COAS = reformatCoas());
-      console.log(REFORMAT_COAS);
-      console.log(coas);
-    });
+    onMount(() => $invalidate(0, REFORMAT_COAS = reformatCoas()));
     let popUpCoaChild;
     let childName = "", childParentId = "";
     let isSubmitted = false;
@@ -7679,23 +7664,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         notifier.showWarning("coa name cannot be empty");
         return;
       }
-      await (0, import_jsApi_GEN2.TenantAdminCreateCoaChild)(
-        {
-          name: childName,
-          parentId: Number(childParentId)
-        },
+      const coa = { name: childName, parentId: childParentId };
+      await (0, import_jsApi_GEN2.TenantAdminUpsertCoaChild)(
         // @ts-ignore
+        { coa },
+        /** @type {import('./jsApi.GEN').TenantAdminUpsertCoaChildCallback}*/
         function(o) {
+          $invalidate(4, isSubmitted = false);
+          popUpCoaChild.hide();
           if (o.error) {
-            popUpCoaChild.hide();
-            $invalidate(4, isSubmitted = false);
             notifier.showError(o.error);
             console.log(o.error);
             return;
           }
-          popUpCoaChild.hide();
-          $invalidate(4, isSubmitted = false);
-          coas = o.coa;
+          coas = o.coas;
           $invalidate(0, REFORMAT_COAS = []);
           $invalidate(0, REFORMAT_COAS = reformatCoas());
           notifier.showSuccess("Coa child created");

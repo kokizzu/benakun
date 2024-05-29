@@ -1050,68 +1050,6 @@ exports.TenantAdminCoa = async function TenantAdminCoa( i, cb ) {
 }
 
 /**
- * @typedef {Object} TenantAdminCreateOrganizationChildIn
- * @property {String} name
- * @property {String} headTitle
- * @property {number} parentId
- */
-const TenantAdminCreateOrganizationChildIn = {
-  name: '', // string
-  headTitle: '', // string
-  parentId: 0, // uint64
-}
-/**
- * @typedef {Object} TenantAdminCreateOrganizationChildOut
- * @property {number} org.id
- * @property {String} org.tenantCode
- * @property {String} org.name
- * @property {String} org.headTitle
- * @property {number} org.parentId
- * @property {Object} org.children
- * @property {number} org.orgType
- * @property {number} org.createdAt
- * @property {number} org.createdBy
- * @property {number} org.updatedAt
- * @property {number} org.updatedBy
- * @property {number} org.deletedAt
- * @property {Object} orgs
- */
-const TenantAdminCreateOrganizationChildOut = {
-  org: { // rqAuth.Orgs
-    id: 0, // uint64
-    tenantCode: '', // string
-    name: '', // string
-    headTitle: '', // string
-    parentId: 0, // uint64
-    children: { // []any
-    }, // []any
-    orgType: 0, // uint64
-    createdAt: 0, // int64
-    createdBy: 0, // uint64
-    updatedAt: 0, // int64
-    updatedBy: 0, // uint64
-    deletedAt: 0, // int64
-  }, // rqAuth.Orgs
-  orgs: { // []rqAuth.Orgs
-  }, // []rqAuth.Orgs
-}
-/**
- * @callback TenantAdminCreateOrganizationChildCallback
- * @param {TenantAdminCreateOrganizationChildOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminCreateOrganizationChildIn} i
- * @param {TenantAdminCreateOrganizationChildCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminCreateOrganizationChild = async function TenantAdminCreateOrganizationChild( i, cb ) {
-  return await axios.post( '/tenantAdmin/createOrganizationChild', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
  * @typedef {Object} TenantAdminDashboardIn
  * @property {String} cmd
  * @property {String} staffEmail
@@ -1584,68 +1522,6 @@ exports.TenantAdminTransaction = async function TenantAdminTransaction( i, cb ) 
 }
 
 /**
- * @typedef {Object} TenantAdminUpdateOrganizationChildIn
- * @property {number} id
- * @property {String} name
- * @property {String} headTitle
- */
-const TenantAdminUpdateOrganizationChildIn = {
-  id: 0, // uint64
-  name: '', // string
-  headTitle: '', // string
-}
-/**
- * @typedef {Object} TenantAdminUpdateOrganizationChildOut
- * @property {number} org.id
- * @property {String} org.tenantCode
- * @property {String} org.name
- * @property {String} org.headTitle
- * @property {number} org.parentId
- * @property {Object} org.children
- * @property {number} org.orgType
- * @property {number} org.createdAt
- * @property {number} org.createdBy
- * @property {number} org.updatedAt
- * @property {number} org.updatedBy
- * @property {number} org.deletedAt
- * @property {Object} orgs
- */
-const TenantAdminUpdateOrganizationChildOut = {
-  org: { // rqAuth.Orgs
-    id: 0, // uint64
-    tenantCode: '', // string
-    name: '', // string
-    headTitle: '', // string
-    parentId: 0, // uint64
-    children: { // []any
-    }, // []any
-    orgType: 0, // uint64
-    createdAt: 0, // int64
-    createdBy: 0, // uint64
-    updatedAt: 0, // int64
-    updatedBy: 0, // uint64
-    deletedAt: 0, // int64
-  }, // rqAuth.Orgs
-  orgs: { // []rqAuth.Orgs
-  }, // []rqAuth.Orgs
-}
-/**
- * @callback TenantAdminUpdateOrganizationChildCallback
- * @param {TenantAdminUpdateOrganizationChildOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminUpdateOrganizationChildIn} i
- * @param {TenantAdminUpdateOrganizationChildCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminUpdateOrganizationChild = async function TenantAdminUpdateOrganizationChild( i, cb ) {
-  return await axios.post( '/tenantAdmin/updateOrganizationChild', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
  * @typedef {Object} TenantAdminUpsertBudgetPlanIn
  * @property {number} plan.id
  * @property {String} plan.tenantCode
@@ -1764,6 +1640,89 @@ const TenantAdminUpsertCoaChildOut = {
  */
 exports.TenantAdminUpsertCoaChild = async function TenantAdminUpsertCoaChild( i, cb ) {
   return await axios.post( '/tenantAdmin/createCoaChild', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminUpsertOrganizationChildIn
+ * @property {number} org.id
+ * @property {String} org.tenantCode
+ * @property {String} org.name
+ * @property {String} org.headTitle
+ * @property {number} org.parentId
+ * @property {Object} org.children
+ * @property {number} org.orgType
+ * @property {number} org.createdAt
+ * @property {number} org.createdBy
+ * @property {number} org.updatedAt
+ * @property {number} org.updatedBy
+ * @property {number} org.deletedAt
+ */
+const TenantAdminUpsertOrganizationChildIn = {
+  org: { // rqAuth.Orgs
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    headTitle: '', // string
+    parentId: 0, // uint64
+    children: { // []any
+    }, // []any
+    orgType: 0, // uint64
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+  }, // rqAuth.Orgs
+}
+/**
+ * @typedef {Object} TenantAdminUpsertOrganizationChildOut
+ * @property {number} org.id
+ * @property {String} org.tenantCode
+ * @property {String} org.name
+ * @property {String} org.headTitle
+ * @property {number} org.parentId
+ * @property {Object} org.children
+ * @property {number} org.orgType
+ * @property {number} org.createdAt
+ * @property {number} org.createdBy
+ * @property {number} org.updatedAt
+ * @property {number} org.updatedBy
+ * @property {number} org.deletedAt
+ * @property {Object} orgs
+ */
+const TenantAdminUpsertOrganizationChildOut = {
+  org: { // rqAuth.Orgs
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    headTitle: '', // string
+    parentId: 0, // uint64
+    children: { // []any
+    }, // []any
+    orgType: 0, // uint64
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+  }, // rqAuth.Orgs
+  orgs: { // []rqAuth.Orgs
+  }, // []rqAuth.Orgs
+}
+/**
+ * @callback TenantAdminUpsertOrganizationChildCallback
+ * @param {TenantAdminUpsertOrganizationChildOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminUpsertOrganizationChildIn} i
+ * @param {TenantAdminUpsertOrganizationChildCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminUpsertOrganizationChild = async function TenantAdminUpsertOrganizationChild( i, cb ) {
+  return await axios.post( '/tenantAdmin/updateOrganizationChild', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

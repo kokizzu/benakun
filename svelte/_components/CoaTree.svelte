@@ -11,8 +11,7 @@
   import PopUpCoaChild from './PopUpCoaChild.svelte';
   import { notifier } from './notifier.js';
   import {
-    TenantAdminCreateCoaChild,
-    TenantAdminUpdateCoaChild,
+    TenantAdminUpsertCoaChild,
     TenantAdminDeleteCoaChild,
     TenantAdminRestoreCoaChild
   } from '../jsApi.GEN';
@@ -20,7 +19,9 @@
 
 	const dispatch = createEventDispatcher();
   
-  /** @type {import('./types/coa').CoA} */
+  /** @typedef {import('./types/coa').CoA} CoA */
+
+  /** @type {CoA} */
   export let coa = {
     id: '',
     name: '',
@@ -33,6 +34,7 @@
     updatedBy: '',
     deletedAt: 0
   };
+
   export let num = '1';
   export let indent = 1;
   let indentWidth = '10px';
@@ -58,40 +60,30 @@
       notifier.showWarning('Coa name cannot be empty');
       return;
     }
-    switch (coaState) {
-      case 'edit':
-        await TenantAdminUpdateCoaChild(
-          { name: coaName, id: Number(coa.id) },
-          /** @type {import('../jsApi.GEN').TenantAdminUpdateCoaChildCallback}*/ function (/** @type {any} */ o) {
-            isSubmitted = false;
-            popUpCoaChild.hide();
-            if (o.error) {
-              notifier.showError(o.error);
-              console.log(o);
-              return;
-            }
-            notifier.showSuccess(coaName + ' edited');
-            dispatch('update', { coas: o.coa })
-          }
-        );
-        break;
-      case 'add':
-        await TenantAdminCreateCoaChild(
-          { name: coaName, parentId: Number(coa.id) },
-          /** @type {import('../jsApi.GEN').TenantAdminCreateCoaChildCallback}*/ function (/** @type {any} */ o) {
-            isSubmitted = false;
-            popUpCoaChild.hide();
-            if (o.error) {
-              notifier.showError(o.error);
-              console.log(o);
-              return;
-            }
-            notifier.showSuccess('Coa child created');
-            dispatch('update', { coas: o.coa })
-          }
-        );
-        break;
+
+    /** @type CoA */ //@ts-ignore
+    let coaPayload = {
+      id: coaState === 'edit' ? coa.id : '0',
+      name: coaName,
+      parentId: coa.id,
     }
+
+    await TenantAdminUpsertCoaChild( //@ts-ignore
+      { coa: coaPayload}, /** @type {import('../jsApi.GEN').TenantAdminUpsertCoaChildCallback}*/
+      function (/** @type {any} */ o) {
+        isSubmitted = false;
+        popUpCoaChild.hide();
+
+        if (o.error) {
+          notifier.showError(o.error);
+          console.log(o);
+          return;
+        }
+
+        notifier.showSuccess('Coa child updated');
+        dispatch('update', { coas: o.coas })
+      }
+    );
   }
 
   async function deleteCoaChild() {
