@@ -23,6 +23,7 @@ type (
 		RequestCommon
 		Cmd      		string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
 		StaffEmail	string				`json:"staffEmail" form:"staffEmail" query:"staffEmail" long:"staffEmail" msg:"staffEmail"`
+		TenantCode  string 				`json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
 		WithMeta		bool          `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
 		Pager    		zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 	}
@@ -31,6 +32,7 @@ type (
 		Pager zCrud.PagerOut `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 		Meta  *zCrud.Meta    `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
 		Staffs [][]any `json:"staffs" form:"staffs" query:"staffs" long:"staffs" msg:"staffs"`
+		StaffsForm *[]rqAuth.Staff `json:"staffsForm" form:"staffsForm" query:"staffsForm" long:"staffsForm" msg:"staffsForm"`
 	}
 )
 
@@ -111,6 +113,11 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 	}
 
 	switch in.Cmd {
+	case zCrud.CmdForm:
+		r := rqAuth.NewUsers(d.AuthOltp)
+		staffs := r.FindStaffsByTenantCode(in.TenantCode)
+
+		out.StaffsForm = &staffs
 	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
 		tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
 		tenant.TenantCode = user.TenantCode

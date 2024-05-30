@@ -1053,6 +1053,7 @@ exports.TenantAdminCoa = async function TenantAdminCoa( i, cb ) {
  * @typedef {Object} TenantAdminDashboardIn
  * @property {String} cmd
  * @property {String} staffEmail
+ * @property {String} tenantCode
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -1062,6 +1063,7 @@ exports.TenantAdminCoa = async function TenantAdminCoa( i, cb ) {
 const TenantAdminDashboardIn = {
   cmd: '', // string
   staffEmail: '', // string
+  tenantCode: '', // string
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
     page: 0, // int
@@ -1083,6 +1085,7 @@ const TenantAdminDashboardIn = {
  * @property {Object} meta.mutex
  * @property {String} meta.cachedSelect
  * @property {Object} staffs
+ * @property {Object} staffsForm
  */
 const TenantAdminDashboardOut = {
   pager: { // zCrud.PagerOut
@@ -1103,6 +1106,8 @@ const TenantAdminDashboardOut = {
   }, // zCrud.Meta
   staffs: { // [][]any
   }, // [][]any
+  staffsForm: { // []rqAuth.Staff
+  }, // []rqAuth.Staff
 }
 /**
  * @callback TenantAdminDashboardCallback

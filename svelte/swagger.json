@@ -1542,6 +1542,9 @@
 						"staffEmail": {
 								"type": "string"
 						},
+						"tenantCode": {
+								"type": "string"
+						},
 						"withMeta": {
 							"type": "boolean"
 						},
@@ -1627,6 +1630,11 @@
 												}
 										},
 										"staffs": {
+										"type": "object",
+										"properties": {
+												}
+										},
+										"staffsForm": {
 										"type": "object",
 										"properties": {
 												}

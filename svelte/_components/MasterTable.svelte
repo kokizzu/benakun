@@ -4,7 +4,8 @@
 		RiDesignBallPenLine,
 		RiSystemDeleteBin5Line,
 		RiSystemFilterLine,
-		RiArrowsArrowGoBackLine
+		RiArrowsArrowGoBackLine,
+		RiSystemInformationLine,
 	} from '../node_modules/svelte-icons-pack/dist/ri';
   import { IoSearch, IoClose } from '../node_modules/svelte-icons-pack/dist/io';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
@@ -24,10 +25,10 @@
 	/** @typedef {import('./types/master.js').PagerOut} PagerOut */ // @ts-ignore
 	/** @typedef {import('./types/master.js').PagerIn} PagerIn */
 
-	export let FIELDS					= /** @type Field[] */  ([]);	// bind
-	export let PAGER					= /** @type PagerOut */ ({}); // bind
-	export let MASTER_ROWS		= /** @type any[][] */	([]); // bind
-	export let REFS						= {};
+	export let FIELDS						= /** @type Field[] */  ([]);	// bind
+	export let PAGER						= /** @type PagerOut */ ({}); // bind
+	export let MASTER_ROWS			= /** @type any[][] */	([]); // bind
+	export let REFS							= {};
 	
 	export let ACCESS						= /** @type Access */ ({});
 	export let ARRAY_OF_ARRAY		= true;
@@ -35,6 +36,7 @@
 	export let CAN_EDIT_ROW 		= true;
 	export let CAN_DELETE_ROW 	= false;
 	export let CAN_RESTORE_ROW	= false;
+	export let CAN_SHOW_INFO		= false;
 
 	// State for loading if hit ajax
 	let isAjaxSubmitted = false;
@@ -157,10 +159,11 @@
 	})
 
 	// Export function, forward parameter to parent
-	export let OnRestore = async function(/** @type any[]*/ row) {}
-	export let OnDelete = async function(/** @type any[]*/ row) {}
-	export let OnEdit = async function(/** @type any */ id, /** @type any[]*/ payloads) {}
-	export let OnRefresh = async function(/** @type PagerIn */ pagerIn) {}
+	export let OnRestore 	= async function(/** @type any[]*/ row) {}
+	export let OnDelete 	= async function(/** @type any[]*/ row) {}
+	export let OnEdit 		= async function(/** @type any */ id, /** @type any[]*/ payloads) {}
+	export let OnRefresh	= async function(/** @type PagerIn */ pagerIn) {}
+	export let OnInfo 		= async function(/** @type any[] */ row) {}	
 
 	function ApplyFilter() {
 		// Hide FilterTable.svelte
@@ -366,6 +369,19 @@
 											|| ACCESS.reportViewer
 										}
 											<div class="actions">	
+												{#if CAN_SHOW_INFO}
+													<button
+														class="btn info"
+														title="Info"
+														on:click={() => OnInfo(row)}
+													>
+														<Icon
+															size="15"
+															color="var(--gray-007)"
+															src={RiSystemInformationLine}
+														/>
+													</button>
+												{/if}
 												{#if CAN_EDIT_ROW}
 													<button
 														class="btn edit"
