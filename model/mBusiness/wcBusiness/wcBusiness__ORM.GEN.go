@@ -5,6 +5,8 @@ package wcBusiness
 import (
 	"benakun/model/mBusiness/rqBusiness"
 
+	"github.com/tarantool/go-tarantool/v2"
+
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
@@ -21,13 +23,14 @@ import (
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcBusiness__ORM.GEN.go
 type ProductsMutator struct {
 	rqBusiness.Products
-	mutations []A.X
+	mutations *tarantool.Operations
 	logs      []A.X
 }
 
 // NewProductsMutator create new ORM writer/command object
 func NewProductsMutator(adapter *Tt.Adapter) (res *ProductsMutator) {
 	res = &ProductsMutator{Products: rqBusiness.Products{Adapter: adapter}}
+	res.mutations = tarantool.NewOperations()
 	return
 }
 
@@ -38,18 +41,22 @@ func (p *ProductsMutator) Logs() []A.X { //nolint:dupl false positive
 
 // HaveMutation check whether Set* methods ever called
 func (p *ProductsMutator) HaveMutation() bool { //nolint:dupl false positive
-	return len(p.mutations) > 0
+	return len(p.logs) > 0
 }
 
 // ClearMutations clear all previously called Set* methods
 func (p *ProductsMutator) ClearMutations() { //nolint:dupl false positive
-	p.mutations = []A.X{}
+	p.mutations = tarantool.NewOperations()
 	p.logs = []A.X{}
 }
 
 // DoOverwriteById update all columns, error if not exists, not using mutations/Set*
 func (p *ProductsMutator) DoOverwriteById() bool { //nolint:dupl false positive
-	_, err := p.Adapter.Update(p.SpaceName(), p.UniqueIndexId(), A.X{p.Id}, p.ToUpdateArray())
+	_, err := p.Adapter.RetryDo(tarantool.NewUpdateRequest(p.SpaceName()).
+		Index(p.UniqueIndexId()).
+		Key(tarantool.UintKey{I: uint(p.Id)}).
+		Operations(p.ToUpdateArray()),
+	)
 	return !L.IsError(err, `Products.DoOverwriteById failed: `+p.SpaceName())
 }
 
@@ -58,69 +65,56 @@ func (p *ProductsMutator) DoUpdateById() bool { //nolint:dupl false positive
 	if !p.HaveMutation() {
 		return true
 	}
-	_, err := p.Adapter.Update(p.SpaceName(), p.UniqueIndexId(), A.X{p.Id}, p.mutations)
+	_, err := p.Adapter.RetryDo(
+		tarantool.NewUpdateRequest(p.SpaceName()).
+			Index(p.UniqueIndexId()).
+			Key(tarantool.UintKey{I: uint(p.Id)}).
+			Operations(p.mutations),
+	)
 	return !L.IsError(err, `Products.DoUpdateById failed: `+p.SpaceName())
 }
 
 // DoDeletePermanentById permanent delete
 func (p *ProductsMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
-	_, err := p.Adapter.Delete(p.SpaceName(), p.UniqueIndexId(), A.X{p.Id})
+	_, err := p.Adapter.RetryDo(
+		tarantool.NewDeleteRequest(p.SpaceName()).
+			Index(p.UniqueIndexId()).
+			Key(tarantool.UintKey{I: uint(p.Id)}),
+	)
 	return !L.IsError(err, `Products.DoDeletePermanentById failed: `+p.SpaceName())
 }
-
-// func (p *ProductsMutator) DoUpsert() bool { //nolint:dupl false positive
-//	arr := p.ToArray()
-//	_, err := p.Adapter.Upsert(p.SpaceName(), arr, A.X{
-//		A.X{`=`, 0, p.Id},
-//		A.X{`=`, 1, p.TenantCode},
-//		A.X{`=`, 2, p.CreatedAt},
-//		A.X{`=`, 3, p.CreatedBy},
-//		A.X{`=`, 4, p.UpdatedAt},
-//		A.X{`=`, 5, p.UpdatedBy},
-//		A.X{`=`, 6, p.DeletedAt},
-//		A.X{`=`, 7, p.DeletedBy},
-//		A.X{`=`, 8, p.RestoredBy},
-//		A.X{`=`, 9, p.Name},
-//		A.X{`=`, 10, p.Detail},
-//		A.X{`=`, 11, p.Rule},
-//		A.X{`=`, 12, p.Kind},
-//		A.X{`=`, 13, p.CogsIDR},
-//	})
-//	return !L.IsError(err, `Products.DoUpsert failed: `+p.SpaceName()+ `\n%#v`, arr)
-// }
 
 // DoInsert insert, error if already exists
 func (p *ProductsMutator) DoInsert() bool { //nolint:dupl false positive
 	arr := p.ToArray()
-	row, err := p.Adapter.Insert(p.SpaceName(), arr)
+	row, err := p.Adapter.RetryDo(
+		tarantool.NewInsertRequest(p.SpaceName()).
+			Tuple(arr),
+	)
 	if err == nil {
-		tup := row.Tuples()
-		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
-			p.Id = X.ToU(tup[0][0])
+		if len(row) > 0 {
+			if cells, ok := row[0].([]any); ok && len(cells) > 0 {
+				p.Id = X.ToU(cells[0])
+			}
 		}
 	}
 	return !L.IsError(err, `Products.DoInsert failed: `+p.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
-// replace = upsert, only error when there's unique secondary key
+// tarantool's replace/upsert can only match by primary key
 // previous name: DoReplace
-func (p *ProductsMutator) DoUpsert() bool { //nolint:dupl false positive
-	arr := p.ToArray()
-	row, err := p.Adapter.Replace(p.SpaceName(), arr)
-	if err == nil {
-		tup := row.Tuples()
-		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
-			p.Id = X.ToU(tup[0][0])
-		}
+func (p *ProductsMutator) DoUpsertById() bool { //nolint:dupl false positive
+	if p.Id > 0 {
+		return p.DoUpdateById()
 	}
-	return !L.IsError(err, `Products.DoUpsert failed: `+p.SpaceName()+`\n%#v`, arr)
+	return p.DoInsert()
 }
 
 // SetId create mutations, should not duplicate
 func (p *ProductsMutator) SetId(val uint64) bool { //nolint:dupl false positive
 	if val != p.Id {
-		p.mutations = append(p.mutations, A.X{`=`, 0, val})
+		p.mutations.Assign(0, val)
 		p.logs = append(p.logs, A.X{`id`, p.Id, val})
 		p.Id = val
 		return true
@@ -131,7 +125,7 @@ func (p *ProductsMutator) SetId(val uint64) bool { //nolint:dupl false positive
 // SetTenantCode create mutations, should not duplicate
 func (p *ProductsMutator) SetTenantCode(val string) bool { //nolint:dupl false positive
 	if val != p.TenantCode {
-		p.mutations = append(p.mutations, A.X{`=`, 1, val})
+		p.mutations.Assign(1, val)
 		p.logs = append(p.logs, A.X{`tenantCode`, p.TenantCode, val})
 		p.TenantCode = val
 		return true
@@ -142,7 +136,7 @@ func (p *ProductsMutator) SetTenantCode(val string) bool { //nolint:dupl false p
 // SetCreatedAt create mutations, should not duplicate
 func (p *ProductsMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.CreatedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 2, val})
+		p.mutations.Assign(2, val)
 		p.logs = append(p.logs, A.X{`createdAt`, p.CreatedAt, val})
 		p.CreatedAt = val
 		return true
@@ -153,7 +147,7 @@ func (p *ProductsMutator) SetCreatedAt(val int64) bool { //nolint:dupl false pos
 // SetCreatedBy create mutations, should not duplicate
 func (p *ProductsMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.CreatedBy {
-		p.mutations = append(p.mutations, A.X{`=`, 3, val})
+		p.mutations.Assign(3, val)
 		p.logs = append(p.logs, A.X{`createdBy`, p.CreatedBy, val})
 		p.CreatedBy = val
 		return true
@@ -164,7 +158,7 @@ func (p *ProductsMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false po
 // SetUpdatedAt create mutations, should not duplicate
 func (p *ProductsMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.UpdatedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 4, val})
+		p.mutations.Assign(4, val)
 		p.logs = append(p.logs, A.X{`updatedAt`, p.UpdatedAt, val})
 		p.UpdatedAt = val
 		return true
@@ -175,7 +169,7 @@ func (p *ProductsMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false pos
 // SetUpdatedBy create mutations, should not duplicate
 func (p *ProductsMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.UpdatedBy {
-		p.mutations = append(p.mutations, A.X{`=`, 5, val})
+		p.mutations.Assign(5, val)
 		p.logs = append(p.logs, A.X{`updatedBy`, p.UpdatedBy, val})
 		p.UpdatedBy = val
 		return true
@@ -186,7 +180,7 @@ func (p *ProductsMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false po
 // SetDeletedAt create mutations, should not duplicate
 func (p *ProductsMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.DeletedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 6, val})
+		p.mutations.Assign(6, val)
 		p.logs = append(p.logs, A.X{`deletedAt`, p.DeletedAt, val})
 		p.DeletedAt = val
 		return true
@@ -197,7 +191,7 @@ func (p *ProductsMutator) SetDeletedAt(val int64) bool { //nolint:dupl false pos
 // SetDeletedBy create mutations, should not duplicate
 func (p *ProductsMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.DeletedBy {
-		p.mutations = append(p.mutations, A.X{`=`, 7, val})
+		p.mutations.Assign(7, val)
 		p.logs = append(p.logs, A.X{`deletedBy`, p.DeletedBy, val})
 		p.DeletedBy = val
 		return true
@@ -208,7 +202,7 @@ func (p *ProductsMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false po
 // SetRestoredBy create mutations, should not duplicate
 func (p *ProductsMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.RestoredBy {
-		p.mutations = append(p.mutations, A.X{`=`, 8, val})
+		p.mutations.Assign(8, val)
 		p.logs = append(p.logs, A.X{`restoredBy`, p.RestoredBy, val})
 		p.RestoredBy = val
 		return true
@@ -219,7 +213,7 @@ func (p *ProductsMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false p
 // SetName create mutations, should not duplicate
 func (p *ProductsMutator) SetName(val string) bool { //nolint:dupl false positive
 	if val != p.Name {
-		p.mutations = append(p.mutations, A.X{`=`, 9, val})
+		p.mutations.Assign(9, val)
 		p.logs = append(p.logs, A.X{`name`, p.Name, val})
 		p.Name = val
 		return true
@@ -230,7 +224,7 @@ func (p *ProductsMutator) SetName(val string) bool { //nolint:dupl false positiv
 // SetDetail create mutations, should not duplicate
 func (p *ProductsMutator) SetDetail(val string) bool { //nolint:dupl false positive
 	if val != p.Detail {
-		p.mutations = append(p.mutations, A.X{`=`, 10, val})
+		p.mutations.Assign(10, val)
 		p.logs = append(p.logs, A.X{`detail`, p.Detail, val})
 		p.Detail = val
 		return true
@@ -241,7 +235,7 @@ func (p *ProductsMutator) SetDetail(val string) bool { //nolint:dupl false posit
 // SetRule create mutations, should not duplicate
 func (p *ProductsMutator) SetRule(val string) bool { //nolint:dupl false positive
 	if val != p.Rule {
-		p.mutations = append(p.mutations, A.X{`=`, 11, val})
+		p.mutations.Assign(11, val)
 		p.logs = append(p.logs, A.X{`rule`, p.Rule, val})
 		p.Rule = val
 		return true
@@ -252,7 +246,7 @@ func (p *ProductsMutator) SetRule(val string) bool { //nolint:dupl false positiv
 // SetKind create mutations, should not duplicate
 func (p *ProductsMutator) SetKind(val string) bool { //nolint:dupl false positive
 	if val != p.Kind {
-		p.mutations = append(p.mutations, A.X{`=`, 12, val})
+		p.mutations.Assign(12, val)
 		p.logs = append(p.logs, A.X{`kind`, p.Kind, val})
 		p.Kind = val
 		return true
@@ -263,7 +257,7 @@ func (p *ProductsMutator) SetKind(val string) bool { //nolint:dupl false positiv
 // SetCogsIDR create mutations, should not duplicate
 func (p *ProductsMutator) SetCogsIDR(val int64) bool { //nolint:dupl false positive
 	if val != p.CogsIDR {
-		p.mutations = append(p.mutations, A.X{`=`, 13, val})
+		p.mutations.Assign(13, val)
 		p.logs = append(p.logs, A.X{`cogsIDR`, p.CogsIDR, val})
 		p.CogsIDR = val
 		return true

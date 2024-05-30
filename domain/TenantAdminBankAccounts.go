@@ -20,88 +20,88 @@ import (
 type (
 	TenantAdminBankAccountsIn struct {
 		RequestCommon
-		Cmd      string        					`json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		Account  rqBudget.BankAccounts	`json:"account" form:"account" query:"account" long:"account" msg:"account"`
-		WithMeta bool          					`json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
-		Pager    zCrud.PagerIn					`json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		Cmd      string                `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
+		Account  rqBudget.BankAccounts `json:"account" form:"account" query:"account" long:"account" msg:"account"`
+		WithMeta bool                  `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
+		Pager    zCrud.PagerIn         `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 	}
 	TenantAdminBankAccountsOut struct {
 		ResponseCommon
-		Pager zCrud.PagerOut `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
-		Meta  *zCrud.Meta    `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
-		Staffs *[]rqAuth.Staff `json:"staffs" form:"staffs" query:"staffs" long:"staffs" msg:"staffs"`
-		Account *rqBudget.BankAccounts `json:"account" form:"account" query:"account" long:"account" msg:"account"`
-		Accounts [][]any `json:"accounts" form:"accounts" query:"accounts" long:"accounts" msg:"accounts"`
+		Pager    zCrud.PagerOut         `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		Meta     *zCrud.Meta            `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
+		Staffs   *[]rqAuth.Staff        `json:"staffs" form:"staffs" query:"staffs" long:"staffs" msg:"staffs"`
+		Account  *rqBudget.BankAccounts `json:"account" form:"account" query:"account" long:"account" msg:"account"`
+		Accounts [][]any                `json:"accounts" form:"accounts" query:"accounts" long:"accounts" msg:"accounts"`
 	}
 )
 
 const (
 	TenantAdminBankAccountsAction = `tenantAdmin/bankAccounts`
 
-	ErrTenantAdminBankAccountsUnauthorized = `unauthorized user`
-	ErrTenantAdminBankAccountsTenantNotFound = `tenant not found`
-	ErrTenantAdminBankAccountsNotFound = `bank account not found`
-	ErrTenantAdminBankAccountsSaveFailed = `bank account save failed`
-	ErrTenantAdminBankAccountsParentNotFound = `parent bank account not found`
+	ErrTenantAdminBankAccountsUnauthorized    = `unauthorized user`
+	ErrTenantAdminBankAccountsTenantNotFound  = `tenant not found`
+	ErrTenantAdminBankAccountsNotFound        = `bank account not found`
+	ErrTenantAdminBankAccountsSaveFailed      = `bank account save failed`
+	ErrTenantAdminBankAccountsParentNotFound  = `parent bank account not found`
 	ErrTenantAdminBankAccountsParentHaveChild = `parent bank account already have child`
-	ErrTenantAdminBankAccountsStaffNotFound = `staff not found to choose account's owner`
-	ErrTenantAdminBankAccountsNotTenant = `must be tenant admin to do this operation`
+	ErrTenantAdminBankAccountsStaffNotFound   = `staff not found to choose account's owner`
+	ErrTenantAdminBankAccountsNotTenant       = `must be tenant admin to do this operation`
 )
 
 var TenantAdminBankAccountsMeta = zCrud.Meta{
 	Fields: []zCrud.Field{
 		{
-			Name: mBudget.Id,
-			Label: "ID",
+			Name:     mBudget.Id,
+			Label:    "ID",
 			DataType: zCrud.DataTypeInt,
 			ReadOnly: true,
 		},
 		{
-			Name: mBudget.Name,
-			Label: "Name",
-			DataType: zCrud.DataTypeString,
+			Name:      mBudget.Name,
+			Label:     "Name",
+			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
 		},
 		{
-			Name: mBudget.AccountName,
-			Label: "Account Name",
-			DataType: zCrud.DataTypeString,
+			Name:      mBudget.AccountName,
+			Label:     "Account Name",
+			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
 		},
 		{
-			Name: mBudget.AccountNumber,
-			Label: "Account Number",
-			DataType: zCrud.DataTypeInt,
+			Name:      mBudget.AccountNumber,
+			Label:     "Account Number",
+			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeNumber,
 		},
 		{
-			Name: mBudget.BankName,
-			Label: "Bank Name",
+			Name:     mBudget.BankName,
+			Label:    "Bank Name",
 			DataType: zCrud.DataTypeString,
 		},
 		{
-			Name: mBudget.IsProfitCenter,
-			Label: "Profit Center ?",
-			DataType: zCrud.DataTypeBool,
+			Name:      mBudget.IsProfitCenter,
+			Label:     "Profit Center ?",
+			DataType:  zCrud.DataTypeBool,
 			InputType: zCrud.InputTypeCheckbox,
 		},
 		{
-			Name: mBudget.IsCostCenter,
-			Label: "Cost Center ?",
-			DataType: zCrud.DataTypeBool,
+			Name:      mBudget.IsCostCenter,
+			Label:     "Cost Center ?",
+			DataType:  zCrud.DataTypeBool,
 			InputType: zCrud.InputTypeCheckbox,
 		},
 		{
-			Name: mBudget.UpdatedAt,
-			Label: "Updated At",
+			Name:      mBudget.UpdatedAt,
+			Label:     "Updated At",
 			InputType: zCrud.InputTypeDateTime,
-			ReadOnly: true,
+			ReadOnly:  true,
 		},
 		{
-			Name: mBudget.DeletedAt,
-			Label: "Deleted At",
+			Name:      mBudget.DeletedAt,
+			Label:     "Deleted At",
 			InputType: zCrud.InputTypeDateTime,
-			ReadOnly: true,
+			ReadOnly:  true,
 		},
 	},
 }
@@ -136,7 +136,7 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 	case zCrud.CmdForm:
 		if in.Account.Id <= 0 {
 			out.Meta = &SuperAdminUserManagementMeta
-			
+
 			if user.Role != TenantAdminSegment {
 				out.SetError(400, ErrTenantAdminBankAccountsNotTenant)
 				return
@@ -155,7 +155,7 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 			out.SetError(400, ErrTenantAdminBankAccountsNotFound)
 			return
 		}
-		
+
 		out.Account = account
 	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
 		if user.Role != TenantAdminSegment {
@@ -237,7 +237,7 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 			}
 		}
 
-		if !account.DoUpsert() {
+		if !account.DoUpsertById() {
 			out.SetError(500, ErrTenantAdminBankAccountsSaveFailed)
 		}
 

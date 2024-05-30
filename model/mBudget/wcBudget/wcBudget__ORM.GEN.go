@@ -5,6 +5,8 @@ package wcBudget
 import (
 	"benakun/model/mBudget/rqBudget"
 
+	"github.com/tarantool/go-tarantool/v2"
+
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
@@ -21,13 +23,14 @@ import (
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcBudget__ORM.GEN.go
 type BankAccountsMutator struct {
 	rqBudget.BankAccounts
-	mutations []A.X
+	mutations *tarantool.Operations
 	logs      []A.X
 }
 
 // NewBankAccountsMutator create new ORM writer/command object
 func NewBankAccountsMutator(adapter *Tt.Adapter) (res *BankAccountsMutator) {
 	res = &BankAccountsMutator{BankAccounts: rqBudget.BankAccounts{Adapter: adapter}}
+	res.mutations = tarantool.NewOperations()
 	return
 }
 
@@ -38,18 +41,22 @@ func (b *BankAccountsMutator) Logs() []A.X { //nolint:dupl false positive
 
 // HaveMutation check whether Set* methods ever called
 func (b *BankAccountsMutator) HaveMutation() bool { //nolint:dupl false positive
-	return len(b.mutations) > 0
+	return len(b.logs) > 0
 }
 
 // ClearMutations clear all previously called Set* methods
 func (b *BankAccountsMutator) ClearMutations() { //nolint:dupl false positive
-	b.mutations = []A.X{}
+	b.mutations = tarantool.NewOperations()
 	b.logs = []A.X{}
 }
 
 // DoOverwriteById update all columns, error if not exists, not using mutations/Set*
 func (b *BankAccountsMutator) DoOverwriteById() bool { //nolint:dupl false positive
-	_, err := b.Adapter.Update(b.SpaceName(), b.UniqueIndexId(), A.X{b.Id}, b.ToUpdateArray())
+	_, err := b.Adapter.RetryDo(tarantool.NewUpdateRequest(b.SpaceName()).
+		Index(b.UniqueIndexId()).
+		Key(tarantool.UintKey{I: uint(b.Id)}).
+		Operations(b.ToUpdateArray()),
+	)
 	return !L.IsError(err, `BankAccounts.DoOverwriteById failed: `+b.SpaceName())
 }
 
@@ -58,73 +65,56 @@ func (b *BankAccountsMutator) DoUpdateById() bool { //nolint:dupl false positive
 	if !b.HaveMutation() {
 		return true
 	}
-	_, err := b.Adapter.Update(b.SpaceName(), b.UniqueIndexId(), A.X{b.Id}, b.mutations)
+	_, err := b.Adapter.RetryDo(
+		tarantool.NewUpdateRequest(b.SpaceName()).
+			Index(b.UniqueIndexId()).
+			Key(tarantool.UintKey{I: uint(b.Id)}).
+			Operations(b.mutations),
+	)
 	return !L.IsError(err, `BankAccounts.DoUpdateById failed: `+b.SpaceName())
 }
 
 // DoDeletePermanentById permanent delete
 func (b *BankAccountsMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
-	_, err := b.Adapter.Delete(b.SpaceName(), b.UniqueIndexId(), A.X{b.Id})
+	_, err := b.Adapter.RetryDo(
+		tarantool.NewDeleteRequest(b.SpaceName()).
+			Index(b.UniqueIndexId()).
+			Key(tarantool.UintKey{I: uint(b.Id)}),
+	)
 	return !L.IsError(err, `BankAccounts.DoDeletePermanentById failed: `+b.SpaceName())
 }
-
-// func (b *BankAccountsMutator) DoUpsert() bool { //nolint:dupl false positive
-//	arr := b.ToArray()
-//	_, err := b.Adapter.Upsert(b.SpaceName(), arr, A.X{
-//		A.X{`=`, 0, b.Id},
-//		A.X{`=`, 1, b.TenantCode},
-//		A.X{`=`, 2, b.CreatedAt},
-//		A.X{`=`, 3, b.CreatedBy},
-//		A.X{`=`, 4, b.UpdatedAt},
-//		A.X{`=`, 5, b.UpdatedBy},
-//		A.X{`=`, 6, b.DeletedAt},
-//		A.X{`=`, 7, b.DeletedBy},
-//		A.X{`=`, 8, b.RestoredBy},
-//		A.X{`=`, 9, b.Name},
-//		A.X{`=`, 10, b.ParentBankAccountId},
-//		A.X{`=`, 11, b.ChildBankAccountId},
-//		A.X{`=`, 12, b.AccountNumber},
-//		A.X{`=`, 13, b.BankName},
-//		A.X{`=`, 14, b.AccountName},
-//		A.X{`=`, 15, b.IsProfitCenter},
-//		A.X{`=`, 16, b.IsCostCenter},
-//		A.X{`=`, 17, b.StaffId},
-//	})
-//	return !L.IsError(err, `BankAccounts.DoUpsert failed: `+b.SpaceName()+ `\n%#v`, arr)
-// }
 
 // DoInsert insert, error if already exists
 func (b *BankAccountsMutator) DoInsert() bool { //nolint:dupl false positive
 	arr := b.ToArray()
-	row, err := b.Adapter.Insert(b.SpaceName(), arr)
+	row, err := b.Adapter.RetryDo(
+		tarantool.NewInsertRequest(b.SpaceName()).
+			Tuple(arr),
+	)
 	if err == nil {
-		tup := row.Tuples()
-		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
-			b.Id = X.ToU(tup[0][0])
+		if len(row) > 0 {
+			if cells, ok := row[0].([]any); ok && len(cells) > 0 {
+				b.Id = X.ToU(cells[0])
+			}
 		}
 	}
 	return !L.IsError(err, `BankAccounts.DoInsert failed: `+b.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
-// replace = upsert, only error when there's unique secondary key
+// tarantool's replace/upsert can only match by primary key
 // previous name: DoReplace
-func (b *BankAccountsMutator) DoUpsert() bool { //nolint:dupl false positive
-	arr := b.ToArray()
-	row, err := b.Adapter.Replace(b.SpaceName(), arr)
-	if err == nil {
-		tup := row.Tuples()
-		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
-			b.Id = X.ToU(tup[0][0])
-		}
+func (b *BankAccountsMutator) DoUpsertById() bool { //nolint:dupl false positive
+	if b.Id > 0 {
+		return b.DoUpdateById()
 	}
-	return !L.IsError(err, `BankAccounts.DoUpsert failed: `+b.SpaceName()+`\n%#v`, arr)
+	return b.DoInsert()
 }
 
 // SetId create mutations, should not duplicate
 func (b *BankAccountsMutator) SetId(val uint64) bool { //nolint:dupl false positive
 	if val != b.Id {
-		b.mutations = append(b.mutations, A.X{`=`, 0, val})
+		b.mutations.Assign(0, val)
 		b.logs = append(b.logs, A.X{`id`, b.Id, val})
 		b.Id = val
 		return true
@@ -135,7 +125,7 @@ func (b *BankAccountsMutator) SetId(val uint64) bool { //nolint:dupl false posit
 // SetTenantCode create mutations, should not duplicate
 func (b *BankAccountsMutator) SetTenantCode(val string) bool { //nolint:dupl false positive
 	if val != b.TenantCode {
-		b.mutations = append(b.mutations, A.X{`=`, 1, val})
+		b.mutations.Assign(1, val)
 		b.logs = append(b.logs, A.X{`tenantCode`, b.TenantCode, val})
 		b.TenantCode = val
 		return true
@@ -146,7 +136,7 @@ func (b *BankAccountsMutator) SetTenantCode(val string) bool { //nolint:dupl fal
 // SetCreatedAt create mutations, should not duplicate
 func (b *BankAccountsMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != b.CreatedAt {
-		b.mutations = append(b.mutations, A.X{`=`, 2, val})
+		b.mutations.Assign(2, val)
 		b.logs = append(b.logs, A.X{`createdAt`, b.CreatedAt, val})
 		b.CreatedAt = val
 		return true
@@ -157,7 +147,7 @@ func (b *BankAccountsMutator) SetCreatedAt(val int64) bool { //nolint:dupl false
 // SetCreatedBy create mutations, should not duplicate
 func (b *BankAccountsMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != b.CreatedBy {
-		b.mutations = append(b.mutations, A.X{`=`, 3, val})
+		b.mutations.Assign(3, val)
 		b.logs = append(b.logs, A.X{`createdBy`, b.CreatedBy, val})
 		b.CreatedBy = val
 		return true
@@ -168,7 +158,7 @@ func (b *BankAccountsMutator) SetCreatedBy(val uint64) bool { //nolint:dupl fals
 // SetUpdatedAt create mutations, should not duplicate
 func (b *BankAccountsMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != b.UpdatedAt {
-		b.mutations = append(b.mutations, A.X{`=`, 4, val})
+		b.mutations.Assign(4, val)
 		b.logs = append(b.logs, A.X{`updatedAt`, b.UpdatedAt, val})
 		b.UpdatedAt = val
 		return true
@@ -179,7 +169,7 @@ func (b *BankAccountsMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false
 // SetUpdatedBy create mutations, should not duplicate
 func (b *BankAccountsMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != b.UpdatedBy {
-		b.mutations = append(b.mutations, A.X{`=`, 5, val})
+		b.mutations.Assign(5, val)
 		b.logs = append(b.logs, A.X{`updatedBy`, b.UpdatedBy, val})
 		b.UpdatedBy = val
 		return true
@@ -190,7 +180,7 @@ func (b *BankAccountsMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl fals
 // SetDeletedAt create mutations, should not duplicate
 func (b *BankAccountsMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != b.DeletedAt {
-		b.mutations = append(b.mutations, A.X{`=`, 6, val})
+		b.mutations.Assign(6, val)
 		b.logs = append(b.logs, A.X{`deletedAt`, b.DeletedAt, val})
 		b.DeletedAt = val
 		return true
@@ -201,7 +191,7 @@ func (b *BankAccountsMutator) SetDeletedAt(val int64) bool { //nolint:dupl false
 // SetDeletedBy create mutations, should not duplicate
 func (b *BankAccountsMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
 	if val != b.DeletedBy {
-		b.mutations = append(b.mutations, A.X{`=`, 7, val})
+		b.mutations.Assign(7, val)
 		b.logs = append(b.logs, A.X{`deletedBy`, b.DeletedBy, val})
 		b.DeletedBy = val
 		return true
@@ -212,7 +202,7 @@ func (b *BankAccountsMutator) SetDeletedBy(val uint64) bool { //nolint:dupl fals
 // SetRestoredBy create mutations, should not duplicate
 func (b *BankAccountsMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
 	if val != b.RestoredBy {
-		b.mutations = append(b.mutations, A.X{`=`, 8, val})
+		b.mutations.Assign(8, val)
 		b.logs = append(b.logs, A.X{`restoredBy`, b.RestoredBy, val})
 		b.RestoredBy = val
 		return true
@@ -223,7 +213,7 @@ func (b *BankAccountsMutator) SetRestoredBy(val uint64) bool { //nolint:dupl fal
 // SetName create mutations, should not duplicate
 func (b *BankAccountsMutator) SetName(val string) bool { //nolint:dupl false positive
 	if val != b.Name {
-		b.mutations = append(b.mutations, A.X{`=`, 9, val})
+		b.mutations.Assign(9, val)
 		b.logs = append(b.logs, A.X{`name`, b.Name, val})
 		b.Name = val
 		return true
@@ -234,7 +224,7 @@ func (b *BankAccountsMutator) SetName(val string) bool { //nolint:dupl false pos
 // SetParentBankAccountId create mutations, should not duplicate
 func (b *BankAccountsMutator) SetParentBankAccountId(val uint64) bool { //nolint:dupl false positive
 	if val != b.ParentBankAccountId {
-		b.mutations = append(b.mutations, A.X{`=`, 10, val})
+		b.mutations.Assign(10, val)
 		b.logs = append(b.logs, A.X{`parentBankAccountId`, b.ParentBankAccountId, val})
 		b.ParentBankAccountId = val
 		return true
@@ -245,7 +235,7 @@ func (b *BankAccountsMutator) SetParentBankAccountId(val uint64) bool { //nolint
 // SetChildBankAccountId create mutations, should not duplicate
 func (b *BankAccountsMutator) SetChildBankAccountId(val uint64) bool { //nolint:dupl false positive
 	if val != b.ChildBankAccountId {
-		b.mutations = append(b.mutations, A.X{`=`, 11, val})
+		b.mutations.Assign(11, val)
 		b.logs = append(b.logs, A.X{`childBankAccountId`, b.ChildBankAccountId, val})
 		b.ChildBankAccountId = val
 		return true
@@ -256,7 +246,7 @@ func (b *BankAccountsMutator) SetChildBankAccountId(val uint64) bool { //nolint:
 // SetAccountNumber create mutations, should not duplicate
 func (b *BankAccountsMutator) SetAccountNumber(val int64) bool { //nolint:dupl false positive
 	if val != b.AccountNumber {
-		b.mutations = append(b.mutations, A.X{`=`, 12, val})
+		b.mutations.Assign(12, val)
 		b.logs = append(b.logs, A.X{`accountNumber`, b.AccountNumber, val})
 		b.AccountNumber = val
 		return true
@@ -267,7 +257,7 @@ func (b *BankAccountsMutator) SetAccountNumber(val int64) bool { //nolint:dupl f
 // SetBankName create mutations, should not duplicate
 func (b *BankAccountsMutator) SetBankName(val string) bool { //nolint:dupl false positive
 	if val != b.BankName {
-		b.mutations = append(b.mutations, A.X{`=`, 13, val})
+		b.mutations.Assign(13, val)
 		b.logs = append(b.logs, A.X{`bankName`, b.BankName, val})
 		b.BankName = val
 		return true
@@ -278,7 +268,7 @@ func (b *BankAccountsMutator) SetBankName(val string) bool { //nolint:dupl false
 // SetAccountName create mutations, should not duplicate
 func (b *BankAccountsMutator) SetAccountName(val string) bool { //nolint:dupl false positive
 	if val != b.AccountName {
-		b.mutations = append(b.mutations, A.X{`=`, 14, val})
+		b.mutations.Assign(14, val)
 		b.logs = append(b.logs, A.X{`accountName`, b.AccountName, val})
 		b.AccountName = val
 		return true
@@ -289,7 +279,7 @@ func (b *BankAccountsMutator) SetAccountName(val string) bool { //nolint:dupl fa
 // SetIsProfitCenter create mutations, should not duplicate
 func (b *BankAccountsMutator) SetIsProfitCenter(val bool) bool { //nolint:dupl false positive
 	if val != b.IsProfitCenter {
-		b.mutations = append(b.mutations, A.X{`=`, 15, val})
+		b.mutations.Assign(15, val)
 		b.logs = append(b.logs, A.X{`isProfitCenter `, b.IsProfitCenter, val})
 		b.IsProfitCenter = val
 		return true
@@ -300,7 +290,7 @@ func (b *BankAccountsMutator) SetIsProfitCenter(val bool) bool { //nolint:dupl f
 // SetIsCostCenter create mutations, should not duplicate
 func (b *BankAccountsMutator) SetIsCostCenter(val bool) bool { //nolint:dupl false positive
 	if val != b.IsCostCenter {
-		b.mutations = append(b.mutations, A.X{`=`, 16, val})
+		b.mutations.Assign(16, val)
 		b.logs = append(b.logs, A.X{`isCostCenter`, b.IsCostCenter, val})
 		b.IsCostCenter = val
 		return true
@@ -311,7 +301,7 @@ func (b *BankAccountsMutator) SetIsCostCenter(val bool) bool { //nolint:dupl fal
 // SetStaffId create mutations, should not duplicate
 func (b *BankAccountsMutator) SetStaffId(val uint64) bool { //nolint:dupl false positive
 	if val != b.StaffId {
-		b.mutations = append(b.mutations, A.X{`=`, 17, val})
+		b.mutations.Assign(17, val)
 		b.logs = append(b.logs, A.X{`staffId`, b.StaffId, val})
 		b.StaffId = val
 		return true
@@ -407,13 +397,14 @@ func (b *BankAccountsMutator) SetAll(from rqBudget.BankAccounts, excludeMap, for
 // PlansMutator DAO writer/command struct
 type PlansMutator struct {
 	rqBudget.Plans
-	mutations []A.X
+	mutations *tarantool.Operations
 	logs      []A.X
 }
 
 // NewPlansMutator create new ORM writer/command object
 func NewPlansMutator(adapter *Tt.Adapter) (res *PlansMutator) {
 	res = &PlansMutator{Plans: rqBudget.Plans{Adapter: adapter}}
+	res.mutations = tarantool.NewOperations()
 	return
 }
 
@@ -424,18 +415,22 @@ func (p *PlansMutator) Logs() []A.X { //nolint:dupl false positive
 
 // HaveMutation check whether Set* methods ever called
 func (p *PlansMutator) HaveMutation() bool { //nolint:dupl false positive
-	return len(p.mutations) > 0
+	return len(p.logs) > 0
 }
 
 // ClearMutations clear all previously called Set* methods
 func (p *PlansMutator) ClearMutations() { //nolint:dupl false positive
-	p.mutations = []A.X{}
+	p.mutations = tarantool.NewOperations()
 	p.logs = []A.X{}
 }
 
 // DoOverwriteById update all columns, error if not exists, not using mutations/Set*
 func (p *PlansMutator) DoOverwriteById() bool { //nolint:dupl false positive
-	_, err := p.Adapter.Update(p.SpaceName(), p.UniqueIndexId(), A.X{p.Id}, p.ToUpdateArray())
+	_, err := p.Adapter.RetryDo(tarantool.NewUpdateRequest(p.SpaceName()).
+		Index(p.UniqueIndexId()).
+		Key(tarantool.UintKey{I: uint(p.Id)}).
+		Operations(p.ToUpdateArray()),
+	)
 	return !L.IsError(err, `Plans.DoOverwriteById failed: `+p.SpaceName())
 }
 
@@ -444,74 +439,56 @@ func (p *PlansMutator) DoUpdateById() bool { //nolint:dupl false positive
 	if !p.HaveMutation() {
 		return true
 	}
-	_, err := p.Adapter.Update(p.SpaceName(), p.UniqueIndexId(), A.X{p.Id}, p.mutations)
+	_, err := p.Adapter.RetryDo(
+		tarantool.NewUpdateRequest(p.SpaceName()).
+			Index(p.UniqueIndexId()).
+			Key(tarantool.UintKey{I: uint(p.Id)}).
+			Operations(p.mutations),
+	)
 	return !L.IsError(err, `Plans.DoUpdateById failed: `+p.SpaceName())
 }
 
 // DoDeletePermanentById permanent delete
 func (p *PlansMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
-	_, err := p.Adapter.Delete(p.SpaceName(), p.UniqueIndexId(), A.X{p.Id})
+	_, err := p.Adapter.RetryDo(
+		tarantool.NewDeleteRequest(p.SpaceName()).
+			Index(p.UniqueIndexId()).
+			Key(tarantool.UintKey{I: uint(p.Id)}),
+	)
 	return !L.IsError(err, `Plans.DoDeletePermanentById failed: `+p.SpaceName())
 }
-
-// func (p *PlansMutator) DoUpsert() bool { //nolint:dupl false positive
-//	arr := p.ToArray()
-//	_, err := p.Adapter.Upsert(p.SpaceName(), arr, A.X{
-//		A.X{`=`, 0, p.Id},
-//		A.X{`=`, 1, p.TenantCode},
-//		A.X{`=`, 2, p.PlanType},
-//		A.X{`=`, 3, p.ParentId},
-//		A.X{`=`, 4, p.CreatedAt},
-//		A.X{`=`, 5, p.CreatedBy},
-//		A.X{`=`, 6, p.UpdatedAt},
-//		A.X{`=`, 7, p.UpdatedBy},
-//		A.X{`=`, 8, p.DeletedAt},
-//		A.X{`=`, 9, p.DeletedBy},
-//		A.X{`=`, 10, p.RestoredBy},
-//		A.X{`=`, 11, p.Title},
-//		A.X{`=`, 12, p.Description},
-//		A.X{`=`, 13, p.OrgId},
-//		A.X{`=`, 14, p.YearOf},
-//		A.X{`=`, 15, p.BudgetIDR},
-//		A.X{`=`, 16, p.BudgetUSD},
-//		A.X{`=`, 17, p.Quantity},
-//		A.X{`=`, 18, p.Unit},
-//	})
-//	return !L.IsError(err, `Plans.DoUpsert failed: `+p.SpaceName()+ `\n%#v`, arr)
-// }
 
 // DoInsert insert, error if already exists
 func (p *PlansMutator) DoInsert() bool { //nolint:dupl false positive
 	arr := p.ToArray()
-	row, err := p.Adapter.Insert(p.SpaceName(), arr)
+	row, err := p.Adapter.RetryDo(
+		tarantool.NewInsertRequest(p.SpaceName()).
+			Tuple(arr),
+	)
 	if err == nil {
-		tup := row.Tuples()
-		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
-			p.Id = X.ToU(tup[0][0])
+		if len(row) > 0 {
+			if cells, ok := row[0].([]any); ok && len(cells) > 0 {
+				p.Id = X.ToU(cells[0])
+			}
 		}
 	}
 	return !L.IsError(err, `Plans.DoInsert failed: `+p.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
-// replace = upsert, only error when there's unique secondary key
+// tarantool's replace/upsert can only match by primary key
 // previous name: DoReplace
-func (p *PlansMutator) DoUpsert() bool { //nolint:dupl false positive
-	arr := p.ToArray()
-	row, err := p.Adapter.Replace(p.SpaceName(), arr)
-	if err == nil {
-		tup := row.Tuples()
-		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
-			p.Id = X.ToU(tup[0][0])
-		}
+func (p *PlansMutator) DoUpsertById() bool { //nolint:dupl false positive
+	if p.Id > 0 {
+		return p.DoUpdateById()
 	}
-	return !L.IsError(err, `Plans.DoUpsert failed: `+p.SpaceName()+`\n%#v`, arr)
+	return p.DoInsert()
 }
 
 // SetId create mutations, should not duplicate
 func (p *PlansMutator) SetId(val uint64) bool { //nolint:dupl false positive
 	if val != p.Id {
-		p.mutations = append(p.mutations, A.X{`=`, 0, val})
+		p.mutations.Assign(0, val)
 		p.logs = append(p.logs, A.X{`id`, p.Id, val})
 		p.Id = val
 		return true
@@ -522,7 +499,7 @@ func (p *PlansMutator) SetId(val uint64) bool { //nolint:dupl false positive
 // SetTenantCode create mutations, should not duplicate
 func (p *PlansMutator) SetTenantCode(val string) bool { //nolint:dupl false positive
 	if val != p.TenantCode {
-		p.mutations = append(p.mutations, A.X{`=`, 1, val})
+		p.mutations.Assign(1, val)
 		p.logs = append(p.logs, A.X{`tenantCode`, p.TenantCode, val})
 		p.TenantCode = val
 		return true
@@ -533,7 +510,7 @@ func (p *PlansMutator) SetTenantCode(val string) bool { //nolint:dupl false posi
 // SetPlanType create mutations, should not duplicate
 func (p *PlansMutator) SetPlanType(val string) bool { //nolint:dupl false positive
 	if val != p.PlanType {
-		p.mutations = append(p.mutations, A.X{`=`, 2, val})
+		p.mutations.Assign(2, val)
 		p.logs = append(p.logs, A.X{`planType`, p.PlanType, val})
 		p.PlanType = val
 		return true
@@ -544,7 +521,7 @@ func (p *PlansMutator) SetPlanType(val string) bool { //nolint:dupl false positi
 // SetParentId create mutations, should not duplicate
 func (p *PlansMutator) SetParentId(val uint64) bool { //nolint:dupl false positive
 	if val != p.ParentId {
-		p.mutations = append(p.mutations, A.X{`=`, 3, val})
+		p.mutations.Assign(3, val)
 		p.logs = append(p.logs, A.X{`parentId`, p.ParentId, val})
 		p.ParentId = val
 		return true
@@ -555,7 +532,7 @@ func (p *PlansMutator) SetParentId(val uint64) bool { //nolint:dupl false positi
 // SetCreatedAt create mutations, should not duplicate
 func (p *PlansMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.CreatedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 4, val})
+		p.mutations.Assign(4, val)
 		p.logs = append(p.logs, A.X{`createdAt`, p.CreatedAt, val})
 		p.CreatedAt = val
 		return true
@@ -566,7 +543,7 @@ func (p *PlansMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positi
 // SetCreatedBy create mutations, should not duplicate
 func (p *PlansMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.CreatedBy {
-		p.mutations = append(p.mutations, A.X{`=`, 5, val})
+		p.mutations.Assign(5, val)
 		p.logs = append(p.logs, A.X{`createdBy`, p.CreatedBy, val})
 		p.CreatedBy = val
 		return true
@@ -577,7 +554,7 @@ func (p *PlansMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false posit
 // SetUpdatedAt create mutations, should not duplicate
 func (p *PlansMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.UpdatedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 6, val})
+		p.mutations.Assign(6, val)
 		p.logs = append(p.logs, A.X{`updatedAt`, p.UpdatedAt, val})
 		p.UpdatedAt = val
 		return true
@@ -588,7 +565,7 @@ func (p *PlansMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positi
 // SetUpdatedBy create mutations, should not duplicate
 func (p *PlansMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.UpdatedBy {
-		p.mutations = append(p.mutations, A.X{`=`, 7, val})
+		p.mutations.Assign(7, val)
 		p.logs = append(p.logs, A.X{`updatedBy`, p.UpdatedBy, val})
 		p.UpdatedBy = val
 		return true
@@ -599,7 +576,7 @@ func (p *PlansMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false posit
 // SetDeletedAt create mutations, should not duplicate
 func (p *PlansMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != p.DeletedAt {
-		p.mutations = append(p.mutations, A.X{`=`, 8, val})
+		p.mutations.Assign(8, val)
 		p.logs = append(p.logs, A.X{`deletedAt`, p.DeletedAt, val})
 		p.DeletedAt = val
 		return true
@@ -610,7 +587,7 @@ func (p *PlansMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positi
 // SetDeletedBy create mutations, should not duplicate
 func (p *PlansMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.DeletedBy {
-		p.mutations = append(p.mutations, A.X{`=`, 9, val})
+		p.mutations.Assign(9, val)
 		p.logs = append(p.logs, A.X{`deletedBy`, p.DeletedBy, val})
 		p.DeletedBy = val
 		return true
@@ -621,7 +598,7 @@ func (p *PlansMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false posit
 // SetRestoredBy create mutations, should not duplicate
 func (p *PlansMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
 	if val != p.RestoredBy {
-		p.mutations = append(p.mutations, A.X{`=`, 10, val})
+		p.mutations.Assign(10, val)
 		p.logs = append(p.logs, A.X{`restoredBy`, p.RestoredBy, val})
 		p.RestoredBy = val
 		return true
@@ -632,7 +609,7 @@ func (p *PlansMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false posi
 // SetTitle create mutations, should not duplicate
 func (p *PlansMutator) SetTitle(val string) bool { //nolint:dupl false positive
 	if val != p.Title {
-		p.mutations = append(p.mutations, A.X{`=`, 11, val})
+		p.mutations.Assign(11, val)
 		p.logs = append(p.logs, A.X{`title`, p.Title, val})
 		p.Title = val
 		return true
@@ -643,7 +620,7 @@ func (p *PlansMutator) SetTitle(val string) bool { //nolint:dupl false positive
 // SetDescription create mutations, should not duplicate
 func (p *PlansMutator) SetDescription(val string) bool { //nolint:dupl false positive
 	if val != p.Description {
-		p.mutations = append(p.mutations, A.X{`=`, 12, val})
+		p.mutations.Assign(12, val)
 		p.logs = append(p.logs, A.X{`description`, p.Description, val})
 		p.Description = val
 		return true
@@ -654,7 +631,7 @@ func (p *PlansMutator) SetDescription(val string) bool { //nolint:dupl false pos
 // SetOrgId create mutations, should not duplicate
 func (p *PlansMutator) SetOrgId(val uint64) bool { //nolint:dupl false positive
 	if val != p.OrgId {
-		p.mutations = append(p.mutations, A.X{`=`, 13, val})
+		p.mutations.Assign(13, val)
 		p.logs = append(p.logs, A.X{`orgId`, p.OrgId, val})
 		p.OrgId = val
 		return true
@@ -665,7 +642,7 @@ func (p *PlansMutator) SetOrgId(val uint64) bool { //nolint:dupl false positive
 // SetYearOf create mutations, should not duplicate
 func (p *PlansMutator) SetYearOf(val int64) bool { //nolint:dupl false positive
 	if val != p.YearOf {
-		p.mutations = append(p.mutations, A.X{`=`, 14, val})
+		p.mutations.Assign(14, val)
 		p.logs = append(p.logs, A.X{`yearOf`, p.YearOf, val})
 		p.YearOf = val
 		return true
@@ -676,7 +653,7 @@ func (p *PlansMutator) SetYearOf(val int64) bool { //nolint:dupl false positive
 // SetBudgetIDR create mutations, should not duplicate
 func (p *PlansMutator) SetBudgetIDR(val int64) bool { //nolint:dupl false positive
 	if val != p.BudgetIDR {
-		p.mutations = append(p.mutations, A.X{`=`, 15, val})
+		p.mutations.Assign(15, val)
 		p.logs = append(p.logs, A.X{`budgetIDR`, p.BudgetIDR, val})
 		p.BudgetIDR = val
 		return true
@@ -687,7 +664,7 @@ func (p *PlansMutator) SetBudgetIDR(val int64) bool { //nolint:dupl false positi
 // SetBudgetUSD create mutations, should not duplicate
 func (p *PlansMutator) SetBudgetUSD(val int64) bool { //nolint:dupl false positive
 	if val != p.BudgetUSD {
-		p.mutations = append(p.mutations, A.X{`=`, 16, val})
+		p.mutations.Assign(16, val)
 		p.logs = append(p.logs, A.X{`budgetUSD`, p.BudgetUSD, val})
 		p.BudgetUSD = val
 		return true
@@ -698,7 +675,7 @@ func (p *PlansMutator) SetBudgetUSD(val int64) bool { //nolint:dupl false positi
 // SetQuantity create mutations, should not duplicate
 func (p *PlansMutator) SetQuantity(val int64) bool { //nolint:dupl false positive
 	if val != p.Quantity {
-		p.mutations = append(p.mutations, A.X{`=`, 17, val})
+		p.mutations.Assign(17, val)
 		p.logs = append(p.logs, A.X{`quantity`, p.Quantity, val})
 		p.Quantity = val
 		return true
@@ -709,7 +686,7 @@ func (p *PlansMutator) SetQuantity(val int64) bool { //nolint:dupl false positiv
 // SetUnit create mutations, should not duplicate
 func (p *PlansMutator) SetUnit(val string) bool { //nolint:dupl false positive
 	if val != p.Unit {
-		p.mutations = append(p.mutations, A.X{`=`, 18, val})
+		p.mutations.Assign(18, val)
 		p.logs = append(p.logs, A.X{`unit`, p.Unit, val})
 		p.Unit = val
 		return true

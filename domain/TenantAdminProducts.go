@@ -19,73 +19,73 @@ import (
 type (
 	TenantAdminProductsIn struct {
 		RequestCommon
-		Cmd      		string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		WithMeta		bool          `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
-		Pager    		zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
-		Product *rqBusiness.Products `json:"product" form:"product" query:"product" long:"product" msg:"product"`
+		Cmd      string               `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
+		WithMeta bool                 `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
+		Pager    zCrud.PagerIn        `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		Product  *rqBusiness.Products `json:"product" form:"product" query:"product" long:"product" msg:"product"`
 	}
 	TenantAdminProductsOut struct {
 		ResponseCommon
-		Pager zCrud.PagerOut `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
-		Meta  *zCrud.Meta    `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
-		Product *rqBusiness.Products `json:"product" form:"product" query:"product" long:"product" msg:"product"`
-		Products [][]any `json:"products" form:"products" query:"products" long:"products" msg:"products"`
+		Pager    zCrud.PagerOut       `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		Meta     *zCrud.Meta          `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
+		Product  *rqBusiness.Products `json:"product" form:"product" query:"product" long:"product" msg:"product"`
+		Products [][]any              `json:"products" form:"products" query:"products" long:"products" msg:"products"`
 	}
 )
 
 const (
 	TenantAdminProductsAction = `tenantAdmin/products`
 
-	ErrTenantAdminProductsUnauthorized   = `unauthorized user`
+	ErrTenantAdminProductsUnauthorized    = `unauthorized user`
 	ErrTenantAdminProductsProductNotFound = `product not found`
-	ErrTenantAdminProductsRuleNotValid		= `invalid product rule (must be fifo, lifo, average)`
-	ErrTenantAdminProductsKindNotValid		= `invalid product kind (must be goods, service)`
-	ErrTenantAdminProductsSaveFailed = `product save failed`
-	ErrTenantAdminProductsNotTenant = `must be tenant admin to do this operation`
+	ErrTenantAdminProductsRuleNotValid    = `invalid product rule (must be fifo, lifo, average)`
+	ErrTenantAdminProductsKindNotValid    = `invalid product kind (must be goods, service)`
+	ErrTenantAdminProductsSaveFailed      = `product save failed`
+	ErrTenantAdminProductsNotTenant       = `must be tenant admin to do this operation`
 )
 
 var TenantAdminProductsMeta = zCrud.Meta{
 	Fields: []zCrud.Field{
 		{
-			Name: mBusiness.Id,
-			Label: "ID",
+			Name:     mBusiness.Id,
+			Label:    "ID",
 			DataType: zCrud.DataTypeInt,
 			ReadOnly: true,
 		},
 		{
-			Name: mBusiness.Name,
-			Label: "Name",
-			DataType: zCrud.DataTypeString,
+			Name:      mBusiness.Name,
+			Label:     "Name",
+			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
 		},
 		{
-			Name: mBusiness.Detail,
-			Label: "Detail",
-			DataType: zCrud.DataTypeString,
+			Name:      mBusiness.Detail,
+			Label:     "Detail",
+			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeTextArea,
 		},
 		{
-			Name: mBusiness.Rule,
-			Label: "Rule",
-			DataType: zCrud.DataTypeString,
+			Name:      mBusiness.Rule,
+			Label:     "Rule",
+			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeCombobox,
 			Ref: []string{
 				mBusiness.RuleTypeFIFO, mBusiness.RuleTypeLIFO, mBusiness.RuleTypeAVERAGE,
 			},
 		},
 		{
-			Name: mBusiness.Kind,
-			Label: "Kind",
-			DataType: zCrud.DataTypeString,
+			Name:      mBusiness.Kind,
+			Label:     "Kind",
+			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeCombobox,
 			Ref: []string{
 				mBusiness.KindTypeGOODS, mBusiness.KindTypeService,
 			},
 		},
 		{
-			Name: mBusiness.CogsIDR,
-			Label: "Cogs (IDR)",
-			DataType: zCrud.DataTypeInt,
+			Name:      mBusiness.CogsIDR,
+			Label:     "Cogs (IDR)",
+			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeNumber,
 		},
 		{
@@ -211,7 +211,7 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 			}
 		}
 
-		if !product.DoUpsert() {
+		if !product.DoUpsertById() {
 			out.SetError(500, ErrTenantAdminProductsSaveFailed)
 		}
 

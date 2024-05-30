@@ -18,11 +18,11 @@ import (
 type (
 	SuperAdminUserManagementIn struct {
 		RequestCommon
-		Cmd      		string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		TenantAdmin string				`json:"tenantAdmin" form:"tenantAdmin" query:"tenantAdmin" long:"tenantAdmin" msg:"tenantAdmin"`
-		User     		rqAuth.Users  `json:"user" form:"user" query:"user" long:"user" msg:"user"`
-		WithMeta 		bool          `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
-		Pager    		zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		Cmd         string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
+		TenantAdmin string        `json:"tenantAdmin" form:"tenantAdmin" query:"tenantAdmin" long:"tenantAdmin" msg:"tenantAdmin"`
+		User        rqAuth.Users  `json:"user" form:"user" query:"user" long:"user" msg:"user"`
+		WithMeta    bool          `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
+		Pager       zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 	}
 	SuperAdminUserManagementOut struct {
 		ResponseCommon
@@ -35,15 +35,15 @@ type (
 )
 
 const (
-	SuperAdminUserManagementAction = `superAdmin/userManagement`
-	ErrUserIdNotFound              = `user id not found`
-	ErrTenantCodeNotFound          = `tenant code is not allready`
-	ErrInvalidRole              	 = `invalid role`
-	ErrUserSaveFailed              = `user save failed`
-	ErrUsersEmailDuplicate         = `email already by another user`
-	ErrUsersEmailEmpty						 = `email cannot be empty`
-	ErrSuperAdminUserManagementTenantAdminEmpty		 = `tenant admin cannot be empty`
-	ErrSuperAdminUserManagementTenantCodeEmpty = `tenant code cannot be empty`
+	SuperAdminUserManagementAction              = `superAdmin/userManagement`
+	ErrUserIdNotFound                           = `user id not found`
+	ErrTenantCodeNotFound                       = `tenant code is not allready`
+	ErrInvalidRole                              = `invalid role`
+	ErrUserSaveFailed                           = `user save failed`
+	ErrUsersEmailDuplicate                      = `email already by another user`
+	ErrUsersEmailEmpty                          = `email cannot be empty`
+	ErrSuperAdminUserManagementTenantAdminEmpty = `tenant admin cannot be empty`
+	ErrSuperAdminUserManagementTenantCodeEmpty  = `tenant code cannot be empty`
 )
 
 var SuperAdminUserManagementMeta = zCrud.Meta{
@@ -53,12 +53,12 @@ var SuperAdminUserManagementMeta = zCrud.Meta{
 			Label:     "ID",
 			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeHidden,
-			ReadOnly: true,
+			ReadOnly:  true,
 		},
 		{
-			Name:      mAuth.TenantCode,
-			Label:     "Tenant Code",
-			DataType:  zCrud.DataTypeString,
+			Name:     mAuth.TenantCode,
+			Label:    "Tenant Code",
+			DataType: zCrud.DataTypeString,
 			ReadOnly: true,
 		},
 		{
@@ -176,7 +176,7 @@ func (d *Domain) SuperAdminUserManagement(in *SuperAdminUserManagementIn) (out S
 				out.SetError(400, ErrUsersEmailEmpty)
 				return
 			}
-			
+
 			user.SetEncryptedPassword(mAuth.DefaultPassword, in.UnixNow())
 
 			if in.User.Role != `` {
@@ -197,8 +197,8 @@ func (d *Domain) SuperAdminUserManagement(in *SuperAdminUserManagementIn) (out S
 
 						invState := mAuth.InviteState{
 							TenantCode: in.TenantAdmin,
-							State: mAuth.InvitationStateAccepted,
-							Date: T.DateStr(),
+							State:      mAuth.InvitationStateAccepted,
+							Date:       T.DateStr(),
 						}
 
 						user.SetInvitationState(invState.ToStateString())
@@ -239,7 +239,7 @@ func (d *Domain) SuperAdminUserManagement(in *SuperAdminUserManagementIn) (out S
 			}
 		}
 
-		if !user.DoUpsert() {
+		if !user.DoUpsertById() {
 			out.SetError(500, ErrUserSaveFailed)
 		}
 
