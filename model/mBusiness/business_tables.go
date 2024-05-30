@@ -59,6 +59,21 @@ const (
 	CogsIDR			= `cogsIDR`
 )
 
+const (
+	TableLocations Tt.TableName = `locations`
+
+	Country				= `country`
+	StateProvince = `stateProvice`
+	CityRegency		= `cityRegency`
+	Subdistrict 	= `subdistrict`
+	Village 			= `village`
+	RwBanjar 			= `rwBanjar`
+	RtNeigb 			= `rtNeigb`
+	Address 			= `address`
+	Lat 					= `lat`
+	Lng 					= `lng`
+)
+
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableProducts: {
@@ -80,6 +95,32 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,
+	},
+	TableLocations: {
+		Fields: []Tt.Field{
+			{Id, Tt.Unsigned},
+			{TenantCode, Tt.String},
+			{CreatedAt, Tt.Integer},
+			{CreatedBy, Tt.Unsigned},
+			{UpdatedAt, Tt.Integer},
+			{UpdatedBy, Tt.Unsigned},
+			{DeletedAt, Tt.Integer},
+			{DeletedBy, Tt.Unsigned},
+			{RestoredBy, Tt.Unsigned},
+			{Name, Tt.String},
+			{Country, Tt.String},
+			{StateProvince, Tt.String},
+			{CityRegency, Tt.String},
+			{Subdistrict, Tt.String},
+			{Village, Tt.String},
+			{RwBanjar, Tt.String},
+			{RtNeigb, Tt.String},
+			{Address, Tt.String},
+			{Lat, Tt.Double},
+			{Lng, Tt.Double},
+		},
+		AutoIncrementId: true,
+		Engine: Tt.Vinyl,
 	},
 }
 

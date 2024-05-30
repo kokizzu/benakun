@@ -3501,6 +3501,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminGetBudgetPlans = async function TenantAdminGetBudgetPlans(i, cb) {
         return await axios.post("/tenantAdmin/getBudgetPlans", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminLocations = async function TenantAdminLocations(i, cb) {
+        return await axios.post("/tenantAdmin/locations", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.TenantAdminMoveOrganizationChild = async function TenantAdminMoveOrganizationChild(i, cb) {
         return await axios.post("/tenantAdmin/moveOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -4644,6 +4647,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var RiSystemAddBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5ZM11 11V7H13V11H17V13H13V17H11V13H7V11H11Z"></path>' };
   var RiSystemFilterLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 4V6H20L15 13.5V22H9V13.5L4 6H3V4H21ZM6.4037 6L11 12.8944V20H13V12.8944L17.5963 6H6.4037Z"></path>' };
   var RiSystemInformationLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 7H13V9H11V7ZM11 11H13V17H11V11Z"></path>' };
+  var RiMapMap2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 5L9 2L15 5L21.303 2.2987C21.5569 2.18992 21.8508 2.30749 21.9596 2.56131C21.9862 2.62355 22 2.69056 22 2.75827V19L15 22L9 19L2.69696 21.7013C2.44314 21.8101 2.14921 21.6925 2.04043 21.4387C2.01375 21.3765 2 21.3094 2 21.2417V5ZM16 19.3955L20 17.6812V5.03308L16 6.74736V19.3955ZM14 19.2639V6.73607L10 4.73607V17.2639L14 19.2639ZM8 17.2526V4.60451L4 6.31879V18.9669L8 17.2526Z"></path>' };
   var RiArrowsArrowGoBackLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M5.82843 6.99955L8.36396 9.53509L6.94975 10.9493L2 5.99955L6.94975 1.0498L8.36396 2.46402L5.82843 4.99955H13C17.4183 4.99955 21 8.58127 21 12.9996C21 17.4178 17.4183 20.9996 13 20.9996H4V18.9996H13C16.3137 18.9996 19 16.3133 19 12.9996C19 9.68584 16.3137 6.99955 13 6.99955H5.82843Z"></path>' };
   var RiEditorOrganizationChart = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M15 3C15.5523 3 16 3.44772 16 4V8C16 8.55228 15.5523 9 15 9H13V11H17C17.5523 11 18 11.4477 18 12V15H20C20.5523 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H14C13.4477 21 13 20.5523 13 20V16C13 15.4477 13.4477 15 14 15H16V13H8V15H10C10.5523 15 11 15.4477 11 16V20C11 20.5523 10.5523 21 10 21H4C3.44772 21 3 20.5523 3 20V16C3 15.4477 3.44772 15 4 15H6V12C6 11.4477 6.44772 11 7 11H11V9H9C8.44772 9 8 8.55228 8 8V4C8 3.44772 8.44772 3 9 3H15ZM9 17H5V19H9V17ZM19 17H15V19H19V17ZM14 5H10V7H14V5Z"></path>' };
 
@@ -5033,6 +5037,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let submenulink3;
     let t6;
     let submenulink4;
+    let t7;
+    let submenulink5;
     let current;
     icon = new Icon_default({
       props: {
@@ -5076,6 +5082,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         icon: CgBox
       }
     });
+    submenulink5 = new SubMenuLink_default({
+      props: {
+        title: "Locations",
+        href: "/tenantAdmin/locations",
+        icon: RiMapMap2Line
+      }
+    });
     return {
       c() {
         a = element("a");
@@ -5094,6 +5107,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         create_component(submenulink3.$.fragment);
         t6 = space();
         create_component(submenulink4.$.fragment);
+        t7 = space();
+        create_component(submenulink5.$.fragment);
         attr(a, "href", "/tenantAdmin/dashboard");
         attr(a, "class", "svelte-rvgb98");
         toggle_class(a, "active", window.location.pathname === "/tenantAdmin/dashboard");
@@ -5115,6 +5130,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         mount_component(submenulink3, div, null);
         append(div, t6);
         mount_component(submenulink4, div, null);
+        append(div, t7);
+        mount_component(submenulink5, div, null);
         current = true;
       },
       p: noop,
@@ -5127,6 +5144,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_in(submenulink2.$.fragment, local);
         transition_in(submenulink3.$.fragment, local);
         transition_in(submenulink4.$.fragment, local);
+        transition_in(submenulink5.$.fragment, local);
         current = true;
       },
       o(local) {
@@ -5136,6 +5154,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_out(submenulink2.$.fragment, local);
         transition_out(submenulink3.$.fragment, local);
         transition_out(submenulink4.$.fragment, local);
+        transition_out(submenulink5.$.fragment, local);
         current = false;
       },
       d(detaching) {
@@ -5150,6 +5169,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         destroy_component(submenulink2);
         destroy_component(submenulink3);
         destroy_component(submenulink4);
+        destroy_component(submenulink5);
       }
     };
   }

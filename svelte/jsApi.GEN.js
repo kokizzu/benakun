@@ -1219,6 +1219,72 @@ exports.TenantAdminGetBudgetPlans = async function TenantAdminGetBudgetPlans( i,
 }
 
 /**
+ * @typedef {Object} TenantAdminLocationsIn
+ * @property {String} cmd
+ * @property {Object} withMeta
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ */
+const TenantAdminLocationsIn = {
+  cmd: '', // string
+  withMeta: false, // bool
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
+}
+/**
+ * @typedef {Object} TenantAdminLocationsOut
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
+ */
+const TenantAdminLocationsOut = {
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
+}
+/**
+ * @callback TenantAdminLocationsCallback
+ * @param {TenantAdminLocationsOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminLocationsIn} i
+ * @param {TenantAdminLocationsCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminLocations = async function TenantAdminLocations( i, cb ) {
+  return await axios.post( '/tenantAdmin/locations', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} TenantAdminMoveOrganizationChildIn
  * @property {number} id
  * @property {number} moveToIdx

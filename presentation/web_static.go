@@ -146,6 +146,24 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.TenantAdminLocationsAction, func(ctx *fiber.Ctx) error {
+		var in domain.TenantAdminLocationsIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminLocationsAction)
+		if err != nil {
+			return err
+		}
+		if notTenantLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		return views.RenderTenantAdminLocations(ctx, M.SX{
+			`title`:    `Tenant Admin Dashboard`,
+			`user`:     user,
+			`segments`: segments,
+		})
+	})
+
 	fw.Get(`/`+domain.TenantAdminProductsAction, func(ctx *fiber.Ctx) error {
 		var in domain.TenantAdminProductsIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminProductsAction)
