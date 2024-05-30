@@ -3061,7 +3061,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminUpsertCoaChild = async function TenantAdminUpsertCoaChild(i, cb) {
         return await axios.post("/tenantAdmin/createCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminUpsertOrganizationChild = async function TenantAdminUpsertOrganizationChild(i, cb) {
+      exports.TenantAdminUpsertOrganizationChild = async function TenantAdminUpsertOrganizationChild2(i, cb) {
         return await axios.post("/tenantAdmin/updateOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
@@ -7114,12 +7114,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         orgType = "department", orgIcon = RiBuildingsBuilding2Line;
         break;
       }
-      case OrgTypeDivision:
-        {
-          orgType = "division", orgIcon = RiUserFacesGroup3Line;
-          break;
-        }
-        RiArrowsArrowRightSLine;
+      case OrgTypeDivision: {
+        orgType = "division", orgIcon = RiUserFacesGroup3Line;
+        break;
+      }
       case OrgTypeJob: {
         orgType = "job", orgIcon = RiBusinessBriefcaseLine;
         break;
@@ -7138,6 +7136,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         case OrgTypeJob: {
           return "job";
+        }
+        default: {
+          return "";
         }
       }
     };
@@ -7170,54 +7171,32 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         notifier.showWarning("fields cannot be empty");
         return;
       }
-      switch (orgState) {
-        case "add": {
-          await (0, import_jsApi.TenantAdminCreateOrganizationChild)(
-            {
-              name: orgName,
-              headTitle,
-              parentId: Number(org.id)
-            },
-            /** @type {import('../jsApi.GEN').TenantAdminUpdateOrganizationChildCallback}*/
-            function(o) {
-              $invalidate(5, isSubmitted = false);
-              popUpOrgChild.hide();
-              if (o.error) {
-                notifier.showError(o.error);
-                console.log(o.error);
-                return;
-              }
-              const orgs = o.orgs;
-              dispatch("update", { orgs });
-              notifier.showSuccess("Organization child created");
-            }
+      let orgPayload = {
+        id: orgState == "edit" ? org.id : "0",
+        name: orgName,
+        headTitle,
+        parentId: org.id
+      };
+      await (0, import_jsApi.TenantAdminUpsertOrganizationChild)(
+        //@ts-ignore
+        { org: orgPayload },
+        /** @type {import('../jsApi.GEN').TenantAdminUpsertOrganizationChildCallback}*/
+        function(o) {
+          $invalidate(5, isSubmitted = false);
+          popUpOrgChild.hide();
+          if (o.error) {
+            notifier.showError(o.error);
+            console.log(o.error);
+            return;
+          }
+          const orgs = (
+            /** @type Org[] */
+            o.orgs
           );
-          break;
+          dispatch("update", { orgs });
+          notifier.showSuccess("organization child updated");
         }
-        case "edit": {
-          await (0, import_jsApi.TenantAdminUpdateOrganizationChild)(
-            {
-              name: orgName,
-              id: Number(org.id),
-              headTitle
-            },
-            /** @type {import('../jsApi.GEN').TenantAdminUpdateOrganizationChildCallback}*/
-            function(o) {
-              $invalidate(5, isSubmitted = false);
-              popUpOrgChild.hide();
-              if (o.error) {
-                notifier.showError(o.error);
-                console.log(o);
-                return;
-              }
-              const orgs = o.orgs;
-              dispatch("update", { orgs });
-              notifier.showSuccess("Organization child updated");
-            }
-          );
-          break;
-        }
-      }
+      );
     }
     let isDragOver = false, isDragging = false;
     const updateEventInfo = () => dispatch("info", { org });

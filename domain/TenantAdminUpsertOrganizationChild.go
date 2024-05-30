@@ -99,13 +99,14 @@ func (d *Domain) TenantAdminUpsertOrganizationChild(in *TenantAdminUpsertOrganiz
 	child.SetAll(in.Org, nil, nil)
 
 	if !child.DoUpsert() {
+		child.HaveMutation()
 		out.SetError(400, ErrTenantAdminUpsertOrganizationChildFailed)
 		return
 	}
 
 	out.Org = &child.Orgs
 
-	if in.Org.Id > 0 {
+	if in.Org.Id <= 0 {
 		children := parent.Children
 		children = append(children, child.Id)
 		parent.SetChildren(children)

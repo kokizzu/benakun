@@ -155,7 +155,6 @@
 
   // state submit
   const submitStateAdd = 'add', submitStateEdit = 'edit';
-  const submitStateDelete = 'delete', submitStateRestore = 'restore';
 
   let isSubmitPlan = false;
   let submitState = submitStateAdd;

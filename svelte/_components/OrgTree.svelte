@@ -14,8 +14,7 @@
   import { onMount, createEventDispatcher } from 'svelte';
   import PopUpOrgChild from './PopUpOrgChild.svelte';
   import {
-    TenantAdminCreateOrganizationChild,
-    TenantAdminUpdateOrganizationChild,
+    TenantAdminUpsertOrganizationChild,
     TenantAdminDeleteOrganizationChild,
     TenantAdminRestoreOrganizationChild
   } from '../jsApi.GEN';
@@ -27,16 +26,16 @@
   
   /** @type Org */
   export let org = {
-    id: "",
-    name: "",
-    headTitle: "",
+    id: '',
+    name: '',
+    headTitle: '',
     orgType: 0,
-    parentId: "",
-    tenantCode: "",
+    parentId: '',
+    tenantCode: '',
     createdAt: 0,
-    createdBy: "",
+    createdBy: '',
     updatedAt: 0,
-    updatedBy: "",
+    updatedBy: '',
     deletedAt: 0,
     children: []
   }
@@ -55,7 +54,7 @@
     case OrgTypeDivision: {
       orgType = 'division', orgIcon = RiUserFacesGroup3Line;
       break;
-    }RiArrowsArrowRightSLine
+    }
     case OrgTypeJob: {
       orgType = 'job', orgIcon = RiBusinessBriefcaseLine;
       break;
@@ -64,19 +63,22 @@
 
   const getOrgType = (type = 0) => {
     switch (type) {
-    case OrgTypeCompany: {
-      return 'comppany';
+      case OrgTypeCompany: {
+        return 'comppany';
+      }
+      case OrgTypeDept: {
+        return 'department';
+      }
+      case OrgTypeDivision: {
+        return 'division';
+      }
+      case OrgTypeJob: {
+        return 'job';
+      }
+      default: {
+        return '';
+      }
     }
-    case OrgTypeDept: {
-      return 'department';
-    }
-    case OrgTypeDivision: {
-      return 'division';
-    }
-    case OrgTypeJob: {
-      return 'job';
-    }
-  }
   }
 
   export let indent = 0;
@@ -101,48 +103,32 @@
       notifier.showWarning('fields cannot be empty');
       return;
     }
-    switch (orgState) {
-      case 'add': {
-        await TenantAdminCreateOrganizationChild(
-          { name: orgName, headTitle: headTitle, parentId: Number(org.id) },
-          /** @type {import('../jsApi.GEN').TenantAdminUpdateOrganizationChildCallback}*/
-          function (/** @type {any} */ o) {
-            isSubmitted = false;
-            popUpOrgChild.hide();
-            if (o.error) {
-              notifier.showError(o.error);
-              console.log(o.error);
-              return;
-            }
-            /** @type {Array<Org>} */
-            const orgs = o.orgs;
-            dispatch('update', { orgs: orgs })
-            notifier.showSuccess('Organization child created');
-          }
-        );
-        break;
-      }
-      case 'edit': {
-        await TenantAdminUpdateOrganizationChild(
-          { name: orgName, id: Number(org.id), headTitle: headTitle },
-          /** @type {import('../jsApi.GEN').TenantAdminUpdateOrganizationChildCallback}*/
-          function (/** @type {any} */ o) {
-            isSubmitted = false;
-            popUpOrgChild.hide();
-            if (o.error) {
-              notifier.showError(o.error);
-              console.log(o);
-              return;
-            }
-            /** @type {Array<Org>} */
-            const orgs = o.orgs;
-            dispatch('update', { orgs: orgs })
-            notifier.showSuccess('Organization child updated');
-          }
-        );
-        break;
-      }
+
+    /** @type Org */ //@ts-ignore
+    let orgPayload = {
+      id: orgState == 'edit' ? org.id : '0',
+      name: orgName,
+      headTitle: headTitle,
+      parentId: org.id,
     }
+    
+    await TenantAdminUpsertOrganizationChild( //@ts-ignore
+      { org: orgPayload }, /** @type {import('../jsApi.GEN').TenantAdminUpsertOrganizationChildCallback}*/
+      function (/** @type {any} */ o) {
+        isSubmitted = false;
+        popUpOrgChild.hide();
+        if (o.error) {
+          notifier.showError(o.error);
+          console.log(o.error);
+          return;
+        }
+
+        const orgs = /** @type Org[] */ (o.orgs);
+        dispatch('update', { orgs: orgs });
+
+        notifier.showSuccess('organization child updated');
+      }
+    );
   }
 
   let isDragOver = false, isDragging = false;
