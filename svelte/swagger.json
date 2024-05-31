@@ -1545,6 +1545,9 @@
 						"tenantCode": {
 								"type": "string"
 						},
+						"role": {
+								"type": "string"
+						},
 						"withMeta": {
 							"type": "boolean"
 						},

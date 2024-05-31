@@ -1054,6 +1054,7 @@ exports.TenantAdminCoa = async function TenantAdminCoa( i, cb ) {
  * @property {String} cmd
  * @property {String} staffEmail
  * @property {String} tenantCode
+ * @property {String} role
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -1064,6 +1065,7 @@ const TenantAdminDashboardIn = {
   cmd: '', // string
   staffEmail: '', // string
   tenantCode: '', // string
+  role: '', // string
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
     page: 0, // int

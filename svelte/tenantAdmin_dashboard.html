@@ -12600,10 +12600,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let updating_isSubmitted;
     let current;
     function popupinviteuser_email_binding(value) {
-      ctx[12](value);
+      ctx[13](value);
     }
     function popupinviteuser_isSubmitted_binding(value) {
-      ctx[13](value);
+      ctx[14](value);
     }
     let popupinviteuser_props = { onSubmit: (
       /*submitInviteUser*/
@@ -12624,7 +12624,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       ctx[6];
     }
     popupinviteuser = new PopUpInviteUser_default({ props: popupinviteuser_props });
-    ctx[11](popupinviteuser);
+    ctx[12](popupinviteuser);
     binding_callbacks.push(() => bind(popupinviteuser, "email", popupinviteuser_email_binding));
     binding_callbacks.push(() => bind(popupinviteuser, "isSubmitted", popupinviteuser_isSubmitted_binding));
     return {
@@ -12664,7 +12664,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         current = false;
       },
       d(detaching) {
-        ctx[11](null);
+        ctx[12](null);
         destroy_component(popupinviteuser, detaching);
       }
     };
@@ -12698,7 +12698,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*click_handler*/
-            ctx[14]
+            ctx[15]
           );
           mounted = true;
         }
@@ -12771,17 +12771,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let updating_MASTER_ROWS;
     let current;
     function mastertable_FIELDS_binding(value) {
-      ctx[15](value);
-    }
-    function mastertable_PAGER_binding(value) {
       ctx[16](value);
     }
-    function mastertable_MASTER_ROWS_binding(value) {
+    function mastertable_PAGER_binding(value) {
       ctx[17](value);
+    }
+    function mastertable_MASTER_ROWS_binding(value) {
+      ctx[18](value);
     }
     let mastertable_props = {
       ACCESS: segments2,
-      CAN_EDIT_ROW: false,
+      CAN_EDIT_ROW: true,
       CAN_SEARCH_ROW: true,
       CAN_DELETE_ROW: true,
       CAN_RESTORE_ROW: true,
@@ -12796,6 +12796,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       OnDelete: (
         /*OnDelete*/
         ctx[9]
+      ),
+      OnEdit: (
+        /*OnEdit*/
+        ctx[11]
       ),
       $slots: { default: [create_default_slot_1] },
       $scope: { ctx }
@@ -12838,7 +12842,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       p(ctx2, dirty) {
         const mastertable_changes = {};
         if (dirty & /*$scope, popUpInviteUser*/
-        262152) {
+        524296) {
           mastertable_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_FIELDS && dirty & /*fields*/
@@ -12936,7 +12940,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         const mainlayout_changes = {};
         if (dirty & /*$scope, fields, pager, staffs, popUpInviteUser*/
-        262159) {
+        524303) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -13079,6 +13083,34 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
       );
     }
+    async function OnEdit(id, payloads) {
+      const i = {
+        pager,
+        /** @type any[]*/
+        staffEmail: payloads[1],
+        role: payloads[3],
+        cmd: "upsert"
+      };
+      await (0, import_jsApi.TenantAdminDashboard)(
+        // @ts-ignore
+        i,
+        /** @type {import('./jsApi.GEN').TenantAdminDashboardCallback} */
+        /** @returns {Promise<any>} */
+        function(o) {
+          $invalidate(5, email = "");
+          $invalidate(6, isSubmitted = false);
+          if (o.error) {
+            console.log(o);
+            notifier.showError(o.error);
+            return;
+          }
+          console.log(o);
+          notifier.showSuccess("user " + email + " edited");
+          $invalidate(2, staffs = o.staffs);
+          $invalidate(1, pager = o.pager);
+        }
+      );
+    }
     function popupinviteuser_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpInviteUser = $value;
@@ -13118,6 +13150,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       OnRestore,
       OnDelete,
       submitInviteUser,
+      OnEdit,
       popupinviteuser_binding,
       popupinviteuser_email_binding,
       popupinviteuser_isSubmitted_binding,
