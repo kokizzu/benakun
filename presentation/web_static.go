@@ -157,10 +157,16 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		}
 
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Cmd = zCrud.CmdList
+		out := d.TenantAdminLocations(&in)
 		return views.RenderTenantAdminLocations(ctx, M.SX{
-			`title`:    `Tenant Admin Dashboard`,
+			`title`:    `Tenant Admin Locations`,
 			`user`:     user,
 			`segments`: segments,
+			`fields`: out.Meta.Fields,
+			`pager`: out.Pager,
+			`locations`: out.Locations,
 		})
 	})
 

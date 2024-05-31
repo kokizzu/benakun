@@ -345,7 +345,10 @@
 						{#if f.name === 'id'}
 							<th class="a_row">Actions</th>
 						{:else}
-							<th>{f.label}</th>
+							<th class="
+								{f.inputType === 'textarea' ? 'textarea' : ''}
+								{f.inputType === 'datetime' ? 'datetime' : ''}
+							">{f.label}</th>
 						{/if}
 					{/each}
 				</tr>
@@ -790,8 +793,17 @@
 		text-transform: capitalize;
 		border-bottom: 1px solid var(--gray-003);
 		min-width: fit-content;
+		width: auto;
     text-wrap: nowrap;
   }
+
+	.table_root .table_container table thead tr th.textarea {
+		min-width: 280px !important;
+	}
+
+	.table_root .table_container table thead tr th.datetime {
+		min-width: 140px !important;
+	}
 
 	.table_root .table_container table tbody tr.deleted {
 		color: var(--red-005);

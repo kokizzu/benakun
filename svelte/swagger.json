@@ -1812,6 +1812,71 @@
 											}
 										}
 								}
+						},
+						"location": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"deletedBy": {
+										"type": "number"
+								},
+								"restoredBy": {
+										"type": "number"
+								},
+								"name": {
+										"type": "string"
+								},
+								"country": {
+										"type": "string"
+								},
+								"stateProvice": {
+										"type": "string"
+								},
+								"cityRegency": {
+										"type": "string"
+								},
+								"subdistrict": {
+										"type": "string"
+								},
+								"village": {
+										"type": "string"
+								},
+								"rwBanjar": {
+										"type": "string"
+								},
+								"rtNeigb": {
+										"type": "string"
+								},
+								"address": {
+										"type": "string"
+								},
+								"lat": {
+										"type": "number"
+								},
+								"lng": {
+										"type": "number"
+								}
+								}
 						}
 								}
 							}
@@ -1870,6 +1935,76 @@
 												"cachedSelect": {
 														"type": "string"
 												}
+												}
+										},
+										"location": {
+										"type": "object",
+										"properties": {
+												"id": {
+														"type": "number"
+												},
+												"tenantCode": {
+														"type": "string"
+												},
+												"createdAt": {
+														"type": "number"
+												},
+												"createdBy": {
+														"type": "number"
+												},
+												"updatedAt": {
+														"type": "number"
+												},
+												"updatedBy": {
+														"type": "number"
+												},
+												"deletedAt": {
+														"type": "number"
+												},
+												"deletedBy": {
+														"type": "number"
+												},
+												"restoredBy": {
+														"type": "number"
+												},
+												"name": {
+														"type": "string"
+												},
+												"country": {
+														"type": "string"
+												},
+												"stateProvice": {
+														"type": "string"
+												},
+												"cityRegency": {
+														"type": "string"
+												},
+												"subdistrict": {
+														"type": "string"
+												},
+												"village": {
+														"type": "string"
+												},
+												"rwBanjar": {
+														"type": "string"
+												},
+												"rtNeigb": {
+														"type": "string"
+												},
+												"address": {
+														"type": "string"
+												},
+												"lat": {
+														"type": "number"
+												},
+												"lng": {
+														"type": "number"
+												}
+												}
+										},
+										"locations": {
+										"type": "object",
+										"properties": {
 												}
 										}
 									}
