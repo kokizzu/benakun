@@ -162,10 +162,10 @@
 
   async function submitUpsertPlan() {
     isSubmitPlan = true;
-	 const idStr = id + "";
+	  const idStr = submitState == 'add' ? '0' : id.toString();
     /** @type {import('../jsApi.GEN.js').TenantAdminUpsertBudgetPlanIn} */
     const i = { //@ts-ignore
-      plan: {id: idStr, planType, title, description, yearOf: Number(yearOf),
+      plan: {id: idStr, planType, title, description, yearOf: Number(yearOf), orgId: org.id,
       budgetIDR: Number(budgetIDR), budgetUSD: Number(budgetUSD), unit, quantity}
     }
     await TenantAdminUpsertBudgetPlan(i, /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanCallback} */

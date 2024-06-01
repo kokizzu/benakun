@@ -120,7 +120,7 @@ func (d *Domain) TenantAdminUpsertBudgetPlan(in *TenantAdminUpsertBudgetPlanIn) 
 		return
 	}
 
-	plans := wcBudget.NewPlansMutator(d.AuthOltp)
+	plans := rqBudget.NewPlans(d.AuthOltp)
 	toPlans := plans.FindPlansByOrg(plan.OrgId)
 
 	out.Plans = &toPlans

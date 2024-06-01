@@ -11,6 +11,8 @@
   import PopUpBudgetPlan from './PopUpBudgetPlan.svelte';
   import { notifier } from './notifier.js';
 
+  /** @typedef {import('./types/budget.js').BudgetPlan} BudgetPlan */
+
   const dispatch = createEventDispatcher();
 
   const PlanTypeProgram = 'program', PlanTypeActivity	= 'activity';
@@ -27,7 +29,7 @@
     yearOf = 0, budgetIDR = 0, budgetUSD = 0, quantity = 0, unit = '';
   }
 
-  /** @type {import('./types/budget.js').BudgetPlan} */
+  /** @type BudgetPlan */
   export let plan = {
     id: '',
     parentId: '',
@@ -39,7 +41,7 @@
     budgetIDR: 0,
     budgetUSD: 0,
     quantity: 0,
-	 unit: '',
+	  unit: '',
     createdAt: '',
     createdBy: '',
     updatedAt: 0,
@@ -56,20 +58,28 @@
 
   // state submit
   const submitStateAdd = 'add', submitStateEdit = 'edit';
-  const submitStateDelete = 'delete', submitStateRestore = 'restore';
 
   let isSubmitPlan = false;
   let submitState = submitStateAdd;
 
   async function submitUpsertPlan() {
     isSubmitPlan = true;
-    /** @type {import('../jsApi.GEN.js').TenantAdminUpsertBudgetPlanIn} */
-    const i = {
-      plan: {id: ''+plan.id, planType, title, description, yearOf: Number(yearOf),
-      	budgetIDR: Number(budgetIDR), budgetUSD: Number(budgetUSD), quantity: Number(quantity), unit: unit,
-		}
+
+    /** @type BudgetPlan */ // @ts-ignore
+    let planPayload = {
+      id: submitState == 'add' ? '0' : plan.id,
+      planType,
+      title,
+      description,
+      yearOf: Number(yearOf),
+      budgetIDR: Number(budgetIDR),
+      budgetUSD: Number(budgetUSD),
+      quantity: Number(quantity),
+      unit: unit,
+      parentId: plan.id,
     }
-    await TenantAdminUpsertBudgetPlan(i, /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanCallback} */
+    await TenantAdminUpsertBudgetPlan( //@ts-ignore
+      { plan: planPayload }, /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanCallback} */
       function (/** @type {any} */ o) {
         isSubmitPlan = false;
         if (o.error) {
@@ -105,6 +115,7 @@
       case submitStateAdd: {
         submitState = submitStateAdd;
         headingPopUp = 'Add activity';
+        planType = PlanTypeActivity;
         break;
       }
       case submitStateEdit: {
