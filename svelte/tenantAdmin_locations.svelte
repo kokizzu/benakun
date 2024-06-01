@@ -1,12 +1,14 @@
 <script>
   import { Icon } from './node_modules/svelte-icons-pack/dist';
   import { RiSystemAddBoxLine } from './node_modules/svelte-icons-pack/dist/ri';
+  import { IoClose } from './node_modules/svelte-icons-pack/dist/io';
   import MainLayout from './_layouts/mainLayout.svelte';
   import MasterTable from './_components/MasterTable.svelte';
   import PoUpForms from './_components/PoUpForms.svelte';
   import { onMount } from 'svelte';
   import { TenantAdminLocations } from './jsApi.GEN';
   import { notifier } from './_components/notifier';
+  import Map from './_components/Map.svelte';
 
   /** @typedef {import('./_components/types/master.js').Field} Field */
 	/** @typedef {import('./_components/types/access.js').Access} Access */
@@ -20,6 +22,7 @@
   let fields = /** @type Field[] */ ([/* fields */]);
   let pager = /** @type PagerOut */ ({/* pager */});
   let locations = /** @type any[][] */ ([/* locations */]);
+  let location = /** @type location */ ({/* locations */});
 
   let isPopUpFormsReady = false;
   let popUpForms = null;
@@ -69,6 +72,24 @@
     );
     popUpForms.Hide();
   }
+
+  let isShowInfoLocation = false;
+  let headingInfo = 'Location for '+location.name;
+  let mapElm;
+  let isMapReady;
+  let coord = {
+    lat: location.lat,
+    lng: location.lng,
+    zoom: 6
+  };
+
+  async function OnInfo(/** @type any[] */ row) {
+    coord.lat = row[10];
+    coord.lng = row[11];
+    headingInfo = 'Location for '+row[1];
+    isMapReady = true;
+    isShowInfoLocation = true;
+  }
 </script>
 
 {#if isPopUpFormsReady}
@@ -79,6 +100,29 @@
     bind:isSubmitted={isSubmitAddLocation}
     OnSubmit={OnAddLocation}
   />
+{/if}
+
+{#if isShowInfoLocation}
+  <div class={`popup_container ${isShowInfoLocation ? 'show' : ''}`}>
+    <div class="popup">
+      <header class="header">
+        <h2>{headingInfo}</h2>
+        <button on:click={() => isShowInfoLocation = false}>
+          <Icon size="22" color="var(--red-005)" src={IoClose}/>
+        </button>
+      </header>
+      <div class="forms">
+        <div class="map">
+          {#if isMapReady}
+            <Map
+              bind:this={mapElm}
+              {coord}
+            />
+          {/if}
+        </div>
+      </div>
+    </div>
+  </div>
 {/if}
 
 <MainLayout>
@@ -94,6 +138,8 @@
       CAN_SEARCH_ROW
       CAN_DELETE_ROW
       CAN_RESTORE_ROW
+
+      {OnInfo}
     >
       {#if user.tenantCode !== ''}
         <button
@@ -113,4 +159,79 @@
 </MainLayout>
 
 <style>
+  .popup_container {
+    display: none;
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		z-index: 2000;
+		background-color: rgba(0 0 0 / 40%);
+		backdrop-filter: blur(1px);
+		justify-content: center;
+		padding: 50px;
+    overflow: auto;
+	}
+
+  .popup_container.show {
+    display: flex;
+  }
+
+	.popup_container .popup {
+		border-radius: 8px;
+		background-color: #FFF;
+		height: fit-content;
+		width: 700px;
+		display: flex;
+		flex-direction: column;
+	}
+
+  .popup_container .popup header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		padding: 10px 20px;
+		border-bottom: 1px solid var(--gray-004);
+	}
+
+	.popup_container .popup header h2 {
+		margin: 0;
+	}
+
+	.popup_container .popup header button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 5px;
+		border-radius: 50%;
+		border: none;
+		background-color: transparent;
+		cursor: pointer;
+	}
+
+	.popup_container .popup header button:hover {
+		background-color: #ef444420;
+	}
+
+	.popup_container .popup header button:active {
+		background-color: #ef444430;
+	}
+
+	.popup_container .popup .forms {
+		padding: 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+  .popup_container .popup .forms .map {
+    width: 100%;
+    height: 400px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
 </style>
