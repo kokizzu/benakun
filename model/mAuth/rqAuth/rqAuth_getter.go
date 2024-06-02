@@ -3,14 +3,12 @@ package rqAuth
 import (
 	"benakun/model/mAuth"
 
-	"github.com/kokizzu/gotro/A"
+	"benakun/model/zCrud"
+
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
-	"github.com/tarantool/go-tarantool"
-
-	"benakun/model/zCrud"
 )
 
 type Staff struct {
@@ -180,29 +178,31 @@ FROM ` + t.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 }
 
 func (o *Orgs) FindByCompanyName() bool {
-	res, err := o.Adapter.Select(o.SpaceName(), o.IdxName(), 0, 1, tarantool.IterEq, A.X{o.Name})
-	if L.IsError(err, `Orgs.FindByCompanyName failed:`+o.SpaceName()) {
-		return false
-	}
-	rows := res.Tuples()
-	if len(rows) == 1 {
-		o.FromArray(rows[0])
-		return true
-	}
-	return false
+	selectSql := `-- Orgs) FindByCompanyName
+SELECT ` + o.SqlSelectAllFields() + `
+FROM ` + o.SqlTableName() + `
+WHERE ` + o.SqlName() + ` = ` + S.Z(o.Name) + `
+LIMIT 1`
+	ok := false
+	o.Adapter.QuerySql(selectSql, func(row []any) {
+		o.FromArray(row)
+		ok = true
+	})
+	return ok
 }
 
 func (u *Users) FindByTenantCode() bool {
-	res, err := u.Adapter.Select(u.SpaceName(), u.IdxTenantCode(), 0, 1, tarantool.IterEq, A.X{u.TenantCode})
-	if L.IsError(err, `Users.FindByTenantCode failed:`+u.SpaceName()) {
-		return false
-	}
-	rows := res.Tuples()
-	if len(rows) == 1 {
-		u.FromArray(rows[0])
-		return true
-	}
-	return false
+	selectSql := `-- Users) FindByTenantCode
+SELECT ` + u.SqlSelectAllFields() + `
+FROM ` + u.SqlTableName() + `
+WHERE ` + u.SqlTenantCode() + ` = ` + S.Z(u.TenantCode) + `
+LIMIT 1`
+	ok := false
+	u.Adapter.QuerySql(selectSql, func(row []any) {
+		u.FromArray(row)
+		ok = true
+	})
+	return ok
 }
 
 func (o *Orgs) FindOrgsByTenant(tenantCode string) (orgs []Orgs) {

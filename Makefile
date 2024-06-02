@@ -9,11 +9,14 @@ setup:
 	curl -fsSL https://bun.sh/install | bash
 
 local-tarantool:
-	docker exec -it benakun-tarantool1-1 tarantoolctl connect benakunT:benakunPT@127.0.0.1:3301
+	#docker exec -it benakun-tarantool1-1 tarantoolctl connect benakunT:benakunPT@127.0.0.1:3301 # 2.11
+	#docker exec -it benakun-tarantool1-1 tt connect benakunT:benakunPT@127.0.0.1:3301 # 3.1 lua mode
+	docker exec -it benakun-tarantool1-1 tt connect benakunT:benakunPT@127.0.0.1:3301 -l sql # 3.1 sql mode
 	# box.space -- list all tables
 	# box.execute [[ SELECT * FROM "users" LIMIT 1 ]]
 	# \set language sql
 	# \set delimiter ;
+    # SET SESSION "sql_seq_scan" = true; -- since 3.1 sequential scan no longer allowed
 
 local-clickhouse:
 	docker exec -it benakun-clickhouse1-1 clickhouse-client --host 127.0.0.1 --port 9000 --user benakunC --password benakunPC

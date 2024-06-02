@@ -115,7 +115,7 @@ func (d *Domain) TenantAdminUpsertBudgetPlan(in *TenantAdminUpsertBudgetPlanIn) 
 
 	plan.UpdatedAt = in.UnixNow()
 
-	if !plan.DoUpsert() {
+	if !plan.DoUpsertById() {
 		out.SetError(400, ErrTenantAdminUpsertBudgetPlanFailed)
 		return
 	}
