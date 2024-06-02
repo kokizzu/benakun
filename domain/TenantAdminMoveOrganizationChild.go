@@ -1,10 +1,11 @@
 package domain
 
 import (
+	"errors"
+
 	"benakun/model/mAuth"
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
-	"errors"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminMoveOrganizationChild.go
@@ -13,17 +14,19 @@ import (
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type TenantAdminMoveOrganizationChild.go
 //go:generate farify doublequote --file TenantAdminMoveOrganizationChild.go
 
+// TODO:HABIBI make file naming consistent with url requesting
+
 type (
 	TenantAdminMoveOrganizationChildIn struct {
 		RequestCommon
-		Id uint64 `json:"id" form:"id" query:"id" long:"id" msg:"id"`
-		MoveToIdx int `json:"moveToIdx" form:"moveToIdx" query:"moveToIdx" long:"moveToIdx" msg:"moveToIdx"`
+		Id         uint64 `json:"id" form:"id" query:"id" long:"id" msg:"id"`
+		MoveToIdx  int    `json:"moveToIdx" form:"moveToIdx" query:"moveToIdx" long:"moveToIdx" msg:"moveToIdx"`
 		ToParentId uint64 `json:"toParentId" form:"toParentId" query:"toParentId" long:"toParentId" msg:"toParentId"`
 	}
 
 	TenantAdminMoveOrganizationChildOut struct {
 		ResponseCommon
-		Org *rqAuth.Orgs `json:"org" form:"org" query:"org" long:"org" msg:"org"`
+		Org  *rqAuth.Orgs   `json:"org" form:"org" query:"org" long:"org" msg:"org"`
 		Orgs *[]rqAuth.Orgs `json:"orgs" form:"orgs" query:"orgs" long:"orgs" msg:"orgs"`
 	}
 )
@@ -31,15 +34,15 @@ type (
 const (
 	TenantAdminMoveOrganizationChildAction = `tenantAdmin/moveOrganizationChild`
 
-	ErrTenantAdminMoveOrganizationChildUnauthorized      = `unauthorized user to move this organization`
-	ErrTenantAdminMoveOrganizationChildTenantNotFound    = `cannot move organization if you are not a tenant admin`
-	ErrTenantAdminMoveOrganizationChildOrgNotFound = `invalid organization to move`
-	ErrTenantAdminMoveOrganizationChildParentNotFound = `parent not found to move this organization`
-	ErrTenantAdminMoveOrganizationChildToParentNotFound = `cannot found parent to move this organization`
-	ErrTenantAdminMoveOrganizationChildShouldNotCompany = `cannot move organization if type is company`
+	ErrTenantAdminMoveOrganizationChildUnauthorized       = `unauthorized user to move this organization`
+	ErrTenantAdminMoveOrganizationChildTenantNotFound     = `cannot move organization if you are not a tenant admin`
+	ErrTenantAdminMoveOrganizationChildOrgNotFound        = `invalid organization to move`
+	ErrTenantAdminMoveOrganizationChildParentNotFound     = `parent not found to move this organization`
+	ErrTenantAdminMoveOrganizationChildToParentNotFound   = `cannot found parent to move this organization`
+	ErrTenantAdminMoveOrganizationChildShouldNotCompany   = `cannot move organization if type is company`
 	ErrTenantAdminMoveOrganizationChildFailedMoveChildren = `failed to move organization child`
 	ErrTenantAdminMoveOrganizationChildMustSameParentType = `cannot move to other parent if different organization type`
-	ErrTenantAdminMoveOrganizationChildFailedUpdateChild = `failed to update organization child`
+	ErrTenantAdminMoveOrganizationChildFailedUpdateChild  = `failed to update organization child`
 )
 
 func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizationChildIn) (out TenantAdminMoveOrganizationChildOut) {
@@ -94,7 +97,7 @@ func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizatio
 		}
 
 		out.Org = &child.Orgs
-		
+
 		org := wcAuth.NewOrgsMutator(d.AuthOltp)
 		orgs := org.FindOrgsByTenant(tenant.TenantCode)
 		out.Orgs = &orgs
@@ -188,9 +191,9 @@ func moveChildToIndex(slice []any, element any, newIndex int) ([]any, error) {
 	if newIndex < 0 {
 		newIndex = 0
 	}
-	
+
 	slice = append(slice[:elmIndex], slice[elmIndex+1:]...)
-	
+
 	if newIndex >= len(slice) {
 		slice = append(slice, element)
 	} else {
@@ -200,7 +203,7 @@ func moveChildToIndex(slice []any, element any, newIndex int) ([]any, error) {
 	return slice, nil
 }
 
-func removeChild(slice []any, element any) ([]any, error) { 
+func removeChild(slice []any, element any) ([]any, error) {
 	var elmIndex int = -1
 	for i, v := range slice {
 		if v == element {
@@ -214,10 +217,10 @@ func removeChild(slice []any, element any) ([]any, error) {
 	}
 
 	result := make([]any, len(slice)-1)
-	
-	copy(result, slice[:elmIndex]) 
+
+	copy(result, slice[:elmIndex])
 	copy(result[elmIndex:], slice[elmIndex+1:])
-	
+
 	return result, nil
 }
 

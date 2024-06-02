@@ -12,6 +12,8 @@ import (
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type TenantAdminUpsertCoaChild.go
 //go:generate farify doublequote --file TenantAdminUpsertCoaChild.go
 
+// TODO:HABIBI make file naming consistent with url requesting
+
 type (
 	TenantAdminUpsertCoaChildIn struct {
 		RequestCommon

@@ -12,10 +12,13 @@ import (
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type TenantAdminDeleteCoaChild.go
 //go:generate farify doublequote --file TenantAdminDeleteCoaChild.go
 
+// TODO:HABIBI make file naming consistent with url requesting
+// TODO:HABIBI delete and restore should be one endpoint, or use old style a=restore/a=delete
+
 type (
 	TenantAdminDeleteCoaChildIn struct {
 		RequestCommon
-		Id         uint64      `json:"id" form:"id" query:"id" long:"id" msg:"id"`
+		Id uint64 `json:"id" form:"id" query:"id" long:"id" msg:"id"`
 	}
 	TenantAdminDeleteCoaChildOut struct {
 		ResponseCommon
@@ -26,11 +29,11 @@ type (
 const (
 	TenantAdminDeleteCoaChildAction = `tenantAdmin/deleteCoaChild`
 
-	ErrTenantAdminDeleteCoaChildUnauthorized      = `unauthorized user`
-	ErrTenantAdminDeleteCoaChildTenantNotFound    = `tenant admin not found`
-	ErrTenantAdminDeleteCoaChildCoaParentNotFound = `coa parent not found`
-	ErrTenantAdminDeleteCoaChildCoaChildNotFound  = `coa child not found`
-	ErrTenantAdminDeleteCoaChildFailed = `failed to delete coa child`
+	ErrTenantAdminDeleteCoaChildUnauthorized         = `unauthorized user`
+	ErrTenantAdminDeleteCoaChildTenantNotFound       = `tenant admin not found`
+	ErrTenantAdminDeleteCoaChildCoaParentNotFound    = `coa parent not found`
+	ErrTenantAdminDeleteCoaChildCoaChildNotFound     = `coa child not found`
+	ErrTenantAdminDeleteCoaChildFailed               = `failed to delete coa child`
 	ErrTenantAdminDeleteCoaChildCoaChildHaveChildren = `cannot delete if have children`
 )
 
@@ -72,7 +75,7 @@ func (d *Domain) TenantAdminDeleteCoaChild(in *TenantAdminDeleteCoaChildIn) (out
 	child.SetDeletedAt(in.UnixNow())
 	child.SetUpdatedAt(in.UnixNow())
 	child.SetUpdatedBy(sess.UserId)
-	
+
 	if !child.DoUpdateById() {
 		child.HaveMutation()
 		out.SetError(400, ErrTenantAdminDeleteCoaChildFailed)

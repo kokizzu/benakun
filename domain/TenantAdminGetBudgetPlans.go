@@ -12,6 +12,9 @@ import (
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type TenantAdminGetBudgetPlans.go
 //go:generate farify doublequote --file TenantAdminGetBudgetPlans.go
 
+// TODO:HABIBI make naming consistent, eg. if this being used in /tenantAdmin/budgeting
+// then it should be TenantAdminBudgetingGetPlans.go
+
 type (
 	TenantAdminGetBudgetPlansIn struct {
 		RequestCommon
@@ -26,10 +29,10 @@ type (
 const (
 	TenantAdminGetBudgetPlansAction = `tenantAdmin/getBudgetPlans`
 
-	ErrTenantAdminGetBudgetPlanUnauthorized = `unauthorized user to get budget plans`
+	ErrTenantAdminGetBudgetPlanUnauthorized   = `unauthorized user to get budget plans`
 	ErrTenantAdminGetBudgetPlanTenantNotFound = `tenant admin not found to get budget plans`
-	ErrTenantAdminGetBudgetPlanOrgNotFound = `organization not found to get budget plans`
-	ErrTenantAdminGetBudgetPlanFailed = `failed to get budget plans`
+	ErrTenantAdminGetBudgetPlanOrgNotFound    = `organization not found to get budget plans`
+	ErrTenantAdminGetBudgetPlanFailed         = `failed to get budget plans`
 )
 
 func (d *Domain) TenantAdminGetBudgetPlans(in *TenantAdminGetBudgetPlansIn) (out TenantAdminGetBudgetPlansOut) {

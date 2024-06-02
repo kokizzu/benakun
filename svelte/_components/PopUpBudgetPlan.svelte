@@ -20,10 +20,8 @@
   let isShow = false;
   export const show = () => isShow = true;
   export const hide = () => isShow = false;
-	export const reset = () => {
-		title = '', description = '', yearOf = 0;
-		budgetIDR = 0, budgetUSD = 0, quantity = 0, unit = '';
-  }
+
+  // TODO:HABIBI if year zero, set with previously inputted year, or current year
 
   const cancel = () => isShow = false;
 </script>

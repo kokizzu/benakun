@@ -24,6 +24,9 @@ type (
 	}
 )
 
+// TODO:HABIBI make naming consistent, if this used in /tenantAdmin/budgeting
+// then the file should be TenantAdminBudgetingUpsertPlan.go
+
 const (
 	TenantAdminUpsertBudgetPlanAction = `tenantAdmin/upsertBudgetPlan`
 
@@ -73,7 +76,7 @@ func (d *Domain) TenantAdminUpsertBudgetPlan(in *TenantAdminUpsertBudgetPlanIn) 
 	}
 
 	if in.Plan.PlanType == mBudget.PlanTypeActivity {
-		planParent := wcBudget.NewPlansMutator(d.AuthOltp)
+		planParent := rqBudget.NewPlans(d.AuthOltp)
 		planParent.Id = in.Plan.ParentId
 		if !planParent.FindById() {
 			out.SetError(400, ErrTenantAdminUpsertBudgetPlanParentPlanNotFound)
@@ -91,6 +94,12 @@ func (d *Domain) TenantAdminUpsertBudgetPlan(in *TenantAdminUpsertBudgetPlanIn) 
 		}
 	}
 	plan.SetAll(in.Plan, nil, nil)
+	if plan.Id == 0 {
+		plan.SetCreatedAt(in.UnixNow())
+		plan.SetCreatedBy(sess.UserId)
+	}
+	plan.SetUpdatedAt(in.UnixNow())
+	plan.SetUpdatedBy(sess.UserId)
 
 	differentPlanId := in.Plan.Id != plan.Id
 	switch plan.PlanType {
@@ -108,8 +117,6 @@ func (d *Domain) TenantAdminUpsertBudgetPlan(in *TenantAdminUpsertBudgetPlanIn) 
 		plan.Title = mBudget.TitleMission
 	default:
 	}
-
-	plan.UpdatedAt = in.UnixNow()
 
 	if !plan.DoUpsertById() {
 		out.SetError(400, ErrTenantAdminUpsertBudgetPlanFailed)

@@ -8434,7 +8434,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let updating_value_4;
     let current;
     function inputbox0_value_binding(value) {
-      ctx[16](value);
+      ctx[15](value);
     }
     let inputbox0_props = {
       id: "title",
@@ -8452,7 +8452,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     inputbox0 = new InputBox_default({ props: inputbox0_props });
     binding_callbacks.push(() => bind(inputbox0, "value", inputbox0_value_binding));
     function inputbox1_value_binding(value) {
-      ctx[17](value);
+      ctx[16](value);
     }
     let inputbox1_props = {
       id: "yearOf",
@@ -8470,7 +8470,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     inputbox1 = new InputBox_default({ props: inputbox1_props });
     binding_callbacks.push(() => bind(inputbox1, "value", inputbox1_value_binding));
     function inputbox2_value_binding(value) {
-      ctx[18](value);
+      ctx[17](value);
     }
     let inputbox2_props = {
       id: "budgetIDR",
@@ -8488,7 +8488,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     inputbox2 = new InputBox_default({ props: inputbox2_props });
     binding_callbacks.push(() => bind(inputbox2, "value", inputbox2_value_binding));
     function inputbox3_value_binding(value) {
-      ctx[19](value);
+      ctx[18](value);
     }
     let inputbox3_props = {
       id: "quantity",
@@ -8506,7 +8506,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     inputbox3 = new InputBox_default({ props: inputbox3_props });
     binding_callbacks.push(() => bind(inputbox3, "value", inputbox3_value_binding));
     function inputbox4_value_binding(value) {
-      ctx[20](value);
+      ctx[19](value);
     }
     let inputbox4_props = {
       id: "unit",
@@ -8756,7 +8756,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     (ctx[8] === "vision" || /*planType*/
     ctx[8] === "mission") && create_if_block_24(ctx);
     function inputcustom_value_binding(value) {
-      ctx[21](value);
+      ctx[20](value);
     }
     let inputcustom_props = {
       id: "description",
@@ -9001,10 +9001,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let isShow = false;
     const show = () => $invalidate(11, isShow = true);
     const hide = () => $invalidate(11, isShow = false);
-    const reset = () => {
-      $invalidate(0, title = ""), $invalidate(1, description = ""), $invalidate(2, yearOf = 0);
-      $invalidate(3, budgetIDR = 0), $invalidate(13, budgetUSD = 0), $invalidate(4, quantity = 0), $invalidate(5, unit = "");
-    };
     const cancel = () => $invalidate(11, isShow = false);
     function inputbox0_value_binding(value) {
       title = value;
@@ -9070,7 +9066,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       cancel,
       budgetUSD,
       show,
-      reset,
       inputbox0_value_binding,
       inputbox1_value_binding,
       inputbox2_value_binding,
@@ -9095,8 +9090,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         planType: 8,
         heading: 9,
         show: 14,
-        hide: 10,
-        reset: 15
+        hide: 10
       });
     }
     get show() {
@@ -9104,9 +9098,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     get hide() {
       return this.$.ctx[10];
-    }
-    get reset() {
-      return this.$.ctx[15];
     }
   };
   var PopUpBudgetPlan_default = PopUpBudgetPlan;

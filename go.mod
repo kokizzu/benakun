@@ -1,8 +1,6 @@
 module benakun
 
-go 1.21
-
-toolchain go1.21.6
+go 1.22
 
 require (
 	github.com/ClickHouse/clickhouse-go/v2 v2.25.0
