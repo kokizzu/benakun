@@ -59,13 +59,13 @@
 					type="number"
 					placeholder="Budget IDR"
 				/>
-				<InputBox
-					id="budgetUSD"
-					label="Budget USD"
-					bind:value={budgetUSD}
-					type="number"
-					placeholder="Budget USD"
-				/>
+<!--				<InputBox-->
+<!--					id="budgetUSD"-->
+<!--					label="Budget USD"-->
+<!--					bind:value={budgetUSD}-->
+<!--					type="number"-->
+<!--					placeholder="Budget USD"-->
+<!--				/>-->
 				<InputBox
 					id="quantity"
 					label="Qty"

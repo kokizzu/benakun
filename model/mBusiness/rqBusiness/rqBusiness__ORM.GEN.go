@@ -539,7 +539,7 @@ type Products struct {
 	Detail     string      `json:"detail" form:"detail" query:"detail" long:"detail" msg:"detail"`
 	Rule       string      `json:"rule" form:"rule" query:"rule" long:"rule" msg:"rule"`
 	Kind       string      `json:"kind" form:"kind" query:"kind" long:"kind" msg:"kind"`
-	CogsIDR    int64       `json:"cogsIDR" form:"cogsIDR" query:"cogsIDR" long:"cogsIDR" msg:"cogsIDR"`
+	CogsIDR    int64       `json:"cogsIDR,string" form:"cogsIDR" query:"cogsIDR" long:"cogsIDR" msg:"cogsIDR"`
 }
 
 // NewProducts create new ORM reader/query object

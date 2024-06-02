@@ -51,8 +51,11 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
   - [ ] can input transaction/entry and proof
   - [ ] can request for update/delete entry and proof
 - User
-  - [ ] as new registered user can create a company
-  - [ ] can change password TODO: UI
+  - [x] as new registered user can create a company
+    - [ ] can update company name and head title
+  - [ ] can see and switch company based on host/url
+  - [ ] can see list of invitation/rejection to join a company
+  - [ ] can change password
   - [ ] can join/reject invitation link to a company (send email to inviter), `tenant:X1:accepted:YYYYMMDD` or `tenant:X1:rejected:YYYYMMDD`
   - [ ] can leave from a company (send email), `tenant:X1:left:YYYYMMDD`, when accepting invite to new company, the state of old company automatically set to this.
 - Guest

@@ -73,7 +73,13 @@
     return toorgs;
   }
 
-  onMount(() => { REFORMAT_ORGS = reformatorgs(); console.log(orgs); });
+  // TODO:HABIBI show all budget from beginning, this one still empty everytime
+
+  onMount(() => {
+	  REFORMAT_ORGS = reformatorgs();
+	  console.log('REFORMAT_ORGS',REFORMAT_ORGS);
+	  console.log('orgs',orgs);
+  });
 
   /** @type {BudgetPlan} */
   let planDetail = {

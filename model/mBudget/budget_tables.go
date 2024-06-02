@@ -83,7 +83,7 @@ const (
 	OrgId       = `orgId`
 	YearOf      = `yearOf`
 	BudgetIDR   = `budgetIDR`
-	BudgetUSD   = `budgetUSD`
+	BudgetUSD   = `budgetUSD` // TODO: deprecate this
 	Quantity    = `quantity`
 	Unit        = `unit`
 )
@@ -125,9 +125,9 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Description, Tt.String},
 			{OrgId, Tt.Unsigned},
 			{YearOf, Tt.Integer},
-			{BudgetIDR, Tt.Integer},
-			{BudgetUSD, Tt.Integer},
-			{Quantity, Tt.Integer},
+			{BudgetIDR, Tt.Unsigned},
+			{BudgetUSD, Tt.Unsigned},
+			{Quantity, Tt.Unsigned},
 			{Unit, Tt.String},
 		},
 		AutoIncrementId: true,

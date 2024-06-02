@@ -505,9 +505,9 @@ type Plans struct {
 	Description string      `json:"description" form:"description" query:"description" long:"description" msg:"description"`
 	OrgId       uint64      `json:"orgId,string" form:"orgId" query:"orgId" long:"orgId" msg:"orgId"`
 	YearOf      int64       `json:"yearOf" form:"yearOf" query:"yearOf" long:"yearOf" msg:"yearOf"`
-	BudgetIDR   int64       `json:"budgetIDR" form:"budgetIDR" query:"budgetIDR" long:"budgetIDR" msg:"budgetIDR"`
-	BudgetUSD   int64       `json:"budgetUSD" form:"budgetUSD" query:"budgetUSD" long:"budgetUSD" msg:"budgetUSD"`
-	Quantity    int64       `json:"quantity" form:"quantity" query:"quantity" long:"quantity" msg:"quantity"`
+	BudgetIDR   uint64      `json:"budgetIDR,string" form:"budgetIDR" query:"budgetIDR" long:"budgetIDR" msg:"budgetIDR"`
+	BudgetUSD   uint64      `json:"budgetUSD" form:"budgetUSD" query:"budgetUSD" long:"budgetUSD" msg:"budgetUSD"`
+	Quantity    uint64      `json:"quantity" form:"quantity" query:"quantity" long:"quantity" msg:"quantity"`
 	Unit        string      `json:"unit" form:"unit" query:"unit" long:"unit" msg:"unit"`
 }
 
@@ -859,9 +859,9 @@ func (p *Plans) FromArray(a A.X) *Plans { //nolint:dupl false positive
 	p.Description = X.ToS(a[12])
 	p.OrgId = X.ToU(a[13])
 	p.YearOf = X.ToI(a[14])
-	p.BudgetIDR = X.ToI(a[15])
-	p.BudgetUSD = X.ToI(a[16])
-	p.Quantity = X.ToI(a[17])
+	p.BudgetIDR = X.ToU(a[15])
+	p.BudgetUSD = X.ToU(a[16])
+	p.Quantity = X.ToU(a[17])
 	p.Unit = X.ToS(a[18])
 	return p
 }
@@ -883,9 +883,9 @@ func (p *Plans) FromUncensoredArray(a A.X) *Plans { //nolint:dupl false positive
 	p.Description = X.ToS(a[12])
 	p.OrgId = X.ToU(a[13])
 	p.YearOf = X.ToI(a[14])
-	p.BudgetIDR = X.ToI(a[15])
-	p.BudgetUSD = X.ToI(a[16])
-	p.Quantity = X.ToI(a[17])
+	p.BudgetIDR = X.ToU(a[15])
+	p.BudgetUSD = X.ToU(a[16])
+	p.Quantity = X.ToU(a[17])
 	p.Unit = X.ToS(a[18])
 	return p
 }
@@ -966,9 +966,9 @@ var PlansFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`description`: Tt.String,
 	`orgId`:       Tt.Unsigned,
 	`yearOf`:      Tt.Integer,
-	`budgetIDR`:   Tt.Integer,
-	`budgetUSD`:   Tt.Integer,
-	`quantity`:    Tt.Integer,
+	`budgetIDR`:   Tt.Unsigned,
+	`budgetUSD`:   Tt.Unsigned,
+	`quantity`:    Tt.Unsigned,
 	`unit`:        Tt.String,
 }
 
