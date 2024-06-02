@@ -3,6 +3,9 @@ package presentation
 import (
 	"time"
 
+	"benakun/conf"
+	"benakun/domain"
+
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/limiter"
@@ -12,11 +15,9 @@ import (
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/Z"
+	"github.com/kokizzu/json5b/encoding/json5b"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
-
-	"benakun/conf"
-	"benakun/domain"
 )
 
 type WebServer struct {
@@ -89,6 +90,8 @@ func (w *WebServer) Start(log *zerolog.Logger) {
 				`description`: `Error page not found`,
 			})
 		},
+		// use json5b for less annoying string number decoding
+		JSONDecoder: json5b.Unmarshal,
 	})
 
 	// check if actionLogs are there, if error, then you need to run migration: go run main.go migrate
