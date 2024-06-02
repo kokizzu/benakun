@@ -1,25 +1,41 @@
-version: '3'
 
 services:
   tarantool1:
-    image: tarantool/tarantool:2.11.2
-    # x.x.0 = alpha, x.x.1 = beta, x.x.2+ = stable, latest not always stable
+    image: tarantool/tarantool:3.1
+    # https://github.com/tarantool/tarantool/tree/master/docker
     environment:
-      TARANTOOL_USER_NAME: "benakunT"
-      TARANTOOL_USER_PASSWORD: "benakunPT"
-      TT_READAHEAD: '1632000' # 10x
-      TT_VINYL_MEMORY: '268435456' # 20x
-      TT_VINYL_CACHE: '2684354560' # 20x
-      TT_NET_MSG_MAX: '76800' # 100x
-      TT_MEMTX_MEMORY: '268435456' # 1x
-      TT_VINYL_PAGE_SIZE: '8192' # 1x
+      TT_APP_NAME: app # 3.1 only
+      TT_INSTANCE_NAME: instance-001 # 3.1 only
+    ## tarantool --help-env-list | grep -i readahead\\\|net_msg
+    user: 1000:1000
     volumes:
-      - ./_tmpdb/var_lib_tarantool:/var/lib/tarantool
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+      - ./opt__tarantool__app__config.yaml:/opt/tarantool/app/config.yaml
+      - ./_tmpdb/var_run_tarantool:/var/run/tarantool # 3.1 (workaround)
+      - ./_tmpdb/var_lib_tarantool:/var/lib/tarantool # 3.1 (workaround)
     ports:
       - "3302:3301"
 
+#  tarantool1:
+#    image: tarantool/tarantool:2.11
+#    environment:
+#      TARANTOOL_USER_NAME: "benakunT" # 2.11 only
+#      TARANTOOL_USER_PASSWORD: "benakunPT" # 2.11 only
+#      TT_IPROTO_READAHEAD: '1632000' # 10x
+#      TT_VINYL_MEMORY: '2684354560' # 20x
+#      TT_VINYL_CACHE: '2684354560' # 20x
+#      TT_IPROTO_NET_MSG_MAX: '76800' # 100x
+#      TT_MEMTX_MEMORY: '268435456' # 1x
+#      TT_VINYL_PAGE_SIZE: '8192' # 1x
+#    volumes:
+#      - ./opt__tarantool__app__config.yaml:/opt/tarantool/app/config.yaml
+#      - ./_tmpdb/var_lib_tarantool:/var/lib/tarantool # 2.11
+#    ports:
+#      - "3302:3301"
+
   clickhouse1:
-    image: clickhouse/clickhouse-server:23.11.2.11
+    image: clickhouse/clickhouse-server:24
     # previously: 23.4.2.11
     ports:
       - "8124:8123"
@@ -32,7 +48,10 @@ services:
       nofile:
         soft: 262144
         hard: 262144
+    user: 1000:1000
     volumes:
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
       - ./_tmpdb/var_lib_clickhouse:/var/lib/clickhouse
 
   mailhog1:

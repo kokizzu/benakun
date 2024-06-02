@@ -5,7 +5,7 @@ package rqBusiness
 import (
 	"benakun/model/mBusiness"
 
-	"github.com/tarantool/go-tarantool"
+	"github.com/tarantool/go-tarantool/v2"
 
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/D/Tt"
@@ -536,14 +536,21 @@ func (p *Products) UniqueIndexId() string { //nolint:dupl false positive
 
 // FindById Find one by Id
 func (p *Products) FindById() bool { //nolint:dupl false positive
-	res, err := p.Adapter.Select(p.SpaceName(), p.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{p.Id})
+	res, err := p.Adapter.RetryDo(
+		tarantool.NewSelectRequest(p.SpaceName()).
+			Index(p.UniqueIndexId()).
+			Limit(1).
+			Iterator(tarantool.IterEq).
+			Key(tarantool.UintKey{I: uint(p.Id)}),
+	)
 	if L.IsError(err, `Products.FindById failed: `+p.SpaceName()) {
 		return false
 	}
-	rows := res.Tuples()
-	if len(rows) == 1 {
-		p.FromArray(rows[0])
-		return true
+	if len(res) == 1 {
+		if row, ok := res[0].([]any); ok {
+			p.FromArray(row)
+			return true
+		}
 	}
 	return false
 }
@@ -587,23 +594,22 @@ func (p *Products) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 }
 
 // ToUpdateArray generate slice of update command
-func (p *Products) ToUpdateArray() A.X { //nolint:dupl false positive
-	return A.X{
-		A.X{`=`, 0, p.Id},
-		A.X{`=`, 1, p.TenantCode},
-		A.X{`=`, 2, p.CreatedAt},
-		A.X{`=`, 3, p.CreatedBy},
-		A.X{`=`, 4, p.UpdatedAt},
-		A.X{`=`, 5, p.UpdatedBy},
-		A.X{`=`, 6, p.DeletedAt},
-		A.X{`=`, 7, p.DeletedBy},
-		A.X{`=`, 8, p.RestoredBy},
-		A.X{`=`, 9, p.Name},
-		A.X{`=`, 10, p.Detail},
-		A.X{`=`, 11, p.Rule},
-		A.X{`=`, 12, p.Kind},
-		A.X{`=`, 13, p.CogsIDR},
-	}
+func (p *Products) ToUpdateArray() *tarantool.Operations { //nolint:dupl false positive
+	return tarantool.NewOperations().
+		Assign(0, p.Id).
+		Assign(1, p.TenantCode).
+		Assign(2, p.CreatedAt).
+		Assign(3, p.CreatedBy).
+		Assign(4, p.UpdatedAt).
+		Assign(5, p.UpdatedBy).
+		Assign(6, p.DeletedAt).
+		Assign(7, p.DeletedBy).
+		Assign(8, p.RestoredBy).
+		Assign(9, p.Name).
+		Assign(10, p.Detail).
+		Assign(11, p.Rule).
+		Assign(12, p.Kind).
+		Assign(13, p.CogsIDR)
 }
 
 // IdxId return name of the index
@@ -811,13 +817,22 @@ func (p *Products) FromUncensoredArray(a A.X) *Products { //nolint:dupl false po
 // FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
 func (p *Products) FindOffsetLimit(offset, limit uint32, idx string) []Products { //nolint:dupl false positive
 	var rows []Products
-	res, err := p.Adapter.Select(p.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	res, err := p.Adapter.RetryDo(
+		tarantool.NewSelectRequest(p.SpaceName()).
+			Index(idx).
+			Offset(offset).
+			Limit(limit).
+			Iterator(tarantool.IterAll),
+	)
 	if L.IsError(err, `Products.FindOffsetLimit failed: `+p.SpaceName()) {
 		return rows
 	}
-	for _, row := range res.Tuples() {
+	for _, row := range res {
 		item := Products{}
-		rows = append(rows, *item.FromArray(row))
+		row, ok := row.([]any)
+		if ok {
+			rows = append(rows, *item.FromArray(row))
+		}
 	}
 	return rows
 }
@@ -825,16 +840,28 @@ func (p *Products) FindOffsetLimit(offset, limit uint32, idx string) []Products 
 // FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
 func (p *Products) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
 	var rows []A.X
-	res, err := p.Adapter.Select(p.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	resp, err := p.Adapter.RetryDoResp(
+		tarantool.NewSelectRequest(p.SpaceName()).
+			Index(idx).
+			Offset(offset).
+			Limit(limit).
+			Iterator(tarantool.IterAll),
+	)
 	if L.IsError(err, `Products.FindOffsetLimit failed: `+p.SpaceName()) {
-		return rows, Tt.QueryMetaFrom(res, err)
+		return rows, Tt.QueryMetaFrom(resp, err)
 	}
-	tuples := res.Tuples()
-	rows = make([]A.X, len(tuples))
-	for z, row := range tuples {
-		rows[z] = row
+	res, err := resp.Decode()
+	if L.IsError(err, `Products.FindOffsetLimit failed: `+p.SpaceName()) {
+		return rows, Tt.QueryMetaFrom(resp, err)
 	}
-	return rows, Tt.QueryMetaFrom(res, nil)
+	rows = make([]A.X, len(res))
+	for _, row := range res {
+		row, ok := row.([]any)
+		if ok {
+			rows = append(rows, row)
+		}
+	}
+	return rows, Tt.QueryMetaFrom(resp, nil)
 }
 
 // Total count number of rows

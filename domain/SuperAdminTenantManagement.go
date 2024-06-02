@@ -47,12 +47,12 @@ var SuperAdminTenantManagementMeta = zCrud.Meta{
 			Label:     "ID",
 			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeHidden,
-			ReadOnly: true,
+			ReadOnly:  true,
 		},
 		{
-			Name:      mAuth.TenantCode,
-			Label:     "Tenant Code",
-			DataType:  zCrud.DataTypeString,
+			Name:     mAuth.TenantCode,
+			Label:    "Tenant Code",
+			DataType: zCrud.DataTypeString,
 			ReadOnly: true,
 		},
 		{
@@ -140,7 +140,7 @@ func (d *Domain) SuperAdminTenantManagement(in *SuperAdminTenantManagementIn) (o
 			}
 		}
 
-		if !tenant.DoUpsert() {
+		if !tenant.DoUpsertById() {
 			out.SetError(500, ErrTenantSaveFailed)
 		}
 

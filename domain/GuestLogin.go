@@ -68,7 +68,7 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 	}
 	user.SetLastLoginAt(in.UnixNow())
 	user.SetUpdatedAt(in.UnixNow())
-	if !user.DoUpsert() {
+	if !user.DoUpdateById() {
 		out.AddTrace(WarnFailedSetLastLoginAt)
 		return
 	}
