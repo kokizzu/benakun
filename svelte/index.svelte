@@ -26,7 +26,7 @@
     const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
     if (match) return match[2];
   }
-  
+
   // server state
   const title = '#{title}'; // /*! title */ {/* title */} [/* title */]
   // TODO: print session or fetch from cookie
@@ -59,7 +59,10 @@
     await tick();
   }
 
-  onMount(() => onHashChange() );
+  onMount(() => {
+	  console.log('',)
+	  onHashChange()
+  } );
 
   async function guestRegister() {
     isSubmitted = true;
@@ -157,12 +160,18 @@
     });
   }
 
-  let tenantCode = '', companyName = '', headTitle = '';
-  let isSubmitCreateCompany = false;
+  let myCompany = {/* myCompany */};
+  onMount(()=>{
+	  console.log('myCompany', myCompany)
+  })
+  let tenantCode = myCompany.tenantCode || '',
+	  companyName = myCompany.name || '',
+	  headTitle = myCompany.headTitle || '';
+  let hasCreatedCompany = false;
   async function userCreateCompany() {
-    isSubmitCreateCompany = true;
+    hasCreatedCompany = true;
     if (!tenantCode || !companyName || !headTitle) {
-      isSubmitCreateCompany = false;
+      hasCreatedCompany = false;
       notifier.showWarning('All fields are required');
       return;
     }
@@ -171,11 +180,11 @@
       /** @type {import('./jsApi.GEN.js').UserCreateCompanyCallback} */ function (/** @type {any} */ o) {
         if (o.error) {
           console.log(o);
-          isSubmitCreateCompany = false;
+          hasCreatedCompany = false;
           notifier.showError(o.error);
           return;
         }
-        isSubmitCreateCompany = false;
+        hasCreatedCompany = false;
         console.log(o);
         notifier.showSuccess('Company created successfully');
         setTimeout(() => window.location.reload(), 1200);
@@ -188,19 +197,20 @@
 
 {#if mode === USER}
   <MainLayout>
-    {#if !user.tenantCode && !user.invitationState}
       <section class="create_company">
         <header>
           <h2>Create Company</h2>
+				<h3>use this if you have your own company you want to be associated with this email: <i>{user.email}</i></h3>
         </header>
         <div class="form">
           <InputBox id="tenantCode" label="Tenant Code" bind:value={tenantCode} type="text" placeholder="axrpr" />
           <InputBox id="companyName" label="Company Name" bind:value={companyName} type="text" placeholder="My Company" />
-          <InputBox id="headTitle" label="Head Title" bind:value={headTitle} type="text" placeholder="Mr. Smith" />
-          <SubmitButton on:click={userCreateCompany} isSubmitted={isSubmitCreateCompany} isFullWidth />
+          <InputBox id="headTitle" label="Head Title" bind:value={headTitle} type="text" placeholder="Director, CEO, President, etc" />
+          <SubmitButton on:click={userCreateCompany} isSubmitted={hasCreatedCompany} isFullWidth />
         </div>
       </section>
-    {/if}
+
+	  <!-- TODO:HABIBI list of companies i joined (see hostmapper), show in: table of tenantCode, CompanyName (link to hostmapper) -->
   </MainLayout>
 {:else}
   <section class="auth_section">
@@ -255,7 +265,7 @@
                 <img src="/assets/icons/google.svg" alt="Google" />
                 <span>Continue with Google</span>
               </a>
-            
+
           </div>
         {/if}
         <div class="foot_auth">
@@ -439,7 +449,7 @@
     width: 400px;
     background-color: #FFF;
     border-radius: 10px;
-    border: 1px solid var(--gray-002);    
+    border: 1px solid var(--gray-002);
     padding: 20px;
   }
 

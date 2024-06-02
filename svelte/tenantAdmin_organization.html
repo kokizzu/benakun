@@ -6042,7 +6042,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       id: "headTitle",
       label: "Head Title",
       type: "text",
-      placeholder: "Mr. Smith"
+      placeholder: "Director, CEO, President, etc"
     };
     if (
       /*headTitle*/
@@ -7730,7 +7730,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     onMount(() => {
       $invalidate(0, REFORMAT_ORGS = reformatorgs());
-      console.log(orgs);
+      console.log("REFORMAT_ORGS", REFORMAT_ORGS);
+      console.log("orgs", orgs);
     });
     let infoOrg;
     if (orgs && orgs.length)

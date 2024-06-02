@@ -1,17 +1,18 @@
 package domain
 
 import (
-	"benakun/model/mAuth"
-	"benakun/model/mAuth/rqAuth"
-	"benakun/model/mAuth/wcAuth"
-	"benakun/model/mFinance"
-	"benakun/model/mFinance/wcFinance"
 	"crypto/rand"
 	"errors"
 	"fmt"
 	"math/big"
 	"strings"
 	"unicode"
+
+	"benakun/model/mAuth"
+	"benakun/model/mAuth/rqAuth"
+	"benakun/model/mAuth/wcAuth"
+	"benakun/model/mFinance"
+	"benakun/model/mFinance/wcFinance"
 
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/I"
@@ -57,7 +58,9 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 		return
 	}
 
-	if in.TenantCode == `` || !isLetter(in.TenantCode){
+	// TODO:HABIBI make this idempotent
+
+	if in.TenantCode == `` || !isLetter(in.TenantCode) {
 		out.SetError(400, ErrUserCreateCompanyTenantCodeInvalid)
 		return
 	}
@@ -80,6 +83,7 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 	}
 
 	org := wcAuth.NewOrgsMutator(d.AuthOltp)
+
 	org.SetTenantCode(fmt.Sprintf("%s-%s", in.TenantCode, generate4RandomNumber()))
 	org.SetHeadTitle(in.HeadTitle)
 	org.SetName(in.CompanyName)
@@ -89,7 +93,7 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 	org.SetUpdatedAt(in.UnixNow())
 	org.SetUpdatedBy(sess.UserId)
 
-	if !org.DoInsert() {
+	if !org.DoUpsertById() {
 		out.SetError(400, ErrUserCreateCompanyAlreadyAdded)
 		return
 	}
@@ -159,7 +163,7 @@ func generateCoaLevels(ta *Tt.Adapter, tenantCode string) error {
 				if err != nil {
 					return err
 				}
-				
+
 				children = append(children, childId)
 			}
 

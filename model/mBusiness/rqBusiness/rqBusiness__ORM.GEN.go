@@ -64,14 +64,21 @@ func (l *Locations) UniqueIndexId() string { //nolint:dupl false positive
 
 // FindById Find one by Id
 func (l *Locations) FindById() bool { //nolint:dupl false positive
-	res, err := l.Adapter.Select(l.SpaceName(), l.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{l.Id})
+	res, err := l.Adapter.RetryDo(
+		tarantool.NewSelectRequest(l.SpaceName()).
+			Index(l.UniqueIndexId()).
+			Limit(1).
+			Iterator(tarantool.IterEq).
+			Key(tarantool.UintKey{I: uint(l.Id)}),
+	)
 	if L.IsError(err, `Locations.FindById failed: `+l.SpaceName()) {
 		return false
 	}
-	rows := res.Tuples()
-	if len(rows) == 1 {
-		l.FromArray(rows[0])
-		return true
+	if len(res) == 1 {
+		if row, ok := res[0].([]any); ok {
+			l.FromArray(row)
+			return true
+		}
 	}
 	return false
 }
@@ -127,29 +134,28 @@ func (l *Locations) SqlSelectAllUncensoredFields() string { //nolint:dupl false 
 }
 
 // ToUpdateArray generate slice of update command
-func (l *Locations) ToUpdateArray() A.X { //nolint:dupl false positive
-	return A.X{
-		A.X{`=`, 0, l.Id},
-		A.X{`=`, 1, l.TenantCode},
-		A.X{`=`, 2, l.CreatedAt},
-		A.X{`=`, 3, l.CreatedBy},
-		A.X{`=`, 4, l.UpdatedAt},
-		A.X{`=`, 5, l.UpdatedBy},
-		A.X{`=`, 6, l.DeletedAt},
-		A.X{`=`, 7, l.DeletedBy},
-		A.X{`=`, 8, l.RestoredBy},
-		A.X{`=`, 9, l.Name},
-		A.X{`=`, 10, l.Country},
-		A.X{`=`, 11, l.StateProvice},
-		A.X{`=`, 12, l.CityRegency},
-		A.X{`=`, 13, l.Subdistrict},
-		A.X{`=`, 14, l.Village},
-		A.X{`=`, 15, l.RwBanjar},
-		A.X{`=`, 16, l.RtNeigb},
-		A.X{`=`, 17, l.Address},
-		A.X{`=`, 18, l.Lat},
-		A.X{`=`, 19, l.Lng},
-	}
+func (l *Locations) ToUpdateArray() *tarantool.Operations { //nolint:dupl false positive
+	return tarantool.NewOperations().
+		Assign(0, l.Id).
+		Assign(1, l.TenantCode).
+		Assign(2, l.CreatedAt).
+		Assign(3, l.CreatedBy).
+		Assign(4, l.UpdatedAt).
+		Assign(5, l.UpdatedBy).
+		Assign(6, l.DeletedAt).
+		Assign(7, l.DeletedBy).
+		Assign(8, l.RestoredBy).
+		Assign(9, l.Name).
+		Assign(10, l.Country).
+		Assign(11, l.StateProvice).
+		Assign(12, l.CityRegency).
+		Assign(13, l.Subdistrict).
+		Assign(14, l.Village).
+		Assign(15, l.RwBanjar).
+		Assign(16, l.RtNeigb).
+		Assign(17, l.Address).
+		Assign(18, l.Lat).
+		Assign(19, l.Lng)
 }
 
 // IdxId return name of the index
@@ -435,13 +441,22 @@ func (l *Locations) FromUncensoredArray(a A.X) *Locations { //nolint:dupl false 
 // FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
 func (l *Locations) FindOffsetLimit(offset, limit uint32, idx string) []Locations { //nolint:dupl false positive
 	var rows []Locations
-	res, err := l.Adapter.Select(l.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	res, err := l.Adapter.RetryDo(
+		tarantool.NewSelectRequest(l.SpaceName()).
+			Index(idx).
+			Offset(offset).
+			Limit(limit).
+			Iterator(tarantool.IterAll),
+	)
 	if L.IsError(err, `Locations.FindOffsetLimit failed: `+l.SpaceName()) {
 		return rows
 	}
-	for _, row := range res.Tuples() {
+	for _, row := range res {
 		item := Locations{}
-		rows = append(rows, *item.FromArray(row))
+		row, ok := row.([]any)
+		if ok {
+			rows = append(rows, *item.FromArray(row))
+		}
 	}
 	return rows
 }
@@ -449,16 +464,28 @@ func (l *Locations) FindOffsetLimit(offset, limit uint32, idx string) []Location
 // FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
 func (l *Locations) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
 	var rows []A.X
-	res, err := l.Adapter.Select(l.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	resp, err := l.Adapter.RetryDoResp(
+		tarantool.NewSelectRequest(l.SpaceName()).
+			Index(idx).
+			Offset(offset).
+			Limit(limit).
+			Iterator(tarantool.IterAll),
+	)
 	if L.IsError(err, `Locations.FindOffsetLimit failed: `+l.SpaceName()) {
-		return rows, Tt.QueryMetaFrom(res, err)
+		return rows, Tt.QueryMetaFrom(resp, err)
 	}
-	tuples := res.Tuples()
-	rows = make([]A.X, len(tuples))
-	for z, row := range tuples {
-		rows[z] = row
+	res, err := resp.Decode()
+	if L.IsError(err, `Locations.FindOffsetLimit failed: `+l.SpaceName()) {
+		return rows, Tt.QueryMetaFrom(resp, err)
 	}
-	return rows, Tt.QueryMetaFrom(res, nil)
+	rows = make([]A.X, len(res))
+	for _, row := range res {
+		row, ok := row.([]any)
+		if ok {
+			rows = append(rows, row)
+		}
+	}
+	return rows, Tt.QueryMetaFrom(resp, nil)
 }
 
 // Total count number of rows

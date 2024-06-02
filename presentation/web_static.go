@@ -28,11 +28,21 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 		google.ResponseCommon.DecorateSession(c)
 
+		// find company owned by this user
+		myCompany := rqAuth.NewOrgs(d.AuthOltp)
+		if user.TenantCode != `` {
+			myCompany.TenantCode = user.TenantCode
+			myCompany.FindCompanyByTenantCode()
+		}
+
+		// TODO:HABIBI find companies this user associated as staff
+
 		return views.RenderIndex(c, M.SX{
-			`title`:    `BenAkun`,
-			`user`:     user,
-			`google`:   google.Link,
-			`segments`: segments,
+			`title`:     `BenAkun`,
+			`user`:      user,
+			`myCompany`: myCompany,
+			`google`:    google.Link,
+			`segments`:  segments,
 		})
 	})
 
@@ -265,7 +275,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 
 		r := rqAuth.NewUsers(d.AuthOltp)
 		staffs := r.FindStaffsChoicesByTenantCode(user.TenantCode)
-		
+
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.TenantAdminBankAccounts(&in)
@@ -274,9 +284,9 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`user`:     user,
 			`segments`: segments,
 			`accounts`: out.Accounts,
-			`fields`: out.Meta.Fields,
-			`pager`: out.Pager,
-			`staffs`: staffs,
+			`fields`:   out.Meta.Fields,
+			`pager`:    out.Pager,
+			`staffs`:   staffs,
 		})
 	})
 

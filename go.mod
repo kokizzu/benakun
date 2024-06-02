@@ -12,7 +12,7 @@ require (
 	github.com/gofiber/fiber/v2 v2.52.4
 	github.com/joho/godotenv v1.4.0
 	github.com/kokizzu/ch-timed-buffer v1.2025.1416
-	github.com/kokizzu/gotro v1.4131.654
+	github.com/kokizzu/gotro v1.4202.2154
 	github.com/kokizzu/id64 v1.2829.1452
 	github.com/kokizzu/lexid v1.2423.1347
 	github.com/kpango/fastime v1.1.9
@@ -22,11 +22,12 @@ require (
 	github.com/segmentio/fasthash v1.0.3
 	github.com/stretchr/testify v1.9.0
 	github.com/tarantool/go-tarantool v1.12.2
+	github.com/tarantool/go-tarantool/v2 v2.1.0
 	github.com/vburenin/nsync v0.0.0-20160822015540-9a75d1c80410
 	github.com/wneessen/go-mail v0.4.0
 	github.com/yosuke-furukawa/json5 v0.1.1
 	github.com/zeebo/xxh3 v1.0.2
-	golang.org/x/exp v0.0.0-20240530194437-404ba88c7ed0
+	golang.org/x/exp v0.0.0-20240531132922-fd00a4e0eefc
 	golang.org/x/oauth2 v0.0.0-20220524215830-622c5d57e401
 	golang.org/x/sync v0.7.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
@@ -99,7 +100,6 @@ require (
 	github.com/spacemonkeygo/spacelog v0.0.0-20180420211403-2296661a0572 // indirect
 	github.com/tarantool/go-iproto v1.0.0 // indirect
 	github.com/tarantool/go-openssl v1.0.0 // indirect
-	github.com/tarantool/go-tarantool/v2 v2.1.0 // indirect
 	github.com/tdewolff/minify v2.3.6+incompatible // indirect
 	github.com/tdewolff/parse v2.3.4+incompatible // indirect
 	github.com/tinylib/msgp v1.1.8 // indirect
