@@ -5,6 +5,7 @@ import (
 	"benakun/model/mBudget"
 	"benakun/model/mBudget/rqBudget"
 	"benakun/model/mBudget/wcBudget"
+	"time"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminUpsertBudgetPlan.go
@@ -91,6 +92,9 @@ func (d *Domain) TenantAdminUpsertBudgetPlan(in *TenantAdminUpsertBudgetPlanIn) 
 		}
 	}
 	plan.SetAll(in.Plan, nil, nil)
+	if in.Plan.YearOf == 0 {
+		plan.SetYearOf(uint64(time.Now().Year()))
+	}
 
 	differentPlanId := in.Plan.Id != plan.Id
 	switch plan.PlanType {
@@ -116,7 +120,7 @@ func (d *Domain) TenantAdminUpsertBudgetPlan(in *TenantAdminUpsertBudgetPlanIn) 
 		return
 	}
 
-	plans := wcBudget.NewPlansMutator(d.AuthOltp)
+	plans := rqBudget.NewPlans(d.AuthOltp)
 	toPlans := plans.FindPlansByOrg(plan.OrgId)
 
 	out.Plans = &toPlans

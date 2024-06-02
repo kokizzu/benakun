@@ -9955,21 +9955,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let submitState = submitStateAdd;
     async function submitUpsertPlan() {
       $invalidate(9, isSubmitPlan = true);
-      const i = {
-        plan: {
-          id: "" + plan.id,
-          planType,
-          title,
-          description,
-          yearOf: Number(yearOf),
-          budgetIDR: Number(budgetIDR),
-          budgetUSD: Number(budgetUSD),
-          quantity: Number(quantity),
-          unit
-        }
+      let planPayload = {
+        id: submitState == "add" ? "0" : plan.id,
+        planType,
+        title,
+        description,
+        yearOf: Number(yearOf),
+        budgetIDR: Number(budgetIDR),
+        budgetUSD: Number(budgetUSD),
+        quantity: Number(quantity),
+        unit,
+        parentId: plan.id
       };
       await (0, import_jsApi_GEN2.TenantAdminUpsertBudgetPlan)(
-        i,
+        //@ts-ignore
+        { plan: planPayload },
         /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanCallback} */
         function(o) {
           $invalidate(9, isSubmitPlan = false);
@@ -10006,6 +10006,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         case submitStateAdd: {
           submitState = submitStateAdd;
           $invalidate(1, headingPopUp = "Add activity");
+          planType = PlanTypeActivity;
           break;
         }
         case submitStateEdit: {
@@ -11614,7 +11615,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let submitState = submitStateAdd2;
     async function submitUpsertPlan() {
       $invalidate(19, isSubmitPlan = true);
-      const idStr = id + "";
+      const idStr = submitState == "add" ? "0" : id.toString();
       const i = {
         //@ts-ignore
         plan: {
@@ -11623,6 +11624,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           title,
           description,
           yearOf: Number(yearOf),
+          orgId: org.id,
           budgetIDR: Number(budgetIDR),
           budgetUSD: Number(budgetUSD),
           unit,
