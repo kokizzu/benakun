@@ -1054,6 +1054,7 @@ exports.TenantAdminCoa = async function TenantAdminCoa( i, cb ) {
  * @property {String} cmd
  * @property {String} staffEmail
  * @property {String} tenantCode
+ * @property {String} role
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -1064,6 +1065,7 @@ const TenantAdminDashboardIn = {
   cmd: '', // string
   staffEmail: '', // string
   tenantCode: '', // string
+  role: '', // string
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
     page: 0, // int
@@ -1226,6 +1228,26 @@ exports.TenantAdminGetBudgetPlans = async function TenantAdminGetBudgetPlans( i,
  * @property {number} pager.perPage
  * @property {Object} pager.filters
  * @property {Array<String>} pager.order
+ * @property {number} location.id
+ * @property {String} location.tenantCode
+ * @property {number} location.createdAt
+ * @property {number} location.createdBy
+ * @property {number} location.updatedAt
+ * @property {number} location.updatedBy
+ * @property {number} location.deletedAt
+ * @property {number} location.deletedBy
+ * @property {number} location.restoredBy
+ * @property {String} location.name
+ * @property {String} location.country
+ * @property {String} location.stateProvice
+ * @property {String} location.cityRegency
+ * @property {String} location.subdistrict
+ * @property {String} location.village
+ * @property {String} location.rwBanjar
+ * @property {String} location.rtNeigb
+ * @property {String} location.address
+ * @property {number} location.lat
+ * @property {number} location.lng
  */
 const TenantAdminLocationsIn = {
   cmd: '', // string
@@ -1237,6 +1259,28 @@ const TenantAdminLocationsIn = {
     }, // map[string][]string
     order: [], // []string
   }, // zCrud.PagerIn
+  location: { // rqBusiness.Locations
+    id: 0, // uint64
+    tenantCode: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    name: '', // string
+    country: '', // string
+    stateProvice: '', // string
+    cityRegency: '', // string
+    subdistrict: '', // string
+    village: '', // string
+    rwBanjar: '', // string
+    rtNeigb: '', // string
+    address: '', // string
+    lat: 0, // float64
+    lng: 0, // float64
+  }, // rqBusiness.Locations
 }
 /**
  * @typedef {Object} TenantAdminLocationsOut
@@ -1249,6 +1293,27 @@ const TenantAdminLocationsIn = {
  * @property {Object} meta.fields
  * @property {Object} meta.mutex
  * @property {String} meta.cachedSelect
+ * @property {number} location.id
+ * @property {String} location.tenantCode
+ * @property {number} location.createdAt
+ * @property {number} location.createdBy
+ * @property {number} location.updatedAt
+ * @property {number} location.updatedBy
+ * @property {number} location.deletedAt
+ * @property {number} location.deletedBy
+ * @property {number} location.restoredBy
+ * @property {String} location.name
+ * @property {String} location.country
+ * @property {String} location.stateProvice
+ * @property {String} location.cityRegency
+ * @property {String} location.subdistrict
+ * @property {String} location.village
+ * @property {String} location.rwBanjar
+ * @property {String} location.rtNeigb
+ * @property {String} location.address
+ * @property {number} location.lat
+ * @property {number} location.lng
+ * @property {Object} locations
  */
 const TenantAdminLocationsOut = {
   pager: { // zCrud.PagerOut
@@ -1267,6 +1332,30 @@ const TenantAdminLocationsOut = {
     }, // sync.Mutex
     cachedSelect: '', // string
   }, // zCrud.Meta
+  location: { // rqBusiness.Locations
+    id: 0, // uint64
+    tenantCode: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    name: '', // string
+    country: '', // string
+    stateProvice: '', // string
+    cityRegency: '', // string
+    subdistrict: '', // string
+    village: '', // string
+    rwBanjar: '', // string
+    rtNeigb: '', // string
+    address: '', // string
+    lat: 0, // float64
+    lng: 0, // float64
+  }, // rqBusiness.Locations
+  locations: { // [][]any
+  }, // [][]any
 }
 /**
  * @callback TenantAdminLocationsCallback
@@ -1630,7 +1719,7 @@ const TenantAdminUpsertBudgetPlanIn = {
     title: '', // string
     description: '', // string
     orgId: 0, // uint64
-    yearOf: 0, // int64
+    yearOf: 0, // uint64
     budgetIDR: 0, // int64
     budgetUSD: 0, // int64
     quantity: 0, // int64

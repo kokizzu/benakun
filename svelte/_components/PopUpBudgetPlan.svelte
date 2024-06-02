@@ -11,7 +11,7 @@
 	export let description = '';
 	export let yearOf = 0;
 	export let budgetIDR = 0;
-	export let budgetUSD = 0;
+	// export let budgetUSD = 0;
 	export let quantity = 0;
 	export let unit = '';
 	export let planType = 'vision';

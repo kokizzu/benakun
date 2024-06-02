@@ -19,6 +19,8 @@ SELECT ` + p.SqlSelectAllFields() + `
 FROM SEQSCAN ` + p.SqlTableName() +
 		whereAndSql
 
+	L.Print(`Query:`, queryRows)
+	
 	p.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0])
 		plans = append(plans, *p.FromArray(row))

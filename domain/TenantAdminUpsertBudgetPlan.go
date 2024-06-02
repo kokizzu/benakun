@@ -1,6 +1,8 @@
 package domain
 
 import (
+	"time"
+
 	"benakun/model/mAuth/wcAuth"
 	"benakun/model/mBudget"
 	"benakun/model/mBudget/rqBudget"
@@ -100,6 +102,9 @@ func (d *Domain) TenantAdminUpsertBudgetPlan(in *TenantAdminUpsertBudgetPlanIn) 
 	}
 	plan.SetUpdatedAt(in.UnixNow())
 	plan.SetUpdatedBy(sess.UserId)
+	if in.Plan.YearOf == 0 {
+		plan.SetYearOf(uint64(time.Now().Year()))
+	}
 
 	differentPlanId := in.Plan.Id != plan.Id
 	switch plan.PlanType {
@@ -123,7 +128,7 @@ func (d *Domain) TenantAdminUpsertBudgetPlan(in *TenantAdminUpsertBudgetPlanIn) 
 		return
 	}
 
-	plans := wcBudget.NewPlansMutator(d.AuthOltp)
+	plans := rqBudget.NewPlans(d.AuthOltp)
 	toPlans := plans.FindPlansByOrg(plan.OrgId)
 
 	out.Plans = &toPlans

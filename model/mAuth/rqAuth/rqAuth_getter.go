@@ -126,8 +126,6 @@ func (u *Users) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud
 	validFields := UsersFieldTypeMap
 	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
 
-	L.Print(`whereAndSQL:`, whereAndSql)
-
 	queryCount := comment + `
 SELECT COUNT(1)
 FROM SEQSCAN ` + u.SqlTableName() + whereAndSql + `
