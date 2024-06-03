@@ -4,7 +4,8 @@
 		RiDesignBallPenLine,
 		RiSystemDeleteBin5Line,
 		RiSystemFilterLine,
-		RiArrowsArrowGoBackLine
+		RiArrowsArrowGoBackLine,
+		RiSystemInformationLine,
 	} from '../node_modules/svelte-icons-pack/dist/ri';
   import { IoSearch, IoClose } from '../node_modules/svelte-icons-pack/dist/io';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
@@ -24,9 +25,10 @@
 	/** @typedef {import('./types/master.js').PagerOut} PagerOut */ // @ts-ignore
 	/** @typedef {import('./types/master.js').PagerIn} PagerIn */
 
-	export let FIELDS					= /** @type Field[] */  ([]);	// bind
-	export let PAGER					= /** @type PagerOut */ ({}); // bind
-	export let MASTER_ROWS		= /** @type any[][] */	([]); // bind
+	export let FIELDS						= /** @type Field[] */  ([]);	// bind
+	export let PAGER						= /** @type PagerOut */ ({}); // bind
+	export let MASTER_ROWS			= /** @type any[][] */	([]); // bind
+	export let REFS							= {};
 	
 	export let ACCESS						= /** @type Access */ ({});
 	export let ARRAY_OF_ARRAY		= true;
@@ -34,6 +36,7 @@
 	export let CAN_EDIT_ROW 		= true;
 	export let CAN_DELETE_ROW 	= false;
 	export let CAN_RESTORE_ROW	= false;
+	export let CAN_SHOW_INFO		= false;
 
 	// State for loading if hit ajax
 	let isAjaxSubmitted = false;
@@ -156,10 +159,11 @@
 	})
 
 	// Export function, forward parameter to parent
-	export let OnRestore = async function(/** @type any[]*/ row) {}
-	export let OnDelete = async function(/** @type any[]*/ row) {}
-	export let OnEdit = async function(/** @type any */ id, /** @type any[]*/ payloads) {}
-	export let OnRefresh = async function(/** @type PagerIn */ pagerIn) {}
+	export let OnRestore 	= async function(/** @type any[]*/ row) {}
+	export let OnDelete 	= async function(/** @type any[]*/ row) {}
+	export let OnEdit 		= async function(/** @type any */ id, /** @type any[]*/ payloads) {}
+	export let OnRefresh	= async function(/** @type PagerIn */ pagerIn) {}
+	export let OnInfo 		= async function(/** @type any[] */ row) {}	
 
 	function ApplyFilter() {
 		// Hide FilterTable.svelte
@@ -252,14 +256,25 @@
 				{#each (FIELDS || []) as field, idx}
 					{#if field.name !== 'id'}
 						{#if !field.readOnly}
-							<InputCustom
-								id={field.name}
-								label={field.label}
-								placeholder={field.description}
-								bind:value={payloads[idx]}
-								type={field.inputType}
-								values={field.ref}
-							/>
+							{#if field.inputType === 'combobox'}
+								<InputCustom
+									id={field.name}
+									label={field.label}
+									placeholder={field.description}
+									bind:value={payloads[idx]}
+									type={field.inputType}
+									values={REFS[field.name] ? REFS[field.name] : field.ref}
+									isObject={REFS[field.name] ? true : false}
+								/>
+							{:else}
+								<InputCustom
+									id={field.name}
+									label={field.label}
+									placeholder={field.description}
+									bind:value={payloads[idx]}
+									type={field.inputType}
+								/>
+							{/if}
 						{/if}
 					{/if}
 				{/each}
@@ -330,7 +345,10 @@
 						{#if f.name === 'id'}
 							<th class="a_row">Actions</th>
 						{:else}
-							<th>{f.label}</th>
+							<th class="
+								{f.inputType === 'textarea' ? 'textarea' : ''}
+								{f.inputType === 'datetime' ? 'datetime' : ''}
+							">{f.label}</th>
 						{/if}
 					{/each}
 				</tr>
@@ -354,6 +372,19 @@
 											|| ACCESS.reportViewer
 										}
 											<div class="actions">	
+												{#if CAN_SHOW_INFO}
+													<button
+														class="btn info"
+														title="Info"
+														on:click={() => OnInfo(row)}
+													>
+														<Icon
+															size="15"
+															color="var(--gray-007)"
+															src={RiSystemInformationLine}
+														/>
+													</button>
+												{/if}
 												{#if CAN_EDIT_ROW}
 													<button
 														class="btn edit"
@@ -401,6 +432,8 @@
 									</td>
 								{:else if f.inputType === 'datetime'}
 									<td>{(row[idx]) ? datetime(row[idx]) : '--'}</td>
+								{:else if f.inputType === 'combobox' && REFS[f.name]}
+									<td>{REFS[f.name][row[idx]] || '--'}</td>	
 								{:else}
 									<td>
 										{(typeof row[idx] === 'boolean')
@@ -760,8 +793,17 @@
 		text-transform: capitalize;
 		border-bottom: 1px solid var(--gray-003);
 		min-width: fit-content;
+		width: auto;
     text-wrap: nowrap;
   }
+
+	.table_root .table_container table thead tr th.textarea {
+		min-width: 280px !important;
+	}
+
+	.table_root .table_container table thead tr th.datetime {
+		min-width: 140px !important;
+	}
 
 	.table_root .table_container table tbody tr.deleted {
 		color: var(--red-005);

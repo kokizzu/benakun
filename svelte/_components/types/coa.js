@@ -11,6 +11,6 @@
   * @property {number} updatedAt
   * @property {string} updatedBy
   * @property {number} deletedAt
-  * @property {Array<CoA>} children
+  * @property {CoA[]} children
   */
 module.exports = {};

@@ -81,7 +81,6 @@ var SuperAdminUserManagementMeta = zCrud.Meta{
 			Ref: []string{
 				mAuth.RoleUser, mAuth.RoleDataEntry, mAuth.RoleReportViewer, mAuth.RoleTenantAdmin,
 			},
-			ReadOnly: true,
 		},
 		{
 			Name:      mAuth.CreatedAt,

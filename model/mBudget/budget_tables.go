@@ -124,7 +124,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Title, Tt.String},
 			{Description, Tt.String},
 			{OrgId, Tt.Unsigned},
-			{YearOf, Tt.Integer},
+			{YearOf, Tt.Unsigned},
 			{BudgetIDR, Tt.Integer},
 			{BudgetUSD, Tt.Integer},
 			{Quantity, Tt.Integer},

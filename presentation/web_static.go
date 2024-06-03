@@ -146,6 +146,30 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.TenantAdminLocationsAction, func(ctx *fiber.Ctx) error {
+		var in domain.TenantAdminLocationsIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminLocationsAction)
+		if err != nil {
+			return err
+		}
+		if notTenantLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Cmd = zCrud.CmdList
+		out := d.TenantAdminLocations(&in)
+		return views.RenderTenantAdminLocations(ctx, M.SX{
+			`title`:    `Tenant Admin Locations`,
+			`user`:     user,
+			`segments`: segments,
+			`fields`: out.Meta.Fields,
+			`pager`: out.Pager,
+			`locations`: out.Locations,
+		})
+	})
+
 	fw.Get(`/`+domain.TenantAdminProductsAction, func(ctx *fiber.Ctx) error {
 		var in domain.TenantAdminProductsIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminProductsAction)
@@ -244,6 +268,10 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`, 302)
 		}
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
+
+		r := rqAuth.NewUsers(d.AuthOltp)
+		staffs := r.FindStaffsChoicesByTenantCode(user.TenantCode)
+		
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.TenantAdminBankAccounts(&in)
@@ -252,8 +280,9 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`user`:     user,
 			`segments`: segments,
 			`accounts`: out.Accounts,
-			`fields`:   out.Meta.Fields,
-			`pager`:    out.Pager,
+			`fields`: out.Meta.Fields,
+			`pager`: out.Pager,
+			`staffs`: staffs,
 		})
 	})
 

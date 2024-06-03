@@ -15,6 +15,7 @@ type Staff struct {
 	Id       string `json:"id" form:"id" query:"id" long:"id" msg:"id"`
 	Email    string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
 	FullName string `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
+	Role 		 string `json:"role" form:"role" query:"role" long:"role" msg:"role"`
 }
 
 func (u *Users) FindStaffsByTenantCode(tenantCode string) (staffs []Staff) {
@@ -24,7 +25,7 @@ func (u *Users) FindStaffsByTenantCode(tenantCode string) (staffs []Staff) {
 	whereAndSql := ` WHERE ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
 
 	queryRows := comment + `
-SELECT ` + u.SqlId() + `, ` + u.SqlEmail() + `, ` + u.SqlFullName() + `
+SELECT ` + u.SqlId() + `, ` + u.SqlEmail() + `, ` + u.SqlFullName() + `, ` + u.SqlRole() + `
 FROM ` + u.SqlTableName() + whereAndSql
 
 	u.Adapter.QuerySql(queryRows, func(row []any) {
@@ -34,11 +35,12 @@ FROM ` + u.SqlTableName() + whereAndSql
 
 	if len(res) > 0 {
 		for _, stf := range res {
-			if len(stf) == 3 {
+			if len(stf) == 4 {
 				st := Staff{
 					Id:       X.ToS(stf[0]),
 					Email:    X.ToS(stf[1]),
 					FullName: X.ToS(stf[2]),
+					Role: 		X.ToS(stf[3]),
 				}
 
 				staffs = append(staffs, st)
@@ -46,18 +48,46 @@ FROM ` + u.SqlTableName() + whereAndSql
 		}
 	}
 
+	L.Print(`Staffs:`, staffs)
+
 	return
+}
+
+func (u *Users) FindStaffsChoicesByTenantCode(tenantCode string) map[string]string {
+	const comment = `-- Users) FindStaffByTenantCode`
+
+	whereAndSql := ` WHERE `+u.SqlInvitationState()+` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
+
+	queryRows := comment+`
+SELECT `+u.SqlId()+`, `+ u.SqlFullName()+`, `+u.SqlEmail()+`
+FROM `+u.SqlTableName()+whereAndSql
+
+	staffChoices := make(map[string]string)
+	u.Adapter.QuerySql(queryRows, func(row []any) {
+		fullName := X.ToS(row[1])
+		if fullName == `` {
+			fullName = `(--)`
+		} else {
+			fullName = `(`+fullName+`)`
+		}
+		email := X.ToS(row[2])
+
+		staffChoices[X.ToS(row[0])] = fullName + ` ` + email
+	})
+
+	return staffChoices
 }
 
 func (u *Users) FindStaffByIdByTenantCode(id uint64, tenantCode string) bool {
 	var res [][]any
 	const comment = `-- Users) FindStaffByIdByTenantCode`
 
-	whereAndSql := ` WHERE ` + u.SqlId() + ` = ` + S.Z(I.UToS(id)) + ` AND ` + u.SqlTenantCode() + ` = ` + S.Z(tenantCode)
+	whereAndSql := ` WHERE `+u.SqlId()+` = `+I.UToS(id)+` AND `+u.SqlInvitationState()+` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
 
 	queryRows := comment + `
 SELECT ` + u.SqlSelectAllFields() + `
 FROM ` + u.SqlTableName() + whereAndSql + ` LIMIT 1`
+
 
 	u.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0])
@@ -96,8 +126,6 @@ func (u *Users) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud
 
 	validFields := UsersFieldTypeMap
 	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
-
-	L.Print(`whereAndSQL:`, whereAndSql)
 
 	queryCount := comment + `
 SELECT COUNT(1)
@@ -214,7 +242,6 @@ FROM ` + o.SqlTableName() +
 	return o.Id > 0
 }
 
-// TODO: find staff
 func (u *Users) FindStaffByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
 	const comment = `-- Users) FindStaffByPagination`
 

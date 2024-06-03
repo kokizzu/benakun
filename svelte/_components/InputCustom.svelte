@@ -61,7 +61,7 @@
         <select name={id} id={id} bind:value={value} {placeholder}>
           <option value="" disabled>-- {placeholder} --</option>
           {#each values as v}
-            <option value={v}>{v}</option>
+            <option value={v} selected={value}>{v}</option>
           {/each}
         </select>
       {/if}

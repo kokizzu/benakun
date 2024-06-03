@@ -86,6 +86,12 @@ var TenantAdminBankAccountsMeta = zCrud.Meta{
 			InputType: zCrud.InputTypeCheckbox,
 		},
 		{
+			Name: mBudget.StaffId,
+			Label: "Staff",
+			DataType: zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeCombobox,
+			Description: `Select staff`,
+		},
 			Name:      mBudget.IsCostCenter,
 			Label:     "Cost Center ?",
 			DataType:  zCrud.DataTypeBool,

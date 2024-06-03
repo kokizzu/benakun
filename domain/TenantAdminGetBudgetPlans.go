@@ -1,9 +1,9 @@
 package domain
 
 import (
+	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
 	"benakun/model/mBudget/rqBudget"
-	"benakun/model/mBudget/wcBudget"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminGetBudgetPlans.go
@@ -47,21 +47,21 @@ func (d *Domain) TenantAdminGetBudgetPlans(in *TenantAdminGetBudgetPlansIn) (out
 		return
 	}
 
-	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
+	tenant := rqAuth.NewTenants(d.AuthOltp)
 	tenant.TenantCode = user.TenantCode
-	if !tenant.FindByTenantCode() && !sess.IsSuperAdmin {
+	if !tenant.FindByTenantCode() {
 		out.SetError(400, ErrTenantAdminGetBudgetPlanTenantNotFound)
 		return
 	}
 
-	org := wcAuth.NewOrgsMutator(d.AuthOltp)
+	org := rqAuth.NewOrgs(d.AuthOltp)
 	org.Id = in.OrgId
 	if !org.FindById() {
 		out.SetError(400, ErrTenantAdminGetBudgetPlanOrgNotFound)
 		return
 	}
 
-	plans := wcBudget.NewPlansMutator(d.AuthOltp)
+	plans := rqBudget.NewPlans(d.AuthOltp)
 	toPlans := plans.FindPlansByOrg(in.OrgId)
 
 	out.Plans = &toPlans

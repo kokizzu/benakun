@@ -18,7 +18,8 @@
     RiBuildingsCommunityLine,
     RiBuildingsBankLine,
     RiUserFacesGroup2Line,
-    RiUserFacesContactsLine
+    RiUserFacesContactsLine,
+    RiMapMap2Line
   } from '../../node_modules/svelte-icons-pack/dist/ri';
   import { CgLogOut, CgBox } from '../../node_modules/svelte-icons-pack/dist/cg';
   import { BsPostcard } from '../../node_modules/svelte-icons-pack/dist/bs';
@@ -82,6 +83,7 @@
             <SubMenuLink title='Chart of Acount' href='/tenantAdmin/coa' icon={BsPostcard}/>
             <SubMenuLink title='Bank Accounts' href='/tenantAdmin/bankAccounts' icon={RiBuildingsBankLine}/>
             <SubMenuLink title='Products' href='/tenantAdmin/products' icon={CgBox}/>
+            <SubMenuLink title='Locations' href='/tenantAdmin/locations' icon={RiMapMap2Line}/>
           </div>
         {/if}
         {#if access.superAdmin }

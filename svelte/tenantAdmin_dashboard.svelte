@@ -131,6 +131,33 @@
       }
     );
   }
+
+  async function OnEdit(/** @type any */ id, /** @type any[]*/ payloads) {
+    const i = {
+      pager,
+      staffEmail: payloads[1],
+      role: payloads[3],
+      cmd: 'upsert'
+    };
+    await TenantAdminDashboard( // @ts-ignore
+      i, /** @type {import('./jsApi.GEN').TenantAdminDashboardCallback} */
+      /** @returns {Promise<any>} */
+      function(/** @type any */ o) {
+        email = '';
+        isSubmitted = false;
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+
+        console.log(o);
+        notifier.showSuccess('user ' + email + ' edited');
+        staffs = o.staffs;
+        pager = o.pager;
+      }
+    );
+  }
 </script>
 
 {#if isPopUpInviteUserReady}
@@ -151,7 +178,7 @@
       bind:PAGER={pager}
       bind:MASTER_ROWS={staffs}
       
-      CAN_EDIT_ROW={false}
+      CAN_EDIT_ROW
       CAN_SEARCH_ROW
       CAN_DELETE_ROW
       CAN_RESTORE_ROW
@@ -159,6 +186,7 @@
       {OnRefresh}
       {OnRestore}
       {OnDelete}
+      {OnEdit}
     >
       {#if user.tenantCode !== ''}
         <button

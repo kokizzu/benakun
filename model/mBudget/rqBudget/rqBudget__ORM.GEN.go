@@ -504,7 +504,7 @@ type Plans struct {
 	Title       string      `json:"title" form:"title" query:"title" long:"title" msg:"title"`
 	Description string      `json:"description" form:"description" query:"description" long:"description" msg:"description"`
 	OrgId       uint64      `json:"orgId,string" form:"orgId" query:"orgId" long:"orgId" msg:"orgId"`
-	YearOf      int64       `json:"yearOf" form:"yearOf" query:"yearOf" long:"yearOf" msg:"yearOf"`
+	YearOf      uint64      `json:"yearOf" form:"yearOf" query:"yearOf" long:"yearOf" msg:"yearOf"`
 	BudgetIDR   int64       `json:"budgetIDR" form:"budgetIDR" query:"budgetIDR" long:"budgetIDR" msg:"budgetIDR"`
 	BudgetUSD   int64       `json:"budgetUSD" form:"budgetUSD" query:"budgetUSD" long:"budgetUSD" msg:"budgetUSD"`
 	Quantity    int64       `json:"quantity" form:"quantity" query:"quantity" long:"quantity" msg:"quantity"`
@@ -858,7 +858,7 @@ func (p *Plans) FromArray(a A.X) *Plans { //nolint:dupl false positive
 	p.Title = X.ToS(a[11])
 	p.Description = X.ToS(a[12])
 	p.OrgId = X.ToU(a[13])
-	p.YearOf = X.ToI(a[14])
+	p.YearOf = X.ToU(a[14])
 	p.BudgetIDR = X.ToI(a[15])
 	p.BudgetUSD = X.ToI(a[16])
 	p.Quantity = X.ToI(a[17])
@@ -882,7 +882,7 @@ func (p *Plans) FromUncensoredArray(a A.X) *Plans { //nolint:dupl false positive
 	p.Title = X.ToS(a[11])
 	p.Description = X.ToS(a[12])
 	p.OrgId = X.ToU(a[13])
-	p.YearOf = X.ToI(a[14])
+	p.YearOf = X.ToU(a[14])
 	p.BudgetIDR = X.ToI(a[15])
 	p.BudgetUSD = X.ToI(a[16])
 	p.Quantity = X.ToI(a[17])
@@ -965,7 +965,7 @@ var PlansFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`title`:       Tt.String,
 	`description`: Tt.String,
 	`orgId`:       Tt.Unsigned,
-	`yearOf`:      Tt.Integer,
+	`yearOf`:      Tt.Unsigned,
 	`budgetIDR`:   Tt.Integer,
 	`budgetUSD`:   Tt.Integer,
 	`quantity`:    Tt.Integer,

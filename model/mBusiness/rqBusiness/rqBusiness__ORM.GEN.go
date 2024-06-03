@@ -13,12 +13,490 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-// Products DAO reader/query struct
+// Locations DAO reader/query struct
 //
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file rqBusiness__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type rqBusiness__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type rqBusiness__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type rqBusiness__ORM.GEN.go
+type Locations struct {
+	Adapter      *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id           uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	TenantCode   string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
+	CreatedAt    int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy    uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt    int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy    uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt    int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	DeletedBy    uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
+	RestoredBy   uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
+	Name         string      `json:"name" form:"name" query:"name" long:"name" msg:"name"`
+	Country      string      `json:"country" form:"country" query:"country" long:"country" msg:"country"`
+	StateProvice string      `json:"stateProvice" form:"stateProvice" query:"stateProvice" long:"stateProvice" msg:"stateProvice"`
+	CityRegency  string      `json:"cityRegency" form:"cityRegency" query:"cityRegency" long:"cityRegency" msg:"cityRegency"`
+	Subdistrict  string      `json:"subdistrict" form:"subdistrict" query:"subdistrict" long:"subdistrict" msg:"subdistrict"`
+	Village      string      `json:"village" form:"village" query:"village" long:"village" msg:"village"`
+	RwBanjar     string      `json:"rwBanjar" form:"rwBanjar" query:"rwBanjar" long:"rwBanjar" msg:"rwBanjar"`
+	RtNeigb      string      `json:"rtNeigb" form:"rtNeigb" query:"rtNeigb" long:"rtNeigb" msg:"rtNeigb"`
+	Address      string      `json:"address" form:"address" query:"address" long:"address" msg:"address"`
+	Lat          float64     `json:"lat" form:"lat" query:"lat" long:"lat" msg:"lat"`
+	Lng          float64     `json:"lng" form:"lng" query:"lng" long:"lng" msg:"lng"`
+}
+
+// NewLocations create new ORM reader/query object
+func NewLocations(adapter *Tt.Adapter) *Locations {
+	return &Locations{Adapter: adapter}
+}
+
+// SpaceName returns full package and table name
+func (l *Locations) SpaceName() string { //nolint:dupl false positive
+	return string(mBusiness.TableLocations) // casting required to string from Tt.TableName
+}
+
+// SqlTableName returns quoted table name
+func (l *Locations) SqlTableName() string { //nolint:dupl false positive
+	return `"locations"`
+}
+
+func (l *Locations) UniqueIndexId() string { //nolint:dupl false positive
+	return `id`
+}
+
+// FindById Find one by Id
+func (l *Locations) FindById() bool { //nolint:dupl false positive
+	res, err := l.Adapter.Select(l.SpaceName(), l.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{l.Id})
+	if L.IsError(err, `Locations.FindById failed: `+l.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		l.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
+// SqlSelectAllFields generate Sql select fields
+func (l *Locations) SqlSelectAllFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "tenantCode"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
+	, "name"
+	, "country"
+	, "stateProvice"
+	, "cityRegency"
+	, "subdistrict"
+	, "village"
+	, "rwBanjar"
+	, "rtNeigb"
+	, "address"
+	, "lat"
+	, "lng"
+	`
+}
+
+// SqlSelectAllUncensoredFields generate Sql select fields
+func (l *Locations) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "tenantCode"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
+	, "name"
+	, "country"
+	, "stateProvice"
+	, "cityRegency"
+	, "subdistrict"
+	, "village"
+	, "rwBanjar"
+	, "rtNeigb"
+	, "address"
+	, "lat"
+	, "lng"
+	`
+}
+
+// ToUpdateArray generate slice of update command
+func (l *Locations) ToUpdateArray() A.X { //nolint:dupl false positive
+	return A.X{
+		A.X{`=`, 0, l.Id},
+		A.X{`=`, 1, l.TenantCode},
+		A.X{`=`, 2, l.CreatedAt},
+		A.X{`=`, 3, l.CreatedBy},
+		A.X{`=`, 4, l.UpdatedAt},
+		A.X{`=`, 5, l.UpdatedBy},
+		A.X{`=`, 6, l.DeletedAt},
+		A.X{`=`, 7, l.DeletedBy},
+		A.X{`=`, 8, l.RestoredBy},
+		A.X{`=`, 9, l.Name},
+		A.X{`=`, 10, l.Country},
+		A.X{`=`, 11, l.StateProvice},
+		A.X{`=`, 12, l.CityRegency},
+		A.X{`=`, 13, l.Subdistrict},
+		A.X{`=`, 14, l.Village},
+		A.X{`=`, 15, l.RwBanjar},
+		A.X{`=`, 16, l.RtNeigb},
+		A.X{`=`, 17, l.Address},
+		A.X{`=`, 18, l.Lat},
+		A.X{`=`, 19, l.Lng},
+	}
+}
+
+// IdxId return name of the index
+func (l *Locations) IdxId() int { //nolint:dupl false positive
+	return 0
+}
+
+// SqlId return name of the column being indexed
+func (l *Locations) SqlId() string { //nolint:dupl false positive
+	return `"id"`
+}
+
+// IdxTenantCode return name of the index
+func (l *Locations) IdxTenantCode() int { //nolint:dupl false positive
+	return 1
+}
+
+// SqlTenantCode return name of the column being indexed
+func (l *Locations) SqlTenantCode() string { //nolint:dupl false positive
+	return `"tenantCode"`
+}
+
+// IdxCreatedAt return name of the index
+func (l *Locations) IdxCreatedAt() int { //nolint:dupl false positive
+	return 2
+}
+
+// SqlCreatedAt return name of the column being indexed
+func (l *Locations) SqlCreatedAt() string { //nolint:dupl false positive
+	return `"createdAt"`
+}
+
+// IdxCreatedBy return name of the index
+func (l *Locations) IdxCreatedBy() int { //nolint:dupl false positive
+	return 3
+}
+
+// SqlCreatedBy return name of the column being indexed
+func (l *Locations) SqlCreatedBy() string { //nolint:dupl false positive
+	return `"createdBy"`
+}
+
+// IdxUpdatedAt return name of the index
+func (l *Locations) IdxUpdatedAt() int { //nolint:dupl false positive
+	return 4
+}
+
+// SqlUpdatedAt return name of the column being indexed
+func (l *Locations) SqlUpdatedAt() string { //nolint:dupl false positive
+	return `"updatedAt"`
+}
+
+// IdxUpdatedBy return name of the index
+func (l *Locations) IdxUpdatedBy() int { //nolint:dupl false positive
+	return 5
+}
+
+// SqlUpdatedBy return name of the column being indexed
+func (l *Locations) SqlUpdatedBy() string { //nolint:dupl false positive
+	return `"updatedBy"`
+}
+
+// IdxDeletedAt return name of the index
+func (l *Locations) IdxDeletedAt() int { //nolint:dupl false positive
+	return 6
+}
+
+// SqlDeletedAt return name of the column being indexed
+func (l *Locations) SqlDeletedAt() string { //nolint:dupl false positive
+	return `"deletedAt"`
+}
+
+// IdxDeletedBy return name of the index
+func (l *Locations) IdxDeletedBy() int { //nolint:dupl false positive
+	return 7
+}
+
+// SqlDeletedBy return name of the column being indexed
+func (l *Locations) SqlDeletedBy() string { //nolint:dupl false positive
+	return `"deletedBy"`
+}
+
+// IdxRestoredBy return name of the index
+func (l *Locations) IdxRestoredBy() int { //nolint:dupl false positive
+	return 8
+}
+
+// SqlRestoredBy return name of the column being indexed
+func (l *Locations) SqlRestoredBy() string { //nolint:dupl false positive
+	return `"restoredBy"`
+}
+
+// IdxName return name of the index
+func (l *Locations) IdxName() int { //nolint:dupl false positive
+	return 9
+}
+
+// SqlName return name of the column being indexed
+func (l *Locations) SqlName() string { //nolint:dupl false positive
+	return `"name"`
+}
+
+// IdxCountry return name of the index
+func (l *Locations) IdxCountry() int { //nolint:dupl false positive
+	return 10
+}
+
+// SqlCountry return name of the column being indexed
+func (l *Locations) SqlCountry() string { //nolint:dupl false positive
+	return `"country"`
+}
+
+// IdxStateProvice return name of the index
+func (l *Locations) IdxStateProvice() int { //nolint:dupl false positive
+	return 11
+}
+
+// SqlStateProvice return name of the column being indexed
+func (l *Locations) SqlStateProvice() string { //nolint:dupl false positive
+	return `"stateProvice"`
+}
+
+// IdxCityRegency return name of the index
+func (l *Locations) IdxCityRegency() int { //nolint:dupl false positive
+	return 12
+}
+
+// SqlCityRegency return name of the column being indexed
+func (l *Locations) SqlCityRegency() string { //nolint:dupl false positive
+	return `"cityRegency"`
+}
+
+// IdxSubdistrict return name of the index
+func (l *Locations) IdxSubdistrict() int { //nolint:dupl false positive
+	return 13
+}
+
+// SqlSubdistrict return name of the column being indexed
+func (l *Locations) SqlSubdistrict() string { //nolint:dupl false positive
+	return `"subdistrict"`
+}
+
+// IdxVillage return name of the index
+func (l *Locations) IdxVillage() int { //nolint:dupl false positive
+	return 14
+}
+
+// SqlVillage return name of the column being indexed
+func (l *Locations) SqlVillage() string { //nolint:dupl false positive
+	return `"village"`
+}
+
+// IdxRwBanjar return name of the index
+func (l *Locations) IdxRwBanjar() int { //nolint:dupl false positive
+	return 15
+}
+
+// SqlRwBanjar return name of the column being indexed
+func (l *Locations) SqlRwBanjar() string { //nolint:dupl false positive
+	return `"rwBanjar"`
+}
+
+// IdxRtNeigb return name of the index
+func (l *Locations) IdxRtNeigb() int { //nolint:dupl false positive
+	return 16
+}
+
+// SqlRtNeigb return name of the column being indexed
+func (l *Locations) SqlRtNeigb() string { //nolint:dupl false positive
+	return `"rtNeigb"`
+}
+
+// IdxAddress return name of the index
+func (l *Locations) IdxAddress() int { //nolint:dupl false positive
+	return 17
+}
+
+// SqlAddress return name of the column being indexed
+func (l *Locations) SqlAddress() string { //nolint:dupl false positive
+	return `"address"`
+}
+
+// IdxLat return name of the index
+func (l *Locations) IdxLat() int { //nolint:dupl false positive
+	return 18
+}
+
+// SqlLat return name of the column being indexed
+func (l *Locations) SqlLat() string { //nolint:dupl false positive
+	return `"lat"`
+}
+
+// IdxLng return name of the index
+func (l *Locations) IdxLng() int { //nolint:dupl false positive
+	return 19
+}
+
+// SqlLng return name of the column being indexed
+func (l *Locations) SqlLng() string { //nolint:dupl false positive
+	return `"lng"`
+}
+
+// ToArray receiver fields to slice
+func (l *Locations) ToArray() A.X { //nolint:dupl false positive
+	var id any = nil
+	if l.Id != 0 {
+		id = l.Id
+	}
+	return A.X{
+		id,
+		l.TenantCode,   // 1
+		l.CreatedAt,    // 2
+		l.CreatedBy,    // 3
+		l.UpdatedAt,    // 4
+		l.UpdatedBy,    // 5
+		l.DeletedAt,    // 6
+		l.DeletedBy,    // 7
+		l.RestoredBy,   // 8
+		l.Name,         // 9
+		l.Country,      // 10
+		l.StateProvice, // 11
+		l.CityRegency,  // 12
+		l.Subdistrict,  // 13
+		l.Village,      // 14
+		l.RwBanjar,     // 15
+		l.RtNeigb,      // 16
+		l.Address,      // 17
+		l.Lat,          // 18
+		l.Lng,          // 19
+	}
+}
+
+// FromArray convert slice to receiver fields
+func (l *Locations) FromArray(a A.X) *Locations { //nolint:dupl false positive
+	l.Id = X.ToU(a[0])
+	l.TenantCode = X.ToS(a[1])
+	l.CreatedAt = X.ToI(a[2])
+	l.CreatedBy = X.ToU(a[3])
+	l.UpdatedAt = X.ToI(a[4])
+	l.UpdatedBy = X.ToU(a[5])
+	l.DeletedAt = X.ToI(a[6])
+	l.DeletedBy = X.ToU(a[7])
+	l.RestoredBy = X.ToU(a[8])
+	l.Name = X.ToS(a[9])
+	l.Country = X.ToS(a[10])
+	l.StateProvice = X.ToS(a[11])
+	l.CityRegency = X.ToS(a[12])
+	l.Subdistrict = X.ToS(a[13])
+	l.Village = X.ToS(a[14])
+	l.RwBanjar = X.ToS(a[15])
+	l.RtNeigb = X.ToS(a[16])
+	l.Address = X.ToS(a[17])
+	l.Lat = X.ToF(a[18])
+	l.Lng = X.ToF(a[19])
+	return l
+}
+
+// FromUncensoredArray convert slice to receiver fields
+func (l *Locations) FromUncensoredArray(a A.X) *Locations { //nolint:dupl false positive
+	l.Id = X.ToU(a[0])
+	l.TenantCode = X.ToS(a[1])
+	l.CreatedAt = X.ToI(a[2])
+	l.CreatedBy = X.ToU(a[3])
+	l.UpdatedAt = X.ToI(a[4])
+	l.UpdatedBy = X.ToU(a[5])
+	l.DeletedAt = X.ToI(a[6])
+	l.DeletedBy = X.ToU(a[7])
+	l.RestoredBy = X.ToU(a[8])
+	l.Name = X.ToS(a[9])
+	l.Country = X.ToS(a[10])
+	l.StateProvice = X.ToS(a[11])
+	l.CityRegency = X.ToS(a[12])
+	l.Subdistrict = X.ToS(a[13])
+	l.Village = X.ToS(a[14])
+	l.RwBanjar = X.ToS(a[15])
+	l.RtNeigb = X.ToS(a[16])
+	l.Address = X.ToS(a[17])
+	l.Lat = X.ToF(a[18])
+	l.Lng = X.ToF(a[19])
+	return l
+}
+
+// FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
+func (l *Locations) FindOffsetLimit(offset, limit uint32, idx string) []Locations { //nolint:dupl false positive
+	var rows []Locations
+	res, err := l.Adapter.Select(l.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `Locations.FindOffsetLimit failed: `+l.SpaceName()) {
+		return rows
+	}
+	for _, row := range res.Tuples() {
+		item := Locations{}
+		rows = append(rows, *item.FromArray(row))
+	}
+	return rows
+}
+
+// FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
+func (l *Locations) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
+	var rows []A.X
+	res, err := l.Adapter.Select(l.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
+	if L.IsError(err, `Locations.FindOffsetLimit failed: `+l.SpaceName()) {
+		return rows, Tt.QueryMetaFrom(res, err)
+	}
+	tuples := res.Tuples()
+	rows = make([]A.X, len(tuples))
+	for z, row := range tuples {
+		rows[z] = row
+	}
+	return rows, Tt.QueryMetaFrom(res, nil)
+}
+
+// Total count number of rows
+func (l *Locations) Total() int64 { //nolint:dupl false positive
+	rows := l.Adapter.CallBoxSpace(l.SpaceName()+`:count`, A.X{})
+	if len(rows) > 0 && len(rows[0]) > 0 {
+		return X.ToI(rows[0][0])
+	}
+	return 0
+}
+
+// LocationsFieldTypeMap returns key value of field name and key
+var LocationsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
+	`id`:           Tt.Unsigned,
+	`tenantCode`:   Tt.String,
+	`createdAt`:    Tt.Integer,
+	`createdBy`:    Tt.Unsigned,
+	`updatedAt`:    Tt.Integer,
+	`updatedBy`:    Tt.Unsigned,
+	`deletedAt`:    Tt.Integer,
+	`deletedBy`:    Tt.Unsigned,
+	`restoredBy`:   Tt.Unsigned,
+	`name`:         Tt.String,
+	`country`:      Tt.String,
+	`stateProvice`: Tt.String,
+	`cityRegency`:  Tt.String,
+	`subdistrict`:  Tt.String,
+	`village`:      Tt.String,
+	`rwBanjar`:     Tt.String,
+	`rtNeigb`:      Tt.String,
+	`address`:      Tt.String,
+	`lat`:          Tt.Double,
+	`lng`:          Tt.Double,
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
+// Products DAO reader/query struct
 type Products struct {
 	Adapter    *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	Id         uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`

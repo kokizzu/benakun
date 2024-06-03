@@ -640,7 +640,7 @@ func (p *PlansMutator) SetOrgId(val uint64) bool { //nolint:dupl false positive
 }
 
 // SetYearOf create mutations, should not duplicate
-func (p *PlansMutator) SetYearOf(val int64) bool { //nolint:dupl false positive
+func (p *PlansMutator) SetYearOf(val uint64) bool { //nolint:dupl false positive
 	if val != p.YearOf {
 		p.mutations.Assign(14, val)
 		p.logs = append(p.logs, A.X{`yearOf`, p.YearOf, val})

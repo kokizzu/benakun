@@ -1050,104 +1050,11 @@ exports.TenantAdminCoa = async function TenantAdminCoa( i, cb ) {
 }
 
 /**
- * @typedef {Object} TenantAdminCreateCoaChildIn
- * @property {String} name
- * @property {number} parentId
- */
-const TenantAdminCreateCoaChildIn = {
-  name: '', // string
-  parentId: 0, // uint64
-}
-/**
- * @typedef {Object} TenantAdminCreateCoaChildOut
- * @property {Object} coas
- */
-const TenantAdminCreateCoaChildOut = {
-  coas: { // []rqFinance.Coa
-  }, // []rqFinance.Coa
-}
-/**
- * @callback TenantAdminCreateCoaChildCallback
- * @param {TenantAdminCreateCoaChildOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminCreateCoaChildIn} i
- * @param {TenantAdminCreateCoaChildCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminCreateCoaChild = async function TenantAdminCreateCoaChild( i, cb ) {
-  return await axios.post( '/tenantAdmin/createCoaChild', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
- * @typedef {Object} TenantAdminCreateOrganizationChildIn
- * @property {String} name
- * @property {String} headTitle
- * @property {number} parentId
- */
-const TenantAdminCreateOrganizationChildIn = {
-  name: '', // string
-  headTitle: '', // string
-  parentId: 0, // uint64
-}
-/**
- * @typedef {Object} TenantAdminCreateOrganizationChildOut
- * @property {number} org.id
- * @property {String} org.tenantCode
- * @property {String} org.name
- * @property {String} org.headTitle
- * @property {number} org.parentId
- * @property {Object} org.children
- * @property {number} org.orgType
- * @property {number} org.createdAt
- * @property {number} org.createdBy
- * @property {number} org.updatedAt
- * @property {number} org.updatedBy
- * @property {number} org.deletedAt
- * @property {Object} orgs
- */
-const TenantAdminCreateOrganizationChildOut = {
-  org: { // rqAuth.Orgs
-    id: 0, // uint64
-    tenantCode: '', // string
-    name: '', // string
-    headTitle: '', // string
-    parentId: 0, // uint64
-    children: { // []any
-    }, // []any
-    orgType: 0, // uint64
-    createdAt: 0, // int64
-    createdBy: 0, // uint64
-    updatedAt: 0, // int64
-    updatedBy: 0, // uint64
-    deletedAt: 0, // int64
-  }, // rqAuth.Orgs
-  orgs: { // []rqAuth.Orgs
-  }, // []rqAuth.Orgs
-}
-/**
- * @callback TenantAdminCreateOrganizationChildCallback
- * @param {TenantAdminCreateOrganizationChildOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminCreateOrganizationChildIn} i
- * @param {TenantAdminCreateOrganizationChildCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminCreateOrganizationChild = async function TenantAdminCreateOrganizationChild( i, cb ) {
-  return await axios.post( '/tenantAdmin/createOrganizationChild', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
  * @typedef {Object} TenantAdminDashboardIn
  * @property {String} cmd
  * @property {String} staffEmail
+ * @property {String} tenantCode
+ * @property {String} role
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -1157,6 +1064,8 @@ exports.TenantAdminCreateOrganizationChild = async function TenantAdminCreateOrg
 const TenantAdminDashboardIn = {
   cmd: '', // string
   staffEmail: '', // string
+  tenantCode: '', // string
+  role: '', // string
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
     page: 0, // int
@@ -1178,6 +1087,7 @@ const TenantAdminDashboardIn = {
  * @property {Object} meta.mutex
  * @property {String} meta.cachedSelect
  * @property {Object} staffs
+ * @property {Object} staffsForm
  */
 const TenantAdminDashboardOut = {
   pager: { // zCrud.PagerOut
@@ -1198,6 +1108,8 @@ const TenantAdminDashboardOut = {
   }, // zCrud.Meta
   staffs: { // [][]any
   }, // [][]any
+  staffsForm: { // []rqAuth.Staff
+  }, // []rqAuth.Staff
 }
 /**
  * @callback TenantAdminDashboardCallback
@@ -1304,6 +1216,159 @@ const TenantAdminGetBudgetPlansOut = {
  */
 exports.TenantAdminGetBudgetPlans = async function TenantAdminGetBudgetPlans( i, cb ) {
   return await axios.post( '/tenantAdmin/getBudgetPlans', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminLocationsIn
+ * @property {String} cmd
+ * @property {Object} withMeta
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {number} location.id
+ * @property {String} location.tenantCode
+ * @property {number} location.createdAt
+ * @property {number} location.createdBy
+ * @property {number} location.updatedAt
+ * @property {number} location.updatedBy
+ * @property {number} location.deletedAt
+ * @property {number} location.deletedBy
+ * @property {number} location.restoredBy
+ * @property {String} location.name
+ * @property {String} location.country
+ * @property {String} location.stateProvice
+ * @property {String} location.cityRegency
+ * @property {String} location.subdistrict
+ * @property {String} location.village
+ * @property {String} location.rwBanjar
+ * @property {String} location.rtNeigb
+ * @property {String} location.address
+ * @property {number} location.lat
+ * @property {number} location.lng
+ */
+const TenantAdminLocationsIn = {
+  cmd: '', // string
+  withMeta: false, // bool
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
+  location: { // rqBusiness.Locations
+    id: 0, // uint64
+    tenantCode: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    name: '', // string
+    country: '', // string
+    stateProvice: '', // string
+    cityRegency: '', // string
+    subdistrict: '', // string
+    village: '', // string
+    rwBanjar: '', // string
+    rtNeigb: '', // string
+    address: '', // string
+    lat: 0, // float64
+    lng: 0, // float64
+  }, // rqBusiness.Locations
+}
+/**
+ * @typedef {Object} TenantAdminLocationsOut
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
+ * @property {number} location.id
+ * @property {String} location.tenantCode
+ * @property {number} location.createdAt
+ * @property {number} location.createdBy
+ * @property {number} location.updatedAt
+ * @property {number} location.updatedBy
+ * @property {number} location.deletedAt
+ * @property {number} location.deletedBy
+ * @property {number} location.restoredBy
+ * @property {String} location.name
+ * @property {String} location.country
+ * @property {String} location.stateProvice
+ * @property {String} location.cityRegency
+ * @property {String} location.subdistrict
+ * @property {String} location.village
+ * @property {String} location.rwBanjar
+ * @property {String} location.rtNeigb
+ * @property {String} location.address
+ * @property {number} location.lat
+ * @property {number} location.lng
+ * @property {Object} locations
+ */
+const TenantAdminLocationsOut = {
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
+  location: { // rqBusiness.Locations
+    id: 0, // uint64
+    tenantCode: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    name: '', // string
+    country: '', // string
+    stateProvice: '', // string
+    cityRegency: '', // string
+    subdistrict: '', // string
+    village: '', // string
+    rwBanjar: '', // string
+    rtNeigb: '', // string
+    address: '', // string
+    lat: 0, // float64
+    lng: 0, // float64
+  }, // rqBusiness.Locations
+  locations: { // [][]any
+  }, // [][]any
+}
+/**
+ * @callback TenantAdminLocationsCallback
+ * @param {TenantAdminLocationsOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminLocationsIn} i
+ * @param {TenantAdminLocationsCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminLocations = async function TenantAdminLocations( i, cb ) {
+  return await axios.post( '/tenantAdmin/locations', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -1617,101 +1682,6 @@ exports.TenantAdminTransaction = async function TenantAdminTransaction( i, cb ) 
 }
 
 /**
- * @typedef {Object} TenantAdminUpdateCoaChildIn
- * @property {number} id
- * @property {String} name
- */
-const TenantAdminUpdateCoaChildIn = {
-  id: 0, // uint64
-  name: '', // string
-}
-/**
- * @typedef {Object} TenantAdminUpdateCoaChildOut
- * @property {Object} coas
- */
-const TenantAdminUpdateCoaChildOut = {
-  coas: { // []rqFinance.Coa
-  }, // []rqFinance.Coa
-}
-/**
- * @callback TenantAdminUpdateCoaChildCallback
- * @param {TenantAdminUpdateCoaChildOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminUpdateCoaChildIn} i
- * @param {TenantAdminUpdateCoaChildCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminUpdateCoaChild = async function TenantAdminUpdateCoaChild( i, cb ) {
-  return await axios.post( '/tenantAdmin/updateCoaChild', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
- * @typedef {Object} TenantAdminUpdateOrganizationChildIn
- * @property {number} id
- * @property {String} name
- * @property {String} headTitle
- */
-const TenantAdminUpdateOrganizationChildIn = {
-  id: 0, // uint64
-  name: '', // string
-  headTitle: '', // string
-}
-/**
- * @typedef {Object} TenantAdminUpdateOrganizationChildOut
- * @property {number} org.id
- * @property {String} org.tenantCode
- * @property {String} org.name
- * @property {String} org.headTitle
- * @property {number} org.parentId
- * @property {Object} org.children
- * @property {number} org.orgType
- * @property {number} org.createdAt
- * @property {number} org.createdBy
- * @property {number} org.updatedAt
- * @property {number} org.updatedBy
- * @property {number} org.deletedAt
- * @property {Object} orgs
- */
-const TenantAdminUpdateOrganizationChildOut = {
-  org: { // rqAuth.Orgs
-    id: 0, // uint64
-    tenantCode: '', // string
-    name: '', // string
-    headTitle: '', // string
-    parentId: 0, // uint64
-    children: { // []any
-    }, // []any
-    orgType: 0, // uint64
-    createdAt: 0, // int64
-    createdBy: 0, // uint64
-    updatedAt: 0, // int64
-    updatedBy: 0, // uint64
-    deletedAt: 0, // int64
-  }, // rqAuth.Orgs
-  orgs: { // []rqAuth.Orgs
-  }, // []rqAuth.Orgs
-}
-/**
- * @callback TenantAdminUpdateOrganizationChildCallback
- * @param {TenantAdminUpdateOrganizationChildOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminUpdateOrganizationChildIn} i
- * @param {TenantAdminUpdateOrganizationChildCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminUpdateOrganizationChild = async function TenantAdminUpdateOrganizationChild( i, cb ) {
-  return await axios.post( '/tenantAdmin/updateOrganizationChild', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
  * @typedef {Object} TenantAdminUpsertBudgetPlanIn
  * @property {number} plan.id
  * @property {String} plan.tenantCode
@@ -1749,7 +1719,7 @@ const TenantAdminUpsertBudgetPlanIn = {
     title: '', // string
     description: '', // string
     orgId: 0, // uint64
-    yearOf: 0, // int64
+    yearOf: 0, // uint64
     budgetIDR: 0, // int64
     budgetUSD: 0, // int64
     quantity: 0, // int64
@@ -1776,6 +1746,143 @@ const TenantAdminUpsertBudgetPlanOut = {
  */
 exports.TenantAdminUpsertBudgetPlan = async function TenantAdminUpsertBudgetPlan( i, cb ) {
   return await axios.post( '/tenantAdmin/upsertBudgetPlan', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminUpsertCoaChildIn
+ * @property {number} coa.id
+ * @property {String} coa.tenantCode
+ * @property {String} coa.name
+ * @property {number} coa.level
+ * @property {number} coa.parentId
+ * @property {Object} coa.children
+ * @property {number} coa.createdAt
+ * @property {number} coa.createdBy
+ * @property {number} coa.updatedAt
+ * @property {number} coa.updatedBy
+ * @property {number} coa.deletedAt
+ */
+const TenantAdminUpsertCoaChildIn = {
+  coa: { // rqFinance.Coa
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    level: 0, // float64
+    parentId: 0, // uint64
+    children: { // []any
+    }, // []any
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+  }, // rqFinance.Coa
+}
+/**
+ * @typedef {Object} TenantAdminUpsertCoaChildOut
+ * @property {Object} coas
+ */
+const TenantAdminUpsertCoaChildOut = {
+  coas: { // []rqFinance.Coa
+  }, // []rqFinance.Coa
+}
+/**
+ * @callback TenantAdminUpsertCoaChildCallback
+ * @param {TenantAdminUpsertCoaChildOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminUpsertCoaChildIn} i
+ * @param {TenantAdminUpsertCoaChildCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminUpsertCoaChild = async function TenantAdminUpsertCoaChild( i, cb ) {
+  return await axios.post( '/tenantAdmin/createCoaChild', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminUpsertOrganizationChildIn
+ * @property {number} org.id
+ * @property {String} org.tenantCode
+ * @property {String} org.name
+ * @property {String} org.headTitle
+ * @property {number} org.parentId
+ * @property {Object} org.children
+ * @property {number} org.orgType
+ * @property {number} org.createdAt
+ * @property {number} org.createdBy
+ * @property {number} org.updatedAt
+ * @property {number} org.updatedBy
+ * @property {number} org.deletedAt
+ */
+const TenantAdminUpsertOrganizationChildIn = {
+  org: { // rqAuth.Orgs
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    headTitle: '', // string
+    parentId: 0, // uint64
+    children: { // []any
+    }, // []any
+    orgType: 0, // uint64
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+  }, // rqAuth.Orgs
+}
+/**
+ * @typedef {Object} TenantAdminUpsertOrganizationChildOut
+ * @property {number} org.id
+ * @property {String} org.tenantCode
+ * @property {String} org.name
+ * @property {String} org.headTitle
+ * @property {number} org.parentId
+ * @property {Object} org.children
+ * @property {number} org.orgType
+ * @property {number} org.createdAt
+ * @property {number} org.createdBy
+ * @property {number} org.updatedAt
+ * @property {number} org.updatedBy
+ * @property {number} org.deletedAt
+ * @property {Object} orgs
+ */
+const TenantAdminUpsertOrganizationChildOut = {
+  org: { // rqAuth.Orgs
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    headTitle: '', // string
+    parentId: 0, // uint64
+    children: { // []any
+    }, // []any
+    orgType: 0, // uint64
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+  }, // rqAuth.Orgs
+  orgs: { // []rqAuth.Orgs
+  }, // []rqAuth.Orgs
+}
+/**
+ * @callback TenantAdminUpsertOrganizationChildCallback
+ * @param {TenantAdminUpsertOrganizationChildOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminUpsertOrganizationChildIn} i
+ * @param {TenantAdminUpsertOrganizationChildCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminUpsertOrganizationChild = async function TenantAdminUpsertOrganizationChild( i, cb ) {
+  return await axios.post( '/tenantAdmin/updateOrganizationChild', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

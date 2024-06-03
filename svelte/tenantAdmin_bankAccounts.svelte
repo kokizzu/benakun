@@ -20,9 +20,7 @@
   let fields = /** @type Field[] */ ([/* fields */]);
   let pager = /** @type PagerOut */ ({/* pager */});
   let accounts = /** @type any[][] */ ([/* accounts */]);
-
-  console.log('Fields:', fields);
-  console.log('Accounts:', accounts);
+  let staffs = /** @type Object */ ({/* staffs */});
 
   // Binding component PopUpAddBankAccount.svelte
   let popUpAddBankAccount = null;
@@ -165,6 +163,7 @@
 
 {#if isPopUpAddBankAccountReady}
   <PopUpAddBankAccount
+    {staffs}
     bind:this={popUpAddBankAccount}
     bind:isSubmitAddBankAccount
     OnSubmit={addAccount}
@@ -175,6 +174,9 @@
   <div>
     <MasterTable
       ACCESS={segments}
+      REFS={{
+        'staffId': staffs
+      }}
       bind:FIELDS={fields}
       bind:PAGER={pager}
       bind:MASTER_ROWS={accounts}

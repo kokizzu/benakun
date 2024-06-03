@@ -69,6 +69,7 @@ var TenantAdminProductsMeta = zCrud.Meta{
 			Label:     "Rule",
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeCombobox,
+			Description: `Product rule`,
 			Ref: []string{
 				mBusiness.RuleTypeFIFO, mBusiness.RuleTypeLIFO, mBusiness.RuleTypeAVERAGE,
 			},
@@ -78,6 +79,7 @@ var TenantAdminProductsMeta = zCrud.Meta{
 			Label:     "Kind",
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeCombobox,
+			Description: `Product kind`,
 			Ref: []string{
 				mBusiness.KindTypeGOODS, mBusiness.KindTypeService,
 			},

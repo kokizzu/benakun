@@ -155,7 +155,6 @@
 
   // state submit
   const submitStateAdd = 'add', submitStateEdit = 'edit';
-  const submitStateDelete = 'delete', submitStateRestore = 'restore';
 
   let isSubmitPlan = false;
   let submitState = submitStateAdd;
@@ -163,10 +162,10 @@
 
   async function submitUpsertPlan() {
     isSubmitPlan = true;
-	 const idStr = id + "";
+	  const idStr = submitState == 'add' ? '0' : id.toString();
     /** @type {import('../jsApi.GEN.js').TenantAdminUpsertBudgetPlanIn} */
-    const i = {
-      plan: {id: idStr, planType, title, description, yearOf: Number(yearOf),
+    const i = { //@ts-ignore
+      plan: {id: idStr, planType, title, description, yearOf: Number(yearOf), orgId: org.id,
       budgetIDR: Number(budgetIDR), budgetUSD: Number(budgetUSD), unit, quantity}
     }
     await TenantAdminUpsertBudgetPlan(i, /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanCallback} */

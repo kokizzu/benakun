@@ -11,6 +11,7 @@
 
   export let heading = 'Add bank account';
   export let isSubmitAddBankAccount = false;
+  export let staffs = {};
   export let OnSubmit = async function(/** @type BankAccount */ bankAccount) {}
 
   let isShow = false;
@@ -37,33 +38,6 @@
   }
 
   let isStaffAccount = false; // state for staff account or company account
-  let isStaffsReady = false; // to prevent request more than 1
-  let staffsObj = {}; // reformat staff array to object, for select input
-
-  const getStaffs = async () => {
-    await TenantAdminBankAccounts( // @ts-ignore
-      { cmd: 'form' }, /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
-      /** @returns {Promise<any>} */
-      function(/** @type any */ o) {
-        if (o.error) {
-          console.log(o);
-          notifier.showError(o.error);
-          return
-        }
-        const staffs = /** @type any[] */ (o.staffs);
-        if (staffs && staffs.length > 0) {
-          for (let i in staffs) {
-            const st = staffs[i];
-            staffsObj[st.id+''] = `${st.fullName || '--'} (${st.email})`;
-          }
-          isStaffsReady = true;
-        }
-      }
-    );
-  }
-
-  // Get staff is toggle staff account
-  $: { if (isStaffAccount) (async () => { if (!isStaffsReady) await getStaffs() })() }
 
   // reset staff id to 0
   $: { if (!isStaffAccount) staffId = '0' }
@@ -140,19 +114,15 @@
         type="bool"
       />
       {#if isStaffAccount}
-        {#if isStaffsReady && staffsObj == {}}
-          <InputCustom
-            bind:value={staffId}
-            id="staffId"
-            label="Staff"
-            type="select"
-            placeholder="John Doe (johndoe@example.com)"
-            values={staffsObj}
-            isObject
-          />
-        {:else}
-          <p>No staffs</p>
-        {/if}
+        <InputCustom
+          bind:value={staffId}
+          id="staffId"
+          label="Staff"
+          type="select"
+          placeholder="Select staff"
+          values={staffs}
+          isObject
+        />
       {/if}
     </div>
     <div class="foot">
