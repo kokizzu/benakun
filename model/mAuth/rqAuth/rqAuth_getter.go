@@ -222,21 +222,18 @@ FROM SEQSCAN ` + o.SqlTableName() +
 	return
 }
 
-func (o *Orgs) FindCompanyByTenantCode() bool {
+func (o *Orgs) FindCompanyByTenantCode(tenantCode string) bool {
 	const comment = "-- orgs) FindCompanyByTenantCode"
 
-	whereAndSql := ` 
-WHERE 
-` + o.SqlTenantCode() + ` = ` + S.Z(o.TenantCode) + `
-AND ` + o.SqlOrgType() + ` = ` + I.ToS(mAuth.OrgTypeCompany)
+	whereAndSql := ` WHERE ` + o.SqlTenantCode() + ` = ` + S.Z(tenantCode) + `
+AND ` + o.SqlOrgType() + ` = ` + I.ToS(mAuth.OrgTypeCompany) + ` LIMIT 1`
+
 	queryRows := comment +
-		`
+`
 SELECT ` + o.SqlSelectAllFields() + `
 FROM SEQSCAN ` + o.SqlTableName() + whereAndSql
-	L.Print(queryRows)
 
 	o.Adapter.QuerySql(queryRows, func(row []any) {
-		L.Print(row)
 		o.FromArray(row)
 	})
 

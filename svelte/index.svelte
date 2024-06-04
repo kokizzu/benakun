@@ -28,7 +28,7 @@
   }
 
   // server state
-  const title = '#{title}'; // /*! title */ {/* title */} [/* title */]
+  const title = '#{title}';
   // TODO: print session or fetch from cookie
 
   // local state
@@ -200,13 +200,37 @@
       <section class="create_company">
         <header>
           <h2>Create Company</h2>
-				<h3>use this if you have your own company you want to be associated with this email: <i>{user.email}</i></h3>
+				  <h3>
+            Use this if you have your own company you want to be associated with this email: <i>{user.email}</i>
+          </h3>
         </header>
         <div class="form">
-          <InputBox id="tenantCode" label="Tenant Code" bind:value={tenantCode} type="text" placeholder="axrpr" />
-          <InputBox id="companyName" label="Company Name" bind:value={companyName} type="text" placeholder="My Company" />
-          <InputBox id="headTitle" label="Head Title" bind:value={headTitle} type="text" placeholder="Director, CEO, President, etc" />
-          <SubmitButton on:click={userCreateCompany} isSubmitted={hasCreatedCompany} isFullWidth />
+          <InputBox
+            id="tenantCode"
+            label="Tenant Code"
+            bind:value={tenantCode}
+            type="text"
+            placeholder="johnxdoe"
+          />
+          <InputBox
+            id="companyName"
+            label="Company Name"
+            bind:value={companyName}
+            type="text"
+            placeholder="My Company"
+          />
+          <InputBox
+            id="headTitle"
+            label="Head Title"
+            bind:value={headTitle}
+            type="text"
+            placeholder="Director, CEO, President, etc"
+          />
+          <SubmitButton
+            on:click={userCreateCompany}
+            isSubmitted={hasCreatedCompany}
+            isFullWidth
+          />
         </div>
       </section>
 
@@ -444,7 +468,6 @@
   .create_company {
     display: flex;
     flex-direction: column;
-    gap: 20px;
     height: fit-content;
     width: 400px;
     background-color: #FFF;
@@ -457,5 +480,11 @@
   .create_company header h2 {
     margin: 0;
     text-align: center;
+  }
+
+  .create_company .form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 </style>

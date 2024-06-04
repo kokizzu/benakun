@@ -22,19 +22,22 @@
   let fields = /** @type Field[] */ ([/* fields */]);
   let pager = /** @type PagerOut */ ({/* pager */});
   let locations = /** @type any[][] */ ([/* locations */]);
-  let location = /** @type location */ ({/* locations */});
+
+
+  let location = /** @type location */ ({});
 
   let isPopUpFormsReady = false;
   let popUpForms = null;
   onMount(() => {
     isPopUpFormsReady = true;
+    if (locations && locations.length > 0) location = locations[0];
   });
 
   let isSubmitAddLocation = false;
   async function OnAddLocation(/** @type any[] */ payloads) {
     isSubmitAddLocation = true;
     /** @type Location */ //@ts-ignore
-    const location = {
+    const loc = {
       tenantCode: user.tenantCode,
       name: payloads[1],
       country: payloads[2],
@@ -49,7 +52,8 @@
       lng: payloads[11],
     }
     const i = {
-      pager, location,
+      pager,
+      location: loc,
       cmd: 'upsert'
     }
     await TenantAdminLocations( // @ts-ignore
@@ -65,6 +69,7 @@
         
         pager = o.pager;
         locations = o.locations;
+        location = o.location;
 
         notifier.showSuccess('office location added')
         popUpForms.Reset();

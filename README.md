@@ -109,3 +109,7 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
 
 ## TODO
 - add /tos /privacy
+
+## FAQ
+- **Q**: got error when starting docker container: `LuajitError: builtin/config/applier/mkdir.lua:26: mkdir.apply[wal.dir]: failed to create directory /var/lib/tarantool/sys_env/app/instance-001: Error creating directory /var/lib/tarantool/sys_env: fio: Permission denied`
+  - **a**: run ``sudo chown `whoami` -Rv _tmpdb``

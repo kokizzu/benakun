@@ -27,22 +27,19 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			Provider:      domain.OauthGoogle,
 		})
 		google.ResponseCommon.DecorateSession(c)
-
-		// find company owned by this user
-		myCompany := rqAuth.NewOrgs(d.AuthOltp)
+		
+		var myCompany *rqAuth.Orgs
 		if user.TenantCode != `` {
-			myCompany.TenantCode = user.TenantCode
-			myCompany.FindCompanyByTenantCode()
+			myCompany= rqAuth.NewOrgs(d.AuthOltp)
+			myCompany.FindCompanyByTenantCode(user.TenantCode)
 		}
-
-		// TODO:HABIBI find companies this user associated as staff
 
 		return views.RenderIndex(c, M.SX{
 			`title`:     `BenAkun`,
 			`user`:      user,
-			`myCompany`: myCompany,
 			`google`:    google.Link,
 			`segments`:  segments,
+			`myCompany`: myCompany,
 		})
 	})
 

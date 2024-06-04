@@ -1,5 +1,3 @@
-'use strict';
-
 /**
   * @typedef {Object} Org
   * @property {string} id

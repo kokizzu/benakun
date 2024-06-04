@@ -32170,9 +32170,9 @@ uniform ${i3} ${a3} u_${s3};
       lat: -2.548926,
       zoom: 4
     } } = $props;
-    function setCenter(location3) {
+    function setCenter(location2) {
       map.setZoom(11);
-      map.setCenter(location3);
+      map.setCenter(location2);
     }
     onMount(() => {
       map = new import_maplibre_gl2.Map({
@@ -32619,7 +32619,7 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         const mastertable_changes = {};
         if (dirty & /*$scope, popUpForms*/
-        2097168) {
+        4194320) {
           mastertable_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_FIELDS && dirty & /*fields*/
@@ -32751,7 +32751,7 @@ uniform ${i3} ${a3} u_${s3};
         }
         const mainlayout_changes = {};
         if (dirty & /*$scope, fields, pager, locations, popUpForms*/
-        2097175) {
+        4194327) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -32791,10 +32791,6 @@ uniform ${i3} ${a3} u_${s3};
     /** @type User */
     {/* user */}
   );
-  var location2 = (
-    /** @type location */
-    {/* locations */}
-  );
   function instance12($self, $props, $invalidate) {
     let fields = (
       /** @type Field[] */
@@ -32808,15 +32804,21 @@ uniform ${i3} ${a3} u_${s3};
       /** @type any[][] */
       [/* locations */]
     );
+    let location2 = (
+      /** @type location */
+      {}
+    );
     let isPopUpFormsReady = false;
     let popUpForms = null;
     onMount(() => {
       $invalidate(3, isPopUpFormsReady = true);
+      if (locations && locations.length > 0)
+        location2 = locations[0];
     });
     let isSubmitAddLocation = false;
     async function OnAddLocation(payloads) {
       $invalidate(5, isSubmitAddLocation = true);
-      const location3 = {
+      const loc = {
         tenantCode: user2.tenantCode,
         name: payloads[1],
         country: payloads[2],
@@ -32830,7 +32832,7 @@ uniform ${i3} ${a3} u_${s3};
         lat: payloads[10],
         lng: payloads[11]
       };
-      const i = { pager, location: location3, cmd: "upsert" };
+      const i = { pager, location: loc, cmd: "upsert" };
       await (0, import_jsApi.TenantAdminLocations)(
         // @ts-ignore
         i,
@@ -32845,6 +32847,7 @@ uniform ${i3} ${a3} u_${s3};
           }
           $invalidate(1, pager = o.pager);
           $invalidate(2, locations = o.locations);
+          location2 = o.location;
           notifier.showSuccess("office location added");
           popUpForms.Reset();
         }
