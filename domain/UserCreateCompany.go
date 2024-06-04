@@ -16,6 +16,7 @@ import (
 
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/I"
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 )
 
@@ -28,9 +29,7 @@ import (
 type (
 	UserCreateCompanyIn struct {
 		RequestCommon
-		TenantCode  string `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
-		CompanyName string `json:"companyName" form:"companyName" query:"companyName" long:"companyName" msg:"companyName"`
-		HeadTitle   string `json:"headTitle" form:"headTitle" query:"headTitle" long:"headTitle" msg:"headTitle"`
+		Company rqAuth.Orgs `json:"company" form:"company" query:"company" long:"company" msg:"company"`
 	}
 
 	UserCreateCompanyOut struct {
@@ -43,35 +42,18 @@ type (
 const (
 	UserCreateCompanyAction = `user/createCompany`
 
-	ErrUserCreateCompanyUserNotFound       = `user not found`
-	ErrUserCreateCompanyAlreadyAdded       = `company already exist`
-	ErrUserCreateCompanyTenantCodeInvalid  = `tenant code must be valid`
-	ErrUserCreateCompanyCompanyNameInvalid = `company name must be valid`
-	ErrUserCreateCompanyHeadTitleInvalid   = `head title must be valid`
-	ErrUserCreateCompanyCoaExist           = `coa already exist`
+	ErrUserCreateCompanyUserNotFound       		= `user not found`
+	ErrUserCreateCompanyAlreadyAdded       		= `company already exist`
+	ErrUserCreateCompanyTenantCodeInvalid  		= `invalid tenant code, must be letters only`
+	ErrUserCreateCompanyCoaParentNotFound	 		= `coa parent not found when creating default coa levels`
+	ErrUserCreateCompanyFailedSaveDefaultCoa	= `save default coa failed`
+	ErrUserCreateCompanyFailedUpdateCoaParent = `failed to update coa parent`
 )
 
 func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompanyOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
-		return
-	}
-
-	// TODO:HABIBI make this idempotent
-
-	if in.TenantCode == `` || !isLetter(in.TenantCode) {
-		out.SetError(400, ErrUserCreateCompanyTenantCodeInvalid)
-		return
-	}
-
-	if in.CompanyName == `` {
-		out.SetError(400, ErrUserCreateCompanyCompanyNameInvalid)
-		return
-	}
-
-	if in.HeadTitle == `` {
-		out.SetError(400, ErrUserCreateCompanyHeadTitleInvalid)
 		return
 	}
 
@@ -82,16 +64,18 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 		return
 	}
 
-	org := wcAuth.NewOrgsMutator(d.AuthOltp)
+	L.Print(`company:`, in.Company)
 
-	org.SetTenantCode(fmt.Sprintf("%s-%s", in.TenantCode, generate4RandomNumber()))
-	org.SetHeadTitle(in.HeadTitle)
-	org.SetName(in.CompanyName)
+	if !isLetter(in.Company.TenantCode) {
+		out.SetError(400, ErrUserCreateCompanyTenantCodeInvalid)
+		return
+	}
+
+	org := wcAuth.NewOrgsMutator(d.AuthOltp)
+	org.SetName(in.Company.Name)
+	org.SetTenantCode(fmt.Sprintf("%s-%s", in.Company.TenantCode, generate4RandomNumber()))
+	org.SetHeadTitle(in.Company.HeadTitle)
 	org.SetOrgType(mAuth.OrgTypeCompany)
-	org.SetCreatedAt(in.UnixNow())
-	org.SetCreatedBy(sess.UserId)
-	org.SetUpdatedAt(in.UnixNow())
-	org.SetUpdatedBy(sess.UserId)
 
 	if !org.DoUpsertById() {
 		out.SetError(400, ErrUserCreateCompanyAlreadyAdded)
@@ -125,16 +109,23 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 	return
 }
 
-func insertCoaLevel(ta *Tt.Adapter, tenantCode string, level float64, name string, parentId uint64) (uint64, error) {
+func insertCoaLevel(ta *Tt.Adapter,
+	name, tenantCode string,
+	level float64, parentId uint64,
+) (uint64, error) {
+
 	coa := wcFinance.NewCoaMutator(ta)
+
+	coa.SetName(name)
 	coa.SetTenantCode(tenantCode)
 	coa.SetLevel(level)
-	coa.SetName(name)
+
 	if parentId > 0 {
 		coa.SetParentId(parentId)
 	}
+
 	if !coa.DoInsert() {
-		return 0, errors.New(ErrUserCreateCompanyCoaExist)
+		return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
 	}
 
 	return coa.Id, nil
@@ -142,24 +133,16 @@ func insertCoaLevel(ta *Tt.Adapter, tenantCode string, level float64, name strin
 
 func generateCoaLevels(ta *Tt.Adapter, tenantCode string) error {
 	for lv, vl := range mFinance.CoaLevelDefaultList {
-		if _, err := insertCoaLevel(ta, tenantCode, float64(S.ToInt(lv)), vl.Name, 0); err != nil {
+		parentId, err := insertCoaLevel(ta, vl.Name, tenantCode, S.ToF(lv), 0)
+		if err != nil {
 			return err
 		}
 
 		if len(vl.ChildrenNames) > 0 {
-			parent := wcFinance.NewCoaMutator(ta)
-			parent.TenantCode = tenantCode
-			parent.Level = float64(S.ToInt(lv))
-
-			parentId := parent.FindCoaIdByTenantByLevel()
-			if parentId == 0 {
-				return errors.New(ErrUserCreateCompanyCoaExist)
-			}
-
 			var children = []any{}
 
 			for _, v := range vl.ChildrenNames {
-				childId, err := insertCoaLevel(ta, tenantCode, float64(S.ToInt(lv)), v, parentId)
+				childId, err := insertCoaLevel(ta, v, tenantCode, S.ToF(lv), parentId)
 				if err != nil {
 					return err
 				}
@@ -168,10 +151,16 @@ func generateCoaLevels(ta *Tt.Adapter, tenantCode string) error {
 			}
 
 			if len(children) > 0 {
-				parent.SetChildren(children)
+				parent := wcFinance.NewCoaMutator(ta)
 				parent.Id = parentId
+
+				if !parent.FindById() {
+					return errors.New(ErrUserCreateCompanyCoaParentNotFound)
+				}
+				
+				parent.SetChildren(children)
 				if !parent.DoUpdateById() {
-					return errors.New(ErrUserCreateCompanyCoaExist)
+					return errors.New(ErrUserCreateCompanyFailedUpdateCoaParent)
 				}
 			}
 		}

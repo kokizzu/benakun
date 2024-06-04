@@ -12,14 +12,14 @@
   import SubmitButton from './_components/SubmitButton.svelte';
   import MainLayout from './_layouts/mainLayout.svelte';
 
-  /** @typedef {import('./_components/types/access.js').Access} Access*/
-  /** @typedef {import('./_components/types/user.js').User} User*/
+  /** @typedef {import('./_components/types/access.js').Access} Access */
+  /** @typedef {import('./_components/types/user.js').User} User */
+  /** @typedef {import('./_components/types/organization.js').Org} Org */
 
-  /** @type User */ // @ts-ignore
-  let user = {/* user */};
+  let user      = /** @type User */   ({/* user */});
+  let segments  = /** @type Access */ ({/* segments */});
+  let myCompany = /** @type Org */    ({/* myCompany */});
 
-  /** @type Access */ // @ts-ignore
-  let segments = {/* segments */};
   let google = '#{google}';
 
   function getCookie(name) {
@@ -60,7 +60,6 @@
   }
 
   onMount(() => {
-	  console.log('',)
 	  onHashChange()
   } );
 
@@ -160,34 +159,44 @@
     });
   }
 
-  let myCompany = {/* myCompany */};
+  
   onMount(()=>{
 	  console.log('myCompany', myCompany)
   })
+
   let tenantCode = myCompany.tenantCode || '',
 	  companyName = myCompany.name || '',
 	  headTitle = myCompany.headTitle || '';
-  let hasCreatedCompany = false;
-  async function userCreateCompany() {
-    hasCreatedCompany = true;
+
+  let isCreatingCompany = false;
+  async function SubmitCreateCompany() {
     if (!tenantCode || !companyName || !headTitle) {
-      hasCreatedCompany = false;
-      notifier.showWarning('All fields are required');
+      notifier.showWarning('all fields are required');
       return;
     }
-    await UserCreateCompany(
-      {tenantCode, companyName, headTitle},
-      /** @type {import('./jsApi.GEN.js').UserCreateCompanyCallback} */ function (/** @type {any} */ o) {
+
+    isCreatingCompany = true;
+
+    /** @type {import('./jsApi.GEN.js').UserCreateCompanyIn} */ //@ts-ignore 
+    const company = {
+      tenantCode: tenantCode,
+      name: companyName,
+      headTitle: headTitle,
+    }
+    await UserCreateCompany( //@ts-ignore
+      { company: company }, /** @type {import('./jsApi.GEN.js').UserCreateCompanyCallback} */
+      function (/** @type {any} */ o) {
+        isCreatingCompany = false;
         if (o.error) {
           console.log(o);
-          hasCreatedCompany = false;
           notifier.showError(o.error);
           return;
         }
-        hasCreatedCompany = false;
+
         console.log(o);
-        notifier.showSuccess('Company created successfully');
-        setTimeout(() => window.location.reload(), 1200);
+        notifier.showSuccess('company created successfully');
+
+        // setTimeout(() => window.location.reload(), 1200);   
       }
     );
   }
@@ -227,8 +236,8 @@
             placeholder="Director, CEO, President, etc"
           />
           <SubmitButton
-            on:click={userCreateCompany}
-            isSubmitted={hasCreatedCompany}
+            on:click={SubmitCreateCompany}
+            isSubmitted={isCreatingCompany}
             isFullWidth
           />
         </div>

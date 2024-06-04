@@ -6486,7 +6486,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         const mainlayout_changes = {};
-        if (dirty & /*$scope, hasCreatedCompany, headTitle, companyName, tenantCode, user*/
+        if (dirty & /*$scope, isCreatingCompany, headTitle, companyName, tenantCode, user*/
         134218689) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
@@ -7129,7 +7129,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     submitbutton = new SubmitButton_default({
       props: {
         isSubmitted: (
-          /*hasCreatedCompany*/
+          /*isCreatingCompany*/
           ctx[9]
         ),
         isFullWidth: true
@@ -7137,7 +7137,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     });
     submitbutton.$on(
       "click",
-      /*userCreateCompany*/
+      /*SubmitCreateCompany*/
       ctx[15]
     );
     return {
@@ -7222,9 +7222,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         inputbox2.$set(inputbox2_changes);
         const submitbutton_changes = {};
-        if (dirty & /*hasCreatedCompany*/
+        if (dirty & /*isCreatingCompany*/
         512)
-          submitbutton_changes.isSubmitted = /*hasCreatedCompany*/
+          submitbutton_changes.isSubmitted = /*isCreatingCompany*/
           ctx2[9];
         submitbutton.$set(submitbutton_changes);
       },
@@ -7337,21 +7337,30 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
+  var myCompany = (
+    /** @type Org */
+    {/* myCompany */}
+  );
   var title = '#{title}';
   var LOGIN = "LOGIN";
   var REGISTER = "REGISTER";
   var RESEND_VERIFICATION_EMAIL = "RESEND_VERIFICATION_EMAIL";
   var FORGOT_PASSWORD = "FORGOT_PASSWORD";
   var USER = "";
-  var myCompany = {/* myCompany */};
   function getCookie(name) {
     const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
     if (match)
       return match[2];
   }
   function instance9($self, $props, $invalidate) {
-    let user2 = {/* user */};
-    let segments2 = {/* segments */};
+    let user2 = (
+      /** @type User */
+      {/* user */}
+    );
+    let segments2 = (
+      /** @type Access */
+      {/* segments */}
+    );
     let email = "", password = "", confirmPass = "";
     let mode = LOGIN, isSubmitted = false;
     async function onHashChange() {
@@ -7377,7 +7386,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       await tick();
     }
     onMount(() => {
-      console.log("");
       onHashChange();
     });
     async function guestRegister() {
@@ -7491,29 +7499,32 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       console.log("myCompany", myCompany);
     });
     let tenantCode = myCompany.tenantCode || "", companyName = myCompany.name || "", headTitle = myCompany.headTitle || "";
-    let hasCreatedCompany = false;
-    async function userCreateCompany() {
-      $invalidate(9, hasCreatedCompany = true);
+    let isCreatingCompany = false;
+    async function SubmitCreateCompany() {
       if (!tenantCode || !companyName || !headTitle) {
-        $invalidate(9, hasCreatedCompany = false);
-        notifier.showWarning("All fields are required");
+        notifier.showWarning("all fields are required");
         return;
       }
+      $invalidate(9, isCreatingCompany = true);
+      const company = { tenantCode, name: companyName, headTitle };
       await (0, import_jsApi_GEN2.UserCreateCompany)(
-        { tenantCode, companyName, headTitle },
+        //@ts-ignore
+        {
+          company
+          // setTimeout(() => window.location.reload(), 1200);   
+        },
         /** @type {import('./jsApi.GEN.js').UserCreateCompanyCallback} */
         function(o) {
+          $invalidate(9, isCreatingCompany = false);
           if (o.error) {
             console.log(o);
-            $invalidate(9, hasCreatedCompany = false);
             notifier.showError(o.error);
             return;
           }
-          $invalidate(9, hasCreatedCompany = false);
           console.log(o);
-          notifier.showSuccess("Company created successfully");
-          setTimeout(() => window.location.reload(), 1200);
+          notifier.showSuccess("company created successfully");
         }
+        // setTimeout(() => window.location.reload(), 1200);   
       );
     }
     function inputbox0_value_binding(value) {
@@ -7554,13 +7565,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       tenantCode,
       companyName,
       headTitle,
-      hasCreatedCompany,
+      isCreatingCompany,
       onHashChange,
       guestRegister,
       guestLogin,
       guestResendVerificationEmail,
       guestForgotPassword,
-      userCreateCompany,
+      SubmitCreateCompany,
       inputbox0_value_binding,
       inputbox1_value_binding,
       inputbox2_value_binding,

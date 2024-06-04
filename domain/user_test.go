@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"benakun/model/mAuth/rqAuth"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -14,9 +15,11 @@ func TestCreateCompany(t *testing.T) {
 
 		in := UserCreateCompanyIn{
 			RequestCommon: testAdminRequestCommon(UserCreateCompanyAction),
-			TenantCode:    `coolcompany`,
-			CompanyName:   `Cool Company`,
-			HeadTitle:     `Mr. Ben`,
+			Company: rqAuth.Orgs{
+				TenantCode: `coolcompany`,
+				Name:   `Cool Company`,
+				HeadTitle:     `Mr. Ben`,
+			},
 		}
 
 		out := d.UserCreateCompany(&in)
