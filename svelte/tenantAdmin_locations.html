@@ -32501,7 +32501,7 @@ uniform ${i3} ${a3} u_${s3};
     let updating_isSubmitted;
     let current;
     function poupforms_isSubmitted_binding(value) {
-      ctx[14](value);
+      ctx[18](value);
     }
     let poupforms_props = {
       heading: "Add office location",
@@ -32511,7 +32511,7 @@ uniform ${i3} ${a3} u_${s3};
       ),
       OnSubmit: (
         /*OnAddLocation*/
-        ctx[11]
+        ctx[15]
       )
     };
     if (
@@ -32522,7 +32522,7 @@ uniform ${i3} ${a3} u_${s3};
       ctx[5];
     }
     poupforms = new PoUpForms_default({ props: poupforms_props });
-    ctx[13](poupforms);
+    ctx[17](poupforms);
     binding_callbacks.push(() => bind(poupforms, "isSubmitted", poupforms_isSubmitted_binding));
     return {
       c() {
@@ -32558,7 +32558,7 @@ uniform ${i3} ${a3} u_${s3};
         current = false;
       },
       d(detaching) {
-        ctx[13](null);
+        ctx[17](null);
         destroy_component(poupforms, detaching);
       }
     };
@@ -32637,7 +32637,7 @@ uniform ${i3} ${a3} u_${s3};
             button,
             "click",
             /*click_handler*/
-            ctx[15]
+            ctx[19]
           );
           mounted = true;
         }
@@ -32711,7 +32711,7 @@ uniform ${i3} ${a3} u_${s3};
       ctx[10]
     ) };
     map = new Map_default({ props: map_props });
-    ctx[16](map);
+    ctx[20](map);
     return {
       c() {
         create_component(map.$.fragment);
@@ -32739,7 +32739,7 @@ uniform ${i3} ${a3} u_${s3};
         current = false;
       },
       d(detaching) {
-        ctx[16](null);
+        ctx[20](null);
         destroy_component(map, detaching);
       }
     };
@@ -32773,7 +32773,7 @@ uniform ${i3} ${a3} u_${s3};
             button,
             "click",
             /*click_handler_1*/
-            ctx[17]
+            ctx[21]
           );
           mounted = true;
         }
@@ -32846,13 +32846,13 @@ uniform ${i3} ${a3} u_${s3};
     let updating_MASTER_ROWS;
     let current;
     function mastertable_FIELDS_binding(value) {
-      ctx[18](value);
+      ctx[22](value);
     }
     function mastertable_PAGER_binding(value) {
-      ctx[19](value);
+      ctx[23](value);
     }
     function mastertable_MASTER_ROWS_binding(value) {
-      ctx[20](value);
+      ctx[24](value);
     }
     let mastertable_props = {
       ACCESS: segments2,
@@ -32863,7 +32863,23 @@ uniform ${i3} ${a3} u_${s3};
       CAN_RESTORE_ROW: true,
       OnInfo: (
         /*OnInfo*/
+        ctx[16]
+      ),
+      OnEdit: (
+        /*OnEdit*/
         ctx[12]
+      ),
+      OnRefresh: (
+        /*OnRefresh*/
+        ctx[11]
+      ),
+      OnDelete: (
+        /*OnDelete*/
+        ctx[13]
+      ),
+      OnRestore: (
+        /*OnRestore*/
+        ctx[14]
       ),
       $slots: { default: [create_default_slot_1] },
       $scope: { ctx }
@@ -32906,7 +32922,7 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         const mastertable_changes = {};
         if (dirty & /*$scope, popUpForms*/
-        4194320) {
+        67108880) {
           mastertable_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_FIELDS && dirty & /*fields*/
@@ -33038,7 +33054,7 @@ uniform ${i3} ${a3} u_${s3};
         }
         const mainlayout_changes = {};
         if (dirty & /*$scope, fields, pager, locations, popUpForms*/
-        4194327) {
+        67108887) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -33102,6 +33118,93 @@ uniform ${i3} ${a3} u_${s3};
       if (locations && locations.length > 0)
         location2 = locations[0];
     });
+    async function OnRefresh(pagerIn) {
+      const i = { pager: pagerIn, cmd: "list" };
+      await (0, import_jsApi.TenantAdminLocations)(
+        // @ts-ignore
+        i,
+        /** @type {import('../jsApi.GEN').TenantAdminLocationsCallback} */
+        /** @returns {Promise<void>} */
+        function(o) {
+          if (o.error) {
+            console.log(o);
+            notifier.showError(o.error);
+            return;
+          }
+          $invalidate(1, pager = o.pager);
+          $invalidate(2, locations = o.locations);
+        }
+      );
+    }
+    async function OnEdit(id, payloads) {
+      const loc = {
+        id: payloads[0],
+        /** @type any[]*/
+        name: payloads[1],
+        country: payloads[2],
+        stateProvice: payloads[3],
+        cityRegency: payloads[4],
+        subdistrict: payloads[5],
+        village: payloads[6],
+        rwBanjar: payloads[7],
+        rtNeigb: payloads[8],
+        address: payloads[9],
+        lat: payloads[10],
+        lng: payloads[11]
+      };
+      const i = { pager, location: loc, cmd: "upsert" };
+      await (0, import_jsApi.TenantAdminLocations)(
+        // @ts-ignore
+        i,
+        /** @type {import('../jsApi.GEN').TenantAdminLocationsCallback} */
+        /** @returns {Promise<void>} */
+        function(o) {
+          if (o.error) {
+            console.log(o);
+            notifier.showError(o.error);
+            return;
+          }
+          $invalidate(1, pager = o.pager);
+          $invalidate(2, locations = o.locations);
+        }
+      );
+    }
+    async function OnDelete(id) {
+      const i = { pager, location: { id }, cmd: "delete" };
+      await (0, import_jsApi.TenantAdminLocations)(
+        // @ts-ignore
+        i,
+        /** @type {import('../jsApi.GEN').TenantAdminLocationsCallback} */
+        /** @returns {Promise<void>} */
+        function(o) {
+          if (o.error) {
+            console.log(o);
+            notifier.showError(o.error);
+            return;
+          }
+          $invalidate(1, pager = o.pager);
+          $invalidate(2, locations = o.locations);
+        }
+      );
+    }
+    async function OnRestore(id) {
+      const i = { pager, location: { id }, cmd: "restore" };
+      await (0, import_jsApi.TenantAdminLocations)(
+        // @ts-ignore
+        i,
+        /** @type {import('../jsApi.GEN').TenantAdminLocationsCallback} */
+        /** @returns {Promise<void>} */
+        function(o) {
+          if (o.error) {
+            console.log(o);
+            notifier.showError(o.error);
+            return;
+          }
+          $invalidate(1, pager = o.pager);
+          $invalidate(2, locations = o.locations);
+        }
+      );
+    }
     let isSubmitAddLocation = false;
     async function OnAddLocation(payloads) {
       $invalidate(5, isSubmitAddLocation = true);
@@ -33199,6 +33302,10 @@ uniform ${i3} ${a3} u_${s3};
       mapElm,
       isMapReady,
       Coord,
+      OnRefresh,
+      OnEdit,
+      OnDelete,
+      OnRestore,
       OnAddLocation,
       OnInfo,
       poupforms_binding,

@@ -33,6 +33,109 @@
     if (locations && locations.length > 0) location = locations[0];
   });
 
+  async function OnRefresh(/** @type PagerIn */ pagerIn) {
+    const i = { pager: pagerIn, cmd: 'list' }
+    await TenantAdminLocations( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminLocationsCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+        
+        pager = o.pager;
+        locations = o.locations;
+      }
+    );
+  }
+
+  async function OnEdit(/** @type any */ id, /** @type any[]*/ payloads) {
+    /** @type Location */ // @ts-ignore
+    const loc = {
+      id: payloads[0],
+      name: payloads[1],
+      country: payloads[2],
+      stateProvice: payloads[3],
+      cityRegency: payloads[4],
+      subdistrict: payloads[5],
+      village: payloads[6],
+      rwBanjar: payloads[7],
+      rtNeigb: payloads[8],
+      address: payloads[9],
+      lat: payloads[10],
+      lng: payloads[11],
+    }
+    const i = {
+      pager,
+      location: loc,
+      cmd: 'upsert'
+    }
+    await TenantAdminLocations( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminLocationsCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+        
+        pager = o.pager;
+        locations = o.locations;
+      }
+    );
+  }
+
+  async function OnDelete(/** @type any */ id) {
+    const i = {
+      pager,
+      location: {
+        id: id
+      },
+      cmd: 'delete'
+    }
+    await TenantAdminLocations( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminLocationsCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+        
+        pager = o.pager;
+        locations = o.locations;
+      }
+    );
+  }
+
+  async function OnRestore(/** @type any */ id) {
+    const i = {
+      pager,
+      location: {
+        id: id
+      },
+      cmd: 'restore'
+    }
+    await TenantAdminLocations( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminLocationsCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+        
+        pager = o.pager;
+        locations = o.locations;
+      }
+    );
+  }
+
   let isSubmitAddLocation = false;
   async function OnAddLocation(/** @type any[] */ payloads) {
     isSubmitAddLocation = true;
@@ -145,6 +248,10 @@
       CAN_RESTORE_ROW
 
       {OnInfo}
+      {OnEdit}
+      {OnRefresh}
+      {OnDelete}
+      {OnRestore}
     >
       {#if user.tenantCode !== ''}
         <button
