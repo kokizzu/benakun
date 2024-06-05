@@ -28,8 +28,8 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 		google.ResponseCommon.DecorateSession(c)
 		
-		var myCompany *rqAuth.Orgs
-		if user.TenantCode != `` {
+		var myCompany *rqAuth.Orgs = &rqAuth.Orgs{}
+		if user != nil && user.TenantCode != `` {
 			myCompany= rqAuth.NewOrgs(d.AuthOltp)
 			myCompany.FindCompanyByTenantCode(user.TenantCode)
 		}

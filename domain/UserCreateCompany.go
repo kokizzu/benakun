@@ -16,7 +16,6 @@ import (
 
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/I"
-	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 )
 
@@ -48,6 +47,7 @@ const (
 	ErrUserCreateCompanyCoaParentNotFound	 		= `coa parent not found when creating default coa levels`
 	ErrUserCreateCompanyFailedSaveDefaultCoa	= `save default coa failed`
 	ErrUserCreateCompanyFailedUpdateCoaParent = `failed to update coa parent`
+	ErrUserCreateCompanyAlreadyHaveCompany		= `already have company`
 )
 
 func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompanyOut) {
@@ -64,7 +64,16 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 		return
 	}
 
-	L.Print(`company:`, in.Company)
+	if user.TenantCode != `` {
+		out.SetError(400, ErrUserCreateCompanyAlreadyHaveCompany)
+		return
+	}
+
+	comp := rqAuth.NewOrgs(d.AuthOltp)
+	if comp.FindCompanyByTenantCode(in.Company.TenantCode) {
+		out.SetError(400, ErrUserCreateCompanyAlreadyAdded)
+		return
+	}
 
 	if !isLetter(in.Company.TenantCode) {
 		out.SetError(400, ErrUserCreateCompanyTenantCodeInvalid)

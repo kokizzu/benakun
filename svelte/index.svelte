@@ -159,14 +159,17 @@
     });
   }
 
-  
-  onMount(()=>{
-	  console.log('myCompany', myCompany)
-  })
 
-  let tenantCode = myCompany.tenantCode || '',
-	  companyName = myCompany.name || '',
-	  headTitle = myCompany.headTitle || '';
+  let tenantCode = '', companyName = '', headTitle = '';
+
+  onMount(() => {
+    console.log('My Company:', myCompany);
+    if (myCompany) {
+      tenantCode = myCompany.tenantCode;
+      companyName = myCompany.name;
+      headTitle = myCompany.headTitle;
+    }
+  })
 
   let isCreatingCompany = false;
   async function SubmitCreateCompany() {
@@ -196,7 +199,7 @@
         console.log(o);
         notifier.showSuccess('company created successfully');
 
-        // setTimeout(() => window.location.reload(), 1200);   
+        setTimeout(() => window.location.reload(), 1200);
       }
     );
   }

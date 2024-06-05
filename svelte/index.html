@@ -7495,10 +7495,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
       );
     }
+    let tenantCode = "", companyName = "", headTitle = "";
     onMount(() => {
-      console.log("myCompany", myCompany);
+      console.log("My Company:", myCompany);
+      if (myCompany) {
+        $invalidate(6, tenantCode = myCompany.tenantCode);
+        $invalidate(7, companyName = myCompany.name);
+        $invalidate(8, headTitle = myCompany.headTitle);
+      }
     });
-    let tenantCode = myCompany.tenantCode || "", companyName = myCompany.name || "", headTitle = myCompany.headTitle || "";
     let isCreatingCompany = false;
     async function SubmitCreateCompany() {
       if (!tenantCode || !companyName || !headTitle) {
@@ -7509,10 +7514,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       const company = { tenantCode, name: companyName, headTitle };
       await (0, import_jsApi_GEN2.UserCreateCompany)(
         //@ts-ignore
-        {
-          company
-          // setTimeout(() => window.location.reload(), 1200);   
-        },
+        { company },
         /** @type {import('./jsApi.GEN.js').UserCreateCompanyCallback} */
         function(o) {
           $invalidate(9, isCreatingCompany = false);
@@ -7523,8 +7525,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           }
           console.log(o);
           notifier.showSuccess("company created successfully");
+          setTimeout(() => window.location.reload(), 1200);
         }
-        // setTimeout(() => window.location.reload(), 1200);   
       );
     }
     function inputbox0_value_binding(value) {
