@@ -82,15 +82,15 @@
   let headingInfo = 'Location for '+location.name;
   let mapElm;
   let isMapReady;
-  let coord = {
+  let Coord = {
     lat: location.lat,
     lng: location.lng,
     zoom: 6
   };
 
   async function OnInfo(/** @type any[] */ row) {
-    coord.lat = row[10];
-    coord.lng = row[11];
+    Coord.lat = row[10];
+    Coord.lng = row[11];
     headingInfo = 'Location for '+row[1];
     isMapReady = true;
     isShowInfoLocation = true;
@@ -121,7 +121,7 @@
           {#if isMapReady}
             <Map
               bind:this={mapElm}
-              {coord}
+              {Coord}
             />
           {/if}
         </div>

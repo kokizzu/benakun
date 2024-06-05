@@ -4,6 +4,7 @@
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
   import { onMount } from 'svelte';
   import InputCustom from './InputCustom.svelte';
+  import Map from './Map.svelte';
 
   // @ts-ignore
   /** @typedef {import('../_components/types/master').Field} Field */
@@ -13,10 +14,22 @@
   export let isSubmitted = false;
   let isShow = false;
   let payloads = [];
+  let isCoordFieldsExist = false;
+  let IdxLatitude = -1, IdxLongitude = -2;
+  let mapElm;
 
   onMount(() => {
     if (FIELDS && FIELDS.length > 0) {
-      FIELDS.forEach(() => payloads = [...payloads, '']);
+      FIELDS.forEach((f, i) => {
+        payloads = [...payloads, '']
+        if (f.name === 'lat') {
+          isCoordFieldsExist = true;
+          IdxLatitude = i;
+        } else if (f.name === 'lng') {
+          isCoordFieldsExist = true;
+          IdxLongitude = i; 
+        }
+      });
 		}
   })
 
@@ -34,6 +47,17 @@
   
   const cancel = () => {
     isShow = false;
+  }
+
+  let Coord = {
+    lng: 118.0148634,
+    lat: -2.548926,
+    zoom: 4
+  };
+
+  function OnClickMap(lngLat) {
+    payloads[IdxLatitude] = lngLat.lat;
+    payloads[IdxLongitude] = lngLat.lng;
   }
 </script>
 
@@ -60,6 +84,16 @@
           {/if}
         {/if}
       {/each}
+
+      {#if isCoordFieldsExist}
+        <div class="map_container">
+          <Map
+            bind:this={mapElm}
+            {OnClickMap} {Coord}
+            IsClickable
+          />
+        </div>
+      {/if}
     </div>
     <div class="foot">
       <div class="left">
@@ -161,6 +195,11 @@
 		flex-direction: column;
 		gap: 10px;
 	}
+
+  .popup_container .popup .forms .map_container {
+    width: 100%;
+    height: 200px;
+  }
 
 	.popup_container .popup .foot {
 		display: flex;
