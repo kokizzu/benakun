@@ -84,15 +84,17 @@
         
         pager = o.pager;
         locations = o.locations;
+
+        notifier.showSuccess('location updated');
       }
     );
   }
 
-  async function OnDelete(/** @type any */ id) {
+  async function OnDelete(/** @type any[] */ row) {
     const i = {
       pager,
       location: {
-        id: id
+        id: row[0]
       },
       cmd: 'delete'
     }
@@ -108,6 +110,8 @@
         
         pager = o.pager;
         locations = o.locations;
+
+        notifier.showSuccess('location deleted');
       }
     );
   }
@@ -132,6 +136,8 @@
         
         pager = o.pager;
         locations = o.locations;
+
+        notifier.showSuccess('location restored');
       }
     );
   }
@@ -188,7 +194,7 @@
   let Coord = {
     lat: location.lat,
     lng: location.lng,
-    zoom: 6
+    zoom: 8
   };
 
   async function OnInfo(/** @type any[] */ row) {

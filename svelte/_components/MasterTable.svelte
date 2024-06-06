@@ -143,7 +143,7 @@
 	let Coord = {
     lng: 118.0148634,
     lat: -2.548926,
-    zoom: 4
+    zoom: 7
   };
 
 	onMount(() => {

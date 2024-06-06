@@ -176,9 +176,9 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 					product.SetRestoredBy(sess.UserId)
 				}
 			}
+		} else {
+			product.SetTenantCode(user.TenantCode)
 		}
-
-		product.SetTenantCode(user.TenantCode)
 
 		if in.Product.Name != `` {
 			product.SetName(in.Product.Name)

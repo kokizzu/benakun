@@ -31454,7 +31454,7 @@ uniform ${i3} ${a3} u_${s3};
     let Coord = {
       lng: 118.0148634,
       lat: -2.548926,
-      zoom: 4
+      zoom: 7
     };
     onMount(() => {
       $invalidate(10, filterTable = FilterTable_default);
@@ -33166,11 +33166,16 @@ uniform ${i3} ${a3} u_${s3};
           }
           $invalidate(1, pager = o.pager);
           $invalidate(2, locations = o.locations);
+          notifier.showSuccess("location updated");
         }
       );
     }
-    async function OnDelete(id) {
-      const i = { pager, location: { id }, cmd: "delete" };
+    async function OnDelete(row) {
+      const i = {
+        pager,
+        location: { id: row[0] },
+        cmd: "delete"
+      };
       await (0, import_jsApi.TenantAdminLocations)(
         // @ts-ignore
         i,
@@ -33184,6 +33189,7 @@ uniform ${i3} ${a3} u_${s3};
           }
           $invalidate(1, pager = o.pager);
           $invalidate(2, locations = o.locations);
+          notifier.showSuccess("location deleted");
         }
       );
     }
@@ -33202,6 +33208,7 @@ uniform ${i3} ${a3} u_${s3};
           }
           $invalidate(1, pager = o.pager);
           $invalidate(2, locations = o.locations);
+          notifier.showSuccess("location restored");
         }
       );
     }
@@ -33251,7 +33258,7 @@ uniform ${i3} ${a3} u_${s3};
     let Coord = {
       lat: location2.lat,
       lng: location2.lng,
-      zoom: 6
+      zoom: 8
     };
     async function OnInfo(row) {
       $invalidate(10, Coord.lat = row[10], Coord);

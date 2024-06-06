@@ -196,9 +196,47 @@ func (d *Domain) TenantAdminLocations(in *TenantAdminLocationsIn) (out TenantAdm
 			location.SetCreatedBy(sess.UserId)
 		}
 
-		location.SetAll(in.Location, nil, nil)
-		location.SetUpdatedAt(in.UnixNow())
-		location.SetUpdatedBy(sess.UserId)
+		// TODO: method SetAll() cannot update field
+		// location.SetAll(in.Location, nil, nil)
+
+		if in.Location.Name != `` && in.Location.Name != location.Name {
+			location.SetName(in.Location.Name)
+		}
+		if in.Location.Country != `` && in.Location.Country != location.Country {
+			location.SetCountry(in.Location.Country)
+		}
+		if in.Location.StateProvice != `` && in.Location.StateProvice != location.StateProvice {
+			location.SetStateProvice(in.Location.StateProvice)
+		}
+		if in.Location.CityRegency != `` && in.Location.CityRegency != location.CityRegency {
+			location.SetCityRegency(in.Location.CityRegency)
+		}
+		if in.Location.Subdistrict != `` && in.Location.Subdistrict != location.Subdistrict {
+			location.SetSubdistrict(in.Location.Subdistrict)
+		}
+		if in.Location.Village != `` && in.Location.Village != location.Village {
+			location.SetVillage(in.Location.Village)
+		}
+		if in.Location.RwBanjar != `` && in.Location.RwBanjar != location.RwBanjar {
+			location.SetRwBanjar(in.Location.RwBanjar)
+		}
+		if in.Location.RtNeigb != `` && in.Location.RtNeigb != location.RtNeigb {
+			location.SetRtNeigb(in.Location.RtNeigb)
+		}
+		if in.Location.Address != `` && in.Location.Address != location.Address {
+			location.SetAddress(in.Location.Address)
+		}
+		if in.Location.Lat != 0 && in.Location.Lat != location.Lat {
+			location.SetLat(in.Location.Lat)
+		}
+		if in.Location.Lng != 0 && in.Location.Lng != location.Lng {
+			location.SetLng(in.Location.Lng)
+		}
+
+		if location.HaveMutation() {
+			location.SetUpdatedAt(in.UnixNow())
+			location.SetUpdatedBy(sess.UserId)
+		}
 
 		if !location.DoUpsertById() {
 			out.SetError(500, ErrTenantAdminLocationsSaveFailed)
