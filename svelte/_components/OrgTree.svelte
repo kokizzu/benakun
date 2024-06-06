@@ -9,7 +9,7 @@
     RiBuildingsBuilding2Line,
     RiUserFacesGroup3Line,
     RiBusinessBriefcaseLine,
-    RiArrowsArrowRightSLine
+    RiArrowsArrowGoBackLine
    } from '../node_modules/svelte-icons-pack/dist/ri';
   import { onMount, createEventDispatcher } from 'svelte';
   import PopUpOrgChild from './PopUpOrgChild.svelte';
@@ -253,7 +253,7 @@
           color="var(--gray-006)"
           className="icon"
           size="17"
-          src={RiArrowsArrowRightSLine}
+          src={RiArrowsArrowGoBackLine}
         />
       </button>
     {/if}
