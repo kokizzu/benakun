@@ -13,12 +13,380 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-// Locations DAO reader/query struct
+// InventoryChanges DAO reader/query struct
 //
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file rqBusiness__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type rqBusiness__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type rqBusiness__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type rqBusiness__ORM.GEN.go
+type InventoryChanges struct {
+	Adapter    *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id         uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	TenantCode string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
+	CreatedAt  int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy  uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt  int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy  uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt  int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	DeletedBy  uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
+	RestoredBy uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
+	StockDelta int64       `json:"stockDelta" form:"stockDelta" query:"stockDelta" long:"stockDelta" msg:"stockDelta"`
+	ProductId  uint64      `json:"productId,string" form:"productId" query:"productId" long:"productId" msg:"productId"`
+	LocationId uint64      `json:"locationId,string" form:"locationId" query:"locationId" long:"locationId" msg:"locationId"`
+	SpendingId uint64      `json:"spendingId,string" form:"spendingId" query:"spendingId" long:"spendingId" msg:"spendingId"`
+	ExpenseId  uint64      `json:"expenseId,string" form:"expenseId" query:"expenseId" long:"expenseId" msg:"expenseId"`
+}
+
+// NewInventoryChanges create new ORM reader/query object
+func NewInventoryChanges(adapter *Tt.Adapter) *InventoryChanges {
+	return &InventoryChanges{Adapter: adapter}
+}
+
+// SpaceName returns full package and table name
+func (i *InventoryChanges) SpaceName() string { //nolint:dupl false positive
+	return string(mBusiness.TableInventoryChanges) // casting required to string from Tt.TableName
+}
+
+// SqlTableName returns quoted table name
+func (i *InventoryChanges) SqlTableName() string { //nolint:dupl false positive
+	return `"inventoryChanges"`
+}
+
+// SqlSelectAllFields generate Sql select fields
+func (i *InventoryChanges) SqlSelectAllFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "tenantCode"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
+	, "stockDelta"
+	, "productId"
+	, "locationId"
+	, "spendingId"
+	, "expenseId"
+	`
+}
+
+// SqlSelectAllUncensoredFields generate Sql select fields
+func (i *InventoryChanges) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
+	return ` "id"
+	, "tenantCode"
+	, "createdAt"
+	, "createdBy"
+	, "updatedAt"
+	, "updatedBy"
+	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
+	, "stockDelta"
+	, "productId"
+	, "locationId"
+	, "spendingId"
+	, "expenseId"
+	`
+}
+
+// ToUpdateArray generate slice of update command
+func (i *InventoryChanges) ToUpdateArray() *tarantool.Operations { //nolint:dupl false positive
+	return tarantool.NewOperations().
+		Assign(0, i.Id).
+		Assign(1, i.TenantCode).
+		Assign(2, i.CreatedAt).
+		Assign(3, i.CreatedBy).
+		Assign(4, i.UpdatedAt).
+		Assign(5, i.UpdatedBy).
+		Assign(6, i.DeletedAt).
+		Assign(7, i.DeletedBy).
+		Assign(8, i.RestoredBy).
+		Assign(9, i.StockDelta).
+		Assign(10, i.ProductId).
+		Assign(11, i.LocationId).
+		Assign(12, i.SpendingId).
+		Assign(13, i.ExpenseId)
+}
+
+// IdxId return name of the index
+func (i *InventoryChanges) IdxId() int { //nolint:dupl false positive
+	return 0
+}
+
+// SqlId return name of the column being indexed
+func (i *InventoryChanges) SqlId() string { //nolint:dupl false positive
+	return `"id"`
+}
+
+// IdxTenantCode return name of the index
+func (i *InventoryChanges) IdxTenantCode() int { //nolint:dupl false positive
+	return 1
+}
+
+// SqlTenantCode return name of the column being indexed
+func (i *InventoryChanges) SqlTenantCode() string { //nolint:dupl false positive
+	return `"tenantCode"`
+}
+
+// IdxCreatedAt return name of the index
+func (i *InventoryChanges) IdxCreatedAt() int { //nolint:dupl false positive
+	return 2
+}
+
+// SqlCreatedAt return name of the column being indexed
+func (i *InventoryChanges) SqlCreatedAt() string { //nolint:dupl false positive
+	return `"createdAt"`
+}
+
+// IdxCreatedBy return name of the index
+func (i *InventoryChanges) IdxCreatedBy() int { //nolint:dupl false positive
+	return 3
+}
+
+// SqlCreatedBy return name of the column being indexed
+func (i *InventoryChanges) SqlCreatedBy() string { //nolint:dupl false positive
+	return `"createdBy"`
+}
+
+// IdxUpdatedAt return name of the index
+func (i *InventoryChanges) IdxUpdatedAt() int { //nolint:dupl false positive
+	return 4
+}
+
+// SqlUpdatedAt return name of the column being indexed
+func (i *InventoryChanges) SqlUpdatedAt() string { //nolint:dupl false positive
+	return `"updatedAt"`
+}
+
+// IdxUpdatedBy return name of the index
+func (i *InventoryChanges) IdxUpdatedBy() int { //nolint:dupl false positive
+	return 5
+}
+
+// SqlUpdatedBy return name of the column being indexed
+func (i *InventoryChanges) SqlUpdatedBy() string { //nolint:dupl false positive
+	return `"updatedBy"`
+}
+
+// IdxDeletedAt return name of the index
+func (i *InventoryChanges) IdxDeletedAt() int { //nolint:dupl false positive
+	return 6
+}
+
+// SqlDeletedAt return name of the column being indexed
+func (i *InventoryChanges) SqlDeletedAt() string { //nolint:dupl false positive
+	return `"deletedAt"`
+}
+
+// IdxDeletedBy return name of the index
+func (i *InventoryChanges) IdxDeletedBy() int { //nolint:dupl false positive
+	return 7
+}
+
+// SqlDeletedBy return name of the column being indexed
+func (i *InventoryChanges) SqlDeletedBy() string { //nolint:dupl false positive
+	return `"deletedBy"`
+}
+
+// IdxRestoredBy return name of the index
+func (i *InventoryChanges) IdxRestoredBy() int { //nolint:dupl false positive
+	return 8
+}
+
+// SqlRestoredBy return name of the column being indexed
+func (i *InventoryChanges) SqlRestoredBy() string { //nolint:dupl false positive
+	return `"restoredBy"`
+}
+
+// IdxStockDelta return name of the index
+func (i *InventoryChanges) IdxStockDelta() int { //nolint:dupl false positive
+	return 9
+}
+
+// SqlStockDelta return name of the column being indexed
+func (i *InventoryChanges) SqlStockDelta() string { //nolint:dupl false positive
+	return `"stockDelta"`
+}
+
+// IdxProductId return name of the index
+func (i *InventoryChanges) IdxProductId() int { //nolint:dupl false positive
+	return 10
+}
+
+// SqlProductId return name of the column being indexed
+func (i *InventoryChanges) SqlProductId() string { //nolint:dupl false positive
+	return `"productId"`
+}
+
+// IdxLocationId return name of the index
+func (i *InventoryChanges) IdxLocationId() int { //nolint:dupl false positive
+	return 11
+}
+
+// SqlLocationId return name of the column being indexed
+func (i *InventoryChanges) SqlLocationId() string { //nolint:dupl false positive
+	return `"locationId"`
+}
+
+// IdxSpendingId return name of the index
+func (i *InventoryChanges) IdxSpendingId() int { //nolint:dupl false positive
+	return 12
+}
+
+// SqlSpendingId return name of the column being indexed
+func (i *InventoryChanges) SqlSpendingId() string { //nolint:dupl false positive
+	return `"spendingId"`
+}
+
+// IdxExpenseId return name of the index
+func (i *InventoryChanges) IdxExpenseId() int { //nolint:dupl false positive
+	return 13
+}
+
+// SqlExpenseId return name of the column being indexed
+func (i *InventoryChanges) SqlExpenseId() string { //nolint:dupl false positive
+	return `"expenseId"`
+}
+
+// ToArray receiver fields to slice
+func (i *InventoryChanges) ToArray() A.X { //nolint:dupl false positive
+	return A.X{
+		i.Id,         // 0
+		i.TenantCode, // 1
+		i.CreatedAt,  // 2
+		i.CreatedBy,  // 3
+		i.UpdatedAt,  // 4
+		i.UpdatedBy,  // 5
+		i.DeletedAt,  // 6
+		i.DeletedBy,  // 7
+		i.RestoredBy, // 8
+		i.StockDelta, // 9
+		i.ProductId,  // 10
+		i.LocationId, // 11
+		i.SpendingId, // 12
+		i.ExpenseId,  // 13
+	}
+}
+
+// FromArray convert slice to receiver fields
+func (i *InventoryChanges) FromArray(a A.X) *InventoryChanges { //nolint:dupl false positive
+	i.Id = X.ToU(a[0])
+	i.TenantCode = X.ToS(a[1])
+	i.CreatedAt = X.ToI(a[2])
+	i.CreatedBy = X.ToU(a[3])
+	i.UpdatedAt = X.ToI(a[4])
+	i.UpdatedBy = X.ToU(a[5])
+	i.DeletedAt = X.ToI(a[6])
+	i.DeletedBy = X.ToU(a[7])
+	i.RestoredBy = X.ToU(a[8])
+	i.StockDelta = X.ToI(a[9])
+	i.ProductId = X.ToU(a[10])
+	i.LocationId = X.ToU(a[11])
+	i.SpendingId = X.ToU(a[12])
+	i.ExpenseId = X.ToU(a[13])
+	return i
+}
+
+// FromUncensoredArray convert slice to receiver fields
+func (i *InventoryChanges) FromUncensoredArray(a A.X) *InventoryChanges { //nolint:dupl false positive
+	i.Id = X.ToU(a[0])
+	i.TenantCode = X.ToS(a[1])
+	i.CreatedAt = X.ToI(a[2])
+	i.CreatedBy = X.ToU(a[3])
+	i.UpdatedAt = X.ToI(a[4])
+	i.UpdatedBy = X.ToU(a[5])
+	i.DeletedAt = X.ToI(a[6])
+	i.DeletedBy = X.ToU(a[7])
+	i.RestoredBy = X.ToU(a[8])
+	i.StockDelta = X.ToI(a[9])
+	i.ProductId = X.ToU(a[10])
+	i.LocationId = X.ToU(a[11])
+	i.SpendingId = X.ToU(a[12])
+	i.ExpenseId = X.ToU(a[13])
+	return i
+}
+
+// FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
+func (i *InventoryChanges) FindOffsetLimit(offset, limit uint32, idx string) []InventoryChanges { //nolint:dupl false positive
+	var rows []InventoryChanges
+	res, err := i.Adapter.RetryDo(
+		tarantool.NewSelectRequest(i.SpaceName()).
+			Index(idx).
+			Offset(offset).
+			Limit(limit).
+			Iterator(tarantool.IterAll),
+	)
+	if L.IsError(err, `InventoryChanges.FindOffsetLimit failed: `+i.SpaceName()) {
+		return rows
+	}
+	for _, row := range res {
+		item := InventoryChanges{}
+		row, ok := row.([]any)
+		if ok {
+			rows = append(rows, *item.FromArray(row))
+		}
+	}
+	return rows
+}
+
+// FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
+func (i *InventoryChanges) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
+	var rows []A.X
+	resp, err := i.Adapter.RetryDoResp(
+		tarantool.NewSelectRequest(i.SpaceName()).
+			Index(idx).
+			Offset(offset).
+			Limit(limit).
+			Iterator(tarantool.IterAll),
+	)
+	if L.IsError(err, `InventoryChanges.FindOffsetLimit failed: `+i.SpaceName()) {
+		return rows, Tt.QueryMetaFrom(resp, err)
+	}
+	res, err := resp.Decode()
+	if L.IsError(err, `InventoryChanges.FindOffsetLimit failed: `+i.SpaceName()) {
+		return rows, Tt.QueryMetaFrom(resp, err)
+	}
+	rows = make([]A.X, len(res))
+	for _, row := range res {
+		row, ok := row.([]any)
+		if ok {
+			rows = append(rows, row)
+		}
+	}
+	return rows, Tt.QueryMetaFrom(resp, nil)
+}
+
+// Total count number of rows
+func (i *InventoryChanges) Total() int64 { //nolint:dupl false positive
+	rows := i.Adapter.CallBoxSpace(i.SpaceName()+`:count`, A.X{})
+	if len(rows) > 0 && len(rows[0]) > 0 {
+		return X.ToI(rows[0][0])
+	}
+	return 0
+}
+
+// InventoryChangesFieldTypeMap returns key value of field name and key
+var InventoryChangesFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
+	`id`:         Tt.Unsigned,
+	`tenantCode`: Tt.String,
+	`createdAt`:  Tt.Integer,
+	`createdBy`:  Tt.Unsigned,
+	`updatedAt`:  Tt.Integer,
+	`updatedBy`:  Tt.Unsigned,
+	`deletedAt`:  Tt.Integer,
+	`deletedBy`:  Tt.Unsigned,
+	`restoredBy`: Tt.Unsigned,
+	`stockDelta`: Tt.Integer,
+	`productId`:  Tt.Unsigned,
+	`locationId`: Tt.Unsigned,
+	`spendingId`: Tt.Unsigned,
+	`expenseId`:  Tt.Unsigned,
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
+// Locations DAO reader/query struct
 type Locations struct {
 	Adapter      *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	Id           uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`

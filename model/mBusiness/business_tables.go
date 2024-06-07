@@ -12,7 +12,7 @@ const (
 	RuleTypeAVERAGE = `average`
 
 	// Kind type
-	KindTypeGOODS 		= `goods`
+	KindTypeGOODS 	= `goods`
 	KindTypeService = `service`
 )
 
@@ -74,6 +74,15 @@ const (
 	Lng 					= `lng`
 )
 
+const (
+	TableInventoryChanges Tt.TableName = `inventoryChanges`
+
+	StockDelta		= `stockDelta`
+	ProductId 		= `productId`
+	LocationId		= `locationId`
+	SpendingId		= `spendingId`
+	ExpenseId			= `expenseId`
+)
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableProducts: {
@@ -121,6 +130,24 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		},
 		AutoIncrementId: true,
 		Engine: Tt.Vinyl,
+	},
+	TableInventoryChanges: {
+		Fields: []Tt.Field{
+			{Id, Tt.Unsigned},
+			{TenantCode, Tt.String},
+			{CreatedAt, Tt.Integer},
+			{CreatedBy, Tt.Unsigned},
+			{UpdatedAt, Tt.Integer},
+			{UpdatedBy, Tt.Unsigned},
+			{DeletedAt, Tt.Integer},
+			{DeletedBy, Tt.Unsigned},
+			{RestoredBy, Tt.Unsigned},
+			{StockDelta, Tt.Integer},
+			{ProductId, Tt.Unsigned},
+			{LocationId, Tt.Unsigned},
+			{SpendingId, Tt.Unsigned},
+			{ExpenseId, Tt.Unsigned},
+		},
 	},
 }
 
