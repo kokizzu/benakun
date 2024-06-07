@@ -85,7 +85,7 @@ func (d *Domain) InsertActionLog(in *RequestCommon, out *ResponseCommon) bool {
 		IpAddr4:    ip4,
 		IpAddr6:    ip6,
 		UserAgent:  in.UserAgent,
-		TenantCode: in.SessionUser.TenantCode,
+		TenantCode: hostmap[in.Host].TenantCode,
 		Latency:    in.Latency(),
 	}
 	return d.authLogs.Insert([]any{

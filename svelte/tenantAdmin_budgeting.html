@@ -3625,6 +3625,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   function empty() {
     return text("");
   }
+  function comment(content) {
+    return document.createComment(content);
+  }
   function listen(node, event, handler, options) {
     node.addEventListener(event, handler, options);
     return () => node.removeEventListener(event, handler, options);
@@ -8410,17 +8413,28 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let inputbox2;
     let updating_value_2;
     let t2;
+    let c0;
+    let t3;
+    let c1;
+    let t4;
+    let c2;
+    let t5;
+    let c3;
+    let t6;
+    let c4;
+    let t7;
+    let c5;
+    let t8;
+    let c6;
+    let t9;
     let inputbox3;
     let updating_value_3;
-    let t3;
+    let t10;
     let inputbox4;
     let updating_value_4;
-    let t4;
-    let inputbox5;
-    let updating_value_5;
     let current;
     function inputbox0_value_binding(value) {
-      ctx[16](value);
+      ctx[14](value);
     }
     let inputbox0_props = {
       id: "title",
@@ -8438,7 +8452,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     inputbox0 = new InputBox_default({ props: inputbox0_props });
     binding_callbacks.push(() => bind(inputbox0, "value", inputbox0_value_binding));
     function inputbox1_value_binding(value) {
-      ctx[17](value);
+      ctx[15](value);
     }
     let inputbox1_props = {
       id: "yearOf",
@@ -8456,7 +8470,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     inputbox1 = new InputBox_default({ props: inputbox1_props });
     binding_callbacks.push(() => bind(inputbox1, "value", inputbox1_value_binding));
     function inputbox2_value_binding(value) {
-      ctx[18](value);
+      ctx[16](value);
     }
     let inputbox2_props = {
       id: "budgetIDR",
@@ -8474,27 +8488,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     inputbox2 = new InputBox_default({ props: inputbox2_props });
     binding_callbacks.push(() => bind(inputbox2, "value", inputbox2_value_binding));
     function inputbox3_value_binding(value) {
-      ctx[19](value);
+      ctx[17](value);
     }
     let inputbox3_props = {
-      id: "budgetUSD",
-      label: "Budget USD",
-      type: "number",
-      placeholder: "Budget USD"
-    };
-    if (
-      /*budgetUSD*/
-      ctx[4] !== void 0
-    ) {
-      inputbox3_props.value = /*budgetUSD*/
-      ctx[4];
-    }
-    inputbox3 = new InputBox_default({ props: inputbox3_props });
-    binding_callbacks.push(() => bind(inputbox3, "value", inputbox3_value_binding));
-    function inputbox4_value_binding(value) {
-      ctx[20](value);
-    }
-    let inputbox4_props = {
       id: "quantity",
       label: "Qty",
       type: "number",
@@ -8502,17 +8498,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
     if (
       /*quantity*/
-      ctx[5] !== void 0
+      ctx[4] !== void 0
     ) {
-      inputbox4_props.value = /*quantity*/
-      ctx[5];
+      inputbox3_props.value = /*quantity*/
+      ctx[4];
     }
-    inputbox4 = new InputBox_default({ props: inputbox4_props });
-    binding_callbacks.push(() => bind(inputbox4, "value", inputbox4_value_binding));
-    function inputbox5_value_binding(value) {
-      ctx[21](value);
+    inputbox3 = new InputBox_default({ props: inputbox3_props });
+    binding_callbacks.push(() => bind(inputbox3, "value", inputbox3_value_binding));
+    function inputbox4_value_binding(value) {
+      ctx[18](value);
     }
-    let inputbox5_props = {
+    let inputbox4_props = {
       id: "unit",
       label: "Unit",
       type: "text",
@@ -8520,13 +8516,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
     if (
       /*unit*/
-      ctx[6] !== void 0
+      ctx[5] !== void 0
     ) {
-      inputbox5_props.value = /*unit*/
-      ctx[6];
+      inputbox4_props.value = /*unit*/
+      ctx[5];
     }
-    inputbox5 = new InputBox_default({ props: inputbox5_props });
-    binding_callbacks.push(() => bind(inputbox5, "value", inputbox5_value_binding));
+    inputbox4 = new InputBox_default({ props: inputbox4_props });
+    binding_callbacks.push(() => bind(inputbox4, "value", inputbox4_value_binding));
     return {
       c() {
         create_component(inputbox0.$.fragment);
@@ -8535,11 +8531,23 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t1 = space();
         create_component(inputbox2.$.fragment);
         t2 = space();
-        create_component(inputbox3.$.fragment);
+        c0 = comment("				<InputBox");
         t3 = space();
-        create_component(inputbox4.$.fragment);
+        c1 = comment('					id="budgetUSD"');
         t4 = space();
-        create_component(inputbox5.$.fragment);
+        c2 = comment('					label="Budget USD"');
+        t5 = space();
+        c3 = comment("					bind:value={budgetUSD}");
+        t6 = space();
+        c4 = comment('					type="number"');
+        t7 = space();
+        c5 = comment('					placeholder="Budget USD"');
+        t8 = space();
+        c6 = comment("				/>");
+        t9 = space();
+        create_component(inputbox3.$.fragment);
+        t10 = space();
+        create_component(inputbox4.$.fragment);
       },
       m(target, anchor) {
         mount_component(inputbox0, target, anchor);
@@ -8548,11 +8556,23 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         insert(target, t1, anchor);
         mount_component(inputbox2, target, anchor);
         insert(target, t2, anchor);
-        mount_component(inputbox3, target, anchor);
+        insert(target, c0, anchor);
         insert(target, t3, anchor);
-        mount_component(inputbox4, target, anchor);
+        insert(target, c1, anchor);
         insert(target, t4, anchor);
-        mount_component(inputbox5, target, anchor);
+        insert(target, c2, anchor);
+        insert(target, t5, anchor);
+        insert(target, c3, anchor);
+        insert(target, t6, anchor);
+        insert(target, c4, anchor);
+        insert(target, t7, anchor);
+        insert(target, c5, anchor);
+        insert(target, t8, anchor);
+        insert(target, c6, anchor);
+        insert(target, t9, anchor);
+        mount_component(inputbox3, target, anchor);
+        insert(target, t10, anchor);
+        mount_component(inputbox4, target, anchor);
         current = true;
       },
       p(ctx2, dirty) {
@@ -8584,32 +8604,23 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         inputbox2.$set(inputbox2_changes);
         const inputbox3_changes = {};
-        if (!updating_value_3 && dirty & /*budgetUSD*/
+        if (!updating_value_3 && dirty & /*quantity*/
         16) {
           updating_value_3 = true;
-          inputbox3_changes.value = /*budgetUSD*/
+          inputbox3_changes.value = /*quantity*/
           ctx2[4];
           add_flush_callback(() => updating_value_3 = false);
         }
         inputbox3.$set(inputbox3_changes);
         const inputbox4_changes = {};
-        if (!updating_value_4 && dirty & /*quantity*/
+        if (!updating_value_4 && dirty & /*unit*/
         32) {
           updating_value_4 = true;
-          inputbox4_changes.value = /*quantity*/
+          inputbox4_changes.value = /*unit*/
           ctx2[5];
           add_flush_callback(() => updating_value_4 = false);
         }
         inputbox4.$set(inputbox4_changes);
-        const inputbox5_changes = {};
-        if (!updating_value_5 && dirty & /*unit*/
-        64) {
-          updating_value_5 = true;
-          inputbox5_changes.value = /*unit*/
-          ctx2[6];
-          add_flush_callback(() => updating_value_5 = false);
-        }
-        inputbox5.$set(inputbox5_changes);
       },
       i(local) {
         if (current)
@@ -8619,7 +8630,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_in(inputbox2.$.fragment, local);
         transition_in(inputbox3.$.fragment, local);
         transition_in(inputbox4.$.fragment, local);
-        transition_in(inputbox5.$.fragment, local);
         current = true;
       },
       o(local) {
@@ -8628,7 +8638,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_out(inputbox2.$.fragment, local);
         transition_out(inputbox3.$.fragment, local);
         transition_out(inputbox4.$.fragment, local);
-        transition_out(inputbox5.$.fragment, local);
         current = false;
       },
       d(detaching) {
@@ -8636,15 +8645,27 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           detach(t0);
           detach(t1);
           detach(t2);
+          detach(c0);
           detach(t3);
+          detach(c1);
           detach(t4);
+          detach(c2);
+          detach(t5);
+          detach(c3);
+          detach(t6);
+          detach(c4);
+          detach(t7);
+          detach(c5);
+          detach(t8);
+          detach(c6);
+          detach(t9);
+          detach(t10);
         }
         destroy_component(inputbox0, detaching);
         destroy_component(inputbox1, detaching);
         destroy_component(inputbox2, detaching);
         destroy_component(inputbox3, detaching);
         destroy_component(inputbox4, detaching);
-        destroy_component(inputbox5, detaching);
       }
     };
   }
@@ -8732,10 +8753,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     });
     let if_block0 = !/*planType*/
-    (ctx[9] === "vision" || /*planType*/
-    ctx[9] === "mission") && create_if_block_24(ctx);
+    (ctx[8] === "vision" || /*planType*/
+    ctx[8] === "mission") && create_if_block_24(ctx);
     function inputcustom_value_binding(value) {
-      ctx[22](value);
+      ctx[19](value);
     }
     let inputcustom_props = {
       id: "description",
@@ -8753,10 +8774,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     inputcustom = new InputCustom_default({ props: inputcustom_props });
     binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding));
     let if_block1 = !/*isSubmitted*/
-    ctx[8] && create_if_block_14(ctx);
+    ctx[7] && create_if_block_14(ctx);
     let if_block2 = (
       /*isSubmitted*/
-      ctx[8] && create_if_block4(ctx)
+      ctx[7] && create_if_block4(ctx)
     );
     return {
       c() {
@@ -8766,7 +8787,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         h2 = element("h2");
         t0 = text(
           /*heading*/
-          ctx[10]
+          ctx[9]
         );
         t1 = space();
         button0 = element("button");
@@ -8799,7 +8820,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         attr(div2, "class", "foot svelte-1nrsfdl");
         attr(div3, "class", "popup svelte-1nrsfdl");
         attr(div4, "class", div4_class_value = null_to_empty(`popup_container ${/*isShow*/
-        ctx[12] ? "show" : ""}`) + " svelte-1nrsfdl");
+        ctx[11] ? "show" : ""}`) + " svelte-1nrsfdl");
       },
       m(target, anchor) {
         insert(target, div4, anchor);
@@ -8834,18 +8855,18 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               button0,
               "click",
               /*hide*/
-              ctx[11]
+              ctx[10]
             ),
             listen(button1, "click", prevent_default(
               /*cancel*/
-              ctx[13]
+              ctx[12]
             )),
             listen(button2, "click", prevent_default(function() {
               if (is_function(
                 /*onSubmit*/
-                ctx[7]
+                ctx[6]
               ))
-                ctx[7].apply(this, arguments);
+                ctx[6].apply(this, arguments);
             }))
           ];
           mounted = true;
@@ -8854,19 +8875,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       p(new_ctx, [dirty]) {
         ctx = new_ctx;
         if (!current || dirty & /*heading*/
-        1024)
+        512)
           set_data(
             t0,
             /*heading*/
-            ctx[10]
+            ctx[9]
           );
         if (!/*planType*/
-        (ctx[9] === "vision" || /*planType*/
-        ctx[9] === "mission")) {
+        (ctx[8] === "vision" || /*planType*/
+        ctx[8] === "mission")) {
           if (if_block0) {
             if_block0.p(ctx, dirty);
             if (dirty & /*planType*/
-            512) {
+            256) {
               transition_in(if_block0, 1);
             }
           } else {
@@ -8892,7 +8913,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         inputcustom.$set(inputcustom_changes);
         if (!/*isSubmitted*/
-        ctx[8]) {
+        ctx[7]) {
           if (if_block1) {
           } else {
             if_block1 = create_if_block_14(ctx);
@@ -8905,11 +8926,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         if (
           /*isSubmitted*/
-          ctx[8]
+          ctx[7]
         ) {
           if (if_block2) {
             if (dirty & /*isSubmitted*/
-            256) {
+            128) {
               transition_in(if_block2, 1);
             }
           } else {
@@ -8926,8 +8947,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           check_outros();
         }
         if (!current || dirty & /*isShow*/
-        4096 && div4_class_value !== (div4_class_value = null_to_empty(`popup_container ${/*isShow*/
-        ctx[12] ? "show" : ""}`) + " svelte-1nrsfdl")) {
+        2048 && div4_class_value !== (div4_class_value = null_to_empty(`popup_container ${/*isShow*/
+        ctx[11] ? "show" : ""}`) + " svelte-1nrsfdl")) {
           attr(div4, "class", div4_class_value);
         }
       },
@@ -8972,19 +8993,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let { description = "" } = $props;
     let { yearOf = 0 } = $props;
     let { budgetIDR = 0 } = $props;
-    let { budgetUSD = 0 } = $props;
     let { quantity = 0 } = $props;
     let { unit = "" } = $props;
     let { planType = "vision" } = $props;
     let { heading = "Add budget plan" } = $props;
     let isShow = false;
-    const show = () => $invalidate(12, isShow = true);
-    const hide = () => $invalidate(12, isShow = false);
-    const reset = () => {
-      $invalidate(0, title = ""), $invalidate(1, description = ""), $invalidate(2, yearOf = 0);
-      $invalidate(3, budgetIDR = 0), $invalidate(4, budgetUSD = 0), $invalidate(5, quantity = 0), $invalidate(6, unit = "");
-    };
-    const cancel = () => $invalidate(12, isShow = false);
+    const show = () => $invalidate(11, isShow = true);
+    const hide = () => $invalidate(11, isShow = false);
+    const cancel = () => $invalidate(11, isShow = false);
     function inputbox0_value_binding(value) {
       title = value;
       $invalidate(0, title);
@@ -8998,16 +9014,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       $invalidate(3, budgetIDR);
     }
     function inputbox3_value_binding(value) {
-      budgetUSD = value;
-      $invalidate(4, budgetUSD);
+      quantity = value;
+      $invalidate(4, quantity);
     }
     function inputbox4_value_binding(value) {
-      quantity = value;
-      $invalidate(5, quantity);
-    }
-    function inputbox5_value_binding(value) {
       unit = value;
-      $invalidate(6, unit);
+      $invalidate(5, unit);
     }
     function inputcustom_value_binding(value) {
       description = value;
@@ -9015,9 +9027,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     $self.$set = ($props2) => {
       if ("onSubmit" in $props2)
-        $invalidate(7, onSubmit = $props2.onSubmit);
+        $invalidate(6, onSubmit = $props2.onSubmit);
       if ("isSubmitted" in $props2)
-        $invalidate(8, isSubmitted = $props2.isSubmitted);
+        $invalidate(7, isSubmitted = $props2.isSubmitted);
       if ("title" in $props2)
         $invalidate(0, title = $props2.title);
       if ("description" in $props2)
@@ -9026,23 +9038,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         $invalidate(2, yearOf = $props2.yearOf);
       if ("budgetIDR" in $props2)
         $invalidate(3, budgetIDR = $props2.budgetIDR);
-      if ("budgetUSD" in $props2)
-        $invalidate(4, budgetUSD = $props2.budgetUSD);
       if ("quantity" in $props2)
-        $invalidate(5, quantity = $props2.quantity);
+        $invalidate(4, quantity = $props2.quantity);
       if ("unit" in $props2)
-        $invalidate(6, unit = $props2.unit);
+        $invalidate(5, unit = $props2.unit);
       if ("planType" in $props2)
-        $invalidate(9, planType = $props2.planType);
+        $invalidate(8, planType = $props2.planType);
       if ("heading" in $props2)
-        $invalidate(10, heading = $props2.heading);
+        $invalidate(9, heading = $props2.heading);
     };
     return [
       title,
       description,
       yearOf,
       budgetIDR,
-      budgetUSD,
       quantity,
       unit,
       onSubmit,
@@ -9053,13 +9062,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       isShow,
       cancel,
       show,
-      reset,
       inputbox0_value_binding,
       inputbox1_value_binding,
       inputbox2_value_binding,
       inputbox3_value_binding,
       inputbox4_value_binding,
-      inputbox5_value_binding,
       inputcustom_value_binding
     ];
   }
@@ -9067,30 +9074,25 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     constructor(options) {
       super();
       init(this, options, instance9, create_fragment9, safe_not_equal, {
-        onSubmit: 7,
-        isSubmitted: 8,
+        onSubmit: 6,
+        isSubmitted: 7,
         title: 0,
         description: 1,
         yearOf: 2,
         budgetIDR: 3,
-        budgetUSD: 4,
-        quantity: 5,
-        unit: 6,
-        planType: 9,
-        heading: 10,
-        show: 14,
-        hide: 11,
-        reset: 15
+        quantity: 4,
+        unit: 5,
+        planType: 8,
+        heading: 9,
+        show: 13,
+        hide: 10
       });
     }
     get show() {
-      return this.$.ctx[14];
+      return this.$.ctx[13];
     }
     get hide() {
-      return this.$.ctx[11];
-    }
-    get reset() {
-      return this.$.ctx[15];
+      return this.$.ctx[10];
     }
   };
   var PopUpBudgetPlan_default = PopUpBudgetPlan;
@@ -10121,14 +10123,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var import_jsApi_GEN3 = __toESM(require_jsApi_GEN());
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[53] = list[i];
-    child_ctx[55] = i;
+    child_ctx[52] = list[i];
+    child_ctx[54] = i;
     return child_ctx;
   }
   function get_each_context_12(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[56] = list[i];
-    child_ctx[55] = i;
+    child_ctx[55] = list[i];
+    child_ctx[54] = i;
     return child_ctx;
   }
   function create_if_block_34(ctx) {
@@ -10301,7 +10303,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*click_handler_4*/
-            ctx[40]
+            ctx[38]
           );
           mounted = true;
         }
@@ -10448,7 +10450,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*click_handler_1*/
-            ctx[37]
+            ctx[35]
           );
           mounted = true;
         }
@@ -10512,7 +10514,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*click_handler*/
-            ctx[36]
+            ctx[34]
           );
           mounted = true;
         }
@@ -10576,7 +10578,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*click_handler_3*/
-            ctx[39]
+            ctx[37]
           );
           mounted = true;
         }
@@ -10640,7 +10642,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*click_handler_2*/
-            ctx[38]
+            ctx[36]
           );
           mounted = true;
         }
@@ -10677,7 +10679,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     const get_key = (ctx2) => (
       /*plan*/
-      ctx2[56].id
+      ctx2[55].id
     );
     for (let i = 0; i < each_value_1.length; i += 1) {
       let child_ctx = get_each_context_12(ctx, each_value_1, i);
@@ -10702,7 +10704,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*programsActivity, dispatch, onUpdateProgramActivity*/
-        17825920) {
+        8913024) {
           each_value_1 = ensure_array_like(
             /*programsActivity*/
             ctx2[7]
@@ -10742,17 +10744,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     planprogramtree = new PlanProgramTree_default({ props: { plan: (
       /*plan*/
-      ctx[56]
+      ctx[55]
     ) } });
     planprogramtree.$on(
       "details",
       /*details_handler_1*/
-      ctx[41]
+      ctx[39]
     );
     planprogramtree.$on(
       "update",
       /*onUpdateProgramActivity*/
-      ctx[24]
+      ctx[23]
     );
     return {
       key: key_1,
@@ -10773,7 +10775,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (dirty[0] & /*programsActivity*/
         128)
           planprogramtree_changes.plan = /*plan*/
-          ctx[56];
+          ctx[55];
         planprogramtree.$set(planprogramtree_changes);
       },
       i(local) {
@@ -10805,7 +10807,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     const get_key = (ctx2) => (
       /*child*/
-      ctx2[53].id
+      ctx2[52].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context3(ctx, each_value, i);
@@ -10869,7 +10871,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     let if_block = (
       /*child*/
-      ctx[53].orgType !== OrgTypeJob && create_if_block_26(ctx)
+      ctx[52].orgType !== OrgTypeJob && create_if_block_26(ctx)
     );
     return {
       c() {
@@ -10886,7 +10888,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       p(ctx2, dirty) {
         if (
           /*child*/
-          ctx2[53].orgType !== OrgTypeJob
+          ctx2[52].orgType !== OrgTypeJob
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
@@ -10932,12 +10934,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     budgetplantree = new BudgetPlanTree({ props: { org: (
       /*child*/
-      ctx[53]
+      ctx[52]
     ) } });
     budgetplantree.$on(
       "details",
       /*details_handler*/
-      ctx[42]
+      ctx[40]
     );
     return {
       c() {
@@ -10952,7 +10954,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (dirty[0] & /*org*/
         1)
           budgetplantree_changes.org = /*child*/
-          ctx2[53];
+          ctx2[52];
         budgetplantree.$set(budgetplantree_changes);
       },
       i(local) {
@@ -10976,7 +10978,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     let if_block = (
       /*child*/
-      ctx[53].deletedAt === 0 && create_if_block_16(ctx)
+      ctx[52].deletedAt === 0 && create_if_block_16(ctx)
     );
     return {
       key: key_1,
@@ -10999,7 +11001,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         ctx = new_ctx;
         if (
           /*child*/
-          ctx[53].deletedAt === 0
+          ctx[52].deletedAt === 0
         ) {
           if (if_block) {
             if_block.p(ctx, dirty);
@@ -11048,7 +11050,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let updating_description;
     let updating_yearOf;
     let updating_budgetIDR;
-    let updating_budgetUSD;
     let updating_unit;
     let updating_quantity;
     let updating_heading;
@@ -11082,38 +11083,35 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let mounted;
     let dispose;
     function popupbudgetplan_planType_binding(value) {
-      ctx[26](value);
+      ctx[25](value);
     }
     function popupbudgetplan_title_binding(value) {
-      ctx[27](value);
+      ctx[26](value);
     }
     function popupbudgetplan_description_binding(value) {
-      ctx[28](value);
+      ctx[27](value);
     }
     function popupbudgetplan_yearOf_binding(value) {
-      ctx[29](value);
+      ctx[28](value);
     }
     function popupbudgetplan_budgetIDR_binding(value) {
-      ctx[30](value);
-    }
-    function popupbudgetplan_budgetUSD_binding(value) {
-      ctx[31](value);
+      ctx[29](value);
     }
     function popupbudgetplan_unit_binding(value) {
-      ctx[32](value);
+      ctx[30](value);
     }
     function popupbudgetplan_quantity_binding(value) {
-      ctx[33](value);
+      ctx[31](value);
     }
     function popupbudgetplan_heading_binding(value) {
-      ctx[34](value);
+      ctx[32](value);
     }
     function popupbudgetplan_isSubmitted_binding(value) {
-      ctx[35](value);
+      ctx[33](value);
     }
     let popupbudgetplan_props = { onSubmit: (
       /*submitPlan*/
-      ctx[22]
+      ctx[21]
     ) };
     if (
       /*planType*/
@@ -11151,25 +11149,18 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       ctx[13];
     }
     if (
-      /*budgetUSD*/
+      /*unit*/
       ctx[14] !== void 0
     ) {
-      popupbudgetplan_props.budgetUSD = /*budgetUSD*/
+      popupbudgetplan_props.unit = /*unit*/
       ctx[14];
     }
     if (
-      /*unit*/
+      /*quantity*/
       ctx[15] !== void 0
     ) {
-      popupbudgetplan_props.unit = /*unit*/
-      ctx[15];
-    }
-    if (
-      /*quantity*/
-      ctx[16] !== void 0
-    ) {
       popupbudgetplan_props.quantity = /*quantity*/
-      ctx[16];
+      ctx[15];
     }
     if (
       /*headingPopUp*/
@@ -11180,19 +11171,18 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     if (
       /*isSubmitPlan*/
-      ctx[19] !== void 0
+      ctx[18] !== void 0
     ) {
       popupbudgetplan_props.isSubmitted = /*isSubmitPlan*/
-      ctx[19];
+      ctx[18];
     }
     popupbudgetplan = new PopUpBudgetPlan_default({ props: popupbudgetplan_props });
-    ctx[25](popupbudgetplan);
+    ctx[24](popupbudgetplan);
     binding_callbacks.push(() => bind(popupbudgetplan, "planType", popupbudgetplan_planType_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "title", popupbudgetplan_title_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "description", popupbudgetplan_description_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "yearOf", popupbudgetplan_yearOf_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "budgetIDR", popupbudgetplan_budgetIDR_binding));
-    binding_callbacks.push(() => bind(popupbudgetplan, "budgetUSD", popupbudgetplan_budgetUSD_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "unit", popupbudgetplan_unit_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "quantity", popupbudgetplan_quantity_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "heading", popupbudgetplan_heading_binding));
@@ -11211,14 +11201,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       props: {
         color: "var(--gray-006)",
         className: "icon " + /*isShowPlans*/
-        (ctx[17] ? "rotate" : "dropdown"),
+        (ctx[16] ? "rotate" : "dropdown"),
         size: "14",
         src: RiArrowsArrowRightSLine
       }
     });
     let if_block0 = (
       /*isShowPlans*/
-      ctx[17] && create_if_block_34(ctx)
+      ctx[16] && create_if_block_34(ctx)
     );
     let if_block1 = (
       /*org*/
@@ -11259,7 +11249,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         attr(button0, "title", "Show plans");
         attr(div2, "class", "options svelte-16w1l83");
         attr(button1, "class", button1_class_value = "org " + /*isShowPlans*/
-        (ctx[17] ? "active" : "") + " svelte-16w1l83");
+        (ctx[16] ? "active" : "") + " svelte-16w1l83");
         attr(div3, "class", "org_wrapper svelte-16w1l83");
         attr(div4, "class", div4_class_value = "org_container " + /*orgType*/
         ctx[1] + " svelte-16w1l83");
@@ -11295,7 +11285,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button1,
             "click",
             /*toggleShowPlans*/
-            ctx[21]
+            ctx[20]
           );
           mounted = true;
         }
@@ -11337,25 +11327,18 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           ctx2[13];
           add_flush_callback(() => updating_budgetIDR = false);
         }
-        if (!updating_budgetUSD && dirty[0] & /*budgetUSD*/
-        16384) {
-          updating_budgetUSD = true;
-          popupbudgetplan_changes.budgetUSD = /*budgetUSD*/
-          ctx2[14];
-          add_flush_callback(() => updating_budgetUSD = false);
-        }
         if (!updating_unit && dirty[0] & /*unit*/
-        32768) {
+        16384) {
           updating_unit = true;
           popupbudgetplan_changes.unit = /*unit*/
-          ctx2[15];
+          ctx2[14];
           add_flush_callback(() => updating_unit = false);
         }
         if (!updating_quantity && dirty[0] & /*quantity*/
-        65536) {
+        32768) {
           updating_quantity = true;
           popupbudgetplan_changes.quantity = /*quantity*/
-          ctx2[16];
+          ctx2[15];
           add_flush_callback(() => updating_quantity = false);
         }
         if (!updating_heading && dirty[0] & /*headingPopUp*/
@@ -11366,10 +11349,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           add_flush_callback(() => updating_heading = false);
         }
         if (!updating_isSubmitted && dirty[0] & /*isSubmitPlan*/
-        524288) {
+        262144) {
           updating_isSubmitted = true;
           popupbudgetplan_changes.isSubmitted = /*isSubmitPlan*/
-          ctx2[19];
+          ctx2[18];
           add_flush_callback(() => updating_isSubmitted = false);
         }
         popupbudgetplan.$set(popupbudgetplan_changes);
@@ -11385,23 +11368,23 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           set_data(t3, t3_value);
         const icon1_changes = {};
         if (dirty[0] & /*isShowPlans*/
-        131072)
+        65536)
           icon1_changes.className = "icon " + /*isShowPlans*/
-          (ctx2[17] ? "rotate" : "dropdown");
+          (ctx2[16] ? "rotate" : "dropdown");
         icon1.$set(icon1_changes);
         if (!current || dirty[0] & /*isShowPlans*/
-        131072 && button1_class_value !== (button1_class_value = "org " + /*isShowPlans*/
-        (ctx2[17] ? "active" : "") + " svelte-16w1l83")) {
+        65536 && button1_class_value !== (button1_class_value = "org " + /*isShowPlans*/
+        (ctx2[16] ? "active" : "") + " svelte-16w1l83")) {
           attr(button1, "class", button1_class_value);
         }
         if (
           /*isShowPlans*/
-          ctx2[17]
+          ctx2[16]
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
             if (dirty[0] & /*isShowPlans*/
-            131072) {
+            65536) {
               transition_in(if_block0, 1);
             }
           } else {
@@ -11472,7 +11455,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           detach(t6);
           detach(if_block1_anchor);
         }
-        ctx[25](null);
+        ctx[24](null);
         destroy_component(popupbudgetplan, detaching);
         destroy_component(icon0);
         destroy_component(icon1);
@@ -11534,7 +11517,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let id = 0, planType = PlanTypeVision, title = "", description = "", yearOf = 0, budgetIDR = 0, budgetUSD = 0, unit = "", quantity = 0;
     const resetPayload = () => {
       $invalidate(9, planType = ""), $invalidate(10, title = ""), $invalidate(11, description = "");
-      $invalidate(12, yearOf = 0), $invalidate(13, budgetIDR = 0), $invalidate(14, budgetUSD = 0), $invalidate(15, unit = ""), $invalidate(16, quantity = 0);
+      $invalidate(12, yearOf = 0), $invalidate(13, budgetIDR = 0), budgetUSD = 0, $invalidate(14, unit = ""), $invalidate(15, quantity = 0);
     };
     let isSearching = false, isShowPlans = false;
     function activityMaker(programId) {
@@ -11598,10 +11581,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     const toggleShowPlans = async () => {
       if (isShowPlans) {
-        $invalidate(17, isShowPlans = false);
+        $invalidate(16, isShowPlans = false);
         return;
       } else {
-        $invalidate(17, isShowPlans = true);
+        $invalidate(16, isShowPlans = true);
         if (!budgetPlans || budgetPlans.length === 0) {
           await getBugetPlans();
         }
@@ -11614,7 +11597,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let isSubmitPlan = false;
     let submitState = submitStateAdd2;
     async function submitUpsertPlan() {
-      $invalidate(19, isSubmitPlan = true);
+      $invalidate(18, isSubmitPlan = true);
       const idStr = submitState == "add" ? "0" : id.toString();
       const i = {
         //@ts-ignore
@@ -11625,18 +11608,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           description,
           yearOf: Number(yearOf),
           orgId: org.id,
-          budgetIDR: Number(budgetIDR),
+          budgetIDR: "" + budgetIDR,
           budgetUSD: Number(budgetUSD),
           unit,
-          quantity
+          quantity: +quantity
         }
       };
       await (0, import_jsApi_GEN3.TenantAdminUpsertBudgetPlan)(
         i,
         /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanCallback} */
         function(o) {
-          resetPayload();
-          $invalidate(19, isSubmitPlan = false);
+          $invalidate(18, isSubmitPlan = false);
           if (o.error) {
             notifier.showError(o.error);
             console.log(o);
@@ -11648,6 +11630,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             o
           );
           budgetPlans = out.plans;
+          resetPayload();
           reformatPlans();
           popUpBudgetPlan.hide();
         }
@@ -11721,7 +11704,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function popupbudgetplan_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpBudgetPlan = $value;
-        $invalidate(18, popUpBudgetPlan);
+        $invalidate(17, popUpBudgetPlan);
       });
     }
     function popupbudgetplan_planType_binding(value) {
@@ -11744,17 +11727,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       budgetIDR = value;
       $invalidate(13, budgetIDR);
     }
-    function popupbudgetplan_budgetUSD_binding(value) {
-      budgetUSD = value;
-      $invalidate(14, budgetUSD);
-    }
     function popupbudgetplan_unit_binding(value) {
       unit = value;
-      $invalidate(15, unit);
+      $invalidate(14, unit);
     }
     function popupbudgetplan_quantity_binding(value) {
       quantity = value;
-      $invalidate(16, quantity);
+      $invalidate(15, quantity);
     }
     function popupbudgetplan_heading_binding(value) {
       headingPopUp = value;
@@ -11762,7 +11741,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     function popupbudgetplan_isSubmitted_binding(value) {
       isSubmitPlan = value;
-      $invalidate(19, isSubmitPlan);
+      $invalidate(18, isSubmitPlan);
     }
     const click_handler = () => togglePopUp(submitStateAdd2, PlanTypeVision, 0);
     const click_handler_1 = () => togglePopUp(submitStateEdit2, PlanTypeVision, visionId);
@@ -11792,7 +11771,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       description,
       yearOf,
       budgetIDR,
-      budgetUSD,
       unit,
       quantity,
       isShowPlans,
@@ -11809,7 +11787,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       popupbudgetplan_description_binding,
       popupbudgetplan_yearOf_binding,
       popupbudgetplan_budgetIDR_binding,
-      popupbudgetplan_budgetUSD_binding,
       popupbudgetplan_unit_binding,
       popupbudgetplan_quantity_binding,
       popupbudgetplan_heading_binding,
@@ -12388,7 +12365,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let REFORMAT_ORGS = [];
     onMount(() => {
       $invalidate(0, REFORMAT_ORGS = reformatorgs());
-      console.log(orgs);
+      console.log("REFORMAT_ORGS", REFORMAT_ORGS);
+      console.log("orgs", orgs);
     });
     let planDetail = {
       id: "",

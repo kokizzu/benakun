@@ -27,12 +27,19 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			Provider:      domain.OauthGoogle,
 		})
 		google.ResponseCommon.DecorateSession(c)
+		
+		var myCompany *rqAuth.Orgs = &rqAuth.Orgs{}
+		if user != nil && user.TenantCode != `` {
+			myCompany= rqAuth.NewOrgs(d.AuthOltp)
+			myCompany.FindCompanyByTenantCode(user.TenantCode)
+		}
 
 		return views.RenderIndex(c, M.SX{
-			`title`:    `BenAkun`,
-			`user`:     user,
-			`google`:   google.Link,
-			`segments`: segments,
+			`title`:     `BenAkun`,
+			`user`:      user,
+			`google`:    google.Link,
+			`segments`:  segments,
+			`myCompany`: myCompany,
 		})
 	})
 
@@ -280,9 +287,9 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`user`:     user,
 			`segments`: segments,
 			`accounts`: out.Accounts,
-			`fields`: out.Meta.Fields,
-			`pager`: out.Pager,
-			`staffs`: staffs,
+			`fields`:   out.Meta.Fields,
+			`pager`:    out.Pager,
+			`staffs`:   staffs,
 		})
 	})
 

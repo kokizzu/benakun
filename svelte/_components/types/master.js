@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @typedef {Object} Field
  * @property {string} name

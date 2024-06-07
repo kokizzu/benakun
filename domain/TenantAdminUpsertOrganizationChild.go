@@ -15,26 +15,28 @@ import (
 type (
 	TenantAdminUpsertOrganizationChildIn struct {
 		RequestCommon
-		Org    rqAuth.Orgs `json:"org" form:"org" query:"org" long:"org" msg:"org"`
+		Org rqAuth.Orgs `json:"org" form:"org" query:"org" long:"org" msg:"org"`
 	}
 	TenantAdminUpsertOrganizationChildOut struct {
 		ResponseCommon
-		Org *rqAuth.Orgs `json:"org" form:"org" query:"org" long:"org" msg:"org"`
+		Org  *rqAuth.Orgs   `json:"org" form:"org" query:"org" long:"org" msg:"org"`
 		Orgs *[]rqAuth.Orgs `json:"orgs" form:"orgs" query:"orgs" long:"orgs" msg:"orgs"`
 	}
 )
 
+// TODO:HABIBI make file naming consistent with url requesting
+
 const (
 	TenantAdminUpsertOrganizationChildAction = `tenantAdmin/updateOrganizationChild`
 
-	ErrTenantAdminUpsertOrganizationChildUnauthorized = `unauthorized user`
-	ErrTenantAdminUpsertOrganizationChildTenantNotFound = `tenant admin not found`
+	ErrTenantAdminUpsertOrganizationChildUnauthorized      = `unauthorized user`
+	ErrTenantAdminUpsertOrganizationChildTenantNotFound    = `tenant admin not found`
 	ErrTenantAdminUpsertOrganizationChildOrgParentNotFound = `organization parent not found`
-	ErrTenantAdminUpsertOrganizationChildOrgNotFound  = `organization not found`
-	ErrTenantAdminUpsertOrganizationChildFailed = `failed to update organization`
+	ErrTenantAdminUpsertOrganizationChildOrgNotFound       = `organization not found`
+	ErrTenantAdminUpsertOrganizationChildFailed            = `failed to update organization`
 	ErrTenantAdminUpsertOrganizationChildOrgChildNotFound  = `organization child not found to create organization`
-	ErrTenantAdminUpsertOrganizationOrgAlreadyExist = `organization already exist`
-	ErrTenantAdminUpsertOrganizationJobCannotAddChild = `cannot create child if org type is job`
+	ErrTenantAdminUpsertOrganizationOrgAlreadyExist        = `organization already exist`
+	ErrTenantAdminUpsertOrganizationJobCannotAddChild      = `cannot create child if org type is job`
 )
 
 func (d *Domain) TenantAdminUpsertOrganizationChild(in *TenantAdminUpsertOrganizationChildIn) (out TenantAdminUpsertOrganizationChildOut) {
@@ -76,7 +78,7 @@ func (d *Domain) TenantAdminUpsertOrganizationChild(in *TenantAdminUpsertOrganiz
 		}
 	}
 
-	switch parent.OrgType{
+	switch parent.OrgType {
 	case mAuth.OrgTypeCompany:
 		child.SetOrgType(mAuth.OrgTypeDept)
 	case mAuth.OrgTypeDept:
@@ -98,7 +100,7 @@ func (d *Domain) TenantAdminUpsertOrganizationChild(in *TenantAdminUpsertOrganiz
 
 	child.SetAll(in.Org, nil, nil)
 
-	if !child.DoUpsert() {
+	if !child.DoUpsertById() {
 		child.HaveMutation()
 		out.SetError(400, ErrTenantAdminUpsertOrganizationChildFailed)
 		return

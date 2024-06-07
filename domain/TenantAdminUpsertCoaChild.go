@@ -30,7 +30,7 @@ const (
 	ErrTenantAdminUpsertCoaChildTenantNotFound    = `tenant admin not found to create coa child`
 	ErrTenantAdminUpsertCoaChildCoaParentNotFound = `coa parent not found for this coa child`
 	ErrTenantAdminUpsertCoaChildCoaChildNotFound  = `coa child not found when adds child to parent`
-	ErrTenantAdminUpsertCoaChildFailedSave = `coa upsert failed`
+	ErrTenantAdminUpsertCoaChildFailedSave        = `coa upsert failed`
 )
 
 func (d *Domain) TenantAdminUpsertCoaChild(in *TenantAdminUpsertCoaChildIn) (out TenantAdminUpsertCoaChildOut) {
@@ -81,7 +81,7 @@ func (d *Domain) TenantAdminUpsertCoaChild(in *TenantAdminUpsertCoaChildIn) (out
 	coa.SetUpdatedBy(sess.UserId)
 	coa.SetTenantCode(tenant.TenantCode)
 
-	if !coa.DoUpsert() {
+	if !coa.DoUpsertById() {
 		coa.HaveMutation()
 		out.SetError(400, ErrTenantAdminUpsertCoaChildFailedSave)
 		return
@@ -94,7 +94,7 @@ func (d *Domain) TenantAdminUpsertCoaChild(in *TenantAdminUpsertCoaChildIn) (out
 		parent.SetChildren(children)
 		parent.SetUpdatedAt(in.UnixNow())
 		parent.SetUpdatedBy(sess.UserId)
-		
+
 		if !parent.DoUpdateById() {
 			parent.HaveMutation()
 			out.SetError(400, ErrTenantAdminUpsertCoaChildCoaParentNotFound)

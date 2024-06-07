@@ -14,7 +14,7 @@ func (c *Coa) FindCoasByTenant(tenantCode string) (coas []Coa) {
 
 	queryRows := comment + `
 SELECT ` + c.SqlSelectAllFields() + `
-FROM ` + c.SqlTableName() + whereAndSql
+FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 
 	c.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
@@ -38,11 +38,11 @@ func (c *Coa) FindCoaIdByTenantByLevel() uint64 {
 	var res [][]any
 	const comment = `-- Coa) FindCoaIdByTenantByLevel`
 
-	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode) + ` AND ` + c.SqlLevel() + ` = ` + I.ToS(int64(c.Level))  + ` AND "deletedAt" = 0`
+	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode) + ` AND ` + c.SqlLevel() + ` = ` + I.ToS(int64(c.Level)) + ` AND "deletedAt" = 0`
 
 	queryRow := comment + `
 SELECT ` + c.SqlId() + `
-FROM ` + c.SqlTableName() + whereAndSql
+FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 
 	c.Adapter.QuerySql(queryRow, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string

@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @typedef {Object} User
  * @property {number} createdAt

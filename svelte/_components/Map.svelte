@@ -8,11 +8,14 @@
 
   const apiKey = 'tOiu6Qb0Q3hToL89vQ4u';
 
-  export let coord = {
+  export let Coord = {
     lng: 118.0148634,
     lat: -2.548926,
     zoom: 4
   };
+
+  export let IsClickable = false;
+  export let OnClickMap = function(lngLat) {};
 
   /** @param {[number, number]} location */
   export function setCenter(location) {
@@ -20,15 +23,25 @@
     map.setCenter(location);
   }
 
+  let marker = new Marker({color: '#1877F2'});
+
   onMount(() => {
     map = new Map({
       container: mapContainer,
       style: `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`,
-      center: [coord.lng, coord.lat],
-      zoom: coord.zoom
+      center: [Coord.lng, Coord.lat],
+      zoom: Coord.zoom
     });
     map.addControl(new NavigationControl(), 'top-right');
-    new Marker({color: '#1877F2'}).setLngLat(coord).addTo(map);
+    map.on('load', () => {
+      marker.setLngLat(Coord).addTo(map);
+      if (IsClickable) {
+        map.on('click', (e) => {
+          OnClickMap(e.lngLat);
+          marker.setLngLat(e.lngLat).addTo(map);
+        });
+      }
+    })
   });
 
   onDestroy( () => map.remove() );

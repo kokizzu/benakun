@@ -16,7 +16,7 @@ func (p *Plans) FindPlansByOrg(orgId uint64) (plans []Plans) {
 	queryRows := comment +
 		`
 SELECT ` + p.SqlSelectAllFields() + `
-FROM ` + p.SqlTableName() +
+FROM SEQSCAN ` + p.SqlTableName() +
 		whereAndSql
 
 	L.Print(`Query:`, queryRows)
@@ -37,7 +37,7 @@ func (p *Plans) IsVisionExist() bool {
 
 	queryRows := comment + `
 SELECT ` + p.SqlPlanType() + `
-FROM ` + p.SqlTableName() + whereAndSql
+FROM SEQSCAN ` + p.SqlTableName() + whereAndSql
 
 	p.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
@@ -55,7 +55,7 @@ func (p *Plans) IsMissionExist() bool {
 
 	queryRows := comment + `
 SELECT ` + p.SqlPlanType() + `
-FROM ` + p.SqlTableName() + whereAndSql
+FROM SEQSCAN ` + p.SqlTableName() + whereAndSql
 
 	p.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
@@ -70,14 +70,16 @@ func (b *BankAccounts) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zC
 
 	validFields := BankAccountsFieldTypeMap
 	whereAndSql := z3.WhereAndSqlTt(z2.Filters, validFields)
-	whereAndSql2 := `AND `+b.SqlTenantCode()+` = `+S.Z(b.TenantCode)
+	whereAndSql2 := `
+AND ` + b.SqlTenantCode() + ` = ` + S.Z(b.TenantCode)
 	if whereAndSql == `` {
-		whereAndSql2 = ` WHERE `+b.SqlTenantCode()+` = `+S.Z(b.TenantCode)
+		whereAndSql2 = ` 
+WHERE ` + b.SqlTenantCode() + ` = ` + S.Z(b.TenantCode)
 	}
 
 	queryCount := comment + `
 SELECT COUNT(1)
-FROM ` + b.SqlTableName() + whereAndSql + whereAndSql2 + ` 
+FROM SEQSCAN ` + b.SqlTableName() + whereAndSql + whereAndSql2 + ` 
 LIMIT 1`
 	b.Adapter.QuerySql(queryCount, func(row []any) {
 		z3.CalculatePages(z2.Page, z2.PerPage, int(X.ToI(row[0])))
@@ -88,7 +90,7 @@ LIMIT 1`
 
 	queryRows := comment + `
 SELECT ` + z.ToSelect() + `
-FROM ` + b.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
+FROM SEQSCAN ` + b.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
 	b.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)

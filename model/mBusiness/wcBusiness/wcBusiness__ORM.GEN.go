@@ -23,13 +23,14 @@ import (
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcBusiness__ORM.GEN.go
 type LocationsMutator struct {
 	rqBusiness.Locations
-	mutations []A.X
+	mutations *tarantool.Operations
 	logs      []A.X
 }
 
 // NewLocationsMutator create new ORM writer/command object
 func NewLocationsMutator(adapter *Tt.Adapter) (res *LocationsMutator) {
 	res = &LocationsMutator{Locations: rqBusiness.Locations{Adapter: adapter}}
+	res.mutations = tarantool.NewOperations()
 	return
 }
 
@@ -40,18 +41,22 @@ func (l *LocationsMutator) Logs() []A.X { //nolint:dupl false positive
 
 // HaveMutation check whether Set* methods ever called
 func (l *LocationsMutator) HaveMutation() bool { //nolint:dupl false positive
-	return len(l.mutations) > 0
+	return len(l.logs) > 0
 }
 
 // ClearMutations clear all previously called Set* methods
 func (l *LocationsMutator) ClearMutations() { //nolint:dupl false positive
-	l.mutations = []A.X{}
+	l.mutations = tarantool.NewOperations()
 	l.logs = []A.X{}
 }
 
 // DoOverwriteById update all columns, error if not exists, not using mutations/Set*
 func (l *LocationsMutator) DoOverwriteById() bool { //nolint:dupl false positive
-	_, err := l.Adapter.Update(l.SpaceName(), l.UniqueIndexId(), A.X{l.Id}, l.ToUpdateArray())
+	_, err := l.Adapter.RetryDo(tarantool.NewUpdateRequest(l.SpaceName()).
+		Index(l.UniqueIndexId()).
+		Key(tarantool.UintKey{I: uint(l.Id)}).
+		Operations(l.ToUpdateArray()),
+	)
 	return !L.IsError(err, `Locations.DoOverwriteById failed: `+l.SpaceName())
 }
 
@@ -60,75 +65,56 @@ func (l *LocationsMutator) DoUpdateById() bool { //nolint:dupl false positive
 	if !l.HaveMutation() {
 		return true
 	}
-	_, err := l.Adapter.Update(l.SpaceName(), l.UniqueIndexId(), A.X{l.Id}, l.mutations)
+	_, err := l.Adapter.RetryDo(
+		tarantool.NewUpdateRequest(l.SpaceName()).
+			Index(l.UniqueIndexId()).
+			Key(tarantool.UintKey{I: uint(l.Id)}).
+			Operations(l.mutations),
+	)
 	return !L.IsError(err, `Locations.DoUpdateById failed: `+l.SpaceName())
 }
 
 // DoDeletePermanentById permanent delete
 func (l *LocationsMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
-	_, err := l.Adapter.Delete(l.SpaceName(), l.UniqueIndexId(), A.X{l.Id})
+	_, err := l.Adapter.RetryDo(
+		tarantool.NewDeleteRequest(l.SpaceName()).
+			Index(l.UniqueIndexId()).
+			Key(tarantool.UintKey{I: uint(l.Id)}),
+	)
 	return !L.IsError(err, `Locations.DoDeletePermanentById failed: `+l.SpaceName())
 }
-
-// func (l *LocationsMutator) DoUpsert() bool { //nolint:dupl false positive
-//	arr := l.ToArray()
-//	_, err := l.Adapter.Upsert(l.SpaceName(), arr, A.X{
-//		A.X{`=`, 0, l.Id},
-//		A.X{`=`, 1, l.TenantCode},
-//		A.X{`=`, 2, l.CreatedAt},
-//		A.X{`=`, 3, l.CreatedBy},
-//		A.X{`=`, 4, l.UpdatedAt},
-//		A.X{`=`, 5, l.UpdatedBy},
-//		A.X{`=`, 6, l.DeletedAt},
-//		A.X{`=`, 7, l.DeletedBy},
-//		A.X{`=`, 8, l.RestoredBy},
-//		A.X{`=`, 9, l.Name},
-//		A.X{`=`, 10, l.Country},
-//		A.X{`=`, 11, l.StateProvice},
-//		A.X{`=`, 12, l.CityRegency},
-//		A.X{`=`, 13, l.Subdistrict},
-//		A.X{`=`, 14, l.Village},
-//		A.X{`=`, 15, l.RwBanjar},
-//		A.X{`=`, 16, l.RtNeigb},
-//		A.X{`=`, 17, l.Address},
-//		A.X{`=`, 18, l.Lat},
-//		A.X{`=`, 19, l.Lng},
-//	})
-//	return !L.IsError(err, `Locations.DoUpsert failed: `+l.SpaceName()+ `\n%#v`, arr)
-// }
 
 // DoInsert insert, error if already exists
 func (l *LocationsMutator) DoInsert() bool { //nolint:dupl false positive
 	arr := l.ToArray()
-	row, err := l.Adapter.Insert(l.SpaceName(), arr)
+	row, err := l.Adapter.RetryDo(
+		tarantool.NewInsertRequest(l.SpaceName()).
+			Tuple(arr),
+	)
 	if err == nil {
-		tup := row.Tuples()
-		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
-			l.Id = X.ToU(tup[0][0])
+		if len(row) > 0 {
+			if cells, ok := row[0].([]any); ok && len(cells) > 0 {
+				l.Id = X.ToU(cells[0])
+			}
 		}
 	}
 	return !L.IsError(err, `Locations.DoInsert failed: `+l.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
-// replace = upsert, only error when there's unique secondary key
+// tarantool's replace/upsert can only match by primary key
 // previous name: DoReplace
-func (l *LocationsMutator) DoUpsert() bool { //nolint:dupl false positive
-	arr := l.ToArray()
-	row, err := l.Adapter.Replace(l.SpaceName(), arr)
-	if err == nil {
-		tup := row.Tuples()
-		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
-			l.Id = X.ToU(tup[0][0])
-		}
+func (l *LocationsMutator) DoUpsertById() bool { //nolint:dupl false positive
+	if l.Id > 0 {
+		return l.DoUpdateById()
 	}
-	return !L.IsError(err, `Locations.DoUpsert failed: `+l.SpaceName()+`\n%#v`, arr)
+	return l.DoInsert()
 }
 
 // SetId create mutations, should not duplicate
 func (l *LocationsMutator) SetId(val uint64) bool { //nolint:dupl false positive
 	if val != l.Id {
-		l.mutations = append(l.mutations, A.X{`=`, 0, val})
+		l.mutations.Assign(0, val)
 		l.logs = append(l.logs, A.X{`id`, l.Id, val})
 		l.Id = val
 		return true
@@ -139,7 +125,7 @@ func (l *LocationsMutator) SetId(val uint64) bool { //nolint:dupl false positive
 // SetTenantCode create mutations, should not duplicate
 func (l *LocationsMutator) SetTenantCode(val string) bool { //nolint:dupl false positive
 	if val != l.TenantCode {
-		l.mutations = append(l.mutations, A.X{`=`, 1, val})
+		l.mutations.Assign(1, val)
 		l.logs = append(l.logs, A.X{`tenantCode`, l.TenantCode, val})
 		l.TenantCode = val
 		return true
@@ -150,7 +136,7 @@ func (l *LocationsMutator) SetTenantCode(val string) bool { //nolint:dupl false 
 // SetCreatedAt create mutations, should not duplicate
 func (l *LocationsMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != l.CreatedAt {
-		l.mutations = append(l.mutations, A.X{`=`, 2, val})
+		l.mutations.Assign(2, val)
 		l.logs = append(l.logs, A.X{`createdAt`, l.CreatedAt, val})
 		l.CreatedAt = val
 		return true
@@ -161,7 +147,7 @@ func (l *LocationsMutator) SetCreatedAt(val int64) bool { //nolint:dupl false po
 // SetCreatedBy create mutations, should not duplicate
 func (l *LocationsMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != l.CreatedBy {
-		l.mutations = append(l.mutations, A.X{`=`, 3, val})
+		l.mutations.Assign(3, val)
 		l.logs = append(l.logs, A.X{`createdBy`, l.CreatedBy, val})
 		l.CreatedBy = val
 		return true
@@ -172,7 +158,7 @@ func (l *LocationsMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false p
 // SetUpdatedAt create mutations, should not duplicate
 func (l *LocationsMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != l.UpdatedAt {
-		l.mutations = append(l.mutations, A.X{`=`, 4, val})
+		l.mutations.Assign(4, val)
 		l.logs = append(l.logs, A.X{`updatedAt`, l.UpdatedAt, val})
 		l.UpdatedAt = val
 		return true
@@ -183,7 +169,7 @@ func (l *LocationsMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false po
 // SetUpdatedBy create mutations, should not duplicate
 func (l *LocationsMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != l.UpdatedBy {
-		l.mutations = append(l.mutations, A.X{`=`, 5, val})
+		l.mutations.Assign(5, val)
 		l.logs = append(l.logs, A.X{`updatedBy`, l.UpdatedBy, val})
 		l.UpdatedBy = val
 		return true
@@ -194,7 +180,7 @@ func (l *LocationsMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false p
 // SetDeletedAt create mutations, should not duplicate
 func (l *LocationsMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != l.DeletedAt {
-		l.mutations = append(l.mutations, A.X{`=`, 6, val})
+		l.mutations.Assign(6, val)
 		l.logs = append(l.logs, A.X{`deletedAt`, l.DeletedAt, val})
 		l.DeletedAt = val
 		return true
@@ -205,7 +191,7 @@ func (l *LocationsMutator) SetDeletedAt(val int64) bool { //nolint:dupl false po
 // SetDeletedBy create mutations, should not duplicate
 func (l *LocationsMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
 	if val != l.DeletedBy {
-		l.mutations = append(l.mutations, A.X{`=`, 7, val})
+		l.mutations.Assign(7, val)
 		l.logs = append(l.logs, A.X{`deletedBy`, l.DeletedBy, val})
 		l.DeletedBy = val
 		return true
@@ -216,7 +202,7 @@ func (l *LocationsMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false p
 // SetRestoredBy create mutations, should not duplicate
 func (l *LocationsMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
 	if val != l.RestoredBy {
-		l.mutations = append(l.mutations, A.X{`=`, 8, val})
+		l.mutations.Assign(8, val)
 		l.logs = append(l.logs, A.X{`restoredBy`, l.RestoredBy, val})
 		l.RestoredBy = val
 		return true
@@ -227,7 +213,7 @@ func (l *LocationsMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false 
 // SetName create mutations, should not duplicate
 func (l *LocationsMutator) SetName(val string) bool { //nolint:dupl false positive
 	if val != l.Name {
-		l.mutations = append(l.mutations, A.X{`=`, 9, val})
+		l.mutations.Assign(9, val)
 		l.logs = append(l.logs, A.X{`name`, l.Name, val})
 		l.Name = val
 		return true
@@ -238,7 +224,7 @@ func (l *LocationsMutator) SetName(val string) bool { //nolint:dupl false positi
 // SetCountry create mutations, should not duplicate
 func (l *LocationsMutator) SetCountry(val string) bool { //nolint:dupl false positive
 	if val != l.Country {
-		l.mutations = append(l.mutations, A.X{`=`, 10, val})
+		l.mutations.Assign(10, val)
 		l.logs = append(l.logs, A.X{`country`, l.Country, val})
 		l.Country = val
 		return true
@@ -249,7 +235,7 @@ func (l *LocationsMutator) SetCountry(val string) bool { //nolint:dupl false pos
 // SetStateProvice create mutations, should not duplicate
 func (l *LocationsMutator) SetStateProvice(val string) bool { //nolint:dupl false positive
 	if val != l.StateProvice {
-		l.mutations = append(l.mutations, A.X{`=`, 11, val})
+		l.mutations.Assign(11, val)
 		l.logs = append(l.logs, A.X{`stateProvice`, l.StateProvice, val})
 		l.StateProvice = val
 		return true
@@ -260,7 +246,7 @@ func (l *LocationsMutator) SetStateProvice(val string) bool { //nolint:dupl fals
 // SetCityRegency create mutations, should not duplicate
 func (l *LocationsMutator) SetCityRegency(val string) bool { //nolint:dupl false positive
 	if val != l.CityRegency {
-		l.mutations = append(l.mutations, A.X{`=`, 12, val})
+		l.mutations.Assign(12, val)
 		l.logs = append(l.logs, A.X{`cityRegency`, l.CityRegency, val})
 		l.CityRegency = val
 		return true
@@ -271,7 +257,7 @@ func (l *LocationsMutator) SetCityRegency(val string) bool { //nolint:dupl false
 // SetSubdistrict create mutations, should not duplicate
 func (l *LocationsMutator) SetSubdistrict(val string) bool { //nolint:dupl false positive
 	if val != l.Subdistrict {
-		l.mutations = append(l.mutations, A.X{`=`, 13, val})
+		l.mutations.Assign(13, val)
 		l.logs = append(l.logs, A.X{`subdistrict`, l.Subdistrict, val})
 		l.Subdistrict = val
 		return true
@@ -282,7 +268,7 @@ func (l *LocationsMutator) SetSubdistrict(val string) bool { //nolint:dupl false
 // SetVillage create mutations, should not duplicate
 func (l *LocationsMutator) SetVillage(val string) bool { //nolint:dupl false positive
 	if val != l.Village {
-		l.mutations = append(l.mutations, A.X{`=`, 14, val})
+		l.mutations.Assign(14, val)
 		l.logs = append(l.logs, A.X{`village`, l.Village, val})
 		l.Village = val
 		return true
@@ -293,7 +279,7 @@ func (l *LocationsMutator) SetVillage(val string) bool { //nolint:dupl false pos
 // SetRwBanjar create mutations, should not duplicate
 func (l *LocationsMutator) SetRwBanjar(val string) bool { //nolint:dupl false positive
 	if val != l.RwBanjar {
-		l.mutations = append(l.mutations, A.X{`=`, 15, val})
+		l.mutations.Assign(15, val)
 		l.logs = append(l.logs, A.X{`rwBanjar`, l.RwBanjar, val})
 		l.RwBanjar = val
 		return true
@@ -304,7 +290,7 @@ func (l *LocationsMutator) SetRwBanjar(val string) bool { //nolint:dupl false po
 // SetRtNeigb create mutations, should not duplicate
 func (l *LocationsMutator) SetRtNeigb(val string) bool { //nolint:dupl false positive
 	if val != l.RtNeigb {
-		l.mutations = append(l.mutations, A.X{`=`, 16, val})
+		l.mutations.Assign(16, val)
 		l.logs = append(l.logs, A.X{`rtNeigb`, l.RtNeigb, val})
 		l.RtNeigb = val
 		return true
@@ -315,7 +301,7 @@ func (l *LocationsMutator) SetRtNeigb(val string) bool { //nolint:dupl false pos
 // SetAddress create mutations, should not duplicate
 func (l *LocationsMutator) SetAddress(val string) bool { //nolint:dupl false positive
 	if val != l.Address {
-		l.mutations = append(l.mutations, A.X{`=`, 17, val})
+		l.mutations.Assign(17, val)
 		l.logs = append(l.logs, A.X{`address`, l.Address, val})
 		l.Address = val
 		return true
@@ -326,7 +312,7 @@ func (l *LocationsMutator) SetAddress(val string) bool { //nolint:dupl false pos
 // SetLat create mutations, should not duplicate
 func (l *LocationsMutator) SetLat(val float64) bool { //nolint:dupl false positive
 	if val != l.Lat {
-		l.mutations = append(l.mutations, A.X{`=`, 18, val})
+		l.mutations.Assign(18, val)
 		l.logs = append(l.logs, A.X{`lat`, l.Lat, val})
 		l.Lat = val
 		return true
@@ -337,7 +323,7 @@ func (l *LocationsMutator) SetLat(val float64) bool { //nolint:dupl false positi
 // SetLng create mutations, should not duplicate
 func (l *LocationsMutator) SetLng(val float64) bool { //nolint:dupl false positive
 	if val != l.Lng {
-		l.mutations = append(l.mutations, A.X{`=`, 19, val})
+		l.mutations.Assign(19, val)
 		l.logs = append(l.logs, A.X{`lng`, l.Lng, val})
 		l.Lng = val
 		return true

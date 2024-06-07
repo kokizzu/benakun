@@ -1,5 +1,3 @@
-'use strict';
-
 // Segments / Access
 // use this object if got data `segments` from server
 

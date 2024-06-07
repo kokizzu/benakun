@@ -1,5 +1,3 @@
-'use strict';
-
 /**
   * @typedef {Object} Product
   * @property {string} id

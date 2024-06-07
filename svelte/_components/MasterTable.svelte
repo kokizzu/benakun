@@ -19,6 +19,7 @@
 	import { onMount } from 'svelte';
 	import FilterTable from './FilterTable.svelte';
 	import { datetime } from './formatter';
+	import Map from './Map.svelte';
 
 	/** @typedef {import('./types/master.js').Field} Field */
 	/** @typedef {import('./types/access.js').Access} Access */
@@ -80,9 +81,16 @@
 	let totalRows = PAGER.countResult;
 	// Total rows current
 	let totalRowsCurrent = 0;
+	// Display map for fill latitude and longitude 
+	let isCoordFieldsExist = false;
+	// Index of field latitude and longitude in payloads
+	let IdxLatitude = -1, IdxLongitude = -1;
 
 	// Payloads for modify rows
 	let payloads = [];
+
+	// Map element binding
+	let mapElm;
 
 	// Toggle show rows options
 	function toggleRowsNum() { showRowsNum = !showRowsNum }
@@ -131,6 +139,13 @@
 		if (PAGER) getPaginationShow();
 	}
 
+	// Coordinate for map if field lat / lng exist
+	let Coord = {
+    lng: 118.0148634,
+    lat: -2.548926,
+    zoom: 7
+  };
+
 	onMount(() => {
 		// FilterTable.svelte component is rendered
 		filterTable = FilterTable;
@@ -148,7 +163,27 @@
 					key: col.name,
 					label: col.label
 				}]
+				
+				if (col.name === 'lat') {
+          isCoordFieldsExist = true;
+          IdxLatitude = idx;
+        } else if (col.name === 'lng') {
+          isCoordFieldsExist = true;
+          IdxLongitude = idx; 
+        }
 			});
+
+			if (isCoordFieldsExist) {
+				for (let i in MASTER_ROWS) {
+					for (let j in FIELDS) {
+						if (FIELDS[j].name === 'lat') {
+							Coord.lat = MASTER_ROWS[i][j];
+						} else if (FIELDS[j].name === 'lng') {
+							Coord.lng = MASTER_ROWS[i][j];
+						}
+					}
+				}
+			}
 		}
 		// Calculate pagination
 		getPaginationShow();
@@ -228,6 +263,11 @@
 		showPopUp = false;
 		OnEdit(idToMod, payloads);
 	}
+
+	function OnClickMap(/** @type any */ lngLat) {
+		payloads[IdxLatitude] = lngLat.lat;
+    payloads[IdxLongitude] = lngLat.lng;
+	}
 </script>
 
 {#if filterTableReady}
@@ -278,6 +318,16 @@
 						{/if}
 					{/if}
 				{/each}
+
+				{#if isCoordFieldsExist}
+					<div class="map_container">
+						<Map
+							bind:this={mapElm}
+							{OnClickMap} {Coord}
+							IsClickable
+						/>
+					</div>
+				{/if}
 			</div>
 			<div class="foot">
 				<button class="ok" on:click={handleSubmitEdit}>Save</button>
@@ -588,6 +638,11 @@
 		flex-direction: column;
 		gap: 10px;
 	}
+
+	.popup_container .popup .forms .map_container {
+    width: 100%;
+    height: 200px;
+  }
 
 	.popup_container .popup .foot {
 		display: flex;
