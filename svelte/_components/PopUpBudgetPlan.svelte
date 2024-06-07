@@ -11,7 +11,7 @@
 	export let description = '';
 	export let yearOf = 0;
 	export let budgetIDR = 0;
-	export let budgetUSD = 0;
+	// export let budgetUSD = 0;
 	export let quantity = 0;
 	export let unit = '';
 	export let planType = 'vision';
@@ -20,10 +20,8 @@
   let isShow = false;
   export const show = () => isShow = true;
   export const hide = () => isShow = false;
-	export const reset = () => {
-		title = '', description = '', yearOf = 0;
-		budgetIDR = 0, budgetUSD = 0, quantity = 0, unit = '';
-  }
+
+  // TODO:HABIBI if year zero, set with previously inputted year, or current year
 
   const cancel = () => isShow = false;
 </script>
@@ -59,13 +57,13 @@
 					type="number"
 					placeholder="Budget IDR"
 				/>
-				<InputBox
-					id="budgetUSD"
-					label="Budget USD"
-					bind:value={budgetUSD}
-					type="number"
-					placeholder="Budget USD"
-				/>
+<!--				<InputBox-->
+<!--					id="budgetUSD"-->
+<!--					label="Budget USD"-->
+<!--					bind:value={budgetUSD}-->
+<!--					type="number"-->
+<!--					placeholder="Budget USD"-->
+<!--				/>-->
 				<InputBox
 					id="quantity"
 					label="Qty"

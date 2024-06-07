@@ -505,7 +505,7 @@ type Plans struct {
 	Description string      `json:"description" form:"description" query:"description" long:"description" msg:"description"`
 	OrgId       uint64      `json:"orgId,string" form:"orgId" query:"orgId" long:"orgId" msg:"orgId"`
 	YearOf      uint64      `json:"yearOf" form:"yearOf" query:"yearOf" long:"yearOf" msg:"yearOf"`
-	BudgetIDR   int64       `json:"budgetIDR" form:"budgetIDR" query:"budgetIDR" long:"budgetIDR" msg:"budgetIDR"`
+	BudgetIDR   int64       `json:"budgetIDR,string" form:"budgetIDR" query:"budgetIDR" long:"budgetIDR" msg:"budgetIDR"`
 	BudgetUSD   int64       `json:"budgetUSD" form:"budgetUSD" query:"budgetUSD" long:"budgetUSD" msg:"budgetUSD"`
 	Quantity    int64       `json:"quantity" form:"quantity" query:"quantity" long:"quantity" msg:"quantity"`
 	Unit        string      `json:"unit" form:"unit" query:"unit" long:"unit" msg:"unit"`

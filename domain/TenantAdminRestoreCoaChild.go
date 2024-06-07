@@ -12,10 +12,13 @@ import (
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type TenantAdminRestoreCoaChild.go
 //go:generate farify doublequote --file TenantAdminRestoreCoaChild.go
 
+// TODO:HABIBI make file naming consistent with url requesting
+// TODO:HABIBI delete and restore should be one endpoint, or use old style a=restore/a=delete
+
 type (
 	TenantAdminRestoreCoaChildIn struct {
 		RequestCommon
-		Id         uint64      `json:"id" form:"id" query:"id" long:"id" msg:"id"`
+		Id uint64 `json:"id" form:"id" query:"id" long:"id" msg:"id"`
 	}
 	TenantAdminRestoreCoaChildOut struct {
 		ResponseCommon
@@ -26,12 +29,12 @@ type (
 const (
 	TenantAdminRestoreCoaChildAction = `tenantAdmin/restoreCoaChild`
 
-	ErrTenantAdminRestoreCoaChildUnauthorized      		= `unauthorized user to restore coa`
-	ErrTenantAdminRestoreCoaChildTenantNotFound    		= `tenant admin not found to restore coa`
-	ErrTenantAdminRestoreCoaChildCoaParentNotFound 		= `coa parent not found to restore coa`
-	ErrTenantAdminRestoreCoaChildCoaChildNotFound  		= `coa child not found to restore coa`
-	ErrTenantAdminRestoreCoaChildFailed								= `failed to restore coa`
-	ErrTenantAdminRestoreCoaChildNotDeleted	 					= `coa is not deleted`
+	ErrTenantAdminRestoreCoaChildUnauthorized      = `unauthorized user to restore coa`
+	ErrTenantAdminRestoreCoaChildTenantNotFound    = `tenant admin not found to restore coa`
+	ErrTenantAdminRestoreCoaChildCoaParentNotFound = `coa parent not found to restore coa`
+	ErrTenantAdminRestoreCoaChildCoaChildNotFound  = `coa child not found to restore coa`
+	ErrTenantAdminRestoreCoaChildFailed            = `failed to restore coa`
+	ErrTenantAdminRestoreCoaChildNotDeleted        = `coa is not deleted`
 )
 
 func (d *Domain) TenantAdminRestoreCoaChild(in *TenantAdminRestoreCoaChildIn) (out TenantAdminRestoreCoaChildOut) {
@@ -69,7 +72,7 @@ func (d *Domain) TenantAdminRestoreCoaChild(in *TenantAdminRestoreCoaChildIn) (o
 	}
 
 	child.SetDeletedAt(0)
-	
+
 	if !child.DoUpdateById() {
 		child.HaveMutation()
 		out.SetError(400, ErrTenantAdminRestoreCoaChildFailed)

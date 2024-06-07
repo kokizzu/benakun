@@ -1,5 +1,3 @@
-'use strict';
-
 /**
   * @typedef {Object} BudgetPlan
   * @property {string} id

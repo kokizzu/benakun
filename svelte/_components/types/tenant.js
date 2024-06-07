@@ -1,5 +1,3 @@
-'use strict';
-
 /**
   * @typedef {Object} Tenant
   * @property {string} id

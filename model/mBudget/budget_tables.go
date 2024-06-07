@@ -83,7 +83,7 @@ const (
 	OrgId       = `orgId`
 	YearOf      = `yearOf`
 	BudgetIDR   = `budgetIDR`
-	BudgetUSD   = `budgetUSD`
+	BudgetUSD   = `budgetUSD` // TODO: deprecate this
 	Quantity    = `quantity`
 	Unit        = `unit`
 )

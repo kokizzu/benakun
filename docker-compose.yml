@@ -3,6 +3,7 @@ services:
   tarantool1:
     image: tarantool/tarantool:3.1
     # https://github.com/tarantool/tarantool/tree/master/docker
+    container_name: benakun_tarantool
     environment:
       TT_APP_NAME: app # 3.1 only
       TT_INSTANCE_NAME: instance-001 # 3.1 only
@@ -35,8 +36,10 @@ services:
 #      - "3302:3301"
 
   clickhouse1:
-    image: clickhouse/clickhouse-server:24
+    image: clickhouse/clickhouse-server:23.11.2.11
     # previously: 23.4.2.11
+    # next: 24.1
+    container_name: benakun_clickhouse
     ports:
       - "8124:8123"
       - "9001:9000"
@@ -48,14 +51,12 @@ services:
       nofile:
         soft: 262144
         hard: 262144
-    user: 1000:1000
     volumes:
-      - /etc/passwd:/etc/passwd:ro
-      - /etc/group:/etc/group:ro
       - ./_tmpdb/var_lib_clickhouse:/var/lib/clickhouse
 
   mailhog1:
     image: mailhog/mailhog
+    container_name: benakun_mailhog
     ports:
       - "1026:1025"
       - "8026:8025"

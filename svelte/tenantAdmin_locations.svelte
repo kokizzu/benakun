@@ -22,19 +22,131 @@
   let fields = /** @type Field[] */ ([/* fields */]);
   let pager = /** @type PagerOut */ ({/* pager */});
   let locations = /** @type any[][] */ ([/* locations */]);
-  let location = /** @type location */ ({/* locations */});
+
+
+  let location = /** @type location */ ({});
 
   let isPopUpFormsReady = false;
   let popUpForms = null;
   onMount(() => {
     isPopUpFormsReady = true;
+    if (locations && locations.length > 0) location = locations[0];
   });
+
+  async function OnRefresh(/** @type PagerIn */ pagerIn) {
+    const i = { pager: pagerIn, cmd: 'list' }
+    await TenantAdminLocations( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminLocationsCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+        
+        pager = o.pager;
+        locations = o.locations;
+      }
+    );
+  }
+
+  async function OnEdit(/** @type any */ id, /** @type any[]*/ payloads) {
+    /** @type Location */ // @ts-ignore
+    const loc = {
+      id: payloads[0],
+      name: payloads[1],
+      country: payloads[2],
+      stateProvice: payloads[3],
+      cityRegency: payloads[4],
+      subdistrict: payloads[5],
+      village: payloads[6],
+      rwBanjar: payloads[7],
+      rtNeigb: payloads[8],
+      address: payloads[9],
+      lat: payloads[10],
+      lng: payloads[11],
+    }
+    const i = {
+      pager,
+      location: loc,
+      cmd: 'upsert'
+    }
+    await TenantAdminLocations( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminLocationsCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+        
+        pager = o.pager;
+        locations = o.locations;
+
+        notifier.showSuccess('location updated');
+      }
+    );
+  }
+
+  async function OnDelete(/** @type any[] */ row) {
+    const i = {
+      pager,
+      location: {
+        id: row[0]
+      },
+      cmd: 'delete'
+    }
+    await TenantAdminLocations( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminLocationsCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+        
+        pager = o.pager;
+        locations = o.locations;
+
+        notifier.showSuccess('location deleted');
+      }
+    );
+  }
+
+  async function OnRestore(/** @type any */ id) {
+    const i = {
+      pager,
+      location: {
+        id: id
+      },
+      cmd: 'restore'
+    }
+    await TenantAdminLocations( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminLocationsCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+        
+        pager = o.pager;
+        locations = o.locations;
+
+        notifier.showSuccess('location restored');
+      }
+    );
+  }
 
   let isSubmitAddLocation = false;
   async function OnAddLocation(/** @type any[] */ payloads) {
     isSubmitAddLocation = true;
     /** @type Location */ //@ts-ignore
-    const location = {
+    const loc = {
       tenantCode: user.tenantCode,
       name: payloads[1],
       country: payloads[2],
@@ -49,7 +161,8 @@
       lng: payloads[11],
     }
     const i = {
-      pager, location,
+      pager,
+      location: loc,
       cmd: 'upsert'
     }
     await TenantAdminLocations( // @ts-ignore
@@ -65,6 +178,7 @@
         
         pager = o.pager;
         locations = o.locations;
+        location = o.location;
 
         notifier.showSuccess('office location added')
         popUpForms.Reset();
@@ -77,15 +191,15 @@
   let headingInfo = 'Location for '+location.name;
   let mapElm;
   let isMapReady;
-  let coord = {
+  let Coord = {
     lat: location.lat,
     lng: location.lng,
-    zoom: 6
+    zoom: 8
   };
 
   async function OnInfo(/** @type any[] */ row) {
-    coord.lat = row[10];
-    coord.lng = row[11];
+    Coord.lat = row[10];
+    Coord.lng = row[11];
     headingInfo = 'Location for '+row[1];
     isMapReady = true;
     isShowInfoLocation = true;
@@ -116,7 +230,7 @@
           {#if isMapReady}
             <Map
               bind:this={mapElm}
-              {coord}
+              {Coord}
             />
           {/if}
         </div>
@@ -140,6 +254,10 @@
       CAN_RESTORE_ROW
 
       {OnInfo}
+      {OnEdit}
+      {OnRefresh}
+      {OnDelete}
+      {OnRestore}
     >
       {#if user.tenantCode !== ''}
         <button

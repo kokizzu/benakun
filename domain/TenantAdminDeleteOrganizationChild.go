@@ -11,10 +11,13 @@ import (
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type TenantAdminDeleteOrganizationChild.go
 //go:generate farify doublequote --file TenantAdminDeleteOrganizationChild.go
 
+// TODO:HABIBI make file naming consistent with url requesting
+// TODO:HABIBI delete and restore should be one endpoint, or use old style a=restore/a=delete
+
 type (
 	TenantAdminDeleteOrganizationChildIn struct {
 		RequestCommon
-		Id         uint64      `json:"id" form:"id" query:"id" long:"id" msg:"id"`
+		Id uint64 `json:"id" form:"id" query:"id" long:"id" msg:"id"`
 	}
 	TenantAdminDeleteOrganizationChildOut struct {
 		ResponseCommon
@@ -29,7 +32,7 @@ const (
 	ErrTenantAdminDeleteOrganizationChildTenantNotFound    = `tenant admin not found to delete organization`
 	ErrTenantAdminDeleteOrganizationChildOrgParentNotFound = `cannot found parent to delete organization`
 	ErrTenantAdminDeleteOrganizationChildOrgChildNotFound  = `organization child not found to delete organization`
-	ErrTenantAdminDeleteOrganizationChildFailed						 = `failed to delete organization`
+	ErrTenantAdminDeleteOrganizationChildFailed            = `failed to delete organization`
 	ErrTenantAdminDeleteOrganizationChildOrgAlreadyDeleted = `organization is already deleted`
 )
 
@@ -82,4 +85,3 @@ func (d *Domain) TenantAdminDeleteOrganizationChild(in *TenantAdminDeleteOrganiz
 
 	return
 }
-

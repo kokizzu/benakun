@@ -9,7 +9,7 @@ type TenantCodeId struct {
 
 var hostmap = map[string]TenantCodeId{
 	`http://127.0.0.1:1235`: {
-		TenantCode: `test_6727`,
+		TenantCode: `benalu-6405`,
 		OrgId:      6727,
 	},
 }

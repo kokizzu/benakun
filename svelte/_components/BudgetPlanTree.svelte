@@ -166,11 +166,10 @@
     /** @type {import('../jsApi.GEN.js').TenantAdminUpsertBudgetPlanIn} */
     const i = { //@ts-ignore
       plan: {id: idStr, planType, title, description, yearOf: Number(yearOf), orgId: org.id,
-      budgetIDR: Number(budgetIDR), budgetUSD: Number(budgetUSD), unit, quantity}
+      budgetIDR: ''+budgetIDR, budgetUSD: Number(budgetUSD), unit, quantity: +quantity}
     }
     await TenantAdminUpsertBudgetPlan(i, /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanCallback} */
       function (/** @type {any} */ o) {
-        resetPayload();
         isSubmitPlan = false;
         if (o.error) {
           notifier.showError(o.error);
@@ -181,6 +180,7 @@
         const out = /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanOut}*/ (o);
         budgetPlans = out.plans;
 
+        resetPayload();
         reformatPlans();
         popUpBudgetPlan.hide();
       }
@@ -270,7 +270,6 @@
   bind:description
   bind:yearOf
   bind:budgetIDR
-  bind:budgetUSD
   bind:unit
   bind:quantity
   bind:heading={headingPopUp}

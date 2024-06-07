@@ -2857,14 +2857,48 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"tenantCode": {
-								"type": "string"
-						},
-						"companyName": {
-								"type": "string"
-						},
-						"headTitle": {
-								"type": "string"
+						"company": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"name": {
+										"type": "string"
+								},
+								"headTitle": {
+										"type": "string"
+								},
+								"parentId": {
+										"type": "number"
+								},
+								"children": {
+								"type": "object",
+								"properties": {
+										}
+								},
+								"orgType": {
+										"type": "number"
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								}
+								}
 						}
 								}
 							}

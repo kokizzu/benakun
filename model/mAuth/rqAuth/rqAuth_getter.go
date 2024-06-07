@@ -15,7 +15,7 @@ type Staff struct {
 	Id       string `json:"id" form:"id" query:"id" long:"id" msg:"id"`
 	Email    string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
 	FullName string `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
-	Role 		 string `json:"role" form:"role" query:"role" long:"role" msg:"role"`
+	Role     string `json:"role" form:"role" query:"role" long:"role" msg:"role"`
 }
 
 func (u *Users) FindStaffsByTenantCode(tenantCode string) (staffs []Staff) {
@@ -26,7 +26,7 @@ func (u *Users) FindStaffsByTenantCode(tenantCode string) (staffs []Staff) {
 
 	queryRows := comment + `
 SELECT ` + u.SqlId() + `, ` + u.SqlEmail() + `, ` + u.SqlFullName() + `, ` + u.SqlRole() + `
-FROM ` + u.SqlTableName() + whereAndSql
+FROM SEQSCAN ` + u.SqlTableName() + whereAndSql
 
 	u.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
@@ -40,7 +40,7 @@ FROM ` + u.SqlTableName() + whereAndSql
 					Id:       X.ToS(stf[0]),
 					Email:    X.ToS(stf[1]),
 					FullName: X.ToS(stf[2]),
-					Role: 		X.ToS(stf[3]),
+					Role:     X.ToS(stf[3]),
 				}
 
 				staffs = append(staffs, st)
@@ -56,11 +56,11 @@ FROM ` + u.SqlTableName() + whereAndSql
 func (u *Users) FindStaffsChoicesByTenantCode(tenantCode string) map[string]string {
 	const comment = `-- Users) FindStaffByTenantCode`
 
-	whereAndSql := ` WHERE `+u.SqlInvitationState()+` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
+	whereAndSql := ` WHERE ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
 
-	queryRows := comment+`
-SELECT `+u.SqlId()+`, `+ u.SqlFullName()+`, `+u.SqlEmail()+`
-FROM `+u.SqlTableName()+whereAndSql
+	queryRows := comment + `
+SELECT ` + u.SqlId() + `, ` + u.SqlFullName() + `, ` + u.SqlEmail() + `
+FROM SEQSCAN ` + u.SqlTableName() + whereAndSql
 
 	staffChoices := make(map[string]string)
 	u.Adapter.QuerySql(queryRows, func(row []any) {
@@ -68,7 +68,7 @@ FROM `+u.SqlTableName()+whereAndSql
 		if fullName == `` {
 			fullName = `(--)`
 		} else {
-			fullName = `(`+fullName+`)`
+			fullName = `(` + fullName + `)`
 		}
 		email := X.ToS(row[2])
 
@@ -82,12 +82,11 @@ func (u *Users) FindStaffByIdByTenantCode(id uint64, tenantCode string) bool {
 	var res [][]any
 	const comment = `-- Users) FindStaffByIdByTenantCode`
 
-	whereAndSql := ` WHERE `+u.SqlId()+` = `+I.UToS(id)+` AND `+u.SqlInvitationState()+` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
+	whereAndSql := ` WHERE ` + u.SqlId() + ` = ` + I.UToS(id) + ` AND ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
 
 	queryRows := comment + `
 SELECT ` + u.SqlSelectAllFields() + `
-FROM ` + u.SqlTableName() + whereAndSql + ` LIMIT 1`
-
+FROM SEQSCAN ` + u.SqlTableName() + whereAndSql + ` LIMIT 1`
 
 	u.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0])
@@ -111,7 +110,7 @@ func (s *Sessions) AllActiveSession(userId uint64, now int64) (res []*Sessions) 
 
 	query := comment + `
 SELECT ` + s.SqlSelectAllFields() + `
-FROM ` + s.SqlTableName() + `
+FROM SEQSCAN ` + s.SqlTableName() + `
 WHERE ` + s.SqlUserId() + ` = ` + I.UToS(userId) + `
 	AND ` + s.SqlExpiredAt() + ` > ` + I.ToS(now)
 	s.Adapter.QuerySql(query, func(row []any) {
@@ -129,7 +128,7 @@ func (u *Users) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud
 
 	queryCount := comment + `
 SELECT COUNT(1)
-FROM ` + u.SqlTableName() + whereAndSql + `
+FROM SEQSCAN ` + u.SqlTableName() + whereAndSql + `
 LIMIT 1`
 	u.Adapter.QuerySql(queryCount, func(row []any) {
 		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
@@ -140,7 +139,7 @@ LIMIT 1`
 
 	queryRows := comment + `
 SELECT ` + meta.ToSelect() + `
-FROM ` + u.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+FROM SEQSCAN ` + u.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	u.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
@@ -157,7 +156,7 @@ func (t *Tenants) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zCrud.P
 
 	queryCount := comment + `
 SELECT COUNT(1)
-FROM ` + t.SqlTableName() + whereAndSql + `
+FROM SEQSCAN ` + t.SqlTableName() + whereAndSql + `
 LIMIT 1`
 	t.Adapter.QuerySql(queryCount, func(row []any) {
 		z3.CalculatePages(z2.Page, z2.PerPage, int(X.ToI(row[0])))
@@ -168,7 +167,7 @@ LIMIT 1`
 
 	queryRows := comment + `
 SELECT ` + z.ToSelect() + `
-FROM ` + t.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+FROM SEQSCAN ` + t.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	t.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
@@ -180,7 +179,7 @@ FROM ` + t.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 func (o *Orgs) FindByCompanyName() bool {
 	selectSql := `-- Orgs) FindByCompanyName
 SELECT ` + o.SqlSelectAllFields() + `
-FROM ` + o.SqlTableName() + `
+FROM SEQSCAN ` + o.SqlTableName() + `
 WHERE ` + o.SqlName() + ` = ` + S.Z(o.Name) + `
 LIMIT 1`
 	ok := false
@@ -194,7 +193,7 @@ LIMIT 1`
 func (u *Users) FindByTenantCode() bool {
 	selectSql := `-- Users) FindByTenantCode
 SELECT ` + u.SqlSelectAllFields() + `
-FROM ` + u.SqlTableName() + `
+FROM SEQSCAN ` + u.SqlTableName() + `
 WHERE ` + u.SqlTenantCode() + ` = ` + S.Z(u.TenantCode) + `
 LIMIT 1`
 	ok := false
@@ -208,11 +207,11 @@ LIMIT 1`
 func (o *Orgs) FindOrgsByTenant(tenantCode string) (orgs []Orgs) {
 	const comment = "-- orgs) FindOrgsByTenant"
 
-	whereAndSql := ` WHERE ` + o.SqlTenantCode() + ` = ` + S.Z(tenantCode)
-	queryRows := comment +
-		`
+	whereAndSql := ` 
+WHERE ` + o.SqlTenantCode() + ` = ` + S.Z(tenantCode)
+	queryRows := comment + `
 SELECT ` + o.SqlSelectAllFields() + `
-FROM ` + o.SqlTableName() +
+FROM SEQSCAN ` + o.SqlTableName() +
 		whereAndSql
 
 	o.Adapter.QuerySql(queryRows, func(row []any) {
@@ -223,17 +222,16 @@ FROM ` + o.SqlTableName() +
 	return
 }
 
-func (o *Orgs) FindCompanyByTenantCode() bool {
+func (o *Orgs) FindCompanyByTenantCode(tenantCode string) bool {
 	const comment = "-- orgs) FindCompanyByTenantCode"
 
-	whereAndSql := ` WHERE 
-` + o.SqlTenantCode() + ` = ` + S.Z(o.TenantCode) + `
-AND ` + o.SqlOrgType() + ` = ` + I.ToS(mAuth.OrgTypeCompany)
+	whereAndSql := ` WHERE ` + o.SqlTenantCode() + ` = ` + S.Z(tenantCode) + `
+AND ` + o.SqlOrgType() + ` = ` + I.ToS(mAuth.OrgTypeCompany) + ` LIMIT 1`
+
 	queryRows := comment +
-		`
+`
 SELECT ` + o.SqlSelectAllFields() + `
-FROM ` + o.SqlTableName() +
-		whereAndSql
+FROM SEQSCAN ` + o.SqlTableName() + whereAndSql
 
 	o.Adapter.QuerySql(queryRows, func(row []any) {
 		o.FromArray(row)
@@ -254,7 +252,7 @@ func (u *Users) FindStaffByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *
 
 	queryCount := comment + `
 SELECT COUNT(1)
-FROM ` + u.SqlTableName() + whereAndSql + whereAndSql2 + `
+FROM SEQSCAN ` + u.SqlTableName() + whereAndSql + whereAndSql2 + `
 LIMIT 1`
 	u.Adapter.QuerySql(queryCount, func(row []any) {
 		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
@@ -265,7 +263,7 @@ LIMIT 1`
 
 	queryRows := comment + `
 SELECT ` + meta.ToSelect() + `
-FROM ` + u.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
+FROM SEQSCAN ` + u.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
 	u.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		invState := staffState(X.ToS(row[4]), u.TenantCode)

@@ -12,8 +12,6 @@
   /**  @type {Org[]} */
   let REFORMAT_ORGS = [];
 
-  const OrgTypeCompany = 1, OrgTypeDept = 2, OrgTypeDivision = 3, OrgTypeJob = 4;
-
   function orgMaker(id) {
     /** @type {Org} */
     let orgFormatted = {
@@ -75,7 +73,11 @@
     return toorgs;
   }
 
-  onMount(() => { REFORMAT_ORGS = reformatorgs(); console.log(orgs); });
+  onMount(() => {
+	  REFORMAT_ORGS = reformatorgs();
+	  console.log('REFORMAT_ORGS',REFORMAT_ORGS);
+	  console.log('orgs',orgs);
+  });
 
   let infoOrg;
   if (orgs && orgs.length) infoOrg = orgs[0];
