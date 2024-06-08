@@ -293,6 +293,29 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.TenantAdminInventoryChangesAction, func(ctx *fiber.Ctx) error {
+		var in domain.TenantAdminInventoryChangesIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminInventoryChangesAction)
+		if err != nil {
+			return err
+		}
+		if notTenantLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		
+		in.WithMeta = true
+		in.Cmd = zCrud.CmdList
+		out := d.TenantAdminInventoryChanges(&in)
+		return views.RenderTenantAdminInventoryChanges(ctx, M.SX{
+			`title`:    `Tenant Admin Bank Accounts`,
+			`user`:     user,
+			`segments`: segments,
+			`fields`:   out.Meta.Fields,
+			`pager`:    out.Pager,
+		})
+	})
+
 	fw.Get(`/`+domain.SuperAdminDashboardAction, func(ctx *fiber.Ctx) error {
 		var in domain.SuperAdminDashboardIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.SuperAdminDashboardAction)
