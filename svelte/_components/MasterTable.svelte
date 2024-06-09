@@ -183,6 +183,8 @@
 						}
 					}
 				}
+
+				console.log('Coord', Coord);
 			}
 		}
 		// Calculate pagination

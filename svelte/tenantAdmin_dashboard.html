@@ -31476,6 +31476,7 @@ uniform ${i3} ${a3} u_${s3};
               }
             }
           }
+          console.log("Coord", Coord);
         }
       }
       getPaginationShow();
@@ -32976,7 +32977,12 @@ uniform ${i3} ${a3} u_${s3};
     async function submitInviteUser() {
       $invalidate(6, isSubmitted = true);
       popUpInviteUser.Hide();
-      const i = { pager, staffEmail: email, cmd: "upsert" };
+      const i = {
+        pager,
+        staffEmail: email,
+        role: "dataEntry",
+        cmd: "upsert"
+      };
       await (0, import_jsApi.TenantAdminDashboard)(
         // @ts-ignore
         i,

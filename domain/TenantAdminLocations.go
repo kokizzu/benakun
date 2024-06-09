@@ -54,19 +54,19 @@ var TenantAdminLocationsMeta = zCrud.Meta{
 		},
 		{
 			Name:      mBusiness.Name,
-			Label:     "Name",
+			Label:     "Nama/Name",
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
 		},
 		{
 			Name:      mBusiness.Country,
-			Label:     "Negara",
+			Label:     "Negara/Country",
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
 		},
 		{
 			Name:      mBusiness.StateProvince,
-			Label:     "Provinsi",
+			Label:     "Provinsi/Province",
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
 		},

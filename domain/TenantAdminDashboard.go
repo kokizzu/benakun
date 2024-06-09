@@ -139,6 +139,8 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 			}
 
 			if in.Cmd == zCrud.CmdUpsert {
+				L.Print(`in.Role`, in.Role)
+				L.Print(`staff.Role`, staff.Role)
 				if staff.Role != in.Role {
 					switch in.Role {
 					case mAuth.RoleUser, mAuth.RoleDataEntry, mAuth.RoleReportViewer:

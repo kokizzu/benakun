@@ -12,4 +12,8 @@ var hostmap = map[string]TenantCodeId{
 		TenantCode: `benalu-6405`,
 		OrgId:      6727,
 	},
+	`https://local1:1235`: {
+		TenantCode: `ertwywret-2504`,
+		OrgId: 1,
+	},
 }
