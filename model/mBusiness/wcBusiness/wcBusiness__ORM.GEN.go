@@ -50,14 +50,65 @@ func (i *InventoryChangesMutator) ClearMutations() { //nolint:dupl false positiv
 	i.logs = []A.X{}
 }
 
+// DoOverwriteById update all columns, error if not exists, not using mutations/Set*
+func (i *InventoryChangesMutator) DoOverwriteById() bool { //nolint:dupl false positive
+	_, err := i.Adapter.RetryDo(tarantool.NewUpdateRequest(i.SpaceName()).
+		Index(i.UniqueIndexId()).
+		Key(tarantool.UintKey{I: uint(i.Id)}).
+		Operations(i.ToUpdateArray()),
+	)
+	return !L.IsError(err, `InventoryChanges.DoOverwriteById failed: `+i.SpaceName())
+}
+
+// DoUpdateById update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (i *InventoryChangesMutator) DoUpdateById() bool { //nolint:dupl false positive
+	if !i.HaveMutation() {
+		return true
+	}
+	_, err := i.Adapter.RetryDo(
+		tarantool.NewUpdateRequest(i.SpaceName()).
+			Index(i.UniqueIndexId()).
+			Key(tarantool.UintKey{I: uint(i.Id)}).
+			Operations(i.mutations),
+	)
+	return !L.IsError(err, `InventoryChanges.DoUpdateById failed: `+i.SpaceName())
+}
+
+// DoDeletePermanentById permanent delete
+func (i *InventoryChangesMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
+	_, err := i.Adapter.RetryDo(
+		tarantool.NewDeleteRequest(i.SpaceName()).
+			Index(i.UniqueIndexId()).
+			Key(tarantool.UintKey{I: uint(i.Id)}),
+	)
+	return !L.IsError(err, `InventoryChanges.DoDeletePermanentById failed: `+i.SpaceName())
+}
+
 // DoInsert insert, error if already exists
 func (i *InventoryChangesMutator) DoInsert() bool { //nolint:dupl false positive
 	arr := i.ToArray()
-	_, err := i.Adapter.RetryDo(
+	row, err := i.Adapter.RetryDo(
 		tarantool.NewInsertRequest(i.SpaceName()).
 			Tuple(arr),
 	)
+	if err == nil {
+		if len(row) > 0 {
+			if cells, ok := row[0].([]any); ok && len(cells) > 0 {
+				i.Id = X.ToU(cells[0])
+			}
+		}
+	}
 	return !L.IsError(err, `InventoryChanges.DoInsert failed: `+i.SpaceName()+`\n%#v`, arr)
+}
+
+// DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
+// tarantool's replace/upsert can only match by primary key
+// previous name: DoReplace
+func (i *InventoryChangesMutator) DoUpsertById() bool { //nolint:dupl false positive
+	if i.Id > 0 {
+		return i.DoUpdateById()
+	}
+	return i.DoInsert()
 }
 
 // SetId create mutations, should not duplicate

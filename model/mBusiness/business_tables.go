@@ -148,6 +148,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{SpendingId, Tt.Unsigned},
 			{ExpenseId, Tt.Unsigned},
 		},
+		AutoIncrementId: true,
+		Engine: Tt.Vinyl,
 	},
 }
 

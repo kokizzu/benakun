@@ -52,6 +52,31 @@ func (i *InventoryChanges) SqlTableName() string { //nolint:dupl false positive
 	return `"inventoryChanges"`
 }
 
+func (i *InventoryChanges) UniqueIndexId() string { //nolint:dupl false positive
+	return `id`
+}
+
+// FindById Find one by Id
+func (i *InventoryChanges) FindById() bool { //nolint:dupl false positive
+	res, err := i.Adapter.RetryDo(
+		tarantool.NewSelectRequest(i.SpaceName()).
+			Index(i.UniqueIndexId()).
+			Limit(1).
+			Iterator(tarantool.IterEq).
+			Key(tarantool.UintKey{I: uint(i.Id)}),
+	)
+	if L.IsError(err, `InventoryChanges.FindById failed: `+i.SpaceName()) {
+		return false
+	}
+	if len(res) == 1 {
+		if row, ok := res[0].([]any); ok {
+			i.FromArray(row)
+			return true
+		}
+	}
+	return false
+}
+
 // SqlSelectAllFields generate Sql select fields
 func (i *InventoryChanges) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "id"
@@ -251,8 +276,12 @@ func (i *InventoryChanges) SqlExpenseId() string { //nolint:dupl false positive
 
 // ToArray receiver fields to slice
 func (i *InventoryChanges) ToArray() A.X { //nolint:dupl false positive
+	var id any = nil
+	if i.Id != 0 {
+		id = i.Id
+	}
 	return A.X{
-		i.Id,         // 0
+		id,
 		i.TenantCode, // 1
 		i.CreatedAt,  // 2
 		i.CreatedBy,  // 3

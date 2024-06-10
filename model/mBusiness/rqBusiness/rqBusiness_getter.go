@@ -70,3 +70,31 @@ FROM SEQSCAN ` + l.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + li
 
 	return
 }
+
+func (ic *InventoryChanges) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
+	const comment = `-- InventoryChanges) FindByPagination`
+
+	validFields := InventoryChangesFieldTypeMap
+	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
+
+	queryCount := comment + `
+SELECT COUNT(1)
+FROM SEQSCAN ` +ic.SqlTableName() + whereAndSql + `
+LIMIT 1`
+	ic.Adapter.QuerySql(queryCount, func(row []any) {
+		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
+	})
+
+	orderBySql := out.OrderBySqlTt(in.Order, validFields)
+	limitOffsetSql := out.LimitOffsetSql()
+
+	queryRows := comment + `
+SELECT ` + meta.ToSelect() + `
+FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+	ic.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
+	return
+}

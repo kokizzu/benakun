@@ -1,5 +1,6 @@
 <script>
   import MainLayout from './_layouts/mainLayout.svelte';
+  import MasterTable from './_components/MasterTable.svelte';
 
   /** @typedef {import('./_components/types/master.js').Field} Field */
 	/** @typedef {import('./_components/types/access.js').Access} Access */
@@ -11,12 +12,23 @@
   let user = /** @type User */ ({/* user */});
   let fields = /** @type Field[] */ ([/* fields */]);
   let pager = /** @type PagerOut */ ({/* pager */});
+  let inventoryChanges = /** @type any[][] */ ([/* inventoryChanges */]);
 
 </script>
 
 <MainLayout>
   <div>
-    <h1>Inventory Changes</h1>
+    <MasterTable
+      ACCESS={segments}
+      bind:FIELDS={fields}
+      bind:PAGER={pager}
+      bind:MASTER_ROWS={inventoryChanges}
+
+      CAN_EDIT_ROW
+      CAN_SEARCH_ROW
+      CAN_DELETE_ROW
+      CAN_RESTORE_ROW
+    />
   </div>
 </MainLayout>
 

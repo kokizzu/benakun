@@ -313,6 +313,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`segments`: segments,
 			`fields`:   out.Meta.Fields,
 			`pager`:    out.Pager,
+			`inventoryChanges`: out.InventoryChanges,
 		})
 	})
 

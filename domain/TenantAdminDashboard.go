@@ -89,9 +89,15 @@ var TenantAdminDashboardMeta = zCrud.Meta{
 			ReadOnly: true,
 		},
 		{
+			Name: mAuth.CreatedAt,
+			Label: "Created At",
+			InputType: zCrud.InputTypeHidden,
+			ReadOnly: true,
+		},
+		{
 			Name: mAuth.UpdatedAt,
 			Label: "Updated At",
-			InputType: zCrud.InputTypeDateTime,
+			InputType: zCrud.InputTypeHidden,
 			ReadOnly: true,
 		},
 	},
