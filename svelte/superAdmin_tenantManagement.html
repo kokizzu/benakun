@@ -31731,6 +31731,24 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
+  function create_else_block3(ctx) {
+    let tr;
+    return {
+      c() {
+        tr = element("tr");
+        tr.innerHTML = `<th class="svelte-1t7h86g">0</th> <td class="svelte-1t7h86g">no-data</td>`;
+      },
+      m(target, anchor) {
+        insert(target, tr, anchor);
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(tr);
+        }
+      }
+    };
+  }
   function create_if_block5(ctx) {
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
@@ -31919,11 +31937,17 @@ uniform ${i3} ${a3} u_${s3};
     for (let i = 0; i < each_value_2.length; i += 1) {
       each_blocks[i] = create_each_block_22(get_each_context_22(ctx, each_value_2, i));
     }
-    let if_block = (
-      /*ROWS*/
-      ctx[1] && /*ROWS*/
-      ctx[1].length && create_if_block5(ctx)
-    );
+    function select_block_type(ctx2, dirty) {
+      if (
+        /*ROWS*/
+        ctx2[1] && /*ROWS*/
+        ctx2[1].length
+      )
+        return create_if_block5;
+      return create_else_block3;
+    }
+    let current_block_type = select_block_type(ctx, -1);
+    let if_block = current_block_type(ctx);
     return {
       c() {
         div1 = element("div");
@@ -31939,8 +31963,7 @@ uniform ${i3} ${a3} u_${s3};
         }
         t2 = space();
         tbody = element("tbody");
-        if (if_block)
-          if_block.c();
+        if_block.c();
         attr(th, "class", "no svelte-1t7h86g");
         attr(thead, "class", "svelte-1t7h86g");
         attr(table, "class", "svelte-1t7h86g");
@@ -31962,8 +31985,7 @@ uniform ${i3} ${a3} u_${s3};
         }
         append(table, t2);
         append(table, tbody);
-        if (if_block)
-          if_block.m(tbody, null);
+        if_block.m(tbody, null);
       },
       p(ctx2, [dirty]) {
         if (dirty & /*FIELDS*/
@@ -31988,21 +32010,15 @@ uniform ${i3} ${a3} u_${s3};
           }
           each_blocks.length = each_value_2.length;
         }
-        if (
-          /*ROWS*/
-          ctx2[1] && /*ROWS*/
-          ctx2[1].length
-        ) {
+        if (current_block_type === (current_block_type = select_block_type(ctx2, dirty)) && if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
           if (if_block) {
-            if_block.p(ctx2, dirty);
-          } else {
-            if_block = create_if_block5(ctx2);
             if_block.c();
             if_block.m(tbody, null);
           }
-        } else if (if_block) {
-          if_block.d(1);
-          if_block = null;
         }
       },
       i: noop,
@@ -32012,8 +32028,7 @@ uniform ${i3} ${a3} u_${s3};
           detach(div1);
         }
         destroy_each(each_blocks, detaching);
-        if (if_block)
-          if_block.d();
+        if_block.d();
       }
     };
   }
@@ -32055,6 +32070,7 @@ uniform ${i3} ${a3} u_${s3};
     let icon;
     let t3;
     let div0;
+    let readonlytable;
     let div2_class_value;
     let current;
     let mounted;
@@ -32066,11 +32082,18 @@ uniform ${i3} ${a3} u_${s3};
         src: IoClose
       }
     });
-    let if_block = (
-      /*staffs*/
-      ctx[3] && /*staffs*/
-      ctx[3].length > 0 && create_if_block_110(ctx)
-    );
+    readonlytable = new ReadOnlyTable_default({
+      props: {
+        FIELDS: (
+          /*staffsFields*/
+          ctx[10]
+        ),
+        ROWS: (
+          /*staffs*/
+          ctx[3]
+        )
+      }
+    });
     return {
       c() {
         div2 = element("div");
@@ -32087,8 +32110,7 @@ uniform ${i3} ${a3} u_${s3};
         create_component(icon.$.fragment);
         t3 = space();
         div0 = element("div");
-        if (if_block)
-          if_block.c();
+        create_component(readonlytable.$.fragment);
         attr(h2, "class", "svelte-1y29d89");
         attr(button, "class", "svelte-1y29d89");
         attr(header, "class", "header svelte-1y29d89");
@@ -32109,8 +32131,7 @@ uniform ${i3} ${a3} u_${s3};
         mount_component(icon, button, null);
         append(div1, t3);
         append(div1, div0);
-        if (if_block)
-          if_block.m(div0, null);
+        mount_component(readonlytable, div0, null);
         current = true;
         if (!mounted) {
           dispose = listen(
@@ -32130,30 +32151,12 @@ uniform ${i3} ${a3} u_${s3};
             /*tenantCode*/
             ctx2[4]
           );
-        if (
-          /*staffs*/
-          ctx2[3] && /*staffs*/
-          ctx2[3].length > 0
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*staffs*/
-            8) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block_110(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(div0, null);
-          }
-        } else if (if_block) {
-          group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
-          });
-          check_outros();
-        }
+        const readonlytable_changes = {};
+        if (dirty & /*staffs*/
+        8)
+          readonlytable_changes.ROWS = /*staffs*/
+          ctx2[3];
+        readonlytable.$set(readonlytable_changes);
         if (!current || dirty & /*isShowInfo*/
         32 && div2_class_value !== (div2_class_value = null_to_empty(`popup_container ${/*isShowInfo*/
         ctx2[5] ? "show" : ""}`) + " svelte-1y29d89")) {
@@ -32164,12 +32167,12 @@ uniform ${i3} ${a3} u_${s3};
         if (current)
           return;
         transition_in(icon.$.fragment, local);
-        transition_in(if_block);
+        transition_in(readonlytable.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
-        transition_out(if_block);
+        transition_out(readonlytable.$.fragment, local);
         current = false;
       },
       d(detaching) {
@@ -32177,56 +32180,9 @@ uniform ${i3} ${a3} u_${s3};
           detach(div2);
         }
         destroy_component(icon);
-        if (if_block)
-          if_block.d();
+        destroy_component(readonlytable);
         mounted = false;
         dispose();
-      }
-    };
-  }
-  function create_if_block_110(ctx) {
-    let readonlytable;
-    let current;
-    readonlytable = new ReadOnlyTable_default({
-      props: {
-        FIELDS: (
-          /*staffsFields*/
-          ctx[10]
-        ),
-        ROWS: (
-          /*staffs*/
-          ctx[3]
-        )
-      }
-    });
-    return {
-      c() {
-        create_component(readonlytable.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(readonlytable, target, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        const readonlytable_changes = {};
-        if (dirty & /*staffs*/
-        8)
-          readonlytable_changes.ROWS = /*staffs*/
-          ctx2[3];
-        readonlytable.$set(readonlytable_changes);
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(readonlytable.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(readonlytable.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(readonlytable, detaching);
       }
     };
   }
