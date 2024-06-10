@@ -109,6 +109,14 @@
   const onPlanDetails = (e) => {
     isShowPlanDetail = true;
     planDetail = e.detail; 
+    planDetail.budgetIDR = new Intl.NumberFormat('id', {
+      style: 'currency',
+      currency: 'IDR'
+    }).format(planDetail.budgetIDR || 0);
+    planDetail.budgetUSD = new Intl.NumberFormat('us', {
+      style: 'currency',
+      currency: 'USD'
+    }).format(planDetail.budgetUSD || 0);
   }
 </script>
 
@@ -138,11 +146,11 @@
         </div>
         <div class="detail">
           <span>Budget IDR</span>
-          <p>Rp {planDetail.budgetIDR || '0'}</p>
+          <p>{planDetail.budgetIDR || '0'}</p>
         </div>
         <div class="detail">
           <span>Budget USD</span>
-          <p>$ {planDetail.budgetUSD || '0'}</p>
+          <p>{planDetail.budgetUSD || '0'}</p>
         </div>
         <div class="detail">
           <span>Qty</span>

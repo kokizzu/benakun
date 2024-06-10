@@ -8,6 +8,7 @@
 
   const apiKey = 'tOiu6Qb0Q3hToL89vQ4u';
 
+  // +=========== EXPORTED VARIABLES ===========+
   export let Coord = {
     lng: 118.0148634,
     lat: -2.548926,
@@ -15,15 +16,23 @@
   };
 
   export let IsClickable = false;
+  export let IsDraggable = false;
+
+  /** @param {[number, number]} lngLat */
   export let OnClickMap = function(lngLat) {};
 
   /** @param {[number, number]} location */
   export function setCenter(location) {
-    map.setZoom(11);
+    map.setZoom(Coord.zoom);
     map.setCenter(location);
   }
 
-  let marker = new Marker({color: '#1877F2'});
+  // +===========================================+
+
+  let marker = new Marker({
+    color: '#1877F2',
+    draggable: IsDraggable
+  });
 
   onMount(() => {
     map = new Map({
@@ -36,12 +45,26 @@
     map.on('load', () => {
       marker.setLngLat(Coord).addTo(map);
       if (IsClickable) {
-        map.on('click', (e) => {
-          OnClickMap(e.lngLat);
-          marker.setLngLat(e.lngLat).addTo(map);
+        map.on('click', (/** @type any */ e) => {
+          /** @type {import('maplibre-gl').LngLatLike} */
+          const lngLat = [e.lngLat.lng, e.lngLat.lat];
+
+          OnClickMap(lngLat);
+          marker.setLngLat(lngLat).addTo(map);
         });
       }
-    })
+    });
+
+    if (IsDraggable) {
+      marker.on('dragend', (/** @type any */ e) => {
+        /** @type {import('maplibre-gl').LngLatLike} */
+        const lngLat = [e.target._lngLat.lng, e.target._lngLat.lat]; 
+
+        marker.setLngLat(lngLat).addTo(map);
+        map.setCenter(lngLat);
+        OnClickMap(lngLat);
+      })
+    }
   });
 
   onDestroy( () => map.remove() );

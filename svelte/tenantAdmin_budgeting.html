@@ -11995,49 +11995,47 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let span2;
     let t14;
     let p2;
-    let t15;
-    let t16_value = (
+    let t15_value = (
       /*planDetail*/
       (ctx[1].budgetIDR || "0") + ""
     );
+    let t15;
     let t16;
-    let t17;
     let div3;
     let span3;
-    let t19;
+    let t18;
     let p3;
-    let t20;
-    let t21_value = (
+    let t19_value = (
       /*planDetail*/
       (ctx[1].budgetUSD || "0") + ""
     );
-    let t21;
-    let t22;
+    let t19;
+    let t20;
     let div4;
     let span4;
-    let t24;
+    let t22;
     let p4;
-    let t25_value = (
+    let t23_value = (
       /*planDetail*/
       (ctx[1].quantity || "0") + ""
     );
-    let t25;
-    let t26;
-    let t27_value = (
+    let t23;
+    let t24;
+    let t25_value = (
       /*planDetail*/
       (ctx[1].unit || "") + ""
     );
-    let t27;
-    let t28;
+    let t25;
+    let t26;
     let div5;
     let span5;
-    let t30;
+    let t28;
     let p5;
-    let t31_value = (0, import_formatter.localeDatetime)(
+    let t29_value = (0, import_formatter.localeDatetime)(
       /*planDetail*/
       ctx[1].updatedAt || 0
     ) + "";
-    let t31;
+    let t29;
     let article_class_value;
     let current;
     let mounted;
@@ -12080,32 +12078,30 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         span2.textContent = "Budget IDR";
         t14 = space();
         p2 = element("p");
-        t15 = text("Rp ");
-        t16 = text(t16_value);
-        t17 = space();
+        t15 = text(t15_value);
+        t16 = space();
         div3 = element("div");
         span3 = element("span");
         span3.textContent = "Budget USD";
-        t19 = space();
+        t18 = space();
         p3 = element("p");
-        t20 = text("$ ");
-        t21 = text(t21_value);
-        t22 = space();
+        t19 = text(t19_value);
+        t20 = space();
         div4 = element("div");
         span4 = element("span");
         span4.textContent = "Qty";
-        t24 = space();
+        t22 = space();
         p4 = element("p");
+        t23 = text(t23_value);
+        t24 = space();
         t25 = text(t25_value);
         t26 = space();
-        t27 = text(t27_value);
-        t28 = space();
         div5 = element("div");
         span5 = element("span");
         span5.textContent = "Last modified";
-        t30 = space();
+        t28 = space();
         p5 = element("p");
-        t31 = text(t31_value);
+        t29 = text(t29_value);
         attr(button, "class", "close svelte-e20ejy");
         attr(h2, "class", "svelte-e20ejy");
         attr(span0, "class", "svelte-e20ejy");
@@ -12160,28 +12156,26 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(div2, t14);
         append(div2, p2);
         append(p2, t15);
-        append(p2, t16);
-        append(main, t17);
+        append(main, t16);
         append(main, div3);
         append(div3, span3);
-        append(div3, t19);
+        append(div3, t18);
         append(div3, p3);
-        append(p3, t20);
-        append(p3, t21);
-        append(main, t22);
+        append(p3, t19);
+        append(main, t20);
         append(main, div4);
         append(div4, span4);
-        append(div4, t24);
+        append(div4, t22);
         append(div4, p4);
+        append(p4, t23);
+        append(p4, t24);
         append(p4, t25);
-        append(p4, t26);
-        append(p4, t27);
-        append(main, t28);
+        append(main, t26);
         append(main, div5);
         append(div5, span5);
-        append(div5, t30);
+        append(div5, t28);
         append(div5, p5);
-        append(p5, t31);
+        append(p5, t29);
         current = true;
         if (!mounted) {
           dispose = listen(
@@ -12231,27 +12225,27 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         (ctx2[1].yearOf || "0") + ""))
           set_data(t11, t11_value);
         if ((!current || dirty & /*planDetail*/
-        2) && t16_value !== (t16_value = /*planDetail*/
+        2) && t15_value !== (t15_value = /*planDetail*/
         (ctx2[1].budgetIDR || "0") + ""))
-          set_data(t16, t16_value);
+          set_data(t15, t15_value);
         if ((!current || dirty & /*planDetail*/
-        2) && t21_value !== (t21_value = /*planDetail*/
+        2) && t19_value !== (t19_value = /*planDetail*/
         (ctx2[1].budgetUSD || "0") + ""))
-          set_data(t21, t21_value);
+          set_data(t19, t19_value);
+        if ((!current || dirty & /*planDetail*/
+        2) && t23_value !== (t23_value = /*planDetail*/
+        (ctx2[1].quantity || "0") + ""))
+          set_data(t23, t23_value);
         if ((!current || dirty & /*planDetail*/
         2) && t25_value !== (t25_value = /*planDetail*/
-        (ctx2[1].quantity || "0") + ""))
+        (ctx2[1].unit || "") + ""))
           set_data(t25, t25_value);
         if ((!current || dirty & /*planDetail*/
-        2) && t27_value !== (t27_value = /*planDetail*/
-        (ctx2[1].unit || "") + ""))
-          set_data(t27, t27_value);
-        if ((!current || dirty & /*planDetail*/
-        2) && t31_value !== (t31_value = (0, import_formatter.localeDatetime)(
+        2) && t29_value !== (t29_value = (0, import_formatter.localeDatetime)(
           /*planDetail*/
           ctx2[1].updatedAt || 0
         ) + ""))
-          set_data(t31, t31_value);
+          set_data(t29, t29_value);
         if (!current || dirty & /*isShowPlanDetail*/
         4 && article_class_value !== (article_class_value = "plan_detail " + /*isShowPlanDetail*/
         (ctx2[2] ? "show" : "") + " svelte-e20ejy")) {
@@ -12408,6 +12402,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     const onPlanDetails = (e) => {
       $invalidate(2, isShowPlanDetail = true);
       $invalidate(1, planDetail = e.detail);
+      $invalidate(1, planDetail.budgetIDR = new Intl.NumberFormat("id", { style: "currency", currency: "IDR" }).format(planDetail.budgetIDR || 0), planDetail);
+      $invalidate(1, planDetail.budgetUSD = new Intl.NumberFormat("us", { style: "currency", currency: "USD" }).format(planDetail.budgetUSD || 0), planDetail);
     };
     const click_handler = () => $invalidate(2, isShowPlanDetail = false);
     return [REFORMAT_ORGS, planDetail, isShowPlanDetail, onPlanDetails, click_handler];
