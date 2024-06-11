@@ -377,7 +377,7 @@ a.active.svelte-1smdkid {
 .icon_logout {
   fill: var(--red-002);
 }
-.side_menu.svelte-rvgb98.svelte-rvgb98 {
+.side_menu.svelte-1xbkv60.svelte-1xbkv60 {
   position: fixed;
   z-index: 800;
   bottom: 0;
@@ -392,7 +392,7 @@ a.active.svelte-1smdkid {
   border-right: 1px solid var(--gray-002);
   user-select: none;
 }
-.side_menu_container.svelte-rvgb98.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60.svelte-1xbkv60 {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -402,7 +402,7 @@ a.active.svelte-1smdkid {
   width: 100%;
   margin: 0;
 }
-.side_menu_container.svelte-rvgb98 header.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 header.svelte-1xbkv60 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -412,30 +412,30 @@ a.active.svelte-1smdkid {
   margin: 0 24px 15px 24px;
   user-select: none;
 }
-.side_menu_container.svelte-rvgb98 header img.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 header img.svelte-1xbkv60 {
   width: 30px;
   height: 30px;
 }
-.side_menu_container.svelte-rvgb98 header h3.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 header h3.svelte-1xbkv60 {
   font-size: var(--font-lg);
   line-height: 1.5rem;
   font-weight: 800;
   padding: 0;
   margin: 0;
 }
-.side_menu_container.svelte-rvgb98 .menu_container.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 .menu_container.svelte-1xbkv60 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list.svelte-1xbkv60 {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0;
   padding: 0 10px;
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list a.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list a.svelte-1xbkv60 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -448,23 +448,23 @@ a.active.svelte-1smdkid {
   padding: 10px 12px;
   border-radius: 8px;
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list a.svelte-rvgb98:hover {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list a.svelte-1xbkv60:hover {
   background-color: var(--gray-001);
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list a.svelte-rvgb98:active {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list a.svelte-1xbkv60:active {
   background-color: var(--gray-002);
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list a.active.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list a.active.svelte-1xbkv60 {
   color: var(--violet-005);
   background-color: var(--violet-transparent);
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list .submenu.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list .submenu.svelte-1xbkv60 {
   padding-left: 20px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0;
 }
-.menu_list.svelte-rvgb98 .logout.svelte-rvgb98 {
+.menu_list.svelte-1xbkv60 .logout.svelte-1xbkv60 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -481,7 +481,7 @@ a.active.svelte-1smdkid {
   cursor: pointer;
   color: var(--red-005);
 }
-.menu_list.svelte-rvgb98 .logout.svelte-rvgb98:hover {
+.menu_list.svelte-1xbkv60 .logout.svelte-1xbkv60:hover {
   background-color: var(--red-transparent);
 }
 
@@ -4230,6 +4230,9 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
       };
       exports.TenantAdminGetBudgetPlans = async function TenantAdminGetBudgetPlans(i, cb) {
         return await axios.post("/tenantAdmin/getBudgetPlans", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.TenantAdminInventoryChanges = async function TenantAdminInventoryChanges(i, cb) {
+        return await axios.post("/tenantAdmin/inventoryChanges", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminLocations = async function TenantAdminLocations(i, cb) {
         return await axios.post("/tenantAdmin/locations", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -24595,7 +24598,7 @@ uniform ${i3} ${a3} u_${s3};
         span = element("span");
         span.textContent = "Report Viewer";
         attr(a, "href", "/reportViewer/dashboard");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(
           a,
           "active",
@@ -24669,7 +24672,7 @@ uniform ${i3} ${a3} u_${s3};
         span = element("span");
         span.textContent = "Entry User";
         attr(a, "href", "/entryUser/dashboard");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(
           a,
           "active",
@@ -24819,9 +24822,9 @@ uniform ${i3} ${a3} u_${s3};
         t8 = space();
         create_component(submenulink6.$.fragment);
         attr(a, "href", "/tenantAdmin/dashboard");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(a, "active", window.location.pathname === "/tenantAdmin/dashboard");
-        attr(div, "class", "submenu svelte-rvgb98");
+        attr(div, "class", "submenu svelte-1xbkv60");
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -24932,9 +24935,9 @@ uniform ${i3} ${a3} u_${s3};
         t3 = space();
         create_component(submenulink1.$.fragment);
         attr(a, "href", "/superAdmin/dashboard");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(a, "active", window.location.pathname === "/superAdmin/dashboard");
-        attr(div, "class", "submenu svelte-rvgb98");
+        attr(div, "class", "submenu svelte-1xbkv60");
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -24999,7 +25002,7 @@ uniform ${i3} ${a3} u_${s3};
         span = element("span");
         span.textContent = "Profile";
         attr(a, "href", "/user/profile");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(
           a,
           "active",
@@ -25071,7 +25074,7 @@ uniform ${i3} ${a3} u_${s3};
         t0 = space();
         span = element("span");
         span.textContent = "Logout";
-        attr(button, "class", "logout svelte-rvgb98");
+        attr(button, "class", "logout svelte-1xbkv60");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -25169,7 +25172,7 @@ uniform ${i3} ${a3} u_${s3};
         aside = element("aside");
         div1 = element("div");
         header = element("header");
-        header.innerHTML = `<img src="/assets/icons/benakun-logo.png" alt="" class="svelte-rvgb98"/> <h3 class="svelte-rvgb98">BenAkun</h3>`;
+        header.innerHTML = `<img src="/assets/icons/benakun-logo.png" alt="" class="svelte-1xbkv60"/> <h3 class="svelte-1xbkv60">BenAkun</h3>`;
         t2 = space();
         div0 = element("div");
         nav0 = element("nav");
@@ -25197,20 +25200,20 @@ uniform ${i3} ${a3} u_${s3};
         t10 = space();
         if (if_block5)
           if_block5.c();
-        attr(header, "class", "svelte-rvgb98");
+        attr(header, "class", "svelte-1xbkv60");
         attr(a, "href", "/");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(
           a,
           "active",
           /*segment1*/
           ctx[1] === ""
         );
-        attr(nav0, "class", "menu_list svelte-rvgb98");
-        attr(nav1, "class", "menu_list svelte-rvgb98");
-        attr(div0, "class", "menu_container svelte-rvgb98");
-        attr(div1, "class", "side_menu_container svelte-rvgb98");
-        attr(aside, "class", "side_menu svelte-rvgb98");
+        attr(nav0, "class", "menu_list svelte-1xbkv60");
+        attr(nav1, "class", "menu_list svelte-1xbkv60");
+        attr(div0, "class", "menu_container svelte-1xbkv60");
+        attr(div1, "class", "side_menu_container svelte-1xbkv60");
+        attr(aside, "class", "side_menu svelte-1xbkv60");
       },
       m(target, anchor) {
         insert(target, aside, anchor);

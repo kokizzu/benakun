@@ -191,7 +191,7 @@
   .side_menu_container .menu_container .menu_list {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 0;
     padding: 0 10px;
   }
 
@@ -226,7 +226,7 @@
     padding-left: 20px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 0;
   }
 
   .menu_list .logout {

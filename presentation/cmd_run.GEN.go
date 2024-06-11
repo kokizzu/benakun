@@ -188,6 +188,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminGetBudgetPlans(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.TenantAdminInventoryChangesAction:
+		in := domain.TenantAdminInventoryChangesIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.TenantAdminInventoryChanges(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.TenantAdminLocationsAction:
 		in := domain.TenantAdminLocationsIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

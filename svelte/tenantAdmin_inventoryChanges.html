@@ -377,7 +377,7 @@ a.active.svelte-1smdkid {
 .icon_logout {
   fill: var(--red-002);
 }
-.side_menu.svelte-rvgb98.svelte-rvgb98 {
+.side_menu.svelte-1xbkv60.svelte-1xbkv60 {
   position: fixed;
   z-index: 800;
   bottom: 0;
@@ -392,7 +392,7 @@ a.active.svelte-1smdkid {
   border-right: 1px solid var(--gray-002);
   user-select: none;
 }
-.side_menu_container.svelte-rvgb98.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60.svelte-1xbkv60 {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -402,7 +402,7 @@ a.active.svelte-1smdkid {
   width: 100%;
   margin: 0;
 }
-.side_menu_container.svelte-rvgb98 header.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 header.svelte-1xbkv60 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -412,30 +412,30 @@ a.active.svelte-1smdkid {
   margin: 0 24px 15px 24px;
   user-select: none;
 }
-.side_menu_container.svelte-rvgb98 header img.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 header img.svelte-1xbkv60 {
   width: 30px;
   height: 30px;
 }
-.side_menu_container.svelte-rvgb98 header h3.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 header h3.svelte-1xbkv60 {
   font-size: var(--font-lg);
   line-height: 1.5rem;
   font-weight: 800;
   padding: 0;
   margin: 0;
 }
-.side_menu_container.svelte-rvgb98 .menu_container.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 .menu_container.svelte-1xbkv60 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list.svelte-1xbkv60 {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0;
   padding: 0 10px;
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list a.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list a.svelte-1xbkv60 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -448,23 +448,23 @@ a.active.svelte-1smdkid {
   padding: 10px 12px;
   border-radius: 8px;
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list a.svelte-rvgb98:hover {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list a.svelte-1xbkv60:hover {
   background-color: var(--gray-001);
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list a.svelte-rvgb98:active {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list a.svelte-1xbkv60:active {
   background-color: var(--gray-002);
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list a.active.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list a.active.svelte-1xbkv60 {
   color: var(--violet-005);
   background-color: var(--violet-transparent);
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list .submenu.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list .submenu.svelte-1xbkv60 {
   padding-left: 20px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0;
 }
-.menu_list.svelte-rvgb98 .logout.svelte-rvgb98 {
+.menu_list.svelte-1xbkv60 .logout.svelte-1xbkv60 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -481,7 +481,7 @@ a.active.svelte-1smdkid {
   cursor: pointer;
   color: var(--red-005);
 }
-.menu_list.svelte-rvgb98 .logout.svelte-rvgb98:hover {
+.menu_list.svelte-1xbkv60 .logout.svelte-1xbkv60:hover {
   background-color: var(--red-transparent);
 }
 
@@ -1938,6 +1938,127 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
   .table_root.svelte-1si5hgp .pagination_container .pagination.svelte-1si5hgp {
     gap: 2px;
   }
+}
+
+/* fakecss:./_components/PoUpForms.esbuild-svelte-fake-css */
+@keyframes svelte-rl3zdo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin {
+  animation: svelte-rl3zdo-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.popup_container.svelte-rl3zdo.svelte-rl3zdo {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2000;
+  background-color: rgba(0 0 0 / 40%);
+  backdrop-filter: blur(1px);
+  justify-content: center;
+  padding: 50px;
+  overflow: auto;
+}
+.popup_container.show.svelte-rl3zdo.svelte-rl3zdo {
+  display: flex;
+}
+.popup_container.svelte-rl3zdo .popup.svelte-rl3zdo {
+  border-radius: 8px;
+  background-color: #FFF;
+  height: fit-content;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+.popup_container.svelte-rl3zdo .popup header.svelte-rl3zdo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--gray-004);
+}
+.popup_container.svelte-rl3zdo .popup header h2.svelte-rl3zdo {
+  margin: 0;
+}
+.popup_container.svelte-rl3zdo .popup header button.svelte-rl3zdo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.popup_container.svelte-rl3zdo .popup header button.svelte-rl3zdo:hover {
+  background-color: #ef444420;
+}
+.popup_container.svelte-rl3zdo .popup header button.svelte-rl3zdo:active {
+  background-color: #ef444430;
+}
+.popup_container.svelte-rl3zdo .popup .forms.svelte-rl3zdo {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.popup_container.svelte-rl3zdo .popup .forms .map_container.svelte-rl3zdo {
+  width: 100%;
+  height: 200px;
+}
+.popup_container.svelte-rl3zdo .popup .foot.svelte-rl3zdo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 20px;
+  border-top: 1px solid var(--gray-004);
+}
+.popup_container.svelte-rl3zdo .popup .foot .right.svelte-rl3zdo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.popup_container.svelte-rl3zdo .popup .foot button.svelte-rl3zdo {
+  padding: 8px 13px;
+  border-radius: 9999px;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+  font-weight: 600;
+}
+.popup_container.svelte-rl3zdo .popup .foot button.ok.svelte-rl3zdo {
+  background-color: var(--green-006);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popup_container.svelte-rl3zdo .popup .foot button.ok.svelte-rl3zdo:hover {
+  background-color: var(--green-005);
+}
+.popup_container.svelte-rl3zdo .popup .foot button.ok.svelte-rl3zdo:disabled {
+  cursor: not-allowed;
+  background-color: var(--gray-003);
+  color: var(--gray-007);
+}
+.popup_container.svelte-rl3zdo .popup .foot button.cancel.svelte-rl3zdo {
+  background-color: #fbbf2430;
+  color: var(--amber-005);
+}
+.popup_container.svelte-rl3zdo .popup .foot button.cancel.svelte-rl3zdo:hover {
+  background-color: #fbbf2450;
 }
 </style>
 <script>(() => {
@@ -3951,13 +4072,13 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance12 = bind2(Axios$1.prototype.request, context);
-        utils$1.extend(instance12, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance12, context, null, { allOwnKeys: true });
-        instance12.create = function create(instanceConfig) {
+        const instance13 = bind2(Axios$1.prototype.request, context);
+        utils$1.extend(instance13, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance13, context, null, { allOwnKeys: true });
+        instance13.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance12;
+        return instance13;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -4068,6 +4189,9 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
       };
       exports.TenantAdminGetBudgetPlans = async function TenantAdminGetBudgetPlans(i, cb) {
         return await axios.post("/tenantAdmin/getBudgetPlans", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.TenantAdminInventoryChanges = async function TenantAdminInventoryChanges2(i, cb) {
+        return await axios.post("/tenantAdmin/inventoryChanges", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminLocations = async function TenantAdminLocations(i, cb) {
         return await axios.post("/tenantAdmin/locations", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -23524,7 +23648,7 @@ uniform ${i3} ${a3} u_${s3};
     block.d(1);
     lookup.delete(block.key);
   }
-  function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block4, next, get_context) {
+  function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block5, next, get_context) {
     let o = old_blocks.length;
     let n = list.length;
     let i = o;
@@ -23541,7 +23665,7 @@ uniform ${i3} ${a3} u_${s3};
       const key = get_key(child_ctx);
       let block = lookup.get(key);
       if (!block) {
-        block = create_each_block4(key, child_ctx);
+        block = create_each_block5(key, child_ctx);
         block.c();
       } else if (dynamic) {
         updates.push(() => block.p(child_ctx, dirty));
@@ -23704,7 +23828,7 @@ uniform ${i3} ${a3} u_${s3};
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance12, create_fragment12, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance13, create_fragment13, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -23730,7 +23854,7 @@ uniform ${i3} ${a3} u_${s3};
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance12 ? instance12(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance13 ? instance13(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -23743,7 +23867,7 @@ uniform ${i3} ${a3} u_${s3};
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment12 ? create_fragment12($.ctx) : false;
+    $.fragment = create_fragment13 ? create_fragment13($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -24012,82 +24136,6 @@ uniform ${i3} ${a3} u_${s3};
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
-  // _components/partials/SideMenu.svelte
-  var import_jsApi_GEN = __toESM(require_jsApi_GEN());
-
-  // _components/notifier.js
-  var Notifier = function() {
-    let a = {
-      container: null,
-      default_time: 4500,
-      vanish_time: 300,
-      fps: 30,
-      success: {
-        classes: "alert-success",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)" /></svg>'
-      },
-      error: {
-        classes: "alert-danger",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" /></svg>'
-      },
-      warning: {
-        classes: "alert-warning",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3.09 0c-.06 0-.1.04-.13.09l-2.94 6.81c-.02.05-.03.13-.03.19v.81c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-.81c0-.05-.01-.14-.03-.19l-2.94-6.81c-.02-.05-.07-.09-.13-.09h-.81zm-.09 3h1v2h-1v-2zm0 3h1v1h-1v-1z" /></svg>'
-      },
-      info: {
-        classes: "alert-info",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-1.5 2.5c-.83 0-1.5.67-1.5 1.5h1c0-.28.22-.5.5-.5s.5.22.5.5-1 1.64-1 2.5c0 .86.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h-1c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-.36 1-1.84 1-2.5 0-.81-.67-1.5-1.5-1.5z" transform="translate(2)"/></svg>'
-      }
-    }, b = function(a2, b2, c, d, e, f, g) {
-      this.pushed = false, this.element = document.createElement("div"), this.element.className = "notifyjs-notification " + c.classes, this.element.innerHTML = "<div class='notifyjs-icon'>" + c.icon + "</div>" + b2, a2.appendChild(this.element);
-      let h = document.createElement("p");
-      h.className = "progress", this.element.appendChild(h), this.callback = g;
-      let j = this;
-      this.push = function() {
-        if (!j.pushed) {
-          j.pushed = true;
-          let a3 = 0, b3 = 1e3 / f;
-          j.element.style.display = "block", j.interval = setInterval(function() {
-            a3++;
-            let c2 = 100 * (1 - b3 * a3 / d);
-            h.style.right = c2 + "%", 0 >= c2 && ("function" == typeof g && g(), j.clear());
-          }, b3);
-        }
-      }, this.clear = function() {
-        if (j.pushed) {
-          let a3 = 1e3 / f, b3 = 1;
-          "undefined" != typeof j.interval && clearInterval(j.interval), j.interval = setInterval(function() {
-            b3 -= 1 / (e / a3), j.element.style.opacity = b3, 0 >= b3 && (clearInterval(j.interval), j.destroy());
-          }, a3);
-        }
-      }, this.destroy = function() {
-        j.pushed && (j.pushed = false, "undefined" != typeof j.interval && clearInterval(j.interval), a2.removeChild(j.element));
-      };
-    };
-    return function Notifier2(c) {
-      this.options = Object.assign({}, a), this.options = Object.assign(this.options, c), null === this.options.container && (this.options.container = document.createElement("div"), document.getElementsByTagName("body")[0].appendChild(this.options.container)), this.options.container.className += " notifyjs-container", this.notify = function(a2, c2, d, e) {
-        return "undefined" == typeof this.options[a2] ? void console.error("Notify.js: Error, undefined '" + a2 + "' notification type") : ("undefined" == typeof d && (d = this.options.default_time), new b(this.options.container, c2, this.options[a2], d, this.options.vanish_time, this.options.fps, e));
-      };
-      this.showInfo = function(infoMsg) {
-        let notification = this.notify("info", infoMsg);
-        notification.push();
-      };
-      this.showSuccess = function(okMsg) {
-        let notification = this.notify("success", okMsg);
-        notification.push();
-      };
-      this.showError = function(errMsg) {
-        let notification = this.notify("error", errMsg);
-        notification.push();
-      };
-      this.showWarning = function(warnMsg) {
-        let notification = this.notify("warning", warnMsg);
-        notification.push();
-      };
-    };
-  }();
-  var notifier = new Notifier();
-
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/Icon.svelte
   function create_fragment(ctx) {
     let svg;
@@ -24247,6 +24295,98 @@ uniform ${i3} ${a3} u_${s3};
   };
   var Icon_default = Icon;
 
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ri/index.js
+  var RiDesignBallPenLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M17.8492 11.6983L17.1421 10.9912L7.24264 20.8907H3V16.648L14.3137 5.33432L19.9706 10.9912C20.3611 11.3817 20.3611 12.0149 19.9706 12.4054L12.8995 19.4765L11.4853 18.0622L17.8492 11.6983ZM15.7279 9.57696L14.3137 8.16274L5 17.4765V18.8907H6.41421L15.7279 9.57696ZM18.5563 2.50589L21.3848 5.33432C21.7753 5.72484 21.7753 6.35801 21.3848 6.74853L19.9706 8.16274L15.7279 3.9201L17.1421 2.50589C17.5327 2.11537 18.1658 2.11537 18.5563 2.50589Z"></path>' };
+  var RiBuildingsCommunityLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 21H3C2.44772 21 2 20.5523 2 20V12.4868C2 12.1978 2.12501 11.9229 2.34282 11.733L6 8.54435V4C6 3.44772 6.44772 3 7 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21ZM9 19H12V12.9416L8 9.45402L4 12.9416V19H7V15H9V19ZM14 19H20V5H8V7.12729C8.23444 7.12729 8.46888 7.20938 8.65718 7.37355L13.6572 11.733C13.875 11.9229 14 12.1978 14 12.4868V19ZM16 11H18V13H16V11ZM16 15H18V17H16V15ZM16 7H18V9H16V7ZM12 7H14V9H12V7Z"></path>' };
+  var RiBuildingsBankLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 20H22V22H2V20ZM4 12H6V19H4V12ZM9 12H11V19H9V12ZM13 12H15V19H13V12ZM18 12H20V19H18V12ZM2 7L12 2L22 7V11H2V7ZM4 8.23607V9H20V8.23607L12 4.23607L4 8.23607ZM12 8C11.4477 8 11 7.55228 11 7C11 6.44772 11.4477 6 12 6C12.5523 6 13 6.44772 13 7C13 7.55228 12.5523 8 12 8Z"></path>' };
+  var RiUserFacesAdminLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M12 14V16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM21 17H22V22H14V17H15V16C15 14.3431 16.3431 13 18 13C19.6569 13 21 14.3431 21 16V17ZM19 17V16C19 15.4477 18.5523 15 18 15C17.4477 15 17 15.4477 17 16V17H19Z"></path>' };
+  var RiUserFacesGroup2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M9.55 11.5C8.30736 11.5 7.3 10.4926 7.3 9.25C7.3 8.00736 8.30736 7 9.55 7C10.7926 7 11.8 8.00736 11.8 9.25C11.8 10.4926 10.7926 11.5 9.55 11.5ZM10 19.748V16.4C10 15.9116 10.1442 15.4627 10.4041 15.0624C10.1087 15.0213 9.80681 15 9.5 15C7.93201 15 6.49369 15.5552 5.37091 16.4797C6.44909 18.0721 8.08593 19.2553 10 19.748ZM4.45286 14.66C5.86432 13.6168 7.61013 13 9.5 13C10.5435 13 11.5431 13.188 12.4667 13.5321C13.3447 13.1888 14.3924 13 15.5 13C17.1597 13 18.6849 13.4239 19.706 14.1563C19.8976 13.4703 20 12.7471 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 12.9325 4.15956 13.8278 4.45286 14.66ZM18.8794 16.0859C18.4862 15.5526 17.1708 15 15.5 15C13.4939 15 12 15.7967 12 16.4V20C14.9255 20 17.4843 18.4296 18.8794 16.0859ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM15.5 12.5C14.3954 12.5 13.5 11.6046 13.5 10.5C13.5 9.39543 14.3954 8.5 15.5 8.5C16.6046 8.5 17.5 9.39543 17.5 10.5C17.5 11.6046 16.6046 12.5 15.5 12.5Z"></path>' };
+  var RiUserFacesContactsLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M19 7H24V9H19V7ZM17 12H24V14H17V12ZM20 17H24V19H20V17ZM2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11Z"></path>' };
+  var RiSystemDeleteBin5Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8ZM6 10V20H18V10H6ZM9 12H11V18H9V12ZM13 12H15V18H13V12ZM7 5V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V5H22V7H2V5H7ZM9 4V5H15V4H9Z"></path>' };
+  var RiSystemAddBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5ZM11 11V7H13V11H17V13H13V17H11V13H7V11H11Z"></path>' };
+  var RiSystemFilterLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 4V6H20L15 13.5V22H9V13.5L4 6H3V4H21ZM6.4037 6L11 12.8944V20H13V12.8944L17.5963 6H6.4037Z"></path>' };
+  var RiSystemInformationLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 7H13V9H11V7ZM11 11H13V17H11V11Z"></path>' };
+  var RiMapMap2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 5L9 2L15 5L21.303 2.2987C21.5569 2.18992 21.8508 2.30749 21.9596 2.56131C21.9862 2.62355 22 2.69056 22 2.75827V19L15 22L9 19L2.69696 21.7013C2.44314 21.8101 2.14921 21.6925 2.04043 21.4387C2.01375 21.3765 2 21.3094 2 21.2417V5ZM16 19.3955L20 17.6812V5.03308L16 6.74736V19.3955ZM14 19.2639V6.73607L10 4.73607V17.2639L14 19.2639ZM8 17.2526V4.60451L4 6.31879V18.9669L8 17.2526Z"></path>' };
+  var RiFinanceSwapBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4.00488 5.00275V19.0027H20.0049V5.00275H4.00488ZM3.00488 3.00275H21.0049C21.5572 3.00275 22.0049 3.45046 22.0049 4.00275V20.0027C22.0049 20.555 21.5572 21.0027 21.0049 21.0027H3.00488C2.4526 21.0027 2.00488 20.555 2.00488 20.0027V4.00275C2.00488 3.45046 2.4526 3.00275 3.00488 3.00275ZM15.0049 7.00275L18.5049 10.0027L15.0049 13.0027V11.0027H11.0049V9.00275H15.0049V7.00275ZM9.00488 17.0027L5.50488 14.0027L9.00488 11.0027V13.0027H13.0049V15.0027H9.00488V17.0027Z"></path>' };
+  var RiArrowsArrowGoBackLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M5.82843 6.99955L8.36396 9.53509L6.94975 10.9493L2 5.99955L6.94975 1.0498L8.36396 2.46402L5.82843 4.99955H13C17.4183 4.99955 21 8.58127 21 12.9996C21 17.4178 17.4183 20.9996 13 20.9996H4V18.9996H13C16.3137 18.9996 19 16.3133 19 12.9996C19 9.68584 16.3137 6.99955 13 6.99955H5.82843Z"></path>' };
+  var RiEditorOrganizationChart = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M15 3C15.5523 3 16 3.44772 16 4V8C16 8.55228 15.5523 9 15 9H13V11H17C17.5523 11 18 11.4477 18 12V15H20C20.5523 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H14C13.4477 21 13 20.5523 13 20V16C13 15.4477 13.4477 15 14 15H16V13H8V15H10C10.5523 15 11 15.4477 11 16V20C11 20.5523 10.5523 21 10 21H4C3.44772 21 3 20.5523 3 20V16C3 15.4477 3.44772 15 4 15H6V12C6 11.4477 6.44772 11 7 11H11V9H9C8.44772 9 8 8.55228 8 8V4C8 3.44772 8.44772 3 9 3H15ZM9 17H5V19H9V17ZM19 17H15V19H19V17ZM14 5H10V7H14V5Z"></path>' };
+
+  // _components/partials/SideMenu.svelte
+  var import_jsApi_GEN = __toESM(require_jsApi_GEN());
+
+  // _components/notifier.js
+  var Notifier = function() {
+    let a = {
+      container: null,
+      default_time: 4500,
+      vanish_time: 300,
+      fps: 30,
+      success: {
+        classes: "alert-success",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)" /></svg>'
+      },
+      error: {
+        classes: "alert-danger",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" /></svg>'
+      },
+      warning: {
+        classes: "alert-warning",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3.09 0c-.06 0-.1.04-.13.09l-2.94 6.81c-.02.05-.03.13-.03.19v.81c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-.81c0-.05-.01-.14-.03-.19l-2.94-6.81c-.02-.05-.07-.09-.13-.09h-.81zm-.09 3h1v2h-1v-2zm0 3h1v1h-1v-1z" /></svg>'
+      },
+      info: {
+        classes: "alert-info",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-1.5 2.5c-.83 0-1.5.67-1.5 1.5h1c0-.28.22-.5.5-.5s.5.22.5.5-1 1.64-1 2.5c0 .86.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h-1c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-.36 1-1.84 1-2.5 0-.81-.67-1.5-1.5-1.5z" transform="translate(2)"/></svg>'
+      }
+    }, b = function(a2, b2, c, d, e, f, g) {
+      this.pushed = false, this.element = document.createElement("div"), this.element.className = "notifyjs-notification " + c.classes, this.element.innerHTML = "<div class='notifyjs-icon'>" + c.icon + "</div>" + b2, a2.appendChild(this.element);
+      let h = document.createElement("p");
+      h.className = "progress", this.element.appendChild(h), this.callback = g;
+      let j = this;
+      this.push = function() {
+        if (!j.pushed) {
+          j.pushed = true;
+          let a3 = 0, b3 = 1e3 / f;
+          j.element.style.display = "block", j.interval = setInterval(function() {
+            a3++;
+            let c2 = 100 * (1 - b3 * a3 / d);
+            h.style.right = c2 + "%", 0 >= c2 && ("function" == typeof g && g(), j.clear());
+          }, b3);
+        }
+      }, this.clear = function() {
+        if (j.pushed) {
+          let a3 = 1e3 / f, b3 = 1;
+          "undefined" != typeof j.interval && clearInterval(j.interval), j.interval = setInterval(function() {
+            b3 -= 1 / (e / a3), j.element.style.opacity = b3, 0 >= b3 && (clearInterval(j.interval), j.destroy());
+          }, a3);
+        }
+      }, this.destroy = function() {
+        j.pushed && (j.pushed = false, "undefined" != typeof j.interval && clearInterval(j.interval), a2.removeChild(j.element));
+      };
+    };
+    return function Notifier2(c) {
+      this.options = Object.assign({}, a), this.options = Object.assign(this.options, c), null === this.options.container && (this.options.container = document.createElement("div"), document.getElementsByTagName("body")[0].appendChild(this.options.container)), this.options.container.className += " notifyjs-container", this.notify = function(a2, c2, d, e) {
+        return "undefined" == typeof this.options[a2] ? void console.error("Notify.js: Error, undefined '" + a2 + "' notification type") : ("undefined" == typeof d && (d = this.options.default_time), new b(this.options.container, c2, this.options[a2], d, this.options.vanish_time, this.options.fps, e));
+      };
+      this.showInfo = function(infoMsg) {
+        let notification = this.notify("info", infoMsg);
+        notification.push();
+      };
+      this.showSuccess = function(okMsg) {
+        let notification = this.notify("success", okMsg);
+        notification.push();
+      };
+      this.showError = function(errMsg) {
+        let notification = this.notify("error", errMsg);
+        notification.push();
+      };
+      this.showWarning = function(warnMsg) {
+        let notification = this.notify("warning", warnMsg);
+        notification.push();
+      };
+    };
+  }();
+  var notifier = new Notifier();
+
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ai/index.js
   var AiOutlineHome = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 0 0-44.4 0L77.5 505a63.9 63.9 0 0 0-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0 0 18.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"></path>' };
   var AiOutlineWallet = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 464H528V448h312v128zm0 264H184V184h656v200H496c-17.7 0-32 14.3-32 32v192c0 17.7 14.3 32 32 32h344v200zM580 512a40 40 0 1 0 80 0 40 40 0 1 0-80 0z"></path>' };
@@ -24257,21 +24397,6 @@ uniform ${i3} ${a3} u_${s3};
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/fa/index.js
   var FaSolidSliders = { a: { viewBox: "0 0 512 512" }, c: '<path d="M0 416c0 17.7 14.3 32 32 32l54.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 448c17.7 0 32-14.3 32-32s-14.3-32-32-32l-246.7 0c-12.3-28.3-40.5-48-73.3-48s-61 19.7-73.3 48L32 384c-17.7 0-32 14.3-32 32zm128 0a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM320 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm32-80c-32.8 0-61 19.7-73.3 48L32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l246.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48l54.7 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-54.7 0c-12.3-28.3-40.5-48-73.3-48zM192 128a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm73.3-64C253 35.7 224.8 16 192 16s-61 19.7-73.3 48L32 64C14.3 64 0 78.3 0 96s14.3 32 32 32l86.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 128c17.7 0 32-14.3 32-32s-14.3-32-32-32L265.3 64z"></path>' };
   var FaCircleUser = { a: { viewBox: "0 0 512 512" }, c: '<path d="M406.5 399.6C387.4 352.9 341.5 320 288 320H224c-53.5 0-99.4 32.9-118.5 79.6C69.9 362.2 48 311.7 48 256C48 141.1 141.1 48 256 48s208 93.1 208 208c0 55.7-21.9 106.2-57.5 143.6zm-40.1 32.7C334.4 452.4 296.6 464 256 464s-78.4-11.6-110.5-31.7c7.3-36.7 39.7-64.3 78.5-64.3h64c38.8 0 71.2 27.6 78.5 64.3zM256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-272a40 40 0 1 1 0-80 40 40 0 1 1 0 80zm-88-40a88 88 0 1 0 176 0 88 88 0 1 0 -176 0z"></path>' };
-
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ri/index.js
-  var RiDesignBallPenLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M17.8492 11.6983L17.1421 10.9912L7.24264 20.8907H3V16.648L14.3137 5.33432L19.9706 10.9912C20.3611 11.3817 20.3611 12.0149 19.9706 12.4054L12.8995 19.4765L11.4853 18.0622L17.8492 11.6983ZM15.7279 9.57696L14.3137 8.16274L5 17.4765V18.8907H6.41421L15.7279 9.57696ZM18.5563 2.50589L21.3848 5.33432C21.7753 5.72484 21.7753 6.35801 21.3848 6.74853L19.9706 8.16274L15.7279 3.9201L17.1421 2.50589C17.5327 2.11537 18.1658 2.11537 18.5563 2.50589Z"></path>' };
-  var RiBuildingsCommunityLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 21H3C2.44772 21 2 20.5523 2 20V12.4868C2 12.1978 2.12501 11.9229 2.34282 11.733L6 8.54435V4C6 3.44772 6.44772 3 7 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21ZM9 19H12V12.9416L8 9.45402L4 12.9416V19H7V15H9V19ZM14 19H20V5H8V7.12729C8.23444 7.12729 8.46888 7.20938 8.65718 7.37355L13.6572 11.733C13.875 11.9229 14 12.1978 14 12.4868V19ZM16 11H18V13H16V11ZM16 15H18V17H16V15ZM16 7H18V9H16V7ZM12 7H14V9H12V7Z"></path>' };
-  var RiBuildingsBankLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 20H22V22H2V20ZM4 12H6V19H4V12ZM9 12H11V19H9V12ZM13 12H15V19H13V12ZM18 12H20V19H18V12ZM2 7L12 2L22 7V11H2V7ZM4 8.23607V9H20V8.23607L12 4.23607L4 8.23607ZM12 8C11.4477 8 11 7.55228 11 7C11 6.44772 11.4477 6 12 6C12.5523 6 13 6.44772 13 7C13 7.55228 12.5523 8 12 8Z"></path>' };
-  var RiUserFacesAdminLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M12 14V16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM21 17H22V22H14V17H15V16C15 14.3431 16.3431 13 18 13C19.6569 13 21 14.3431 21 16V17ZM19 17V16C19 15.4477 18.5523 15 18 15C17.4477 15 17 15.4477 17 16V17H19Z"></path>' };
-  var RiUserFacesGroup2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M9.55 11.5C8.30736 11.5 7.3 10.4926 7.3 9.25C7.3 8.00736 8.30736 7 9.55 7C10.7926 7 11.8 8.00736 11.8 9.25C11.8 10.4926 10.7926 11.5 9.55 11.5ZM10 19.748V16.4C10 15.9116 10.1442 15.4627 10.4041 15.0624C10.1087 15.0213 9.80681 15 9.5 15C7.93201 15 6.49369 15.5552 5.37091 16.4797C6.44909 18.0721 8.08593 19.2553 10 19.748ZM4.45286 14.66C5.86432 13.6168 7.61013 13 9.5 13C10.5435 13 11.5431 13.188 12.4667 13.5321C13.3447 13.1888 14.3924 13 15.5 13C17.1597 13 18.6849 13.4239 19.706 14.1563C19.8976 13.4703 20 12.7471 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 12.9325 4.15956 13.8278 4.45286 14.66ZM18.8794 16.0859C18.4862 15.5526 17.1708 15 15.5 15C13.4939 15 12 15.7967 12 16.4V20C14.9255 20 17.4843 18.4296 18.8794 16.0859ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM15.5 12.5C14.3954 12.5 13.5 11.6046 13.5 10.5C13.5 9.39543 14.3954 8.5 15.5 8.5C16.6046 8.5 17.5 9.39543 17.5 10.5C17.5 11.6046 16.6046 12.5 15.5 12.5Z"></path>' };
-  var RiUserFacesContactsLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M19 7H24V9H19V7ZM17 12H24V14H17V12ZM20 17H24V19H20V17ZM2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11Z"></path>' };
-  var RiSystemDeleteBin5Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8ZM6 10V20H18V10H6ZM9 12H11V18H9V12ZM13 12H15V18H13V12ZM7 5V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V5H22V7H2V5H7ZM9 4V5H15V4H9Z"></path>' };
-  var RiSystemFilterLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 4V6H20L15 13.5V22H9V13.5L4 6H3V4H21ZM6.4037 6L11 12.8944V20H13V12.8944L17.5963 6H6.4037Z"></path>' };
-  var RiSystemInformationLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 7H13V9H11V7ZM11 11H13V17H11V11Z"></path>' };
-  var RiMapMap2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 5L9 2L15 5L21.303 2.2987C21.5569 2.18992 21.8508 2.30749 21.9596 2.56131C21.9862 2.62355 22 2.69056 22 2.75827V19L15 22L9 19L2.69696 21.7013C2.44314 21.8101 2.14921 21.6925 2.04043 21.4387C2.01375 21.3765 2 21.3094 2 21.2417V5ZM16 19.3955L20 17.6812V5.03308L16 6.74736V19.3955ZM14 19.2639V6.73607L10 4.73607V17.2639L14 19.2639ZM8 17.2526V4.60451L4 6.31879V18.9669L8 17.2526Z"></path>' };
-  var RiFinanceSwapBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4.00488 5.00275V19.0027H20.0049V5.00275H4.00488ZM3.00488 3.00275H21.0049C21.5572 3.00275 22.0049 3.45046 22.0049 4.00275V20.0027C22.0049 20.555 21.5572 21.0027 21.0049 21.0027H3.00488C2.4526 21.0027 2.00488 20.555 2.00488 20.0027V4.00275C2.00488 3.45046 2.4526 3.00275 3.00488 3.00275ZM15.0049 7.00275L18.5049 10.0027L15.0049 13.0027V11.0027H11.0049V9.00275H15.0049V7.00275ZM9.00488 17.0027L5.50488 14.0027L9.00488 11.0027V13.0027H13.0049V15.0027H9.00488V17.0027Z"></path>' };
-  var RiArrowsArrowGoBackLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M5.82843 6.99955L8.36396 9.53509L6.94975 10.9493L2 5.99955L6.94975 1.0498L8.36396 2.46402L5.82843 4.99955H13C17.4183 4.99955 21 8.58127 21 12.9996C21 17.4178 17.4183 20.9996 13 20.9996H4V18.9996H13C16.3137 18.9996 19 16.3133 19 12.9996C19 9.68584 16.3137 6.99955 13 6.99955H5.82843Z"></path>' };
-  var RiEditorOrganizationChart = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M15 3C15.5523 3 16 3.44772 16 4V8C16 8.55228 15.5523 9 15 9H13V11H17C17.5523 11 18 11.4477 18 12V15H20C20.5523 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H14C13.4477 21 13 20.5523 13 20V16C13 15.4477 13.4477 15 14 15H16V13H8V15H10C10.5523 15 11 15.4477 11 16V20C11 20.5523 10.5523 21 10 21H4C3.44772 21 3 20.5523 3 20V16C3 15.4477 3.44772 15 4 15H6V12C6 11.4477 6.44772 11 7 11H11V9H9C8.44772 9 8 8.55228 8 8V4C8 3.44772 8.44772 3 9 3H15ZM9 17H5V19H9V17ZM19 17H15V19H19V17ZM14 5H10V7H14V5Z"></path>' };
 
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/cg/index.js
   var CgChevronDoubleRight = { a: { viewBox: "0 0 24 24", fill: "none" }, c: '<path d="M5.63605 7.75735L7.05026 6.34314L12.7071 12L7.05029 17.6568L5.63608 16.2426L9.87869 12L5.63605 7.75735Z" fill="currentColor"></path><path d="M12.7071 6.34314L11.2929 7.75735L15.5356 12L11.2929 16.2426L12.7072 17.6568L18.364 12L12.7071 6.34314Z" fill="currentColor"></path>' };
@@ -24432,7 +24557,7 @@ uniform ${i3} ${a3} u_${s3};
         span = element("span");
         span.textContent = "Report Viewer";
         attr(a, "href", "/reportViewer/dashboard");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(
           a,
           "active",
@@ -24506,7 +24631,7 @@ uniform ${i3} ${a3} u_${s3};
         span = element("span");
         span.textContent = "Entry User";
         attr(a, "href", "/entryUser/dashboard");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(
           a,
           "active",
@@ -24656,9 +24781,9 @@ uniform ${i3} ${a3} u_${s3};
         t8 = space();
         create_component(submenulink6.$.fragment);
         attr(a, "href", "/tenantAdmin/dashboard");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(a, "active", window.location.pathname === "/tenantAdmin/dashboard");
-        attr(div, "class", "submenu svelte-rvgb98");
+        attr(div, "class", "submenu svelte-1xbkv60");
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -24769,9 +24894,9 @@ uniform ${i3} ${a3} u_${s3};
         t3 = space();
         create_component(submenulink1.$.fragment);
         attr(a, "href", "/superAdmin/dashboard");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(a, "active", window.location.pathname === "/superAdmin/dashboard");
-        attr(div, "class", "submenu svelte-rvgb98");
+        attr(div, "class", "submenu svelte-1xbkv60");
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -24836,7 +24961,7 @@ uniform ${i3} ${a3} u_${s3};
         span = element("span");
         span.textContent = "Profile";
         attr(a, "href", "/user/profile");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(
           a,
           "active",
@@ -24908,7 +25033,7 @@ uniform ${i3} ${a3} u_${s3};
         t0 = space();
         span = element("span");
         span.textContent = "Logout";
-        attr(button, "class", "logout svelte-rvgb98");
+        attr(button, "class", "logout svelte-1xbkv60");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -25006,7 +25131,7 @@ uniform ${i3} ${a3} u_${s3};
         aside = element("aside");
         div1 = element("div");
         header = element("header");
-        header.innerHTML = `<img src="/assets/icons/benakun-logo.png" alt="" class="svelte-rvgb98"/> <h3 class="svelte-rvgb98">BenAkun</h3>`;
+        header.innerHTML = `<img src="/assets/icons/benakun-logo.png" alt="" class="svelte-1xbkv60"/> <h3 class="svelte-1xbkv60">BenAkun</h3>`;
         t2 = space();
         div0 = element("div");
         nav0 = element("nav");
@@ -25034,20 +25159,20 @@ uniform ${i3} ${a3} u_${s3};
         t10 = space();
         if (if_block5)
           if_block5.c();
-        attr(header, "class", "svelte-rvgb98");
+        attr(header, "class", "svelte-1xbkv60");
         attr(a, "href", "/");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(
           a,
           "active",
           /*segment1*/
           ctx[1] === ""
         );
-        attr(nav0, "class", "menu_list svelte-rvgb98");
-        attr(nav1, "class", "menu_list svelte-rvgb98");
-        attr(div0, "class", "menu_container svelte-rvgb98");
-        attr(div1, "class", "side_menu_container svelte-rvgb98");
-        attr(aside, "class", "side_menu svelte-rvgb98");
+        attr(nav0, "class", "menu_list svelte-1xbkv60");
+        attr(nav1, "class", "menu_list svelte-1xbkv60");
+        attr(div0, "class", "menu_container svelte-1xbkv60");
+        attr(div1, "class", "side_menu_container svelte-1xbkv60");
+        attr(aside, "class", "side_menu svelte-1xbkv60");
       },
       m(target, anchor) {
         insert(target, aside, anchor);
@@ -25365,12 +25490,12 @@ uniform ${i3} ${a3} u_${s3};
     };
   }
   function instance4($self, $props, $invalidate) {
-    let { user: user2 = {} } = $props;
+    let { user: user3 = {} } = $props;
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(0, user2 = $props2.user);
+        $invalidate(0, user3 = $props2.user);
     };
-    return [user2];
+    return [user3];
   }
   var Navbar = class extends SvelteComponent {
     constructor(options) {
@@ -31548,7 +31673,919 @@ uniform ${i3} ${a3} u_${s3};
   };
   var MasterTable_default = MasterTable;
 
+  // _components/PoUpForms.svelte
+  function get_each_context4(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[19] = list[i];
+    child_ctx[20] = list;
+    child_ctx[21] = i;
+    return child_ctx;
+  }
+  function create_if_block_34(ctx) {
+    let if_block_anchor;
+    let current;
+    let if_block = !/*field*/
+    ctx[19].readOnly && create_if_block_44(ctx);
+    return {
+      c() {
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (!/*field*/
+        ctx2[19].readOnly) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*FIELDS*/
+            2) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block_44(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if (if_block)
+          if_block.d(detaching);
+      }
+    };
+  }
+  function create_if_block_44(ctx) {
+    let inputcustom;
+    let updating_value;
+    let current;
+    function inputcustom_value_binding(value) {
+      ctx[14](
+        value,
+        /*idx*/
+        ctx[21]
+      );
+    }
+    let inputcustom_props = {
+      id: (
+        /*field*/
+        ctx[19].name
+      ),
+      label: (
+        /*field*/
+        ctx[19].label
+      ),
+      placeholder: (
+        /*field*/
+        ctx[19].description
+      ),
+      type: (
+        /*field*/
+        ctx[19].inputType
+      ),
+      values: (
+        /*field*/
+        ctx[19].ref
+      )
+    };
+    if (
+      /*payloads*/
+      ctx[6][
+        /*idx*/
+        ctx[21]
+      ] !== void 0
+    ) {
+      inputcustom_props.value = /*payloads*/
+      ctx[6][
+        /*idx*/
+        ctx[21]
+      ];
+    }
+    inputcustom = new InputCustom_default({ props: inputcustom_props });
+    binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding));
+    return {
+      c() {
+        create_component(inputcustom.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(inputcustom, target, anchor);
+        current = true;
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        const inputcustom_changes = {};
+        if (dirty & /*FIELDS*/
+        2)
+          inputcustom_changes.id = /*field*/
+          ctx[19].name;
+        if (dirty & /*FIELDS*/
+        2)
+          inputcustom_changes.label = /*field*/
+          ctx[19].label;
+        if (dirty & /*FIELDS*/
+        2)
+          inputcustom_changes.placeholder = /*field*/
+          ctx[19].description;
+        if (dirty & /*FIELDS*/
+        2)
+          inputcustom_changes.type = /*field*/
+          ctx[19].inputType;
+        if (dirty & /*FIELDS*/
+        2)
+          inputcustom_changes.values = /*field*/
+          ctx[19].ref;
+        if (!updating_value && dirty & /*payloads*/
+        64) {
+          updating_value = true;
+          inputcustom_changes.value = /*payloads*/
+          ctx[6][
+            /*idx*/
+            ctx[21]
+          ];
+          add_flush_callback(() => updating_value = false);
+        }
+        inputcustom.$set(inputcustom_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(inputcustom.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(inputcustom.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(inputcustom, detaching);
+      }
+    };
+  }
+  function create_each_block4(ctx) {
+    let if_block_anchor;
+    let current;
+    let if_block = (
+      /*field*/
+      ctx[19].name !== "id" && create_if_block_34(ctx)
+    );
+    return {
+      c() {
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (
+          /*field*/
+          ctx2[19].name !== "id"
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*FIELDS*/
+            2) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block_34(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if (if_block)
+          if_block.d(detaching);
+      }
+    };
+  }
+  function create_if_block_24(ctx) {
+    let div;
+    let map;
+    let current;
+    let map_props = {
+      OnClickMap: (
+        /*OnClickMap*/
+        ctx[11]
+      ),
+      Coord: (
+        /*Coord*/
+        ctx[10]
+      ),
+      IsClickable: true
+    };
+    map = new Map_default({ props: map_props });
+    ctx[15](map);
+    return {
+      c() {
+        div = element("div");
+        create_component(map.$.fragment);
+        attr(div, "class", "map_container svelte-rl3zdo");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        mount_component(map, div, null);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const map_changes = {};
+        map.$set(map_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(map.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(map.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        ctx[15](null);
+        destroy_component(map);
+      }
+    };
+  }
+  function create_if_block_110(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Ok";
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
+  }
+  function create_if_block5(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        className: "spin",
+        color: "#FFF",
+        size: "14",
+        src: FiLoader
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_fragment11(ctx) {
+    let div5;
+    let div4;
+    let header;
+    let h2;
+    let t0;
+    let t1;
+    let button0;
+    let icon;
+    let t2;
+    let div0;
+    let t3;
+    let t4;
+    let div3;
+    let div1;
+    let t5;
+    let div2;
+    let button1;
+    let t7;
+    let button2;
+    let t8;
+    let div5_class_value;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        size: "22",
+        color: "var(--red-005)",
+        src: IoClose
+      }
+    });
+    let each_value = ensure_array_like(
+      /*FIELDS*/
+      ctx[1] || []
+    );
+    let each_blocks = [];
+    for (let i = 0; i < each_value.length; i += 1) {
+      each_blocks[i] = create_each_block4(get_each_context4(ctx, each_value, i));
+    }
+    const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
+      each_blocks[i] = null;
+    });
+    let if_block0 = (
+      /*isCoordFieldsExist*/
+      ctx[7] && create_if_block_24(ctx)
+    );
+    let if_block1 = !/*isSubmitted*/
+    ctx[2] && create_if_block_110(ctx);
+    let if_block2 = (
+      /*isSubmitted*/
+      ctx[2] && create_if_block5(ctx)
+    );
+    return {
+      c() {
+        div5 = element("div");
+        div4 = element("div");
+        header = element("header");
+        h2 = element("h2");
+        t0 = text(
+          /*heading*/
+          ctx[0]
+        );
+        t1 = space();
+        button0 = element("button");
+        create_component(icon.$.fragment);
+        t2 = space();
+        div0 = element("div");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        t3 = space();
+        if (if_block0)
+          if_block0.c();
+        t4 = space();
+        div3 = element("div");
+        div1 = element("div");
+        div1.innerHTML = ``;
+        t5 = space();
+        div2 = element("div");
+        button1 = element("button");
+        button1.textContent = "Cancel";
+        t7 = space();
+        button2 = element("button");
+        if (if_block1)
+          if_block1.c();
+        t8 = space();
+        if (if_block2)
+          if_block2.c();
+        attr(h2, "class", "svelte-rl3zdo");
+        attr(button0, "class", "svelte-rl3zdo");
+        attr(header, "class", "header svelte-rl3zdo");
+        attr(div0, "class", "forms svelte-rl3zdo");
+        attr(div1, "class", "left");
+        attr(button1, "class", "cancel svelte-rl3zdo");
+        attr(button2, "class", "ok svelte-rl3zdo");
+        button2.disabled = /*isSubmitted*/
+        ctx[2];
+        attr(div2, "class", "right svelte-rl3zdo");
+        attr(div3, "class", "foot svelte-rl3zdo");
+        attr(div4, "class", "popup svelte-rl3zdo");
+        attr(div5, "class", div5_class_value = null_to_empty(`popup_container ${/*isShow*/
+        ctx[5] ? "show" : ""}`) + " svelte-rl3zdo");
+      },
+      m(target, anchor) {
+        insert(target, div5, anchor);
+        append(div5, div4);
+        append(div4, header);
+        append(header, h2);
+        append(h2, t0);
+        append(header, t1);
+        append(header, button0);
+        mount_component(icon, button0, null);
+        append(div4, t2);
+        append(div4, div0);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(div0, null);
+          }
+        }
+        append(div0, t3);
+        if (if_block0)
+          if_block0.m(div0, null);
+        append(div4, t4);
+        append(div4, div3);
+        append(div3, div1);
+        append(div3, t5);
+        append(div3, div2);
+        append(div2, button1);
+        append(div2, t7);
+        append(div2, button2);
+        if (if_block1)
+          if_block1.m(button2, null);
+        append(button2, t8);
+        if (if_block2)
+          if_block2.m(button2, null);
+        current = true;
+        if (!mounted) {
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*Hide*/
+              ctx[4]
+            ),
+            listen(button1, "click", prevent_default(
+              /*cancel*/
+              ctx[9]
+            )),
+            listen(button2, "click", prevent_default(
+              /*click_handler*/
+              ctx[16]
+            ))
+          ];
+          mounted = true;
+        }
+      },
+      p(ctx2, [dirty]) {
+        if (!current || dirty & /*heading*/
+        1)
+          set_data(
+            t0,
+            /*heading*/
+            ctx2[0]
+          );
+        if (dirty & /*FIELDS, payloads*/
+        66) {
+          each_value = ensure_array_like(
+            /*FIELDS*/
+            ctx2[1] || []
+          );
+          let i;
+          for (i = 0; i < each_value.length; i += 1) {
+            const child_ctx = get_each_context4(ctx2, each_value, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+              transition_in(each_blocks[i], 1);
+            } else {
+              each_blocks[i] = create_each_block4(child_ctx);
+              each_blocks[i].c();
+              transition_in(each_blocks[i], 1);
+              each_blocks[i].m(div0, t3);
+            }
+          }
+          group_outros();
+          for (i = each_value.length; i < each_blocks.length; i += 1) {
+            out(i);
+          }
+          check_outros();
+        }
+        if (
+          /*isCoordFieldsExist*/
+          ctx2[7]
+        ) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+            if (dirty & /*isCoordFieldsExist*/
+            128) {
+              transition_in(if_block0, 1);
+            }
+          } else {
+            if_block0 = create_if_block_24(ctx2);
+            if_block0.c();
+            transition_in(if_block0, 1);
+            if_block0.m(div0, null);
+          }
+        } else if (if_block0) {
+          group_outros();
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
+          check_outros();
+        }
+        if (!/*isSubmitted*/
+        ctx2[2]) {
+          if (if_block1) {
+          } else {
+            if_block1 = create_if_block_110(ctx2);
+            if_block1.c();
+            if_block1.m(button2, t8);
+          }
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
+        }
+        if (
+          /*isSubmitted*/
+          ctx2[2]
+        ) {
+          if (if_block2) {
+            if (dirty & /*isSubmitted*/
+            4) {
+              transition_in(if_block2, 1);
+            }
+          } else {
+            if_block2 = create_if_block5(ctx2);
+            if_block2.c();
+            transition_in(if_block2, 1);
+            if_block2.m(button2, null);
+          }
+        } else if (if_block2) {
+          group_outros();
+          transition_out(if_block2, 1, 1, () => {
+            if_block2 = null;
+          });
+          check_outros();
+        }
+        if (!current || dirty & /*isSubmitted*/
+        4) {
+          button2.disabled = /*isSubmitted*/
+          ctx2[2];
+        }
+        if (!current || dirty & /*isShow*/
+        32 && div5_class_value !== (div5_class_value = null_to_empty(`popup_container ${/*isShow*/
+        ctx2[5] ? "show" : ""}`) + " svelte-rl3zdo")) {
+          attr(div5, "class", div5_class_value);
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        for (let i = 0; i < each_value.length; i += 1) {
+          transition_in(each_blocks[i]);
+        }
+        transition_in(if_block0);
+        transition_in(if_block2);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        each_blocks = each_blocks.filter(Boolean);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          transition_out(each_blocks[i]);
+        }
+        transition_out(if_block0);
+        transition_out(if_block2);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div5);
+        }
+        destroy_component(icon);
+        destroy_each(each_blocks, detaching);
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        if (if_block2)
+          if_block2.d();
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
+  function instance11($self, $props, $invalidate) {
+    let { heading = "Add product" } = $props;
+    let { FIELDS = (
+      /** @type Field[] */
+      []
+    ) } = $props;
+    let { isSubmitted = false } = $props;
+    let isShow = false;
+    let payloads = [];
+    let isCoordFieldsExist = false;
+    let IdxLatitude = -1, IdxLongitude = -2;
+    let mapElm;
+    onMount(() => {
+      if (FIELDS && FIELDS.length > 0) {
+        FIELDS.forEach((f, i) => {
+          $invalidate(6, payloads = [...payloads, ""]);
+          if (f.name === "lat") {
+            $invalidate(7, isCoordFieldsExist = true);
+            IdxLatitude = i;
+          } else if (f.name === "lng") {
+            $invalidate(7, isCoordFieldsExist = true);
+            IdxLongitude = i;
+          }
+        });
+      }
+    });
+    let { OnSubmit = async function(payloads2) {
+    } } = $props;
+    const Show = () => $invalidate(5, isShow = true);
+    const Hide = () => $invalidate(5, isShow = false);
+    const Reset = () => {
+      $invalidate(6, payloads = []);
+      if (FIELDS && FIELDS.length > 0) {
+        FIELDS.forEach(() => $invalidate(6, payloads = [...payloads, ""]));
+      }
+    };
+    const cancel = () => {
+      $invalidate(5, isShow = false);
+    };
+    let Coord = {
+      lng: 118.0148634,
+      lat: -2.548926,
+      zoom: 4
+    };
+    function OnClickMap(lngLat) {
+      $invalidate(6, payloads[IdxLatitude] = lngLat.lat, payloads);
+      $invalidate(6, payloads[IdxLongitude] = lngLat.lng, payloads);
+    }
+    function inputcustom_value_binding(value, idx) {
+      if ($self.$.not_equal(payloads[idx], value)) {
+        payloads[idx] = value;
+        $invalidate(6, payloads);
+      }
+    }
+    function map_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        mapElm = $value;
+        $invalidate(8, mapElm);
+      });
+    }
+    const click_handler = () => OnSubmit(payloads);
+    $self.$set = ($props2) => {
+      if ("heading" in $props2)
+        $invalidate(0, heading = $props2.heading);
+      if ("FIELDS" in $props2)
+        $invalidate(1, FIELDS = $props2.FIELDS);
+      if ("isSubmitted" in $props2)
+        $invalidate(2, isSubmitted = $props2.isSubmitted);
+      if ("OnSubmit" in $props2)
+        $invalidate(3, OnSubmit = $props2.OnSubmit);
+    };
+    return [
+      heading,
+      FIELDS,
+      isSubmitted,
+      OnSubmit,
+      Hide,
+      isShow,
+      payloads,
+      isCoordFieldsExist,
+      mapElm,
+      cancel,
+      Coord,
+      OnClickMap,
+      Show,
+      Reset,
+      inputcustom_value_binding,
+      map_binding,
+      click_handler
+    ];
+  }
+  var PoUpForms = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance11, create_fragment11, safe_not_equal, {
+        heading: 0,
+        FIELDS: 1,
+        isSubmitted: 2,
+        OnSubmit: 3,
+        Show: 12,
+        Hide: 4,
+        Reset: 13
+      });
+    }
+    get Show() {
+      return this.$.ctx[12];
+    }
+    get Hide() {
+      return this.$.ctx[4];
+    }
+    get Reset() {
+      return this.$.ctx[13];
+    }
+  };
+  var PoUpForms_default = PoUpForms;
+
   // tenantAdmin_inventoryChanges.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
+  function create_if_block_111(ctx) {
+    let poupforms;
+    let updating_isSubmitted;
+    let current;
+    function poupforms_isSubmitted_binding(value) {
+      ctx[12](value);
+    }
+    let poupforms_props = {
+      heading: "Add Inventory Changes",
+      FIELDS: (
+        /*fields*/
+        ctx[0]
+      ),
+      OnSubmit: (
+        /*OnAddInventoryChange*/
+        ctx[10]
+      )
+    };
+    if (
+      /*isSubmitAddInvChange*/
+      ctx[5] !== void 0
+    ) {
+      poupforms_props.isSubmitted = /*isSubmitAddInvChange*/
+      ctx[5];
+    }
+    poupforms = new PoUpForms_default({ props: poupforms_props });
+    ctx[11](poupforms);
+    binding_callbacks.push(() => bind(poupforms, "isSubmitted", poupforms_isSubmitted_binding));
+    return {
+      c() {
+        create_component(poupforms.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(poupforms, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const poupforms_changes = {};
+        if (dirty & /*fields*/
+        1)
+          poupforms_changes.FIELDS = /*fields*/
+          ctx2[0];
+        if (!updating_isSubmitted && dirty & /*isSubmitAddInvChange*/
+        32) {
+          updating_isSubmitted = true;
+          poupforms_changes.isSubmitted = /*isSubmitAddInvChange*/
+          ctx2[5];
+          add_flush_callback(() => updating_isSubmitted = false);
+        }
+        poupforms.$set(poupforms_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(poupforms.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(poupforms.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        ctx[11](null);
+        destroy_component(poupforms, detaching);
+      }
+    };
+  }
+  function create_if_block6(ctx) {
+    let button;
+    let icon;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        color: "var(--gray-007)",
+        size: "16",
+        src: RiSystemAddBoxLine
+      }
+    });
+    return {
+      c() {
+        button = element("button");
+        create_component(icon.$.fragment);
+        attr(button, "class", "action_btn");
+        attr(button, "title", "add inventoryChange");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        mount_component(icon, button, null);
+        current = true;
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*click_handler*/
+            ctx[13]
+          );
+          mounted = true;
+        }
+      },
+      p: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        destroy_component(icon);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_default_slot_1(ctx) {
+    let if_block_anchor;
+    let current;
+    let if_block = user2.tenantCode !== "" && create_if_block6(ctx);
+    return {
+      c() {
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (user2.tenantCode !== "")
+          if_block.p(ctx2, dirty);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if (if_block)
+          if_block.d(detaching);
+      }
+    };
+  }
   function create_default_slot(ctx) {
     let div;
     let mastertable;
@@ -31557,20 +32594,38 @@ uniform ${i3} ${a3} u_${s3};
     let updating_MASTER_ROWS;
     let current;
     function mastertable_FIELDS_binding(value) {
-      ctx[3](value);
+      ctx[14](value);
     }
     function mastertable_PAGER_binding(value) {
-      ctx[4](value);
+      ctx[15](value);
     }
     function mastertable_MASTER_ROWS_binding(value) {
-      ctx[5](value);
+      ctx[16](value);
     }
     let mastertable_props = {
       ACCESS: segments2,
       CAN_EDIT_ROW: true,
       CAN_SEARCH_ROW: true,
       CAN_DELETE_ROW: true,
-      CAN_RESTORE_ROW: true
+      CAN_RESTORE_ROW: true,
+      OnDelete: (
+        /*OnDelete*/
+        ctx[8]
+      ),
+      OnEdit: (
+        /*OnEdit*/
+        ctx[9]
+      ),
+      OnRefresh: (
+        /*OnRefresh*/
+        ctx[6]
+      ),
+      OnRestore: (
+        /*OnRestore*/
+        ctx[7]
+      ),
+      $slots: { default: [create_default_slot_1] },
+      $scope: { ctx }
     };
     if (
       /*fields*/
@@ -31609,6 +32664,10 @@ uniform ${i3} ${a3} u_${s3};
       },
       p(ctx2, dirty) {
         const mastertable_changes = {};
+        if (dirty & /*$scope, popUpForms*/
+        131088) {
+          mastertable_changes.$scope = { dirty, ctx: ctx2 };
+        }
         if (!updating_FIELDS && dirty & /*fields*/
         1) {
           updating_FIELDS = true;
@@ -31650,9 +32709,14 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_fragment11(ctx) {
+  function create_fragment12(ctx) {
+    let t;
     let mainlayout;
     let current;
+    let if_block = (
+      /*isPopUpFormsReady*/
+      ctx[3] && create_if_block_111(ctx)
+    );
     mainlayout = new mainLayout_default({
       props: {
         $slots: { default: [create_default_slot] },
@@ -31661,16 +32725,45 @@ uniform ${i3} ${a3} u_${s3};
     });
     return {
       c() {
+        if (if_block)
+          if_block.c();
+        t = space();
         create_component(mainlayout.$.fragment);
       },
       m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, t, anchor);
         mount_component(mainlayout, target, anchor);
         current = true;
       },
       p(ctx2, [dirty]) {
+        if (
+          /*isPopUpFormsReady*/
+          ctx2[3]
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*isPopUpFormsReady*/
+            8) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block_111(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(t.parentNode, t);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
         const mainlayout_changes = {};
-        if (dirty & /*$scope, fields, pager, inventoryChanges*/
-        71) {
+        if (dirty & /*$scope, fields, pager, inventoryChanges, popUpForms*/
+        131095) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -31678,14 +32771,21 @@ uniform ${i3} ${a3} u_${s3};
       i(local) {
         if (current)
           return;
+        transition_in(if_block);
         transition_in(mainlayout.$.fragment, local);
         current = true;
       },
       o(local) {
+        transition_out(if_block);
         transition_out(mainlayout.$.fragment, local);
         current = false;
       },
       d(detaching) {
+        if (detaching) {
+          detach(t);
+        }
+        if (if_block)
+          if_block.d(detaching);
         destroy_component(mainlayout, detaching);
       }
     };
@@ -31694,7 +32794,11 @@ uniform ${i3} ${a3} u_${s3};
     /** @type Access */
     {/* segments */}
   );
-  function instance11($self, $props, $invalidate) {
+  var user2 = (
+    /** @type User */
+    {/* user */}
+  );
+  function instance12($self, $props, $invalidate) {
     let fields = (
       /** @type Field[] */
       [/* fields */]
@@ -31707,6 +32811,140 @@ uniform ${i3} ${a3} u_${s3};
       /** @type any[][] */
       [/* inventoryChanges */]
     );
+    let isPopUpFormsReady = false;
+    let popUpForms = null;
+    onMount(() => {
+      $invalidate(3, isPopUpFormsReady = true);
+    });
+    async function OnRefresh(pagerIn) {
+      const i = { pager: pagerIn, cmd: "list" };
+      await (0, import_jsApi.TenantAdminInventoryChanges)(
+        // @ts-ignore
+        i,
+        /** @type {import('../jsApi.GEN').TenantAdminInventoryChangesCallback} */
+        /** @returns {Promise<void>} */
+        function(o) {
+          $invalidate(5, isSubmitAddInvChange = false);
+          if (o.error) {
+            console.log(o);
+            notifier.showError(o.error);
+            return;
+          }
+          $invalidate(1, pager = o.pager);
+          $invalidate(2, inventoryChanges = o.inventoryChanges);
+        }
+      );
+    }
+    async function OnRestore(row) {
+      const i = {
+        pager,
+        inventoryChange: { id: row[0] },
+        cmd: "restore"
+      };
+      await (0, import_jsApi.TenantAdminInventoryChanges)(
+        // @ts-ignore
+        i,
+        /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
+        /** @returns {Promise<void>} */
+        function(o) {
+          if (o.error) {
+            console.log(o);
+            notifier.showError(o.error);
+            return;
+          }
+          $invalidate(1, pager = o.pager);
+          $invalidate(2, inventoryChanges = o.inventoryChanges);
+          notifier.showSuccess(row[1] + " restored");
+          OnRefresh(pager);
+        }
+      );
+    }
+    async function OnDelete(row) {
+      const i = {
+        pager,
+        inventoryChange: { id: row[0] },
+        cmd: "delete"
+      };
+      await (0, import_jsApi.TenantAdminInventoryChanges)(
+        // @ts-ignore
+        i,
+        /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
+        /** @returns {Promise<void>} */
+        function(o) {
+          if (o.error) {
+            console.log(o);
+            notifier.showError(o.error);
+            return;
+          }
+          $invalidate(1, pager = o.pager);
+          $invalidate(2, inventoryChanges = o.inventoryChanges);
+          notifier.showSuccess("inventoryChange deleted");
+          OnRefresh(pager);
+        }
+      );
+    }
+    async function OnEdit(id, payloads) {
+      const inventoryChange = {
+        id,
+        /** @type any[]*/
+        stockDelta: payloads[1]
+      };
+      const i = { pager, inventoryChange, cmd: "upsert" };
+      await (0, import_jsApi.TenantAdminInventoryChanges)(
+        // @ts-ignore
+        i,
+        /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
+        /** @returns {Promise<void>} */
+        function(o) {
+          if (o.error) {
+            console.log(o);
+            notifier.showError(o.error);
+            return;
+          }
+          $invalidate(1, pager = o.pager);
+          $invalidate(2, inventoryChanges = o.inventoryChanges);
+          notifier.showSuccess("inventoryChange edited");
+          OnRefresh(pager);
+        }
+      );
+    }
+    let isSubmitAddInvChange = false;
+    async function OnAddInventoryChange(payloads) {
+      $invalidate(5, isSubmitAddInvChange = true);
+      const inventoryChange = { stockDelta: payloads[1] };
+      const i = { pager, inventoryChange, cmd: "upsert" };
+      await (0, import_jsApi.TenantAdminInventoryChanges)(
+        // @ts-ignore
+        i,
+        /** @type {import('../jsApi.GEN').TenantAdminInventoryChangesCallback} */
+        /** @returns {Promise<void>} */
+        function(o) {
+          $invalidate(5, isSubmitAddInvChange = false);
+          if (o.error) {
+            console.log(o);
+            notifier.showError(o.error);
+            return;
+          }
+          $invalidate(1, pager = o.pager);
+          $invalidate(2, inventoryChanges = o.inventoryChanges);
+          notifier.showSuccess("inventoryChange created");
+          popUpForms.Reset();
+          OnRefresh(pager);
+        }
+      );
+      popUpForms.Hide();
+    }
+    function poupforms_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        popUpForms = $value;
+        $invalidate(4, popUpForms);
+      });
+    }
+    function poupforms_isSubmitted_binding(value) {
+      isSubmitAddInvChange = value;
+      $invalidate(5, isSubmitAddInvChange);
+    }
+    const click_handler = () => popUpForms.Show();
     function mastertable_FIELDS_binding(value) {
       fields = value;
       $invalidate(0, fields);
@@ -31723,6 +32961,17 @@ uniform ${i3} ${a3} u_${s3};
       fields,
       pager,
       inventoryChanges,
+      isPopUpFormsReady,
+      popUpForms,
+      isSubmitAddInvChange,
+      OnRefresh,
+      OnRestore,
+      OnDelete,
+      OnEdit,
+      OnAddInventoryChange,
+      poupforms_binding,
+      poupforms_isSubmitted_binding,
+      click_handler,
       mastertable_FIELDS_binding,
       mastertable_PAGER_binding,
       mastertable_MASTER_ROWS_binding
@@ -31731,7 +32980,7 @@ uniform ${i3} ${a3} u_${s3};
   var TenantAdmin_inventoryChanges = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance11, create_fragment11, safe_not_equal, {});
+      init(this, options, instance12, create_fragment12, safe_not_equal, {});
     }
   };
   var tenantAdmin_inventoryChanges_default = TenantAdmin_inventoryChanges;
