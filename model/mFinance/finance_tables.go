@@ -14,6 +14,7 @@ const (
 
 const (
 	TableCoa Tt.TableName = `coa`
+	
 	Name 									= `name`
 	Level                 = `level`
 	ParentId  						= `parentId`
