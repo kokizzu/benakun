@@ -211,7 +211,7 @@ func (i *InventoryChangesMutator) SetRestoredBy(val uint64) bool { //nolint:dupl
 }
 
 // SetStockDelta create mutations, should not duplicate
-func (i *InventoryChangesMutator) SetStockDelta(val int64) bool { //nolint:dupl false positive
+func (i *InventoryChangesMutator) SetStockDelta(val uint64) bool { //nolint:dupl false positive
 	if val != i.StockDelta {
 		i.mutations.Assign(9, val)
 		i.logs = append(i.logs, A.X{`stockDelta`, i.StockDelta, val})

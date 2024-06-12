@@ -30,7 +30,7 @@ type InventoryChanges struct {
 	DeletedAt  int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
 	DeletedBy  uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
 	RestoredBy uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
-	StockDelta int64       `json:"stockDelta" form:"stockDelta" query:"stockDelta" long:"stockDelta" msg:"stockDelta"`
+	StockDelta uint64      `json:"stockDelta" form:"stockDelta" query:"stockDelta" long:"stockDelta" msg:"stockDelta"`
 	ProductId  uint64      `json:"productId,string" form:"productId" query:"productId" long:"productId" msg:"productId"`
 	LocationId uint64      `json:"locationId,string" form:"locationId" query:"locationId" long:"locationId" msg:"locationId"`
 	SpendingId uint64      `json:"spendingId,string" form:"spendingId" query:"spendingId" long:"spendingId" msg:"spendingId"`
@@ -309,7 +309,7 @@ func (i *InventoryChanges) FromArray(a A.X) *InventoryChanges { //nolint:dupl fa
 	i.DeletedAt = X.ToI(a[6])
 	i.DeletedBy = X.ToU(a[7])
 	i.RestoredBy = X.ToU(a[8])
-	i.StockDelta = X.ToI(a[9])
+	i.StockDelta = X.ToU(a[9])
 	i.ProductId = X.ToU(a[10])
 	i.LocationId = X.ToU(a[11])
 	i.SpendingId = X.ToU(a[12])
@@ -328,7 +328,7 @@ func (i *InventoryChanges) FromUncensoredArray(a A.X) *InventoryChanges { //noli
 	i.DeletedAt = X.ToI(a[6])
 	i.DeletedBy = X.ToU(a[7])
 	i.RestoredBy = X.ToU(a[8])
-	i.StockDelta = X.ToI(a[9])
+	i.StockDelta = X.ToU(a[9])
 	i.ProductId = X.ToU(a[10])
 	i.LocationId = X.ToU(a[11])
 	i.SpendingId = X.ToU(a[12])
@@ -406,7 +406,7 @@ var InventoryChangesFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false p
 	`deletedAt`:  Tt.Integer,
 	`deletedBy`:  Tt.Unsigned,
 	`restoredBy`: Tt.Unsigned,
-	`stockDelta`: Tt.Integer,
+	`stockDelta`: Tt.Unsigned,
 	`productId`:  Tt.Unsigned,
 	`locationId`: Tt.Unsigned,
 	`spendingId`: Tt.Unsigned,

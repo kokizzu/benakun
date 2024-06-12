@@ -70,6 +70,12 @@ var TenantAdminInventoryChangesMeta = zCrud.Meta{
 			InputType: zCrud.InputTypeHidden,
 			ReadOnly: true,
 		},
+		{
+			Name: mBusiness.DeletedAt,
+			Label: "Deleted At",
+			InputType: zCrud.InputTypeHidden,
+			ReadOnly: true,
+		},
 	},
 }
 

@@ -32911,7 +32911,7 @@ uniform ${i3} ${a3} u_${s3};
     let isSubmitAddInvChange = false;
     async function OnAddInventoryChange(payloads) {
       $invalidate(5, isSubmitAddInvChange = true);
-      const inventoryChange = { stockDelta: payloads[1] };
+      const inventoryChange = { stockDelta: payloads[1] + "" };
       const i = { pager, inventoryChange, cmd: "upsert" };
       await (0, import_jsApi.TenantAdminInventoryChanges)(
         // @ts-ignore

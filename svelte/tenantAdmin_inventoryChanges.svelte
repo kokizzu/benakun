@@ -132,7 +132,7 @@
     isSubmitAddInvChange = true;
     
     const inventoryChange = {
-      stockDelta: payloads[1],
+      stockDelta: payloads[1]+'',
     }
     const i = {
       pager, inventoryChange,

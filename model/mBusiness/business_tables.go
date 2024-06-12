@@ -142,7 +142,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedAt, Tt.Integer},
 			{DeletedBy, Tt.Unsigned},
 			{RestoredBy, Tt.Unsigned},
-			{StockDelta, Tt.Integer},
+			{StockDelta, Tt.Unsigned},
 			{ProductId, Tt.Unsigned},
 			{LocationId, Tt.Unsigned},
 			{SpendingId, Tt.Unsigned},
