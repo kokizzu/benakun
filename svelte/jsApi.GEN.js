@@ -1255,7 +1255,7 @@ const TenantAdminInventoryChangesIn = {
     deletedAt: 0, // int64
     deletedBy: 0, // uint64
     restoredBy: 0, // uint64
-    stockDelta: 0, // int64
+    stockDelta: 0, // uint64
     productId: 0, // uint64
     locationId: 0, // uint64
     spendingId: 0, // uint64
@@ -1473,6 +1473,68 @@ exports.TenantAdminLocations = async function TenantAdminLocations( i, cb ) {
 }
 
 /**
+ * @typedef {Object} TenantAdminMoveCoaChildIn
+ * @property {number} id
+ * @property {number} moveToIdx
+ * @property {number} toParentId
+ */
+const TenantAdminMoveCoaChildIn = {
+  id: 0, // uint64
+  moveToIdx: 0, // int
+  toParentId: 0, // uint64
+}
+/**
+ * @typedef {Object} TenantAdminMoveCoaChildOut
+ * @property {number} org.id
+ * @property {String} org.tenantCode
+ * @property {String} org.name
+ * @property {String} org.headTitle
+ * @property {number} org.parentId
+ * @property {Object} org.children
+ * @property {number} org.orgType
+ * @property {number} org.createdAt
+ * @property {number} org.createdBy
+ * @property {number} org.updatedAt
+ * @property {number} org.updatedBy
+ * @property {number} org.deletedAt
+ * @property {Object} orgs
+ */
+const TenantAdminMoveCoaChildOut = {
+  org: { // rqAuth.Orgs
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    headTitle: '', // string
+    parentId: 0, // uint64
+    children: { // []any
+    }, // []any
+    orgType: 0, // uint64
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+  }, // rqAuth.Orgs
+  orgs: { // []rqAuth.Orgs
+  }, // []rqAuth.Orgs
+}
+/**
+ * @callback TenantAdminMoveCoaChildCallback
+ * @param {TenantAdminMoveCoaChildOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminMoveCoaChildIn} i
+ * @param {TenantAdminMoveCoaChildCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminMoveCoaChild = async function TenantAdminMoveCoaChild( i, cb ) {
+  return await axios.post( '/tenantAdmin/moveCoaChild', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} TenantAdminMoveOrganizationChildIn
  * @property {number} id
  * @property {number} moveToIdx
@@ -1610,7 +1672,7 @@ const TenantAdminProductsIn = {
     detail: '', // string
     rule: '', // string
     kind: '', // string
-    cogsIDR: 0, // int64
+    cogsIDR: 0, // uint64
   }, // rqBusiness.Products
 }
 /**
@@ -1671,7 +1733,7 @@ const TenantAdminProductsOut = {
     detail: '', // string
     rule: '', // string
     kind: '', // string
-    cogsIDR: 0, // int64
+    cogsIDR: 0, // uint64
   }, // rqBusiness.Products
   products: { // [][]any
   }, // [][]any
@@ -1819,9 +1881,9 @@ const TenantAdminUpsertBudgetPlanIn = {
     description: '', // string
     orgId: 0, // uint64
     yearOf: 0, // uint64
-    budgetIDR: 0, // int64
-    budgetUSD: 0, // int64
-    quantity: 0, // int64
+    budgetIDR: 0, // uint64
+    budgetUSD: 0, // uint64
+    quantity: 0, // uint64
     unit: '', // string
   }, // rqBudget.Plans
 }

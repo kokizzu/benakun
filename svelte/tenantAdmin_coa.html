@@ -5417,7 +5417,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function select_block_type(ctx2, dirty) {
       if (
         /*coa*/
-        ctx2[0].deletedAt === 0
+        ctx2[0].deletedAt <= 0
       )
         return 0;
       return 1;

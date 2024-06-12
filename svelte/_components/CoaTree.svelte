@@ -140,7 +140,7 @@
         <span class="name">{coa.name}</span>
       </h6>
       <div class="options">
-        {#if coa.deletedAt === 0}
+        {#if coa.deletedAt <= 0}
           <button class="btn" title="Add child" on:click={() => toggleAddOrEdit('add')}>
             <Icon
               color="var(--gray-006)"
