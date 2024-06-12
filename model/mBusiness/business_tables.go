@@ -100,7 +100,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Detail, Tt.String},
 			{Rule, Tt.String},
 			{Kind, Tt.String},
-			{CogsIDR, Tt.Integer},
+			{CogsIDR, Tt.Unsigned},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,

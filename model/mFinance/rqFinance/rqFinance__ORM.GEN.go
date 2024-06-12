@@ -372,7 +372,7 @@ type Transactions struct {
 	UpdatedBy    uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
 	DeletedAt    int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
 	CompletedAt  int64       `json:"completedAt" form:"completedAt" query:"completedAt" long:"completedAt" msg:"completedAt"`
-	Price        int64       `json:"price" form:"price" query:"price" long:"price" msg:"price"`
+	Price        uint64      `json:"price" form:"price" query:"price" long:"price" msg:"price"`
 	Descriptions string      `json:"descriptions" form:"descriptions" query:"descriptions" long:"descriptions" msg:"descriptions"`
 	Qty          int64       `json:"qty" form:"qty" query:"qty" long:"qty" msg:"qty"`
 }
@@ -577,7 +577,7 @@ func (t *Transactions) FromArray(a A.X) *Transactions { //nolint:dupl false posi
 	t.UpdatedBy = X.ToU(a[5])
 	t.DeletedAt = X.ToI(a[6])
 	t.CompletedAt = X.ToI(a[7])
-	t.Price = X.ToI(a[8])
+	t.Price = X.ToU(a[8])
 	t.Descriptions = X.ToS(a[9])
 	t.Qty = X.ToI(a[10])
 	return t
@@ -593,7 +593,7 @@ func (t *Transactions) FromUncensoredArray(a A.X) *Transactions { //nolint:dupl 
 	t.UpdatedBy = X.ToU(a[5])
 	t.DeletedAt = X.ToI(a[6])
 	t.CompletedAt = X.ToI(a[7])
-	t.Price = X.ToI(a[8])
+	t.Price = X.ToU(a[8])
 	t.Descriptions = X.ToS(a[9])
 	t.Qty = X.ToI(a[10])
 	return t
@@ -668,7 +668,7 @@ var TransactionsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false posit
 	`updatedBy`:    Tt.Unsigned,
 	`deletedAt`:    Tt.Integer,
 	`completedAt`:  Tt.Integer,
-	`price`:        Tt.Integer,
+	`price`:        Tt.Unsigned,
 	`descriptions`: Tt.String,
 	`qty`:          Tt.Integer,
 }

@@ -936,7 +936,7 @@ type Products struct {
 	Detail     string      `json:"detail" form:"detail" query:"detail" long:"detail" msg:"detail"`
 	Rule       string      `json:"rule" form:"rule" query:"rule" long:"rule" msg:"rule"`
 	Kind       string      `json:"kind" form:"kind" query:"kind" long:"kind" msg:"kind"`
-	CogsIDR    int64       `json:"cogsIDR,string" form:"cogsIDR" query:"cogsIDR" long:"cogsIDR" msg:"cogsIDR"`
+	CogsIDR    uint64      `json:"cogsIDR,string" form:"cogsIDR" query:"cogsIDR" long:"cogsIDR" msg:"cogsIDR"`
 }
 
 // NewProducts create new ORM reader/query object
@@ -1215,7 +1215,7 @@ func (p *Products) FromArray(a A.X) *Products { //nolint:dupl false positive
 	p.Detail = X.ToS(a[10])
 	p.Rule = X.ToS(a[11])
 	p.Kind = X.ToS(a[12])
-	p.CogsIDR = X.ToI(a[13])
+	p.CogsIDR = X.ToU(a[13])
 	return p
 }
 
@@ -1234,7 +1234,7 @@ func (p *Products) FromUncensoredArray(a A.X) *Products { //nolint:dupl false po
 	p.Detail = X.ToS(a[10])
 	p.Rule = X.ToS(a[11])
 	p.Kind = X.ToS(a[12])
-	p.CogsIDR = X.ToI(a[13])
+	p.CogsIDR = X.ToU(a[13])
 	return p
 }
 
@@ -1312,7 +1312,7 @@ var ProductsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`detail`:     Tt.String,
 	`rule`:       Tt.String,
 	`kind`:       Tt.String,
-	`cogsIDR`:    Tt.Integer,
+	`cogsIDR`:    Tt.Unsigned,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

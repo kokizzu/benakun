@@ -651,7 +651,7 @@ func (p *PlansMutator) SetYearOf(val uint64) bool { //nolint:dupl false positive
 }
 
 // SetBudgetIDR create mutations, should not duplicate
-func (p *PlansMutator) SetBudgetIDR(val int64) bool { //nolint:dupl false positive
+func (p *PlansMutator) SetBudgetIDR(val uint64) bool { //nolint:dupl false positive
 	if val != p.BudgetIDR {
 		p.mutations.Assign(15, val)
 		p.logs = append(p.logs, A.X{`budgetIDR`, p.BudgetIDR, val})
@@ -662,7 +662,7 @@ func (p *PlansMutator) SetBudgetIDR(val int64) bool { //nolint:dupl false positi
 }
 
 // SetBudgetUSD create mutations, should not duplicate
-func (p *PlansMutator) SetBudgetUSD(val int64) bool { //nolint:dupl false positive
+func (p *PlansMutator) SetBudgetUSD(val uint64) bool { //nolint:dupl false positive
 	if val != p.BudgetUSD {
 		p.mutations.Assign(16, val)
 		p.logs = append(p.logs, A.X{`budgetUSD`, p.BudgetUSD, val})
@@ -673,7 +673,7 @@ func (p *PlansMutator) SetBudgetUSD(val int64) bool { //nolint:dupl false positi
 }
 
 // SetQuantity create mutations, should not duplicate
-func (p *PlansMutator) SetQuantity(val int64) bool { //nolint:dupl false positive
+func (p *PlansMutator) SetQuantity(val uint64) bool { //nolint:dupl false positive
 	if val != p.Quantity {
 		p.mutations.Assign(17, val)
 		p.logs = append(p.logs, A.X{`quantity`, p.Quantity, val})

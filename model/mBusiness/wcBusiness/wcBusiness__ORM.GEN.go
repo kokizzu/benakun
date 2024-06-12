@@ -973,7 +973,7 @@ func (p *ProductsMutator) SetKind(val string) bool { //nolint:dupl false positiv
 }
 
 // SetCogsIDR create mutations, should not duplicate
-func (p *ProductsMutator) SetCogsIDR(val int64) bool { //nolint:dupl false positive
+func (p *ProductsMutator) SetCogsIDR(val uint64) bool { //nolint:dupl false positive
 	if val != p.CogsIDR {
 		p.mutations.Assign(13, val)
 		p.logs = append(p.logs, A.X{`cogsIDR`, p.CogsIDR, val})
