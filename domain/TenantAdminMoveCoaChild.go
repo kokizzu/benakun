@@ -1,8 +1,9 @@
 package domain
 
 import (
-	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
+	"benakun/model/mFinance/rqFinance"
+	"benakun/model/mFinance/wcFinance"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminMoveCoaChild.go
@@ -23,23 +24,22 @@ type (
 
 	TenantAdminMoveCoaChildOut struct {
 		ResponseCommon
-		Org  *rqAuth.Orgs   `json:"org" form:"org" query:"org" long:"org" msg:"org"`
-		Orgs *[]rqAuth.Orgs `json:"orgs" form:"orgs" query:"orgs" long:"orgs" msg:"orgs"`
+		Coa  *rqFinance.Coa   `json:"coa" form:"coa" query:"coa" long:"coa" msg:"coa"`
+		Coas *[]rqFinance.Coa `json:"coas" form:"coas" query:"coas" long:"coas" msg:"coas"`
 	}
 )
 
 const (
 	TenantAdminMoveCoaChildAction = `tenantAdmin/moveCoaChild`
 
-	ErrTenantAdminMoveCoaChildUnauthorized       = `unauthorized user to move this organization`
-	ErrTenantAdminMoveCoaChildTenantNotFound     = `cannot move organization if you are not a tenant admin`
-	ErrTenantAdminMoveCoaChildOrgNotFound        = `invalid organization to move`
-	ErrTenantAdminMoveCoaChildParentNotFound     = `parent not found to move this organization`
-	ErrTenantAdminMoveCoaChildToParentNotFound   = `cannot found parent to move this organization`
-	ErrTenantAdminMoveCoaChildShouldNotCompany   = `cannot move organization if type is company`
-	ErrTenantAdminMoveCoaChildFailedMoveChildren = `failed to move organization child`
-	ErrTenantAdminMoveCoaChildMustSameParentType = `cannot move to other parent if different organization type`
-	ErrTenantAdminMoveCoaChildFailedUpdateChild  = `failed to update organization child`
+	ErrTenantAdminMoveCoaChildUnauthorized       = `unauthorized user to move this coa`
+	ErrTenantAdminMoveCoaChildTenantNotFound     = `cannot move coa if you are not a tenant admin`
+	ErrTenantAdminMoveCoaChildCoaNotFound        = `coa not found`
+	ErrTenantAdminMoveCoaChildParentNotFound     = `parent not found to move this coa`
+	ErrTenantAdminMoveCoaChildToParentNotFound   = `cannot find parent to move this coa`
+	ErrTenantAdminMoveCoaChildFailedMoveChildren = `failed to move coa child`
+	ErrTenantAdminMoveCoaChildMustSameParentType = `cannot move to other parent if different coa type`
+	ErrTenantAdminMoveCoaChildFailedUpdateChild  = `failed to update coa child`
 )
 
 func (d *Domain) TenantAdminMoveCoaChild(in *TenantAdminMoveCoaChildIn) (out TenantAdminMoveCoaChildOut) {
@@ -59,10 +59,93 @@ func (d *Domain) TenantAdminMoveCoaChild(in *TenantAdminMoveCoaChildIn) (out Ten
 
 	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
 	tenant.TenantCode = user.TenantCode
-	if !tenant.FindByTenantCode() && !sess.IsSuperAdmin {
+	if !tenant.FindByTenantCode() {
 		out.SetError(400, ErrTenantAdminMoveCoaChildTenantNotFound)
 		return
 	}
+
+	child := wcFinance.NewCoaMutator(d.AuthOltp)
+	child.Id = in.Id
+	if !child.FindById() {
+		out.SetError(400, ErrTenantAdminMoveCoaChildCoaNotFound )
+		return
+	}
+
+	parent := wcFinance.NewCoaMutator(d.AuthOltp)
+	parent.Id = child.ParentId
+	if !parent.FindById() {
+		out.SetError(400, ErrTenantAdminMoveCoaChildParentNotFound)
+		return
+	}
+
+	if parent.Id == in.ToParentId {
+		if len(parent.Children) >= 2 {
+			children, err := moveChildToIndex(parent.Children, in.Id, in.MoveToIdx)
+			if err != nil {
+				out.SetError(400, ErrTenantAdminMoveCoaChildCoaNotFound )
+				return
+			}
+
+			parent.SetChildren(children)
+			if !parent.DoUpdateById() {
+				parent.HaveMutation()
+				out.SetError(400, ErrTenantAdminMoveCoaChildFailedMoveChildren)
+				return
+			}
+		}
+
+		out.Coa = &child.Coa
+
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coas := coa.FindCoasByTenant(tenant.TenantCode)
+
+		out.Coas = &coas
+
+		return
+	}
+
+	toParent := wcFinance.NewCoaMutator(d.AuthOltp)
+	toParent.Id = in.ToParentId
+	if !toParent.FindById() {
+		out.SetError(400, ErrTenantAdminMoveCoaChildToParentNotFound)
+		return
+	}
+
+	children := insertChildToIndex(toParent.Children, in.Id, in.MoveToIdx)
+
+	child.SetParentId(in.ToParentId)
+	if !child.DoUpdateById() {
+		child.HaveMutation()
+		out.SetError(400, ErrTenantAdminMoveCoaChildFailedUpdateChild)
+		return
+	}
+
+	toParent.SetChildren(children)
+	if !toParent.DoUpdateById() {
+		toParent.HaveMutation()
+		out.SetError(400, ErrTenantAdminMoveCoaChildFailedMoveChildren)
+		return
+	}
+
+	children, err := removeChild(parent.Children, in.Id)
+	if err != nil {
+		out.SetError(400, ErrTenantAdminMoveCoaChildCoaNotFound)
+		return
+	}
+
+	parent.SetChildren(children)
+	if !parent.DoUpdateById() {
+		parent.HaveMutation()
+		out.SetError(400, ErrTenantAdminMoveCoaChildFailedMoveChildren)
+		return
+	}
+
+	out.Coa = &child.Coa
+
+	coa := rqFinance.NewCoa(d.AuthOltp)
+	coas := coa.FindCoasByTenant(tenant.TenantCode)
+
+	out.Coas = &coas
 
 	return
 }

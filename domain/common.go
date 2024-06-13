@@ -386,3 +386,71 @@ func (d *Domain) segmentsFromSession(s *Session) M.SB {
 	}
 	return s.Segments
 }
+
+
+func moveChildToIndex(slice []any, element any, newIndex int) ([]any, error) {
+	if len(slice) <= 1 {
+		return []any{}, errors.New("elements cannot be empty")
+	}
+	var elmIndex int = -1
+	for i, v := range slice {
+		if v == element {
+			elmIndex = i
+			break
+		}
+	}
+
+	if elmIndex == -1 {
+		return []any{}, errors.New("element not found")
+	}
+
+	if newIndex < 0 {
+		newIndex = 0
+	}
+
+	slice = append(slice[:elmIndex], slice[elmIndex+1:]...)
+
+	if newIndex >= len(slice) {
+		slice = append(slice, element)
+	} else {
+		slice = append(slice[:newIndex], append([]any{element}, slice[newIndex:]...)...)
+	}
+
+	return slice, nil
+}
+
+func removeChild(slice []any, element any) ([]any, error) {
+	var elmIndex int = -1
+	for i, v := range slice {
+		if v == element {
+			elmIndex = i
+			break
+		}
+	}
+
+	if elmIndex == -1 {
+		return []any{}, errors.New("element not found")
+	}
+
+	result := make([]any, len(slice)-1)
+
+	copy(result, slice[:elmIndex])
+	copy(result[elmIndex:], slice[elmIndex+1:])
+
+	return result, nil
+}
+
+func insertChildToIndex(slice []any, element any, newIndex int) []any {
+	if len(slice) < 1 || newIndex < 0 {
+		slice = append(slice, element)
+		return slice
+	}
+
+	slice = append(slice, 0)
+
+	copy(slice[newIndex+1:], slice[newIndex:])
+
+	slice[newIndex] = element
+
+	return slice
+}

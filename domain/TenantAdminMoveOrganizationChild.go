@@ -1,8 +1,6 @@
 package domain
 
 import (
-	"errors"
-
 	"benakun/model/mAuth"
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
@@ -83,17 +81,19 @@ func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizatio
 
 	// if organization move to the same parent
 	if parent.Id == in.ToParentId {
-		children, err := moveChildToIndex(parent.Children, in.Id, in.MoveToIdx)
-		if err != nil {
-			out.SetError(400, ErrTenantAdminMoveOrganizationChildOrgNotFound)
-			return
-		}
+		if len(parent.Children) >= 2 {
+			children, err := moveChildToIndex(parent.Children, in.Id, in.MoveToIdx)
+			if err != nil {
+				out.SetError(400, ErrTenantAdminMoveOrganizationChildOrgNotFound)
+				return
+			}
 
-		parent.SetChildren(children)
-		if !parent.DoUpdateById() {
-			parent.HaveMutation()
-			out.SetError(400, ErrTenantAdminMoveOrganizationChildFailedMoveChildren)
-			return
+			parent.SetChildren(children)
+			if !parent.DoUpdateById() {
+				parent.HaveMutation()
+				out.SetError(400, ErrTenantAdminMoveOrganizationChildFailedMoveChildren)
+				return
+			}
 		}
 
 		out.Org = &child.Orgs
@@ -168,73 +168,10 @@ func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizatio
 
 	out.Org = &child.Orgs
 
-	org := wcAuth.NewOrgsMutator(d.AuthOltp)
+	org := rqAuth.NewOrgs(d.AuthOltp)
 	orgs := org.FindOrgsByTenant(tenant.TenantCode)
+	
 	out.Orgs = &orgs
 
 	return
-}
-
-func moveChildToIndex(slice []any, element any, newIndex int) ([]any, error) {
-	var elmIndex int = -1
-	for i, v := range slice {
-		if v == element {
-			elmIndex = i
-			break
-		}
-	}
-
-	if elmIndex == -1 {
-		return []any{}, errors.New("element not found")
-	}
-
-	if newIndex < 0 {
-		newIndex = 0
-	}
-
-	slice = append(slice[:elmIndex], slice[elmIndex+1:]...)
-
-	if newIndex >= len(slice) {
-		slice = append(slice, element)
-	} else {
-		slice = append(slice[:newIndex], append([]any{element}, slice[newIndex:]...)...)
-	}
-
-	return slice, nil
-}
-
-func removeChild(slice []any, element any) ([]any, error) {
-	var elmIndex int = -1
-	for i, v := range slice {
-		if v == element {
-			elmIndex = i
-			break
-		}
-	}
-
-	if elmIndex == -1 {
-		return []any{}, errors.New("element not found")
-	}
-
-	result := make([]any, len(slice)-1)
-
-	copy(result, slice[:elmIndex])
-	copy(result[elmIndex:], slice[elmIndex+1:])
-
-	return result, nil
-}
-
-func insertChildToIndex(slice []any, element any, newIndex int) []any {
-	if len(slice) < 1 || newIndex < 0 {
-		slice = append(slice, element)
-		return slice
-	}
-
-	slice = append(slice, 0)
-
-	copy(slice[newIndex+1:], slice[newIndex:])
-
-	slice[newIndex] = element
-
-	return slice
 }

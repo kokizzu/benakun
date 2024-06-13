@@ -4196,6 +4196,9 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
       exports.TenantAdminLocations = async function TenantAdminLocations(i, cb) {
         return await axios.post("/tenantAdmin/locations", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminMoveCoaChild = async function TenantAdminMoveCoaChild(i, cb) {
+        return await axios.post("/tenantAdmin/moveCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.TenantAdminMoveOrganizationChild = async function TenantAdminMoveOrganizationChild(i, cb) {
         return await axios.post("/tenantAdmin/moveOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
