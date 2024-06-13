@@ -59,20 +59,23 @@ func (u *Users) FindStaffsChoicesByTenantCode(tenantCode string) map[string]stri
 	whereAndSql := ` WHERE ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
 
 	queryRows := comment + `
-SELECT ` + u.SqlId() + `, ` + u.SqlFullName() + `, ` + u.SqlEmail() + `
+SELECT ` + u.SqlId() + `, ` + u.SqlFullName() + `, ` + u.SqlEmail() + `, ` + u.SqlRole() + `
 FROM SEQSCAN ` + u.SqlTableName() + whereAndSql
 
 	staffChoices := make(map[string]string)
 	u.Adapter.QuerySql(queryRows, func(row []any) {
-		fullName := X.ToS(row[1])
-		if fullName == `` {
-			fullName = `(--)`
-		} else {
-			fullName = `(` + fullName + `)`
-		}
-		email := X.ToS(row[2])
+		if len(row) == 4 {
+			fullName := X.ToS(row[1])
+			if fullName == `` {
+				fullName = `(--)`
+			} else {
+				fullName = `(` + fullName + `)`
+			}
+			email := X.ToS(row[2])
+			role := X.ToS(row[3])
 
-		staffChoices[X.ToS(row[0])] = fullName + ` ` + email
+			staffChoices[X.ToS(row[0])] = fullName + ` ` + email + ` [` + role + `]`
+		}
 	})
 
 	return staffChoices

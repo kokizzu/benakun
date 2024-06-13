@@ -3,8 +3,6 @@
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
   import InputCustom from './InputCustom.svelte';
-  import { TenantAdminBankAccounts } from '../jsApi.GEN';
-  import { notifier } from './notifier';
 
   // @ts-ignore
   /** @typedef {import('../_components/types/tenant').BankAccount} BankAccount*/

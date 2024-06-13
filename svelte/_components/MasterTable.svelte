@@ -404,6 +404,7 @@
 							<th class="
 								{f.inputType === 'textarea' ? 'textarea' : ''}
 								{f.inputType === 'datetime' ? 'datetime' : ''}
+								{f.name === 'staffId' ? 'staff' : ''}
 							">{f.label}</th>
 						{/if}
 					{/each}
@@ -856,7 +857,8 @@
     text-wrap: nowrap;
   }
 
-	.table_root .table_container table thead tr th.textarea {
+	.table_root .table_container table thead tr th.textarea,
+	.table_root .table_container table thead tr th.staff {
 		min-width: 280px !important;
 	}
 
