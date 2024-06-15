@@ -8,12 +8,9 @@
     RiSystemAddBoxLine,
     RiDesignPencilLine,
     RiArrowsArrowRightSLine
-   } from '../node_modules/svelte-icons-pack/dist/ri';
+  } from '../node_modules/svelte-icons-pack/dist/ri';
   import PlanProgramTree from './PlanProgramTree.svelte';
-  import {
-	  TenantAdminGetBudgetPlans,
-	  TenantAdminUpsertBudgetPlan,
-  } from '../jsApi.GEN.js';
+  import { TenantAdminGetBudgetPlans, TenantAdminUpsertBudgetPlan } from '../jsApi.GEN.js';
   import { notifier } from './notifier.js';
   import PopUpBudgetPlan from './PopUpBudgetPlan.svelte';
   import { createEventDispatcher } from 'svelte';
@@ -22,10 +19,14 @@
 
   export let org = /** @type {import('./types/organization.js').Org} */ ({});
 
-  const PlanTypeVision = 'vision', PlanTypeMission = 'mission', PlanTypeProgram = 'program', PlanTypeActivity	= 'activity';
+  const PlanTypeVision    = 'vision';
+  const PlanTypeMission   = 'mission';
+  const PlanTypeProgram   = 'program';
+  const PlanTypeActivity  = 'activity';
 
   let orgType = 'company', orgIcon = RiBuildingsCommunityLine
   let OrgTypeCompany = 1, OrgTypeDept = 2, OrgTypeDivision = 3, OrgTypeJob = 4;
+
   switch (org.orgType) {
     case OrgTypeCompany: {
       orgType = 'company', orgIcon = RiBuildingsCommunityLine;
@@ -62,12 +63,12 @@
 
   // make it as payload
   let id = 0, planType = PlanTypeVision, title = '', description = '',
-    yearOf = 0, budgetIDR = 0, budgetUSD = 0, unit = '', quantity = 0;
+    yearOf = 0, budgetIDR = '', unit = '', quantity = 0;
 
   // reset payload
   const resetPayload = () => {
     planType = '', title = '', description = '';
-    yearOf = 0, budgetIDR = 0, budgetUSD = 0, unit = '', quantity = 0;
+    yearOf = 0, budgetIDR = '', unit = '', quantity = 0;
   }
 
   // state render budget plans
@@ -116,6 +117,7 @@
     }
 
     reformatPrograms();
+    console.log('REFORMATTED PLANS:', programsActivity);
   }
 
   // +================================================================+
@@ -165,10 +167,18 @@
 	  const idStr = submitState == 'add' ? '0' : id.toString();
     /** @type {import('../jsApi.GEN.js').TenantAdminUpsertBudgetPlanIn} */
     const i = { //@ts-ignore
-      plan: {id: idStr, planType, title, description, yearOf: Number(yearOf), orgId: org.id,
-      budgetIDR: ''+budgetIDR, budgetUSD: Number(budgetUSD), unit, quantity: +quantity}
+      plan: {
+        id: idStr,
+        planType, title, description,
+        yearOf: Number(yearOf),
+        orgId: org.id,
+        budgetIDR: ''+(budgetIDR || 0),
+        unit,
+        quantity: +quantity
+      }
     }
-    await TenantAdminUpsertBudgetPlan(i, /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanCallback} */
+    await TenantAdminUpsertBudgetPlan( //@ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanCallback} */
       function (/** @type {any} */ o) {
         isSubmitPlan = false;
         if (o.error) {
@@ -189,8 +199,7 @@
 
   async function submitPlan() {
     switch (submitState) {
-      case submitStateAdd:
-      case submitStateEdit: {
+      case submitStateAdd || submitStateEdit: {
         await submitUpsertPlan();
         break;
       }

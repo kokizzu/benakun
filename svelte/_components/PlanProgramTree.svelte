@@ -21,12 +21,12 @@
 
   // make it as payload
   let planType = PlanTypeActivity, title = '', description = '',
-  yearOf = 0, budgetIDR = 0, budgetUSD = 0, quantity = 0, unit = '';
+  yearOf = 0, budgetIDR = '', quantity = 0, unit = '';
 
   // reset payload
   const resetPayload = () => {
     planType = '', title = '', description = '';
-    yearOf = 0, budgetIDR = 0, budgetUSD = 0, quantity = 0, unit = '';
+    yearOf = 0, budgetIDR = '', quantity = 0, unit = '';
   }
 
   /** @type BudgetPlan */
@@ -38,8 +38,7 @@
     orgId: '',
     planType: '',
     yearOf: 0,
-    budgetIDR: 0,
-    budgetUSD: 0,
+    budgetIDR: '',
     quantity: 0,
 	  unit: '',
     createdAt: '',
@@ -49,6 +48,8 @@
     deletedAt: 0,
     children: []
   };
+
+  console.log('plan:', plan)
 
   // forward event to the root component, to show program/activity details
   const showDetails = () => dispatch('details', plan);
@@ -72,8 +73,8 @@
       title,
       description,
       yearOf: Number(yearOf),
-      budgetIDR: Number(budgetIDR),
-      budgetUSD: Number(budgetUSD),
+      orgId: plan.orgId,
+      budgetIDR: budgetIDR+'',
       quantity: Number(quantity),
       unit: unit,
       parentId: plan.id,
@@ -87,11 +88,12 @@
           console.log(o);
           return;
         }
-        notifier.showSuccess(planType + ' edited');
+        notifier.showSuccess(planType + ' updated');
         const out = /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanOut}*/ (o);
         dispatch('update', out.plans);
 
         popUpBudgetPlan.hide();
+        resetPayload();
       }
     )
   }
@@ -122,7 +124,7 @@
         submitState = submitStateEdit;
         headingPopUp = 'Edit ' + plan.planType;
         title = plan.title, description = plan.description, yearOf = plan.yearOf;
-        budgetIDR = plan.budgetIDR, budgetUSD = plan.budgetUSD, quantity = plan.quantity, unit = plan.unit;
+        budgetIDR = plan.budgetIDR, quantity = plan.quantity, unit = plan.unit;
         break;
       }
       default: {
@@ -142,8 +144,8 @@
   bind:description
   bind:yearOf
   bind:budgetIDR
-  bind:budgetUSD
   bind:quantity
+  bind:unit
   bind:heading={headingPopUp}
   bind:isSubmitted={isSubmitPlan}
   onSubmit={submitPlan}
@@ -200,19 +202,15 @@
   </div>
 </div>
 
-{#if plan.children && plan.children.length > 0}
-  {#each plan.children as child, _ (child.id)}
-    {#if child.deletedAt === 0}
-      {#if child.planType === 'activity'}
-        <svelte:self
-          plan={child}
-          on:update
-          on:details
-        />
-      {/if}
-    {/if}
-  {/each}
-{/if}
+{#each (plan.children ||[]) as child, _ (child.id)}
+  {#if child.planType == 'activity'}
+    <svelte:self
+      plan={child}
+      on:update
+      on:details
+    />
+  {/if}
+{/each}
 
 <style>
   .item {

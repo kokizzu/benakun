@@ -93,8 +93,7 @@
     orgId: '',
     planType: '',
     yearOf: 0,
-    budgetIDR: 0,
-    budgetUSD: 0,
+    budgetIDR: '',
     quantity: 0,
 	  unit: '',
     createdAt: '',
@@ -108,15 +107,13 @@
 
   const onPlanDetails = (e) => {
     isShowPlanDetail = true;
+    if (planDetail.id == (e.detail).id) return;
     planDetail = e.detail; 
     planDetail.budgetIDR = new Intl.NumberFormat('id', {
       style: 'currency',
-      currency: 'IDR'
-    }).format(planDetail.budgetIDR || 0);
-    planDetail.budgetUSD = new Intl.NumberFormat('us', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(planDetail.budgetUSD || 0);
+      currency: 'IDR',
+      maximumSignificantDigits: 3,
+    }).format(Number(planDetail.budgetIDR) || 0);
   }
 </script>
 
@@ -141,16 +138,16 @@
           <p>{planDetail.description || '--'}</p>
         </div>
         <div class="detail">
+          <span>Type</span>
+          <p>{planDetail.planType || '--'}</p>
+        </div>
+        <div class="detail">
           <span>Year</span>
           <p>{planDetail.yearOf || '0'}</p>
         </div>
         <div class="detail">
           <span>Budget IDR</span>
           <p>{planDetail.budgetIDR || '0'}</p>
-        </div>
-        <div class="detail">
-          <span>Budget USD</span>
-          <p>{planDetail.budgetUSD || '0'}</p>
         </div>
         <div class="detail">
           <span>Qty</span>

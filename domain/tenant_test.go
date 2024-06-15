@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestCreateCoaChild(t *testing.T) {
+func TestCoa(t *testing.T) {
 	d, closer := testDomain()
 	defer closer()
 
@@ -51,6 +51,7 @@ func TestProduct(t *testing.T) {
 		out := d.TenantAdminProducts(&in)
 		assert.Empty(t, out.Error)
 		assert.NotNil(t, out.Product)
+
 		t.Run(`editMustSucceed`, func(t *testing.T) {
 			in := TenantAdminProductsIn{
 				RequestCommon: testAdminRequestCommon(TenantAdminProductsAction),
@@ -69,10 +70,33 @@ func TestProduct(t *testing.T) {
 			assert.Empty(t, out.Error)
 			assert.NotNil(t, out.Product)
 		})
+
+		t.Run(`deleteMustSucceed`, func(t *testing.T) {
+			in := TenantAdminProductsIn{
+				RequestCommon: testAdminRequestCommon(TenantAdminProductsAction),
+				Cmd: zCrud.CmdDelete,
+				Product: &rqBusiness.Products{
+					Id: out.Product.Id,
+				},
+			}
+
+			out := d.TenantAdminProducts(&in)
+			assert.Empty(t, out.Error)
+			assert.NotNil(t, out.Product)
+		})
+
+		t.Run(`restoreMustSucceed`, func(t *testing.T) {
+			in := TenantAdminProductsIn{
+				RequestCommon: testAdminRequestCommon(TenantAdminProductsAction),
+				Cmd: zCrud.CmdRestore,
+				Product: &rqBusiness.Products{
+					Id: out.Product.Id,
+				},
+			}
+
+			out := d.TenantAdminProducts(&in)
+			assert.Empty(t, out.Error)
+			assert.NotNil(t, out.Product)
+		})
 	})
 }
-
-// TODO: Unit test CoA
-// Unit test budgeting
-// Locations
-// Products
