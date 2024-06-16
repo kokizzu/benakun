@@ -212,7 +212,8 @@
     <span class="title {org.deletedAt > 0 ? 'deleted' : ''}">{org.name}</span>
   </div>
   <div class="options">
-    {#if org.deletedAt === 0}
+    <!-- TODO: use org.deletedAt === 0 if tarantool v3 is fixed -->
+    {#if org.deletedAt < 0}
       {#if org.orgType !== OrgTypeJob}
         <button class="btn" title="Add child" on:click={() => toggleAddOrEdit('add', getOrgType(org.orgType))}>
           <Icon

@@ -30,6 +30,11 @@
               {/each}
             </tr>
           {/each}
+        {:else}
+          <tr>
+            <th>0</th>
+            <td>no-data</td>
+          </tr>
         {/if}
       </tbody>
     </table>

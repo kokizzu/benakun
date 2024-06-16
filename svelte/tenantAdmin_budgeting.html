@@ -377,7 +377,7 @@ a.active.svelte-1smdkid {
 .icon_logout {
   fill: var(--red-002);
 }
-.side_menu.svelte-rvgb98.svelte-rvgb98 {
+.side_menu.svelte-1xbkv60.svelte-1xbkv60 {
   position: fixed;
   z-index: 800;
   bottom: 0;
@@ -392,7 +392,7 @@ a.active.svelte-1smdkid {
   border-right: 1px solid var(--gray-002);
   user-select: none;
 }
-.side_menu_container.svelte-rvgb98.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60.svelte-1xbkv60 {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -402,7 +402,7 @@ a.active.svelte-1smdkid {
   width: 100%;
   margin: 0;
 }
-.side_menu_container.svelte-rvgb98 header.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 header.svelte-1xbkv60 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -412,30 +412,30 @@ a.active.svelte-1smdkid {
   margin: 0 24px 15px 24px;
   user-select: none;
 }
-.side_menu_container.svelte-rvgb98 header img.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 header img.svelte-1xbkv60 {
   width: 30px;
   height: 30px;
 }
-.side_menu_container.svelte-rvgb98 header h3.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 header h3.svelte-1xbkv60 {
   font-size: var(--font-lg);
   line-height: 1.5rem;
   font-weight: 800;
   padding: 0;
   margin: 0;
 }
-.side_menu_container.svelte-rvgb98 .menu_container.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 .menu_container.svelte-1xbkv60 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list.svelte-1xbkv60 {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0;
   padding: 0 10px;
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list a.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list a.svelte-1xbkv60 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -448,23 +448,23 @@ a.active.svelte-1smdkid {
   padding: 10px 12px;
   border-radius: 8px;
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list a.svelte-rvgb98:hover {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list a.svelte-1xbkv60:hover {
   background-color: var(--gray-001);
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list a.svelte-rvgb98:active {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list a.svelte-1xbkv60:active {
   background-color: var(--gray-002);
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list a.active.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list a.active.svelte-1xbkv60 {
   color: var(--violet-005);
   background-color: var(--violet-transparent);
 }
-.side_menu_container.svelte-rvgb98 .menu_container .menu_list .submenu.svelte-rvgb98 {
+.side_menu_container.svelte-1xbkv60 .menu_container .menu_list .submenu.svelte-1xbkv60 {
   padding-left: 20px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0;
 }
-.menu_list.svelte-rvgb98 .logout.svelte-rvgb98 {
+.menu_list.svelte-1xbkv60 .logout.svelte-1xbkv60 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -481,7 +481,7 @@ a.active.svelte-1smdkid {
   cursor: pointer;
   color: var(--red-005);
 }
-.menu_list.svelte-rvgb98 .logout.svelte-rvgb98:hover {
+.menu_list.svelte-1xbkv60 .logout.svelte-1xbkv60:hover {
   background-color: var(--red-transparent);
 }
 
@@ -3355,8 +3355,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminGetBudgetPlans = async function TenantAdminGetBudgetPlans2(i, cb) {
         return await axios.post("/tenantAdmin/getBudgetPlans", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminInventoryChanges = async function TenantAdminInventoryChanges(i, cb) {
+        return await axios.post("/tenantAdmin/inventoryChanges", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.TenantAdminLocations = async function TenantAdminLocations(i, cb) {
         return await axios.post("/tenantAdmin/locations", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.TenantAdminMoveCoaChild = async function TenantAdminMoveCoaChild(i, cb) {
+        return await axios.post("/tenantAdmin/moveCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminMoveOrganizationChild = async function TenantAdminMoveOrganizationChild(i, cb) {
         return await axios.post("/tenantAdmin/moveOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -4613,6 +4619,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var RiUserFacesContactsLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M19 7H24V9H19V7ZM17 12H24V14H17V12ZM20 17H24V19H20V17ZM2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11Z"></path>' };
   var RiSystemAddBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5ZM11 11V7H13V11H17V13H13V17H11V13H7V11H11Z"></path>' };
   var RiMapMap2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 5L9 2L15 5L21.303 2.2987C21.5569 2.18992 21.8508 2.30749 21.9596 2.56131C21.9862 2.62355 22 2.69056 22 2.75827V19L15 22L9 19L2.69696 21.7013C2.44314 21.8101 2.14921 21.6925 2.04043 21.4387C2.01375 21.3765 2 21.3094 2 21.2417V5ZM16 19.3955L20 17.6812V5.03308L16 6.74736V19.3955ZM14 19.2639V6.73607L10 4.73607V17.2639L14 19.2639ZM8 17.2526V4.60451L4 6.31879V18.9669L8 17.2526Z"></path>' };
+  var RiFinanceSwapBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4.00488 5.00275V19.0027H20.0049V5.00275H4.00488ZM3.00488 3.00275H21.0049C21.5572 3.00275 22.0049 3.45046 22.0049 4.00275V20.0027C22.0049 20.555 21.5572 21.0027 21.0049 21.0027H3.00488C2.4526 21.0027 2.00488 20.555 2.00488 20.0027V4.00275C2.00488 3.45046 2.4526 3.00275 3.00488 3.00275ZM15.0049 7.00275L18.5049 10.0027L15.0049 13.0027V11.0027H11.0049V9.00275H15.0049V7.00275ZM9.00488 17.0027L5.50488 14.0027L9.00488 11.0027V13.0027H13.0049V15.0027H9.00488V17.0027Z"></path>' };
   var RiArrowsArrowRightSLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z"></path>' };
   var RiEditorOrganizationChart = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M15 3C15.5523 3 16 3.44772 16 4V8C16 8.55228 15.5523 9 15 9H13V11H17C17.5523 11 18 11.4477 18 12V15H20C20.5523 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H14C13.4477 21 13 20.5523 13 20V16C13 15.4477 13.4477 15 14 15H16V13H8V15H10C10.5523 15 11 15.4477 11 16V20C11 20.5523 10.5523 21 10 21H4C3.44772 21 3 20.5523 3 20V16C3 15.4477 3.44772 15 4 15H6V12C6 11.4477 6.44772 11 7 11H11V9H9C8.44772 9 8 8.55228 8 8V4C8 3.44772 8.44772 3 9 3H15ZM9 17H5V19H9V17ZM19 17H15V19H19V17ZM14 5H10V7H14V5Z"></path>' };
   var RiMediaSpeedMiniFill = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4.78834 17.4434C4.70398 17.503 4.60326 17.535 4.5 17.535C4.22386 17.535 4 17.3111 4 17.035V6.96488C4 6.86163 4.03197 6.7609 4.09152 6.67654C4.25076 6.45094 4.56274 6.39715 4.78834 6.5564L11.9213 11.5914C11.9679 11.6243 12.0086 11.665 12.0415 11.7116C12.2007 11.9372 12.1469 12.2492 11.9213 12.4084L4.78834 17.4434ZM13 6.96488C13 6.86163 13.032 6.7609 13.0915 6.67654C13.2508 6.45094 13.5627 6.39715 13.7883 6.5564L20.9213 11.5914C20.9679 11.6243 21.0086 11.665 21.0415 11.7116C21.2007 11.9372 21.1469 12.2492 20.9213 12.4084L13.7883 17.4434C13.704 17.503 13.6033 17.535 13.5 17.535C13.2239 17.535 13 17.3111 13 17.035V6.96488Z"></path>' };
@@ -4772,7 +4779,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         span = element("span");
         span.textContent = "Report Viewer";
         attr(a, "href", "/reportViewer/dashboard");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(
           a,
           "active",
@@ -4846,7 +4853,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         span = element("span");
         span.textContent = "Entry User";
         attr(a, "href", "/entryUser/dashboard");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(
           a,
           "active",
@@ -4914,6 +4921,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let submenulink4;
     let t7;
     let submenulink5;
+    let t8;
+    let submenulink6;
     let current;
     icon = new Icon_default({
       props: {
@@ -4964,6 +4973,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         icon: RiMapMap2Line
       }
     });
+    submenulink6 = new SubMenuLink_default({
+      props: {
+        title: "Inventory Changes",
+        href: "/tenantAdmin/inventoryChanges",
+        icon: RiFinanceSwapBoxLine
+      }
+    });
     return {
       c() {
         a = element("a");
@@ -4984,10 +5000,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         create_component(submenulink4.$.fragment);
         t7 = space();
         create_component(submenulink5.$.fragment);
+        t8 = space();
+        create_component(submenulink6.$.fragment);
         attr(a, "href", "/tenantAdmin/dashboard");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(a, "active", window.location.pathname === "/tenantAdmin/dashboard");
-        attr(div, "class", "submenu svelte-rvgb98");
+        attr(div, "class", "submenu svelte-1xbkv60");
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -5007,6 +5025,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         mount_component(submenulink4, div, null);
         append(div, t7);
         mount_component(submenulink5, div, null);
+        append(div, t8);
+        mount_component(submenulink6, div, null);
         current = true;
       },
       p: noop,
@@ -5020,6 +5040,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_in(submenulink3.$.fragment, local);
         transition_in(submenulink4.$.fragment, local);
         transition_in(submenulink5.$.fragment, local);
+        transition_in(submenulink6.$.fragment, local);
         current = true;
       },
       o(local) {
@@ -5030,6 +5051,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_out(submenulink3.$.fragment, local);
         transition_out(submenulink4.$.fragment, local);
         transition_out(submenulink5.$.fragment, local);
+        transition_out(submenulink6.$.fragment, local);
         current = false;
       },
       d(detaching) {
@@ -5045,6 +5067,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         destroy_component(submenulink3);
         destroy_component(submenulink4);
         destroy_component(submenulink5);
+        destroy_component(submenulink6);
       }
     };
   }
@@ -5093,9 +5116,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t3 = space();
         create_component(submenulink1.$.fragment);
         attr(a, "href", "/superAdmin/dashboard");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(a, "active", window.location.pathname === "/superAdmin/dashboard");
-        attr(div, "class", "submenu svelte-rvgb98");
+        attr(div, "class", "submenu svelte-1xbkv60");
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -5160,7 +5183,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         span = element("span");
         span.textContent = "Profile";
         attr(a, "href", "/user/profile");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(
           a,
           "active",
@@ -5232,7 +5255,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t0 = space();
         span = element("span");
         span.textContent = "Logout";
-        attr(button, "class", "logout svelte-rvgb98");
+        attr(button, "class", "logout svelte-1xbkv60");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -5330,7 +5353,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         aside = element("aside");
         div1 = element("div");
         header = element("header");
-        header.innerHTML = `<img src="/assets/icons/benakun-logo.png" alt="" class="svelte-rvgb98"/> <h3 class="svelte-rvgb98">BenAkun</h3>`;
+        header.innerHTML = `<img src="/assets/icons/benakun-logo.png" alt="" class="svelte-1xbkv60"/> <h3 class="svelte-1xbkv60">BenAkun</h3>`;
         t2 = space();
         div0 = element("div");
         nav0 = element("nav");
@@ -5358,20 +5381,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t10 = space();
         if (if_block5)
           if_block5.c();
-        attr(header, "class", "svelte-rvgb98");
+        attr(header, "class", "svelte-1xbkv60");
         attr(a, "href", "/");
-        attr(a, "class", "svelte-rvgb98");
+        attr(a, "class", "svelte-1xbkv60");
         toggle_class(
           a,
           "active",
           /*segment1*/
           ctx[1] === ""
         );
-        attr(nav0, "class", "menu_list svelte-rvgb98");
-        attr(nav1, "class", "menu_list svelte-rvgb98");
-        attr(div0, "class", "menu_container svelte-rvgb98");
-        attr(div1, "class", "side_menu_container svelte-rvgb98");
-        attr(aside, "class", "side_menu svelte-rvgb98");
+        attr(nav0, "class", "menu_list svelte-1xbkv60");
+        attr(nav1, "class", "menu_list svelte-1xbkv60");
+        attr(div0, "class", "menu_container svelte-1xbkv60");
+        attr(div1, "class", "side_menu_container svelte-1xbkv60");
+        attr(aside, "class", "side_menu svelte-1xbkv60");
       },
       m(target, anchor) {
         insert(target, aside, anchor);
@@ -8992,7 +9015,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let { title = "" } = $props;
     let { description = "" } = $props;
     let { yearOf = 0 } = $props;
-    let { budgetIDR = 0 } = $props;
+    let { budgetIDR = "" } = $props;
     let { quantity = 0 } = $props;
     let { unit = "" } = $props;
     let { planType = "vision" } = $props;
@@ -9100,8 +9123,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // _components/PlanProgramTree.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[33] = list[i];
-    child_ctx[35] = i;
+    child_ctx[32] = list[i];
+    child_ctx[34] = i;
     return child_ctx;
   }
   function create_else_block2(ctx) {
@@ -9138,7 +9161,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_43(ctx) {
+  function create_if_block_25(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -9172,7 +9195,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_33(ctx) {
+  function create_if_block_15(ctx) {
     let button;
     let icon;
     let t0;
@@ -9237,144 +9260,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function create_if_block5(ctx) {
-    let each_blocks = [];
-    let each_1_lookup = /* @__PURE__ */ new Map();
-    let each_1_anchor;
-    let current;
-    let each_value = ensure_array_like(
-      /*plan*/
-      ctx[0].children
-    );
-    const get_key = (ctx2) => (
-      /*child*/
-      ctx2[33].id
-    );
-    for (let i = 0; i < each_value.length; i += 1) {
-      let child_ctx = get_each_context2(ctx, each_value, i);
-      let key = get_key(child_ctx);
-      each_1_lookup.set(key, each_blocks[i] = create_each_block2(key, child_ctx));
-    }
-    return {
-      c() {
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].c();
-        }
-        each_1_anchor = empty();
-      },
-      m(target, anchor) {
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          if (each_blocks[i]) {
-            each_blocks[i].m(target, anchor);
-          }
-        }
-        insert(target, each_1_anchor, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        if (dirty[0] & /*plan*/
-        1) {
-          each_value = ensure_array_like(
-            /*plan*/
-            ctx2[0].children
-          );
-          group_outros();
-          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block2, each_1_anchor, get_each_context2);
-          check_outros();
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        for (let i = 0; i < each_value.length; i += 1) {
-          transition_in(each_blocks[i]);
-        }
-        current = true;
-      },
-      o(local) {
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          transition_out(each_blocks[i]);
-        }
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(each_1_anchor);
-        }
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].d(detaching);
-        }
-      }
-    };
-  }
-  function create_if_block_15(ctx) {
-    let if_block_anchor;
-    let current;
-    let if_block = (
-      /*child*/
-      ctx[33].planType === "activity" && create_if_block_25(ctx)
-    );
-    return {
-      c() {
-        if (if_block)
-          if_block.c();
-        if_block_anchor = empty();
-      },
-      m(target, anchor) {
-        if (if_block)
-          if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        if (
-          /*child*/
-          ctx2[33].planType === "activity"
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty[0] & /*plan*/
-            1) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block_25(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        } else if (if_block) {
-          group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
-          });
-          check_outros();
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(if_block);
-        current = true;
-      },
-      o(local) {
-        transition_out(if_block);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(if_block_anchor);
-        }
-        if (if_block)
-          if_block.d(detaching);
-      }
-    };
-  }
-  function create_if_block_25(ctx) {
     let planprogramtree;
     let current;
     planprogramtree = new PlanProgramTree({ props: { plan: (
       /*child*/
-      ctx[33]
+      ctx[32]
     ) } });
     planprogramtree.$on(
       "update",
@@ -9399,7 +9289,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (dirty[0] & /*plan*/
         1)
           planprogramtree_changes.plan = /*child*/
-          ctx2[33];
+          ctx2[32];
         planprogramtree.$set(planprogramtree_changes);
       },
       i(local) {
@@ -9423,7 +9313,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     let if_block = (
       /*child*/
-      ctx[33].deletedAt === 0 && create_if_block_15(ctx)
+      ctx[32].planType == "activity" && create_if_block5(ctx)
     );
     return {
       key: key_1,
@@ -9446,7 +9336,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         ctx = new_ctx;
         if (
           /*child*/
-          ctx[33].deletedAt === 0
+          ctx[32].planType == "activity"
         ) {
           if (if_block) {
             if_block.p(ctx, dirty);
@@ -9455,7 +9345,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block_15(ctx);
+            if_block = create_if_block5(ctx);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -9495,8 +9385,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let updating_description;
     let updating_yearOf;
     let updating_budgetIDR;
-    let updating_budgetUSD;
     let updating_quantity;
+    let updating_unit;
     let updating_heading;
     let updating_isSubmitted;
     let t0;
@@ -9521,7 +9411,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let t6;
     let div1_class_value;
     let t7;
-    let if_block2_anchor;
+    let each_blocks = [];
+    let each_1_lookup = /* @__PURE__ */ new Map();
+    let each_1_anchor;
     let current;
     let mounted;
     let dispose;
@@ -9540,10 +9432,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function popupbudgetplan_budgetIDR_binding(value) {
       ctx[18](value);
     }
-    function popupbudgetplan_budgetUSD_binding(value) {
+    function popupbudgetplan_quantity_binding(value) {
       ctx[19](value);
     }
-    function popupbudgetplan_quantity_binding(value) {
+    function popupbudgetplan_unit_binding(value) {
       ctx[20](value);
     }
     function popupbudgetplan_heading_binding(value) {
@@ -9592,17 +9484,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       ctx[5];
     }
     if (
-      /*budgetUSD*/
+      /*quantity*/
       ctx[6] !== void 0
     ) {
-      popupbudgetplan_props.budgetUSD = /*budgetUSD*/
+      popupbudgetplan_props.quantity = /*quantity*/
       ctx[6];
     }
     if (
-      /*quantity*/
+      /*unit*/
       ctx[7] !== void 0
     ) {
-      popupbudgetplan_props.quantity = /*quantity*/
+      popupbudgetplan_props.unit = /*unit*/
       ctx[7];
     }
     if (
@@ -9626,11 +9518,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     binding_callbacks.push(() => bind(popupbudgetplan, "description", popupbudgetplan_description_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "yearOf", popupbudgetplan_yearOf_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "budgetIDR", popupbudgetplan_budgetIDR_binding));
-    binding_callbacks.push(() => bind(popupbudgetplan, "budgetUSD", popupbudgetplan_budgetUSD_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "quantity", popupbudgetplan_quantity_binding));
+    binding_callbacks.push(() => bind(popupbudgetplan, "unit", popupbudgetplan_unit_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "heading", popupbudgetplan_heading_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "isSubmitted", popupbudgetplan_isSubmitted_binding));
-    const if_block_creators = [create_if_block_43, create_else_block2];
+    const if_block_creators = [create_if_block_25, create_else_block2];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (
@@ -9652,13 +9544,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     });
     let if_block1 = (
       /*plan*/
-      ctx[0].planType === "program" && create_if_block_33(ctx)
+      ctx[0].planType === "program" && create_if_block_15(ctx)
     );
-    let if_block2 = (
+    let each_value = ensure_array_like(
       /*plan*/
-      ctx[0].children && /*plan*/
-      ctx[0].children.length > 0 && create_if_block5(ctx)
+      ctx[0].children || []
     );
+    const get_key = (ctx2) => (
+      /*child*/
+      ctx2[32].id
+    );
+    for (let i = 0; i < each_value.length; i += 1) {
+      let child_ctx = get_each_context2(ctx, each_value, i);
+      let key = get_key(child_ctx);
+      each_1_lookup.set(key, each_blocks[i] = create_each_block2(key, child_ctx));
+    }
     return {
       c() {
         create_component(popupbudgetplan.$.fragment);
@@ -9680,9 +9580,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (if_block1)
           if_block1.c();
         t7 = space();
-        if (if_block2)
-          if_block2.c();
-        if_block2_anchor = empty();
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        each_1_anchor = empty();
         attr(span0, "class", "svelte-lffkyz");
         attr(button0, "class", "title svelte-lffkyz");
         attr(button0, "title", "click to show info");
@@ -9713,9 +9614,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (if_block1)
           if_block1.m(div0, null);
         insert(target, t7, anchor);
-        if (if_block2)
-          if_block2.m(target, anchor);
-        insert(target, if_block2_anchor, anchor);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(target, anchor);
+          }
+        }
+        insert(target, each_1_anchor, anchor);
         current = true;
         if (!mounted) {
           dispose = [
@@ -9772,19 +9676,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           ctx2[5];
           add_flush_callback(() => updating_budgetIDR = false);
         }
-        if (!updating_budgetUSD && dirty[0] & /*budgetUSD*/
-        64) {
-          updating_budgetUSD = true;
-          popupbudgetplan_changes.budgetUSD = /*budgetUSD*/
-          ctx2[6];
-          add_flush_callback(() => updating_budgetUSD = false);
-        }
         if (!updating_quantity && dirty[0] & /*quantity*/
-        128) {
+        64) {
           updating_quantity = true;
           popupbudgetplan_changes.quantity = /*quantity*/
-          ctx2[7];
+          ctx2[6];
           add_flush_callback(() => updating_quantity = false);
+        }
+        if (!updating_unit && dirty[0] & /*unit*/
+        128) {
+          updating_unit = true;
+          popupbudgetplan_changes.unit = /*unit*/
+          ctx2[7];
+          add_flush_callback(() => updating_unit = false);
         }
         if (!updating_heading && dirty[0] & /*headingPopUp*/
         2) {
@@ -9838,7 +9742,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_33(ctx2);
+            if_block1 = create_if_block_15(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(div0, null);
@@ -9855,28 +9759,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         (ctx2[0].planType === "activity" ? "activity" : "") + " svelte-lffkyz")) {
           attr(div1, "class", div1_class_value);
         }
-        if (
-          /*plan*/
-          ctx2[0].children && /*plan*/
-          ctx2[0].children.length > 0
-        ) {
-          if (if_block2) {
-            if_block2.p(ctx2, dirty);
-            if (dirty[0] & /*plan*/
-            1) {
-              transition_in(if_block2, 1);
-            }
-          } else {
-            if_block2 = create_if_block5(ctx2);
-            if_block2.c();
-            transition_in(if_block2, 1);
-            if_block2.m(if_block2_anchor.parentNode, if_block2_anchor);
-          }
-        } else if (if_block2) {
+        if (dirty[0] & /*plan*/
+        1) {
+          each_value = ensure_array_like(
+            /*plan*/
+            ctx2[0].children || []
+          );
           group_outros();
-          transition_out(if_block2, 1, 1, () => {
-            if_block2 = null;
-          });
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block2, each_1_anchor, get_each_context2);
           check_outros();
         }
       },
@@ -9887,7 +9777,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_in(if_block0);
         transition_in(icon.$.fragment, local);
         transition_in(if_block1);
-        transition_in(if_block2);
+        for (let i = 0; i < each_value.length; i += 1) {
+          transition_in(each_blocks[i]);
+        }
         current = true;
       },
       o(local) {
@@ -9895,7 +9787,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_out(if_block0);
         transition_out(icon.$.fragment, local);
         transition_out(if_block1);
-        transition_out(if_block2);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          transition_out(each_blocks[i]);
+        }
         current = false;
       },
       d(detaching) {
@@ -9903,7 +9797,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           detach(t0);
           detach(div1);
           detach(t7);
-          detach(if_block2_anchor);
+          detach(each_1_anchor);
         }
         ctx[13](null);
         destroy_component(popupbudgetplan, detaching);
@@ -9911,8 +9805,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         destroy_component(icon);
         if (if_block1)
           if_block1.d();
-        if (if_block2)
-          if_block2.d(detaching);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].d(detaching);
+        }
         mounted = false;
         run_all(dispose);
       }
@@ -9924,10 +9819,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   function instance10($self, $props, $invalidate) {
     const dispatch = createEventDispatcher();
     let headingPopUp = "Add activity";
-    let planType = PlanTypeActivity, title = "", description = "", yearOf = 0, budgetIDR = 0, budgetUSD = 0, quantity = 0, unit = "";
+    let planType = PlanTypeActivity, title = "", description = "", yearOf = 0, budgetIDR = "", quantity = 0, unit = "";
     const resetPayload = () => {
       planType = "", $invalidate(2, title = ""), $invalidate(3, description = "");
-      $invalidate(4, yearOf = 0), $invalidate(5, budgetIDR = 0), $invalidate(6, budgetUSD = 0), $invalidate(7, quantity = 0), unit = "";
+      $invalidate(4, yearOf = 0), $invalidate(5, budgetIDR = ""), $invalidate(6, quantity = 0), $invalidate(7, unit = "");
     };
     let { plan = {
       id: "",
@@ -9937,8 +9832,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       orgId: "",
       planType: "",
       yearOf: 0,
-      budgetIDR: 0,
-      budgetUSD: 0,
+      budgetIDR: "",
       quantity: 0,
       unit: "",
       createdAt: "",
@@ -9948,6 +9842,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       deletedAt: 0,
       children: []
     } } = $props;
+    console.log("plan:", plan);
     const showDetails = () => dispatch("details", plan);
     let popUpBudgetPlan = (
       /** @type {PopUpBudgetPlan} */
@@ -9963,8 +9858,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         title,
         description,
         yearOf: Number(yearOf),
-        budgetIDR: Number(budgetIDR),
-        budgetUSD: Number(budgetUSD),
+        orgId: plan.orgId,
+        budgetIDR: budgetIDR + "",
         quantity: Number(quantity),
         unit,
         parentId: plan.id
@@ -9980,13 +9875,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             console.log(o);
             return;
           }
-          notifier.showSuccess(planType + " edited");
+          notifier.showSuccess(planType + " updated");
           const out = (
             /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanOut}*/
             o
           );
           dispatch("update", out.plans);
           popUpBudgetPlan.hide();
+          resetPayload();
         }
       );
     }
@@ -10015,7 +9911,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           submitState = submitStateEdit;
           $invalidate(1, headingPopUp = "Edit " + plan.planType);
           $invalidate(2, title = plan.title), $invalidate(3, description = plan.description), $invalidate(4, yearOf = plan.yearOf);
-          $invalidate(5, budgetIDR = plan.budgetIDR), $invalidate(6, budgetUSD = plan.budgetUSD), $invalidate(7, quantity = plan.quantity), unit = plan.unit;
+          $invalidate(5, budgetIDR = plan.budgetIDR), $invalidate(6, quantity = plan.quantity), $invalidate(7, unit = plan.unit);
           break;
         }
         default: {
@@ -10053,13 +9949,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       budgetIDR = value;
       $invalidate(5, budgetIDR);
     }
-    function popupbudgetplan_budgetUSD_binding(value) {
-      budgetUSD = value;
-      $invalidate(6, budgetUSD);
-    }
     function popupbudgetplan_quantity_binding(value) {
       quantity = value;
-      $invalidate(7, quantity);
+      $invalidate(6, quantity);
+    }
+    function popupbudgetplan_unit_binding(value) {
+      unit = value;
+      $invalidate(7, unit);
     }
     function popupbudgetplan_heading_binding(value) {
       headingPopUp = value;
@@ -10088,8 +9984,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       description,
       yearOf,
       budgetIDR,
-      budgetUSD,
       quantity,
+      unit,
       popUpBudgetPlan,
       isSubmitPlan,
       showDetails,
@@ -10101,8 +9997,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       popupbudgetplan_description_binding,
       popupbudgetplan_yearOf_binding,
       popupbudgetplan_budgetIDR_binding,
-      popupbudgetplan_budgetUSD_binding,
       popupbudgetplan_quantity_binding,
+      popupbudgetplan_unit_binding,
       popupbudgetplan_heading_binding,
       popupbudgetplan_isSubmitted_binding,
       click_handler,
@@ -10123,17 +10019,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var import_jsApi_GEN3 = __toESM(require_jsApi_GEN());
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[52] = list[i];
-    child_ctx[54] = i;
+    child_ctx[51] = list[i];
+    child_ctx[53] = i;
     return child_ctx;
   }
   function get_each_context_12(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[55] = list[i];
-    child_ctx[54] = i;
+    child_ctx[54] = list[i];
+    child_ctx[53] = i;
     return child_ctx;
   }
-  function create_if_block_34(ctx) {
+  function create_if_block_33(ctx) {
     let div7;
     let div1;
     let div0;
@@ -10209,7 +10105,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let if_block2 = (
       /*programsActivity*/
       ctx[7] && /*programsActivity*/
-      ctx[7].length > 0 && create_if_block_44(ctx)
+      ctx[7].length > 0 && create_if_block_43(ctx)
     );
     return {
       c() {
@@ -10369,7 +10265,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               transition_in(if_block2, 1);
             }
           } else {
-            if_block2 = create_if_block_44(ctx2);
+            if_block2 = create_if_block_43(ctx2);
             if_block2.c();
             transition_in(if_block2, 1);
             if_block2.m(div5, null);
@@ -10668,7 +10564,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_44(ctx) {
+  function create_if_block_43(ctx) {
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
     let each_1_anchor;
@@ -10679,7 +10575,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     const get_key = (ctx2) => (
       /*plan*/
-      ctx2[55].id
+      ctx2[54].id
     );
     for (let i = 0; i < each_value_1.length; i += 1) {
       let child_ctx = get_each_context_12(ctx, each_value_1, i);
@@ -10744,7 +10640,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     planprogramtree = new PlanProgramTree_default({ props: { plan: (
       /*plan*/
-      ctx[55]
+      ctx[54]
     ) } });
     planprogramtree.$on(
       "details",
@@ -10775,7 +10671,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (dirty[0] & /*programsActivity*/
         128)
           planprogramtree_changes.plan = /*plan*/
-          ctx[55];
+          ctx[54];
         planprogramtree.$set(planprogramtree_changes);
       },
       i(local) {
@@ -10807,7 +10703,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     const get_key = (ctx2) => (
       /*child*/
-      ctx2[52].id
+      ctx2[51].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context3(ctx, each_value, i);
@@ -10871,7 +10767,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     let if_block = (
       /*child*/
-      ctx[52].orgType !== OrgTypeJob && create_if_block_26(ctx)
+      ctx[51].orgType !== OrgTypeJob && create_if_block_26(ctx)
     );
     return {
       c() {
@@ -10888,7 +10784,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       p(ctx2, dirty) {
         if (
           /*child*/
-          ctx2[52].orgType !== OrgTypeJob
+          ctx2[51].orgType !== OrgTypeJob
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
@@ -10934,7 +10830,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     budgetplantree = new BudgetPlanTree({ props: { org: (
       /*child*/
-      ctx[52]
+      ctx[51]
     ) } });
     budgetplantree.$on(
       "details",
@@ -10954,7 +10850,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (dirty[0] & /*org*/
         1)
           budgetplantree_changes.org = /*child*/
-          ctx2[52];
+          ctx2[51];
         budgetplantree.$set(budgetplantree_changes);
       },
       i(local) {
@@ -10978,7 +10874,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     let if_block = (
       /*child*/
-      ctx[52].deletedAt === 0 && create_if_block_16(ctx)
+      ctx[51].deletedAt === 0 && create_if_block_16(ctx)
     );
     return {
       key: key_1,
@@ -11001,7 +10897,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         ctx = new_ctx;
         if (
           /*child*/
-          ctx[52].deletedAt === 0
+          ctx[51].deletedAt === 0
         ) {
           if (if_block) {
             if_block.p(ctx, dirty);
@@ -11208,7 +11104,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     });
     let if_block0 = (
       /*isShowPlans*/
-      ctx[16] && create_if_block_34(ctx)
+      ctx[16] && create_if_block_33(ctx)
     );
     let if_block1 = (
       /*org*/
@@ -11388,7 +11284,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_34(ctx2);
+            if_block0 = create_if_block_33(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(div3, null);
@@ -11514,10 +11410,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       []
     );
     let headingPopUp = "Add budget plan";
-    let id = 0, planType = PlanTypeVision, title = "", description = "", yearOf = 0, budgetIDR = 0, budgetUSD = 0, unit = "", quantity = 0;
+    let id = 0, planType = PlanTypeVision, title = "", description = "", yearOf = 0, budgetIDR = "", unit = "", quantity = 0;
     const resetPayload = () => {
       $invalidate(9, planType = ""), $invalidate(10, title = ""), $invalidate(11, description = "");
-      $invalidate(12, yearOf = 0), $invalidate(13, budgetIDR = 0), budgetUSD = 0, $invalidate(14, unit = ""), $invalidate(15, quantity = 0);
+      $invalidate(12, yearOf = 0), $invalidate(13, budgetIDR = ""), $invalidate(14, unit = ""), $invalidate(15, quantity = 0);
     };
     let isSearching = false, isShowPlans = false;
     function activityMaker(programId) {
@@ -11561,6 +11457,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
       }
       reformatPrograms();
+      console.log("REFORMATTED PLANS:", programsActivity);
     }
     async function getBugetPlans() {
       isSearching = true;
@@ -11608,13 +11505,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           description,
           yearOf: Number(yearOf),
           orgId: org.id,
-          budgetIDR: "" + budgetIDR,
-          budgetUSD: Number(budgetUSD),
+          budgetIDR: "" + (budgetIDR || 0),
           unit,
           quantity: +quantity
         }
       };
       await (0, import_jsApi_GEN3.TenantAdminUpsertBudgetPlan)(
+        //@ts-ignore
         i,
         /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanCallback} */
         function(o) {
@@ -11638,8 +11535,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     async function submitPlan() {
       switch (submitState) {
-        case submitStateAdd2:
-        case submitStateEdit2: {
+        case (submitStateAdd2 || submitStateEdit2): {
           await submitUpsertPlan();
           break;
         }
@@ -11970,7 +11866,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let p1;
     let t11_value = (
       /*planDetail*/
-      (ctx[1].yearOf || "0") + ""
+      (ctx[1].planType || "--") + ""
     );
     let t11;
     let t12;
@@ -11978,49 +11874,47 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let span2;
     let t14;
     let p2;
+    let t15_value = (
+      /*planDetail*/
+      (ctx[1].yearOf || "0") + ""
+    );
     let t15;
-    let t16_value = (
+    let t16;
+    let div3;
+    let span3;
+    let t18;
+    let p3;
+    let t19_value = (
       /*planDetail*/
       (ctx[1].budgetIDR || "0") + ""
     );
-    let t16;
-    let t17;
-    let div3;
-    let span3;
     let t19;
-    let p3;
     let t20;
-    let t21_value = (
-      /*planDetail*/
-      (ctx[1].budgetUSD || "0") + ""
-    );
-    let t21;
-    let t22;
     let div4;
     let span4;
-    let t24;
+    let t22;
     let p4;
-    let t25_value = (
+    let t23_value = (
       /*planDetail*/
       (ctx[1].quantity || "0") + ""
     );
-    let t25;
-    let t26;
-    let t27_value = (
+    let t23;
+    let t24;
+    let t25_value = (
       /*planDetail*/
       (ctx[1].unit || "") + ""
     );
-    let t27;
-    let t28;
+    let t25;
+    let t26;
     let div5;
     let span5;
-    let t30;
+    let t28;
     let p5;
-    let t31_value = (0, import_formatter.localeDatetime)(
+    let t29_value = (0, import_formatter.localeDatetime)(
       /*planDetail*/
       ctx[1].updatedAt || 0
     ) + "";
-    let t31;
+    let t29;
     let article_class_value;
     let current;
     let mounted;
@@ -12053,42 +11947,40 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t8 = space();
         div1 = element("div");
         span1 = element("span");
-        span1.textContent = "Year";
+        span1.textContent = "Type";
         t10 = space();
         p1 = element("p");
         t11 = text(t11_value);
         t12 = space();
         div2 = element("div");
         span2 = element("span");
-        span2.textContent = "Budget IDR";
+        span2.textContent = "Year";
         t14 = space();
         p2 = element("p");
-        t15 = text("Rp ");
-        t16 = text(t16_value);
-        t17 = space();
+        t15 = text(t15_value);
+        t16 = space();
         div3 = element("div");
         span3 = element("span");
-        span3.textContent = "Budget USD";
-        t19 = space();
+        span3.textContent = "Budget IDR";
+        t18 = space();
         p3 = element("p");
-        t20 = text("$ ");
-        t21 = text(t21_value);
-        t22 = space();
+        t19 = text(t19_value);
+        t20 = space();
         div4 = element("div");
         span4 = element("span");
         span4.textContent = "Qty";
-        t24 = space();
+        t22 = space();
         p4 = element("p");
+        t23 = text(t23_value);
+        t24 = space();
         t25 = text(t25_value);
         t26 = space();
-        t27 = text(t27_value);
-        t28 = space();
         div5 = element("div");
         span5 = element("span");
         span5.textContent = "Last modified";
-        t30 = space();
+        t28 = space();
         p5 = element("p");
-        t31 = text(t31_value);
+        t29 = text(t29_value);
         attr(button, "class", "close svelte-e20ejy");
         attr(h2, "class", "svelte-e20ejy");
         attr(span0, "class", "svelte-e20ejy");
@@ -12143,28 +12035,26 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(div2, t14);
         append(div2, p2);
         append(p2, t15);
-        append(p2, t16);
-        append(main, t17);
+        append(main, t16);
         append(main, div3);
         append(div3, span3);
-        append(div3, t19);
+        append(div3, t18);
         append(div3, p3);
-        append(p3, t20);
-        append(p3, t21);
-        append(main, t22);
+        append(p3, t19);
+        append(main, t20);
         append(main, div4);
         append(div4, span4);
-        append(div4, t24);
+        append(div4, t22);
         append(div4, p4);
+        append(p4, t23);
+        append(p4, t24);
         append(p4, t25);
-        append(p4, t26);
-        append(p4, t27);
-        append(main, t28);
+        append(main, t26);
         append(main, div5);
         append(div5, span5);
-        append(div5, t30);
+        append(div5, t28);
         append(div5, p5);
-        append(p5, t31);
+        append(p5, t29);
         current = true;
         if (!mounted) {
           dispose = listen(
@@ -12211,30 +12101,30 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           set_data(t7, t7_value);
         if ((!current || dirty & /*planDetail*/
         2) && t11_value !== (t11_value = /*planDetail*/
-        (ctx2[1].yearOf || "0") + ""))
+        (ctx2[1].planType || "--") + ""))
           set_data(t11, t11_value);
         if ((!current || dirty & /*planDetail*/
-        2) && t16_value !== (t16_value = /*planDetail*/
-        (ctx2[1].budgetIDR || "0") + ""))
-          set_data(t16, t16_value);
+        2) && t15_value !== (t15_value = /*planDetail*/
+        (ctx2[1].yearOf || "0") + ""))
+          set_data(t15, t15_value);
         if ((!current || dirty & /*planDetail*/
-        2) && t21_value !== (t21_value = /*planDetail*/
-        (ctx2[1].budgetUSD || "0") + ""))
-          set_data(t21, t21_value);
+        2) && t19_value !== (t19_value = /*planDetail*/
+        (ctx2[1].budgetIDR || "0") + ""))
+          set_data(t19, t19_value);
+        if ((!current || dirty & /*planDetail*/
+        2) && t23_value !== (t23_value = /*planDetail*/
+        (ctx2[1].quantity || "0") + ""))
+          set_data(t23, t23_value);
         if ((!current || dirty & /*planDetail*/
         2) && t25_value !== (t25_value = /*planDetail*/
-        (ctx2[1].quantity || "0") + ""))
+        (ctx2[1].unit || "") + ""))
           set_data(t25, t25_value);
         if ((!current || dirty & /*planDetail*/
-        2) && t27_value !== (t27_value = /*planDetail*/
-        (ctx2[1].unit || "") + ""))
-          set_data(t27, t27_value);
-        if ((!current || dirty & /*planDetail*/
-        2) && t31_value !== (t31_value = (0, import_formatter.localeDatetime)(
+        2) && t29_value !== (t29_value = (0, import_formatter.localeDatetime)(
           /*planDetail*/
           ctx2[1].updatedAt || 0
         ) + ""))
-          set_data(t31, t31_value);
+          set_data(t29, t29_value);
         if (!current || dirty & /*isShowPlanDetail*/
         4 && article_class_value !== (article_class_value = "plan_detail " + /*isShowPlanDetail*/
         (ctx2[2] ? "show" : "") + " svelte-e20ejy")) {
@@ -12376,8 +12266,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       orgId: "",
       planType: "",
       yearOf: 0,
-      budgetIDR: 0,
-      budgetUSD: 0,
+      budgetIDR: "",
       quantity: 0,
       unit: "",
       createdAt: "",
@@ -12390,7 +12279,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let isShowPlanDetail = false;
     const onPlanDetails = (e) => {
       $invalidate(2, isShowPlanDetail = true);
+      if (planDetail.id == e.detail.id)
+        return;
       $invalidate(1, planDetail = e.detail);
+      $invalidate(
+        1,
+        planDetail.budgetIDR = new Intl.NumberFormat(
+          "id",
+          {
+            style: "currency",
+            currency: "IDR",
+            maximumSignificantDigits: 3
+          }
+        ).format(Number(planDetail.budgetIDR) || 0),
+        planDetail
+      );
     };
     const click_handler = () => $invalidate(2, isShowPlanDetail = false);
     return [REFORMAT_ORGS, planDetail, isShowPlanDetail, onPlanDetails, click_handler];

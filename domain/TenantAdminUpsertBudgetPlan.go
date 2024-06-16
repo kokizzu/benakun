@@ -94,6 +94,8 @@ func (d *Domain) TenantAdminUpsertBudgetPlan(in *TenantAdminUpsertBudgetPlanIn) 
 			out.SetError(400, ErrTenantAdminUpsertBudgetPlanNotFound)
 			return
 		}
+	} else {
+		plan.SetTenantCode(user.TenantCode)
 	}
 	plan.SetAll(in.Plan, nil, nil)
 	if in.Plan.YearOf == 0 {

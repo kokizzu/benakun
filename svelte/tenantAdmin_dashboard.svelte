@@ -110,6 +110,7 @@
     const i = {
       pager,
       staffEmail: email,
+      role: 'dataEntry',
       cmd: 'upsert'
     };
     await TenantAdminDashboard( // @ts-ignore

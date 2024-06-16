@@ -21,7 +21,7 @@ type (
 	TenantAdminBankAccountsIn struct {
 		RequestCommon
 		Cmd      string                `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		Account  rqBudget.BankAccounts `json:"account" form:"account" query:"account" long:"account" msg:"account"`
+		Account  *rqBudget.BankAccounts `json:"account" form:"account" query:"account" long:"account" msg:"account"`
 		WithMeta bool                  `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
 		Pager    zCrud.PagerIn         `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 	}

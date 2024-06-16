@@ -7,8 +7,7 @@
   * @property {string} orgId
   * @property {string} planType
   * @property {number} yearOf
-  * @property {number} budgetIDR
-  * @property {number} budgetUSD
+  * @property {string} budgetIDR
   * @property {number} quantity
   * @property {string} unit
   * @property {string} createdAt

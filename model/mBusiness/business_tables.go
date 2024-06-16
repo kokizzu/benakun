@@ -12,7 +12,7 @@ const (
 	RuleTypeAVERAGE = `average`
 
 	// Kind type
-	KindTypeGOODS 		= `goods`
+	KindTypeGOODS 	= `goods`
 	KindTypeService = `service`
 )
 
@@ -74,6 +74,15 @@ const (
 	Lng 					= `lng`
 )
 
+const (
+	TableInventoryChanges Tt.TableName = `inventoryChanges`
+
+	StockDelta		= `stockDelta`
+	ProductId 		= `productId`
+	LocationId		= `locationId`
+	SpendingId		= `spendingId`
+	ExpenseId			= `expenseId`
+)
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableProducts: {
@@ -91,7 +100,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Detail, Tt.String},
 			{Rule, Tt.String},
 			{Kind, Tt.String},
-			{CogsIDR, Tt.Integer},
+			{CogsIDR, Tt.Unsigned},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,
@@ -118,6 +127,26 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Address, Tt.String},
 			{Lat, Tt.Double},
 			{Lng, Tt.Double},
+		},
+		AutoIncrementId: true,
+		Engine: Tt.Vinyl,
+	},
+	TableInventoryChanges: {
+		Fields: []Tt.Field{
+			{Id, Tt.Unsigned},
+			{TenantCode, Tt.String},
+			{CreatedAt, Tt.Integer},
+			{CreatedBy, Tt.Unsigned},
+			{UpdatedAt, Tt.Integer},
+			{UpdatedBy, Tt.Unsigned},
+			{DeletedAt, Tt.Integer},
+			{DeletedBy, Tt.Unsigned},
+			{RestoredBy, Tt.Unsigned},
+			{StockDelta, Tt.Unsigned},
+			{ProductId, Tt.Unsigned},
+			{LocationId, Tt.Unsigned},
+			{SpendingId, Tt.Unsigned},
+			{ExpenseId, Tt.Unsigned},
 		},
 		AutoIncrementId: true,
 		Engine: Tt.Vinyl,

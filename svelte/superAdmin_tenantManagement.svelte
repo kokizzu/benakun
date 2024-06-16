@@ -162,12 +162,10 @@
         </button>
       </header>
       <div class="forms">
-        {#if staffs && staffs.length > 0}
-          <ReadOnlyTable
-            FIELDS={staffsFields}
-            ROWS={staffs}
-          />
-        {/if}
+        <ReadOnlyTable
+          FIELDS={staffsFields}
+          ROWS={staffs}
+        />
       </div>
     </div>
   </div>

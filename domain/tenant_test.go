@@ -1,13 +1,16 @@
 package domain
 
 import (
+	"benakun/model/mBusiness"
+	"benakun/model/mBusiness/rqBusiness"
 	"benakun/model/mFinance/rqFinance"
+	"benakun/model/zCrud"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 )
 
-func TestCreateCoaChild(t *testing.T) {
+func TestCoa(t *testing.T) {
 	d, closer := testDomain()
 	defer closer()
 
@@ -28,272 +31,72 @@ func TestCreateCoaChild(t *testing.T) {
 	})
 }
 
-// func TestTenantAdminOrganization(t *testing.T) {
-// 	d, closer := testDomain()
-// 	defer closer()
+func TestProduct(t *testing.T) {
+	d, closer := testDomain()
+	defer closer()
 
-// 	t.Run(`createCompanyMustSucceed`, func(t *testing.T) {
-// 		in := UserCreateCompanyIn{
-// 			RequestCommon: testAdminRequestCommon(UserCreateCompanyAction),
-// 			TenantCode: `habi`,
-// 			CompanyName: `Benalu Dev`,
-// 			HeadTitle: `Ahmad Habibi`,
-// 		}
+	t.Run(`insertMustSucceed`, func(t *testing.T) {
+		in := TenantAdminProductsIn{
+			RequestCommon: testAdminRequestCommon(TenantAdminProductsAction),
+			Cmd: zCrud.CmdUpsert,
+			Product: &rqBusiness.Products{
+				Name: `Cheeseburger`,
+				Detail: `Daging sapi, keju, acar, bawang, mustard, dan saus tomat dalam roti berwijen.`,
+				CogsIDR: 40000,
+				Rule: mBusiness.RuleTypeFIFO,
+				Kind: mBusiness.KindTypeGOODS,
+			},
+		}
 
-// 		out := d.UserCreateCompany(&in)
-// 		require.Empty(t, out.Error)
-// 		require.NotEmpty(t, out.Company)
+		out := d.TenantAdminProducts(&in)
+		assert.Empty(t, out.Error)
+		assert.NotNil(t, out.Product)
 
-// 		// Organization IDs to move/do operation
-// 		// Make sure channel size is same as how many time it will be use
-// 		ID_divC := make(chan uint64, 2)
-// 		ID_divD := make(chan uint64)
-// 		ID_jobF := make(chan uint64, 6)
-
-// 		if assert.Empty(t, out.Error) {
-// 			go t.Run(`addDeptAMustSucceed`, func(t *testing.T) {
-// 				in := TenantAdminUpsertOrganizationChildIn{
-// 					RequestCommon: testAdminRequestCommon(TenantAdminUpsertOrganizationChildAction),
-// 					Name: `DeptA`,
-// 					HeadTitle: `Mr. DeptA`,
-// 					ParentId: out.Company.Id,
-// 				}
-
-// 				out := d.TenantAdminUpsertOrganizationChild(&in)
-// 				require.Empty(t, out.Error)
-// 				assert.NotEmpty(t, out.Org)
-// 				assert.NotZero(t, out.Org.Id)
-// 				if assert.Empty(t, out.Error) {
-// 					t.Run(`addDeptA2MustError`, func(t *testing.T) {
-// 						in := TenantAdminUpsertOrganizationChildIn{
-// 							RequestCommon: testAdminRequestCommon(TenantAdminUpsertOrganizationChildAction),
-// 							Name: `DeptA2`,
-// 							HeadTitle: `Mr. DeptA2`,
-// 							ParentId: 000000000, // error
-// 						}
-		
-// 						out := d.TenantAdminUpsertOrganizationChild(&in)
-// 						require.NotEmpty(t, out.Error)
-// 						assert.NotEmpty(t, out.Error)
-// 					})
-
-// 					t.Run(`addDivCMustSucceed`, func(t *testing.T) {
-// 						in := TenantAdminUpsertOrganizationChildIn{
-// 							RequestCommon: testAdminRequestCommon(TenantAdminUpsertOrganizationChildAction),
-// 							Name: `DivC`,
-// 							HeadTitle: `Mr. DivC`,
-// 							ParentId: out.Org.Id,
-// 						}
-
-// 						out := d.TenantAdminUpsertOrganizationChild(&in)
-// 						require.Empty(t, out.Error)
-// 						assert.NotEmpty(t, out.Org)
-// 						assert.NotZero(t, out.Org.Id)
-
-// 						// send it twice because will be use twice
-// 						ID_divC <- out.Org.Id; ID_divC <- out.Org.Id 
-
-// 						if assert.Empty(t, out.Error) {
-// 							t.Run(`addJobAMustSucceed`, func(t *testing.T) {
-// 								in := TenantAdminUpsertOrganizationChildIn{
-// 									RequestCommon: testAdminRequestCommon(TenantAdminUpsertOrganizationChildAction),
-// 									Name: `JobA`,
-// 									HeadTitle: `Mr. JobA`,
-// 									ParentId: out.Org.Id,
-// 								}
-		
-// 								out := d.TenantAdminUpsertOrganizationChild(&in)
-// 								assert.Empty(t, out.Error)
-// 							})
-
-// 							t.Run(`moveJobFToDivCMustSucceed`, func(t *testing.T) {
-// 								in := TenantAdminMoveOrganizationChildIn{
-// 									RequestCommon: testAdminRequestCommon(TenantAdminUpsertOrganizationChildAction),
-// 									Id: <-ID_jobF,
-// 									MoveToIdx: 0,
-// 									ToParentId: out.Org.Id,
-// 								}
-		
-// 								out := d.TenantAdminMoveOrganizationChild(&in)
-// 								require.Empty(t, out.Error)
-// 								assert.NotEmpty(t, out.Org)
-// 								assert.NotZero(t, out.Org.Id)
-// 							})
-// 						}
-// 					})
-
-// 					t.Run(`addDivDMustSucceed`, func(t *testing.T) {
-// 						in := TenantAdminUpsertOrganizationChildIn{
-// 							RequestCommon: testAdminRequestCommon(TenantAdminUpsertOrganizationChildAction),
-// 							Name: `DivD`,
-// 							HeadTitle: `Mr. DivD`,
-// 							ParentId: out.Org.Id,
-// 						}
-
-// 						out := d.TenantAdminUpsertOrganizationChild(&in)
-// 						require.Empty(t, out.Error)
-// 						assert.NotEmpty(t, out.Org)
-// 						assert.NotZero(t, out.Org.Id)
-
-// 						ID_divD <- out.Org.Id
-
-// 						t.Run(`moveDivCToDivDMustError`, func(t *testing.T) {
-// 							in := TenantAdminMoveOrganizationChildIn{
-// 								RequestCommon: testAdminRequestCommon(TenantAdminUpsertOrganizationChildAction),
-// 								Id: <-ID_divC,
-// 								MoveToIdx: 0,
-// 								ToParentId: out.Org.Id,
-// 							}
+		t.Run(`editMustSucceed`, func(t *testing.T) {
+			in := TenantAdminProductsIn{
+				RequestCommon: testAdminRequestCommon(TenantAdminProductsAction),
+				Cmd: zCrud.CmdUpsert,
+				Product: &rqBusiness.Products{
+					Id: out.Product.Id,
+					Name: out.Product.Name + ` [edited]`,
+					Detail: out.Product.Detail + ` [edited]`,
+					CogsIDR: out.Product.CogsIDR,
+					Rule: mBusiness.RuleTypeFIFO,
+					Kind: mBusiness.KindTypeGOODS,
+				},
+			}
 	
-// 							out := d.TenantAdminMoveOrganizationChild(&in)
-// 							require.NotEmpty(t, out.Error)
-// 							assert.NotEmpty(t, out.Error)
-// 						})
-// 					})
-// 				}
-// 			})
+			out := d.TenantAdminProducts(&in)
+			assert.Empty(t, out.Error)
+			assert.NotNil(t, out.Product)
+		})
 
-// 			go t.Run(`addDeptBMustSucceed`, func(t *testing.T) {
-// 				in := TenantAdminUpsertOrganizationChildIn{
-// 					RequestCommon: testAdminRequestCommon(TenantAdminUpsertOrganizationChildAction),
-// 					Name: `DeptB`,
-// 					HeadTitle: `Mr. DeptB`,
-// 					ParentId: out.Company.Id,
-// 				}
+		t.Run(`deleteMustSucceed`, func(t *testing.T) {
+			in := TenantAdminProductsIn{
+				RequestCommon: testAdminRequestCommon(TenantAdminProductsAction),
+				Cmd: zCrud.CmdDelete,
+				Product: &rqBusiness.Products{
+					Id: out.Product.Id,
+				},
+			}
 
-// 				out := d.TenantAdminUpsertOrganizationChild(&in)
-// 				require.Empty(t, out.Error)
-// 				assert.NotEmpty(t, out.Org)
-// 				assert.NotZero(t, out.Org.Id)
-// 				if assert.Empty(t, out.Error) {
-// 					t.Run(`addDivEMustSucceed`, func(t *testing.T) {
-// 						in := TenantAdminUpsertOrganizationChildIn{
-// 							RequestCommon: testAdminRequestCommon(TenantAdminUpsertOrganizationChildAction),
-// 							Name: `DivE`,
-// 							HeadTitle: `Mr. DivE`,
-// 							ParentId: out.Org.Id,
-// 						}
+			out := d.TenantAdminProducts(&in)
+			assert.Empty(t, out.Error)
+			assert.NotNil(t, out.Product)
+		})
 
-// 						out := d.TenantAdminUpsertOrganizationChild(&in)
-// 						require.Empty(t, out.Error)
-// 						assert.NotEmpty(t, out.Org)
-// 						assert.NotZero(t, out.Org.Id)
-// 						if assert.Empty(t, out.Error) {
-// 							t.Run(`addJobFMustSucceed`, func(t *testing.T) {
-// 								in := TenantAdminUpsertOrganizationChildIn{
-// 									RequestCommon: testAdminRequestCommon(TenantAdminUpsertOrganizationChildAction),
-// 									Name: `JobF`,
-// 									HeadTitle: `Mr. JobF`,
-// 									ParentId: out.Org.Id,
-// 								}
-		
-// 								out := d.TenantAdminUpsertOrganizationChild(&in)
-// 								assert.Empty(t, out.Error)
+		t.Run(`restoreMustSucceed`, func(t *testing.T) {
+			in := TenantAdminProductsIn{
+				RequestCommon: testAdminRequestCommon(TenantAdminProductsAction),
+				Cmd: zCrud.CmdRestore,
+				Product: &rqBusiness.Products{
+					Id: out.Product.Id,
+				},
+			}
 
-// 								ID_jobF <- out.Org.Id // 1
-// 								ID_jobF <- out.Org.Id // 2
-// 								ID_jobF <- out.Org.Id // 3
-// 								ID_jobF <- out.Org.Id // 4
-// 								ID_jobF <- out.Org.Id // 5
-// 								ID_jobF <- out.Org.Id // 6
-// 							})
-// 						}
-// 					})
-
-// 					t.Run(`moveDivCToDeptBLastPositionMustSucceed`, func(t *testing.T) {
-// 						in := TenantAdminMoveOrganizationChildIn{
-// 							RequestCommon: testAdminRequestCommon(TenantAdminUpsertOrganizationChildAction),
-// 							Id: <-ID_divC,
-// 							MoveToIdx: 1, // move to the last position
-// 							ToParentId: out.Org.Id,
-// 						}
-
-// 						out := d.TenantAdminMoveOrganizationChild(&in)
-// 						require.Empty(t, out.Error)
-// 						assert.NotEmpty(t, out.Org)
-// 						assert.NotZero(t, out.Org.Id)
-// 					})
-
-// 					t.Run(`moveDivDToDeptBFirstPositionMustSucceed`, func(t *testing.T) {
-// 						in := TenantAdminMoveOrganizationChildIn{
-// 							RequestCommon: testAdminRequestCommon(TenantAdminUpsertOrganizationChildAction),
-// 							Id: <-ID_divD,
-// 							MoveToIdx: 0, // move to the First position
-// 							ToParentId: out.Org.Id,
-// 						}
-
-// 						out := d.TenantAdminMoveOrganizationChild(&in)
-// 						require.Empty(t, out.Error)
-// 						assert.NotEmpty(t, out.Org)
-// 						assert.NotZero(t, out.Org.Id)
-// 					})
-
-// 					t.Run(`moveJobFToDeptBMustError`, func(t *testing.T) {
-// 						in := TenantAdminMoveOrganizationChildIn{
-// 							RequestCommon: testAdminRequestCommon(TenantAdminUpsertOrganizationChildAction),
-// 							Id: <-ID_jobF,
-// 							MoveToIdx: 1,
-// 							ToParentId: out.Org.Id,
-// 						}
-
-// 						out := d.TenantAdminMoveOrganizationChild(&in)
-// 						require.NotEmpty(t, out.Error)
-// 						assert.NotEmpty(t, out.Error)
-// 					})
-
-// 					t.Run(`moveJobFToDeptBFirstPositionMustError`, func(t *testing.T) {
-// 						in := TenantAdminMoveOrganizationChildIn{
-// 							RequestCommon: testAdminRequestCommon(TenantAdminUpsertOrganizationChildAction),
-// 							Id: <-ID_jobF,
-// 							MoveToIdx: 0,
-// 							ToParentId: out.Org.Id,
-// 						}
-
-// 						out := d.TenantAdminMoveOrganizationChild(&in)
-// 						require.NotEmpty(t, out.Error)
-// 						assert.NotEmpty(t, out.Error)
-// 					})
-// 				}
-// 			})
-
-// 			go t.Run(`moveJobFToCompanyFirstPositionMustError`, func(t *testing.T) {
-// 				in := TenantAdminMoveOrganizationChildIn{
-// 					RequestCommon: testAdminRequestCommon(TenantAdminUpsertOrganizationChildAction),
-// 					Id: <-ID_jobF,
-// 					MoveToIdx: 0,
-// 					ToParentId: out.Company.Id,
-// 				}
-
-// 				out := d.TenantAdminMoveOrganizationChild(&in)
-// 				require.NotEmpty(t, out.Error)
-// 				assert.NotEmpty(t, out.Error)
-// 			})
-
-// 			go t.Run(`moveJobFToCompanyLastPositionMustError`, func(t *testing.T) {
-// 				in := TenantAdminMoveOrganizationChildIn{
-// 					RequestCommon: testAdminRequestCommon(TenantAdminUpsertOrganizationChildAction),
-// 					Id: <-ID_jobF,
-// 					MoveToIdx: 2,
-// 					ToParentId: out.Company.Id,
-// 				}
-
-// 				out := d.TenantAdminMoveOrganizationChild(&in)
-// 				require.NotEmpty(t, out.Error)
-// 				assert.NotEmpty(t, out.Error)
-// 			})
-
-// 			go t.Run(`moveJobFToCompanyMiddlePositionMustError`, func(t *testing.T) {
-// 				in := TenantAdminMoveOrganizationChildIn{
-// 					RequestCommon: testAdminRequestCommon(TenantAdminUpsertOrganizationChildAction),
-// 					Id: <-ID_jobF,
-// 					MoveToIdx: 1, // It's middle position
-// 					ToParentId: out.Company.Id,
-// 				}
-
-// 				out := d.TenantAdminMoveOrganizationChild(&in)
-// 				require.NotEmpty(t, out.Error)
-// 				assert.NotEmpty(t, out.Error)
-// 			})
-// 		}
-// 	})
-// }
+			out := d.TenantAdminProducts(&in)
+			assert.Empty(t, out.Error)
+			assert.NotNil(t, out.Product)
+		})
+	})
+}

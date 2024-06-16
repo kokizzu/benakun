@@ -416,7 +416,7 @@ func (t *TransactionsMutator) SetCompletedAt(val int64) bool { //nolint:dupl fal
 }
 
 // SetPrice create mutations, should not duplicate
-func (t *TransactionsMutator) SetPrice(val int64) bool { //nolint:dupl false positive
+func (t *TransactionsMutator) SetPrice(val uint64) bool { //nolint:dupl false positive
 	if val != t.Price {
 		t.mutations.Assign(8, val)
 		t.logs = append(t.logs, A.X{`price`, t.Price, val})

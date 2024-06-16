@@ -37,8 +37,9 @@ var testSuperAdminSessionToken string
 var testAdmin *rqAuth.Users
 
 const (
-	testSuperAdminEmail    = `admin@localhost`
-	testSuperAdminUserName = `admin1`
+	testSuperAdminEmail    		= `admin@localhost`
+	testSuperAdminUserName 		= `admin1`
+	testSuperAdminTenantCode 	= `admin-1234`
 )
 
 func TestMain(m *testing.M) {
@@ -189,11 +190,19 @@ func testDomain() (*Domain, func()) {
 	// create admin
 	admin := wcAuth.NewUsersMutator(testTt)
 	admin.Email = testSuperAdminEmail
+	admin.TenantCode = testSuperAdminTenantCode
 	if !admin.FindByEmail() {
 		admin.DoInsert()
 	}
 	testAdmin = &admin.Users
 	testAdmin.Adapter = nil // prevent modification
+
+	// create tenant admin
+	tenant := wcAuth.NewTenantsMutator(testTt)
+	tenant.TenantCode = testSuperAdminTenantCode
+	if !tenant.FindByTenantCode() {
+		tenant.DoInsert()
+	}
 
 	// create session
 	session := wcAuth.NewSessionsMutator(testTt)
@@ -202,6 +211,8 @@ func testDomain() (*Domain, func()) {
 		UserId:    admin.Id,
 		ExpiredAt: testTime.AddDate(0, 0, conf.CookieDays).Unix(),
 		Email:     admin.Email,
+		TenantCode: testSuperAdminTenantCode,
+		IsTenantAdmin: true,
 	}
 	testSuperAdminSessionToken = sess.Encrypt(``) // empty user agent to simplify testing
 	session.SessionToken = testSuperAdminSessionToken

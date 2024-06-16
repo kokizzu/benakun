@@ -264,9 +264,13 @@
 		OnEdit(idToMod, payloads);
 	}
 
-	function OnClickMap(/** @type any */ lngLat) {
-		payloads[IdxLatitude] = lngLat.lat;
-    payloads[IdxLongitude] = lngLat.lng;
+	/** @param {[number, number]} lngLat */
+	function OnClickMap(lngLat) {
+    payloads[IdxLongitude] = lngLat[0];
+		payloads[IdxLatitude] = lngLat[1];
+
+		Coord.lng = lngLat[0];
+		Coord.lat = lngLat[1]; 
 	}
 </script>
 
@@ -323,8 +327,10 @@
 					<div class="map_container">
 						<Map
 							bind:this={mapElm}
-							{OnClickMap} {Coord}
-							IsClickable
+							bind:Coord={Coord}
+
+							{OnClickMap}
+							IsClickable IsDraggable
 						/>
 					</div>
 				{/if}
@@ -398,6 +404,7 @@
 							<th class="
 								{f.inputType === 'textarea' ? 'textarea' : ''}
 								{f.inputType === 'datetime' ? 'datetime' : ''}
+								{f.name === 'staffId' ? 'staff' : ''}
 							">{f.label}</th>
 						{/if}
 					{/each}
@@ -497,10 +504,8 @@
 					{/each}
 				{:else}
 					<tr>
-						<td class="num_row">1</td>
-						{#each (FIELDS || []) as _}
-							<td>no-data</td>
-						{/each}
+						<td class="num_row">0</td>
+						<td>no-data</td>
 					</tr>
 				{/if}
 			</tbody>
@@ -852,7 +857,8 @@
     text-wrap: nowrap;
   }
 
-	.table_root .table_container table thead tr th.textarea {
+	.table_root .table_container table thead tr th.textarea,
+	.table_root .table_container table thead tr th.staff {
 		min-width: 280px !important;
 	}
 

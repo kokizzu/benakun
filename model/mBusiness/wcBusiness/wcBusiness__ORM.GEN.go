@@ -15,12 +15,326 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-// LocationsMutator DAO writer/command struct
+// InventoryChangesMutator DAO writer/command struct
 //
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file wcBusiness__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type wcBusiness__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type wcBusiness__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcBusiness__ORM.GEN.go
+type InventoryChangesMutator struct {
+	rqBusiness.InventoryChanges
+	mutations *tarantool.Operations
+	logs      []A.X
+}
+
+// NewInventoryChangesMutator create new ORM writer/command object
+func NewInventoryChangesMutator(adapter *Tt.Adapter) (res *InventoryChangesMutator) {
+	res = &InventoryChangesMutator{InventoryChanges: rqBusiness.InventoryChanges{Adapter: adapter}}
+	res.mutations = tarantool.NewOperations()
+	return
+}
+
+// Logs get array of logs [field, old, new]
+func (i *InventoryChangesMutator) Logs() []A.X { //nolint:dupl false positive
+	return i.logs
+}
+
+// HaveMutation check whether Set* methods ever called
+func (i *InventoryChangesMutator) HaveMutation() bool { //nolint:dupl false positive
+	return len(i.logs) > 0
+}
+
+// ClearMutations clear all previously called Set* methods
+func (i *InventoryChangesMutator) ClearMutations() { //nolint:dupl false positive
+	i.mutations = tarantool.NewOperations()
+	i.logs = []A.X{}
+}
+
+// DoOverwriteById update all columns, error if not exists, not using mutations/Set*
+func (i *InventoryChangesMutator) DoOverwriteById() bool { //nolint:dupl false positive
+	_, err := i.Adapter.RetryDo(tarantool.NewUpdateRequest(i.SpaceName()).
+		Index(i.UniqueIndexId()).
+		Key(tarantool.UintKey{I: uint(i.Id)}).
+		Operations(i.ToUpdateArray()),
+	)
+	return !L.IsError(err, `InventoryChanges.DoOverwriteById failed: `+i.SpaceName())
+}
+
+// DoUpdateById update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (i *InventoryChangesMutator) DoUpdateById() bool { //nolint:dupl false positive
+	if !i.HaveMutation() {
+		return true
+	}
+	_, err := i.Adapter.RetryDo(
+		tarantool.NewUpdateRequest(i.SpaceName()).
+			Index(i.UniqueIndexId()).
+			Key(tarantool.UintKey{I: uint(i.Id)}).
+			Operations(i.mutations),
+	)
+	return !L.IsError(err, `InventoryChanges.DoUpdateById failed: `+i.SpaceName())
+}
+
+// DoDeletePermanentById permanent delete
+func (i *InventoryChangesMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
+	_, err := i.Adapter.RetryDo(
+		tarantool.NewDeleteRequest(i.SpaceName()).
+			Index(i.UniqueIndexId()).
+			Key(tarantool.UintKey{I: uint(i.Id)}),
+	)
+	return !L.IsError(err, `InventoryChanges.DoDeletePermanentById failed: `+i.SpaceName())
+}
+
+// DoInsert insert, error if already exists
+func (i *InventoryChangesMutator) DoInsert() bool { //nolint:dupl false positive
+	arr := i.ToArray()
+	row, err := i.Adapter.RetryDo(
+		tarantool.NewInsertRequest(i.SpaceName()).
+			Tuple(arr),
+	)
+	if err == nil {
+		if len(row) > 0 {
+			if cells, ok := row[0].([]any); ok && len(cells) > 0 {
+				i.Id = X.ToU(cells[0])
+			}
+		}
+	}
+	return !L.IsError(err, `InventoryChanges.DoInsert failed: `+i.SpaceName()+`\n%#v`, arr)
+}
+
+// DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
+// tarantool's replace/upsert can only match by primary key
+// previous name: DoReplace
+func (i *InventoryChangesMutator) DoUpsertById() bool { //nolint:dupl false positive
+	if i.Id > 0 {
+		return i.DoUpdateById()
+	}
+	return i.DoInsert()
+}
+
+// SetId create mutations, should not duplicate
+func (i *InventoryChangesMutator) SetId(val uint64) bool { //nolint:dupl false positive
+	if val != i.Id {
+		i.mutations.Assign(0, val)
+		i.logs = append(i.logs, A.X{`id`, i.Id, val})
+		i.Id = val
+		return true
+	}
+	return false
+}
+
+// SetTenantCode create mutations, should not duplicate
+func (i *InventoryChangesMutator) SetTenantCode(val string) bool { //nolint:dupl false positive
+	if val != i.TenantCode {
+		i.mutations.Assign(1, val)
+		i.logs = append(i.logs, A.X{`tenantCode`, i.TenantCode, val})
+		i.TenantCode = val
+		return true
+	}
+	return false
+}
+
+// SetCreatedAt create mutations, should not duplicate
+func (i *InventoryChangesMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
+	if val != i.CreatedAt {
+		i.mutations.Assign(2, val)
+		i.logs = append(i.logs, A.X{`createdAt`, i.CreatedAt, val})
+		i.CreatedAt = val
+		return true
+	}
+	return false
+}
+
+// SetCreatedBy create mutations, should not duplicate
+func (i *InventoryChangesMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
+	if val != i.CreatedBy {
+		i.mutations.Assign(3, val)
+		i.logs = append(i.logs, A.X{`createdBy`, i.CreatedBy, val})
+		i.CreatedBy = val
+		return true
+	}
+	return false
+}
+
+// SetUpdatedAt create mutations, should not duplicate
+func (i *InventoryChangesMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
+	if val != i.UpdatedAt {
+		i.mutations.Assign(4, val)
+		i.logs = append(i.logs, A.X{`updatedAt`, i.UpdatedAt, val})
+		i.UpdatedAt = val
+		return true
+	}
+	return false
+}
+
+// SetUpdatedBy create mutations, should not duplicate
+func (i *InventoryChangesMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
+	if val != i.UpdatedBy {
+		i.mutations.Assign(5, val)
+		i.logs = append(i.logs, A.X{`updatedBy`, i.UpdatedBy, val})
+		i.UpdatedBy = val
+		return true
+	}
+	return false
+}
+
+// SetDeletedAt create mutations, should not duplicate
+func (i *InventoryChangesMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
+	if val != i.DeletedAt {
+		i.mutations.Assign(6, val)
+		i.logs = append(i.logs, A.X{`deletedAt`, i.DeletedAt, val})
+		i.DeletedAt = val
+		return true
+	}
+	return false
+}
+
+// SetDeletedBy create mutations, should not duplicate
+func (i *InventoryChangesMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
+	if val != i.DeletedBy {
+		i.mutations.Assign(7, val)
+		i.logs = append(i.logs, A.X{`deletedBy`, i.DeletedBy, val})
+		i.DeletedBy = val
+		return true
+	}
+	return false
+}
+
+// SetRestoredBy create mutations, should not duplicate
+func (i *InventoryChangesMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
+	if val != i.RestoredBy {
+		i.mutations.Assign(8, val)
+		i.logs = append(i.logs, A.X{`restoredBy`, i.RestoredBy, val})
+		i.RestoredBy = val
+		return true
+	}
+	return false
+}
+
+// SetStockDelta create mutations, should not duplicate
+func (i *InventoryChangesMutator) SetStockDelta(val uint64) bool { //nolint:dupl false positive
+	if val != i.StockDelta {
+		i.mutations.Assign(9, val)
+		i.logs = append(i.logs, A.X{`stockDelta`, i.StockDelta, val})
+		i.StockDelta = val
+		return true
+	}
+	return false
+}
+
+// SetProductId create mutations, should not duplicate
+func (i *InventoryChangesMutator) SetProductId(val uint64) bool { //nolint:dupl false positive
+	if val != i.ProductId {
+		i.mutations.Assign(10, val)
+		i.logs = append(i.logs, A.X{`productId`, i.ProductId, val})
+		i.ProductId = val
+		return true
+	}
+	return false
+}
+
+// SetLocationId create mutations, should not duplicate
+func (i *InventoryChangesMutator) SetLocationId(val uint64) bool { //nolint:dupl false positive
+	if val != i.LocationId {
+		i.mutations.Assign(11, val)
+		i.logs = append(i.logs, A.X{`locationId`, i.LocationId, val})
+		i.LocationId = val
+		return true
+	}
+	return false
+}
+
+// SetSpendingId create mutations, should not duplicate
+func (i *InventoryChangesMutator) SetSpendingId(val uint64) bool { //nolint:dupl false positive
+	if val != i.SpendingId {
+		i.mutations.Assign(12, val)
+		i.logs = append(i.logs, A.X{`spendingId`, i.SpendingId, val})
+		i.SpendingId = val
+		return true
+	}
+	return false
+}
+
+// SetExpenseId create mutations, should not duplicate
+func (i *InventoryChangesMutator) SetExpenseId(val uint64) bool { //nolint:dupl false positive
+	if val != i.ExpenseId {
+		i.mutations.Assign(13, val)
+		i.logs = append(i.logs, A.X{`expenseId`, i.ExpenseId, val})
+		i.ExpenseId = val
+		return true
+	}
+	return false
+}
+
+// SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
+func (i *InventoryChangesMutator) SetAll(from rqBusiness.InventoryChanges, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
+	if excludeMap == nil { // list of fields to exclude
+		excludeMap = M.SB{}
+	}
+	if forceMap == nil { // list of fields to force overwrite
+		forceMap = M.SB{}
+	}
+	if !excludeMap[`id`] && (forceMap[`id`] || from.Id != 0) {
+		i.Id = from.Id
+		changed = true
+	}
+	if !excludeMap[`tenantCode`] && (forceMap[`tenantCode`] || from.TenantCode != ``) {
+		i.TenantCode = S.Trim(from.TenantCode)
+		changed = true
+	}
+	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
+		i.CreatedAt = from.CreatedAt
+		changed = true
+	}
+	if !excludeMap[`createdBy`] && (forceMap[`createdBy`] || from.CreatedBy != 0) {
+		i.CreatedBy = from.CreatedBy
+		changed = true
+	}
+	if !excludeMap[`updatedAt`] && (forceMap[`updatedAt`] || from.UpdatedAt != 0) {
+		i.UpdatedAt = from.UpdatedAt
+		changed = true
+	}
+	if !excludeMap[`updatedBy`] && (forceMap[`updatedBy`] || from.UpdatedBy != 0) {
+		i.UpdatedBy = from.UpdatedBy
+		changed = true
+	}
+	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
+		i.DeletedAt = from.DeletedAt
+		changed = true
+	}
+	if !excludeMap[`deletedBy`] && (forceMap[`deletedBy`] || from.DeletedBy != 0) {
+		i.DeletedBy = from.DeletedBy
+		changed = true
+	}
+	if !excludeMap[`restoredBy`] && (forceMap[`restoredBy`] || from.RestoredBy != 0) {
+		i.RestoredBy = from.RestoredBy
+		changed = true
+	}
+	if !excludeMap[`stockDelta`] && (forceMap[`stockDelta`] || from.StockDelta != 0) {
+		i.StockDelta = from.StockDelta
+		changed = true
+	}
+	if !excludeMap[`productId`] && (forceMap[`productId`] || from.ProductId != 0) {
+		i.ProductId = from.ProductId
+		changed = true
+	}
+	if !excludeMap[`locationId`] && (forceMap[`locationId`] || from.LocationId != 0) {
+		i.LocationId = from.LocationId
+		changed = true
+	}
+	if !excludeMap[`spendingId`] && (forceMap[`spendingId`] || from.SpendingId != 0) {
+		i.SpendingId = from.SpendingId
+		changed = true
+	}
+	if !excludeMap[`expenseId`] && (forceMap[`expenseId`] || from.ExpenseId != 0) {
+		i.ExpenseId = from.ExpenseId
+		changed = true
+	}
+	return
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
+// LocationsMutator DAO writer/command struct
 type LocationsMutator struct {
 	rqBusiness.Locations
 	mutations *tarantool.Operations
@@ -659,7 +973,7 @@ func (p *ProductsMutator) SetKind(val string) bool { //nolint:dupl false positiv
 }
 
 // SetCogsIDR create mutations, should not duplicate
-func (p *ProductsMutator) SetCogsIDR(val int64) bool { //nolint:dupl false positive
+func (p *ProductsMutator) SetCogsIDR(val uint64) bool { //nolint:dupl false positive
 	if val != p.CogsIDR {
 		p.mutations.Assign(13, val)
 		p.logs = append(p.logs, A.X{`cogsIDR`, p.CogsIDR, val})
