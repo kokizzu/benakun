@@ -31,6 +31,7 @@ var viewList = map[string]string{
 	`TenantAdminOrganization`: `../svelte/tenantAdmin_organization.html`, // ../svelte/tenantAdmin_organization.svelte
 	`TenantAdminProducts`: `../svelte/tenantAdmin_products.html`, // ../svelte/tenantAdmin_products.svelte
 	`TenantAdminTransaction`: `../svelte/tenantAdmin_transaction.html`, // ../svelte/tenantAdmin_transaction.svelte
+	`TenantAdminTransactionTemplate`: `../svelte/tenantAdmin_transactionTemplate.html`, // ../svelte/tenantAdmin_transactionTemplate.svelte
 	`UserProfile`: `../svelte/user_profile.html`, // ../svelte/user_profile.svelte
 	`UserResponsejoin`: `../svelte/user_responsejoin.html`, // ../svelte/user_responsejoin.svelte
 }
@@ -139,6 +140,11 @@ func (v *Views) RenderTenantAdminProducts(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderTenantAdminTransaction(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`TenantAdminTransaction`].Str(m))
+}
+
+func (v *Views) RenderTenantAdminTransactionTemplate(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`TenantAdminTransactionTemplate`].Str(m))
 }
 
 func (v *Views) RenderUserProfile(c *fiber.Ctx, m M.SX) error {

@@ -1,7 +1,6 @@
 package domain
 
 import (
-	"benakun/model/mAuth"
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
 	"benakun/model/zCrud"
@@ -35,7 +34,7 @@ type (
 )
 
 const (
-	TenantAdminTransactionTemplateAction = `tenantAdmin/dashboard`
+	TenantAdminTransactionTemplateAction = `tenantAdmin/transactionTemplate`
 
 	ErrTenantAdminTransactionTemplateUnauthorized   = `unauthorized user`
 	ErrTenantAdminTransactionTemplateTenantNotFound = `tenant admin not found`
@@ -47,18 +46,6 @@ const (
 	ErrTenantAdminTransactionTemplateNotTenant = `cannot invite user if not tenant`
 	ErrTenantAdminTransactionTemplateInvalidRole = `invalid staff role to modify`
 )
-
-var TenantAdminTransactionTemplateMeta = zCrud.Meta{
-	Fields: []zCrud.Field{
-		{
-			Name:      mAuth.Id,
-			Label:     "ID",
-			DataType:  zCrud.DataTypeInt,
-			InputType: zCrud.InputTypeHidden,
-			ReadOnly: true,
-		},
-	},
-}
 
 func (d *Domain) TenantAdminTransactionTemplate(in *TenantAdminTransactionTemplateIn) (out TenantAdminTransactionTemplateOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
@@ -73,10 +60,6 @@ func (d *Domain) TenantAdminTransactionTemplate(in *TenantAdminTransactionTempla
 	if !user.FindById() {
 		out.SetError(fiber.StatusBadRequest, ErrTenantAdminTransactionTemplateUnauthorized)
 		return
-	}
-
-	if in.WithMeta {
-		out.Meta = &TenantAdminTransactionTemplateMeta
 	}
 
 	return

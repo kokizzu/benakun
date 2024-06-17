@@ -2174,6 +2174,7 @@
 				}
 			}
 		},
+		"/tenantAdmin/moveCoaChild": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -2207,7 +2208,7 @@
 								"schema": {
 									"type": "object",
 									"properties": {
-										"org": {
+										"coa": {
 										"type": "object",
 										"properties": {
 												"id": {
@@ -2219,8 +2220,8 @@
 												"name": {
 														"type": "string"
 												},
-												"headTitle": {
-														"type": "string"
+												"level": {
+														"type": "number"
 												},
 												"parentId": {
 														"type": "number"
@@ -2229,9 +2230,6 @@
 												"type": "object",
 												"properties": {
 														}
-												},
-												"orgType": {
-														"type": "number"
 												},
 												"createdAt": {
 														"type": "number"
@@ -2250,7 +2248,7 @@
 												}
 												}
 										},
-										"orgs": {
+										"coas": {
 										"type": "object",
 										"properties": {
 												}
@@ -2704,6 +2702,132 @@
 								"schema": {
 									"type": "object",
 									"properties": {
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tenantAdmin/transactionTemplate": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"cmd": {
+								"type": "string"
+						},
+						"staffEmail": {
+								"type": "string"
+						},
+						"tenantCode": {
+								"type": "string"
+						},
+						"role": {
+								"type": "string"
+						},
+						"withMeta": {
+							"type": "boolean"
+						},
+						"pager": {
+						"type": "object",
+						"properties": {
+								"page": {
+										"type": "number"
+								},
+								"perPage": {
+										"type": "number"
+								},
+								"filters": {
+								"type": "object",
+								"properties": {
+										}
+								},
+								"order": {
+										"type": "array",
+											"items": {
+												"type": "string"
+											}
+										}
+								}
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminTransactionTemplate",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"pager": {
+										"type": "object",
+										"properties": {
+												"page": {
+														"type": "number"
+												},
+												"perPage": {
+														"type": "number"
+												},
+												"pages": {
+														"type": "number"
+												},
+												"total": {
+														"type": "number"
+												},
+												"filters": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"order": {
+														"type": "array",
+															"items": {
+																"type": "string"
+															}
+														}
+												}
+										},
+										"meta": {
+										"type": "object",
+										"properties": {
+												"fields": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"mutex": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"cachedSelect": {
+														"type": "string"
+												}
+												}
+										},
+										"staffs": {
+										"type": "object",
+										"properties": {
+												}
+										},
+										"staffsForm": {
+										"type": "object",
+										"properties": {
+												}
+										}
 									}
 								}
 							}

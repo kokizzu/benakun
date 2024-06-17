@@ -1485,38 +1485,36 @@ const TenantAdminMoveCoaChildIn = {
 }
 /**
  * @typedef {Object} TenantAdminMoveCoaChildOut
- * @property {number} org.id
- * @property {String} org.tenantCode
- * @property {String} org.name
- * @property {String} org.headTitle
- * @property {number} org.parentId
- * @property {Object} org.children
- * @property {number} org.orgType
- * @property {number} org.createdAt
- * @property {number} org.createdBy
- * @property {number} org.updatedAt
- * @property {number} org.updatedBy
- * @property {number} org.deletedAt
- * @property {Object} orgs
+ * @property {number} coa.id
+ * @property {String} coa.tenantCode
+ * @property {String} coa.name
+ * @property {number} coa.level
+ * @property {number} coa.parentId
+ * @property {Object} coa.children
+ * @property {number} coa.createdAt
+ * @property {number} coa.createdBy
+ * @property {number} coa.updatedAt
+ * @property {number} coa.updatedBy
+ * @property {number} coa.deletedAt
+ * @property {Object} coas
  */
 const TenantAdminMoveCoaChildOut = {
-  org: { // rqAuth.Orgs
+  coa: { // rqFinance.Coa
     id: 0, // uint64
     tenantCode: '', // string
     name: '', // string
-    headTitle: '', // string
+    level: 0, // float64
     parentId: 0, // uint64
     children: { // []any
     }, // []any
-    orgType: 0, // uint64
     createdAt: 0, // int64
     createdBy: 0, // uint64
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
-  }, // rqAuth.Orgs
-  orgs: { // []rqAuth.Orgs
-  }, // []rqAuth.Orgs
+  }, // rqFinance.Coa
+  coas: { // []rqFinance.Coa
+  }, // []rqFinance.Coa
 }
 /**
  * @callback TenantAdminMoveCoaChildCallback
@@ -1838,6 +1836,84 @@ const TenantAdminTransactionOut = {
  */
 exports.TenantAdminTransaction = async function TenantAdminTransaction( i, cb ) {
   return await axios.post( '/tenantAdmin/transaction', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminTransactionTemplateIn
+ * @property {String} cmd
+ * @property {String} staffEmail
+ * @property {String} tenantCode
+ * @property {String} role
+ * @property {Object} withMeta
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ */
+const TenantAdminTransactionTemplateIn = {
+  cmd: '', // string
+  staffEmail: '', // string
+  tenantCode: '', // string
+  role: '', // string
+  withMeta: false, // bool
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
+}
+/**
+ * @typedef {Object} TenantAdminTransactionTemplateOut
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
+ * @property {Object} staffs
+ * @property {Object} staffsForm
+ */
+const TenantAdminTransactionTemplateOut = {
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
+  staffs: { // [][]any
+  }, // [][]any
+  staffsForm: { // []rqAuth.Staff
+  }, // []rqAuth.Staff
+}
+/**
+ * @callback TenantAdminTransactionTemplateCallback
+ * @param {TenantAdminTransactionTemplateOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminTransactionTemplateIn} i
+ * @param {TenantAdminTransactionTemplateCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminTransactionTemplate = async function TenantAdminTransactionTemplate( i, cb ) {
+  return await axios.post( '/tenantAdmin/transactionTemplate', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

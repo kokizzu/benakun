@@ -317,6 +317,26 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.TenantAdminTransactionTemplateAction, func(ctx *fiber.Ctx) error {
+		var in domain.TenantAdminTransactionTemplateIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminTransactionTemplateAction)
+		if err != nil {
+			return err
+		}
+		if notTenantLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		
+		out := d.TenantAdminTransactionTemplate(&in)
+		return views.RenderTenantAdminTransactionTemplate(ctx, M.SX{
+			`title`:    `Tenant Admin Bank Accounts`,
+			`user`:     user,
+			`segments`: segments,
+			`pager`:    out.Pager,
+		})
+	})
+
 	fw.Get(`/`+domain.SuperAdminDashboardAction, func(ctx *fiber.Ctx) error {
 		var in domain.SuperAdminDashboardIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.SuperAdminDashboardAction)

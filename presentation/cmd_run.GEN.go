@@ -260,6 +260,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminTransaction(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.TenantAdminTransactionTemplateAction:
+		in := domain.TenantAdminTransactionTemplateIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.TenantAdminTransactionTemplate(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.TenantAdminUpsertBudgetPlanAction:
 		in := domain.TenantAdminUpsertBudgetPlanIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

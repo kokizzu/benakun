@@ -49,6 +49,7 @@ const (
 	ErrTenantAdminDashboardFailed = `failed to update staff`
 	ErrTenantAdminDashboardNotTenant = `cannot invite user if not tenant`
 	ErrTenantAdminDashboardInvalidRole = `invalid staff role to modify`
+	ErrTenantAdminDashboardInvalidRoleToInvite = `invalid staff role to invite`
 )
 
 var TenantAdminDashboardMeta = zCrud.Meta{

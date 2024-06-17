@@ -20,7 +20,8 @@
     RiUserFacesGroup2Line,
     RiUserFacesContactsLine,
     RiMapMap2Line,
-    RiFinanceSwapBoxLine
+    RiFinanceSwapBoxLine,
+    RiDocumentStickyNoteAddLine
   } from '../../node_modules/svelte-icons-pack/dist/ri';
   import { CgLogOut, CgBox } from '../../node_modules/svelte-icons-pack/dist/cg';
   import { BsPostcard } from '../../node_modules/svelte-icons-pack/dist/bs';
@@ -86,6 +87,7 @@
             <SubMenuLink title='Products' href='/tenantAdmin/products' icon={CgBox}/>
             <SubMenuLink title='Locations' href='/tenantAdmin/locations' icon={RiMapMap2Line}/>
             <SubMenuLink title='Inventory Changes' href='/tenantAdmin/inventoryChanges' icon={RiFinanceSwapBoxLine}/>
+            <SubMenuLink title='Transaction Template' href='/tenantAdmin/transactionTemplate' icon={RiDocumentStickyNoteAddLine}/>
           </div>
         {/if}
         {#if access.superAdmin }
