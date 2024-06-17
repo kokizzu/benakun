@@ -62,21 +62,21 @@ var TenantAdminDashboardMeta = zCrud.Meta{
 		},
 		{
 			Name: mAuth.Email,
-			Label: "Email",
+			Label: "Surel/Email",
 			DataType: zCrud.DataTypeString,
 			InputType: zCrud.InputTypeEmail,
 			ReadOnly: true,
 		},
 		{
 			Name: mAuth.FullName,
-			Label: "Full Name",
+			Label: "Nama Lengkap/Full Name",
 			DataType: zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
 			ReadOnly: true,
 		},
 		{
 			Name: mAuth.Role,
-			Label: "Role",
+			Label: "Peran/Role",
 			DataType: zCrud.DataTypeString,
 			InputType: zCrud.InputTypeCombobox,
 			Ref:  []string{
@@ -90,13 +90,13 @@ var TenantAdminDashboardMeta = zCrud.Meta{
 		},
 		{
 			Name: mAuth.CreatedAt,
-			Label: "Created At",
+			Label: "Dibuat pada/Created at",
 			InputType: zCrud.InputTypeHidden,
 			ReadOnly: true,
 		},
 		{
 			Name: mAuth.UpdatedAt,
-			Label: "Updated At",
+			Label: "Diperbarui pada/Updated at",
 			InputType: zCrud.InputTypeHidden,
 			ReadOnly: true,
 		},
