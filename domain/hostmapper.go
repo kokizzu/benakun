@@ -8,12 +8,16 @@ type TenantCodeId struct {
 }
 
 var hostmap = map[string]TenantCodeId{
-	`http://127.0.0.1:1235`: {
-		TenantCode: `benalu-6405`,
-		OrgId:      6727,
+	// Default hostmap for development
+	// change it with the actual data from your database
+	`http://admin-2642:1235`: {
+		TenantCode: `admin-2642`,
+		OrgId: 10,
 	},
-	`https://local1:1235`: {
-		TenantCode: `ertwywret-2504`,
-		OrgId: 1,
-	},
+}
+
+func (d *Domain) InitHostMapper() {
+	// TODO query table tenants and orgs
+	// left join, where tenants.tenantCode = orgs.tenantCode AND orgs.orgType = 1 (company)
+	// then fill it into array of struct []TenantCodeId{}
 }
