@@ -32219,14 +32219,17 @@ uniform ${i3} ${a3} u_${s3};
     let inputbox;
     let updating_value;
     let t3;
+    let inputcustom;
+    let updating_value_1;
+    let t4;
     let div3;
     let div1;
-    let t4;
+    let t5;
     let div2;
     let button1;
-    let t6;
-    let button2;
     let t7;
+    let button2;
+    let t8;
     let div5_class_value;
     let current;
     let mounted;
@@ -32239,7 +32242,7 @@ uniform ${i3} ${a3} u_${s3};
       }
     });
     function inputbox_value_binding(value) {
-      ctx[8](value);
+      ctx[10](value);
     }
     let inputbox_props = {
       id: "email",
@@ -32256,11 +32259,33 @@ uniform ${i3} ${a3} u_${s3};
     }
     inputbox = new InputBox_default({ props: inputbox_props });
     binding_callbacks.push(() => bind(inputbox, "value", inputbox_value_binding));
+    function inputcustom_value_binding(value) {
+      ctx[11](value);
+    }
+    let inputcustom_props = {
+      id: "role",
+      label: "Role",
+      isObject: true,
+      type: "combobox",
+      values: (
+        /*roles*/
+        ctx[7]
+      )
+    };
+    if (
+      /*role*/
+      ctx[1] !== void 0
+    ) {
+      inputcustom_props.value = /*role*/
+      ctx[1];
+    }
+    inputcustom = new InputCustom_default({ props: inputcustom_props });
+    binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding));
     let if_block0 = !/*isSubmitted*/
-    ctx[3] && create_if_block_111(ctx);
+    ctx[4] && create_if_block_111(ctx);
     let if_block1 = (
       /*isSubmitted*/
-      ctx[3] && create_if_block6(ctx)
+      ctx[4] && create_if_block6(ctx)
     );
     return {
       c() {
@@ -32270,7 +32295,7 @@ uniform ${i3} ${a3} u_${s3};
         h2 = element("h2");
         t0 = text(
           /*heading*/
-          ctx[1]
+          ctx[2]
         );
         t1 = space();
         button0 = element("button");
@@ -32279,18 +32304,20 @@ uniform ${i3} ${a3} u_${s3};
         div0 = element("div");
         create_component(inputbox.$.fragment);
         t3 = space();
+        create_component(inputcustom.$.fragment);
+        t4 = space();
         div3 = element("div");
         div1 = element("div");
         div1.innerHTML = ``;
-        t4 = space();
+        t5 = space();
         div2 = element("div");
         button1 = element("button");
         button1.textContent = "Cancel";
-        t6 = space();
+        t7 = space();
         button2 = element("button");
         if (if_block0)
           if_block0.c();
-        t7 = space();
+        t8 = space();
         if (if_block1)
           if_block1.c();
         attr(h2, "class", "svelte-19kcmoe");
@@ -32301,12 +32328,12 @@ uniform ${i3} ${a3} u_${s3};
         attr(button1, "class", "cancel svelte-19kcmoe");
         attr(button2, "class", "ok svelte-19kcmoe");
         button2.disabled = /*isSubmitted*/
-        ctx[3];
+        ctx[4];
         attr(div2, "class", "right svelte-19kcmoe");
         attr(div3, "class", "foot svelte-19kcmoe");
         attr(div4, "class", "popup svelte-19kcmoe");
         attr(div5, "class", div5_class_value = null_to_empty(`popup_container ${/*isShow*/
-        ctx[5] ? "show" : ""}`) + " svelte-19kcmoe");
+        ctx[6] ? "show" : ""}`) + " svelte-19kcmoe");
       },
       m(target, anchor) {
         insert(target, div5, anchor);
@@ -32320,17 +32347,19 @@ uniform ${i3} ${a3} u_${s3};
         append(div4, t2);
         append(div4, div0);
         mount_component(inputbox, div0, null);
-        append(div4, t3);
+        append(div0, t3);
+        mount_component(inputcustom, div0, null);
+        append(div4, t4);
         append(div4, div3);
         append(div3, div1);
-        append(div3, t4);
+        append(div3, t5);
         append(div3, div2);
         append(div2, button1);
-        append(div2, t6);
+        append(div2, t7);
         append(div2, button2);
         if (if_block0)
           if_block0.m(button2, null);
-        append(button2, t7);
+        append(button2, t8);
         if (if_block1)
           if_block1.m(button2, null);
         current = true;
@@ -32340,15 +32369,15 @@ uniform ${i3} ${a3} u_${s3};
               button0,
               "click",
               /*Hide*/
-              ctx[4]
+              ctx[5]
             ),
             listen(button1, "click", prevent_default(
               /*cancel*/
-              ctx[6]
+              ctx[8]
             )),
             listen(button2, "click", prevent_default(
               /*click_handler*/
-              ctx[9]
+              ctx[12]
             ))
           ];
           mounted = true;
@@ -32356,11 +32385,11 @@ uniform ${i3} ${a3} u_${s3};
       },
       p(ctx2, [dirty]) {
         if (!current || dirty & /*heading*/
-        2)
+        4)
           set_data(
             t0,
             /*heading*/
-            ctx2[1]
+            ctx2[2]
           );
         const inputbox_changes = {};
         if (!updating_value && dirty & /*email*/
@@ -32371,13 +32400,22 @@ uniform ${i3} ${a3} u_${s3};
           add_flush_callback(() => updating_value = false);
         }
         inputbox.$set(inputbox_changes);
+        const inputcustom_changes = {};
+        if (!updating_value_1 && dirty & /*role*/
+        2) {
+          updating_value_1 = true;
+          inputcustom_changes.value = /*role*/
+          ctx2[1];
+          add_flush_callback(() => updating_value_1 = false);
+        }
+        inputcustom.$set(inputcustom_changes);
         if (!/*isSubmitted*/
-        ctx2[3]) {
+        ctx2[4]) {
           if (if_block0) {
           } else {
             if_block0 = create_if_block_111(ctx2);
             if_block0.c();
-            if_block0.m(button2, t7);
+            if_block0.m(button2, t8);
           }
         } else if (if_block0) {
           if_block0.d(1);
@@ -32385,11 +32423,11 @@ uniform ${i3} ${a3} u_${s3};
         }
         if (
           /*isSubmitted*/
-          ctx2[3]
+          ctx2[4]
         ) {
           if (if_block1) {
             if (dirty & /*isSubmitted*/
-            8) {
+            16) {
               transition_in(if_block1, 1);
             }
           } else {
@@ -32406,13 +32444,13 @@ uniform ${i3} ${a3} u_${s3};
           check_outros();
         }
         if (!current || dirty & /*isSubmitted*/
-        8) {
+        16) {
           button2.disabled = /*isSubmitted*/
-          ctx2[3];
+          ctx2[4];
         }
         if (!current || dirty & /*isShow*/
-        32 && div5_class_value !== (div5_class_value = null_to_empty(`popup_container ${/*isShow*/
-        ctx2[5] ? "show" : ""}`) + " svelte-19kcmoe")) {
+        64 && div5_class_value !== (div5_class_value = null_to_empty(`popup_container ${/*isShow*/
+        ctx2[6] ? "show" : ""}`) + " svelte-19kcmoe")) {
           attr(div5, "class", div5_class_value);
         }
       },
@@ -32421,12 +32459,14 @@ uniform ${i3} ${a3} u_${s3};
           return;
         transition_in(icon.$.fragment, local);
         transition_in(inputbox.$.fragment, local);
+        transition_in(inputcustom.$.fragment, local);
         transition_in(if_block1);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
         transition_out(inputbox.$.fragment, local);
+        transition_out(inputcustom.$.fragment, local);
         transition_out(if_block1);
         current = false;
       },
@@ -32436,6 +32476,7 @@ uniform ${i3} ${a3} u_${s3};
         }
         destroy_component(icon);
         destroy_component(inputbox);
+        destroy_component(inputcustom);
         if (if_block0)
           if_block0.d();
         if (if_block1)
@@ -32451,16 +32492,26 @@ uniform ${i3} ${a3} u_${s3};
     } } = $props;
     let { isSubmitted = false } = $props;
     let { email = "" } = $props;
+    let { role = "" } = $props;
+    const roles = {
+      "user": "User",
+      "dataEntry": "Data Entry",
+      "reportViewer": "Report Viewer"
+    };
     let isShow = false;
-    const Show = () => $invalidate(5, isShow = true);
-    const Hide = () => $invalidate(5, isShow = false);
+    const Show = () => $invalidate(6, isShow = true);
+    const Hide = () => $invalidate(6, isShow = false);
     const cancel = () => {
-      $invalidate(5, isShow = false);
+      $invalidate(6, isShow = false);
       $invalidate(0, email = "");
     };
     function inputbox_value_binding(value) {
       email = value;
       $invalidate(0, email);
+    }
+    function inputcustom_value_binding(value) {
+      role = value;
+      $invalidate(1, role);
     }
     const click_handler = () => {
       if (!email || email == "")
@@ -32470,24 +32521,29 @@ uniform ${i3} ${a3} u_${s3};
     };
     $self.$set = ($props2) => {
       if ("heading" in $props2)
-        $invalidate(1, heading = $props2.heading);
+        $invalidate(2, heading = $props2.heading);
       if ("onSubmit" in $props2)
-        $invalidate(2, onSubmit = $props2.onSubmit);
+        $invalidate(3, onSubmit = $props2.onSubmit);
       if ("isSubmitted" in $props2)
-        $invalidate(3, isSubmitted = $props2.isSubmitted);
+        $invalidate(4, isSubmitted = $props2.isSubmitted);
       if ("email" in $props2)
         $invalidate(0, email = $props2.email);
+      if ("role" in $props2)
+        $invalidate(1, role = $props2.role);
     };
     return [
       email,
+      role,
       heading,
       onSubmit,
       isSubmitted,
       Hide,
       isShow,
+      roles,
       cancel,
       Show,
       inputbox_value_binding,
+      inputcustom_value_binding,
       click_handler
     ];
   }
@@ -32495,19 +32551,20 @@ uniform ${i3} ${a3} u_${s3};
     constructor(options) {
       super();
       init(this, options, instance12, create_fragment12, safe_not_equal, {
-        heading: 1,
-        onSubmit: 2,
-        isSubmitted: 3,
+        heading: 2,
+        onSubmit: 3,
+        isSubmitted: 4,
         email: 0,
-        Show: 7,
-        Hide: 4
+        role: 1,
+        Show: 9,
+        Hide: 5
       });
     }
     get Show() {
-      return this.$.ctx[7];
+      return this.$.ctx[9];
     }
     get Hide() {
-      return this.$.ctx[4];
+      return this.$.ctx[5];
     }
   };
   var PopUpInviteUser_default = PopUpInviteUser;
@@ -32517,17 +32574,21 @@ uniform ${i3} ${a3} u_${s3};
   function create_if_block_113(ctx) {
     let popupinviteuser;
     let updating_email;
+    let updating_role;
     let updating_isSubmitted;
     let current;
     function popupinviteuser_email_binding(value) {
-      ctx[13](value);
+      ctx[14](value);
+    }
+    function popupinviteuser_role_binding(value) {
+      ctx[15](value);
     }
     function popupinviteuser_isSubmitted_binding(value) {
-      ctx[14](value);
+      ctx[16](value);
     }
     let popupinviteuser_props = { onSubmit: (
       /*submitInviteUser*/
-      ctx[10]
+      ctx[11]
     ) };
     if (
       /*email*/
@@ -32537,15 +32598,23 @@ uniform ${i3} ${a3} u_${s3};
       ctx[5];
     }
     if (
-      /*isSubmitted*/
+      /*role*/
       ctx[6] !== void 0
     ) {
-      popupinviteuser_props.isSubmitted = /*isSubmitted*/
+      popupinviteuser_props.role = /*role*/
       ctx[6];
     }
+    if (
+      /*isSubmitted*/
+      ctx[7] !== void 0
+    ) {
+      popupinviteuser_props.isSubmitted = /*isSubmitted*/
+      ctx[7];
+    }
     popupinviteuser = new PopUpInviteUser_default({ props: popupinviteuser_props });
-    ctx[12](popupinviteuser);
+    ctx[13](popupinviteuser);
     binding_callbacks.push(() => bind(popupinviteuser, "email", popupinviteuser_email_binding));
+    binding_callbacks.push(() => bind(popupinviteuser, "role", popupinviteuser_role_binding));
     binding_callbacks.push(() => bind(popupinviteuser, "isSubmitted", popupinviteuser_isSubmitted_binding));
     return {
       c() {
@@ -32564,11 +32633,18 @@ uniform ${i3} ${a3} u_${s3};
           ctx2[5];
           add_flush_callback(() => updating_email = false);
         }
-        if (!updating_isSubmitted && dirty & /*isSubmitted*/
+        if (!updating_role && dirty & /*role*/
         64) {
+          updating_role = true;
+          popupinviteuser_changes.role = /*role*/
+          ctx2[6];
+          add_flush_callback(() => updating_role = false);
+        }
+        if (!updating_isSubmitted && dirty & /*isSubmitted*/
+        128) {
           updating_isSubmitted = true;
           popupinviteuser_changes.isSubmitted = /*isSubmitted*/
-          ctx2[6];
+          ctx2[7];
           add_flush_callback(() => updating_isSubmitted = false);
         }
         popupinviteuser.$set(popupinviteuser_changes);
@@ -32584,7 +32660,7 @@ uniform ${i3} ${a3} u_${s3};
         current = false;
       },
       d(detaching) {
-        ctx[12](null);
+        ctx[13](null);
         destroy_component(popupinviteuser, detaching);
       }
     };
@@ -32618,7 +32694,7 @@ uniform ${i3} ${a3} u_${s3};
             button,
             "click",
             /*click_handler*/
-            ctx[15]
+            ctx[17]
           );
           mounted = true;
         }
@@ -32691,13 +32767,13 @@ uniform ${i3} ${a3} u_${s3};
     let updating_MASTER_ROWS;
     let current;
     function mastertable_FIELDS_binding(value) {
-      ctx[16](value);
+      ctx[18](value);
     }
     function mastertable_PAGER_binding(value) {
-      ctx[17](value);
+      ctx[19](value);
     }
     function mastertable_MASTER_ROWS_binding(value) {
-      ctx[18](value);
+      ctx[20](value);
     }
     let mastertable_props = {
       ACCESS: segments2,
@@ -32707,19 +32783,19 @@ uniform ${i3} ${a3} u_${s3};
       CAN_RESTORE_ROW: true,
       OnRefresh: (
         /*OnRefresh*/
-        ctx[7]
+        ctx[8]
       ),
       OnRestore: (
         /*OnRestore*/
-        ctx[8]
+        ctx[9]
       ),
       OnDelete: (
         /*OnDelete*/
-        ctx[9]
+        ctx[10]
       ),
       OnEdit: (
         /*OnEdit*/
-        ctx[11]
+        ctx[12]
       ),
       $slots: { default: [create_default_slot_1] },
       $scope: { ctx }
@@ -32762,7 +32838,7 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         const mastertable_changes = {};
         if (dirty & /*$scope, popUpInviteUser*/
-        524296) {
+        2097160) {
           mastertable_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_FIELDS && dirty & /*fields*/
@@ -32860,7 +32936,7 @@ uniform ${i3} ${a3} u_${s3};
         }
         const mainlayout_changes = {};
         if (dirty & /*$scope, fields, pager, staffs, popUpInviteUser*/
-        524303) {
+        2097167) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -32978,14 +33054,18 @@ uniform ${i3} ${a3} u_${s3};
       /** @type string */
       ""
     );
+    let role = (
+      /** @type string */
+      ""
+    );
     let isSubmitted = false;
     async function submitInviteUser() {
-      $invalidate(6, isSubmitted = true);
+      $invalidate(7, isSubmitted = true);
       popUpInviteUser.Hide();
       const i = {
         pager,
         staffEmail: email,
-        role: "dataEntry",
+        staffRole: role,
         cmd: "upsert"
       };
       await (0, import_jsApi.TenantAdminDashboard)(
@@ -32995,7 +33075,7 @@ uniform ${i3} ${a3} u_${s3};
         /** @returns {Promise<any>} */
         function(o) {
           $invalidate(5, email = "");
-          $invalidate(6, isSubmitted = false);
+          $invalidate(7, isSubmitted = false);
           if (o.error) {
             console.log(o);
             notifier.showError(o.error);
@@ -33014,6 +33094,7 @@ uniform ${i3} ${a3} u_${s3};
         /** @type any[]*/
         staffEmail: payloads[1],
         role: payloads[3],
+        isEdit: true,
         cmd: "upsert"
       };
       await (0, import_jsApi.TenantAdminDashboard)(
@@ -33023,7 +33104,7 @@ uniform ${i3} ${a3} u_${s3};
         /** @returns {Promise<any>} */
         function(o) {
           $invalidate(5, email = "");
-          $invalidate(6, isSubmitted = false);
+          $invalidate(7, isSubmitted = false);
           if (o.error) {
             console.log(o);
             notifier.showError(o.error);
@@ -33046,9 +33127,13 @@ uniform ${i3} ${a3} u_${s3};
       email = value;
       $invalidate(5, email);
     }
+    function popupinviteuser_role_binding(value) {
+      role = value;
+      $invalidate(6, role);
+    }
     function popupinviteuser_isSubmitted_binding(value) {
       isSubmitted = value;
-      $invalidate(6, isSubmitted);
+      $invalidate(7, isSubmitted);
     }
     const click_handler = () => popUpInviteUser.Show();
     function mastertable_FIELDS_binding(value) {
@@ -33070,6 +33155,7 @@ uniform ${i3} ${a3} u_${s3};
       popUpInviteUser,
       isPopUpInviteUserReady,
       email,
+      role,
       isSubmitted,
       OnRefresh,
       OnRestore,
@@ -33078,6 +33164,7 @@ uniform ${i3} ${a3} u_${s3};
       OnEdit,
       popupinviteuser_binding,
       popupinviteuser_email_binding,
+      popupinviteuser_role_binding,
       popupinviteuser_isSubmitted_binding,
       click_handler,
       mastertable_FIELDS_binding,

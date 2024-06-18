@@ -100,6 +100,8 @@
 
   // User email to invite
   let email = /** @type string */ ('');
+  // User role to invite
+  let role = /** @type string */ ('');
   // State for loading if hit ajax
   let isSubmitted = false;
 
@@ -110,7 +112,7 @@
     const i = {
       pager,
       staffEmail: email,
-      role: 'dataEntry',
+      staffRole: role,
       cmd: 'upsert'
     };
     await TenantAdminDashboard( // @ts-ignore
@@ -138,6 +140,7 @@
       pager,
       staffEmail: payloads[1],
       role: payloads[3],
+      isEdit: true,
       cmd: 'upsert'
     };
     await TenantAdminDashboard( // @ts-ignore
@@ -165,6 +168,7 @@
   <PopUpInviteUser
     bind:this={popUpInviteUser}
     bind:email
+    bind:role
     bind:isSubmitted
 
     onSubmit={submitInviteUser}

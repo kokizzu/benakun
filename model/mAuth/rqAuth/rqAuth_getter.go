@@ -288,9 +288,9 @@ func staffState(states, tenantCode string) (invState string) {
 			continue
 		}
 		parts := S.Split(state, `:`)
-		if len(parts) == 4 {
+		if len(parts) == 5 {
 			if parts[1] == tenantCode {
-				return parts[2]
+				return parts[3]
 			}
 		}
 	}

@@ -3,12 +3,20 @@
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
   import InputBox from './InputBox.svelte';
+	import InputCustom from './InputCustom.svelte';
 
   export let heading = 'Invite user';
 
   export let onSubmit = () => {}
   export let isSubmitted = false;
   export let email = '';
+	export let role = '';
+
+	const roles = {
+		'user': 'User',
+		'dataEntry': 'Data Entry',
+		'reportViewer': 'Report Viewer'
+	};
 
   let isShow = false;
   export const Show = () => isShow = true;
@@ -30,6 +38,14 @@
     </header>
     <div class="forms">
       <InputBox id="email" label="Nama" bind:value={email} type="email" placeholder="name@example.com" />
+			<InputCustom
+				id="role"
+				label="Role"
+				isObject={true}
+				bind:value={role}
+				type="combobox"
+				values={roles}
+			/>
     </div>
     <div class="foot">
       <div class="left">
