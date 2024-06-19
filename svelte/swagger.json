@@ -1542,11 +1542,17 @@
 						"staffEmail": {
 								"type": "string"
 						},
+						"staffRole": {
+								"type": "string"
+						},
 						"tenantCode": {
 								"type": "string"
 						},
 						"role": {
 								"type": "string"
+						},
+						"isEdit": {
+							"type": "boolean"
 						},
 						"withMeta": {
 							"type": "boolean"

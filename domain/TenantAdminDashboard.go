@@ -148,7 +148,8 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 			}
 
 			if in.Cmd == zCrud.CmdUpsert {
-				if staff.Role != in.Role && in.IsEdit {
+				mapState, _ := mAuth.ToInvitationStateMap(staff.InvitationState)
+				if mapState.GetRoleByTenantCode(tenant.TenantCode) != in.Role && in.IsEdit {
 					switch in.Role {
 					case mAuth.RoleUser, mAuth.RoleDataEntry, mAuth.RoleReportViewer:
 						break
@@ -156,8 +157,9 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 						out.SetError(400, ErrTenantAdminDashboardInvalidRole)
 						return
 					}
+					mapState.ModifyRole(tenant.TenantCode, in.Role)
 
-					staff.SetRole(in.Role)
+					staff.SetInvitationState(mapState.ToStateString())
 				} else {
 					if staff.TenantCode != `` {
 						out.SetError(400, ErrTenantAdminDashboardInvalidStaff)
@@ -184,9 +186,18 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 							return
 						}
 
-						if err := mapState.ModifyRole(tenant.TenantCode, in.StaffRole); err != nil {
-							out.SetError(400, err.Error())
-							return
+						if mapState.GetStateByTenantCode(tenant.TenantCode) == mAuth.InvitationStateInvited {
+							if mapState.GetRoleByTenantCode(tenant.TenantCode) != in.StaffRole {
+								if err := mapState.ModifyRole(tenant.TenantCode, in.StaffRole); err != nil {
+									out.SetError(400, err.Error())
+									return
+								}
+							}
+						} else {
+							if err := mapState.ModifyRole(tenant.TenantCode, in.StaffRole); err != nil {
+								out.SetError(400, err.Error())
+								return
+							}
 						}
 
 						staff.SetInvitationState(mapState.ToStateString())

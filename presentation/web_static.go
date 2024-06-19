@@ -129,6 +129,32 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.DataEntryDashboardAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notDataEntryLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		
+		return views.RenderDataEntryDashboard(ctx, M.SX{
+			`title`:    `Transaction Entry`,
+			`user`:     user,
+			`segments`: segments,
+		})
+	})
+
+	fw.Get(`/`+domain.DataEntryTransactionEntryAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notDataEntryLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		return views.RenderDataEntryTransactionEntry(ctx, M.SX{
+			`title`:    `Transaction Entry`,
+			`user`:     user,
+			`segments`: segments,
+		})
+	})
+
 	fw.Get(`/`+domain.TenantAdminDashboardAction, func(ctx *fiber.Ctx) error {
 		var in domain.TenantAdminDashboardIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminDashboardAction)
@@ -461,6 +487,16 @@ func notTenantLogin(d *domain.Domain, in domain.RequestCommon) bool {
 	var check domain.ResponseCommon
 
 	if sess := d.MustTenantAdmin(in, &check); sess == nil {
+		return true
+	}
+
+	return false
+}
+
+func notDataEntryLogin(d *domain.Domain, in domain.RequestCommon) bool {
+	var check domain.ResponseCommon
+
+	if sess := d.MustDataEntry(in, &check); sess == nil {
 		return true
 	}
 

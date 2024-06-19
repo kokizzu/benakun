@@ -3,7 +3,7 @@
 </script>
 
 <MainLayout>
-  <p>Data Entry dashboard</p>
+  <p>Transction entry</p>
 </MainLayout>
 
 <style>

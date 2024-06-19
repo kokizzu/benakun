@@ -270,8 +270,16 @@ SELECT ` + meta.ToSelect() + `
 FROM SEQSCAN ` + u.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
 	u.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
-		invState := staffState(X.ToS(row[4]), u.TenantCode)
+
+		oInvState := X.ToS(row[4])
+		mapState, err := mAuth.ToInvitationStateMap(oInvState)
+		invState := staffState(oInvState, u.TenantCode)
 		row[4] = invState
+
+		if err == nil {
+			row[3] = mapState.GetRoleByTenantCode(u.TenantCode)
+		}
+		
 		res = append(res, row)
 	})
 

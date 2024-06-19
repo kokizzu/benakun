@@ -52,7 +52,7 @@ func (s InvitationStateMap) ModifyState(tenantCode, newState string) error {
 	}
 
 	if sn, ok := s[tenantCode]; ok {
-		if sn.State != newState {
+		if sn.State != newState || (sn.State == InvitationStateInvited && newState == InvitationStateInvited){
 			if sn.State == InvitationStateAccepted {
 				if !(newState == InvitationStateTerminated || newState == InvitationStateLeft) {
 					return wrapInvitationError(ErrInvitationStateAlreadyAccepted, sn.State, newState)
@@ -158,6 +158,10 @@ func ToInvitationStateMap(states string) (InvitationStateMap, error) {
 		return InvitationStateMap{}, ErrInvitationStateEmpty
 	}
 	return out, nil
+}
+
+func (s InvitationStateMap) GetStateByTenantCode(tenantCode string) string {
+	return s[tenantCode].State
 }
 
 func (s InvitationStateMap) GetRoleByTenantCode(tenantCode string) string {
