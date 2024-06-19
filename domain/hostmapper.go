@@ -1,6 +1,10 @@
 package domain
 
-// TODO: add mapping to database (translates domain to proper tenant)
+import (
+	"benakun/model/mAuth/rqAuth"
+
+	"github.com/kokizzu/gotro/X"
+)
 
 type TenantCodeId struct {
 	TenantCode string
@@ -17,7 +21,16 @@ var hostmap = map[string]TenantCodeId{
 }
 
 func (d *Domain) InitHostMapper() {
-	// TODO query table tenants and orgs
-	// left join, where tenants.tenantCode = orgs.tenantCode AND orgs.orgType = 1 (company)
-	// then fill it into array of struct []TenantCodeId{}
+	orgs := rqAuth.NewOrgs(d.AuthOltp)
+	tenantsHost := orgs.FindTenantsHost()
+
+	if len(tenantsHost) > 0 {
+		for _, v := range tenantsHost {
+			subdomain := `https://`+ X.ToS(v[0]) +`.benakun.com`
+			hostmap[subdomain] = TenantCodeId{
+				TenantCode: X.ToS(v[0]),
+				OrgId: X.ToU(v[1]),
+			}
+		}
+	}
 }

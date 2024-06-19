@@ -296,3 +296,23 @@ func staffState(states, tenantCode string) (invState string) {
 	}
 	return ``
 }
+
+func (o *Orgs) FindTenantsHost() (tenants [][]any) {
+	const comment = "-- orgs) FindTenantsHost"
+
+	queryRows := comment + `
+SELECT orgs.tenantCode, orgs.id
+	FROM SEQSCAN orgs
+	JOIN SEQSCAN tenants
+		ON (orgs.orgType = 1 AND orgs.tenantCode = tenants.tenantCode)`
+
+	o.Adapter.QuerySql(queryRows, func(row []any) {
+		if len(row) == 2 {
+			row[1] = X.ToS(row[1])
+
+			tenants = append(tenants, row)
+		}
+	})
+
+	return
+}

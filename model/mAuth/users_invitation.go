@@ -159,3 +159,7 @@ func ToInvitationStateMap(states string) (InvitationStateMap, error) {
 	}
 	return out, nil
 }
+
+func (s InvitationStateMap) GetRoleByTenantCode(tenantCode string) string {
+	return s[tenantCode].Role
+}

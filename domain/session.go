@@ -20,6 +20,7 @@ import (
 	"github.com/zeebo/xxh3"
 
 	"benakun/conf"
+	"benakun/model/mAuth"
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
 )
@@ -242,6 +243,34 @@ func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 	sess.Roles = []string{user.Role}
 	sess.TenantCode = user.TenantCode
 	segment := d.segmentsFromSession(sess)
+
+	if v, ok := hostmap[in.Host]; ok {
+		mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
+		if err == nil {
+			role := mapState.GetRoleByTenantCode(v.TenantCode)
+			switch role {
+			case TenantAdminSegment:
+				sess.Segments[TenantAdminSegment] = true
+				sess.Segments[ReportViewerSegment] = true
+				sess.Segments[DataEntrySegment] = true
+				sess.Segments[UserSegment] = true
+				sess.Segments[GuestSegment] = true
+			case DataEntrySegment:
+				sess.Segments[DataEntrySegment] = true
+				sess.Segments[UserSegment] = true
+				sess.Segments[GuestSegment] = true
+			case ReportViewerSegment:
+				sess.Segments[ReportViewerSegment] = true
+				sess.Segments[UserSegment] = true
+				sess.Segments[GuestSegment] = true
+			case UserSegment:
+				sess.Segments[GuestSegment] = true
+				sess.Segments[UserSegment] = true
+			case GuestSegment:
+				sess.Segments[GuestSegment] = true
+			}
+		}
+	}
 
 	sess.Segments = segment
 	if !sess.Segments[UserSegment] && !sess.Segments[SuperAdminSegment] {
