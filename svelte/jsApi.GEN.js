@@ -49,6 +49,32 @@ exports.DataEntryDashboard = async function DataEntryDashboard( i, cb ) {
 }
 
 /**
+ * @typedef {Object} DataEntryTransactionEntryIn
+ */
+const DataEntryTransactionEntryIn = {
+}
+/**
+ * @typedef {Object} DataEntryTransactionEntryOut
+ */
+const DataEntryTransactionEntryOut = {
+}
+/**
+ * @callback DataEntryTransactionEntryCallback
+ * @param {DataEntryTransactionEntryOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {DataEntryTransactionEntryIn} i
+ * @param {DataEntryTransactionEntryCallback} cb
+ * @returns {Promise}
+ */
+exports.DataEntryTransactionEntry = async function DataEntryTransactionEntry( i, cb ) {
+  return await axios.post( '/dataEntry/transactionEntry', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} GuestAutoLoginIn
  * @property {String} uid
  * @property {String} token

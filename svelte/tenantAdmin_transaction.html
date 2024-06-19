@@ -2680,6 +2680,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.DataEntryDashboard = async function DataEntryDashboard(i, cb) {
         return await axios.post("/dataEntry/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.DataEntryTransactionEntry = async function DataEntryTransactionEntry(i, cb) {
+        return await axios.post("/dataEntry/transactionEntry", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.GuestAutoLogin = async function GuestAutoLogin(i, cb) {
         return await axios.post("/guest/autoLogin", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -3832,8 +3835,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     icon_1 = new Icon_default({
       props: {
         size: "18",
-        className: window.location.pathname === /*href*/
-        ctx[0] ? "icon_active" : "icon_dark",
+        className: (
+          /*pathname*/
+          ctx[3] === /*href*/
+          ctx[0] || /*pathname*/
+          ctx[3].includes(
+            /*href*/
+            ctx[0]
+          ) ? "icon_active" : "icon_dark"
+        ),
         src: (
           /*icon*/
           ctx[1]
@@ -3857,8 +3867,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           ctx[0]
         );
         attr(a, "class", "svelte-1smdkid");
-        toggle_class(a, "active", window.location.pathname === /*href*/
-        ctx[0]);
+        toggle_class(
+          a,
+          "active",
+          /*pathname*/
+          ctx[3] === /*href*/
+          ctx[0] || /*pathname*/
+          ctx[3].includes(
+            /*href*/
+            ctx[0]
+          )
+        );
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -3872,8 +3891,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         const icon_1_changes = {};
         if (dirty & /*href*/
         1)
-          icon_1_changes.className = window.location.pathname === /*href*/
-          ctx2[0] ? "icon_active" : "icon_dark";
+          icon_1_changes.className = /*pathname*/
+          ctx2[3] === /*href*/
+          ctx2[0] || /*pathname*/
+          ctx2[3].includes(
+            /*href*/
+            ctx2[0]
+          ) ? "icon_active" : "icon_dark";
         if (dirty & /*icon*/
         2)
           icon_1_changes.src = /*icon*/
@@ -3895,10 +3919,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (!current || dirty & /*window, href*/
-        1) {
-          toggle_class(a, "active", window.location.pathname === /*href*/
-          ctx2[0]);
+        if (!current || dirty & /*pathname, href*/
+        9) {
+          toggle_class(
+            a,
+            "active",
+            /*pathname*/
+            ctx2[3] === /*href*/
+            ctx2[0] || /*pathname*/
+            ctx2[3].includes(
+              /*href*/
+              ctx2[0]
+            )
+          );
         }
       },
       i(local) {
@@ -3926,6 +3959,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       {}
     ) } = $props;
     let { title = "" } = $props;
+    const pathname = window.location.pathname;
     $self.$set = ($props2) => {
       if ("href" in $props2)
         $invalidate(0, href = $props2.href);
@@ -3934,7 +3968,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       if ("title" in $props2)
         $invalidate(2, title = $props2.title);
     };
-    return [href, icon, title];
+    return [href, icon, title, pathname];
   }
   var SubMenuLink = class extends SvelteComponent {
     constructor(options) {

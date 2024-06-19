@@ -184,6 +184,9 @@
       CAN_SEARCH_ROW
       CAN_DELETE_ROW
       CAN_RESTORE_ROW
+      CAN_OPEN_LINK
+
+      LINK_PATH='/tenantAdmin/inventoryChanges/'
 
       {OnDelete}
       {OnEdit}

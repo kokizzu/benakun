@@ -20,6 +20,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.DataEntryDashboard(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.DataEntryTransactionEntryAction:
+		in := domain.DataEntryTransactionEntryIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.DataEntryTransactionEntry(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.GuestAutoLoginAction:
 		in := domain.GuestAutoLoginIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

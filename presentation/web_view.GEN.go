@@ -23,6 +23,7 @@ var viewList = map[string]string{
 	`SuperAdminDashboard`: `../svelte/superAdmin_dashboard.html`, // ../svelte/superAdmin_dashboard.svelte
 	`SuperAdminTenantManagement`: `../svelte/superAdmin_tenantManagement.html`, // ../svelte/superAdmin_tenantManagement.svelte
 	`SuperAdminUserManagement`: `../svelte/superAdmin_userManagement.html`, // ../svelte/superAdmin_userManagement.svelte
+	`TenantAdminInventoryChangesProduct`: `../svelte/tenantAdmin/inventoryChanges/product.html`, // ../svelte/tenantAdmin/inventoryChanges/product.svelte
 	`TenantAdminBankAccounts`: `../svelte/tenantAdmin_bankAccounts.html`, // ../svelte/tenantAdmin_bankAccounts.svelte
 	`TenantAdminBudgeting`: `../svelte/tenantAdmin_budgeting.html`, // ../svelte/tenantAdmin_budgeting.svelte
 	`TenantAdminCoa`: `../svelte/tenantAdmin_coa.html`, // ../svelte/tenantAdmin_coa.svelte
@@ -101,6 +102,11 @@ func (v *Views) RenderSuperAdminTenantManagement(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderSuperAdminUserManagement(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`SuperAdminUserManagement`].Str(m))
+}
+
+func (v *Views) RenderTenantAdminInventoryChangesProduct(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`TenantAdminInventoryChangesProduct`].Str(m))
 }
 
 func (v *Views) RenderTenantAdminBankAccounts(c *fiber.Ctx, m M.SX) error {

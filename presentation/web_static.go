@@ -343,6 +343,20 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.TenantAdminInventoryChangesAction+`/:productId`, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notTenantLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		
+		return views.RenderTenantAdminInventoryChangesProduct(ctx, M.SX{
+			`title`:    `Tenant Admin Bank Accounts`,
+			`user`:     user,
+			`segments`: segments,
+			`productId`: ctx.Params(`productId`),
+		})
+	})
+
 	fw.Get(`/`+domain.TenantAdminTransactionTemplateAction, func(ctx *fiber.Ctx) error {
 		var in domain.TenantAdminTransactionTemplateIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminTransactionTemplateAction)

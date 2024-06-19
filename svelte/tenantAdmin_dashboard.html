@@ -4170,6 +4170,9 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
       exports.DataEntryDashboard = async function DataEntryDashboard(i, cb) {
         return await axios.post("/dataEntry/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.DataEntryTransactionEntry = async function DataEntryTransactionEntry(i, cb) {
+        return await axios.post("/dataEntry/transactionEntry", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.GuestAutoLogin = async function GuestAutoLogin(i, cb) {
         return await axios.post("/guest/autoLogin", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -24452,6 +24455,7 @@ uniform ${i3} ${a3} u_${s3};
   var OiNote16 = { a: { viewBox: "0 0 16 16" }, c: '<path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 14H1.75A1.75 1.75 0 0 1 0 12.25Zm1.75-.25a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-8.5a.25.25 0 0 0-.25-.25ZM3.5 6.25a.75.75 0 0 1 .75-.75h7a.75.75 0 0 1 0 1.5h-7a.75.75 0 0 1-.75-.75Zm.75 2.25h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1 0-1.5Z"></path>' };
 
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/fa/index.js
+  var FaShareFromSquare = { a: { viewBox: "0 0 576 512" }, c: '<path d="M400 255.4V240 208c0-8.8-7.2-16-16-16H352 336 289.5c-50.9 0-93.9 33.5-108.3 79.6c-3.3-9.4-5.2-19.8-5.2-31.6c0-61.9 50.1-112 112-112h48 16 32c8.8 0 16-7.2 16-16V80 64.6L506 160 400 255.4zM336 240h16v48c0 17.7 14.3 32 32 32h3.7c7.9 0 15.5-2.9 21.4-8.2l139-125.1c7.6-6.8 11.9-16.5 11.9-26.7s-4.3-19.9-11.9-26.7L409.9 8.9C403.5 3.2 395.3 0 386.7 0C367.5 0 352 15.5 352 34.7V80H336 304 288c-88.4 0-160 71.6-160 160c0 60.4 34.6 99.1 63.9 120.9c5.9 4.4 11.5 8.1 16.7 11.2c4.4 2.7 8.5 4.9 11.9 6.6c3.4 1.7 6.2 3 8.2 3.9c2.2 1 4.6 1.4 7.1 1.4h2.5c9.8 0 17.8-8 17.8-17.8c0-7.8-5.3-14.7-11.6-19.5l0 0c-.4-.3-.7-.5-1.1-.8c-1.7-1.1-3.4-2.5-5-4.1c-.8-.8-1.7-1.6-2.5-2.6s-1.6-1.9-2.4-2.9c-1.8-2.5-3.5-5.3-5-8.5c-2.6-6-4.3-13.3-4.3-22.4c0-36.1 29.3-65.5 65.5-65.5H304h32zM72 32C32.2 32 0 64.2 0 104V440c0 39.8 32.2 72 72 72H408c39.8 0 72-32.2 72-72V376c0-13.3-10.7-24-24-24s-24 10.7-24 24v64c0 13.3-10.7 24-24 24H72c-13.3 0-24-10.7-24-24V104c0-13.3 10.7-24 24-24h64c13.3 0 24-10.7 24-24s-10.7-24-24-24H72z"></path>' };
   var FaCircleUser = { a: { viewBox: "0 0 512 512" }, c: '<path d="M406.5 399.6C387.4 352.9 341.5 320 288 320H224c-53.5 0-99.4 32.9-118.5 79.6C69.9 362.2 48 311.7 48 256C48 141.1 141.1 48 256 48s208 93.1 208 208c0 55.7-21.9 106.2-57.5 143.6zm-40.1 32.7C334.4 452.4 296.6 464 256 464s-78.4-11.6-110.5-31.7c7.3-36.7 39.7-64.3 78.5-64.3h64c38.8 0 71.2 27.6 78.5 64.3zM256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-272a40 40 0 1 1 0-80 40 40 0 1 1 0 80zm-88-40a88 88 0 1 0 176 0 88 88 0 1 0 -176 0z"></path>' };
 
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/cg/index.js
@@ -24473,8 +24477,15 @@ uniform ${i3} ${a3} u_${s3};
     icon_1 = new Icon_default({
       props: {
         size: "18",
-        className: window.location.pathname === /*href*/
-        ctx[0] ? "icon_active" : "icon_dark",
+        className: (
+          /*pathname*/
+          ctx[3] === /*href*/
+          ctx[0] || /*pathname*/
+          ctx[3].includes(
+            /*href*/
+            ctx[0]
+          ) ? "icon_active" : "icon_dark"
+        ),
         src: (
           /*icon*/
           ctx[1]
@@ -24498,8 +24509,17 @@ uniform ${i3} ${a3} u_${s3};
           ctx[0]
         );
         attr(a, "class", "svelte-1smdkid");
-        toggle_class(a, "active", window.location.pathname === /*href*/
-        ctx[0]);
+        toggle_class(
+          a,
+          "active",
+          /*pathname*/
+          ctx[3] === /*href*/
+          ctx[0] || /*pathname*/
+          ctx[3].includes(
+            /*href*/
+            ctx[0]
+          )
+        );
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -24513,8 +24533,13 @@ uniform ${i3} ${a3} u_${s3};
         const icon_1_changes = {};
         if (dirty & /*href*/
         1)
-          icon_1_changes.className = window.location.pathname === /*href*/
-          ctx2[0] ? "icon_active" : "icon_dark";
+          icon_1_changes.className = /*pathname*/
+          ctx2[3] === /*href*/
+          ctx2[0] || /*pathname*/
+          ctx2[3].includes(
+            /*href*/
+            ctx2[0]
+          ) ? "icon_active" : "icon_dark";
         if (dirty & /*icon*/
         2)
           icon_1_changes.src = /*icon*/
@@ -24536,10 +24561,19 @@ uniform ${i3} ${a3} u_${s3};
             ctx2[0]
           );
         }
-        if (!current || dirty & /*window, href*/
-        1) {
-          toggle_class(a, "active", window.location.pathname === /*href*/
-          ctx2[0]);
+        if (!current || dirty & /*pathname, href*/
+        9) {
+          toggle_class(
+            a,
+            "active",
+            /*pathname*/
+            ctx2[3] === /*href*/
+            ctx2[0] || /*pathname*/
+            ctx2[3].includes(
+              /*href*/
+              ctx2[0]
+            )
+          );
         }
       },
       i(local) {
@@ -24567,6 +24601,7 @@ uniform ${i3} ${a3} u_${s3};
       {}
     ) } = $props;
     let { title = "" } = $props;
+    const pathname = window.location.pathname;
     $self.$set = ($props2) => {
       if ("href" in $props2)
         $invalidate(0, href = $props2.href);
@@ -24575,7 +24610,7 @@ uniform ${i3} ${a3} u_${s3};
       if ("title" in $props2)
         $invalidate(2, title = $props2.title);
     };
-    return [href, icon, title];
+    return [href, icon, title, pathname];
   }
   var SubMenuLink = class extends SvelteComponent {
     constructor(options) {
@@ -28436,72 +28471,72 @@ uniform ${i3} ${a3} u_${s3};
   var { Map: Map_12 } = globals;
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[72] = list[i];
+    child_ctx[74] = list[i];
     return child_ctx;
   }
   function get_each_context_12(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[75] = list[i];
+    child_ctx[77] = list[i];
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[78] = list[i];
+    child_ctx[80] = list[i];
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[81] = list[i];
-    child_ctx[83] = i;
+    child_ctx[83] = list[i];
+    child_ctx[85] = i;
     return child_ctx;
   }
   function get_each_context_4(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[81] = list[i];
-    child_ctx[85] = i;
+    child_ctx[83] = list[i];
+    child_ctx[87] = i;
     return child_ctx;
   }
   function get_each_context_5(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[86] = list[i];
-    child_ctx[87] = list;
-    child_ctx[83] = i;
+    child_ctx[88] = list[i];
+    child_ctx[89] = list;
+    child_ctx[85] = i;
     return child_ctx;
   }
-  function create_if_block_18(ctx) {
+  function create_if_block_19(ctx) {
     let filtertable;
     let updating_filterColumns;
     let updating_filtersMap;
     let current;
     function filtertable_filterColumns_binding(value) {
-      ctx[47](value);
+      ctx[49](value);
     }
     function filtertable_filtersMap_binding(value) {
-      ctx[48](value);
+      ctx[50](value);
     }
     let filtertable_props = {};
     if (
       /*filterColumns*/
-      ctx[12] !== void 0
+      ctx[14] !== void 0
     ) {
       filtertable_props.filterColumns = /*filterColumns*/
-      ctx[12];
+      ctx[14];
     }
     if (
       /*filtersMap*/
-      ctx[13] !== void 0
+      ctx[15] !== void 0
     ) {
       filtertable_props.filtersMap = /*filtersMap*/
-      ctx[13];
+      ctx[15];
     }
     filtertable = new FilterTable_default({ props: filtertable_props });
-    ctx[46](filtertable);
+    ctx[48](filtertable);
     binding_callbacks.push(() => bind(filtertable, "filterColumns", filtertable_filterColumns_binding));
     binding_callbacks.push(() => bind(filtertable, "filtersMap", filtertable_filtersMap_binding));
     filtertable.$on(
       "click",
       /*ApplyFilter*/
-      ctx[30]
+      ctx[32]
     );
     return {
       c() {
@@ -28514,17 +28549,17 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         const filtertable_changes = {};
         if (!updating_filterColumns && dirty[0] & /*filterColumns*/
-        4096) {
+        16384) {
           updating_filterColumns = true;
           filtertable_changes.filterColumns = /*filterColumns*/
-          ctx2[12];
+          ctx2[14];
           add_flush_callback(() => updating_filterColumns = false);
         }
         if (!updating_filtersMap && dirty[0] & /*filtersMap*/
-        8192) {
+        32768) {
           updating_filtersMap = true;
           filtertable_changes.filtersMap = /*filtersMap*/
-          ctx2[13];
+          ctx2[15];
           add_flush_callback(() => updating_filtersMap = false);
         }
         filtertable.$set(filtertable_changes);
@@ -28540,12 +28575,12 @@ uniform ${i3} ${a3} u_${s3};
         current = false;
       },
       d(detaching) {
-        ctx[46](null);
+        ctx[48](null);
         destroy_component(filtertable, detaching);
       }
     };
   }
-  function create_if_block_132(ctx) {
+  function create_if_block_14(ctx) {
     let div3;
     let div2;
     let header;
@@ -28582,7 +28617,7 @@ uniform ${i3} ${a3} u_${s3};
     });
     let if_block = (
       /*isCoordFieldsExist*/
-      ctx[23] && create_if_block_14(ctx)
+      ctx[25] && create_if_block_15(ctx)
     );
     return {
       c() {
@@ -28643,13 +28678,13 @@ uniform ${i3} ${a3} u_${s3};
               button0,
               "click",
               /*click_handler*/
-              ctx[49]
+              ctx[51]
             ),
             listen(
               button1,
               "click",
               /*handleSubmitEdit*/
-              ctx[36]
+              ctx[38]
             )
           ];
           mounted = true;
@@ -28657,7 +28692,7 @@ uniform ${i3} ${a3} u_${s3};
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*FIELDS, REFS, payloads*/
-        16777221) {
+        67108869) {
           each_value_5 = ensure_array_like(
             /*FIELDS*/
             ctx2[0] || []
@@ -28683,16 +28718,16 @@ uniform ${i3} ${a3} u_${s3};
         }
         if (
           /*isCoordFieldsExist*/
-          ctx2[23]
+          ctx2[25]
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
             if (dirty[0] & /*isCoordFieldsExist*/
-            8388608) {
+            33554432) {
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block_14(ctx2);
+            if_block = create_if_block_15(ctx2);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(div0, null);
@@ -28737,11 +28772,11 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_15(ctx) {
+  function create_if_block_16(ctx) {
     let if_block_anchor;
     let current;
     let if_block = !/*field*/
-    ctx[86].readOnly && create_if_block_16(ctx);
+    ctx[88].readOnly && create_if_block_17(ctx);
     return {
       c() {
         if (if_block)
@@ -28756,7 +28791,7 @@ uniform ${i3} ${a3} u_${s3};
       },
       p(ctx2, dirty) {
         if (!/*field*/
-        ctx2[86].readOnly) {
+        ctx2[88].readOnly) {
           if (if_block) {
             if_block.p(ctx2, dirty);
             if (dirty[0] & /*FIELDS*/
@@ -28764,7 +28799,7 @@ uniform ${i3} ${a3} u_${s3};
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block_16(ctx2);
+            if_block = create_if_block_17(ctx2);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -28796,17 +28831,17 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_16(ctx) {
+  function create_if_block_17(ctx) {
     let current_block_type_index;
     let if_block;
     let if_block_anchor;
     let current;
-    const if_block_creators = [create_if_block_17, create_else_block_5];
+    const if_block_creators = [create_if_block_18, create_else_block_5];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (
         /*field*/
-        ctx2[86].inputType === "combobox"
+        ctx2[88].inputType === "combobox"
       )
         return 0;
       return 1;
@@ -28868,41 +28903,41 @@ uniform ${i3} ${a3} u_${s3};
     let updating_value;
     let current;
     function inputcustom_value_binding_1(value) {
-      ctx[51](
+      ctx[53](
         value,
         /*idx*/
-        ctx[83]
+        ctx[85]
       );
     }
     let inputcustom_props = {
       id: (
         /*field*/
-        ctx[86].name
+        ctx[88].name
       ),
       label: (
         /*field*/
-        ctx[86].label
+        ctx[88].label
       ),
       placeholder: (
         /*field*/
-        ctx[86].description
+        ctx[88].description
       ),
       type: (
         /*field*/
-        ctx[86].inputType
+        ctx[88].inputType
       )
     };
     if (
       /*payloads*/
-      ctx[24][
+      ctx[26][
         /*idx*/
-        ctx[83]
+        ctx[85]
       ] !== void 0
     ) {
       inputcustom_props.value = /*payloads*/
-      ctx[24][
+      ctx[26][
         /*idx*/
-        ctx[83]
+        ctx[85]
       ];
     }
     inputcustom = new InputCustom_default({ props: inputcustom_props });
@@ -28921,26 +28956,26 @@ uniform ${i3} ${a3} u_${s3};
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.id = /*field*/
-          ctx[86].name;
+          ctx[88].name;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.label = /*field*/
-          ctx[86].label;
+          ctx[88].label;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.placeholder = /*field*/
-          ctx[86].description;
+          ctx[88].description;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.type = /*field*/
-          ctx[86].inputType;
+          ctx[88].inputType;
         if (!updating_value && dirty[0] & /*payloads*/
-        16777216) {
+        67108864) {
           updating_value = true;
           inputcustom_changes.value = /*payloads*/
-          ctx[24][
+          ctx[26][
             /*idx*/
-            ctx[83]
+            ctx[85]
           ];
           add_flush_callback(() => updating_value = false);
         }
@@ -28961,69 +28996,69 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_17(ctx) {
+  function create_if_block_18(ctx) {
     let inputcustom;
     let updating_value;
     let current;
     function inputcustom_value_binding(value) {
-      ctx[50](
+      ctx[52](
         value,
         /*idx*/
-        ctx[83]
+        ctx[85]
       );
     }
     let inputcustom_props = {
       id: (
         /*field*/
-        ctx[86].name
+        ctx[88].name
       ),
       label: (
         /*field*/
-        ctx[86].label
+        ctx[88].label
       ),
       placeholder: (
         /*field*/
-        ctx[86].description
+        ctx[88].description
       ),
       type: (
         /*field*/
-        ctx[86].inputType
+        ctx[88].inputType
       ),
       values: (
         /*REFS*/
         ctx[2][
           /*field*/
-          ctx[86].name
+          ctx[88].name
         ] ? (
           /*REFS*/
           ctx[2][
             /*field*/
-            ctx[86].name
+            ctx[88].name
           ]
         ) : (
           /*field*/
-          ctx[86].ref
+          ctx[88].ref
         )
       ),
       isObject: (
         /*REFS*/
         ctx[2][
           /*field*/
-          ctx[86].name
+          ctx[88].name
         ] ? true : false
       )
     };
     if (
       /*payloads*/
-      ctx[24][
+      ctx[26][
         /*idx*/
-        ctx[83]
+        ctx[85]
       ] !== void 0
     ) {
       inputcustom_props.value = /*payloads*/
-      ctx[24][
+      ctx[26][
         /*idx*/
-        ctx[83]
+        ctx[85]
       ];
     }
     inputcustom = new InputCustom_default({ props: inputcustom_props });
@@ -29042,49 +29077,49 @@ uniform ${i3} ${a3} u_${s3};
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.id = /*field*/
-          ctx[86].name;
+          ctx[88].name;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.label = /*field*/
-          ctx[86].label;
+          ctx[88].label;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.placeholder = /*field*/
-          ctx[86].description;
+          ctx[88].description;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.type = /*field*/
-          ctx[86].inputType;
+          ctx[88].inputType;
         if (dirty[0] & /*REFS, FIELDS*/
         5)
           inputcustom_changes.values = /*REFS*/
           ctx[2][
             /*field*/
-            ctx[86].name
+            ctx[88].name
           ] ? (
             /*REFS*/
             ctx[2][
               /*field*/
-              ctx[86].name
+              ctx[88].name
             ]
           ) : (
             /*field*/
-            ctx[86].ref
+            ctx[88].ref
           );
         if (dirty[0] & /*REFS, FIELDS*/
         5)
           inputcustom_changes.isObject = /*REFS*/
           ctx[2][
             /*field*/
-            ctx[86].name
+            ctx[88].name
           ] ? true : false;
         if (!updating_value && dirty[0] & /*payloads*/
-        16777216) {
+        67108864) {
           updating_value = true;
           inputcustom_changes.value = /*payloads*/
-          ctx[24][
+          ctx[26][
             /*idx*/
-            ctx[83]
+            ctx[85]
           ];
           add_flush_callback(() => updating_value = false);
         }
@@ -29110,7 +29145,7 @@ uniform ${i3} ${a3} u_${s3};
     let current;
     let if_block = (
       /*field*/
-      ctx[86].name !== "id" && create_if_block_15(ctx)
+      ctx[88].name !== "id" && create_if_block_16(ctx)
     );
     return {
       c() {
@@ -29127,7 +29162,7 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         if (
           /*field*/
-          ctx2[86].name !== "id"
+          ctx2[88].name !== "id"
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
@@ -29136,7 +29171,7 @@ uniform ${i3} ${a3} u_${s3};
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block_15(ctx2);
+            if_block = create_if_block_16(ctx2);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -29168,31 +29203,31 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_14(ctx) {
+  function create_if_block_15(ctx) {
     let div;
     let map;
     let updating_Coord;
     let current;
     function map_Coord_binding(value) {
-      ctx[53](value);
+      ctx[55](value);
     }
     let map_props = {
       OnClickMap: (
         /*OnClickMap*/
-        ctx[37]
+        ctx[39]
       ),
       IsClickable: true,
       IsDraggable: true
     };
     if (
       /*Coord*/
-      ctx[26] !== void 0
+      ctx[28] !== void 0
     ) {
       map_props.Coord = /*Coord*/
-      ctx[26];
+      ctx[28];
     }
     map = new Map_default({ props: map_props });
-    ctx[52](map);
+    ctx[54](map);
     binding_callbacks.push(() => bind(map, "Coord", map_Coord_binding));
     return {
       c() {
@@ -29208,10 +29243,10 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         const map_changes = {};
         if (!updating_Coord && dirty[0] & /*Coord*/
-        67108864) {
+        268435456) {
           updating_Coord = true;
           map_changes.Coord = /*Coord*/
-          ctx2[26];
+          ctx2[28];
           add_flush_callback(() => updating_Coord = false);
         }
         map.$set(map_changes);
@@ -29230,12 +29265,12 @@ uniform ${i3} ${a3} u_${s3};
         if (detaching) {
           detach(div);
         }
-        ctx[52](null);
+        ctx[54](null);
         destroy_component(map);
       }
     };
   }
-  function create_if_block_123(ctx) {
+  function create_if_block_132(ctx) {
     let div;
     let icon;
     let current;
@@ -29276,7 +29311,7 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_112(ctx) {
+  function create_if_block_123(ctx) {
     let div;
     let button;
     let icon;
@@ -29336,7 +29371,7 @@ uniform ${i3} ${a3} u_${s3};
     let th;
     let t_value = (
       /*f*/
-      ctx[81].label + ""
+      ctx[83].label + ""
     );
     let t;
     let th_class_value;
@@ -29345,9 +29380,9 @@ uniform ${i3} ${a3} u_${s3};
         th = element("th");
         t = text(t_value);
         attr(th, "class", th_class_value = /*f*/
-        (ctx[81].inputType === "textarea" ? "textarea" : "") + " " + /*f*/
-        (ctx[81].inputType === "datetime" ? "datetime" : "") + " " + /*f*/
-        (ctx[81].name === "staffId" ? "staff" : "") + " svelte-finixz");
+        (ctx[83].inputType === "textarea" ? "textarea" : "") + " " + /*f*/
+        (ctx[83].inputType === "datetime" ? "datetime" : "") + " " + /*f*/
+        (ctx[83].name === "staffId" ? "staff" : "") + " svelte-finixz");
       },
       m(target, anchor) {
         insert(target, th, anchor);
@@ -29356,13 +29391,13 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         if (dirty[0] & /*FIELDS*/
         1 && t_value !== (t_value = /*f*/
-        ctx2[81].label + ""))
+        ctx2[83].label + ""))
           set_data(t, t_value);
         if (dirty[0] & /*FIELDS*/
         1 && th_class_value !== (th_class_value = /*f*/
-        (ctx2[81].inputType === "textarea" ? "textarea" : "") + " " + /*f*/
-        (ctx2[81].inputType === "datetime" ? "datetime" : "") + " " + /*f*/
-        (ctx2[81].name === "staffId" ? "staff" : "") + " svelte-finixz")) {
+        (ctx2[83].inputType === "textarea" ? "textarea" : "") + " " + /*f*/
+        (ctx2[83].inputType === "datetime" ? "datetime" : "") + " " + /*f*/
+        (ctx2[83].name === "staffId" ? "staff" : "") + " svelte-finixz")) {
           attr(th, "class", th_class_value);
         }
       },
@@ -29373,7 +29408,7 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_102(ctx) {
+  function create_if_block_112(ctx) {
     let th;
     return {
       c() {
@@ -29398,9 +29433,9 @@ uniform ${i3} ${a3} u_${s3};
     function select_block_type_1(ctx2, dirty) {
       if (
         /*f*/
-        ctx2[81].name === "id"
+        ctx2[83].name === "id"
       )
-        return create_if_block_102;
+        return create_if_block_112;
       return create_else_block_4;
     }
     let current_block_type = select_block_type_1(ctx, [-1, -1, -1]);
@@ -29461,7 +29496,7 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_19(ctx) {
+  function create_if_block_110(ctx) {
     let each_1_anchor;
     let current;
     let each_value_2 = ensure_array_like(
@@ -29492,9 +29527,9 @@ uniform ${i3} ${a3} u_${s3};
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*CAN_DELETE_ROW, MASTER_ROWS, deletedIndex, FIELDS, CAN_RESTORE_ROW, Cell, CAN_EDIT_ROW, OnInfo, CAN_SHOW_INFO, ACCESS, REFS*/
-        536888303 | dirty[1] & /*restoreRow, deleteRow, toggleShowPopUp*/
-        28) {
+        if (dirty[0] & /*CAN_DELETE_ROW, MASTER_ROWS, deletedIndex, FIELDS, LINK_PATH, CAN_OPEN_LINK, CAN_RESTORE_ROW, CAN_EDIT_ROW, OnInfo, CAN_SHOW_INFO, ACCESS, REFS*/
+        69615 | dirty[1] & /*restoreRow, deleteRow, toggleShowPopUp, Cell*/
+        113) {
           each_value_2 = ensure_array_like(
             /*MASTER_ROWS*/
             ctx2[1]
@@ -29545,20 +29580,20 @@ uniform ${i3} ${a3} u_${s3};
   function create_else_block_2(ctx) {
     let td;
     let t_value = (typeof /*row*/
-    ctx[78][
+    ctx[80][
       /*idx*/
-      ctx[83]
+      ctx[85]
     ] === "boolean" ? (
       /*row*/
-      ctx[78][
+      ctx[80][
         /*idx*/
-        ctx[83]
+        ctx[85]
       ] ? "Yes" : "No"
     ) : (
       /*row*/
-      ctx[78][
+      ctx[80][
         /*idx*/
-        ctx[83]
+        ctx[85]
       ] || "--"
     )) + "";
     let t;
@@ -29575,20 +29610,20 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         if (dirty[0] & /*MASTER_ROWS*/
         2 && t_value !== (t_value = (typeof /*row*/
-        ctx2[78][
+        ctx2[80][
           /*idx*/
-          ctx2[83]
+          ctx2[85]
         ] === "boolean" ? (
           /*row*/
-          ctx2[78][
+          ctx2[80][
             /*idx*/
-            ctx2[83]
+            ctx2[85]
           ] ? "Yes" : "No"
         ) : (
           /*row*/
-          ctx2[78][
+          ctx2[80][
             /*idx*/
-            ctx2[83]
+            ctx2[85]
           ] || "--"
         )) + ""))
           set_data(t, t_value);
@@ -29602,18 +29637,18 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_92(ctx) {
+  function create_if_block_102(ctx) {
     let td;
     let t_value = (
       /*REFS*/
       (ctx[2][
         /*f*/
-        ctx[81].name
+        ctx[83].name
       ][
         /*row*/
-        ctx[78][
+        ctx[80][
           /*idx*/
-          ctx[83]
+          ctx[85]
         ]
       ] || "--") + ""
     );
@@ -29633,12 +29668,12 @@ uniform ${i3} ${a3} u_${s3};
         7 && t_value !== (t_value = /*REFS*/
         (ctx2[2][
           /*f*/
-          ctx2[81].name
+          ctx2[83].name
         ][
           /*row*/
-          ctx2[78][
+          ctx2[80][
             /*idx*/
-            ctx2[83]
+            ctx2[85]
           ]
         ] || "--") + ""))
           set_data(t, t_value);
@@ -29652,18 +29687,18 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_82(ctx) {
+  function create_if_block_92(ctx) {
     let td;
     let t_value = (
       /*row*/
-      (ctx[78][
+      (ctx[80][
         /*idx*/
-        ctx[83]
+        ctx[85]
       ] ? (0, import_formatter.datetime)(
         /*row*/
-        ctx[78][
+        ctx[80][
           /*idx*/
-          ctx[83]
+          ctx[85]
         ]
       ) : "--") + ""
     );
@@ -29681,14 +29716,14 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         if (dirty[0] & /*MASTER_ROWS*/
         2 && t_value !== (t_value = /*row*/
-        (ctx2[78][
+        (ctx2[80][
           /*idx*/
-          ctx2[83]
+          ctx2[85]
         ] ? (0, import_formatter.datetime)(
           /*row*/
-          ctx2[78][
+          ctx2[80][
             /*idx*/
-            ctx2[83]
+            ctx2[85]
           ]
         ) : "--") + ""))
           set_data(t, t_value);
@@ -29714,7 +29749,7 @@ uniform ${i3} ${a3} u_${s3};
         /*ACCESS*/
         ctx2[3].superAdmin || /*ACCESS*/
         ctx2[3].tenantAdmin || /*ACCESS*/
-        ctx2[3].entryUser || /*ACCESS*/
+        ctx2[3].dataEntry || /*ACCESS*/
         ctx2[3].reportViewer
       )
         return 0;
@@ -29797,19 +29832,24 @@ uniform ${i3} ${a3} u_${s3};
     let div;
     let t0;
     let t1;
+    let t2;
     let current;
     let if_block0 = (
       /*CAN_SHOW_INFO*/
-      ctx[8] && create_if_block_72(ctx)
+      ctx[8] && create_if_block_82(ctx)
     );
     let if_block1 = (
       /*CAN_EDIT_ROW*/
-      ctx[5] && create_if_block_62(ctx)
+      ctx[5] && create_if_block_72(ctx)
     );
     let if_block2 = (
       /*CAN_DELETE_ROW*/
       (ctx[6] || /*CAN_RESTORE_ROW*/
-      ctx[7]) && create_if_block_43(ctx)
+      ctx[7]) && create_if_block_53(ctx)
+    );
+    let if_block3 = (
+      /*CAN_OPEN_LINK*/
+      ctx[9] && create_if_block_43(ctx)
     );
     return {
       c() {
@@ -29822,6 +29862,9 @@ uniform ${i3} ${a3} u_${s3};
         t1 = space();
         if (if_block2)
           if_block2.c();
+        t2 = space();
+        if (if_block3)
+          if_block3.c();
         attr(div, "class", "actions svelte-finixz");
       },
       m(target, anchor) {
@@ -29834,6 +29877,9 @@ uniform ${i3} ${a3} u_${s3};
         append(div, t1);
         if (if_block2)
           if_block2.m(div, null);
+        append(div, t2);
+        if (if_block3)
+          if_block3.m(div, null);
         current = true;
       },
       p(ctx2, dirty) {
@@ -29848,7 +29894,7 @@ uniform ${i3} ${a3} u_${s3};
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_72(ctx2);
+            if_block0 = create_if_block_82(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(div, t0);
@@ -29871,7 +29917,7 @@ uniform ${i3} ${a3} u_${s3};
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_62(ctx2);
+            if_block1 = create_if_block_72(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(div, t1);
@@ -29895,15 +29941,38 @@ uniform ${i3} ${a3} u_${s3};
               transition_in(if_block2, 1);
             }
           } else {
-            if_block2 = create_if_block_43(ctx2);
+            if_block2 = create_if_block_53(ctx2);
             if_block2.c();
             transition_in(if_block2, 1);
-            if_block2.m(div, null);
+            if_block2.m(div, t2);
           }
         } else if (if_block2) {
           group_outros();
           transition_out(if_block2, 1, 1, () => {
             if_block2 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*CAN_OPEN_LINK*/
+          ctx2[9]
+        ) {
+          if (if_block3) {
+            if_block3.p(ctx2, dirty);
+            if (dirty[0] & /*CAN_OPEN_LINK*/
+            512) {
+              transition_in(if_block3, 1);
+            }
+          } else {
+            if_block3 = create_if_block_43(ctx2);
+            if_block3.c();
+            transition_in(if_block3, 1);
+            if_block3.m(div, null);
+          }
+        } else if (if_block3) {
+          group_outros();
+          transition_out(if_block3, 1, 1, () => {
+            if_block3 = null;
           });
           check_outros();
         }
@@ -29914,12 +29983,14 @@ uniform ${i3} ${a3} u_${s3};
         transition_in(if_block0);
         transition_in(if_block1);
         transition_in(if_block2);
+        transition_in(if_block3);
         current = true;
       },
       o(local) {
         transition_out(if_block0);
         transition_out(if_block1);
         transition_out(if_block2);
+        transition_out(if_block3);
         current = false;
       },
       d(detaching) {
@@ -29932,10 +30003,12 @@ uniform ${i3} ${a3} u_${s3};
           if_block1.d();
         if (if_block2)
           if_block2.d();
+        if (if_block3)
+          if_block3.d();
       }
     };
   }
-  function create_if_block_72(ctx) {
+  function create_if_block_82(ctx) {
     let button;
     let icon;
     let current;
@@ -29951,9 +30024,9 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_2() {
       return (
         /*click_handler_2*/
-        ctx[55](
+        ctx[57](
           /*row*/
-          ctx[78]
+          ctx[80]
         )
       );
     }
@@ -29996,7 +30069,7 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_62(ctx) {
+  function create_if_block_72(ctx) {
     let button;
     let icon;
     let current;
@@ -30012,13 +30085,13 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_3() {
       return (
         /*click_handler_3*/
-        ctx[56](
+        ctx[58](
           /*row*/
-          ctx[78],
+          ctx[80],
           /*idx*/
-          ctx[83],
+          ctx[85],
           /*f*/
-          ctx[81]
+          ctx[83]
         )
       );
     }
@@ -30061,23 +30134,23 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_43(ctx) {
+  function create_if_block_53(ctx) {
     let current_block_type_index;
     let if_block;
     let if_block_anchor;
     let current;
-    const if_block_creators = [create_if_block_53, create_else_block2];
+    const if_block_creators = [create_if_block_62, create_else_block2];
     const if_blocks = [];
     function select_block_type_5(ctx2, dirty) {
       if (
         /*row*/
-        ctx2[78][
+        ctx2[80][
           /*deletedIndex*/
-          ctx2[14]
+          ctx2[16]
         ] > 0 || /*row*/
-        ctx2[78][
+        ctx2[80][
           /*deletedIndex*/
-          ctx2[14]
+          ctx2[16]
         ] === "terminated"
       )
         return 0;
@@ -30151,9 +30224,9 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_5() {
       return (
         /*click_handler_5*/
-        ctx[58](
+        ctx[60](
           /*row*/
-          ctx[78]
+          ctx[80]
         )
       );
     }
@@ -30196,7 +30269,7 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_53(ctx) {
+  function create_if_block_62(ctx) {
     let button;
     let icon;
     let current;
@@ -30212,9 +30285,9 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_4() {
       return (
         /*click_handler_4*/
-        ctx[57](
+        ctx[59](
           /*row*/
-          ctx[78]
+          ctx[80]
         )
       );
     }
@@ -30257,30 +30330,89 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
+  function create_if_block_43(ctx) {
+    let a;
+    let icon;
+    let a_href_value;
+    let current;
+    icon = new Icon_default({
+      props: {
+        size: "15",
+        color: "var(--gray-007)",
+        src: FaShareFromSquare
+      }
+    });
+    return {
+      c() {
+        a = element("a");
+        create_component(icon.$.fragment);
+        attr(a, "class", "btn link svelte-finixz");
+        attr(a, "title", "open");
+        attr(a, "href", a_href_value = /*LINK_PATH*/
+        ctx[10] + /*row*/
+        ctx[80][
+          /*idx*/
+          ctx[85]
+        ]);
+      },
+      m(target, anchor) {
+        insert(target, a, anchor);
+        mount_component(icon, a, null);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (!current || dirty[0] & /*LINK_PATH, MASTER_ROWS*/
+        1026 && a_href_value !== (a_href_value = /*LINK_PATH*/
+        ctx2[10] + /*row*/
+        ctx2[80][
+          /*idx*/
+          ctx2[85]
+        ])) {
+          attr(a, "href", a_href_value);
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(a);
+        }
+        destroy_component(icon);
+      }
+    };
+  }
   function create_each_block_3(ctx) {
     let current_block_type_index;
     let if_block;
     let if_block_anchor;
     let current;
-    const if_block_creators = [create_if_block_23, create_if_block_82, create_if_block_92, create_else_block_2];
+    const if_block_creators = [create_if_block_23, create_if_block_92, create_if_block_102, create_else_block_2];
     const if_blocks = [];
     function select_block_type_3(ctx2, dirty) {
       if (
         /*f*/
-        ctx2[81].name === "id"
+        ctx2[83].name === "id"
       )
         return 0;
       if (
         /*f*/
-        ctx2[81].inputType === "datetime"
+        ctx2[83].inputType === "datetime"
       )
         return 1;
       if (
         /*f*/
-        ctx2[81].inputType === "combobox" && /*REFS*/
+        ctx2[83].inputType === "combobox" && /*REFS*/
         ctx2[2][
           /*f*/
-          ctx2[81].name
+          ctx2[83].name
         ]
       )
         return 2;
@@ -30345,7 +30477,7 @@ uniform ${i3} ${a3} u_${s3};
       /*MASTER_ROWS*/
       ctx[1].indexOf(
         /*row*/
-        ctx[78]
+        ctx[80]
       ) + 1 + ""
     );
     let t0;
@@ -30378,13 +30510,13 @@ uniform ${i3} ${a3} u_${s3};
         attr(tr, "class", tr_class_value = null_to_empty(
           /*CAN_DELETE_ROW*/
           ctx[6] && /*row*/
-          (ctx[78][
+          (ctx[80][
             /*deletedIndex*/
-            ctx[14]
+            ctx[16]
           ] > 0 || /*row*/
-          ctx[78][
+          ctx[80][
             /*deletedIndex*/
-            ctx[14]
+            ctx[16]
           ] === "terminated") ? "deleted" : ""
         ) + " svelte-finixz");
       },
@@ -30406,12 +30538,12 @@ uniform ${i3} ${a3} u_${s3};
         2) && t0_value !== (t0_value = /*MASTER_ROWS*/
         ctx2[1].indexOf(
           /*row*/
-          ctx2[78]
+          ctx2[80]
         ) + 1 + ""))
           set_data(t0, t0_value);
-        if (dirty[0] & /*MASTER_ROWS, deletedIndex, CAN_DELETE_ROW, CAN_RESTORE_ROW, Cell, FIELDS, CAN_EDIT_ROW, OnInfo, CAN_SHOW_INFO, ACCESS, REFS*/
-        536888303 | dirty[1] & /*restoreRow, deleteRow, toggleShowPopUp*/
-        28) {
+        if (dirty[0] & /*LINK_PATH, MASTER_ROWS, CAN_OPEN_LINK, deletedIndex, CAN_DELETE_ROW, CAN_RESTORE_ROW, FIELDS, CAN_EDIT_ROW, OnInfo, CAN_SHOW_INFO, ACCESS, REFS*/
+        69615 | dirty[1] & /*restoreRow, deleteRow, toggleShowPopUp, Cell*/
+        113) {
           each_value_3 = ensure_array_like(
             /*FIELDS*/
             ctx2[0] || []
@@ -30436,16 +30568,16 @@ uniform ${i3} ${a3} u_${s3};
           check_outros();
         }
         if (!current || dirty[0] & /*CAN_DELETE_ROW, MASTER_ROWS, deletedIndex*/
-        16450 && tr_class_value !== (tr_class_value = null_to_empty(
+        65602 && tr_class_value !== (tr_class_value = null_to_empty(
           /*CAN_DELETE_ROW*/
           ctx2[6] && /*row*/
-          (ctx2[78][
+          (ctx2[80][
             /*deletedIndex*/
-            ctx2[14]
+            ctx2[16]
           ] > 0 || /*row*/
-          ctx2[78][
+          ctx2[80][
             /*deletedIndex*/
-            ctx2[14]
+            ctx2[16]
           ] === "terminated") ? "deleted" : ""
         ) + " svelte-finixz")) {
           attr(tr, "class", tr_class_value);
@@ -30478,7 +30610,7 @@ uniform ${i3} ${a3} u_${s3};
     let div;
     let each_value_1 = ensure_array_like(
       /*rowsToShow*/
-      ctx[27]
+      ctx[29]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value_1.length; i += 1) {
@@ -30502,11 +30634,11 @@ uniform ${i3} ${a3} u_${s3};
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*rowsToShow*/
-        134217728 | dirty[1] & /*toRow*/
-        1) {
+        536870912 | dirty[1] & /*toRow*/
+        4) {
           each_value_1 = ensure_array_like(
             /*rowsToShow*/
-            ctx2[27]
+            ctx2[29]
           );
           let i;
           for (i = 0; i < each_value_1.length; i += 1) {
@@ -30540,9 +30672,9 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_6() {
       return (
         /*click_handler_6*/
-        ctx[59](
+        ctx[61](
           /*r*/
-          ctx[75]
+          ctx[77]
         )
       );
     }
@@ -30550,7 +30682,7 @@ uniform ${i3} ${a3} u_${s3};
       c() {
         button = element("button");
         button.textContent = `${/*r*/
-        ctx[75]}`;
+        ctx[77]}`;
         attr(button, "class", "svelte-finixz");
       },
       m(target, anchor) {
@@ -30576,7 +30708,7 @@ uniform ${i3} ${a3} u_${s3};
     let button;
     let t_value = (
       /*i*/
-      ctx[72] + ""
+      ctx[74] + ""
     );
     let t;
     let button_disabled_value;
@@ -30587,9 +30719,9 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_9() {
       return (
         /*click_handler_9*/
-        ctx[62](
+        ctx[64](
           /*i*/
-          ctx[72]
+          ctx[74]
         )
       );
     }
@@ -30598,15 +30730,15 @@ uniform ${i3} ${a3} u_${s3};
         button = element("button");
         t = text(t_value);
         button.disabled = button_disabled_value = /*currentPage*/
-        ctx[18] == /*i*/
-        ctx[72];
+        ctx[20] == /*i*/
+        ctx[74];
         attr(button, "class", button_class_value = null_to_empty(
           /*currentPage*/
-          ctx[18] === /*i*/
-          ctx[72] ? "btn active" : "btn"
+          ctx[20] === /*i*/
+          ctx[74] ? "btn active" : "btn"
         ) + " svelte-finixz");
         attr(button, "title", button_title_value = `Go to page ${/*i*/
-        ctx[72]}`);
+        ctx[74]}`);
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -30619,26 +30751,26 @@ uniform ${i3} ${a3} u_${s3};
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if (dirty[0] & /*paginationShow*/
-        131072 && t_value !== (t_value = /*i*/
-        ctx[72] + ""))
+        524288 && t_value !== (t_value = /*i*/
+        ctx[74] + ""))
           set_data(t, t_value);
         if (dirty[0] & /*currentPage, paginationShow*/
-        393216 && button_disabled_value !== (button_disabled_value = /*currentPage*/
-        ctx[18] == /*i*/
-        ctx[72])) {
+        1572864 && button_disabled_value !== (button_disabled_value = /*currentPage*/
+        ctx[20] == /*i*/
+        ctx[74])) {
           button.disabled = button_disabled_value;
         }
         if (dirty[0] & /*currentPage, paginationShow*/
-        393216 && button_class_value !== (button_class_value = null_to_empty(
+        1572864 && button_class_value !== (button_class_value = null_to_empty(
           /*currentPage*/
-          ctx[18] === /*i*/
-          ctx[72] ? "btn active" : "btn"
+          ctx[20] === /*i*/
+          ctx[74] ? "btn active" : "btn"
         ) + " svelte-finixz")) {
           attr(button, "class", button_class_value);
         }
         if (dirty[0] & /*paginationShow*/
-        131072 && button_title_value !== (button_title_value = `Go to page ${/*i*/
-        ctx[72]}`)) {
+        524288 && button_title_value !== (button_title_value = `Go to page ${/*i*/
+        ctx[74]}`)) {
           attr(button, "title", button_title_value);
         }
       },
@@ -30727,11 +30859,11 @@ uniform ${i3} ${a3} u_${s3};
     let dispose;
     let if_block0 = (
       /*filterTableReady*/
-      ctx[11] && create_if_block_18(ctx)
+      ctx[13] && create_if_block_19(ctx)
     );
     let if_block1 = (
       /*showPopUp*/
-      ctx[15] && create_if_block_132(ctx)
+      ctx[17] && create_if_block_14(ctx)
     );
     icon0 = new Icon_default({
       props: {
@@ -30742,19 +30874,19 @@ uniform ${i3} ${a3} u_${s3};
     });
     const default_slot_template = (
       /*#slots*/
-      ctx[45].default
+      ctx[47].default
     );
     const default_slot = create_slot(
       default_slot_template,
       ctx,
       /*$scope*/
-      ctx[44],
+      ctx[46],
       null
     );
-    let if_block2 = isAjaxSubmitted && create_if_block_123(ctx);
+    let if_block2 = isAjaxSubmitted && create_if_block_132(ctx);
     let if_block3 = (
       /*CAN_SEARCH_ROW*/
-      ctx[4] && create_if_block_112(ctx)
+      ctx[4] && create_if_block_123(ctx)
     );
     let each_value_4 = ensure_array_like(
       /*FIELDS*/
@@ -30762,14 +30894,14 @@ uniform ${i3} ${a3} u_${s3};
     );
     const get_key = (ctx2) => (
       /*f*/
-      ctx2[81].name
+      ctx2[83].name
     );
     for (let i = 0; i < each_value_4.length; i += 1) {
       let child_ctx = get_each_context_4(ctx, each_value_4, i);
       let key = get_key(child_ctx);
       each0_lookup.set(key, each_blocks_1[i] = create_each_block_4(key, child_ctx));
     }
-    const if_block_creators = [create_if_block_19, create_else_block_3];
+    const if_block_creators = [create_if_block_110, create_else_block_3];
     const if_blocks = [];
     function select_block_type_2(ctx2, dirty) {
       if (
@@ -30784,13 +30916,13 @@ uniform ${i3} ${a3} u_${s3};
     if_block4 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     let if_block5 = (
       /*showRowsNum*/
-      ctx[20] && create_if_block4(ctx)
+      ctx[22] && create_if_block4(ctx)
     );
     icon1 = new Icon_default({
       props: {
         className: (
           /*showRowsNum*/
-          ctx[20] ? "rotate_right" : "dropdown"
+          ctx[22] ? "rotate_right" : "dropdown"
         ),
         size: "13",
         src: CgChevronRight
@@ -30804,7 +30936,7 @@ uniform ${i3} ${a3} u_${s3};
     });
     let each_value = ensure_array_like(
       /*paginationShow*/
-      ctx[17]
+      ctx[19]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value.length; i += 1) {
@@ -30865,7 +30997,7 @@ uniform ${i3} ${a3} u_${s3};
         span0 = element("span");
         t12 = text(
           /*totalRowsCurrent*/
-          ctx[22]
+          ctx[24]
         );
         t13 = text(" /");
         t14 = space();
@@ -30877,7 +31009,7 @@ uniform ${i3} ${a3} u_${s3};
         span1 = element("span");
         t16 = text(
           /*currentRows*/
-          ctx[19]
+          ctx[21]
         );
         t17 = space();
         create_component(icon1.$.fragment);
@@ -30891,7 +31023,7 @@ uniform ${i3} ${a3} u_${s3};
         span2 = element("span");
         t22 = text(
           /*totalRows*/
-          ctx[21]
+          ctx[23]
         );
         t23 = space();
         div9 = element("div");
@@ -30930,21 +31062,21 @@ uniform ${i3} ${a3} u_${s3};
         attr(span2, "class", "text-violet svelte-finixz");
         attr(p2, "class", "svelte-finixz");
         button2.disabled = button2_disabled_value = /*currentPage*/
-        ctx[18] == 1;
+        ctx[20] == 1;
         attr(button2, "class", "btn to svelte-finixz");
         attr(button2, "title", "Go to first page");
         button3.disabled = button3_disabled_value = /*currentPage*/
-        ctx[18] == 1;
+        ctx[20] == 1;
         attr(button3, "class", "btn to svelte-finixz");
         attr(button3, "title", "Go to previous page");
         button4.disabled = button4_disabled_value = /*currentPage*/
-        ctx[18] == /*paginationTotal*/
-        ctx[16];
+        ctx[20] == /*paginationTotal*/
+        ctx[18];
         attr(button4, "class", "btn to svelte-finixz");
         attr(button4, "title", "Go to next page");
         button5.disabled = button5_disabled_value = /*currentPage*/
-        ctx[18] == /*paginationTotal*/
-        ctx[16];
+        ctx[20] == /*paginationTotal*/
+        ctx[18];
         attr(button5, "class", "btn to svelte-finixz");
         attr(button5, "title", "Go to last page");
         attr(div9, "class", "pagination svelte-finixz");
@@ -31045,37 +31177,37 @@ uniform ${i3} ${a3} u_${s3};
               button0,
               "click",
               /*click_handler_1*/
-              ctx[54]
+              ctx[56]
             ),
             listen(
               button1,
               "click",
               /*toggleRowsNum*/
-              ctx[28]
+              ctx[30]
             ),
             listen(
               button2,
               "click",
               /*click_handler_7*/
-              ctx[60]
+              ctx[62]
             ),
             listen(
               button3,
               "click",
               /*click_handler_8*/
-              ctx[61]
+              ctx[63]
             ),
             listen(
               button4,
               "click",
               /*click_handler_10*/
-              ctx[63]
+              ctx[65]
             ),
             listen(
               button5,
               "click",
               /*click_handler_11*/
-              ctx[64]
+              ctx[66]
             )
           ];
           mounted = true;
@@ -31084,16 +31216,16 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         if (
           /*filterTableReady*/
-          ctx2[11]
+          ctx2[13]
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
             if (dirty[0] & /*filterTableReady*/
-            2048) {
+            8192) {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_18(ctx2);
+            if_block0 = create_if_block_19(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(t0.parentNode, t0);
@@ -31107,16 +31239,16 @@ uniform ${i3} ${a3} u_${s3};
         }
         if (
           /*showPopUp*/
-          ctx2[15]
+          ctx2[17]
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
             if (dirty[0] & /*showPopUp*/
-            32768) {
+            131072) {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_132(ctx2);
+            if_block1 = create_if_block_14(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(t1.parentNode, t1);
@@ -31130,20 +31262,20 @@ uniform ${i3} ${a3} u_${s3};
         }
         if (default_slot) {
           if (default_slot.p && (!current || dirty[1] & /*$scope*/
-          8192)) {
+          32768)) {
             update_slot_base(
               default_slot,
               default_slot_template,
               ctx2,
               /*$scope*/
-              ctx2[44],
+              ctx2[46],
               !current ? get_all_dirty_from_scope(
                 /*$scope*/
-                ctx2[44]
+                ctx2[46]
               ) : get_slot_changes(
                 default_slot_template,
                 /*$scope*/
-                ctx2[44],
+                ctx2[46],
                 dirty,
                 null
               ),
@@ -31161,7 +31293,7 @@ uniform ${i3} ${a3} u_${s3};
               transition_in(if_block3, 1);
             }
           } else {
-            if_block3 = create_if_block_112(ctx2);
+            if_block3 = create_if_block_123(ctx2);
             if_block3.c();
             transition_in(if_block3, 1);
             if_block3.m(div2, null);
@@ -31202,15 +31334,15 @@ uniform ${i3} ${a3} u_${s3};
           if_block4.m(tbody, null);
         }
         if (!current || dirty[0] & /*totalRowsCurrent*/
-        4194304)
+        16777216)
           set_data(
             t12,
             /*totalRowsCurrent*/
-            ctx2[22]
+            ctx2[24]
           );
         if (
           /*showRowsNum*/
-          ctx2[20]
+          ctx2[22]
         ) {
           if (if_block5) {
             if_block5.p(ctx2, dirty);
@@ -31224,41 +31356,41 @@ uniform ${i3} ${a3} u_${s3};
           if_block5 = null;
         }
         if (!current || dirty[0] & /*currentRows*/
-        524288)
+        2097152)
           set_data(
             t16,
             /*currentRows*/
-            ctx2[19]
+            ctx2[21]
           );
         const icon1_changes = {};
         if (dirty[0] & /*showRowsNum*/
-        1048576)
+        4194304)
           icon1_changes.className = /*showRowsNum*/
-          ctx2[20] ? "rotate_right" : "dropdown";
+          ctx2[22] ? "rotate_right" : "dropdown";
         icon1.$set(icon1_changes);
         if (!current || dirty[0] & /*totalRows*/
-        2097152)
+        8388608)
           set_data(
             t22,
             /*totalRows*/
-            ctx2[21]
+            ctx2[23]
           );
         if (!current || dirty[0] & /*currentPage*/
-        262144 && button2_disabled_value !== (button2_disabled_value = /*currentPage*/
-        ctx2[18] == 1)) {
+        1048576 && button2_disabled_value !== (button2_disabled_value = /*currentPage*/
+        ctx2[20] == 1)) {
           button2.disabled = button2_disabled_value;
         }
         if (!current || dirty[0] & /*currentPage*/
-        262144 && button3_disabled_value !== (button3_disabled_value = /*currentPage*/
-        ctx2[18] == 1)) {
+        1048576 && button3_disabled_value !== (button3_disabled_value = /*currentPage*/
+        ctx2[20] == 1)) {
           button3.disabled = button3_disabled_value;
         }
         if (dirty[0] & /*currentPage, paginationShow*/
-        393216 | dirty[1] & /*goToPage*/
-        2) {
+        1572864 | dirty[1] & /*goToPage*/
+        8) {
           each_value = ensure_array_like(
             /*paginationShow*/
-            ctx2[17]
+            ctx2[19]
           );
           let i;
           for (i = 0; i < each_value.length; i += 1) {
@@ -31277,15 +31409,15 @@ uniform ${i3} ${a3} u_${s3};
           each_blocks.length = each_value.length;
         }
         if (!current || dirty[0] & /*currentPage, paginationTotal*/
-        327680 && button4_disabled_value !== (button4_disabled_value = /*currentPage*/
-        ctx2[18] == /*paginationTotal*/
-        ctx2[16])) {
+        1310720 && button4_disabled_value !== (button4_disabled_value = /*currentPage*/
+        ctx2[20] == /*paginationTotal*/
+        ctx2[18])) {
           button4.disabled = button4_disabled_value;
         }
         if (!current || dirty[0] & /*currentPage, paginationTotal*/
-        327680 && button5_disabled_value !== (button5_disabled_value = /*currentPage*/
-        ctx2[18] == /*paginationTotal*/
-        ctx2[16])) {
+        1310720 && button5_disabled_value !== (button5_disabled_value = /*currentPage*/
+        ctx2[20] == /*paginationTotal*/
+        ctx2[18])) {
           button5.disabled = button5_disabled_value;
         }
       },
@@ -31381,6 +31513,8 @@ uniform ${i3} ${a3} u_${s3};
     let { CAN_DELETE_ROW = false } = $props;
     let { CAN_RESTORE_ROW = false } = $props;
     let { CAN_SHOW_INFO = false } = $props;
+    let { CAN_OPEN_LINK = false } = $props;
+    let { LINK_PATH = "/" } = $props;
     let filterTable = null;
     let filterTableReady = false;
     let filterColumns = [];
@@ -31409,20 +31543,20 @@ uniform ${i3} ${a3} u_${s3};
     let payloads = [];
     let mapElm;
     function toggleRowsNum() {
-      $invalidate(20, showRowsNum = !showRowsNum);
+      $invalidate(22, showRowsNum = !showRowsNum);
     }
     function getPaginationShow() {
-      $invalidate(21, totalRows = PAGER.countResult);
+      $invalidate(23, totalRows = PAGER.countResult);
       totalPages = PAGER.pages;
-      $invalidate(18, currentPage = PAGER.page);
+      $invalidate(20, currentPage = PAGER.page);
       if (MASTER_ROWS && MASTER_ROWS.length)
-        $invalidate(22, totalRowsCurrent = MASTER_ROWS.length);
+        $invalidate(24, totalRowsCurrent = MASTER_ROWS.length);
       else
-        $invalidate(22, totalRowsCurrent = 0);
+        $invalidate(24, totalRowsCurrent = 0);
       totalRound = Math.ceil(totalPages / currentRows) * currentRows;
-      $invalidate(16, paginationTotal = totalRound / currentRows), paginationsAll = [];
+      $invalidate(18, paginationTotal = totalRound / currentRows), paginationsAll = [];
       if (currentRows > PAGER.countResult)
-        $invalidate(16, paginationTotal = 1);
+        $invalidate(18, paginationTotal = 1);
       for (let i = 0; i < paginationTotal; i++) {
         paginationsAll = [...paginationsAll, i + 1];
       }
@@ -31438,7 +31572,7 @@ uniform ${i3} ${a3} u_${s3};
       } else {
         start = currentPage - 3, end = currentPage + 2;
       }
-      $invalidate(17, paginationShow = paginationsAll.slice(start, end));
+      $invalidate(19, paginationShow = paginationsAll.slice(start, end));
     }
     function Cell(row, i, field) {
       if (ARRAY_OF_ARRAY)
@@ -31451,22 +31585,22 @@ uniform ${i3} ${a3} u_${s3};
       zoom: 7
     };
     onMount(() => {
-      $invalidate(10, filterTable = FilterTable_default);
-      $invalidate(11, filterTableReady = true);
+      $invalidate(12, filterTable = FilterTable_default);
+      $invalidate(13, filterTableReady = true);
       totalPages = PAGER.pages;
       if (FIELDS && FIELDS.length > 0) {
-        $invalidate(12, filterColumns = []);
+        $invalidate(14, filterColumns = []);
         FIELDS.forEach((col, idx) => {
           if (col.name === "deletedAt")
-            $invalidate(14, deletedIndex = idx);
+            $invalidate(16, deletedIndex = idx);
           else if (col.name === "invitationState")
-            $invalidate(14, deletedIndex = idx);
-          $invalidate(12, filterColumns = [...filterColumns, { key: col.name, label: col.label }]);
+            $invalidate(16, deletedIndex = idx);
+          $invalidate(14, filterColumns = [...filterColumns, { key: col.name, label: col.label }]);
           if (col.name === "lat") {
-            $invalidate(23, isCoordFieldsExist = true);
+            $invalidate(25, isCoordFieldsExist = true);
             IdxLatitude = idx;
           } else if (col.name === "lng") {
-            $invalidate(23, isCoordFieldsExist = true);
+            $invalidate(25, isCoordFieldsExist = true);
             IdxLongitude = idx;
           }
         });
@@ -31474,9 +31608,9 @@ uniform ${i3} ${a3} u_${s3};
           for (let i in MASTER_ROWS) {
             for (let j in FIELDS) {
               if (FIELDS[j].name === "lat") {
-                $invalidate(26, Coord.lat = MASTER_ROWS[i][j], Coord);
+                $invalidate(28, Coord.lat = MASTER_ROWS[i][j], Coord);
               } else if (FIELDS[j].name === "lng") {
-                $invalidate(26, Coord.lng = MASTER_ROWS[i][j], Coord);
+                $invalidate(28, Coord.lng = MASTER_ROWS[i][j], Coord);
               }
             }
           }
@@ -31484,7 +31618,7 @@ uniform ${i3} ${a3} u_${s3};
       }
       getPaginationShow();
       if (FIELDS && FIELDS.length > 0) {
-        FIELDS.forEach(() => $invalidate(24, payloads = [...payloads, ""]));
+        FIELDS.forEach(() => $invalidate(26, payloads = [...payloads, ""]));
       }
     });
     let { OnRestore = async function(row) {
@@ -31509,13 +31643,13 @@ uniform ${i3} ${a3} u_${s3};
       getPaginationShow();
     }
     async function toRow(perPage) {
-      $invalidate(19, currentRows = perPage);
-      $invalidate(20, showRowsNum = false);
+      $invalidate(21, currentRows = perPage);
+      $invalidate(22, showRowsNum = false);
       await OnRefresh({ ...PAGER, perPage });
       getPaginationShow();
     }
     async function goToPage(page) {
-      $invalidate(18, currentPage = page);
+      $invalidate(20, currentPage = page);
       await OnRefresh({ ...PAGER, page });
       getPaginationShow();
     }
@@ -31531,61 +31665,61 @@ uniform ${i3} ${a3} u_${s3};
     function toggleShowPopUp(id, row) {
       $invalidate(
         /** @type any[]*/
-        24,
+        26,
         payloads = []
       );
       FIELDS.forEach((_, i) => {
-        $invalidate(24, payloads = [...payloads, row[i]]);
+        $invalidate(26, payloads = [...payloads, row[i]]);
       });
-      $invalidate(15, showPopUp = true);
+      $invalidate(17, showPopUp = true);
       idToMod = id;
     }
     function handleSubmitEdit() {
-      $invalidate(15, showPopUp = false);
+      $invalidate(17, showPopUp = false);
       OnEdit(idToMod, payloads);
     }
     function OnClickMap(lngLat) {
-      $invalidate(24, payloads[IdxLongitude] = lngLat[0], payloads);
-      $invalidate(24, payloads[IdxLatitude] = lngLat[1], payloads);
-      $invalidate(26, Coord.lng = lngLat[0], Coord);
-      $invalidate(26, Coord.lat = lngLat[1], Coord);
+      $invalidate(26, payloads[IdxLongitude] = lngLat[0], payloads);
+      $invalidate(26, payloads[IdxLatitude] = lngLat[1], payloads);
+      $invalidate(28, Coord.lng = lngLat[0], Coord);
+      $invalidate(28, Coord.lat = lngLat[1], Coord);
     }
     function filtertable_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         filterTable = $value;
-        $invalidate(10, filterTable);
+        $invalidate(12, filterTable);
       });
     }
     function filtertable_filterColumns_binding(value) {
       filterColumns = value;
-      $invalidate(12, filterColumns);
+      $invalidate(14, filterColumns);
     }
     function filtertable_filtersMap_binding(value) {
       filtersMap = value;
-      $invalidate(13, filtersMap);
+      $invalidate(15, filtersMap);
     }
-    const click_handler = () => $invalidate(15, showPopUp = false);
+    const click_handler = () => $invalidate(17, showPopUp = false);
     function inputcustom_value_binding(value, idx) {
       if ($self.$.not_equal(payloads[idx], value)) {
         payloads[idx] = value;
-        $invalidate(24, payloads);
+        $invalidate(26, payloads);
       }
     }
     function inputcustom_value_binding_1(value, idx) {
       if ($self.$.not_equal(payloads[idx], value)) {
         payloads[idx] = value;
-        $invalidate(24, payloads);
+        $invalidate(26, payloads);
       }
     }
     function map_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         mapElm = $value;
-        $invalidate(25, mapElm);
+        $invalidate(27, mapElm);
       });
     }
     function map_Coord_binding(value) {
       Coord = value;
-      $invalidate(26, Coord);
+      $invalidate(28, Coord);
     }
     const click_handler_1 = () => filterTable.Show();
     const click_handler_2 = (row) => OnInfo(row);
@@ -31602,7 +31736,7 @@ uniform ${i3} ${a3} u_${s3};
       if ("FIELDS" in $props2)
         $invalidate(0, FIELDS = $props2.FIELDS);
       if ("PAGER" in $props2)
-        $invalidate(38, PAGER = $props2.PAGER);
+        $invalidate(40, PAGER = $props2.PAGER);
       if ("MASTER_ROWS" in $props2)
         $invalidate(1, MASTER_ROWS = $props2.MASTER_ROWS);
       if ("REFS" in $props2)
@@ -31610,7 +31744,7 @@ uniform ${i3} ${a3} u_${s3};
       if ("ACCESS" in $props2)
         $invalidate(3, ACCESS = $props2.ACCESS);
       if ("ARRAY_OF_ARRAY" in $props2)
-        $invalidate(39, ARRAY_OF_ARRAY = $props2.ARRAY_OF_ARRAY);
+        $invalidate(41, ARRAY_OF_ARRAY = $props2.ARRAY_OF_ARRAY);
       if ("CAN_SEARCH_ROW" in $props2)
         $invalidate(4, CAN_SEARCH_ROW = $props2.CAN_SEARCH_ROW);
       if ("CAN_EDIT_ROW" in $props2)
@@ -31621,22 +31755,26 @@ uniform ${i3} ${a3} u_${s3};
         $invalidate(7, CAN_RESTORE_ROW = $props2.CAN_RESTORE_ROW);
       if ("CAN_SHOW_INFO" in $props2)
         $invalidate(8, CAN_SHOW_INFO = $props2.CAN_SHOW_INFO);
+      if ("CAN_OPEN_LINK" in $props2)
+        $invalidate(9, CAN_OPEN_LINK = $props2.CAN_OPEN_LINK);
+      if ("LINK_PATH" in $props2)
+        $invalidate(10, LINK_PATH = $props2.LINK_PATH);
       if ("OnRestore" in $props2)
-        $invalidate(40, OnRestore = $props2.OnRestore);
+        $invalidate(42, OnRestore = $props2.OnRestore);
       if ("OnDelete" in $props2)
-        $invalidate(41, OnDelete = $props2.OnDelete);
+        $invalidate(43, OnDelete = $props2.OnDelete);
       if ("OnEdit" in $props2)
-        $invalidate(42, OnEdit = $props2.OnEdit);
+        $invalidate(44, OnEdit = $props2.OnEdit);
       if ("OnRefresh" in $props2)
-        $invalidate(43, OnRefresh = $props2.OnRefresh);
+        $invalidate(45, OnRefresh = $props2.OnRefresh);
       if ("OnInfo" in $props2)
-        $invalidate(9, OnInfo = $props2.OnInfo);
+        $invalidate(11, OnInfo = $props2.OnInfo);
       if ("$scope" in $props2)
-        $invalidate(44, $scope = $props2.$scope);
+        $invalidate(46, $scope = $props2.$scope);
     };
     $self.$.update = () => {
       if ($self.$.dirty[1] & /*PAGER*/
-      128) {
+      512) {
         $: {
           if (PAGER)
             getPaginationShow();
@@ -31653,6 +31791,8 @@ uniform ${i3} ${a3} u_${s3};
       CAN_DELETE_ROW,
       CAN_RESTORE_ROW,
       CAN_SHOW_INFO,
+      CAN_OPEN_LINK,
+      LINK_PATH,
       OnInfo,
       filterTable,
       filterTableReady,
@@ -31722,21 +31862,23 @@ uniform ${i3} ${a3} u_${s3};
         safe_not_equal,
         {
           FIELDS: 0,
-          PAGER: 38,
+          PAGER: 40,
           MASTER_ROWS: 1,
           REFS: 2,
           ACCESS: 3,
-          ARRAY_OF_ARRAY: 39,
+          ARRAY_OF_ARRAY: 41,
           CAN_SEARCH_ROW: 4,
           CAN_EDIT_ROW: 5,
           CAN_DELETE_ROW: 6,
           CAN_RESTORE_ROW: 7,
           CAN_SHOW_INFO: 8,
-          OnRestore: 40,
-          OnDelete: 41,
-          OnEdit: 42,
-          OnRefresh: 43,
-          OnInfo: 9
+          CAN_OPEN_LINK: 9,
+          LINK_PATH: 10,
+          OnRestore: 42,
+          OnDelete: 43,
+          OnEdit: 44,
+          OnRefresh: 45,
+          OnInfo: 11
         },
         null,
         [-1, -1, -1]
@@ -31756,7 +31898,7 @@ uniform ${i3} ${a3} u_${s3};
     ctx[5] && create_if_block_24(ctx);
     let if_block1 = (
       /*isShowPassword*/
-      ctx[5] && create_if_block_110(ctx)
+      ctx[5] && create_if_block_111(ctx)
     );
     return {
       c() {
@@ -31817,7 +31959,7 @@ uniform ${i3} ${a3} u_${s3};
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_110(ctx2);
+            if_block1 = create_if_block_111(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(button, null);
@@ -31888,7 +32030,7 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_110(ctx) {
+  function create_if_block_111(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -32159,7 +32301,7 @@ uniform ${i3} ${a3} u_${s3};
   var InputBox_default = InputBox;
 
   // _components/PopUpInviteUser.svelte
-  function create_if_block_111(ctx) {
+  function create_if_block_113(ctx) {
     let span;
     return {
       c() {
@@ -32287,7 +32429,7 @@ uniform ${i3} ${a3} u_${s3};
     inputcustom = new InputCustom_default({ props: inputcustom_props });
     binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding));
     let if_block0 = !/*isSubmitted*/
-    ctx[4] && create_if_block_111(ctx);
+    ctx[4] && create_if_block_113(ctx);
     let if_block1 = (
       /*isSubmitted*/
       ctx[4] && create_if_block6(ctx)
@@ -32418,7 +32560,7 @@ uniform ${i3} ${a3} u_${s3};
         ctx2[4]) {
           if (if_block0) {
           } else {
-            if_block0 = create_if_block_111(ctx2);
+            if_block0 = create_if_block_113(ctx2);
             if_block0.c();
             if_block0.m(button2, t8);
           }
@@ -32576,7 +32718,7 @@ uniform ${i3} ${a3} u_${s3};
 
   // tenantAdmin_dashboard.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
-  function create_if_block_113(ctx) {
+  function create_if_block_114(ctx) {
     let popupinviteuser;
     let updating_email;
     let updating_role;
@@ -32893,7 +33035,7 @@ uniform ${i3} ${a3} u_${s3};
     let current;
     let if_block = (
       /*isPopUpInviteUserReady*/
-      ctx[4] && create_if_block_113(ctx)
+      ctx[4] && create_if_block_114(ctx)
     );
     mainlayout = new mainLayout_default({
       props: {
@@ -32927,7 +33069,7 @@ uniform ${i3} ${a3} u_${s3};
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block_113(ctx2);
+            if_block = create_if_block_114(ctx2);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(t.parentNode, t);

@@ -54,6 +54,38 @@
 				}
 			}
 		},
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "DataEntryTransactionEntry",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/guest/autoLogin": {
 			"post": {
 				"security": [{
