@@ -419,10 +419,8 @@
 
 {#if org.children && org.children.length > 0}
   {#each org.children as child, _ (child.id)}
-    {#if child.deletedAt === 0}
-      {#if child.orgType !== OrgTypeJob}
-        <svelte:self org={child} on:details />
-      {/if}
+    {#if child.orgType !== OrgTypeJob}
+      <svelte:self org={child} on:details />
     {/if}
   {/each}
 {/if}

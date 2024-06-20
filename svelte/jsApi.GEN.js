@@ -1019,16 +1019,63 @@ exports.TenantAdminBankAccounts = async function TenantAdminBankAccounts( i, cb 
 
 /**
  * @typedef {Object} TenantAdminBudgetingIn
+ * @property {String} cmd
+ * @property {number} orgId
+ * @property {number} plan.id
+ * @property {String} plan.tenantCode
+ * @property {String} plan.planType
+ * @property {number} plan.parentId
+ * @property {number} plan.createdAt
+ * @property {number} plan.createdBy
+ * @property {number} plan.updatedAt
+ * @property {number} plan.updatedBy
+ * @property {number} plan.deletedAt
+ * @property {number} plan.deletedBy
+ * @property {number} plan.restoredBy
+ * @property {String} plan.title
+ * @property {String} plan.description
+ * @property {number} plan.orgId
+ * @property {number} plan.yearOf
+ * @property {number} plan.budgetIDR
+ * @property {number} plan.budgetUSD
+ * @property {number} plan.quantity
+ * @property {String} plan.unit
  */
 const TenantAdminBudgetingIn = {
+  cmd: '', // string
+  orgId: 0, // uint64
+  plan: { // rqBudget.Plans
+    id: 0, // uint64
+    tenantCode: '', // string
+    planType: '', // string
+    parentId: 0, // uint64
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    title: '', // string
+    description: '', // string
+    orgId: 0, // uint64
+    yearOf: 0, // uint64
+    budgetIDR: 0, // uint64
+    budgetUSD: 0, // uint64
+    quantity: 0, // uint64
+    unit: '', // string
+  }, // rqBudget.Plans
 }
 /**
  * @typedef {Object} TenantAdminBudgetingOut
  * @property {Object} orgs
+ * @property {Object} plans
  */
 const TenantAdminBudgetingOut = {
   orgs: { // []rqAuth.Orgs
   }, // []rqAuth.Orgs
+  plans: { // []rqBudget.Plans
+  }, // []rqBudget.Plans
 }
 /**
  * @callback TenantAdminBudgetingCallback
@@ -1220,37 +1267,6 @@ exports.TenantAdminDeleteOrganizationChild = async function TenantAdminDeleteOrg
 }
 
 /**
- * @typedef {Object} TenantAdminGetBudgetPlansIn
- * @property {number} orgId
- */
-const TenantAdminGetBudgetPlansIn = {
-  orgId: 0, // uint64
-}
-/**
- * @typedef {Object} TenantAdminGetBudgetPlansOut
- * @property {Object} plans
- */
-const TenantAdminGetBudgetPlansOut = {
-  plans: { // []rqBudget.Plans
-  }, // []rqBudget.Plans
-}
-/**
- * @callback TenantAdminGetBudgetPlansCallback
- * @param {TenantAdminGetBudgetPlansOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminGetBudgetPlansIn} i
- * @param {TenantAdminGetBudgetPlansCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminGetBudgetPlans = async function TenantAdminGetBudgetPlans( i, cb ) {
-  return await axios.post( '/tenantAdmin/getBudgetPlans', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
  * @typedef {Object} TenantAdminInventoryChangesIn
  * @property {String} cmd
  * @property {number} inventoryChange.id
@@ -1345,6 +1361,32 @@ const TenantAdminInventoryChangesOut = {
  */
 exports.TenantAdminInventoryChanges = async function TenantAdminInventoryChanges( i, cb ) {
   return await axios.post( '/tenantAdmin/inventoryChanges', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminInventoryChangesProductIn
+ */
+const TenantAdminInventoryChangesProductIn = {
+}
+/**
+ * @typedef {Object} TenantAdminInventoryChangesProductOut
+ */
+const TenantAdminInventoryChangesProductOut = {
+}
+/**
+ * @callback TenantAdminInventoryChangesProductCallback
+ * @param {TenantAdminInventoryChangesProductOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminInventoryChangesProductIn} i
+ * @param {TenantAdminInventoryChangesProductCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminInventoryChangesProduct = async function TenantAdminInventoryChangesProduct( i, cb ) {
+  return await axios.post( '/tenantAdmin/inventoryChanges/:productId', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -1944,75 +1986,6 @@ const TenantAdminTransactionTemplateOut = {
  */
 exports.TenantAdminTransactionTemplate = async function TenantAdminTransactionTemplate( i, cb ) {
   return await axios.post( '/tenantAdmin/transactionTemplate', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
- * @typedef {Object} TenantAdminUpsertBudgetPlanIn
- * @property {number} plan.id
- * @property {String} plan.tenantCode
- * @property {String} plan.planType
- * @property {number} plan.parentId
- * @property {number} plan.createdAt
- * @property {number} plan.createdBy
- * @property {number} plan.updatedAt
- * @property {number} plan.updatedBy
- * @property {number} plan.deletedAt
- * @property {number} plan.deletedBy
- * @property {number} plan.restoredBy
- * @property {String} plan.title
- * @property {String} plan.description
- * @property {number} plan.orgId
- * @property {number} plan.yearOf
- * @property {number} plan.budgetIDR
- * @property {number} plan.budgetUSD
- * @property {number} plan.quantity
- * @property {String} plan.unit
- */
-const TenantAdminUpsertBudgetPlanIn = {
-  plan: { // rqBudget.Plans
-    id: 0, // uint64
-    tenantCode: '', // string
-    planType: '', // string
-    parentId: 0, // uint64
-    createdAt: 0, // int64
-    createdBy: 0, // uint64
-    updatedAt: 0, // int64
-    updatedBy: 0, // uint64
-    deletedAt: 0, // int64
-    deletedBy: 0, // uint64
-    restoredBy: 0, // uint64
-    title: '', // string
-    description: '', // string
-    orgId: 0, // uint64
-    yearOf: 0, // uint64
-    budgetIDR: 0, // uint64
-    budgetUSD: 0, // uint64
-    quantity: 0, // uint64
-    unit: '', // string
-  }, // rqBudget.Plans
-}
-/**
- * @typedef {Object} TenantAdminUpsertBudgetPlanOut
- * @property {Object} plans
- */
-const TenantAdminUpsertBudgetPlanOut = {
-  plans: { // []rqBudget.Plans
-  }, // []rqBudget.Plans
-}
-/**
- * @callback TenantAdminUpsertBudgetPlanCallback
- * @param {TenantAdminUpsertBudgetPlanOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminUpsertBudgetPlanIn} i
- * @param {TenantAdminUpsertBudgetPlanCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminUpsertBudgetPlan = async function TenantAdminUpsertBudgetPlan( i, cb ) {
-  return await axios.post( '/tenantAdmin/upsertBudgetPlan', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

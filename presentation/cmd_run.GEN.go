@@ -188,20 +188,20 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminDeleteOrganizationChild(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
-	case domain.TenantAdminGetBudgetPlansAction:
-		in := domain.TenantAdminGetBudgetPlansIn{}
-		if !in.RequestCommon.FromCli(action, payload, &in) {
-			return
-		}
-		out := b.TenantAdminGetBudgetPlans(&in)
-		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
-
 	case domain.TenantAdminInventoryChangesAction:
 		in := domain.TenantAdminInventoryChangesIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.TenantAdminInventoryChanges(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.TenantAdminInventoryChangesProductAction:
+		in := domain.TenantAdminInventoryChangesProductIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.TenantAdminInventoryChangesProduct(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.TenantAdminLocationsAction:
@@ -274,14 +274,6 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.TenantAdminTransactionTemplate(&in)
-		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
-
-	case domain.TenantAdminUpsertBudgetPlanAction:
-		in := domain.TenantAdminUpsertBudgetPlanIn{}
-		if !in.RequestCommon.FromCli(action, payload, &in) {
-			return
-		}
-		out := b.TenantAdminUpsertBudgetPlan(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.TenantAdminUpsertCoaChildAction:

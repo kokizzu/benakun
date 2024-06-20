@@ -221,6 +221,38 @@
     margin: 0;
   }
 
+  .side_menu::-webkit-scrollbar-thumb {
+    background-color : var(--gray-003);
+    border-radius    : 8px;
+    visibility: hidden;
+  }
+
+  .side_menu::-webkit-scrollbar-thumb:hover {
+    background-color : var(--gray-004);
+    visibility: initial;
+  }
+
+  .side_menu:hover::-webkit-scrollbar-thumb {
+    visibility: initial;
+  }
+
+  .side_menu::-webkit-scrollbar {
+    width : 8px;
+    visibility: hidden;
+  }
+
+  .side_menu::-webkit-scrollbar:hover {
+    visibility: initial;
+  }
+
+  .side_menu:hover::-webkit-scrollbar {
+    visibility: initial;
+  }
+
+  .side_menu::-webkit-scrollbar-track {
+    background-color : transparent;
+  }
+
   .side_menu_container header {
     display         : flex;
     flex-direction  : row;

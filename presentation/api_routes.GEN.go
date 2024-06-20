@@ -230,16 +230,6 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
-	// TenantAdminGetBudgetPlans
-	fw.Post("/"+domain.TenantAdminGetBudgetPlansAction, func(c *fiber.Ctx) error {
-		in := domain.TenantAdminGetBudgetPlansIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminGetBudgetPlansAction); err != nil {
-			return nil
-		}
-		out := d.TenantAdminGetBudgetPlans(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
-	})
-
 	// TenantAdminInventoryChanges
 	fw.Post("/"+domain.TenantAdminInventoryChangesAction, func(c *fiber.Ctx) error {
 		in := domain.TenantAdminInventoryChangesIn{}
@@ -247,6 +237,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return nil
 		}
 		out := d.TenantAdminInventoryChanges(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// TenantAdminInventoryChangesProduct
+	fw.Post("/"+domain.TenantAdminInventoryChangesProductAction, func(c *fiber.Ctx) error {
+		in := domain.TenantAdminInventoryChangesProductIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminInventoryChangesProductAction); err != nil {
+			return nil
+		}
+		out := d.TenantAdminInventoryChangesProduct(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
@@ -337,16 +337,6 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return nil
 		}
 		out := d.TenantAdminTransactionTemplate(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
-	})
-
-	// TenantAdminUpsertBudgetPlan
-	fw.Post("/"+domain.TenantAdminUpsertBudgetPlanAction, func(c *fiber.Ctx) error {
-		in := domain.TenantAdminUpsertBudgetPlanIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminUpsertBudgetPlanAction); err != nil {
-			return nil
-		}
-		out := d.TenantAdminUpsertBudgetPlan(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

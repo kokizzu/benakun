@@ -54,6 +54,7 @@
 				}
 			}
 		},
+		"/dataEntry/transactionEntry": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -1492,6 +1493,74 @@
 							"schema": {
 								"type": "object",
 								"properties": {
+						"cmd": {
+								"type": "string"
+						},
+						"orgId": {
+								"type": "number"
+						},
+						"plan": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"planType": {
+										"type": "string"
+								},
+								"parentId": {
+										"type": "number"
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"deletedBy": {
+										"type": "number"
+								},
+								"restoredBy": {
+										"type": "number"
+								},
+								"title": {
+										"type": "string"
+								},
+								"description": {
+										"type": "string"
+								},
+								"orgId": {
+										"type": "number"
+								},
+								"yearOf": {
+										"type": "number"
+								},
+								"budgetIDR": {
+										"type": "number"
+								},
+								"budgetUSD": {
+										"type": "number"
+								},
+								"quantity": {
+										"type": "number"
+								},
+								"unit": {
+										"type": "string"
+								}
+								}
+						}
 								}
 							}
 						}
@@ -1506,6 +1575,11 @@
 									"type": "object",
 									"properties": {
 										"orgs": {
+										"type": "object",
+										"properties": {
+												}
+										},
+										"plans": {
 										"type": "object",
 										"properties": {
 												}
@@ -1770,47 +1844,6 @@
 				}
 			}
 		},
-		"/tenantAdmin/getBudgetPlans": {
-			"post": {
-				"security": [{
-					"CookieAuth": []
-				}],
-				"tags": ["API"],
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-						"orgId": {
-								"type": "number"
-						}
-								}
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "TenantAdminGetBudgetPlans",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"plans": {
-										"type": "object",
-										"properties": {
-												}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/tenantAdmin/inventoryChanges": {
 			"post": {
 				"security": [{
@@ -1962,6 +1995,38 @@
 										"properties": {
 												}
 										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminInventoryChangesProduct",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
 									}
 								}
 							}
@@ -2862,106 +2927,6 @@
 												}
 										},
 										"staffsForm": {
-										"type": "object",
-										"properties": {
-												}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/tenantAdmin/upsertBudgetPlan": {
-			"post": {
-				"security": [{
-					"CookieAuth": []
-				}],
-				"tags": ["API"],
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-						"plan": {
-						"type": "object",
-						"properties": {
-								"id": {
-										"type": "number"
-								},
-								"tenantCode": {
-										"type": "string"
-								},
-								"planType": {
-										"type": "string"
-								},
-								"parentId": {
-										"type": "number"
-								},
-								"createdAt": {
-										"type": "number"
-								},
-								"createdBy": {
-										"type": "number"
-								},
-								"updatedAt": {
-										"type": "number"
-								},
-								"updatedBy": {
-										"type": "number"
-								},
-								"deletedAt": {
-										"type": "number"
-								},
-								"deletedBy": {
-										"type": "number"
-								},
-								"restoredBy": {
-										"type": "number"
-								},
-								"title": {
-										"type": "string"
-								},
-								"description": {
-										"type": "string"
-								},
-								"orgId": {
-										"type": "number"
-								},
-								"yearOf": {
-										"type": "number"
-								},
-								"budgetIDR": {
-										"type": "number"
-								},
-								"budgetUSD": {
-										"type": "number"
-								},
-								"quantity": {
-										"type": "number"
-								},
-								"unit": {
-										"type": "string"
-								}
-								}
-						}
-								}
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "TenantAdminUpsertBudgetPlan",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"plans": {
 										"type": "object",
 										"properties": {
 												}

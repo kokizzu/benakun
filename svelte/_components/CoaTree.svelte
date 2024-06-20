@@ -133,56 +133,50 @@
 
 <div>
   <div class="coa-child" style="--indent-width:{indentWidth};">
-    <div class="left">
+    <div class="num-title">
       <span class="h-line"></span>
       <h6 class={`text ${coa.deletedAt > 0 ? 'deleted' : ''}`}>
         <span class="label">{coa.level}.{num}</span>&nbsp;&nbsp;
         <span class="name">{coa.name}</span>
       </h6>
-      <div class="options">
-        {#if coa.deletedAt <= 0}
-          <button class="btn" title="Add child" on:click={() => toggleAddOrEdit('add')}>
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemAddBoxLine}
-            />
-          </button>
-          <button class="btn" title="Edit" on:click={() => toggleAddOrEdit('edit')}>
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiDesignPencilLine}
-            />
-          </button>
-          <button class="btn" title="Delete" on:click={deleteCoaChild}>
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiSystemDeleteBinLine}
-            />
-          </button>
-        {:else}
-          <button class="btn" title="Rollback" on:click={restoreCoaChild}>
-            <Icon
-              color="var(--gray-006)"
-              className="icon"
-              size="17"
-              src={RiArrowsArrowGoBackLine}
-            />
-          </button>
-        {/if}
-      </div>
     </div>
-    <Icon
-      color="var(--gray-006)"
-      className="icon_drag"
-      size="17"
-      src={RiArrowsDragMove2Fill}
-    />
+    <div class="options">
+      {#if coa.deletedAt <= 0}
+        <button class="btn" title="Add child" on:click={() => toggleAddOrEdit('add')}>
+          <Icon
+            color="var(--gray-006)"
+            className="icon"
+            size="17"
+            src={RiSystemAddBoxLine}
+          />
+        </button>
+        <button class="btn" title="Edit" on:click={() => toggleAddOrEdit('edit')}>
+          <Icon
+            color="var(--gray-006)"
+            className="icon"
+            size="17"
+            src={RiDesignPencilLine}
+          />
+        </button>
+        <button class="btn" title="Delete" on:click={deleteCoaChild}>
+          <Icon
+            color="var(--gray-006)"
+            className="icon"
+            size="17"
+            src={RiSystemDeleteBinLine}
+          />
+        </button>
+      {:else}
+        <button class="btn" title="Rollback" on:click={restoreCoaChild}>
+          <Icon
+            color="var(--gray-006)"
+            className="icon"
+            size="17"
+            src={RiArrowsArrowGoBackLine}
+          />
+        </button>
+      {/if}
+    </div>
   </div>
   {#if coa.children && coa.children.length}
     {#each coa.children as ch, idx (ch.id)}
@@ -216,7 +210,7 @@
     background-color: var(--gray-001);
   }
 
-  .coa-child .left {
+  .coa-child .num-title {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -224,7 +218,7 @@
     position: relative;
   }
 
-  .coa-child .left .h-line {
+  .coa-child .num-title .h-line {
     position: absolute;
     left: -14px;
     width: 1px;
@@ -232,14 +226,14 @@
     background-color: var(--gray-003);
   }
 
-  .coa-child .left .text {
+  .coa-child .num-title .text {
     font-size: 14px;
     line-height: 2.2rem;
     font-weight: 500;
     margin: 0;
   }
 
-  .coa-child .left .text .label {
+  .coa-child .num-title .text .label {
     color: var(--blue-006);
     font-weight: 600;
     font-size: 10px;
@@ -252,25 +246,20 @@
     line-height: 2.2rem;
   }
 
-  .coa-child .left .text.deleted .name{
+  .coa-child .num-title .text.deleted .name{
     color: var(--red-005);
     text-decoration: line-through;
     line-height: 2.2rem;
   }
 
-  .coa-child:hover .left .options {
+  .coa-child .options {
     display: flex;
     cursor: pointer;
-  }
-
-  .coa-child .left .options {
-    display: none;
     flex-direction: row;
     align-items: center;
-    gap: 5px;
   }
 
-  .coa-child .left .options .btn {
+  .coa-child .options .btn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -281,13 +270,13 @@
     cursor: pointer;
   }
 
-  .coa-child .left .options .btn:hover {
-    background-color: var(--gray-002);
+  .coa-child .options .btn:hover {
+    background-color: var(--violet-transparent);
   }
 
-  .coa-child .left .options .btn:active {
-    background-color: var(--gray-003);
-  }
+  :global(.coa-child .options .btn:hover svg) {
+		fill: var(--violet-005);
+	}
 
   :global(.coa-child .icon_drag) {
     display: none;

@@ -67,8 +67,8 @@
     isSubmitPlan = true;
 
     /** @type BudgetPlan */ // @ts-ignore
-    let planPayload = {
-      id: submitState == 'add' ? '0' : plan.id,
+    let planPayload = { // @ts-ignore
+      id: submitState == 'add' ? 0 : Number(plan.id),
       planType,
       title,
       description,

@@ -15,6 +15,10 @@ type (
 	}
 )
 
+const (
+	TenantAdminInventoryChangesProductAction = `tenantAdmin/inventoryChanges/:productId`
+)
+
 func (d *Domain) TenantAdminInventoryChangesProduct(in *TenantAdminInventoryChangesProductIn) (out TenantAdminInventoryChangesProductOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 
