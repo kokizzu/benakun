@@ -228,15 +228,19 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	})
 
 	fw.Get(`/`+domain.TenantAdminBudgetingAction, func(ctx *fiber.Ctx) error {
-		in, user, segments := userInfoFromContext(ctx, d)
+		var in domain.TenantAdminBudgetingIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminBudgetingAction)
+		if err != nil {
+			return err
+		}
 		if notTenantLogin(d, in.RequestCommon) {
-			return ctx.Redirect(`/`)
+			return ctx.Redirect(`/`, 302)
 		}
 
-		in.RequestCommon.Action = domain.TenantAdminBudgetingAction
-		out := d.TenantAdminBudgeting(&domain.TenantAdminBudgetingIn{
-			RequestCommon: in.RequestCommon,
-		})
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.Cmd = zCrud.CmdList
+
+		out := d.TenantAdminBudgeting(&in)
 		return views.RenderTenantAdminBudgeting(ctx, M.SX{
 			`title`:    `Tenant Admin Budgeting`,
 			`user`:     user,
