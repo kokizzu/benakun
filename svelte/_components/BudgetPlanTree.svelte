@@ -9,11 +9,14 @@
     RiDesignPencilLine,
     RiArrowsArrowRightSLine
   } from '../node_modules/svelte-icons-pack/dist/ri';
+  import { TrOutlineRefresh } from '../node_modules/svelte-icons-pack/dist/tr';
   import PlanProgramTree from './PlanProgramTree.svelte';
-  import { TenantAdminGetBudgetPlans, TenantAdminUpsertBudgetPlan } from '../jsApi.GEN.js';
+  import { TenantAdminBudgeting } from '../jsApi.GEN.js';
   import { notifier } from './notifier.js';
   import PopUpBudgetPlan from './PopUpBudgetPlan.svelte';
   import { createEventDispatcher } from 'svelte';
+
+  /** @typedef {import('./types/budget.js').BudgetPlan} BudgetPlan */
 
   const dispatch = createEventDispatcher();
 
@@ -24,7 +27,9 @@
   const PlanTypeProgram   = 'program';
   const PlanTypeActivity  = 'activity';
 
-  let orgType = 'company', orgIcon = RiBuildingsCommunityLine
+  let orgType = 'company';
+  let orgIcon = RiBuildingsCommunityLine;
+
   let OrgTypeCompany = 1, OrgTypeDept = 2, OrgTypeDivision = 3, OrgTypeJob = 4;
 
   switch (org.orgType) {
@@ -45,8 +50,6 @@
       break;
     }
   }
-  
-  /** @typedef {import('./types/budget.js').BudgetPlan} BudgetPlan */
 
   // Budget plans to render
   let budgetPlans = /** @type {BudgetPlan[]} */ ([]);
@@ -124,15 +127,19 @@
 
   async function getBugetPlans() {
     isSearching = true;
-    await TenantAdminGetBudgetPlans(
-      { orgId: Number(org.id) },
-      /** @type {import('../jsApi.GEN').TenantAdminGetBudgetPlansCallback}*/
+    await TenantAdminBudgeting( //@ts-ignore
+      {
+        cmd: 'form',
+        orgId: Number(org.id)
+      },
+      /** @type {import('../jsApi.GEN').TenantAdminBudgetingCallback}*/
       function (/** @type {any} */ o) {
         isSearching = false;
         if (o.error) {
           notifier.showError(o.error);
           return;
         }
+
         console.log(o);
         budgetPlans = o.plans;
         reformatPlans();
@@ -164,21 +171,20 @@
 
   async function submitUpsertPlan() {
     isSubmitPlan = true;
-	  const idStr = submitState == 'add' ? '0' : id.toString();
-    /** @type {import('../jsApi.GEN.js').TenantAdminUpsertBudgetPlanIn} */
     const i = { //@ts-ignore
+      cmd: 'upsert',
       plan: {
-        id: idStr,
+        id: submitState == 'add' ? 0 : id,
         planType, title, description,
         yearOf: Number(yearOf),
-        orgId: org.id,
+        orgId: Number(org.id),
         budgetIDR: ''+(budgetIDR || 0),
         unit,
         quantity: +quantity
       }
     }
-    await TenantAdminUpsertBudgetPlan( //@ts-ignore
-      i, /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanCallback} */
+    await TenantAdminBudgeting( //@ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminBudgetingCallback} */
       function (/** @type {any} */ o) {
         isSubmitPlan = false;
         if (o.error) {
@@ -186,8 +192,9 @@
           console.log(o);
           return;
         }
-        notifier.showSuccess(planType + ' edited');
-        const out = /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanOut}*/ (o);
+
+        notifier.showSuccess(planType + ' updated');
+        const out = /** @type {import('../jsApi.GEN').TenantAdminBudgetingOut}*/ (o);
         budgetPlans = out.plans;
 
         resetPayload();
@@ -287,134 +294,134 @@
 />
 
 <div class="org_container {orgType}">
-  <span class="h-line"></span>
-  <div class="org_wrapper">
-    <button class="org {isShowPlans ? 'active' : ''}" on:click={toggleShowPlans}>
-      <div class="info">
-        <div class="label">
-          <Icon
-            className="icon"
-            size="13"
-            src={orgIcon}
-          />
-        </div>
-        <span class="title">{org.name}</span>
-      </div>
-      <div class="options">
-        <button class="btn arrow" title="Show plans">
-          <Icon
-            color="var(--gray-006)"
-            className="icon {isShowPlans ? 'rotate' : 'dropdown'}"
-            size="14"
-            src={RiArrowsArrowRightSLine}
-          />
-        </button>
-      </div>
+  <div class="org">
+    <button class="btn_toggle"  on:click={toggleShowPlans}>
+      <Icon
+        color="var(--gray-006)"
+        className="icon {isShowPlans ? 'rotate' : 'dropdown'}"
+        size="20"
+        src={RiArrowsArrowRightSLine}
+      />
     </button>
-    {#if isShowPlans}
-      <div class="org_plans">
-        <div class="plan vision">
-          <div class="label">
-            <span>Vision</span>
-            {#if !visionDesc || visionDesc === ''}
-              <button
-                class="btn"
-                on:click={() => togglePopUp(submitStateAdd, PlanTypeVision, 0)}
-                title="Add vision"
-              >
-                <Icon
-                  className="icon"
-                  color="#FFF"
-                  size="14"
-                  src={RiSystemAddBoxLine}
-                />
-                <span>Add</span>
-              </button>
-            {:else}
-              <button
-                class="btn"
-                on:click={() => togglePopUp(submitStateEdit, PlanTypeVision, visionId)}
-                title="Edit vision"
-              >
-                <Icon
-                  className="icon"
-                  color="#FFF"
-                  size="14"
-                  src={RiDesignPencilLine}
-                />
-                <span>Edit</span>
-              </button>
-            {/if}
-          </div>
-          <p>{visionDesc || '--'}</p>
-        </div>
-        <div class="plan mission">
-          <div class="label">
-            <span>Mission</span>
-            {#if !missionDesc || missionDesc === ''}
-              <button
-                class="btn"
-                on:click={() => togglePopUp(submitStateAdd, PlanTypeMission, 0)}
-                title="Add mission"
-              >
-                <Icon
-                  className="icon"
-                  color="#FFF"
-                  size="14"
-                  src={RiSystemAddBoxLine}
-                />
-                <span>Add</span>
-              </button>
-            {:else}  
-              <button
-                class="btn"
-                on:click={() => togglePopUp(submitStateEdit, PlanTypeMission, missionId)}
-                title="Edit mission"
-              >
-                <Icon
-                  className="icon"
-                  color="#FFF"
-                  size="14"
-                  src={RiDesignPencilLine}
-                />
-                <span>Edit</span>
-              </button>
-            {/if}
-          </div>
-          <p>{missionDesc || '--'}</p>
-        </div>
-        <div class="plan programs">
-          <div class="label">
-            <span>Programs</span>
+    <div class="info">
+      <Icon
+        className="icon"
+        size="17"
+        src={orgIcon}
+      />
+      <p class="title">{org.name}</p>
+    </div>
+    <button
+      class="btn_refresh"
+      title="Refresh"
+      on:click={getBugetPlans}
+      disabled={isSearching}>
+      <Icon
+        className="icon {isSearching ? 'spin' : ''}"
+        size="15"
+        color="var(--gray-006)"
+        src={TrOutlineRefresh}
+      />
+    </button>
+  </div>
+  {#if isShowPlans}
+    <div class="org_plans">
+      <div class="plan vision">
+        <div class="label">
+          <span>Vision</span>
+          {#if !visionDesc || visionDesc === ''}
             <button
               class="btn"
-              on:click={() => togglePopUp(submitStateAdd, PlanTypeProgram, 0)}
-              title="Add program"
+              on:click={() => togglePopUp(submitStateAdd, PlanTypeVision, 0)}
+              title="Add vision"
             >
               <Icon
                 className="icon"
-                color="#FFF"
+                color="var(--gray-007)"
                 size="14"
                 src={RiSystemAddBoxLine}
               />
-              <span>Add</span>
             </button>
-          </div>
-          <div class="program_activity_list">
-            {#if programsActivity && programsActivity.length > 0}
-              {#each programsActivity as plan, _ (plan.id)}
-                <PlanProgramTree
-                  {plan}
-                  on:details={(e) => dispatch('details', e.detail)}
-                  on:update={onUpdateProgramActivity}
-                />
-              {/each}
-            {/if}
-          </div>
+          {:else}
+            <button
+              class="btn"
+              on:click={() => togglePopUp(submitStateEdit, PlanTypeVision, visionId)}
+              title="Edit vision"
+            >
+              <Icon
+                className="icon"
+                color="var(--gray-007)"
+                size="14"
+                src={RiDesignPencilLine}
+              />
+            </button>
+          {/if}
+        </div>
+        <p>{visionDesc || '--'}</p>
+      </div>
+      <div class="plan mission">
+        <div class="label">
+          <span>Mission</span>
+          {#if !missionDesc || missionDesc === ''}
+            <button
+              class="btn"
+              on:click={() => togglePopUp(submitStateAdd, PlanTypeMission, 0)}
+              title="Add mission"
+            >
+              <Icon
+                className="icon"
+                color="var(--gray-007)"
+                size="14"
+                src={RiSystemAddBoxLine}
+              />
+            </button>
+          {:else}  
+            <button
+              class="btn"
+              on:click={() => togglePopUp(submitStateEdit, PlanTypeMission, missionId)}
+              title="Edit mission"
+            >
+              <Icon
+                className="icon"
+                color="var(--gray-007)"
+                size="14"
+                src={RiDesignPencilLine}
+              />
+            </button>
+          {/if}
+        </div>
+        <p>{missionDesc || '--'}</p>
+      </div>
+      <div class="plan programs">
+        <div class="label">
+          <span>Programs</span>
+          <button
+            class="btn"
+            on:click={() => togglePopUp(submitStateAdd, PlanTypeProgram, 0)}
+            title="Add program"
+          >
+            <Icon
+              className="icon"
+              color="var(--gray-007)"
+              size="14"
+              src={RiSystemAddBoxLine}
+            />
+          </button>
+        </div>
+        <div class="program_activity_list">
+          {#if programsActivity && programsActivity.length > 0}
+            {#each programsActivity as plan, _ (plan.id)}
+              <PlanProgramTree
+                {plan}
+                on:details={(e) => dispatch('details', e.detail)}
+                on:update={onUpdateProgramActivity}
+              />
+            {/each}
+          {/if}
         </div>
       </div>
-    {/if}
-  </div>
+    </div>
+  {/if}
 </div>
 
 {#if org.children && org.children.length > 0}
@@ -426,162 +433,17 @@
 {/if}
 
 <style>
-  :global(.org_container.company .org .info .label .icon) {
-    fill: var(--blue-005);
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(-360deg);
+    }
   }
 
-  :global(.org_container.department .org .info .label .icon) {
-    fill: var(--orange-005);
-  }
-
-  :global(.org_container.division .org .info .label .icon) {
-    fill: var(--green-006);
-  }
-
-  :global(.org.job .info .label .icon) {
-    fill: var(--gray-007);
-  }
-
-  .org_container {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-  }
-
-  .org_container .h-line {
-    left: -15px;
-    width: 1px;
-    height: auto;
-    background-color: var(--gray-003);
-  }
-
-  .org_container.company .h-line {
-    display: none !important;
-  }
-
-  .org_container.company .org .info .label {
-    background-image: var(--blue-gradient);
-    color: var(--blue-006);
-    border: 1px solid var(--blue-003);
-  }
-
-  .org_container.department {
-    padding-left: 37px;
-  }
-
-  .org_container.department .org .info .label {
-    background-image: var(--orange-gradient);
-    color: var(--orange-006);
-    border: 1px solid var(--orange-003);
-  }
-
-  .org_container.division{
-    padding-left: 65px;
-  }
-
-  .org_container.division .org .info .label {
-    background-image: var(--green-gradient);
-    color: var(--green-006);
-    border: 1px solid var(--green-003);
-  }
-
-  .org_container.job {
-    padding-left: 93px;
-  }
-
-  .org_container.job .org .info .label {
-    background-image: var(--gray-gradient);
-    color: var(--gray-006);
-    border: 1px solid var(--gray-003);
-  }
-
-  .org_container .org {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 40px;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    border: none;
-    background-color: transparent;
-    color: var(--gray-007);
-  }
-
-  .org_container.company .org:hover,
-  .org_container.company .org.active {
-    background-color: var(--blue-transparent);
-  }
-  .org_container.department .org:hover,
-  .org_container.department .org.active {
-    background-color: var(--orange-transparent);
-  }
-  .org_container.division .org:hover,
-  .org_container.division .org.active {
-    background-color: var(--green-transparent);
-  }
-
-  .org_container .org:active {
-    background-color: var(--gray-002);
-  }
-
-  .org_container .org:hover .h-line {
-    background-color: transparent !important;
-  }
-  
-  .org_container .org .info {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    gap: 10px;
-    position: relative;
-  }
-
-  .org_container .org .info .label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: fit-content;
-    height: fit-content;
-    padding: 5px;
-    border-radius: 5px;
-  }
-
-  .org_container .org .info .title {
-    font-size: 16px;
-  }
-
-  .org_container .org .options {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .org_container .org .options .btn,
-  .org_container .org_wrapper .org_plans .plan .label .btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    background-color: var(--blue-006);
-    border-radius: 5px;
-    padding: 4px 8px;
-    cursor: pointer;
-    color: #FFF;
-    gap: 5px;
-    font-size: var(--font-sm);
-  }
-
-  .org_container .org_wrapper .org_plans .plan .label span {
-    padding: 0;
-  }
-
-  .org_container .org .options .btn:hover,
-  .org_container .org_wrapper .org_plans .plan .label .btn:hover {
-    background-color: var(--blue-005);
+  :global(.spin) {
+    animation: spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
   :global(.dropdown) {
@@ -593,60 +455,156 @@
 		transform: rotate(90deg);
 	}
 
-  .org_container .org .options .btn.arrow {
-    background-color: transparent !important;
+  :global(.org_container.company .org .info .icon) {
+    fill: var(--blue-005);
   }
-  .org_container .org .options .btn.arrow:hover,
-  .org_container .org .options .btn.arrow:active {
-    background-color: transparent;
+  :global(.org_container.department .org .info .icon) {
+    fill: var(--orange-005);
+  }
+  :global(.org_container.division .org .info .icon) {
+    fill: var(--green-006);
+  }
+  :global(.org.job .info .icon) {
+    fill: var(--gray-007);
   }
 
-  .org_container .org .options .btn:active {
-    background-color: var(--gray-003);
-  }
-
-  .org_container .org_wrapper {
+  .org_container {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
   }
 
-  .org_container .org_wrapper .org_plans{
+  .org_container.department {
+    padding-left: 37px;
+  }
+  .org_container.division{
+    padding-left: 65px;
+  }
+  .org_container.job {
+    padding-left: 93px;
+  }
+
+  .org_container .org {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+    border-radius: 8px;
+    width: 100%;
+    padding-right: 10px;
+  }
+
+  .org_container .btn_toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    padding: 5px;
+    background-color: transparent;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+
+  .org_container .btn_toggle:hover {
+    background-color: var(--gray-001);
+  }
+
+  .org_container .btn_toggle:active {
+    background-color: var(--gray-002);
+  }
+  
+  .org_container .org .info {
+    margin-left: -7px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+    position: relative;
+    flex-grow: 1;
+    overflow: hidden;
+  }
+
+  :global(.org_container .org .info .icon) {
+    flex-shrink : 0;
+  }
+
+  .org_container .org .info .title {
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  .org_container .org_plans .plan .label span {
+    padding: 0;
+  }
+
+  .org_container .org .options .btn:hover,
+  .org_container .org_plans .plan .label .btn:hover {
+    background-color: var(--blue-005);
+  }
+
+  .org_container .org_plans {
     width: auto;
     display: flex;
     flex-direction: column;
-    padding: 5px 10px;
+    margin-left: 35px;
+    padding: 5px 5px 5px 10px;
     border-radius: 8px;
     background-color: var(--gray-001);
   }
 
-  .org_container .org_wrapper .org_plans .plan {
+  .org_container .org .btn_refresh,
+  .org_container .org_plans .plan .label .btn {
+		border: none;
+		padding: 6px;
+		border-radius: 8px;
+		background-color: transparent;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+  .org_container .org .btn_refresh:hover,
+	.org_container .org_plans .plan .label .btn:hover {
+		background-color: var(--violet-transparent);
+	}
+
+  :global(.org_container .org .btn_refresh:hover svg) {
+    stroke: var(--violet-005);
+  }
+	:global(.org_container .org_plans .plan .label .btn:hover svg) {
+		fill: var(--violet-005);
+	}
+
+  .org_container .org_plans .plan {
     display: flex;
     flex-direction: column;
     padding: 5px;
     gap: 5px;
   }
 
-  .org_container .org_wrapper .org_plans .plan .label {
+  .org_container .org_plans .plan .label {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     gap: 8px;
-    font-size: var(--font-md);
     font-weight: 600;
   }
 
-  .org_container .org_wrapper .org_plans .plan p {
+  .org_container .org_plans .plan p {
     margin: 0;
   }
 
-  .org_container .org_wrapper .org_plans .plan.programs {
+  .org_container .org_plans .plan.programs {
     gap: 8px;
   }
 
-  .org_container .org_wrapper .org_plans .plan.programs .program_activity_list {
+  .org_container .org_plans .plan.programs .program_activity_list {
     display: flex;
     flex-direction: column;
   }

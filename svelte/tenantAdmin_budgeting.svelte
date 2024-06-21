@@ -103,17 +103,41 @@
     deletedAt: 0,
     children: []
   };
+  let budgetIDR = '';
   let isShowPlanDetail = false;
 
   const onPlanDetails = (e) => {
     isShowPlanDetail = true;
     if (planDetail.id == (e.detail).id) return;
     planDetail = e.detail; 
-    planDetail.budgetIDR = new Intl.NumberFormat('id', {
+    budgetIDR = new Intl.NumberFormat('id', {
       style: 'currency',
       currency: 'IDR',
-      maximumSignificantDigits: 3,
+      minimumFractionDigits: 0, // to ensure no decimal places
+      maximumFractionDigits: 0  // to ensure no decimal places
     }).format(Number(planDetail.budgetIDR) || 0);
+  }
+
+  const closeDetail = () => {
+    isShowPlanDetail = false;
+    planDetail = {
+      id: '',
+      parentId: '',
+      title: '',
+      description: '',
+      orgId: '',
+      planType: '',
+      yearOf: 0,
+      budgetIDR: '',
+      quantity: 0,
+      unit: '',
+      createdAt: '',
+      createdBy: '',
+      updatedAt: 0,
+      updatedBy: '',
+      deletedAt: 0,
+      children: []
+    };
   }
 </script>
 
@@ -130,7 +154,7 @@
       </div>
     {/if}
     <article class="plan_detail {isShowPlanDetail ? 'show' : ''}">
-      <button class="close" on:click={() => isShowPlanDetail = false}>close</button>
+      <button class="close" on:click={closeDetail}>close</button>
       <main>
         <h2>{planDetail.title || '--'}</h2>
         <div class="detail">
@@ -147,7 +171,7 @@
         </div>
         <div class="detail">
           <span>Budget IDR</span>
-          <p>{planDetail.budgetIDR || '0'}</p>
+          <p>{budgetIDR}</p>
         </div>
         <div class="detail">
           <span>Qty</span>
@@ -182,7 +206,8 @@
     border: 1px solid var(--gray-003);
     border-radius: 8px;
     overflow: hidden;
-    padding: 15px 20px 25px 20px;
+    padding: 10px 10px 15px 10px;
+    gap: 10px;
     transition : 0.5s;
   }
 

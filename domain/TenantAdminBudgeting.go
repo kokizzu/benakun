@@ -92,19 +92,19 @@ func (d *Domain) TenantAdminBudgeting(in *TenantAdminBudgetingIn) (out TenantAdm
 			return
 		}
 
+		if plan.PlanType == mBudget.PlanTypeActivity {
+			planParent := rqBudget.NewPlans(d.AuthOltp)
+			planParent.Id = in.Plan.ParentId
+			if !planParent.FindById() {
+				out.SetError(400, ErrTenantAdminBudgetingParentPlanNotFound)
+				return
+			}
+		}
+
 		if plan.Id > 0 {
 			if !plan.FindById() {
 				out.SetError(400, ErrTenantAdminBudgetingPlanNotFound)
 				return
-			}
-
-			if plan.PlanType == mBudget.PlanTypeActivity {
-				planParent := rqBudget.NewPlans(d.AuthOltp)
-				planParent.Id = in.Plan.ParentId
-				if !planParent.FindById() {
-					out.SetError(400, ErrTenantAdminBudgetingParentPlanNotFound)
-					return
-				}
 			}
 
 			switch in.Cmd {
@@ -164,6 +164,9 @@ func (d *Domain) TenantAdminBudgeting(in *TenantAdminBudgetingIn) (out TenantAdm
 				plan.SetYearOf(in.Plan.YearOf)
 			}
 
+			plan.SetOrgId(org.Id)
+			plan.SetTenantCode(tenant.TenantCode)
+			plan.SetPlanType(in.Plan.PlanType)
 			plan.SetBudgetIDR(in.Plan.BudgetIDR)
 			plan.SetQuantity(in.Plan.Quantity)
 			plan.SetUnit(in.Plan.Unit)

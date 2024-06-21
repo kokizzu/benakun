@@ -4,10 +4,13 @@
   import {
     RiMediaSpeedMiniFill,
     RiSystemAddBoxLine,
-    RiDesignPencilLine
+    RiDesignPencilLine,
+    RiSystemInformationLine,
+		RiSystemDeleteBin5Line,
+    RiArrowsArrowGoBackLine,
   } from '../node_modules/svelte-icons-pack/dist/ri';
   import { createEventDispatcher } from 'svelte';
-  import { TenantAdminUpsertBudgetPlan } from '../jsApi.GEN.js';
+  import { TenantAdminBudgeting } from '../jsApi.GEN.js';
   import PopUpBudgetPlan from './PopUpBudgetPlan.svelte';
   import { notifier } from './notifier.js';
 
@@ -49,13 +52,10 @@
     children: []
   };
 
-  console.log('plan:', plan)
-
   // forward event to the root component, to show program/activity details
   const showDetails = () => dispatch('details', plan);
 
   let popUpBudgetPlan = /** @type {PopUpBudgetPlan} */ ({});
-
 
   // state submit
   const submitStateAdd = 'add', submitStateEdit = 'edit';
@@ -79,8 +79,11 @@
       unit: unit,
       parentId: plan.id,
     }
-    await TenantAdminUpsertBudgetPlan( //@ts-ignore
-      { plan: planPayload }, /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanCallback} */
+    await TenantAdminBudgeting( //@ts-ignore
+      {
+        cmd: 'upsert', //@ts-ignore
+        plan: planPayload
+      }, /** @type {import('../jsApi.GEN').TenantAdminBudgetingCallback} */
       function (/** @type {any} */ o) {
         isSubmitPlan = false;
         if (o.error) {
@@ -88,8 +91,9 @@
           console.log(o);
           return;
         }
+
         notifier.showSuccess(planType + ' updated');
-        const out = /** @type {import('../jsApi.GEN').TenantAdminUpsertBudgetPlanOut}*/ (o);
+        const out = /** @type {import('../jsApi.GEN').TenantAdminBudgetingOut}*/ (o);
         dispatch('update', out.plans);
 
         popUpBudgetPlan.hide();
@@ -98,18 +102,58 @@
     )
   }
 
-  async function submitPlan() {
-    switch (submitState) {
-      case submitStateAdd:
-      case submitStateEdit: {
-        await submitUpsertPlan();
-        break;
+  async function deletePlan() {
+    isSubmitPlan = true;
+    await TenantAdminBudgeting( //@ts-ignore
+      {
+        cmd: 'delete', //@ts-ignore
+        plan: {
+          id: Number(plan.id)
+        }
+      }, /** @type {import('../jsApi.GEN').TenantAdminBudgetingCallback} */
+      function (/** @type {any} */ o) {
+        isSubmitPlan = false;
+        if (o.error) {
+          notifier.showError(o.error);
+          console.log(o);
+          return;
+        }
+
+        notifier.showSuccess(planType + ' deleted');
+        const out = /** @type {import('../jsApi.GEN').TenantAdminBudgetingOut}*/ (o);
+        dispatch('update', out.plans);
+
+        popUpBudgetPlan.hide();
+        resetPayload();
       }
-      default: {
-        console.log('invalid submit state, use add, or edit');
-        return;
+    )
+  }
+
+  async function restorePlan() {
+    isSubmitPlan = true;
+    await TenantAdminBudgeting( //@ts-ignore
+      {
+        cmd: 'restore', //@ts-ignore
+        plan: {
+          id: Number(plan.id)
+        }
+      }, /** @type {import('../jsApi.GEN').TenantAdminBudgetingCallback} */
+      function (/** @type {any} */ o) {
+        isSubmitPlan = false;
+        if (o.error) {
+          notifier.showError(o.error);
+          console.log(o);
+          return;
+        }
+
+        notifier.showSuccess(planType + ' restore');
+        const out = /** @type {import('../jsApi.GEN').TenantAdminBudgetingOut}*/ (o);
+        dispatch('update', out.plans);
+
+        popUpBudgetPlan.hide();
+        resetPayload();
       }
-    }
+    )
   }
 
   function togglePopUp(state) {
@@ -148,11 +192,11 @@
   bind:unit
   bind:heading={headingPopUp}
   bind:isSubmitted={isSubmitPlan}
-  onSubmit={submitPlan}
+  onSubmit={submitUpsertPlan}
 />
 
 <div class="item {plan.planType === 'activity' ? 'activity' : ''}">
-  <button class="title" on:click={showDetails} title="click to show info">
+  <div class="title">
     {#if plan.planType === 'program'}
       <Icon
         className="icon"
@@ -169,36 +213,76 @@
       />
     {/if}
     <span>{plan.title}</span>
-  </button>
+  </div>
   <div class="options">
     <button
+      disabled={isSubmitPlan}
       on:click={() => togglePopUp(submitStateEdit)}
-      class="btn edit"
+      class="btn"
       title="Edit {plan.planType}"
     >
       <Icon
         className="icon"
-        color="#FFF"
-        size="14"
+        color="var(--gray-007)"
+        size="15"
         src={RiDesignPencilLine}
       />
-      <span>Edit</span>
     </button>
+    {#if plan.deletedAt <= 0}
+      <button
+        disabled={isSubmitPlan}
+        on:click={deletePlan}
+        class="btn"
+        title="Delete {plan.planType}"
+      >
+        <Icon
+          className="icon"
+          color="var(--gray-007)"
+          size="14"
+          src={RiSystemDeleteBin5Line}
+        />
+      </button>
+    {/if}
+    {#if plan.deletedAt > 0}
+      <button
+        disabled={isSubmitPlan}
+        class="btn"
+        title="Restore {plan.planType}"
+      >
+        <Icon
+          className="icon"
+          color="var(--gray-007)"
+          size="15"
+          src={RiArrowsArrowGoBackLine}
+        />
+      </button>
+    {/if}
     {#if plan.planType === 'program'}
       <button
+        disabled={isSubmitPlan}
         on:click={() => togglePopUp(submitStateAdd)}
         class="btn"
         title="Add activity"
       >
         <Icon
           className="icon"
-          color="#FFF"
-          size="14"
+          color="var(--gray-007)"
+          size="15"
           src={RiSystemAddBoxLine}
         />
-        <span>Add</span>
       </button>
     {/if}
+    <button
+      class="btn info"
+      title="Info"
+      on:click={showDetails}
+    >
+      <Icon
+        size="15"
+        color="var(--gray-007)"
+        src={RiSystemInformationLine}
+      />
+    </button>
   </div>
 </div>
 
@@ -219,20 +303,6 @@
     justify-content: space-between;
     gap: 10px;
     align-items: center;
-    background-color: transparent;
-    border: none;
-    border-radius: 8px;
-    padding: 5px 0 5px 0;
-    color: var(--gray-007);
-    cursor: pointer;
-  }
-
-  .item:hover .title span {
-    color: var(--blue-006);
-  }
-
-  :global(.item:hover .title .icon) {
-    fill: var(--blue-006);
   }
 
   .item.activity {
@@ -246,48 +316,41 @@
     align-items: center;
     gap: 8px;
     background-color: transparent;
-    border: none;
-    border-radius: 5px;
-    color: var(--gray-007);
-    padding: 4px 8px;
-    cursor: pointer;
-    text-align: left;
+    overflow: hidden;
   }
 
-  .item .title:hover {
-    background-color: var(--blue-transparent);
+  :global(.item .title .icon) {
+    flex-shrink : 0;
+  }
+
+  .item .title span  {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .item .options {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px;
   }
-
+  
   .item .options .btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    background-color: var(--blue-006);
-    border-radius: 5px;
-    padding: 4px 8px;
-    cursor: pointer;
-    color: #FFF;
-    gap: 5px;
-    font-size: var(--font-sm);
-  }
+		border: none;
+		padding: 6px;
+		border-radius: 8px;
+		background-color: transparent;
+		cursor: pointer;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 
-  .item .options .btn:hover {
-    background-color: var(--blue-005);
-  }
+	.item .options .btn:hover {
+		background-color: var(--violet-transparent);
+	}
 
-  .item .options .btn.edit {
-    background-color: var(--amber-006);
-  }
-
-  .item .options .btn.edit:hover {
-    background-color: var(--amber-005);
-  }
+	:global(.item .options .btn:hover svg) {
+		fill: var(--violet-005);
+	}
 </style>
