@@ -32995,6 +32995,10 @@ uniform ${i3} ${a3} u_${s3};
     /** @type User */
     {/* user */}
   );
+  var products = (
+    /** @type Object */
+    {/* products */}
+  );
   function instance12($self, $props, $invalidate) {
     let fields = (
       /** @type Field[] */
@@ -33008,6 +33012,7 @@ uniform ${i3} ${a3} u_${s3};
       /** @type any[][] */
       [/* inventoryChanges */]
     );
+    console.log("Products: ", products);
     let isPopUpFormsReady = false;
     let popUpForms = null;
     onMount(() => {

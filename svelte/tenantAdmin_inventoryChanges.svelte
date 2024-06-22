@@ -19,6 +19,9 @@
   let fields = /** @type Field[] */ ([/* fields */]);
   let pager = /** @type PagerOut */ ({/* pager */});
   let inventoryChanges = /** @type any[][] */ ([/* inventoryChanges */]);
+  let products = /** @type Object */ ({/* products */});
+
+  console.log('Products: ', products);
 
   let isPopUpFormsReady = false;
   let popUpForms = null;

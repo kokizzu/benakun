@@ -7,6 +7,7 @@ import (
 
 	"benakun/domain"
 	"benakun/model/mAuth/rqAuth"
+	"benakun/model/mBusiness/rqBusiness"
 	"benakun/model/zCrud"
 )
 
@@ -332,7 +333,10 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notTenantLogin(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
+
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		r := rqBusiness.NewProducts(d.AuthOltp)
+		products := r.FindProductsChoicesByTenantCode(user.TenantCode)
 		
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
@@ -344,6 +348,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`fields`:   out.Meta.Fields,
 			`pager`:    out.Pager,
 			`inventoryChanges`: out.InventoryChanges,
+			`products`: products,
 		})
 	})
 
