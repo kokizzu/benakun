@@ -22,6 +22,8 @@
   let accounts = /** @type any[][] */ ([/* accounts */]);
   let staffs = /** @type Object */ ({/* staffs */});
 
+  console.log('Staff: ', staffs);
+
   // Binding component PopUpAddBankAccount.svelte
   let popUpAddBankAccount = null;
   // For readiness of component PopUpAddBankAccount.svelte, prevent race condition

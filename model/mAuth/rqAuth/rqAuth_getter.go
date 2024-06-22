@@ -56,7 +56,8 @@ FROM SEQSCAN ` + u.SqlTableName() + whereAndSql
 func (u *Users) FindStaffsChoicesByTenantCode(tenantCode string) map[string]string {
 	const comment = `-- Users) FindStaffByTenantCode`
 
-	whereAndSql := ` WHERE ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
+	whereAndSql := ` WHERE ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+tenantCode+`%`) + `
+		AND ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%accepted%`)
 
 	queryRows := comment + `
 SELECT ` + u.SqlId() + `, ` + u.SqlFullName() + `, ` + u.SqlEmail() + `, ` + u.SqlRole() + `
