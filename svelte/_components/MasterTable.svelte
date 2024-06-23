@@ -40,7 +40,8 @@
 	export let CAN_RESTORE_ROW	= false;
 	export let CAN_SHOW_INFO		= false;
 	export let CAN_OPEN_LINK		= false;
-	export let LINK_PATH				= '/'
+	export let LINK_PATH				= '/';
+	export let IDX_ID_LINK			= 0;
 
 	// State for loading if hit ajax
 	let isAjaxSubmitted = false;
@@ -489,7 +490,7 @@
 													<a
 														class="btn link"
 														title="open"
-														href={LINK_PATH+row[idx]}
+														href={LINK_PATH+row[IDX_ID_LINK]}
 													>
 														<Icon
 															size="15"

@@ -68,19 +68,19 @@ var TenantAdminInventoryChangesMeta = zCrud.Meta{
 		},
 		{
 			Name: mBusiness.CreatedAt,
-			Label: "Dibuat pada/Created at",
+			Label: "Dibuat pada / Created at",
 			InputType: zCrud.InputTypeHidden,
 			ReadOnly: true,
 		},
 		{
 			Name: mBusiness.UpdatedAt,
-			Label: "Diperbarui pada/Updated at",
+			Label: "Diperbarui pada / Updated at",
 			InputType: zCrud.InputTypeHidden,
 			ReadOnly: true,
 		},
 		{
 			Name: mBusiness.DeletedAt,
-			Label: "Dihapus pada/Deleted at",
+			Label: "Dihapus pada / Deleted at",
 			InputType: zCrud.InputTypeHidden,
 			ReadOnly: true,
 		},

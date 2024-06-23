@@ -188,6 +188,7 @@
       CAN_OPEN_LINK
 
       LINK_PATH='/tenantAdmin/inventoryChanges/'
+      IDX_ID_LINK={2}
 
       {OnDelete}
       {OnEdit}

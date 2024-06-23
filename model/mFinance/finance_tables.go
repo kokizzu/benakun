@@ -2,6 +2,18 @@ package mFinance
 
 import "github.com/kokizzu/gotro/D/Tt"
 
+// TODO: transaction template | JENIS
+// Fields: nama, color <hex>, img <path/to/img>
+
+// TODO: transaction template detail
+// Fields: coaId, isDebit
+
+// TODO: transaction entry
+// Fields:
+
+// TODO: transaction journal
+// Fields: trxStart, trxEnd, parentTransaction
+
 const (
 	Id                 = `id`
 	CreatedAt          = `createdAt`
