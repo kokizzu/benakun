@@ -40,6 +40,7 @@ const (
 	ErrTenantAdminInventoryChangesTenantNotFound 			= `tenant admin not found`
 	ErrTenantAdminInventoryChangesNotFound 						= `inventory not found` 
 	ErrTenantAdminInventoryChangesNotTenant						= `must be tenant admin to do this operation`
+	ErrTenantAdminInventoryChangesProductNotFound			= `product not found`
 	ErrTenantAdminInventoryChangesSaveFailed      		= `inventory changes save failed`
 )
 
@@ -57,6 +58,13 @@ var TenantAdminInventoryChangesMeta = zCrud.Meta{
 			Label: "Stock Delta",
 			DataType: zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeNumber,
+		},
+		{
+			Name: mBusiness.ProductId,
+			Label: "Product",
+			DataType: zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeCombobox,
+			Description: "Select product",
 		},
 		{
 			Name: mBusiness.CreatedAt,
@@ -132,6 +140,15 @@ func (d *Domain) TenantAdminInventoryChanges(in *TenantAdminInventoryChangesIn) 
 					invChange.SetRestoredBy(sess.UserId)
 				}
 			}
+		} else {
+			product := rqBusiness.NewProducts(d.AuthOltp)
+			product.Id = in.InventoryChange.ProductId
+			if !product.FindById() {
+				out.SetError(400, ErrTenantAdminInventoryChangesProductNotFound)
+				return
+			}
+
+			invChange.SetProductId(product.Id)
 		}
 
 		invChange.SetTenantCode(user.TenantCode)

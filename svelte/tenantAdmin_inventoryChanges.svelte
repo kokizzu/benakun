@@ -3,7 +3,7 @@
   import { RiSystemAddBoxLine } from './node_modules/svelte-icons-pack/dist/ri';
   import MainLayout from './_layouts/mainLayout.svelte';
   import MasterTable from './_components/MasterTable.svelte';
-  import PoUpForms from './_components/PoUpForms.svelte';
+  import PopUpInventoryChanges from './_components/PopUpInventoryChanges.svelte';
   import { onMount } from 'svelte';
   import { TenantAdminInventoryChanges } from './jsApi.GEN';
   import { notifier } from './_components/notifier';
@@ -24,7 +24,7 @@
   console.log('Products: ', products);
 
   let isPopUpFormsReady = false;
-  let popUpForms = null;
+  let popUpInventoryChanges = null;
   onMount(() => {
     isPopUpFormsReady = true;
   })
@@ -131,14 +131,11 @@
   }
 
   let isSubmitAddInvChange = false;
-  async function OnAddInventoryChange(/** @type any[] */ payloads) {
+  async function OnAddInventoryChange(/** @type any */ payloads) {
     isSubmitAddInvChange = true;
-    
-    const inventoryChange = {
-      stockDelta: payloads[1]+'',
-    }
     const i = {
-      pager, inventoryChange,
+      pager,
+      inventoryChange: payloads,
       cmd: 'upsert'
     }
     await TenantAdminInventoryChanges( // @ts-ignore
@@ -156,21 +153,19 @@
         inventoryChanges = o.inventoryChanges;
 
         notifier.showSuccess('inventoryChange created')
-        popUpForms.Reset();
+        popUpInventoryChanges.Reset();
 
         OnRefresh(pager);
       }
     );
-    popUpForms.Hide();
+    popUpInventoryChanges.Hide();
   }
 </script>
 
 {#if isPopUpFormsReady}
-  <PoUpForms
-    bind:this={popUpForms}
-    heading="Add Inventory Changes"
-    FIELDS={fields}
-    bind:isSubmitted={isSubmitAddInvChange}
+  <PopUpInventoryChanges
+    {products}
+    bind:this={popUpInventoryChanges}
     OnSubmit={OnAddInventoryChange}
   />
 {/if}
@@ -182,6 +177,9 @@
       bind:FIELDS={fields}
       bind:PAGER={pager}
       bind:MASTER_ROWS={inventoryChanges}
+      REFS={{
+        'productId': products
+      }}
 
       CAN_EDIT_ROW
       CAN_SEARCH_ROW
@@ -199,7 +197,7 @@
       {#if user.tenantCode !== ''}
         <button
           class="action_btn"
-          on:click={() => popUpForms.Show()}
+          on:click={() => popUpInventoryChanges.Show()}
           title="add inventoryChange"
         >
           <Icon
