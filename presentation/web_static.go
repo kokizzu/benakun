@@ -390,6 +390,9 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`, 302)
 		}
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
+
+		in.WithMeta = true
+		in.Cmd = zCrud.CmdList
 		
 		out := d.TenantAdminTransactionTemplate(&in)
 		return views.RenderTenantAdminTransactionTemplate(ctx, M.SX{
@@ -397,6 +400,8 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`user`:     user,
 			`segments`: segments,
 			`pager`:    out.Pager,
+			`fields`: out.Meta.Fields,
+			`transactionTemplates`: out.TransactionTemplates,
 		})
 	})
 

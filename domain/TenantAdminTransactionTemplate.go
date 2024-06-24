@@ -1,8 +1,9 @@
 package domain
 
 import (
-	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
+	"benakun/model/mFinance"
+	"benakun/model/mFinance/rqFinance"
 	"benakun/model/zCrud"
 
 	"github.com/gofiber/fiber/v2"
@@ -18,18 +19,16 @@ type (
 	TenantAdminTransactionTemplateIn struct {
 		RequestCommon
 		Cmd      		string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		StaffEmail	string				`json:"staffEmail" form:"staffEmail" query:"staffEmail" long:"staffEmail" msg:"staffEmail"`
-		TenantCode  string 				`json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
-		Role 				string 				`json:"role" form:"role" query:"role" long:"role" msg:"role"`
 		WithMeta		bool          `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
 		Pager    		zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		TransactionTemplate *rqFinance.TransactionTemplate `json:"transactionTemplate" form:"transactionTemplate" query:"transactionTemplate" long:"transactionTemplate" msg:"transactionTemplate"`
 	}
 	TenantAdminTransactionTemplateOut struct {
 		ResponseCommon
 		Pager zCrud.PagerOut `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 		Meta  *zCrud.Meta    `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
-		Staffs [][]any `json:"staffs" form:"staffs" query:"staffs" long:"staffs" msg:"staffs"`
-		StaffsForm *[]rqAuth.Staff `json:"staffsForm" form:"staffsForm" query:"staffsForm" long:"staffsForm" msg:"staffsForm"`
+		TransactionTemplates [][]any `json:"transactionTemplates" form:"transactionTemplates" query:"transactionTemplates" long:"transactionTemplates" msg:"transactionTemplates"`
+		TransactionTemplate *rqFinance.TransactionTemplate `json:"transactionTemplate" form:"transactionTemplate" query:"transactionTemplate" long:"transactionTemplate" msg:"transactionTemplate"`
 	}
 )
 
@@ -47,6 +46,54 @@ const (
 	ErrTenantAdminTransactionTemplateInvalidRole = `invalid staff role to modify`
 )
 
+var TenantAdminTransactionTemplateMeta = zCrud.Meta{
+	Fields: []zCrud.Field{
+		{
+			Name: mFinance.Id,
+			Label: "ID",
+			DataType: zCrud.DataTypeInt,
+			ReadOnly: true,
+		},
+		{
+			Name: mFinance.Name,
+			Label: "Nama / Name",
+			DataType: zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name: mFinance.Color,
+			Label: "Warna / Color",
+			DataType: zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+		},
+		{
+			Name: mFinance.ImageURL,
+			Label: "Gambar / Image",
+		},
+		{
+			Name:      mFinance.CreatedAt,
+			Label:     `Dibuat pada / Created at`,
+			ReadOnly:  true,
+			DataType:  zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeDateTime,
+		},
+		{
+			Name:      mFinance.UpdatedAt,
+			Label:     `Diperbarui pada / Updated at`,
+			ReadOnly:  true,
+			DataType:  zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeDateTime,
+		},
+		{
+			Name:      mFinance.DeletedAt,
+			Label:     `Dihapus pada / Deleted at`,
+			ReadOnly:  true,
+			DataType:  zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeDateTime,
+		},
+	},
+}
+
 func (d *Domain) TenantAdminTransactionTemplate(in *TenantAdminTransactionTemplateIn) (out TenantAdminTransactionTemplateOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 
@@ -62,5 +109,13 @@ func (d *Domain) TenantAdminTransactionTemplate(in *TenantAdminTransactionTempla
 		return
 	}
 
+	if in.WithMeta {
+		out.Meta = &TenantAdminTransactionTemplateMeta
+	}
+
+	r := rqFinance.NewTransactionTemplate(d.AuthOltp)
+	r.TenantCode = user.TenantCode
+	out.TransactionTemplates = r.FindByPagination(&TenantAdminTransactionTemplateMeta, &in.Pager, &out.Pager)
+	
 	return
 }

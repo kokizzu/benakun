@@ -9,12 +9,22 @@
   /** @typedef {import('./_components/types/user.js').User} User */
 
   let segments = /** @type Access */ ({/* segments */});
+  let fields = /** @type Field[] */ ([/* fields */]);
+  let pager = /** @type PagerOut */ ({/* pager */});
   let user = /** @type User */ ({/* user */});
+  let transactionTemplates = /** @type any[][] */ ([/* transactionTemplates */]);
+
+
 </script>
 
 <MainLayout>
   <div>
-    <h2>Transaction Template</h2>
+    <MasterTable
+      ACCESS={segments}
+      bind:FIELDS={fields}
+      bind:PAGER={pager}
+      bind:MASTER_ROWS={transactionTemplates}
+    />
   </div>
 </MainLayout>
 
