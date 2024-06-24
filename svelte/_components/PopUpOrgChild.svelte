@@ -30,8 +30,8 @@
       </button>
     </header>
     <div class="forms">
-      <InputBox id="childName" label="Name" bind:value={childName} type="text" placeholder="Organization name" />
-      <InputBox id="headTitle" label="Head Title" bind:value={headTitle} type="text" placeholder="Director, CEO, President, etc" />
+      <InputBox id="childName" label="Nama / Name" bind:value={childName} type="text" placeholder="Organization name" />
+      <InputBox id="headTitle" label="Kepala Jabatan / Head Title" bind:value={headTitle} type="text" placeholder="Director, CEO, President, etc" />
     </div>
     <div class="foot">
       <div class="left">

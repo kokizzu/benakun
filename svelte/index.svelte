@@ -219,21 +219,21 @@
         <div class="form">
           <InputBox
             id="tenantCode"
-            label="Tenant Code"
+            label="Kode Tenant / Tenant Code"
             bind:value={tenantCode}
             type="text"
             placeholder="johnxdoe"
           />
           <InputBox
             id="companyName"
-            label="Company Name"
+            label="Nama Perusahaan / Company Name"
             bind:value={companyName}
             type="text"
             placeholder="My Company"
           />
           <InputBox
             id="headTitle"
-            label="Head Title"
+            label="Kepala Jabatan / Head Title"
             bind:value={headTitle}
             type="text"
             placeholder="Director, CEO, President, etc"

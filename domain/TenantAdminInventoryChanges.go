@@ -61,7 +61,7 @@ var TenantAdminInventoryChangesMeta = zCrud.Meta{
 		},
 		{
 			Name: mBusiness.ProductId,
-			Label: "Product",
+			Label: "Produk / Product",
 			DataType: zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeCombobox,
 			Description: "Select product",

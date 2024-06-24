@@ -29,7 +29,7 @@
       </button>
     </header>
     <div class="forms">
-      <InputBox id="childName" label="Nama" bind:value={childName} type="text" placeholder="Barang..." />
+      <InputBox id="childName" label="Nama / Name" bind:value={childName} type="text" placeholder="Barang..." />
     </div>
     <div class="foot">
       <div class="left">

@@ -103,21 +103,21 @@
     <div class="forms">
       <InputCustom
         id="email"
-        label="Email"
+        label="Surel / Email"
         placeholder="email@example.com"
         bind:value={email}
         type="email"
       />
       <InputCustom
         id="fullName"
-        label="Full Name"
+        label="Nama Lengkap / Full Name"
         placeholder="John Doe"
         bind:value={fullName}
         type="text"
       />
       <InputCustom
         id="role"
-        label="Role"
+        label="Peran / Role"
         bind:value={role}
         type="combobox"
         values={roles}
@@ -126,7 +126,7 @@
         {#if isTenantsReady}
           <InputCustom
             id="tenantAdmin"
-            label="TenantAdmin"
+            label="Tenant Admin"
             bind:value={tenantAdmin}
             type="combobox"
             values={tenants}

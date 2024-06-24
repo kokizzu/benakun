@@ -45,14 +45,14 @@
       <InputCustom
         bind:value={stockDelta}
         id="stockDelta"
-        label="Stock Delta"
+        label="Delta Stok / Stock Delta"
         placeholder="Stock Delta"
         type="number"
       />
       <InputCustom
         bind:value={productId}
         id="productId"
-        label="Products"
+        label="Produk / Product"
         type="select"
         placeholder="Select product"
         values={products}

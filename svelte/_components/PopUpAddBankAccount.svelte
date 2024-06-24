@@ -68,54 +68,54 @@
       <InputCustom
         bind:value={name}
         id="name"
-        label="Name"
+        label="Nama / Name"
         placeholder="Name"
         type="text"
       />
       <InputCustom
         bind:value={bankName}
         id="bankName"
-        label="Bank Name"
+        label="Nama Bank / Bank Name"
         placeholder="Bank Name"
         type="text"
       />
       <InputCustom
         bind:value={accountName}
         id="accountName"
-        label="Account Name"
+        label="Nama Akun / Account Name"
         placeholder="Account Name"
         type="text"
       />
       <InputCustom
         bind:value={accountNumber}
         id="accountNumber"
-        label="Account Number"
+        label="Nomor Akun / Account Number"
         placeholder="0xxxxx"
         type="number"
       />
       <InputCustom
         bind:value={isProfitCenter}
         id="isProfitCenter"
-        label="Is Profit Center ?"
+        label="Pusat Profit / Is Profit Center ?"
         type="bool"
       />
       <InputCustom
         bind:value={isCostCenter}
         id="isCostCenter"
-        label="Is Cost Center ?"
+        label="Pusat Biaya / Is Cost Center ?"
         type="bool"
       />
       <InputCustom
         bind:value={isStaffAccount}
         id="isStaffAccount"
-        label="Is Staff Account ?"
+        label="Akun Staf / Is Staff Account ?"
         type="bool"
       />
       {#if isStaffAccount}
         <InputCustom
           bind:value={staffId}
           id="staffId"
-          label="Staff"
+          label="Karyawan / Staff"
           type="select"
           placeholder="Select staff"
           values={staffs}

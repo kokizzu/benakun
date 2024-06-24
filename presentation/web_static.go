@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/gotro/S"
 
 	"benakun/domain"
 	"benakun/model/mAuth/rqAuth"
@@ -357,12 +358,25 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notTenantLogin(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
+
+		productId := ctx.Params(`productId`)
+
+		product := rqBusiness.NewProducts(d.AuthOltp)
+		product.Id = S.ToU(productId)
+		if !product.FindById() {
+			return ctx.Redirect(`/`+domain.TenantAdminInventoryChangesAction, 302)
+		}
+
+		// TODO: find inventoryChanges by product id
+		// invChange := rqBusiness.NewInventoryChanges(d.AuthOltp)
+		// invChanges := invChange.FindByProductId()
 		
 		return views.RenderTenantAdminInventoryChangesProduct(ctx, M.SX{
 			`title`:    `Tenant Admin Bank Accounts`,
 			`user`:     user,
 			`segments`: segments,
-			`productId`: ctx.Params(`productId`),
+			`product`: product,
+			`inventoryChanges`: ``, // TODO
 		})
 	})
 

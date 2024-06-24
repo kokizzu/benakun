@@ -54,7 +54,7 @@ var TenantAdminProductsMeta = zCrud.Meta{
 		},
 		{
 			Name:      mBusiness.Name,
-			Label:     "Nama/Name",
+			Label:     "Nama / Name",
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
 		},
@@ -66,7 +66,7 @@ var TenantAdminProductsMeta = zCrud.Meta{
 		},
 		{
 			Name:      mBusiness.Rule,
-			Label:     "Aturan/Rule",
+			Label:     "Aturan / Rule",
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeCombobox,
 			Description: `Product rule`,
@@ -76,7 +76,7 @@ var TenantAdminProductsMeta = zCrud.Meta{
 		},
 		{
 			Name:      mBusiness.Kind,
-			Label:     "Jenis/Kind",
+			Label:     "Jenis / Kind",
 			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeCombobox,
 			Description: `Product kind`,
@@ -86,27 +86,27 @@ var TenantAdminProductsMeta = zCrud.Meta{
 		},
 		{
 			Name:      mBusiness.CogsIDR,
-			Label:     "HPP/COGS (IDR)",
+			Label:     "HPP / COGS (IDR)",
 			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeNumber,
 		},
 		{
 			Name:      mBusiness.CreatedAt,
-			Label:     `Dibuat pada/Created at`,
+			Label:     `Dibuat pada / Created at`,
 			ReadOnly:  true,
 			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeDateTime,
 		},
 		{
 			Name:      mBusiness.UpdatedAt,
-			Label:     `Diupdate pada/Updated at`,
+			Label:     `Diperbarui pada / Updated at`,
 			ReadOnly:  true,
 			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeDateTime,
 		},
 		{
 			Name:      mBusiness.DeletedAt,
-			Label:     `Dihapus pada/Deleted at`,
+			Label:     `Dihapus pada / Deleted at`,
 			ReadOnly:  true,
 			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeDateTime,
