@@ -368,15 +368,19 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		}
 
 		// TODO: find inventoryChanges by product id
-		// invChange := rqBusiness.NewInventoryChanges(d.AuthOltp)
-		// invChanges := invChange.FindByProductId()
+		invChange := rqBusiness.NewInventoryChanges(d.AuthOltp)
+		invChange.TenantCode = user.TenantCode
+		invChange.ProductId = product.Id
+		invChanges := invChange.FindByTenantCodeByProductId()
+
+		L.Print(`invChanges:`, )
 		
 		return views.RenderTenantAdminInventoryChangesProduct(ctx, M.SX{
 			`title`:    `Tenant Admin Bank Accounts`,
 			`user`:     user,
 			`segments`: segments,
 			`product`: product,
-			`inventoryChanges`: ``, // TODO
+			`inventoryChanges`: invChanges, // TODO
 		})
 	})
 

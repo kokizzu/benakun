@@ -3,7 +3,7 @@ package rqBusiness
 import (
 	"benakun/model/zCrud"
 
-	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 )
@@ -55,8 +55,6 @@ FROM SEQSCAN ` + pr.SqlTableName() + whereAndSql
 			staffChoices[X.ToS(row[0])] = X.ToS(row[1])
 		}
 	})
-
-	L.Print(`QUery:`, queryRows)
 
 	return staffChoices
 }
@@ -118,5 +116,22 @@ FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 		res = append(res, row)
 	})
 
+	return
+}
+
+func (ic *InventoryChanges) FindByTenantCodeByProductId() (ics []*InventoryChanges) {
+	const comment = `-- InventoryChanges) FindByProductId`
+
+	whereAndSql := ` WHERE ` + ic.SqlTenantCode() + ` = ` + S.Z(ic.TenantCode) + `
+		AND ` + ic.SqlProductId() + ` = ` + I.UToS(ic.ProductId)
+
+	queryRows := comment + `
+SELECT ` + ic.SqlSelectAllFields() + `
+FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql
+
+	ic.Adapter.QuerySql(queryRows, func(row []any) {
+		ic.FromArray(row)
+		ics = append(ics, ic)
+	})
 	return
 }
