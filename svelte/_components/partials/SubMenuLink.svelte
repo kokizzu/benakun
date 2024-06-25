@@ -4,12 +4,14 @@
   export let href = '';
   export let icon = /** @type {import('svelte-icons-pack').IconType} */ ({});
   export let title = '';
+
+  const pathname = window.location.pathname;
 </script>
 
-<a href={href} class:active={window.location.pathname === href}>
+<a href={href} class:active={pathname === href || pathname.includes(href)}>
   <Icon
     size="18"
-    className={window.location.pathname === href
+    className={pathname === href || pathname.includes(href)
       ? 'icon_active'
       : 'icon_dark'
     }

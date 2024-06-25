@@ -1966,123 +1966,6 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
     gap: 2px;
   }
 }
-
-/* fakecss:./_components/PopUpInventoryChanges.esbuild-svelte-fake-css */
-@keyframes svelte-19kcmoe-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-.spin {
-  animation: svelte-19kcmoe-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-.popup_container.svelte-19kcmoe.svelte-19kcmoe {
-  display: none;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 2000;
-  background-color: rgba(0 0 0 / 40%);
-  backdrop-filter: blur(1px);
-  justify-content: center;
-  padding: 50px;
-  overflow: auto;
-}
-.popup_container.show.svelte-19kcmoe.svelte-19kcmoe {
-  display: flex;
-}
-.popup_container.svelte-19kcmoe .popup.svelte-19kcmoe {
-  border-radius: 8px;
-  background-color: #FFF;
-  height: fit-content;
-  width: 500px;
-  display: flex;
-  flex-direction: column;
-}
-.popup_container.svelte-19kcmoe .popup header.svelte-19kcmoe {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  border-bottom: 1px solid var(--gray-004);
-}
-.popup_container.svelte-19kcmoe .popup header h2.svelte-19kcmoe {
-  margin: 0;
-}
-.popup_container.svelte-19kcmoe .popup header button.svelte-19kcmoe {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-  border-radius: 50%;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-}
-.popup_container.svelte-19kcmoe .popup header button.svelte-19kcmoe:hover {
-  background-color: #ef444420;
-}
-.popup_container.svelte-19kcmoe .popup header button.svelte-19kcmoe:active {
-  background-color: #ef444430;
-}
-.popup_container.svelte-19kcmoe .popup .forms.svelte-19kcmoe {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.popup_container.svelte-19kcmoe .popup .foot.svelte-19kcmoe {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 10px;
-  align-items: center;
-  padding: 10px 20px;
-  border-top: 1px solid var(--gray-004);
-}
-.popup_container.svelte-19kcmoe .popup .foot .right.svelte-19kcmoe {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-}
-.popup_container.svelte-19kcmoe .popup .foot button.svelte-19kcmoe {
-  padding: 8px 13px;
-  border-radius: 9999px;
-  border: none;
-  color: #FFF;
-  cursor: pointer;
-  font-weight: 600;
-}
-.popup_container.svelte-19kcmoe .popup .foot button.ok.svelte-19kcmoe {
-  background-color: var(--green-006);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.popup_container.svelte-19kcmoe .popup .foot button.ok.svelte-19kcmoe:hover {
-  background-color: var(--green-005);
-}
-.popup_container.svelte-19kcmoe .popup .foot button.ok.svelte-19kcmoe:disabled {
-  cursor: not-allowed;
-  background-color: var(--gray-003);
-  color: var(--gray-007);
-}
-.popup_container.svelte-19kcmoe .popup .foot button.cancel.svelte-19kcmoe {
-  background-color: #fbbf2430;
-  color: var(--amber-005);
-}
-.popup_container.svelte-19kcmoe .popup .foot button.cancel.svelte-19kcmoe:hover {
-  background-color: #fbbf2450;
-}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -4095,13 +3978,13 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance13 = bind2(Axios$1.prototype.request, context);
-        utils$1.extend(instance13, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance13, context, null, { allOwnKeys: true });
-        instance13.create = function create(instanceConfig) {
+        const instance12 = bind2(Axios$1.prototype.request, context);
+        utils$1.extend(instance12, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance12, context, null, { allOwnKeys: true });
+        instance12.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance13;
+        return instance12;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -4213,7 +4096,7 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
       exports.TenantAdminDeleteOrganizationChild = async function TenantAdminDeleteOrganizationChild(i, cb) {
         return await axios.post("/tenantAdmin/deleteOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminInventoryChanges = async function TenantAdminInventoryChanges2(i, cb) {
+      exports.TenantAdminInventoryChanges = async function TenantAdminInventoryChanges(i, cb) {
         return await axios.post("/tenantAdmin/inventoryChanges", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminInventoryChangesProduct = async function TenantAdminInventoryChangesProduct(i, cb) {
@@ -23857,7 +23740,7 @@ uniform ${i3} ${a3} u_${s3};
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance13, create_fragment13, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance12, create_fragment12, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -23883,7 +23766,7 @@ uniform ${i3} ${a3} u_${s3};
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance13 ? instance13(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance12 ? instance12(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -23896,7 +23779,7 @@ uniform ${i3} ${a3} u_${s3};
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment13 ? create_fragment13($.ctx) : false;
+    $.fragment = create_fragment12 ? create_fragment12($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -24165,6 +24048,82 @@ uniform ${i3} ${a3} u_${s3};
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
+  // _components/partials/SideMenu.svelte
+  var import_jsApi_GEN = __toESM(require_jsApi_GEN());
+
+  // _components/notifier.js
+  var Notifier = function() {
+    let a = {
+      container: null,
+      default_time: 4500,
+      vanish_time: 300,
+      fps: 30,
+      success: {
+        classes: "alert-success",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)" /></svg>'
+      },
+      error: {
+        classes: "alert-danger",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" /></svg>'
+      },
+      warning: {
+        classes: "alert-warning",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3.09 0c-.06 0-.1.04-.13.09l-2.94 6.81c-.02.05-.03.13-.03.19v.81c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-.81c0-.05-.01-.14-.03-.19l-2.94-6.81c-.02-.05-.07-.09-.13-.09h-.81zm-.09 3h1v2h-1v-2zm0 3h1v1h-1v-1z" /></svg>'
+      },
+      info: {
+        classes: "alert-info",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-1.5 2.5c-.83 0-1.5.67-1.5 1.5h1c0-.28.22-.5.5-.5s.5.22.5.5-1 1.64-1 2.5c0 .86.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h-1c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-.36 1-1.84 1-2.5 0-.81-.67-1.5-1.5-1.5z" transform="translate(2)"/></svg>'
+      }
+    }, b = function(a2, b2, c, d, e, f, g) {
+      this.pushed = false, this.element = document.createElement("div"), this.element.className = "notifyjs-notification " + c.classes, this.element.innerHTML = "<div class='notifyjs-icon'>" + c.icon + "</div>" + b2, a2.appendChild(this.element);
+      let h = document.createElement("p");
+      h.className = "progress", this.element.appendChild(h), this.callback = g;
+      let j = this;
+      this.push = function() {
+        if (!j.pushed) {
+          j.pushed = true;
+          let a3 = 0, b3 = 1e3 / f;
+          j.element.style.display = "block", j.interval = setInterval(function() {
+            a3++;
+            let c2 = 100 * (1 - b3 * a3 / d);
+            h.style.right = c2 + "%", 0 >= c2 && ("function" == typeof g && g(), j.clear());
+          }, b3);
+        }
+      }, this.clear = function() {
+        if (j.pushed) {
+          let a3 = 1e3 / f, b3 = 1;
+          "undefined" != typeof j.interval && clearInterval(j.interval), j.interval = setInterval(function() {
+            b3 -= 1 / (e / a3), j.element.style.opacity = b3, 0 >= b3 && (clearInterval(j.interval), j.destroy());
+          }, a3);
+        }
+      }, this.destroy = function() {
+        j.pushed && (j.pushed = false, "undefined" != typeof j.interval && clearInterval(j.interval), a2.removeChild(j.element));
+      };
+    };
+    return function Notifier2(c) {
+      this.options = Object.assign({}, a), this.options = Object.assign(this.options, c), null === this.options.container && (this.options.container = document.createElement("div"), document.getElementsByTagName("body")[0].appendChild(this.options.container)), this.options.container.className += " notifyjs-container", this.notify = function(a2, c2, d, e) {
+        return "undefined" == typeof this.options[a2] ? void console.error("Notify.js: Error, undefined '" + a2 + "' notification type") : ("undefined" == typeof d && (d = this.options.default_time), new b(this.options.container, c2, this.options[a2], d, this.options.vanish_time, this.options.fps, e));
+      };
+      this.showInfo = function(infoMsg) {
+        let notification = this.notify("info", infoMsg);
+        notification.push();
+      };
+      this.showSuccess = function(okMsg) {
+        let notification = this.notify("success", okMsg);
+        notification.push();
+      };
+      this.showError = function(errMsg) {
+        let notification = this.notify("error", errMsg);
+        notification.push();
+      };
+      this.showWarning = function(warnMsg) {
+        let notification = this.notify("warning", warnMsg);
+        notification.push();
+      };
+    };
+  }();
+  var notifier = new Notifier();
+
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/Icon.svelte
   function create_fragment(ctx) {
     let svg;
@@ -24324,99 +24283,6 @@ uniform ${i3} ${a3} u_${s3};
   };
   var Icon_default = Icon;
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ri/index.js
-  var RiDesignBallPenLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M17.8492 11.6983L17.1421 10.9912L7.24264 20.8907H3V16.648L14.3137 5.33432L19.9706 10.9912C20.3611 11.3817 20.3611 12.0149 19.9706 12.4054L12.8995 19.4765L11.4853 18.0622L17.8492 11.6983ZM15.7279 9.57696L14.3137 8.16274L5 17.4765V18.8907H6.41421L15.7279 9.57696ZM18.5563 2.50589L21.3848 5.33432C21.7753 5.72484 21.7753 6.35801 21.3848 6.74853L19.9706 8.16274L15.7279 3.9201L17.1421 2.50589C17.5327 2.11537 18.1658 2.11537 18.5563 2.50589Z"></path>' };
-  var RiBuildingsCommunityLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 21H3C2.44772 21 2 20.5523 2 20V12.4868C2 12.1978 2.12501 11.9229 2.34282 11.733L6 8.54435V4C6 3.44772 6.44772 3 7 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21ZM9 19H12V12.9416L8 9.45402L4 12.9416V19H7V15H9V19ZM14 19H20V5H8V7.12729C8.23444 7.12729 8.46888 7.20938 8.65718 7.37355L13.6572 11.733C13.875 11.9229 14 12.1978 14 12.4868V19ZM16 11H18V13H16V11ZM16 15H18V17H16V15ZM16 7H18V9H16V7ZM12 7H14V9H12V7Z"></path>' };
-  var RiBuildingsBankLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 20H22V22H2V20ZM4 12H6V19H4V12ZM9 12H11V19H9V12ZM13 12H15V19H13V12ZM18 12H20V19H18V12ZM2 7L12 2L22 7V11H2V7ZM4 8.23607V9H20V8.23607L12 4.23607L4 8.23607ZM12 8C11.4477 8 11 7.55228 11 7C11 6.44772 11.4477 6 12 6C12.5523 6 13 6.44772 13 7C13 7.55228 12.5523 8 12 8Z"></path>' };
-  var RiDocumentStickyNoteAddLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 1V4H1V6H4V9H6V6H9V4H6V1H4ZM3 20.0066V11H5V19H13V14C13 13.45 13.45 13 14 13L19 12.999V5H11V3H20.0066C20.5552 3 21 3.45576 21 4.00247V15L15 20.996L4.00221 21C3.4487 21 3 20.5551 3 20.0066ZM18.171 14.999L15 15V18.169L18.171 14.999Z"></path>' };
-  var RiUserFacesAdminLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M12 14V16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM21 17H22V22H14V17H15V16C15 14.3431 16.3431 13 18 13C19.6569 13 21 14.3431 21 16V17ZM19 17V16C19 15.4477 18.5523 15 18 15C17.4477 15 17 15.4477 17 16V17H19Z"></path>' };
-  var RiUserFacesGroup2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M9.55 11.5C8.30736 11.5 7.3 10.4926 7.3 9.25C7.3 8.00736 8.30736 7 9.55 7C10.7926 7 11.8 8.00736 11.8 9.25C11.8 10.4926 10.7926 11.5 9.55 11.5ZM10 19.748V16.4C10 15.9116 10.1442 15.4627 10.4041 15.0624C10.1087 15.0213 9.80681 15 9.5 15C7.93201 15 6.49369 15.5552 5.37091 16.4797C6.44909 18.0721 8.08593 19.2553 10 19.748ZM4.45286 14.66C5.86432 13.6168 7.61013 13 9.5 13C10.5435 13 11.5431 13.188 12.4667 13.5321C13.3447 13.1888 14.3924 13 15.5 13C17.1597 13 18.6849 13.4239 19.706 14.1563C19.8976 13.4703 20 12.7471 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 12.9325 4.15956 13.8278 4.45286 14.66ZM18.8794 16.0859C18.4862 15.5526 17.1708 15 15.5 15C13.4939 15 12 15.7967 12 16.4V20C14.9255 20 17.4843 18.4296 18.8794 16.0859ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM15.5 12.5C14.3954 12.5 13.5 11.6046 13.5 10.5C13.5 9.39543 14.3954 8.5 15.5 8.5C16.6046 8.5 17.5 9.39543 17.5 10.5C17.5 11.6046 16.6046 12.5 15.5 12.5Z"></path>' };
-  var RiUserFacesContactsLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M19 7H24V9H19V7ZM17 12H24V14H17V12ZM20 17H24V19H20V17ZM2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11Z"></path>' };
-  var RiSystemDeleteBin5Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8ZM6 10V20H18V10H6ZM9 12H11V18H9V12ZM13 12H15V18H13V12ZM7 5V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V5H22V7H2V5H7ZM9 4V5H15V4H9Z"></path>' };
-  var RiSystemAddBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5ZM11 11V7H13V11H17V13H13V17H11V13H7V11H11Z"></path>' };
-  var RiSystemFilterLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 4V6H20L15 13.5V22H9V13.5L4 6H3V4H21ZM6.4037 6L11 12.8944V20H13V12.8944L17.5963 6H6.4037Z"></path>' };
-  var RiSystemInformationLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 7H13V9H11V7ZM11 11H13V17H11V11Z"></path>' };
-  var RiMapMap2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 5L9 2L15 5L21.303 2.2987C21.5569 2.18992 21.8508 2.30749 21.9596 2.56131C21.9862 2.62355 22 2.69056 22 2.75827V19L15 22L9 19L2.69696 21.7013C2.44314 21.8101 2.14921 21.6925 2.04043 21.4387C2.01375 21.3765 2 21.3094 2 21.2417V5ZM16 19.3955L20 17.6812V5.03308L16 6.74736V19.3955ZM14 19.2639V6.73607L10 4.73607V17.2639L14 19.2639ZM8 17.2526V4.60451L4 6.31879V18.9669L8 17.2526Z"></path>' };
-  var RiFinanceSwapBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4.00488 5.00275V19.0027H20.0049V5.00275H4.00488ZM3.00488 3.00275H21.0049C21.5572 3.00275 22.0049 3.45046 22.0049 4.00275V20.0027C22.0049 20.555 21.5572 21.0027 21.0049 21.0027H3.00488C2.4526 21.0027 2.00488 20.555 2.00488 20.0027V4.00275C2.00488 3.45046 2.4526 3.00275 3.00488 3.00275ZM15.0049 7.00275L18.5049 10.0027L15.0049 13.0027V11.0027H11.0049V9.00275H15.0049V7.00275ZM9.00488 17.0027L5.50488 14.0027L9.00488 11.0027V13.0027H13.0049V15.0027H9.00488V17.0027Z"></path>' };
-  var RiArrowsArrowGoBackLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M5.82843 6.99955L8.36396 9.53509L6.94975 10.9493L2 5.99955L6.94975 1.0498L8.36396 2.46402L5.82843 4.99955H13C17.4183 4.99955 21 8.58127 21 12.9996C21 17.4178 17.4183 20.9996 13 20.9996H4V18.9996H13C16.3137 18.9996 19 16.3133 19 12.9996C19 9.68584 16.3137 6.99955 13 6.99955H5.82843Z"></path>' };
-  var RiEditorOrganizationChart = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M15 3C15.5523 3 16 3.44772 16 4V8C16 8.55228 15.5523 9 15 9H13V11H17C17.5523 11 18 11.4477 18 12V15H20C20.5523 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H14C13.4477 21 13 20.5523 13 20V16C13 15.4477 13.4477 15 14 15H16V13H8V15H10C10.5523 15 11 15.4477 11 16V20C11 20.5523 10.5523 21 10 21H4C3.44772 21 3 20.5523 3 20V16C3 15.4477 3.44772 15 4 15H6V12C6 11.4477 6.44772 11 7 11H11V9H9C8.44772 9 8 8.55228 8 8V4C8 3.44772 8.44772 3 9 3H15ZM9 17H5V19H9V17ZM19 17H15V19H19V17ZM14 5H10V7H14V5Z"></path>' };
-
-  // _components/partials/SideMenu.svelte
-  var import_jsApi_GEN = __toESM(require_jsApi_GEN());
-
-  // _components/notifier.js
-  var Notifier = function() {
-    let a = {
-      container: null,
-      default_time: 4500,
-      vanish_time: 300,
-      fps: 30,
-      success: {
-        classes: "alert-success",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)" /></svg>'
-      },
-      error: {
-        classes: "alert-danger",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" /></svg>'
-      },
-      warning: {
-        classes: "alert-warning",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3.09 0c-.06 0-.1.04-.13.09l-2.94 6.81c-.02.05-.03.13-.03.19v.81c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-.81c0-.05-.01-.14-.03-.19l-2.94-6.81c-.02-.05-.07-.09-.13-.09h-.81zm-.09 3h1v2h-1v-2zm0 3h1v1h-1v-1z" /></svg>'
-      },
-      info: {
-        classes: "alert-info",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-1.5 2.5c-.83 0-1.5.67-1.5 1.5h1c0-.28.22-.5.5-.5s.5.22.5.5-1 1.64-1 2.5c0 .86.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h-1c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-.36 1-1.84 1-2.5 0-.81-.67-1.5-1.5-1.5z" transform="translate(2)"/></svg>'
-      }
-    }, b = function(a2, b2, c, d, e, f, g) {
-      this.pushed = false, this.element = document.createElement("div"), this.element.className = "notifyjs-notification " + c.classes, this.element.innerHTML = "<div class='notifyjs-icon'>" + c.icon + "</div>" + b2, a2.appendChild(this.element);
-      let h = document.createElement("p");
-      h.className = "progress", this.element.appendChild(h), this.callback = g;
-      let j = this;
-      this.push = function() {
-        if (!j.pushed) {
-          j.pushed = true;
-          let a3 = 0, b3 = 1e3 / f;
-          j.element.style.display = "block", j.interval = setInterval(function() {
-            a3++;
-            let c2 = 100 * (1 - b3 * a3 / d);
-            h.style.right = c2 + "%", 0 >= c2 && ("function" == typeof g && g(), j.clear());
-          }, b3);
-        }
-      }, this.clear = function() {
-        if (j.pushed) {
-          let a3 = 1e3 / f, b3 = 1;
-          "undefined" != typeof j.interval && clearInterval(j.interval), j.interval = setInterval(function() {
-            b3 -= 1 / (e / a3), j.element.style.opacity = b3, 0 >= b3 && (clearInterval(j.interval), j.destroy());
-          }, a3);
-        }
-      }, this.destroy = function() {
-        j.pushed && (j.pushed = false, "undefined" != typeof j.interval && clearInterval(j.interval), a2.removeChild(j.element));
-      };
-    };
-    return function Notifier2(c) {
-      this.options = Object.assign({}, a), this.options = Object.assign(this.options, c), null === this.options.container && (this.options.container = document.createElement("div"), document.getElementsByTagName("body")[0].appendChild(this.options.container)), this.options.container.className += " notifyjs-container", this.notify = function(a2, c2, d, e) {
-        return "undefined" == typeof this.options[a2] ? void console.error("Notify.js: Error, undefined '" + a2 + "' notification type") : ("undefined" == typeof d && (d = this.options.default_time), new b(this.options.container, c2, this.options[a2], d, this.options.vanish_time, this.options.fps, e));
-      };
-      this.showInfo = function(infoMsg) {
-        let notification = this.notify("info", infoMsg);
-        notification.push();
-      };
-      this.showSuccess = function(okMsg) {
-        let notification = this.notify("success", okMsg);
-        notification.push();
-      };
-      this.showError = function(errMsg) {
-        let notification = this.notify("error", errMsg);
-        notification.push();
-      };
-      this.showWarning = function(warnMsg) {
-        let notification = this.notify("warning", warnMsg);
-        notification.push();
-      };
-    };
-  }();
-  var notifier = new Notifier();
-
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ai/index.js
   var AiOutlineHome = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 0 0-44.4 0L77.5 505a63.9 63.9 0 0 0-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0 0 18.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"></path>' };
   var AiOutlineWallet = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 464H528V448h312v128zm0 264H184V184h656v200H496c-17.7 0-32 14.3-32 32v192c0 17.7 14.3 32 32 32h344v200zM580 512a40 40 0 1 0 80 0 40 40 0 1 0-80 0z"></path>' };
@@ -24434,6 +24300,22 @@ uniform ${i3} ${a3} u_${s3};
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/fa/index.js
   var FaShareFromSquare = { a: { viewBox: "0 0 576 512" }, c: '<path d="M400 255.4V240 208c0-8.8-7.2-16-16-16H352 336 289.5c-50.9 0-93.9 33.5-108.3 79.6c-3.3-9.4-5.2-19.8-5.2-31.6c0-61.9 50.1-112 112-112h48 16 32c8.8 0 16-7.2 16-16V80 64.6L506 160 400 255.4zM336 240h16v48c0 17.7 14.3 32 32 32h3.7c7.9 0 15.5-2.9 21.4-8.2l139-125.1c7.6-6.8 11.9-16.5 11.9-26.7s-4.3-19.9-11.9-26.7L409.9 8.9C403.5 3.2 395.3 0 386.7 0C367.5 0 352 15.5 352 34.7V80H336 304 288c-88.4 0-160 71.6-160 160c0 60.4 34.6 99.1 63.9 120.9c5.9 4.4 11.5 8.1 16.7 11.2c4.4 2.7 8.5 4.9 11.9 6.6c3.4 1.7 6.2 3 8.2 3.9c2.2 1 4.6 1.4 7.1 1.4h2.5c9.8 0 17.8-8 17.8-17.8c0-7.8-5.3-14.7-11.6-19.5l0 0c-.4-.3-.7-.5-1.1-.8c-1.7-1.1-3.4-2.5-5-4.1c-.8-.8-1.7-1.6-2.5-2.6s-1.6-1.9-2.4-2.9c-1.8-2.5-3.5-5.3-5-8.5c-2.6-6-4.3-13.3-4.3-22.4c0-36.1 29.3-65.5 65.5-65.5H304h32zM72 32C32.2 32 0 64.2 0 104V440c0 39.8 32.2 72 72 72H408c39.8 0 72-32.2 72-72V376c0-13.3-10.7-24-24-24s-24 10.7-24 24v64c0 13.3-10.7 24-24 24H72c-13.3 0-24-10.7-24-24V104c0-13.3 10.7-24 24-24h64c13.3 0 24-10.7 24-24s-10.7-24-24-24H72z"></path>' };
   var FaCircleUser = { a: { viewBox: "0 0 512 512" }, c: '<path d="M406.5 399.6C387.4 352.9 341.5 320 288 320H224c-53.5 0-99.4 32.9-118.5 79.6C69.9 362.2 48 311.7 48 256C48 141.1 141.1 48 256 48s208 93.1 208 208c0 55.7-21.9 106.2-57.5 143.6zm-40.1 32.7C334.4 452.4 296.6 464 256 464s-78.4-11.6-110.5-31.7c7.3-36.7 39.7-64.3 78.5-64.3h64c38.8 0 71.2 27.6 78.5 64.3zM256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-272a40 40 0 1 1 0-80 40 40 0 1 1 0 80zm-88-40a88 88 0 1 0 176 0 88 88 0 1 0 -176 0z"></path>' };
+
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ri/index.js
+  var RiDesignBallPenLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M17.8492 11.6983L17.1421 10.9912L7.24264 20.8907H3V16.648L14.3137 5.33432L19.9706 10.9912C20.3611 11.3817 20.3611 12.0149 19.9706 12.4054L12.8995 19.4765L11.4853 18.0622L17.8492 11.6983ZM15.7279 9.57696L14.3137 8.16274L5 17.4765V18.8907H6.41421L15.7279 9.57696ZM18.5563 2.50589L21.3848 5.33432C21.7753 5.72484 21.7753 6.35801 21.3848 6.74853L19.9706 8.16274L15.7279 3.9201L17.1421 2.50589C17.5327 2.11537 18.1658 2.11537 18.5563 2.50589Z"></path>' };
+  var RiBuildingsCommunityLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 21H3C2.44772 21 2 20.5523 2 20V12.4868C2 12.1978 2.12501 11.9229 2.34282 11.733L6 8.54435V4C6 3.44772 6.44772 3 7 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21ZM9 19H12V12.9416L8 9.45402L4 12.9416V19H7V15H9V19ZM14 19H20V5H8V7.12729C8.23444 7.12729 8.46888 7.20938 8.65718 7.37355L13.6572 11.733C13.875 11.9229 14 12.1978 14 12.4868V19ZM16 11H18V13H16V11ZM16 15H18V17H16V15ZM16 7H18V9H16V7ZM12 7H14V9H12V7Z"></path>' };
+  var RiBuildingsBankLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 20H22V22H2V20ZM4 12H6V19H4V12ZM9 12H11V19H9V12ZM13 12H15V19H13V12ZM18 12H20V19H18V12ZM2 7L12 2L22 7V11H2V7ZM4 8.23607V9H20V8.23607L12 4.23607L4 8.23607ZM12 8C11.4477 8 11 7.55228 11 7C11 6.44772 11.4477 6 12 6C12.5523 6 13 6.44772 13 7C13 7.55228 12.5523 8 12 8Z"></path>' };
+  var RiDocumentStickyNoteAddLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 1V4H1V6H4V9H6V6H9V4H6V1H4ZM3 20.0066V11H5V19H13V14C13 13.45 13.45 13 14 13L19 12.999V5H11V3H20.0066C20.5552 3 21 3.45576 21 4.00247V15L15 20.996L4.00221 21C3.4487 21 3 20.5551 3 20.0066ZM18.171 14.999L15 15V18.169L18.171 14.999Z"></path>' };
+  var RiUserFacesAdminLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M12 14V16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM21 17H22V22H14V17H15V16C15 14.3431 16.3431 13 18 13C19.6569 13 21 14.3431 21 16V17ZM19 17V16C19 15.4477 18.5523 15 18 15C17.4477 15 17 15.4477 17 16V17H19Z"></path>' };
+  var RiUserFacesGroup2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M9.55 11.5C8.30736 11.5 7.3 10.4926 7.3 9.25C7.3 8.00736 8.30736 7 9.55 7C10.7926 7 11.8 8.00736 11.8 9.25C11.8 10.4926 10.7926 11.5 9.55 11.5ZM10 19.748V16.4C10 15.9116 10.1442 15.4627 10.4041 15.0624C10.1087 15.0213 9.80681 15 9.5 15C7.93201 15 6.49369 15.5552 5.37091 16.4797C6.44909 18.0721 8.08593 19.2553 10 19.748ZM4.45286 14.66C5.86432 13.6168 7.61013 13 9.5 13C10.5435 13 11.5431 13.188 12.4667 13.5321C13.3447 13.1888 14.3924 13 15.5 13C17.1597 13 18.6849 13.4239 19.706 14.1563C19.8976 13.4703 20 12.7471 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 12.9325 4.15956 13.8278 4.45286 14.66ZM18.8794 16.0859C18.4862 15.5526 17.1708 15 15.5 15C13.4939 15 12 15.7967 12 16.4V20C14.9255 20 17.4843 18.4296 18.8794 16.0859ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM15.5 12.5C14.3954 12.5 13.5 11.6046 13.5 10.5C13.5 9.39543 14.3954 8.5 15.5 8.5C16.6046 8.5 17.5 9.39543 17.5 10.5C17.5 11.6046 16.6046 12.5 15.5 12.5Z"></path>' };
+  var RiUserFacesContactsLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M19 7H24V9H19V7ZM17 12H24V14H17V12ZM20 17H24V19H20V17ZM2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11Z"></path>' };
+  var RiSystemDeleteBin5Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8ZM6 10V20H18V10H6ZM9 12H11V18H9V12ZM13 12H15V18H13V12ZM7 5V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V5H22V7H2V5H7ZM9 4V5H15V4H9Z"></path>' };
+  var RiSystemFilterLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 4V6H20L15 13.5V22H9V13.5L4 6H3V4H21ZM6.4037 6L11 12.8944V20H13V12.8944L17.5963 6H6.4037Z"></path>' };
+  var RiSystemInformationLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 7H13V9H11V7ZM11 11H13V17H11V11Z"></path>' };
+  var RiMapMap2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 5L9 2L15 5L21.303 2.2987C21.5569 2.18992 21.8508 2.30749 21.9596 2.56131C21.9862 2.62355 22 2.69056 22 2.75827V19L15 22L9 19L2.69696 21.7013C2.44314 21.8101 2.14921 21.6925 2.04043 21.4387C2.01375 21.3765 2 21.3094 2 21.2417V5ZM16 19.3955L20 17.6812V5.03308L16 6.74736V19.3955ZM14 19.2639V6.73607L10 4.73607V17.2639L14 19.2639ZM8 17.2526V4.60451L4 6.31879V18.9669L8 17.2526Z"></path>' };
+  var RiFinanceSwapBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4.00488 5.00275V19.0027H20.0049V5.00275H4.00488ZM3.00488 3.00275H21.0049C21.5572 3.00275 22.0049 3.45046 22.0049 4.00275V20.0027C22.0049 20.555 21.5572 21.0027 21.0049 21.0027H3.00488C2.4526 21.0027 2.00488 20.555 2.00488 20.0027V4.00275C2.00488 3.45046 2.4526 3.00275 3.00488 3.00275ZM15.0049 7.00275L18.5049 10.0027L15.0049 13.0027V11.0027H11.0049V9.00275H15.0049V7.00275ZM9.00488 17.0027L5.50488 14.0027L9.00488 11.0027V13.0027H13.0049V15.0027H9.00488V17.0027Z"></path>' };
+  var RiArrowsArrowGoBackLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M5.82843 6.99955L8.36396 9.53509L6.94975 10.9493L2 5.99955L6.94975 1.0498L8.36396 2.46402L5.82843 4.99955H13C17.4183 4.99955 21 8.58127 21 12.9996C21 17.4178 17.4183 20.9996 13 20.9996H4V18.9996H13C16.3137 18.9996 19 16.3133 19 12.9996C19 9.68584 16.3137 6.99955 13 6.99955H5.82843Z"></path>' };
+  var RiEditorOrganizationChart = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M15 3C15.5523 3 16 3.44772 16 4V8C16 8.55228 15.5523 9 15 9H13V11H17C17.5523 11 18 11.4477 18 12V15H20C20.5523 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H14C13.4477 21 13 20.5523 13 20V16C13 15.4477 13.4477 15 14 15H16V13H8V15H10C10.5523 15 11 15.4477 11 16V20C11 20.5523 10.5523 21 10 21H4C3.44772 21 3 20.5523 3 20V16C3 15.4477 3.44772 15 4 15H6V12C6 11.4477 6.44772 11 7 11H11V9H9C8.44772 9 8 8.55228 8 8V4C8 3.44772 8.44772 3 9 3H15ZM9 17H5V19H9V17ZM19 17H15V19H19V17ZM14 5H10V7H14V5Z"></path>' };
 
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/cg/index.js
   var CgChevronDoubleRight = { a: { viewBox: "0 0 24 24", fill: "none" }, c: '<path d="M5.63605 7.75735L7.05026 6.34314L12.7071 12L7.05029 17.6568L5.63608 16.2426L9.87869 12L5.63605 7.75735Z" fill="currentColor"></path><path d="M12.7071 6.34314L11.2929 7.75735L15.5356 12L11.2929 16.2426L12.7072 17.6568L18.364 12L12.7071 6.34314Z" fill="currentColor"></path>' };
@@ -25572,12 +25454,12 @@ uniform ${i3} ${a3} u_${s3};
     };
   }
   function instance4($self, $props, $invalidate) {
-    let { user: user3 = {} } = $props;
+    let { user: user2 = {} } = $props;
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(0, user3 = $props2.user);
+        $invalidate(0, user2 = $props2.user);
     };
-    return [user3];
+    return [user2];
   }
   var Navbar = class extends SvelteComponent {
     constructor(options) {
@@ -31869,563 +31751,7 @@ uniform ${i3} ${a3} u_${s3};
   };
   var MasterTable_default = MasterTable;
 
-  // _components/PopUpInventoryChanges.svelte
-  function create_if_block_111(ctx) {
-    let span;
-    return {
-      c() {
-        span = element("span");
-        span.textContent = "Ok";
-      },
-      m(target, anchor) {
-        insert(target, span, anchor);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(span);
-        }
-      }
-    };
-  }
-  function create_if_block5(ctx) {
-    let icon;
-    let current;
-    icon = new Icon_default({
-      props: {
-        className: "spin",
-        color: "#FFF",
-        size: "14",
-        src: FiLoader
-      }
-    });
-    return {
-      c() {
-        create_component(icon.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(icon, target, anchor);
-        current = true;
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(icon, detaching);
-      }
-    };
-  }
-  function create_fragment11(ctx) {
-    let div5;
-    let div4;
-    let header;
-    let h2;
-    let t0;
-    let t1;
-    let button0;
-    let icon;
-    let t2;
-    let div0;
-    let inputcustom0;
-    let updating_value;
-    let t3;
-    let inputcustom1;
-    let updating_value_1;
-    let t4;
-    let div3;
-    let div1;
-    let t5;
-    let div2;
-    let button1;
-    let t7;
-    let button2;
-    let t8;
-    let div5_class_value;
-    let current;
-    let mounted;
-    let dispose;
-    icon = new Icon_default({
-      props: {
-        size: "22",
-        color: "var(--red-005)",
-        src: IoClose
-      }
-    });
-    function inputcustom0_value_binding(value) {
-      ctx[12](value);
-    }
-    let inputcustom0_props = {
-      id: "stockDelta",
-      label: "Delta Stok / Stock Delta",
-      placeholder: "Stock Delta",
-      type: "number"
-    };
-    if (
-      /*stockDelta*/
-      ctx[5] !== void 0
-    ) {
-      inputcustom0_props.value = /*stockDelta*/
-      ctx[5];
-    }
-    inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
-    binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
-    function inputcustom1_value_binding(value) {
-      ctx[13](value);
-    }
-    let inputcustom1_props = {
-      id: "productId",
-      label: "Produk / Product",
-      type: "select",
-      placeholder: "Select product",
-      values: (
-        /*products*/
-        ctx[2]
-      ),
-      isObject: true
-    };
-    if (
-      /*productId*/
-      ctx[6] !== void 0
-    ) {
-      inputcustom1_props.value = /*productId*/
-      ctx[6];
-    }
-    inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
-    binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
-    let if_block0 = !/*isSubmitAddInventoryChanges*/
-    ctx[0] && create_if_block_111(ctx);
-    let if_block1 = (
-      /*isSubmitAddInventoryChanges*/
-      ctx[0] && create_if_block5(ctx)
-    );
-    return {
-      c() {
-        div5 = element("div");
-        div4 = element("div");
-        header = element("header");
-        h2 = element("h2");
-        t0 = text(
-          /*heading*/
-          ctx[1]
-        );
-        t1 = space();
-        button0 = element("button");
-        create_component(icon.$.fragment);
-        t2 = space();
-        div0 = element("div");
-        create_component(inputcustom0.$.fragment);
-        t3 = space();
-        create_component(inputcustom1.$.fragment);
-        t4 = space();
-        div3 = element("div");
-        div1 = element("div");
-        div1.innerHTML = ``;
-        t5 = space();
-        div2 = element("div");
-        button1 = element("button");
-        button1.textContent = "Cancel";
-        t7 = space();
-        button2 = element("button");
-        if (if_block0)
-          if_block0.c();
-        t8 = space();
-        if (if_block1)
-          if_block1.c();
-        attr(h2, "class", "svelte-19kcmoe");
-        attr(button0, "class", "svelte-19kcmoe");
-        attr(header, "class", "header svelte-19kcmoe");
-        attr(div0, "class", "forms svelte-19kcmoe");
-        attr(div1, "class", "left");
-        attr(button1, "class", "cancel svelte-19kcmoe");
-        attr(button2, "class", "ok svelte-19kcmoe");
-        button2.disabled = /*isSubmitAddInventoryChanges*/
-        ctx[0];
-        attr(div2, "class", "right svelte-19kcmoe");
-        attr(div3, "class", "foot svelte-19kcmoe");
-        attr(div4, "class", "popup svelte-19kcmoe");
-        attr(div5, "class", div5_class_value = null_to_empty(`popup_container ${/*isShow*/
-        ctx[4] ? "show" : ""}`) + " svelte-19kcmoe");
-      },
-      m(target, anchor) {
-        insert(target, div5, anchor);
-        append(div5, div4);
-        append(div4, header);
-        append(header, h2);
-        append(h2, t0);
-        append(header, t1);
-        append(header, button0);
-        mount_component(icon, button0, null);
-        append(div4, t2);
-        append(div4, div0);
-        mount_component(inputcustom0, div0, null);
-        append(div0, t3);
-        mount_component(inputcustom1, div0, null);
-        append(div4, t4);
-        append(div4, div3);
-        append(div3, div1);
-        append(div3, t5);
-        append(div3, div2);
-        append(div2, button1);
-        append(div2, t7);
-        append(div2, button2);
-        if (if_block0)
-          if_block0.m(button2, null);
-        append(button2, t8);
-        if (if_block1)
-          if_block1.m(button2, null);
-        current = true;
-        if (!mounted) {
-          dispose = [
-            listen(
-              button0,
-              "click",
-              /*Hide*/
-              ctx[3]
-            ),
-            listen(button1, "click", prevent_default(
-              /*cancel*/
-              ctx[7]
-            )),
-            listen(button2, "click", prevent_default(
-              /*submitAddInventoryChanges*/
-              ctx[8]
-            ))
-          ];
-          mounted = true;
-        }
-      },
-      p(ctx2, [dirty]) {
-        if (!current || dirty & /*heading*/
-        2)
-          set_data(
-            t0,
-            /*heading*/
-            ctx2[1]
-          );
-        const inputcustom0_changes = {};
-        if (!updating_value && dirty & /*stockDelta*/
-        32) {
-          updating_value = true;
-          inputcustom0_changes.value = /*stockDelta*/
-          ctx2[5];
-          add_flush_callback(() => updating_value = false);
-        }
-        inputcustom0.$set(inputcustom0_changes);
-        const inputcustom1_changes = {};
-        if (dirty & /*products*/
-        4)
-          inputcustom1_changes.values = /*products*/
-          ctx2[2];
-        if (!updating_value_1 && dirty & /*productId*/
-        64) {
-          updating_value_1 = true;
-          inputcustom1_changes.value = /*productId*/
-          ctx2[6];
-          add_flush_callback(() => updating_value_1 = false);
-        }
-        inputcustom1.$set(inputcustom1_changes);
-        if (!/*isSubmitAddInventoryChanges*/
-        ctx2[0]) {
-          if (if_block0) {
-          } else {
-            if_block0 = create_if_block_111(ctx2);
-            if_block0.c();
-            if_block0.m(button2, t8);
-          }
-        } else if (if_block0) {
-          if_block0.d(1);
-          if_block0 = null;
-        }
-        if (
-          /*isSubmitAddInventoryChanges*/
-          ctx2[0]
-        ) {
-          if (if_block1) {
-            if (dirty & /*isSubmitAddInventoryChanges*/
-            1) {
-              transition_in(if_block1, 1);
-            }
-          } else {
-            if_block1 = create_if_block5(ctx2);
-            if_block1.c();
-            transition_in(if_block1, 1);
-            if_block1.m(button2, null);
-          }
-        } else if (if_block1) {
-          group_outros();
-          transition_out(if_block1, 1, 1, () => {
-            if_block1 = null;
-          });
-          check_outros();
-        }
-        if (!current || dirty & /*isSubmitAddInventoryChanges*/
-        1) {
-          button2.disabled = /*isSubmitAddInventoryChanges*/
-          ctx2[0];
-        }
-        if (!current || dirty & /*isShow*/
-        16 && div5_class_value !== (div5_class_value = null_to_empty(`popup_container ${/*isShow*/
-        ctx2[4] ? "show" : ""}`) + " svelte-19kcmoe")) {
-          attr(div5, "class", div5_class_value);
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        transition_in(inputcustom0.$.fragment, local);
-        transition_in(inputcustom1.$.fragment, local);
-        transition_in(if_block1);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        transition_out(inputcustom0.$.fragment, local);
-        transition_out(inputcustom1.$.fragment, local);
-        transition_out(if_block1);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(div5);
-        }
-        destroy_component(icon);
-        destroy_component(inputcustom0);
-        destroy_component(inputcustom1);
-        if (if_block0)
-          if_block0.d();
-        if (if_block1)
-          if_block1.d();
-        mounted = false;
-        run_all(dispose);
-      }
-    };
-  }
-  function instance11($self, $props, $invalidate) {
-    let { heading = "Add inventory changes" } = $props;
-    let { isSubmitAddInventoryChanges = false } = $props;
-    let { products: products2 = {} } = $props;
-    let { OnSubmit = async function(inventoryChanges) {
-    } } = $props;
-    let isShow = false;
-    const Show = () => $invalidate(4, isShow = true);
-    const Hide = () => $invalidate(4, isShow = false);
-    let stockDelta = 0;
-    let productId = "0";
-    const Reset = () => {
-      $invalidate(5, stockDelta = 0);
-      $invalidate(6, productId = "0");
-    };
-    const cancel = () => {
-      $invalidate(4, isShow = false);
-    };
-    function submitAddInventoryChanges() {
-      $invalidate(0, isSubmitAddInventoryChanges = true);
-      const i = { stockDelta, productId };
-      OnSubmit(i);
-    }
-    function inputcustom0_value_binding(value) {
-      stockDelta = value;
-      $invalidate(5, stockDelta);
-    }
-    function inputcustom1_value_binding(value) {
-      productId = value;
-      $invalidate(6, productId);
-    }
-    $self.$set = ($props2) => {
-      if ("heading" in $props2)
-        $invalidate(1, heading = $props2.heading);
-      if ("isSubmitAddInventoryChanges" in $props2)
-        $invalidate(0, isSubmitAddInventoryChanges = $props2.isSubmitAddInventoryChanges);
-      if ("products" in $props2)
-        $invalidate(2, products2 = $props2.products);
-      if ("OnSubmit" in $props2)
-        $invalidate(9, OnSubmit = $props2.OnSubmit);
-    };
-    return [
-      isSubmitAddInventoryChanges,
-      heading,
-      products2,
-      Hide,
-      isShow,
-      stockDelta,
-      productId,
-      cancel,
-      submitAddInventoryChanges,
-      OnSubmit,
-      Show,
-      Reset,
-      inputcustom0_value_binding,
-      inputcustom1_value_binding
-    ];
-  }
-  var PopUpInventoryChanges = class extends SvelteComponent {
-    constructor(options) {
-      super();
-      init(this, options, instance11, create_fragment11, safe_not_equal, {
-        heading: 1,
-        isSubmitAddInventoryChanges: 0,
-        products: 2,
-        OnSubmit: 9,
-        Show: 10,
-        Hide: 3,
-        Reset: 11
-      });
-    }
-    get Show() {
-      return this.$.ctx[10];
-    }
-    get Hide() {
-      return this.$.ctx[3];
-    }
-    get Reset() {
-      return this.$.ctx[11];
-    }
-  };
-  var PopUpInventoryChanges_default = PopUpInventoryChanges;
-
-  // tenantAdmin_inventoryChanges.svelte
-  var import_jsApi = __toESM(require_jsApi_GEN());
-  function create_if_block_113(ctx) {
-    let popupinventorychanges;
-    let current;
-    let popupinventorychanges_props = {
-      products,
-      OnSubmit: (
-        /*OnAddInventoryChange*/
-        ctx[9]
-      )
-    };
-    popupinventorychanges = new PopUpInventoryChanges_default({ props: popupinventorychanges_props });
-    ctx[10](popupinventorychanges);
-    return {
-      c() {
-        create_component(popupinventorychanges.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(popupinventorychanges, target, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        const popupinventorychanges_changes = {};
-        popupinventorychanges.$set(popupinventorychanges_changes);
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(popupinventorychanges.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(popupinventorychanges.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        ctx[10](null);
-        destroy_component(popupinventorychanges, detaching);
-      }
-    };
-  }
-  function create_if_block6(ctx) {
-    let button;
-    let icon;
-    let current;
-    let mounted;
-    let dispose;
-    icon = new Icon_default({
-      props: {
-        color: "var(--gray-007)",
-        size: "16",
-        src: RiSystemAddBoxLine
-      }
-    });
-    return {
-      c() {
-        button = element("button");
-        create_component(icon.$.fragment);
-        attr(button, "class", "action_btn");
-        attr(button, "title", "add inventoryChange");
-      },
-      m(target, anchor) {
-        insert(target, button, anchor);
-        mount_component(icon, button, null);
-        current = true;
-        if (!mounted) {
-          dispose = listen(
-            button,
-            "click",
-            /*click_handler*/
-            ctx[11]
-          );
-          mounted = true;
-        }
-      },
-      p: noop,
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(button);
-        }
-        destroy_component(icon);
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_default_slot_1(ctx) {
-    let if_block_anchor;
-    let current;
-    let if_block = user2.tenantCode !== "" && create_if_block6(ctx);
-    return {
-      c() {
-        if (if_block)
-          if_block.c();
-        if_block_anchor = empty();
-      },
-      m(target, anchor) {
-        if (if_block)
-          if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        if (user2.tenantCode !== "")
-          if_block.p(ctx2, dirty);
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(if_block);
-        current = true;
-      },
-      o(local) {
-        transition_out(if_block);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(if_block_anchor);
-        }
-        if (if_block)
-          if_block.d(detaching);
-      }
-    };
-  }
+  // tenantAdmin_transactionTemplate.svelte
   function create_default_slot(ctx) {
     let div;
     let mastertable;
@@ -32434,43 +31760,15 @@ uniform ${i3} ${a3} u_${s3};
     let updating_MASTER_ROWS;
     let current;
     function mastertable_FIELDS_binding(value) {
-      ctx[12](value);
+      ctx[3](value);
     }
     function mastertable_PAGER_binding(value) {
-      ctx[13](value);
+      ctx[4](value);
     }
     function mastertable_MASTER_ROWS_binding(value) {
-      ctx[14](value);
+      ctx[5](value);
     }
-    let mastertable_props = {
-      ACCESS: segments2,
-      REFS: { "productId": products },
-      CAN_EDIT_ROW: true,
-      CAN_SEARCH_ROW: true,
-      CAN_DELETE_ROW: true,
-      CAN_RESTORE_ROW: true,
-      CAN_OPEN_LINK: true,
-      LINK_PATH: "/tenantAdmin/inventoryChanges/",
-      IDX_ID_LINK: 2,
-      OnDelete: (
-        /*OnDelete*/
-        ctx[7]
-      ),
-      OnEdit: (
-        /*OnEdit*/
-        ctx[8]
-      ),
-      OnRefresh: (
-        /*OnRefresh*/
-        ctx[5]
-      ),
-      OnRestore: (
-        /*OnRestore*/
-        ctx[6]
-      ),
-      $slots: { default: [create_default_slot_1] },
-      $scope: { ctx }
-    };
+    let mastertable_props = { ACCESS: segments2 };
     if (
       /*fields*/
       ctx[0] !== void 0
@@ -32486,10 +31784,10 @@ uniform ${i3} ${a3} u_${s3};
       ctx[1];
     }
     if (
-      /*inventoryChanges*/
+      /*transactionTemplates*/
       ctx[2] !== void 0
     ) {
-      mastertable_props.MASTER_ROWS = /*inventoryChanges*/
+      mastertable_props.MASTER_ROWS = /*transactionTemplates*/
       ctx[2];
     }
     mastertable = new MasterTable_default({ props: mastertable_props });
@@ -32508,10 +31806,6 @@ uniform ${i3} ${a3} u_${s3};
       },
       p(ctx2, dirty) {
         const mastertable_changes = {};
-        if (dirty & /*$scope, popUpInventoryChanges*/
-        65552) {
-          mastertable_changes.$scope = { dirty, ctx: ctx2 };
-        }
         if (!updating_FIELDS && dirty & /*fields*/
         1) {
           updating_FIELDS = true;
@@ -32526,10 +31820,10 @@ uniform ${i3} ${a3} u_${s3};
           ctx2[1];
           add_flush_callback(() => updating_PAGER = false);
         }
-        if (!updating_MASTER_ROWS && dirty & /*inventoryChanges*/
+        if (!updating_MASTER_ROWS && dirty & /*transactionTemplates*/
         4) {
           updating_MASTER_ROWS = true;
-          mastertable_changes.MASTER_ROWS = /*inventoryChanges*/
+          mastertable_changes.MASTER_ROWS = /*transactionTemplates*/
           ctx2[2];
           add_flush_callback(() => updating_MASTER_ROWS = false);
         }
@@ -32553,14 +31847,9 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_fragment12(ctx) {
-    let t;
+  function create_fragment11(ctx) {
     let mainlayout;
     let current;
-    let if_block = (
-      /*isPopUpFormsReady*/
-      ctx[3] && create_if_block_113(ctx)
-    );
     mainlayout = new mainLayout_default({
       props: {
         $slots: { default: [create_default_slot] },
@@ -32569,45 +31858,16 @@ uniform ${i3} ${a3} u_${s3};
     });
     return {
       c() {
-        if (if_block)
-          if_block.c();
-        t = space();
         create_component(mainlayout.$.fragment);
       },
       m(target, anchor) {
-        if (if_block)
-          if_block.m(target, anchor);
-        insert(target, t, anchor);
         mount_component(mainlayout, target, anchor);
         current = true;
       },
       p(ctx2, [dirty]) {
-        if (
-          /*isPopUpFormsReady*/
-          ctx2[3]
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*isPopUpFormsReady*/
-            8) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block_113(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(t.parentNode, t);
-          }
-        } else if (if_block) {
-          group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
-          });
-          check_outros();
-        }
         const mainlayout_changes = {};
-        if (dirty & /*$scope, fields, pager, inventoryChanges, popUpInventoryChanges*/
-        65559) {
+        if (dirty & /*$scope, fields, pager, transactionTemplates*/
+        71) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -32615,21 +31875,14 @@ uniform ${i3} ${a3} u_${s3};
       i(local) {
         if (current)
           return;
-        transition_in(if_block);
         transition_in(mainlayout.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(if_block);
         transition_out(mainlayout.$.fragment, local);
         current = false;
       },
       d(detaching) {
-        if (detaching) {
-          detach(t);
-        }
-        if (if_block)
-          if_block.d(detaching);
         destroy_component(mainlayout, detaching);
       }
     };
@@ -32638,15 +31891,7 @@ uniform ${i3} ${a3} u_${s3};
     /** @type Access */
     {/* segments */}
   );
-  var user2 = (
-    /** @type User */
-    {/* user */}
-  );
-  var products = (
-    /** @type Object */
-    {/* products */}
-  );
-  function instance12($self, $props, $invalidate) {
+  function instance11($self, $props, $invalidate) {
     let fields = (
       /** @type Field[] */
       [/* fields */]
@@ -32655,144 +31900,10 @@ uniform ${i3} ${a3} u_${s3};
       /** @type PagerOut */
       {/* pager */}
     );
-    let inventoryChanges = (
+    let transactionTemplates = (
       /** @type any[][] */
-      [/* inventoryChanges */]
+      [/* transactionTemplates */]
     );
-    console.log("Products: ", products);
-    let isPopUpFormsReady = false;
-    let popUpInventoryChanges = null;
-    onMount(() => {
-      $invalidate(3, isPopUpFormsReady = true);
-    });
-    async function OnRefresh(pagerIn) {
-      const i = { pager: pagerIn, cmd: "list" };
-      await (0, import_jsApi.TenantAdminInventoryChanges)(
-        // @ts-ignore
-        i,
-        /** @type {import('../jsApi.GEN').TenantAdminInventoryChangesCallback} */
-        /** @returns {Promise<void>} */
-        function(o) {
-          isSubmitAddInvChange = false;
-          if (o.error) {
-            console.log(o);
-            notifier.showError(o.error);
-            return;
-          }
-          $invalidate(1, pager = o.pager);
-          $invalidate(2, inventoryChanges = o.inventoryChanges);
-        }
-      );
-    }
-    async function OnRestore(row) {
-      const i = {
-        pager,
-        inventoryChange: { id: row[0] },
-        cmd: "restore"
-      };
-      await (0, import_jsApi.TenantAdminInventoryChanges)(
-        // @ts-ignore
-        i,
-        /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
-        /** @returns {Promise<void>} */
-        function(o) {
-          if (o.error) {
-            console.log(o);
-            notifier.showError(o.error);
-            return;
-          }
-          $invalidate(1, pager = o.pager);
-          $invalidate(2, inventoryChanges = o.inventoryChanges);
-          notifier.showSuccess(row[1] + " restored");
-          OnRefresh(pager);
-        }
-      );
-    }
-    async function OnDelete(row) {
-      const i = {
-        pager,
-        inventoryChange: { id: row[0] },
-        cmd: "delete"
-      };
-      await (0, import_jsApi.TenantAdminInventoryChanges)(
-        // @ts-ignore
-        i,
-        /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
-        /** @returns {Promise<void>} */
-        function(o) {
-          if (o.error) {
-            console.log(o);
-            notifier.showError(o.error);
-            return;
-          }
-          $invalidate(1, pager = o.pager);
-          $invalidate(2, inventoryChanges = o.inventoryChanges);
-          notifier.showSuccess("inventoryChange deleted");
-          OnRefresh(pager);
-        }
-      );
-    }
-    async function OnEdit(id, payloads) {
-      const inventoryChange = {
-        id,
-        /** @type any[]*/
-        stockDelta: payloads[1]
-      };
-      const i = { pager, inventoryChange, cmd: "upsert" };
-      await (0, import_jsApi.TenantAdminInventoryChanges)(
-        // @ts-ignore
-        i,
-        /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
-        /** @returns {Promise<void>} */
-        function(o) {
-          if (o.error) {
-            console.log(o);
-            notifier.showError(o.error);
-            return;
-          }
-          $invalidate(1, pager = o.pager);
-          $invalidate(2, inventoryChanges = o.inventoryChanges);
-          notifier.showSuccess("inventoryChange edited");
-          OnRefresh(pager);
-        }
-      );
-    }
-    let isSubmitAddInvChange = false;
-    async function OnAddInventoryChange(payloads) {
-      isSubmitAddInvChange = true;
-      const i = {
-        pager,
-        inventoryChange: payloads,
-        cmd: "upsert"
-      };
-      await (0, import_jsApi.TenantAdminInventoryChanges)(
-        // @ts-ignore
-        i,
-        /** @type {import('../jsApi.GEN').TenantAdminInventoryChangesCallback} */
-        /** @returns {Promise<void>} */
-        function(o) {
-          isSubmitAddInvChange = false;
-          if (o.error) {
-            console.log(o);
-            notifier.showError(o.error);
-            return;
-          }
-          $invalidate(1, pager = o.pager);
-          $invalidate(2, inventoryChanges = o.inventoryChanges);
-          notifier.showSuccess("inventoryChange created");
-          popUpInventoryChanges.Reset();
-          OnRefresh(pager);
-        }
-      );
-      popUpInventoryChanges.Hide();
-    }
-    function popupinventorychanges_binding($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        popUpInventoryChanges = $value;
-        $invalidate(4, popUpInventoryChanges);
-      });
-    }
-    const click_handler = () => popUpInventoryChanges.Show();
     function mastertable_FIELDS_binding(value) {
       fields = value;
       $invalidate(0, fields);
@@ -32802,37 +31913,28 @@ uniform ${i3} ${a3} u_${s3};
       $invalidate(1, pager);
     }
     function mastertable_MASTER_ROWS_binding(value) {
-      inventoryChanges = value;
-      $invalidate(2, inventoryChanges);
+      transactionTemplates = value;
+      $invalidate(2, transactionTemplates);
     }
     return [
       fields,
       pager,
-      inventoryChanges,
-      isPopUpFormsReady,
-      popUpInventoryChanges,
-      OnRefresh,
-      OnRestore,
-      OnDelete,
-      OnEdit,
-      OnAddInventoryChange,
-      popupinventorychanges_binding,
-      click_handler,
+      transactionTemplates,
       mastertable_FIELDS_binding,
       mastertable_PAGER_binding,
       mastertable_MASTER_ROWS_binding
     ];
   }
-  var TenantAdmin_inventoryChanges = class extends SvelteComponent {
+  var TenantAdmin_transactionTemplate = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance12, create_fragment12, safe_not_equal, {});
+      init(this, options, instance11, create_fragment11, safe_not_equal, {});
     }
   };
-  var tenantAdmin_inventoryChanges_default = TenantAdmin_inventoryChanges;
+  var tenantAdmin_transactionTemplate_default = TenantAdmin_transactionTemplate;
 
-  // tenantAdmin_inventoryChanges.svelte.ts
-  var app = new tenantAdmin_inventoryChanges_default({ target: document.getElementById("app") });
+  // tenantAdmin_transactionTemplate.svelte.ts
+  var app = new tenantAdmin_transactionTemplate_default({ target: document.getElementById("app") });
 })();
 /*! Bundled license information:
 

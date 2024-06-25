@@ -40,6 +40,7 @@ const (
 	ErrTenantAdminInventoryChangesTenantNotFound 			= `tenant admin not found`
 	ErrTenantAdminInventoryChangesNotFound 						= `inventory not found` 
 	ErrTenantAdminInventoryChangesNotTenant						= `must be tenant admin to do this operation`
+	ErrTenantAdminInventoryChangesProductNotFound			= `product not found`
 	ErrTenantAdminInventoryChangesSaveFailed      		= `inventory changes save failed`
 )
 
@@ -59,20 +60,27 @@ var TenantAdminInventoryChangesMeta = zCrud.Meta{
 			InputType: zCrud.InputTypeNumber,
 		},
 		{
+			Name: mBusiness.ProductId,
+			Label: "Produk / Product",
+			DataType: zCrud.DataTypeInt,
+			InputType: zCrud.InputTypeCombobox,
+			Description: "Select product",
+		},
+		{
 			Name: mBusiness.CreatedAt,
-			Label: "Created At",
+			Label: "Dibuat pada / Created at",
 			InputType: zCrud.InputTypeHidden,
 			ReadOnly: true,
 		},
 		{
 			Name: mBusiness.UpdatedAt,
-			Label: "Updated At",
+			Label: "Diperbarui pada / Updated at",
 			InputType: zCrud.InputTypeHidden,
 			ReadOnly: true,
 		},
 		{
 			Name: mBusiness.DeletedAt,
-			Label: "Deleted At",
+			Label: "Dihapus pada / Deleted at",
 			InputType: zCrud.InputTypeHidden,
 			ReadOnly: true,
 		},
@@ -132,6 +140,15 @@ func (d *Domain) TenantAdminInventoryChanges(in *TenantAdminInventoryChangesIn) 
 					invChange.SetRestoredBy(sess.UserId)
 				}
 			}
+		} else {
+			product := rqBusiness.NewProducts(d.AuthOltp)
+			product.Id = in.InventoryChange.ProductId
+			if !product.FindById() {
+				out.SetError(400, ErrTenantAdminInventoryChangesProductNotFound)
+				return
+			}
+
+			invChange.SetProductId(product.Id)
 		}
 
 		invChange.SetTenantCode(user.TenantCode)

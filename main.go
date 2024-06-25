@@ -99,6 +99,7 @@ func main() {
 		Superadmins: conf.EnvSuperAdmins(),
 	}
 	d.InitTimedBuffer()
+	d.InitHostMapper()
 	defer d.CloseTimedBuffer()
 
 	mode := S.ToLower(os.Args[1])

@@ -23,8 +23,10 @@ type (
 		RequestCommon
 		Cmd      		string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
 		StaffEmail	string				`json:"staffEmail" form:"staffEmail" query:"staffEmail" long:"staffEmail" msg:"staffEmail"`
+		StaffRole		string				`json:"staffRole" form:"staffRole" query:"staffRole" long:"staffRole" msg:"staffRole"`
 		TenantCode  string 				`json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
 		Role 				string 				`json:"role" form:"role" query:"role" long:"role" msg:"role"`
+		IsEdit  		bool 					`json:"isEdit" form:"isEdit" query:"isEdit" long:"isEdit" msg:"isEdit"`
 		WithMeta		bool          `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
 		Pager    		zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 	}
@@ -49,6 +51,7 @@ const (
 	ErrTenantAdminDashboardFailed = `failed to update staff`
 	ErrTenantAdminDashboardNotTenant = `cannot invite user if not tenant`
 	ErrTenantAdminDashboardInvalidRole = `invalid staff role to modify`
+	ErrTenantAdminDashboardInvalidStaffToInvite = `invalid staff to invite, please use valid email/role`
 )
 
 var TenantAdminDashboardMeta = zCrud.Meta{
@@ -62,21 +65,21 @@ var TenantAdminDashboardMeta = zCrud.Meta{
 		},
 		{
 			Name: mAuth.Email,
-			Label: "Email",
+			Label: "Surel/Email",
 			DataType: zCrud.DataTypeString,
 			InputType: zCrud.InputTypeEmail,
 			ReadOnly: true,
 		},
 		{
 			Name: mAuth.FullName,
-			Label: "Full Name",
+			Label: "Nama Lengkap/Full Name",
 			DataType: zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
 			ReadOnly: true,
 		},
 		{
 			Name: mAuth.Role,
-			Label: "Role",
+			Label: "Peran/Role",
 			DataType: zCrud.DataTypeString,
 			InputType: zCrud.InputTypeCombobox,
 			Ref:  []string{
@@ -90,13 +93,13 @@ var TenantAdminDashboardMeta = zCrud.Meta{
 		},
 		{
 			Name: mAuth.CreatedAt,
-			Label: "Created At",
+			Label: "Dibuat pada/Created at",
 			InputType: zCrud.InputTypeHidden,
 			ReadOnly: true,
 		},
 		{
 			Name: mAuth.UpdatedAt,
-			Label: "Updated At",
+			Label: "Diperbarui pada/Updated at",
 			InputType: zCrud.InputTypeHidden,
 			ReadOnly: true,
 		},
@@ -145,7 +148,8 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 			}
 
 			if in.Cmd == zCrud.CmdUpsert {
-				if staff.Role != in.Role {
+				mapState, _ := mAuth.ToInvitationStateMap(staff.InvitationState)
+				if mapState.GetRoleByTenantCode(tenant.TenantCode) != in.Role && in.IsEdit {
 					switch in.Role {
 					case mAuth.RoleUser, mAuth.RoleDataEntry, mAuth.RoleReportViewer:
 						break
@@ -153,28 +157,49 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 						out.SetError(400, ErrTenantAdminDashboardInvalidRole)
 						return
 					}
+					mapState.ModifyRole(tenant.TenantCode, in.Role)
 
-					staff.SetRole(in.Role)
+					staff.SetInvitationState(mapState.ToStateString())
 				} else {
 					if staff.TenantCode != `` {
 						out.SetError(400, ErrTenantAdminDashboardInvalidStaff)
 						return
 					}
 
+					if in.StaffEmail == `` || in.StaffRole == `` {
+						out.SetError(400, ErrTenantAdminDashboardInvalidStaffToInvite)
+						return
+					} 
+
 					mapState, err := mAuth.ToInvitationStateMap(staff.InvitationState)
 					if errors.Is(err, mAuth.ErrInvitationStateEmpty) {
 						invState := mAuth.InviteState{
 							TenantCode: tenant.TenantCode,
+							Role: 			in.StaffRole,
 							State:      mAuth.InvitationStateInvited,
 							Date:       T.DateStr(),
 						}
 						staff.SetInvitationState(invState.ToStateString())
 					} else {
-						err := mapState.ModifyState(tenant.TenantCode, mAuth.InvitationStateInvited)
-						if err != nil {
+						if err := mapState.ModifyState(tenant.TenantCode, mAuth.InvitationStateInvited); err != nil {
 							out.SetError(400, err.Error())
 							return
 						}
+
+						if mapState.GetStateByTenantCode(tenant.TenantCode) == mAuth.InvitationStateInvited {
+							if mapState.GetRoleByTenantCode(tenant.TenantCode) != in.StaffRole {
+								if err := mapState.ModifyRole(tenant.TenantCode, in.StaffRole); err != nil {
+									out.SetError(400, err.Error())
+									return
+								}
+							}
+						} else {
+							if err := mapState.ModifyRole(tenant.TenantCode, in.StaffRole); err != nil {
+								out.SetError(400, err.Error())
+								return
+							}
+						}
+
 						staff.SetInvitationState(mapState.ToStateString())
 					}
 				}

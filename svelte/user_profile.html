@@ -455,7 +455,7 @@ a.active.svelte-1smdkid {
 .icon_logout {
   fill: var(--red-002);
 }
-.side_menu.svelte-1xbkv60.svelte-1xbkv60 {
+.side_menu.svelte-yognkh.svelte-yognkh {
   position: fixed;
   z-index: 800;
   bottom: 0;
@@ -470,7 +470,7 @@ a.active.svelte-1smdkid {
   border-right: 1px solid var(--gray-002);
   user-select: none;
 }
-.side_menu_container.svelte-1xbkv60.svelte-1xbkv60 {
+.side_menu_container.svelte-yognkh.svelte-yognkh {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -480,7 +480,32 @@ a.active.svelte-1smdkid {
   width: 100%;
   margin: 0;
 }
-.side_menu_container.svelte-1xbkv60 header.svelte-1xbkv60 {
+.side_menu.svelte-yognkh.svelte-yognkh::-webkit-scrollbar-thumb {
+  background-color: var(--gray-003);
+  border-radius: 8px;
+  visibility: hidden;
+}
+.side_menu.svelte-yognkh.svelte-yognkh::-webkit-scrollbar-thumb:hover {
+  background-color: var(--gray-004);
+  visibility: initial;
+}
+.side_menu.svelte-yognkh.svelte-yognkh:hover::-webkit-scrollbar-thumb {
+  visibility: initial;
+}
+.side_menu.svelte-yognkh.svelte-yognkh::-webkit-scrollbar {
+  width: 8px;
+  visibility: hidden;
+}
+.side_menu.svelte-yognkh.svelte-yognkh::-webkit-scrollbar:hover {
+  visibility: initial;
+}
+.side_menu.svelte-yognkh.svelte-yognkh:hover::-webkit-scrollbar {
+  visibility: initial;
+}
+.side_menu.svelte-yognkh.svelte-yognkh::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.side_menu_container.svelte-yognkh header.svelte-yognkh {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -490,30 +515,31 @@ a.active.svelte-1smdkid {
   margin: 0 24px 15px 24px;
   user-select: none;
 }
-.side_menu_container.svelte-1xbkv60 header img.svelte-1xbkv60 {
+.side_menu_container.svelte-yognkh header img.svelte-yognkh {
   width: 30px;
   height: 30px;
 }
-.side_menu_container.svelte-1xbkv60 header h3.svelte-1xbkv60 {
+.side_menu_container.svelte-yognkh header h3.svelte-yognkh {
   font-size: var(--font-lg);
   line-height: 1.5rem;
   font-weight: 800;
   padding: 0;
   margin: 0;
 }
-.side_menu_container.svelte-1xbkv60 .menu_container.svelte-1xbkv60 {
+.side_menu_container.svelte-yognkh .menu_container.svelte-yognkh {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 30px;
   flex-grow: 1;
 }
-.side_menu_container.svelte-1xbkv60 .menu_container .menu_list.svelte-1xbkv60 {
+.side_menu_container.svelte-yognkh .menu_container .menu_list.svelte-yognkh {
   display: flex;
   flex-direction: column;
   gap: 0;
   padding: 0 10px;
 }
-.side_menu_container.svelte-1xbkv60 .menu_container .menu_list a.svelte-1xbkv60 {
+.side_menu_container.svelte-yognkh .menu_container .menu_list a.svelte-yognkh {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -526,23 +552,23 @@ a.active.svelte-1smdkid {
   padding: 10px 12px;
   border-radius: 8px;
 }
-.side_menu_container.svelte-1xbkv60 .menu_container .menu_list a.svelte-1xbkv60:hover {
+.side_menu_container.svelte-yognkh .menu_container .menu_list a.svelte-yognkh:hover {
   background-color: var(--gray-001);
 }
-.side_menu_container.svelte-1xbkv60 .menu_container .menu_list a.svelte-1xbkv60:active {
+.side_menu_container.svelte-yognkh .menu_container .menu_list a.svelte-yognkh:active {
   background-color: var(--gray-002);
 }
-.side_menu_container.svelte-1xbkv60 .menu_container .menu_list a.active.svelte-1xbkv60 {
+.side_menu_container.svelte-yognkh .menu_container .menu_list a.active.svelte-yognkh {
   color: var(--violet-005);
   background-color: var(--violet-transparent);
 }
-.side_menu_container.svelte-1xbkv60 .menu_container .menu_list .submenu.svelte-1xbkv60 {
+.side_menu_container.svelte-yognkh .menu_container .menu_list .submenu.svelte-yognkh {
   padding-left: 20px;
   display: flex;
   flex-direction: column;
   gap: 0;
 }
-.menu_list.svelte-1xbkv60 .logout.svelte-1xbkv60 {
+.menu_list.svelte-yognkh .logout.svelte-yognkh {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -559,7 +585,7 @@ a.active.svelte-1smdkid {
   cursor: pointer;
   color: var(--red-005);
 }
-.menu_list.svelte-1xbkv60 .logout.svelte-1xbkv60:hover {
+.menu_list.svelte-yognkh .logout.svelte-yognkh:hover {
   background-color: var(--red-transparent);
 }
 
@@ -2915,6 +2941,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.DataEntryDashboard = async function DataEntryDashboard(i, cb) {
         return await axios.post("/dataEntry/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.DataEntryTransactionEntry = async function DataEntryTransactionEntry(i, cb) {
+        return await axios.post("/dataEntry/transactionEntry", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.GuestAutoLogin = async function GuestAutoLogin(i, cb) {
         return await axios.post("/guest/autoLogin", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2975,11 +3004,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminDeleteOrganizationChild = async function TenantAdminDeleteOrganizationChild(i, cb) {
         return await axios.post("/tenantAdmin/deleteOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminGetBudgetPlans = async function TenantAdminGetBudgetPlans(i, cb) {
-        return await axios.post("/tenantAdmin/getBudgetPlans", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
       exports.TenantAdminInventoryChanges = async function TenantAdminInventoryChanges(i, cb) {
         return await axios.post("/tenantAdmin/inventoryChanges", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.TenantAdminInventoryChangesProduct = async function TenantAdminInventoryChangesProduct(i, cb) {
+        return await axios.post("/tenantAdmin/inventoryChanges/:productId", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminLocations = async function TenantAdminLocations(i, cb) {
         return await axios.post("/tenantAdmin/locations", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -3005,8 +3034,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminTransaction = async function TenantAdminTransaction(i, cb) {
         return await axios.post("/tenantAdmin/transaction", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminUpsertBudgetPlan = async function TenantAdminUpsertBudgetPlan(i, cb) {
-        return await axios.post("/tenantAdmin/upsertBudgetPlan", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      exports.TenantAdminTransactionTemplate = async function TenantAdminTransactionTemplate(i, cb) {
+        return await axios.post("/tenantAdmin/transactionTemplate", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminUpsertCoaChild = async function TenantAdminUpsertCoaChild(i, cb) {
         return await axios.post("/tenantAdmin/createCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -4719,13 +4748,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // _components/partials/SideMenu.svelte
   var import_jsApi_GEN = __toESM(require_jsApi_GEN());
 
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/bs/index.js
+  var BsPostcard = { a: { fill: "currentColor", viewBox: "0 0 16 16" }, c: '<path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5M10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM13 8h-2V6h2z"></path>' };
+  var BsDatabaseAdd = { a: { fill: "currentColor", viewBox: "0 0 16 16" }, c: '<path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0"></path><path d="M12.096 6.223A5 5 0 0 0 13 5.698V7c0 .289-.213.654-.753 1.007a4.5 4.5 0 0 1 1.753.25V4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.5 4.5 0 0 1-.813-.927Q8.378 15 8 15c-1.464 0-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.71 6.427 13 8 13h.027a4.6 4.6 0 0 1 0-1H8c-1.464 0-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.71 6.427 10 8 10q.393 0 .774-.024a4.5 4.5 0 0 1 1.102-1.132C9.298 8.944 8.666 9 8 9c-1.464 0-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777M3 4c0-.374.356-.875 1.318-1.313C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4"></path>' };
+
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/oi/index.js
+  var OiNote16 = { a: { viewBox: "0 0 16 16" }, c: '<path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 14H1.75A1.75 1.75 0 0 1 0 12.25Zm1.75-.25a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-8.5a.25.25 0 0 0-.25-.25ZM3.5 6.25a.75.75 0 0 1 .75-.75h7a.75.75 0 0 1 0 1.5h-7a.75.75 0 0 1-.75-.75Zm.75 2.25h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1 0-1.5Z"></path>' };
+
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/fa/index.js
-  var FaSolidSliders = { a: { viewBox: "0 0 512 512" }, c: '<path d="M0 416c0 17.7 14.3 32 32 32l54.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 448c17.7 0 32-14.3 32-32s-14.3-32-32-32l-246.7 0c-12.3-28.3-40.5-48-73.3-48s-61 19.7-73.3 48L32 384c-17.7 0-32 14.3-32 32zm128 0a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zM320 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm32-80c-32.8 0-61 19.7-73.3 48L32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l246.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48l54.7 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-54.7 0c-12.3-28.3-40.5-48-73.3-48zM192 128a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm73.3-64C253 35.7 224.8 16 192 16s-61 19.7-73.3 48L32 64C14.3 64 0 78.3 0 96s14.3 32 32 32l86.7 0c12.3 28.3 40.5 48 73.3 48s61-19.7 73.3-48L480 128c17.7 0 32-14.3 32-32s-14.3-32-32-32L265.3 64z"></path>' };
   var FaCircleUser = { a: { viewBox: "0 0 512 512" }, c: '<path d="M406.5 399.6C387.4 352.9 341.5 320 288 320H224c-53.5 0-99.4 32.9-118.5 79.6C69.9 362.2 48 311.7 48 256C48 141.1 141.1 48 256 48s208 93.1 208 208c0 55.7-21.9 106.2-57.5 143.6zm-40.1 32.7C334.4 452.4 296.6 464 256 464s-78.4-11.6-110.5-31.7c7.3-36.7 39.7-64.3 78.5-64.3h64c38.8 0 71.2 27.6 78.5 64.3zM256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-272a40 40 0 1 1 0-80 40 40 0 1 1 0 80zm-88-40a88 88 0 1 0 176 0 88 88 0 1 0 -176 0z"></path>' };
 
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ri/index.js
   var RiBuildingsCommunityLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 21H3C2.44772 21 2 20.5523 2 20V12.4868C2 12.1978 2.12501 11.9229 2.34282 11.733L6 8.54435V4C6 3.44772 6.44772 3 7 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21ZM9 19H12V12.9416L8 9.45402L4 12.9416V19H7V15H9V19ZM14 19H20V5H8V7.12729C8.23444 7.12729 8.46888 7.20938 8.65718 7.37355L13.6572 11.733C13.875 11.9229 14 12.1978 14 12.4868V19ZM16 11H18V13H16V11ZM16 15H18V17H16V15ZM16 7H18V9H16V7ZM12 7H14V9H12V7Z"></path>' };
   var RiBuildingsBankLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 20H22V22H2V20ZM4 12H6V19H4V12ZM9 12H11V19H9V12ZM13 12H15V19H13V12ZM18 12H20V19H18V12ZM2 7L12 2L22 7V11H2V7ZM4 8.23607V9H20V8.23607L12 4.23607L4 8.23607ZM12 8C11.4477 8 11 7.55228 11 7C11 6.44772 11.4477 6 12 6C12.5523 6 13 6.44772 13 7C13 7.55228 12.5523 8 12 8Z"></path>' };
+  var RiDocumentStickyNoteAddLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 1V4H1V6H4V9H6V6H9V4H6V1H4ZM3 20.0066V11H5V19H13V14C13 13.45 13.45 13 14 13L19 12.999V5H11V3H20.0066C20.5552 3 21 3.45576 21 4.00247V15L15 20.996L4.00221 21C3.4487 21 3 20.5551 3 20.0066ZM18.171 14.999L15 15V18.169L18.171 14.999Z"></path>' };
   var RiUserFacesAdminLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M12 14V16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM21 17H22V22H14V17H15V16C15 14.3431 16.3431 13 18 13C19.6569 13 21 14.3431 21 16V17ZM19 17V16C19 15.4477 18.5523 15 18 15C17.4477 15 17 15.4477 17 16V17H19Z"></path>' };
   var RiUserFacesGroup2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M9.55 11.5C8.30736 11.5 7.3 10.4926 7.3 9.25C7.3 8.00736 8.30736 7 9.55 7C10.7926 7 11.8 8.00736 11.8 9.25C11.8 10.4926 10.7926 11.5 9.55 11.5ZM10 19.748V16.4C10 15.9116 10.1442 15.4627 10.4041 15.0624C10.1087 15.0213 9.80681 15 9.5 15C7.93201 15 6.49369 15.5552 5.37091 16.4797C6.44909 18.0721 8.08593 19.2553 10 19.748ZM4.45286 14.66C5.86432 13.6168 7.61013 13 9.5 13C10.5435 13 11.5431 13.188 12.4667 13.5321C13.3447 13.1888 14.3924 13 15.5 13C17.1597 13 18.6849 13.4239 19.706 14.1563C19.8976 13.4703 20 12.7471 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 12.9325 4.15956 13.8278 4.45286 14.66ZM18.8794 16.0859C18.4862 15.5526 17.1708 15 15.5 15C13.4939 15 12 15.7967 12 16.4V20C14.9255 20 17.4843 18.4296 18.8794 16.0859ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM15.5 12.5C14.3954 12.5 13.5 11.6046 13.5 10.5C13.5 9.39543 14.3954 8.5 15.5 8.5C16.6046 8.5 17.5 9.39543 17.5 10.5C17.5 11.6046 16.6046 12.5 15.5 12.5Z"></path>' };
   var RiUserFacesContactsLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M19 7H24V9H19V7ZM17 12H24V14H17V12ZM20 17H24V19H20V17ZM2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11Z"></path>' };
@@ -4736,9 +4772,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/cg/index.js
   var CgLogOut = { a: { viewBox: "0 0 24 24", fill: "none" }, c: '<path d="M8.51428 20H4.51428C3.40971 20 2.51428 19.1046 2.51428 18V6C2.51428 4.89543 3.40971 4 4.51428 4H8.51428V6H4.51428V18H8.51428V20Z" fill="currentColor"></path><path d="M13.8418 17.385L15.262 15.9768L11.3428 12.0242L20.4857 12.0242C21.038 12.0242 21.4857 11.5765 21.4857 11.0242C21.4857 10.4719 21.038 10.0242 20.4857 10.0242L11.3236 10.0242L15.304 6.0774L13.8958 4.6572L7.5049 10.9941L13.8418 17.385Z" fill="currentColor"></path>' };
   var CgBox = { a: { viewBox: "0 0 24 24", fill: "none" }, c: '<path d="M10 12C9.44769 12 9 12.4477 9 13C9 13.5523 9.44769 14 10 14H14C14.5522 14 15 13.5523 15 13C15 12.4477 14.5522 12 14 12H10Z" fill="currentColor"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M4 2C2.34314 2 1 3.34314 1 5V19C1 20.6569 2.34314 22 4 22H20C21.6569 22 23 20.6569 23 19V5C23 3.34314 21.6569 2 20 2H4ZM20 4H4C3.44769 4 3 4.44769 3 5V8H21V5C21 4.44769 20.5522 4 20 4ZM3 19V10H21V19C21 19.5523 20.5522 20 20 20H4C3.44769 20 3 19.5523 3 19Z" fill="currentColor"></path>' };
-
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/bs/index.js
-  var BsPostcard = { a: { fill: "currentColor", viewBox: "0 0 16 16" }, c: '<path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5M10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM13 8h-2V6h2z"></path>' };
 
   // _components/partials/SubMenuLink.svelte
   function create_fragment4(ctx) {
@@ -4751,8 +4784,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     icon_1 = new Icon_default({
       props: {
         size: "18",
-        className: window.location.pathname === /*href*/
-        ctx[0] ? "icon_active" : "icon_dark",
+        className: (
+          /*pathname*/
+          ctx[3] === /*href*/
+          ctx[0] || /*pathname*/
+          ctx[3].includes(
+            /*href*/
+            ctx[0]
+          ) ? "icon_active" : "icon_dark"
+        ),
         src: (
           /*icon*/
           ctx[1]
@@ -4776,8 +4816,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           ctx[0]
         );
         attr(a, "class", "svelte-1smdkid");
-        toggle_class(a, "active", window.location.pathname === /*href*/
-        ctx[0]);
+        toggle_class(
+          a,
+          "active",
+          /*pathname*/
+          ctx[3] === /*href*/
+          ctx[0] || /*pathname*/
+          ctx[3].includes(
+            /*href*/
+            ctx[0]
+          )
+        );
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -4791,8 +4840,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         const icon_1_changes = {};
         if (dirty & /*href*/
         1)
-          icon_1_changes.className = window.location.pathname === /*href*/
-          ctx2[0] ? "icon_active" : "icon_dark";
+          icon_1_changes.className = /*pathname*/
+          ctx2[3] === /*href*/
+          ctx2[0] || /*pathname*/
+          ctx2[3].includes(
+            /*href*/
+            ctx2[0]
+          ) ? "icon_active" : "icon_dark";
         if (dirty & /*icon*/
         2)
           icon_1_changes.src = /*icon*/
@@ -4814,10 +4868,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (!current || dirty & /*window, href*/
-        1) {
-          toggle_class(a, "active", window.location.pathname === /*href*/
-          ctx2[0]);
+        if (!current || dirty & /*pathname, href*/
+        9) {
+          toggle_class(
+            a,
+            "active",
+            /*pathname*/
+            ctx2[3] === /*href*/
+            ctx2[0] || /*pathname*/
+            ctx2[3].includes(
+              /*href*/
+              ctx2[0]
+            )
+          );
         }
       },
       i(local) {
@@ -4845,6 +4908,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       {}
     ) } = $props;
     let { title = "" } = $props;
+    const pathname = window.location.pathname;
     $self.$set = ($props2) => {
       if ("href" in $props2)
         $invalidate(0, href = $props2.href);
@@ -4853,7 +4917,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       if ("title" in $props2)
         $invalidate(2, title = $props2.title);
     };
-    return [href, icon, title];
+    return [href, icon, title, pathname];
   }
   var SubMenuLink = class extends SvelteComponent {
     constructor(options) {
@@ -4888,7 +4952,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         span = element("span");
         span.textContent = "Report Viewer";
         attr(a, "href", "/reportViewer/dashboard");
-        attr(a, "class", "svelte-1xbkv60");
+        attr(a, "class", "svelte-yognkh");
         toggle_class(
           a,
           "active",
@@ -4943,15 +5007,22 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let icon;
     let t0;
     let span;
+    let t2;
+    let div;
+    let submenulink;
     let current;
     icon = new Icon_default({
       props: {
         size: "18",
-        className: (
-          /*segment1*/
-          ctx[1] === "entryUser" ? "icon_active" : "icon_dark"
-        ),
-        src: FaSolidSliders
+        className: window.location.pathname === "/dataEntry/dashboard" ? "icon_active" : "icon_dark",
+        src: BsDatabaseAdd
+      }
+    });
+    submenulink = new SubMenuLink_default({
+      props: {
+        title: "Transaction Entry",
+        href: "/dataEntry/transactionEntry",
+        icon: OiNote16
       }
     });
     return {
@@ -4960,55 +5031,46 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         create_component(icon.$.fragment);
         t0 = space();
         span = element("span");
-        span.textContent = "Entry User";
-        attr(a, "href", "/entryUser/dashboard");
-        attr(a, "class", "svelte-1xbkv60");
-        toggle_class(
-          a,
-          "active",
-          /*segment1*/
-          ctx[1] === "entryUser"
-        );
+        span.textContent = "Data Entry";
+        t2 = space();
+        div = element("div");
+        create_component(submenulink.$.fragment);
+        attr(a, "href", "/dataEntry/dashboard");
+        attr(a, "class", "svelte-yognkh");
+        toggle_class(a, "active", window.location.pathname === "/dataEntry/dashboard");
+        attr(div, "class", "submenu svelte-yognkh");
       },
       m(target, anchor) {
         insert(target, a, anchor);
         mount_component(icon, a, null);
         append(a, t0);
         append(a, span);
+        insert(target, t2, anchor);
+        insert(target, div, anchor);
+        mount_component(submenulink, div, null);
         current = true;
       },
-      p(ctx2, dirty) {
-        const icon_changes = {};
-        if (dirty & /*segment1*/
-        2)
-          icon_changes.className = /*segment1*/
-          ctx2[1] === "entryUser" ? "icon_active" : "icon_dark";
-        icon.$set(icon_changes);
-        if (!current || dirty & /*segment1*/
-        2) {
-          toggle_class(
-            a,
-            "active",
-            /*segment1*/
-            ctx2[1] === "entryUser"
-          );
-        }
-      },
+      p: noop,
       i(local) {
         if (current)
           return;
         transition_in(icon.$.fragment, local);
+        transition_in(submenulink.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
+        transition_out(submenulink.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(a);
+          detach(t2);
+          detach(div);
         }
         destroy_component(icon);
+        destroy_component(submenulink);
       }
     };
   }
@@ -5032,6 +5094,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let submenulink5;
     let t8;
     let submenulink6;
+    let t9;
+    let submenulink7;
     let current;
     icon = new Icon_default({
       props: {
@@ -5089,6 +5153,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         icon: RiFinanceSwapBoxLine
       }
     });
+    submenulink7 = new SubMenuLink_default({
+      props: {
+        title: "Transaction Template",
+        href: "/tenantAdmin/transactionTemplate",
+        icon: RiDocumentStickyNoteAddLine
+      }
+    });
     return {
       c() {
         a = element("a");
@@ -5111,10 +5182,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         create_component(submenulink5.$.fragment);
         t8 = space();
         create_component(submenulink6.$.fragment);
+        t9 = space();
+        create_component(submenulink7.$.fragment);
         attr(a, "href", "/tenantAdmin/dashboard");
-        attr(a, "class", "svelte-1xbkv60");
+        attr(a, "class", "svelte-yognkh");
         toggle_class(a, "active", window.location.pathname === "/tenantAdmin/dashboard");
-        attr(div, "class", "submenu svelte-1xbkv60");
+        attr(div, "class", "submenu svelte-yognkh");
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -5136,6 +5209,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         mount_component(submenulink5, div, null);
         append(div, t8);
         mount_component(submenulink6, div, null);
+        append(div, t9);
+        mount_component(submenulink7, div, null);
         current = true;
       },
       p: noop,
@@ -5150,6 +5225,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_in(submenulink4.$.fragment, local);
         transition_in(submenulink5.$.fragment, local);
         transition_in(submenulink6.$.fragment, local);
+        transition_in(submenulink7.$.fragment, local);
         current = true;
       },
       o(local) {
@@ -5161,6 +5237,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_out(submenulink4.$.fragment, local);
         transition_out(submenulink5.$.fragment, local);
         transition_out(submenulink6.$.fragment, local);
+        transition_out(submenulink7.$.fragment, local);
         current = false;
       },
       d(detaching) {
@@ -5177,6 +5254,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         destroy_component(submenulink4);
         destroy_component(submenulink5);
         destroy_component(submenulink6);
+        destroy_component(submenulink7);
       }
     };
   }
@@ -5225,9 +5303,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t3 = space();
         create_component(submenulink1.$.fragment);
         attr(a, "href", "/superAdmin/dashboard");
-        attr(a, "class", "svelte-1xbkv60");
+        attr(a, "class", "svelte-yognkh");
         toggle_class(a, "active", window.location.pathname === "/superAdmin/dashboard");
-        attr(div, "class", "submenu svelte-1xbkv60");
+        attr(div, "class", "submenu svelte-yognkh");
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -5292,7 +5370,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         span = element("span");
         span.textContent = "Profile";
         attr(a, "href", "/user/profile");
-        attr(a, "class", "svelte-1xbkv60");
+        attr(a, "class", "svelte-yognkh");
         toggle_class(
           a,
           "active",
@@ -5364,7 +5442,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t0 = space();
         span = element("span");
         span.textContent = "Logout";
-        attr(button, "class", "logout svelte-1xbkv60");
+        attr(button, "class", "logout svelte-yognkh");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -5438,7 +5516,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     let if_block1 = (
       /*access*/
-      ctx[0].entryUser && create_if_block_4(ctx)
+      ctx[0].dataEntry && create_if_block_4(ctx)
     );
     let if_block2 = (
       /*access*/
@@ -5462,7 +5540,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         aside = element("aside");
         div1 = element("div");
         header = element("header");
-        header.innerHTML = `<img src="/assets/icons/benakun-logo.png" alt="" class="svelte-1xbkv60"/> <h3 class="svelte-1xbkv60">BenAkun</h3>`;
+        header.innerHTML = `<img src="/assets/icons/benakun-logo.png" alt="" class="svelte-yognkh"/> <h3 class="svelte-yognkh">BenAkun</h3>`;
         t2 = space();
         div0 = element("div");
         nav0 = element("nav");
@@ -5490,20 +5568,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t10 = space();
         if (if_block5)
           if_block5.c();
-        attr(header, "class", "svelte-1xbkv60");
+        attr(header, "class", "svelte-yognkh");
         attr(a, "href", "/");
-        attr(a, "class", "svelte-1xbkv60");
+        attr(a, "class", "svelte-yognkh");
         toggle_class(
           a,
           "active",
           /*segment1*/
           ctx[1] === ""
         );
-        attr(nav0, "class", "menu_list svelte-1xbkv60");
-        attr(nav1, "class", "menu_list svelte-1xbkv60");
-        attr(div0, "class", "menu_container svelte-1xbkv60");
-        attr(div1, "class", "side_menu_container svelte-1xbkv60");
-        attr(aside, "class", "side_menu svelte-1xbkv60");
+        attr(nav0, "class", "menu_list svelte-yognkh");
+        attr(nav1, "class", "menu_list svelte-yognkh");
+        attr(div0, "class", "menu_container svelte-yognkh");
+        attr(div1, "class", "side_menu_container svelte-yognkh");
+        attr(aside, "class", "side_menu svelte-yognkh");
       },
       m(target, anchor) {
         insert(target, aside, anchor);
@@ -5578,7 +5656,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         if (
           /*access*/
-          ctx2[0].entryUser
+          ctx2[0].dataEntry
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
@@ -5736,7 +5814,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function instance5($self, $props, $invalidate) {
-    let { access = {} } = $props;
+    let { access = (
+      /** @type Access */
+      {}
+    ) } = $props;
     let segment1;
     onMount(() => $invalidate(1, segment1 = window.location.pathname.split("/")[1]));
     async function userLogout() {

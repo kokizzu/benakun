@@ -13,6 +13,7 @@ var viewList = map[string]string{
 	`404`: `../svelte/404.html`, // ../svelte/404.svelte
 	`ApidocsIndex`: `../svelte/apidocs/index.html`, // ../svelte/apidocs/index.svelte
 	`DataEntryDashboard`: `../svelte/dataEntry_dashboard.html`, // ../svelte/dataEntry_dashboard.svelte
+	`DataEntryTransactionEntry`: `../svelte/dataEntry_transactionEntry.html`, // ../svelte/dataEntry_transactionEntry.svelte
 	`Debug`: `../svelte/debug.html`, // ../svelte/debug.svelte
 	`GuestOauthCallback`: `../svelte/guest_oauthCallback.html`, // ../svelte/guest_oauthCallback.svelte
 	`GuestResetPassword`: `../svelte/guest_resetPassword.html`, // ../svelte/guest_resetPassword.svelte
@@ -22,6 +23,7 @@ var viewList = map[string]string{
 	`SuperAdminDashboard`: `../svelte/superAdmin_dashboard.html`, // ../svelte/superAdmin_dashboard.svelte
 	`SuperAdminTenantManagement`: `../svelte/superAdmin_tenantManagement.html`, // ../svelte/superAdmin_tenantManagement.svelte
 	`SuperAdminUserManagement`: `../svelte/superAdmin_userManagement.html`, // ../svelte/superAdmin_userManagement.svelte
+	`TenantAdminInventoryChangesProduct`: `../svelte/tenantAdmin/inventoryChanges/product.html`, // ../svelte/tenantAdmin/inventoryChanges/product.svelte
 	`TenantAdminBankAccounts`: `../svelte/tenantAdmin_bankAccounts.html`, // ../svelte/tenantAdmin_bankAccounts.svelte
 	`TenantAdminBudgeting`: `../svelte/tenantAdmin_budgeting.html`, // ../svelte/tenantAdmin_budgeting.svelte
 	`TenantAdminCoa`: `../svelte/tenantAdmin_coa.html`, // ../svelte/tenantAdmin_coa.svelte
@@ -31,6 +33,7 @@ var viewList = map[string]string{
 	`TenantAdminOrganization`: `../svelte/tenantAdmin_organization.html`, // ../svelte/tenantAdmin_organization.svelte
 	`TenantAdminProducts`: `../svelte/tenantAdmin_products.html`, // ../svelte/tenantAdmin_products.svelte
 	`TenantAdminTransaction`: `../svelte/tenantAdmin_transaction.html`, // ../svelte/tenantAdmin_transaction.svelte
+	`TenantAdminTransactionTemplate`: `../svelte/tenantAdmin_transactionTemplate.html`, // ../svelte/tenantAdmin_transactionTemplate.svelte
 	`UserProfile`: `../svelte/user_profile.html`, // ../svelte/user_profile.svelte
 	`UserResponsejoin`: `../svelte/user_responsejoin.html`, // ../svelte/user_responsejoin.svelte
 }
@@ -49,6 +52,11 @@ func (v *Views) RenderApidocsIndex(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderDataEntryDashboard(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`DataEntryDashboard`].Str(m))
+}
+
+func (v *Views) RenderDataEntryTransactionEntry(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`DataEntryTransactionEntry`].Str(m))
 }
 
 func (v *Views) RenderDebug(c *fiber.Ctx, m M.SX) error {
@@ -96,6 +104,11 @@ func (v *Views) RenderSuperAdminUserManagement(c *fiber.Ctx, m M.SX) error {
 	return c.SendString(v.cache[`SuperAdminUserManagement`].Str(m))
 }
 
+func (v *Views) RenderTenantAdminInventoryChangesProduct(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`TenantAdminInventoryChangesProduct`].Str(m))
+}
+
 func (v *Views) RenderTenantAdminBankAccounts(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`TenantAdminBankAccounts`].Str(m))
@@ -139,6 +152,11 @@ func (v *Views) RenderTenantAdminProducts(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderTenantAdminTransaction(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`TenantAdminTransaction`].Str(m))
+}
+
+func (v *Views) RenderTenantAdminTransactionTemplate(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`TenantAdminTransactionTemplate`].Str(m))
 }
 
 func (v *Views) RenderUserProfile(c *fiber.Ctx, m M.SX) error {

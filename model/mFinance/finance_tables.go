@@ -2,6 +2,12 @@ package mFinance
 
 import "github.com/kokizzu/gotro/D/Tt"
 
+// TODO: transaction entry
+// Fields:
+
+// TODO: transaction journal
+// Fields: trxStart, trxEnd, parentTransaction
+
 const (
 	Id                 = `id`
 	CreatedAt          = `createdAt`
@@ -85,6 +91,19 @@ const (
 	Qty 					= `qty`
 )
 
+const (
+	TableTransactionTemplate Tt.TableName = `transactionTemplate`
+
+	Color 		= `color`
+	ImageURL	= `imageURL`
+)
+
+const (
+	TableTransactionTemplateDetail Tt.TableName = `transactionTemplateDetail`
+
+	IsDebit	= `isDebit`
+)
+
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableCoa: {
 		Fields: []Tt.Field{
@@ -101,6 +120,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedAt, Tt.Integer},
 		},
 		AutoIncrementId: true,
+		Engine: Tt.Vinyl,
 	},
 	TableTransactions: {
 		Fields: []Tt.Field{
@@ -116,5 +136,38 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Description, Tt.String},
 			{Qty, Tt.Integer},
 		},
+		AutoIncrementId: true,
+		Engine: Tt.Vinyl,
+	},
+	TableTransactionTemplate: {
+		Fields: []Tt.Field{
+			{Id, Tt.Unsigned},
+			{TenantCode, Tt.String},
+			{Name, Tt.String},
+			{Color, Tt.String},
+			{ImageURL, Tt.String},
+			{CreatedAt, Tt.Integer},
+			{CreatedBy, Tt.Unsigned},
+			{UpdatedAt, Tt.Integer},
+			{UpdatedBy, Tt.Unsigned},
+			{DeletedAt, Tt.Integer},
+		},
+		AutoIncrementId: true,
+		Engine: Tt.Vinyl,
+	},
+	TableTransactionTemplateDetail: {
+		Fields: []Tt.Field{
+			{Id, Tt.Unsigned},
+			{TenantCode, Tt.String},
+			{CoaId, Tt.Unsigned},
+			{IsDebit, Tt.Boolean},
+			{CreatedAt, Tt.Integer},
+			{CreatedBy, Tt.Unsigned},
+			{UpdatedAt, Tt.Integer},
+			{UpdatedBy, Tt.Unsigned},
+			{DeletedAt, Tt.Integer},
+		},
+		AutoIncrementId: true,
+		Engine: Tt.Vinyl,
 	},
 }

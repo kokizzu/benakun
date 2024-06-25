@@ -8,6 +8,8 @@
     AiOutlineWallet,
     AiOutlineHome
   } from '../../node_modules/svelte-icons-pack/dist/ai';
+  import { BsDatabaseAdd } from '../../node_modules/svelte-icons-pack/dist/bs';
+  import { OiNote16 } from '../../node_modules/svelte-icons-pack/dist/oi';
   import {
     FaCircleUser,
     FaSolidSliders,
@@ -20,23 +22,23 @@
     RiUserFacesGroup2Line,
     RiUserFacesContactsLine,
     RiMapMap2Line,
-    RiFinanceSwapBoxLine
+    RiFinanceSwapBoxLine,
+    RiDocumentStickyNoteAddLine
   } from '../../node_modules/svelte-icons-pack/dist/ri';
   import { CgLogOut, CgBox } from '../../node_modules/svelte-icons-pack/dist/cg';
   import { BsPostcard } from '../../node_modules/svelte-icons-pack/dist/bs';
   import SubMenuLink from './SubMenuLink.svelte';
 
-  /** @typedef {import('../types/access.js').Access} Access*/
+  // @ts-ignore
+  /** @typedef {import('../types/access.js').Access} Access */
 
-  /** @type Access */ // @ts-ignore
-  export let access = {};
+  export let access =  /** @type Access */ ({});
 
   let segment1;
   onMount(() => segment1 = window.location.pathname.split('/')[1] );
 
   async function userLogout() {
-    await UserLogout({},
-      /** @type import('../../jsApi.GEN.js').UserLogoutCallback */
+    await UserLogout({}, /** @type import('../../jsApi.GEN.js').UserLogoutCallback */
       function(/** @type {any} */ o) {
         if (o.error) {
           console.log(o);
@@ -58,39 +60,101 @@
     <div class="menu_container">
       <nav class="menu_list">
         <a href="/" class:active={segment1 === ''}>
-          <Icon size="18" src={AiOutlineHome} className={segment1 === ''  ? 'icon_active' : 'icon_dark'}/>
+          <Icon
+            size="18"
+            src={AiOutlineHome}
+            className={segment1 === ''  ? 'icon_active' : 'icon_dark'}
+          />
           <span>Home</span>
         </a>
         {#if access.reportViewer }
           <a href="/reportViewer/dashboard" class:active={segment1 === 'reportViewer'}>
-            <Icon size="18" className={segment1 === 'reportViewer'  ? 'icon_active' : 'icon_dark'} src={AiOutlineWarning}/>
+            <Icon
+              size="18"
+              className={segment1 === 'reportViewer'  ? 'icon_active' : 'icon_dark'}
+              src={AiOutlineWarning}
+            />
             <span>Report Viewer</span>
           </a>
         {/if}
-        {#if access.entryUser }
-          <a href='/entryUser/dashboard' class:active={segment1 === 'entryUser'}>
-            <Icon size="18" className={segment1 === 'entryUser'  ? 'icon_active' : 'icon_dark'} src={FaSolidSliders}/>
-            <span>Entry User</span>
+        {#if access.dataEntry }
+          <a href='/dataEntry/dashboard' class:active={window.location.pathname === '/dataEntry/dashboard'}>
+            <Icon
+              size="18"
+              className={window.location.pathname === '/dataEntry/dashboard'
+                ? 'icon_active' : 'icon_dark'
+              }
+              src={BsDatabaseAdd}
+            />
+            <span>Data Entry</span>
           </a>
+          <div class="submenu">
+            <SubMenuLink
+              title='Transaction Entry'
+              href='/dataEntry/transactionEntry'
+              icon={OiNote16}
+            />
+          </div>
         {/if}
         {#if access.tenantAdmin}
           <a href='/tenantAdmin/dashboard' class:active={window.location.pathname === '/tenantAdmin/dashboard'}>
-            <Icon size="18" className={window.location.pathname === '/tenantAdmin/dashboard'  ? 'icon_active' : 'icon_dark'} src={RiBuildingsCommunityLine}/>
+            <Icon
+              size="18"
+              className={window.location.pathname === '/tenantAdmin/dashboard'  ? 'icon_active' : 'icon_dark'}
+              src={RiBuildingsCommunityLine}
+            />
             <span>Tenant Admin</span>
           </a>
           <div class="submenu">
-            <SubMenuLink title='Organization' href='/tenantAdmin/organization' icon={RiEditorOrganizationChart}/>
-            <SubMenuLink title='Budgeting' href='/tenantAdmin/budgeting' icon={AiOutlineWallet}/>
-            <SubMenuLink title='Chart of Acount' href='/tenantAdmin/coa' icon={BsPostcard}/>
-            <SubMenuLink title='Bank Accounts' href='/tenantAdmin/bankAccounts' icon={RiBuildingsBankLine}/>
-            <SubMenuLink title='Products' href='/tenantAdmin/products' icon={CgBox}/>
-            <SubMenuLink title='Locations' href='/tenantAdmin/locations' icon={RiMapMap2Line}/>
-            <SubMenuLink title='Inventory Changes' href='/tenantAdmin/inventoryChanges' icon={RiFinanceSwapBoxLine}/>
+            <SubMenuLink
+              title='Organization'
+              href='/tenantAdmin/organization'
+              icon={RiEditorOrganizationChart}
+            />
+            <SubMenuLink
+              title='Budgeting'
+              href='/tenantAdmin/budgeting'
+              icon={AiOutlineWallet}
+            />
+            <SubMenuLink
+              title='Chart of Acount'
+              href='/tenantAdmin/coa'
+              icon={BsPostcard}
+            />
+            <SubMenuLink
+              title='Bank Accounts'
+              href='/tenantAdmin/bankAccounts'
+              icon={RiBuildingsBankLine}
+            />
+            <SubMenuLink
+              title='Products'
+              href='/tenantAdmin/products'
+              icon={CgBox}
+            />
+            <SubMenuLink
+              title='Locations'
+              href='/tenantAdmin/locations'
+              icon={RiMapMap2Line}
+            />
+            <SubMenuLink
+              title='Inventory Changes'
+              href='/tenantAdmin/inventoryChanges'
+              icon={RiFinanceSwapBoxLine}
+            />
+            <SubMenuLink
+              title='Transaction Template'
+              href='/tenantAdmin/transactionTemplate'
+              icon={RiDocumentStickyNoteAddLine}
+            />
           </div>
         {/if}
         {#if access.superAdmin }
           <a href='/superAdmin/dashboard' class:active={window.location.pathname === '/superAdmin/dashboard'}>
-            <Icon size="18" className={window.location.pathname === '/superAdmin/dashboard'  ? 'icon_active' : 'icon_dark'} src={RiUserFacesAdminLine}/>
+            <Icon
+              size="18"
+              className={window.location.pathname === '/superAdmin/dashboard'  ? 'icon_active' : 'icon_dark'}
+              src={RiUserFacesAdminLine}
+            />
             <span>Super Admin</span>
           </a>
           <div class="submenu">
@@ -157,6 +221,38 @@
     margin: 0;
   }
 
+  .side_menu::-webkit-scrollbar-thumb {
+    background-color : var(--gray-003);
+    border-radius    : 8px;
+    visibility: hidden;
+  }
+
+  .side_menu::-webkit-scrollbar-thumb:hover {
+    background-color : var(--gray-004);
+    visibility: initial;
+  }
+
+  .side_menu:hover::-webkit-scrollbar-thumb {
+    visibility: initial;
+  }
+
+  .side_menu::-webkit-scrollbar {
+    width : 8px;
+    visibility: hidden;
+  }
+
+  .side_menu::-webkit-scrollbar:hover {
+    visibility: initial;
+  }
+
+  .side_menu:hover::-webkit-scrollbar {
+    visibility: initial;
+  }
+
+  .side_menu::-webkit-scrollbar-track {
+    background-color : transparent;
+  }
+
   .side_menu_container header {
     display         : flex;
     flex-direction  : row;
@@ -185,6 +281,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 30px;
     flex-grow: 1;
   }
 

@@ -8,6 +8,7 @@ import (
 
 var allCommands = []string{
 	domain.DataEntryDashboardAction,
+	domain.DataEntryTransactionEntryAction,
 	domain.GuestAutoLoginAction,
 	domain.GuestDebugAction,
 	domain.GuestExternalAuthAction,
@@ -28,8 +29,8 @@ var allCommands = []string{
 	domain.TenantAdminDashboardAction,
 	domain.TenantAdminDeleteCoaChildAction,
 	domain.TenantAdminDeleteOrganizationChildAction,
-	domain.TenantAdminGetBudgetPlansAction,
 	domain.TenantAdminInventoryChangesAction,
+	domain.TenantAdminInventoryChangesProductAction,
 	domain.TenantAdminLocationsAction,
 	domain.TenantAdminMoveCoaChildAction,
 	domain.TenantAdminMoveOrganizationChildAction,
@@ -38,7 +39,7 @@ var allCommands = []string{
 	domain.TenantAdminRestoreCoaChildAction,
 	domain.TenantAdminRestoreOrganizationChildAction,
 	domain.TenantAdminTransactionAction,
-	domain.TenantAdminUpsertBudgetPlanAction,
+	domain.TenantAdminTransactionTemplateAction,
 	domain.TenantAdminUpsertCoaChildAction,
 	domain.TenantAdminUpsertOrganizationChildAction,
 	domain.UserAutoLoginLinkAction,

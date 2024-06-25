@@ -1,94 +1,35 @@
 <script>
-	import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
   import InputCustom from './InputCustom.svelte';
-  import { SuperAdminTenantManagement } from '../jsApi.GEN';
-  import { notifier } from './notifier';
 
-  // @ts-ignore
-  /** @typedef {import('../_components/types/user').User} User */
-
-  export let heading = 'Add user';
-  export let isSubmitted = false;
-
-  export let OnSubmit = async function(/** @type Object */ payload) {};
+  export let heading = 'Add inventory changes';
+  export let isSubmitAddInventoryChanges = false;
+  export let products = {};
+  export let OnSubmit = async function(/** @type any */ inventoryChanges) {}
 
   let isShow = false;
+
   export const Show = () => isShow = true;
   export const Hide = () => isShow = false;
 
-  let email = '';
-  let fullName = '';
-  let tenantCode = '';
-  let role = '';
-
-  const RoleUser    = `user`,
-    RoleTenantAdmin = `tenantAdmin`,
-    RoleDataEntry   = `dataEntry`,
-    RoleReportViewer = `reportViewer`;
-
-  const roles = [RoleUser, RoleTenantAdmin, RoleDataEntry, RoleReportViewer];
-
-  let tenantAdmin = '';
-
-  let isRequireTenantAdmin = false;
-  let isTenantsReady = false;
-  let tenants = [];
-
-  const getTenants = async () => {
-    await SuperAdminTenantManagement( // @ts-ignore
-      { cmd: 'list' }, /** @type {import('../jsApi.GEN').SuperAdminTenantManagementCallback} */
-      /** @returns {Promise<any>} */
-      function(/** @type any */ o) {
-        if (o.error) {
-          console.log(o);
-          notifier.showError(o.error);
-          return
-        }
-        const tnts = /** @type any[] */ (o.tenants);
-        if (tnts && tnts.length > 0) {
-          tenants = [];
-          tnts.forEach(t => {
-            tenants = [...tenants, t[1]];
-          })
-          isTenantsReady = true;
-        }
-      }
-    );
-  }
-
-  $: {
-    if (role === RoleReportViewer || role === RoleDataEntry) {
-      isRequireTenantAdmin = true;
-      if (!isTenantsReady) (async () => { await getTenants() })();
-    }
-  }
+  let stockDelta = 0;
+  let productId = '0';
 
   export const Reset = () => {
-    email = '';
-    fullName = '';
-    role = '';
-    tenantCode = '';
-    tenantAdmin = '';
+    stockDelta = 0;
+    productId = '0';
   }
-  
+
   const cancel = () => {
     isShow = false;
   }
 
-  function submitAddUser() {
-    const payload = {
-      tenantAdmin: tenantAdmin,
-      user: {
-        email,
-        fullName,
-        tenantCode,
-        role
-      }
-    }
-
-    OnSubmit(payload);
+  function submitAddInventoryChanges() {
+    isSubmitAddInventoryChanges = true;
+    const i = { stockDelta, productId };
+    OnSubmit(i);
   }
 </script>
 
@@ -102,50 +43,32 @@
     </header>
     <div class="forms">
       <InputCustom
-        id="email"
-        label="Surel / Email"
-        placeholder="email@example.com"
-        bind:value={email}
-        type="email"
+        bind:value={stockDelta}
+        id="stockDelta"
+        label="Delta Stok / Stock Delta"
+        placeholder="Stock Delta"
+        type="number"
       />
       <InputCustom
-        id="fullName"
-        label="Nama Lengkap / Full Name"
-        placeholder="John Doe"
-        bind:value={fullName}
-        type="text"
+        bind:value={productId}
+        id="productId"
+        label="Produk / Product"
+        type="select"
+        placeholder="Select product"
+        values={products}
+        isObject
       />
-      <InputCustom
-        id="role"
-        label="Peran / Role"
-        bind:value={role}
-        type="combobox"
-        values={roles}
-      />
-      {#if isRequireTenantAdmin}
-        {#if isTenantsReady}
-          <InputCustom
-            id="tenantAdmin"
-            label="Tenant Admin"
-            bind:value={tenantAdmin}
-            type="combobox"
-            values={tenants}
-          />
-        {:else}
-          <p>Tenants empty</p>
-        {/if}
-      {/if}
     </div>
     <div class="foot">
       <div class="left">
       </div>
       <div class="right">
         <button class="cancel" on:click|preventDefault={cancel}>Cancel</button>
-        <button class="ok" on:click|preventDefault={submitAddUser} disabled={isSubmitted}>
-          {#if !isSubmitted}
+        <button class="ok" on:click|preventDefault={submitAddInventoryChanges} disabled={isSubmitAddInventoryChanges}>
+          {#if !isSubmitAddInventoryChanges}
             <span>Ok</span>
           {/if}
-          {#if isSubmitted}
+          {#if isSubmitAddInventoryChanges}
             <Icon className="spin" color="#FFF" size="14" src={FiLoader} />
           {/if}
         </button>

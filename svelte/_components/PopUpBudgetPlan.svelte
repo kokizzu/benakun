@@ -38,21 +38,21 @@
 			{#if !(planType === 'vision' || planType === 'mission')}
 				<InputBox
 					id="title"
-					label="Title"
+					label="Judul / Title"
 					bind:value={title}
 					type="text"
 					placeholder="Title"
 				/>
 				<InputBox
 					id="yearOf"
-					label="Year"
+					label="Tahun / Year"
 					bind:value={yearOf}
 					type="number"
 					placeholder="Budget Year"
 				/>
 				<InputBox
 					id="budgetIDR"
-					label="Budget IDR"
+					label="Anggaran Rupiah / Budget IDR"
 					bind:value={budgetIDR}
 					type="number"
 					placeholder="Budget IDR"
@@ -66,14 +66,14 @@
 <!--				/>-->
 				<InputBox
 					id="quantity"
-					label="Qty"
+					label="Kuantitas / Quantity"
 					bind:value={quantity}
 					type="number"
 					placeholder="quantity"
 				/>
 				<InputBox
 					id="unit"
-					label="Unit"
+					label="Satuan / Unit"
 					bind:value={unit}
 					type="text"
 					placeholder="unit"
@@ -81,7 +81,7 @@
 			{/if}
 			<InputCustom
         id="description"
-        label="Description"
+        label="Deskripsi / Description"
         bind:value={description}
         type="textarea"
         placeholder="Description"

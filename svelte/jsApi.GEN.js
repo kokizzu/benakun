@@ -49,6 +49,32 @@ exports.DataEntryDashboard = async function DataEntryDashboard( i, cb ) {
 }
 
 /**
+ * @typedef {Object} DataEntryTransactionEntryIn
+ */
+const DataEntryTransactionEntryIn = {
+}
+/**
+ * @typedef {Object} DataEntryTransactionEntryOut
+ */
+const DataEntryTransactionEntryOut = {
+}
+/**
+ * @callback DataEntryTransactionEntryCallback
+ * @param {DataEntryTransactionEntryOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {DataEntryTransactionEntryIn} i
+ * @param {DataEntryTransactionEntryCallback} cb
+ * @returns {Promise}
+ */
+exports.DataEntryTransactionEntry = async function DataEntryTransactionEntry( i, cb ) {
+  return await axios.post( '/dataEntry/transactionEntry', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} GuestAutoLoginIn
  * @property {String} uid
  * @property {String} token
@@ -993,16 +1019,63 @@ exports.TenantAdminBankAccounts = async function TenantAdminBankAccounts( i, cb 
 
 /**
  * @typedef {Object} TenantAdminBudgetingIn
+ * @property {String} cmd
+ * @property {number} orgId
+ * @property {number} plan.id
+ * @property {String} plan.tenantCode
+ * @property {String} plan.planType
+ * @property {number} plan.parentId
+ * @property {number} plan.createdAt
+ * @property {number} plan.createdBy
+ * @property {number} plan.updatedAt
+ * @property {number} plan.updatedBy
+ * @property {number} plan.deletedAt
+ * @property {number} plan.deletedBy
+ * @property {number} plan.restoredBy
+ * @property {String} plan.title
+ * @property {String} plan.description
+ * @property {number} plan.orgId
+ * @property {number} plan.yearOf
+ * @property {number} plan.budgetIDR
+ * @property {number} plan.budgetUSD
+ * @property {number} plan.quantity
+ * @property {String} plan.unit
  */
 const TenantAdminBudgetingIn = {
+  cmd: '', // string
+  orgId: 0, // uint64
+  plan: { // rqBudget.Plans
+    id: 0, // uint64
+    tenantCode: '', // string
+    planType: '', // string
+    parentId: 0, // uint64
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    title: '', // string
+    description: '', // string
+    orgId: 0, // uint64
+    yearOf: 0, // uint64
+    budgetIDR: 0, // uint64
+    budgetUSD: 0, // uint64
+    quantity: 0, // uint64
+    unit: '', // string
+  }, // rqBudget.Plans
 }
 /**
  * @typedef {Object} TenantAdminBudgetingOut
  * @property {Object} orgs
+ * @property {Object} plans
  */
 const TenantAdminBudgetingOut = {
   orgs: { // []rqAuth.Orgs
   }, // []rqAuth.Orgs
+  plans: { // []rqBudget.Plans
+  }, // []rqBudget.Plans
 }
 /**
  * @callback TenantAdminBudgetingCallback
@@ -1053,8 +1126,10 @@ exports.TenantAdminCoa = async function TenantAdminCoa( i, cb ) {
  * @typedef {Object} TenantAdminDashboardIn
  * @property {String} cmd
  * @property {String} staffEmail
+ * @property {String} staffRole
  * @property {String} tenantCode
  * @property {String} role
+ * @property {Object} isEdit
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -1064,8 +1139,10 @@ exports.TenantAdminCoa = async function TenantAdminCoa( i, cb ) {
 const TenantAdminDashboardIn = {
   cmd: '', // string
   staffEmail: '', // string
+  staffRole: '', // string
   tenantCode: '', // string
   role: '', // string
+  isEdit: false, // bool
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
     page: 0, // int
@@ -1190,37 +1267,6 @@ exports.TenantAdminDeleteOrganizationChild = async function TenantAdminDeleteOrg
 }
 
 /**
- * @typedef {Object} TenantAdminGetBudgetPlansIn
- * @property {number} orgId
- */
-const TenantAdminGetBudgetPlansIn = {
-  orgId: 0, // uint64
-}
-/**
- * @typedef {Object} TenantAdminGetBudgetPlansOut
- * @property {Object} plans
- */
-const TenantAdminGetBudgetPlansOut = {
-  plans: { // []rqBudget.Plans
-  }, // []rqBudget.Plans
-}
-/**
- * @callback TenantAdminGetBudgetPlansCallback
- * @param {TenantAdminGetBudgetPlansOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminGetBudgetPlansIn} i
- * @param {TenantAdminGetBudgetPlansCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminGetBudgetPlans = async function TenantAdminGetBudgetPlans( i, cb ) {
-  return await axios.post( '/tenantAdmin/getBudgetPlans', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
  * @typedef {Object} TenantAdminInventoryChangesIn
  * @property {String} cmd
  * @property {number} inventoryChange.id
@@ -1315,6 +1361,32 @@ const TenantAdminInventoryChangesOut = {
  */
 exports.TenantAdminInventoryChanges = async function TenantAdminInventoryChanges( i, cb ) {
   return await axios.post( '/tenantAdmin/inventoryChanges', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminInventoryChangesProductIn
+ */
+const TenantAdminInventoryChangesProductIn = {
+}
+/**
+ * @typedef {Object} TenantAdminInventoryChangesProductOut
+ */
+const TenantAdminInventoryChangesProductOut = {
+}
+/**
+ * @callback TenantAdminInventoryChangesProductCallback
+ * @param {TenantAdminInventoryChangesProductOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminInventoryChangesProductIn} i
+ * @param {TenantAdminInventoryChangesProductCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminInventoryChangesProduct = async function TenantAdminInventoryChangesProduct( i, cb ) {
+  return await axios.post( '/tenantAdmin/inventoryChanges/:productId', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -1485,38 +1557,36 @@ const TenantAdminMoveCoaChildIn = {
 }
 /**
  * @typedef {Object} TenantAdminMoveCoaChildOut
- * @property {number} org.id
- * @property {String} org.tenantCode
- * @property {String} org.name
- * @property {String} org.headTitle
- * @property {number} org.parentId
- * @property {Object} org.children
- * @property {number} org.orgType
- * @property {number} org.createdAt
- * @property {number} org.createdBy
- * @property {number} org.updatedAt
- * @property {number} org.updatedBy
- * @property {number} org.deletedAt
- * @property {Object} orgs
+ * @property {number} coa.id
+ * @property {String} coa.tenantCode
+ * @property {String} coa.name
+ * @property {number} coa.level
+ * @property {number} coa.parentId
+ * @property {Object} coa.children
+ * @property {number} coa.createdAt
+ * @property {number} coa.createdBy
+ * @property {number} coa.updatedAt
+ * @property {number} coa.updatedBy
+ * @property {number} coa.deletedAt
+ * @property {Object} coas
  */
 const TenantAdminMoveCoaChildOut = {
-  org: { // rqAuth.Orgs
+  coa: { // rqFinance.Coa
     id: 0, // uint64
     tenantCode: '', // string
     name: '', // string
-    headTitle: '', // string
+    level: 0, // float64
     parentId: 0, // uint64
     children: { // []any
     }, // []any
-    orgType: 0, // uint64
     createdAt: 0, // int64
     createdBy: 0, // uint64
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
-  }, // rqAuth.Orgs
-  orgs: { // []rqAuth.Orgs
-  }, // []rqAuth.Orgs
+  }, // rqFinance.Coa
+  coas: { // []rqFinance.Coa
+  }, // []rqFinance.Coa
 }
 /**
  * @callback TenantAdminMoveCoaChildCallback
@@ -1843,70 +1913,79 @@ exports.TenantAdminTransaction = async function TenantAdminTransaction( i, cb ) 
 }
 
 /**
- * @typedef {Object} TenantAdminUpsertBudgetPlanIn
- * @property {number} plan.id
- * @property {String} plan.tenantCode
- * @property {String} plan.planType
- * @property {number} plan.parentId
- * @property {number} plan.createdAt
- * @property {number} plan.createdBy
- * @property {number} plan.updatedAt
- * @property {number} plan.updatedBy
- * @property {number} plan.deletedAt
- * @property {number} plan.deletedBy
- * @property {number} plan.restoredBy
- * @property {String} plan.title
- * @property {String} plan.description
- * @property {number} plan.orgId
- * @property {number} plan.yearOf
- * @property {number} plan.budgetIDR
- * @property {number} plan.budgetUSD
- * @property {number} plan.quantity
- * @property {String} plan.unit
+ * @typedef {Object} TenantAdminTransactionTemplateIn
+ * @property {String} cmd
+ * @property {String} staffEmail
+ * @property {String} tenantCode
+ * @property {String} role
+ * @property {Object} withMeta
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
  */
-const TenantAdminUpsertBudgetPlanIn = {
-  plan: { // rqBudget.Plans
-    id: 0, // uint64
-    tenantCode: '', // string
-    planType: '', // string
-    parentId: 0, // uint64
-    createdAt: 0, // int64
-    createdBy: 0, // uint64
-    updatedAt: 0, // int64
-    updatedBy: 0, // uint64
-    deletedAt: 0, // int64
-    deletedBy: 0, // uint64
-    restoredBy: 0, // uint64
-    title: '', // string
-    description: '', // string
-    orgId: 0, // uint64
-    yearOf: 0, // uint64
-    budgetIDR: 0, // uint64
-    budgetUSD: 0, // uint64
-    quantity: 0, // uint64
-    unit: '', // string
-  }, // rqBudget.Plans
+const TenantAdminTransactionTemplateIn = {
+  cmd: '', // string
+  staffEmail: '', // string
+  tenantCode: '', // string
+  role: '', // string
+  withMeta: false, // bool
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
 }
 /**
- * @typedef {Object} TenantAdminUpsertBudgetPlanOut
- * @property {Object} plans
+ * @typedef {Object} TenantAdminTransactionTemplateOut
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
+ * @property {Object} staffs
+ * @property {Object} staffsForm
  */
-const TenantAdminUpsertBudgetPlanOut = {
-  plans: { // []rqBudget.Plans
-  }, // []rqBudget.Plans
+const TenantAdminTransactionTemplateOut = {
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
+  staffs: { // [][]any
+  }, // [][]any
+  staffsForm: { // []rqAuth.Staff
+  }, // []rqAuth.Staff
 }
 /**
- * @callback TenantAdminUpsertBudgetPlanCallback
- * @param {TenantAdminUpsertBudgetPlanOut} o
+ * @callback TenantAdminTransactionTemplateCallback
+ * @param {TenantAdminTransactionTemplateOut} o
  * @returns {Promise}
  */
 /**
- * @param  {TenantAdminUpsertBudgetPlanIn} i
- * @param {TenantAdminUpsertBudgetPlanCallback} cb
+ * @param  {TenantAdminTransactionTemplateIn} i
+ * @param {TenantAdminTransactionTemplateCallback} cb
  * @returns {Promise}
  */
-exports.TenantAdminUpsertBudgetPlan = async function TenantAdminUpsertBudgetPlan( i, cb ) {
-  return await axios.post( '/tenantAdmin/upsertBudgetPlan', i ).
+exports.TenantAdminTransactionTemplate = async function TenantAdminTransactionTemplate( i, cb ) {
+  return await axios.post( '/tenantAdmin/transactionTemplate', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

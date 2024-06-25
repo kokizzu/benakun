@@ -79,15 +79,15 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 			out.Message = err.Error()
 			return
 		}
-		user.SetInvitationState(mapState.ToStateString())
 	}
 
 	if in.Response == mAuth.InvitationStateAccepted {
-		user.SetRole(DataEntrySegment)
 		out.Message = user.Email + ` join to company ` + in.TenantCode
 	} else if in.Response == mAuth.InvitationStateRejected {
 		out.Message = user.Email + ` rejected the invitation`
 	}
+
+	user.SetInvitationState(mapState.ToStateString())
 
 	if !user.DoUpdateById() {
 		out.SetError(500, ErrUserResponseInvitationModificationFailed)

@@ -16,15 +16,25 @@ const (
 	InvitationStateTerminated = `terminated`
 	InvitationStateLeft       = `left`
 
+	InvitationStateRoleUser 				= `user`
+	InvitationStateRoleDataEntry 		= `dataEntry`
+	InvitationStateRoleReportViewer = `reportViewer`
+
 	InvitationStateRespAccept = `accept`
 	InvitationStateRespReject = `reject`
 
 	ErrInvitationStateIsTheSame       = `state is same as previous state`
 	ErrInvitationStateAlreadyAccepted = `state already accepted`
+	ErrInvitationStateIsTheSameRole		= `role is same as previous role`
+	ErrInvitationStateInvalidRole			= `invalid role (must be user/dataEntry/reportViewer)`
 )
 
+// Invitation State:
+// tenant:xx-1234:accepted:2024-06-09				| before
+// tenant:xx-1234:role:accepted:2024-06-09	| after
+
 type (
-	InviteState        struct{ TenantCode, State, Date string }
+	InviteState        struct{ TenantCode, Role, State, Date string }
 	InvitationStateMap map[string]InviteState
 )
 
@@ -33,7 +43,7 @@ var (
 )
 
 func (is InviteState) ToStateString() (str string) {
-	return fmt.Sprintf("tenant:%s:%s:%v", is.TenantCode, is.State, is.Date)
+	return fmt.Sprintf("tenant:%s:%s:%s:%v", is.TenantCode, is.Role, is.State, is.Date)
 }
 
 func (s InvitationStateMap) ModifyState(tenantCode, newState string) error {
@@ -42,7 +52,7 @@ func (s InvitationStateMap) ModifyState(tenantCode, newState string) error {
 	}
 
 	if sn, ok := s[tenantCode]; ok {
-		if sn.State != newState {
+		if sn.State != newState || (sn.State == InvitationStateInvited && newState == InvitationStateInvited){
 			if sn.State == InvitationStateAccepted {
 				if !(newState == InvitationStateTerminated || newState == InvitationStateLeft) {
 					return wrapInvitationError(ErrInvitationStateAlreadyAccepted, sn.State, newState)
@@ -62,6 +72,7 @@ func (s InvitationStateMap) ModifyState(tenantCode, newState string) error {
 			Date:       T.DateStr(),
 		}
 	}
+
 	for _, st := range s {
 		if newState == InvitationStateAccepted { // Change Accepted to Left
 			if st.TenantCode != tenantCode {
@@ -77,6 +88,32 @@ func (s InvitationStateMap) ModifyState(tenantCode, newState string) error {
 			}
 		}
 	}
+
+	return nil
+}
+
+func (s InvitationStateMap) ModifyRole(tenantCode, newRole string) error {
+	var wrapInvitationRoleError = func(errMsg, newRole string) error {
+		return fmt.Errorf("%s: cannot change role to %s", errMsg, newRole)
+	}
+
+	switch newRole {
+	case InvitationStateRoleUser, InvitationStateRoleDataEntry, InvitationStateRoleReportViewer:
+		break
+	default:
+		return wrapInvitationRoleError(ErrInvitationStateInvalidRole, newRole)
+	}
+
+	if sn, ok := s[tenantCode]; ok {
+		if sn.Role != newRole {
+			sn.Role = newRole
+			sn.Date = T.DateStr()
+			s[tenantCode] = sn
+		} else {
+			return wrapInvitationRoleError(ErrInvitationStateIsTheSameRole, newRole)
+		}
+	}
+
 	return nil
 }
 
@@ -106,11 +143,12 @@ func ToInvitationStateMap(states string) (InvitationStateMap, error) {
 			continue
 		}
 		parts := S.Split(state, `:`)
-		if len(parts) == 4 {
+		if len(parts) == 5 {
 			out[parts[1]] = InviteState{
 				TenantCode: parts[1],
-				State:      parts[2],
-				Date:       parts[3],
+				Role: 			parts[2],
+				State:      parts[3],
+				Date:       parts[4],
 			}
 		} else {
 			log.Printf("ToInvitationStateMap.WARN: %v, have invalid state: %s", states, state)
@@ -120,4 +158,12 @@ func ToInvitationStateMap(states string) (InvitationStateMap, error) {
 		return InvitationStateMap{}, ErrInvitationStateEmpty
 	}
 	return out, nil
+}
+
+func (s InvitationStateMap) GetStateByTenantCode(tenantCode string) string {
+	return s[tenantCode].State
+}
+
+func (s InvitationStateMap) GetRoleByTenantCode(tenantCode string) string {
+	return s[tenantCode].Role
 }

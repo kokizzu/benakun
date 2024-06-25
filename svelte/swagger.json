@@ -54,6 +54,39 @@
 				}
 			}
 		},
+		"/dataEntry/transactionEntry": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "DataEntryTransactionEntry",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/guest/autoLogin": {
 			"post": {
 				"security": [{
@@ -1460,6 +1493,74 @@
 							"schema": {
 								"type": "object",
 								"properties": {
+						"cmd": {
+								"type": "string"
+						},
+						"orgId": {
+								"type": "number"
+						},
+						"plan": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"planType": {
+										"type": "string"
+								},
+								"parentId": {
+										"type": "number"
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"deletedBy": {
+										"type": "number"
+								},
+								"restoredBy": {
+										"type": "number"
+								},
+								"title": {
+										"type": "string"
+								},
+								"description": {
+										"type": "string"
+								},
+								"orgId": {
+										"type": "number"
+								},
+								"yearOf": {
+										"type": "number"
+								},
+								"budgetIDR": {
+										"type": "number"
+								},
+								"budgetUSD": {
+										"type": "number"
+								},
+								"quantity": {
+										"type": "number"
+								},
+								"unit": {
+										"type": "string"
+								}
+								}
+						}
 								}
 							}
 						}
@@ -1474,6 +1575,11 @@
 									"type": "object",
 									"properties": {
 										"orgs": {
+										"type": "object",
+										"properties": {
+												}
+										},
+										"plans": {
 										"type": "object",
 										"properties": {
 												}
@@ -1542,11 +1648,17 @@
 						"staffEmail": {
 								"type": "string"
 						},
+						"staffRole": {
+								"type": "string"
+						},
 						"tenantCode": {
 								"type": "string"
 						},
 						"role": {
 								"type": "string"
+						},
+						"isEdit": {
+							"type": "boolean"
 						},
 						"withMeta": {
 							"type": "boolean"
@@ -1732,47 +1844,6 @@
 				}
 			}
 		},
-		"/tenantAdmin/getBudgetPlans": {
-			"post": {
-				"security": [{
-					"CookieAuth": []
-				}],
-				"tags": ["API"],
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-						"orgId": {
-								"type": "number"
-						}
-								}
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "TenantAdminGetBudgetPlans",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"plans": {
-										"type": "object",
-										"properties": {
-												}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/tenantAdmin/inventoryChanges": {
 			"post": {
 				"security": [{
@@ -1924,6 +1995,38 @@
 										"properties": {
 												}
 										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminInventoryChangesProduct",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
 									}
 								}
 							}
@@ -2174,6 +2277,7 @@
 				}
 			}
 		},
+		"/tenantAdmin/moveCoaChild": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -2207,7 +2311,7 @@
 								"schema": {
 									"type": "object",
 									"properties": {
-										"org": {
+										"coa": {
 										"type": "object",
 										"properties": {
 												"id": {
@@ -2219,8 +2323,8 @@
 												"name": {
 														"type": "string"
 												},
-												"headTitle": {
-														"type": "string"
+												"level": {
+														"type": "number"
 												},
 												"parentId": {
 														"type": "number"
@@ -2229,9 +2333,6 @@
 												"type": "object",
 												"properties": {
 														}
-												},
-												"orgType": {
-														"type": "number"
 												},
 												"createdAt": {
 														"type": "number"
@@ -2250,7 +2351,7 @@
 												}
 												}
 										},
-										"orgs": {
+										"coas": {
 										"type": "object",
 										"properties": {
 												}
@@ -2712,7 +2813,7 @@
 				}
 			}
 		},
-		"/tenantAdmin/upsertBudgetPlan": {
+		"/tenantAdmin/transactionTemplate": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -2724,66 +2825,41 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"plan": {
+						"cmd": {
+								"type": "string"
+						},
+						"staffEmail": {
+								"type": "string"
+						},
+						"tenantCode": {
+								"type": "string"
+						},
+						"role": {
+								"type": "string"
+						},
+						"withMeta": {
+							"type": "boolean"
+						},
+						"pager": {
 						"type": "object",
 						"properties": {
-								"id": {
+								"page": {
 										"type": "number"
 								},
-								"tenantCode": {
-										"type": "string"
-								},
-								"planType": {
-										"type": "string"
-								},
-								"parentId": {
+								"perPage": {
 										"type": "number"
 								},
-								"createdAt": {
-										"type": "number"
+								"filters": {
+								"type": "object",
+								"properties": {
+										}
 								},
-								"createdBy": {
-										"type": "number"
-								},
-								"updatedAt": {
-										"type": "number"
-								},
-								"updatedBy": {
-										"type": "number"
-								},
-								"deletedAt": {
-										"type": "number"
-								},
-								"deletedBy": {
-										"type": "number"
-								},
-								"restoredBy": {
-										"type": "number"
-								},
-								"title": {
-										"type": "string"
-								},
-								"description": {
-										"type": "string"
-								},
-								"orgId": {
-										"type": "number"
-								},
-								"yearOf": {
-										"type": "number"
-								},
-								"budgetIDR": {
-										"type": "number"
-								},
-								"budgetUSD": {
-										"type": "number"
-								},
-								"quantity": {
-										"type": "number"
-								},
-								"unit": {
-										"type": "string"
-								}
+								"order": {
+										"type": "array",
+											"items": {
+												"type": "string"
+											}
+										}
 								}
 						}
 								}
@@ -2793,13 +2869,64 @@
 				},
 				"responses": {
 					"200": {
-						"description": "TenantAdminUpsertBudgetPlan",
+						"description": "TenantAdminTransactionTemplate",
 						"content": {
 							"application/json": {
 								"schema": {
 									"type": "object",
 									"properties": {
-										"plans": {
+										"pager": {
+										"type": "object",
+										"properties": {
+												"page": {
+														"type": "number"
+												},
+												"perPage": {
+														"type": "number"
+												},
+												"pages": {
+														"type": "number"
+												},
+												"total": {
+														"type": "number"
+												},
+												"filters": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"order": {
+														"type": "array",
+															"items": {
+																"type": "string"
+															}
+														}
+												}
+										},
+										"meta": {
+										"type": "object",
+										"properties": {
+												"fields": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"mutex": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"cachedSelect": {
+														"type": "string"
+												}
+												}
+										},
+										"staffs": {
+										"type": "object",
+										"properties": {
+												}
+										},
+										"staffsForm": {
 										"type": "object",
 										"properties": {
 												}

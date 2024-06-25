@@ -3,6 +3,7 @@ package rqBusiness
 import (
 	"benakun/model/zCrud"
 
+	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 )
@@ -37,6 +38,25 @@ FROM SEQSCAN ` + pr.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + l
 	})
 
 	return
+}
+
+func (pr *Products) FindProductsChoicesByTenantCode(tenantCode string) map[string]string {
+	const comment = `-- Products) FindProductsChoicesByTenantCode`
+
+	whereAndSql := ` WHERE ` + pr.SqlTenantCode() + ` = ` + S.Z(tenantCode)
+
+	queryRows := comment + `
+SELECT ` + pr.SqlId() + `, ` + pr.SqlName() + `
+FROM SEQSCAN ` + pr.SqlTableName() + whereAndSql
+
+	staffChoices := make(map[string]string)
+	pr.Adapter.QuerySql(queryRows, func(row []any) {
+		if len(row) == 2 {
+			staffChoices[X.ToS(row[0])] = X.ToS(row[1])
+		}
+	})
+
+	return staffChoices
 }
 
 func (l *Locations) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zCrud.PagerOut) (res [][]any) {
@@ -96,5 +116,22 @@ FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 		res = append(res, row)
 	})
 
+	return
+}
+
+func (ic *InventoryChanges) FindByTenantCodeByProductId() (ics []*InventoryChanges) {
+	const comment = `-- InventoryChanges) FindByProductId`
+
+	whereAndSql := ` WHERE ` + ic.SqlTenantCode() + ` = ` + S.Z(ic.TenantCode) + `
+		AND ` + ic.SqlProductId() + ` = ` + I.UToS(ic.ProductId)
+
+	queryRows := comment + `
+SELECT ` + ic.SqlSelectAllFields() + `
+FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql
+
+	ic.Adapter.QuerySql(queryRows, func(row []any) {
+		ic.FromArray(row)
+		ics = append(ics, ic)
+	})
 	return
 }

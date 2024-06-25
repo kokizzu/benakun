@@ -4,9 +4,11 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/gotro/S"
 
 	"benakun/domain"
 	"benakun/model/mAuth/rqAuth"
+	"benakun/model/mBusiness/rqBusiness"
 	"benakun/model/zCrud"
 )
 
@@ -129,6 +131,32 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.DataEntryDashboardAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notDataEntryLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		
+		return views.RenderDataEntryDashboard(ctx, M.SX{
+			`title`:    `Transaction Entry`,
+			`user`:     user,
+			`segments`: segments,
+		})
+	})
+
+	fw.Get(`/`+domain.DataEntryTransactionEntryAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notDataEntryLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		return views.RenderDataEntryTransactionEntry(ctx, M.SX{
+			`title`:    `Transaction Entry`,
+			`user`:     user,
+			`segments`: segments,
+		})
+	})
+
 	fw.Get(`/`+domain.TenantAdminDashboardAction, func(ctx *fiber.Ctx) error {
 		var in domain.TenantAdminDashboardIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminDashboardAction)
@@ -202,15 +230,19 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	})
 
 	fw.Get(`/`+domain.TenantAdminBudgetingAction, func(ctx *fiber.Ctx) error {
-		in, user, segments := userInfoFromContext(ctx, d)
+		var in domain.TenantAdminBudgetingIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminBudgetingAction)
+		if err != nil {
+			return err
+		}
 		if notTenantLogin(d, in.RequestCommon) {
-			return ctx.Redirect(`/`)
+			return ctx.Redirect(`/`, 302)
 		}
 
-		in.RequestCommon.Action = domain.TenantAdminBudgetingAction
-		out := d.TenantAdminBudgeting(&domain.TenantAdminBudgetingIn{
-			RequestCommon: in.RequestCommon,
-		})
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.Cmd = zCrud.CmdList
+
+		out := d.TenantAdminBudgeting(&in)
 		return views.RenderTenantAdminBudgeting(ctx, M.SX{
 			`title`:    `Tenant Admin Budgeting`,
 			`user`:     user,
@@ -302,7 +334,10 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notTenantLogin(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
+
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		r := rqBusiness.NewProducts(d.AuthOltp)
+		products := r.FindProductsChoicesByTenantCode(user.TenantCode)
 		
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
@@ -314,6 +349,63 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`fields`:   out.Meta.Fields,
 			`pager`:    out.Pager,
 			`inventoryChanges`: out.InventoryChanges,
+			`products`: products,
+		})
+	})
+
+	fw.Get(`/`+domain.TenantAdminInventoryChangesAction+`/:productId`, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notTenantLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		productId := ctx.Params(`productId`)
+
+		product := rqBusiness.NewProducts(d.AuthOltp)
+		product.Id = S.ToU(productId)
+		if !product.FindById() {
+			return ctx.Redirect(`/`+domain.TenantAdminInventoryChangesAction, 302)
+		}
+
+		// TODO: find inventoryChanges by product id
+		invChange := rqBusiness.NewInventoryChanges(d.AuthOltp)
+		invChange.TenantCode = user.TenantCode
+		invChange.ProductId = product.Id
+		invChanges := invChange.FindByTenantCodeByProductId()
+
+		L.Print(`invChanges:`, )
+		
+		return views.RenderTenantAdminInventoryChangesProduct(ctx, M.SX{
+			`title`:    `Tenant Admin Bank Accounts`,
+			`user`:     user,
+			`segments`: segments,
+			`product`: product,
+			`inventoryChanges`: invChanges, // TODO
+		})
+	})
+
+	fw.Get(`/`+domain.TenantAdminTransactionTemplateAction, func(ctx *fiber.Ctx) error {
+		var in domain.TenantAdminTransactionTemplateIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminTransactionTemplateAction)
+		if err != nil {
+			return err
+		}
+		if notTenantLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+
+		in.WithMeta = true
+		in.Cmd = zCrud.CmdList
+		
+		out := d.TenantAdminTransactionTemplate(&in)
+		return views.RenderTenantAdminTransactionTemplate(ctx, M.SX{
+			`title`:    `Tenant Admin Bank Accounts`,
+			`user`:     user,
+			`segments`: segments,
+			`pager`:    out.Pager,
+			`fields`: out.Meta.Fields,
+			`transactionTemplates`: out.TransactionTemplates,
 		})
 	})
 
@@ -441,6 +533,16 @@ func notTenantLogin(d *domain.Domain, in domain.RequestCommon) bool {
 	var check domain.ResponseCommon
 
 	if sess := d.MustTenantAdmin(in, &check); sess == nil {
+		return true
+	}
+
+	return false
+}
+
+func notDataEntryLogin(d *domain.Domain, in domain.RequestCommon) bool {
+	var check domain.ResponseCommon
+
+	if sess := d.MustDataEntry(in, &check); sess == nil {
 		return true
 	}
 

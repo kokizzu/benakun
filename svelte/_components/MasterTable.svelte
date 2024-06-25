@@ -7,6 +7,7 @@
 		RiArrowsArrowGoBackLine,
 		RiSystemInformationLine,
 	} from '../node_modules/svelte-icons-pack/dist/ri';
+	import { FaShareFromSquare } from '../node_modules/svelte-icons-pack/dist/fa';
   import { IoSearch, IoClose } from '../node_modules/svelte-icons-pack/dist/io';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
 	import {
@@ -38,6 +39,9 @@
 	export let CAN_DELETE_ROW 	= false;
 	export let CAN_RESTORE_ROW	= false;
 	export let CAN_SHOW_INFO		= false;
+	export let CAN_OPEN_LINK		= false;
+	export let LINK_PATH				= '/';
+	export let IDX_ID_LINK			= 0;
 
 	// State for loading if hit ajax
 	let isAjaxSubmitted = false;
@@ -425,7 +429,7 @@
 									<td class="a_row">
 										{#if ACCESS.superAdmin
 											|| ACCESS.tenantAdmin
-											|| ACCESS.entryUser
+											|| ACCESS.dataEntry
 											|| ACCESS.reportViewer
 										}
 											<div class="actions">	
@@ -481,6 +485,19 @@
 															/>
 														</button>
 													{/if}
+												{/if}
+												{#if CAN_OPEN_LINK}
+													<a
+														class="btn link"
+														title="open"
+														href={LINK_PATH+row[IDX_ID_LINK]}
+													>
+														<Icon
+															size="15"
+															color="var(--gray-007)"
+															src={FaShareFromSquare}
+														/>
+													</a>
 												{/if}
 											</div>
 										{:else}

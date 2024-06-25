@@ -56,7 +56,8 @@ FROM SEQSCAN ` + u.SqlTableName() + whereAndSql
 func (u *Users) FindStaffsChoicesByTenantCode(tenantCode string) map[string]string {
 	const comment = `-- Users) FindStaffByTenantCode`
 
-	whereAndSql := ` WHERE ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
+	whereAndSql := ` WHERE ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+tenantCode+`%`) + `
+		AND ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%accepted%`)
 
 	queryRows := comment + `
 SELECT ` + u.SqlId() + `, ` + u.SqlFullName() + `, ` + u.SqlEmail() + `, ` + u.SqlRole() + `
@@ -270,8 +271,16 @@ SELECT ` + meta.ToSelect() + `
 FROM SEQSCAN ` + u.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
 	u.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
-		invState := staffState(X.ToS(row[4]), u.TenantCode)
+
+		oInvState := X.ToS(row[4])
+		mapState, err := mAuth.ToInvitationStateMap(oInvState)
+		invState := staffState(oInvState, u.TenantCode)
 		row[4] = invState
+
+		if err == nil {
+			row[3] = mapState.GetRoleByTenantCode(u.TenantCode)
+		}
+		
 		res = append(res, row)
 	})
 
@@ -288,11 +297,31 @@ func staffState(states, tenantCode string) (invState string) {
 			continue
 		}
 		parts := S.Split(state, `:`)
-		if len(parts) == 4 {
+		if len(parts) == 5 {
 			if parts[1] == tenantCode {
-				return parts[2]
+				return parts[3]
 			}
 		}
 	}
 	return ``
+}
+
+func (o *Orgs) FindTenantsHost() (tenants [][]any) {
+	const comment = "-- orgs) FindTenantsHost"
+
+	queryRows := comment + `
+SELECT orgs.tenantCode, orgs.id
+	FROM SEQSCAN orgs
+	JOIN SEQSCAN tenants
+		ON (orgs.orgType = 1 AND orgs.tenantCode = tenants.tenantCode)`
+
+	o.Adapter.QuerySql(queryRows, func(row []any) {
+		if len(row) == 2 {
+			row[1] = X.ToS(row[1])
+
+			tenants = append(tenants, row)
+		}
+	})
+
+	return
 }
