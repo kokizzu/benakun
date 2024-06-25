@@ -10114,7 +10114,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         description,
         yearOf: Number(yearOf),
         orgId: plan.orgId,
-        budgetIDR: budgetIDR + "",
+        budgetIDR: (budgetIDR || 0) + "",
         quantity: Number(quantity),
         unit,
         parentId: plan.id
@@ -11753,16 +11753,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       );
     }
     async function submitPlan() {
-      switch (submitState) {
-        case (submitStateAdd2 || submitStateEdit2): {
-          await submitUpsertPlan();
-          break;
-        }
-        default: {
-          console.log("invalid submit state, use add, or edit");
-          return;
-        }
-      }
+      await submitUpsertPlan();
     }
     function togglePopUp(state, pType, toId) {
       if (!state || !pType) {

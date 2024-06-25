@@ -92,7 +92,7 @@ func (d *Domain) TenantAdminBudgeting(in *TenantAdminBudgetingIn) (out TenantAdm
 			return
 		}
 
-		if plan.PlanType == mBudget.PlanTypeActivity {
+		if in.Plan.PlanType == mBudget.PlanTypeActivity {
 			planParent := rqBudget.NewPlans(d.AuthOltp)
 			planParent.Id = in.Plan.ParentId
 			if !planParent.FindById() {
@@ -162,6 +162,10 @@ func (d *Domain) TenantAdminBudgeting(in *TenantAdminBudgetingIn) (out TenantAdm
 				plan.SetYearOf(uint64(time.Now().Year()))
 			} else {
 				plan.SetYearOf(in.Plan.YearOf)
+			}
+
+			if in.Plan.PlanType == mBudget.PlanTypeActivity {
+				plan.SetParentId(in.Plan.ParentId)
 			}
 
 			plan.SetOrgId(org.Id)

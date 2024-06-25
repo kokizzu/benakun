@@ -205,16 +205,7 @@
   }
 
   async function submitPlan() {
-    switch (submitState) {
-      case submitStateAdd || submitStateEdit: {
-        await submitUpsertPlan();
-        break;
-      }
-      default: {
-        console.log('invalid submit state, use add, or edit');
-        return;
-      }
-    }
+    await submitUpsertPlan();
   }
 
   /**

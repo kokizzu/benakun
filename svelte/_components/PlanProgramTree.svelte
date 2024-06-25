@@ -74,7 +74,7 @@
       description,
       yearOf: Number(yearOf),
       orgId: plan.orgId,
-      budgetIDR: budgetIDR+'',
+      budgetIDR: (budgetIDR || 0)+'',
       quantity: Number(quantity),
       unit: unit,
       parentId: plan.id,
