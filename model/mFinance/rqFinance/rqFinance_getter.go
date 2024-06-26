@@ -90,3 +90,23 @@ FROM SEQSCAN ` + ttm.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + 
 
 	return
 }
+
+func (ttm *TransactionTemplate) FindByTenantCode() (ttms *[]TransactionTemplate) {
+	const comment = `-- TransactionTemplate) FindByTenantCode`
+
+	whereAndSql := ` WHERE ` + ttm.SqlTenantCode() + ` = ` + S.Z(ttm.TenantCode)
+
+	queryRows := comment + `
+SELECT ` + ttm.SqlSelectAllFields() + `
+FROM SEQSCAN ` + ttm.SqlTableName() + whereAndSql
+
+	var rows []TransactionTemplate
+
+	ttm.Adapter.QuerySql(queryRows, func(row []any) {
+		ttm.FromArray(row)
+		rows = append(rows, *ttm)
+	})
+
+	ttms = &rows
+	return
+}

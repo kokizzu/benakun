@@ -9,6 +9,7 @@ import (
 	"benakun/domain"
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mBusiness/rqBusiness"
+	"benakun/model/mFinance/rqFinance"
 	"benakun/model/zCrud"
 )
 
@@ -136,11 +137,21 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notDataEntryLogin(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
+
+		tenantCode, err := domain.GetTenantCodeByHost(in.Host)
+		if err != nil {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		r := rqFinance.NewTransactionTemplate(d.AuthOltp)
+		r.TenantCode = tenantCode
+		trxTemplates := r.FindByTenantCode()
 		
 		return views.RenderDataEntryDashboard(ctx, M.SX{
-			`title`:    `Transaction Entry`,
+			`title`:    `Data Entry Dashboard`,
 			`user`:     user,
 			`segments`: segments,
+			`transactionTemplates`: trxTemplates,
 		})
 	})
 
@@ -343,7 +354,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.Cmd = zCrud.CmdList
 		out := d.TenantAdminInventoryChanges(&in)
 		return views.RenderTenantAdminInventoryChanges(ctx, M.SX{
-			`title`:    `Tenant Admin Bank Accounts`,
+			`title`:    `Tenant Admin Inventory Changes`,
 			`user`:     user,
 			`segments`: segments,
 			`fields`:   out.Meta.Fields,
@@ -376,7 +387,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		L.Print(`invChanges:`, )
 		
 		return views.RenderTenantAdminInventoryChangesProduct(ctx, M.SX{
-			`title`:    `Tenant Admin Bank Accounts`,
+			`title`:    `Tenant Admin Products's Inventory Changes`,
 			`user`:     user,
 			`segments`: segments,
 			`product`: product,
@@ -400,7 +411,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		
 		out := d.TenantAdminTransactionTemplate(&in)
 		return views.RenderTenantAdminTransactionTemplate(ctx, M.SX{
-			`title`:    `Tenant Admin Bank Accounts`,
+			`title`:    `Tenant Admin Transaction Template`,
 			`user`:     user,
 			`segments`: segments,
 			`pager`:    out.Pager,

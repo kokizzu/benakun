@@ -22,8 +22,6 @@
   let product = {/* product */}
   let products = /** @type any[][] */ ([/* products */]);
 
-  console.log('Fields:', fields)
-
   let isPopUpFormsReady = false;
   let popUpForms = null;
   onMount(() => {

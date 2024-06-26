@@ -4,6 +4,7 @@ import (
 	"benakun/model/mAuth/wcAuth"
 	"benakun/model/mFinance"
 	"benakun/model/mFinance/rqFinance"
+	"benakun/model/mFinance/wcFinance"
 	"benakun/model/zCrud"
 
 	"github.com/gofiber/fiber/v2"
@@ -37,13 +38,8 @@ const (
 
 	ErrTenantAdminTransactionTemplateUnauthorized   = `unauthorized user`
 	ErrTenantAdminTransactionTemplateTenantNotFound = `tenant admin not found`
-	ErrTenantAdminTransactionTemplateStaffEmailRequired = `staff email is required`
 	ErrTenantAdminTransactionTemplateUserNotFound = `user not found` 
-	ErrTenantAdminTransactionTemplateInvalidStaff = `invalid staff`
-	ErrTenantAdminTransactionTemplateEmptyState = `failed to modify staff, state is empty`
-	ErrTenantAdminTransactionTemplateFailed = `failed to update staff`
-	ErrTenantAdminTransactionTemplateNotTenant = `cannot invite user if not tenant`
-	ErrTenantAdminTransactionTemplateInvalidRole = `invalid staff role to modify`
+	ErrTenantAdminTransactionTemplateNotFound = `transaction template not found`
 )
 
 var TenantAdminTransactionTemplateMeta = zCrud.Meta{
@@ -64,11 +60,12 @@ var TenantAdminTransactionTemplateMeta = zCrud.Meta{
 			Name: mFinance.Color,
 			Label: "Warna / Color",
 			DataType: zCrud.DataTypeString,
-			InputType: zCrud.InputTypeText,
+			InputType: zCrud.InputTypeColor,
 		},
 		{
 			Name: mFinance.ImageURL,
 			Label: "Gambar / Image",
+			ReadOnly: true,
 		},
 		{
 			Name:      mFinance.CreatedAt,
@@ -111,6 +108,86 @@ func (d *Domain) TenantAdminTransactionTemplate(in *TenantAdminTransactionTempla
 
 	if in.WithMeta {
 		out.Meta = &TenantAdminTransactionTemplateMeta
+	}
+
+	switch in.Cmd {
+	case zCrud.CmdForm:
+		if in.TransactionTemplate.Id <= 0 {
+			out.Meta = &TenantAdminTransactionTemplateMeta
+			return
+		}
+
+		trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
+		trxTemplate.Id = in.TransactionTemplate.Id
+		if !trxTemplate.FindById() {
+			out.SetError(400, ErrTenantAdminTransactionTemplateNotFound)
+			return
+		}
+
+		out.TransactionTemplate = trxTemplate
+	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
+		tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
+		tenant.TenantCode = user.TenantCode
+		if !tenant.FindByTenantCode() {
+			out.SetError(400, ErrTenantAdminTransactionTemplateTenantNotFound)
+			return
+		}
+
+		trxTemplate := wcFinance.NewTransactionTemplateMutator(d.AuthOltp)
+		trxTemplate.Id = in.TransactionTemplate.Id
+		if trxTemplate.Id > 0 {
+			if !trxTemplate.FindById() {
+				out.SetError(400, ErrTenantAdminTransactionTemplateNotFound)
+				return
+			}
+			
+			if in.Cmd == zCrud.CmdDelete {
+				if trxTemplate.DeletedAt == 0 {
+					trxTemplate.SetDeletedAt(in.UnixNow())
+					trxTemplate.SetDeletedBy(sess.UserId)
+				}
+			} else if in.Cmd == zCrud.CmdRestore {
+				if trxTemplate.DeletedAt > 0 {
+					trxTemplate.SetDeletedAt(0)
+					trxTemplate.SetRestoredBy(sess.UserId)
+				}
+			}
+		} else {
+			trxTemplate.SetTenantCode(user.TenantCode)
+		}
+
+		if in.TransactionTemplate.Name != `` &&  in.TransactionTemplate.Name != trxTemplate.Name {
+			trxTemplate.SetName(in.TransactionTemplate.Name)
+		}
+
+		if in.TransactionTemplate.Color != `` && in.TransactionTemplate.Color != trxTemplate.Color {
+			trxTemplate.SetColor(in.TransactionTemplate.Color)
+		}
+
+		if trxTemplate.HaveMutation() {
+			trxTemplate.SetUpdatedAt(in.UnixNow())
+			trxTemplate.SetUpdatedBy(sess.UserId)
+			if trxTemplate.Id == 0 {
+				trxTemplate.SetCreatedAt(in.UnixNow())
+				trxTemplate.SetCreatedBy(sess.UserId)
+			}
+		}
+
+		if !trxTemplate.DoUpsertById() {
+			out.SetError(500, ErrTenantAdminProductsSaveFailed)
+		}
+
+		out.TransactionTemplate = &trxTemplate.TransactionTemplate
+
+		if in.Pager.Page == 0 {
+			break
+		}
+
+		fallthrough
+	case zCrud.CmdList:
+		r := rqFinance.NewTransactionTemplate(d.AuthOltp)
+		r.TenantCode = user.TenantCode
+		out.TransactionTemplates = r.FindByPagination(&TenantAdminTransactionTemplateMeta, &in.Pager, &out.Pager)
 	}
 
 	r := rqFinance.NewTransactionTemplate(d.AuthOltp)

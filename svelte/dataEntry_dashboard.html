@@ -622,6 +622,27 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   max-height: fit-content;
   overflow: inherit;
 }
+
+/* fakecss:./dataEntry_dashboard.esbuild-svelte-fake-css */
+.menu_container.svelte-1yfyvds.svelte-1yfyvds {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.menu_container.svelte-1yfyvds .menu_item.svelte-1yfyvds {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 120px;
+  border-radius: 10px;
+  color: #FFF;
+  border: none;
+  font-size: var(--font-lg);
+  font-weight: 600;
+  cursor: pointer;
+}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -2634,13 +2655,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance7 = bind(Axios$1.prototype.request, context);
-        utils$1.extend(instance7, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance7, context, null, { allOwnKeys: true });
-        instance7.create = function create(instanceConfig) {
+        const instance8 = bind(Axios$1.prototype.request, context);
+        utils$1.extend(instance8, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance8, context, null, { allOwnKeys: true });
+        instance8.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance7;
+        return instance8;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -3003,6 +3024,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     text2.data = /** @type {string} */
     data;
   }
+  function set_style(node, key, value, important) {
+    if (value == null) {
+      node.style.removeProperty(key);
+    } else {
+      node.style.setProperty(key, value, important ? "important" : "");
+    }
+  }
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
   }
@@ -3148,6 +3176,84 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
   }
 
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/each.js
+  function ensure_array_like(array_like_or_iterator) {
+    return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
+  }
+  function destroy_block(block, lookup) {
+    block.d(1);
+    lookup.delete(block.key);
+  }
+  function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block2, next, get_context) {
+    let o = old_blocks.length;
+    let n = list.length;
+    let i = o;
+    const old_indexes = {};
+    while (i--)
+      old_indexes[old_blocks[i].key] = i;
+    const new_blocks = [];
+    const new_lookup = /* @__PURE__ */ new Map();
+    const deltas = /* @__PURE__ */ new Map();
+    const updates = [];
+    i = n;
+    while (i--) {
+      const child_ctx = get_context(ctx, list, i);
+      const key = get_key(child_ctx);
+      let block = lookup.get(key);
+      if (!block) {
+        block = create_each_block2(key, child_ctx);
+        block.c();
+      } else if (dynamic) {
+        updates.push(() => block.p(child_ctx, dirty));
+      }
+      new_lookup.set(key, new_blocks[i] = block);
+      if (key in old_indexes)
+        deltas.set(key, Math.abs(i - old_indexes[key]));
+    }
+    const will_move = /* @__PURE__ */ new Set();
+    const did_move = /* @__PURE__ */ new Set();
+    function insert2(block) {
+      transition_in(block, 1);
+      block.m(node, next);
+      lookup.set(block.key, block);
+      next = block.first;
+      n--;
+    }
+    while (o && n) {
+      const new_block = new_blocks[n - 1];
+      const old_block = old_blocks[o - 1];
+      const new_key = new_block.key;
+      const old_key = old_block.key;
+      if (new_block === old_block) {
+        next = new_block.first;
+        o--;
+        n--;
+      } else if (!new_lookup.has(old_key)) {
+        destroy(old_block, lookup);
+        o--;
+      } else if (!lookup.has(new_key) || will_move.has(new_key)) {
+        insert2(new_block);
+      } else if (did_move.has(old_key)) {
+        o--;
+      } else if (deltas.get(new_key) > deltas.get(old_key)) {
+        did_move.add(new_key);
+        insert2(new_block);
+      } else {
+        will_move.add(old_key);
+        o--;
+      }
+    }
+    while (o--) {
+      const old_block = old_blocks[o];
+      if (!new_lookup.has(old_block.key))
+        destroy(old_block, lookup);
+    }
+    while (n)
+      insert2(new_blocks[n - 1]);
+    run_all(updates);
+    return new_blocks;
+  }
+
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/spread.js
   function get_spread_update(levels, updates) {
     const update2 = {};
@@ -3251,7 +3357,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance7, create_fragment8, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance8, create_fragment8, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3277,7 +3383,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance7 ? instance7(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance8 ? instance8(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -5152,20 +5258,94 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var mainLayout_default = MainLayout;
 
   // dataEntry_dashboard.svelte
-  function create_default_slot(ctx) {
-    let p;
+  function get_each_context(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[0] = list[i];
+    child_ctx[2] = i;
+    return child_ctx;
+  }
+  function create_each_block(key_1, ctx) {
+    let button;
+    let t0_value = (
+      /*ttm*/
+      ctx[0].name + ""
+    );
+    let t0;
+    let t1;
     return {
+      key: key_1,
+      first: null,
       c() {
-        p = element("p");
-        p.textContent = "Data Entry dashboard";
+        button = element("button");
+        t0 = text(t0_value);
+        t1 = space();
+        attr(button, "class", "menu_item svelte-1yfyvds");
+        set_style(
+          button,
+          "background-color",
+          /*ttm*/
+          ctx[0].color
+        );
+        this.first = button;
       },
       m(target, anchor) {
-        insert(target, p, anchor);
+        insert(target, button, anchor);
+        append(button, t0);
+        append(button, t1);
       },
-      p: noop,
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+      },
       d(detaching) {
         if (detaching) {
-          detach(p);
+          detach(button);
+        }
+      }
+    };
+  }
+  function create_default_slot(ctx) {
+    let div;
+    let each_blocks = [];
+    let each_1_lookup = /* @__PURE__ */ new Map();
+    let each_value = ensure_array_like(transactionTemplates || []);
+    const get_key = (ctx2) => (
+      /*ttm*/
+      ctx2[0].id
+    );
+    for (let i = 0; i < each_value.length; i += 1) {
+      let child_ctx = get_each_context(ctx, each_value, i);
+      let key = get_key(child_ctx);
+      each_1_lookup.set(key, each_blocks[i] = create_each_block(key, child_ctx));
+    }
+    return {
+      c() {
+        div = element("div");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        attr(div, "class", "menu_container svelte-1yfyvds");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(div, null);
+          }
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*transactionTemplates*/
+        0) {
+          each_value = ensure_array_like(transactionTemplates || []);
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, div, destroy_block, create_each_block, null, get_each_context);
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].d();
         }
       }
     };
@@ -5190,7 +5370,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       p(ctx2, [dirty]) {
         const mainlayout_changes = {};
         if (dirty & /*$scope*/
-        1) {
+        8) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -5210,10 +5390,18 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
+  var transactionTemplates = (
+    /** @type TransactionTemplate[] */
+    [/* transactionTemplates */]
+  );
+  function instance7($self) {
+    console.log("Transaction Templates:", transactionTemplates);
+    return [];
+  }
   var DataEntry_dashboard = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment7, safe_not_equal, {});
+      init(this, options, instance7, create_fragment7, safe_not_equal, {});
     }
   };
   var dataEntry_dashboard_default = DataEntry_dashboard;

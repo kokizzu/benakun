@@ -15,6 +15,8 @@ const (
 	UpdatedAt          = `updatedAt`
 	UpdatedBy          = `updatedBy`
 	DeletedAt          = `deletedAt`
+	DeletedBy					 = `deletedBy`
+	RestoredBy				 = `restoredBy`
 	TenantCode         = `tenantCode`
 )
 
@@ -118,6 +120,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UpdatedAt, Tt.Integer},
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
+			{DeletedBy, Tt.Unsigned},
+			{RestoredBy, Tt.Unsigned},
 		},
 		AutoIncrementId: true,
 		Engine: Tt.Vinyl,
@@ -131,6 +135,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UpdatedAt, Tt.Integer},
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
+			{DeletedBy, Tt.Unsigned},
+			{RestoredBy, Tt.Unsigned},
 			{CompletedAt, Tt.Integer},
 			{Price, Tt.Unsigned},
 			{Description, Tt.String},
@@ -151,6 +157,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UpdatedAt, Tt.Integer},
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
+			{DeletedBy, Tt.Unsigned},
+			{RestoredBy, Tt.Unsigned},
 		},
 		AutoIncrementId: true,
 		Engine: Tt.Vinyl,
@@ -166,6 +174,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UpdatedAt, Tt.Integer},
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
+			{DeletedBy, Tt.Unsigned},
+			{RestoredBy, Tt.Unsigned},
 		},
 		AutoIncrementId: true,
 		Engine: Tt.Vinyl,

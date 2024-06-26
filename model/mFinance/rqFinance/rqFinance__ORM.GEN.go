@@ -32,6 +32,8 @@ type Coa struct {
 	UpdatedAt  int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
 	UpdatedBy  uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
 	DeletedAt  int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	DeletedBy  uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
+	RestoredBy uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
 }
 
 // NewCoa create new ORM reader/query object
@@ -87,6 +89,8 @@ func (c *Coa) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
 	`
 }
 
@@ -103,6 +107,8 @@ func (c *Coa) SqlSelectAllUncensoredFields() string { //nolint:dupl false positi
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
 	`
 }
 
@@ -119,7 +125,9 @@ func (c *Coa) ToUpdateArray() *tarantool.Operations { //nolint:dupl false positi
 		Assign(7, c.CreatedBy).
 		Assign(8, c.UpdatedAt).
 		Assign(9, c.UpdatedBy).
-		Assign(10, c.DeletedAt)
+		Assign(10, c.DeletedAt).
+		Assign(11, c.DeletedBy).
+		Assign(12, c.RestoredBy)
 }
 
 // IdxId return name of the index
@@ -232,6 +240,26 @@ func (c *Coa) SqlDeletedAt() string { //nolint:dupl false positive
 	return `"deletedAt"`
 }
 
+// IdxDeletedBy return name of the index
+func (c *Coa) IdxDeletedBy() int { //nolint:dupl false positive
+	return 11
+}
+
+// SqlDeletedBy return name of the column being indexed
+func (c *Coa) SqlDeletedBy() string { //nolint:dupl false positive
+	return `"deletedBy"`
+}
+
+// IdxRestoredBy return name of the index
+func (c *Coa) IdxRestoredBy() int { //nolint:dupl false positive
+	return 12
+}
+
+// SqlRestoredBy return name of the column being indexed
+func (c *Coa) SqlRestoredBy() string { //nolint:dupl false positive
+	return `"restoredBy"`
+}
+
 // ToArray receiver fields to slice
 func (c *Coa) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -250,6 +278,8 @@ func (c *Coa) ToArray() A.X { //nolint:dupl false positive
 		c.UpdatedAt,  // 8
 		c.UpdatedBy,  // 9
 		c.DeletedAt,  // 10
+		c.DeletedBy,  // 11
+		c.RestoredBy, // 12
 	}
 }
 
@@ -266,6 +296,8 @@ func (c *Coa) FromArray(a A.X) *Coa { //nolint:dupl false positive
 	c.UpdatedAt = X.ToI(a[8])
 	c.UpdatedBy = X.ToU(a[9])
 	c.DeletedAt = X.ToI(a[10])
+	c.DeletedBy = X.ToU(a[11])
+	c.RestoredBy = X.ToU(a[12])
 	return c
 }
 
@@ -282,6 +314,8 @@ func (c *Coa) FromUncensoredArray(a A.X) *Coa { //nolint:dupl false positive
 	c.UpdatedAt = X.ToI(a[8])
 	c.UpdatedBy = X.ToU(a[9])
 	c.DeletedAt = X.ToI(a[10])
+	c.DeletedBy = X.ToU(a[11])
+	c.RestoredBy = X.ToU(a[12])
 	return c
 }
 
@@ -357,6 +391,8 @@ var CoaFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`updatedAt`:  Tt.Integer,
 	`updatedBy`:  Tt.Unsigned,
 	`deletedAt`:  Tt.Integer,
+	`deletedBy`:  Tt.Unsigned,
+	`restoredBy`: Tt.Unsigned,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
@@ -374,6 +410,8 @@ type TransactionTemplate struct {
 	UpdatedAt  int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
 	UpdatedBy  uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
 	DeletedAt  int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	DeletedBy  uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
+	RestoredBy uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
 }
 
 // NewTransactionTemplate create new ORM reader/query object
@@ -428,6 +466,8 @@ func (t *TransactionTemplate) SqlSelectAllFields() string { //nolint:dupl false 
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
 	`
 }
 
@@ -443,6 +483,8 @@ func (t *TransactionTemplate) SqlSelectAllUncensoredFields() string { //nolint:d
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
 	`
 }
 
@@ -458,7 +500,9 @@ func (t *TransactionTemplate) ToUpdateArray() *tarantool.Operations { //nolint:d
 		Assign(6, t.CreatedBy).
 		Assign(7, t.UpdatedAt).
 		Assign(8, t.UpdatedBy).
-		Assign(9, t.DeletedAt)
+		Assign(9, t.DeletedAt).
+		Assign(10, t.DeletedBy).
+		Assign(11, t.RestoredBy)
 }
 
 // IdxId return name of the index
@@ -561,6 +605,26 @@ func (t *TransactionTemplate) SqlDeletedAt() string { //nolint:dupl false positi
 	return `"deletedAt"`
 }
 
+// IdxDeletedBy return name of the index
+func (t *TransactionTemplate) IdxDeletedBy() int { //nolint:dupl false positive
+	return 10
+}
+
+// SqlDeletedBy return name of the column being indexed
+func (t *TransactionTemplate) SqlDeletedBy() string { //nolint:dupl false positive
+	return `"deletedBy"`
+}
+
+// IdxRestoredBy return name of the index
+func (t *TransactionTemplate) IdxRestoredBy() int { //nolint:dupl false positive
+	return 11
+}
+
+// SqlRestoredBy return name of the column being indexed
+func (t *TransactionTemplate) SqlRestoredBy() string { //nolint:dupl false positive
+	return `"restoredBy"`
+}
+
 // ToArray receiver fields to slice
 func (t *TransactionTemplate) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -578,6 +642,8 @@ func (t *TransactionTemplate) ToArray() A.X { //nolint:dupl false positive
 		t.UpdatedAt,  // 7
 		t.UpdatedBy,  // 8
 		t.DeletedAt,  // 9
+		t.DeletedBy,  // 10
+		t.RestoredBy, // 11
 	}
 }
 
@@ -593,6 +659,8 @@ func (t *TransactionTemplate) FromArray(a A.X) *TransactionTemplate { //nolint:d
 	t.UpdatedAt = X.ToI(a[7])
 	t.UpdatedBy = X.ToU(a[8])
 	t.DeletedAt = X.ToI(a[9])
+	t.DeletedBy = X.ToU(a[10])
+	t.RestoredBy = X.ToU(a[11])
 	return t
 }
 
@@ -608,6 +676,8 @@ func (t *TransactionTemplate) FromUncensoredArray(a A.X) *TransactionTemplate { 
 	t.UpdatedAt = X.ToI(a[7])
 	t.UpdatedBy = X.ToU(a[8])
 	t.DeletedAt = X.ToI(a[9])
+	t.DeletedBy = X.ToU(a[10])
+	t.RestoredBy = X.ToU(a[11])
 	return t
 }
 
@@ -682,6 +752,8 @@ var TransactionTemplateFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl fals
 	`updatedAt`:  Tt.Integer,
 	`updatedBy`:  Tt.Unsigned,
 	`deletedAt`:  Tt.Integer,
+	`deletedBy`:  Tt.Unsigned,
+	`restoredBy`: Tt.Unsigned,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
@@ -698,6 +770,8 @@ type TransactionTemplateDetail struct {
 	UpdatedAt  int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
 	UpdatedBy  uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
 	DeletedAt  int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	DeletedBy  uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
+	RestoredBy uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
 }
 
 // NewTransactionTemplateDetail create new ORM reader/query object
@@ -751,6 +825,8 @@ func (t *TransactionTemplateDetail) SqlSelectAllFields() string { //nolint:dupl 
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
 	`
 }
 
@@ -765,6 +841,8 @@ func (t *TransactionTemplateDetail) SqlSelectAllUncensoredFields() string { //no
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
 	`
 }
 
@@ -779,7 +857,9 @@ func (t *TransactionTemplateDetail) ToUpdateArray() *tarantool.Operations { //no
 		Assign(5, t.CreatedBy).
 		Assign(6, t.UpdatedAt).
 		Assign(7, t.UpdatedBy).
-		Assign(8, t.DeletedAt)
+		Assign(8, t.DeletedAt).
+		Assign(9, t.DeletedBy).
+		Assign(10, t.RestoredBy)
 }
 
 // IdxId return name of the index
@@ -872,6 +952,26 @@ func (t *TransactionTemplateDetail) SqlDeletedAt() string { //nolint:dupl false 
 	return `"deletedAt"`
 }
 
+// IdxDeletedBy return name of the index
+func (t *TransactionTemplateDetail) IdxDeletedBy() int { //nolint:dupl false positive
+	return 9
+}
+
+// SqlDeletedBy return name of the column being indexed
+func (t *TransactionTemplateDetail) SqlDeletedBy() string { //nolint:dupl false positive
+	return `"deletedBy"`
+}
+
+// IdxRestoredBy return name of the index
+func (t *TransactionTemplateDetail) IdxRestoredBy() int { //nolint:dupl false positive
+	return 10
+}
+
+// SqlRestoredBy return name of the column being indexed
+func (t *TransactionTemplateDetail) SqlRestoredBy() string { //nolint:dupl false positive
+	return `"restoredBy"`
+}
+
 // ToArray receiver fields to slice
 func (t *TransactionTemplateDetail) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -888,6 +988,8 @@ func (t *TransactionTemplateDetail) ToArray() A.X { //nolint:dupl false positive
 		t.UpdatedAt,  // 6
 		t.UpdatedBy,  // 7
 		t.DeletedAt,  // 8
+		t.DeletedBy,  // 9
+		t.RestoredBy, // 10
 	}
 }
 
@@ -902,6 +1004,8 @@ func (t *TransactionTemplateDetail) FromArray(a A.X) *TransactionTemplateDetail 
 	t.UpdatedAt = X.ToI(a[6])
 	t.UpdatedBy = X.ToU(a[7])
 	t.DeletedAt = X.ToI(a[8])
+	t.DeletedBy = X.ToU(a[9])
+	t.RestoredBy = X.ToU(a[10])
 	return t
 }
 
@@ -916,6 +1020,8 @@ func (t *TransactionTemplateDetail) FromUncensoredArray(a A.X) *TransactionTempl
 	t.UpdatedAt = X.ToI(a[6])
 	t.UpdatedBy = X.ToU(a[7])
 	t.DeletedAt = X.ToI(a[8])
+	t.DeletedBy = X.ToU(a[9])
+	t.RestoredBy = X.ToU(a[10])
 	return t
 }
 
@@ -989,6 +1095,8 @@ var TransactionTemplateDetailFieldTypeMap = map[string]Tt.DataType{ //nolint:dup
 	`updatedAt`:  Tt.Integer,
 	`updatedBy`:  Tt.Unsigned,
 	`deletedAt`:  Tt.Integer,
+	`deletedBy`:  Tt.Unsigned,
+	`restoredBy`: Tt.Unsigned,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
@@ -1003,6 +1111,8 @@ type Transactions struct {
 	UpdatedAt    int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
 	UpdatedBy    uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
 	DeletedAt    int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	DeletedBy    uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
+	RestoredBy   uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
 	CompletedAt  int64       `json:"completedAt" form:"completedAt" query:"completedAt" long:"completedAt" msg:"completedAt"`
 	Price        uint64      `json:"price" form:"price" query:"price" long:"price" msg:"price"`
 	Descriptions string      `json:"descriptions" form:"descriptions" query:"descriptions" long:"descriptions" msg:"descriptions"`
@@ -1058,6 +1168,8 @@ func (t *Transactions) SqlSelectAllFields() string { //nolint:dupl false positiv
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
 	, "completedAt"
 	, "price"
 	, "descriptions"
@@ -1074,6 +1186,8 @@ func (t *Transactions) SqlSelectAllUncensoredFields() string { //nolint:dupl fal
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
 	, "completedAt"
 	, "price"
 	, "descriptions"
@@ -1091,10 +1205,12 @@ func (t *Transactions) ToUpdateArray() *tarantool.Operations { //nolint:dupl fal
 		Assign(4, t.UpdatedAt).
 		Assign(5, t.UpdatedBy).
 		Assign(6, t.DeletedAt).
-		Assign(7, t.CompletedAt).
-		Assign(8, t.Price).
-		Assign(9, t.Descriptions).
-		Assign(10, t.Qty)
+		Assign(7, t.DeletedBy).
+		Assign(8, t.RestoredBy).
+		Assign(9, t.CompletedAt).
+		Assign(10, t.Price).
+		Assign(11, t.Descriptions).
+		Assign(12, t.Qty)
 }
 
 // IdxId return name of the index
@@ -1167,9 +1283,29 @@ func (t *Transactions) SqlDeletedAt() string { //nolint:dupl false positive
 	return `"deletedAt"`
 }
 
+// IdxDeletedBy return name of the index
+func (t *Transactions) IdxDeletedBy() int { //nolint:dupl false positive
+	return 7
+}
+
+// SqlDeletedBy return name of the column being indexed
+func (t *Transactions) SqlDeletedBy() string { //nolint:dupl false positive
+	return `"deletedBy"`
+}
+
+// IdxRestoredBy return name of the index
+func (t *Transactions) IdxRestoredBy() int { //nolint:dupl false positive
+	return 8
+}
+
+// SqlRestoredBy return name of the column being indexed
+func (t *Transactions) SqlRestoredBy() string { //nolint:dupl false positive
+	return `"restoredBy"`
+}
+
 // IdxCompletedAt return name of the index
 func (t *Transactions) IdxCompletedAt() int { //nolint:dupl false positive
-	return 7
+	return 9
 }
 
 // SqlCompletedAt return name of the column being indexed
@@ -1179,7 +1315,7 @@ func (t *Transactions) SqlCompletedAt() string { //nolint:dupl false positive
 
 // IdxPrice return name of the index
 func (t *Transactions) IdxPrice() int { //nolint:dupl false positive
-	return 8
+	return 10
 }
 
 // SqlPrice return name of the column being indexed
@@ -1189,7 +1325,7 @@ func (t *Transactions) SqlPrice() string { //nolint:dupl false positive
 
 // IdxDescriptions return name of the index
 func (t *Transactions) IdxDescriptions() int { //nolint:dupl false positive
-	return 9
+	return 11
 }
 
 // SqlDescriptions return name of the column being indexed
@@ -1199,7 +1335,7 @@ func (t *Transactions) SqlDescriptions() string { //nolint:dupl false positive
 
 // IdxQty return name of the index
 func (t *Transactions) IdxQty() int { //nolint:dupl false positive
-	return 10
+	return 12
 }
 
 // SqlQty return name of the column being indexed
@@ -1221,10 +1357,12 @@ func (t *Transactions) ToArray() A.X { //nolint:dupl false positive
 		t.UpdatedAt,    // 4
 		t.UpdatedBy,    // 5
 		t.DeletedAt,    // 6
-		t.CompletedAt,  // 7
-		t.Price,        // 8
-		t.Descriptions, // 9
-		t.Qty,          // 10
+		t.DeletedBy,    // 7
+		t.RestoredBy,   // 8
+		t.CompletedAt,  // 9
+		t.Price,        // 10
+		t.Descriptions, // 11
+		t.Qty,          // 12
 	}
 }
 
@@ -1237,10 +1375,12 @@ func (t *Transactions) FromArray(a A.X) *Transactions { //nolint:dupl false posi
 	t.UpdatedAt = X.ToI(a[4])
 	t.UpdatedBy = X.ToU(a[5])
 	t.DeletedAt = X.ToI(a[6])
-	t.CompletedAt = X.ToI(a[7])
-	t.Price = X.ToU(a[8])
-	t.Descriptions = X.ToS(a[9])
-	t.Qty = X.ToI(a[10])
+	t.DeletedBy = X.ToU(a[7])
+	t.RestoredBy = X.ToU(a[8])
+	t.CompletedAt = X.ToI(a[9])
+	t.Price = X.ToU(a[10])
+	t.Descriptions = X.ToS(a[11])
+	t.Qty = X.ToI(a[12])
 	return t
 }
 
@@ -1253,10 +1393,12 @@ func (t *Transactions) FromUncensoredArray(a A.X) *Transactions { //nolint:dupl 
 	t.UpdatedAt = X.ToI(a[4])
 	t.UpdatedBy = X.ToU(a[5])
 	t.DeletedAt = X.ToI(a[6])
-	t.CompletedAt = X.ToI(a[7])
-	t.Price = X.ToU(a[8])
-	t.Descriptions = X.ToS(a[9])
-	t.Qty = X.ToI(a[10])
+	t.DeletedBy = X.ToU(a[7])
+	t.RestoredBy = X.ToU(a[8])
+	t.CompletedAt = X.ToI(a[9])
+	t.Price = X.ToU(a[10])
+	t.Descriptions = X.ToS(a[11])
+	t.Qty = X.ToI(a[12])
 	return t
 }
 
@@ -1328,6 +1470,8 @@ var TransactionsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false posit
 	`updatedAt`:    Tt.Integer,
 	`updatedBy`:    Tt.Unsigned,
 	`deletedAt`:    Tt.Integer,
+	`deletedBy`:    Tt.Unsigned,
+	`restoredBy`:   Tt.Unsigned,
 	`completedAt`:  Tt.Integer,
 	`price`:        Tt.Unsigned,
 	`descriptions`: Tt.String,

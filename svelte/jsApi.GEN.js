@@ -1568,6 +1568,8 @@ const TenantAdminMoveCoaChildIn = {
  * @property {number} coa.updatedAt
  * @property {number} coa.updatedBy
  * @property {number} coa.deletedAt
+ * @property {number} coa.deletedBy
+ * @property {number} coa.restoredBy
  * @property {Object} coas
  */
 const TenantAdminMoveCoaChildOut = {
@@ -1584,6 +1586,8 @@ const TenantAdminMoveCoaChildOut = {
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
   }, // rqFinance.Coa
   coas: { // []rqFinance.Coa
   }, // []rqFinance.Coa
@@ -1915,20 +1919,26 @@ exports.TenantAdminTransaction = async function TenantAdminTransaction( i, cb ) 
 /**
  * @typedef {Object} TenantAdminTransactionTemplateIn
  * @property {String} cmd
- * @property {String} staffEmail
- * @property {String} tenantCode
- * @property {String} role
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
  * @property {Object} pager.filters
  * @property {Array<String>} pager.order
+ * @property {number} transactionTemplate.id
+ * @property {String} transactionTemplate.tenantCode
+ * @property {String} transactionTemplate.name
+ * @property {String} transactionTemplate.color
+ * @property {String} transactionTemplate.imageURL
+ * @property {number} transactionTemplate.createdAt
+ * @property {number} transactionTemplate.createdBy
+ * @property {number} transactionTemplate.updatedAt
+ * @property {number} transactionTemplate.updatedBy
+ * @property {number} transactionTemplate.deletedAt
+ * @property {number} transactionTemplate.deletedBy
+ * @property {number} transactionTemplate.restoredBy
  */
 const TenantAdminTransactionTemplateIn = {
   cmd: '', // string
-  staffEmail: '', // string
-  tenantCode: '', // string
-  role: '', // string
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
     page: 0, // int
@@ -1937,6 +1947,20 @@ const TenantAdminTransactionTemplateIn = {
     }, // map[string][]string
     order: [], // []string
   }, // zCrud.PagerIn
+  transactionTemplate: { // rqFinance.TransactionTemplate
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    color: '', // string
+    imageURL: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+  }, // rqFinance.TransactionTemplate
 }
 /**
  * @typedef {Object} TenantAdminTransactionTemplateOut
@@ -1949,8 +1973,19 @@ const TenantAdminTransactionTemplateIn = {
  * @property {Object} meta.fields
  * @property {Object} meta.mutex
  * @property {String} meta.cachedSelect
- * @property {Object} staffs
- * @property {Object} staffsForm
+ * @property {Object} transactionTemplates
+ * @property {number} transactionTemplate.id
+ * @property {String} transactionTemplate.tenantCode
+ * @property {String} transactionTemplate.name
+ * @property {String} transactionTemplate.color
+ * @property {String} transactionTemplate.imageURL
+ * @property {number} transactionTemplate.createdAt
+ * @property {number} transactionTemplate.createdBy
+ * @property {number} transactionTemplate.updatedAt
+ * @property {number} transactionTemplate.updatedBy
+ * @property {number} transactionTemplate.deletedAt
+ * @property {number} transactionTemplate.deletedBy
+ * @property {number} transactionTemplate.restoredBy
  */
 const TenantAdminTransactionTemplateOut = {
   pager: { // zCrud.PagerOut
@@ -1969,10 +2004,22 @@ const TenantAdminTransactionTemplateOut = {
     }, // sync.Mutex
     cachedSelect: '', // string
   }, // zCrud.Meta
-  staffs: { // [][]any
+  transactionTemplates: { // [][]any
   }, // [][]any
-  staffsForm: { // []rqAuth.Staff
-  }, // []rqAuth.Staff
+  transactionTemplate: { // rqFinance.TransactionTemplate
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    color: '', // string
+    imageURL: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+  }, // rqFinance.TransactionTemplate
 }
 /**
  * @callback TenantAdminTransactionTemplateCallback
@@ -2003,6 +2050,8 @@ exports.TenantAdminTransactionTemplate = async function TenantAdminTransactionTe
  * @property {number} coa.updatedAt
  * @property {number} coa.updatedBy
  * @property {number} coa.deletedAt
+ * @property {number} coa.deletedBy
+ * @property {number} coa.restoredBy
  */
 const TenantAdminUpsertCoaChildIn = {
   coa: { // rqFinance.Coa
@@ -2018,6 +2067,8 @@ const TenantAdminUpsertCoaChildIn = {
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
   }, // rqFinance.Coa
 }
 /**

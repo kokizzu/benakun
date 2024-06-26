@@ -2348,6 +2348,12 @@
 												},
 												"deletedAt": {
 														"type": "number"
+												},
+												"deletedBy": {
+														"type": "number"
+												},
+												"restoredBy": {
+														"type": "number"
 												}
 												}
 										},
@@ -2828,15 +2834,6 @@
 						"cmd": {
 								"type": "string"
 						},
-						"staffEmail": {
-								"type": "string"
-						},
-						"tenantCode": {
-								"type": "string"
-						},
-						"role": {
-								"type": "string"
-						},
 						"withMeta": {
 							"type": "boolean"
 						},
@@ -2860,6 +2857,47 @@
 												"type": "string"
 											}
 										}
+								}
+						},
+						"transactionTemplate": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"name": {
+										"type": "string"
+								},
+								"color": {
+										"type": "string"
+								},
+								"imageURL": {
+										"type": "string"
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"deletedBy": {
+										"type": "number"
+								},
+								"restoredBy": {
+										"type": "number"
+								}
 								}
 						}
 								}
@@ -2921,14 +2959,50 @@
 												}
 												}
 										},
-										"staffs": {
+										"transactionTemplates": {
 										"type": "object",
 										"properties": {
 												}
 										},
-										"staffsForm": {
+										"transactionTemplate": {
 										"type": "object",
 										"properties": {
+												"id": {
+														"type": "number"
+												},
+												"tenantCode": {
+														"type": "string"
+												},
+												"name": {
+														"type": "string"
+												},
+												"color": {
+														"type": "string"
+												},
+												"imageURL": {
+														"type": "string"
+												},
+												"createdAt": {
+														"type": "number"
+												},
+												"createdBy": {
+														"type": "number"
+												},
+												"updatedAt": {
+														"type": "number"
+												},
+												"updatedBy": {
+														"type": "number"
+												},
+												"deletedAt": {
+														"type": "number"
+												},
+												"deletedBy": {
+														"type": "number"
+												},
+												"restoredBy": {
+														"type": "number"
+												}
 												}
 										}
 									}
@@ -2986,6 +3060,12 @@
 										"type": "number"
 								},
 								"deletedAt": {
+										"type": "number"
+								},
+								"deletedBy": {
+										"type": "number"
+								},
+								"restoredBy": {
 										"type": "number"
 								}
 								}

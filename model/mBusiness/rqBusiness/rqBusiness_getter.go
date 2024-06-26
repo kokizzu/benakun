@@ -119,7 +119,7 @@ FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	return
 }
 
-func (ic *InventoryChanges) FindByTenantCodeByProductId() (ics []*InventoryChanges) {
+func (ic *InventoryChanges) FindByTenantCodeByProductId() (ics *[]InventoryChanges) {
 	const comment = `-- InventoryChanges) FindByProductId`
 
 	whereAndSql := ` WHERE ` + ic.SqlTenantCode() + ` = ` + S.Z(ic.TenantCode) + `
@@ -129,9 +129,13 @@ func (ic *InventoryChanges) FindByTenantCodeByProductId() (ics []*InventoryChang
 SELECT ` + ic.SqlSelectAllFields() + `
 FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql
 
+	var rows []InventoryChanges
+
 	ic.Adapter.QuerySql(queryRows, func(row []any) {
 		ic.FromArray(row)
-		ics = append(ics, ic)
+		rows = append(rows, *ic)
 	})
+
+	ics = &rows
 	return
 }

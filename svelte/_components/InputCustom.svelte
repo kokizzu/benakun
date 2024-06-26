@@ -96,6 +96,11 @@
           {/if}
         </button>
       {/if}
+    {:else if type === 'color'}
+      <label class="label" for={id}>{label}</label>
+      <div class="color_box">
+        <input type="color" bind:value={value} {id} class="color-input"/>
+      </div>
     {:else}
       <label class="label" for={id}>{label}</label>
       <input type="text" bind:value={value} {id} {placeholder}/>
@@ -141,6 +146,32 @@
   .input_box textarea:focus {
     border-color: var(--sky-005);
     outline: 1px solid var(--sky-005);
+  }
+
+  .color_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+
+  .color-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100px !important;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0 !important;
+  }
+  .color-input::-webkit-color-swatch {
+    border-radius: 5px;
+    border: none;
+  }
+  .color-input::-moz-color-swatch {
+    border-radius: 5px;
+    border: none;
   }
 
   .input_box textarea {

@@ -230,6 +230,28 @@ func (c *CoaMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	return false
 }
 
+// SetDeletedBy create mutations, should not duplicate
+func (c *CoaMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
+	if val != c.DeletedBy {
+		c.mutations.Assign(11, val)
+		c.logs = append(c.logs, A.X{`deletedBy`, c.DeletedBy, val})
+		c.DeletedBy = val
+		return true
+	}
+	return false
+}
+
+// SetRestoredBy create mutations, should not duplicate
+func (c *CoaMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
+	if val != c.RestoredBy {
+		c.mutations.Assign(12, val)
+		c.logs = append(c.logs, A.X{`restoredBy`, c.RestoredBy, val})
+		c.RestoredBy = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (c *CoaMutator) SetAll(from rqFinance.Coa, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -280,6 +302,14 @@ func (c *CoaMutator) SetAll(from rqFinance.Coa, excludeMap, forceMap M.SB) (chan
 	}
 	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
 		c.DeletedAt = from.DeletedAt
+		changed = true
+	}
+	if !excludeMap[`deletedBy`] && (forceMap[`deletedBy`] || from.DeletedBy != 0) {
+		c.DeletedBy = from.DeletedBy
+		changed = true
+	}
+	if !excludeMap[`restoredBy`] && (forceMap[`restoredBy`] || from.RestoredBy != 0) {
+		c.RestoredBy = from.RestoredBy
 		changed = true
 	}
 	return
@@ -488,6 +518,28 @@ func (t *TransactionTemplateMutator) SetDeletedAt(val int64) bool { //nolint:dup
 	return false
 }
 
+// SetDeletedBy create mutations, should not duplicate
+func (t *TransactionTemplateMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
+	if val != t.DeletedBy {
+		t.mutations.Assign(10, val)
+		t.logs = append(t.logs, A.X{`deletedBy`, t.DeletedBy, val})
+		t.DeletedBy = val
+		return true
+	}
+	return false
+}
+
+// SetRestoredBy create mutations, should not duplicate
+func (t *TransactionTemplateMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
+	if val != t.RestoredBy {
+		t.mutations.Assign(11, val)
+		t.logs = append(t.logs, A.X{`restoredBy`, t.RestoredBy, val})
+		t.RestoredBy = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (t *TransactionTemplateMutator) SetAll(from rqFinance.TransactionTemplate, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -534,6 +586,14 @@ func (t *TransactionTemplateMutator) SetAll(from rqFinance.TransactionTemplate, 
 	}
 	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
 		t.DeletedAt = from.DeletedAt
+		changed = true
+	}
+	if !excludeMap[`deletedBy`] && (forceMap[`deletedBy`] || from.DeletedBy != 0) {
+		t.DeletedBy = from.DeletedBy
+		changed = true
+	}
+	if !excludeMap[`restoredBy`] && (forceMap[`restoredBy`] || from.RestoredBy != 0) {
+		t.RestoredBy = from.RestoredBy
 		changed = true
 	}
 	return
@@ -731,6 +791,28 @@ func (t *TransactionTemplateDetailMutator) SetDeletedAt(val int64) bool { //noli
 	return false
 }
 
+// SetDeletedBy create mutations, should not duplicate
+func (t *TransactionTemplateDetailMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
+	if val != t.DeletedBy {
+		t.mutations.Assign(9, val)
+		t.logs = append(t.logs, A.X{`deletedBy`, t.DeletedBy, val})
+		t.DeletedBy = val
+		return true
+	}
+	return false
+}
+
+// SetRestoredBy create mutations, should not duplicate
+func (t *TransactionTemplateDetailMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
+	if val != t.RestoredBy {
+		t.mutations.Assign(10, val)
+		t.logs = append(t.logs, A.X{`restoredBy`, t.RestoredBy, val})
+		t.RestoredBy = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (t *TransactionTemplateDetailMutator) SetAll(from rqFinance.TransactionTemplateDetail, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -773,6 +855,14 @@ func (t *TransactionTemplateDetailMutator) SetAll(from rqFinance.TransactionTemp
 	}
 	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
 		t.DeletedAt = from.DeletedAt
+		changed = true
+	}
+	if !excludeMap[`deletedBy`] && (forceMap[`deletedBy`] || from.DeletedBy != 0) {
+		t.DeletedBy = from.DeletedBy
+		changed = true
+	}
+	if !excludeMap[`restoredBy`] && (forceMap[`restoredBy`] || from.RestoredBy != 0) {
+		t.RestoredBy = from.RestoredBy
 		changed = true
 	}
 	return
@@ -948,10 +1038,32 @@ func (t *TransactionsMutator) SetDeletedAt(val int64) bool { //nolint:dupl false
 	return false
 }
 
+// SetDeletedBy create mutations, should not duplicate
+func (t *TransactionsMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
+	if val != t.DeletedBy {
+		t.mutations.Assign(7, val)
+		t.logs = append(t.logs, A.X{`deletedBy`, t.DeletedBy, val})
+		t.DeletedBy = val
+		return true
+	}
+	return false
+}
+
+// SetRestoredBy create mutations, should not duplicate
+func (t *TransactionsMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
+	if val != t.RestoredBy {
+		t.mutations.Assign(8, val)
+		t.logs = append(t.logs, A.X{`restoredBy`, t.RestoredBy, val})
+		t.RestoredBy = val
+		return true
+	}
+	return false
+}
+
 // SetCompletedAt create mutations, should not duplicate
 func (t *TransactionsMutator) SetCompletedAt(val int64) bool { //nolint:dupl false positive
 	if val != t.CompletedAt {
-		t.mutations.Assign(7, val)
+		t.mutations.Assign(9, val)
 		t.logs = append(t.logs, A.X{`completedAt`, t.CompletedAt, val})
 		t.CompletedAt = val
 		return true
@@ -962,7 +1074,7 @@ func (t *TransactionsMutator) SetCompletedAt(val int64) bool { //nolint:dupl fal
 // SetPrice create mutations, should not duplicate
 func (t *TransactionsMutator) SetPrice(val uint64) bool { //nolint:dupl false positive
 	if val != t.Price {
-		t.mutations.Assign(8, val)
+		t.mutations.Assign(10, val)
 		t.logs = append(t.logs, A.X{`price`, t.Price, val})
 		t.Price = val
 		return true
@@ -973,7 +1085,7 @@ func (t *TransactionsMutator) SetPrice(val uint64) bool { //nolint:dupl false po
 // SetDescriptions create mutations, should not duplicate
 func (t *TransactionsMutator) SetDescriptions(val string) bool { //nolint:dupl false positive
 	if val != t.Descriptions {
-		t.mutations.Assign(9, val)
+		t.mutations.Assign(11, val)
 		t.logs = append(t.logs, A.X{`descriptions`, t.Descriptions, val})
 		t.Descriptions = val
 		return true
@@ -984,7 +1096,7 @@ func (t *TransactionsMutator) SetDescriptions(val string) bool { //nolint:dupl f
 // SetQty create mutations, should not duplicate
 func (t *TransactionsMutator) SetQty(val int64) bool { //nolint:dupl false positive
 	if val != t.Qty {
-		t.mutations.Assign(10, val)
+		t.mutations.Assign(12, val)
 		t.logs = append(t.logs, A.X{`qty`, t.Qty, val})
 		t.Qty = val
 		return true
@@ -1026,6 +1138,14 @@ func (t *TransactionsMutator) SetAll(from rqFinance.Transactions, excludeMap, fo
 	}
 	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
 		t.DeletedAt = from.DeletedAt
+		changed = true
+	}
+	if !excludeMap[`deletedBy`] && (forceMap[`deletedBy`] || from.DeletedBy != 0) {
+		t.DeletedBy = from.DeletedBy
+		changed = true
+	}
+	if !excludeMap[`restoredBy`] && (forceMap[`restoredBy`] || from.RestoredBy != 0) {
+		t.RestoredBy = from.RestoredBy
 		changed = true
 	}
 	if !excludeMap[`completedAt`] && (forceMap[`completedAt`] || from.CompletedAt != 0) {
