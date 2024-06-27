@@ -12,7 +12,7 @@
 </script>
 
 <MainLayout>
-  <div>
+  <div class="product_inventory">
     <div class="product_container">
       <h4>Product detail</h4>
       <div class="product_detail">
@@ -43,10 +43,23 @@
         </div>
       </div>
     </div>
+    <div class="inventory_changes_container">
+      {#each (inventoryChanges || []) as invChange, _ (invChange.id)}
+        <div>
+          {invChange.stockDelta}
+        </div>
+      {/each}
+    </div>
   </div>
 </MainLayout>
 
 <style>
+  .product_inventory {
+    display: flex;
+    flex-direction: column;
+    gap: 20px
+  }
+  
   .product_container {
     display: flex;
     flex-direction: column;

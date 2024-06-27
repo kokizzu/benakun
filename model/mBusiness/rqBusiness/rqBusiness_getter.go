@@ -96,10 +96,14 @@ func (ic *InventoryChanges) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn
 
 	validFields := InventoryChangesFieldTypeMap
 	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
+	whereAndSql2 := `AND ` + ic.SqlTenantCode() + ` = ` + S.Z(ic.TenantCode)
+	if whereAndSql == `` {
+		whereAndSql2 = ` WHERE ` + ic.SqlTenantCode() + ` = ` + S.Z(ic.TenantCode)
+	}
 
 	queryCount := comment + `
 SELECT COUNT(1)
-FROM SEQSCAN ` +ic.SqlTableName() + whereAndSql + `
+FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + `
 LIMIT 1`
 	ic.Adapter.QuerySql(queryCount, func(row []any) {
 		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
@@ -110,7 +114,7 @@ LIMIT 1`
 
 	queryRows := comment + `
 SELECT ` + meta.ToSelect() + `
-FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
 	ic.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
