@@ -1,14 +1,130 @@
 <script>
   import MainLayout from '../../_layouts/mainLayout.svelte';
+  import MasterTable from '../../_components/MasterTable.svelte';
+  import { TenantAdminInventoryChangesProduct } from '../../jsApi.GEN';
+  import { notifier } from '../../_components/notifier';
   
+  /** @typedef {import('../../_components/types/master.js').Field} Field */
+	/** @typedef {import('../../_components/types/access.js').Access} Access */
+  /** @typedef {import('../../_components/types/master.js').PagerIn} PagerIn */
+	/** @typedef {import('../../_components/types/master.js').PagerOut} PagerOut */
+  /** @typedef {import('../../_components/types/user.js').User} User */
   /** @typedef {import('../../_components/types/inventory').InventoryChanges} InventoryChanges */
   /** @typedef {import('../../_components/types/product').Product} Product */
 
+  let segments = /** @type Access */ ({/* segments */});
+  let user = /** @type User */ ({/* user */});
+  let fields = /** @type Field[] */ ([/* fields */]);
+  let pager = /** @type PagerOut */ ({/* pager */});
   let product = /** @type Product */ ({/* product */});
-  let inventoryChanges = /** @type InventoryChanges[] */ ([/* inventoryChanges */]);
+  let inventoryChanges = /** @type any[][] */ ([/* inventoryChanges */]);
 
-  console.log('Product:', product);
-  console.log('Inventory Changes:', inventoryChanges);
+  let cogsIDR = new Intl.NumberFormat('id', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0, // to ensure no decimal places
+    maximumFractionDigits: 0  // to ensure no decimal places
+  }).format(Number(product.cogsIDR) || 0);
+
+  async function OnRefresh(/** @type PagerIn */ pagerIn) {
+    const i = { pager: pagerIn, cmd: 'list' };
+    await TenantAdminInventoryChangesProduct( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminInventoryChangesCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+        pager = o.pager;
+        inventoryChanges = o.inventoryChanges;
+      }
+    );
+  }
+
+  async function OnRestore(/** @type any[] */ row) {
+    const i = {
+      pager,
+      inventoryChange: {
+        id: row[0]
+      },
+      cmd: 'restore'
+    };
+    await TenantAdminInventoryChangesProduct( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+
+        pager = o.pager;
+        inventoryChanges = o.inventoryChanges;
+        notifier.showSuccess(row[1]+' restored')
+
+        OnRefresh(pager);
+      }
+    );
+  }
+
+  async function OnDelete(/** @type any[] */ row) {
+    const i = {
+      pager,
+      inventoryChange: {
+        id: row[0]
+      },
+      cmd: 'delete'
+    };
+    await TenantAdminInventoryChangesProduct( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+
+        pager = o.pager;
+        inventoryChanges = o.inventoryChanges;
+        notifier.showSuccess('inventoryChange deleted')
+
+        OnRefresh(pager);
+      }
+    );
+  }
+
+  async function OnEdit(/** @type any */ id, /** @type any[]*/ payloads) {
+    const inventoryChange = {
+      id: id,
+      stockDelta: payloads[1],
+    }
+
+    const i = {
+      pager, inventoryChange,
+      cmd: 'upsert'
+    };
+    await TenantAdminInventoryChangesProduct( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+
+        pager = o.pager;
+        inventoryChanges = o.inventoryChanges;
+        notifier.showSuccess('inventoryChange edited')
+
+        OnRefresh(pager);
+      }
+    );
+  }
 </script>
 
 <MainLayout>
@@ -39,17 +155,30 @@
         <div class="detail">
           <span class="label">Cogs IDR</span>
           <span>:</span>
-          <p>{product.cogsIDR}</p>
+          <p>{cogsIDR}</p>
         </div>
       </div>
     </div>
-    <div class="inventory_changes_container">
-      {#each (inventoryChanges || []) as invChange, _ (invChange.id)}
-        <div>
-          {invChange.stockDelta}
-        </div>
-      {/each}
-    </div>
+    <MasterTable
+      ACCESS={segments}
+      bind:FIELDS={fields}
+      bind:PAGER={pager}
+      bind:MASTER_ROWS={inventoryChanges}
+
+      CAN_EDIT_ROW
+      CAN_SEARCH_ROW
+      CAN_DELETE_ROW
+      CAN_RESTORE_ROW
+      CAN_OPEN_LINK
+
+      LINK_PATH='/tenantAdmin/inventoryChanges/'
+      IDX_ID_LINK={2}
+
+      {OnDelete}
+      {OnEdit}
+      {OnRefresh}
+      {OnRestore}
+    />
   </div>
 </MainLayout>
 

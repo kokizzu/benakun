@@ -4,6 +4,7 @@ import (
 	"benakun/model/zCrud"
 
 	"github.com/kokizzu/gotro/I"
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 )
@@ -119,6 +120,40 @@ FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + l
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
 	})
+
+	return
+}
+
+func (ic *InventoryChanges) FindByPaginationByProduct(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
+	const comment = `-- InventoryChanges) FindByPagination`
+
+	validFields := InventoryChangesFieldTypeMap
+	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
+	whereAndSql2 := `AND ` + ic.SqlTenantCode() + ` = ` + S.Z(ic.TenantCode) + ` AND ` + ic.SqlProductId() + ` = ` + I.UToS(ic.ProductId)
+	if whereAndSql == `` {
+		whereAndSql2 = ` WHERE ` + ic.SqlTenantCode() + ` = ` + S.Z(ic.TenantCode) + ` AND ` + ic.SqlProductId() + ` = ` + I.UToS(ic.ProductId)
+	}
+
+	queryCount := comment + `
+SELECT COUNT(1)
+FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + `
+LIMIT 1`
+	ic.Adapter.QuerySql(queryCount, func(row []any) {
+		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
+	})
+
+	orderBySql := out.OrderBySqlTt(in.Order, validFields)
+	limitOffsetSql := out.LimitOffsetSql()
+
+	queryRows := comment + `
+SELECT ` + meta.ToSelect() + `
+FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
+	ic.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
+	L.Print(`Query:`, queryRows)
 
 	return
 }
