@@ -4245,7 +4245,7 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
         return await axios.post("/tenantAdmin/inventoryChanges", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminInventoryChangesProduct = async function TenantAdminInventoryChangesProduct(i, cb) {
-        return await axios.post("/tenantAdmin/inventoryChanges/:productId", i).then(wrapOk(cb)).catch(wrapErr(cb));
+        return await axios.post("/tenantAdmin/inventoryChanges/", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminLocations = async function TenantAdminLocations(i, cb) {
         return await axios.post("/tenantAdmin/locations", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -31790,9 +31790,11 @@ uniform ${i3} ${a3} u_${s3};
         27,
         payloads = []
       );
-      FIELDS.forEach((_, i) => {
-        $invalidate(27, payloads = [...payloads, row[i]]);
-      });
+      if (FIELDS && FIELDS.length > 0) {
+        for (let i in FIELDS) {
+          $invalidate(27, payloads = [...payloads, row[i]]);
+        }
+      }
       $invalidate(18, showPopUp = true);
       idToMod = id;
     }

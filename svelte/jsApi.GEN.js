@@ -1269,6 +1269,7 @@ exports.TenantAdminDeleteOrganizationChild = async function TenantAdminDeleteOrg
 /**
  * @typedef {Object} TenantAdminInventoryChangesIn
  * @property {String} cmd
+ * @property {number} productId
  * @property {number} inventoryChange.id
  * @property {String} inventoryChange.tenantCode
  * @property {number} inventoryChange.createdAt
@@ -1291,6 +1292,7 @@ exports.TenantAdminDeleteOrganizationChild = async function TenantAdminDeleteOrg
  */
 const TenantAdminInventoryChangesIn = {
   cmd: '', // string
+  productId: 0, // uint64
   inventoryChange: { // rqBusiness.InventoryChanges
     id: 0, // uint64
     tenantCode: '', // string
@@ -1367,88 +1369,13 @@ exports.TenantAdminInventoryChanges = async function TenantAdminInventoryChanges
 
 /**
  * @typedef {Object} TenantAdminInventoryChangesProductIn
- * @property {String} cmd
- * @property {number} productId
- * @property {number} inventoryChange.id
- * @property {String} inventoryChange.tenantCode
- * @property {number} inventoryChange.createdAt
- * @property {number} inventoryChange.createdBy
- * @property {number} inventoryChange.updatedAt
- * @property {number} inventoryChange.updatedBy
- * @property {number} inventoryChange.deletedAt
- * @property {number} inventoryChange.deletedBy
- * @property {number} inventoryChange.restoredBy
- * @property {number} inventoryChange.stockDelta
- * @property {number} inventoryChange.productId
- * @property {number} inventoryChange.locationId
- * @property {number} inventoryChange.spendingId
- * @property {number} inventoryChange.expenseId
- * @property {Object} withMeta
- * @property {number} pager.page
- * @property {number} pager.perPage
- * @property {Object} pager.filters
- * @property {Array<String>} pager.order
  */
 const TenantAdminInventoryChangesProductIn = {
-  cmd: '', // string
-  productId: 0, // uint64
-  inventoryChange: { // rqBusiness.InventoryChanges
-    id: 0, // uint64
-    tenantCode: '', // string
-    createdAt: 0, // int64
-    createdBy: 0, // uint64
-    updatedAt: 0, // int64
-    updatedBy: 0, // uint64
-    deletedAt: 0, // int64
-    deletedBy: 0, // uint64
-    restoredBy: 0, // uint64
-    stockDelta: 0, // uint64
-    productId: 0, // uint64
-    locationId: 0, // uint64
-    spendingId: 0, // uint64
-    expenseId: 0, // uint64
-  }, // rqBusiness.InventoryChanges
-  withMeta: false, // bool
-  pager: { // zCrud.PagerIn
-    page: 0, // int
-    perPage: 0, // int
-    filters: { // map[string][]string
-    }, // map[string][]string
-    order: [], // []string
-  }, // zCrud.PagerIn
 }
 /**
  * @typedef {Object} TenantAdminInventoryChangesProductOut
- * @property {number} pager.page
- * @property {number} pager.perPage
- * @property {number} pager.pages
- * @property {number} pager.total
- * @property {Object} pager.filters
- * @property {Array<String>} pager.order
- * @property {Object} meta.fields
- * @property {Object} meta.mutex
- * @property {String} meta.cachedSelect
- * @property {Object} inventoryChanges
  */
 const TenantAdminInventoryChangesProductOut = {
-  pager: { // zCrud.PagerOut
-    page: 0, // int
-    perPage: 0, // int
-    pages: 0, // int
-    total: 0, // int
-    filters: { // map[string][]string
-    }, // map[string][]string
-    order: [], // []string
-  }, // zCrud.PagerOut
-  meta: { // zCrud.Meta
-    fields: { // []Field
-    }, // []Field
-    mutex: { // sync.Mutex
-    }, // sync.Mutex
-    cachedSelect: '', // string
-  }, // zCrud.Meta
-  inventoryChanges: { // [][]any
-  }, // [][]any
 }
 /**
  * @callback TenantAdminInventoryChangesProductCallback
@@ -1461,7 +1388,7 @@ const TenantAdminInventoryChangesProductOut = {
  * @returns {Promise}
  */
 exports.TenantAdminInventoryChangesProduct = async function TenantAdminInventoryChangesProduct( i, cb ) {
-  return await axios.post( '/tenantAdmin/inventoryChanges/:productId', i ).
+  return await axios.post( '/tenantAdmin/inventoryChanges/', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

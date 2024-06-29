@@ -255,9 +255,12 @@
 
 	function toggleShowPopUp(/** @type any */ id, /** @type any[]*/ row) {
 		payloads = [];
-		FIELDS.forEach((_, i) => {
-			payloads = [...payloads, row[i]]
-		});
+
+		if (FIELDS && FIELDS.length > 0) {
+			for (let i in FIELDS) {
+				payloads = [...payloads, row[i]]
+			}
+		}
 
 		showPopUp = true;
 		idToMod = id;

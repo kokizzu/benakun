@@ -365,37 +365,37 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	})
 
 	fw.Get(`/`+domain.TenantAdminInventoryChangesAction+`/:productId`, func(ctx *fiber.Ctx) error {
-		var in domain.TenantAdminInventoryChangesProductIn
-		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminInventoryChangesProductAction)
-		if err != nil {
-			return err
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notTenantLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
 		}
-
+		in.RequestCommon.Action = domain.TenantAdminCoaAction
+		
 		if notTenantLogin(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
 
-		user, segments := userInfoFromRequest(in.RequestCommon, d)
-
 		productId := ctx.Params(`productId`)
-
 		product := rqBusiness.NewProducts(d.AuthOltp)
 		product.Id = S.ToU(productId)
 		if !product.FindById() {
 			return ctx.Redirect(`/`+domain.TenantAdminInventoryChangesAction, 302)
 		}
 
-		in.ProductId = product.Id
-		in.WithMeta = true
-		in.Cmd = zCrud.CmdList
-		out := d.TenantAdminInventoryChangesProduct(&in)
+		out := d.TenantAdminInventoryChanges(&domain.TenantAdminInventoryChangesIn{
+			RequestCommon: in.RequestCommon,
+			ProductId: product.Id,
+			Cmd: zCrud.CmdList,
+			WithMeta: true,
+		})
+
 		return views.RenderTenantAdminInventoryChangesProduct(ctx, M.SX{
 			`title`:    `Tenant Admin Products's Inventory Changes`,
 			`user`:     user,
 			`segments`: segments,
+			`product`: product,
 			`fields`:   out.Meta.Fields,
 			`pager`:    out.Pager,
-			`product`: product,
 			`inventoryChanges`: out.InventoryChanges,
 		})
 	})

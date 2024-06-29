@@ -4161,7 +4161,7 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
         return await axios.post("/tenantAdmin/inventoryChanges", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminInventoryChangesProduct = async function TenantAdminInventoryChangesProduct2(i, cb) {
-        return await axios.post("/tenantAdmin/inventoryChanges/:productId", i).then(wrapOk(cb)).catch(wrapErr(cb));
+        return await axios.post("/tenantAdmin/inventoryChanges/", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminLocations = async function TenantAdminLocations(i, cb) {
         return await axios.post("/tenantAdmin/locations", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -31662,7 +31662,7 @@ uniform ${i3} ${a3} u_${s3};
     } } = $props;
     let { OnDelete = async function(row) {
     } } = $props;
-    let { OnEdit = async function(id, payloads2) {
+    let { OnEdit: OnEdit2 = async function(id, payloads2) {
     } } = $props;
     let { OnRefresh = async function(pagerIn) {
     } } = $props;
@@ -31705,15 +31705,17 @@ uniform ${i3} ${a3} u_${s3};
         27,
         payloads = []
       );
-      FIELDS.forEach((_, i) => {
-        $invalidate(27, payloads = [...payloads, row[i]]);
-      });
+      if (FIELDS && FIELDS.length > 0) {
+        for (let i in FIELDS) {
+          $invalidate(27, payloads = [...payloads, row[i]]);
+        }
+      }
       $invalidate(18, showPopUp = true);
       idToMod = id;
     }
     function handleSubmitEdit() {
       $invalidate(18, showPopUp = false);
-      OnEdit(idToMod, payloads);
+      OnEdit2(idToMod, payloads);
     }
     function OnClickMap(lngLat) {
       $invalidate(27, payloads[IdxLongitude] = lngLat[0], payloads);
@@ -31803,7 +31805,7 @@ uniform ${i3} ${a3} u_${s3};
       if ("OnDelete" in $props2)
         $invalidate(44, OnDelete = $props2.OnDelete);
       if ("OnEdit" in $props2)
-        $invalidate(45, OnEdit = $props2.OnEdit);
+        $invalidate(45, OnEdit2 = $props2.OnEdit);
       if ("OnRefresh" in $props2)
         $invalidate(46, OnRefresh = $props2.OnRefresh);
       if ("OnInfo" in $props2)
@@ -31866,7 +31868,7 @@ uniform ${i3} ${a3} u_${s3};
       ARRAY_OF_ARRAY,
       OnRestore,
       OnDelete,
-      OnEdit,
+      OnEdit2,
       OnRefresh,
       $scope,
       slots,
@@ -31977,13 +31979,13 @@ uniform ${i3} ${a3} u_${s3};
     let updating_MASTER_ROWS;
     let current;
     function mastertable_FIELDS_binding(value) {
-      ctx[8](value);
+      ctx[7](value);
     }
     function mastertable_PAGER_binding(value) {
-      ctx[9](value);
+      ctx[8](value);
     }
     function mastertable_MASTER_ROWS_binding(value) {
-      ctx[10](value);
+      ctx[9](value);
     }
     let mastertable_props = {
       ACCESS: segments2,
@@ -31992,16 +31994,13 @@ uniform ${i3} ${a3} u_${s3};
       CAN_DELETE_ROW: true,
       CAN_RESTORE_ROW: true,
       CAN_OPEN_LINK: true,
-      LINK_PATH: "/tenantAdmin/inventoryChanges/",
+      LINK_PATH: window.location.pathname,
       IDX_ID_LINK: 2,
       OnDelete: (
         /*OnDelete*/
         ctx[6]
       ),
-      OnEdit: (
-        /*OnEdit*/
-        ctx[7]
-      ),
+      OnEdit,
       OnRefresh: (
         /*OnRefresh*/
         ctx[4]
@@ -32223,7 +32222,7 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, [dirty]) {
         const mainlayout_changes = {};
         if (dirty & /*$scope, fields, pager, inventoryChanges*/
-        2055) {
+        1031) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -32251,6 +32250,13 @@ uniform ${i3} ${a3} u_${s3};
     /** @type Product */
     {/* product */}
   );
+  async function OnEdit(id, payloads) {
+    console.log(
+      /** @type any[]*/
+      "Payloads",
+      payloads
+    );
+  }
   function instance11($self, $props, $invalidate) {
     let fields = (
       /** @type Field[] */
@@ -32341,31 +32347,6 @@ uniform ${i3} ${a3} u_${s3};
         }
       );
     }
-    async function OnEdit(id, payloads) {
-      const inventoryChange = {
-        id,
-        /** @type any[]*/
-        stockDelta: payloads[1]
-      };
-      const i = { pager, inventoryChange, cmd: "upsert" };
-      await (0, import_jsApi.TenantAdminInventoryChangesProduct)(
-        // @ts-ignore
-        i,
-        /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
-        /** @returns {Promise<void>} */
-        function(o) {
-          if (o.error) {
-            console.log(o);
-            notifier.showError(o.error);
-            return;
-          }
-          $invalidate(1, pager = o.pager);
-          $invalidate(2, inventoryChanges = o.inventoryChanges);
-          notifier.showSuccess("inventoryChange edited");
-          OnRefresh(pager);
-        }
-      );
-    }
     function mastertable_FIELDS_binding(value) {
       fields = value;
       $invalidate(0, fields);
@@ -32386,7 +32367,6 @@ uniform ${i3} ${a3} u_${s3};
       OnRefresh,
       OnRestore,
       OnDelete,
-      OnEdit,
       mastertable_FIELDS_binding,
       mastertable_PAGER_binding,
       mastertable_MASTER_ROWS_binding
