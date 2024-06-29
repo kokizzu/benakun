@@ -622,6 +622,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   max-height: fit-content;
   overflow: inherit;
 }
+
+/* fakecss:./superAdmin_dashboard.esbuild-svelte-fake-css */
+.chart_container.svelte-154ms61.svelte-154ms61 {
+  width: 100%;
+  height: 370px;
+  border: 1px solid var(--gray-004);
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #FFF;
+}
+.chart_container.svelte-154ms61 .chart.svelte-154ms61 {
+  width: 100%;
+  height: 350px;
+}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -2634,13 +2648,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance7 = bind(Axios$1.prototype.request, context);
-        utils$1.extend(instance7, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance7, context, null, { allOwnKeys: true });
-        instance7.create = function create(instanceConfig) {
+        const instance8 = bind(Axios$1.prototype.request, context);
+        utils$1.extend(instance8, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance8, context, null, { allOwnKeys: true });
+        instance8.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance7;
+        return instance8;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -2817,6 +2831,152 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       };
       exports.UserUpdateProfile = async function UserUpdateProfile(i, cb) {
         return await axios.post("/user/updateProfile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+    }
+  });
+
+  // _components/formatter.js
+  var require_formatter = __commonJS({
+    "_components/formatter.js"(exports, module) {
+      function datetime(unixSec, humanize) {
+        if (!unixSec)
+          return "";
+        if (typeof unixSec === "string")
+          return unixSec;
+        let dt = new Date(unixSec * 1e3);
+        if (!humanize) {
+          dt = dt.toISOString();
+          return dt.substring(0, 10) + " " + dt.substring(11, 16);
+        }
+        const options = { day: "2-digit", month: "long", year: "numeric" };
+        const formattedDate = dt.toLocaleDateString(void 0, options);
+        return formattedDate;
+      }
+      function localeDatetime(unixSec) {
+        if (!unixSec)
+          return "";
+        const dt = new Date(unixSec * 1e3);
+        const day = dt.toLocaleDateString("default", { weekday: "long" });
+        const date = dt.getDate();
+        const month = dt.toLocaleDateString("default", { month: "short" });
+        const year = dt.getFullYear();
+        let hh = dt.getHours();
+        if (hh < 10)
+          hh = "0" + hh;
+        let mm = dt.getMinutes();
+        if (mm < 10)
+          mm = "0" + mm;
+        const formattedDate = `${date} ${month} ${year} - ${hh}:${mm}`;
+        return formattedDate;
+      }
+      function utcDatetime(unixSec) {
+        if (!unixSec)
+          return "";
+        let dt = new Date(unixSec * 1e3);
+        if (typeof unixSec !== "number")
+          dt = new Date(unixSec);
+        const year = dt.toLocaleDateString("en-US", { year: "2-digit", timeZone: "UTC" });
+        const month = dt.toLocaleDateString("en-US", { month: "2-digit", timeZone: "UTC" });
+        const date = dt.getUTCDate();
+        let hh = dt.getUTCHours();
+        if (hh < 10)
+          hh = "0" + hh;
+        let mm = dt.getUTCMinutes();
+        if (mm < 10)
+          mm = "0" + mm;
+        const formattedDate = `${date}/${month}/${year} - ${hh}:${mm}`;
+        return formattedDate;
+      }
+      module.exports = {
+        datetime,
+        localeDatetime,
+        utcDatetime
+      };
+    }
+  });
+
+  // _components/yChartOptions.js
+  var require_yChartOptions = __commonJS({
+    "_components/yChartOptions.js"(exports, module) {
+      var utcDatetime = require_formatter().utcDatetime;
+      function httpRequestOptions2(requestsPerDate2, uniqueUserPerDate2, uniqueIpPerDate2) {
+        return {
+          series: [
+            { name: "Request Per Date", data: requestsPerDate2 },
+            { name: "Unique User Per Date", data: uniqueUserPerDate2 },
+            { name: "Unique IP Per Date", data: uniqueIpPerDate2 }
+          ],
+          chart: {
+            type: "area",
+            height: 340
+          },
+          dataLabels: { enabled: false },
+          stroke: {
+            curve: "smooth",
+            width: 2
+          },
+          title: {
+            text: "HTTP Requests",
+            align: "left",
+            style: { fontSize: "14px" }
+          },
+          xaxis: {
+            type: "datetime",
+            axisBorder: { show: false },
+            axisTicks: { show: false },
+            labels: {
+              formatter: function(value) {
+                return utcDatetime(value);
+              }
+            }
+          },
+          yaxis: {
+            tickAmount: 4,
+            floating: false,
+            labels: { offsetY: -7, offsetX: 0 },
+            axisBorder: { show: false },
+            axisTicks: { show: false }
+          },
+          fill: { opacity: 0.5 },
+          tooltip: {
+            x: {
+              formatter: function(value) {
+                return utcDatetime(value);
+              }
+            },
+            fixed: {
+              enabled: false,
+              position: "topRight"
+            }
+          },
+          grid: {
+            yaxis: {
+              lines: {
+                offsetX: -30
+              }
+            },
+            padding: {
+              left: 20
+            }
+          },
+          legend: {
+            show: true,
+            showForNullSeries: true,
+            showForZeroSeries: true,
+            position: "bottom",
+            horizontalAlign: "center",
+            floating: false,
+            onItemClick: {
+              toggleDataSeries: true
+            },
+            onItemHover: {
+              highlightDataSeries: true
+            }
+          }
+        };
+      }
+      module.exports = {
+        httpRequestOptions: httpRequestOptions2
       };
     }
   });
@@ -3251,7 +3411,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance7, create_fragment8, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance8, create_fragment8, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3277,7 +3437,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance7 ? instance7(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance8 ? instance8(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -5152,21 +5312,31 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var mainLayout_default = MainLayout;
 
   // superAdmin_dashboard.svelte
+  var import_yChartOptions = __toESM(require_yChartOptions());
   function create_default_slot(ctx) {
-    let p;
+    let div2;
+    let div1;
+    let div0;
     return {
       c() {
-        p = element("p");
-        p.textContent = "TODO fill with proper menu";
+        div2 = element("div");
+        div1 = element("div");
+        div0 = element("div");
+        attr(div0, "class", "chart svelte-154ms61");
+        attr(div1, "class", "chart_container svelte-154ms61");
       },
       m(target, anchor) {
-        insert(target, p, anchor);
+        insert(target, div2, anchor);
+        append(div2, div1);
+        append(div1, div0);
+        ctx[1](div0);
       },
       p: noop,
       d(detaching) {
         if (detaching) {
-          detach(p);
+          detach(div2);
         }
+        ctx[1](null);
       }
     };
   }
@@ -5189,8 +5359,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, [dirty]) {
         const mainlayout_changes = {};
-        if (dirty & /*$scope*/
-        1) {
+        if (dirty & /*$scope, chartHttpRequestsElm*/
+        129) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -5210,10 +5380,82 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
+  var registeredUserTotal = "#registeredUserTotal";
+  var registeredUserToday = "#registeredUserToday";
+  var requestsPerDate = {/* requestsPerDate */};
+  var uniqueUserPerDate = {/* uniqueUserPerDate */};
+  var uniqueIpPerDate = {/* uniqueIpPerDate */};
+  var countPerActionsPerDate = {/* countPerActionsPerDate */};
+  function loadScript(url, callback) {
+    let script = (
+      /** @type {HTMLScriptElement} */
+      document.createElement(
+        /** @type {Function} */
+        "script"
+      )
+    );
+    script.type = "text/javascript";
+    script.src = url;
+    script.onload = () => callback();
+    document.getElementsByTagName("head")[0].appendChild(script);
+  }
+  function instance7($self, $props, $invalidate) {
+    console.log("registeredUserTotal", registeredUserTotal);
+    console.log("registeredUserToday", registeredUserToday);
+    console.log("countPerActionsPerDate", countPerActionsPerDate);
+    let CHDATA_REQUESTS_PER_DATE = [];
+    let CHDATA_UNIQUE_USER_PER_DATE = [];
+    let CHDATA_UNIQUE_IP_PER_DATE = [];
+    let CHART_HTTP_REQUESTS = null;
+    let chartHttpRequestsElm;
+    let isChartReady = false;
+    onMount(() => {
+      for (let key in requestsPerDate) {
+        CHDATA_REQUESTS_PER_DATE = [
+          ...CHDATA_REQUESTS_PER_DATE,
+          {
+            x: new Date(key).getTime() / 1e3,
+            y: requestsPerDate[key]
+          }
+        ];
+      }
+      for (let key in uniqueUserPerDate) {
+        CHDATA_UNIQUE_USER_PER_DATE = [
+          ...CHDATA_UNIQUE_USER_PER_DATE,
+          {
+            x: new Date(key).getTime() / 1e3,
+            y: uniqueUserPerDate[key]
+          }
+        ];
+      }
+      for (let key in uniqueIpPerDate) {
+        CHDATA_UNIQUE_IP_PER_DATE = [
+          ...CHDATA_UNIQUE_IP_PER_DATE,
+          {
+            x: new Date(key).getTime() / 1e3,
+            y: uniqueIpPerDate[key]
+          }
+        ];
+      }
+      loadScript("/assets/apexcharts.js", () => {
+        isChartReady = true;
+        let chdata = (0, import_yChartOptions.httpRequestOptions)(CHDATA_REQUESTS_PER_DATE, CHDATA_UNIQUE_USER_PER_DATE, CHDATA_UNIQUE_IP_PER_DATE);
+        CHART_HTTP_REQUESTS = new ApexCharts(chartHttpRequestsElm, chdata);
+        CHART_HTTP_REQUESTS.render();
+      });
+    });
+    function div0_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        chartHttpRequestsElm = $value;
+        $invalidate(0, chartHttpRequestsElm);
+      });
+    }
+    return [chartHttpRequestsElm, div0_binding];
+  }
   var SuperAdmin_dashboard = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment7, safe_not_equal, {});
+      init(this, options, instance7, create_fragment7, safe_not_equal, {});
     }
   };
   var superAdmin_dashboard_default = SuperAdmin_dashboard;

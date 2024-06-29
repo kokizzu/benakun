@@ -435,11 +435,18 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`, 302)
 		}
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
-		// out := d.SuperAdminDashboard(&in)
+		out := d.SuperAdminDashboard(&in)
+
 		return views.RenderSuperAdminDashboard(ctx, M.SX{
 			`title`:    `Super Admin Dashboard`,
 			`segments`: segments,
 			`user`:     user,
+			`registeredUserTotal`: out.RegisteredUserTotal,
+			`registeredUserToday`: out.RegisteredUserToday,
+			`requestsPerDate`: out.RequestsPerDate,
+			`uniqueUserPerDate`: out.UniqueUserPerDate,
+			`uniqueIpPerDate`: out.UniqueIpPerDate,
+			`countPerActionsPerDate`: out.CountPerActionsPerDate,
 		})
 	})
 
