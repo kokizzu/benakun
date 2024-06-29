@@ -624,7 +624,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 }
 
 /* fakecss:./superAdmin_dashboard.esbuild-svelte-fake-css */
-.chart_container.svelte-154ms61.svelte-154ms61 {
+.superadmin_dashboard.svelte-9j24b9.svelte-9j24b9 {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.chart_http_req.svelte-9j24b9.svelte-9j24b9 {
   width: 100%;
   height: 370px;
   border: 1px solid var(--gray-004);
@@ -632,9 +637,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   padding: 10px;
   background-color: #FFF;
 }
-.chart_container.svelte-154ms61 .chart.svelte-154ms61 {
+.chart_http_req.svelte-9j24b9 .chart.svelte-9j24b9 {
   width: 100%;
   height: 350px;
+}
+.chart_action_counts.svelte-9j24b9.svelte-9j24b9 {
+  width: 100%;
+  height: 630px;
+  border: 1px solid var(--gray-004);
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #FFF;
+}
+.chart_action_counts.svelte-9j24b9 .chart.svelte-9j24b9 {
+  width: 100%;
+  height: 610px;
 }
 </style>
 <script>(() => {
@@ -2975,8 +2992,150 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           }
         };
       }
+      function actionCountsOptions2(countPerActionsPerDate2) {
+        return {
+          series: countPerActionsPerDate2,
+          chart: {
+            type: "heatmap",
+            height: 600
+          },
+          dataLabels: { enabled: false },
+          stroke: {
+            curve: "smooth",
+            width: 2
+          },
+          title: {
+            text: "Count Actions Per Date",
+            align: "left",
+            style: { fontSize: "14px" }
+          },
+          xaxis: {
+            type: "datetime",
+            axisBorder: { show: false },
+            axisTicks: { show: false },
+            labels: {
+              formatter: function(value) {
+                return utcDatetime(value);
+              }
+            }
+          },
+          yaxis: {
+            tickAmount: 4,
+            floating: false,
+            labels: { offsetY: -7, offsetX: 0 },
+            axisBorder: { show: false },
+            axisTicks: { show: false }
+          },
+          fill: { opacity: 0.5 },
+          tooltip: {
+            x: {
+              formatter: function(value) {
+                return utcDatetime(value);
+              }
+            },
+            fixed: {
+              enabled: false,
+              position: "topRight"
+            }
+          },
+          grid: {
+            yaxis: {
+              lines: {
+                offsetX: -30
+              }
+            },
+            padding: {
+              left: 20
+            }
+          },
+          legend: {
+            show: true,
+            showForNullSeries: true,
+            showForZeroSeries: true,
+            position: "bottom",
+            horizontalAlign: "center",
+            floating: false,
+            onItemClick: {
+              toggleDataSeries: true
+            },
+            onItemHover: {
+              highlightDataSeries: true
+            }
+          },
+          plotOptions: {
+            heatmap: {
+              shadeIntensity: 1,
+              enableShades: false,
+              colorScale: {
+                inverse: false,
+                min: 0,
+                max: 9999999,
+                ranges: [
+                  {
+                    from: 0,
+                    to: 10,
+                    color: "#d1fae5"
+                  },
+                  {
+                    from: 11,
+                    to: 20,
+                    color: "#a7f3d0"
+                  },
+                  {
+                    from: 21,
+                    to: 30,
+                    color: "#6ee7b7"
+                  },
+                  {
+                    from: 31,
+                    to: 40,
+                    color: "#34d399"
+                  },
+                  {
+                    from: 41,
+                    to: 50,
+                    color: "#10b981"
+                  },
+                  {
+                    from: 51,
+                    to: 60,
+                    color: "#059669"
+                  },
+                  {
+                    from: 61,
+                    to: 70,
+                    color: "#047857"
+                  },
+                  {
+                    from: 71,
+                    to: 80,
+                    color: "#065f46"
+                  },
+                  {
+                    from: 81,
+                    to: 90,
+                    color: "#064e3b"
+                  },
+                  {
+                    from: 91,
+                    to: 100,
+                    color: "#022c22"
+                  },
+                  {
+                    from: 101,
+                    to: 9999999,
+                    color: "#021716",
+                    name: "extreme"
+                  }
+                ]
+              }
+            }
+          }
+        };
+      }
       module.exports = {
-        httpRequestOptions: httpRequestOptions2
+        httpRequestOptions: httpRequestOptions2,
+        actionCountsOptions: actionCountsOptions2
       };
     }
   });
@@ -5314,29 +5473,43 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // superAdmin_dashboard.svelte
   var import_yChartOptions = __toESM(require_yChartOptions());
   function create_default_slot(ctx) {
-    let div2;
+    let div4;
     let div1;
     let div0;
+    let t;
+    let div3;
+    let div2;
     return {
       c() {
-        div2 = element("div");
+        div4 = element("div");
         div1 = element("div");
         div0 = element("div");
-        attr(div0, "class", "chart svelte-154ms61");
-        attr(div1, "class", "chart_container svelte-154ms61");
+        t = space();
+        div3 = element("div");
+        div2 = element("div");
+        attr(div0, "class", "chart svelte-9j24b9");
+        attr(div1, "class", "chart_http_req svelte-9j24b9");
+        attr(div2, "class", "chart svelte-9j24b9");
+        attr(div3, "class", "chart_action_counts svelte-9j24b9");
+        attr(div4, "class", "superadmin_dashboard svelte-9j24b9");
       },
       m(target, anchor) {
-        insert(target, div2, anchor);
-        append(div2, div1);
+        insert(target, div4, anchor);
+        append(div4, div1);
         append(div1, div0);
-        ctx[1](div0);
+        ctx[2](div0);
+        append(div4, t);
+        append(div4, div3);
+        append(div3, div2);
+        ctx[3](div2);
       },
       p: noop,
       d(detaching) {
         if (detaching) {
-          detach(div2);
+          detach(div4);
         }
-        ctx[1](null);
+        ctx[2](null);
+        ctx[3](null);
       }
     };
   }
@@ -5359,8 +5532,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, [dirty]) {
         const mainlayout_changes = {};
-        if (dirty & /*$scope, chartHttpRequestsElm*/
-        129) {
+        if (dirty & /*$scope, chartActionCountsElm, chartHttpRequestsElm*/
+        2051) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -5406,8 +5579,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let CHDATA_REQUESTS_PER_DATE = [];
     let CHDATA_UNIQUE_USER_PER_DATE = [];
     let CHDATA_UNIQUE_IP_PER_DATE = [];
+    let CHDATA_ACTION_COUNTS = (
+      /** @type {heatmap[]} */
+      []
+    );
     let CHART_HTTP_REQUESTS = null;
+    let CHART_ACTION_COUNTS = null;
     let chartHttpRequestsElm;
+    let chartActionCountsElm;
     let isChartReady = false;
     onMount(() => {
       for (let key in requestsPerDate) {
@@ -5437,11 +5616,30 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           }
         ];
       }
+      for (let key in countPerActionsPerDate) {
+        let data = (
+          /** @type {chartData[]} */
+          []
+        );
+        for (let key2 in countPerActionsPerDate[key]) {
+          data = [
+            ...data,
+            {
+              x: new Date(key2).getTime() / 1e3,
+              y: countPerActionsPerDate[key][key2]
+            }
+          ];
+        }
+        CHDATA_ACTION_COUNTS = [...CHDATA_ACTION_COUNTS, { name: key, data }];
+      }
       loadScript("/assets/apexcharts.js", () => {
         isChartReady = true;
         let chdata = (0, import_yChartOptions.httpRequestOptions)(CHDATA_REQUESTS_PER_DATE, CHDATA_UNIQUE_USER_PER_DATE, CHDATA_UNIQUE_IP_PER_DATE);
+        let chdata2 = (0, import_yChartOptions.actionCountsOptions)(CHDATA_ACTION_COUNTS);
         CHART_HTTP_REQUESTS = new ApexCharts(chartHttpRequestsElm, chdata);
         CHART_HTTP_REQUESTS.render();
+        CHART_ACTION_COUNTS = new ApexCharts(chartActionCountsElm, chdata2);
+        CHART_ACTION_COUNTS.render();
       });
     });
     function div0_binding($value) {
@@ -5450,7 +5648,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         $invalidate(0, chartHttpRequestsElm);
       });
     }
-    return [chartHttpRequestsElm, div0_binding];
+    function div2_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        chartActionCountsElm = $value;
+        $invalidate(1, chartActionCountsElm);
+      });
+    }
+    return [chartHttpRequestsElm, chartActionCountsElm, div0_binding, div2_binding];
   }
   var SuperAdmin_dashboard = class extends SvelteComponent {
     constructor(options) {
