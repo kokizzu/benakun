@@ -105,6 +105,7 @@ const (
 	StaffId             = `staffId`
 	DeletedBy           = `deletedBy`
 	RestoredBy          = `restoredBy`
+	CoaId 							= `coaId`
 )
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{

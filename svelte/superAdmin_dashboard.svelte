@@ -6,6 +6,8 @@
   let registeredUserTotal     = '#registeredUserTotal';
   let registeredUserToday     = '#registeredUserToday';
 
+  console.log(registeredUserTotal, registeredUserToday);
+
   let requestsPerDate         = {/* requestsPerDate */};
   let uniqueUserPerDate       = {/* uniqueUserPerDate */};
   let uniqueIpPerDate         = {/* uniqueIpPerDate */};

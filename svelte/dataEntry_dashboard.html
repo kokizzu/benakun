@@ -5305,6 +5305,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   }
   function create_default_slot(ctx) {
     let div;
+    let p;
+    let t1;
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
     let each_value = ensure_array_like(transactionTemplates || []);
@@ -5320,6 +5322,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     return {
       c() {
         div = element("div");
+        p = element("p");
+        p.textContent = "TODO: fix query";
+        t1 = space();
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
@@ -5327,6 +5332,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       m(target, anchor) {
         insert(target, div, anchor);
+        append(div, p);
+        append(div, t1);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
             each_blocks[i].m(div, null);

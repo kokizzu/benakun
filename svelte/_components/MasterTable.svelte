@@ -78,7 +78,7 @@
 	// Rows per page
 	let currentRows = PAGER.perPage;
 	// Rows per page options
-	let rowsToShow = [10, 1, 40, 60, 70, 100, 200];
+	let rowsToShow = [10, 20, 40, 60, 70, 100, 200];
 	// State for show rows options
 	let showRowsNum = false;
 	// Total rows

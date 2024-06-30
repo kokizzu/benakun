@@ -2,8 +2,8 @@ package mFinance
 
 import "github.com/kokizzu/gotro/D/Tt"
 
-// TODO: transaction entry
-// Fields:
+// TODO: business transaction
+// Fields: startDate, endDate
 
 // TODO: transaction journal
 // Fields: trxStart, trxEnd, parentTransaction
@@ -27,7 +27,10 @@ const (
 	Level                 = `level`
 	ParentId  						= `parentId`
 	Children 	 						= `children`
+	Label									= `label` // bankAccounts:company locations
 )
+
+// TODO: change level to number
 
 const (
 	CoaLevel1Name = `Aktiva`
@@ -101,9 +104,28 @@ const (
 )
 
 const (
-	TableTransactionTemplateDetail Tt.TableName = `transactionTemplateDetail`
+	TableTransactionTemplateDetail Tt.TableName = `transactionTplDetail`
 
-	IsDebit	= `isDebit`
+	IsDebit						= `isDebit`
+	IsAlwaysStartDate = `isAlwaysStartDate`
+)
+
+const (
+	TableBusinessTransaction Tt.TableName = `businessTransaction`
+
+	StartDate = `startDate`
+	EndDate 	= `endDate`
+)
+
+const (
+	TableTransactionJournal Tt.TableName = `transactionJournal`
+
+	// coaId
+	// debitIDR
+	// creditIDR
+	// description
+	// date
+	// detailObj
 )
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{

@@ -31675,7 +31675,7 @@ uniform ${i3} ${a3} u_${s3};
     let totalPages = 0;
     let totalRound = 0;
     let currentRows = PAGER.perPage;
-    let rowsToShow = [10, 1, 40, 60, 70, 100, 200];
+    let rowsToShow = [10, 20, 40, 60, 70, 100, 200];
     let showRowsNum = false;
     let totalRows = PAGER.countResult;
     let totalRowsCurrent = 0;
@@ -32948,7 +32948,9 @@ uniform ${i3} ${a3} u_${s3};
     };
   }
   function create_default_slot(ctx) {
-    let div;
+    let div1;
+    let div0;
+    let t1;
     let mastertable;
     let updating_FIELDS;
     let updating_PAGER;
@@ -33015,12 +33017,17 @@ uniform ${i3} ${a3} u_${s3};
     binding_callbacks.push(() => bind(mastertable, "MASTER_ROWS", mastertable_MASTER_ROWS_binding));
     return {
       c() {
-        div = element("div");
+        div1 = element("div");
+        div0 = element("div");
+        div0.textContent = "Change UI to tree 2 level";
+        t1 = space();
         create_component(mastertable.$.fragment);
       },
       m(target, anchor) {
-        insert(target, div, anchor);
-        mount_component(mastertable, div, null);
+        insert(target, div1, anchor);
+        append(div1, div0);
+        append(div1, t1);
+        mount_component(mastertable, div1, null);
         current = true;
       },
       p(ctx2, dirty) {
@@ -33064,7 +33071,7 @@ uniform ${i3} ${a3} u_${s3};
       },
       d(detaching) {
         if (detaching) {
-          detach(div);
+          detach(div1);
         }
         destroy_component(mastertable);
       }

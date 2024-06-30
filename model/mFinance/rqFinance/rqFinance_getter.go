@@ -4,6 +4,7 @@ import (
 	"benakun/model/zCrud"
 
 	"github.com/kokizzu/gotro/I"
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 )
@@ -106,6 +107,8 @@ FROM SEQSCAN ` + ttm.SqlTableName() + whereAndSql
 		ttm.FromArray(row)
 		rows = append(rows, *ttm)
 	})
+
+	L.Print(`query:`, queryRows)
 
 	ttms = &rows
 	return

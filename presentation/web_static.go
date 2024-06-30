@@ -146,6 +146,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		r := rqFinance.NewTransactionTemplate(d.AuthOltp)
 		r.TenantCode = tenantCode
 		trxTemplates := r.FindByTenantCode()
+
+		// TODO: check data entry must have access to this tenant
+
+		// invState := user.InvitationState
+
 		
 		return views.RenderDataEntryDashboard(ctx, M.SX{
 			`title`:    `Data Entry Dashboard`,
