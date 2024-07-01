@@ -114,6 +114,12 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 	}
 
 	out.Company = &org.Orgs
+
+	hostmap[generateTenantSubdomain(tenant.TenantCode)] = TenantHost{
+		TenantCode: tenant.TenantCode,
+		OrgId: org.Id,
+	}
+
 	return
 }
 
