@@ -816,6 +816,39 @@
 				}
 			}
 		},
+		"/superAdmin/accessLog": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "SuperAdminAccessLog",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/superAdmin/dashboard": {
 			"post": {
 				"security": [{
@@ -841,6 +874,32 @@
 								"schema": {
 									"type": "object",
 									"properties": {
+										"registeredUserTotal": {
+												"type": "number"
+										},
+										"registeredUserToday": {
+												"type": "number"
+										},
+										"requestsPerDate": {
+										"type": "object",
+										"properties": {
+												}
+										},
+										"uniqueUserPerDate": {
+										"type": "object",
+										"properties": {
+												}
+										},
+										"uniqueIpPerDate": {
+										"type": "object",
+										"properties": {
+												}
+										},
+										"countPerActionsPerDate": {
+										"type": "object",
+										"properties": {
+												}
+										}
 									}
 								}
 							}

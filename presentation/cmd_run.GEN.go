@@ -116,6 +116,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.ReportViewerDashboard(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.SuperAdminAccessLogAction:
+		in := domain.SuperAdminAccessLogIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.SuperAdminAccessLog(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.SuperAdminDashboardAction:
 		in := domain.SuperAdminDashboardIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

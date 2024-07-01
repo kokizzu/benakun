@@ -140,6 +140,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// SuperAdminAccessLog
+	fw.Post("/"+domain.SuperAdminAccessLogAction, func(c *fiber.Ctx) error {
+		in := domain.SuperAdminAccessLogIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.SuperAdminAccessLogAction); err != nil {
+			return nil
+		}
+		out := d.SuperAdminAccessLog(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// SuperAdminDashboard
 	fw.Post("/"+domain.SuperAdminDashboardAction, func(c *fiber.Ctx) error {
 		in := domain.SuperAdminDashboardIn{}

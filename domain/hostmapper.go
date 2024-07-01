@@ -22,20 +22,11 @@ var hostmap = map[string]TenantCodeId{
 	},
 }
 
-func GetTenantCodeByHost(hostname string) (string, error) {
-	// Development	: http://admin-2642:1235
-	// Production		: https://admin-2642.benakun.com
-	// find tenantCode from url
-	rgx := regexp.MustCompile(`://([^:./]+)`)
-	match := rgx.FindStringSubmatch(hostname)
-	if len(match) > 1 {
-		return match[1], nil
-	} else {
-		return ``, errors.New(`invalid hostname`)
-	}
-}
+var RgxFindTenantCode *regexp.Regexp
 
 func (d *Domain) InitHostMapper() {
+	RgxFindTenantCode = regexp.MustCompile(`://([^:./]+)`)
+
 	orgs := rqAuth.NewOrgs(d.AuthOltp)
 	tenantsHost := orgs.FindTenantsHost()
 
@@ -47,5 +38,17 @@ func (d *Domain) InitHostMapper() {
 				OrgId: X.ToU(v[1]),
 			}
 		}
+	}
+}
+
+func GetTenantCodeByHost(hostname string) (string, error) {
+	// Development	: http://admin-2642:1235
+	// Production		: https://admin-2642.benakun.com
+	// find tenantCode from url
+	match := RgxFindTenantCode.FindStringSubmatch(hostname)
+	if len(match) > 1 {
+		return match[1], nil
+	} else {
+		return ``, errors.New(`invalid hostname`)
 	}
 }

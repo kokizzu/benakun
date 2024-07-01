@@ -20,6 +20,7 @@ var allCommands = []string{
 	domain.GuestResetPasswordAction,
 	domain.GuestVerifyEmailAction,
 	domain.ReportViewerDashboardAction,
+	domain.SuperAdminAccessLogAction,
 	domain.SuperAdminDashboardAction,
 	domain.SuperAdminTenantManagementAction,
 	domain.SuperAdminUserManagementAction,

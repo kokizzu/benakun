@@ -150,7 +150,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		// TODO: check data entry must have access to this tenant
 
 		// invState := user.InvitationState
-
 		
 		return views.RenderDataEntryDashboard(ctx, M.SX{
 			`title`:    `Data Entry Dashboard`,
@@ -452,6 +451,25 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`uniqueUserPerDate`: out.UniqueUserPerDate,
 			`uniqueIpPerDate`: out.UniqueIpPerDate,
 			`countPerActionsPerDate`: out.CountPerActionsPerDate,
+		})
+	})
+
+	fw.Get(`/`+domain.SuperAdminAccessLogAction, func(ctx *fiber.Ctx) error {
+		var in domain.SuperAdminAccessLogIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.SuperAdminAccessLogAction)
+		if err != nil {
+			return err
+		}
+		if notLogin(d, in.RequestCommon, true) {
+			return ctx.Redirect(`/`, 302)
+		}
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		// out := d.SuperAdminAccessLog(&in)
+
+		return views.RenderSuperAdminAccessLog(ctx, M.SX{
+			`title`:    `Super Admin Dashboard`,
+			`segments`: segments,
+			`user`:     user,
 		})
 	})
 

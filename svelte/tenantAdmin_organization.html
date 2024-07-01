@@ -3036,6 +3036,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.ReportViewerDashboard = async function ReportViewerDashboard(i, cb) {
         return await axios.post("/reportViewer/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.SuperAdminAccessLog = async function SuperAdminAccessLog(i, cb) {
+        return await axios.post("/superAdmin/accessLog", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.SuperAdminDashboard = async function SuperAdminDashboard(i, cb) {
         return await axios.post("/superAdmin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -4270,6 +4273,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var RiBuildingsBuilding2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M3 19V5.70046C3 5.27995 3.26307 4.90437 3.65826 4.76067L13.3291 1.24398C13.5886 1.14961 13.8755 1.28349 13.9699 1.54301C13.9898 1.59778 14 1.65561 14 1.71388V6.6667L20.3162 8.77211C20.7246 8.90822 21 9.29036 21 9.72079V19H23V21H1V19H3ZM5 19H12V3.85543L5 6.40089V19ZM19 19V10.4416L14 8.77488V19H19Z"></path>' };
   var RiBuildingsBankLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 20H22V22H2V20ZM4 12H6V19H4V12ZM9 12H11V19H9V12ZM13 12H15V19H13V12ZM18 12H20V19H18V12ZM2 7L12 2L22 7V11H2V7ZM4 8.23607V9H20V8.23607L12 4.23607L4 8.23607ZM12 8C11.4477 8 11 7.55228 11 7C11 6.44772 11.4477 6 12 6C12.5523 6 13 6.44772 13 7C13 7.55228 12.5523 8 12 8Z"></path>' };
   var RiBusinessBriefcaseLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M7 5V2C7 1.44772 7.44772 1 8 1H16C16.5523 1 17 1.44772 17 2V5H21C21.5523 5 22 5.44772 22 6V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V6C2 5.44772 2.44772 5 3 5H7ZM4 16V19H20V16H4ZM4 14H20V7H4V14ZM9 3V5H15V3H9ZM11 11H13V13H11V11Z"></path>' };
+  var RiDocumentFileCopy2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M6.9998 6V3C6.9998 2.44772 7.44752 2 7.9998 2H19.9998C20.5521 2 20.9998 2.44772 20.9998 3V17C20.9998 17.5523 20.5521 18 19.9998 18H16.9998V20.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998ZM5.00242 8L5.00019 20H14.9998V8H5.00242ZM8.9998 6H16.9998V16H18.9998V4H8.9998V6ZM7 11H13V13H7V11ZM7 15H13V17H7V15Z"></path>' };
   var RiDocumentStickyNoteAddLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 1V4H1V6H4V9H6V6H9V4H6V1H4ZM3 20.0066V11H5V19H13V14C13 13.45 13.45 13 14 13L19 12.999V5H11V3H20.0066C20.5552 3 21 3.45576 21 4.00247V15L15 20.996L4.00221 21C3.4487 21 3 20.5551 3 20.0066ZM18.171 14.999L15 15V18.169L18.171 14.999Z"></path>' };
   var RiUserFacesAdminLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M12 14V16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM21 17H22V22H14V17H15V16C15 14.3431 16.3431 13 18 13C19.6569 13 21 14.3431 21 16V17ZM19 17V16C19 15.4477 18.5523 15 18 15C17.4477 15 17 15.4477 17 16V17H19Z"></path>' };
   var RiUserFacesGroup3Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M8.5 7C8.5 8.10457 7.60457 9 6.5 9C5.39543 9 4.5 8.10457 4.5 7C4.5 5.89543 5.39543 5 6.5 5C7.60457 5 8.5 5.89543 8.5 7ZM2.5 7C2.5 9.20914 4.29086 11 6.5 11C8.70914 11 10.5 9.20914 10.5 7C10.5 4.79086 8.70914 3 6.5 3C4.29086 3 2.5 4.79086 2.5 7ZM9 16.5C9 15.1193 7.88071 14 6.5 14C5.11929 14 4 15.1193 4 16.5V19H9V16.5ZM11 21H2V16.5C2 14.0147 4.01472 12 6.5 12C8.98528 12 11 14.0147 11 16.5V21ZM19.5 7C19.5 8.10457 18.6046 9 17.5 9C16.3954 9 15.5 8.10457 15.5 7C15.5 5.89543 16.3954 5 17.5 5C18.6046 5 19.5 5.89543 19.5 7ZM13.5 7C13.5 9.20914 15.2909 11 17.5 11C19.7091 11 21.5 9.20914 21.5 7C21.5 4.79086 19.7091 3 17.5 3C15.2909 3 13.5 4.79086 13.5 7ZM20 16.5C20 15.1193 18.8807 14 17.5 14C16.1193 14 15 15.1193 15 16.5V19H20V16.5ZM13 19V16.5C13 14.0147 15.0147 12 17.5 12C19.9853 12 22 14.0147 22 16.5V21H13V19Z"></path>' };
@@ -4782,6 +4786,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let submenulink0;
     let t3;
     let submenulink1;
+    let t4;
+    let submenulink2;
     let current;
     icon = new Icon_default({
       props: {
@@ -4804,6 +4810,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         icon: RiUserFacesContactsLine
       }
     });
+    submenulink2 = new SubMenuLink_default({
+      props: {
+        title: "Access Log",
+        href: "/superAdmin/accessLog",
+        icon: RiDocumentFileCopy2Line
+      }
+    });
     return {
       c() {
         a = element("a");
@@ -4816,6 +4829,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         create_component(submenulink0.$.fragment);
         t3 = space();
         create_component(submenulink1.$.fragment);
+        t4 = space();
+        create_component(submenulink2.$.fragment);
         attr(a, "href", "/superAdmin/dashboard");
         attr(a, "class", "svelte-yognkh");
         toggle_class(a, "active", window.location.pathname === "/superAdmin/dashboard");
@@ -4831,6 +4846,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         mount_component(submenulink0, div, null);
         append(div, t3);
         mount_component(submenulink1, div, null);
+        append(div, t4);
+        mount_component(submenulink2, div, null);
         current = true;
       },
       p: noop,
@@ -4840,12 +4857,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_in(icon.$.fragment, local);
         transition_in(submenulink0.$.fragment, local);
         transition_in(submenulink1.$.fragment, local);
+        transition_in(submenulink2.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
         transition_out(submenulink0.$.fragment, local);
         transition_out(submenulink1.$.fragment, local);
+        transition_out(submenulink2.$.fragment, local);
         current = false;
       },
       d(detaching) {
@@ -4857,6 +4876,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         destroy_component(icon);
         destroy_component(submenulink0);
         destroy_component(submenulink1);
+        destroy_component(submenulink2);
       }
     };
   }
