@@ -4,6 +4,8 @@
   import BudgetPlanTree from './_components/BudgetPlanTree.svelte';
   import { localeDatetime } from './_components/formatter';
 
+  // TODO: set year to localStorage
+
   /** @typedef {import('./_components/types/organization').Org} Org */
   /** @typedef {import('./_components/types/budget').BudgetPlan} BudgetPlan */
 

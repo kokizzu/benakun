@@ -27,7 +27,26 @@ function localeDatetime( unixSec ) {
     return formattedDate;
 }
 
+function utcDatetime( unixSec ) {
+    if( !unixSec ) return '';
+    let dt = new Date( unixSec * 1000 );
+    if (typeof unixSec !== 'number') dt = new Date( unixSec );
+    
+    const year = dt.toLocaleDateString( 'en-US', {year: '2-digit', timeZone: 'UTC'} );
+    const month = dt.toLocaleDateString( 'en-US', {month: '2-digit', timeZone: 'UTC'} );
+    const date = dt.getUTCDate();
+    let hh = dt.getUTCHours();
+    if( hh<10 ) hh = '0' + hh;
+    let mm = dt.getUTCMinutes();
+    if( mm<10 ) mm = '0' + mm;
+  
+    const formattedDate = `${date}/${month}/${year} - ${hh}:${mm}`;
+    return formattedDate;
+  }
+  
+
 module.exports = {
     datetime: datetime,
     localeDatetime: localeDatetime,
+    utcDatetime: utcDatetime
 };

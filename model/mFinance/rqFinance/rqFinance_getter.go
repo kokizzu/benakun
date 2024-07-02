@@ -3,7 +3,7 @@ package rqFinance
 import (
 	"benakun/model/zCrud"
 
-	"github.com/kokizzu/gotro/I"
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 )
@@ -34,29 +34,6 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 	}
 
 	return
-}
-
-func (c *Coa) FindCoaIdByTenantByLevel() uint64 {
-	var res [][]any
-	const comment = `-- Coa) FindCoaIdByTenantByLevel`
-
-	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode) + ` AND ` + c.SqlLevel() + ` = ` + I.ToS(int64(c.Level)) + ` AND "deletedAt" = 0`
-
-	queryRow := comment + `
-SELECT ` + c.SqlId() + `
-FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
-
-	c.Adapter.QuerySql(queryRow, func(row []any) {
-		row[0] = X.ToS(row[0]) // ensure id is string
-		res = append(res, row)
-	})
-
-	if len(res) > 0 {
-		pId := res[0][0].(string)
-		return S.ToU(pId)
-	}
-
-	return 0
 }
 
 func (ttm *TransactionTemplate) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zCrud.PagerOut) (res [][]any) {
@@ -106,6 +83,8 @@ FROM SEQSCAN ` + ttm.SqlTableName() + whereAndSql
 		ttm.FromArray(row)
 		rows = append(rows, *ttm)
 	})
+
+	L.Print(`query:`, queryRows)
 
 	ttms = &rows
 	return

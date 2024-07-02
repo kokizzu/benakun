@@ -20,6 +20,7 @@ var viewList = map[string]string{
 	`GuestVerifyEmail`: `../svelte/guest_verifyEmail.html`, // ../svelte/guest_verifyEmail.svelte
 	`Index`: `../svelte/index.html`, // ../svelte/index.svelte
 	`ReportViewerDashboard`: `../svelte/reportViewer_dashboard.html`, // ../svelte/reportViewer_dashboard.svelte
+	`SuperAdminAccessLog`: `../svelte/superAdmin_accessLog.html`, // ../svelte/superAdmin_accessLog.svelte
 	`SuperAdminDashboard`: `../svelte/superAdmin_dashboard.html`, // ../svelte/superAdmin_dashboard.svelte
 	`SuperAdminTenantManagement`: `../svelte/superAdmin_tenantManagement.html`, // ../svelte/superAdmin_tenantManagement.svelte
 	`SuperAdminUserManagement`: `../svelte/superAdmin_userManagement.html`, // ../svelte/superAdmin_userManagement.svelte
@@ -87,6 +88,11 @@ func (v *Views) RenderIndex(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderReportViewerDashboard(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`ReportViewerDashboard`].Str(m))
+}
+
+func (v *Views) RenderSuperAdminAccessLog(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`SuperAdminAccessLog`].Str(m))
 }
 
 func (v *Views) RenderSuperAdminDashboard(c *fiber.Ctx, m M.SX) error {

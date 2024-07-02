@@ -596,14 +596,56 @@ exports.ReportViewerDashboard = async function ReportViewerDashboard( i, cb ) {
 }
 
 /**
+ * @typedef {Object} SuperAdminAccessLogIn
+ */
+const SuperAdminAccessLogIn = {
+}
+/**
+ * @typedef {Object} SuperAdminAccessLogOut
+ */
+const SuperAdminAccessLogOut = {
+}
+/**
+ * @callback SuperAdminAccessLogCallback
+ * @param {SuperAdminAccessLogOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {SuperAdminAccessLogIn} i
+ * @param {SuperAdminAccessLogCallback} cb
+ * @returns {Promise}
+ */
+exports.SuperAdminAccessLog = async function SuperAdminAccessLog( i, cb ) {
+  return await axios.post( '/superAdmin/accessLog', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} SuperAdminDashboardIn
  */
 const SuperAdminDashboardIn = {
 }
 /**
  * @typedef {Object} SuperAdminDashboardOut
+ * @property {number} registeredUserTotal
+ * @property {number} registeredUserToday
+ * @property {Object} requestsPerDate
+ * @property {Object} uniqueUserPerDate
+ * @property {Object} uniqueIpPerDate
+ * @property {Object} countPerActionsPerDate
  */
 const SuperAdminDashboardOut = {
+  registeredUserTotal: 0, // int64
+  registeredUserToday: 0, // int64
+  requestsPerDate: { // map[string]int
+  }, // map[string]int
+  uniqueUserPerDate: { // map[string]int
+  }, // map[string]int
+  uniqueIpPerDate: { // map[string]int
+  }, // map[string]int
+  countPerActionsPerDate: { // map[string]map[string]int
+  }, // map[string]map[string]int
 }
 /**
  * @callback SuperAdminDashboardCallback
@@ -1269,6 +1311,7 @@ exports.TenantAdminDeleteOrganizationChild = async function TenantAdminDeleteOrg
 /**
  * @typedef {Object} TenantAdminInventoryChangesIn
  * @property {String} cmd
+ * @property {number} productId
  * @property {number} inventoryChange.id
  * @property {String} inventoryChange.tenantCode
  * @property {number} inventoryChange.createdAt
@@ -1291,6 +1334,7 @@ exports.TenantAdminDeleteOrganizationChild = async function TenantAdminDeleteOrg
  */
 const TenantAdminInventoryChangesIn = {
   cmd: '', // string
+  productId: 0, // uint64
   inventoryChange: { // rqBusiness.InventoryChanges
     id: 0, // uint64
     tenantCode: '', // string
@@ -1386,7 +1430,7 @@ const TenantAdminInventoryChangesProductOut = {
  * @returns {Promise}
  */
 exports.TenantAdminInventoryChangesProduct = async function TenantAdminInventoryChangesProduct( i, cb ) {
-  return await axios.post( '/tenantAdmin/inventoryChanges/:productId', i ).
+  return await axios.post( '/tenantAdmin/inventoryChanges/', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

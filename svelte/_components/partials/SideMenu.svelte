@@ -23,7 +23,8 @@
     RiUserFacesContactsLine,
     RiMapMap2Line,
     RiFinanceSwapBoxLine,
-    RiDocumentStickyNoteAddLine
+    RiDocumentStickyNoteAddLine,
+    RiDocumentFileCopy2Line
   } from '../../node_modules/svelte-icons-pack/dist/ri';
   import { CgLogOut, CgBox } from '../../node_modules/svelte-icons-pack/dist/cg';
   import { BsPostcard } from '../../node_modules/svelte-icons-pack/dist/bs';
@@ -160,6 +161,7 @@
           <div class="submenu">
             <SubMenuLink title='Users' href='/superAdmin/userManagement' icon={RiUserFacesGroup2Line}/>
             <SubMenuLink title='Tenants' href='/superAdmin/tenantManagement' icon={RiUserFacesContactsLine}/>
+            <SubMenuLink title='Access Log' href='/superAdmin/accessLog' icon={RiDocumentFileCopy2Line}/>
           </div>
         {/if}
       </nav>

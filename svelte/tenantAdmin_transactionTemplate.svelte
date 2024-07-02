@@ -179,6 +179,7 @@
 
 <MainLayout>
   <div>
+    <div>Change UI to tree 2 level</div>
     <MasterTable
       ACCESS={segments}
       bind:FIELDS={fields}

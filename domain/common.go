@@ -353,29 +353,29 @@ func (o *ResponseCommon) Traces() string {
 func (d *Domain) segmentsFromSession(s *Session) M.SB {
 	s.IsSuperAdmin = d.Superadmins[s.Email]
 	s.Segments = M.SB{}
-	for _, role := range s.Roles {
-		switch role {
-		case TenantAdminSegment:
-			s.Segments[TenantAdminSegment] = true
-			s.Segments[ReportViewerSegment] = true
-			s.Segments[DataEntrySegment] = true
-			s.Segments[UserSegment] = true
-			s.Segments[GuestSegment] = true
-		case DataEntrySegment:
-			s.Segments[DataEntrySegment] = true
-			s.Segments[UserSegment] = true
-			s.Segments[GuestSegment] = true
-		case ReportViewerSegment:
-			s.Segments[ReportViewerSegment] = true
-			s.Segments[UserSegment] = true
-			s.Segments[GuestSegment] = true
-		case UserSegment:
-			s.Segments[GuestSegment] = true
-			s.Segments[UserSegment] = true
-		case GuestSegment:
-			s.Segments[GuestSegment] = true
-		}
+
+	switch s.Role {
+	case TenantAdminSegment:
+		s.Segments[TenantAdminSegment] = true
+		s.Segments[ReportViewerSegment] = true
+		s.Segments[DataEntrySegment] = true
+		s.Segments[UserSegment] = true
+		s.Segments[GuestSegment] = true
+	case DataEntrySegment:
+		s.Segments[DataEntrySegment] = true
+		s.Segments[UserSegment] = true
+		s.Segments[GuestSegment] = true
+	case ReportViewerSegment:
+		s.Segments[ReportViewerSegment] = true
+		s.Segments[UserSegment] = true
+		s.Segments[GuestSegment] = true
+	case UserSegment:
+		s.Segments[GuestSegment] = true
+		s.Segments[UserSegment] = true
+	case GuestSegment:
+		s.Segments[GuestSegment] = true
 	}
+	
 	if s.IsSuperAdmin {
 		s.Segments[SuperAdminSegment] = true
 		s.Segments[TenantAdminSegment] = true

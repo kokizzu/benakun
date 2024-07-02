@@ -82,8 +82,14 @@ func (d *Domain) GuestLogin(in *GuestLoginIn) (out GuestLoginOut) {
 		return
 	}
 
-	sess.Roles = []string{user.Users.Role}
+	sess.Role = user.Role
+	sess.IsSuperAdmin = d.Superadmins[user.Email]
+	if sess.IsSuperAdmin {
+		sess.Role = SuperAdminSegment
+	}
+
 	out.SessionToken = session.SessionToken
+	
 	out.Segments = d.segmentsFromSession(sess)
 	log.Info().Msgf("%v", out.Segments)
 	return

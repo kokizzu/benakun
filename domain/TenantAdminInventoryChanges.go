@@ -21,6 +21,7 @@ type (
 	TenantAdminInventoryChangesIn struct {
 		RequestCommon
 		Cmd      				string        							`json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
+		ProductId  			uint64      								`json:"productId,string" form:"productId" query:"productId" long:"productId" msg:"productId"`
 		InventoryChange	rqBusiness.InventoryChanges `json:"inventoryChange" form:"inventoryChange" query:"inventoryChange" long:"inventoryChange" msg:"inventoryChange"`
 		WithMeta				bool          							`json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
 		Pager    				zCrud.PagerIn 							`json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
@@ -175,7 +176,12 @@ func (d *Domain) TenantAdminInventoryChanges(in *TenantAdminInventoryChangesIn) 
 	case zCrud.CmdList:
 		invChange := rqBusiness.NewInventoryChanges(d.AuthOltp)
 		invChange.TenantCode = user.TenantCode
-		out.InventoryChanges = invChange.FindByPagination(&TenantAdminInventoryChangesMeta, &in.Pager, &out.Pager)
+		if in.ProductId != 0 {
+			invChange.ProductId = in.ProductId
+			out.InventoryChanges = invChange.FindByPaginationByProduct(&TenantAdminInventoryChangesMeta, &in.Pager, &out.Pager)
+		} else {
+			out.InventoryChanges = invChange.FindByPagination(&TenantAdminInventoryChangesMeta, &in.Pager, &out.Pager)
+		}
 	}
 
 	return

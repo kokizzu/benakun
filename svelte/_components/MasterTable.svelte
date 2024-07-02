@@ -78,7 +78,7 @@
 	// Rows per page
 	let currentRows = PAGER.perPage;
 	// Rows per page options
-	let rowsToShow = [10, 1, 40, 60, 70, 100, 200];
+	let rowsToShow = [10, 20, 40, 60, 70, 100, 200];
 	// State for show rows options
 	let showRowsNum = false;
 	// Total rows
@@ -255,9 +255,12 @@
 
 	function toggleShowPopUp(/** @type any */ id, /** @type any[]*/ row) {
 		payloads = [];
-		FIELDS.forEach((_, i) => {
-			payloads = [...payloads, row[i]]
-		});
+
+		if (FIELDS && FIELDS.length > 0) {
+			for (let i in FIELDS) {
+				payloads = [...payloads, row[i]]
+			}
+		}
 
 		showPopUp = true;
 		idToMod = id;
