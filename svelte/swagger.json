@@ -1663,6 +1663,61 @@
 							"schema": {
 								"type": "object",
 								"properties": {
+						"cmd": {
+								"type": "string"
+						},
+						"coa": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"name": {
+										"type": "string"
+								},
+								"label": {
+										"type": "string"
+								},
+								"parentId": {
+										"type": "number"
+								},
+								"children": {
+								"type": "object",
+								"properties": {
+										}
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"deletedBy": {
+										"type": "number"
+								},
+								"restoredBy": {
+										"type": "number"
+								}
+								}
+						},
+						"moveToIdx": {
+								"type": "number"
+						},
+						"toParentId": {
+								"type": "number"
+						}
 								}
 							}
 						}
@@ -1676,6 +1731,52 @@
 								"schema": {
 									"type": "object",
 									"properties": {
+										"coa": {
+										"type": "object",
+										"properties": {
+												"id": {
+														"type": "number"
+												},
+												"tenantCode": {
+														"type": "string"
+												},
+												"name": {
+														"type": "string"
+												},
+												"label": {
+														"type": "string"
+												},
+												"parentId": {
+														"type": "number"
+												},
+												"children": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"createdAt": {
+														"type": "number"
+												},
+												"createdBy": {
+														"type": "number"
+												},
+												"updatedAt": {
+														"type": "number"
+												},
+												"updatedBy": {
+														"type": "number"
+												},
+												"deletedAt": {
+														"type": "number"
+												},
+												"deletedBy": {
+														"type": "number"
+												},
+												"restoredBy": {
+														"type": "number"
+												}
+												}
+										},
 										"coas": {
 										"type": "object",
 										"properties": {
@@ -1809,47 +1910,6 @@
 												}
 										},
 										"staffsForm": {
-										"type": "object",
-										"properties": {
-												}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/tenantAdmin/deleteCoaChild": {
-			"post": {
-				"security": [{
-					"CookieAuth": []
-				}],
-				"tags": ["API"],
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-						"id": {
-								"type": "number"
-						}
-								}
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "TenantAdminDeleteCoaChild",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"coas": {
 										"type": "object",
 										"properties": {
 												}
@@ -2340,99 +2400,6 @@
 				}
 			}
 		},
-		"/tenantAdmin/moveCoaChild": {
-			"post": {
-				"security": [{
-					"CookieAuth": []
-				}],
-				"tags": ["API"],
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-						"id": {
-								"type": "number"
-						},
-						"moveToIdx": {
-								"type": "number"
-						},
-						"toParentId": {
-								"type": "number"
-						}
-								}
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "TenantAdminMoveCoaChild",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"coa": {
-										"type": "object",
-										"properties": {
-												"id": {
-														"type": "number"
-												},
-												"tenantCode": {
-														"type": "string"
-												},
-												"name": {
-														"type": "string"
-												},
-												"level": {
-														"type": "number"
-												},
-												"parentId": {
-														"type": "number"
-												},
-												"children": {
-												"type": "object",
-												"properties": {
-														}
-												},
-												"createdAt": {
-														"type": "number"
-												},
-												"createdBy": {
-														"type": "number"
-												},
-												"updatedAt": {
-														"type": "number"
-												},
-												"updatedBy": {
-														"type": "number"
-												},
-												"deletedAt": {
-														"type": "number"
-												},
-												"deletedBy": {
-														"type": "number"
-												},
-												"restoredBy": {
-														"type": "number"
-												}
-												}
-										},
-										"coas": {
-										"type": "object",
-										"properties": {
-												}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/tenantAdmin/moveOrganizationChild": {
 			"post": {
 				"security": [{
@@ -2767,47 +2734,6 @@
 				}
 			}
 		},
-		"/tenantAdmin/restoreCoaChild": {
-			"post": {
-				"security": [{
-					"CookieAuth": []
-				}],
-				"tags": ["API"],
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-						"id": {
-								"type": "number"
-						}
-								}
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "TenantAdminRestoreCoaChild",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"coas": {
-										"type": "object",
-										"properties": {
-												}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/tenantAdmin/restoreOrganizationChild": {
 			"post": {
 				"security": [{
@@ -3066,89 +2992,6 @@
 												"restoredBy": {
 														"type": "number"
 												}
-												}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-			"post": {
-				"security": [{
-					"CookieAuth": []
-				}],
-				"tags": ["API"],
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-						"coa": {
-						"type": "object",
-						"properties": {
-								"id": {
-										"type": "number"
-								},
-								"tenantCode": {
-										"type": "string"
-								},
-								"name": {
-										"type": "string"
-								},
-								"level": {
-										"type": "number"
-								},
-								"parentId": {
-										"type": "number"
-								},
-								"children": {
-								"type": "object",
-								"properties": {
-										}
-								},
-								"createdAt": {
-										"type": "number"
-								},
-								"createdBy": {
-										"type": "number"
-								},
-								"updatedAt": {
-										"type": "number"
-								},
-								"updatedBy": {
-										"type": "number"
-								},
-								"deletedAt": {
-										"type": "number"
-								},
-								"deletedBy": {
-										"type": "number"
-								},
-								"restoredBy": {
-										"type": "number"
-								}
-								}
-						}
-								}
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "TenantAdminUpsertCoaChild",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"coas": {
-										"type": "object",
-										"properties": {
 												}
 										}
 									}

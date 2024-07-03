@@ -8,11 +8,11 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-func (c *Coa) FindCoasByTenant(tenantCode string) (coas []Coa) {
+func (c *Coa) FindCoasByTenant() (coas []Coa) {
 	var res [][]any
 	const comment = `-- Coa) FindCoasByTenant`
 
-	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(tenantCode)
+	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode)
 
 	queryRows := comment + `
 SELECT ` + c.SqlSelectAllFields() + `
@@ -29,8 +29,6 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 				coas = append(coas, *c.FromArray(oa))
 			}
 		}
-	} else {
-		return []Coa{}
 	}
 
 	return

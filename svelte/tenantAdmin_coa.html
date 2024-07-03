@@ -868,7 +868,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 }
 
 /* fakecss:./tenantAdmin_coa.esbuild-svelte-fake-css */
-.coa_levels.svelte-fy8nxd.svelte-fy8nxd {
+.coa_levels.svelte-x2rfdg.svelte-x2rfdg {
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
@@ -876,14 +876,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   border: 1px solid var(--gray-003);
   border-radius: 8px;
   overflow: hidden;
-  padding-bottom: 10px;
+  padding: 15px 15px 20px;
 }
-.coa_levels.svelte-fy8nxd .coa.svelte-fy8nxd {
+.coa_levels.svelte-x2rfdg .coa.svelte-x2rfdg {
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-.coa_levels.svelte-fy8nxd .coa .parent.svelte-fy8nxd {
+.coa_levels.svelte-x2rfdg .coa .parent.svelte-x2rfdg {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -894,28 +894,28 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   color: var(--blue-006);
   padding: 10px 10px 10px 15px;
 }
-.coa_levels.svelte-fy8nxd .coa .parent h5.svelte-fy8nxd {
+.coa_levels.svelte-x2rfdg .coa .parent h5.svelte-x2rfdg {
   font-size: 18px;
   line-height: 2.2rem;
   margin: 0;
   user-select: none;
 }
-.coa_levels.svelte-fy8nxd .coa .parent h5 .label.svelte-fy8nxd {
+.coa_levels.svelte-x2rfdg .coa .parent h5 .label.svelte-x2rfdg {
   font-size: 14px;
   padding: 3px 7px;
   background-color: var(--blue-006);
   color: #FFF;
   border-radius: 9999px;
 }
-.coa_levels.svelte-fy8nxd .coa .parent:hover .options.svelte-fy8nxd {
+.coa_levels.svelte-x2rfdg .coa .parent:hover .options.svelte-x2rfdg {
   display: flex;
 }
-.coa_levels.svelte-fy8nxd .coa .options.svelte-fy8nxd {
+.coa_levels.svelte-x2rfdg .coa .options.svelte-x2rfdg {
   display: none;
   flex-direction: row;
   align-items: center;
 }
-.coa_levels.svelte-fy8nxd .coa .options .btn.svelte-fy8nxd {
+.coa_levels.svelte-x2rfdg .coa .options .btn.svelte-x2rfdg {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -925,13 +925,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   padding: 5px;
   cursor: pointer;
 }
-.coa_levels.svelte-fy8nxd .coa .options .btn.svelte-fy8nxd:hover {
+.coa_levels.svelte-x2rfdg .coa .options .btn.svelte-x2rfdg:hover {
   background-color: var(--gray-002);
 }
-.coa_levels.svelte-fy8nxd .coa .options .btn.svelte-fy8nxd:active {
+.coa_levels.svelte-x2rfdg .coa .options .btn.svelte-x2rfdg:active {
   background-color: var(--gray-003);
 }
-.coa_levels.svelte-fy8nxd .coa .children.svelte-fy8nxd {
+.coa_levels.svelte-x2rfdg .coa .children.svelte-x2rfdg {
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -5046,8 +5046,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var import_jsApi = __toESM(require_jsApi_GEN());
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[22] = list[i];
-    child_ctx[24] = i;
+    child_ctx[23] = list[i];
+    child_ctx[25] = i;
     return child_ctx;
   }
   function create_else_block(ctx) {
@@ -5080,7 +5080,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*restoreCoaChild*/
-            ctx[11]
+            ctx[12]
           );
           mounted = true;
         }
@@ -5175,19 +5175,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               button0,
               "click",
               /*click_handler*/
-              ctx[16]
+              ctx[17]
             ),
             listen(
               button1,
               "click",
               /*click_handler_1*/
-              ctx[17]
+              ctx[18]
             ),
             listen(
               button2,
               "click",
               /*deleteCoaChild*/
-              ctx[10]
+              ctx[11]
             )
           ];
           mounted = true;
@@ -5235,7 +5235,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     const get_key = (ctx2) => (
       /*ch*/
-      ctx2[22].id
+      ctx2[23].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context(ctx, each_value, i);
@@ -5260,7 +5260,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         if (dirty & /*coa, num, indent*/
-        7) {
+        11) {
           each_value = ensure_array_like(
             /*coa*/
             ctx2[0].children
@@ -5302,21 +5302,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       props: {
         coa: (
           /*ch*/
-          ctx[22]
+          ctx[23]
         ),
         num: `${/*num*/
         ctx[1]}.${/*idx*/
-        ctx[24] + 1}`,
+        ctx[25] + 1}`,
         indent: (
           /*indent*/
-          ctx[2] + 1
+          ctx[3] + 1
         )
       }
     });
     coatree.$on(
       "update",
       /*update_handler*/
-      ctx[18]
+      ctx[19]
     );
     return {
       key: key_1,
@@ -5337,16 +5337,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (dirty & /*coa*/
         1)
           coatree_changes.coa = /*ch*/
-          ctx[22];
+          ctx[23];
         if (dirty & /*num, coa*/
         3)
           coatree_changes.num = `${/*num*/
           ctx[1]}.${/*idx*/
-          ctx[24] + 1}`;
+          ctx[25] + 1}`;
         if (dirty & /*indent*/
-        4)
+        8)
           coatree_changes.indent = /*indent*/
-          ctx[2] + 1;
+          ctx[3] + 1;
         coatree.$set(coatree_changes);
       },
       i(local) {
@@ -5380,10 +5380,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let t1;
     let h6;
     let span1;
-    let t2_value = (
-      /*coa*/
-      ctx[0].level + ""
-    );
     let t2;
     let t3;
     let t4;
@@ -5402,43 +5398,43 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let t8;
     let current;
     function popupcoachild_isSubmitted_binding(value) {
-      ctx[13](value);
-    }
-    function popupcoachild_childName_binding(value) {
       ctx[14](value);
     }
-    function popupcoachild_heading_binding(value) {
+    function popupcoachild_childName_binding(value) {
       ctx[15](value);
+    }
+    function popupcoachild_heading_binding(value) {
+      ctx[16](value);
     }
     let popupcoachild_props = {
       onSubmit: (
         /*submitAddOrEditChild*/
-        ctx[9]
+        ctx[10]
       )
     };
     if (
       /*isSubmitted*/
-      ctx[7] !== void 0
+      ctx[8] !== void 0
     ) {
       popupcoachild_props.isSubmitted = /*isSubmitted*/
-      ctx[7];
+      ctx[8];
     }
     if (
       /*coaName*/
-      ctx[6] !== void 0
+      ctx[7] !== void 0
     ) {
       popupcoachild_props.childName = /*coaName*/
-      ctx[6];
+      ctx[7];
     }
     if (
       /*heading*/
-      ctx[5] !== void 0
+      ctx[6] !== void 0
     ) {
       popupcoachild_props.heading = /*heading*/
-      ctx[5];
+      ctx[6];
     }
     popupcoachild = new PopUpCoaChild_default({ props: popupcoachild_props });
-    ctx[12](popupcoachild);
+    ctx[13](popupcoachild);
     binding_callbacks.push(() => bind(popupcoachild, "isSubmitted", popupcoachild_isSubmitted_binding));
     binding_callbacks.push(() => bind(popupcoachild, "childName", popupcoachild_childName_binding));
     binding_callbacks.push(() => bind(popupcoachild, "heading", popupcoachild_heading_binding));
@@ -5470,7 +5466,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t1 = space();
         h6 = element("h6");
         span1 = element("span");
-        t2 = text(t2_value);
+        t2 = text(
+          /*parentNum*/
+          ctx[2]
+        );
         t3 = text(".");
         t4 = text(
           /*num*/
@@ -5497,7 +5496,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           div2,
           "--indent-width",
           /*indentWidth*/
-          ctx[3]
+          ctx[4]
         );
       },
       m(target, anchor) {
@@ -5527,31 +5526,34 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       p(ctx2, [dirty]) {
         const popupcoachild_changes = {};
         if (!updating_isSubmitted && dirty & /*isSubmitted*/
-        128) {
+        256) {
           updating_isSubmitted = true;
           popupcoachild_changes.isSubmitted = /*isSubmitted*/
-          ctx2[7];
+          ctx2[8];
           add_flush_callback(() => updating_isSubmitted = false);
         }
         if (!updating_childName && dirty & /*coaName*/
-        64) {
+        128) {
           updating_childName = true;
           popupcoachild_changes.childName = /*coaName*/
-          ctx2[6];
+          ctx2[7];
           add_flush_callback(() => updating_childName = false);
         }
         if (!updating_heading && dirty & /*heading*/
-        32) {
+        64) {
           updating_heading = true;
           popupcoachild_changes.heading = /*heading*/
-          ctx2[5];
+          ctx2[6];
           add_flush_callback(() => updating_heading = false);
         }
         popupcoachild.$set(popupcoachild_changes);
-        if ((!current || dirty & /*coa*/
-        1) && t2_value !== (t2_value = /*coa*/
-        ctx2[0].level + ""))
-          set_data(t2, t2_value);
+        if (!current || dirty & /*parentNum*/
+        4)
+          set_data(
+            t2,
+            /*parentNum*/
+            ctx2[2]
+          );
         if (!current || dirty & /*num*/
         2)
           set_data(
@@ -5589,12 +5591,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           if_block0.m(div1, null);
         }
         if (!current || dirty & /*indentWidth*/
-        8) {
+        16) {
           set_style(
             div2,
             "--indent-width",
             /*indentWidth*/
-            ctx2[3]
+            ctx2[4]
           );
         }
         if (
@@ -5641,7 +5643,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           detach(t0);
           detach(div3);
         }
-        ctx[12](null);
+        ctx[13](null);
         destroy_component(popupcoachild, detaching);
         if_blocks[current_block_type_index].d();
         if (if_block1)
@@ -5654,16 +5656,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let { coa = {
       id: "",
       name: "",
-      level: 0,
       parentId: "",
       children: [],
       createdAt: 0,
       createdBy: "",
       updatedAt: 0,
       updatedBy: "",
-      deletedAt: 0
+      deletedAt: 0,
+      tenantCode: "",
+      label: "",
+      deletedBy: "",
+      restoredBy: ""
     } } = $props;
     let { num = "1" } = $props;
+    let { parentNum = 0 } = $props;
     let { indent = 1 } = $props;
     let indentWidth = "10px";
     const toIndentWidth = (
@@ -5673,23 +5679,23 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     );
     let popUpCoaChild, heading = "Add coa child";
-    onMount(() => $invalidate(3, indentWidth = toIndentWidth(indent)));
+    onMount(() => $invalidate(4, indentWidth = toIndentWidth(indent)));
     let coaState = "add", coaName = "";
     let isSubmitted = false;
     const toggleAddOrEdit = (
       /** @type {string}*/
       (state) => {
         if (state === "add")
-          coaState = "add", $invalidate(6, coaName = ""), $invalidate(5, heading = "Add coa child");
+          coaState = "add", $invalidate(7, coaName = ""), $invalidate(6, heading = "Add coa child");
         else
-          coaState = "edit", $invalidate(6, coaName = coa.name), $invalidate(5, heading = "Edit: " + coa.name);
+          coaState = "edit", $invalidate(7, coaName = coa.name), $invalidate(6, heading = "Edit: " + coa.name);
         popUpCoaChild.show();
       }
     );
     async function submitAddOrEditChild() {
-      $invalidate(7, isSubmitted = true);
+      $invalidate(8, isSubmitted = true);
       if (coaName === "") {
-        $invalidate(7, isSubmitted = false);
+        $invalidate(8, isSubmitted = false);
         notifier.showWarning("Coa name cannot be empty");
         return;
       }
@@ -5703,7 +5709,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         { coa: coaPayload },
         /** @type {import('../jsApi.GEN').TenantAdminUpsertCoaChildCallback}*/
         function(o) {
-          $invalidate(7, isSubmitted = false);
+          $invalidate(8, isSubmitted = false);
           popUpCoaChild.hide();
           if (o.error) {
             notifier.showError(o.error);
@@ -5716,36 +5722,36 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       );
     }
     async function deleteCoaChild() {
-      $invalidate(7, isSubmitted = true);
+      $invalidate(8, isSubmitted = true);
       await (0, import_jsApi.TenantAdminDeleteCoaChild)(
         { id: Number(coa.id) },
         /** @type {import('../jsApi.GEN').TenantAdminDeleteCoaChildCallback}*/
         function(o) {
           if (o.error) {
-            $invalidate(7, isSubmitted = false);
+            $invalidate(8, isSubmitted = false);
             notifier.showError(o.error);
             console.log(o);
             return;
           }
-          $invalidate(7, isSubmitted = false);
+          $invalidate(8, isSubmitted = false);
           notifier.showSuccess(coa.name + " deleted");
           dispatch("update", { coas: o.coa });
         }
       );
     }
     async function restoreCoaChild() {
-      $invalidate(7, isSubmitted = true);
+      $invalidate(8, isSubmitted = true);
       await (0, import_jsApi.TenantAdminRestoreCoaChild)(
         { id: Number(coa.id) },
         /** @type {import('../jsApi.GEN').TenantAdminRestoreCoaChildCallback}*/
         function(o) {
           if (o.error) {
-            $invalidate(7, isSubmitted = false);
+            $invalidate(8, isSubmitted = false);
             notifier.showError(o.error);
             console.log(o);
             return;
           }
-          $invalidate(7, isSubmitted = false);
+          $invalidate(8, isSubmitted = false);
           notifier.showSuccess(coa.name + " restored");
           dispatch("update", { coas: o.coa });
         }
@@ -5754,20 +5760,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function popupcoachild_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpCoaChild = $value;
-        $invalidate(4, popUpCoaChild);
+        $invalidate(5, popUpCoaChild);
       });
     }
     function popupcoachild_isSubmitted_binding(value) {
       isSubmitted = value;
-      $invalidate(7, isSubmitted);
+      $invalidate(8, isSubmitted);
     }
     function popupcoachild_childName_binding(value) {
       coaName = value;
-      $invalidate(6, coaName);
+      $invalidate(7, coaName);
     }
     function popupcoachild_heading_binding(value) {
       heading = value;
-      $invalidate(5, heading);
+      $invalidate(6, heading);
     }
     const click_handler = () => toggleAddOrEdit("add");
     const click_handler_1 = () => toggleAddOrEdit("edit");
@@ -5779,12 +5785,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         $invalidate(0, coa = $props2.coa);
       if ("num" in $props2)
         $invalidate(1, num = $props2.num);
+      if ("parentNum" in $props2)
+        $invalidate(2, parentNum = $props2.parentNum);
       if ("indent" in $props2)
-        $invalidate(2, indent = $props2.indent);
+        $invalidate(3, indent = $props2.indent);
     };
     return [
       coa,
       num,
+      parentNum,
       indent,
       indentWidth,
       popUpCoaChild,
@@ -5807,7 +5816,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var CoaTree = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance4, create_fragment4, safe_not_equal, { coa: 0, num: 1, indent: 2 });
+      init(this, options, instance4, create_fragment4, safe_not_equal, { coa: 0, num: 1, parentNum: 2, indent: 3 });
     }
   };
   var CoaTree_default = CoaTree;
@@ -7190,77 +7199,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
     let current;
-    let each_value = ensure_array_like(
-      /*REFORMAT_COAS*/
-      ctx[0]
-    );
-    const get_key = (ctx2) => (
-      /*c*/
-      ctx2[14].id
-    );
-    for (let i = 0; i < each_value.length; i += 1) {
-      let child_ctx = get_each_context2(ctx, each_value, i);
-      let key = get_key(child_ctx);
-      each_1_lookup.set(key, each_blocks[i] = create_each_block2(key, child_ctx));
-    }
-    return {
-      c() {
-        div = element("div");
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].c();
-        }
-        attr(div, "class", "coa_levels shadow svelte-fy8nxd");
-      },
-      m(target, anchor) {
-        insert(target, div, anchor);
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          if (each_blocks[i]) {
-            each_blocks[i].m(div, null);
-          }
-        }
-        current = true;
-      },
-      p(ctx2, dirty) {
-        if (dirty & /*REFORMAT_COAS, updateEventHandler, childParentId, popUpCoaChild*/
-        75) {
-          each_value = ensure_array_like(
-            /*REFORMAT_COAS*/
-            ctx2[0]
-          );
-          group_outros();
-          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, div, outro_and_destroy_block, create_each_block2, null, get_each_context2);
-          check_outros();
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        for (let i = 0; i < each_value.length; i += 1) {
-          transition_in(each_blocks[i]);
-        }
-        current = true;
-      },
-      o(local) {
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          transition_out(each_blocks[i]);
-        }
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(div);
-        }
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].d();
-        }
-      }
-    };
-  }
-  function create_if_block_15(ctx) {
-    let div;
-    let each_blocks = [];
-    let each_1_lookup = /* @__PURE__ */ new Map();
-    let current;
     let each_value_1 = ensure_array_like(
       /*c*/
       ctx[14].children
@@ -7280,7 +7218,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(div, "class", "children svelte-fy8nxd");
+        attr(div, "class", "children svelte-x2rfdg");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -7339,6 +7277,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         ),
         num: `${/*idx*/
         ctx[19] + 1}`,
+        parentNum: (
+          /*idxParent*/
+          ctx[16] + 1
+        ),
         indent: 1
       }
     });
@@ -7371,6 +7313,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         1)
           coatree_changes.num = `${/*idx*/
           ctx[19] + 1}`;
+        if (dirty & /*REFORMAT_COAS*/
+        1)
+          coatree_changes.parentNum = /*idxParent*/
+          ctx[16] + 1;
         coatree.$set(coatree_changes);
       },
       i(local) {
@@ -7397,8 +7343,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let h5;
     let span;
     let t0_value = (
-      /*c*/
-      ctx[14].level + ""
+      /*idxParent*/
+      ctx[16] + 1 + ""
     );
     let t0;
     let t1;
@@ -7436,7 +7382,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let if_block = (
       /*c*/
       ctx[14].children && /*c*/
-      ctx[14].children.length && create_if_block_15(ctx)
+      ctx[14].children.length && create_if_block5(ctx)
     );
     return {
       key: key_1,
@@ -7447,7 +7393,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         h5 = element("h5");
         span = element("span");
         t0 = text(t0_value);
-        t1 = text("\n              \xA0");
+        t1 = text("\n            \xA0");
         t2 = text(t2_value);
         t3 = space();
         div0 = element("div");
@@ -7457,13 +7403,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (if_block)
           if_block.c();
         t5 = space();
-        attr(span, "class", "label svelte-fy8nxd");
-        attr(h5, "class", "svelte-fy8nxd");
-        attr(button, "class", "btn svelte-fy8nxd");
+        attr(span, "class", "label svelte-x2rfdg");
+        attr(h5, "class", "svelte-x2rfdg");
+        attr(button, "class", "btn svelte-x2rfdg");
         attr(button, "title", "Add child");
-        attr(div0, "class", "options svelte-fy8nxd");
-        attr(div1, "class", "parent svelte-fy8nxd");
-        attr(div2, "class", "coa svelte-fy8nxd");
+        attr(div0, "class", "options svelte-x2rfdg");
+        attr(div1, "class", "parent svelte-x2rfdg");
+        attr(div2, "class", "coa svelte-x2rfdg");
         this.first = div2;
       },
       m(target, anchor) {
@@ -7491,8 +7437,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if ((!current || dirty & /*REFORMAT_COAS*/
-        1) && t0_value !== (t0_value = /*c*/
-        ctx[14].level + ""))
+        1) && t0_value !== (t0_value = /*idxParent*/
+        ctx[16] + 1 + ""))
           set_data(t0, t0_value);
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t2_value !== (t2_value = /*c*/
@@ -7510,7 +7456,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block_15(ctx);
+            if_block = create_if_block5(ctx);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(div2, t5);
@@ -7548,76 +7494,89 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function create_default_slot(ctx) {
-    let div;
+    let div0;
     let t1;
-    let if_block_anchor;
+    let div2;
+    let div1;
+    let t3;
+    let each_blocks = [];
+    let each_1_lookup = /* @__PURE__ */ new Map();
     let current;
-    let if_block = (
+    let each_value = ensure_array_like(
       /*REFORMAT_COAS*/
-      ctx[0] && /*REFORMAT_COAS*/
-      ctx[0].length && create_if_block5(ctx)
+      ctx[0] || []
     );
+    const get_key = (ctx2) => (
+      /*c*/
+      ctx2[14].id
+    );
+    for (let i = 0; i < each_value.length; i += 1) {
+      let child_ctx = get_each_context2(ctx, each_value, i);
+      let key = get_key(child_ctx);
+      each_1_lookup.set(key, each_blocks[i] = create_each_block2(key, child_ctx));
+    }
     return {
       c() {
-        div = element("div");
-        div.innerHTML = `<p>TODO: add combobox sambungan ke tabel</p>`;
+        div0 = element("div");
+        div0.innerHTML = `<p>TODO: add combobox sambungan ke tabel</p>`;
         t1 = space();
-        if (if_block)
-          if_block.c();
-        if_block_anchor = empty();
+        div2 = element("div");
+        div1 = element("div");
+        div1.innerHTML = `<button>add</button>`;
+        t3 = space();
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        attr(div2, "class", "coa_levels shadow svelte-x2rfdg");
       },
       m(target, anchor) {
-        insert(target, div, anchor);
+        insert(target, div0, anchor);
         insert(target, t1, anchor);
-        if (if_block)
-          if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
+        insert(target, div2, anchor);
+        append(div2, div1);
+        append(div2, t3);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(div2, null);
+          }
+        }
         current = true;
       },
       p(ctx2, dirty) {
-        if (
-          /*REFORMAT_COAS*/
-          ctx2[0] && /*REFORMAT_COAS*/
-          ctx2[0].length
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*REFORMAT_COAS*/
-            1) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block5(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
-          }
-        } else if (if_block) {
+        if (dirty & /*REFORMAT_COAS, updateEventHandler, childParentId, popUpCoaChild*/
+        75) {
+          each_value = ensure_array_like(
+            /*REFORMAT_COAS*/
+            ctx2[0] || []
+          );
           group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
-          });
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, div2, outro_and_destroy_block, create_each_block2, null, get_each_context2);
           check_outros();
         }
       },
       i(local) {
         if (current)
           return;
-        transition_in(if_block);
+        for (let i = 0; i < each_value.length; i += 1) {
+          transition_in(each_blocks[i]);
+        }
         current = true;
       },
       o(local) {
-        transition_out(if_block);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          transition_out(each_blocks[i]);
+        }
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(div);
+          detach(div0);
           detach(t1);
-          detach(if_block_anchor);
+          detach(div2);
         }
-        if (if_block)
-          if_block.d(detaching);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].d();
+        }
       }
     };
   }
@@ -7734,14 +7693,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       let coaFormatted = {
         id: "",
         name: "",
-        level: 0,
         parentId: "",
         children: [],
         createdAt: void 0,
         createdBy: "",
         updatedAt: void 0,
         updatedBy: "",
-        deletedAt: void 0
+        deletedAt: void 0,
+        tenantCode: "",
+        label: "",
+        deletedBy: "",
+        restoredBy: ""
       };
       for (let i in coas) {
         if (coas[i].id == String(id)) {
@@ -7757,8 +7719,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             }
           }
           coaFormatted.id = coas[i].id;
+          coaFormatted.tenantCode = coas[i].tenantCode;
+          coaFormatted.label = coas[i].label;
           coaFormatted.name = coas[i].name;
-          coaFormatted.level = coas[i].level;
           coaFormatted.parentId = coas[i].parentId;
           coaFormatted.createdAt = coas[i].createdAt;
           coaFormatted.createdBy = coas[i].createdBy;

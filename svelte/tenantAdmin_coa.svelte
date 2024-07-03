@@ -25,14 +25,17 @@
     let coaFormatted = {
       id: '',
       name: '',
-      level: 0,
       parentId: '',
       children: [],
       createdAt: undefined,
       createdBy: '',
       updatedAt: undefined,
       updatedBy: '',
-      deletedAt: undefined
+      deletedAt: undefined,
+      tenantCode: '',
+      label: '',
+      deletedBy: '',
+      restoredBy: ''
     }
     for (let i in coas) {
       if (coas[i].id == String(id)) { // @ts-ignore
@@ -45,8 +48,9 @@
           }
         }
         coaFormatted.id = coas[i].id
+        coaFormatted.tenantCode = coas[i].tenantCode
+        coaFormatted.label = coas[i].label
         coaFormatted.name = coas[i].name
-        coaFormatted.level = coas[i].level
         coaFormatted.parentId = coas[i].parentId
         coaFormatted.createdAt = coas[i].createdAt
         coaFormatted.createdBy = coas[i].createdBy
@@ -139,40 +143,42 @@
   <div>
     <p>TODO: add combobox sambungan ke tabel</p>
   </div>
-  {#if REFORMAT_COAS && REFORMAT_COAS.length}
-    <div class="coa_levels shadow">
-      {#each REFORMAT_COAS as c, _ (c.id)}
-        <div class="coa">
-          <div class="parent">
-            <h5>
-              <span class="label">{c.level}</span>
-              &nbsp;{c.name}
-            </h5>
-            <div class="options">
-              <button class="btn" title="Add child" on:click={() => {
-                childParentId = c.id;
-                popUpCoaChild.show();
-              }}>
-                <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
-              </button>
-            </div>
-          </div>
-          {#if c.children && c.children.length}
-            <div class="children">
-              {#each c.children as cc, idx (cc.id)}
-                <CoaTree
-                  coa={cc}
-                  num={`${idx+1}`}
-                  indent={1}
-                  on:update={updateEventHandler}
-                />
-              {/each}
-            </div>
-          {/if}
-        </div>
-      {/each}
+  <div class="coa_levels shadow">
+    <div>
+      <button>add</button>
     </div>
-  {/if}
+    {#each (REFORMAT_COAS || []) as c, idxParent (c.id)}
+      <div class="coa">
+        <div class="parent">
+          <h5>
+            <span class="label">{idxParent+1}</span>
+            &nbsp;{c.name}
+          </h5>
+          <div class="options">
+            <button class="btn" title="Add child" on:click={() => {
+              childParentId = c.id;
+              popUpCoaChild.show();
+            }}>
+              <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
+            </button>
+          </div>
+        </div>
+        {#if c.children && c.children.length}
+          <div class="children">
+            {#each c.children as cc, idx (cc.id)}
+              <CoaTree
+                coa={cc}
+                num={`${idx+1}`}
+                parentNum={idxParent+1}
+                indent={1}
+                on:update={updateEventHandler}
+              />
+            {/each}
+          </div>
+        {/if}
+      </div>
+    {/each}
+  </div>
 </MainLayout>
 
 <style>
@@ -184,7 +190,7 @@
     border: 1px solid var(--gray-003);
     border-radius: 8px;
     overflow: hidden;
-    padding-bottom: 10px;
+    padding: 15px 15px 20px;
   }
 
   .coa_levels .coa {

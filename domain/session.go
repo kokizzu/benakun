@@ -239,10 +239,12 @@ func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 	user := rqAuth.NewUsers(d.AuthOltp)
 	user.Id = session.UserId
 	if !user.FindById() {
+		sess.Role = GuestSegment
 		out.SetError(498, ErrUserIdNotFound)
 		return nil
+	} else {
+		sess.Role = UserSegment
 	}
-
 	sess.TenantCode = user.TenantCode
 
 	if v, ok := hostmap[in.Host]; ok {

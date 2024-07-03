@@ -25,17 +25,21 @@
   export let coa = {
     id: '',
     name: '',
-    level: 0,
     parentId: '',
     children: [],
     createdAt: 0,
     createdBy: '',
     updatedAt: 0,
     updatedBy: '',
-    deletedAt: 0
-  };
+    deletedAt: 0,
+    tenantCode: '',
+    label: '',
+    deletedBy: '',
+    restoredBy: ''
+   };
 
   export let num = '1';
+  export let parentNum = 0;
   export let indent = 1;
   let indentWidth = '10px';
   const toIndentWidth = (/** @type {number} */ i) => { return `${i * 15 + 10}px` }
@@ -136,7 +140,7 @@
     <div class="num-title">
       <span class="h-line"></span>
       <h6 class={`text ${coa.deletedAt > 0 ? 'deleted' : ''}`}>
-        <span class="label">{coa.level}.{num}</span>&nbsp;&nbsp;
+        <span class="label">{parentNum}.{num}</span>&nbsp;&nbsp;
         <span class="name">{coa.name}</span>
       </h6>
     </div>
