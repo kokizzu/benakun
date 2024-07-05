@@ -3,18 +3,13 @@
   import {
     RiSystemAddBoxLine,
     RiDesignPencilLine,
-    RiArrowsDragMove2Fill,
     RiSystemDeleteBinLine,
     RiArrowsArrowGoBackLine
    } from '../node_modules/svelte-icons-pack/dist/ri';
   import { onMount } from 'svelte';
-  import PopUpCoaChild from './PopUpCoaChild.svelte';
+  import PopUpCoA from './PopUpCoa.svelte';
   import { notifier } from './notifier.js';
-  import {
-    TenantAdminUpsertCoaChild,
-    TenantAdminDeleteCoaChild,
-    TenantAdminRestoreCoaChild
-  } from '../jsApi.GEN';
+  import { TenantAdminCoa } from '../jsApi.GEN';
   import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
@@ -23,9 +18,9 @@
 
   /** @type {CoA} */
   export let coa = {
-    id: '',
+    id: 0,
     name: '',
-    parentId: '',
+    parentId: 0,
     children: [],
     createdAt: 0,
     createdBy: '',
@@ -36,7 +31,7 @@
     label: '',
     deletedBy: '',
     restoredBy: ''
-   };
+  };
 
   export let num = '1';
   export let parentNum = 0;
@@ -44,95 +39,106 @@
   let indentWidth = '10px';
   const toIndentWidth = (/** @type {number} */ i) => { return `${i * 15 + 10}px` }
 
-  let popUpCoaChild, heading = 'Add coa child';
-
   onMount(() => indentWidth = toIndentWidth(indent))
 
-  let coaState = 'add', coaName = '';
+  let popUpCoa;
+  let id = 0, parentId = 0;
+  let name = '', label = '';
   let isSubmitted = false;
+  let heading = 'Add CoA child'
 
-  const toggleAddOrEdit = (/** @type {string}*/ state) => {
-    if (state === 'add') coaState = 'add', coaName = '', heading = 'Add coa child';
-    else coaState = 'edit', coaName = coa.name, heading = 'Edit: ' + coa.name;
-    popUpCoaChild.show();
+  async function submitUpsertCoa() {
+    isSubmitted = true;
+    /** @type CoA */ //@ts-ignore
+    const coa = { id, parentId, name, label }
+    const i = {
+      cmd: 'upsert',
+      coa
+    }
+    await TenantAdminCoa( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminCoaCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        isSubmitted = false;
+        popUpCoa.hide();
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+        
+        dispatch('update', { coas: o.coas })
+
+        notifier.showSuccess('coa updated');
+      }
+    )
   }
 
-  async function submitAddOrEditChild() {
-    isSubmitted = true;
-    if (coaName === '') {
-      isSubmitted = false;
-      notifier.showWarning('Coa name cannot be empty');
-      return;
-    }
-
-    /** @type CoA */ //@ts-ignore
-    let coaPayload = {
-      id: coaState === 'edit' ? coa.id : '0',
-      name: coaName,
-      parentId: coa.id,
-    }
-
-    await TenantAdminUpsertCoaChild( //@ts-ignore
-      { coa: coaPayload}, /** @type {import('../jsApi.GEN').TenantAdminUpsertCoaChildCallback}*/
-      function (/** @type {any} */ o) {
-        isSubmitted = false;
-        popUpCoaChild.hide();
-
-        if (o.error) {
-          notifier.showError(o.error);
-          console.log(o);
-          return;
-        }
-
-        notifier.showSuccess('Coa child updated');
-        dispatch('update', { coas: o.coas })
-      }
-    );
+  function toggleShowPopUpCoa(ids, parentIds, names, labels) {
+    if (ids != 0) { heading = 'Edit CoA' }
+    id = ids; parentId = parentIds;
+    name = names; label = labels;
+    popUpCoa.show();
   }
 
   async function deleteCoaChild() {
     isSubmitted = true;
-    await TenantAdminDeleteCoaChild(
-      { id: Number(coa.id) },
-      /** @type {import('../jsApi.GEN').TenantAdminDeleteCoaChildCallback}*/ function (/** @type {any} */ o) {
-        if (o.error) {
-          isSubmitted = false;
-          notifier.showError(o.error);
-          console.log(o);
-          return;
-        }
+    const i = {
+      cmd: 'delete',
+      coa: { id }
+    }
+    await TenantAdminCoa( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminCoaCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
         isSubmitted = false;
-        notifier.showSuccess(coa.name + ' deleted');
-        dispatch('update', { coas: o.coa })
+        popUpCoa.hide();
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+        
+        dispatch('update', { coas: o.coas })
+
+        notifier.showSuccess('coa deleted');
       }
     )
   }
 
   async function restoreCoaChild() {
     isSubmitted = true;
-    await TenantAdminRestoreCoaChild(
-      { id: Number(coa.id) },
-      /** @type {import('../jsApi.GEN').TenantAdminRestoreCoaChildCallback}*/ function (/** @type {any} */ o) {
-        if (o.error) {
-          isSubmitted = false;
-          notifier.showError(o.error);
-          console.log(o);
-          return;
-        }
+    const i = {
+      cmd: 'restore',
+      coa: { id }
+    }
+    await TenantAdminCoa( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminCoaCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
         isSubmitted = false;
-        notifier.showSuccess(coa.name + ' restored');
-        dispatch('update', { coas: o.coa })
+        popUpCoa.hide();
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+        
+        dispatch('update', { coas: o.coas })
+
+        notifier.showSuccess('coa restored');
       }
     )
   }
 </script>
 
-<PopUpCoaChild
-  bind:this={popUpCoaChild}
-  bind:isSubmitted={isSubmitted}
-  bind:childName={coaName}
-  bind:heading={heading}
-  onSubmit={submitAddOrEditChild}
+<PopUpCoA
+  bind:heading
+  bind:this={popUpCoa}
+  bind:name
+  bind:label
+  bind:isSubmitted
+  onSubmit={submitUpsertCoa}
 />
 
 <div>
@@ -145,8 +151,11 @@
       </h6>
     </div>
     <div class="options">
+      {#if coa.label !== ''}
+        <span class="label">{coa.label}</span>
+      {/if}
       {#if coa.deletedAt <= 0}
-        <button class="btn" title="Add child" on:click={() => toggleAddOrEdit('add')}>
+        <button class="btn" title="Add child" on:click={() => toggleShowPopUpCoa(0, coa.id, '', '')}>
           <Icon
             color="var(--gray-006)"
             className="icon"
@@ -154,7 +163,7 @@
             src={RiSystemAddBoxLine}
           />
         </button>
-        <button class="btn" title="Edit" on:click={() => toggleAddOrEdit('edit')}>
+        <button class="btn" title="Edit" on:click={() => toggleShowPopUpCoa(coa.id, coa.parentId, coa.name, coa.label)}>
           <Icon
             color="var(--gray-006)"
             className="icon"
@@ -261,6 +270,14 @@
     cursor: pointer;
     flex-direction: row;
     align-items: center;
+  }
+
+  .coa-child .options .label {
+    padding: 2px 10px;
+    margin-right: 7px;
+    border-radius: 999px;
+    background-color: var(--violet-transparent);
+    color: var(--violet-005);
   }
 
   .coa-child .options .btn {

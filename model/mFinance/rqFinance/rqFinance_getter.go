@@ -23,6 +23,8 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 		res = append(res, row)
 	})
 
+	L.Print(`query:`, queryRows)
+
 	if len(res) > 0 {
 		for _, oa := range res {
 			if len(oa) >= 5 {

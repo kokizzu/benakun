@@ -7,7 +7,6 @@ import (
 	"benakun/model/zCrud"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/kokizzu/gotro/M"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminCoa.go
@@ -19,15 +18,15 @@ import (
 type (
 	TenantAdminCoaIn struct {
 		RequestCommon
-		Cmd 				string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		Coa 				rqFinance.Coa	`json:"coa" form:"coa" query:"coa" long:"coa" msg:"coa"`
-		MoveToIdx		int    				`json:"moveToIdx" form:"moveToIdx" query:"moveToIdx" long:"moveToIdx" msg:"moveToIdx"`
-		ToParentId	uint64 				`json:"toParentId" form:"toParentId" query:"toParentId" long:"toParentId" msg:"toParentId"`
+		Cmd        string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
+		Coa        rqFinance.Coa `json:"coa" form:"coa" query:"coa" long:"coa" msg:"coa"`
+		MoveToIdx  int           `json:"moveToIdx" form:"moveToIdx" query:"moveToIdx" long:"moveToIdx" msg:"moveToIdx"`
+		ToParentId uint64        `json:"toParentId" form:"toParentId" query:"toParentId" long:"toParentId" msg:"toParentId"`
 	}
 	TenantAdminCoaOut struct {
 		ResponseCommon
-		Coa		*rqFinance.Coa			`json:"coa" form:"coa" query:"coa" long:"coa" msg:"coa"`
-		Coas	*[]rqFinance.Coa	`json:"coas" form:"coas" query:"coas" long:"coas" msg:"coas"`
+		Coa  *rqFinance.Coa   `json:"coa" form:"coa" query:"coa" long:"coa" msg:"coa"`
+		Coas *[]rqFinance.Coa `json:"coas" form:"coas" query:"coas" long:"coas" msg:"coas"`
 	}
 )
 
@@ -82,56 +81,28 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 			}
 
 			switch in.Cmd {
-				case zCrud.CmdUpsert:
-					coa.SetAll(in.Coa, M.SB{}, M.SB{})
-				case zCrud.CmdDelete:
-					if coa.DeletedAt == 0 {
-						coa.SetDeletedAt(in.UnixNow())
-						coa.SetDeletedBy(sess.UserId)
-					}
-				case zCrud.CmdRestore:
-					if coa.DeletedAt > 0 {
-						coa.SetDeletedAt(0)
-						coa.SetRestoredBy(sess.UserId)
-					}
-				case zCrud.CmdMove:
-					if parent.Id == in.ToParentId {
-						if len(parent.Children) >= 2 {
-							children, err := moveChildToIndex(parent.Children, in.Coa.Id, in.MoveToIdx)
-							if err != nil {
-								out.SetError(400, `` )
-								return
-							}
-				
-							parent.SetChildren(children)
-							if !parent.DoUpdateById() {
-								out.SetError(400, ``)
-								return
-							}
-						}
-					} else {
-						toParent := wcFinance.NewCoaMutator(d.AuthOltp)
-						toParent.Id = in.ToParentId
-						if !toParent.FindById() {
-							out.SetError(400, ``)
-							return
-						}
+			case zCrud.CmdUpsert:
+				if in.Coa.Name != coa.Name {
+					coa.SetName(in.Coa.Name)
+				}
 
-						children := insertChildToIndex(toParent.Children, in.Coa.Id, in.MoveToIdx)
-
-						coa.SetParentId(in.ToParentId)
-						if !coa.DoUpdateById() {
-							out.SetError(400, ``)
-							return
-						}
-
-						toParent.SetChildren(children)
-						if !toParent.DoUpdateById() {
-							out.SetError(400, ``)
-							return
-						}
-
-						children, err := removeChild(parent.Children, in.Coa.Id)
+				if in.Coa.Label != coa.Label {
+					coa.SetLabel(in.Coa.Label)
+				}
+			case zCrud.CmdDelete:
+				if coa.DeletedAt == 0 {
+					coa.SetDeletedAt(in.UnixNow())
+					coa.SetDeletedBy(sess.UserId)
+				}
+			case zCrud.CmdRestore:
+				if coa.DeletedAt > 0 {
+					coa.SetDeletedAt(0)
+					coa.SetRestoredBy(sess.UserId)
+				}
+			case zCrud.CmdMove:
+				if parent.Id == in.ToParentId {
+					if len(parent.Children) >= 2 {
+						children, err := moveChildToIndex(parent.Children, in.Coa.Id, in.MoveToIdx)
 						if err != nil {
 							out.SetError(400, ``)
 							return
@@ -143,7 +114,51 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 							return
 						}
 					}
+				} else {
+					toParent := wcFinance.NewCoaMutator(d.AuthOltp)
+					toParent.Id = in.ToParentId
+					if !toParent.FindById() {
+						out.SetError(400, ``)
+						return
+					}
+
+					children := insertChildToIndex(toParent.Children, in.Coa.Id, in.MoveToIdx)
+
+					coa.SetParentId(in.ToParentId)
+					if !coa.DoUpdateById() {
+						out.SetError(400, ``)
+						return
+					}
+
+					toParent.SetChildren(children)
+					if !toParent.DoUpdateById() {
+						out.SetError(400, ``)
+						return
+					}
+
+					children, err := removeChild(parent.Children, in.Coa.Id)
+					if err != nil {
+						out.SetError(400, ``)
+						return
+					}
+
+					parent.SetChildren(children)
+					if !parent.DoUpdateById() {
+						out.SetError(400, ``)
+						return
+					}
+				}
 			}
+		} else {
+			if in.Coa.Name != `` {
+				coa.SetName(in.Coa.Name)
+			}
+
+			if in.Coa.Label != `` {
+				coa.SetLabel(in.Coa.Label)
+			}
+
+			coa.SetTenantCode(tenant.TenantCode)
 		}
 
 		if coa.HaveMutation() {
@@ -161,6 +176,7 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 		}
 
 		out.Coa = &coa.Coa
+
 		fallthrough
 	case zCrud.CmdList:
 		coa := wcFinance.NewCoaMutator(d.AuthOltp)

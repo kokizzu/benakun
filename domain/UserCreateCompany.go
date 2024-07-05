@@ -40,13 +40,13 @@ type (
 const (
 	UserCreateCompanyAction = `user/createCompany`
 
-	ErrUserCreateCompanyUserNotFound       		= `user not found`
-	ErrUserCreateCompanyAlreadyAdded       		= `company already exist`
-	ErrUserCreateCompanyTenantCodeInvalid  		= `invalid tenant code, must be letters only`
-	ErrUserCreateCompanyCoaParentNotFound	 		= `coa parent not found when creating default coa levels`
-	ErrUserCreateCompanyFailedSaveDefaultCoa	= `save default coa failed`
+	ErrUserCreateCompanyUserNotFound          = `user not found`
+	ErrUserCreateCompanyAlreadyAdded          = `company already exist`
+	ErrUserCreateCompanyTenantCodeInvalid     = `invalid tenant code, must be letters only`
+	ErrUserCreateCompanyCoaParentNotFound     = `coa parent not found when creating default coa levels`
+	ErrUserCreateCompanyFailedSaveDefaultCoa  = `save default coa failed`
 	ErrUserCreateCompanyFailedUpdateCoaParent = `failed to update coa parent`
-	ErrUserCreateCompanyAlreadyHaveCompany		= `already have company`
+	ErrUserCreateCompanyAlreadyHaveCompany    = `already have company`
 )
 
 func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompanyOut) {
@@ -79,25 +79,25 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 		return
 	}
 
-	org := wcAuth.NewOrgsMutator(d.AuthOltp)
-	org.SetName(in.Company.Name)
-	org.SetTenantCode(fmt.Sprintf("%s-%s", in.Company.TenantCode, generate4RandomNumber()))
-	org.SetHeadTitle(in.Company.HeadTitle)
-	org.SetOrgType(mAuth.OrgTypeCompany)
-
-	if !org.DoUpsertById() {
-		out.SetError(400, ErrUserCreateCompanyAlreadyAdded)
-		return
-	}
-
 	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
-	tenant.SetTenantCode(org.TenantCode)
+	tenant.SetTenantCode(fmt.Sprintf("%s-%s", in.Company.TenantCode, generate4RandomNumber()))
 	tenant.SetCreatedAt(in.UnixNow())
 	tenant.SetCreatedBy(sess.UserId)
 	tenant.SetUpdatedAt(in.UnixNow())
 	tenant.SetUpdatedBy(sess.UserId)
 	if !tenant.DoInsert() {
 		out.SetError(400, ErrUserCreateCompanyAlreadyAdded)
+	}
+
+	org := wcAuth.NewOrgsMutator(d.AuthOltp)
+	org.SetName(in.Company.Name)
+	org.SetTenantCode(tenant.TenantCode)
+	org.SetHeadTitle(in.Company.HeadTitle)
+	org.SetOrgType(mAuth.OrgTypeCompany)
+
+	if !org.DoUpsertById() {
+		out.SetError(400, ErrUserCreateCompanyAlreadyAdded)
+		return
 	}
 
 	user.SetRole(TenantAdminSegment)
@@ -107,7 +107,7 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 		return
 	}
 
-	err := generateDefaultCoa(d.AuthOltp, org.TenantCode)
+	err := generateDefaultCoa(d.AuthOltp, tenant.TenantCode)
 	if err != nil {
 		out.SetError(400, err.Error())
 		return
@@ -117,13 +117,13 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 
 	hostmap[generateTenantSubdomain(tenant.TenantCode)] = TenantHost{
 		TenantCode: tenant.TenantCode,
-		OrgId: org.Id,
+		OrgId:      org.Id,
 	}
 
 	return
 }
 
-func insertDefaultCoa(ta *Tt.Adapter, coaDefault mFinance.CoaDefault, tenantCode string, parentId uint64 ) (uint64, error) {
+func insertDefaultCoa(ta *Tt.Adapter, coaDefault mFinance.CoaDefault, tenantCode string, parentId uint64) (uint64, error) {
 	coa := wcFinance.NewCoaMutator(ta)
 	coa.SetName(coaDefault.Name)
 	coa.SetLabel(coaDefault.Label)

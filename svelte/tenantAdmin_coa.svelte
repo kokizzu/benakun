@@ -2,10 +2,10 @@
   import { Icon } from './node_modules/svelte-icons-pack/dist';
   import { RiSystemAddBoxLine } from './node_modules/svelte-icons-pack/dist/ri';
   import { onMount } from 'svelte';
-  import { TenantAdminUpsertCoaChild } from './jsApi.GEN.js';
+  import { TenantAdminCoa } from './jsApi.GEN.js';
   import { notifier } from './_components/notifier.js';
   import CoaTree from './_components/CoaTree.svelte';
-  import PopUpCoaChild from './_components/PopUpCoaChild.svelte';
+  import PopUpCoA from './_components/PopUpCoa.svelte';
   import MainLayout from './_layouts/mainLayout.svelte';
 
   /** @typedef {import('./_components/types/user').User} User */
@@ -15,31 +15,29 @@
   let segments  = /** @type Access */ ({/* segments */});
   let user      = /** @type User */   ({/* user */});
   let coas      = /** @type CoA[] */  ([/* coas */]);
-
-  console.log('COAs:', coas)
   
   let REFORMAT_COAS = /** @type CoA[] */ ([]);
 
-  function coaMaker(/** @type string */ id) {
+  function coaMaker(/** @type any */ id) {
     /** @type CoA */
     let coaFormatted = {
-      id: '',
+      id: 0,
       name: '',
-      parentId: '',
+      parentId: 0,
       children: [],
-      createdAt: undefined,
+      createdAt: 0,
       createdBy: '',
-      updatedAt: undefined,
+      updatedAt: 0,
       updatedBy: '',
-      deletedAt: undefined,
+      deletedAt: 0,
       tenantCode: '',
       label: '',
       deletedBy: '',
       restoredBy: ''
     }
     for (let i in coas) {
-      if (coas[i].id == String(id)) { // @ts-ignore
-        const children = /** @type string[] */ (coas[i].children);
+      if (coas[i].id == Number(id)) { // @ts-ignore
+        const children = /** @type number[] */ (coas[i].children);
         if (children && children.length) {
           for (let j in children) {
             const childId = children[j]
@@ -59,6 +57,7 @@
         coaFormatted.deletedAt = coas[i].deletedAt
       }
     }
+
     return coaFormatted;
   }
 
@@ -83,69 +82,69 @@
 
   onMount(() => REFORMAT_COAS = reformatCoas());
 
-  let popUpCoaChild;
-
-  let childName = '', childParentId = '';
-  let isSubmitted = false;
-
-  async function submitAddCoaChild() {
-    isSubmitted = true;
-    if (childName === '') {
-      isSubmitted = false;
-      notifier.showWarning('coa name cannot be empty');
-      return;
-    }
-
-    /** @type CoA */ //@ts-ignore
-    const coa = {
-      name: childName,
-      parentId: childParentId
-    }
-
-    await TenantAdminUpsertCoaChild( // @ts-ignore
-      {coa: coa}, /** @type {import('./jsApi.GEN').TenantAdminUpsertCoaChildCallback}*/
-      function (/** @type any */ o) {
-        isSubmitted = false;
-        popUpCoaChild.hide();
-        if (o.error) {
-          notifier.showError(o.error);
-          console.log(o.error);
-          return;
-        }
-        
-        coas = o.coas;
-
-        REFORMAT_COAS = [];
-        REFORMAT_COAS = reformatCoas();
-        notifier.showSuccess('Coa child created');
-      }
-    );
-    childName = '';
-    childParentId = '';
-  }
-
-  function updateEventHandler(e) {
+  function updateEventHandler(/** @type any */ e) {
     coas = e.detail.coas;
     
     REFORMAT_COAS = [];
     REFORMAT_COAS = reformatCoas();
   }
+
+  let popUpCoa;
+  let id = 0, parentId = 0;
+  let name = '', label = '';
+  let isSubmittedCoA = false;
+
+  async function submitUpsertCoa() {
+    isSubmittedCoA = true;
+    /** @type CoA */ //@ts-ignore
+    const coa = { id, parentId, name, label }
+    const i = {
+      cmd: 'upsert',
+      coa
+    }
+    await TenantAdminCoa( // @ts-ignore
+      i, /** @type {import('./jsApi.GEN').TenantAdminCoaCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        isSubmittedCoA = false;
+        popUpCoa.hide();
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+        
+        coas = o.coas;
+        REFORMAT_COAS = [];
+        REFORMAT_COAS = reformatCoas();
+
+        notifier.showSuccess('coa updated');
+      }
+    )
+  }
+
+  function toggleShowPopUpCoa(id, parentId, name, label) {
+    id = id; parentId = parentId;
+    name = name; label = label;
+    popUpCoa.show();
+  }
 </script>
 
-<PopUpCoaChild
-  bind:this={popUpCoaChild}
-  bind:isSubmitted={isSubmitted}
-  bind:childName={childName}
-  onSubmit={submitAddCoaChild}
+<PopUpCoA
+  bind:this={popUpCoa}
+  bind:name
+  bind:label
+  bind:isSubmitted={isSubmittedCoA}
+  onSubmit={submitUpsertCoa}
 />
 
 <MainLayout>
-  <div>
-    <p>TODO: add combobox sambungan ke tabel</p>
-  </div>
   <div class="coa_levels shadow">
-    <div>
-      <button>add</button>
+    <div class="header_options">
+      <button
+        class="add"
+        on:click={() => {toggleShowPopUpCoa(0, 0, '', '')}}
+      >Add</button>
     </div>
     {#each (REFORMAT_COAS || []) as c, idxParent (c.id)}
       <div class="coa">
@@ -155,10 +154,7 @@
             &nbsp;{c.name}
           </h5>
           <div class="options">
-            <button class="btn" title="Add child" on:click={() => {
-              childParentId = c.id;
-              popUpCoaChild.show();
-            }}>
+            <button class="btn" title="Add CoA child" on:click={() => {toggleShowPopUpCoa(0, c.parentId, c.name, c.label)}}>
               <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
             </button>
           </div>
@@ -191,6 +187,27 @@
     border-radius: 8px;
     overflow: hidden;
     padding: 15px 15px 20px;
+  }
+
+  .coa_levels .header_options {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray-003);
+  }
+
+  .coa_levels .header_options .add {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: var(--blue-006);
+    color: #FFF;
+    font-size: var(--font-lg);
+    cursor: pointer;
+  }
+
+  .coa_levels .header_options .add:hover {
+    background-color: var(--blue-005);
   }
 
   .coa_levels .coa {

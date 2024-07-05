@@ -1,10 +1,10 @@
 /**
   * @typedef {Object} CoA
-  * @property {string} id
+  * @property {number} id
   * @property {string} tenantCode
   * @property {string} name
   * @property {string} label
-  * @property {string} parentId
+  * @property {number} parentId
   * @property {CoA[]|any[]} children
   * @property {number} createdAt
   * @property {string} createdBy

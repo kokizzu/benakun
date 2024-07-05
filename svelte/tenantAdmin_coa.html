@@ -342,8 +342,8 @@
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>/* fakecss:./_components/InputBox.esbuild-svelte-fake-css */
-.input_box.svelte-msefpz.svelte-msefpz {
+<style>/* fakecss:./_components/InputCustom.esbuild-svelte-fake-css */
+.input_box.svelte-o5xo0b.svelte-o5xo0b.svelte-o5xo0b {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -353,25 +353,123 @@
   flex-direction: column;
   gap: 5px;
 }
-.input_box.with_password.svelte-msefpz input.svelte-msefpz {
+.input_box.with_password.svelte-o5xo0b input.svelte-o5xo0b.svelte-o5xo0b {
   padding-right: 40px !important;
 }
-.input_box.svelte-msefpz label.svelte-msefpz {
+.input_box.bool.svelte-o5xo0b.svelte-o5xo0b.svelte-o5xo0b {
+  width: fit-content;
+}
+.input_box.svelte-o5xo0b .label.svelte-o5xo0b.svelte-o5xo0b {
   font-size: var(--font-base);
   margin-left: 10px;
 }
-.input_box.svelte-msefpz input.svelte-msefpz {
+.input_box.svelte-o5xo0b input.svelte-o5xo0b.svelte-o5xo0b,
+.input_box.svelte-o5xo0b textarea.svelte-o5xo0b.svelte-o5xo0b {
   width: 100%;
   border: 1px solid var(--gray-003);
   border-radius: 5px;
   background-color: transparent;
   padding: 10px 12px;
 }
-.input_box.svelte-msefpz input.svelte-msefpz:focus {
-  border-color: var(--blue-005);
-  outline: 1px solid var(--blue-005);
+.input_box.svelte-o5xo0b input.svelte-o5xo0b.svelte-o5xo0b:focus,
+.input_box.svelte-o5xo0b textarea.svelte-o5xo0b.svelte-o5xo0b:focus {
+  border-color: var(--sky-005);
+  outline: 1px solid var(--sky-005);
 }
-.input_box.svelte-msefpz .eye.svelte-msefpz {
+.color_box.svelte-o5xo0b.svelte-o5xo0b.svelte-o5xo0b {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+.color-input.svelte-o5xo0b.svelte-o5xo0b.svelte-o5xo0b {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100px !important;
+  height: 30px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0 !important;
+}
+.color-input.svelte-o5xo0b.svelte-o5xo0b.svelte-o5xo0b::-webkit-color-swatch {
+  border-radius: 5px;
+  border: none;
+}
+.color-input.svelte-o5xo0b.svelte-o5xo0b.svelte-o5xo0b::-moz-color-swatch {
+  border-radius: 5px;
+  border: none;
+}
+.input_box.svelte-o5xo0b textarea.svelte-o5xo0b.svelte-o5xo0b {
+  resize: vertical;
+  height: 90px;
+  min-height: 50px;
+  max-height: 300px;
+}
+.input_box.svelte-o5xo0b select.svelte-o5xo0b.svelte-o5xo0b {
+  cursor: pointer;
+  width: 100%;
+  border: 1px solid var(--gray-003);
+  border-radius: 5px;
+  background-color: transparent;
+  padding: 10px 12px;
+}
+.input_box.svelte-o5xo0b select.svelte-o5xo0b.svelte-o5xo0b:focus {
+  border-color: var(--sky-005);
+  outline: 1px solid var(--sky-005);
+}
+.switcher.svelte-o5xo0b.svelte-o5xo0b.svelte-o5xo0b {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+  margin-left: 0 !important;
+}
+.switcher.svelte-o5xo0b input.svelte-o5xo0b.svelte-o5xo0b {
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+.switcher.svelte-o5xo0b .slider.svelte-o5xo0b.svelte-o5xo0b {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--gray-005);
+  -webkit-transition: .2s;
+  transition: .2s;
+}
+.switcher.svelte-o5xo0b .slider.svelte-o5xo0b.svelte-o5xo0b:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .2s;
+  transition: .2s;
+}
+.switcher.svelte-o5xo0b input.svelte-o5xo0b:checked + .slider.svelte-o5xo0b {
+  background-color: var(--sky-006) !important;
+}
+.switcher.svelte-o5xo0b input.svelte-o5xo0b:focus + .slider.svelte-o5xo0b {
+  box-shadow: 0 0 1px var(--sky-006) !important;
+}
+.switcher.svelte-o5xo0b input.svelte-o5xo0b:checked + .slider.svelte-o5xo0b:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+.switcher.svelte-o5xo0b .slider.svelte-o5xo0b.svelte-o5xo0b {
+  border-radius: 34px;
+}
+.switcher.svelte-o5xo0b .slider.svelte-o5xo0b.svelte-o5xo0b:before {
+  border-radius: 50%;
+}
+.input_box.svelte-o5xo0b .eye.svelte-o5xo0b.svelte-o5xo0b {
   position: absolute;
   height: fit-content;
   width: fit-content;
@@ -387,7 +485,7 @@
   fill: var(--blue-005);
 }
 
-/* fakecss:./_components/PopUpCoaChild.esbuild-svelte-fake-css */
+/* fakecss:./_components/PopUpCoa.esbuild-svelte-fake-css */
 @keyframes svelte-6z2gjm-spin {
   from {
     transform: rotate(0deg);
@@ -500,7 +598,7 @@
 }
 
 /* fakecss:./_components/CoaTree.esbuild-svelte-fake-css */
-.coa-child.svelte-btff9j.svelte-btff9j {
+.coa-child.svelte-11pm4tq.svelte-11pm4tq {
   width: auto;
   display: flex;
   flex-direction: row;
@@ -514,30 +612,30 @@
   border-radius: 8px;
   user-select: none;
 }
-.coa-child.svelte-btff9j.svelte-btff9j:hover {
+.coa-child.svelte-11pm4tq.svelte-11pm4tq:hover {
   background-color: var(--gray-001);
 }
-.coa-child.svelte-btff9j .num-title.svelte-btff9j {
+.coa-child.svelte-11pm4tq .num-title.svelte-11pm4tq {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 30px;
   position: relative;
 }
-.coa-child.svelte-btff9j .num-title .h-line.svelte-btff9j {
+.coa-child.svelte-11pm4tq .num-title .h-line.svelte-11pm4tq {
   position: absolute;
   left: -14px;
   width: 1px;
   height: 41px;
   background-color: var(--gray-003);
 }
-.coa-child.svelte-btff9j .num-title .text.svelte-btff9j {
+.coa-child.svelte-11pm4tq .num-title .text.svelte-11pm4tq {
   font-size: 14px;
   line-height: 2.2rem;
   font-weight: 500;
   margin: 0;
 }
-.coa-child.svelte-btff9j .num-title .text .label.svelte-btff9j {
+.coa-child.svelte-11pm4tq .num-title .text .label.svelte-11pm4tq {
   color: var(--blue-006);
   font-weight: 600;
   font-size: 10px;
@@ -549,18 +647,25 @@
   height: fit-content;
   line-height: 2.2rem;
 }
-.coa-child.svelte-btff9j .num-title .text.deleted .name.svelte-btff9j {
+.coa-child.svelte-11pm4tq .num-title .text.deleted .name.svelte-11pm4tq {
   color: var(--red-005);
   text-decoration: line-through;
   line-height: 2.2rem;
 }
-.coa-child.svelte-btff9j .options.svelte-btff9j {
+.coa-child.svelte-11pm4tq .options.svelte-11pm4tq {
   display: flex;
   cursor: pointer;
   flex-direction: row;
   align-items: center;
 }
-.coa-child.svelte-btff9j .options .btn.svelte-btff9j {
+.coa-child.svelte-11pm4tq .options .label.svelte-11pm4tq {
+  padding: 2px 10px;
+  margin-right: 7px;
+  border-radius: 999px;
+  background-color: var(--violet-transparent);
+  color: var(--violet-005);
+}
+.coa-child.svelte-11pm4tq .options .btn.svelte-11pm4tq {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -570,7 +675,7 @@
   padding: 5px;
   cursor: pointer;
 }
-.coa-child.svelte-btff9j .options .btn.svelte-btff9j:hover {
+.coa-child.svelte-11pm4tq .options .btn.svelte-11pm4tq:hover {
   background-color: var(--violet-transparent);
 }
 .coa-child .options .btn:hover svg {
@@ -868,7 +973,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 }
 
 /* fakecss:./tenantAdmin_coa.esbuild-svelte-fake-css */
-.coa_levels.svelte-x2rfdg.svelte-x2rfdg {
+.coa_levels.svelte-1q38aa2.svelte-1q38aa2 {
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
@@ -878,12 +983,30 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   overflow: hidden;
   padding: 15px 15px 20px;
 }
-.coa_levels.svelte-x2rfdg .coa.svelte-x2rfdg {
+.coa_levels.svelte-1q38aa2 .header_options.svelte-1q38aa2 {
+  display: flex;
+  flex-direction: row-reverse;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--gray-003);
+}
+.coa_levels.svelte-1q38aa2 .header_options .add.svelte-1q38aa2 {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: var(--blue-006);
+  color: #FFF;
+  font-size: var(--font-lg);
+  cursor: pointer;
+}
+.coa_levels.svelte-1q38aa2 .header_options .add.svelte-1q38aa2:hover {
+  background-color: var(--blue-005);
+}
+.coa_levels.svelte-1q38aa2 .coa.svelte-1q38aa2 {
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-.coa_levels.svelte-x2rfdg .coa .parent.svelte-x2rfdg {
+.coa_levels.svelte-1q38aa2 .coa .parent.svelte-1q38aa2 {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -894,28 +1017,28 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   color: var(--blue-006);
   padding: 10px 10px 10px 15px;
 }
-.coa_levels.svelte-x2rfdg .coa .parent h5.svelte-x2rfdg {
+.coa_levels.svelte-1q38aa2 .coa .parent h5.svelte-1q38aa2 {
   font-size: 18px;
   line-height: 2.2rem;
   margin: 0;
   user-select: none;
 }
-.coa_levels.svelte-x2rfdg .coa .parent h5 .label.svelte-x2rfdg {
+.coa_levels.svelte-1q38aa2 .coa .parent h5 .label.svelte-1q38aa2 {
   font-size: 14px;
   padding: 3px 7px;
   background-color: var(--blue-006);
   color: #FFF;
   border-radius: 9999px;
 }
-.coa_levels.svelte-x2rfdg .coa .parent:hover .options.svelte-x2rfdg {
+.coa_levels.svelte-1q38aa2 .coa .parent:hover .options.svelte-1q38aa2 {
   display: flex;
 }
-.coa_levels.svelte-x2rfdg .coa .options.svelte-x2rfdg {
+.coa_levels.svelte-1q38aa2 .coa .options.svelte-1q38aa2 {
   display: none;
   flex-direction: row;
   align-items: center;
 }
-.coa_levels.svelte-x2rfdg .coa .options .btn.svelte-x2rfdg {
+.coa_levels.svelte-1q38aa2 .coa .options .btn.svelte-1q38aa2 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -925,13 +1048,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   padding: 5px;
   cursor: pointer;
 }
-.coa_levels.svelte-x2rfdg .coa .options .btn.svelte-x2rfdg:hover {
+.coa_levels.svelte-1q38aa2 .coa .options .btn.svelte-1q38aa2:hover {
   background-color: var(--gray-002);
 }
-.coa_levels.svelte-x2rfdg .coa .options .btn.svelte-x2rfdg:active {
+.coa_levels.svelte-1q38aa2 .coa .options .btn.svelte-1q38aa2:active {
   background-color: var(--gray-003);
 }
-.coa_levels.svelte-x2rfdg .coa .children.svelte-x2rfdg {
+.coa_levels.svelte-1q38aa2 .coa .children.svelte-1q38aa2 {
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -965,9 +1088,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     mod
   ));
 
-  // node_modules/.pnpm/axios@1.6.2/node_modules/axios/dist/browser/axios.cjs
+  // node_modules/.pnpm/axios@1.7.2/node_modules/axios/dist/browser/axios.cjs
   var require_axios = __commonJS({
-    "node_modules/.pnpm/axios@1.6.2/node_modules/axios/dist/browser/axios.cjs"(exports, module) {
+    "node_modules/.pnpm/axios@1.7.2/node_modules/axios/dist/browser/axios.cjs"(exports, module) {
       "use strict";
       function bind2(fn, thisArg) {
         return function wrap() {
@@ -1023,6 +1146,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         kind === "object" && isFunction(thing.toString) && thing.toString() === "[object FormData]"));
       };
       var isURLSearchParams = kindOfTest("URLSearchParams");
+      var [isReadableStream, isRequest, isResponse, isHeaders] = ["ReadableStream", "Request", "Response", "Headers"].map(kindOfTest);
       var trim = (str) => str.trim ? str.trim() : str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
       function forEach(obj, fn, { allOwnKeys = false } = {}) {
         if (obj === null || typeof obj === "undefined") {
@@ -1232,8 +1356,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       var noop2 = () => {
       };
       var toFiniteNumber = (value, defaultValue) => {
-        value = +value;
-        return Number.isFinite(value) ? value : defaultValue;
+        return value != null && Number.isFinite(value = +value) ? value : defaultValue;
       };
       var ALPHA = "abcdefghijklmnopqrstuvwxyz";
       var DIGIT = "0123456789";
@@ -1288,6 +1411,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         isBoolean,
         isObject,
         isPlainObject,
+        isReadableStream,
+        isRequest,
+        isResponse,
+        isHeaders,
         isUndefined,
         isDate,
         isFile,
@@ -1595,9 +1722,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
          *
          * @returns {Boolean} `true` if the interceptor was removed, `false` otherwise
          */
-        eject(id) {
-          if (this.handlers[id]) {
-            this.handlers[id] = null;
+        eject(id2) {
+          if (this.handlers[id2]) {
+            this.handlers[id2] = null;
           }
         }
         /**
@@ -1654,11 +1781,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         return typeof WorkerGlobalScope !== "undefined" && // eslint-disable-next-line no-undef
         self instanceof WorkerGlobalScope && typeof self.importScripts === "function";
       })();
+      var origin = hasBrowserEnv && window.location.href || "http://localhost";
       var utils = /* @__PURE__ */ Object.freeze({
         __proto__: null,
         hasBrowserEnv,
         hasStandardBrowserWebWorkerEnv,
-        hasStandardBrowserEnv
+        hasStandardBrowserEnv,
+        origin
       });
       var platform = {
         ...utils,
@@ -1695,6 +1824,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       function formDataToJSON(formData) {
         function buildPath(path, value, target, index) {
           let name = path[index++];
+          if (name === "__proto__")
+            return true;
           const isNumericKey = Number.isFinite(+name);
           const isLast = index >= path.length;
           name = !name && utils$1.isArray(target) ? target.length : name;
@@ -1739,7 +1870,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
       var defaults = {
         transitional: transitionalDefaults,
-        adapter: ["xhr", "http"],
+        adapter: ["xhr", "http", "fetch"],
         transformRequest: [function transformRequest(data, headers) {
           const contentType = headers.getContentType() || "";
           const hasJSONContentType = contentType.indexOf("application/json") > -1;
@@ -1749,12 +1880,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           }
           const isFormData2 = utils$1.isFormData(data);
           if (isFormData2) {
-            if (!hasJSONContentType) {
-              return data;
-            }
             return hasJSONContentType ? JSON.stringify(formDataToJSON(data)) : data;
           }
-          if (utils$1.isArrayBuffer(data) || utils$1.isBuffer(data) || utils$1.isStream(data) || utils$1.isFile(data) || utils$1.isBlob(data)) {
+          if (utils$1.isArrayBuffer(data) || utils$1.isBuffer(data) || utils$1.isStream(data) || utils$1.isFile(data) || utils$1.isBlob(data) || utils$1.isReadableStream(data)) {
             return data;
           }
           if (utils$1.isArrayBufferView(data)) {
@@ -1788,6 +1916,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           const transitional = this.transitional || defaults.transitional;
           const forcedJSONParsing = transitional && transitional.forcedJSONParsing;
           const JSONRequested = this.responseType === "json";
+          if (utils$1.isResponse(data) || utils$1.isReadableStream(data)) {
+            return data;
+          }
           if (data && utils$1.isString(data) && (forcedJSONParsing && !this.responseType || JSONRequested)) {
             const silentJSONParsing = transitional && transitional.silentJSONParsing;
             const strictJSONParsing = !silentJSONParsing && JSONRequested;
@@ -1947,6 +2078,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             setHeaders(header, valueOrRewrite);
           } else if (utils$1.isString(header) && (header = header.trim()) && !isValidHeaderName(header)) {
             setHeaders(parseHeaders(header), valueOrRewrite);
+          } else if (utils$1.isHeaders(header)) {
+            for (const [key, value] of header.entries()) {
+              setHeader(value, key, rewrite);
+            }
           } else {
             header != null && setHeader(valueOrRewrite, header, rewrite);
           }
@@ -2125,49 +2260,91 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           ));
         }
       }
-      var cookies = platform.hasStandardBrowserEnv ? (
-        // Standard browser envs support document.cookie
-        {
-          write(name, value, expires, path, domain, secure) {
-            const cookie = [name + "=" + encodeURIComponent(value)];
-            utils$1.isNumber(expires) && cookie.push("expires=" + new Date(expires).toGMTString());
-            utils$1.isString(path) && cookie.push("path=" + path);
-            utils$1.isString(domain) && cookie.push("domain=" + domain);
-            secure === true && cookie.push("secure");
-            document.cookie = cookie.join("; ");
-          },
-          read(name) {
-            const match = document.cookie.match(new RegExp("(^|;\\s*)(" + name + ")=([^;]*)"));
-            return match ? decodeURIComponent(match[3]) : null;
-          },
-          remove(name) {
-            this.write(name, "", Date.now() - 864e5);
+      function parseProtocol(url) {
+        const match = /^([-+\w]{1,25})(:?\/\/|:)/.exec(url);
+        return match && match[1] || "";
+      }
+      function speedometer(samplesCount, min) {
+        samplesCount = samplesCount || 10;
+        const bytes = new Array(samplesCount);
+        const timestamps = new Array(samplesCount);
+        let head = 0;
+        let tail = 0;
+        let firstSampleTS;
+        min = min !== void 0 ? min : 1e3;
+        return function push(chunkLength) {
+          const now2 = Date.now();
+          const startedAt = timestamps[tail];
+          if (!firstSampleTS) {
+            firstSampleTS = now2;
           }
-        }
-      ) : (
-        // Non-standard browser env (web workers, react-native) lack needed support.
-        {
-          write() {
-          },
-          read() {
-            return null;
-          },
-          remove() {
+          bytes[head] = chunkLength;
+          timestamps[head] = now2;
+          let i = tail;
+          let bytesCount = 0;
+          while (i !== head) {
+            bytesCount += bytes[i++];
+            i = i % samplesCount;
           }
-        }
-      );
-      function isAbsoluteURL(url) {
-        return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url);
+          head = (head + 1) % samplesCount;
+          if (head === tail) {
+            tail = (tail + 1) % samplesCount;
+          }
+          if (now2 - firstSampleTS < min) {
+            return;
+          }
+          const passed = startedAt && now2 - startedAt;
+          return passed ? Math.round(bytesCount * 1e3 / passed) : void 0;
+        };
       }
-      function combineURLs(baseURL, relativeURL) {
-        return relativeURL ? baseURL.replace(/\/+$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
+      function throttle(fn, freq) {
+        let timestamp = 0;
+        const threshold = 1e3 / freq;
+        let timer = null;
+        return function throttled() {
+          const force = this === true;
+          const now2 = Date.now();
+          if (force || now2 - timestamp > threshold) {
+            if (timer) {
+              clearTimeout(timer);
+              timer = null;
+            }
+            timestamp = now2;
+            return fn.apply(null, arguments);
+          }
+          if (!timer) {
+            timer = setTimeout(() => {
+              timer = null;
+              timestamp = Date.now();
+              return fn.apply(null, arguments);
+            }, threshold - (now2 - timestamp));
+          }
+        };
       }
-      function buildFullPath(baseURL, requestedURL) {
-        if (baseURL && !isAbsoluteURL(requestedURL)) {
-          return combineURLs(baseURL, requestedURL);
-        }
-        return requestedURL;
-      }
+      var progressEventReducer = (listener, isDownloadStream, freq = 3) => {
+        let bytesNotified = 0;
+        const _speedometer = speedometer(50, 250);
+        return throttle((e) => {
+          const loaded = e.loaded;
+          const total = e.lengthComputable ? e.total : void 0;
+          const progressBytes = loaded - bytesNotified;
+          const rate = _speedometer(progressBytes);
+          const inRange = loaded <= total;
+          bytesNotified = loaded;
+          const data = {
+            loaded,
+            total,
+            progress: total ? loaded / total : void 0,
+            bytes: progressBytes,
+            rate: rate ? rate : void 0,
+            estimated: rate && total && inRange ? (total - loaded) / rate : void 0,
+            event: e,
+            lengthComputable: total != null
+          };
+          data[isDownloadStream ? "download" : "upload"] = true;
+          listener(data);
+        }, freq);
+      };
       var isURLSameOrigin = platform.hasStandardBrowserEnv ? (
         // Standard browser envs have full support of the APIs needed to test
         // whether the request URL is of the same origin as current location.
@@ -2207,306 +2384,50 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           };
         }()
       );
-      function parseProtocol(url) {
-        const match = /^([-+\w]{1,25})(:?\/\/|:)/.exec(url);
-        return match && match[1] || "";
-      }
-      function speedometer(samplesCount, min) {
-        samplesCount = samplesCount || 10;
-        const bytes = new Array(samplesCount);
-        const timestamps = new Array(samplesCount);
-        let head = 0;
-        let tail = 0;
-        let firstSampleTS;
-        min = min !== void 0 ? min : 1e3;
-        return function push(chunkLength) {
-          const now2 = Date.now();
-          const startedAt = timestamps[tail];
-          if (!firstSampleTS) {
-            firstSampleTS = now2;
+      var cookies = platform.hasStandardBrowserEnv ? (
+        // Standard browser envs support document.cookie
+        {
+          write(name, value, expires, path, domain, secure) {
+            const cookie = [name + "=" + encodeURIComponent(value)];
+            utils$1.isNumber(expires) && cookie.push("expires=" + new Date(expires).toGMTString());
+            utils$1.isString(path) && cookie.push("path=" + path);
+            utils$1.isString(domain) && cookie.push("domain=" + domain);
+            secure === true && cookie.push("secure");
+            document.cookie = cookie.join("; ");
+          },
+          read(name) {
+            const match = document.cookie.match(new RegExp("(^|;\\s*)(" + name + ")=([^;]*)"));
+            return match ? decodeURIComponent(match[3]) : null;
+          },
+          remove(name) {
+            this.write(name, "", Date.now() - 864e5);
           }
-          bytes[head] = chunkLength;
-          timestamps[head] = now2;
-          let i = tail;
-          let bytesCount = 0;
-          while (i !== head) {
-            bytesCount += bytes[i++];
-            i = i % samplesCount;
-          }
-          head = (head + 1) % samplesCount;
-          if (head === tail) {
-            tail = (tail + 1) % samplesCount;
-          }
-          if (now2 - firstSampleTS < min) {
-            return;
-          }
-          const passed = startedAt && now2 - startedAt;
-          return passed ? Math.round(bytesCount * 1e3 / passed) : void 0;
-        };
-      }
-      function progressEventReducer(listener, isDownloadStream) {
-        let bytesNotified = 0;
-        const _speedometer = speedometer(50, 250);
-        return (e) => {
-          const loaded = e.loaded;
-          const total = e.lengthComputable ? e.total : void 0;
-          const progressBytes = loaded - bytesNotified;
-          const rate = _speedometer(progressBytes);
-          const inRange = loaded <= total;
-          bytesNotified = loaded;
-          const data = {
-            loaded,
-            total,
-            progress: total ? loaded / total : void 0,
-            bytes: progressBytes,
-            rate: rate ? rate : void 0,
-            estimated: rate && total && inRange ? (total - loaded) / rate : void 0,
-            event: e
-          };
-          data[isDownloadStream ? "download" : "upload"] = true;
-          listener(data);
-        };
-      }
-      var isXHRAdapterSupported = typeof XMLHttpRequest !== "undefined";
-      var xhrAdapter = isXHRAdapterSupported && function(config) {
-        return new Promise(function dispatchXhrRequest(resolve, reject) {
-          let requestData = config.data;
-          const requestHeaders = AxiosHeaders$1.from(config.headers).normalize();
-          let { responseType, withXSRFToken } = config;
-          let onCanceled;
-          function done() {
-            if (config.cancelToken) {
-              config.cancelToken.unsubscribe(onCanceled);
-            }
-            if (config.signal) {
-              config.signal.removeEventListener("abort", onCanceled);
-            }
-          }
-          let contentType;
-          if (utils$1.isFormData(requestData)) {
-            if (platform.hasStandardBrowserEnv || platform.hasStandardBrowserWebWorkerEnv) {
-              requestHeaders.setContentType(false);
-            } else if ((contentType = requestHeaders.getContentType()) !== false) {
-              const [type, ...tokens] = contentType ? contentType.split(";").map((token) => token.trim()).filter(Boolean) : [];
-              requestHeaders.setContentType([type || "multipart/form-data", ...tokens].join("; "));
-            }
-          }
-          let request = new XMLHttpRequest();
-          if (config.auth) {
-            const username = config.auth.username || "";
-            const password = config.auth.password ? unescape(encodeURIComponent(config.auth.password)) : "";
-            requestHeaders.set("Authorization", "Basic " + btoa(username + ":" + password));
-          }
-          const fullPath = buildFullPath(config.baseURL, config.url);
-          request.open(config.method.toUpperCase(), buildURL(fullPath, config.params, config.paramsSerializer), true);
-          request.timeout = config.timeout;
-          function onloadend() {
-            if (!request) {
-              return;
-            }
-            const responseHeaders = AxiosHeaders$1.from(
-              "getAllResponseHeaders" in request && request.getAllResponseHeaders()
-            );
-            const responseData = !responseType || responseType === "text" || responseType === "json" ? request.responseText : request.response;
-            const response = {
-              data: responseData,
-              status: request.status,
-              statusText: request.statusText,
-              headers: responseHeaders,
-              config,
-              request
-            };
-            settle(function _resolve(value) {
-              resolve(value);
-              done();
-            }, function _reject(err) {
-              reject(err);
-              done();
-            }, response);
-            request = null;
-          }
-          if ("onloadend" in request) {
-            request.onloadend = onloadend;
-          } else {
-            request.onreadystatechange = function handleLoad() {
-              if (!request || request.readyState !== 4) {
-                return;
-              }
-              if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf("file:") === 0)) {
-                return;
-              }
-              setTimeout(onloadend);
-            };
-          }
-          request.onabort = function handleAbort() {
-            if (!request) {
-              return;
-            }
-            reject(new AxiosError("Request aborted", AxiosError.ECONNABORTED, config, request));
-            request = null;
-          };
-          request.onerror = function handleError() {
-            reject(new AxiosError("Network Error", AxiosError.ERR_NETWORK, config, request));
-            request = null;
-          };
-          request.ontimeout = function handleTimeout() {
-            let timeoutErrorMessage = config.timeout ? "timeout of " + config.timeout + "ms exceeded" : "timeout exceeded";
-            const transitional = config.transitional || transitionalDefaults;
-            if (config.timeoutErrorMessage) {
-              timeoutErrorMessage = config.timeoutErrorMessage;
-            }
-            reject(new AxiosError(
-              timeoutErrorMessage,
-              transitional.clarifyTimeoutError ? AxiosError.ETIMEDOUT : AxiosError.ECONNABORTED,
-              config,
-              request
-            ));
-            request = null;
-          };
-          if (platform.hasStandardBrowserEnv) {
-            withXSRFToken && utils$1.isFunction(withXSRFToken) && (withXSRFToken = withXSRFToken(config));
-            if (withXSRFToken || withXSRFToken !== false && isURLSameOrigin(fullPath)) {
-              const xsrfValue = config.xsrfHeaderName && config.xsrfCookieName && cookies.read(config.xsrfCookieName);
-              if (xsrfValue) {
-                requestHeaders.set(config.xsrfHeaderName, xsrfValue);
-              }
-            }
-          }
-          requestData === void 0 && requestHeaders.setContentType(null);
-          if ("setRequestHeader" in request) {
-            utils$1.forEach(requestHeaders.toJSON(), function setRequestHeader(val, key) {
-              request.setRequestHeader(key, val);
-            });
-          }
-          if (!utils$1.isUndefined(config.withCredentials)) {
-            request.withCredentials = !!config.withCredentials;
-          }
-          if (responseType && responseType !== "json") {
-            request.responseType = config.responseType;
-          }
-          if (typeof config.onDownloadProgress === "function") {
-            request.addEventListener("progress", progressEventReducer(config.onDownloadProgress, true));
-          }
-          if (typeof config.onUploadProgress === "function" && request.upload) {
-            request.upload.addEventListener("progress", progressEventReducer(config.onUploadProgress));
-          }
-          if (config.cancelToken || config.signal) {
-            onCanceled = (cancel) => {
-              if (!request) {
-                return;
-              }
-              reject(!cancel || cancel.type ? new CanceledError(null, config, request) : cancel);
-              request.abort();
-              request = null;
-            };
-            config.cancelToken && config.cancelToken.subscribe(onCanceled);
-            if (config.signal) {
-              config.signal.aborted ? onCanceled() : config.signal.addEventListener("abort", onCanceled);
-            }
-          }
-          const protocol = parseProtocol(fullPath);
-          if (protocol && platform.protocols.indexOf(protocol) === -1) {
-            reject(new AxiosError("Unsupported protocol " + protocol + ":", AxiosError.ERR_BAD_REQUEST, config));
-            return;
-          }
-          request.send(requestData || null);
-        });
-      };
-      var knownAdapters = {
-        http: httpAdapter,
-        xhr: xhrAdapter
-      };
-      utils$1.forEach(knownAdapters, (fn, value) => {
-        if (fn) {
-          try {
-            Object.defineProperty(fn, "name", { value });
-          } catch (e) {
-          }
-          Object.defineProperty(fn, "adapterName", { value });
         }
-      });
-      var renderReason = (reason) => `- ${reason}`;
-      var isResolvedHandle = (adapter) => utils$1.isFunction(adapter) || adapter === null || adapter === false;
-      var adapters = {
-        getAdapter: (adapters2) => {
-          adapters2 = utils$1.isArray(adapters2) ? adapters2 : [adapters2];
-          const { length } = adapters2;
-          let nameOrAdapter;
-          let adapter;
-          const rejectedReasons = {};
-          for (let i = 0; i < length; i++) {
-            nameOrAdapter = adapters2[i];
-            let id;
-            adapter = nameOrAdapter;
-            if (!isResolvedHandle(nameOrAdapter)) {
-              adapter = knownAdapters[(id = String(nameOrAdapter)).toLowerCase()];
-              if (adapter === void 0) {
-                throw new AxiosError(`Unknown adapter '${id}'`);
-              }
-            }
-            if (adapter) {
-              break;
-            }
-            rejectedReasons[id || "#" + i] = adapter;
+      ) : (
+        // Non-standard browser env (web workers, react-native) lack needed support.
+        {
+          write() {
+          },
+          read() {
+            return null;
+          },
+          remove() {
           }
-          if (!adapter) {
-            const reasons = Object.entries(rejectedReasons).map(
-              ([id, state]) => `adapter ${id} ` + (state === false ? "is not supported by the environment" : "is not available in the build")
-            );
-            let s = length ? reasons.length > 1 ? "since :\n" + reasons.map(renderReason).join("\n") : " " + renderReason(reasons[0]) : "as no adapter specified";
-            throw new AxiosError(
-              `There is no suitable adapter to dispatch the request ` + s,
-              "ERR_NOT_SUPPORT"
-            );
-          }
-          return adapter;
-        },
-        adapters: knownAdapters
-      };
-      function throwIfCancellationRequested(config) {
-        if (config.cancelToken) {
-          config.cancelToken.throwIfRequested();
         }
-        if (config.signal && config.signal.aborted) {
-          throw new CanceledError(null, config);
-        }
+      );
+      function isAbsoluteURL(url) {
+        return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url);
       }
-      function dispatchRequest(config) {
-        throwIfCancellationRequested(config);
-        config.headers = AxiosHeaders$1.from(config.headers);
-        config.data = transformData.call(
-          config,
-          config.transformRequest
-        );
-        if (["post", "put", "patch"].indexOf(config.method) !== -1) {
-          config.headers.setContentType("application/x-www-form-urlencoded", false);
-        }
-        const adapter = adapters.getAdapter(config.adapter || defaults$1.adapter);
-        return adapter(config).then(function onAdapterResolution(response) {
-          throwIfCancellationRequested(config);
-          response.data = transformData.call(
-            config,
-            config.transformResponse,
-            response
-          );
-          response.headers = AxiosHeaders$1.from(response.headers);
-          return response;
-        }, function onAdapterRejection(reason) {
-          if (!isCancel(reason)) {
-            throwIfCancellationRequested(config);
-            if (reason && reason.response) {
-              reason.response.data = transformData.call(
-                config,
-                config.transformResponse,
-                reason.response
-              );
-              reason.response.headers = AxiosHeaders$1.from(reason.response.headers);
-            }
-          }
-          return Promise.reject(reason);
-        });
+      function combineURLs(baseURL, relativeURL) {
+        return relativeURL ? baseURL.replace(/\/?\/$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
       }
-      var headersToObject = (thing) => thing instanceof AxiosHeaders$1 ? thing.toJSON() : thing;
+      function buildFullPath(baseURL, requestedURL) {
+        if (baseURL && !isAbsoluteURL(requestedURL)) {
+          return combineURLs(baseURL, requestedURL);
+        }
+        return requestedURL;
+      }
+      var headersToObject = (thing) => thing instanceof AxiosHeaders$1 ? { ...thing } : thing;
       function mergeConfig(config1, config2) {
         config2 = config2 || {};
         const config = {};
@@ -2584,7 +2505,493 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         });
         return config;
       }
-      var VERSION2 = "1.6.2";
+      var resolveConfig = (config) => {
+        const newConfig = mergeConfig({}, config);
+        let { data, withXSRFToken, xsrfHeaderName, xsrfCookieName, headers, auth } = newConfig;
+        newConfig.headers = headers = AxiosHeaders$1.from(headers);
+        newConfig.url = buildURL(buildFullPath(newConfig.baseURL, newConfig.url), config.params, config.paramsSerializer);
+        if (auth) {
+          headers.set(
+            "Authorization",
+            "Basic " + btoa((auth.username || "") + ":" + (auth.password ? unescape(encodeURIComponent(auth.password)) : ""))
+          );
+        }
+        let contentType;
+        if (utils$1.isFormData(data)) {
+          if (platform.hasStandardBrowserEnv || platform.hasStandardBrowserWebWorkerEnv) {
+            headers.setContentType(void 0);
+          } else if ((contentType = headers.getContentType()) !== false) {
+            const [type, ...tokens] = contentType ? contentType.split(";").map((token) => token.trim()).filter(Boolean) : [];
+            headers.setContentType([type || "multipart/form-data", ...tokens].join("; "));
+          }
+        }
+        if (platform.hasStandardBrowserEnv) {
+          withXSRFToken && utils$1.isFunction(withXSRFToken) && (withXSRFToken = withXSRFToken(newConfig));
+          if (withXSRFToken || withXSRFToken !== false && isURLSameOrigin(newConfig.url)) {
+            const xsrfValue = xsrfHeaderName && xsrfCookieName && cookies.read(xsrfCookieName);
+            if (xsrfValue) {
+              headers.set(xsrfHeaderName, xsrfValue);
+            }
+          }
+        }
+        return newConfig;
+      };
+      var isXHRAdapterSupported = typeof XMLHttpRequest !== "undefined";
+      var xhrAdapter = isXHRAdapterSupported && function(config) {
+        return new Promise(function dispatchXhrRequest(resolve, reject) {
+          const _config = resolveConfig(config);
+          let requestData = _config.data;
+          const requestHeaders = AxiosHeaders$1.from(_config.headers).normalize();
+          let { responseType } = _config;
+          let onCanceled;
+          function done() {
+            if (_config.cancelToken) {
+              _config.cancelToken.unsubscribe(onCanceled);
+            }
+            if (_config.signal) {
+              _config.signal.removeEventListener("abort", onCanceled);
+            }
+          }
+          let request = new XMLHttpRequest();
+          request.open(_config.method.toUpperCase(), _config.url, true);
+          request.timeout = _config.timeout;
+          function onloadend() {
+            if (!request) {
+              return;
+            }
+            const responseHeaders = AxiosHeaders$1.from(
+              "getAllResponseHeaders" in request && request.getAllResponseHeaders()
+            );
+            const responseData = !responseType || responseType === "text" || responseType === "json" ? request.responseText : request.response;
+            const response = {
+              data: responseData,
+              status: request.status,
+              statusText: request.statusText,
+              headers: responseHeaders,
+              config,
+              request
+            };
+            settle(function _resolve(value) {
+              resolve(value);
+              done();
+            }, function _reject(err) {
+              reject(err);
+              done();
+            }, response);
+            request = null;
+          }
+          if ("onloadend" in request) {
+            request.onloadend = onloadend;
+          } else {
+            request.onreadystatechange = function handleLoad() {
+              if (!request || request.readyState !== 4) {
+                return;
+              }
+              if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf("file:") === 0)) {
+                return;
+              }
+              setTimeout(onloadend);
+            };
+          }
+          request.onabort = function handleAbort() {
+            if (!request) {
+              return;
+            }
+            reject(new AxiosError("Request aborted", AxiosError.ECONNABORTED, _config, request));
+            request = null;
+          };
+          request.onerror = function handleError() {
+            reject(new AxiosError("Network Error", AxiosError.ERR_NETWORK, _config, request));
+            request = null;
+          };
+          request.ontimeout = function handleTimeout() {
+            let timeoutErrorMessage = _config.timeout ? "timeout of " + _config.timeout + "ms exceeded" : "timeout exceeded";
+            const transitional = _config.transitional || transitionalDefaults;
+            if (_config.timeoutErrorMessage) {
+              timeoutErrorMessage = _config.timeoutErrorMessage;
+            }
+            reject(new AxiosError(
+              timeoutErrorMessage,
+              transitional.clarifyTimeoutError ? AxiosError.ETIMEDOUT : AxiosError.ECONNABORTED,
+              _config,
+              request
+            ));
+            request = null;
+          };
+          requestData === void 0 && requestHeaders.setContentType(null);
+          if ("setRequestHeader" in request) {
+            utils$1.forEach(requestHeaders.toJSON(), function setRequestHeader(val, key) {
+              request.setRequestHeader(key, val);
+            });
+          }
+          if (!utils$1.isUndefined(_config.withCredentials)) {
+            request.withCredentials = !!_config.withCredentials;
+          }
+          if (responseType && responseType !== "json") {
+            request.responseType = _config.responseType;
+          }
+          if (typeof _config.onDownloadProgress === "function") {
+            request.addEventListener("progress", progressEventReducer(_config.onDownloadProgress, true));
+          }
+          if (typeof _config.onUploadProgress === "function" && request.upload) {
+            request.upload.addEventListener("progress", progressEventReducer(_config.onUploadProgress));
+          }
+          if (_config.cancelToken || _config.signal) {
+            onCanceled = (cancel) => {
+              if (!request) {
+                return;
+              }
+              reject(!cancel || cancel.type ? new CanceledError(null, config, request) : cancel);
+              request.abort();
+              request = null;
+            };
+            _config.cancelToken && _config.cancelToken.subscribe(onCanceled);
+            if (_config.signal) {
+              _config.signal.aborted ? onCanceled() : _config.signal.addEventListener("abort", onCanceled);
+            }
+          }
+          const protocol = parseProtocol(_config.url);
+          if (protocol && platform.protocols.indexOf(protocol) === -1) {
+            reject(new AxiosError("Unsupported protocol " + protocol + ":", AxiosError.ERR_BAD_REQUEST, config));
+            return;
+          }
+          request.send(requestData || null);
+        });
+      };
+      var composeSignals = (signals, timeout) => {
+        let controller = new AbortController();
+        let aborted;
+        const onabort = function(cancel) {
+          if (!aborted) {
+            aborted = true;
+            unsubscribe();
+            const err = cancel instanceof Error ? cancel : this.reason;
+            controller.abort(err instanceof AxiosError ? err : new CanceledError(err instanceof Error ? err.message : err));
+          }
+        };
+        let timer = timeout && setTimeout(() => {
+          onabort(new AxiosError(`timeout ${timeout} of ms exceeded`, AxiosError.ETIMEDOUT));
+        }, timeout);
+        const unsubscribe = () => {
+          if (signals) {
+            timer && clearTimeout(timer);
+            timer = null;
+            signals.forEach((signal2) => {
+              signal2 && (signal2.removeEventListener ? signal2.removeEventListener("abort", onabort) : signal2.unsubscribe(onabort));
+            });
+            signals = null;
+          }
+        };
+        signals.forEach((signal2) => signal2 && signal2.addEventListener && signal2.addEventListener("abort", onabort));
+        const { signal } = controller;
+        signal.unsubscribe = unsubscribe;
+        return [signal, () => {
+          timer && clearTimeout(timer);
+          timer = null;
+        }];
+      };
+      var composeSignals$1 = composeSignals;
+      var streamChunk = function* (chunk, chunkSize) {
+        let len = chunk.byteLength;
+        if (!chunkSize || len < chunkSize) {
+          yield chunk;
+          return;
+        }
+        let pos = 0;
+        let end;
+        while (pos < len) {
+          end = pos + chunkSize;
+          yield chunk.slice(pos, end);
+          pos = end;
+        }
+      };
+      var readBytes = async function* (iterable, chunkSize, encode2) {
+        for await (const chunk of iterable) {
+          yield* streamChunk(ArrayBuffer.isView(chunk) ? chunk : await encode2(String(chunk)), chunkSize);
+        }
+      };
+      var trackStream = (stream, chunkSize, onProgress, onFinish, encode2) => {
+        const iterator = readBytes(stream, chunkSize, encode2);
+        let bytes = 0;
+        return new ReadableStream({
+          type: "bytes",
+          async pull(controller) {
+            const { done, value } = await iterator.next();
+            if (done) {
+              controller.close();
+              onFinish();
+              return;
+            }
+            let len = value.byteLength;
+            onProgress && onProgress(bytes += len);
+            controller.enqueue(new Uint8Array(value));
+          },
+          cancel(reason) {
+            onFinish(reason);
+            return iterator.return();
+          }
+        }, {
+          highWaterMark: 2
+        });
+      };
+      var fetchProgressDecorator = (total, fn) => {
+        const lengthComputable = total != null;
+        return (loaded) => setTimeout(() => fn({
+          lengthComputable,
+          total,
+          loaded
+        }));
+      };
+      var isFetchSupported = typeof fetch === "function" && typeof Request === "function" && typeof Response === "function";
+      var isReadableStreamSupported = isFetchSupported && typeof ReadableStream === "function";
+      var encodeText = isFetchSupported && (typeof TextEncoder === "function" ? ((encoder) => (str) => encoder.encode(str))(new TextEncoder()) : async (str) => new Uint8Array(await new Response(str).arrayBuffer()));
+      var supportsRequestStream = isReadableStreamSupported && (() => {
+        let duplexAccessed = false;
+        const hasContentType = new Request(platform.origin, {
+          body: new ReadableStream(),
+          method: "POST",
+          get duplex() {
+            duplexAccessed = true;
+            return "half";
+          }
+        }).headers.has("Content-Type");
+        return duplexAccessed && !hasContentType;
+      })();
+      var DEFAULT_CHUNK_SIZE = 64 * 1024;
+      var supportsResponseStream = isReadableStreamSupported && !!(() => {
+        try {
+          return utils$1.isReadableStream(new Response("").body);
+        } catch (err) {
+        }
+      })();
+      var resolvers = {
+        stream: supportsResponseStream && ((res) => res.body)
+      };
+      isFetchSupported && ((res) => {
+        ["text", "arrayBuffer", "blob", "formData", "stream"].forEach((type) => {
+          !resolvers[type] && (resolvers[type] = utils$1.isFunction(res[type]) ? (res2) => res2[type]() : (_, config) => {
+            throw new AxiosError(`Response type '${type}' is not supported`, AxiosError.ERR_NOT_SUPPORT, config);
+          });
+        });
+      })(new Response());
+      var getBodyLength = async (body) => {
+        if (body == null) {
+          return 0;
+        }
+        if (utils$1.isBlob(body)) {
+          return body.size;
+        }
+        if (utils$1.isSpecCompliantForm(body)) {
+          return (await new Request(body).arrayBuffer()).byteLength;
+        }
+        if (utils$1.isArrayBufferView(body)) {
+          return body.byteLength;
+        }
+        if (utils$1.isURLSearchParams(body)) {
+          body = body + "";
+        }
+        if (utils$1.isString(body)) {
+          return (await encodeText(body)).byteLength;
+        }
+      };
+      var resolveBodyLength = async (headers, body) => {
+        const length = utils$1.toFiniteNumber(headers.getContentLength());
+        return length == null ? getBodyLength(body) : length;
+      };
+      var fetchAdapter = isFetchSupported && (async (config) => {
+        let {
+          url,
+          method,
+          data,
+          signal,
+          cancelToken,
+          timeout,
+          onDownloadProgress,
+          onUploadProgress,
+          responseType,
+          headers,
+          withCredentials = "same-origin",
+          fetchOptions
+        } = resolveConfig(config);
+        responseType = responseType ? (responseType + "").toLowerCase() : "text";
+        let [composedSignal, stopTimeout] = signal || cancelToken || timeout ? composeSignals$1([signal, cancelToken], timeout) : [];
+        let finished, request;
+        const onFinish = () => {
+          !finished && setTimeout(() => {
+            composedSignal && composedSignal.unsubscribe();
+          });
+          finished = true;
+        };
+        let requestContentLength;
+        try {
+          if (onUploadProgress && supportsRequestStream && method !== "get" && method !== "head" && (requestContentLength = await resolveBodyLength(headers, data)) !== 0) {
+            let _request = new Request(url, {
+              method: "POST",
+              body: data,
+              duplex: "half"
+            });
+            let contentTypeHeader;
+            if (utils$1.isFormData(data) && (contentTypeHeader = _request.headers.get("content-type"))) {
+              headers.setContentType(contentTypeHeader);
+            }
+            if (_request.body) {
+              data = trackStream(_request.body, DEFAULT_CHUNK_SIZE, fetchProgressDecorator(
+                requestContentLength,
+                progressEventReducer(onUploadProgress)
+              ), null, encodeText);
+            }
+          }
+          if (!utils$1.isString(withCredentials)) {
+            withCredentials = withCredentials ? "cors" : "omit";
+          }
+          request = new Request(url, {
+            ...fetchOptions,
+            signal: composedSignal,
+            method: method.toUpperCase(),
+            headers: headers.normalize().toJSON(),
+            body: data,
+            duplex: "half",
+            withCredentials
+          });
+          let response = await fetch(request);
+          const isStreamResponse = supportsResponseStream && (responseType === "stream" || responseType === "response");
+          if (supportsResponseStream && (onDownloadProgress || isStreamResponse)) {
+            const options = {};
+            ["status", "statusText", "headers"].forEach((prop) => {
+              options[prop] = response[prop];
+            });
+            const responseContentLength = utils$1.toFiniteNumber(response.headers.get("content-length"));
+            response = new Response(
+              trackStream(response.body, DEFAULT_CHUNK_SIZE, onDownloadProgress && fetchProgressDecorator(
+                responseContentLength,
+                progressEventReducer(onDownloadProgress, true)
+              ), isStreamResponse && onFinish, encodeText),
+              options
+            );
+          }
+          responseType = responseType || "text";
+          let responseData = await resolvers[utils$1.findKey(resolvers, responseType) || "text"](response, config);
+          !isStreamResponse && onFinish();
+          stopTimeout && stopTimeout();
+          return await new Promise((resolve, reject) => {
+            settle(resolve, reject, {
+              data: responseData,
+              headers: AxiosHeaders$1.from(response.headers),
+              status: response.status,
+              statusText: response.statusText,
+              config,
+              request
+            });
+          });
+        } catch (err) {
+          onFinish();
+          if (err && err.name === "TypeError" && /fetch/i.test(err.message)) {
+            throw Object.assign(
+              new AxiosError("Network Error", AxiosError.ERR_NETWORK, config, request),
+              {
+                cause: err.cause || err
+              }
+            );
+          }
+          throw AxiosError.from(err, err && err.code, config, request);
+        }
+      });
+      var knownAdapters = {
+        http: httpAdapter,
+        xhr: xhrAdapter,
+        fetch: fetchAdapter
+      };
+      utils$1.forEach(knownAdapters, (fn, value) => {
+        if (fn) {
+          try {
+            Object.defineProperty(fn, "name", { value });
+          } catch (e) {
+          }
+          Object.defineProperty(fn, "adapterName", { value });
+        }
+      });
+      var renderReason = (reason) => `- ${reason}`;
+      var isResolvedHandle = (adapter) => utils$1.isFunction(adapter) || adapter === null || adapter === false;
+      var adapters = {
+        getAdapter: (adapters2) => {
+          adapters2 = utils$1.isArray(adapters2) ? adapters2 : [adapters2];
+          const { length } = adapters2;
+          let nameOrAdapter;
+          let adapter;
+          const rejectedReasons = {};
+          for (let i = 0; i < length; i++) {
+            nameOrAdapter = adapters2[i];
+            let id2;
+            adapter = nameOrAdapter;
+            if (!isResolvedHandle(nameOrAdapter)) {
+              adapter = knownAdapters[(id2 = String(nameOrAdapter)).toLowerCase()];
+              if (adapter === void 0) {
+                throw new AxiosError(`Unknown adapter '${id2}'`);
+              }
+            }
+            if (adapter) {
+              break;
+            }
+            rejectedReasons[id2 || "#" + i] = adapter;
+          }
+          if (!adapter) {
+            const reasons = Object.entries(rejectedReasons).map(
+              ([id2, state]) => `adapter ${id2} ` + (state === false ? "is not supported by the environment" : "is not available in the build")
+            );
+            let s = length ? reasons.length > 1 ? "since :\n" + reasons.map(renderReason).join("\n") : " " + renderReason(reasons[0]) : "as no adapter specified";
+            throw new AxiosError(
+              `There is no suitable adapter to dispatch the request ` + s,
+              "ERR_NOT_SUPPORT"
+            );
+          }
+          return adapter;
+        },
+        adapters: knownAdapters
+      };
+      function throwIfCancellationRequested(config) {
+        if (config.cancelToken) {
+          config.cancelToken.throwIfRequested();
+        }
+        if (config.signal && config.signal.aborted) {
+          throw new CanceledError(null, config);
+        }
+      }
+      function dispatchRequest(config) {
+        throwIfCancellationRequested(config);
+        config.headers = AxiosHeaders$1.from(config.headers);
+        config.data = transformData.call(
+          config,
+          config.transformRequest
+        );
+        if (["post", "put", "patch"].indexOf(config.method) !== -1) {
+          config.headers.setContentType("application/x-www-form-urlencoded", false);
+        }
+        const adapter = adapters.getAdapter(config.adapter || defaults$1.adapter);
+        return adapter(config).then(function onAdapterResolution(response) {
+          throwIfCancellationRequested(config);
+          response.data = transformData.call(
+            config,
+            config.transformResponse,
+            response
+          );
+          response.headers = AxiosHeaders$1.from(response.headers);
+          return response;
+        }, function onAdapterRejection(reason) {
+          if (!isCancel(reason)) {
+            throwIfCancellationRequested(config);
+            if (reason && reason.response) {
+              reason.response.data = transformData.call(
+                config,
+                config.transformResponse,
+                reason.response
+              );
+              reason.response.headers = AxiosHeaders$1.from(reason.response.headers);
+            }
+          }
+          return Promise.reject(reason);
+        });
+      }
+      var VERSION2 = "1.7.2";
       var validators$1 = {};
       ["object", "boolean", "number", "function", "string", "symbol"].forEach((type, i) => {
         validators$1[type] = function validator2(thing) {
@@ -2658,7 +3065,27 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
          *
          * @returns {Promise} The Promise to be fulfilled
          */
-        request(configOrUrl, config) {
+        async request(configOrUrl, config) {
+          try {
+            return await this._request(configOrUrl, config);
+          } catch (err) {
+            if (err instanceof Error) {
+              let dummy;
+              Error.captureStackTrace ? Error.captureStackTrace(dummy = {}) : dummy = new Error();
+              const stack = dummy.stack ? dummy.stack.replace(/^.+\n/, "") : "";
+              try {
+                if (!err.stack) {
+                  err.stack = stack;
+                } else if (stack && !String(err.stack).endsWith(stack.replace(/^.+\n.+\n/, ""))) {
+                  err.stack += "\n" + stack;
+                }
+              } catch (e) {
+              }
+            }
+            throw err;
+          }
+        }
+        _request(configOrUrl, config) {
           if (typeof configOrUrl === "string") {
             config = config || {};
             config.url = configOrUrl;
@@ -3058,14 +3485,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminBudgeting = async function TenantAdminBudgeting(i, cb) {
         return await axios.post("/tenantAdmin/budgeting", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminCoa = async function TenantAdminCoa(i, cb) {
+      exports.TenantAdminCoa = async function TenantAdminCoa3(i, cb) {
         return await axios.post("/tenantAdmin/coa", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminDashboard = async function TenantAdminDashboard(i, cb) {
         return await axios.post("/tenantAdmin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.TenantAdminDeleteCoaChild = async function TenantAdminDeleteCoaChild2(i, cb) {
-        return await axios.post("/tenantAdmin/deleteCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminDeleteOrganizationChild = async function TenantAdminDeleteOrganizationChild(i, cb) {
         return await axios.post("/tenantAdmin/deleteOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -3079,9 +3503,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminLocations = async function TenantAdminLocations(i, cb) {
         return await axios.post("/tenantAdmin/locations", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminMoveCoaChild = async function TenantAdminMoveCoaChild(i, cb) {
-        return await axios.post("/tenantAdmin/moveCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
       exports.TenantAdminMoveOrganizationChild = async function TenantAdminMoveOrganizationChild(i, cb) {
         return await axios.post("/tenantAdmin/moveOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -3091,9 +3512,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminProducts = async function TenantAdminProducts(i, cb) {
         return await axios.post("/tenantAdmin/products", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminRestoreCoaChild = async function TenantAdminRestoreCoaChild2(i, cb) {
-        return await axios.post("/tenantAdmin/restoreCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
       exports.TenantAdminRestoreOrganizationChild = async function TenantAdminRestoreOrganizationChild(i, cb) {
         return await axios.post("/tenantAdmin/restoreOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -3102,9 +3520,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       };
       exports.TenantAdminTransactionTemplate = async function TenantAdminTransactionTemplate(i, cb) {
         return await axios.post("/tenantAdmin/transactionTemplate", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.TenantAdminUpsertCoaChild = async function TenantAdminUpsertCoaChild3(i, cb) {
-        return await axios.post("/tenantAdmin/createCoaChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminUpsertOrganizationChild = async function TenantAdminUpsertOrganizationChild(i, cb) {
         return await axios.post("/tenantAdmin/updateOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -3139,7 +3554,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
   });
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/utils.js
+  // node_modules/.pnpm/svelte@4.2.18/node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
   function assign(tar, src) {
@@ -3216,13 +3631,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     return value == null ? "" : value;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/globals.js
+  // node_modules/.pnpm/svelte@4.2.18/node_modules/svelte/src/runtime/internal/globals.js
   var globals = typeof window !== "undefined" ? window : typeof globalThis !== "undefined" ? globalThis : (
     // @ts-ignore Node typings have this
     global
   );
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
+  // node_modules/.pnpm/svelte@4.2.18/node_modules/svelte/src/runtime/internal/ResizeObserverSingleton.js
   var ResizeObserverSingleton = class {
     /**
      * @private
@@ -3268,7 +3683,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   };
   ResizeObserverSingleton.entries = "WeakMap" in globals ? /* @__PURE__ */ new WeakMap() : void 0;
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/dom.js
+  // node_modules/.pnpm/svelte@4.2.18/node_modules/svelte/src/runtime/internal/dom.js
   var is_hydrating = false;
   function start_hydrating() {
     is_hydrating = true;
@@ -3285,6 +3700,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   function detach(node) {
     if (node.parentNode) {
       node.parentNode.removeChild(node);
+    }
+  }
+  function destroy_each(iterations, detaching) {
+    for (let i = 0; i < iterations.length; i += 1) {
+      if (iterations[i])
+        iterations[i].d(detaching);
     }
   }
   function element(name) {
@@ -3323,6 +3744,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       attr(node, key, attributes[key]);
     }
   }
+  function to_number(value) {
+    return value === "" ? null : +value;
+  }
   function children(element2) {
     return Array.from(element2.childNodes);
   }
@@ -3343,6 +3767,22 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       node.style.setProperty(key, value, important ? "important" : "");
     }
   }
+  function select_option(select, value, mounting) {
+    for (let i = 0; i < select.options.length; i += 1) {
+      const option = select.options[i];
+      if (option.__value === value) {
+        option.selected = true;
+        return;
+      }
+    }
+    if (!mounting || value !== void 0) {
+      select.selectedIndex = -1;
+    }
+  }
+  function select_value(select) {
+    const selected_option = select.querySelector(":checked");
+    return selected_option && selected_option.__value;
+  }
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
   }
@@ -3360,7 +3800,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     return result;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/lifecycle.js
+  // node_modules/.pnpm/svelte@4.2.18/node_modules/svelte/src/runtime/internal/lifecycle.js
   var current_component;
   function set_current_component(component) {
     current_component = component;
@@ -3399,7 +3839,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/scheduler.js
+  // node_modules/.pnpm/svelte@4.2.18/node_modules/svelte/src/runtime/internal/scheduler.js
   var dirty_components = [];
   var binding_callbacks = [];
   var render_callbacks = [];
@@ -3477,7 +3917,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     render_callbacks = filtered;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/transitions.js
+  // node_modules/.pnpm/svelte@4.2.18/node_modules/svelte/src/runtime/internal/transitions.js
   var outroing = /* @__PURE__ */ new Set();
   var outros;
   function group_outros() {
@@ -3519,7 +3959,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/each.js
+  // node_modules/.pnpm/svelte@4.2.18/node_modules/svelte/src/runtime/internal/each.js
   function ensure_array_like(array_like_or_iterator) {
     return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
   }
@@ -3528,7 +3968,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       lookup.delete(block.key);
     });
   }
-  function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block3, next, get_context) {
+  function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block4, next, get_context) {
     let o = old_blocks.length;
     let n = list.length;
     let i = o;
@@ -3545,7 +3985,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       const key = get_key(child_ctx);
       let block = lookup.get(key);
       if (!block) {
-        block = create_each_block3(key, child_ctx);
+        block = create_each_block4(key, child_ctx);
         block.c();
       } else if (dynamic) {
         updates.push(() => block.p(child_ctx, dirty));
@@ -3598,7 +4038,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     return new_blocks;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/spread.js
+  // node_modules/.pnpm/svelte@4.2.18/node_modules/svelte/src/runtime/internal/spread.js
   function get_spread_update(levels, updates) {
     const update2 = {};
     const to_null_out = {};
@@ -3632,7 +4072,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     return update2;
   }
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/boolean_attributes.js
+  // node_modules/.pnpm/svelte@4.2.18/node_modules/svelte/src/shared/boolean_attributes.js
   var _boolean_attributes = (
     /** @type {const} */
     [
@@ -3665,7 +4105,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   );
   var boolean_attributes = /* @__PURE__ */ new Set([..._boolean_attributes]);
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/Component.js
+  // node_modules/.pnpm/svelte@4.2.18/node_modules/svelte/src/runtime/internal/Component.js
   function bind(component, name, callback) {
     const index = component.$.props[name];
     if (index !== void 0) {
@@ -3843,7 +4283,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             };
           };
           await Promise.resolve();
-          if (!this.$cn) {
+          if (!this.$cn || this.$c) {
             return;
           }
           const $slots = {};
@@ -3857,6 +4297,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             const name = this.$g_p(attribute.name);
             if (!(name in this.$d)) {
               this.$d[name] = get_custom_element_value(name, attribute.value, this.$p_d, "toProp");
+            }
+          }
+          for (const key in this.$p_d) {
+            if (!(key in this.$d) && this[key] !== void 0) {
+              this.$d[key] = this[key];
+              delete this[key];
             }
           }
           this.$c = new this.$ctor({
@@ -3912,7 +4358,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       disconnectedCallback() {
         this.$cn = false;
         Promise.resolve().then(() => {
-          if (!this.$cn) {
+          if (!this.$cn && this.$c) {
             this.$c.$destroy();
             this.$c = void 0;
           }
@@ -4009,14 +4455,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
   };
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/shared/version.js
+  // node_modules/.pnpm/svelte@4.2.18/node_modules/svelte/src/shared/version.js
   var PUBLIC_VERSION = "4";
 
-  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/disclose-version/index.js
+  // node_modules/.pnpm/svelte@4.2.18/node_modules/svelte/src/runtime/internal/disclose-version/index.js
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/Icon.svelte
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.18/node_modules/svelte-icons-pack/dist/Icon.svelte
   function create_fragment(ctx) {
     let svg;
     let svg_style_value;
@@ -4175,7 +4621,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   };
   var Icon_default = Icon;
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ri/index.js
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.18/node_modules/svelte-icons-pack/dist/ri/index.js
   var RiDesignPencilLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M15.7279 9.57627L14.3137 8.16206L5 17.4758V18.89H6.41421L15.7279 9.57627ZM17.1421 8.16206L18.5563 6.74785L17.1421 5.33363L15.7279 6.74785L17.1421 8.16206ZM7.24264 20.89H3V16.6473L16.435 3.21231C16.8256 2.82179 17.4587 2.82179 17.8492 3.21231L20.6777 6.04074C21.0682 6.43126 21.0682 7.06443 20.6777 7.45495L7.24264 20.89Z"></path>' };
   var RiBuildingsCommunityLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 21H3C2.44772 21 2 20.5523 2 20V12.4868C2 12.1978 2.12501 11.9229 2.34282 11.733L6 8.54435V4C6 3.44772 6.44772 3 7 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21ZM9 19H12V12.9416L8 9.45402L4 12.9416V19H7V15H9V19ZM14 19H20V5H8V7.12729C8.23444 7.12729 8.46888 7.20938 8.65718 7.37355L13.6572 11.733C13.875 11.9229 14 12.1978 14 12.4868V19ZM16 11H18V13H16V11ZM16 15H18V17H16V15ZM16 7H18V9H16V7ZM12 7H14V9H12V7Z"></path>' };
   var RiBuildingsBankLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 20H22V22H2V20ZM4 12H6V19H4V12ZM9 12H11V19H9V12ZM13 12H15V19H13V12ZM18 12H20V19H18V12ZM2 7L12 2L22 7V11H2V7ZM4 8.23607V9H20V8.23607L12 4.23607L4 8.23607ZM12 8C11.4477 8 11 7.55228 11 7C11 6.44772 11.4477 6 12 6C12.5523 6 13 6.44772 13 7C13 7.55228 12.5523 8 12 8Z"></path>' };
@@ -4267,31 +4713,1286 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   }();
   var notifier = new Notifier();
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/fi/index.js
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.18/node_modules/svelte-icons-pack/dist/fi/index.js
   var FiLoader = { a: { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" }, c: '<line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>' };
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/io/index.js
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.18/node_modules/svelte-icons-pack/dist/io/index.js
   var IoClose = { a: { viewBox: "0 0 512 512" }, c: '<path d="M289.94,256l95-95A24,24,0,0,0,351,127l-95,95-95-95A24,24,0,0,0,127,161l95,95-95,95A24,24,0,1,0,161,385l95-95,95,95A24,24,0,0,0,385,351Z"></path>' };
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/ai/index.js
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.18/node_modules/svelte-icons-pack/dist/ai/index.js
   var AiOutlineHome = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 0 0-44.4 0L77.5 505a63.9 63.9 0 0 0-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0 0 18.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"></path>' };
   var AiOutlineWallet = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zm-40 464H528V448h312v128zm0 264H184V184h656v200H496c-17.7 0-32 14.3-32 32v192c0 17.7 14.3 32 32 32h344v200zM580 512a40 40 0 1 0 80 0 40 40 0 1 0-80 0z"></path>' };
   var AiOutlineWarning = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M464 720a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm16-304v184c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V416c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8zm475.7 440l-416-720c-6.2-10.7-16.9-16-27.7-16s-21.6 5.3-27.7 16l-416 720C56 877.4 71.4 904 96 904h832c24.6 0 40-26.6 27.7-48zm-783.5-27.9L512 239.9l339.8 588.2H172.2z"></path>' };
   var AiOutlineEyeInvisible = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 0 0 0-51.5zm-63.57-320.64L836 122.88a8 8 0 0 0-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 0 0 0 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 0 0 0 11.31L155.17 889a8 8 0 0 0 11.31 0l712.15-712.12a8 8 0 0 0 0-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 0 0-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 0 1 146.2-106.69L401.31 546.2A112 112 0 0 1 396 512z"></path><path d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 0 0 227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 0 1-112 112z"></path>' };
   var AiOutlineEye = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 0 0 0 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"></path>' };
 
-  // _components/InputBox.svelte
+  // _components/InputCustom.svelte
+  function get_each_context_1(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[24] = list[i];
+    return child_ctx;
+  }
+  function get_each_context(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[23] = list[i][0];
+    child_ctx[24] = list[i][1];
+    return child_ctx;
+  }
+  function create_else_block_1(ctx) {
+    let label_1;
+    let t0;
+    let t1;
+    let input;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        label_1 = element("label");
+        t0 = text(
+          /*label*/
+          ctx[4]
+        );
+        t1 = space();
+        input = element("input");
+        attr(label_1, "class", "label svelte-o5xo0b");
+        attr(
+          label_1,
+          "for",
+          /*id*/
+          ctx[2]
+        );
+        attr(input, "type", "text");
+        attr(
+          input,
+          "id",
+          /*id*/
+          ctx[2]
+        );
+        attr(
+          input,
+          "placeholder",
+          /*placeholder*/
+          ctx[5]
+        );
+        attr(input, "class", "svelte-o5xo0b");
+      },
+      m(target, anchor) {
+        insert(target, label_1, anchor);
+        append(label_1, t0);
+        insert(target, t1, anchor);
+        insert(target, input, anchor);
+        set_input_value(
+          input,
+          /*value*/
+          ctx[0]
+        );
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "input",
+            /*input_input_handler_7*/
+            ctx[22]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*label*/
+        16)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[4]
+          );
+        if (dirty & /*id*/
+        4) {
+          attr(
+            label_1,
+            "for",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*id*/
+        4) {
+          attr(
+            input,
+            "id",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*placeholder*/
+        32) {
+          attr(
+            input,
+            "placeholder",
+            /*placeholder*/
+            ctx2[5]
+          );
+        }
+        if (dirty & /*value, values*/
+        9 && input.value !== /*value*/
+        ctx2[0]) {
+          set_input_value(
+            input,
+            /*value*/
+            ctx2[0]
+          );
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(label_1);
+          detach(t1);
+          detach(input);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_13(ctx) {
+    let label_1;
+    let t0;
+    let t1;
+    let div;
+    let input;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        label_1 = element("label");
+        t0 = text(
+          /*label*/
+          ctx[4]
+        );
+        t1 = space();
+        div = element("div");
+        input = element("input");
+        attr(label_1, "class", "label svelte-o5xo0b");
+        attr(
+          label_1,
+          "for",
+          /*id*/
+          ctx[2]
+        );
+        attr(input, "type", "color");
+        attr(
+          input,
+          "id",
+          /*id*/
+          ctx[2]
+        );
+        attr(input, "class", "color-input svelte-o5xo0b");
+        attr(div, "class", "color_box svelte-o5xo0b");
+      },
+      m(target, anchor) {
+        insert(target, label_1, anchor);
+        append(label_1, t0);
+        insert(target, t1, anchor);
+        insert(target, div, anchor);
+        append(div, input);
+        set_input_value(
+          input,
+          /*value*/
+          ctx[0]
+        );
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "input",
+            /*input_input_handler_6*/
+            ctx[21]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*label*/
+        16)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[4]
+          );
+        if (dirty & /*id*/
+        4) {
+          attr(
+            label_1,
+            "for",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*id*/
+        4) {
+          attr(
+            input,
+            "id",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*value, values*/
+        9) {
+          set_input_value(
+            input,
+            /*value*/
+            ctx2[0]
+          );
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(label_1);
+          detach(t1);
+          detach(div);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_9(ctx) {
+    let label_1;
+    let t0;
+    let t1;
+    let input;
+    let t2;
+    let if_block_anchor;
+    let current;
+    let mounted;
+    let dispose;
+    let if_block = (
+      /*type*/
+      ctx[1] === "password" && create_if_block_10(ctx)
+    );
+    return {
+      c() {
+        label_1 = element("label");
+        t0 = text(
+          /*label*/
+          ctx[4]
+        );
+        t1 = space();
+        input = element("input");
+        t2 = space();
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+        attr(
+          label_1,
+          "for",
+          /*id*/
+          ctx[2]
+        );
+        attr(
+          input,
+          "id",
+          /*id*/
+          ctx[2]
+        );
+        attr(
+          input,
+          "placeholder",
+          /*placeholder*/
+          ctx[5]
+        );
+        attr(input, "class", "svelte-o5xo0b");
+      },
+      m(target, anchor) {
+        insert(target, label_1, anchor);
+        append(label_1, t0);
+        insert(target, t1, anchor);
+        insert(target, input, anchor);
+        set_input_value(
+          input,
+          /*value*/
+          ctx[0]
+        );
+        ctx[20](input);
+        insert(target, t2, anchor);
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "input",
+            /*input_input_handler_5*/
+            ctx[19]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (!current || dirty & /*label*/
+        16)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[4]
+          );
+        if (!current || dirty & /*id*/
+        4) {
+          attr(
+            label_1,
+            "for",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (!current || dirty & /*id*/
+        4) {
+          attr(
+            input,
+            "id",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (!current || dirty & /*placeholder*/
+        32) {
+          attr(
+            input,
+            "placeholder",
+            /*placeholder*/
+            ctx2[5]
+          );
+        }
+        if (dirty & /*value, values*/
+        9 && input.value !== /*value*/
+        ctx2[0]) {
+          set_input_value(
+            input,
+            /*value*/
+            ctx2[0]
+          );
+        }
+        if (
+          /*type*/
+          ctx2[1] === "password"
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*type*/
+            2) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block_10(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(label_1);
+          detach(t1);
+          detach(input);
+          detach(t2);
+          detach(if_block_anchor);
+        }
+        ctx[20](null);
+        if (if_block)
+          if_block.d(detaching);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_8(ctx) {
+    let label_1;
+    let t0;
+    let t1;
+    let input;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        label_1 = element("label");
+        t0 = text(
+          /*label*/
+          ctx[4]
+        );
+        t1 = space();
+        input = element("input");
+        attr(label_1, "class", "label svelte-o5xo0b");
+        attr(
+          label_1,
+          "for",
+          /*id*/
+          ctx[2]
+        );
+        attr(input, "type", "date");
+        attr(
+          input,
+          "id",
+          /*id*/
+          ctx[2]
+        );
+        attr(
+          input,
+          "placeholder",
+          /*placeholder*/
+          ctx[5]
+        );
+        attr(input, "class", "svelte-o5xo0b");
+      },
+      m(target, anchor) {
+        insert(target, label_1, anchor);
+        append(label_1, t0);
+        insert(target, t1, anchor);
+        insert(target, input, anchor);
+        set_input_value(
+          input,
+          /*value*/
+          ctx[0]
+        );
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "input",
+            /*input_input_handler_4*/
+            ctx[18]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*label*/
+        16)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[4]
+          );
+        if (dirty & /*id*/
+        4) {
+          attr(
+            label_1,
+            "for",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*id*/
+        4) {
+          attr(
+            input,
+            "id",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*placeholder*/
+        32) {
+          attr(
+            input,
+            "placeholder",
+            /*placeholder*/
+            ctx2[5]
+          );
+        }
+        if (dirty & /*value, values*/
+        9) {
+          set_input_value(
+            input,
+            /*value*/
+            ctx2[0]
+          );
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(label_1);
+          detach(t1);
+          detach(input);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_7(ctx) {
+    let label_1;
+    let t0;
+    let t1;
+    let input;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        label_1 = element("label");
+        t0 = text(
+          /*label*/
+          ctx[4]
+        );
+        t1 = space();
+        input = element("input");
+        attr(label_1, "class", "label svelte-o5xo0b");
+        attr(
+          label_1,
+          "for",
+          /*id*/
+          ctx[2]
+        );
+        attr(input, "type", "email");
+        attr(
+          input,
+          "id",
+          /*id*/
+          ctx[2]
+        );
+        attr(
+          input,
+          "placeholder",
+          /*placeholder*/
+          ctx[5]
+        );
+        attr(input, "class", "svelte-o5xo0b");
+      },
+      m(target, anchor) {
+        insert(target, label_1, anchor);
+        append(label_1, t0);
+        insert(target, t1, anchor);
+        insert(target, input, anchor);
+        set_input_value(
+          input,
+          /*value*/
+          ctx[0]
+        );
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "input",
+            /*input_input_handler_3*/
+            ctx[17]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*label*/
+        16)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[4]
+          );
+        if (dirty & /*id*/
+        4) {
+          attr(
+            label_1,
+            "for",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*id*/
+        4) {
+          attr(
+            input,
+            "id",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*placeholder*/
+        32) {
+          attr(
+            input,
+            "placeholder",
+            /*placeholder*/
+            ctx2[5]
+          );
+        }
+        if (dirty & /*value, values*/
+        9 && input.value !== /*value*/
+        ctx2[0]) {
+          set_input_value(
+            input,
+            /*value*/
+            ctx2[0]
+          );
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(label_1);
+          detach(t1);
+          detach(input);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_6(ctx) {
+    let label_1;
+    let t0;
+    let t1;
+    let input;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        label_1 = element("label");
+        t0 = text(
+          /*label*/
+          ctx[4]
+        );
+        t1 = space();
+        input = element("input");
+        attr(label_1, "class", "label svelte-o5xo0b");
+        attr(
+          label_1,
+          "for",
+          /*id*/
+          ctx[2]
+        );
+        attr(input, "type", "text");
+        attr(
+          input,
+          "id",
+          /*id*/
+          ctx[2]
+        );
+        attr(
+          input,
+          "placeholder",
+          /*placeholder*/
+          ctx[5]
+        );
+        attr(input, "autocomplete", "off");
+        attr(input, "class", "svelte-o5xo0b");
+      },
+      m(target, anchor) {
+        insert(target, label_1, anchor);
+        append(label_1, t0);
+        insert(target, t1, anchor);
+        insert(target, input, anchor);
+        set_input_value(
+          input,
+          /*value*/
+          ctx[0]
+        );
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "input",
+            /*input_input_handler_2*/
+            ctx[16]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*label*/
+        16)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[4]
+          );
+        if (dirty & /*id*/
+        4) {
+          attr(
+            label_1,
+            "for",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*id*/
+        4) {
+          attr(
+            input,
+            "id",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*placeholder*/
+        32) {
+          attr(
+            input,
+            "placeholder",
+            /*placeholder*/
+            ctx2[5]
+          );
+        }
+        if (dirty & /*value, values*/
+        9 && input.value !== /*value*/
+        ctx2[0]) {
+          set_input_value(
+            input,
+            /*value*/
+            ctx2[0]
+          );
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(label_1);
+          detach(t1);
+          detach(input);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_5(ctx) {
+    let label_1;
+    let t0;
+    let t1;
+    let textarea;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        label_1 = element("label");
+        t0 = text(
+          /*label*/
+          ctx[4]
+        );
+        t1 = space();
+        textarea = element("textarea");
+        attr(label_1, "class", "label svelte-o5xo0b");
+        attr(
+          label_1,
+          "for",
+          /*id*/
+          ctx[2]
+        );
+        attr(
+          textarea,
+          "id",
+          /*id*/
+          ctx[2]
+        );
+        attr(
+          textarea,
+          "placeholder",
+          /*placeholder*/
+          ctx[5]
+        );
+        attr(textarea, "class", "svelte-o5xo0b");
+      },
+      m(target, anchor) {
+        insert(target, label_1, anchor);
+        append(label_1, t0);
+        insert(target, t1, anchor);
+        insert(target, textarea, anchor);
+        set_input_value(
+          textarea,
+          /*value*/
+          ctx[0]
+        );
+        if (!mounted) {
+          dispose = listen(
+            textarea,
+            "input",
+            /*textarea_input_handler*/
+            ctx[15]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*label*/
+        16)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[4]
+          );
+        if (dirty & /*id*/
+        4) {
+          attr(
+            label_1,
+            "for",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*id*/
+        4) {
+          attr(
+            textarea,
+            "id",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*placeholder*/
+        32) {
+          attr(
+            textarea,
+            "placeholder",
+            /*placeholder*/
+            ctx2[5]
+          );
+        }
+        if (dirty & /*value, values*/
+        9) {
+          set_input_value(
+            textarea,
+            /*value*/
+            ctx2[0]
+          );
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(label_1);
+          detach(t1);
+          detach(textarea);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_4(ctx) {
+    let label_1;
+    let t0;
+    let t1;
+    let input;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        label_1 = element("label");
+        t0 = text(
+          /*label*/
+          ctx[4]
+        );
+        t1 = space();
+        input = element("input");
+        attr(label_1, "class", "label svelte-o5xo0b");
+        attr(
+          label_1,
+          "for",
+          /*id*/
+          ctx[2]
+        );
+        attr(input, "type", "number");
+        attr(
+          input,
+          "id",
+          /*id*/
+          ctx[2]
+        );
+        attr(
+          input,
+          "placeholder",
+          /*placeholder*/
+          ctx[5]
+        );
+        attr(input, "class", "svelte-o5xo0b");
+      },
+      m(target, anchor) {
+        insert(target, label_1, anchor);
+        append(label_1, t0);
+        insert(target, t1, anchor);
+        insert(target, input, anchor);
+        set_input_value(
+          input,
+          /*value*/
+          ctx[0]
+        );
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "input",
+            /*input_input_handler_1*/
+            ctx[14]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*label*/
+        16)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[4]
+          );
+        if (dirty & /*id*/
+        4) {
+          attr(
+            label_1,
+            "for",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*id*/
+        4) {
+          attr(
+            input,
+            "id",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*placeholder*/
+        32) {
+          attr(
+            input,
+            "placeholder",
+            /*placeholder*/
+            ctx2[5]
+          );
+        }
+        if (dirty & /*value, values*/
+        9 && to_number(input.value) !== /*value*/
+        ctx2[0]) {
+          set_input_value(
+            input,
+            /*value*/
+            ctx2[0]
+          );
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(label_1);
+          detach(t1);
+          detach(input);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_3(ctx) {
+    let label_1;
+    let t0;
+    let t1;
+    let input;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        label_1 = element("label");
+        t0 = text(
+          /*label*/
+          ctx[4]
+        );
+        t1 = space();
+        input = element("input");
+        attr(label_1, "class", "label svelte-o5xo0b");
+        attr(
+          label_1,
+          "for",
+          /*id*/
+          ctx[2]
+        );
+        attr(input, "type", "number");
+        attr(
+          input,
+          "id",
+          /*id*/
+          ctx[2]
+        );
+        attr(
+          input,
+          "placeholder",
+          /*placeholder*/
+          ctx[5]
+        );
+        attr(input, "class", "svelte-o5xo0b");
+      },
+      m(target, anchor) {
+        insert(target, label_1, anchor);
+        append(label_1, t0);
+        insert(target, t1, anchor);
+        insert(target, input, anchor);
+        set_input_value(
+          input,
+          /*value*/
+          ctx[0]
+        );
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "input",
+            /*input_input_handler*/
+            ctx[13]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*label*/
+        16)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[4]
+          );
+        if (dirty & /*id*/
+        4) {
+          attr(
+            label_1,
+            "for",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*id*/
+        4) {
+          attr(
+            input,
+            "id",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*placeholder*/
+        32) {
+          attr(
+            input,
+            "placeholder",
+            /*placeholder*/
+            ctx2[5]
+          );
+        }
+        if (dirty & /*value, values*/
+        9 && to_number(input.value) !== /*value*/
+        ctx2[0]) {
+          set_input_value(
+            input,
+            /*value*/
+            ctx2[0]
+          );
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(label_1);
+          detach(t1);
+          detach(input);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_1(ctx) {
+    let if_block_anchor;
+    function select_block_type_1(ctx2, dirty) {
+      if (
+        /*isObject*/
+        ctx2[6]
+      )
+        return create_if_block_2;
+      return create_else_block;
+    }
+    let current_block_type = select_block_type_1(ctx, -1);
+    let if_block = current_block_type(ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (current_block_type === (current_block_type = select_block_type_1(ctx2, dirty)) && if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
+          if (if_block) {
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if_block.d(detaching);
+      }
+    };
+  }
   function create_if_block(ctx) {
+    let label0;
+    let t0;
+    let t1;
+    let label1;
+    let input;
+    let t2;
+    let span;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        label0 = element("label");
+        t0 = text(
+          /*label*/
+          ctx[4]
+        );
+        t1 = space();
+        label1 = element("label");
+        input = element("input");
+        t2 = space();
+        span = element("span");
+        attr(label0, "class", "label svelte-o5xo0b");
+        attr(
+          label0,
+          "for",
+          /*id*/
+          ctx[2]
+        );
+        attr(input, "type", "checkbox");
+        attr(
+          input,
+          "id",
+          /*id*/
+          ctx[2]
+        );
+        attr(input, "class", "svelte-o5xo0b");
+        attr(span, "class", "slider svelte-o5xo0b");
+        attr(label1, "class", "switcher svelte-o5xo0b");
+        attr(
+          label1,
+          "for",
+          /*id*/
+          ctx[2]
+        );
+      },
+      m(target, anchor) {
+        insert(target, label0, anchor);
+        append(label0, t0);
+        insert(target, t1, anchor);
+        insert(target, label1, anchor);
+        append(label1, input);
+        input.checked = /*value*/
+        ctx[0];
+        append(label1, t2);
+        append(label1, span);
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "change",
+            /*input_change_handler*/
+            ctx[10]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*label*/
+        16)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[4]
+          );
+        if (dirty & /*id*/
+        4) {
+          attr(
+            label0,
+            "for",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*id*/
+        4) {
+          attr(
+            input,
+            "id",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*value, values*/
+        9) {
+          input.checked = /*value*/
+          ctx2[0];
+        }
+        if (dirty & /*id*/
+        4) {
+          attr(
+            label1,
+            "for",
+            /*id*/
+            ctx2[2]
+          );
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(label0);
+          detach(t1);
+          detach(label1);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_10(ctx) {
     let button;
     let t;
     let current;
     let mounted;
     let dispose;
     let if_block0 = !/*isShowPassword*/
-    ctx[5] && create_if_block_2(ctx);
+    ctx[7] && create_if_block_12(ctx);
     let if_block1 = (
       /*isShowPassword*/
-      ctx[5] && create_if_block_1(ctx)
+      ctx[7] && create_if_block_11(ctx)
     );
     return {
       c() {
@@ -4301,7 +6002,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t = space();
         if (if_block1)
           if_block1.c();
-        attr(button, "class", "eye svelte-msefpz");
+        attr(button, "class", "eye svelte-o5xo0b");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -4316,21 +6017,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*toggleShowPassword*/
-            ctx[7]
+            ctx[9]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
         if (!/*isShowPassword*/
-        ctx2[5]) {
+        ctx2[7]) {
           if (if_block0) {
             if (dirty & /*isShowPassword*/
-            32) {
+            128) {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_2(ctx2);
+            if_block0 = create_if_block_12(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(button, t);
@@ -4344,15 +6045,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         if (
           /*isShowPassword*/
-          ctx2[5]
+          ctx2[7]
         ) {
           if (if_block1) {
             if (dirty & /*isShowPassword*/
-            32) {
+            128) {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_1(ctx2);
+            if_block1 = create_if_block_11(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(button, null);
@@ -4390,7 +6091,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_2(ctx) {
+  function create_if_block_12(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -4423,7 +6124,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_1(ctx) {
+  function create_if_block_11(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -4456,154 +6157,617 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_fragment2(ctx) {
-    let div;
+  function create_else_block(ctx) {
     let label_1;
     let t0;
     let t1;
-    let input;
+    let select;
+    let option;
     let t2;
-    let div_class_value;
-    let current;
+    let t3;
+    let t4;
     let mounted;
     let dispose;
-    let if_block = (
-      /*type*/
-      ctx[3] === "password" && create_if_block(ctx)
+    let each_value_1 = ensure_array_like(
+      /*values*/
+      ctx[3]
     );
+    let each_blocks = [];
+    for (let i = 0; i < each_value_1.length; i += 1) {
+      each_blocks[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
+    }
     return {
       c() {
-        div = element("div");
         label_1 = element("label");
         t0 = text(
           /*label*/
-          ctx[2]
+          ctx[4]
         );
         t1 = space();
-        input = element("input");
-        t2 = space();
-        if (if_block)
-          if_block.c();
+        select = element("select");
+        option = element("option");
+        t2 = text("-- ");
+        t3 = text(
+          /*placeholder*/
+          ctx[5]
+        );
+        t4 = text(" --");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        attr(label_1, "class", "label svelte-o5xo0b");
         attr(
           label_1,
           "for",
           /*id*/
-          ctx[1]
+          ctx[2]
         );
-        attr(label_1, "class", "svelte-msefpz");
+        option.__value = "";
+        set_input_value(option, option.__value);
+        option.disabled = true;
         attr(
-          input,
+          select,
+          "name",
+          /*id*/
+          ctx[2]
+        );
+        attr(
+          select,
           "id",
           /*id*/
-          ctx[1]
+          ctx[2]
         );
         attr(
-          input,
+          select,
           "placeholder",
           /*placeholder*/
-          ctx[4]
+          ctx[5]
         );
-        attr(input, "class", "svelte-msefpz");
-        attr(div, "class", div_class_value = null_to_empty(`input_box ${/*type*/
-        ctx[3] === "password" ? "with_password" : ""}`) + " svelte-msefpz");
+        attr(select, "class", "svelte-o5xo0b");
+        if (
+          /*value*/
+          ctx[0] === void 0
+        )
+          add_render_callback(() => (
+            /*select_change_handler_1*/
+            ctx[12].call(select)
+          ));
       },
       m(target, anchor) {
-        insert(target, div, anchor);
-        append(div, label_1);
+        insert(target, label_1, anchor);
         append(label_1, t0);
-        append(div, t1);
-        append(div, input);
-        set_input_value(
-          input,
+        insert(target, t1, anchor);
+        insert(target, select, anchor);
+        append(select, option);
+        append(option, t2);
+        append(option, t3);
+        append(option, t4);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(select, null);
+          }
+        }
+        select_option(
+          select,
           /*value*/
-          ctx[0]
+          ctx[0],
+          true
         );
-        ctx[9](input);
-        append(div, t2);
-        if (if_block)
-          if_block.m(div, null);
-        current = true;
         if (!mounted) {
           dispose = listen(
-            input,
-            "input",
-            /*input_input_handler*/
-            ctx[8]
+            select,
+            "change",
+            /*select_change_handler_1*/
+            ctx[12]
           );
           mounted = true;
         }
       },
-      p(ctx2, [dirty]) {
-        if (!current || dirty & /*label*/
-        4)
+      p(ctx2, dirty) {
+        if (dirty & /*label*/
+        16)
           set_data(
             t0,
             /*label*/
-            ctx2[2]
+            ctx2[4]
           );
-        if (!current || dirty & /*id*/
-        2) {
+        if (dirty & /*id*/
+        4) {
           attr(
             label_1,
             "for",
             /*id*/
-            ctx2[1]
+            ctx2[2]
           );
         }
-        if (!current || dirty & /*id*/
-        2) {
+        if (dirty & /*placeholder*/
+        32)
+          set_data(
+            t3,
+            /*placeholder*/
+            ctx2[5]
+          );
+        if (dirty & /*values, value*/
+        9) {
+          each_value_1 = ensure_array_like(
+            /*values*/
+            ctx2[3]
+          );
+          let i;
+          for (i = 0; i < each_value_1.length; i += 1) {
+            const child_ctx = get_each_context_1(ctx2, each_value_1, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block_1(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(select, null);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value_1.length;
+        }
+        if (dirty & /*id*/
+        4) {
           attr(
-            input,
+            select,
+            "name",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*id*/
+        4) {
+          attr(
+            select,
             "id",
             /*id*/
-            ctx2[1]
+            ctx2[2]
           );
         }
-        if (!current || dirty & /*placeholder*/
-        16) {
+        if (dirty & /*placeholder*/
+        32) {
           attr(
-            input,
+            select,
             "placeholder",
             /*placeholder*/
-            ctx2[4]
+            ctx2[5]
           );
         }
-        if (dirty & /*value*/
-        1 && input.value !== /*value*/
-        ctx2[0]) {
-          set_input_value(
-            input,
+        if (dirty & /*value, values*/
+        9) {
+          select_option(
+            select,
             /*value*/
             ctx2[0]
           );
         }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(label_1);
+          detach(t1);
+          detach(select);
+        }
+        destroy_each(each_blocks, detaching);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_2(ctx) {
+    let label_1;
+    let t0;
+    let t1;
+    let select;
+    let option;
+    let t2;
+    let t3;
+    let t4;
+    let mounted;
+    let dispose;
+    let each_value = ensure_array_like(Object.entries(
+      /*values*/
+      ctx[3]
+    ));
+    let each_blocks = [];
+    for (let i = 0; i < each_value.length; i += 1) {
+      each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    }
+    return {
+      c() {
+        label_1 = element("label");
+        t0 = text(
+          /*label*/
+          ctx[4]
+        );
+        t1 = space();
+        select = element("select");
+        option = element("option");
+        t2 = text("-- ");
+        t3 = text(
+          /*placeholder*/
+          ctx[5]
+        );
+        t4 = text(" --");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        attr(label_1, "class", "label svelte-o5xo0b");
+        attr(
+          label_1,
+          "for",
+          /*id*/
+          ctx[2]
+        );
+        option.__value = "";
+        set_input_value(option, option.__value);
+        option.disabled = true;
+        attr(
+          select,
+          "name",
+          /*id*/
+          ctx[2]
+        );
+        attr(
+          select,
+          "id",
+          /*id*/
+          ctx[2]
+        );
+        attr(
+          select,
+          "placeholder",
+          /*placeholder*/
+          ctx[5]
+        );
+        attr(select, "class", "svelte-o5xo0b");
         if (
-          /*type*/
-          ctx2[3] === "password"
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*type*/
-            8) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(div, null);
+          /*value*/
+          ctx[0] === void 0
+        )
+          add_render_callback(() => (
+            /*select_change_handler*/
+            ctx[11].call(select)
+          ));
+      },
+      m(target, anchor) {
+        insert(target, label_1, anchor);
+        append(label_1, t0);
+        insert(target, t1, anchor);
+        insert(target, select, anchor);
+        append(select, option);
+        append(option, t2);
+        append(option, t3);
+        append(option, t4);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(select, null);
           }
-        } else if (if_block) {
+        }
+        select_option(
+          select,
+          /*value*/
+          ctx[0],
+          true
+        );
+        if (!mounted) {
+          dispose = listen(
+            select,
+            "change",
+            /*select_change_handler*/
+            ctx[11]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*label*/
+        16)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[4]
+          );
+        if (dirty & /*id*/
+        4) {
+          attr(
+            label_1,
+            "for",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*placeholder*/
+        32)
+          set_data(
+            t3,
+            /*placeholder*/
+            ctx2[5]
+          );
+        if (dirty & /*Object, values, value*/
+        9) {
+          each_value = ensure_array_like(Object.entries(
+            /*values*/
+            ctx2[3]
+          ));
+          let i;
+          for (i = 0; i < each_value.length; i += 1) {
+            const child_ctx = get_each_context(ctx2, each_value, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(select, null);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value.length;
+        }
+        if (dirty & /*id*/
+        4) {
+          attr(
+            select,
+            "name",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*id*/
+        4) {
+          attr(
+            select,
+            "id",
+            /*id*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*placeholder*/
+        32) {
+          attr(
+            select,
+            "placeholder",
+            /*placeholder*/
+            ctx2[5]
+          );
+        }
+        if (dirty & /*value, values*/
+        9) {
+          select_option(
+            select,
+            /*value*/
+            ctx2[0]
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(label_1);
+          detach(t1);
+          detach(select);
+        }
+        destroy_each(each_blocks, detaching);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_each_block_1(ctx) {
+    let option;
+    let t_value = (
+      /*v*/
+      ctx[24] + ""
+    );
+    let t;
+    let option_value_value;
+    return {
+      c() {
+        option = element("option");
+        t = text(t_value);
+        option.__value = option_value_value = /*v*/
+        ctx[24];
+        set_input_value(option, option.__value);
+        option.selected = /*value*/
+        ctx[0];
+      },
+      m(target, anchor) {
+        insert(target, option, anchor);
+        append(option, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*values*/
+        8 && t_value !== (t_value = /*v*/
+        ctx2[24] + ""))
+          set_data(t, t_value);
+        if (dirty & /*values*/
+        8 && option_value_value !== (option_value_value = /*v*/
+        ctx2[24])) {
+          option.__value = option_value_value;
+          set_input_value(option, option.__value);
+        }
+        if (dirty & /*value, values*/
+        9) {
+          option.selected = /*value*/
+          ctx2[0];
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(option);
+        }
+      }
+    };
+  }
+  function create_each_block(ctx) {
+    let option;
+    let t_value = (
+      /*v*/
+      ctx[24] + ""
+    );
+    let t;
+    let option_value_value;
+    return {
+      c() {
+        option = element("option");
+        t = text(t_value);
+        option.__value = option_value_value = /*k*/
+        ctx[23];
+        set_input_value(option, option.__value);
+        option.selected = /*value*/
+        ctx[0];
+      },
+      m(target, anchor) {
+        insert(target, option, anchor);
+        append(option, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*values*/
+        8 && t_value !== (t_value = /*v*/
+        ctx2[24] + ""))
+          set_data(t, t_value);
+        if (dirty & /*values*/
+        8 && option_value_value !== (option_value_value = /*k*/
+        ctx2[23])) {
+          option.__value = option_value_value;
+          set_input_value(option, option.__value);
+        }
+        if (dirty & /*value, values*/
+        9) {
+          option.selected = /*value*/
+          ctx2[0];
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(option);
+        }
+      }
+    };
+  }
+  function create_fragment2(ctx) {
+    let div1;
+    let div0;
+    let current_block_type_index;
+    let if_block;
+    let div0_class_value;
+    let current;
+    const if_block_creators = [
+      create_if_block,
+      create_if_block_1,
+      create_if_block_3,
+      create_if_block_4,
+      create_if_block_5,
+      create_if_block_6,
+      create_if_block_7,
+      create_if_block_8,
+      create_if_block_9,
+      create_if_block_13,
+      create_else_block_1
+    ];
+    const if_blocks = [];
+    function select_block_type(ctx2, dirty) {
+      if (
+        /*type*/
+        ctx2[1] === "bool" || /*type*/
+        ctx2[1] === "checkbox"
+      )
+        return 0;
+      if (
+        /*type*/
+        ctx2[1] == "select" || /*type*/
+        ctx2[1] === "combobox"
+      )
+        return 1;
+      if (
+        /*type*/
+        ctx2[1] === "number"
+      )
+        return 2;
+      if (
+        /*type*/
+        ctx2[1] === "float"
+      )
+        return 3;
+      if (
+        /*type*/
+        ctx2[1] === "textarea"
+      )
+        return 4;
+      if (
+        /*type*/
+        ctx2[1] === "text"
+      )
+        return 5;
+      if (
+        /*type*/
+        ctx2[1] === "email"
+      )
+        return 6;
+      if (
+        /*type*/
+        ctx2[1] === "date"
+      )
+        return 7;
+      if (
+        /*type*/
+        ctx2[1] === "password"
+      )
+        return 8;
+      if (
+        /*type*/
+        ctx2[1] === "color"
+      )
+        return 9;
+      return 10;
+    }
+    current_block_type_index = select_block_type(ctx, -1);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    return {
+      c() {
+        div1 = element("div");
+        div0 = element("div");
+        if_block.c();
+        attr(div0, "class", div0_class_value = "input_box " + /*type*/
+        (ctx[1] == "bool" ? "bool" : "") + " " + /*type*/
+        (ctx[1] == "password" ? "with_password" : "") + " svelte-o5xo0b");
+      },
+      m(target, anchor) {
+        insert(target, div1, anchor);
+        append(div1, div0);
+        if_blocks[current_block_type_index].m(div0, null);
+        current = true;
+      },
+      p(ctx2, [dirty]) {
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
+        } else {
           group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
           });
           check_outros();
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block.c();
+          } else {
+            if_block.p(ctx2, dirty);
+          }
+          transition_in(if_block, 1);
+          if_block.m(div0, null);
         }
         if (!current || dirty & /*type*/
-        8 && div_class_value !== (div_class_value = null_to_empty(`input_box ${/*type*/
-        ctx2[3] === "password" ? "with_password" : ""}`) + " svelte-msefpz")) {
-          attr(div, "class", div_class_value);
+        2 && div0_class_value !== (div0_class_value = "input_box " + /*type*/
+        (ctx2[1] == "bool" ? "bool" : "") + " " + /*type*/
+        (ctx2[1] == "password" ? "with_password" : "") + " svelte-o5xo0b")) {
+          attr(div0, "class", div0_class_value);
         }
       },
       i(local) {
@@ -4618,88 +6782,166 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(div);
+          detach(div1);
         }
-        ctx[9](null);
-        if (if_block)
-          if_block.d();
-        mounted = false;
-        dispose();
+        if_blocks[current_block_type_index].d();
       }
     };
   }
   function instance2($self, $props, $invalidate) {
-    let { id } = $props;
-    let { value } = $props;
-    let { label } = $props;
     let { type = "text" } = $props;
+    let { id: id2 } = $props;
+    let { value } = $props;
+    let { values = [] } = $props;
+    let { label } = $props;
     let { placeholder = "" } = $props;
+    let { isObject = false } = $props;
+    if (isObject)
+      value = value + "";
     let isShowPassword = false;
     let inputElm;
-    onMount(() => $invalidate(6, inputElm.type = type, inputElm));
+    onMount(() => {
+      if (type === "password")
+        $invalidate(8, inputElm.type = type, inputElm);
+    });
     function toggleShowPassword() {
-      $invalidate(5, isShowPassword = !isShowPassword);
+      $invalidate(7, isShowPassword = !isShowPassword);
       if (isShowPassword)
-        $invalidate(6, inputElm.type = "text", inputElm);
+        $invalidate(8, inputElm.type = "text", inputElm);
       else
-        $invalidate(6, inputElm.type = "password", inputElm);
+        $invalidate(8, inputElm.type = "password", inputElm);
+    }
+    function input_change_handler() {
+      value = this.checked;
+      $invalidate(0, value);
+      $invalidate(3, values);
+    }
+    function select_change_handler() {
+      value = select_value(this);
+      $invalidate(0, value);
+      $invalidate(3, values);
+    }
+    function select_change_handler_1() {
+      value = select_value(this);
+      $invalidate(0, value);
+      $invalidate(3, values);
     }
     function input_input_handler() {
+      value = to_number(this.value);
+      $invalidate(0, value);
+      $invalidate(3, values);
+    }
+    function input_input_handler_1() {
+      value = to_number(this.value);
+      $invalidate(0, value);
+      $invalidate(3, values);
+    }
+    function textarea_input_handler() {
       value = this.value;
       $invalidate(0, value);
+      $invalidate(3, values);
+    }
+    function input_input_handler_2() {
+      value = this.value;
+      $invalidate(0, value);
+      $invalidate(3, values);
+    }
+    function input_input_handler_3() {
+      value = this.value;
+      $invalidate(0, value);
+      $invalidate(3, values);
+    }
+    function input_input_handler_4() {
+      value = this.value;
+      $invalidate(0, value);
+      $invalidate(3, values);
+    }
+    function input_input_handler_5() {
+      value = this.value;
+      $invalidate(0, value);
+      $invalidate(3, values);
     }
     function input_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         inputElm = $value;
-        $invalidate(6, inputElm);
+        $invalidate(8, inputElm);
       });
     }
+    function input_input_handler_6() {
+      value = this.value;
+      $invalidate(0, value);
+      $invalidate(3, values);
+    }
+    function input_input_handler_7() {
+      value = this.value;
+      $invalidate(0, value);
+      $invalidate(3, values);
+    }
     $self.$set = ($props2) => {
+      if ("type" in $props2)
+        $invalidate(1, type = $props2.type);
       if ("id" in $props2)
-        $invalidate(1, id = $props2.id);
+        $invalidate(2, id2 = $props2.id);
       if ("value" in $props2)
         $invalidate(0, value = $props2.value);
+      if ("values" in $props2)
+        $invalidate(3, values = $props2.values);
       if ("label" in $props2)
-        $invalidate(2, label = $props2.label);
-      if ("type" in $props2)
-        $invalidate(3, type = $props2.type);
+        $invalidate(4, label = $props2.label);
       if ("placeholder" in $props2)
-        $invalidate(4, placeholder = $props2.placeholder);
+        $invalidate(5, placeholder = $props2.placeholder);
+      if ("isObject" in $props2)
+        $invalidate(6, isObject = $props2.isObject);
     };
     return [
       value,
-      id,
-      label,
       type,
+      id2,
+      values,
+      label,
       placeholder,
+      isObject,
       isShowPassword,
       inputElm,
       toggleShowPassword,
+      input_change_handler,
+      select_change_handler,
+      select_change_handler_1,
       input_input_handler,
-      input_binding
+      input_input_handler_1,
+      textarea_input_handler,
+      input_input_handler_2,
+      input_input_handler_3,
+      input_input_handler_4,
+      input_input_handler_5,
+      input_binding,
+      input_input_handler_6,
+      input_input_handler_7
     ];
   }
-  var InputBox = class extends SvelteComponent {
+  var InputCustom = class extends SvelteComponent {
     constructor(options) {
       super();
       init(this, options, instance2, create_fragment2, safe_not_equal, {
-        id: 1,
+        type: 1,
+        id: 2,
         value: 0,
-        label: 2,
-        type: 3,
-        placeholder: 4
+        values: 3,
+        label: 4,
+        placeholder: 5,
+        isObject: 6
       });
     }
   };
-  var InputBox_default = InputBox;
+  var InputCustom_default = InputCustom;
 
-  // _components/PopUpCoaChild.svelte
-  function create_if_block_12(ctx) {
+  // _components/PopUpCoa.svelte
+  function create_if_block_14(ctx) {
     let span;
     return {
       c() {
         span = element("span");
-        span.textContent = "Ok";
+        span.textContent = "Save";
       },
       m(target, anchor) {
         insert(target, span, anchor);
@@ -4756,17 +6998,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let icon;
     let t2;
     let div0;
-    let inputbox;
+    let inputcustom0;
     let updating_value;
     let t3;
+    let inputcustom1;
+    let updating_value_1;
+    let t4;
     let div3;
     let div1;
-    let t4;
+    let t5;
     let div2;
     let button1;
-    let t6;
-    let button2;
     let t7;
+    let button2;
+    let t8;
     let div5_class_value;
     let current;
     let mounted;
@@ -4778,26 +7023,44 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         src: IoClose
       }
     });
-    function inputbox_value_binding(value) {
-      ctx[8](value);
+    function inputcustom0_value_binding(value) {
+      ctx[9](value);
     }
-    let inputbox_props = {
-      id: "childName",
+    let inputcustom0_props = {
+      id: "name",
       label: "Nama / Name",
       type: "text",
       placeholder: "Barang..."
     };
     if (
-      /*childName*/
+      /*name*/
       ctx[0] !== void 0
     ) {
-      inputbox_props.value = /*childName*/
+      inputcustom0_props.value = /*name*/
       ctx[0];
     }
-    inputbox = new InputBox_default({ props: inputbox_props });
-    binding_callbacks.push(() => bind(inputbox, "value", inputbox_value_binding));
+    inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
+    binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
+    function inputcustom1_value_binding(value) {
+      ctx[10](value);
+    }
+    let inputcustom1_props = {
+      id: "lael",
+      label: "Label",
+      type: "text",
+      placeholder: "label"
+    };
+    if (
+      /*label*/
+      ctx[1] !== void 0
+    ) {
+      inputcustom1_props.value = /*label*/
+      ctx[1];
+    }
+    inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
+    binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
     let if_block0 = !/*isSubmitted*/
-    ctx[3] && create_if_block_12(ctx);
+    ctx[3] && create_if_block_14(ctx);
     let if_block1 = (
       /*isSubmitted*/
       ctx[3] && create_if_block2(ctx)
@@ -4810,27 +7073,29 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         h2 = element("h2");
         t0 = text(
           /*heading*/
-          ctx[1]
+          ctx[2]
         );
         t1 = space();
         button0 = element("button");
         create_component(icon.$.fragment);
         t2 = space();
         div0 = element("div");
-        create_component(inputbox.$.fragment);
+        create_component(inputcustom0.$.fragment);
         t3 = space();
+        create_component(inputcustom1.$.fragment);
+        t4 = space();
         div3 = element("div");
         div1 = element("div");
         div1.innerHTML = ``;
-        t4 = space();
+        t5 = space();
         div2 = element("div");
         button1 = element("button");
         button1.textContent = "Cancel";
-        t6 = space();
+        t7 = space();
         button2 = element("button");
         if (if_block0)
           if_block0.c();
-        t7 = space();
+        t8 = space();
         if (if_block1)
           if_block1.c();
         attr(h2, "class", "svelte-6z2gjm");
@@ -4844,7 +7109,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         attr(div3, "class", "foot svelte-6z2gjm");
         attr(div4, "class", "popup svelte-6z2gjm");
         attr(div5, "class", div5_class_value = null_to_empty(`popup_container ${/*isShow*/
-        ctx[5] ? "show" : ""}`) + " svelte-6z2gjm");
+        ctx[6] ? "show" : ""}`) + " svelte-6z2gjm");
       },
       m(target, anchor) {
         insert(target, div5, anchor);
@@ -4857,18 +7122,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         mount_component(icon, button0, null);
         append(div4, t2);
         append(div4, div0);
-        mount_component(inputbox, div0, null);
-        append(div4, t3);
+        mount_component(inputcustom0, div0, null);
+        append(div0, t3);
+        mount_component(inputcustom1, div0, null);
+        append(div4, t4);
         append(div4, div3);
         append(div3, div1);
-        append(div3, t4);
+        append(div3, t5);
         append(div3, div2);
         append(div2, button1);
-        append(div2, t6);
+        append(div2, t7);
         append(div2, button2);
         if (if_block0)
           if_block0.m(button2, null);
-        append(button2, t7);
+        append(button2, t8);
         if (if_block1)
           if_block1.m(button2, null);
         current = true;
@@ -4878,18 +7145,18 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               button0,
               "click",
               /*hide*/
-              ctx[4]
+              ctx[5]
             ),
             listen(button1, "click", prevent_default(
               /*cancel*/
-              ctx[6]
+              ctx[7]
             )),
             listen(button2, "click", prevent_default(function() {
               if (is_function(
                 /*onSubmit*/
-                ctx[2]
+                ctx[4]
               ))
-                ctx[2].apply(this, arguments);
+                ctx[4].apply(this, arguments);
             }))
           ];
           mounted = true;
@@ -4898,28 +7165,37 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       p(new_ctx, [dirty]) {
         ctx = new_ctx;
         if (!current || dirty & /*heading*/
-        2)
+        4)
           set_data(
             t0,
             /*heading*/
-            ctx[1]
+            ctx[2]
           );
-        const inputbox_changes = {};
-        if (!updating_value && dirty & /*childName*/
+        const inputcustom0_changes = {};
+        if (!updating_value && dirty & /*name*/
         1) {
           updating_value = true;
-          inputbox_changes.value = /*childName*/
+          inputcustom0_changes.value = /*name*/
           ctx[0];
           add_flush_callback(() => updating_value = false);
         }
-        inputbox.$set(inputbox_changes);
+        inputcustom0.$set(inputcustom0_changes);
+        const inputcustom1_changes = {};
+        if (!updating_value_1 && dirty & /*label*/
+        2) {
+          updating_value_1 = true;
+          inputcustom1_changes.value = /*label*/
+          ctx[1];
+          add_flush_callback(() => updating_value_1 = false);
+        }
+        inputcustom1.$set(inputcustom1_changes);
         if (!/*isSubmitted*/
         ctx[3]) {
           if (if_block0) {
           } else {
-            if_block0 = create_if_block_12(ctx);
+            if_block0 = create_if_block_14(ctx);
             if_block0.c();
-            if_block0.m(button2, t7);
+            if_block0.m(button2, t8);
           }
         } else if (if_block0) {
           if_block0.d(1);
@@ -4948,8 +7224,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           check_outros();
         }
         if (!current || dirty & /*isShow*/
-        32 && div5_class_value !== (div5_class_value = null_to_empty(`popup_container ${/*isShow*/
-        ctx[5] ? "show" : ""}`) + " svelte-6z2gjm")) {
+        64 && div5_class_value !== (div5_class_value = null_to_empty(`popup_container ${/*isShow*/
+        ctx[6] ? "show" : ""}`) + " svelte-6z2gjm")) {
           attr(div5, "class", div5_class_value);
         }
       },
@@ -4957,13 +7233,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (current)
           return;
         transition_in(icon.$.fragment, local);
-        transition_in(inputbox.$.fragment, local);
+        transition_in(inputcustom0.$.fragment, local);
+        transition_in(inputcustom1.$.fragment, local);
         transition_in(if_block1);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
-        transition_out(inputbox.$.fragment, local);
+        transition_out(inputcustom0.$.fragment, local);
+        transition_out(inputcustom1.$.fragment, local);
         transition_out(if_block1);
         current = false;
       },
@@ -4972,7 +7250,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           detach(div5);
         }
         destroy_component(icon);
-        destroy_component(inputbox);
+        destroy_component(inputcustom0);
+        destroy_component(inputcustom1);
         if (if_block0)
           if_block0.d();
         if (if_block1)
@@ -4983,74 +7262,115 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function instance3($self, $props, $invalidate) {
-    let { heading = "Add coa child" } = $props;
+    let { heading = "Add CoA" } = $props;
+    let { isSubmitted = false } = $props;
     let { onSubmit = () => {
     } } = $props;
-    let { isSubmitted = false } = $props;
-    let { childName = "" } = $props;
+    let { name = "" } = $props;
+    let { label = "" } = $props;
     let isShow = false;
-    const show = () => $invalidate(5, isShow = true);
-    const hide = () => $invalidate(5, isShow = false);
+    const show = () => $invalidate(6, isShow = true);
+    const hide = () => $invalidate(6, isShow = false);
     const cancel = () => {
-      $invalidate(5, isShow = false);
-      $invalidate(0, childName = "");
+      $invalidate(6, isShow = false);
+      $invalidate(0, name = "");
+      $invalidate(1, label = "");
     };
-    function inputbox_value_binding(value) {
-      childName = value;
-      $invalidate(0, childName);
+    function inputcustom0_value_binding(value) {
+      name = value;
+      $invalidate(0, name);
+    }
+    function inputcustom1_value_binding(value) {
+      label = value;
+      $invalidate(1, label);
     }
     $self.$set = ($props2) => {
       if ("heading" in $props2)
-        $invalidate(1, heading = $props2.heading);
-      if ("onSubmit" in $props2)
-        $invalidate(2, onSubmit = $props2.onSubmit);
+        $invalidate(2, heading = $props2.heading);
       if ("isSubmitted" in $props2)
         $invalidate(3, isSubmitted = $props2.isSubmitted);
-      if ("childName" in $props2)
-        $invalidate(0, childName = $props2.childName);
+      if ("onSubmit" in $props2)
+        $invalidate(4, onSubmit = $props2.onSubmit);
+      if ("name" in $props2)
+        $invalidate(0, name = $props2.name);
+      if ("label" in $props2)
+        $invalidate(1, label = $props2.label);
     };
     return [
-      childName,
+      name,
+      label,
       heading,
-      onSubmit,
       isSubmitted,
+      onSubmit,
       hide,
       isShow,
       cancel,
       show,
-      inputbox_value_binding
+      inputcustom0_value_binding,
+      inputcustom1_value_binding
     ];
   }
-  var PopUpCoaChild = class extends SvelteComponent {
+  var PopUpCoa = class extends SvelteComponent {
     constructor(options) {
       super();
       init(this, options, instance3, create_fragment3, safe_not_equal, {
-        heading: 1,
-        onSubmit: 2,
+        heading: 2,
         isSubmitted: 3,
-        childName: 0,
-        show: 7,
-        hide: 4
+        onSubmit: 4,
+        name: 0,
+        label: 1,
+        show: 8,
+        hide: 5
       });
     }
     get show() {
-      return this.$.ctx[7];
+      return this.$.ctx[8];
     }
     get hide() {
-      return this.$.ctx[4];
+      return this.$.ctx[5];
     }
   };
-  var PopUpCoaChild_default = PopUpCoaChild;
+  var PopUpCoa_default = PopUpCoa;
 
   // _components/CoaTree.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
-  function get_each_context(ctx, list, i) {
+  function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[23] = list[i];
-    child_ctx[25] = i;
+    child_ctx[26] = list[i];
+    child_ctx[28] = i;
     return child_ctx;
   }
-  function create_else_block(ctx) {
+  function create_if_block_22(ctx) {
+    let span;
+    let t_value = (
+      /*coa*/
+      ctx[0].label + ""
+    );
+    let t;
+    return {
+      c() {
+        span = element("span");
+        t = text(t_value);
+        attr(span, "class", "label svelte-11pm4tq");
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+        append(span, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*coa*/
+        1 && t_value !== (t_value = /*coa*/
+        ctx2[0].label + ""))
+          set_data(t, t_value);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
+  }
+  function create_else_block2(ctx) {
     let button;
     let icon;
     let current;
@@ -5068,7 +7388,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       c() {
         button = element("button");
         create_component(icon.$.fragment);
-        attr(button, "class", "btn svelte-btff9j");
+        attr(button, "class", "btn svelte-11pm4tq");
         attr(button, "title", "Rollback");
       },
       m(target, anchor) {
@@ -5080,7 +7400,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*restoreCoaChild*/
-            ctx[12]
+            ctx[13]
           );
           mounted = true;
         }
@@ -5106,7 +7426,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_13(ctx) {
+  function create_if_block_15(ctx) {
     let button0;
     let icon0;
     let t0;
@@ -5152,11 +7472,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t1 = space();
         button2 = element("button");
         create_component(icon2.$.fragment);
-        attr(button0, "class", "btn svelte-btff9j");
+        attr(button0, "class", "btn svelte-11pm4tq");
         attr(button0, "title", "Add child");
-        attr(button1, "class", "btn svelte-btff9j");
+        attr(button1, "class", "btn svelte-11pm4tq");
         attr(button1, "title", "Edit");
-        attr(button2, "class", "btn svelte-btff9j");
+        attr(button2, "class", "btn svelte-11pm4tq");
         attr(button2, "title", "Delete");
       },
       m(target, anchor) {
@@ -5175,19 +7495,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               button0,
               "click",
               /*click_handler*/
-              ctx[17]
+              ctx[19]
             ),
             listen(
               button1,
               "click",
               /*click_handler_1*/
-              ctx[18]
+              ctx[20]
             ),
             listen(
               button2,
               "click",
               /*deleteCoaChild*/
-              ctx[11]
+              ctx[12]
             )
           ];
           mounted = true;
@@ -5235,12 +7555,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     const get_key = (ctx2) => (
       /*ch*/
-      ctx2[23].id
+      ctx2[26].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
-      let child_ctx = get_each_context(ctx, each_value, i);
+      let child_ctx = get_each_context2(ctx, each_value, i);
       let key = get_key(child_ctx);
-      each_1_lookup.set(key, each_blocks[i] = create_each_block(key, child_ctx));
+      each_1_lookup.set(key, each_blocks[i] = create_each_block2(key, child_ctx));
     }
     return {
       c() {
@@ -5266,7 +7586,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0].children
           );
           group_outros();
-          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block, each_1_anchor, get_each_context);
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block2, each_1_anchor, get_each_context2);
           check_outros();
         }
       },
@@ -5294,7 +7614,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_each_block(key_1, ctx) {
+  function create_each_block2(key_1, ctx) {
     let first;
     let coatree;
     let current;
@@ -5302,11 +7622,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       props: {
         coa: (
           /*ch*/
-          ctx[23]
+          ctx[26]
         ),
         num: `${/*num*/
         ctx[1]}.${/*idx*/
-        ctx[25] + 1}`,
+        ctx[28] + 1}`,
         indent: (
           /*indent*/
           ctx[3] + 1
@@ -5316,7 +7636,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     coatree.$on(
       "update",
       /*update_handler*/
-      ctx[19]
+      ctx[21]
     );
     return {
       key: key_1,
@@ -5337,12 +7657,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (dirty & /*coa*/
         1)
           coatree_changes.coa = /*ch*/
-          ctx[23];
+          ctx[26];
         if (dirty & /*num, coa*/
         3)
           coatree_changes.num = `${/*num*/
           ctx[1]}.${/*idx*/
-          ctx[25] + 1}`;
+          ctx[28] + 1}`;
         if (dirty & /*indent*/
         8)
           coatree_changes.indent = /*indent*/
@@ -5368,10 +7688,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function create_fragment4(ctx) {
-    let popupcoachild;
-    let updating_isSubmitted;
-    let updating_childName;
+    let popupcoa;
     let updating_heading;
+    let updating_name;
+    let updating_label;
+    let updating_isSubmitted;
     let t0;
     let div3;
     let div2;
@@ -5393,52 +7714,66 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let h6_class_value;
     let t7;
     let div1;
-    let current_block_type_index;
-    let if_block0;
     let t8;
+    let current_block_type_index;
+    let if_block1;
+    let t9;
     let current;
-    function popupcoachild_isSubmitted_binding(value) {
+    function popupcoa_heading_binding(value) {
       ctx[14](value);
     }
-    function popupcoachild_childName_binding(value) {
-      ctx[15](value);
-    }
-    function popupcoachild_heading_binding(value) {
+    function popupcoa_name_binding(value) {
       ctx[16](value);
     }
-    let popupcoachild_props = {
-      onSubmit: (
-        /*submitAddOrEditChild*/
-        ctx[10]
-      )
-    };
+    function popupcoa_label_binding(value) {
+      ctx[17](value);
+    }
+    function popupcoa_isSubmitted_binding(value) {
+      ctx[18](value);
+    }
+    let popupcoa_props = { onSubmit: (
+      /*submitUpsertCoa*/
+      ctx[10]
+    ) };
+    if (
+      /*heading*/
+      ctx[9] !== void 0
+    ) {
+      popupcoa_props.heading = /*heading*/
+      ctx[9];
+    }
+    if (
+      /*name*/
+      ctx[6] !== void 0
+    ) {
+      popupcoa_props.name = /*name*/
+      ctx[6];
+    }
+    if (
+      /*label*/
+      ctx[7] !== void 0
+    ) {
+      popupcoa_props.label = /*label*/
+      ctx[7];
+    }
     if (
       /*isSubmitted*/
       ctx[8] !== void 0
     ) {
-      popupcoachild_props.isSubmitted = /*isSubmitted*/
+      popupcoa_props.isSubmitted = /*isSubmitted*/
       ctx[8];
     }
-    if (
-      /*coaName*/
-      ctx[7] !== void 0
-    ) {
-      popupcoachild_props.childName = /*coaName*/
-      ctx[7];
-    }
-    if (
-      /*heading*/
-      ctx[6] !== void 0
-    ) {
-      popupcoachild_props.heading = /*heading*/
-      ctx[6];
-    }
-    popupcoachild = new PopUpCoaChild_default({ props: popupcoachild_props });
-    ctx[13](popupcoachild);
-    binding_callbacks.push(() => bind(popupcoachild, "isSubmitted", popupcoachild_isSubmitted_binding));
-    binding_callbacks.push(() => bind(popupcoachild, "childName", popupcoachild_childName_binding));
-    binding_callbacks.push(() => bind(popupcoachild, "heading", popupcoachild_heading_binding));
-    const if_block_creators = [create_if_block_13, create_else_block];
+    popupcoa = new PopUpCoa_default({ props: popupcoa_props });
+    binding_callbacks.push(() => bind(popupcoa, "heading", popupcoa_heading_binding));
+    ctx[15](popupcoa);
+    binding_callbacks.push(() => bind(popupcoa, "name", popupcoa_name_binding));
+    binding_callbacks.push(() => bind(popupcoa, "label", popupcoa_label_binding));
+    binding_callbacks.push(() => bind(popupcoa, "isSubmitted", popupcoa_isSubmitted_binding));
+    let if_block0 = (
+      /*coa*/
+      ctx[0].label !== "" && create_if_block_22(ctx)
+    );
+    const if_block_creators = [create_if_block_15, create_else_block2];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (
@@ -5449,15 +7784,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       return 1;
     }
     current_block_type_index = select_block_type(ctx, -1);
-    if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-    let if_block1 = (
+    if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    let if_block2 = (
       /*coa*/
       ctx[0].children && /*coa*/
       ctx[0].children.length && create_if_block3(ctx)
     );
     return {
       c() {
-        create_component(popupcoachild.$.fragment);
+        create_component(popupcoa.$.fragment);
         t0 = space();
         div3 = element("div");
         div2 = element("div");
@@ -5480,18 +7815,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t6 = text(t6_value);
         t7 = space();
         div1 = element("div");
-        if_block0.c();
+        if (if_block0)
+          if_block0.c();
         t8 = space();
-        if (if_block1)
-          if_block1.c();
-        attr(span0, "class", "h-line svelte-btff9j");
-        attr(span1, "class", "label svelte-btff9j");
-        attr(span2, "class", "name svelte-btff9j");
+        if_block1.c();
+        t9 = space();
+        if (if_block2)
+          if_block2.c();
+        attr(span0, "class", "h-line svelte-11pm4tq");
+        attr(span1, "class", "label svelte-11pm4tq");
+        attr(span2, "class", "name svelte-11pm4tq");
         attr(h6, "class", h6_class_value = null_to_empty(`text ${/*coa*/
-        ctx[0].deletedAt > 0 ? "deleted" : ""}`) + " svelte-btff9j");
-        attr(div0, "class", "num-title svelte-btff9j");
-        attr(div1, "class", "options svelte-btff9j");
-        attr(div2, "class", "coa-child svelte-btff9j");
+        ctx[0].deletedAt > 0 ? "deleted" : ""}`) + " svelte-11pm4tq");
+        attr(div0, "class", "num-title svelte-11pm4tq");
+        attr(div1, "class", "options svelte-11pm4tq");
+        attr(div2, "class", "coa-child svelte-11pm4tq");
         set_style(
           div2,
           "--indent-width",
@@ -5500,7 +7838,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         );
       },
       m(target, anchor) {
-        mount_component(popupcoachild, target, anchor);
+        mount_component(popupcoa, target, anchor);
         insert(target, t0, anchor);
         insert(target, div3, anchor);
         append(div3, div2);
@@ -5517,36 +7855,46 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(span2, t6);
         append(div2, t7);
         append(div2, div1);
+        if (if_block0)
+          if_block0.m(div1, null);
+        append(div1, t8);
         if_blocks[current_block_type_index].m(div1, null);
-        append(div3, t8);
-        if (if_block1)
-          if_block1.m(div3, null);
+        append(div3, t9);
+        if (if_block2)
+          if_block2.m(div3, null);
         current = true;
       },
       p(ctx2, [dirty]) {
-        const popupcoachild_changes = {};
+        const popupcoa_changes = {};
+        if (!updating_heading && dirty & /*heading*/
+        512) {
+          updating_heading = true;
+          popupcoa_changes.heading = /*heading*/
+          ctx2[9];
+          add_flush_callback(() => updating_heading = false);
+        }
+        if (!updating_name && dirty & /*name*/
+        64) {
+          updating_name = true;
+          popupcoa_changes.name = /*name*/
+          ctx2[6];
+          add_flush_callback(() => updating_name = false);
+        }
+        if (!updating_label && dirty & /*label*/
+        128) {
+          updating_label = true;
+          popupcoa_changes.label = /*label*/
+          ctx2[7];
+          add_flush_callback(() => updating_label = false);
+        }
         if (!updating_isSubmitted && dirty & /*isSubmitted*/
         256) {
           updating_isSubmitted = true;
-          popupcoachild_changes.isSubmitted = /*isSubmitted*/
+          popupcoa_changes.isSubmitted = /*isSubmitted*/
           ctx2[8];
           add_flush_callback(() => updating_isSubmitted = false);
         }
-        if (!updating_childName && dirty & /*coaName*/
-        128) {
-          updating_childName = true;
-          popupcoachild_changes.childName = /*coaName*/
-          ctx2[7];
-          add_flush_callback(() => updating_childName = false);
-        }
-        if (!updating_heading && dirty & /*heading*/
-        64) {
-          updating_heading = true;
-          popupcoachild_changes.heading = /*heading*/
-          ctx2[6];
-          add_flush_callback(() => updating_heading = false);
-        }
-        popupcoachild.$set(popupcoachild_changes);
+        popupcoa.$set(popupcoa_changes);
         if (!current || dirty & /*parentNum*/
         4)
           set_data(
@@ -5567,8 +7915,23 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           set_data(t6, t6_value);
         if (!current || dirty & /*coa*/
         1 && h6_class_value !== (h6_class_value = null_to_empty(`text ${/*coa*/
-        ctx2[0].deletedAt > 0 ? "deleted" : ""}`) + " svelte-btff9j")) {
+        ctx2[0].deletedAt > 0 ? "deleted" : ""}`) + " svelte-11pm4tq")) {
           attr(h6, "class", h6_class_value);
+        }
+        if (
+          /*coa*/
+          ctx2[0].label !== ""
+        ) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+          } else {
+            if_block0 = create_if_block_22(ctx2);
+            if_block0.c();
+            if_block0.m(div1, t8);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
         }
         let previous_block_index = current_block_type_index;
         current_block_type_index = select_block_type(ctx2, dirty);
@@ -5580,15 +7943,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             if_blocks[previous_block_index] = null;
           });
           check_outros();
-          if_block0 = if_blocks[current_block_type_index];
-          if (!if_block0) {
-            if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
-            if_block0.c();
+          if_block1 = if_blocks[current_block_type_index];
+          if (!if_block1) {
+            if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block1.c();
           } else {
-            if_block0.p(ctx2, dirty);
+            if_block1.p(ctx2, dirty);
           }
-          transition_in(if_block0, 1);
-          if_block0.m(div1, null);
+          transition_in(if_block1, 1);
+          if_block1.m(div1, null);
         }
         if (!current || dirty & /*indentWidth*/
         16) {
@@ -5604,22 +7967,22 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           ctx2[0].children && /*coa*/
           ctx2[0].children.length
         ) {
-          if (if_block1) {
-            if_block1.p(ctx2, dirty);
+          if (if_block2) {
+            if_block2.p(ctx2, dirty);
             if (dirty & /*coa*/
             1) {
-              transition_in(if_block1, 1);
+              transition_in(if_block2, 1);
             }
           } else {
-            if_block1 = create_if_block3(ctx2);
-            if_block1.c();
-            transition_in(if_block1, 1);
-            if_block1.m(div3, null);
+            if_block2 = create_if_block3(ctx2);
+            if_block2.c();
+            transition_in(if_block2, 1);
+            if_block2.m(div3, null);
           }
-        } else if (if_block1) {
+        } else if (if_block2) {
           group_outros();
-          transition_out(if_block1, 1, 1, () => {
-            if_block1 = null;
+          transition_out(if_block2, 1, 1, () => {
+            if_block2 = null;
           });
           check_outros();
         }
@@ -5627,15 +7990,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       i(local) {
         if (current)
           return;
-        transition_in(popupcoachild.$.fragment, local);
-        transition_in(if_block0);
+        transition_in(popupcoa.$.fragment, local);
         transition_in(if_block1);
+        transition_in(if_block2);
         current = true;
       },
       o(local) {
-        transition_out(popupcoachild.$.fragment, local);
-        transition_out(if_block0);
+        transition_out(popupcoa.$.fragment, local);
         transition_out(if_block1);
+        transition_out(if_block2);
         current = false;
       },
       d(detaching) {
@@ -5643,20 +8006,22 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           detach(t0);
           detach(div3);
         }
-        ctx[13](null);
-        destroy_component(popupcoachild, detaching);
+        ctx[15](null);
+        destroy_component(popupcoa, detaching);
+        if (if_block0)
+          if_block0.d();
         if_blocks[current_block_type_index].d();
-        if (if_block1)
-          if_block1.d();
+        if (if_block2)
+          if_block2.d();
       }
     };
   }
   function instance4($self, $props, $invalidate) {
     const dispatch = createEventDispatcher();
     let { coa = {
-      id: "",
+      id: 0,
       name: "",
-      parentId: "",
+      parentId: 0,
       children: [],
       createdAt: 0,
       createdBy: "",
@@ -5678,105 +8043,110 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         return `${i * 15 + 10}px`;
       }
     );
-    let popUpCoaChild, heading = "Add coa child";
     onMount(() => $invalidate(4, indentWidth = toIndentWidth(indent)));
-    let coaState = "add", coaName = "";
+    let popUpCoa;
+    let id2 = 0, parentId2 = 0;
+    let name = "", label = "";
     let isSubmitted = false;
-    const toggleAddOrEdit = (
-      /** @type {string}*/
-      (state) => {
-        if (state === "add")
-          coaState = "add", $invalidate(7, coaName = ""), $invalidate(6, heading = "Add coa child");
-        else
-          coaState = "edit", $invalidate(7, coaName = coa.name), $invalidate(6, heading = "Edit: " + coa.name);
-        popUpCoaChild.show();
-      }
-    );
-    async function submitAddOrEditChild() {
+    let heading = "Add CoA child";
+    async function submitUpsertCoa() {
       $invalidate(8, isSubmitted = true);
-      if (coaName === "") {
-        $invalidate(8, isSubmitted = false);
-        notifier.showWarning("Coa name cannot be empty");
-        return;
-      }
-      let coaPayload = {
-        id: coaState === "edit" ? coa.id : "0",
-        name: coaName,
-        parentId: coa.id
-      };
-      await (0, import_jsApi.TenantAdminUpsertCoaChild)(
-        //@ts-ignore
-        { coa: coaPayload },
-        /** @type {import('../jsApi.GEN').TenantAdminUpsertCoaChildCallback}*/
+      const coa2 = { id: id2, parentId: parentId2, name, label };
+      const i = { cmd: "upsert", coa: coa2 };
+      await (0, import_jsApi.TenantAdminCoa)(
+        // @ts-ignore
+        i,
+        /** @type {import('../jsApi.GEN').TenantAdminCoaCallback} */
+        /** @returns {Promise<void>} */
         function(o) {
           $invalidate(8, isSubmitted = false);
-          popUpCoaChild.hide();
+          popUpCoa.hide();
           if (o.error) {
-            notifier.showError(o.error);
             console.log(o);
+            notifier.showError(o.error);
             return;
           }
-          notifier.showSuccess("Coa child updated");
           dispatch("update", { coas: o.coas });
+          notifier.showSuccess("coa updated");
         }
       );
     }
+    function toggleShowPopUpCoa(ids, parentIds, names, labels) {
+      if (ids != 0) {
+        $invalidate(9, heading = "Edit CoA");
+      }
+      id2 = ids;
+      parentId2 = parentIds;
+      $invalidate(6, name = names);
+      $invalidate(7, label = labels);
+      popUpCoa.show();
+    }
     async function deleteCoaChild() {
       $invalidate(8, isSubmitted = true);
-      await (0, import_jsApi.TenantAdminDeleteCoaChild)(
-        { id: Number(coa.id) },
-        /** @type {import('../jsApi.GEN').TenantAdminDeleteCoaChildCallback}*/
+      const i = { cmd: "delete", coa: { id: id2 } };
+      await (0, import_jsApi.TenantAdminCoa)(
+        // @ts-ignore
+        i,
+        /** @type {import('../jsApi.GEN').TenantAdminCoaCallback} */
+        /** @returns {Promise<void>} */
         function(o) {
+          $invalidate(8, isSubmitted = false);
+          popUpCoa.hide();
           if (o.error) {
-            $invalidate(8, isSubmitted = false);
-            notifier.showError(o.error);
             console.log(o);
+            notifier.showError(o.error);
             return;
           }
-          $invalidate(8, isSubmitted = false);
-          notifier.showSuccess(coa.name + " deleted");
-          dispatch("update", { coas: o.coa });
+          dispatch("update", { coas: o.coas });
+          notifier.showSuccess("coa deleted");
         }
       );
     }
     async function restoreCoaChild() {
       $invalidate(8, isSubmitted = true);
-      await (0, import_jsApi.TenantAdminRestoreCoaChild)(
-        { id: Number(coa.id) },
-        /** @type {import('../jsApi.GEN').TenantAdminRestoreCoaChildCallback}*/
+      const i = { cmd: "restore", coa: { id: id2 } };
+      await (0, import_jsApi.TenantAdminCoa)(
+        // @ts-ignore
+        i,
+        /** @type {import('../jsApi.GEN').TenantAdminCoaCallback} */
+        /** @returns {Promise<void>} */
         function(o) {
+          $invalidate(8, isSubmitted = false);
+          popUpCoa.hide();
           if (o.error) {
-            $invalidate(8, isSubmitted = false);
-            notifier.showError(o.error);
             console.log(o);
+            notifier.showError(o.error);
             return;
           }
-          $invalidate(8, isSubmitted = false);
-          notifier.showSuccess(coa.name + " restored");
-          dispatch("update", { coas: o.coa });
+          dispatch("update", { coas: o.coas });
+          notifier.showSuccess("coa restored");
         }
       );
     }
-    function popupcoachild_binding($value) {
+    function popupcoa_heading_binding(value) {
+      heading = value;
+      $invalidate(9, heading);
+    }
+    function popupcoa_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
-        popUpCoaChild = $value;
-        $invalidate(5, popUpCoaChild);
+        popUpCoa = $value;
+        $invalidate(5, popUpCoa);
       });
     }
-    function popupcoachild_isSubmitted_binding(value) {
+    function popupcoa_name_binding(value) {
+      name = value;
+      $invalidate(6, name);
+    }
+    function popupcoa_label_binding(value) {
+      label = value;
+      $invalidate(7, label);
+    }
+    function popupcoa_isSubmitted_binding(value) {
       isSubmitted = value;
       $invalidate(8, isSubmitted);
     }
-    function popupcoachild_childName_binding(value) {
-      coaName = value;
-      $invalidate(7, coaName);
-    }
-    function popupcoachild_heading_binding(value) {
-      heading = value;
-      $invalidate(6, heading);
-    }
-    const click_handler = () => toggleAddOrEdit("add");
-    const click_handler_1 = () => toggleAddOrEdit("edit");
+    const click_handler = () => toggleShowPopUpCoa(0, coa.id, "", "");
+    const click_handler_1 = () => toggleShowPopUpCoa(coa.id, coa.parentId, coa.name, coa.label);
     function update_handler(event) {
       bubble.call(this, $self, event);
     }
@@ -5796,18 +8166,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       parentNum,
       indent,
       indentWidth,
-      popUpCoaChild,
-      heading,
-      coaName,
+      popUpCoa,
+      name,
+      label,
       isSubmitted,
-      toggleAddOrEdit,
-      submitAddOrEditChild,
+      heading,
+      submitUpsertCoa,
+      toggleShowPopUpCoa,
       deleteCoaChild,
       restoreCoaChild,
-      popupcoachild_binding,
-      popupcoachild_isSubmitted_binding,
-      popupcoachild_childName_binding,
-      popupcoachild_heading_binding,
+      popupcoa_heading_binding,
+      popupcoa_binding,
+      popupcoa_name_binding,
+      popupcoa_label_binding,
+      popupcoa_isSubmitted_binding,
       click_handler,
       click_handler_1,
       update_handler
@@ -5824,17 +8196,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // _components/partials/SideMenu.svelte
   var import_jsApi_GEN = __toESM(require_jsApi_GEN());
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/bs/index.js
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.18/node_modules/svelte-icons-pack/dist/bs/index.js
   var BsPostcard = { a: { fill: "currentColor", viewBox: "0 0 16 16" }, c: '<path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5M10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM13 8h-2V6h2z"></path>' };
   var BsDatabaseAdd = { a: { fill: "currentColor", viewBox: "0 0 16 16" }, c: '<path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0"></path><path d="M12.096 6.223A5 5 0 0 0 13 5.698V7c0 .289-.213.654-.753 1.007a4.5 4.5 0 0 1 1.753.25V4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.5 4.5 0 0 1-.813-.927Q8.378 15 8 15c-1.464 0-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.71 6.427 13 8 13h.027a4.6 4.6 0 0 1 0-1H8c-1.464 0-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.71 6.427 10 8 10q.393 0 .774-.024a4.5 4.5 0 0 1 1.102-1.132C9.298 8.944 8.666 9 8 9c-1.464 0-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777M3 4c0-.374.356-.875 1.318-1.313C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4"></path>' };
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/oi/index.js
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.18/node_modules/svelte-icons-pack/dist/oi/index.js
   var OiNote16 = { a: { viewBox: "0 0 16 16" }, c: '<path d="M0 3.75C0 2.784.784 2 1.75 2h12.5c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0 1 14.25 14H1.75A1.75 1.75 0 0 1 0 12.25Zm1.75-.25a.25.25 0 0 0-.25.25v8.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-8.5a.25.25 0 0 0-.25-.25ZM3.5 6.25a.75.75 0 0 1 .75-.75h7a.75.75 0 0 1 0 1.5h-7a.75.75 0 0 1-.75-.75Zm.75 2.25h4a.75.75 0 0 1 0 1.5h-4a.75.75 0 0 1 0-1.5Z"></path>' };
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/fa/index.js
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.18/node_modules/svelte-icons-pack/dist/fa/index.js
   var FaCircleUser = { a: { viewBox: "0 0 512 512" }, c: '<path d="M406.5 399.6C387.4 352.9 341.5 320 288 320H224c-53.5 0-99.4 32.9-118.5 79.6C69.9 362.2 48 311.7 48 256C48 141.1 141.1 48 256 48s208 93.1 208 208c0 55.7-21.9 106.2-57.5 143.6zm-40.1 32.7C334.4 452.4 296.6 464 256 464s-78.4-11.6-110.5-31.7c7.3-36.7 39.7-64.3 78.5-64.3h64c38.8 0 71.2 27.6 78.5 64.3zM256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-272a40 40 0 1 1 0-80 40 40 0 1 1 0 80zm-88-40a88 88 0 1 0 176 0 88 88 0 1 0 -176 0z"></path>' };
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/cg/index.js
+  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.18/node_modules/svelte-icons-pack/dist/cg/index.js
   var CgLogOut = { a: { viewBox: "0 0 24 24", fill: "none" }, c: '<path d="M8.51428 20H4.51428C3.40971 20 2.51428 19.1046 2.51428 18V6C2.51428 4.89543 3.40971 4 4.51428 4H8.51428V6H4.51428V18H8.51428V20Z" fill="currentColor"></path><path d="M13.8418 17.385L15.262 15.9768L11.3428 12.0242L20.4857 12.0242C21.038 12.0242 21.4857 11.5765 21.4857 11.0242C21.4857 10.4719 21.038 10.0242 20.4857 10.0242L11.3236 10.0242L15.304 6.0774L13.8958 4.6572L7.5049 10.9941L13.8418 17.385Z" fill="currentColor"></path>' };
   var CgBox = { a: { viewBox: "0 0 24 24", fill: "none" }, c: '<path d="M10 12C9.44769 12 9 12.4477 9 13C9 13.5523 9.44769 14 10 14H14C14.5522 14 15 13.5523 15 13C15 12.4477 14.5522 12 14 12H10Z" fill="currentColor"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M4 2C2.34314 2 1 3.34314 1 5V19C1 20.6569 2.34314 22 4 22H20C21.6569 22 23 20.6569 23 19V5C23 3.34314 21.6569 2 20 2H4ZM20 4H4C3.44769 4 3 4.44769 3 5V8H21V5C21 4.44769 20.5522 4 20 4ZM3 19V10H21V19C21 19.5523 20.5522 20 20 20H4C3.44769 20 3 19.5523 3 19Z" fill="currentColor"></path>' };
 
@@ -5993,7 +8365,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var SubMenuLink_default = SubMenuLink;
 
   // _components/partials/SideMenu.svelte
-  function create_if_block_5(ctx) {
+  function create_if_block_52(ctx) {
     let a;
     let icon;
     let t0;
@@ -6067,7 +8439,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_4(ctx) {
+  function create_if_block_42(ctx) {
     let a;
     let icon;
     let t0;
@@ -6139,7 +8511,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_3(ctx) {
+  function create_if_block_32(ctx) {
     let a;
     let icon;
     let t0;
@@ -6323,7 +8695,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_22(ctx) {
+  function create_if_block_23(ctx) {
     let a;
     let icon;
     let t0;
@@ -6427,7 +8799,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_14(ctx) {
+  function create_if_block_16(ctx) {
     let a;
     let icon;
     let t0;
@@ -6593,23 +8965,23 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     });
     let if_block0 = (
       /*access*/
-      ctx[0].reportViewer && create_if_block_5(ctx)
+      ctx[0].reportViewer && create_if_block_52(ctx)
     );
     let if_block1 = (
       /*access*/
-      ctx[0].dataEntry && create_if_block_4(ctx)
+      ctx[0].dataEntry && create_if_block_42(ctx)
     );
     let if_block2 = (
       /*access*/
-      ctx[0].tenantAdmin && create_if_block_3(ctx)
+      ctx[0].tenantAdmin && create_if_block_32(ctx)
     );
     let if_block3 = (
       /*access*/
-      ctx[0].superAdmin && create_if_block_22(ctx)
+      ctx[0].superAdmin && create_if_block_23(ctx)
     );
     let if_block4 = (
       /*access*/
-      ctx[0].user && create_if_block_14(ctx)
+      ctx[0].user && create_if_block_16(ctx)
     );
     let if_block5 = (
       /*access*/
@@ -6723,7 +9095,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_5(ctx2);
+            if_block0 = create_if_block_52(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(nav0, t6);
@@ -6746,7 +9118,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_4(ctx2);
+            if_block1 = create_if_block_42(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(nav0, t7);
@@ -6769,7 +9141,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               transition_in(if_block2, 1);
             }
           } else {
-            if_block2 = create_if_block_3(ctx2);
+            if_block2 = create_if_block_32(ctx2);
             if_block2.c();
             transition_in(if_block2, 1);
             if_block2.m(nav0, t8);
@@ -6792,7 +9164,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               transition_in(if_block3, 1);
             }
           } else {
-            if_block3 = create_if_block_22(ctx2);
+            if_block3 = create_if_block_23(ctx2);
             if_block3.c();
             transition_in(if_block3, 1);
             if_block3.m(nav0, null);
@@ -6815,7 +9187,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               transition_in(if_block4, 1);
             }
           } else {
-            if_block4 = create_if_block_14(ctx2);
+            if_block4 = create_if_block_16(ctx2);
             if_block4.c();
             transition_in(if_block4, 1);
             if_block4.m(nav1, t10);
@@ -7182,16 +9554,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var mainLayout_default = MainLayout;
 
   // tenantAdmin_coa.svelte
-  function get_each_context2(ctx, list, i) {
-    const child_ctx = ctx.slice();
-    child_ctx[14] = list[i];
-    child_ctx[16] = i;
-    return child_ctx;
-  }
-  function get_each_context_1(ctx, list, i) {
+  function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[17] = list[i];
     child_ctx[19] = i;
+    return child_ctx;
+  }
+  function get_each_context_12(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[20] = list[i];
+    child_ctx[22] = i;
     return child_ctx;
   }
   function create_if_block5(ctx) {
@@ -7201,16 +9573,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     let each_value_1 = ensure_array_like(
       /*c*/
-      ctx[14].children
+      ctx[17].children
     );
     const get_key = (ctx2) => (
       /*cc*/
-      ctx2[17].id
+      ctx2[20].id
     );
     for (let i = 0; i < each_value_1.length; i += 1) {
-      let child_ctx = get_each_context_1(ctx, each_value_1, i);
+      let child_ctx = get_each_context_12(ctx, each_value_1, i);
       let key = get_key(child_ctx);
-      each_1_lookup.set(key, each_blocks[i] = create_each_block_1(key, child_ctx));
+      each_1_lookup.set(key, each_blocks[i] = create_each_block_12(key, child_ctx));
     }
     return {
       c() {
@@ -7218,7 +9590,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(div, "class", "children svelte-x2rfdg");
+        attr(div, "class", "children svelte-1q38aa2");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -7231,13 +9603,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         if (dirty & /*REFORMAT_COAS, updateEventHandler*/
-        65) {
+        33) {
           each_value_1 = ensure_array_like(
             /*c*/
-            ctx2[14].children
+            ctx2[17].children
           );
           group_outros();
-          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value_1, each_1_lookup, div, outro_and_destroy_block, create_each_block_1, null, get_each_context_1);
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value_1, each_1_lookup, div, outro_and_destroy_block, create_each_block_12, null, get_each_context_12);
           check_outros();
         }
       },
@@ -7265,7 +9637,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_each_block_1(key_1, ctx) {
+  function create_each_block_12(key_1, ctx) {
     let first;
     let coatree;
     let current;
@@ -7273,13 +9645,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       props: {
         coa: (
           /*cc*/
-          ctx[17]
+          ctx[20]
         ),
         num: `${/*idx*/
-        ctx[19] + 1}`,
+        ctx[22] + 1}`,
         parentNum: (
           /*idxParent*/
-          ctx[16] + 1
+          ctx[19] + 1
         ),
         indent: 1
       }
@@ -7287,7 +9659,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     coatree.$on(
       "update",
       /*updateEventHandler*/
-      ctx[6]
+      ctx[5]
     );
     return {
       key: key_1,
@@ -7308,15 +9680,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (dirty & /*REFORMAT_COAS*/
         1)
           coatree_changes.coa = /*cc*/
-          ctx[17];
+          ctx[20];
         if (dirty & /*REFORMAT_COAS*/
         1)
           coatree_changes.num = `${/*idx*/
-          ctx[19] + 1}`;
+          ctx[22] + 1}`;
         if (dirty & /*REFORMAT_COAS*/
         1)
           coatree_changes.parentNum = /*idxParent*/
-          ctx[16] + 1;
+          ctx[19] + 1;
         coatree.$set(coatree_changes);
       },
       i(local) {
@@ -7337,20 +9709,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_each_block2(key_1, ctx) {
+  function create_each_block3(key_1, ctx) {
     let div2;
     let div1;
     let h5;
     let span;
     let t0_value = (
       /*idxParent*/
-      ctx[16] + 1 + ""
+      ctx[19] + 1 + ""
     );
     let t0;
     let t1;
     let t2_value = (
       /*c*/
-      ctx[14].name + ""
+      ctx[17].name + ""
     );
     let t2;
     let t3;
@@ -7370,19 +9742,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         src: RiSystemAddBoxLine
       }
     });
-    function click_handler() {
+    function click_handler_1() {
       return (
-        /*click_handler*/
-        ctx[10](
+        /*click_handler_1*/
+        ctx[13](
           /*c*/
-          ctx[14]
+          ctx[17]
         )
       );
     }
     let if_block = (
       /*c*/
-      ctx[14].children && /*c*/
-      ctx[14].children.length && create_if_block5(ctx)
+      ctx[17].children && /*c*/
+      ctx[17].children.length && create_if_block5(ctx)
     );
     return {
       key: key_1,
@@ -7403,13 +9775,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (if_block)
           if_block.c();
         t5 = space();
-        attr(span, "class", "label svelte-x2rfdg");
-        attr(h5, "class", "svelte-x2rfdg");
-        attr(button, "class", "btn svelte-x2rfdg");
-        attr(button, "title", "Add child");
-        attr(div0, "class", "options svelte-x2rfdg");
-        attr(div1, "class", "parent svelte-x2rfdg");
-        attr(div2, "class", "coa svelte-x2rfdg");
+        attr(span, "class", "label svelte-1q38aa2");
+        attr(h5, "class", "svelte-1q38aa2");
+        attr(button, "class", "btn svelte-1q38aa2");
+        attr(button, "title", "Add CoA child");
+        attr(div0, "class", "options svelte-1q38aa2");
+        attr(div1, "class", "parent svelte-1q38aa2");
+        attr(div2, "class", "coa svelte-1q38aa2");
         this.first = div2;
       },
       m(target, anchor) {
@@ -7430,7 +9802,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(div2, t5);
         current = true;
         if (!mounted) {
-          dispose = listen(button, "click", click_handler);
+          dispose = listen(button, "click", click_handler_1);
           mounted = true;
         }
       },
@@ -7438,16 +9810,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         ctx = new_ctx;
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t0_value !== (t0_value = /*idxParent*/
-        ctx[16] + 1 + ""))
+        ctx[19] + 1 + ""))
           set_data(t0, t0_value);
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t2_value !== (t2_value = /*c*/
-        ctx[14].name + ""))
+        ctx[17].name + ""))
           set_data(t2, t2_value);
         if (
           /*c*/
-          ctx[14].children && /*c*/
-          ctx[14].children.length
+          ctx[17].children && /*c*/
+          ctx[17].children.length
         ) {
           if (if_block) {
             if_block.p(ctx, dirty);
@@ -7494,63 +9866,72 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function create_default_slot(ctx) {
-    let div0;
-    let t1;
-    let div2;
     let div1;
-    let t3;
+    let div0;
+    let button;
+    let t1;
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
     let current;
+    let mounted;
+    let dispose;
     let each_value = ensure_array_like(
       /*REFORMAT_COAS*/
       ctx[0] || []
     );
     const get_key = (ctx2) => (
       /*c*/
-      ctx2[14].id
+      ctx2[17].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
-      let child_ctx = get_each_context2(ctx, each_value, i);
+      let child_ctx = get_each_context3(ctx, each_value, i);
       let key = get_key(child_ctx);
-      each_1_lookup.set(key, each_blocks[i] = create_each_block2(key, child_ctx));
+      each_1_lookup.set(key, each_blocks[i] = create_each_block3(key, child_ctx));
     }
     return {
       c() {
-        div0 = element("div");
-        div0.innerHTML = `<p>TODO: add combobox sambungan ke tabel</p>`;
-        t1 = space();
-        div2 = element("div");
         div1 = element("div");
-        div1.innerHTML = `<button>add</button>`;
-        t3 = space();
+        div0 = element("div");
+        button = element("button");
+        button.textContent = "Add";
+        t1 = space();
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(div2, "class", "coa_levels shadow svelte-x2rfdg");
+        attr(button, "class", "add svelte-1q38aa2");
+        attr(div0, "class", "header_options svelte-1q38aa2");
+        attr(div1, "class", "coa_levels shadow svelte-1q38aa2");
       },
       m(target, anchor) {
-        insert(target, div0, anchor);
-        insert(target, t1, anchor);
-        insert(target, div2, anchor);
-        append(div2, div1);
-        append(div2, t3);
+        insert(target, div1, anchor);
+        append(div1, div0);
+        append(div0, button);
+        append(div1, t1);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
-            each_blocks[i].m(div2, null);
+            each_blocks[i].m(div1, null);
           }
         }
         current = true;
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*click_handler*/
+            ctx[12]
+          );
+          mounted = true;
+        }
       },
       p(ctx2, dirty) {
-        if (dirty & /*REFORMAT_COAS, updateEventHandler, childParentId, popUpCoaChild*/
-        75) {
+        if (dirty & /*REFORMAT_COAS, updateEventHandler, toggleShowPopUpCoa*/
+        161) {
           each_value = ensure_array_like(
             /*REFORMAT_COAS*/
             ctx2[0] || []
           );
           group_outros();
-          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, div2, outro_and_destroy_block, create_each_block2, null, get_each_context2);
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, div1, outro_and_destroy_block, create_each_block3, null, get_each_context3);
           check_outros();
         }
       },
@@ -7570,51 +9951,63 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(div0);
-          detach(t1);
-          detach(div2);
+          detach(div1);
         }
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].d();
         }
+        mounted = false;
+        dispose();
       }
     };
   }
   function create_fragment10(ctx) {
-    let popupcoachild;
+    let popupcoa;
+    let updating_name;
+    let updating_label;
     let updating_isSubmitted;
-    let updating_childName;
     let t;
     let mainlayout;
     let current;
-    function popupcoachild_isSubmitted_binding(value) {
-      ctx[8](value);
-    }
-    function popupcoachild_childName_binding(value) {
+    function popupcoa_name_binding(value) {
       ctx[9](value);
     }
-    let popupcoachild_props = { onSubmit: (
-      /*submitAddCoaChild*/
-      ctx[5]
+    function popupcoa_label_binding(value) {
+      ctx[10](value);
+    }
+    function popupcoa_isSubmitted_binding(value) {
+      ctx[11](value);
+    }
+    let popupcoa_props = { onSubmit: (
+      /*submitUpsertCoa*/
+      ctx[6]
     ) };
     if (
-      /*isSubmitted*/
-      ctx[4] !== void 0
-    ) {
-      popupcoachild_props.isSubmitted = /*isSubmitted*/
-      ctx[4];
-    }
-    if (
-      /*childName*/
+      /*name*/
       ctx[2] !== void 0
     ) {
-      popupcoachild_props.childName = /*childName*/
+      popupcoa_props.name = /*name*/
       ctx[2];
     }
-    popupcoachild = new PopUpCoaChild_default({ props: popupcoachild_props });
-    ctx[7](popupcoachild);
-    binding_callbacks.push(() => bind(popupcoachild, "isSubmitted", popupcoachild_isSubmitted_binding));
-    binding_callbacks.push(() => bind(popupcoachild, "childName", popupcoachild_childName_binding));
+    if (
+      /*label*/
+      ctx[3] !== void 0
+    ) {
+      popupcoa_props.label = /*label*/
+      ctx[3];
+    }
+    if (
+      /*isSubmittedCoA*/
+      ctx[4] !== void 0
+    ) {
+      popupcoa_props.isSubmitted = /*isSubmittedCoA*/
+      ctx[4];
+    }
+    popupcoa = new PopUpCoa_default({ props: popupcoa_props });
+    ctx[8](popupcoa);
+    binding_callbacks.push(() => bind(popupcoa, "name", popupcoa_name_binding));
+    binding_callbacks.push(() => bind(popupcoa, "label", popupcoa_label_binding));
+    binding_callbacks.push(() => bind(popupcoa, "isSubmitted", popupcoa_isSubmitted_binding));
     mainlayout = new mainLayout_default({
       props: {
         $slots: { default: [create_default_slot] },
@@ -7623,36 +10016,43 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     });
     return {
       c() {
-        create_component(popupcoachild.$.fragment);
+        create_component(popupcoa.$.fragment);
         t = space();
         create_component(mainlayout.$.fragment);
       },
       m(target, anchor) {
-        mount_component(popupcoachild, target, anchor);
+        mount_component(popupcoa, target, anchor);
         insert(target, t, anchor);
         mount_component(mainlayout, target, anchor);
         current = true;
       },
       p(ctx2, [dirty]) {
-        const popupcoachild_changes = {};
-        if (!updating_isSubmitted && dirty & /*isSubmitted*/
+        const popupcoa_changes = {};
+        if (!updating_name && dirty & /*name*/
+        4) {
+          updating_name = true;
+          popupcoa_changes.name = /*name*/
+          ctx2[2];
+          add_flush_callback(() => updating_name = false);
+        }
+        if (!updating_label && dirty & /*label*/
+        8) {
+          updating_label = true;
+          popupcoa_changes.label = /*label*/
+          ctx2[3];
+          add_flush_callback(() => updating_label = false);
+        }
+        if (!updating_isSubmitted && dirty & /*isSubmittedCoA*/
         16) {
           updating_isSubmitted = true;
-          popupcoachild_changes.isSubmitted = /*isSubmitted*/
+          popupcoa_changes.isSubmitted = /*isSubmittedCoA*/
           ctx2[4];
           add_flush_callback(() => updating_isSubmitted = false);
         }
-        if (!updating_childName && dirty & /*childName*/
-        4) {
-          updating_childName = true;
-          popupcoachild_changes.childName = /*childName*/
-          ctx2[2];
-          add_flush_callback(() => updating_childName = false);
-        }
-        popupcoachild.$set(popupcoachild_changes);
+        popupcoa.$set(popupcoa_changes);
         const mainlayout_changes = {};
-        if (dirty & /*$scope, REFORMAT_COAS, childParentId, popUpCoaChild*/
-        1048587) {
+        if (dirty & /*$scope, REFORMAT_COAS*/
+        8388609) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -7660,12 +10060,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       i(local) {
         if (current)
           return;
-        transition_in(popupcoachild.$.fragment, local);
+        transition_in(popupcoa.$.fragment, local);
         transition_in(mainlayout.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(popupcoachild.$.fragment, local);
+        transition_out(popupcoa.$.fragment, local);
         transition_out(mainlayout.$.fragment, local);
         current = false;
       },
@@ -7673,42 +10073,43 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (detaching) {
           detach(t);
         }
-        ctx[7](null);
-        destroy_component(popupcoachild, detaching);
+        ctx[8](null);
+        destroy_component(popupcoa, detaching);
         destroy_component(mainlayout, detaching);
       }
     };
   }
+  var id = 0;
+  var parentId = 0;
   function instance10($self, $props, $invalidate) {
     let coas = (
       /** @type CoA[] */
       [/* coas */]
     );
-    console.log("COAs:", coas);
     let REFORMAT_COAS = (
       /** @type CoA[] */
       []
     );
-    function coaMaker(id) {
+    function coaMaker(id2) {
       let coaFormatted = {
-        id: "",
+        id: 0,
         name: "",
-        parentId: "",
+        parentId: 0,
         children: [],
-        createdAt: void 0,
+        createdAt: 0,
         createdBy: "",
-        updatedAt: void 0,
+        updatedAt: 0,
         updatedBy: "",
-        deletedAt: void 0,
+        deletedAt: 0,
         tenantCode: "",
         label: "",
         deletedBy: "",
         restoredBy: ""
       };
       for (let i in coas) {
-        if (coas[i].id == String(id)) {
+        if (coas[i].id == Number(id2)) {
           const children2 = (
-            /** @type string[] */
+            /** @type number[] */
             coas[i].children
           );
           if (children2 && children2.length) {
@@ -7736,8 +10137,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       let toCoas = [];
       if (coas && coas.length) {
         for (let i in coas) {
-          const id = coas[i].id;
-          const coa = coaMaker(id);
+          const id2 = coas[i].id;
+          const coa = coaMaker(id2);
           toCoas = [...toCoas, coa];
         }
       }
@@ -7748,73 +10149,84 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       return toCoas;
     }
     onMount(() => $invalidate(0, REFORMAT_COAS = reformatCoas()));
-    let popUpCoaChild;
-    let childName = "", childParentId = "";
-    let isSubmitted = false;
-    async function submitAddCoaChild() {
-      $invalidate(4, isSubmitted = true);
-      if (childName === "") {
-        $invalidate(4, isSubmitted = false);
-        notifier.showWarning("coa name cannot be empty");
-        return;
-      }
-      const coa = { name: childName, parentId: childParentId };
-      await (0, import_jsApi_GEN2.TenantAdminUpsertCoaChild)(
-        // @ts-ignore
-        { coa },
-        /** @type {import('./jsApi.GEN').TenantAdminUpsertCoaChildCallback}*/
-        function(o) {
-          $invalidate(4, isSubmitted = false);
-          popUpCoaChild.hide();
-          if (o.error) {
-            notifier.showError(o.error);
-            console.log(o.error);
-            return;
-          }
-          coas = o.coas;
-          $invalidate(0, REFORMAT_COAS = []);
-          $invalidate(0, REFORMAT_COAS = reformatCoas());
-          notifier.showSuccess("Coa child created");
-        }
-      );
-      $invalidate(2, childName = "");
-      $invalidate(3, childParentId = "");
-    }
     function updateEventHandler(e) {
       coas = e.detail.coas;
       $invalidate(0, REFORMAT_COAS = []);
       $invalidate(0, REFORMAT_COAS = reformatCoas());
     }
-    function popupcoachild_binding($value) {
+    let popUpCoa;
+    let name = "", label = "";
+    let isSubmittedCoA = false;
+    async function submitUpsertCoa() {
+      $invalidate(4, isSubmittedCoA = true);
+      const coa = { id, parentId, name, label };
+      const i = { cmd: "upsert", coa };
+      await (0, import_jsApi_GEN2.TenantAdminCoa)(
+        // @ts-ignore
+        i,
+        /** @type {import('./jsApi.GEN').TenantAdminCoaCallback} */
+        /** @returns {Promise<void>} */
+        function(o) {
+          $invalidate(4, isSubmittedCoA = false);
+          popUpCoa.hide();
+          if (o.error) {
+            console.log(o);
+            notifier.showError(o.error);
+            return;
+          }
+          coas = o.coas;
+          $invalidate(0, REFORMAT_COAS = []);
+          $invalidate(0, REFORMAT_COAS = reformatCoas());
+          notifier.showSuccess("coa updated");
+        }
+      );
+    }
+    function toggleShowPopUpCoa(id2, parentId2, name2, label2) {
+      id2 = id2;
+      parentId2 = parentId2;
+      name2 = name2;
+      label2 = label2;
+      popUpCoa.show();
+    }
+    function popupcoa_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
-        popUpCoaChild = $value;
-        $invalidate(1, popUpCoaChild);
+        popUpCoa = $value;
+        $invalidate(1, popUpCoa);
       });
     }
-    function popupcoachild_isSubmitted_binding(value) {
-      isSubmitted = value;
-      $invalidate(4, isSubmitted);
+    function popupcoa_name_binding(value) {
+      name = value;
+      $invalidate(2, name);
     }
-    function popupcoachild_childName_binding(value) {
-      childName = value;
-      $invalidate(2, childName);
+    function popupcoa_label_binding(value) {
+      label = value;
+      $invalidate(3, label);
     }
-    const click_handler = (c) => {
-      $invalidate(3, childParentId = c.id);
-      popUpCoaChild.show();
+    function popupcoa_isSubmitted_binding(value) {
+      isSubmittedCoA = value;
+      $invalidate(4, isSubmittedCoA);
+    }
+    const click_handler = () => {
+      toggleShowPopUpCoa(0, 0, "", "");
+    };
+    const click_handler_1 = (c) => {
+      toggleShowPopUpCoa(0, c.parentId, c.name, c.label);
     };
     return [
       REFORMAT_COAS,
-      popUpCoaChild,
-      childName,
-      childParentId,
-      isSubmitted,
-      submitAddCoaChild,
+      popUpCoa,
+      name,
+      label,
+      isSubmittedCoA,
       updateEventHandler,
-      popupcoachild_binding,
-      popupcoachild_isSubmitted_binding,
-      popupcoachild_childName_binding,
-      click_handler
+      submitUpsertCoa,
+      toggleShowPopUpCoa,
+      popupcoa_binding,
+      popupcoa_name_binding,
+      popupcoa_label_binding,
+      popupcoa_isSubmitted_binding,
+      click_handler,
+      click_handler_1
     ];
   }
   var TenantAdmin_coa = class extends SvelteComponent {
