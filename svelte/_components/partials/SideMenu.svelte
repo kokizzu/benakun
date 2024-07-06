@@ -10,10 +10,7 @@
   } from '../../node_modules/svelte-icons-pack/dist/ai';
   import { BsDatabaseAdd } from '../../node_modules/svelte-icons-pack/dist/bs';
   import { OiNote16 } from '../../node_modules/svelte-icons-pack/dist/oi';
-  import {
-    FaCircleUser,
-    FaSolidSliders,
-  } from '../../node_modules/svelte-icons-pack/dist/fa';
+  import { FaCircleUser } from '../../node_modules/svelte-icons-pack/dist/fa';
   import {
     RiEditorOrganizationChart,
     RiUserFacesAdminLine,
@@ -285,6 +282,7 @@
     justify-content: space-between;
     gap: 30px;
     flex-grow: 1;
+    padding-bottom: 10px;
   }
 
   .side_menu_container .menu_container .menu_list {

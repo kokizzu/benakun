@@ -23,8 +23,6 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 		res = append(res, row)
 	})
 
-	L.Print(`query:`, queryRows)
-
 	if len(res) > 0 {
 		for _, oa := range res {
 			if len(oa) >= 5 {
@@ -87,5 +85,33 @@ FROM SEQSCAN ` + ttm.SqlTableName() + whereAndSql
 	L.Print(`query:`, queryRows)
 
 	ttms = &rows
+	return
+}
+
+func (tt *TransactionTemplate) FindTransactionTemplatesByTenant() (ttpls []TransactionTemplate) {
+	var res [][]any
+	const comment = `-- TransactionTemplate) FindTransactionTemplatesByTenant`
+
+	whereAndSql := ` WHERE ` + tt.SqlTenantCode() + ` = ` + S.Z(tt.TenantCode)
+
+	queryRows := comment + `
+SELECT ` + tt.SqlSelectAllFields() + `
+FROM SEQSCAN ` + tt.SqlTableName() + whereAndSql
+
+	tt.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
+	L.Print(`query:`, queryRows)
+
+	if len(res) > 0 {
+		for _, v := range res {
+			if len(v) >= 5 {
+				ttpls = append(ttpls, *tt.FromArray(v))
+			}
+		}
+	}
+
 	return
 }

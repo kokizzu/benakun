@@ -420,7 +420,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		}
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
 
-		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 
 		out := d.TenantAdminTransactionTemplate(&in)
@@ -428,8 +427,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`title`:                `Tenant Admin Transaction Template`,
 			`user`:                 user,
 			`segments`:             segments,
-			`pager`:                out.Pager,
-			`fields`:               out.Meta.Fields,
 			`transactionTemplates`: out.TransactionTemplates,
 		})
 	})
