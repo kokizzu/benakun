@@ -3,6 +3,7 @@ package domain
 import (
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
+	"benakun/model/zCrud"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -16,11 +17,16 @@ import (
 type (
 	TenantAdminOrganizationIn struct {
 		RequestCommon
+		Cmd        	string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
+		Org 				rqAuth.Orgs		`json:"org" form:"org" query:"org" long:"org" msg:"org"`
+		MoveToIdx  	int           `json:"moveToIdx" form:"moveToIdx" query:"moveToIdx" long:"moveToIdx" msg:"moveToIdx"`
+		ToParentId 	uint64        `json:"toParentId" form:"toParentId" query:"toParentId" long:"toParentId" msg:"toParentId"`
 	}
 
 	TenantAdminOrganizationOut struct {
 		ResponseCommon
-		Orgs *[]rqAuth.Orgs `json:"orgs" form:"orgs" query:"orgs" long:"orgs" msg:"orgs"`
+		Org 	*rqAuth.Orgs		`json:"org" form:"org" query:"org" long:"org" msg:"org"`
+		Orgs	*[]rqAuth.Orgs `json:"orgs" form:"orgs" query:"orgs" long:"orgs" msg:"orgs"`
 	}
 )
 
@@ -50,21 +56,75 @@ func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out Ten
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Id = sess.UserId
 	if !user.FindById() {
-		out.SetError(fiber.StatusBadRequest, ErrTenantAdminCoaUnauthorized)
+		out.SetError(fiber.StatusBadRequest, ``)
 		return
 	}
 
-	tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
-	tenant.TenantCode = user.TenantCode
-	if !tenant.FindByTenantCode() && !sess.IsSuperAdmin {
-		out.SetError(400, ErrTenantAdminCoaTenantNotFound)
-		return
+	switch in.Cmd {
+	case zCrud.CmdForm:
+	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore, zCrud.CmdMove:
+		tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
+		tenant.TenantCode = user.TenantCode
+		if !tenant.FindByTenantCode() && !sess.IsSuperAdmin {
+			out.SetError(400, ``)
+			return
+		}
+
+		var parent *wcAuth.OrgsMutator
+		if in.Org.ParentId > 0 {
+			parent = wcAuth.NewOrgsMutator(d.AuthOltp)
+			parent.Id = in.Org.ParentId
+			if !parent.FindById() {
+				out.SetError(400, ``)
+				return
+			}
+		}
+
+		org := wcAuth.NewOrgsMutator(d.AuthOltp)
+		org.Id = in.Org.Id
+		if org.Id > 0 {
+			if !org.FindById() {
+				out.SetError(400, ``)
+				return
+			}
+
+			switch in.Cmd {
+			case zCrud.CmdUpsert:
+				// TODO
+			case zCrud.CmdDelete:
+				// TODO
+			case zCrud.CmdRestore:
+				// TODO
+			case zCrud.CmdMove:
+				// TODO
+			}
+		} else {
+			org.SetTenantCode(tenant.TenantCode)
+		}
+
+		if org.HaveMutation() {
+			org.SetUpdatedAt(in.UnixNow())
+			org.SetUpdatedBy(sess.UserId)
+			if org.Id == 0 {
+				org.SetCreatedAt(in.UnixNow())
+				org.SetCreatedBy(sess.UserId)
+			}
+		}
+
+		if !org.DoUpsertById() {
+			out.SetError(400, ``)
+			return
+		}
+
+		out.Org = &org.Orgs
+
+		fallthrough
+	case zCrud.CmdList:
+		org := wcAuth.NewOrgsMutator(d.AuthOltp)
+		org.TenantCode = user.TenantCode
+		orgs := org.FindOrgsByTenant()
+		out.Orgs = &orgs
 	}
-
-	org := wcAuth.NewOrgsMutator(d.AuthOltp)
-	orgs := org.FindOrgsByTenant(tenant.TenantCode)
-
-	out.Orgs = &orgs
 
 	return
 }

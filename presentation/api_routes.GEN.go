@@ -220,16 +220,6 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
-	// TenantAdminDeleteOrganizationChild
-	fw.Post("/"+domain.TenantAdminDeleteOrganizationChildAction, func(c *fiber.Ctx) error {
-		in := domain.TenantAdminDeleteOrganizationChildIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminDeleteOrganizationChildAction); err != nil {
-			return nil
-		}
-		out := d.TenantAdminDeleteOrganizationChild(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
-	})
-
 	// TenantAdminInventoryChanges
 	fw.Post("/"+domain.TenantAdminInventoryChangesAction, func(c *fiber.Ctx) error {
 		in := domain.TenantAdminInventoryChangesIn{}
@@ -290,16 +280,6 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
-	// TenantAdminRestoreOrganizationChild
-	fw.Post("/"+domain.TenantAdminRestoreOrganizationChildAction, func(c *fiber.Ctx) error {
-		in := domain.TenantAdminRestoreOrganizationChildIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminRestoreOrganizationChildAction); err != nil {
-			return nil
-		}
-		out := d.TenantAdminRestoreOrganizationChild(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
-	})
-
 	// TenantAdminTransaction
 	fw.Post("/"+domain.TenantAdminTransactionAction, func(c *fiber.Ctx) error {
 		in := domain.TenantAdminTransactionIn{}
@@ -320,15 +300,6 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
-	// TenantAdminUpsertOrganizationChild
-	fw.Post("/"+domain.TenantAdminUpsertOrganizationChildAction, func(c *fiber.Ctx) error {
-		in := domain.TenantAdminUpsertOrganizationChildIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminUpsertOrganizationChildAction); err != nil {
-			return nil
-		}
-		out := d.TenantAdminUpsertOrganizationChild(&in)
-		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
-	})
 
 	// UserAutoLoginLink
 	fw.Post("/"+domain.UserAutoLoginLinkAction, func(c *fiber.Ctx) error {

@@ -1032,10 +1032,21 @@ func (t *TransactionTplDetailMutator) SetId(val uint64) bool { //nolint:dupl fal
 	return false
 }
 
+// SetParentId create mutations, should not duplicate
+func (t *TransactionTplDetailMutator) SetParentId(val uint64) bool { //nolint:dupl false positive
+	if val != t.ParentId {
+		t.mutations.Assign(1, val)
+		t.logs = append(t.logs, A.X{`parentId`, t.ParentId, val})
+		t.ParentId = val
+		return true
+	}
+	return false
+}
+
 // SetTenantCode create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetTenantCode(val string) bool { //nolint:dupl false positive
 	if val != t.TenantCode {
-		t.mutations.Assign(1, val)
+		t.mutations.Assign(2, val)
 		t.logs = append(t.logs, A.X{`tenantCode`, t.TenantCode, val})
 		t.TenantCode = val
 		return true
@@ -1046,7 +1057,7 @@ func (t *TransactionTplDetailMutator) SetTenantCode(val string) bool { //nolint:
 // SetCoaId create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetCoaId(val uint64) bool { //nolint:dupl false positive
 	if val != t.CoaId {
-		t.mutations.Assign(2, val)
+		t.mutations.Assign(3, val)
 		t.logs = append(t.logs, A.X{`coaId`, t.CoaId, val})
 		t.CoaId = val
 		return true
@@ -1057,7 +1068,7 @@ func (t *TransactionTplDetailMutator) SetCoaId(val uint64) bool { //nolint:dupl 
 // SetIsDebit create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetIsDebit(val bool) bool { //nolint:dupl false positive
 	if val != t.IsDebit {
-		t.mutations.Assign(3, val)
+		t.mutations.Assign(4, val)
 		t.logs = append(t.logs, A.X{`isDebit`, t.IsDebit, val})
 		t.IsDebit = val
 		return true
@@ -1068,7 +1079,7 @@ func (t *TransactionTplDetailMutator) SetIsDebit(val bool) bool { //nolint:dupl 
 // SetCreatedAt create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != t.CreatedAt {
-		t.mutations.Assign(4, val)
+		t.mutations.Assign(5, val)
 		t.logs = append(t.logs, A.X{`createdAt`, t.CreatedAt, val})
 		t.CreatedAt = val
 		return true
@@ -1079,7 +1090,7 @@ func (t *TransactionTplDetailMutator) SetCreatedAt(val int64) bool { //nolint:du
 // SetCreatedBy create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != t.CreatedBy {
-		t.mutations.Assign(5, val)
+		t.mutations.Assign(6, val)
 		t.logs = append(t.logs, A.X{`createdBy`, t.CreatedBy, val})
 		t.CreatedBy = val
 		return true
@@ -1090,7 +1101,7 @@ func (t *TransactionTplDetailMutator) SetCreatedBy(val uint64) bool { //nolint:d
 // SetUpdatedAt create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != t.UpdatedAt {
-		t.mutations.Assign(6, val)
+		t.mutations.Assign(7, val)
 		t.logs = append(t.logs, A.X{`updatedAt`, t.UpdatedAt, val})
 		t.UpdatedAt = val
 		return true
@@ -1101,7 +1112,7 @@ func (t *TransactionTplDetailMutator) SetUpdatedAt(val int64) bool { //nolint:du
 // SetUpdatedBy create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != t.UpdatedBy {
-		t.mutations.Assign(7, val)
+		t.mutations.Assign(8, val)
 		t.logs = append(t.logs, A.X{`updatedBy`, t.UpdatedBy, val})
 		t.UpdatedBy = val
 		return true
@@ -1112,7 +1123,7 @@ func (t *TransactionTplDetailMutator) SetUpdatedBy(val uint64) bool { //nolint:d
 // SetDeletedAt create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != t.DeletedAt {
-		t.mutations.Assign(8, val)
+		t.mutations.Assign(9, val)
 		t.logs = append(t.logs, A.X{`deletedAt`, t.DeletedAt, val})
 		t.DeletedAt = val
 		return true
@@ -1123,7 +1134,7 @@ func (t *TransactionTplDetailMutator) SetDeletedAt(val int64) bool { //nolint:du
 // SetDeletedBy create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
 	if val != t.DeletedBy {
-		t.mutations.Assign(9, val)
+		t.mutations.Assign(10, val)
 		t.logs = append(t.logs, A.X{`deletedBy`, t.DeletedBy, val})
 		t.DeletedBy = val
 		return true
@@ -1134,7 +1145,7 @@ func (t *TransactionTplDetailMutator) SetDeletedBy(val uint64) bool { //nolint:d
 // SetRestoredBy create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
 	if val != t.RestoredBy {
-		t.mutations.Assign(10, val)
+		t.mutations.Assign(11, val)
 		t.logs = append(t.logs, A.X{`restoredBy`, t.RestoredBy, val})
 		t.RestoredBy = val
 		return true
@@ -1152,6 +1163,10 @@ func (t *TransactionTplDetailMutator) SetAll(from rqFinance.TransactionTplDetail
 	}
 	if !excludeMap[`id`] && (forceMap[`id`] || from.Id != 0) {
 		t.Id = from.Id
+		changed = true
+	}
+	if !excludeMap[`parentId`] && (forceMap[`parentId`] || from.ParentId != 0) {
+		t.ParentId = from.ParentId
 		changed = true
 	}
 	if !excludeMap[`tenantCode`] && (forceMap[`tenantCode`] || from.TenantCode != ``) {

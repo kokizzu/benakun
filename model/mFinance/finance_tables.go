@@ -215,6 +215,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableTransactionTplDetail: {
 		Fields: []Tt.Field{
 			{Id, Tt.Unsigned},
+			{ParentId, Tt.Unsigned},
 			{TenantCode, Tt.String},
 			{CoaId, Tt.Unsigned},
 			{IsDebit, Tt.Boolean},

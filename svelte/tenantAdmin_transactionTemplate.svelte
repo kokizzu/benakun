@@ -61,11 +61,13 @@
         Add
       </button>
     </header>
-    {#each (transactionTemplates || []) as tt}
-      <TransactionTemplateTree
-        transactionTemplate={tt}
-      />
-    {/each}
+    <div class="transaction_templates">
+      {#each (transactionTemplates || []) as tt}
+        <TransactionTemplateTree
+          transactionTemplate={tt}
+        />
+      {/each}
+    </div>
   </div>
 </MainLayout>
 
@@ -101,5 +103,11 @@
 
   .container .header_options .add:hover {
     background-color: var(--blue-005);
+  }
+
+  .container .transaction_templates {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
   }
 </style>

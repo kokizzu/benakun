@@ -99,7 +99,8 @@ func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizatio
 		out.Org = &child.Orgs
 
 		org := wcAuth.NewOrgsMutator(d.AuthOltp)
-		orgs := org.FindOrgsByTenant(tenant.TenantCode)
+		org.TenantCode = user.TenantCode
+		orgs := org.FindOrgsByTenant()
 		out.Orgs = &orgs
 
 		return
@@ -169,7 +170,8 @@ func (d *Domain) TenantAdminMoveOrganizationChild(in *TenantAdminMoveOrganizatio
 	out.Org = &child.Orgs
 
 	org := rqAuth.NewOrgs(d.AuthOltp)
-	orgs := org.FindOrgsByTenant(tenant.TenantCode)
+	org.TenantCode = user.TenantCode
+	orgs := org.FindOrgsByTenant()
 	
 	out.Orgs = &orgs
 

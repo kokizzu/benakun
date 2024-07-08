@@ -1177,6 +1177,7 @@ var TransactionTemplateFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl fals
 type TransactionTplDetail struct {
 	Adapter    *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	Id         uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	ParentId   uint64      `json:"parentId,string" form:"parentId" query:"parentId" long:"parentId" msg:"parentId"`
 	TenantCode string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
 	CoaId      uint64      `json:"coaId,string" form:"coaId" query:"coaId" long:"coaId" msg:"coaId"`
 	IsDebit    bool        `json:"isDebit" form:"isDebit" query:"isDebit" long:"isDebit" msg:"isDebit"`
@@ -1232,6 +1233,7 @@ func (t *TransactionTplDetail) FindById() bool { //nolint:dupl false positive
 // SqlSelectAllFields generate Sql select fields
 func (t *TransactionTplDetail) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "id"
+	, "parentId"
 	, "tenantCode"
 	, "coaId"
 	, "isDebit"
@@ -1248,6 +1250,7 @@ func (t *TransactionTplDetail) SqlSelectAllFields() string { //nolint:dupl false
 // SqlSelectAllUncensoredFields generate Sql select fields
 func (t *TransactionTplDetail) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
 	return ` "id"
+	, "parentId"
 	, "tenantCode"
 	, "coaId"
 	, "isDebit"
@@ -1265,16 +1268,17 @@ func (t *TransactionTplDetail) SqlSelectAllUncensoredFields() string { //nolint:
 func (t *TransactionTplDetail) ToUpdateArray() *tarantool.Operations { //nolint:dupl false positive
 	return tarantool.NewOperations().
 		Assign(0, t.Id).
-		Assign(1, t.TenantCode).
-		Assign(2, t.CoaId).
-		Assign(3, t.IsDebit).
-		Assign(4, t.CreatedAt).
-		Assign(5, t.CreatedBy).
-		Assign(6, t.UpdatedAt).
-		Assign(7, t.UpdatedBy).
-		Assign(8, t.DeletedAt).
-		Assign(9, t.DeletedBy).
-		Assign(10, t.RestoredBy)
+		Assign(1, t.ParentId).
+		Assign(2, t.TenantCode).
+		Assign(3, t.CoaId).
+		Assign(4, t.IsDebit).
+		Assign(5, t.CreatedAt).
+		Assign(6, t.CreatedBy).
+		Assign(7, t.UpdatedAt).
+		Assign(8, t.UpdatedBy).
+		Assign(9, t.DeletedAt).
+		Assign(10, t.DeletedBy).
+		Assign(11, t.RestoredBy)
 }
 
 // IdxId return name of the index
@@ -1287,9 +1291,19 @@ func (t *TransactionTplDetail) SqlId() string { //nolint:dupl false positive
 	return `"id"`
 }
 
+// IdxParentId return name of the index
+func (t *TransactionTplDetail) IdxParentId() int { //nolint:dupl false positive
+	return 1
+}
+
+// SqlParentId return name of the column being indexed
+func (t *TransactionTplDetail) SqlParentId() string { //nolint:dupl false positive
+	return `"parentId"`
+}
+
 // IdxTenantCode return name of the index
 func (t *TransactionTplDetail) IdxTenantCode() int { //nolint:dupl false positive
-	return 1
+	return 2
 }
 
 // SqlTenantCode return name of the column being indexed
@@ -1299,7 +1313,7 @@ func (t *TransactionTplDetail) SqlTenantCode() string { //nolint:dupl false posi
 
 // IdxCoaId return name of the index
 func (t *TransactionTplDetail) IdxCoaId() int { //nolint:dupl false positive
-	return 2
+	return 3
 }
 
 // SqlCoaId return name of the column being indexed
@@ -1309,7 +1323,7 @@ func (t *TransactionTplDetail) SqlCoaId() string { //nolint:dupl false positive
 
 // IdxIsDebit return name of the index
 func (t *TransactionTplDetail) IdxIsDebit() int { //nolint:dupl false positive
-	return 3
+	return 4
 }
 
 // SqlIsDebit return name of the column being indexed
@@ -1319,7 +1333,7 @@ func (t *TransactionTplDetail) SqlIsDebit() string { //nolint:dupl false positiv
 
 // IdxCreatedAt return name of the index
 func (t *TransactionTplDetail) IdxCreatedAt() int { //nolint:dupl false positive
-	return 4
+	return 5
 }
 
 // SqlCreatedAt return name of the column being indexed
@@ -1329,7 +1343,7 @@ func (t *TransactionTplDetail) SqlCreatedAt() string { //nolint:dupl false posit
 
 // IdxCreatedBy return name of the index
 func (t *TransactionTplDetail) IdxCreatedBy() int { //nolint:dupl false positive
-	return 5
+	return 6
 }
 
 // SqlCreatedBy return name of the column being indexed
@@ -1339,7 +1353,7 @@ func (t *TransactionTplDetail) SqlCreatedBy() string { //nolint:dupl false posit
 
 // IdxUpdatedAt return name of the index
 func (t *TransactionTplDetail) IdxUpdatedAt() int { //nolint:dupl false positive
-	return 6
+	return 7
 }
 
 // SqlUpdatedAt return name of the column being indexed
@@ -1349,7 +1363,7 @@ func (t *TransactionTplDetail) SqlUpdatedAt() string { //nolint:dupl false posit
 
 // IdxUpdatedBy return name of the index
 func (t *TransactionTplDetail) IdxUpdatedBy() int { //nolint:dupl false positive
-	return 7
+	return 8
 }
 
 // SqlUpdatedBy return name of the column being indexed
@@ -1359,7 +1373,7 @@ func (t *TransactionTplDetail) SqlUpdatedBy() string { //nolint:dupl false posit
 
 // IdxDeletedAt return name of the index
 func (t *TransactionTplDetail) IdxDeletedAt() int { //nolint:dupl false positive
-	return 8
+	return 9
 }
 
 // SqlDeletedAt return name of the column being indexed
@@ -1369,7 +1383,7 @@ func (t *TransactionTplDetail) SqlDeletedAt() string { //nolint:dupl false posit
 
 // IdxDeletedBy return name of the index
 func (t *TransactionTplDetail) IdxDeletedBy() int { //nolint:dupl false positive
-	return 9
+	return 10
 }
 
 // SqlDeletedBy return name of the column being indexed
@@ -1379,7 +1393,7 @@ func (t *TransactionTplDetail) SqlDeletedBy() string { //nolint:dupl false posit
 
 // IdxRestoredBy return name of the index
 func (t *TransactionTplDetail) IdxRestoredBy() int { //nolint:dupl false positive
-	return 10
+	return 11
 }
 
 // SqlRestoredBy return name of the column being indexed
@@ -1395,48 +1409,51 @@ func (t *TransactionTplDetail) ToArray() A.X { //nolint:dupl false positive
 	}
 	return A.X{
 		id,
-		t.TenantCode, // 1
-		t.CoaId,      // 2
-		t.IsDebit,    // 3
-		t.CreatedAt,  // 4
-		t.CreatedBy,  // 5
-		t.UpdatedAt,  // 6
-		t.UpdatedBy,  // 7
-		t.DeletedAt,  // 8
-		t.DeletedBy,  // 9
-		t.RestoredBy, // 10
+		t.ParentId,   // 1
+		t.TenantCode, // 2
+		t.CoaId,      // 3
+		t.IsDebit,    // 4
+		t.CreatedAt,  // 5
+		t.CreatedBy,  // 6
+		t.UpdatedAt,  // 7
+		t.UpdatedBy,  // 8
+		t.DeletedAt,  // 9
+		t.DeletedBy,  // 10
+		t.RestoredBy, // 11
 	}
 }
 
 // FromArray convert slice to receiver fields
 func (t *TransactionTplDetail) FromArray(a A.X) *TransactionTplDetail { //nolint:dupl false positive
 	t.Id = X.ToU(a[0])
-	t.TenantCode = X.ToS(a[1])
-	t.CoaId = X.ToU(a[2])
-	t.IsDebit = X.ToBool(a[3])
-	t.CreatedAt = X.ToI(a[4])
-	t.CreatedBy = X.ToU(a[5])
-	t.UpdatedAt = X.ToI(a[6])
-	t.UpdatedBy = X.ToU(a[7])
-	t.DeletedAt = X.ToI(a[8])
-	t.DeletedBy = X.ToU(a[9])
-	t.RestoredBy = X.ToU(a[10])
+	t.ParentId = X.ToU(a[1])
+	t.TenantCode = X.ToS(a[2])
+	t.CoaId = X.ToU(a[3])
+	t.IsDebit = X.ToBool(a[4])
+	t.CreatedAt = X.ToI(a[5])
+	t.CreatedBy = X.ToU(a[6])
+	t.UpdatedAt = X.ToI(a[7])
+	t.UpdatedBy = X.ToU(a[8])
+	t.DeletedAt = X.ToI(a[9])
+	t.DeletedBy = X.ToU(a[10])
+	t.RestoredBy = X.ToU(a[11])
 	return t
 }
 
 // FromUncensoredArray convert slice to receiver fields
 func (t *TransactionTplDetail) FromUncensoredArray(a A.X) *TransactionTplDetail { //nolint:dupl false positive
 	t.Id = X.ToU(a[0])
-	t.TenantCode = X.ToS(a[1])
-	t.CoaId = X.ToU(a[2])
-	t.IsDebit = X.ToBool(a[3])
-	t.CreatedAt = X.ToI(a[4])
-	t.CreatedBy = X.ToU(a[5])
-	t.UpdatedAt = X.ToI(a[6])
-	t.UpdatedBy = X.ToU(a[7])
-	t.DeletedAt = X.ToI(a[8])
-	t.DeletedBy = X.ToU(a[9])
-	t.RestoredBy = X.ToU(a[10])
+	t.ParentId = X.ToU(a[1])
+	t.TenantCode = X.ToS(a[2])
+	t.CoaId = X.ToU(a[3])
+	t.IsDebit = X.ToBool(a[4])
+	t.CreatedAt = X.ToI(a[5])
+	t.CreatedBy = X.ToU(a[6])
+	t.UpdatedAt = X.ToI(a[7])
+	t.UpdatedBy = X.ToU(a[8])
+	t.DeletedAt = X.ToI(a[9])
+	t.DeletedBy = X.ToU(a[10])
+	t.RestoredBy = X.ToU(a[11])
 	return t
 }
 
@@ -1502,6 +1519,7 @@ func (t *TransactionTplDetail) Total() int64 { //nolint:dupl false positive
 // TransactionTplDetailFieldTypeMap returns key value of field name and key
 var TransactionTplDetailFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`id`:         Tt.Unsigned,
+	`parentId`:   Tt.Unsigned,
 	`tenantCode`: Tt.String,
 	`coaId`:      Tt.Unsigned,
 	`isDebit`:    Tt.Boolean,

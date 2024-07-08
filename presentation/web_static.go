@@ -267,14 +267,19 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	})
 
 	fw.Get(`/`+domain.TenantAdminOrganizationAction, func(ctx *fiber.Ctx) error {
-		in, user, segments := userInfoFromContext(ctx, d)
+		var in domain.TenantAdminOrganizationIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminOrganizationAction)
+		if err != nil {
+			return err
+		}
 		if notTenantLogin(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		in.RequestCommon.Action = domain.TenantAdminOrganizationAction
-		out := d.TenantAdminOrganization(&domain.TenantAdminOrganizationIn{
-			RequestCommon: in.RequestCommon,
-		})
+
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.Cmd = zCrud.CmdList
+
+		out := d.TenantAdminOrganization(&in)
 		return views.RenderTenantAdminOrganization(ctx, M.SX{
 			`title`:    `Tenant Admin Organization`,
 			`user`:     user,
