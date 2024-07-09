@@ -1,11 +1,10 @@
 package domain
 
 import (
+	"benakun/model/mAuth"
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
 	"benakun/model/zCrud"
-
-	"github.com/gofiber/fiber/v2"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminOrganization.go
@@ -33,16 +32,19 @@ type (
 const (
 	TenantAdminOrganizationAction = `tenantAdmin/organization`
 
-	ErrTenantAdminOrganizationUnauthorized                 = `unauthorized user`
-	ErrTenantAdminOrganizationTenantNotFound               = `tenant admin not found`
-	ErrTenantAdminOrganizationOldParentNotFound            = `old parent of the organization cannot be found`
-	ErrTenantAdminOrganizationNewParentNotFound            = `new parent of the organization cannot be found`
-	ErrTenantAdminOrganizationUpdatedOldParentChildren     = `cannot update childs of old parent`
-	ErrTenantAdminOrganizationUpdatedNewParentChildren     = `cannot update childs of new parent`
-	ErrTenantAdminOrganizationUpdatedParentForOrganization = `cannot update parent for organization`
-	ErrTenantAdminOrganizationNotFound                     = `cannot find the organization`
-	ErrTenantAdminOrganizationChildsNotFound               = `cannot find childs for update`
-	ErrTenantAdminOrganizationUpdatedChilds                = `cannot update childs`
+	ErrTenantAdminOrganizationUnauthorized                 		= `unauthorized user`
+	ErrTenantAdminOrganizationTenantNotFound               		= `tenant admin not found`
+	ErrTenantAdminOrganizationParentNotFound							 		= `parent of the organization cannot be found`
+	ErrTenantAdminOrganizationOldParentNotFound            		= `old parent of the organization cannot be found`
+	ErrTenantAdminOrganizationNewParentNotFound            		= `new parent of the organization cannot be found`
+	ErrTenantAdminOrganizationUpdatedOldParentChildren     		= `cannot update childs of old parent`
+	ErrTenantAdminOrganizationUpdatedNewParentChildren     		= `cannot update childs of new parent`
+	ErrTenantAdminOrganizationUpdatedParentForOrganization 		= `cannot update parent for organization`
+	ErrTenantAdminOrganizationUpdatedNewParentForOrganization = `cannot update new parent for organization`
+	ErrTenantAdminOrganizationNotFound                     		= `cannot find the organization`
+	ErrTenantAdminOrganizationChildsNotFound               		= `cannot find childs for update`
+	ErrTenantAdminOrganizationUpdatedChilds                		= `cannot update childs`
+	ErrTenantAdminOrganizationInvalidOrgType									= `invalid organization type`
 )
 
 func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out TenantAdminOrganizationOut) {
@@ -56,7 +58,7 @@ func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out Ten
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Id = sess.UserId
 	if !user.FindById() {
-		out.SetError(fiber.StatusBadRequest, ``)
+		out.SetError(400, ErrTenantAdminOrganizationUnauthorized)
 		return
 	}
 
@@ -66,25 +68,22 @@ func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out Ten
 		tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
 		tenant.TenantCode = user.TenantCode
 		if !tenant.FindByTenantCode() && !sess.IsSuperAdmin {
-			out.SetError(400, ``)
+			out.SetError(400, ErrTenantAdminOrganizationTenantNotFound)
 			return
 		}
 
-		var parent *wcAuth.OrgsMutator
-		if in.Org.ParentId > 0 {
-			parent = wcAuth.NewOrgsMutator(d.AuthOltp)
-			parent.Id = in.Org.ParentId
-			if !parent.FindById() {
-				out.SetError(400, ``)
-				return
-			}
+		parent := wcAuth.NewOrgsMutator(d.AuthOltp)
+		parent.Id = in.Org.ParentId
+		if !parent.FindById() {
+			out.SetError(400, ErrTenantAdminOrganizationParentNotFound)
+			return
 		}
 
 		org := wcAuth.NewOrgsMutator(d.AuthOltp)
 		org.Id = in.Org.Id
 		if org.Id > 0 {
 			if !org.FindById() {
-				out.SetError(400, ``)
+				out.SetError(400, ErrTenantAdminOrganizationNotFound)
 				return
 			}
 
@@ -115,8 +114,8 @@ func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out Ten
 							return
 						}
 						parent.SetChildren(children)
-						if !parent.DoUpsertById() {
-							out.SetError(400, ``)
+						if !parent.DoUpdateById() {
+							out.SetError(400, ErrTenantAdminOrganizationUpdatedParentForOrganization)
 							return
 						}
 					}
@@ -124,15 +123,20 @@ func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out Ten
 					toParent := wcAuth.NewOrgsMutator(d.AuthOltp)
 					toParent.Id = in.ToParentId
 					if !toParent.FindById() {
-						out.SetError(400, ``)
+						out.SetError(400, ErrTenantAdminOrganizationNewParentNotFound)
 						return
 					}
 
 					children := insertChildToIndex(toParent.Children, org.Id, in.MoveToIdx)
+					toParent.SetChildren(children)
+					if !toParent.DoUpdateById() {
+						out.SetError(400, ErrTenantAdminOrganizationUpdatedNewParentForOrganization)
+						return
+					}
 
 					org.SetParentId(toParent.Id)
 					if !org.DoUpdateById() {
-						out.SetError(400, ``)
+						out.SetError(400, ErrTenantAdminOrganizationUpdatedChilds)
 						return
 					}
 
@@ -143,12 +147,25 @@ func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out Ten
 					}
 					parent.SetChildren(children)
 					if !parent.DoUpdateById() {
-						out.SetError(400, ``)
+						out.SetError(400, ErrTenantAdminOrganizationUpdatedParentForOrganization)
 						return
 					}
 				}
 			}
 		} else {
+
+			switch parent.OrgType {
+			case mAuth.OrgTypeCompany:
+				org.SetOrgType(mAuth.OrgTypeDept)
+			case mAuth.OrgTypeDept:
+				org.SetOrgType(mAuth.OrgTypeDivision)
+			case mAuth.OrgTypeDivision:
+				org.SetOrgType(mAuth.OrgTypeJob)
+			case mAuth.OrgTypeJob:
+				out.SetError(400, ErrTenantAdminOrganizationInvalidOrgType)
+				return
+			}
+
 			if in.Org.HeadTitle != `` {
 				org.SetHeadTitle(in.Org.HeadTitle)
 			}
@@ -156,6 +173,7 @@ func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out Ten
 				org.SetName(in.Org.Name)
 			}
 
+			org.SetParentId(parent.Id)
 			org.SetTenantCode(tenant.TenantCode)
 		}
 
@@ -169,8 +187,20 @@ func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out Ten
 		}
 
 		if !org.DoUpsertById() {
-			out.SetError(400, ``)
+			out.SetError(400, ErrTenantAdminOrganizationUpdatedChilds)
 			return
+		}
+
+		if in.Org.Id <= 0 {
+			children := parent.Children
+			children = append(children, org.Id)
+			parent.SetChildren(children)
+			parent.SetUpdatedAt(in.UnixNow())
+			parent.SetUpdatedBy(sess.UserId)
+			if !parent.DoUpdateById() {
+				out.SetError(400, ErrTenantAdminOrganizationUpdatedParentForOrganization)
+				return
+			}
 		}
 
 		out.Org = &org.Orgs

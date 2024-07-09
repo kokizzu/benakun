@@ -15,21 +15,23 @@
   function orgMaker(id) {
     /** @type {Org} */
     let orgFormatted = {
-      id: '',
+      children: [],
+      id: 0,
       name: '',
+      headTitle: '',
       orgType: 0,
-      parentId: '',
+      parentId: 0,
       tenantCode: '',
       createdAt: 0,
-      createdBy: '',
+      createdBy: 0,
       updatedAt: 0,
-      updatedBy: '',
+      updatedBy: 0,
       deletedAt: 0,
-      children: [],
-      headTitle: ''
+      deletedBy: 0,
+      restoredBy: 0
     }
     for (let i in orgs) {
-      if (orgs[i].id == String(id)) {
+      if (orgs[i].id == id) {
         const children = orgs[i].children;
         if (children && children.length) {
           for (let j in children) {
@@ -49,6 +51,8 @@
         orgFormatted.updatedAt = orgs[i].updatedAt
         orgFormatted.updatedBy = orgs[i].updatedBy
         orgFormatted.deletedAt = orgs[i].deletedAt
+        orgFormatted.deletedBy = orgs[i].deletedBy
+        orgFormatted.restoredBy = orgs[i].restoredBy
       }
     }
     return orgFormatted;

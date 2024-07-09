@@ -14,7 +14,7 @@
     RiArrowsArrowGoBackLine
    } from '../node_modules/svelte-icons-pack/dist/ri';
   import { onMount, createEventDispatcher } from 'svelte';
-  import PopUpOrgChild from './PopUpOrgChild.svelte';
+  import PopUpOrg from './PopUpOrg.svelte';
   import { TenantAdminOrganization } from '../jsApi.GEN';
   import { notifier } from './notifier';
 
@@ -22,84 +22,108 @@
   
   export let org = /** @type Org */ ({});
 
-  let orgType = 'company', orgIcon = RiBuildingsCommunityLine;
+  const OrgTypeStrCompany   = 'company';
+  const OrgTypeStrDept      = 'department';
+  const OrgTypeStrDivision  = 'division';
+  const OrgTypeStrJob       = 'job';
+  const OrgTypeCompany      = 1;
+  const OrgTypeDept         = 2;
+  const OrgTypeDivision     = 3;
+  const OrgTypeJob          = 4;
 
-  let OrgTypeCompany = 1, OrgTypeDept = 2, OrgTypeDivision = 3, OrgTypeJob = 4;
+  let orgTypeStr  = OrgTypeStrCompany;
+  let orgIcon     = RiBuildingsCommunityLine;
+
   switch (org.orgType) {
     case OrgTypeCompany: {
-      orgType = 'company', orgIcon = RiBuildingsCommunityLine;
+      orgTypeStr = OrgTypeStrCompany;
+      orgIcon = RiBuildingsCommunityLine;
       break;
     }
     case OrgTypeDept: {
-      orgType = 'department', orgIcon = RiBuildingsBuilding2Line;
+      orgTypeStr = OrgTypeStrDept;
+      orgIcon = RiBuildingsBuilding2Line;
       break;
     }
     case OrgTypeDivision: {
-      orgType = 'division', orgIcon = RiUserFacesGroup3Line;
+      orgTypeStr = OrgTypeStrDivision;
+      orgIcon = RiUserFacesGroup3Line;
       break;
     }
     case OrgTypeJob: {
-      orgType = 'job', orgIcon = RiBusinessBriefcaseLine;
+      orgTypeStr = OrgTypeStrJob;
+      orgIcon = RiBusinessBriefcaseLine;
       break;
     }
   }
 
-  const getOrgType = (type = 0) => {
+  const getOrgTypeStr = (type = 0) => {
     switch (type) {
-      case OrgTypeCompany: {
-        return 'comppany';
-      }
-      case OrgTypeDept: {
-        return 'department';
-      }
-      case OrgTypeDivision: {
-        return 'division';
-      }
-      case OrgTypeJob: {
-        return 'job';
-      }
-      default: {
-        return '';
-      }
+      case OrgTypeCompany: { return OrgTypeStrCompany }
+      case OrgTypeDept: { return OrgTypeStrDept }
+      case OrgTypeDivision: { return OrgTypeStrDivision }
+      case OrgTypeJob: { return OrgTypeStrJob }
+      default: { return '' }
     }
   }
 
   export let indent = 0;
   let indentWidth = '10px';
-  const toIndentWidth = (/** @type {number} */ i) => { return `${i * 15 + 15}px` }
+  const toIndentWidth = (/** @type {number} */ i) => {
+    return `${i * 15 + 15}px`;
+  }
 
-  onMount(() => indentWidth = toIndentWidth(indent))
+  onMount(() => indentWidth = toIndentWidth(indent));
 
-  let popUpOrgChild, isSubmitted = false, popUpHeading = 'Add organization child';
-  let orgName = '', headTitle = '', orgState = 'add';
+  let popUpOrg;
+  let isSubmitted = false;
+  let popUpHeading = 'Add organization child';
 
-  const toggleAddOrEdit = (/** @type {string}*/ state, /** @type {string}*/  type) => {
-    if (state === 'add') orgState = 'add', orgName = '', headTitle = '', popUpHeading = 'Add '+type;
-    else orgState = 'edit', orgName = org.name, headTitle = org.headTitle, popUpHeading = 'Edit '+type+': '+org.name;
-    popUpOrgChild.show();
+  // Payload
+  let orgId         = 0;
+  let orgParentId   = 0;
+  let orgName       = '';
+  let orgHeadTitle  =  '';
+  let isEditOrg     = false;
+
+  const toggleAddOrEdit = (isEdit) => {
+    if (isEdit) {
+      isEditOrg = true;
+      orgId = org.id;
+      orgName = org.name;
+      orgHeadTitle = org.headTitle;
+      popUpHeading = 'Edit '+getOrgTypeStr(org.orgType)+': '+org.name;
+    } else {
+      isEditOrg = false;
+      orgName = '';
+      orgHeadTitle = '';
+      orgParentId = org.id;
+      popUpHeading = 'Add organization child';
+    }
+    popUpOrg.show();
   }
 
   async function SubmitUpsertOrg() {
     isSubmitted = true;
-    if (orgName === '' || headTitle === '') {
-      isSubmitted = false;
-      notifier.showWarning('fields cannot be empty');
-      return;
-    }
 
     /** @type Org */ //@ts-ignore
     let orgPayload = {
-      id: org.id,
+      id: orgId,
+      parentId: isEditOrg ? org.parentId : org.id,
       name: orgName,
-      headTitle: headTitle,
-      parentId: org.id,
+      headTitle: orgHeadTitle,
+    }
+
+    const i = {
+      cmd: 'upsert',
+      org: orgPayload
     }
     
-    await TenantAdminUpsertOrganizationChild( //@ts-ignore
-      { org: orgPayload }, /** @type {import('../jsApi.GEN').TenantAdminUpsertOrganizationChildCallback}*/
+    await TenantAdminOrganization( //@ts-ignore
+      i, /** @returns {Promise<void>}*/
       function (/** @type {any} */ o) {
         isSubmitted = false;
-        popUpOrgChild.hide();
+        popUpOrg.hide();
         if (o.error) {
           notifier.showError(o.error);
           console.log(o.error);
@@ -114,7 +138,8 @@
     );
   }
 
-  let isDragOver = false, isDragging = false;
+  let isDragOver = false;
+  let isDragging = false;
 
   const updateEventInfo = () => dispatch('info', { org: org });
 
@@ -127,54 +152,20 @@
     dispatch('moved', { org: org });
     isDragOver = false;
   };
-
-  async function deleteOrg() {
-    await TenantAdminDeleteOrganizationChild(
-      { id: Number(org.id) },
-      /** @type {import('../jsApi.GEN').TenantAdminDeleteOrganizationChildCallback}*/
-      function (/** @type {any} */ o) {
-        if (o.error) {
-          notifier.showError(o.error);
-          return;
-        }
-        /** @type {Array<Org>} */
-        const orgs = o.orgs;
-        dispatch('update', { orgs: orgs })
-        notifier.showSuccess(org.name + ' deleted');
-      }
-    )
-  }
-
-  async function restoreOrg() {
-    await TenantAdminRestoreOrganizationChild(
-      { id: Number(org.id) },
-      /** @type {import('../jsApi.GEN').TenantAdminRestoreOrganizationChildCallback}*/
-      function (/** @type {any} */ o) {
-        if (o.error) {
-          notifier.showError(o.error);
-          return;
-        }
-        /** @type {Array<Org>} */
-        const orgs = o.orgs;
-        dispatch('update', { orgs: orgs })
-        notifier.showSuccess(org.name + ' restored');
-      }
-    )
-  }
 </script>
 
-<PopUpOrgChild
-  bind:this={popUpOrgChild}
+<PopUpOrg
+  bind:this={popUpOrg}
   bind:isSubmitted={isSubmitted}
   bind:childName={orgName}
-  bind:headTitle={headTitle}
+  bind:headTitle={orgHeadTitle}
   bind:heading={popUpHeading}
   onSubmit={SubmitUpsertOrg}
 />
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
-  class="org {orgType} {isDragOver ? 'drag-over' : ''} {isDragging ? 'dragging' : ''}"
+  class="org {orgTypeStr} {isDragOver ? 'drag-over' : ''} {isDragging ? 'dragging' : ''}"
   style="--indent-width:{indentWidth};"
   draggable="true"
   on:dragstart={updateOnMoving}
@@ -198,7 +189,11 @@
     <!-- TODO: use org.deletedAt === 0 if tarantool v3 is fixed -->
     {#if org.deletedAt < 0}
       {#if org.orgType !== OrgTypeJob}
-        <button class="btn" title="Add child" on:click={() => toggleAddOrEdit('add', getOrgType(org.orgType))}>
+        <button
+          class="btn"
+          title="Add child"
+          on:click={() => toggleAddOrEdit(false)}
+        >
           <Icon
             color="var(--gray-006)"
             className="icon"
@@ -207,7 +202,10 @@
           />
         </button>
       {/if}
-      <button class="btn" title="Edit organization" on:click={() => toggleAddOrEdit('edit', getOrgType(org.orgType))}>
+      <button
+        class="btn"
+        title="Edit organization"
+        on:click={() => toggleAddOrEdit(true)}>
         <Icon
           color="var(--gray-006)"
           className="icon"
@@ -215,7 +213,7 @@
           src={RiDesignPencilLine}
         />
       </button>
-      <button class="btn" title="Delete organization" on:click={deleteOrg}>
+      <button class="btn" title="Delete organization">
         <Icon
           color="var(--gray-006)"
           className="icon"
@@ -232,7 +230,7 @@
         />
       </button>
     {:else}
-      <button class="btn" title="Rollback" on:click={restoreOrg}>
+      <button class="btn" title="Rollback">
         <Icon
           color="var(--gray-006)"
           className="icon"
