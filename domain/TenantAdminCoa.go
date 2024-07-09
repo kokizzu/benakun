@@ -102,7 +102,7 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 			case zCrud.CmdMove:
 				if parent.Id == in.ToParentId {
 					if len(parent.Children) >= 2 {
-						children, err := moveChildToIndex(parent.Children, in.Coa.Id, in.MoveToIdx)
+						children, err := moveChildToIndex(parent.Children, coa.Id, in.MoveToIdx)
 						if err != nil {
 							out.SetError(400, ``)
 							return
@@ -122,9 +122,9 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 						return
 					}
 
-					children := insertChildToIndex(toParent.Children, in.Coa.Id, in.MoveToIdx)
+					children := insertChildToIndex(toParent.Children, coa.Id, in.MoveToIdx)
 
-					coa.SetParentId(in.ToParentId)
+					coa.SetParentId(toParent.Id)
 					if !coa.DoUpdateById() {
 						out.SetError(400, ``)
 						return

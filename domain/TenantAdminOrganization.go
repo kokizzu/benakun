@@ -17,16 +17,16 @@ import (
 type (
 	TenantAdminOrganizationIn struct {
 		RequestCommon
-		Cmd        	string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		Org 				rqAuth.Orgs		`json:"org" form:"org" query:"org" long:"org" msg:"org"`
-		MoveToIdx  	int           `json:"moveToIdx" form:"moveToIdx" query:"moveToIdx" long:"moveToIdx" msg:"moveToIdx"`
-		ToParentId 	uint64        `json:"toParentId" form:"toParentId" query:"toParentId" long:"toParentId" msg:"toParentId"`
+		Cmd        string      `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
+		Org        rqAuth.Orgs `json:"org" form:"org" query:"org" long:"org" msg:"org"`
+		MoveToIdx  int         `json:"moveToIdx" form:"moveToIdx" query:"moveToIdx" long:"moveToIdx" msg:"moveToIdx"`
+		ToParentId uint64      `json:"toParentId" form:"toParentId" query:"toParentId" long:"toParentId" msg:"toParentId"`
 	}
 
 	TenantAdminOrganizationOut struct {
 		ResponseCommon
-		Org 	*rqAuth.Orgs		`json:"org" form:"org" query:"org" long:"org" msg:"org"`
-		Orgs	*[]rqAuth.Orgs `json:"orgs" form:"orgs" query:"orgs" long:"orgs" msg:"orgs"`
+		Org  *rqAuth.Orgs   `json:"org" form:"org" query:"org" long:"org" msg:"org"`
+		Orgs *[]rqAuth.Orgs `json:"orgs" form:"orgs" query:"orgs" long:"orgs" msg:"orgs"`
 	}
 )
 
@@ -90,15 +90,72 @@ func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out Ten
 
 			switch in.Cmd {
 			case zCrud.CmdUpsert:
-				// TODO
+				if in.Org.HeadTitle != org.HeadTitle {
+					org.SetHeadTitle(in.Org.HeadTitle)
+				}
+				if in.Org.Name != org.Name {
+					org.SetName(in.Org.Name)
+				}
 			case zCrud.CmdDelete:
-				// TODO
+				if org.DeletedAt == 0 {
+					org.SetDeletedAt(in.UnixNow())
+					org.SetDeletedBy(sess.UserId)
+				}
 			case zCrud.CmdRestore:
-				// TODO
+				if org.DeletedAt > 0 {
+					org.SetDeletedAt(0)
+					org.SetRestoredBy(sess.UserId)
+				}
 			case zCrud.CmdMove:
-				// TODO
+				if in.ToParentId == parent.Id {
+					if len(parent.Children) >= 2 {
+						children, err := moveChildToIndex(parent.Children, org.Id, in.MoveToIdx)
+						if err != nil {
+							out.SetError(400, err.Error())
+							return
+						}
+						parent.SetChildren(children)
+						if !parent.DoUpsertById() {
+							out.SetError(400, ``)
+							return
+						}
+					}
+				} else {
+					toParent := wcAuth.NewOrgsMutator(d.AuthOltp)
+					toParent.Id = in.ToParentId
+					if !toParent.FindById() {
+						out.SetError(400, ``)
+						return
+					}
+
+					children := insertChildToIndex(toParent.Children, org.Id, in.MoveToIdx)
+
+					org.SetParentId(toParent.Id)
+					if !org.DoUpdateById() {
+						out.SetError(400, ``)
+						return
+					}
+
+					children, err := removeChild(parent.Children, org.Id)
+					if err != nil {
+						out.SetError(400, err.Error())
+						return
+					}
+					parent.SetChildren(children)
+					if !parent.DoUpdateById() {
+						out.SetError(400, ``)
+						return
+					}
+				}
 			}
 		} else {
+			if in.Org.HeadTitle != `` {
+				org.SetHeadTitle(in.Org.HeadTitle)
+			}
+			if in.Org.Name != `` {
+				org.SetName(in.Org.Name)
+			}
+
 			org.SetTenantCode(tenant.TenantCode)
 		}
 
