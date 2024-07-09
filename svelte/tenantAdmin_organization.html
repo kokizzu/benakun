@@ -3365,9 +3365,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminDashboard = async function TenantAdminDashboard(i, cb) {
         return await axios.post("/tenantAdmin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminDeleteOrganizationChild = async function TenantAdminDeleteOrganizationChild2(i, cb) {
-        return await axios.post("/tenantAdmin/deleteOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
       exports.TenantAdminInventoryChanges = async function TenantAdminInventoryChanges(i, cb) {
         return await axios.post("/tenantAdmin/inventoryChanges", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -3380,23 +3377,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminMoveOrganizationChild = async function TenantAdminMoveOrganizationChild2(i, cb) {
         return await axios.post("/tenantAdmin/moveOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminOrganization = async function TenantAdminOrganization(i, cb) {
+      exports.TenantAdminOrganization = async function TenantAdminOrganization2(i, cb) {
         return await axios.post("/tenantAdmin/organization", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminProducts = async function TenantAdminProducts(i, cb) {
         return await axios.post("/tenantAdmin/products", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.TenantAdminRestoreOrganizationChild = async function TenantAdminRestoreOrganizationChild2(i, cb) {
-        return await axios.post("/tenantAdmin/restoreOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminTransaction = async function TenantAdminTransaction(i, cb) {
         return await axios.post("/tenantAdmin/transaction", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminTransactionTemplate = async function TenantAdminTransactionTemplate(i, cb) {
         return await axios.post("/tenantAdmin/transactionTemplate", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.TenantAdminUpsertOrganizationChild = async function TenantAdminUpsertOrganizationChild2(i, cb) {
-        return await axios.post("/tenantAdmin/updateOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -7539,20 +7530,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var OrgTypeJob = 4;
   function instance9($self, $props, $invalidate) {
     const dispatch = createEventDispatcher();
-    let { org = {
-      id: "",
-      name: "",
-      headTitle: "",
-      orgType: 0,
-      parentId: "",
-      tenantCode: "",
-      createdAt: 0,
-      createdBy: "",
-      updatedAt: 0,
-      updatedBy: "",
-      deletedAt: 0,
-      children: []
-    } } = $props;
+    let { org = (
+      /** @type Org */
+      {}
+    ) } = $props;
     let orgType = "company", orgIcon = RiBuildingsCommunityLine;
     switch (org.orgType) {
       case OrgTypeCompany: {
@@ -7626,7 +7607,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         headTitle,
         parentId: org.id
       };
-      await (0, import_jsApi.TenantAdminUpsertOrganizationChild)(
+      await TenantAdminUpsertOrganizationChild(
         //@ts-ignore
         { org: orgPayload },
         /** @type {import('../jsApi.GEN').TenantAdminUpsertOrganizationChildCallback}*/
@@ -7658,7 +7639,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       $invalidate(9, isDragOver = false);
     };
     async function deleteOrg() {
-      await (0, import_jsApi.TenantAdminDeleteOrganizationChild)(
+      await TenantAdminDeleteOrganizationChild(
         { id: Number(org.id) },
         /** @type {import('../jsApi.GEN').TenantAdminDeleteOrganizationChildCallback}*/
         function(o) {
@@ -7673,7 +7654,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       );
     }
     async function restoreOrg() {
-      await (0, import_jsApi.TenantAdminRestoreOrganizationChild)(
+      await TenantAdminRestoreOrganizationChild(
         { id: Number(org.id) },
         /** @type {import('../jsApi.GEN').TenantAdminRestoreOrganizationChildCallback}*/
         function(o) {

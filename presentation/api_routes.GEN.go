@@ -300,7 +300,6 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
-
 	// UserAutoLoginLink
 	fw.Post("/"+domain.UserAutoLoginLinkAction, func(c *fiber.Ctx) error {
 		in := domain.UserAutoLoginLinkIn{}

@@ -1922,47 +1922,6 @@
 				}
 			}
 		},
-		"/tenantAdmin/deleteOrganizationChild": {
-			"post": {
-				"security": [{
-					"CookieAuth": []
-				}],
-				"tags": ["API"],
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-						"id": {
-								"type": "number"
-						}
-								}
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "TenantAdminDeleteOrganizationChild",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"orgs": {
-										"type": "object",
-										"properties": {
-												}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/tenantAdmin/inventoryChanges": {
 		"/tenantAdmin/inventoryChanges/": {
 			"post": {
@@ -2474,6 +2433,12 @@
 												},
 												"deletedAt": {
 														"type": "number"
+												},
+												"deletedBy": {
+														"type": "number"
+												},
+												"restoredBy": {
+														"type": "number"
 												}
 												}
 										},
@@ -2502,6 +2467,64 @@
 							"schema": {
 								"type": "object",
 								"properties": {
+						"cmd": {
+								"type": "string"
+						},
+						"org": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"name": {
+										"type": "string"
+								},
+								"headTitle": {
+										"type": "string"
+								},
+								"parentId": {
+										"type": "number"
+								},
+								"children": {
+								"type": "object",
+								"properties": {
+										}
+								},
+								"orgType": {
+										"type": "number"
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"deletedBy": {
+										"type": "number"
+								},
+								"restoredBy": {
+										"type": "number"
+								}
+								}
+						},
+						"moveToIdx": {
+								"type": "number"
+						},
+						"toParentId": {
+								"type": "number"
+						}
 								}
 							}
 						}
@@ -2515,6 +2538,55 @@
 								"schema": {
 									"type": "object",
 									"properties": {
+										"org": {
+										"type": "object",
+										"properties": {
+												"id": {
+														"type": "number"
+												},
+												"tenantCode": {
+														"type": "string"
+												},
+												"name": {
+														"type": "string"
+												},
+												"headTitle": {
+														"type": "string"
+												},
+												"parentId": {
+														"type": "number"
+												},
+												"children": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"orgType": {
+														"type": "number"
+												},
+												"createdAt": {
+														"type": "number"
+												},
+												"createdBy": {
+														"type": "number"
+												},
+												"updatedAt": {
+														"type": "number"
+												},
+												"updatedBy": {
+														"type": "number"
+												},
+												"deletedAt": {
+														"type": "number"
+												},
+												"deletedBy": {
+														"type": "number"
+												},
+												"restoredBy": {
+														"type": "number"
+												}
+												}
+										},
 										"orgs": {
 										"type": "object",
 										"properties": {
@@ -2734,47 +2806,6 @@
 				}
 			}
 		},
-		"/tenantAdmin/restoreOrganizationChild": {
-			"post": {
-				"security": [{
-					"CookieAuth": []
-				}],
-				"tags": ["API"],
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-						"id": {
-								"type": "number"
-						}
-								}
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "TenantAdminRestoreOrganizationChild",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"orgs": {
-										"type": "object",
-										"properties": {
-												}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
 		"/tenantAdmin/transaction": {
 			"post": {
 				"security": [{
@@ -2822,31 +2853,6 @@
 								"properties": {
 						"cmd": {
 								"type": "string"
-						},
-						"withMeta": {
-							"type": "boolean"
-						},
-						"pager": {
-						"type": "object",
-						"properties": {
-								"page": {
-										"type": "number"
-								},
-								"perPage": {
-										"type": "number"
-								},
-								"filters": {
-								"type": "object",
-								"properties": {
-										}
-								},
-								"order": {
-										"type": "array",
-											"items": {
-												"type": "string"
-											}
-										}
-								}
 						},
 						"transactionTemplate": {
 						"type": "object",
@@ -2902,52 +2908,6 @@
 								"schema": {
 									"type": "object",
 									"properties": {
-										"pager": {
-										"type": "object",
-										"properties": {
-												"page": {
-														"type": "number"
-												},
-												"perPage": {
-														"type": "number"
-												},
-												"pages": {
-														"type": "number"
-												},
-												"total": {
-														"type": "number"
-												},
-												"filters": {
-												"type": "object",
-												"properties": {
-														}
-												},
-												"order": {
-														"type": "array",
-															"items": {
-																"type": "string"
-															}
-														}
-												}
-										},
-										"meta": {
-										"type": "object",
-										"properties": {
-												"fields": {
-												"type": "object",
-												"properties": {
-														}
-												},
-												"mutex": {
-												"type": "object",
-												"properties": {
-														}
-												},
-												"cachedSelect": {
-														"type": "string"
-												}
-												}
-										},
 										"transactionTemplates": {
 										"type": "object",
 										"properties": {
@@ -2992,129 +2952,6 @@
 												"restoredBy": {
 														"type": "number"
 												}
-												}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-			"post": {
-				"security": [{
-					"CookieAuth": []
-				}],
-				"tags": ["API"],
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-						"org": {
-						"type": "object",
-						"properties": {
-								"id": {
-										"type": "number"
-								},
-								"tenantCode": {
-										"type": "string"
-								},
-								"name": {
-										"type": "string"
-								},
-								"headTitle": {
-										"type": "string"
-								},
-								"parentId": {
-										"type": "number"
-								},
-								"children": {
-								"type": "object",
-								"properties": {
-										}
-								},
-								"orgType": {
-										"type": "number"
-								},
-								"createdAt": {
-										"type": "number"
-								},
-								"createdBy": {
-										"type": "number"
-								},
-								"updatedAt": {
-										"type": "number"
-								},
-								"updatedBy": {
-										"type": "number"
-								},
-								"deletedAt": {
-										"type": "number"
-								}
-								}
-						}
-								}
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "TenantAdminUpsertOrganizationChild",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-										"org": {
-										"type": "object",
-										"properties": {
-												"id": {
-														"type": "number"
-												},
-												"tenantCode": {
-														"type": "string"
-												},
-												"name": {
-														"type": "string"
-												},
-												"headTitle": {
-														"type": "string"
-												},
-												"parentId": {
-														"type": "number"
-												},
-												"children": {
-												"type": "object",
-												"properties": {
-														}
-												},
-												"orgType": {
-														"type": "number"
-												},
-												"createdAt": {
-														"type": "number"
-												},
-												"createdBy": {
-														"type": "number"
-												},
-												"updatedAt": {
-														"type": "number"
-												},
-												"updatedBy": {
-														"type": "number"
-												},
-												"deletedAt": {
-														"type": "number"
-												}
-												}
-										},
-										"orgs": {
-										"type": "object",
-										"properties": {
 												}
 										}
 									}
@@ -3258,6 +3095,12 @@
 								},
 								"deletedAt": {
 										"type": "number"
+								},
+								"deletedBy": {
+										"type": "number"
+								},
+								"restoredBy": {
+										"type": "number"
 								}
 								}
 						}
@@ -3316,6 +3159,12 @@
 														"type": "number"
 												},
 												"deletedAt": {
+														"type": "number"
+												},
+												"deletedBy": {
+														"type": "number"
+												},
+												"restoredBy": {
 														"type": "number"
 												}
 												}

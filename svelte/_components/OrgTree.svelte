@@ -1,4 +1,6 @@
 <script>
+  /** @typedef {import('./types/organization.js').Org} Org */
+
 	import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import {
     RiBuildingsCommunityLine,
@@ -13,34 +15,15 @@
    } from '../node_modules/svelte-icons-pack/dist/ri';
   import { onMount, createEventDispatcher } from 'svelte';
   import PopUpOrgChild from './PopUpOrgChild.svelte';
-  import {
-    TenantAdminUpsertOrganizationChild,
-    TenantAdminDeleteOrganizationChild,
-    TenantAdminRestoreOrganizationChild
-  } from '../jsApi.GEN';
+  import { TenantAdminOrganization } from '../jsApi.GEN';
   import { notifier } from './notifier';
 
   const dispatch = createEventDispatcher();
-
-  /** @typedef {import('./types/organization.js').Org} Org */
   
-  /** @type Org */
-  export let org = {
-    id: '',
-    name: '',
-    headTitle: '',
-    orgType: 0,
-    parentId: '',
-    tenantCode: '',
-    createdAt: 0,
-    createdBy: '',
-    updatedAt: 0,
-    updatedBy: '',
-    deletedAt: 0,
-    children: []
-  }
+  export let org = /** @type Org */ ({});
 
-  let orgType = 'company', orgIcon = RiBuildingsCommunityLine
+  let orgType = 'company', orgIcon = RiBuildingsCommunityLine;
+
   let OrgTypeCompany = 1, OrgTypeDept = 2, OrgTypeDivision = 3, OrgTypeJob = 4;
   switch (org.orgType) {
     case OrgTypeCompany: {
@@ -96,7 +79,7 @@
     popUpOrgChild.show();
   }
 
-  async function submitAddOrgChild() {
+  async function SubmitUpsertOrg() {
     isSubmitted = true;
     if (orgName === '' || headTitle === '') {
       isSubmitted = false;
@@ -106,7 +89,7 @@
 
     /** @type Org */ //@ts-ignore
     let orgPayload = {
-      id: orgState == 'edit' ? org.id : '0',
+      id: org.id,
       name: orgName,
       headTitle: headTitle,
       parentId: org.id,
@@ -186,7 +169,7 @@
   bind:childName={orgName}
   bind:headTitle={headTitle}
   bind:heading={popUpHeading}
-  onSubmit={submitAddOrgChild}
+  onSubmit={SubmitUpsertOrg}
 />
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->

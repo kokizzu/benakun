@@ -3070,9 +3070,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminDashboard = async function TenantAdminDashboard(i, cb) {
         return await axios.post("/tenantAdmin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminDeleteOrganizationChild = async function TenantAdminDeleteOrganizationChild(i, cb) {
-        return await axios.post("/tenantAdmin/deleteOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
       exports.TenantAdminInventoryChanges = async function TenantAdminInventoryChanges(i, cb) {
         return await axios.post("/tenantAdmin/inventoryChanges", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -3091,17 +3088,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminProducts = async function TenantAdminProducts(i, cb) {
         return await axios.post("/tenantAdmin/products", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminRestoreOrganizationChild = async function TenantAdminRestoreOrganizationChild(i, cb) {
-        return await axios.post("/tenantAdmin/restoreOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
       exports.TenantAdminTransaction = async function TenantAdminTransaction(i, cb) {
         return await axios.post("/tenantAdmin/transaction", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminTransactionTemplate = async function TenantAdminTransactionTemplate(i, cb) {
         return await axios.post("/tenantAdmin/transactionTemplate", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.TenantAdminUpsertOrganizationChild = async function TenantAdminUpsertOrganizationChild(i, cb) {
-        return await axios.post("/tenantAdmin/updateOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
         return await axios.post("/user/autoLoginLink", i).then(wrapOk(cb)).catch(wrapErr(cb));
