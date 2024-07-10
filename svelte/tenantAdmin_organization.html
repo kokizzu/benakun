@@ -3070,10 +3070,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminLocations = async function TenantAdminLocations(i, cb) {
         return await axios.post("/tenantAdmin/locations", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminMoveOrganizationChild = async function TenantAdminMoveOrganizationChild2(i, cb) {
-        return await axios.post("/tenantAdmin/moveOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.TenantAdminOrganization = async function TenantAdminOrganization2(i, cb) {
+      exports.TenantAdminOrganization = async function TenantAdminOrganization3(i, cb) {
         return await axios.post("/tenantAdmin/organization", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminProducts = async function TenantAdminProducts(i, cb) {
@@ -7827,13 +7824,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         return console.log(`CANNOT MOVE ${orgMoving.id} TO ${parentOrg.id} - WRONG ORG TYPE`);
       if (parentOrg.id == orgMoving.parentId)
         return;
-      await (0, import_jsApi2.TenantAdminMoveOrganizationChild)(
-        {
+      const i = {
+        cmd: "move",
+        org: {
           id: Number(orgMoving.id),
-          moveToIdx: 0,
-          toParentId: Number(parentOrg.id)
+          parentId: Number(orgMoving.parentId)
         },
-        /** @type {import('./jsApi.GEN').TenantAdminMoveOrganizationChildCallback}*/
+        moveToIdx: 0,
+        toParentId: Number(parentOrg.id)
+      };
+      await (0, import_jsApi2.TenantAdminOrganization)(
+        // @ts-ignore
+        i,
+        /** @returns {Promise<void>}*/
         function(o) {
           if (o.error) {
             notifier.showError(o.error);

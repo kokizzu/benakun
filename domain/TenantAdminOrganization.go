@@ -72,15 +72,20 @@ func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out Ten
 			return
 		}
 
-		parent := wcAuth.NewOrgsMutator(d.AuthOltp)
-		parent.Id = in.Org.ParentId
-		if !parent.FindById() {
-			out.SetError(400, ErrTenantAdminOrganizationParentNotFound)
-			return
-		}
-
 		org := wcAuth.NewOrgsMutator(d.AuthOltp)
 		org.Id = in.Org.Id
+
+		var parent *wcAuth.OrgsMutator
+
+		if in.Org.ParentId > 0 {
+			parent = wcAuth.NewOrgsMutator(d.AuthOltp)
+			parent.Id = in.Org.ParentId
+			if !parent.FindById() {
+				out.SetError(400, ErrTenantAdminOrganizationParentNotFound)
+				return
+			}
+		}
+
 		if org.Id > 0 {
 			if !org.FindById() {
 				out.SetError(400, ErrTenantAdminOrganizationNotFound)
@@ -153,7 +158,6 @@ func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out Ten
 				}
 			}
 		} else {
-
 			switch parent.OrgType {
 			case mAuth.OrgTypeCompany:
 				org.SetOrgType(mAuth.OrgTypeDept)
@@ -192,14 +196,22 @@ func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out Ten
 		}
 
 		if in.Org.Id <= 0 {
-			children := parent.Children
-			children = append(children, org.Id)
-			parent.SetChildren(children)
-			parent.SetUpdatedAt(in.UnixNow())
-			parent.SetUpdatedBy(sess.UserId)
-			if !parent.DoUpdateById() {
-				out.SetError(400, ErrTenantAdminOrganizationUpdatedParentForOrganization)
-				return
+			if in.Org.ParentId > 0 {
+				children := parent.Children
+				children = append(children, org.Id)
+				parent.SetChildren(children)
+				parent.SetUpdatedAt(in.UnixNow())
+				parent.SetUpdatedBy(sess.UserId)
+				if !parent.DoUpdateById() {
+					out.SetError(400, ErrTenantAdminOrganizationUpdatedParentForOrganization)
+					return
+				}
+
+				org.SetParentId(parent.Id)
+				if !org.DoUpsertById() {
+					out.SetError(400, ErrTenantAdminOrganizationUpdatedChilds)
+					return
+				}
 			}
 		}
 

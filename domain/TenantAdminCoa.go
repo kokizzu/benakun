@@ -5,8 +5,6 @@ import (
 	"benakun/model/mFinance/rqFinance"
 	"benakun/model/mFinance/wcFinance"
 	"benakun/model/zCrud"
-
-	"github.com/gofiber/fiber/v2"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminCoa.go
@@ -48,7 +46,7 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 	user := wcAuth.NewUsersMutator(d.AuthOltp)
 	user.Id = sess.UserId
 	if !user.FindById() {
-		out.SetError(fiber.StatusBadRequest, ErrTenantAdminCoaUnauthorized)
+		out.SetError(400, ErrTenantAdminCoaUnauthorized)
 		return
 	}
 
@@ -62,7 +60,11 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 			return
 		}
 
+		coa := wcFinance.NewCoaMutator(d.AuthOltp)
+		coa.Id = in.Coa.Id
+
 		var parent *wcFinance.CoaMutator
+
 		if in.Coa.ParentId > 0 {
 			parent = wcFinance.NewCoaMutator(d.AuthOltp)
 			parent.Id = in.Coa.ParentId
@@ -72,8 +74,6 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 			}
 		}
 
-		coa := wcFinance.NewCoaMutator(d.AuthOltp)
-		coa.Id = in.Coa.Id
 		if coa.Id > 0 {
 			if !coa.FindById() {
 				out.SetError(400, ``)
@@ -173,6 +173,26 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 		if !coa.DoUpsertById() {
 			out.SetError(400, ``)
 			return
+		}
+
+		if in.Coa.Id <= 0 {
+			if in.Coa.ParentId > 0 {
+				children := parent.Children
+				children = append(children, coa.Id)
+				parent.SetChildren(children)
+				parent.SetUpdatedAt(in.UnixNow())
+				parent.SetUpdatedBy(sess.UserId)
+				if !parent.DoUpdateById() {
+					out.SetError(400, ErrTenantAdminOrganizationUpdatedParentForOrganization)
+					return
+				}
+
+				coa.SetParentId(parent.Id)
+				if !coa.DoUpsertById() {
+					out.SetError(400, ``)
+					return
+				}
+			}
 		}
 
 		out.Coa = &coa.Coa

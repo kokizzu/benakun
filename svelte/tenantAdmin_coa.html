@@ -974,7 +974,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 }
 
 /* fakecss:./tenantAdmin_coa.esbuild-svelte-fake-css */
-.coa_levels.svelte-1q38aa2.svelte-1q38aa2 {
+.coa_levels.svelte-1ls65ll.svelte-1ls65ll {
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
@@ -984,13 +984,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   overflow: hidden;
   padding: 15px 15px 20px;
 }
-.coa_levels.svelte-1q38aa2 .header_options.svelte-1q38aa2 {
+.coa_levels.svelte-1ls65ll .header_options.svelte-1ls65ll {
   display: flex;
   flex-direction: row-reverse;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--gray-003);
 }
-.coa_levels.svelte-1q38aa2 .header_options .add.svelte-1q38aa2 {
+.coa_levels.svelte-1ls65ll .header_options .add.svelte-1ls65ll {
   border: none;
   padding: 10px 20px;
   border-radius: 8px;
@@ -999,47 +999,49 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   font-size: var(--font-lg);
   cursor: pointer;
 }
-.coa_levels.svelte-1q38aa2 .header_options .add.svelte-1q38aa2:hover {
+.coa_levels.svelte-1ls65ll .header_options .add.svelte-1ls65ll:hover {
   background-color: var(--blue-005);
 }
-.coa_levels.svelte-1q38aa2 .coa.svelte-1q38aa2 {
+.coa_levels.svelte-1ls65ll .coa.svelte-1ls65ll {
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-.coa_levels.svelte-1q38aa2 .coa .parent.svelte-1q38aa2 {
+.coa_levels.svelte-1ls65ll .coa .parent.svelte-1ls65ll {
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   gap: 20px;
   align-items: center;
   font-size: 22px;
   font-weight: 700;
   color: var(--blue-006);
-  padding: 10px 10px 10px 15px;
+  padding: 10px 0 10px 15px;
 }
-.coa_levels.svelte-1q38aa2 .coa .parent h5.svelte-1q38aa2 {
+.coa_levels.svelte-1ls65ll .coa .parent h5.svelte-1ls65ll {
   font-size: 18px;
   line-height: 2.2rem;
   margin: 0;
   user-select: none;
 }
-.coa_levels.svelte-1q38aa2 .coa .parent h5 .label.svelte-1q38aa2 {
+.coa_levels.svelte-1ls65ll .coa .parent h5 .label.svelte-1ls65ll {
   font-size: 14px;
   padding: 3px 7px;
   background-color: var(--blue-006);
   color: #FFF;
   border-radius: 9999px;
 }
-.coa_levels.svelte-1q38aa2 .coa .parent:hover .options.svelte-1q38aa2 {
+.coa_levels.svelte-1ls65ll .coa .parent .options.svelte-1ls65ll {
   display: flex;
+  padding-right: 10px;
 }
-.coa_levels.svelte-1q38aa2 .coa .options.svelte-1q38aa2 {
+.coa_levels.svelte-1ls65ll .coa .options.svelte-1ls65ll {
   display: none;
   flex-direction: row;
   align-items: center;
 }
-.coa_levels.svelte-1q38aa2 .coa .options .btn.svelte-1q38aa2 {
+.coa_levels.svelte-1ls65ll .coa .options .btn.svelte-1ls65ll {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1049,17 +1051,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   padding: 5px;
   cursor: pointer;
 }
-.coa_levels.svelte-1q38aa2 .coa .options .btn.svelte-1q38aa2:hover {
+.coa_levels.svelte-1ls65ll .coa .options .btn.svelte-1ls65ll:hover {
   background-color: var(--gray-002);
 }
-.coa_levels.svelte-1q38aa2 .coa .options .btn.svelte-1q38aa2:active {
+.coa_levels.svelte-1ls65ll .coa .options .btn.svelte-1ls65ll:active {
   background-color: var(--gray-003);
 }
-.coa_levels.svelte-1q38aa2 .coa .children.svelte-1q38aa2 {
+.coa_levels.svelte-1ls65ll .coa .children.svelte-1ls65ll {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding: 0 20px 0 10px;
+  padding: 0 0 0 10px;
 }
 </style>
 <script>(() => {
@@ -1719,9 +1721,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
          *
          * @returns {Boolean} `true` if the interceptor was removed, `false` otherwise
          */
-        eject(id2) {
-          if (this.handlers[id2]) {
-            this.handlers[id2] = null;
+        eject(id) {
+          if (this.handlers[id]) {
+            this.handlers[id] = null;
           }
         }
         /**
@@ -2560,22 +2562,22 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           const rejectedReasons = {};
           for (let i = 0; i < length; i++) {
             nameOrAdapter = adapters2[i];
-            let id2;
+            let id;
             adapter = nameOrAdapter;
             if (!isResolvedHandle(nameOrAdapter)) {
-              adapter = knownAdapters[(id2 = String(nameOrAdapter)).toLowerCase()];
+              adapter = knownAdapters[(id = String(nameOrAdapter)).toLowerCase()];
               if (adapter === void 0) {
-                throw new AxiosError(`Unknown adapter '${id2}'`);
+                throw new AxiosError(`Unknown adapter '${id}'`);
               }
             }
             if (adapter) {
               break;
             }
-            rejectedReasons[id2 || "#" + i] = adapter;
+            rejectedReasons[id || "#" + i] = adapter;
           }
           if (!adapter) {
             const reasons = Object.entries(rejectedReasons).map(
-              ([id2, state]) => `adapter ${id2} ` + (state === false ? "is not supported by the environment" : "is not available in the build")
+              ([id, state]) => `adapter ${id} ` + (state === false ? "is not supported by the environment" : "is not available in the build")
             );
             let s = length ? reasons.length > 1 ? "since :\n" + reasons.map(renderReason).join("\n") : " " + renderReason(reasons[0]) : "as no adapter specified";
             throw new AxiosError(
@@ -3196,9 +3198,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       };
       exports.TenantAdminLocations = async function TenantAdminLocations(i, cb) {
         return await axios.post("/tenantAdmin/locations", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.TenantAdminMoveOrganizationChild = async function TenantAdminMoveOrganizationChild(i, cb) {
-        return await axios.post("/tenantAdmin/moveOrganizationChild", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminOrganization = async function TenantAdminOrganization(i, cb) {
         return await axios.post("/tenantAdmin/organization", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -6472,7 +6471,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   }
   function instance2($self, $props, $invalidate) {
     let { type = "text" } = $props;
-    let { id: id2 } = $props;
+    let { id } = $props;
     let { value } = $props;
     let { values = [] } = $props;
     let { label } = $props;
@@ -6563,7 +6562,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       if ("type" in $props2)
         $invalidate(1, type = $props2.type);
       if ("id" in $props2)
-        $invalidate(2, id2 = $props2.id);
+        $invalidate(2, id = $props2.id);
       if ("value" in $props2)
         $invalidate(0, value = $props2.value);
       if ("values" in $props2)
@@ -6578,7 +6577,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     return [
       value,
       type,
-      id2,
+      id,
       values,
       label,
       placeholder,
@@ -7727,13 +7726,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     onMount(() => $invalidate(4, indentWidth = toIndentWidth(indent)));
     let popUpCoa;
-    let id2 = 0, parentId2 = 0;
+    let id = 0, parentId = 0;
     let name = "", label = "";
     let isSubmitted = false;
     let heading = "Add CoA child";
     async function submitUpsertCoa() {
       $invalidate(8, isSubmitted = true);
-      const coa2 = { id: id2, parentId: parentId2, name, label };
+      const coa2 = { id, parentId, name, label };
       const i = { cmd: "upsert", coa: coa2 };
       await (0, import_jsApi.TenantAdminCoa)(
         // @ts-ignore
@@ -7757,15 +7756,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       if (ids != 0) {
         $invalidate(9, heading = "Edit CoA");
       }
-      id2 = ids;
-      parentId2 = parentIds;
+      id = ids;
+      parentId = parentIds;
       $invalidate(6, name = names);
       $invalidate(7, label = labels);
       popUpCoa.show();
     }
     async function deleteCoaChild() {
       $invalidate(8, isSubmitted = true);
-      const i = { cmd: "delete", coa: { id: id2 } };
+      const i = { cmd: "delete", coa: { id } };
       await (0, import_jsApi.TenantAdminCoa)(
         // @ts-ignore
         i,
@@ -7786,7 +7785,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     async function restoreCoaChild() {
       $invalidate(8, isSubmitted = true);
-      const i = { cmd: "restore", coa: { id: id2 } };
+      const i = { cmd: "restore", coa: { id } };
       await (0, import_jsApi.TenantAdminCoa)(
         // @ts-ignore
         i,
@@ -9238,14 +9237,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // tenantAdmin_coa.svelte
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[17] = list[i];
-    child_ctx[19] = i;
+    child_ctx[19] = list[i];
+    child_ctx[21] = i;
     return child_ctx;
   }
   function get_each_context_12(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[20] = list[i];
-    child_ctx[22] = i;
+    child_ctx[22] = list[i];
+    child_ctx[24] = i;
     return child_ctx;
   }
   function create_if_block5(ctx) {
@@ -9255,11 +9254,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     let each_value_1 = ensure_array_like(
       /*c*/
-      ctx[17].children
+      ctx[19].children
     );
     const get_key = (ctx2) => (
       /*cc*/
-      ctx2[20].id
+      ctx2[22].id
     );
     for (let i = 0; i < each_value_1.length; i += 1) {
       let child_ctx = get_each_context_12(ctx, each_value_1, i);
@@ -9272,7 +9271,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(div, "class", "children svelte-1q38aa2");
+        attr(div, "class", "children svelte-1ls65ll");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -9288,7 +9287,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         33) {
           each_value_1 = ensure_array_like(
             /*c*/
-            ctx2[17].children
+            ctx2[19].children
           );
           group_outros();
           each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value_1, each_1_lookup, div, outro_and_destroy_block, create_each_block_12, null, get_each_context_12);
@@ -9327,13 +9326,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       props: {
         coa: (
           /*cc*/
-          ctx[20]
+          ctx[22]
         ),
         num: `${/*idx*/
-        ctx[22] + 1}`,
+        ctx[24] + 1}`,
         parentNum: (
           /*idxParent*/
-          ctx[19] + 1
+          ctx[21] + 1
         ),
         indent: 1
       }
@@ -9362,15 +9361,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (dirty & /*REFORMAT_COAS*/
         1)
           coatree_changes.coa = /*cc*/
-          ctx[20];
+          ctx[22];
         if (dirty & /*REFORMAT_COAS*/
         1)
           coatree_changes.num = `${/*idx*/
-          ctx[22] + 1}`;
+          ctx[24] + 1}`;
         if (dirty & /*REFORMAT_COAS*/
         1)
           coatree_changes.parentNum = /*idxParent*/
-          ctx[19] + 1;
+          ctx[21] + 1;
         coatree.$set(coatree_changes);
       },
       i(local) {
@@ -9398,13 +9397,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let span;
     let t0_value = (
       /*idxParent*/
-      ctx[19] + 1 + ""
+      ctx[21] + 1 + ""
     );
     let t0;
     let t1;
     let t2_value = (
       /*c*/
-      ctx[17].name + ""
+      ctx[19].name + ""
     );
     let t2;
     let t3;
@@ -9429,14 +9428,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         /*click_handler_1*/
         ctx[13](
           /*c*/
-          ctx[17]
+          ctx[19]
         )
       );
     }
     let if_block = (
       /*c*/
-      ctx[17].children && /*c*/
-      ctx[17].children.length && create_if_block5(ctx)
+      ctx[19].children && /*c*/
+      ctx[19].children.length && create_if_block5(ctx)
     );
     return {
       key: key_1,
@@ -9457,13 +9456,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (if_block)
           if_block.c();
         t5 = space();
-        attr(span, "class", "label svelte-1q38aa2");
-        attr(h5, "class", "svelte-1q38aa2");
-        attr(button, "class", "btn svelte-1q38aa2");
+        attr(span, "class", "label svelte-1ls65ll");
+        attr(h5, "class", "svelte-1ls65ll");
+        attr(button, "class", "btn svelte-1ls65ll");
         attr(button, "title", "Add CoA child");
-        attr(div0, "class", "options svelte-1q38aa2");
-        attr(div1, "class", "parent svelte-1q38aa2");
-        attr(div2, "class", "coa svelte-1q38aa2");
+        attr(div0, "class", "options svelte-1ls65ll");
+        attr(div1, "class", "parent svelte-1ls65ll");
+        attr(div2, "class", "coa svelte-1ls65ll");
         this.first = div2;
       },
       m(target, anchor) {
@@ -9492,16 +9491,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         ctx = new_ctx;
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t0_value !== (t0_value = /*idxParent*/
-        ctx[19] + 1 + ""))
+        ctx[21] + 1 + ""))
           set_data(t0, t0_value);
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t2_value !== (t2_value = /*c*/
-        ctx[17].name + ""))
+        ctx[19].name + ""))
           set_data(t2, t2_value);
         if (
           /*c*/
-          ctx[17].children && /*c*/
-          ctx[17].children.length
+          ctx[19].children && /*c*/
+          ctx[19].children.length
         ) {
           if (if_block) {
             if_block.p(ctx, dirty);
@@ -9563,7 +9562,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     const get_key = (ctx2) => (
       /*c*/
-      ctx2[17].id
+      ctx2[19].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context3(ctx, each_value, i);
@@ -9580,9 +9579,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(button, "class", "add svelte-1q38aa2");
-        attr(div0, "class", "header_options svelte-1q38aa2");
-        attr(div1, "class", "coa_levels shadow svelte-1q38aa2");
+        attr(button, "class", "add svelte-1ls65ll");
+        attr(div0, "class", "header_options svelte-1ls65ll");
+        attr(div1, "class", "coa_levels shadow svelte-1ls65ll");
       },
       m(target, anchor) {
         insert(target, div1, anchor);
@@ -9734,7 +9733,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         popupcoa.$set(popupcoa_changes);
         const mainlayout_changes = {};
         if (dirty & /*$scope, REFORMAT_COAS*/
-        8388609) {
+        33554433) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -9761,8 +9760,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  var id = 0;
-  var parentId = 0;
   function instance10($self, $props, $invalidate) {
     let coas = (
       /** @type CoA[] */
@@ -9837,6 +9834,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       $invalidate(0, REFORMAT_COAS = reformatCoas());
     }
     let popUpCoa;
+    let id = 0, parentId = 0;
     let name = "", label = "";
     let isSubmittedCoA = false;
     async function submitUpsertCoa() {
@@ -9850,6 +9848,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         /** @returns {Promise<void>} */
         function(o) {
           $invalidate(4, isSubmittedCoA = false);
+          id = 0, parentId = 0, $invalidate(2, name = ""), $invalidate(3, label = "");
           popUpCoa.hide();
           if (o.error) {
             console.log(o);
@@ -9863,9 +9862,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
       );
     }
-    function toggleShowPopUpCoa(id2, parentId2, name2, label2) {
-      id2 = id2;
-      parentId2 = parentId2;
+    function toggleShowPopUpCoa(idz, parentIdz, name2, label2) {
+      id = idz;
+      parentId = parentIdz;
       name2 = name2;
       label2 = label2;
       popUpCoa.show();
@@ -9892,7 +9891,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       toggleShowPopUpCoa(0, 0, "", "");
     };
     const click_handler_1 = (c) => {
-      toggleShowPopUpCoa(0, c.parentId, c.name, c.label);
+      toggleShowPopUpCoa(0, c.id, c.name, c.label);
     };
     return [
       REFORMAT_COAS,

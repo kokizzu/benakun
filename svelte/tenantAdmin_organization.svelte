@@ -2,7 +2,7 @@
   import MainLayout from './_layouts/mainLayout.svelte';
   import { onMount } from 'svelte';
   import OrgTree from './_components/OrgTree.svelte';
-  import { TenantAdminMoveOrganizationChild } from './jsApi.GEN';
+  import { TenantAdminOrganization } from './jsApi.GEN';
   import { notifier } from './_components/notifier';
 
   /** @typedef {import('./_components/types/organization').Org} Org */
@@ -113,9 +113,17 @@
     if (parentOrg.orgType !== orgMoving.orgType-1) return console.log(`CANNOT MOVE ${orgMoving.id} TO ${parentOrg.id} - WRONG ORG TYPE`);
     if (parentOrg.id == orgMoving.parentId) return;
 
-    await TenantAdminMoveOrganizationChild(
-      { id: Number(orgMoving.id), moveToIdx: 0, toParentId: Number(parentOrg.id) },
-      /** @type {import('./jsApi.GEN').TenantAdminMoveOrganizationChildCallback}*/
+    const i = {
+      cmd: 'move',
+      org: {
+        id: Number(orgMoving.id),
+        parentId: Number(orgMoving.parentId)
+      },
+      moveToIdx: 0,
+      toParentId: Number(parentOrg.id)
+    }
+    await TenantAdminOrganization( // @ts-ignore
+      i, /** @returns {Promise<void>}*/
       function (/** @type {any} */o) {
         if (o.error) {
           notifier.showError(o.error);

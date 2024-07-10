@@ -204,14 +204,6 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminLocations(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
-	case domain.TenantAdminMoveOrganizationChildAction:
-		in := domain.TenantAdminMoveOrganizationChildIn{}
-		if !in.RequestCommon.FromCli(action, payload, &in) {
-			return
-		}
-		out := b.TenantAdminMoveOrganizationChild(&in)
-		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
-
 	case domain.TenantAdminOrganizationAction:
 		in := domain.TenantAdminOrganizationIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

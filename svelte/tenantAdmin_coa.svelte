@@ -107,6 +107,7 @@
       /** @returns {Promise<void>} */
       function(/** @type any */ o) {
         isSubmittedCoA = false;
+        id = 0, parentId = 0, name = '', label = '';
         popUpCoa.hide();
         if (o.error) {
           console.log(o);
@@ -123,8 +124,8 @@
     )
   }
 
-  function toggleShowPopUpCoa(id, parentId, name, label) {
-    id = id; parentId = parentId;
+  function toggleShowPopUpCoa(idz, parentIdz, name, label) {
+    id = idz; parentId = parentIdz;
     name = name; label = label;
     popUpCoa.show();
   }
@@ -154,7 +155,7 @@
             &nbsp;{c.name}
           </h5>
           <div class="options">
-            <button class="btn" title="Add CoA child" on:click={() => {toggleShowPopUpCoa(0, c.parentId, c.name, c.label)}}>
+            <button class="btn" title="Add CoA child" on:click={() => {toggleShowPopUpCoa(0, c.id, c.name, c.label)}}>
               <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
             </button>
           </div>
@@ -220,12 +221,13 @@
     width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     gap: 20px;
     align-items: center;
     font-size: 22px;
     font-weight: 700;
     color: var(--blue-006);
-    padding: 10px 10px 10px 15px;
+    padding: 10px 0 10px 15px;
   }
 
   .coa_levels .coa .parent h5 {
@@ -243,8 +245,9 @@
     border-radius: 9999px;
   }
 
-  .coa_levels .coa .parent:hover .options {
+  .coa_levels .coa .parent .options {
     display: flex;
+    padding-right: 10px;
   }
 
   .coa_levels .coa .options {
@@ -276,6 +279,6 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    padding: 0 20px 0 10px;
+    padding: 0 0 0 10px;
   }
 </style>
