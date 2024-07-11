@@ -828,6 +828,31 @@
 							"schema": {
 								"type": "object",
 								"properties": {
+						"pager": {
+						"type": "object",
+						"properties": {
+								"page": {
+										"type": "number"
+								},
+								"perPage": {
+										"type": "number"
+								},
+								"filters": {
+								"type": "object",
+								"properties": {
+										}
+								},
+								"order": {
+										"type": "array",
+											"items": {
+												"type": "string"
+											}
+										}
+								}
+						},
+						"withMeta": {
+							"type": "boolean"
+						}
 								}
 							}
 						}
@@ -841,6 +866,57 @@
 								"schema": {
 									"type": "object",
 									"properties": {
+										"pager": {
+										"type": "object",
+										"properties": {
+												"page": {
+														"type": "number"
+												},
+												"perPage": {
+														"type": "number"
+												},
+												"pages": {
+														"type": "number"
+												},
+												"total": {
+														"type": "number"
+												},
+												"filters": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"order": {
+														"type": "array",
+															"items": {
+																"type": "string"
+															}
+														}
+												}
+										},
+										"logs": {
+										"type": "object",
+										"properties": {
+												}
+										},
+										"meta": {
+										"type": "object",
+										"properties": {
+												"fields": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"mutex": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"cachedSelect": {
+														"type": "string"
+												}
+												}
+										}
 									}
 								}
 							}

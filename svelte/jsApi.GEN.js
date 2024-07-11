@@ -597,13 +597,54 @@ exports.ReportViewerDashboard = async function ReportViewerDashboard( i, cb ) {
 
 /**
  * @typedef {Object} SuperAdminAccessLogIn
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} withMeta
  */
 const SuperAdminAccessLogIn = {
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
+  withMeta: false, // bool
 }
 /**
  * @typedef {Object} SuperAdminAccessLogOut
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} logs
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
  */
 const SuperAdminAccessLogOut = {
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+  logs: { // []saAuth.ActionLogs
+  }, // []saAuth.ActionLogs
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
 }
 /**
  * @callback SuperAdminAccessLogCallback

@@ -471,12 +471,16 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`, 302)
 		}
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
-		// out := d.SuperAdminAccessLog(&in)
+		in.WithMeta = true
+		out := d.SuperAdminAccessLog(&in)
 
 		return views.RenderSuperAdminAccessLog(ctx, M.SX{
-			`title`:    `Super Admin Dashboard`,
+			`title`:    `Super Admin Access Log`,
 			`segments`: segments,
 			`user`:     user,
+			`logs`: out.Logs,
+			`fields`: out.Meta.Fields,
+			`pager`: out.Pager,	
 		})
 	})
 
