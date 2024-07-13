@@ -31,3 +31,12 @@ module.exports = {};
  * @property {string[]} order
  */
 module.exports = {};
+
+/**
+ * @typedef {Object} ExtendedAction 
+ * @property {import("svelte-icons-pack").IconType} icon 
+ * @property {string} name 
+ * @property {boolean} isTargetBlank - if true, open link in new window
+ * @property {string} path - default window.location.pathname
+ */
+module.exports = {}
