@@ -1,5 +1,8 @@
 <script>
+  /** @typedef {import('./types/admin.js').AccessLog} AccessLog */
+  import { utcDatetime } from './formatter';
 
+  export let logs = /** @type {AccessLog[]} */ ([]);
 </script>
 
 <div class="table_root">
@@ -12,29 +15,31 @@
           <th class="datetime">Time</th>
           <th>Action</th>
           <th>Actor ID</th>
-          <th>Request ID</th>
+          <th class="request_id">Request ID</th>
           <th>IPv4</th>
           <th>IPv6</th>
           <th>Ref ID</th>
           <th>Latency</th>
           <th>Tenant Code</th>
-          <th>User Agent</th>
+          <th class="user_agent">User Agent</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="num_row">1</td>
-          <td>Jul 11, 12:32:12</td>
-          <td>/superAdmin/accessLog</td>
-          <td>1</td>
-          <td>0aYx2B~-----0~0</td>
-          <td>0.0.0.0</td>
-          <td>0.0.0.0</td>
-          <td>0</td>
-          <td>0.01</td>
-          <td>admin-2642</td>
-          <td>Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36</td>
-        </tr>
+        {#each (logs || []) as log, i (log.refId)}
+          <tr>
+            <td class="num_row">{i+1}</td>
+            <td>{utcDatetime(log.createdAt)}</td>
+            <td>{log.action}</td>
+            <td>{log.actorId}</td>
+            <td>{log.requestId}</td>
+            <td>{log.ipAddr4}</td>
+            <td>{log.ipAddr6}</td>
+            <td>{log.refId}</td>
+            <td>{log.latency}</td>
+            <td>{log.tenantCode}</td>
+            <td>{log.userAgent}</td>
+          </tr>
+        {/each}
       </tbody>
     </table>
   </div>
@@ -122,6 +127,7 @@
     padding: 12px;
 		background-color: var(--gray-001);
 		text-transform: capitalize;
+    border-right: 1px solid var(--gray-004);
 		border-bottom: 1px solid var(--gray-003);
 		min-width: fit-content;
 		width: auto;
@@ -131,6 +137,14 @@
   .table_root .table_container table thead tr th.datetime {
 		min-width: 140px !important;
 	}
+
+  .table_root .table_container table thead tr th.user_agent {
+    min-width: 240px !important;
+  }
+
+  .table_root .table_container table thead tr th.request_id {
+    min-width: 150px !important;
+  }
 
   .table_root .table_container table thead tr th.no {
     width: 30px;
@@ -142,6 +156,21 @@
 
   .table_root .table_container table tbody tr td {
     padding: 8px 12px;
+  }
+
+  .table_root .table_container table tbody tr td {
+    padding: 8px 12px;
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-004);
+  }
+
+	.table_root .table_container table tbody tr:last-child td,
+	.table_root .table_container table tbody tr:last-child th {
+		border-bottom: none !important;
+	}
+
+  .table_root .table_container table tbody tr:last-child td:last-child {
+    border-right: none !important;
   }
 
 	.table_root .table_container table tbody tr td.num_row {

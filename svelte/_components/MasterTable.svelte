@@ -871,6 +871,7 @@
     padding: 12px;
 		background-color: var(--gray-001);
 		text-transform: capitalize;
+		border-right: 1px solid var(--gray-004);
 		border-bottom: 1px solid var(--gray-003);
 		min-width: fit-content;
 		width: auto;
@@ -905,6 +906,21 @@
 
   .table_root .table_container table tbody tr td {
     padding: 8px 12px;
+  }
+
+	.table_root .table_container table tbody tr td {
+    padding: 8px 12px;
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-004);
+  }
+
+	.table_root .table_container table tbody tr:last-child td,
+	.table_root .table_container table tbody tr:last-child th {
+		border-bottom: none !important;
+	}
+
+  .table_root .table_container table tbody tr:last-child td:last-child {
+    border-right: none !important;
   }
 
 	.table_root .table_container table tbody tr td.num_row {
