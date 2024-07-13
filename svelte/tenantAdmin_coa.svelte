@@ -2,10 +2,10 @@
   import { Icon } from './node_modules/svelte-icons-pack/dist';
   import { RiSystemAddBoxLine } from './node_modules/svelte-icons-pack/dist/ri';
   import { onMount } from 'svelte';
-  import { TenantAdminUpsertCoaChild } from './jsApi.GEN.js';
+  import { TenantAdminCoa } from './jsApi.GEN.js';
   import { notifier } from './_components/notifier.js';
   import CoaTree from './_components/CoaTree.svelte';
-  import PopUpCoaChild from './_components/PopUpCoaChild.svelte';
+  import PopUpCoA from './_components/PopUpCoa.svelte';
   import MainLayout from './_layouts/mainLayout.svelte';
 
   /** @typedef {import('./_components/types/user').User} User */
@@ -15,28 +15,29 @@
   let segments  = /** @type Access */ ({/* segments */});
   let user      = /** @type User */   ({/* user */});
   let coas      = /** @type CoA[] */  ([/* coas */]);
-
-  console.log('COAs:', coas)
   
   let REFORMAT_COAS = /** @type CoA[] */ ([]);
 
-  function coaMaker(/** @type string */ id) {
+  function coaMaker(/** @type any */ id) {
     /** @type CoA */
     let coaFormatted = {
-      id: '',
+      id: 0,
       name: '',
-      level: 0,
-      parentId: '',
+      parentId: 0,
       children: [],
-      createdAt: undefined,
+      createdAt: 0,
       createdBy: '',
-      updatedAt: undefined,
+      updatedAt: 0,
       updatedBy: '',
-      deletedAt: undefined
+      deletedAt: 0,
+      tenantCode: '',
+      label: '',
+      deletedBy: '',
+      restoredBy: ''
     }
     for (let i in coas) {
-      if (coas[i].id == String(id)) { // @ts-ignore
-        const children = /** @type string[] */ (coas[i].children);
+      if (coas[i].id == Number(id)) { // @ts-ignore
+        const children = /** @type number[] */ (coas[i].children);
         if (children && children.length) {
           for (let j in children) {
             const childId = children[j]
@@ -45,8 +46,9 @@
           }
         }
         coaFormatted.id = coas[i].id
+        coaFormatted.tenantCode = coas[i].tenantCode
+        coaFormatted.label = coas[i].label
         coaFormatted.name = coas[i].name
-        coaFormatted.level = coas[i].level
         coaFormatted.parentId = coas[i].parentId
         coaFormatted.createdAt = coas[i].createdAt
         coaFormatted.createdBy = coas[i].createdBy
@@ -55,6 +57,7 @@
         coaFormatted.deletedAt = coas[i].deletedAt
       }
     }
+
     return coaFormatted;
   }
 
@@ -79,97 +82,100 @@
 
   onMount(() => REFORMAT_COAS = reformatCoas());
 
-  let popUpCoaChild;
-
-  let childName = '', childParentId = '';
-  let isSubmitted = false;
-
-  async function submitAddCoaChild() {
-    isSubmitted = true;
-    if (childName === '') {
-      isSubmitted = false;
-      notifier.showWarning('coa name cannot be empty');
-      return;
-    }
-
-    /** @type CoA */ //@ts-ignore
-    const coa = {
-      name: childName,
-      parentId: childParentId
-    }
-
-    await TenantAdminUpsertCoaChild( // @ts-ignore
-      {coa: coa}, /** @type {import('./jsApi.GEN').TenantAdminUpsertCoaChildCallback}*/
-      function (/** @type any */ o) {
-        isSubmitted = false;
-        popUpCoaChild.hide();
-        if (o.error) {
-          notifier.showError(o.error);
-          console.log(o.error);
-          return;
-        }
-        
-        coas = o.coas;
-
-        REFORMAT_COAS = [];
-        REFORMAT_COAS = reformatCoas();
-        notifier.showSuccess('Coa child created');
-      }
-    );
-    childName = '';
-    childParentId = '';
-  }
-
-  function updateEventHandler(e) {
+  function updateEventHandler(/** @type any */ e) {
     coas = e.detail.coas;
     
     REFORMAT_COAS = [];
     REFORMAT_COAS = reformatCoas();
   }
+
+  let popUpCoa;
+  let id = 0, parentId = 0;
+  let name = '', label = '';
+  let isSubmittedCoA = false;
+
+  async function submitUpsertCoa() {
+    isSubmittedCoA = true;
+    /** @type CoA */ //@ts-ignore
+    const coa = { id, parentId, name, label }
+    const i = {
+      cmd: 'upsert',
+      coa
+    }
+    await TenantAdminCoa( // @ts-ignore
+      i, /** @type {import('./jsApi.GEN').TenantAdminCoaCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        isSubmittedCoA = false;
+        id = 0, parentId = 0, name = '', label = '';
+        popUpCoa.hide();
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+        
+        coas = o.coas;
+        REFORMAT_COAS = [];
+        REFORMAT_COAS = reformatCoas();
+
+        notifier.showSuccess('coa updated');
+      }
+    )
+  }
+
+  function toggleShowPopUpCoa(idz, parentIdz, name, label) {
+    id = idz; parentId = parentIdz;
+    name = name; label = label;
+    popUpCoa.show();
+  }
 </script>
 
-<PopUpCoaChild
-  bind:this={popUpCoaChild}
-  bind:isSubmitted={isSubmitted}
-  bind:childName={childName}
-  onSubmit={submitAddCoaChild}
+<PopUpCoA
+  bind:this={popUpCoa}
+  bind:name
+  bind:label
+  bind:isSubmitted={isSubmittedCoA}
+  onSubmit={submitUpsertCoa}
 />
 
 <MainLayout>
-  {#if REFORMAT_COAS && REFORMAT_COAS.length}
-    <div class="coa_levels shadow">
-      {#each REFORMAT_COAS as c, _ (c.id)}
-        <div class="coa">
-          <div class="parent">
-            <h5>
-              <span class="label">{c.level}</span>
-              &nbsp;{c.name}
-            </h5>
-            <div class="options">
-              <button class="btn" title="Add child" on:click={() => {
-                childParentId = c.id;
-                popUpCoaChild.show();
-              }}>
-                <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
-              </button>
-            </div>
-          </div>
-          {#if c.children && c.children.length}
-            <div class="children">
-              {#each c.children as cc, idx (cc.id)}
-                <CoaTree
-                  coa={cc}
-                  num={`${idx+1}`}
-                  indent={1}
-                  on:update={updateEventHandler}
-                />
-              {/each}
-            </div>
-          {/if}
-        </div>
-      {/each}
+  <div class="coa_levels shadow">
+    <div class="header_options">
+      <button
+        class="add"
+        on:click={() => {toggleShowPopUpCoa(0, 0, '', '')}}
+      >Add</button>
     </div>
-  {/if}
+    {#each (REFORMAT_COAS || []) as c, idxParent (c.id)}
+      <div class="coa">
+        <div class="parent">
+          <h5>
+            <span class="label">{idxParent+1}</span>
+            &nbsp;{c.name}
+          </h5>
+          <div class="options">
+            <button class="btn" title="Add CoA child" on:click={() => {toggleShowPopUpCoa(0, c.id, c.name, c.label)}}>
+              <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
+            </button>
+          </div>
+        </div>
+        {#if c.children && c.children.length}
+          <div class="children">
+            {#each c.children as cc, idx (cc.id)}
+              <CoaTree
+                coa={cc}
+                num={`${idx+1}`}
+                parentNum={idxParent+1}
+                indent={1}
+                on:update={updateEventHandler}
+              />
+            {/each}
+          </div>
+        {/if}
+      </div>
+    {/each}
+  </div>
 </MainLayout>
 
 <style>
@@ -181,7 +187,28 @@
     border: 1px solid var(--gray-003);
     border-radius: 8px;
     overflow: hidden;
+    padding: 15px 15px 20px;
+  }
+
+  .coa_levels .header_options {
+    display: flex;
+    flex-direction: row-reverse;
     padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray-003);
+  }
+
+  .coa_levels .header_options .add {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: var(--blue-006);
+    color: #FFF;
+    font-size: var(--font-lg);
+    cursor: pointer;
+  }
+
+  .coa_levels .header_options .add:hover {
+    background-color: var(--blue-005);
   }
 
   .coa_levels .coa {
@@ -194,12 +221,13 @@
     width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     gap: 20px;
     align-items: center;
     font-size: 22px;
     font-weight: 700;
     color: var(--blue-006);
-    padding: 10px 10px 10px 15px;
+    padding: 10px 0 10px 15px;
   }
 
   .coa_levels .coa .parent h5 {
@@ -217,8 +245,9 @@
     border-radius: 9999px;
   }
 
-  .coa_levels .coa .parent:hover .options {
+  .coa_levels .coa .parent .options {
     display: flex;
+    padding-right: 10px;
   }
 
   .coa_levels .coa .options {
@@ -250,6 +279,6 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    padding: 0 20px 0 10px;
+    padding: 0 0 0 10px;
   }
 </style>

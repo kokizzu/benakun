@@ -190,7 +190,8 @@ func (d *Domain) TenantAdminBudgeting(in *TenantAdminBudgetingIn) (out TenantAdm
 		out.Plans = &plans
 	case zCrud.CmdList:
 		org := rqAuth.NewOrgs(d.AuthOltp)
-		orgs := org.FindOrgsByTenant(tenant.TenantCode)
+		org.TenantCode = user.TenantCode
+		orgs := org.FindOrgsByTenant()
 
 		out.Orgs = &orgs
 	}

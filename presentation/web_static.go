@@ -30,10 +30,10 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			Provider:      domain.OauthGoogle,
 		})
 		google.ResponseCommon.DecorateSession(c)
-		
+
 		var myCompany *rqAuth.Orgs = &rqAuth.Orgs{}
 		if user != nil && user.TenantCode != `` {
-			myCompany= rqAuth.NewOrgs(d.AuthOltp)
+			myCompany = rqAuth.NewOrgs(d.AuthOltp)
 			myCompany.FindCompanyByTenantCode(user.TenantCode)
 		}
 
@@ -146,11 +146,15 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		r := rqFinance.NewTransactionTemplate(d.AuthOltp)
 		r.TenantCode = tenantCode
 		trxTemplates := r.FindByTenantCode()
-		
+
+		// TODO: check data entry must have access to this tenant
+
+		// invState := user.InvitationState
+
 		return views.RenderDataEntryDashboard(ctx, M.SX{
-			`title`:    `Data Entry Dashboard`,
-			`user`:     user,
-			`segments`: segments,
+			`title`:                `Data Entry Dashboard`,
+			`user`:                 user,
+			`segments`:             segments,
 			`transactionTemplates`: trxTemplates,
 		})
 	})
@@ -207,11 +211,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.Cmd = zCrud.CmdList
 		out := d.TenantAdminLocations(&in)
 		return views.RenderTenantAdminLocations(ctx, M.SX{
-			`title`:    `Tenant Admin Locations`,
-			`user`:     user,
-			`segments`: segments,
-			`fields`: out.Meta.Fields,
-			`pager`: out.Pager,
+			`title`:     `Tenant Admin Locations`,
+			`user`:      user,
+			`segments`:  segments,
+			`fields`:    out.Meta.Fields,
+			`pager`:     out.Pager,
 			`locations`: out.Locations,
 		})
 	})
@@ -263,14 +267,19 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	})
 
 	fw.Get(`/`+domain.TenantAdminOrganizationAction, func(ctx *fiber.Ctx) error {
-		in, user, segments := userInfoFromContext(ctx, d)
+		var in domain.TenantAdminOrganizationIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminOrganizationAction)
+		if err != nil {
+			return err
+		}
 		if notTenantLogin(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		in.RequestCommon.Action = domain.TenantAdminOrganizationAction
-		out := d.TenantAdminOrganization(&domain.TenantAdminOrganizationIn{
-			RequestCommon: in.RequestCommon,
-		})
+
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.Cmd = zCrud.CmdList
+
+		out := d.TenantAdminOrganization(&in)
 		return views.RenderTenantAdminOrganization(ctx, M.SX{
 			`title`:    `Tenant Admin Organization`,
 			`user`:     user,
@@ -280,14 +289,19 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	})
 
 	fw.Get(`/`+domain.TenantAdminCoaAction, func(ctx *fiber.Ctx) error {
-		in, user, segments := userInfoFromContext(ctx, d)
+		var in domain.TenantAdminCoaIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminCoaAction)
+		if err != nil {
+			return err
+		}
 		if notTenantLogin(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
-		in.RequestCommon.Action = domain.TenantAdminCoaAction
-		out := d.TenantAdminCoa(&domain.TenantAdminCoaIn{
-			RequestCommon: in.RequestCommon,
-		})
+
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.Cmd = zCrud.CmdList
+
+		out := d.TenantAdminCoa(&in)
 		return views.RenderTenantAdminCoa(ctx, M.SX{
 			`title`:    `Tenant Admin Coa`,
 			`user`:     user,
@@ -321,7 +335,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 
 		r := rqAuth.NewUsers(d.AuthOltp)
 		staffs := r.FindStaffsChoicesByTenantCode(user.TenantCode)
-		
+
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.TenantAdminBankAccounts(&in)
@@ -349,53 +363,53 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
 		r := rqBusiness.NewProducts(d.AuthOltp)
 		products := r.FindProductsChoicesByTenantCode(user.TenantCode)
-		
+
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.TenantAdminInventoryChanges(&in)
 		return views.RenderTenantAdminInventoryChanges(ctx, M.SX{
-			`title`:    `Tenant Admin Inventory Changes`,
-			`user`:     user,
-			`segments`: segments,
-			`fields`:   out.Meta.Fields,
-			`pager`:    out.Pager,
+			`title`:            `Tenant Admin Inventory Changes`,
+			`user`:             user,
+			`segments`:         segments,
+			`fields`:           out.Meta.Fields,
+			`pager`:            out.Pager,
 			`inventoryChanges`: out.InventoryChanges,
-			`products`: products,
+			`products`:         products,
 		})
 	})
 
 	fw.Get(`/`+domain.TenantAdminInventoryChangesAction+`/:productId`, func(ctx *fiber.Ctx) error {
-		var in domain.TenantAdminInventoryChangesProductIn
-		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminInventoryChangesProductAction)
-		if err != nil {
-			return err
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notTenantLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
 		}
+		in.RequestCommon.Action = domain.TenantAdminCoaAction
 
 		if notTenantLogin(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
 
-		user, segments := userInfoFromRequest(in.RequestCommon, d)
-
 		productId := ctx.Params(`productId`)
-
 		product := rqBusiness.NewProducts(d.AuthOltp)
 		product.Id = S.ToU(productId)
 		if !product.FindById() {
 			return ctx.Redirect(`/`+domain.TenantAdminInventoryChangesAction, 302)
 		}
 
-		in.ProductId = product.Id
-		in.WithMeta = true
-		in.Cmd = zCrud.CmdList
-		out := d.TenantAdminInventoryChangesProduct(&in)
+		out := d.TenantAdminInventoryChanges(&domain.TenantAdminInventoryChangesIn{
+			RequestCommon: in.RequestCommon,
+			ProductId:     product.Id,
+			Cmd:           zCrud.CmdList,
+			WithMeta:      true,
+		})
+
 		return views.RenderTenantAdminInventoryChangesProduct(ctx, M.SX{
-			`title`:    `Tenant Admin Products's Inventory Changes`,
-			`user`:     user,
-			`segments`: segments,
-			`fields`:   out.Meta.Fields,
-			`pager`:    out.Pager,
-			`product`: product,
+			`title`:            `Tenant Admin Products's Inventory Changes`,
+			`user`:             user,
+			`segments`:         segments,
+			`product`:          product,
+			`fields`:           out.Meta.Fields,
+			`pager`:            out.Pager,
 			`inventoryChanges`: out.InventoryChanges,
 		})
 	})
@@ -411,16 +425,13 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		}
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
 
-		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
-		
+
 		out := d.TenantAdminTransactionTemplate(&in)
 		return views.RenderTenantAdminTransactionTemplate(ctx, M.SX{
-			`title`:    `Tenant Admin Transaction Template`,
-			`user`:     user,
-			`segments`: segments,
-			`pager`:    out.Pager,
-			`fields`: out.Meta.Fields,
+			`title`:                `Tenant Admin Transaction Template`,
+			`user`:                 user,
+			`segments`:             segments,
 			`transactionTemplates`: out.TransactionTemplates,
 		})
 	})
@@ -435,11 +446,41 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`, 302)
 		}
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
-		// out := d.SuperAdminDashboard(&in)
+		out := d.SuperAdminDashboard(&in)
+
 		return views.RenderSuperAdminDashboard(ctx, M.SX{
-			`title`:    `Super Admin Dashboard`,
+			`title`:                  `Super Admin Dashboard`,
+			`segments`:               segments,
+			`user`:                   user,
+			`registeredUserTotal`:    out.RegisteredUserTotal,
+			`registeredUserToday`:    out.RegisteredUserToday,
+			`requestsPerDate`:        out.RequestsPerDate,
+			`uniqueUserPerDate`:      out.UniqueUserPerDate,
+			`uniqueIpPerDate`:        out.UniqueIpPerDate,
+			`countPerActionsPerDate`: out.CountPerActionsPerDate,
+		})
+	})
+
+	fw.Get(`/`+domain.SuperAdminAccessLogAction, func(ctx *fiber.Ctx) error {
+		var in domain.SuperAdminAccessLogIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.SuperAdminAccessLogAction)
+		if err != nil {
+			return err
+		}
+		if notLogin(d, in.RequestCommon, true) {
+			return ctx.Redirect(`/`, 302)
+		}
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		out := d.SuperAdminAccessLog(&in)
+
+		return views.RenderSuperAdminAccessLog(ctx, M.SX{
+			`title`:    `Super Admin Access Log`,
 			`segments`: segments,
 			`user`:     user,
+			`logs`: out.Logs,
+			`fields`: out.Meta.Fields,
+			`pager`: out.Pager,	
 		})
 	})
 

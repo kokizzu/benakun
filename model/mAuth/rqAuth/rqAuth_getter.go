@@ -210,11 +210,11 @@ LIMIT 1`
 	return ok
 }
 
-func (o *Orgs) FindOrgsByTenant(tenantCode string) (orgs []Orgs) {
+func (o *Orgs) FindOrgsByTenant() (orgs []Orgs) {
 	const comment = "-- orgs) FindOrgsByTenant"
 
 	whereAndSql := ` 
-WHERE ` + o.SqlTenantCode() + ` = ` + S.Z(tenantCode)
+WHERE ` + o.SqlTenantCode() + ` = ` + S.Z(o.TenantCode)
 	queryRows := comment + `
 SELECT ` + o.SqlSelectAllFields() + `
 FROM SEQSCAN ` + o.SqlTableName() +

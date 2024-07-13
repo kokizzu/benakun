@@ -33,6 +33,8 @@ type Orgs struct {
 	UpdatedAt  int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
 	UpdatedBy  uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
 	DeletedAt  int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	DeletedBy  uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
+	RestoredBy uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
 }
 
 // NewOrgs create new ORM reader/query object
@@ -89,6 +91,8 @@ func (o *Orgs) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
 	`
 }
 
@@ -106,6 +110,8 @@ func (o *Orgs) SqlSelectAllUncensoredFields() string { //nolint:dupl false posit
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "deletedBy"
+	, "restoredBy"
 	`
 }
 
@@ -123,7 +129,9 @@ func (o *Orgs) ToUpdateArray() *tarantool.Operations { //nolint:dupl false posit
 		Assign(8, o.CreatedBy).
 		Assign(9, o.UpdatedAt).
 		Assign(10, o.UpdatedBy).
-		Assign(11, o.DeletedAt)
+		Assign(11, o.DeletedAt).
+		Assign(12, o.DeletedBy).
+		Assign(13, o.RestoredBy)
 }
 
 // IdxId return name of the index
@@ -246,6 +254,26 @@ func (o *Orgs) SqlDeletedAt() string { //nolint:dupl false positive
 	return `"deletedAt"`
 }
 
+// IdxDeletedBy return name of the index
+func (o *Orgs) IdxDeletedBy() int { //nolint:dupl false positive
+	return 12
+}
+
+// SqlDeletedBy return name of the column being indexed
+func (o *Orgs) SqlDeletedBy() string { //nolint:dupl false positive
+	return `"deletedBy"`
+}
+
+// IdxRestoredBy return name of the index
+func (o *Orgs) IdxRestoredBy() int { //nolint:dupl false positive
+	return 13
+}
+
+// SqlRestoredBy return name of the column being indexed
+func (o *Orgs) SqlRestoredBy() string { //nolint:dupl false positive
+	return `"restoredBy"`
+}
+
 // ToArray receiver fields to slice
 func (o *Orgs) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -265,6 +293,8 @@ func (o *Orgs) ToArray() A.X { //nolint:dupl false positive
 		o.UpdatedAt,  // 9
 		o.UpdatedBy,  // 10
 		o.DeletedAt,  // 11
+		o.DeletedBy,  // 12
+		o.RestoredBy, // 13
 	}
 }
 
@@ -282,6 +312,8 @@ func (o *Orgs) FromArray(a A.X) *Orgs { //nolint:dupl false positive
 	o.UpdatedAt = X.ToI(a[9])
 	o.UpdatedBy = X.ToU(a[10])
 	o.DeletedAt = X.ToI(a[11])
+	o.DeletedBy = X.ToU(a[12])
+	o.RestoredBy = X.ToU(a[13])
 	return o
 }
 
@@ -299,6 +331,8 @@ func (o *Orgs) FromUncensoredArray(a A.X) *Orgs { //nolint:dupl false positive
 	o.UpdatedAt = X.ToI(a[9])
 	o.UpdatedBy = X.ToU(a[10])
 	o.DeletedAt = X.ToI(a[11])
+	o.DeletedBy = X.ToU(a[12])
+	o.RestoredBy = X.ToU(a[13])
 	return o
 }
 
@@ -375,6 +409,8 @@ var OrgsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`updatedAt`:  Tt.Integer,
 	`updatedBy`:  Tt.Unsigned,
 	`deletedAt`:  Tt.Integer,
+	`deletedBy`:  Tt.Unsigned,
+	`restoredBy`: Tt.Unsigned,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

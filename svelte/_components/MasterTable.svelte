@@ -796,11 +796,12 @@
 
   .table_root .table_container table thead tr th {
     padding: 12px;
-    background-color: var(--gray-001);
-    text-transform: capitalize;
-    border-bottom: 1px solid var(--gray-003);
-    min-width: fit-content;
-    width: auto;
+		background-color: var(--gray-001);
+		text-transform: capitalize;
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-003);
+		min-width: fit-content;
+		width: auto;
     text-wrap: nowrap;
   }
 
@@ -833,11 +834,26 @@
     padding: 8px 12px;
   }
 
-  .table_root .table_container table tbody tr td.num_row {
-    border-right: 1px solid var(--gray-003);
-    font-weight: 600;
-    text-align: center;
+	.table_root .table_container table tbody tr td {
+    padding: 8px 12px;
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-004);
   }
+
+	.table_root .table_container table tbody tr:last-child td,
+	.table_root .table_container table tbody tr:last-child th {
+		border-bottom: none !important;
+	}
+
+  .table_root .table_container table tbody tr:last-child td:last-child {
+    border-right: none !important;
+  }
+
+	.table_root .table_container table tbody tr td.num_row {
+		border-right: 1px solid var(--gray-003);
+		font-weight: 600;
+		text-align: center;
+	}
 
   .table_root .table_container table tbody tr:last-child td,
   .table_root .table_container table tbody tr:last-child th {

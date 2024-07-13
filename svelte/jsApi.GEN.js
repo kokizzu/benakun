@@ -596,14 +596,97 @@ exports.ReportViewerDashboard = async function ReportViewerDashboard( i, cb ) {
 }
 
 /**
+ * @typedef {Object} SuperAdminAccessLogIn
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} withMeta
+ */
+const SuperAdminAccessLogIn = {
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
+  withMeta: false, // bool
+}
+/**
+ * @typedef {Object} SuperAdminAccessLogOut
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} logs
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
+ */
+const SuperAdminAccessLogOut = {
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+  logs: { // []saAuth.ActionLogs
+  }, // []saAuth.ActionLogs
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
+}
+/**
+ * @callback SuperAdminAccessLogCallback
+ * @param {SuperAdminAccessLogOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {SuperAdminAccessLogIn} i
+ * @param {SuperAdminAccessLogCallback} cb
+ * @returns {Promise}
+ */
+exports.SuperAdminAccessLog = async function SuperAdminAccessLog( i, cb ) {
+  return await axios.post( '/superAdmin/accessLog', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} SuperAdminDashboardIn
  */
 const SuperAdminDashboardIn = {
 }
 /**
  * @typedef {Object} SuperAdminDashboardOut
+ * @property {number} registeredUserTotal
+ * @property {number} registeredUserToday
+ * @property {Object} requestsPerDate
+ * @property {Object} uniqueUserPerDate
+ * @property {Object} uniqueIpPerDate
+ * @property {Object} countPerActionsPerDate
  */
 const SuperAdminDashboardOut = {
+  registeredUserTotal: 0, // int64
+  registeredUserToday: 0, // int64
+  requestsPerDate: { // map[string]int
+  }, // map[string]int
+  uniqueUserPerDate: { // map[string]int
+  }, // map[string]int
+  uniqueIpPerDate: { // map[string]int
+  }, // map[string]int
+  countPerActionsPerDate: { // map[string]map[string]int
+  }, // map[string]map[string]int
 }
 /**
  * @callback SuperAdminDashboardCallback
@@ -1095,14 +1178,78 @@ exports.TenantAdminBudgeting = async function TenantAdminBudgeting( i, cb ) {
 
 /**
  * @typedef {Object} TenantAdminCoaIn
+ * @property {String} cmd
+ * @property {number} coa.id
+ * @property {String} coa.tenantCode
+ * @property {String} coa.name
+ * @property {String} coa.label
+ * @property {number} coa.parentId
+ * @property {Object} coa.children
+ * @property {number} coa.createdAt
+ * @property {number} coa.createdBy
+ * @property {number} coa.updatedAt
+ * @property {number} coa.updatedBy
+ * @property {number} coa.deletedAt
+ * @property {number} coa.deletedBy
+ * @property {number} coa.restoredBy
+ * @property {number} moveToIdx
+ * @property {number} toParentId
  */
 const TenantAdminCoaIn = {
+  cmd: '', // string
+  coa: { // rqFinance.Coa
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    label: '', // string
+    parentId: 0, // uint64
+    children: { // []any
+    }, // []any
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+  }, // rqFinance.Coa
+  moveToIdx: 0, // int
+  toParentId: 0, // uint64
 }
 /**
  * @typedef {Object} TenantAdminCoaOut
+ * @property {number} coa.id
+ * @property {String} coa.tenantCode
+ * @property {String} coa.name
+ * @property {String} coa.label
+ * @property {number} coa.parentId
+ * @property {Object} coa.children
+ * @property {number} coa.createdAt
+ * @property {number} coa.createdBy
+ * @property {number} coa.updatedAt
+ * @property {number} coa.updatedBy
+ * @property {number} coa.deletedAt
+ * @property {number} coa.deletedBy
+ * @property {number} coa.restoredBy
  * @property {Object} coas
  */
 const TenantAdminCoaOut = {
+  coa: { // rqFinance.Coa
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    label: '', // string
+    parentId: 0, // uint64
+    children: { // []any
+    }, // []any
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+  }, // rqFinance.Coa
   coas: { // []rqFinance.Coa
   }, // []rqFinance.Coa
 }
@@ -1205,70 +1352,9 @@ exports.TenantAdminDashboard = async function TenantAdminDashboard( i, cb ) {
 }
 
 /**
- * @typedef {Object} TenantAdminDeleteCoaChildIn
- * @property {number} id
- */
-const TenantAdminDeleteCoaChildIn = {
-  id: 0, // uint64
-}
-/**
- * @typedef {Object} TenantAdminDeleteCoaChildOut
- * @property {Object} coas
- */
-const TenantAdminDeleteCoaChildOut = {
-  coas: { // []rqFinance.Coa
-  }, // []rqFinance.Coa
-}
-/**
- * @callback TenantAdminDeleteCoaChildCallback
- * @param {TenantAdminDeleteCoaChildOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminDeleteCoaChildIn} i
- * @param {TenantAdminDeleteCoaChildCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminDeleteCoaChild = async function TenantAdminDeleteCoaChild( i, cb ) {
-  return await axios.post( '/tenantAdmin/deleteCoaChild', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
- * @typedef {Object} TenantAdminDeleteOrganizationChildIn
- * @property {number} id
- */
-const TenantAdminDeleteOrganizationChildIn = {
-  id: 0, // uint64
-}
-/**
- * @typedef {Object} TenantAdminDeleteOrganizationChildOut
- * @property {Object} orgs
- */
-const TenantAdminDeleteOrganizationChildOut = {
-  orgs: { // []rqAuth.Orgs
-  }, // []rqAuth.Orgs
-}
-/**
- * @callback TenantAdminDeleteOrganizationChildCallback
- * @param {TenantAdminDeleteOrganizationChildOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminDeleteOrganizationChildIn} i
- * @param {TenantAdminDeleteOrganizationChildCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminDeleteOrganizationChild = async function TenantAdminDeleteOrganizationChild( i, cb ) {
-  return await axios.post( '/tenantAdmin/deleteOrganizationChild', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
  * @typedef {Object} TenantAdminInventoryChangesIn
  * @property {String} cmd
+ * @property {number} productId
  * @property {number} inventoryChange.id
  * @property {String} inventoryChange.tenantCode
  * @property {number} inventoryChange.createdAt
@@ -1291,6 +1377,7 @@ exports.TenantAdminDeleteOrganizationChild = async function TenantAdminDeleteOrg
  */
 const TenantAdminInventoryChangesIn = {
   cmd: '', // string
+  productId: 0, // uint64
   inventoryChange: { // rqBusiness.InventoryChanges
     id: 0, // uint64
     tenantCode: '', // string
@@ -1367,88 +1454,13 @@ exports.TenantAdminInventoryChanges = async function TenantAdminInventoryChanges
 
 /**
  * @typedef {Object} TenantAdminInventoryChangesProductIn
- * @property {String} cmd
- * @property {number} productId
- * @property {number} inventoryChange.id
- * @property {String} inventoryChange.tenantCode
- * @property {number} inventoryChange.createdAt
- * @property {number} inventoryChange.createdBy
- * @property {number} inventoryChange.updatedAt
- * @property {number} inventoryChange.updatedBy
- * @property {number} inventoryChange.deletedAt
- * @property {number} inventoryChange.deletedBy
- * @property {number} inventoryChange.restoredBy
- * @property {number} inventoryChange.stockDelta
- * @property {number} inventoryChange.productId
- * @property {number} inventoryChange.locationId
- * @property {number} inventoryChange.spendingId
- * @property {number} inventoryChange.expenseId
- * @property {Object} withMeta
- * @property {number} pager.page
- * @property {number} pager.perPage
- * @property {Object} pager.filters
- * @property {Array<String>} pager.order
  */
 const TenantAdminInventoryChangesProductIn = {
-  cmd: '', // string
-  productId: 0, // uint64
-  inventoryChange: { // rqBusiness.InventoryChanges
-    id: 0, // uint64
-    tenantCode: '', // string
-    createdAt: 0, // int64
-    createdBy: 0, // uint64
-    updatedAt: 0, // int64
-    updatedBy: 0, // uint64
-    deletedAt: 0, // int64
-    deletedBy: 0, // uint64
-    restoredBy: 0, // uint64
-    stockDelta: 0, // uint64
-    productId: 0, // uint64
-    locationId: 0, // uint64
-    spendingId: 0, // uint64
-    expenseId: 0, // uint64
-  }, // rqBusiness.InventoryChanges
-  withMeta: false, // bool
-  pager: { // zCrud.PagerIn
-    page: 0, // int
-    perPage: 0, // int
-    filters: { // map[string][]string
-    }, // map[string][]string
-    order: [], // []string
-  }, // zCrud.PagerIn
 }
 /**
  * @typedef {Object} TenantAdminInventoryChangesProductOut
- * @property {number} pager.page
- * @property {number} pager.perPage
- * @property {number} pager.pages
- * @property {number} pager.total
- * @property {Object} pager.filters
- * @property {Array<String>} pager.order
- * @property {Object} meta.fields
- * @property {Object} meta.mutex
- * @property {String} meta.cachedSelect
- * @property {Object} inventoryChanges
  */
 const TenantAdminInventoryChangesProductOut = {
-  pager: { // zCrud.PagerOut
-    page: 0, // int
-    perPage: 0, // int
-    pages: 0, // int
-    total: 0, // int
-    filters: { // map[string][]string
-    }, // map[string][]string
-    order: [], // []string
-  }, // zCrud.PagerOut
-  meta: { // zCrud.Meta
-    fields: { // []Field
-    }, // []Field
-    mutex: { // sync.Mutex
-    }, // sync.Mutex
-    cachedSelect: '', // string
-  }, // zCrud.Meta
-  inventoryChanges: { // [][]any
-  }, // [][]any
 }
 /**
  * @callback TenantAdminInventoryChangesProductCallback
@@ -1461,7 +1473,7 @@ const TenantAdminInventoryChangesProductOut = {
  * @returns {Promise}
  */
 exports.TenantAdminInventoryChangesProduct = async function TenantAdminInventoryChangesProduct( i, cb ) {
-  return await axios.post( '/tenantAdmin/inventoryChanges/:productId', i ).
+  return await axios.post( '/tenantAdmin/inventoryChanges/', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -1620,82 +1632,8 @@ exports.TenantAdminLocations = async function TenantAdminLocations( i, cb ) {
 }
 
 /**
- * @typedef {Object} TenantAdminMoveCoaChildIn
- * @property {number} id
- * @property {number} moveToIdx
- * @property {number} toParentId
- */
-const TenantAdminMoveCoaChildIn = {
-  id: 0, // uint64
-  moveToIdx: 0, // int
-  toParentId: 0, // uint64
-}
-/**
- * @typedef {Object} TenantAdminMoveCoaChildOut
- * @property {number} coa.id
- * @property {String} coa.tenantCode
- * @property {String} coa.name
- * @property {number} coa.level
- * @property {number} coa.parentId
- * @property {Object} coa.children
- * @property {number} coa.createdAt
- * @property {number} coa.createdBy
- * @property {number} coa.updatedAt
- * @property {number} coa.updatedBy
- * @property {number} coa.deletedAt
- * @property {number} coa.deletedBy
- * @property {number} coa.restoredBy
- * @property {Object} coas
- */
-const TenantAdminMoveCoaChildOut = {
-  coa: { // rqFinance.Coa
-    id: 0, // uint64
-    tenantCode: '', // string
-    name: '', // string
-    level: 0, // float64
-    parentId: 0, // uint64
-    children: { // []any
-    }, // []any
-    createdAt: 0, // int64
-    createdBy: 0, // uint64
-    updatedAt: 0, // int64
-    updatedBy: 0, // uint64
-    deletedAt: 0, // int64
-    deletedBy: 0, // uint64
-    restoredBy: 0, // uint64
-  }, // rqFinance.Coa
-  coas: { // []rqFinance.Coa
-  }, // []rqFinance.Coa
-}
-/**
- * @callback TenantAdminMoveCoaChildCallback
- * @param {TenantAdminMoveCoaChildOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminMoveCoaChildIn} i
- * @param {TenantAdminMoveCoaChildCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminMoveCoaChild = async function TenantAdminMoveCoaChild( i, cb ) {
-  return await axios.post( '/tenantAdmin/moveCoaChild', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
- * @typedef {Object} TenantAdminMoveOrganizationChildIn
- * @property {number} id
- * @property {number} moveToIdx
- * @property {number} toParentId
- */
-const TenantAdminMoveOrganizationChildIn = {
-  id: 0, // uint64
-  moveToIdx: 0, // int
-  toParentId: 0, // uint64
-}
-/**
- * @typedef {Object} TenantAdminMoveOrganizationChildOut
+ * @typedef {Object} TenantAdminOrganizationIn
+ * @property {String} cmd
  * @property {number} org.id
  * @property {String} org.tenantCode
  * @property {String} org.name
@@ -1708,9 +1646,13 @@ const TenantAdminMoveOrganizationChildIn = {
  * @property {number} org.updatedAt
  * @property {number} org.updatedBy
  * @property {number} org.deletedAt
- * @property {Object} orgs
+ * @property {number} org.deletedBy
+ * @property {number} org.restoredBy
+ * @property {number} moveToIdx
+ * @property {number} toParentId
  */
-const TenantAdminMoveOrganizationChildOut = {
+const TenantAdminOrganizationIn = {
+  cmd: '', // string
   org: { // rqAuth.Orgs
     id: 0, // uint64
     tenantCode: '', // string
@@ -1725,36 +1667,48 @@ const TenantAdminMoveOrganizationChildOut = {
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
   }, // rqAuth.Orgs
-  orgs: { // []rqAuth.Orgs
-  }, // []rqAuth.Orgs
-}
-/**
- * @callback TenantAdminMoveOrganizationChildCallback
- * @param {TenantAdminMoveOrganizationChildOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminMoveOrganizationChildIn} i
- * @param {TenantAdminMoveOrganizationChildCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminMoveOrganizationChild = async function TenantAdminMoveOrganizationChild( i, cb ) {
-  return await axios.post( '/tenantAdmin/moveOrganizationChild', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
- * @typedef {Object} TenantAdminOrganizationIn
- */
-const TenantAdminOrganizationIn = {
+  moveToIdx: 0, // int
+  toParentId: 0, // uint64
 }
 /**
  * @typedef {Object} TenantAdminOrganizationOut
+ * @property {number} org.id
+ * @property {String} org.tenantCode
+ * @property {String} org.name
+ * @property {String} org.headTitle
+ * @property {number} org.parentId
+ * @property {Object} org.children
+ * @property {number} org.orgType
+ * @property {number} org.createdAt
+ * @property {number} org.createdBy
+ * @property {number} org.updatedAt
+ * @property {number} org.updatedBy
+ * @property {number} org.deletedAt
+ * @property {number} org.deletedBy
+ * @property {number} org.restoredBy
  * @property {Object} orgs
  */
 const TenantAdminOrganizationOut = {
+  org: { // rqAuth.Orgs
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    headTitle: '', // string
+    parentId: 0, // uint64
+    children: { // []any
+    }, // []any
+    orgType: 0, // uint64
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+  }, // rqAuth.Orgs
   orgs: { // []rqAuth.Orgs
   }, // []rqAuth.Orgs
 }
@@ -1904,68 +1858,6 @@ exports.TenantAdminProducts = async function TenantAdminProducts( i, cb ) {
 }
 
 /**
- * @typedef {Object} TenantAdminRestoreCoaChildIn
- * @property {number} id
- */
-const TenantAdminRestoreCoaChildIn = {
-  id: 0, // uint64
-}
-/**
- * @typedef {Object} TenantAdminRestoreCoaChildOut
- * @property {Object} coas
- */
-const TenantAdminRestoreCoaChildOut = {
-  coas: { // []rqFinance.Coa
-  }, // []rqFinance.Coa
-}
-/**
- * @callback TenantAdminRestoreCoaChildCallback
- * @param {TenantAdminRestoreCoaChildOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminRestoreCoaChildIn} i
- * @param {TenantAdminRestoreCoaChildCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminRestoreCoaChild = async function TenantAdminRestoreCoaChild( i, cb ) {
-  return await axios.post( '/tenantAdmin/restoreCoaChild', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
- * @typedef {Object} TenantAdminRestoreOrganizationChildIn
- * @property {number} id
- */
-const TenantAdminRestoreOrganizationChildIn = {
-  id: 0, // uint64
-}
-/**
- * @typedef {Object} TenantAdminRestoreOrganizationChildOut
- * @property {Object} orgs
- */
-const TenantAdminRestoreOrganizationChildOut = {
-  orgs: { // []rqAuth.Orgs
-  }, // []rqAuth.Orgs
-}
-/**
- * @callback TenantAdminRestoreOrganizationChildCallback
- * @param {TenantAdminRestoreOrganizationChildOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminRestoreOrganizationChildIn} i
- * @param {TenantAdminRestoreOrganizationChildCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminRestoreOrganizationChild = async function TenantAdminRestoreOrganizationChild( i, cb ) {
-  return await axios.post( '/tenantAdmin/restoreOrganizationChild', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
  * @typedef {Object} TenantAdminTransactionIn
  */
 const TenantAdminTransactionIn = {
@@ -1994,11 +1886,6 @@ exports.TenantAdminTransaction = async function TenantAdminTransaction( i, cb ) 
 /**
  * @typedef {Object} TenantAdminTransactionTemplateIn
  * @property {String} cmd
- * @property {Object} withMeta
- * @property {number} pager.page
- * @property {number} pager.perPage
- * @property {Object} pager.filters
- * @property {Array<String>} pager.order
  * @property {number} transactionTemplate.id
  * @property {String} transactionTemplate.tenantCode
  * @property {String} transactionTemplate.name
@@ -2014,14 +1901,6 @@ exports.TenantAdminTransaction = async function TenantAdminTransaction( i, cb ) 
  */
 const TenantAdminTransactionTemplateIn = {
   cmd: '', // string
-  withMeta: false, // bool
-  pager: { // zCrud.PagerIn
-    page: 0, // int
-    perPage: 0, // int
-    filters: { // map[string][]string
-    }, // map[string][]string
-    order: [], // []string
-  }, // zCrud.PagerIn
   transactionTemplate: { // rqFinance.TransactionTemplate
     id: 0, // uint64
     tenantCode: '', // string
@@ -2039,15 +1918,6 @@ const TenantAdminTransactionTemplateIn = {
 }
 /**
  * @typedef {Object} TenantAdminTransactionTemplateOut
- * @property {number} pager.page
- * @property {number} pager.perPage
- * @property {number} pager.pages
- * @property {number} pager.total
- * @property {Object} pager.filters
- * @property {Array<String>} pager.order
- * @property {Object} meta.fields
- * @property {Object} meta.mutex
- * @property {String} meta.cachedSelect
  * @property {Object} transactionTemplates
  * @property {number} transactionTemplate.id
  * @property {String} transactionTemplate.tenantCode
@@ -2063,24 +1933,8 @@ const TenantAdminTransactionTemplateIn = {
  * @property {number} transactionTemplate.restoredBy
  */
 const TenantAdminTransactionTemplateOut = {
-  pager: { // zCrud.PagerOut
-    page: 0, // int
-    perPage: 0, // int
-    pages: 0, // int
-    total: 0, // int
-    filters: { // map[string][]string
-    }, // map[string][]string
-    order: [], // []string
-  }, // zCrud.PagerOut
-  meta: { // zCrud.Meta
-    fields: { // []Field
-    }, // []Field
-    mutex: { // sync.Mutex
-    }, // sync.Mutex
-    cachedSelect: '', // string
-  }, // zCrud.Meta
-  transactionTemplates: { // [][]any
-  }, // [][]any
+  transactionTemplates: { // []rqFinance.TransactionTemplate
+  }, // []rqFinance.TransactionTemplate
   transactionTemplate: { // rqFinance.TransactionTemplate
     id: 0, // uint64
     tenantCode: '', // string
@@ -2108,147 +1962,6 @@ const TenantAdminTransactionTemplateOut = {
  */
 exports.TenantAdminTransactionTemplate = async function TenantAdminTransactionTemplate( i, cb ) {
   return await axios.post( '/tenantAdmin/transactionTemplate', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
- * @typedef {Object} TenantAdminUpsertCoaChildIn
- * @property {number} coa.id
- * @property {String} coa.tenantCode
- * @property {String} coa.name
- * @property {number} coa.level
- * @property {number} coa.parentId
- * @property {Object} coa.children
- * @property {number} coa.createdAt
- * @property {number} coa.createdBy
- * @property {number} coa.updatedAt
- * @property {number} coa.updatedBy
- * @property {number} coa.deletedAt
- * @property {number} coa.deletedBy
- * @property {number} coa.restoredBy
- */
-const TenantAdminUpsertCoaChildIn = {
-  coa: { // rqFinance.Coa
-    id: 0, // uint64
-    tenantCode: '', // string
-    name: '', // string
-    level: 0, // float64
-    parentId: 0, // uint64
-    children: { // []any
-    }, // []any
-    createdAt: 0, // int64
-    createdBy: 0, // uint64
-    updatedAt: 0, // int64
-    updatedBy: 0, // uint64
-    deletedAt: 0, // int64
-    deletedBy: 0, // uint64
-    restoredBy: 0, // uint64
-  }, // rqFinance.Coa
-}
-/**
- * @typedef {Object} TenantAdminUpsertCoaChildOut
- * @property {Object} coas
- */
-const TenantAdminUpsertCoaChildOut = {
-  coas: { // []rqFinance.Coa
-  }, // []rqFinance.Coa
-}
-/**
- * @callback TenantAdminUpsertCoaChildCallback
- * @param {TenantAdminUpsertCoaChildOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminUpsertCoaChildIn} i
- * @param {TenantAdminUpsertCoaChildCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminUpsertCoaChild = async function TenantAdminUpsertCoaChild( i, cb ) {
-  return await axios.post( '/tenantAdmin/createCoaChild', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
- * @typedef {Object} TenantAdminUpsertOrganizationChildIn
- * @property {number} org.id
- * @property {String} org.tenantCode
- * @property {String} org.name
- * @property {String} org.headTitle
- * @property {number} org.parentId
- * @property {Object} org.children
- * @property {number} org.orgType
- * @property {number} org.createdAt
- * @property {number} org.createdBy
- * @property {number} org.updatedAt
- * @property {number} org.updatedBy
- * @property {number} org.deletedAt
- */
-const TenantAdminUpsertOrganizationChildIn = {
-  org: { // rqAuth.Orgs
-    id: 0, // uint64
-    tenantCode: '', // string
-    name: '', // string
-    headTitle: '', // string
-    parentId: 0, // uint64
-    children: { // []any
-    }, // []any
-    orgType: 0, // uint64
-    createdAt: 0, // int64
-    createdBy: 0, // uint64
-    updatedAt: 0, // int64
-    updatedBy: 0, // uint64
-    deletedAt: 0, // int64
-  }, // rqAuth.Orgs
-}
-/**
- * @typedef {Object} TenantAdminUpsertOrganizationChildOut
- * @property {number} org.id
- * @property {String} org.tenantCode
- * @property {String} org.name
- * @property {String} org.headTitle
- * @property {number} org.parentId
- * @property {Object} org.children
- * @property {number} org.orgType
- * @property {number} org.createdAt
- * @property {number} org.createdBy
- * @property {number} org.updatedAt
- * @property {number} org.updatedBy
- * @property {number} org.deletedAt
- * @property {Object} orgs
- */
-const TenantAdminUpsertOrganizationChildOut = {
-  org: { // rqAuth.Orgs
-    id: 0, // uint64
-    tenantCode: '', // string
-    name: '', // string
-    headTitle: '', // string
-    parentId: 0, // uint64
-    children: { // []any
-    }, // []any
-    orgType: 0, // uint64
-    createdAt: 0, // int64
-    createdBy: 0, // uint64
-    updatedAt: 0, // int64
-    updatedBy: 0, // uint64
-    deletedAt: 0, // int64
-  }, // rqAuth.Orgs
-  orgs: { // []rqAuth.Orgs
-  }, // []rqAuth.Orgs
-}
-/**
- * @callback TenantAdminUpsertOrganizationChildCallback
- * @param {TenantAdminUpsertOrganizationChildOut} o
- * @returns {Promise}
- */
-/**
- * @param  {TenantAdminUpsertOrganizationChildIn} i
- * @param {TenantAdminUpsertOrganizationChildCallback} cb
- * @returns {Promise}
- */
-exports.TenantAdminUpsertOrganizationChild = async function TenantAdminUpsertOrganizationChild( i, cb ) {
-  return await axios.post( '/tenantAdmin/updateOrganizationChild', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -2329,6 +2042,8 @@ exports.UserChangePassword = async function UserChangePassword( i, cb ) {
  * @property {number} company.updatedAt
  * @property {number} company.updatedBy
  * @property {number} company.deletedAt
+ * @property {number} company.deletedBy
+ * @property {number} company.restoredBy
  */
 const UserCreateCompanyIn = {
   company: { // rqAuth.Orgs
@@ -2345,6 +2060,8 @@ const UserCreateCompanyIn = {
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
   }, // rqAuth.Orgs
 }
 /**
@@ -2362,6 +2079,8 @@ const UserCreateCompanyIn = {
  * @property {number} company.updatedAt
  * @property {number} company.updatedBy
  * @property {number} company.deletedAt
+ * @property {number} company.deletedBy
+ * @property {number} company.restoredBy
  */
 const UserCreateCompanyOut = {
   ok: false, // bool
@@ -2379,6 +2098,8 @@ const UserCreateCompanyOut = {
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
   }, // rqAuth.Orgs
 }
 /**

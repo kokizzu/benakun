@@ -10,10 +10,7 @@
   } from '../../node_modules/svelte-icons-pack/dist/ai';
   import { BsDatabaseAdd } from '../../node_modules/svelte-icons-pack/dist/bs';
   import { OiNote16 } from '../../node_modules/svelte-icons-pack/dist/oi';
-  import {
-    FaCircleUser,
-    FaSolidSliders,
-  } from '../../node_modules/svelte-icons-pack/dist/fa';
+  import { FaCircleUser } from '../../node_modules/svelte-icons-pack/dist/fa';
   import {
     RiEditorOrganizationChart,
     RiUserFacesAdminLine,
@@ -23,7 +20,8 @@
     RiUserFacesContactsLine,
     RiMapMap2Line,
     RiFinanceSwapBoxLine,
-    RiDocumentStickyNoteAddLine
+    RiDocumentStickyNoteAddLine,
+    RiDocumentFileCopy2Line
   } from '../../node_modules/svelte-icons-pack/dist/ri';
   import { CgLogOut, CgBox } from '../../node_modules/svelte-icons-pack/dist/cg';
   import { BsPostcard } from '../../node_modules/svelte-icons-pack/dist/bs';
@@ -160,6 +158,7 @@
           <div class="submenu">
             <SubMenuLink title='Users' href='/superAdmin/userManagement' icon={RiUserFacesGroup2Line}/>
             <SubMenuLink title='Tenants' href='/superAdmin/tenantManagement' icon={RiUserFacesContactsLine}/>
+            <SubMenuLink title='Access Log' href='/superAdmin/accessLog' icon={RiDocumentFileCopy2Line}/>
           </div>
         {/if}
       </nav>
@@ -283,6 +282,7 @@
     justify-content: space-between;
     gap: 30px;
     flex-grow: 1;
+    padding-bottom: 10px;
   }
 
   .side_menu_container .menu_container .menu_list {

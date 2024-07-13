@@ -2,21 +2,24 @@
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
-  import InputBox from "./InputBox.svelte";
+	import InputCustom from './InputCustom.svelte';
 
-  export let heading = 'Add coa child';
+  export let heading = 'Add Transaction Template';
 
-  export let onSubmit = () => {}
   export let isSubmitted = false;
-  export let childName = '';
+  export let onSubmit = () => {};
+
+  export let name 	= '';
+	export let color	= '';
 
   let isShow = false;
   export const show = () => isShow = true;
   export const hide = () => isShow = false;
 
   const cancel = () => {
-    isShow = false;
-    childName = '';
+    isShow	= false;
+    name		= '';
+		color		= '';
   }
 </script>
 
@@ -29,7 +32,19 @@
       </button>
     </header>
     <div class="forms">
-      <InputBox id="childName" label="Nama / Name" bind:value={childName} type="text" placeholder="Barang..." />
+      <InputCustom
+				id="name"
+				label="Nama / Name"
+				bind:value={name}
+				type="text"
+				placeholder="Barang..."
+			/>
+			<InputCustom
+				id="color"
+				label="Warna Latar / Background Color"
+				bind:value={color}
+				type="color"
+			/>
     </div>
     <div class="foot">
       <div class="left">
@@ -38,7 +53,7 @@
         <button class="cancel" on:click|preventDefault={cancel}>Cancel</button>
         <button class="ok" on:click|preventDefault={onSubmit}>
           {#if !isSubmitted}
-            <span>Ok</span>
+            <span>Save</span>
           {/if}
           {#if isSubmitted}
             <Icon className="spin" color="#FFF" size="14" src={FiLoader} />

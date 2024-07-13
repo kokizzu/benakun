@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	RoleUser				 = `user`	
+	RoleUser         = `user`
 	RoleTenantAdmin  = `tenantAdmin`
 	RoleDataEntry    = `dataEntry`
 	RoleReportViewer = `reportViewer`
@@ -36,6 +36,8 @@ const (
 	UpdatedAt          = `updatedAt`
 	UpdatedBy          = `updatedBy`
 	DeletedAt          = `deletedAt`
+	DeletedBy          = `deletedBy`
+	RestoredBy         = `restoredBy`
 	PasswordSetAt      = `passwordSetAt`
 	SecretCode         = `secretCode`
 	SecretCodeAt       = `secretCodeAt`
@@ -49,7 +51,7 @@ const (
 	InvitationState    = `invitationState`
 )
 
-const DefaultPassword	= `user12345678`
+const DefaultPassword = `user12345678`
 
 const (
 	TableSessions Tt.TableName = `sessions`
@@ -156,6 +158,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UpdatedAt, Tt.Integer},
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
+			{DeletedBy, Tt.Unsigned},
+			{RestoredBy, Tt.Unsigned},
 		},
 		AutoIncrementId: true,
 	},

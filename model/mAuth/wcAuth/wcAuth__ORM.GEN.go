@@ -241,6 +241,28 @@ func (o *OrgsMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positiv
 	return false
 }
 
+// SetDeletedBy create mutations, should not duplicate
+func (o *OrgsMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
+	if val != o.DeletedBy {
+		o.mutations.Assign(12, val)
+		o.logs = append(o.logs, A.X{`deletedBy`, o.DeletedBy, val})
+		o.DeletedBy = val
+		return true
+	}
+	return false
+}
+
+// SetRestoredBy create mutations, should not duplicate
+func (o *OrgsMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
+	if val != o.RestoredBy {
+		o.mutations.Assign(13, val)
+		o.logs = append(o.logs, A.X{`restoredBy`, o.RestoredBy, val})
+		o.RestoredBy = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (o *OrgsMutator) SetAll(from rqAuth.Orgs, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -295,6 +317,14 @@ func (o *OrgsMutator) SetAll(from rqAuth.Orgs, excludeMap, forceMap M.SB) (chang
 	}
 	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
 		o.DeletedAt = from.DeletedAt
+		changed = true
+	}
+	if !excludeMap[`deletedBy`] && (forceMap[`deletedBy`] || from.DeletedBy != 0) {
+		o.DeletedBy = from.DeletedBy
+		changed = true
+	}
+	if !excludeMap[`restoredBy`] && (forceMap[`restoredBy`] || from.RestoredBy != 0) {
+		o.RestoredBy = from.RestoredBy
 		changed = true
 	}
 	return

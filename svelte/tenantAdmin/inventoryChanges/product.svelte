@@ -98,32 +98,34 @@
   }
 
   async function OnEdit(/** @type any */ id, /** @type any[]*/ payloads) {
-    const inventoryChange = {
-      id: id,
-      stockDelta: payloads[1],
-    }
+    // const inventoryChange = {
+    //   id: id,
+    //   stockDelta: payloads[1],
+    // }
 
-    const i = {
-      pager, inventoryChange,
-      cmd: 'upsert'
-    };
-    await TenantAdminInventoryChangesProduct( // @ts-ignore
-      i, /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
-      /** @returns {Promise<void>} */
-      function(/** @type any */ o) {
-        if (o.error) {
-          console.log(o);
-          notifier.showError(o.error);
-          return
-        }
+    // const i = {
+    //   pager, inventoryChange,
+    //   cmd: 'upsert'
+    // };
+    // await TenantAdminInventoryChangesProduct( // @ts-ignore
+    //   i, /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
+    //   /** @returns {Promise<void>} */
+    //   function(/** @type any */ o) {
+    //     if (o.error) {
+    //       console.log(o);
+    //       notifier.showError(o.error);
+    //       return
+    //     }
 
-        pager = o.pager;
-        inventoryChanges = o.inventoryChanges;
-        notifier.showSuccess('inventoryChange edited')
+    //     pager = o.pager;
+    //     inventoryChanges = o.inventoryChanges;
+    //     notifier.showSuccess('inventoryChange edited')
 
-        OnRefresh(pager);
-      }
-    );
+    //     OnRefresh(pager);
+    //   }
+    // );
+
+    console.log('Payloads', payloads);
   }
 </script>
 
@@ -171,7 +173,7 @@
       CAN_RESTORE_ROW
       CAN_OPEN_LINK
 
-      LINK_PATH='/tenantAdmin/inventoryChanges/'
+      LINK_PATH={window.location.pathname}
       IDX_ID_LINK={2}
 
       {OnDelete}

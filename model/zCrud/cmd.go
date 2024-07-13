@@ -6,4 +6,5 @@ const (
 	CmdUpsert  = `upsert`  // insert if id=0, update if id>0
 	CmdRestore = `restore` // same as upsert but also unset deletedAt, deletedBy
 	CmdDelete  = `delete`  // same as upsert but also set deletedAt, deletedBy
+	CmdMove		 = `move`		 // move child to other parent	
 )
