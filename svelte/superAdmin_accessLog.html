@@ -2980,10 +2980,28 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         const formattedDate = `${date}/${month}/${year} - ${hh}:${mm}`;
         return formattedDate;
       }
+      function isoDate(unixSec) {
+        if (!unixSec)
+          return "";
+        const dt = new Date(unixSec * 1e3);
+        const day = dt.toLocaleDateString("default", { weekday: "long" });
+        const date = dt.getDate();
+        const month = dt.toLocaleDateString("default", { month: "2-digit" });
+        const year = dt.getFullYear();
+        let hh = dt.getHours();
+        if (hh < 10)
+          hh = "0" + hh;
+        let mm = dt.getMinutes();
+        if (mm < 10)
+          mm = "0" + mm;
+        const formattedDate = `${year}-${month}-${date} ${hh}:${mm}`;
+        return formattedDate;
+      }
       module.exports = {
         datetime,
         localeDatetime,
-        utcDatetime: utcDatetime2
+        utcDatetime: utcDatetime2,
+        isoDate
       };
     }
   });

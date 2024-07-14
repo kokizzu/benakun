@@ -17,18 +17,20 @@
   function orgMaker(id) {
     /** @type {Org} */
     let orgFormatted = {
-      id: '',
+      id: 0,
       name: '',
       orgType: 0,
-      parentId: '',
+      parentId: 0,
       tenantCode: '',
       createdAt: 0,
-      createdBy: '',
+      createdBy: 0,
       updatedAt: 0,
-      updatedBy: '',
+      updatedBy: 0,
       deletedAt: 0,
       children: [],
-      headTitle: ''
+      headTitle: '',
+      deletedBy: 0,
+      restoredBy: 0
     }
     for (let i in orgs) {
       if (orgs[i].id == String(id)) {

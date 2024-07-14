@@ -1,6 +1,7 @@
 <script>
   import { Icon } from './node_modules/svelte-icons-pack/dist';
   import { RiSystemAddBoxLine } from './node_modules/svelte-icons-pack/dist/ri';
+  import { FaShareFromSquare } from './node_modules/svelte-icons-pack/dist/fa';
   import MainLayout from './_layouts/mainLayout.svelte';
   import MasterTable from './_components/MasterTable.svelte';
   import PopUpInventoryChanges from './_components/PopUpInventoryChanges.svelte';
@@ -188,7 +189,14 @@
       CAN_OPEN_LINK
 
       LINK_PATH='/tenantAdmin/inventoryChanges/'
-      IDX_ID_LINK={2}
+      LINKS={[
+        {
+          icon: FaShareFromSquare,
+          name: 'open',
+          path: '/tenantAdmin/inventoryChanges/',
+          isTargetBlank: false
+        }
+      ]}
 
       {OnDelete}
       {OnEdit}

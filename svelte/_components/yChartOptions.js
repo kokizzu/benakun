@@ -1,4 +1,4 @@
-const utcDatetime = require('./formatter').utcDatetime;
+const isoDate = require('./formatter').isoDate;
 
 function httpRequestOptions(requestsPerDate, uniqueUserPerDate, uniqueIpPerDate) {
   return {
@@ -27,7 +27,7 @@ function httpRequestOptions(requestsPerDate, uniqueUserPerDate, uniqueIpPerDate)
       axisTicks: { show: false },
       labels: {
         formatter: function (value) {
-          return utcDatetime( value );
+          return isoDate( value );
         }
       }
     },
@@ -42,7 +42,7 @@ function httpRequestOptions(requestsPerDate, uniqueUserPerDate, uniqueIpPerDate)
     tooltip: {
       x: {
         formatter: function (value) {
-          return utcDatetime( value );
+          return isoDate( value );
         },
       },
       fixed: {
@@ -100,7 +100,7 @@ function actionCountsOptions(countPerActionsPerDate) {
       axisTicks: { show: false },
       labels: {
         formatter: function (value) {
-          return utcDatetime( value );
+          return isoDate( value );
         }
       }
     },
@@ -115,7 +115,7 @@ function actionCountsOptions(countPerActionsPerDate) {
     tooltip: {
       x: {
         formatter: function (value) {
-          return utcDatetime( value );
+          return isoDate( value );
         },
       },
       fixed: {

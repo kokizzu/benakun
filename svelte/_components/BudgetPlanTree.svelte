@@ -27,6 +27,8 @@
   const PlanTypeProgram   = 'program';
   const PlanTypeActivity  = 'activity';
 
+  let lastYearInput = 2024;
+
   let orgType = 'company';
   let orgIcon = RiBuildingsCommunityLine;
 
@@ -261,12 +263,19 @@
     headingPopUp = state + ' ' + planType;
 
     popUpBudgetPlan.show();
+    yearOf = lastYearInput;
   }
 
   function onUpdateProgramActivity(e) {
     const plans = /** @type {BudgetPlan[]}*/ (e.detail);
     budgetPlans = plans;
     reformatPlans();
+  }
+
+  $: {
+    if (lastYearInput) {
+      localStorage.setItem('lastYearInput', lastYearInput+'');
+    }
   }
 </script>
 

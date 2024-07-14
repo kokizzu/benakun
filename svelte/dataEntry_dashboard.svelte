@@ -9,8 +9,8 @@
 </script>
 
 <MainLayout>
+  <h2>TODO: add coa</h2>
   <div class="menu_container">
-    <p>TODO: fix query</p>
     {#each (transactionTemplates || []) as ttm, i (ttm.id)}
       <button class="menu_item" style="background-color: {ttm.color};">
         {ttm.name}

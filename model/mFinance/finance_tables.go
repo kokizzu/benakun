@@ -142,8 +142,11 @@ const (
 const (
 	TableBusinessTransaction Tt.TableName = `businessTransaction`
 
-	StartDate = `startDate`
-	EndDate   = `endDate`
+	StartDate 				= `startDate`
+	EndDate   				= `endDate`
+	CustBankAccountId = `custBankAccountId` 
+	TotalIDR 					= `totalIDR`
+
 )
 
 const (
@@ -194,7 +197,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,
 	},
-	TableTransactionTemplate: {
+	TableTransactionTemplate: { // Ini jenis transaksi yang mungkin terjadi di Perusahaan
 		Fields: []Tt.Field{
 			{Id, Tt.Unsigned},
 			{TenantCode, Tt.String},
@@ -212,6 +215,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,
 	},
+	// Transaction template detail lebih dari 1 utk parent yg sama
 	TableTransactionTplDetail: {
 		Fields: []Tt.Field{
 			{Id, Tt.Unsigned},
@@ -240,6 +244,24 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Description, Tt.String},
 			{Date, Tt.String},
 			{DetailObj, Tt.String},
+			{CreatedAt, Tt.Integer},
+			{CreatedBy, Tt.Unsigned},
+			{UpdatedAt, Tt.Integer},
+			{UpdatedBy, Tt.Unsigned},
+			{DeletedAt, Tt.Integer},
+			{DeletedBy, Tt.Unsigned},
+			{RestoredBy, Tt.Unsigned},
+		},
+		AutoIncrementId: true,
+		Engine:          Tt.Vinyl,
+	},
+	TableBusinessTransaction: {
+		Fields: []Tt.Field{
+			{Id, Tt.Unsigned},
+			{TenantCode, Tt.String},
+			{StartDate, Tt.Integer},
+			{EndDate, Tt.Integer},
+			{},
 			{CreatedAt, Tt.Integer},
 			{CreatedBy, Tt.Unsigned},
 			{UpdatedAt, Tt.Integer},

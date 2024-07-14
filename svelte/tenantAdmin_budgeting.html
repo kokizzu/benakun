@@ -3450,10 +3450,28 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         const formattedDate = `${date}/${month}/${year} - ${hh}:${mm}`;
         return formattedDate;
       }
+      function isoDate(unixSec) {
+        if (!unixSec)
+          return "";
+        const dt = new Date(unixSec * 1e3);
+        const day = dt.toLocaleDateString("default", { weekday: "long" });
+        const date = dt.getDate();
+        const month = dt.toLocaleDateString("default", { month: "2-digit" });
+        const year = dt.getFullYear();
+        let hh = dt.getHours();
+        if (hh < 10)
+          hh = "0" + hh;
+        let mm = dt.getMinutes();
+        if (mm < 10)
+          mm = "0" + mm;
+        const formattedDate = `${year}-${month}-${date} ${hh}:${mm}`;
+        return formattedDate;
+      }
       module.exports = {
         datetime,
         localeDatetime: localeDatetime2,
-        utcDatetime
+        utcDatetime,
+        isoDate
       };
     }
   });
@@ -11741,6 +11759,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var PlanTypeMission = "mission";
   var PlanTypeProgram = "program";
   var PlanTypeActivity2 = "activity";
+  var lastYearInput = 2024;
   var OrgTypeCompany = 1;
   var OrgTypeDept = 2;
   var OrgTypeDivision = 3;
@@ -11954,6 +11973,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
       $invalidate(8, headingPopUp = state + " " + planType);
       popUpBudgetPlan.show();
+      $invalidate(12, yearOf = lastYearInput);
     }
     function onUpdateProgramActivity(e) {
       const plans = (
@@ -12018,6 +12038,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       if ("org" in $props2)
         $invalidate(0, org = $props2.org);
     };
+    $: {
+      if (lastYearInput) {
+        localStorage.setItem("lastYearInput", lastYearInput + "");
+      }
+    }
     return [
       org,
       orgType,
@@ -12568,18 +12593,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   );
   function orgMaker(id) {
     let orgFormatted = {
-      id: "",
+      id: 0,
       name: "",
       orgType: 0,
-      parentId: "",
+      parentId: 0,
       tenantCode: "",
       createdAt: 0,
-      createdBy: "",
+      createdBy: 0,
       updatedAt: 0,
-      updatedBy: "",
+      updatedBy: 0,
       deletedAt: 0,
       children: [],
-      headTitle: ""
+      headTitle: "",
+      deletedBy: 0,
+      restoredBy: 0
     };
     for (let i in orgs) {
       if (orgs[i].id == String(id)) {

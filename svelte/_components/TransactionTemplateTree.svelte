@@ -73,6 +73,8 @@
     <div class="transaction_template_detail">
       <div class="info">
         <span class="label">Debit</span>
+        <span class="label">Kredit</span>
+        <span class="label">COA</span>
       </div>
     </div>
   {/if}

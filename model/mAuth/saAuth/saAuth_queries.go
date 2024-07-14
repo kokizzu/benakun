@@ -7,6 +7,7 @@ import (
 	"github.com/kokizzu/gotro/L"
 )
 
+// TODO: group access log by date only
 
 func scanMap(rows *sql.Rows, err error) map[string]int {
 	if err != nil {

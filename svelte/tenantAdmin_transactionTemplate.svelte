@@ -62,6 +62,7 @@
       </button>
     </header>
     <div class="transaction_templates">
+      <h4>TODO: combobox coa in transaction tempalte detail</h4>
       {#each (transactionTemplates || []) as tt}
         <TransactionTemplateTree
           transactionTemplate={tt}

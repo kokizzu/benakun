@@ -5301,9 +5301,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function create_default_slot(ctx) {
-    let div;
-    let p;
+    let h2;
     let t1;
+    let div;
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
     let each_value = ensure_array_like(transactionTemplates || []);
@@ -5318,19 +5318,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     return {
       c() {
-        div = element("div");
-        p = element("p");
-        p.textContent = "TODO: fix query";
+        h2 = element("h2");
+        h2.textContent = "TODO: add coa";
         t1 = space();
+        div = element("div");
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
         attr(div, "class", "menu_container svelte-1yfyvds");
       },
       m(target, anchor) {
+        insert(target, h2, anchor);
+        insert(target, t1, anchor);
         insert(target, div, anchor);
-        append(div, p);
-        append(div, t1);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
             each_blocks[i].m(div, null);
@@ -5346,6 +5346,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       d(detaching) {
         if (detaching) {
+          detach(h2);
+          detach(t1);
           detach(div);
         }
         for (let i = 0; i < each_blocks.length; i += 1) {

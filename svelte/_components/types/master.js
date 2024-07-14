@@ -32,6 +32,7 @@ module.exports = {};
  */
 module.exports = {};
 
+// TODO: add function for return row
 /**
  * @typedef {Object} ExtendedAction 
  * @property {import("svelte-icons-pack").IconType} icon 

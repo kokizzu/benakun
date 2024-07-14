@@ -256,7 +256,6 @@ func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 		}
 	}
 
-
 	if sess.TenantCode != `` {
 		tCode, _ := GetTenantCodeByHost(in.Host)
 		if tCode == sess.TenantCode {
@@ -335,21 +334,23 @@ func (d *Domain) MustTenantAdmin(in RequestCommon, out *ResponseCommon) (sess *S
 			return nil
 		}
 	} else {
-		tenantCode, _ := GetTenantCodeByHost(in.Host)
-		if sess.TenantCode != tenantCode {
-			out.SetError(403, ErrSessionUserNotTenantAdmin)
-			return nil
-		}
-		tenant := rqAuth.NewTenants(d.AuthOltp)
-		tenant.TenantCode = sess.TenantCode
-		if !tenant.FindByTenantCode() {
-			out.SetError(403, ErrSessionUserNotTenantAdmin)
-			return nil
-		}
+		if !sess.IsSuperAdmin {
+			tenantCode, _ := GetTenantCodeByHost(in.Host)
+			if sess.TenantCode != tenantCode {
+				out.SetError(403, ErrSessionUserNotTenantAdmin)
+				return nil
+			}
+			tenant := rqAuth.NewTenants(d.AuthOltp)
+			tenant.TenantCode = sess.TenantCode
+			if !tenant.FindByTenantCode() {
+				out.SetError(403, ErrSessionUserNotTenantAdmin)
+				return nil
+			}
 
-		if tenant.DeletedAt > 0 {
-			out.SetError(403, ErrSessionUserNotTenantAdmin)
-			return nil
+			if tenant.DeletedAt > 0 {
+				out.SetError(403, ErrSessionUserNotTenantAdmin)
+				return nil
+			}
 		}
 
 		sess.Segments[TenantAdminSegment] = true

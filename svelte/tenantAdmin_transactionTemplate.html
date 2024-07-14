@@ -8336,7 +8336,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     return {
       c() {
         div1 = element("div");
-        div1.innerHTML = `<div class="info svelte-1lwb869"><span class="label svelte-1lwb869">Debit</span></div>`;
+        div1.innerHTML = `<div class="info svelte-1lwb869"><span class="label svelte-1lwb869">Debit</span> <span class="label svelte-1lwb869">Kredit</span> <span class="label svelte-1lwb869">COA</span></div>`;
         attr(div1, "class", "transaction_template_detail svelte-1lwb869");
       },
       m(target, anchor) {
@@ -8610,6 +8610,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let button;
     let t1;
     let div0;
+    let h4;
+    let t3;
     let current;
     let mounted;
     let dispose;
@@ -8629,6 +8631,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         button.textContent = "Add";
         t1 = space();
         div0 = element("div");
+        h4 = element("h4");
+        h4.textContent = "TODO: combobox coa in transaction tempalte detail";
+        t3 = space();
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
@@ -8643,6 +8648,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(header, button);
         append(div1, t1);
         append(div1, div0);
+        append(div0, h4);
+        append(div0, t3);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
             each_blocks[i].m(div0, null);
