@@ -20,6 +20,26 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// DataEntryTemplate
+	fw.Post("/"+domain.DataEntryTemplateAction, func(c *fiber.Ctx) error {
+		in := domain.DataEntryTemplateIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.DataEntryTemplateAction); err != nil {
+			return nil
+		}
+		out := d.DataEntryTemplate(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// DataEntryTemplates
+	fw.Post("/"+domain.DataEntryTemplatesAction, func(c *fiber.Ctx) error {
+		in := domain.DataEntryTemplatesIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.DataEntryTemplatesAction); err != nil {
+			return nil
+		}
+		out := d.DataEntryTemplates(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// DataEntryTransactionEntry
 	fw.Post("/"+domain.DataEntryTransactionEntryAction, func(c *fiber.Ctx) error {
 		in := domain.DataEntryTransactionEntryIn{}

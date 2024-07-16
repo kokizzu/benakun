@@ -20,6 +20,22 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.DataEntryDashboard(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.DataEntryTemplateAction:
+		in := domain.DataEntryTemplateIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.DataEntryTemplate(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.DataEntryTemplatesAction:
+		in := domain.DataEntryTemplatesIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.DataEntryTemplates(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.DataEntryTransactionEntryAction:
 		in := domain.DataEntryTransactionEntryIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

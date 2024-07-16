@@ -54,6 +54,72 @@
 				}
 			}
 		},
+		"/dataEntry/template": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "DataEntryTemplate",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/dataEntry/templates": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "DataEntryTemplates",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/dataEntry/transactionEntry": {
 			"post": {
 				"security": [{

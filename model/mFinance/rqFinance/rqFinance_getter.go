@@ -82,8 +82,6 @@ FROM SEQSCAN ` + ttm.SqlTableName() + whereAndSql
 		rows = append(rows, *ttm)
 	})
 
-	L.Print(`query:`, queryRows)
-
 	ttms = &rows
 	return
 }

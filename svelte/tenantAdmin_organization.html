@@ -3001,6 +3001,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.DataEntryDashboard = async function DataEntryDashboard(i, cb) {
         return await axios.post("/dataEntry/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.DataEntryTemplate = async function DataEntryTemplate(i, cb) {
+        return await axios.post("/dataEntry/template", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.DataEntryTemplates = async function DataEntryTemplates(i, cb) {
+        return await axios.post("/dataEntry/templates", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.DataEntryTransactionEntry = async function DataEntryTransactionEntry(i, cb) {
         return await axios.post("/dataEntry/transactionEntry", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };

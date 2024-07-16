@@ -49,6 +49,58 @@ exports.DataEntryDashboard = async function DataEntryDashboard( i, cb ) {
 }
 
 /**
+ * @typedef {Object} DataEntryTemplateIn
+ */
+const DataEntryTemplateIn = {
+}
+/**
+ * @typedef {Object} DataEntryTemplateOut
+ */
+const DataEntryTemplateOut = {
+}
+/**
+ * @callback DataEntryTemplateCallback
+ * @param {DataEntryTemplateOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {DataEntryTemplateIn} i
+ * @param {DataEntryTemplateCallback} cb
+ * @returns {Promise}
+ */
+exports.DataEntryTemplate = async function DataEntryTemplate( i, cb ) {
+  return await axios.post( '/dataEntry/template', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} DataEntryTemplatesIn
+ */
+const DataEntryTemplatesIn = {
+}
+/**
+ * @typedef {Object} DataEntryTemplatesOut
+ */
+const DataEntryTemplatesOut = {
+}
+/**
+ * @callback DataEntryTemplatesCallback
+ * @param {DataEntryTemplatesOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {DataEntryTemplatesIn} i
+ * @param {DataEntryTemplatesCallback} cb
+ * @returns {Promise}
+ */
+exports.DataEntryTemplates = async function DataEntryTemplates( i, cb ) {
+  return await axios.post( '/dataEntry/templates', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} DataEntryTransactionEntryIn
  */
 const DataEntryTransactionEntryIn = {

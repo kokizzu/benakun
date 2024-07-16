@@ -12,6 +12,7 @@ import (
 var viewList = map[string]string{
 	`404`: `../svelte/404.html`, // ../svelte/404.svelte
 	`ApidocsIndex`: `../svelte/apidocs/index.html`, // ../svelte/apidocs/index.svelte
+	`DataEntryTemplatesTemplate`: `../svelte/dataEntry/templates/template.html`, // ../svelte/dataEntry/templates/template.svelte
 	`DataEntryDashboard`: `../svelte/dataEntry_dashboard.html`, // ../svelte/dataEntry_dashboard.svelte
 	`DataEntryTransactionEntry`: `../svelte/dataEntry_transactionEntry.html`, // ../svelte/dataEntry_transactionEntry.svelte
 	`Debug`: `../svelte/debug.html`, // ../svelte/debug.svelte
@@ -48,6 +49,11 @@ func (v *Views) Render404(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderApidocsIndex(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`ApidocsIndex`].Str(m))
+}
+
+func (v *Views) RenderDataEntryTemplatesTemplate(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`DataEntryTemplatesTemplate`].Str(m))
 }
 
 func (v *Views) RenderDataEntryDashboard(c *fiber.Ctx, m M.SX) error {

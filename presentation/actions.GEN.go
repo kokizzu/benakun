@@ -8,6 +8,8 @@ import (
 
 var allCommands = []string{
 	domain.DataEntryDashboardAction,
+	domain.DataEntryTemplateAction,
+	domain.DataEntryTemplatesAction,
 	domain.DataEntryTransactionEntryAction,
 	domain.GuestAutoLoginAction,
 	domain.GuestDebugAction,

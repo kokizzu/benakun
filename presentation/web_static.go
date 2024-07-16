@@ -147,15 +147,33 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		r.TenantCode = tenantCode
 		trxTemplates := r.FindByTenantCode()
 
-		// TODO: check data entry must have access to this tenant
-
-		// invState := user.InvitationState
-
 		return views.RenderDataEntryDashboard(ctx, M.SX{
 			`title`:                `Data Entry Dashboard`,
 			`user`:                 user,
 			`segments`:             segments,
 			`transactionTemplates`: trxTemplates,
+		})
+	})
+
+	fw.Get(`/`+domain.DataEntryTemplateAction+`:templateId`, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notDataEntryLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		templateId := ctx.Params("templateId")
+
+		trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
+		trxTemplate.Id = S.ToU(templateId)
+		if !trxTemplate.FindById() {
+			return ctx.Redirect(`/`+domain.DataEntryDashboardAction, 302)
+		}
+
+		return views.RenderDataEntryTemplatesTemplate(ctx, M.SX{
+			`title`:      `Data Entry Template`,
+			`user`:       user,
+			`segments`:   segments,
+			`template`:		trxTemplate,
 		})
 	})
 
