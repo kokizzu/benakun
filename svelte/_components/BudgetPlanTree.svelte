@@ -27,7 +27,7 @@
   const PlanTypeProgram   = 'program';
   const PlanTypeActivity  = 'activity';
 
-  let lastYearInput = 2024;
+  let lastYearInput = Number(localStorage.getItem('lastYearInput')) || new Date().getFullYear();
 
   let orgType = 'company';
   let orgIcon = RiBuildingsCommunityLine;
@@ -68,12 +68,12 @@
 
   // make it as payload
   let id = 0, planType = PlanTypeVision, title = '', description = '',
-    yearOf = 0, budgetIDR = '', unit = '', quantity = 0;
+    yearOf = lastYearInput, budgetIDR = '', unit = '', quantity = 0;
 
   // reset payload
   const resetPayload = () => {
     planType = '', title = '', description = '';
-    yearOf = 0, budgetIDR = '', unit = '', quantity = 0;
+    yearOf = lastYearInput, budgetIDR = '', unit = '', quantity = 0;
   }
 
   // state render budget plans
@@ -189,6 +189,8 @@
       i, /** @type {import('../jsApi.GEN').TenantAdminBudgetingCallback} */
       function (/** @type {any} */ o) {
         isSubmitPlan = false;
+        lastYearInput = Number(yearOf);
+        localStorage.setItem('lastYearInput', lastYearInput+'');
         if (o.error) {
           notifier.showError(o.error);
           console.log(o);

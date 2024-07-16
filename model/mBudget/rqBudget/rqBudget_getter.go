@@ -4,7 +4,6 @@ import (
 	"benakun/model/zCrud"
 
 	"github.com/kokizzu/gotro/I"
-	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 )
@@ -18,8 +17,6 @@ func (p *Plans) FindPlansByOrg(orgId uint64) (plans []Plans) {
 SELECT ` + p.SqlSelectAllFields() + `
 FROM SEQSCAN ` + p.SqlTableName() +
 		whereAndSql
-
-	L.Print(`Query:`, queryRows)
 	
 	p.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0])
@@ -95,8 +92,6 @@ FROM SEQSCAN ` + b.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + li
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
 	})
-
-	L.Print(`Query rows find bankAccounts:`, queryRows)
 
 	return
 }

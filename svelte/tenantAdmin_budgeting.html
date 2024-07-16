@@ -9334,8 +9334,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // _components/PlanProgramTree.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[33] = list[i];
-    child_ctx[35] = i;
+    child_ctx[34] = list[i];
+    child_ctx[36] = i;
     return child_ctx;
   }
   function create_else_block2(ctx) {
@@ -9567,7 +9567,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*click_handler_1*/
-            ctx[25]
+            ctx[26]
           );
           mounted = true;
         }
@@ -9604,17 +9604,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     planprogramtree = new PlanProgramTree({ props: { plan: (
       /*child*/
-      ctx[33]
+      ctx[34]
     ) } });
     planprogramtree.$on(
       "update",
       /*update_handler*/
-      ctx[26]
+      ctx[27]
     );
     planprogramtree.$on(
       "details",
       /*details_handler*/
-      ctx[27]
+      ctx[28]
     );
     return {
       c() {
@@ -9629,7 +9629,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (dirty[0] & /*plan*/
         1)
           planprogramtree_changes.plan = /*child*/
-          ctx2[33];
+          ctx2[34];
         planprogramtree.$set(planprogramtree_changes);
       },
       i(local) {
@@ -9653,7 +9653,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     let if_block = (
       /*child*/
-      ctx[33].planType == "activity" && create_if_block5(ctx)
+      ctx[34].planType == "activity" && create_if_block5(ctx)
     );
     return {
       key: key_1,
@@ -9676,7 +9676,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         ctx = new_ctx;
         if (
           /*child*/
-          ctx[33].planType == "activity"
+          ctx[34].planType == "activity"
         ) {
           if (if_block) {
             if_block.p(ctx, dirty);
@@ -9761,31 +9761,31 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let mounted;
     let dispose;
     function popupbudgetplan_planType_binding(value) {
-      ctx[15](value);
-    }
-    function popupbudgetplan_title_binding(value) {
       ctx[16](value);
     }
-    function popupbudgetplan_description_binding(value) {
+    function popupbudgetplan_title_binding(value) {
       ctx[17](value);
     }
-    function popupbudgetplan_yearOf_binding(value) {
+    function popupbudgetplan_description_binding(value) {
       ctx[18](value);
     }
-    function popupbudgetplan_budgetIDR_binding(value) {
+    function popupbudgetplan_yearOf_binding(value) {
       ctx[19](value);
     }
-    function popupbudgetplan_quantity_binding(value) {
+    function popupbudgetplan_budgetIDR_binding(value) {
       ctx[20](value);
     }
-    function popupbudgetplan_unit_binding(value) {
+    function popupbudgetplan_quantity_binding(value) {
       ctx[21](value);
     }
-    function popupbudgetplan_heading_binding(value) {
+    function popupbudgetplan_unit_binding(value) {
       ctx[22](value);
     }
-    function popupbudgetplan_isSubmitted_binding(value) {
+    function popupbudgetplan_heading_binding(value) {
       ctx[23](value);
+    }
+    function popupbudgetplan_isSubmitted_binding(value) {
+      ctx[24](value);
     }
     let popupbudgetplan_props = { onSubmit: (
       /*submitUpsertPlan*/
@@ -9855,7 +9855,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       ctx[9];
     }
     popupbudgetplan = new PopUpBudgetPlan_default({ props: popupbudgetplan_props });
-    ctx[14](popupbudgetplan);
+    ctx[15](popupbudgetplan);
     binding_callbacks.push(() => bind(popupbudgetplan, "planType", popupbudgetplan_planType_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "title", popupbudgetplan_title_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "description", popupbudgetplan_description_binding));
@@ -9910,7 +9910,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     const get_key = (ctx2) => (
       /*child*/
-      ctx2[33].id
+      ctx2[34].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context2(ctx, each_value, i);
@@ -10000,7 +10000,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               button0,
               "click",
               /*click_handler*/
-              ctx[24]
+              ctx[25]
             ),
             listen(
               button1,
@@ -10229,7 +10229,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           detach(t8);
           detach(each_1_anchor);
         }
-        ctx[14](null);
+        ctx[15](null);
         destroy_component(popupbudgetplan, detaching);
         if_blocks[current_block_type_index].d();
         destroy_component(icon0);
@@ -10254,10 +10254,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   function instance10($self, $props, $invalidate) {
     const dispatch = createEventDispatcher();
     let headingPopUp = "Add activity";
-    let planType = PlanTypeActivity, title = "", description = "", yearOf = 0, budgetIDR = "", quantity = 0, unit = "";
+    let lastYearInput = Number(localStorage.getItem("lastYearInput")) || new Date().getFullYear();
+    let planType = PlanTypeActivity, title = "", description = "", yearOf = lastYearInput, budgetIDR = "", quantity = 0, unit = "";
     const resetPayload = () => {
       planType = "", $invalidate(2, title = ""), $invalidate(3, description = "");
-      $invalidate(4, yearOf = 0), $invalidate(5, budgetIDR = ""), $invalidate(6, quantity = 0), $invalidate(7, unit = "");
+      $invalidate(4, yearOf = lastYearInput), $invalidate(5, budgetIDR = ""), $invalidate(6, quantity = 0), $invalidate(7, unit = "");
     };
     let { plan = {
       id: "",
@@ -10309,6 +10310,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         /** @type {import('../jsApi.GEN').TenantAdminBudgetingCallback} */
         function(o) {
           $invalidate(9, isSubmitPlan = false);
+          $invalidate(14, lastYearInput = Number(yearOf));
+          localStorage.setItem("lastYearInput", lastYearInput + "");
           if (o.error) {
             notifier.showError(o.error);
             console.log(o);
@@ -10459,6 +10462,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       if ("plan" in $props2)
         $invalidate(0, plan = $props2.plan);
     };
+    $self.$.update = () => {
+      if ($self.$.dirty[0] & /*lastYearInput*/
+      16384) {
+        $: {
+          if (lastYearInput) {
+            localStorage.setItem("lastYearInput", lastYearInput + "");
+          }
+        }
+      }
+    };
     return [
       plan,
       headingPopUp,
@@ -10474,6 +10487,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       submitUpsertPlan,
       deletePlan,
       togglePopUp,
+      lastYearInput,
       popupbudgetplan_binding,
       popupbudgetplan_planType_binding,
       popupbudgetplan_title_binding,
@@ -10502,14 +10516,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var import_jsApi_GEN3 = __toESM(require_jsApi_GEN());
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[51] = list[i];
-    child_ctx[53] = i;
+    child_ctx[52] = list[i];
+    child_ctx[54] = i;
     return child_ctx;
   }
   function get_each_context_12(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[54] = list[i];
-    child_ctx[53] = i;
+    child_ctx[55] = list[i];
+    child_ctx[54] = i;
     return child_ctx;
   }
   function create_if_block_26(ctx) {
@@ -10674,7 +10688,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*click_handler_4*/
-            ctx[40]
+            ctx[41]
           );
           mounted = true;
         }
@@ -10813,7 +10827,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*click_handler_1*/
-            ctx[37]
+            ctx[38]
           );
           mounted = true;
         }
@@ -10869,7 +10883,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*click_handler*/
-            ctx[36]
+            ctx[37]
           );
           mounted = true;
         }
@@ -10925,7 +10939,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*click_handler_3*/
-            ctx[39]
+            ctx[40]
           );
           mounted = true;
         }
@@ -10981,7 +10995,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*click_handler_2*/
-            ctx[38]
+            ctx[39]
           );
           mounted = true;
         }
@@ -11018,7 +11032,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     const get_key = (ctx2) => (
       /*plan*/
-      ctx2[54].id
+      ctx2[55].id
     );
     for (let i = 0; i < each_value_1.length; i += 1) {
       let child_ctx = get_each_context_12(ctx, each_value_1, i);
@@ -11083,12 +11097,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     planprogramtree = new PlanProgramTree_default({ props: { plan: (
       /*plan*/
-      ctx[54]
+      ctx[55]
     ) } });
     planprogramtree.$on(
       "details",
       /*details_handler_1*/
-      ctx[41]
+      ctx[42]
     );
     planprogramtree.$on(
       "update",
@@ -11114,7 +11128,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (dirty[0] & /*programsActivity*/
         128)
           planprogramtree_changes.plan = /*plan*/
-          ctx[54];
+          ctx[55];
         planprogramtree.$set(planprogramtree_changes);
       },
       i(local) {
@@ -11146,7 +11160,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     const get_key = (ctx2) => (
       /*child*/
-      ctx2[51].id
+      ctx2[52].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context3(ctx, each_value, i);
@@ -11210,12 +11224,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     budgetplantree = new BudgetPlanTree({ props: { org: (
       /*child*/
-      ctx[51]
+      ctx[52]
     ) } });
     budgetplantree.$on(
       "details",
       /*details_handler*/
-      ctx[42]
+      ctx[43]
     );
     return {
       c() {
@@ -11230,7 +11244,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (dirty[0] & /*org*/
         1)
           budgetplantree_changes.org = /*child*/
-          ctx2[51];
+          ctx2[52];
         budgetplantree.$set(budgetplantree_changes);
       },
       i(local) {
@@ -11254,7 +11268,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     let if_block = (
       /*child*/
-      ctx[51].orgType !== OrgTypeJob && create_if_block_17(ctx)
+      ctx[52].orgType !== OrgTypeJob && create_if_block_17(ctx)
     );
     return {
       key: key_1,
@@ -11277,7 +11291,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         ctx = new_ctx;
         if (
           /*child*/
-          ctx[51].orgType !== OrgTypeJob
+          ctx[52].orgType !== OrgTypeJob
         ) {
           if (if_block) {
             if_block.p(ctx, dirty);
@@ -11356,31 +11370,31 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let mounted;
     let dispose;
     function popupbudgetplan_planType_binding(value) {
-      ctx[27](value);
-    }
-    function popupbudgetplan_title_binding(value) {
       ctx[28](value);
     }
-    function popupbudgetplan_description_binding(value) {
+    function popupbudgetplan_title_binding(value) {
       ctx[29](value);
     }
-    function popupbudgetplan_yearOf_binding(value) {
+    function popupbudgetplan_description_binding(value) {
       ctx[30](value);
     }
-    function popupbudgetplan_budgetIDR_binding(value) {
+    function popupbudgetplan_yearOf_binding(value) {
       ctx[31](value);
     }
-    function popupbudgetplan_unit_binding(value) {
+    function popupbudgetplan_budgetIDR_binding(value) {
       ctx[32](value);
     }
-    function popupbudgetplan_quantity_binding(value) {
+    function popupbudgetplan_unit_binding(value) {
       ctx[33](value);
     }
-    function popupbudgetplan_heading_binding(value) {
+    function popupbudgetplan_quantity_binding(value) {
       ctx[34](value);
     }
-    function popupbudgetplan_isSubmitted_binding(value) {
+    function popupbudgetplan_heading_binding(value) {
       ctx[35](value);
+    }
+    function popupbudgetplan_isSubmitted_binding(value) {
+      ctx[36](value);
     }
     let popupbudgetplan_props = { onSubmit: (
       /*submitPlan*/
@@ -11450,7 +11464,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       ctx[19];
     }
     popupbudgetplan = new PopUpBudgetPlan_default({ props: popupbudgetplan_props });
-    ctx[26](popupbudgetplan);
+    ctx[27](popupbudgetplan);
     binding_callbacks.push(() => bind(popupbudgetplan, "planType", popupbudgetplan_planType_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "title", popupbudgetplan_title_binding));
     binding_callbacks.push(() => bind(popupbudgetplan, "description", popupbudgetplan_description_binding));
@@ -11747,7 +11761,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           detach(t6);
           detach(if_block1_anchor);
         }
-        ctx[26](null);
+        ctx[27](null);
         destroy_component(popupbudgetplan, detaching);
         destroy_component(icon0);
         destroy_component(icon1);
@@ -11765,7 +11779,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var PlanTypeMission = "mission";
   var PlanTypeProgram = "program";
   var PlanTypeActivity2 = "activity";
-  var lastYearInput = 2024;
   var OrgTypeCompany = 1;
   var OrgTypeDept = 2;
   var OrgTypeDivision = 3;
@@ -11778,6 +11791,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /** @type {import('./types/organization.js').Org} */
       {}
     ) } = $props;
+    let lastYearInput = Number(localStorage.getItem("lastYearInput")) || new Date().getFullYear();
     let orgType = "company";
     let orgIcon = RiBuildingsCommunityLine;
     switch (org.orgType) {
@@ -11809,10 +11823,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       []
     );
     let headingPopUp = "Add budget plan";
-    let id = 0, planType = PlanTypeVision, title = "", description = "", yearOf = 0, budgetIDR = "", unit = "", quantity = 0;
+    let id = 0, planType = PlanTypeVision, title = "", description = "", yearOf = lastYearInput, budgetIDR = "", unit = "", quantity = 0;
     const resetPayload = () => {
       $invalidate(9, planType = ""), $invalidate(10, title = ""), $invalidate(11, description = "");
-      $invalidate(12, yearOf = 0), $invalidate(13, budgetIDR = ""), $invalidate(14, unit = ""), $invalidate(15, quantity = 0);
+      $invalidate(12, yearOf = lastYearInput), $invalidate(13, budgetIDR = ""), $invalidate(14, unit = ""), $invalidate(15, quantity = 0);
     };
     let isSearching = false, isShowPlans = false;
     function activityMaker(programId) {
@@ -11916,6 +11930,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         /** @type {import('../jsApi.GEN').TenantAdminBudgetingCallback} */
         function(o) {
           $invalidate(19, isSubmitPlan = false);
+          $invalidate(26, lastYearInput = Number(yearOf));
+          localStorage.setItem("lastYearInput", lastYearInput + "");
           if (o.error) {
             notifier.showError(o.error);
             console.log(o);
@@ -12044,11 +12060,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       if ("org" in $props2)
         $invalidate(0, org = $props2.org);
     };
-    $: {
-      if (lastYearInput) {
-        localStorage.setItem("lastYearInput", lastYearInput + "");
+    $self.$.update = () => {
+      if ($self.$.dirty[0] & /*lastYearInput*/
+      67108864) {
+        $: {
+          if (lastYearInput) {
+            localStorage.setItem("lastYearInput", lastYearInput + "");
+          }
+        }
       }
-    }
+    };
     return [
       org,
       orgType,
@@ -12076,6 +12097,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       submitPlan,
       togglePopUp,
       onUpdateProgramActivity,
+      lastYearInput,
       popupbudgetplan_binding,
       popupbudgetplan_planType_binding,
       popupbudgetplan_title_binding,

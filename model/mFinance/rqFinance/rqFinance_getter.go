@@ -3,7 +3,7 @@ package rqFinance
 import (
 	"benakun/model/zCrud"
 
-	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 )
@@ -66,24 +66,28 @@ FROM SEQSCAN ` + ttm.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + 
 	return
 }
 
-func (ttm *TransactionTemplate) FindByTenantCode() (ttms *[]TransactionTemplate) {
+func (ttm *TransactionTemplate) FindByIdByTenantCode() bool {
 	const comment = `-- TransactionTemplate) FindByTenantCode`
 
-	whereAndSql := ` WHERE ` + ttm.SqlTenantCode() + ` = ` + S.Z(ttm.TenantCode)
+	whereAndSql := ` WHERE ` + ttm.SqlTenantCode() + ` = ` + S.Z(ttm.TenantCode) + `
+		AND ` + ttm.SqlId() + ` = ` + I.UToS(ttm.Id)
 
 	queryRows := comment + `
 SELECT ` + ttm.SqlSelectAllFields() + `
 FROM SEQSCAN ` + ttm.SqlTableName() + whereAndSql
 
-	var rows []TransactionTemplate
-
+	var res []any
 	ttm.Adapter.QuerySql(queryRows, func(row []any) {
-		ttm.FromArray(row)
-		rows = append(rows, *ttm)
+		row[0] = X.ToU(row[0])
+		res = row
 	})
 
-	ttms = &rows
-	return
+	if len(res) > 0 {
+		ttm.FromArray(res)
+		return true
+	}
+
+	return false
 }
 
 func (tt *TransactionTemplate) FindTransactionTemplatesByTenant() (ttpls []TransactionTemplate) {
@@ -100,8 +104,6 @@ FROM SEQSCAN ` + tt.SqlTableName() + whereAndSql
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
 	})
-
-	L.Print(`query:`, queryRows)
 
 	if len(res) > 0 {
 		for _, v := range res {

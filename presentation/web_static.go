@@ -145,7 +145,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 
 		r := rqFinance.NewTransactionTemplate(d.AuthOltp)
 		r.TenantCode = tenantCode
-		trxTemplates := r.FindByTenantCode()
+		trxTemplates := r.FindTransactionTemplatesByTenant()
 
 		return views.RenderDataEntryDashboard(ctx, M.SX{
 			`title`:                `Data Entry Dashboard`,
@@ -155,9 +155,15 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
-	fw.Get(`/`+domain.DataEntryTemplateAction+`:templateId`, func(ctx *fiber.Ctx) error {
+	fw.Get(`/`+domain.DataEntryTemplateAction+`/:templateId`, func(ctx *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(ctx, d)
 		if notDataEntryLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		tenantCode, err := domain.GetTenantCodeByHost(in.Host)
+		if err != nil {
+			L.Print(`TENANT CODE:`, tenantCode)
 			return ctx.Redirect(`/`, 302)
 		}
 
@@ -165,7 +171,8 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 
 		trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
 		trxTemplate.Id = S.ToU(templateId)
-		if !trxTemplate.FindById() {
+		trxTemplate.TenantCode = tenantCode
+		if !trxTemplate.FindByIdByTenantCode() {
 			return ctx.Redirect(`/`+domain.DataEntryDashboardAction, 302)
 		}
 
@@ -173,7 +180,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`title`:      `Data Entry Template`,
 			`user`:       user,
 			`segments`:   segments,
-			`template`:		trxTemplate,
+			`transactiontemplate`: trxTemplate,
 		})
 	})
 

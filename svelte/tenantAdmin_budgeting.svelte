@@ -77,11 +77,6 @@
     return toorgs;
   }
 
-  // TODO:HABIBI show all budget from beginning, this one still empty everytime
-  // eg. refresh the budget page, previously added program still empty
-
-  // TODO:HABIBI find out why "unit" not saved in database or not showing after editing
-
   onMount(() => {
 	  REFORMAT_ORGS = reformatorgs();
 	  console.log('REFORMAT_ORGS',REFORMAT_ORGS);
