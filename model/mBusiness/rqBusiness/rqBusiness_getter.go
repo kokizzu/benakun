@@ -4,7 +4,6 @@ import (
 	"benakun/model/zCrud"
 
 	"github.com/kokizzu/gotro/I"
-	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 )
@@ -152,8 +151,6 @@ FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + l
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
 	})
-
-	L.Print(`Query:`, queryRows)
 
 	return
 }

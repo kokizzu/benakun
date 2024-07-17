@@ -425,18 +425,17 @@
                           {/if}
                         {/if}
                         {#if CAN_OPEN_LINK}
-                          <a class="btn link" title="open" href={LINK_PATH + row[IDX_ID_LINK]}>
-                            <Icon size="15" color="var(--gray-007)" src={FaShareFromSquare} />
-                          </a>
-
-                          {#each LINKS as link}
+                          {#each (LINKS || []) as l}
                             <a
                               class="btn link"
-                              title={link.name}
-                              href={link.path}
-                              target={link.isTargetBlank ? '_blank' : ''}
+                              href={l.link(row)}
+                              target={l.isTargetBlank ? '_blank' : ''}
                             >
-                              <Icon size="15" color="var(--gray-007)" src={link.icon} />
+                              <Icon
+                                size="15"
+                                color="var(--gray-007)"
+                                src={l.icon}
+                              />
                             </a>
                           {/each}
                         {/if}

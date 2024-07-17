@@ -14,6 +14,7 @@
   /** @typedef {import('./_components/types/master.js').PagerIn} PagerIn */
 	/** @typedef {import('./_components/types/master.js').PagerOut} PagerOut */
   /** @typedef {import('./_components/types/user.js').User} User */
+  /** @typedef {import('./_components/types/master.js').ExtendedAction} ExtendedAction */
 
   let segments = /** @type Access */ ({/* segments */});
   let user = /** @type User */ ({/* user */});
@@ -161,6 +162,16 @@
     );
     popUpInventoryChanges.Hide();
   }
+
+  /** @type {ExtendedAction[]} */
+  const LINKS = [
+    {
+      icon: FaShareFromSquare,
+      isTargetBlank: true,
+      link: (/** @type any */ row) => `/tenantAdmin/inventoryChanges/${row[1]}`,
+      tooltip: 'View',
+    }
+  ]
 </script>
 
 {#if isPopUpFormsReady}
@@ -189,14 +200,7 @@
       CAN_OPEN_LINK
 
       LINK_PATH='/tenantAdmin/inventoryChanges/'
-      LINKS={[
-        {
-          icon: FaShareFromSquare,
-          name: 'open',
-          path: '/tenantAdmin/inventoryChanges/',
-          isTargetBlank: false
-        }
-      ]}
+      {LINKS}
 
       {OnDelete}
       {OnEdit}
