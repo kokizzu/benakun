@@ -41,8 +41,6 @@
   export let CAN_RESTORE_ROW = false;
   export let CAN_SHOW_INFO = false;
   export let CAN_OPEN_LINK = false;
-  export let LINK_PATH = '/';
-  export let IDX_ID_LINK = 0;
   export let LINKS = /** @type ExtendedAction */ [];
 
   // State for loading if hit ajax
@@ -264,9 +262,11 @@
 
   function toggleShowPopUp(/** @type any */ id, /** @type any[]*/ row) {
     payloads = [];
-    FIELDS.forEach((_, i) => {
-      payloads = [...payloads, row[i]];
-    });
+    if (FIELDS && FIELDS.length > 0) {
+      FIELDS.forEach((_, i) => {
+        payloads = [...payloads, row[i]];
+      });
+    }
 
     showPopUp = true;
     idToMod = id;
@@ -301,7 +301,7 @@
         </button>
       </header>
       <div class="forms">
-        {#each FIELDS || [] as field, idx}
+        {#each (FIELDS || []) as field, idx}
           {#if field.name !== 'id'}
             {#if !field.readOnly}
               {#if field.inputType === 'combobox'}

@@ -421,6 +421,9 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`+domain.TenantAdminInventoryChangesAction, 302)
 		}
 
+		r := rqBusiness.NewProducts(d.AuthOltp)
+		products := r.FindProductsChoicesByTenantCode(user.TenantCode)
+
 		out := d.TenantAdminInventoryChanges(&domain.TenantAdminInventoryChangesIn{
 			RequestCommon: in.RequestCommon,
 			ProductId:     product.Id,
@@ -433,6 +436,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`user`:             user,
 			`segments`:         segments,
 			`product`:          product,
+			`products`: 				products,
 			`fields`:           out.Meta.Fields,
 			`pager`:            out.Pager,
 			`inventoryChanges`: out.InventoryChanges,

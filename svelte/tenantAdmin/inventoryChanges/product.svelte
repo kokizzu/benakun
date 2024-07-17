@@ -18,6 +18,7 @@
   let pager = /** @type PagerOut */ ({/* pager */});
   let product = /** @type Product */ ({/* product */});
   let inventoryChanges = /** @type any[][] */ ([/* inventoryChanges */]);
+  let products = /** @type Object */ ({/* products */});
 
   let cogsIDR = new Intl.NumberFormat('id', {
     style: 'currency',
@@ -98,34 +99,32 @@
   }
 
   async function OnEdit(/** @type any */ id, /** @type any[]*/ payloads) {
-    // const inventoryChange = {
-    //   id: id,
-    //   stockDelta: payloads[1],
-    // }
+    const inventoryChange = {
+      id: id,
+      stockDelta: payloads[1],
+    }
 
-    // const i = {
-    //   pager, inventoryChange,
-    //   cmd: 'upsert'
-    // };
-    // await TenantAdminInventoryChangesProduct( // @ts-ignore
-    //   i, /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
-    //   /** @returns {Promise<void>} */
-    //   function(/** @type any */ o) {
-    //     if (o.error) {
-    //       console.log(o);
-    //       notifier.showError(o.error);
-    //       return
-    //     }
+    const i = {
+      pager, inventoryChange,
+      cmd: 'upsert'
+    };
+    await TenantAdminInventoryChangesProduct( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
 
-    //     pager = o.pager;
-    //     inventoryChanges = o.inventoryChanges;
-    //     notifier.showSuccess('inventoryChange edited')
+        pager = o.pager;
+        inventoryChanges = o.inventoryChanges;
+        notifier.showSuccess('inventoryChange edited')
 
-    //     OnRefresh(pager);
-    //   }
-    // );
-
-    console.log('Payloads', payloads);
+        OnRefresh(pager);
+      }
+    );
   }
 </script>
 
@@ -166,15 +165,14 @@
       bind:FIELDS={fields}
       bind:PAGER={pager}
       bind:MASTER_ROWS={inventoryChanges}
+      REFS={{
+        'productId': products
+      }}
 
       CAN_EDIT_ROW
       CAN_SEARCH_ROW
       CAN_DELETE_ROW
       CAN_RESTORE_ROW
-      CAN_OPEN_LINK
-
-      LINK_PATH={window.location.pathname}
-      IDX_ID_LINK={2}
 
       {OnDelete}
       {OnEdit}

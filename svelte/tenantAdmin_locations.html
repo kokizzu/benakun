@@ -28712,41 +28712,41 @@ uniform ${i3} ${a3} u_${s3};
   var { Map: Map_12 } = globals;
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[76] = list[i];
+    child_ctx[74] = list[i];
     return child_ctx;
   }
   function get_each_context_12(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[79] = list[i];
+    child_ctx[77] = list[i];
     return child_ctx;
   }
   function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[82] = list[i];
+    child_ctx[80] = list[i];
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[85] = list[i];
-    child_ctx[87] = i;
+    child_ctx[83] = list[i];
+    child_ctx[85] = i;
     return child_ctx;
   }
   function get_each_context_4(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[88] = list[i];
+    child_ctx[86] = list[i];
     return child_ctx;
   }
   function get_each_context_5(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[85] = list[i];
-    child_ctx[92] = i;
+    child_ctx[83] = list[i];
+    child_ctx[90] = i;
     return child_ctx;
   }
   function get_each_context_6(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[93] = list[i];
-    child_ctx[94] = list;
-    child_ctx[87] = i;
+    child_ctx[91] = list[i];
+    child_ctx[92] = list;
+    child_ctx[85] = i;
     return child_ctx;
   }
   function create_if_block_19(ctx) {
@@ -28755,10 +28755,10 @@ uniform ${i3} ${a3} u_${s3};
     let updating_filtersMap;
     let current;
     function filtertable_filterColumns_binding(value) {
-      ctx[51](value);
+      ctx[49](value);
     }
     function filtertable_filtersMap_binding(value) {
-      ctx[52](value);
+      ctx[50](value);
     }
     let filtertable_props = {};
     if (
@@ -28776,7 +28776,7 @@ uniform ${i3} ${a3} u_${s3};
       ctx[15];
     }
     filtertable = new FilterTable_default({ props: filtertable_props });
-    ctx[50](filtertable);
+    ctx[48](filtertable);
     binding_callbacks.push(() => bind(filtertable, "filterColumns", filtertable_filterColumns_binding));
     binding_callbacks.push(() => bind(filtertable, "filtersMap", filtertable_filtersMap_binding));
     filtertable.$on(
@@ -28821,7 +28821,7 @@ uniform ${i3} ${a3} u_${s3};
         current = false;
       },
       d(detaching) {
-        ctx[50](null);
+        ctx[48](null);
         destroy_component(filtertable, detaching);
       }
     };
@@ -28924,7 +28924,7 @@ uniform ${i3} ${a3} u_${s3};
               button0,
               "click",
               /*click_handler*/
-              ctx[53]
+              ctx[51]
             ),
             listen(
               button1,
@@ -29022,7 +29022,7 @@ uniform ${i3} ${a3} u_${s3};
     let if_block_anchor;
     let current;
     let if_block = !/*field*/
-    ctx[93].readOnly && create_if_block_17(ctx);
+    ctx[91].readOnly && create_if_block_17(ctx);
     return {
       c() {
         if (if_block)
@@ -29037,7 +29037,7 @@ uniform ${i3} ${a3} u_${s3};
       },
       p(ctx2, dirty) {
         if (!/*field*/
-        ctx2[93].readOnly) {
+        ctx2[91].readOnly) {
           if (if_block) {
             if_block.p(ctx2, dirty);
             if (dirty[0] & /*FIELDS*/
@@ -29087,12 +29087,12 @@ uniform ${i3} ${a3} u_${s3};
     function select_block_type(ctx2, dirty) {
       if (
         /*field*/
-        ctx2[93].inputType === "combobox"
+        ctx2[91].inputType === "combobox"
       )
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type(ctx, [-1, -1, -1, -1]);
+    current_block_type_index = select_block_type(ctx, [-1, -1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -29149,41 +29149,41 @@ uniform ${i3} ${a3} u_${s3};
     let updating_value;
     let current;
     function inputcustom_value_binding_1(value) {
-      ctx[55](
+      ctx[53](
         value,
         /*idx*/
-        ctx[87]
+        ctx[85]
       );
     }
     let inputcustom_props = {
       id: (
         /*field*/
-        ctx[93].name
+        ctx[91].name
       ),
       label: (
         /*field*/
-        ctx[93].label
+        ctx[91].label
       ),
       placeholder: (
         /*field*/
-        ctx[93].description
+        ctx[91].description
       ),
       type: (
         /*field*/
-        ctx[93].inputType
+        ctx[91].inputType
       )
     };
     if (
       /*payloads*/
       ctx[26][
         /*idx*/
-        ctx[87]
+        ctx[85]
       ] !== void 0
     ) {
       inputcustom_props.value = /*payloads*/
       ctx[26][
         /*idx*/
-        ctx[87]
+        ctx[85]
       ];
     }
     inputcustom = new InputCustom_default({ props: inputcustom_props });
@@ -29202,26 +29202,26 @@ uniform ${i3} ${a3} u_${s3};
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.id = /*field*/
-          ctx[93].name;
+          ctx[91].name;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.label = /*field*/
-          ctx[93].label;
+          ctx[91].label;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.placeholder = /*field*/
-          ctx[93].description;
+          ctx[91].description;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.type = /*field*/
-          ctx[93].inputType;
+          ctx[91].inputType;
         if (!updating_value && dirty[0] & /*payloads*/
         67108864) {
           updating_value = true;
           inputcustom_changes.value = /*payloads*/
           ctx[26][
             /*idx*/
-            ctx[87]
+            ctx[85]
           ];
           add_flush_callback(() => updating_value = false);
         }
@@ -29247,50 +29247,50 @@ uniform ${i3} ${a3} u_${s3};
     let updating_value;
     let current;
     function inputcustom_value_binding(value) {
-      ctx[54](
+      ctx[52](
         value,
         /*idx*/
-        ctx[87]
+        ctx[85]
       );
     }
     let inputcustom_props = {
       id: (
         /*field*/
-        ctx[93].name
+        ctx[91].name
       ),
       label: (
         /*field*/
-        ctx[93].label
+        ctx[91].label
       ),
       placeholder: (
         /*field*/
-        ctx[93].description
+        ctx[91].description
       ),
       type: (
         /*field*/
-        ctx[93].inputType
+        ctx[91].inputType
       ),
       values: (
         /*REFS*/
         ctx[2][
           /*field*/
-          ctx[93].name
+          ctx[91].name
         ] ? (
           /*REFS*/
           ctx[2][
             /*field*/
-            ctx[93].name
+            ctx[91].name
           ]
         ) : (
           /*field*/
-          ctx[93].ref
+          ctx[91].ref
         )
       ),
       isObject: (
         /*REFS*/
         ctx[2][
           /*field*/
-          ctx[93].name
+          ctx[91].name
         ] ? true : false
       )
     };
@@ -29298,13 +29298,13 @@ uniform ${i3} ${a3} u_${s3};
       /*payloads*/
       ctx[26][
         /*idx*/
-        ctx[87]
+        ctx[85]
       ] !== void 0
     ) {
       inputcustom_props.value = /*payloads*/
       ctx[26][
         /*idx*/
-        ctx[87]
+        ctx[85]
       ];
     }
     inputcustom = new InputCustom_default({ props: inputcustom_props });
@@ -29323,41 +29323,41 @@ uniform ${i3} ${a3} u_${s3};
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.id = /*field*/
-          ctx[93].name;
+          ctx[91].name;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.label = /*field*/
-          ctx[93].label;
+          ctx[91].label;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.placeholder = /*field*/
-          ctx[93].description;
+          ctx[91].description;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.type = /*field*/
-          ctx[93].inputType;
+          ctx[91].inputType;
         if (dirty[0] & /*REFS, FIELDS*/
         5)
           inputcustom_changes.values = /*REFS*/
           ctx[2][
             /*field*/
-            ctx[93].name
+            ctx[91].name
           ] ? (
             /*REFS*/
             ctx[2][
               /*field*/
-              ctx[93].name
+              ctx[91].name
             ]
           ) : (
             /*field*/
-            ctx[93].ref
+            ctx[91].ref
           );
         if (dirty[0] & /*REFS, FIELDS*/
         5)
           inputcustom_changes.isObject = /*REFS*/
           ctx[2][
             /*field*/
-            ctx[93].name
+            ctx[91].name
           ] ? true : false;
         if (!updating_value && dirty[0] & /*payloads*/
         67108864) {
@@ -29365,7 +29365,7 @@ uniform ${i3} ${a3} u_${s3};
           inputcustom_changes.value = /*payloads*/
           ctx[26][
             /*idx*/
-            ctx[87]
+            ctx[85]
           ];
           add_flush_callback(() => updating_value = false);
         }
@@ -29391,7 +29391,7 @@ uniform ${i3} ${a3} u_${s3};
     let current;
     let if_block = (
       /*field*/
-      ctx[93].name !== "id" && create_if_block_16(ctx)
+      ctx[91].name !== "id" && create_if_block_16(ctx)
     );
     return {
       c() {
@@ -29408,7 +29408,7 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         if (
           /*field*/
-          ctx2[93].name !== "id"
+          ctx2[91].name !== "id"
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
@@ -29455,7 +29455,7 @@ uniform ${i3} ${a3} u_${s3};
     let updating_Coord;
     let current;
     function map_Coord_binding(value) {
-      ctx[57](value);
+      ctx[55](value);
     }
     let map_props = {
       OnClickMap: (
@@ -29473,7 +29473,7 @@ uniform ${i3} ${a3} u_${s3};
       ctx[28];
     }
     map = new Map_default({ props: map_props });
-    ctx[56](map);
+    ctx[54](map);
     binding_callbacks.push(() => bind(map, "Coord", map_Coord_binding));
     return {
       c() {
@@ -29511,7 +29511,7 @@ uniform ${i3} ${a3} u_${s3};
         if (detaching) {
           detach(div);
         }
-        ctx[56](null);
+        ctx[54](null);
         destroy_component(map);
       }
     };
@@ -29617,7 +29617,7 @@ uniform ${i3} ${a3} u_${s3};
     let th;
     let t_value = (
       /*f*/
-      ctx[85].label + ""
+      ctx[83].label + ""
     );
     let t;
     let th_class_value;
@@ -29626,9 +29626,9 @@ uniform ${i3} ${a3} u_${s3};
         th = element("th");
         t = text(t_value);
         attr(th, "class", th_class_value = /*f*/
-        (ctx[85].inputType === "textarea" ? "textarea" : "") + " " + /*f*/
-        (ctx[85].inputType === "datetime" ? "datetime" : "") + " " + /*f*/
-        (ctx[85].name === "staffId" ? "staff" : "") + " svelte-1om1xl6");
+        (ctx[83].inputType === "textarea" ? "textarea" : "") + " " + /*f*/
+        (ctx[83].inputType === "datetime" ? "datetime" : "") + " " + /*f*/
+        (ctx[83].name === "staffId" ? "staff" : "") + " svelte-1om1xl6");
       },
       m(target, anchor) {
         insert(target, th, anchor);
@@ -29637,13 +29637,13 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         if (dirty[0] & /*FIELDS*/
         1 && t_value !== (t_value = /*f*/
-        ctx2[85].label + ""))
+        ctx2[83].label + ""))
           set_data(t, t_value);
         if (dirty[0] & /*FIELDS*/
         1 && th_class_value !== (th_class_value = /*f*/
-        (ctx2[85].inputType === "textarea" ? "textarea" : "") + " " + /*f*/
-        (ctx2[85].inputType === "datetime" ? "datetime" : "") + " " + /*f*/
-        (ctx2[85].name === "staffId" ? "staff" : "") + " svelte-1om1xl6")) {
+        (ctx2[83].inputType === "textarea" ? "textarea" : "") + " " + /*f*/
+        (ctx2[83].inputType === "datetime" ? "datetime" : "") + " " + /*f*/
+        (ctx2[83].name === "staffId" ? "staff" : "") + " svelte-1om1xl6")) {
           attr(th, "class", th_class_value);
         }
       },
@@ -29679,12 +29679,12 @@ uniform ${i3} ${a3} u_${s3};
     function select_block_type_1(ctx2, dirty) {
       if (
         /*f*/
-        ctx2[85].name === "id"
+        ctx2[83].name === "id"
       )
         return create_if_block_112;
       return create_else_block_4;
     }
-    let current_block_type = select_block_type_1(ctx, [-1, -1, -1, -1]);
+    let current_block_type = select_block_type_1(ctx, [-1, -1, -1]);
     let if_block = current_block_type(ctx);
     return {
       key: key_1,
@@ -29826,20 +29826,20 @@ uniform ${i3} ${a3} u_${s3};
   function create_else_block_2(ctx) {
     let td;
     let t_value = (typeof /*row*/
-    ctx[82][
+    ctx[80][
       /*idx*/
-      ctx[87]
+      ctx[85]
     ] === "boolean" ? (
       /*row*/
-      ctx[82][
+      ctx[80][
         /*idx*/
-        ctx[87]
+        ctx[85]
       ] ? "Yes" : "No"
     ) : (
       /*row*/
-      ctx[82][
+      ctx[80][
         /*idx*/
-        ctx[87]
+        ctx[85]
       ] || "--"
     )) + "";
     let t;
@@ -29856,20 +29856,20 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         if (dirty[0] & /*MASTER_ROWS*/
         2 && t_value !== (t_value = (typeof /*row*/
-        ctx2[82][
+        ctx2[80][
           /*idx*/
-          ctx2[87]
+          ctx2[85]
         ] === "boolean" ? (
           /*row*/
-          ctx2[82][
+          ctx2[80][
             /*idx*/
-            ctx2[87]
+            ctx2[85]
           ] ? "Yes" : "No"
         ) : (
           /*row*/
-          ctx2[82][
+          ctx2[80][
             /*idx*/
-            ctx2[87]
+            ctx2[85]
           ] || "--"
         )) + ""))
           set_data(t, t_value);
@@ -29889,12 +29889,12 @@ uniform ${i3} ${a3} u_${s3};
       /*REFS*/
       (ctx[2][
         /*f*/
-        ctx[85].name
+        ctx[83].name
       ][
         /*row*/
-        ctx[82][
+        ctx[80][
           /*idx*/
-          ctx[87]
+          ctx[85]
         ]
       ] || "--") + ""
     );
@@ -29914,12 +29914,12 @@ uniform ${i3} ${a3} u_${s3};
         7 && t_value !== (t_value = /*REFS*/
         (ctx2[2][
           /*f*/
-          ctx2[85].name
+          ctx2[83].name
         ][
           /*row*/
-          ctx2[82][
+          ctx2[80][
             /*idx*/
-            ctx2[87]
+            ctx2[85]
           ]
         ] || "--") + ""))
           set_data(t, t_value);
@@ -29937,14 +29937,14 @@ uniform ${i3} ${a3} u_${s3};
     let td;
     let t_value = (
       /*row*/
-      (ctx[82][
+      (ctx[80][
         /*idx*/
-        ctx[87]
+        ctx[85]
       ] ? (0, import_formatter.datetime)(
         /*row*/
-        ctx[82][
+        ctx[80][
           /*idx*/
-          ctx[87]
+          ctx[85]
         ]
       ) : "--") + ""
     );
@@ -29962,14 +29962,14 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         if (dirty[0] & /*MASTER_ROWS*/
         2 && t_value !== (t_value = /*row*/
-        (ctx2[82][
+        (ctx2[80][
           /*idx*/
-          ctx2[87]
+          ctx2[85]
         ] ? (0, import_formatter.datetime)(
           /*row*/
-          ctx2[82][
+          ctx2[80][
             /*idx*/
-            ctx2[87]
+            ctx2[85]
           ]
         ) : "--") + ""))
           set_data(t, t_value);
@@ -30001,7 +30001,7 @@ uniform ${i3} ${a3} u_${s3};
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type_4(ctx, [-1, -1, -1, -1]);
+    current_block_type_index = select_block_type_4(ctx, [-1, -1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -30270,9 +30270,9 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_2() {
       return (
         /*click_handler_2*/
-        ctx[59](
+        ctx[57](
           /*row*/
-          ctx[82]
+          ctx[80]
         )
       );
     }
@@ -30331,13 +30331,13 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_3() {
       return (
         /*click_handler_3*/
-        ctx[60](
+        ctx[58](
           /*row*/
-          ctx[82],
+          ctx[80],
           /*idx*/
-          ctx[87],
+          ctx[85],
           /*f*/
-          ctx[85]
+          ctx[83]
         )
       );
     }
@@ -30390,11 +30390,11 @@ uniform ${i3} ${a3} u_${s3};
     function select_block_type_5(ctx2, dirty) {
       if (
         /*row*/
-        ctx2[82][
+        ctx2[80][
           /*deletedIndex*/
           ctx2[16]
         ] > 0 || /*row*/
-        ctx2[82][
+        ctx2[80][
           /*deletedIndex*/
           ctx2[16]
         ] === "terminated"
@@ -30402,7 +30402,7 @@ uniform ${i3} ${a3} u_${s3};
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type_5(ctx, [-1, -1, -1, -1]);
+    current_block_type_index = select_block_type_5(ctx, [-1, -1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -30470,9 +30470,9 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_5() {
       return (
         /*click_handler_5*/
-        ctx[62](
+        ctx[60](
           /*row*/
-          ctx[82]
+          ctx[80]
         )
       );
     }
@@ -30531,9 +30531,9 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_4() {
       return (
         /*click_handler_4*/
-        ctx[61](
+        ctx[59](
           /*row*/
-          ctx[82]
+          ctx[80]
         )
       );
     }
@@ -30668,7 +30668,7 @@ uniform ${i3} ${a3} u_${s3};
         color: "var(--gray-007)",
         src: (
           /*l*/
-          ctx[88].icon
+          ctx[86].icon
         )
       }
     });
@@ -30678,12 +30678,12 @@ uniform ${i3} ${a3} u_${s3};
         create_component(icon.$.fragment);
         attr(a, "class", "btn link svelte-1om1xl6");
         attr(a, "href", a_href_value = /*l*/
-        ctx[88].link(
+        ctx[86].link(
           /*row*/
-          ctx[82]
+          ctx[80]
         ));
         attr(a, "target", a_target_value = /*l*/
-        ctx[88].isTargetBlank ? "_blank" : "");
+        ctx[86].isTargetBlank ? "_blank" : "");
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -30695,19 +30695,19 @@ uniform ${i3} ${a3} u_${s3};
         if (dirty[0] & /*LINKS*/
         1024)
           icon_changes.src = /*l*/
-          ctx2[88].icon;
+          ctx2[86].icon;
         icon.$set(icon_changes);
         if (!current || dirty[0] & /*LINKS, MASTER_ROWS*/
         1026 && a_href_value !== (a_href_value = /*l*/
-        ctx2[88].link(
+        ctx2[86].link(
           /*row*/
-          ctx2[82]
+          ctx2[80]
         ))) {
           attr(a, "href", a_href_value);
         }
         if (!current || dirty[0] & /*LINKS*/
         1024 && a_target_value !== (a_target_value = /*l*/
-        ctx2[88].isTargetBlank ? "_blank" : "")) {
+        ctx2[86].isTargetBlank ? "_blank" : "")) {
           attr(a, "target", a_target_value);
         }
       },
@@ -30739,26 +30739,26 @@ uniform ${i3} ${a3} u_${s3};
     function select_block_type_3(ctx2, dirty) {
       if (
         /*f*/
-        ctx2[85].name === "id"
+        ctx2[83].name === "id"
       )
         return 0;
       if (
         /*f*/
-        ctx2[85].inputType === "datetime"
+        ctx2[83].inputType === "datetime"
       )
         return 1;
       if (
         /*f*/
-        ctx2[85].inputType === "combobox" && /*REFS*/
+        ctx2[83].inputType === "combobox" && /*REFS*/
         ctx2[2][
           /*f*/
-          ctx2[85].name
+          ctx2[83].name
         ]
       )
         return 2;
       return 3;
     }
-    current_block_type_index = select_block_type_3(ctx, [-1, -1, -1, -1]);
+    current_block_type_index = select_block_type_3(ctx, [-1, -1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -30817,7 +30817,7 @@ uniform ${i3} ${a3} u_${s3};
       /*MASTER_ROWS*/
       ctx[1].indexOf(
         /*row*/
-        ctx[82]
+        ctx[80]
       ) + 1 + ""
     );
     let t0;
@@ -30850,11 +30850,11 @@ uniform ${i3} ${a3} u_${s3};
         attr(tr, "class", tr_class_value = null_to_empty(
           /*CAN_DELETE_ROW*/
           ctx[6] && /*row*/
-          (ctx[82][
+          (ctx[80][
             /*deletedIndex*/
             ctx[16]
           ] > 0 || /*row*/
-          ctx[82][
+          ctx[80][
             /*deletedIndex*/
             ctx[16]
           ] === "terminated") ? "deleted" : ""
@@ -30878,7 +30878,7 @@ uniform ${i3} ${a3} u_${s3};
         2) && t0_value !== (t0_value = /*MASTER_ROWS*/
         ctx2[1].indexOf(
           /*row*/
-          ctx2[82]
+          ctx2[80]
         ) + 1 + ""))
           set_data(t0, t0_value);
         if (dirty[0] & /*LINKS, MASTER_ROWS, CAN_OPEN_LINK, deletedIndex, CAN_DELETE_ROW, CAN_RESTORE_ROW, FIELDS, CAN_EDIT_ROW, OnInfo, CAN_SHOW_INFO, ACCESS, REFS*/
@@ -30911,11 +30911,11 @@ uniform ${i3} ${a3} u_${s3};
         65602 && tr_class_value !== (tr_class_value = null_to_empty(
           /*CAN_DELETE_ROW*/
           ctx2[6] && /*row*/
-          (ctx2[82][
+          (ctx2[80][
             /*deletedIndex*/
             ctx2[16]
           ] > 0 || /*row*/
-          ctx2[82][
+          ctx2[80][
             /*deletedIndex*/
             ctx2[16]
           ] === "terminated") ? "deleted" : ""
@@ -31012,9 +31012,9 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_6() {
       return (
         /*click_handler_6*/
-        ctx[63](
+        ctx[61](
           /*r*/
-          ctx[79]
+          ctx[77]
         )
       );
     }
@@ -31022,7 +31022,7 @@ uniform ${i3} ${a3} u_${s3};
       c() {
         button = element("button");
         button.textContent = `${/*r*/
-        ctx[79]}`;
+        ctx[77]}`;
         attr(button, "class", "svelte-1om1xl6");
       },
       m(target, anchor) {
@@ -31048,7 +31048,7 @@ uniform ${i3} ${a3} u_${s3};
     let button;
     let t_value = (
       /*i*/
-      ctx[76] + ""
+      ctx[74] + ""
     );
     let t;
     let button_disabled_value;
@@ -31059,9 +31059,9 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_9() {
       return (
         /*click_handler_9*/
-        ctx[66](
+        ctx[64](
           /*i*/
-          ctx[76]
+          ctx[74]
         )
       );
     }
@@ -31071,14 +31071,14 @@ uniform ${i3} ${a3} u_${s3};
         t = text(t_value);
         button.disabled = button_disabled_value = /*currentPage*/
         ctx[20] == /*i*/
-        ctx[76];
+        ctx[74];
         attr(button, "class", button_class_value = null_to_empty(
           /*currentPage*/
           ctx[20] === /*i*/
-          ctx[76] ? "btn active" : "btn"
+          ctx[74] ? "btn active" : "btn"
         ) + " svelte-1om1xl6");
         attr(button, "title", button_title_value = `Go to page ${/*i*/
-        ctx[76]}`);
+        ctx[74]}`);
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -31092,25 +31092,25 @@ uniform ${i3} ${a3} u_${s3};
         ctx = new_ctx;
         if (dirty[0] & /*paginationShow*/
         524288 && t_value !== (t_value = /*i*/
-        ctx[76] + ""))
+        ctx[74] + ""))
           set_data(t, t_value);
         if (dirty[0] & /*currentPage, paginationShow*/
         1572864 && button_disabled_value !== (button_disabled_value = /*currentPage*/
         ctx[20] == /*i*/
-        ctx[76])) {
+        ctx[74])) {
           button.disabled = button_disabled_value;
         }
         if (dirty[0] & /*currentPage, paginationShow*/
         1572864 && button_class_value !== (button_class_value = null_to_empty(
           /*currentPage*/
           ctx[20] === /*i*/
-          ctx[76] ? "btn active" : "btn"
+          ctx[74] ? "btn active" : "btn"
         ) + " svelte-1om1xl6")) {
           attr(button, "class", button_class_value);
         }
         if (dirty[0] & /*paginationShow*/
         524288 && button_title_value !== (button_title_value = `Go to page ${/*i*/
-        ctx[76]}`)) {
+        ctx[74]}`)) {
           attr(button, "title", button_title_value);
         }
       },
@@ -31214,13 +31214,13 @@ uniform ${i3} ${a3} u_${s3};
     });
     const default_slot_template = (
       /*#slots*/
-      ctx[49].default
+      ctx[47].default
     );
     const default_slot = create_slot(
       default_slot_template,
       ctx,
       /*$scope*/
-      ctx[48],
+      ctx[46],
       null
     );
     let if_block2 = isAjaxSubmitted && create_if_block_132(ctx);
@@ -31234,7 +31234,7 @@ uniform ${i3} ${a3} u_${s3};
     );
     const get_key = (ctx2) => (
       /*f*/
-      ctx2[85].name
+      ctx2[83].name
     );
     for (let i = 0; i < each_value_5.length; i += 1) {
       let child_ctx = get_each_context_5(ctx, each_value_5, i);
@@ -31252,7 +31252,7 @@ uniform ${i3} ${a3} u_${s3};
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type_2(ctx, [-1, -1, -1, -1]);
+    current_block_type_index = select_block_type_2(ctx, [-1, -1, -1]);
     if_block4 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     let if_block5 = (
       /*showRowsNum*/
@@ -31517,7 +31517,7 @@ uniform ${i3} ${a3} u_${s3};
               button0,
               "click",
               /*click_handler_1*/
-              ctx[58]
+              ctx[56]
             ),
             listen(
               button1,
@@ -31529,25 +31529,25 @@ uniform ${i3} ${a3} u_${s3};
               button2,
               "click",
               /*click_handler_7*/
-              ctx[64]
+              ctx[62]
             ),
             listen(
               button3,
               "click",
               /*click_handler_8*/
-              ctx[65]
+              ctx[63]
             ),
             listen(
               button4,
               "click",
               /*click_handler_10*/
-              ctx[67]
+              ctx[65]
             ),
             listen(
               button5,
               "click",
               /*click_handler_11*/
-              ctx[68]
+              ctx[66]
             )
           ];
           mounted = true;
@@ -31602,20 +31602,20 @@ uniform ${i3} ${a3} u_${s3};
         }
         if (default_slot) {
           if (default_slot.p && (!current || dirty[1] & /*$scope*/
-          131072)) {
+          32768)) {
             update_slot_base(
               default_slot,
               default_slot_template,
               ctx2,
               /*$scope*/
-              ctx2[48],
+              ctx2[46],
               !current ? get_all_dirty_from_scope(
                 /*$scope*/
-                ctx2[48]
+                ctx2[46]
               ) : get_slot_changes(
                 default_slot_template,
                 /*$scope*/
-                ctx2[48],
+                ctx2[46],
                 dirty,
                 null
               ),
@@ -31854,8 +31854,6 @@ uniform ${i3} ${a3} u_${s3};
     let { CAN_RESTORE_ROW = false } = $props;
     let { CAN_SHOW_INFO = false } = $props;
     let { CAN_OPEN_LINK = false } = $props;
-    let { LINK_PATH = "/" } = $props;
-    let { IDX_ID_LINK = 0 } = $props;
     let { LINKS = (
       /** @type ExtendedAction */
       []
@@ -32013,9 +32011,11 @@ uniform ${i3} ${a3} u_${s3};
         26,
         payloads = []
       );
-      FIELDS.forEach((_, i) => {
-        $invalidate(26, payloads = [...payloads, row[i]]);
-      });
+      if (FIELDS && FIELDS.length > 0) {
+        FIELDS.forEach((_, i) => {
+          $invalidate(26, payloads = [...payloads, row[i]]);
+        });
+      }
       $invalidate(17, showPopUp = true);
       idToMod = id;
     }
@@ -32102,24 +32102,20 @@ uniform ${i3} ${a3} u_${s3};
         $invalidate(8, CAN_SHOW_INFO = $props2.CAN_SHOW_INFO);
       if ("CAN_OPEN_LINK" in $props2)
         $invalidate(9, CAN_OPEN_LINK = $props2.CAN_OPEN_LINK);
-      if ("LINK_PATH" in $props2)
-        $invalidate(42, LINK_PATH = $props2.LINK_PATH);
-      if ("IDX_ID_LINK" in $props2)
-        $invalidate(43, IDX_ID_LINK = $props2.IDX_ID_LINK);
       if ("LINKS" in $props2)
         $invalidate(10, LINKS = $props2.LINKS);
       if ("OnRestore" in $props2)
-        $invalidate(44, OnRestore = $props2.OnRestore);
+        $invalidate(42, OnRestore = $props2.OnRestore);
       if ("OnDelete" in $props2)
-        $invalidate(45, OnDelete = $props2.OnDelete);
+        $invalidate(43, OnDelete = $props2.OnDelete);
       if ("OnEdit" in $props2)
-        $invalidate(46, OnEdit = $props2.OnEdit);
+        $invalidate(44, OnEdit = $props2.OnEdit);
       if ("OnRefresh" in $props2)
-        $invalidate(47, OnRefresh = $props2.OnRefresh);
+        $invalidate(45, OnRefresh = $props2.OnRefresh);
       if ("OnInfo" in $props2)
         $invalidate(11, OnInfo = $props2.OnInfo);
       if ("$scope" in $props2)
-        $invalidate(48, $scope = $props2.$scope);
+        $invalidate(46, $scope = $props2.$scope);
     };
     $self.$.update = () => {
       if ($self.$.dirty[1] & /*PAGER*/
@@ -32173,8 +32169,6 @@ uniform ${i3} ${a3} u_${s3};
       OnClickMap,
       PAGER,
       ARRAY_OF_ARRAY,
-      LINK_PATH,
-      IDX_ID_LINK,
       OnRestore,
       OnDelete,
       OnEdit,
@@ -32224,17 +32218,15 @@ uniform ${i3} ${a3} u_${s3};
           CAN_RESTORE_ROW: 7,
           CAN_SHOW_INFO: 8,
           CAN_OPEN_LINK: 9,
-          LINK_PATH: 42,
-          IDX_ID_LINK: 43,
           LINKS: 10,
-          OnRestore: 44,
-          OnDelete: 45,
-          OnEdit: 46,
-          OnRefresh: 47,
+          OnRestore: 42,
+          OnDelete: 43,
+          OnEdit: 44,
+          OnRefresh: 45,
           OnInfo: 11
         },
         null,
-        [-1, -1, -1, -1]
+        [-1, -1, -1]
       );
     }
   };

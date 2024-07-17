@@ -23,8 +23,6 @@
   let inventoryChanges = /** @type any[][] */ ([/* inventoryChanges */]);
   let products = /** @type Object */ ({/* products */});
 
-  console.log('Products: ', products);
-
   let isPopUpFormsReady = false;
   let popUpInventoryChanges = null;
   onMount(() => {
@@ -198,8 +196,7 @@
       CAN_DELETE_ROW
       CAN_RESTORE_ROW
       CAN_OPEN_LINK
-
-      LINK_PATH='/tenantAdmin/inventoryChanges/'
+      
       {LINKS}
 
       {OnDelete}
