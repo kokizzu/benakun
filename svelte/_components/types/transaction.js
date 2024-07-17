@@ -28,6 +28,6 @@
   * @property {number} deletedAt
   * @property {string} deletedBy
   * @property {string} restoredBy
-  * @property {TransactionTplDetail} detail
+  * @property {TransactionTplDetail[]} details
  */
 module.exports = {};

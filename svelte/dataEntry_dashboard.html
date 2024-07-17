@@ -625,13 +625,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 }
 
 /* fakecss:./dataEntry_dashboard.esbuild-svelte-fake-css */
-.menu_container.svelte-1yfyvds.svelte-1yfyvds {
+.menu_container.svelte-10ujhtb.svelte-10ujhtb {
   display: flex;
   flex-direction: row;
   gap: 15px;
   flex-wrap: wrap;
 }
-.menu_container.svelte-1yfyvds .menu_item.svelte-1yfyvds {
+.menu_container.svelte-10ujhtb .menu_item.svelte-10ujhtb {
+  text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -643,6 +644,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   font-size: var(--font-lg);
   font-weight: 600;
   cursor: pointer;
+  transition: 0.3s;
+}
+.menu_container.svelte-10ujhtb .menu_item.svelte-10ujhtb:hover {
+  font-size: 20px;
 }
 </style>
 <script>(() => {
@@ -5268,47 +5273,48 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     return child_ctx;
   }
   function create_each_block(key_1, ctx) {
-    let button;
+    let a;
     let t0_value = (
       /*ttm*/
       ctx[0].name + ""
     );
     let t0;
     let t1;
+    let a_href_value;
     return {
       key: key_1,
       first: null,
       c() {
-        button = element("button");
+        a = element("a");
         t0 = text(t0_value);
         t1 = space();
-        attr(button, "class", "menu_item svelte-1yfyvds");
+        attr(a, "class", "menu_item svelte-10ujhtb");
         set_style(
-          button,
+          a,
           "background-color",
           /*ttm*/
           ctx[0].color
         );
-        this.first = button;
+        attr(a, "href", a_href_value = "/dataEntry/template/" + /*ttm*/
+        ctx[0].id);
+        this.first = a;
       },
       m(target, anchor) {
-        insert(target, button, anchor);
-        append(button, t0);
-        append(button, t1);
+        insert(target, a, anchor);
+        append(a, t0);
+        append(a, t1);
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
       },
       d(detaching) {
         if (detaching) {
-          detach(button);
+          detach(a);
         }
       }
     };
   }
   function create_default_slot(ctx) {
-    let h2;
-    let t1;
     let div;
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
@@ -5324,18 +5330,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     return {
       c() {
-        h2 = element("h2");
-        h2.textContent = "TODO: add coa";
-        t1 = space();
         div = element("div");
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(div, "class", "menu_container svelte-1yfyvds");
+        attr(div, "class", "menu_container svelte-10ujhtb");
       },
       m(target, anchor) {
-        insert(target, h2, anchor);
-        insert(target, t1, anchor);
         insert(target, div, anchor);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
@@ -5352,8 +5353,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(h2);
-          detach(t1);
           detach(div);
         }
         for (let i = 0; i < each_blocks.length; i += 1) {

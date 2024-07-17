@@ -9,12 +9,11 @@
 </script>
 
 <MainLayout>
-  <h2>TODO: add coa</h2>
   <div class="menu_container">
     {#each (transactionTemplates || []) as ttm, i (ttm.id)}
-      <button class="menu_item" style="background-color: {ttm.color};">
+      <a class="menu_item" style="background-color: {ttm.color};" href="/dataEntry/template/{ttm.id}">
         {ttm.name}
-      </button>
+      </a>
     {/each}
   </div>
 </MainLayout>
@@ -28,6 +27,7 @@
   }
 
   .menu_container .menu_item {
+    text-decoration: none;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,5 +39,10 @@
     font-size: var(--font-lg);
     font-weight: 600;
     cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .menu_container .menu_item:hover {
+    font-size: 20px;
   }
 </style>
