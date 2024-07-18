@@ -1,5 +1,6 @@
 <script>
   /** @typedef {import('./types/transaction').TransactionTemplate} TransactionTemplate */
+  /** @typedef {import('./types/transaction').TransactionTplDetail} TransactionTplDetail */
 
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FaCircleDot } from '../node_modules/svelte-icons-pack/dist/fa';
@@ -7,14 +8,52 @@
     RiArrowsArrowRightSLine,
     RiDesignPencilLine,
     RiSystemDeleteBinLine,
-    RiArrowsArrowGoBackLine
+    RiArrowsArrowGoBackLine,
+    RiSystemAddBoxLine
   } from '../node_modules/svelte-icons-pack/dist/ri';
+  import { TenantAdminTransactionTemplate } from '../jsApi.GEN';
+  import { notifier } from './notifier';
 
   export let transactionTemplate = /** @type {TransactionTemplate} */ ({});
+  let transactionTplDetails = /** @type {TransactionTplDetail[]} */ ([]);
 
-  let isShowDetail = false;
-  const toggleShowDetail = () => {
-    isShowDetail = !isShowDetail;
+  let isSearching = false;
+  let isShowDetails = false;
+
+  async function getTransactionTplDetails() {
+    isSearching = true;
+    await TenantAdminTransactionTemplate( //@ts-ignore
+      {
+        cmd: 'form', //@ts-ignore
+        transactionTemplate: {
+          id: transactionTemplate.id
+        }
+      },
+      /** @type {import('../jsApi.GEN').TenantAdminTransactionTemplateCallback} */
+      function(/** @type any */ o) { 
+        isSearching = false;
+        if (o.error) {
+          notifier.showError(o.error);
+          return
+        }
+
+        transactionTplDetails = o.transactionTplDetails;
+
+        return
+      }
+    ) 
+  }
+
+  const toggleShowDetail = async () => {
+    if (isShowDetails) {
+      isShowDetails = false;
+      return
+    } else {
+      isShowDetails = true;
+      if (!transactionTplDetails || transactionTplDetails.length === 0) {
+        await getTransactionTplDetails();
+      }
+    }
   }
 </script>
 
@@ -24,7 +63,7 @@
       <button class="btn_toggle" on:click={toggleShowDetail}>
         <Icon
           color="var(--gray-006)"
-          className="icon {isShowDetail ? 'rotate' : 'dropdown'}"
+          className="icon {isShowDetails ? 'rotate' : 'dropdown'}"
           size="20"
           src={RiArrowsArrowRightSLine}
         />
@@ -41,7 +80,15 @@
     </div>
     <div class="options">
       {#if transactionTemplate.deletedAt < 0}
-        <button class="btn" title="Edit organization">
+        <button class="btn" title="Add template">
+          <Icon
+            color="var(--gray-006)"
+            className="icon"
+            size="17"
+            src={RiSystemAddBoxLine}
+          />
+        </button>
+        <button class="btn" title="Edit template">
           <Icon
             color="var(--gray-006)"
             className="icon"
@@ -49,7 +96,7 @@
             src={RiDesignPencilLine}
           />
         </button>
-        <button class="btn" title="Delete organization">
+        <button class="btn" title="Delete template">
           <Icon
             color="var(--gray-006)"
             className="icon"
@@ -69,7 +116,7 @@
       {/if}
     </div>
   </div>
-  {#if isShowDetail}
+  {#if isShowDetails}
     <div class="transaction_template_detail">
       <div class="info">
         <span class="label">Debit</span>

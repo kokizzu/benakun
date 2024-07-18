@@ -7,13 +7,15 @@
 
   /** @typedef {import('./_components/types/master.js').Field} Field */
 	/** @typedef {import('./_components/types/access.js').Access} Access */
-  /** @typedef {import('./_components/types/master.js').PagerIn} PagerIn */
-	/** @typedef {import('./_components/types/master.js').PagerOut} PagerOut */
   /** @typedef {import('./_components/types/user.js').User} User */
   /** @typedef {import('./_components/types/transaction.js').TransactionTemplate} TransactionTemplate */
+  /** @typedef {import('./_components/types/coa.js').CoA} CoA */
 
-  let transactionTemplates = [/* transactionTemplates */];
-  console.log(transactionTemplates);
+  let transactionTemplates = /** @type {TransactionTemplate[]} */ ([/* transactionTemplates */]);
+  let coas = /** @type {CoA[]} */ ([/* coas */]);
+
+  console.log('transactionTemplates', transactionTemplates);
+  console.log('coas', coas);
 
   let popUpTransactionTemplate;
   let name = '';
@@ -62,7 +64,6 @@
       </button>
     </header>
     <div class="transaction_templates">
-      <h4>TODO: combobox coa in transaction tempalte detail</h4>
       {#each (transactionTemplates || []) as tt}
         <TransactionTemplateTree
           transactionTemplate={tt}

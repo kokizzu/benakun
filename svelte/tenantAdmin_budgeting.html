@@ -11881,10 +11881,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         function(o) {
           $invalidate(16, isSearching = false);
           if (o.error) {
+            console.log(o.error);
             notifier.showError(o.error);
             return;
           }
-          console.log(o);
           budgetPlans = o.plans;
           reformatPlans();
         }

@@ -1983,6 +1983,8 @@ const TenantAdminTransactionTemplateIn = {
  * @property {number} transactionTemplate.deletedAt
  * @property {number} transactionTemplate.deletedBy
  * @property {number} transactionTemplate.restoredBy
+ * @property {Object} transactionTplDetails
+ * @property {Object} coas
  */
 const TenantAdminTransactionTemplateOut = {
   transactionTemplates: { // []rqFinance.TransactionTemplate
@@ -2001,6 +2003,10 @@ const TenantAdminTransactionTemplateOut = {
     deletedBy: 0, // uint64
     restoredBy: 0, // uint64
   }, // rqFinance.TransactionTemplate
+  transactionTplDetails: { // []rqFinance.TransactionTplDetail
+  }, // []rqFinance.TransactionTplDetail
+  coas: { // []rqFinance.Coa
+  }, // []rqFinance.Coa
 }
 /**
  * @callback TenantAdminTransactionTemplateCallback

@@ -3172,7 +3172,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminTransaction = async function TenantAdminTransaction(i, cb) {
         return await axios.post("/tenantAdmin/transaction", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminTransactionTemplate = async function TenantAdminTransactionTemplate2(i, cb) {
+      exports.TenantAdminTransactionTemplate = async function TenantAdminTransactionTemplate3(i, cb) {
         return await axios.post("/tenantAdmin/transactionTemplate", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserAutoLoginLink = async function UserAutoLoginLink(i, cb) {
@@ -4260,6 +4260,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var RiUserFacesAdminLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M12 14V16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM21 17H22V22H14V17H15V16C15 14.3431 16.3431 13 18 13C19.6569 13 21 14.3431 21 16V17ZM19 17V16C19 15.4477 18.5523 15 18 15C17.4477 15 17 15.4477 17 16V17H19Z"></path>' };
   var RiUserFacesGroup2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M9.55 11.5C8.30736 11.5 7.3 10.4926 7.3 9.25C7.3 8.00736 8.30736 7 9.55 7C10.7926 7 11.8 8.00736 11.8 9.25C11.8 10.4926 10.7926 11.5 9.55 11.5ZM10 19.748V16.4C10 15.9116 10.1442 15.4627 10.4041 15.0624C10.1087 15.0213 9.80681 15 9.5 15C7.93201 15 6.49369 15.5552 5.37091 16.4797C6.44909 18.0721 8.08593 19.2553 10 19.748ZM4.45286 14.66C5.86432 13.6168 7.61013 13 9.5 13C10.5435 13 11.5431 13.188 12.4667 13.5321C13.3447 13.1888 14.3924 13 15.5 13C17.1597 13 18.6849 13.4239 19.706 14.1563C19.8976 13.4703 20 12.7471 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 12.9325 4.15956 13.8278 4.45286 14.66ZM18.8794 16.0859C18.4862 15.5526 17.1708 15 15.5 15C13.4939 15 12 15.7967 12 16.4V20C14.9255 20 17.4843 18.4296 18.8794 16.0859ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM15.5 12.5C14.3954 12.5 13.5 11.6046 13.5 10.5C13.5 9.39543 14.3954 8.5 15.5 8.5C16.6046 8.5 17.5 9.39543 17.5 10.5C17.5 11.6046 16.6046 12.5 15.5 12.5Z"></path>' };
   var RiUserFacesContactsLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M19 7H24V9H19V7ZM17 12H24V14H17V12ZM20 17H24V19H20V17ZM2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11Z"></path>' };
+  var RiSystemAddBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5ZM11 11V7H13V11H17V13H13V17H11V13H7V11H11Z"></path>' };
   var RiSystemDeleteBinLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z"></path>' };
   var RiMapMap2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 5L9 2L15 5L21.303 2.2987C21.5569 2.18992 21.8508 2.30749 21.9596 2.56131C21.9862 2.62355 22 2.69056 22 2.75827V19L15 22L9 19L2.69696 21.7013C2.44314 21.8101 2.14921 21.6925 2.04043 21.4387C2.01375 21.3765 2 21.3094 2 21.2417V5ZM16 19.3955L20 17.6812V5.03308L16 6.74736V19.3955ZM14 19.2639V6.73607L10 4.73607V17.2639L14 19.2639ZM8 17.2526V4.60451L4 6.31879V18.9669L8 17.2526Z"></path>' };
   var RiFinanceSwapBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4.00488 5.00275V19.0027H20.0049V5.00275H4.00488ZM3.00488 3.00275H21.0049C21.5572 3.00275 22.0049 3.45046 22.0049 4.00275V20.0027C22.0049 20.555 21.5572 21.0027 21.0049 21.0027H3.00488C2.4526 21.0027 2.00488 20.555 2.00488 20.0027V4.00275C2.00488 3.45046 2.4526 3.00275 3.00488 3.00275ZM15.0049 7.00275L18.5049 10.0027L15.0049 13.0027V11.0027H11.0049V9.00275H15.0049V7.00275ZM9.00488 17.0027L5.50488 14.0027L9.00488 11.0027V13.0027H13.0049V15.0027H9.00488V17.0027Z"></path>' };
@@ -8226,9 +8227,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var PopUpTransactionTemplate_default = PopUpTransactionTemplate;
 
   // tenantAdmin_transactionTemplate.svelte
-  var import_jsApi = __toESM(require_jsApi_GEN());
+  var import_jsApi2 = __toESM(require_jsApi_GEN());
 
   // _components/TransactionTemplateTree.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
   function create_else_block2(ctx) {
     let button;
     let icon;
@@ -8274,11 +8276,22 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   function create_if_block_15(ctx) {
     let button0;
     let icon0;
-    let t;
+    let t0;
     let button1;
     let icon1;
+    let t1;
+    let button2;
+    let icon2;
     let current;
     icon0 = new Icon_default({
+      props: {
+        color: "var(--gray-006)",
+        className: "icon",
+        size: "17",
+        src: RiSystemAddBoxLine
+      }
+    });
+    icon1 = new Icon_default({
       props: {
         color: "var(--gray-006)",
         className: "icon",
@@ -8286,7 +8299,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         src: RiDesignPencilLine
       }
     });
-    icon1 = new Icon_default({
+    icon2 = new Icon_default({
       props: {
         color: "var(--gray-006)",
         className: "icon",
@@ -8298,20 +8311,28 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       c() {
         button0 = element("button");
         create_component(icon0.$.fragment);
-        t = space();
+        t0 = space();
         button1 = element("button");
         create_component(icon1.$.fragment);
+        t1 = space();
+        button2 = element("button");
+        create_component(icon2.$.fragment);
         attr(button0, "class", "btn svelte-1lwb869");
-        attr(button0, "title", "Edit organization");
+        attr(button0, "title", "Add template");
         attr(button1, "class", "btn svelte-1lwb869");
-        attr(button1, "title", "Delete organization");
+        attr(button1, "title", "Edit template");
+        attr(button2, "class", "btn svelte-1lwb869");
+        attr(button2, "title", "Delete template");
       },
       m(target, anchor) {
         insert(target, button0, anchor);
         mount_component(icon0, button0, null);
-        insert(target, t, anchor);
+        insert(target, t0, anchor);
         insert(target, button1, anchor);
         mount_component(icon1, button1, null);
+        insert(target, t1, anchor);
+        insert(target, button2, anchor);
+        mount_component(icon2, button2, null);
         current = true;
       },
       i(local) {
@@ -8319,21 +8340,26 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           return;
         transition_in(icon0.$.fragment, local);
         transition_in(icon1.$.fragment, local);
+        transition_in(icon2.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(icon0.$.fragment, local);
         transition_out(icon1.$.fragment, local);
+        transition_out(icon2.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(button0);
-          detach(t);
+          detach(t0);
           detach(button1);
+          detach(t1);
+          detach(button2);
         }
         destroy_component(icon0);
         destroy_component(icon1);
+        destroy_component(icon2);
       }
     };
   }
@@ -8382,7 +8408,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     icon0 = new Icon_default({
       props: {
         color: "var(--gray-006)",
-        className: "icon " + /*isShowDetail*/
+        className: "icon " + /*isShowDetails*/
         (ctx[1] ? "rotate" : "dropdown"),
         size: "20",
         src: RiArrowsArrowRightSLine
@@ -8412,7 +8438,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     current_block_type_index = select_block_type(ctx, -1);
     if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     let if_block1 = (
-      /*isShowDetail*/
+      /*isShowDetails*/
       ctx[1] && create_if_block4(ctx)
     );
     return {
@@ -8473,9 +8499,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, [dirty]) {
         const icon0_changes = {};
-        if (dirty & /*isShowDetail*/
+        if (dirty & /*isShowDetails*/
         2)
-          icon0_changes.className = "icon " + /*isShowDetail*/
+          icon0_changes.className = "icon " + /*isShowDetails*/
           (ctx2[1] ? "rotate" : "dropdown");
         icon0.$set(icon0_changes);
         const icon1_changes = {};
@@ -8506,7 +8532,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           if_block0.m(div2, null);
         }
         if (
-          /*isShowDetail*/
+          /*isShowDetails*/
           ctx2[1]
         ) {
           if (if_block1) {
@@ -8553,15 +8579,49 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /** @type {TransactionTemplate} */
       {}
     ) } = $props;
-    let isShowDetail = false;
-    const toggleShowDetail = () => {
-      $invalidate(1, isShowDetail = !isShowDetail);
+    let transactionTplDetails = (
+      /** @type {TransactionTplDetail[]} */
+      []
+    );
+    let isSearching = false;
+    let isShowDetails = false;
+    async function getTransactionTplDetails() {
+      isSearching = true;
+      await (0, import_jsApi.TenantAdminTransactionTemplate)(
+        //@ts-ignore
+        {
+          cmd: "form",
+          //@ts-ignore
+          transactionTemplate: { id: transactionTemplate.id }
+        },
+        /** @type {import('../jsApi.GEN').TenantAdminTransactionTemplateCallback} */
+        function(o) {
+          isSearching = false;
+          if (o.error) {
+            notifier.showError(o.error);
+            return;
+          }
+          transactionTplDetails = o.transactionTplDetails;
+          return;
+        }
+      );
+    }
+    const toggleShowDetail = async () => {
+      if (isShowDetails) {
+        $invalidate(1, isShowDetails = false);
+        return;
+      } else {
+        $invalidate(1, isShowDetails = true);
+        if (!transactionTplDetails || transactionTplDetails.length === 0) {
+          await getTransactionTplDetails();
+        }
+      }
     };
     $self.$set = ($props2) => {
       if ("transactionTemplate" in $props2)
         $invalidate(0, transactionTemplate = $props2.transactionTemplate);
     };
-    return [transactionTemplate, isShowDetail, toggleShowDetail];
+    return [transactionTemplate, isShowDetails, toggleShowDetail];
   }
   var TransactionTemplateTree = class extends SvelteComponent {
     constructor(options) {
@@ -8616,8 +8676,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let button;
     let t1;
     let div0;
-    let h4;
-    let t3;
     let current;
     let mounted;
     let dispose;
@@ -8637,9 +8695,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         button.textContent = "Add";
         t1 = space();
         div0 = element("div");
-        h4 = element("h4");
-        h4.textContent = "TODO: combobox coa in transaction tempalte detail";
-        t3 = space();
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
@@ -8654,8 +8709,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(header, button);
         append(div1, t1);
         append(div1, div0);
-        append(div0, h4);
-        append(div0, t3);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
             each_blocks[i].m(div0, null);
@@ -8842,9 +8895,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  var transactionTemplates = [/* transactionTemplates */];
+  var transactionTemplates = (
+    /** @type {TransactionTemplate[]} */
+    [/* transactionTemplates */]
+  );
+  var coas = (
+    /** @type {CoA[]} */
+    [/* coas */]
+  );
   function instance10($self, $props, $invalidate) {
-    console.log(transactionTemplates);
+    console.log("transactionTemplates", transactionTemplates);
+    console.log("coas", coas);
     let popUpTransactionTemplate;
     let name = "";
     let color = "";
@@ -8855,7 +8916,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         cmd: "upsert",
         transactionTemplate: { name, color }
       };
-      await (0, import_jsApi.TenantAdminTransactionTemplate)(
+      await (0, import_jsApi2.TenantAdminTransactionTemplate)(
         //@ts-ignore
         i,
         /** @type {import('./jsApi.GEN').TenantAdminTransactionTemplateCallback} */

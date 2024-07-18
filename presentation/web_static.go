@@ -462,6 +462,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`user`:                 user,
 			`segments`:             segments,
 			`transactionTemplates`: out.TransactionTemplates,
+			`coas`: out.Coas,
 		})
 	})
 

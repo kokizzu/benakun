@@ -138,11 +138,11 @@
       function (/** @type {any} */ o) {
         isSearching = false;
         if (o.error) {
+          console.log(o.error);
           notifier.showError(o.error);
           return;
         }
 
-        console.log(o);
         budgetPlans = o.plans;
         reformatPlans();
       }

@@ -2999,6 +2999,16 @@
 														"type": "number"
 												}
 												}
+										},
+										"transactionTplDetails": {
+										"type": "object",
+										"properties": {
+												}
+										},
+										"coas": {
+										"type": "object",
+										"properties": {
+												}
 										}
 									}
 								}

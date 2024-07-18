@@ -115,3 +115,30 @@ FROM SEQSCAN ` + tt.SqlTableName() + whereAndSql
 
 	return
 }
+
+func (ttpld *TransactionTplDetail) FindTrxTplDetailsByTenantByTrxTplId() (ttplds []TransactionTplDetail) {
+	var res [][]any
+	const comment = `-- TransactionTplDetail) FindTrxTplDetailsByTenantByTrxTplId`
+
+	whereAndSql := ` WHERE ` + ttpld.SqlTenantCode() + ` = ` + S.Z(ttpld.TenantCode) + `
+		AND ` + ttpld.SqlParentId() + ` = ` + I.UToS(ttpld.ParentId)
+
+	queryRows := comment + `
+SELECT ` + ttpld.SqlSelectAllFields() + `
+FROM SEQSCAN ` + ttpld.SqlTableName() + whereAndSql
+
+	ttpld.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
+	if len(res) > 0 {
+		for _, v := range res {
+			if len(v) >= 5 {
+				ttplds = append(ttplds, *ttpld.FromArray(v))
+			}
+		}
+	}
+
+	return
+}
