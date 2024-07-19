@@ -2099,7 +2099,7 @@ const TenantAdminTransactionTplDetailOut = {
  * @returns {Promise}
  */
 exports.TenantAdminTransactionTplDetail = async function TenantAdminTransactionTplDetail( i, cb ) {
-  return await axios.post( '/tenantAdmin/transactionTemplate', i ).
+  return await axios.post( '/tenantAdmin/transactionTplDetail', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

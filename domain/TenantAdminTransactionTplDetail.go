@@ -29,7 +29,7 @@ type (
 )
 
 const (
-	TenantAdminTransactionTplDetailAction = `tenantAdmin/transactionTemplate`
+	TenantAdminTransactionTplDetailAction = `tenantAdmin/transactionTplDetail`
 
 	ErrTenantAdminTransactionTplDetailUnauthorized   = `unauthorized user`
 	ErrTenantAdminTransactionTplDetailTenantNotFound = `tenant admin not found`
