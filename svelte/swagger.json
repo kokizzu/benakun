@@ -3000,12 +3000,129 @@
 												}
 												}
 										},
-										"transactionTplDetails": {
+										"coas": {
 										"type": "object",
 										"properties": {
 												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"cmd": {
+								"type": "string"
+						},
+						"transactionTplDetail": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"parentId": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"coaId": {
+										"type": "number"
+								},
+								"isDebit": {
+									"type": "boolean"
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"deletedBy": {
+										"type": "number"
+								},
+								"restoredBy": {
+										"type": "number"
+								}
+								}
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminTransactionTplDetail",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"transactionTplDetail": {
+										"type": "object",
+										"properties": {
+												"id": {
+														"type": "number"
+												},
+												"parentId": {
+														"type": "number"
+												},
+												"tenantCode": {
+														"type": "string"
+												},
+												"coaId": {
+														"type": "number"
+												},
+												"isDebit": {
+													"type": "boolean"
+												},
+												"createdAt": {
+														"type": "number"
+												},
+												"createdBy": {
+														"type": "number"
+												},
+												"updatedAt": {
+														"type": "number"
+												},
+												"updatedBy": {
+														"type": "number"
+												},
+												"deletedAt": {
+														"type": "number"
+												},
+												"deletedBy": {
+														"type": "number"
+												},
+												"restoredBy": {
+														"type": "number"
+												}
+												}
 										},
-										"coas": {
+										"transactionTplDetails": {
 										"type": "object",
 										"properties": {
 												}

@@ -25,7 +25,6 @@ type (
 		ResponseCommon
 		TransactionTemplates	*[]rqFinance.TransactionTemplate	`json:"transactionTemplates" form:"transactionTemplates" query:"transactionTemplates" long:"transactionTemplates" msg:"transactionTemplates"`
 		TransactionTemplate		*rqFinance.TransactionTemplate  	`json:"transactionTemplate" form:"transactionTemplate" query:"transactionTemplate" long:"transactionTemplate" msg:"transactionTemplate"`
-		TransactionTplDetails	*[]rqFinance.TransactionTplDetail `json:"transactionTplDetails" form:"transactionTplDetails" query:"transactionTplDetails" long:"transactionTplDetails" msg:"transactionTplDetails"`
 		Coas									*[]rqFinance.Coa									`json:"coas" form:"coas" query:"coas" long:"coas" msg:"coas"`
 	}
 )
@@ -54,8 +53,6 @@ func (d *Domain) TenantAdminTransactionTemplate(in *TenantAdminTransactionTempla
 		return
 	}
 
-
-
 	switch in.Cmd {
 	case zCrud.CmdForm:
 		if in.TransactionTemplate.Id > 0 {
@@ -66,11 +63,6 @@ func (d *Domain) TenantAdminTransactionTemplate(in *TenantAdminTransactionTempla
 				return
 			}
 
-			trxTplDetail := rqFinance.NewTransactionTplDetail(d.AuthOltp)
-			trxTplDetail.TenantCode = user.TenantCode
-			trxTplDetails := trxTplDetail.FindTrxTplDetailsByTenantByTrxTplId()
-
-			out.TransactionTplDetails = &trxTplDetails
 			out.TransactionTemplate = trxTemplate
 		}
 	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:

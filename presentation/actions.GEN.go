@@ -37,6 +37,7 @@ var allCommands = []string{
 	domain.TenantAdminProductsAction,
 	domain.TenantAdminTransactionAction,
 	domain.TenantAdminTransactionTemplateAction,
+	domain.TenantAdminTransactionTplDetailAction,
 	domain.UserAutoLoginLinkAction,
 	domain.UserChangePasswordAction,
 	domain.UserCreateCompanyAction,

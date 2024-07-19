@@ -880,7 +880,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 }
 
 /* fakecss:./_components/TransactionTemplateTree.esbuild-svelte-fake-css */
-@keyframes svelte-1lwb869-spin {
+@keyframes svelte-15lh3mm-spin {
   from {
     transform: rotate(0deg);
   }
@@ -889,7 +889,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   }
 }
 .spin {
-  animation: svelte-1lwb869-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: svelte-15lh3mm-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 .dropdown {
   transition: all .2s ease-in-out;
@@ -898,27 +898,27 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   transition: all .2s ease-in-out;
   transform: rotate(90deg);
 }
-.transaction_template.svelte-1lwb869.svelte-1lwb869 {
+.transaction_template.svelte-15lh3mm.svelte-15lh3mm {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.transaction_template.svelte-1lwb869 .info.svelte-1lwb869 {
+.transaction_template.svelte-15lh3mm .info.svelte-15lh3mm {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
 }
-.transaction_template.svelte-1lwb869 .info .left.svelte-1lwb869 {
+.transaction_template.svelte-15lh3mm .info .left.svelte-15lh3mm {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
 }
-.transaction_template.svelte-1lwb869 .info .left .btn_toggle.svelte-1lwb869 {
+.transaction_template.svelte-15lh3mm .info .left .btn_toggle.svelte-15lh3mm {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -928,26 +928,26 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   border-radius: 999px;
   cursor: pointer;
 }
-.transaction_template.svelte-1lwb869 .info .left .btn_toggle.svelte-1lwb869:hover {
+.transaction_template.svelte-15lh3mm .info .left .btn_toggle.svelte-15lh3mm:hover {
   background-color: var(--gray-001);
 }
-.transaction_template.svelte-1lwb869 .info .left .btn_toggle.svelte-1lwb869:active {
+.transaction_template.svelte-15lh3mm .info .left .btn_toggle.svelte-15lh3mm:active {
   background-color: var(--gray-002);
 }
-.transaction_template.svelte-1lwb869 .info .left .name.svelte-1lwb869 {
+.transaction_template.svelte-15lh3mm .info .left .name.svelte-15lh3mm {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 5px;
 }
-.transaction_template.svelte-1lwb869 .info .options.svelte-1lwb869 {
+.transaction_template.svelte-15lh3mm .info .options.svelte-15lh3mm {
   display: flex;
   cursor: pointer;
   flex-direction: row;
   align-items: center;
   gap: 5px;
 }
-.transaction_template.svelte-1lwb869 .info .options .btn.svelte-1lwb869 {
+.transaction_template.svelte-15lh3mm .info .options .btn.svelte-15lh3mm {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -957,33 +957,82 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   padding: 5px;
   cursor: pointer;
 }
-.transaction_template.svelte-1lwb869 .info .options .btn.svelte-1lwb869:hover {
+.transaction_template.svelte-15lh3mm .info .options .btn.svelte-15lh3mm:hover {
   background-color: var(--gray-002);
 }
-.transaction_template.svelte-1lwb869 .info .options .btn.svelte-1lwb869:active {
+.transaction_template.svelte-15lh3mm .info .options .btn.svelte-15lh3mm:active {
   background-color: var(--gray-003);
 }
-.transaction_template.svelte-1lwb869 .transaction_template_detail.svelte-1lwb869 {
-  width: auto;
+.transaction_template_detail.svelte-15lh3mm.svelte-15lh3mm {
   display: flex;
   flex-direction: column;
-  margin-left: 35px;
-  padding: 10px;
-  border-radius: 8px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 0;
+  border: 1px solid var(--gray-003);
+  overflow: hidden;
+  margin-left: 40px;
+}
+.transaction_template_detail.svelte-15lh3mm .table_container.svelte-15lh3mm {
+  overflow-x: auto;
+  scrollbar-color: var(--gray-003) transparent;
+  scrollbar-width: thin;
+}
+.transaction_template_detail.svelte-15lh3mm .table_container table.svelte-15lh3mm {
+  width: 100%;
+  background: #fff;
+  box-shadow: none;
+  text-align: left;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+}
+.transaction_template_detail.svelte-15lh3mm .table_container table thead.svelte-15lh3mm {
+  box-shadow: none;
+  border-bottom: 1px solid var(--gray-003);
+}
+.transaction_template_detail.svelte-15lh3mm .table_container table thead tr th.svelte-15lh3mm {
+  padding: 12px;
   background-color: var(--gray-001);
+  text-transform: capitalize;
+  border-right: 1px solid var(--gray-004);
+  border-bottom: 1px solid var(--gray-003);
+  min-width: fit-content;
+  width: auto;
+  text-wrap: nowrap;
 }
-.transaction_template.svelte-1lwb869 .transaction_template_detail .info.svelte-1lwb869 {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
+.transaction_template_detail.svelte-15lh3mm .table_container table thead tr th.svelte-15lh3mm:last-child {
+  border-right: none;
 }
-.transaction_template.svelte-1lwb869 .transaction_template_detail .info span.label.svelte-1lwb869 {
-  padding: 2px 10px;
-  margin-right: 7px;
-  border-radius: 999px;
-  background-color: var(--violet-transparent);
-  color: var(--violet-005);
+.transaction_template_detail.svelte-15lh3mm .table_container table tbody tr td.svelte-15lh3mm {
+  padding: 8px 12px;
+}
+.transaction_template_detail.svelte-15lh3mm .table_container table tbody tr td.svelte-15lh3mm {
+  padding: 8px 12px;
+  border-right: 1px solid var(--gray-004);
+  border-bottom: 1px solid var(--gray-004);
+}
+.transaction_template_detail.svelte-15lh3mm .table_container table tbody tr:last-child td.svelte-15lh3mm,
+.transaction_template_detail.svelte-15lh3mm .table_container table tbody tr:last-child th.svelte-15lh3mm {
+  border-bottom: none !important;
+}
+.transaction_template_detail.svelte-15lh3mm .table_container table tbody tr:last-child td.svelte-15lh3mm:last-child {
+  border-right: none !important;
+}
+.transaction_template_detail.svelte-15lh3mm .table_container table tbody tr:last-child td.svelte-15lh3mm,
+.transaction_template_detail.svelte-15lh3mm .table_container table tbody tr:last-child th.svelte-15lh3mm {
+  border-bottom: none !important;
+}
+.transaction_template_detail.svelte-15lh3mm .table_container table tbody tr:last-child td.svelte-15lh3mm:last-child {
+  border-right: none !important;
+}
+.transaction_template_detail.svelte-15lh3mm .table_container table tbody tr td.svelte-15lh3mm:last-child {
+  border-right: none !important;
+}
+.transaction_template_detail.svelte-15lh3mm .table_container table tbody tr th.svelte-15lh3mm {
+  text-align: center;
+  border-right: 1px solid var(--gray-004);
+  border-bottom: 1px solid var(--gray-004);
 }
 
 /* fakecss:./tenantAdmin_transactionTemplate.esbuild-svelte-fake-css */
@@ -8247,7 +8296,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       c() {
         button = element("button");
         create_component(icon.$.fragment);
-        attr(button, "class", "btn svelte-1lwb869");
+        attr(button, "class", "btn svelte-15lh3mm");
         attr(button, "title", "Rollback");
       },
       m(target, anchor) {
@@ -8317,11 +8366,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t1 = space();
         button2 = element("button");
         create_component(icon2.$.fragment);
-        attr(button0, "class", "btn svelte-1lwb869");
+        attr(button0, "class", "btn svelte-15lh3mm");
         attr(button0, "title", "Add template");
-        attr(button1, "class", "btn svelte-1lwb869");
+        attr(button1, "class", "btn svelte-15lh3mm");
         attr(button1, "title", "Edit template");
-        attr(button2, "class", "btn svelte-1lwb869");
+        attr(button2, "class", "btn svelte-15lh3mm");
         attr(button2, "title", "Delete template");
       },
       m(target, anchor) {
@@ -8368,8 +8417,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     return {
       c() {
         div1 = element("div");
-        div1.innerHTML = `<div class="info svelte-1lwb869"><span class="label svelte-1lwb869">Debit</span> <span class="label svelte-1lwb869">Kredit</span> <span class="label svelte-1lwb869">COA</span></div>`;
-        attr(div1, "class", "transaction_template_detail svelte-1lwb869");
+        div1.innerHTML = `<div class="table_container svelte-15lh3mm"><table class="svelte-15lh3mm"><thead class="svelte-15lh3mm"><tr><th class="svelte-15lh3mm">#</th> <th class="svelte-15lh3mm">Kredit</th> <th class="svelte-15lh3mm">Debit</th> <th class="svelte-15lh3mm">CoA</th></tr></thead> <tbody><tr><td class="svelte-15lh3mm">1</td> <td class="svelte-15lh3mm">No</td> <td class="svelte-15lh3mm">Yes</td> <td class="svelte-15lh3mm">Uang Muka</td></tr></tbody></table></div>`;
+        attr(div1, "class", "transaction_template_detail svelte-15lh3mm");
       },
       m(target, anchor) {
         insert(target, div1, anchor);
@@ -8460,13 +8509,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t4 = space();
         if (if_block1)
           if_block1.c();
-        attr(button, "class", "btn_toggle svelte-1lwb869");
+        attr(button, "class", "btn_toggle svelte-15lh3mm");
         attr(p, "class", "title");
-        attr(div0, "class", "name svelte-1lwb869");
-        attr(div1, "class", "left svelte-1lwb869");
-        attr(div2, "class", "options svelte-1lwb869");
-        attr(div3, "class", "info svelte-1lwb869");
-        attr(div4, "class", "transaction_template svelte-1lwb869");
+        attr(div0, "class", "name svelte-15lh3mm");
+        attr(div1, "class", "left svelte-15lh3mm");
+        attr(div2, "class", "options svelte-15lh3mm");
+        attr(div3, "class", "info svelte-15lh3mm");
+        attr(div4, "class", "transaction_template svelte-15lh3mm");
       },
       m(target, anchor) {
         insert(target, div4, anchor);

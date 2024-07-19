@@ -252,6 +252,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminTransactionTemplate(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.TenantAdminTransactionTplDetailAction:
+		in := domain.TenantAdminTransactionTplDetailIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.TenantAdminTransactionTplDetail(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.UserAutoLoginLinkAction:
 		in := domain.UserAutoLoginLinkIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

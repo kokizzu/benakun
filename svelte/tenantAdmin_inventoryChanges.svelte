@@ -166,7 +166,7 @@
     {
       icon: FaShareFromSquare,
       isTargetBlank: true,
-      link: (/** @type any */ row) => `/tenantAdmin/inventoryChanges/${row[1]}`,
+      link: (/** @type any */ row) => `/tenantAdmin/inventoryChanges/${row[2]}`,
       tooltip: 'View',
     }
   ]

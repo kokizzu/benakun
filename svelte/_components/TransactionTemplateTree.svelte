@@ -118,10 +118,25 @@
   </div>
   {#if isShowDetails}
     <div class="transaction_template_detail">
-      <div class="info">
-        <span class="label">Debit</span>
-        <span class="label">Kredit</span>
-        <span class="label">COA</span>
+      <div class="table_container">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Kredit</th>
+              <th>Debit</th>
+              <th>CoA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>No</td>
+              <td>Yes</td>
+              <td>Uang Muka</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   {/if}
@@ -226,28 +241,88 @@
     background-color: var(--gray-003);
   }
 
-  .transaction_template .transaction_template_detail {
-    width: auto;
+  .transaction_template_detail {
     display: flex;
     flex-direction: column;
-    margin-left: 35px;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: var(--gray-001);
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 0;
+    border: 1px solid var(--gray-003);
+    overflow: hidden;
+    margin-left: 40px;
   }
 
-  .transaction_template .transaction_template_detail .info {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    align-items: center;
+  .transaction_template_detail .table_container {
+    overflow-x: auto;
+    scrollbar-color: var(--gray-003) transparent;
+    scrollbar-width: thin;
   }
 
-  .transaction_template .transaction_template_detail .info span.label {
-    padding: 2px 10px;
-    margin-right: 7px;
-    border-radius: 999px;
-    background-color: var(--violet-transparent);
-    color: var(--violet-005);
+  .transaction_template_detail .table_container table {
+    width: 100%;
+    background: #fff;
+    box-shadow: none;
+    text-align: left;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+  }
+
+  .transaction_template_detail .table_container table thead {
+    box-shadow: none;
+    border-bottom: 1px solid var(--gray-003);
+  }
+
+  .transaction_template_detail .table_container table thead tr th {
+    padding: 12px;
+		background-color: var(--gray-001);
+		text-transform: capitalize;
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-003);
+		min-width: fit-content;
+		width: auto;
+    text-wrap: nowrap;
+  }
+
+  .transaction_template_detail .table_container table thead tr th:last-child {
+    border-right: none;
+  }
+
+  .transaction_template_detail .table_container table tbody tr td {
+    padding: 8px 12px;
+  }
+
+	.transaction_template_detail .table_container table tbody tr td {
+    padding: 8px 12px;
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-004);
+  }
+
+	.transaction_template_detail .table_container table tbody tr:last-child td,
+	.transaction_template_detail .table_container table tbody tr:last-child th {
+		border-bottom: none !important;
+	}
+
+  .transaction_template_detail .table_container table tbody tr:last-child td:last-child {
+    border-right: none !important;
+  }
+
+  .transaction_template_detail .table_container table tbody tr:last-child td,
+  .transaction_template_detail .table_container table tbody tr:last-child th {
+    border-bottom: none !important;
+  }
+
+  .transaction_template_detail .table_container table tbody tr:last-child td:last-child {
+    border-right: none !important;
+  }
+
+  .transaction_template_detail .table_container table tbody tr td:last-child {
+    border-right: none !important;
+  }
+
+  .transaction_template_detail .table_container table tbody tr th {
+    text-align: center;
+    border-right: 1px solid var(--gray-004);
+    border-bottom: 1px solid var(--gray-004);
   }
 </style>

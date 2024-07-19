@@ -1983,7 +1983,6 @@ const TenantAdminTransactionTemplateIn = {
  * @property {number} transactionTemplate.deletedAt
  * @property {number} transactionTemplate.deletedBy
  * @property {number} transactionTemplate.restoredBy
- * @property {Object} transactionTplDetails
  * @property {Object} coas
  */
 const TenantAdminTransactionTemplateOut = {
@@ -2003,8 +2002,6 @@ const TenantAdminTransactionTemplateOut = {
     deletedBy: 0, // uint64
     restoredBy: 0, // uint64
   }, // rqFinance.TransactionTemplate
-  transactionTplDetails: { // []rqFinance.TransactionTplDetail
-  }, // []rqFinance.TransactionTplDetail
   coas: { // []rqFinance.Coa
   }, // []rqFinance.Coa
 }
@@ -2019,6 +2016,89 @@ const TenantAdminTransactionTemplateOut = {
  * @returns {Promise}
  */
 exports.TenantAdminTransactionTemplate = async function TenantAdminTransactionTemplate( i, cb ) {
+  return await axios.post( '/tenantAdmin/transactionTemplate', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminTransactionTplDetailIn
+ * @property {String} cmd
+ * @property {number} transactionTplDetail.id
+ * @property {number} transactionTplDetail.parentId
+ * @property {String} transactionTplDetail.tenantCode
+ * @property {number} transactionTplDetail.coaId
+ * @property {Object} transactionTplDetail.isDebit
+ * @property {number} transactionTplDetail.createdAt
+ * @property {number} transactionTplDetail.createdBy
+ * @property {number} transactionTplDetail.updatedAt
+ * @property {number} transactionTplDetail.updatedBy
+ * @property {number} transactionTplDetail.deletedAt
+ * @property {number} transactionTplDetail.deletedBy
+ * @property {number} transactionTplDetail.restoredBy
+ */
+const TenantAdminTransactionTplDetailIn = {
+  cmd: '', // string
+  transactionTplDetail: { // rqFinance.TransactionTplDetail
+    id: 0, // uint64
+    parentId: 0, // uint64
+    tenantCode: '', // string
+    coaId: 0, // uint64
+    isDebit: false, // bool
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+  }, // rqFinance.TransactionTplDetail
+}
+/**
+ * @typedef {Object} TenantAdminTransactionTplDetailOut
+ * @property {number} transactionTplDetail.id
+ * @property {number} transactionTplDetail.parentId
+ * @property {String} transactionTplDetail.tenantCode
+ * @property {number} transactionTplDetail.coaId
+ * @property {Object} transactionTplDetail.isDebit
+ * @property {number} transactionTplDetail.createdAt
+ * @property {number} transactionTplDetail.createdBy
+ * @property {number} transactionTplDetail.updatedAt
+ * @property {number} transactionTplDetail.updatedBy
+ * @property {number} transactionTplDetail.deletedAt
+ * @property {number} transactionTplDetail.deletedBy
+ * @property {number} transactionTplDetail.restoredBy
+ * @property {Object} transactionTplDetails
+ */
+const TenantAdminTransactionTplDetailOut = {
+  transactionTplDetail: { // rqFinance.TransactionTplDetail
+    id: 0, // uint64
+    parentId: 0, // uint64
+    tenantCode: '', // string
+    coaId: 0, // uint64
+    isDebit: false, // bool
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+  }, // rqFinance.TransactionTplDetail
+  transactionTplDetails: { // []rqFinance.TransactionTplDetail
+  }, // []rqFinance.TransactionTplDetail
+}
+/**
+ * @callback TenantAdminTransactionTplDetailCallback
+ * @param {TenantAdminTransactionTplDetailOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminTransactionTplDetailIn} i
+ * @param {TenantAdminTransactionTplDetailCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminTransactionTplDetail = async function TenantAdminTransactionTplDetail( i, cb ) {
   return await axios.post( '/tenantAdmin/transactionTemplate', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
