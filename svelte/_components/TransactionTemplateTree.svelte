@@ -5,32 +5,40 @@
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FaCircleDot } from '../node_modules/svelte-icons-pack/dist/fa';
   import {
-    RiArrowsArrowRightSLine,
-    RiDesignPencilLine,
-    RiSystemDeleteBinLine,
-    RiArrowsArrowGoBackLine,
-    RiSystemAddBoxLine
+    RiArrowsArrowRightSLine, RiDesignPencilLine,
+    RiSystemDeleteBinLine, RiArrowsArrowGoBackLine,
+    RiSystemAddBoxLine, RiDesignBallPenLine, RiSystemDeleteBin5Line
   } from '../node_modules/svelte-icons-pack/dist/ri';
-  import { TenantAdminTransactionTemplate } from '../jsApi.GEN';
+  import { TrOutlineRefresh } from '../node_modules/svelte-icons-pack/dist/tr';
+  import { TenantAdminTransactionTplDetail } from '../jsApi.GEN';
   import { notifier } from './notifier';
+  import PopUpTransactionTplDetail from './PopUpTransactionTplDetail.svelte';
+  import { onMount } from 'svelte';
 
   export let transactionTemplate = /** @type {TransactionTemplate} */ ({});
   let transactionTplDetails = /** @type {TransactionTplDetail[]} */ ([]);
+  export let coas = {};
+
+  let isPopUpFormsReady = false;
+  let popUpTransactionTplDetail = null;
+  onMount(() => {
+    isPopUpFormsReady = true;
+  })
 
   let isSearching = false;
   let isShowDetails = false;
 
   async function getTransactionTplDetails() {
     isSearching = true;
-    await TenantAdminTransactionTemplate( //@ts-ignore
+    await TenantAdminTransactionTplDetail( //@ts-ignore
       {
-        cmd: 'form', //@ts-ignore
-        transactionTemplate: {
-          id: transactionTemplate.id
+        cmd: 'list', //@ts-ignore
+        transactionTplDetail: {
+          parentId: transactionTemplate.id
         }
       },
       /** @type {import('../jsApi.GEN').TenantAdminTransactionTemplateCallback} */
-      function(/** @type any */ o) { 
+      function(/** @type any */ o) {
         isSearching = false;
         if (o.error) {
           notifier.showError(o.error);
@@ -38,6 +46,7 @@
         }
 
         transactionTplDetails = o.transactionTplDetails;
+        console.log('transactionTplDetails', o);
 
         return
       }
@@ -55,7 +64,53 @@
       }
     }
   }
+
+  let trxTplDetailId = 0;
+  let coaId = '';
+  let isDebit = 'debit';
+  let isSubmitUpsertTrxTplDetail = false;
+  async function SubmitUpsertTrxTplDetail() {
+    isSubmitUpsertTrxTplDetail = true;
+    await TenantAdminTransactionTplDetail( //@ts-ignore
+      {
+        cmd: 'upsert', //@ts-ignore
+        transactionTplDetail: {
+          id: trxTplDetailId,
+          parentId: transactionTemplate.id,
+          coaId: Number(coaId),
+          isDebit: isDebit == 'debit' ? true : false,
+        }
+      },
+      /** @type {import('../jsApi.GEN').TenantAdminTransactionTemplateCallback} */
+      function(/** @type any */ o) {
+        isSubmitUpsertTrxTplDetail = false;
+        if (o.error) {
+          notifier.showError(o.error);
+          return
+        }
+
+        notifier.showSuccess('Transaction Template Detail updated');
+
+        transactionTplDetails = o.transactionTplDetails;
+        console.log('transactionTplDetails', o);
+        popUpTransactionTplDetail.hide();
+
+        return
+      }
+    )
+  }
 </script>
+
+{#if isPopUpFormsReady}
+  <PopUpTransactionTplDetail
+    bind:this={popUpTransactionTplDetail}
+    bind:coaId
+    bind:isDebit
+    onSubmit={SubmitUpsertTrxTplDetail}
+    bind:isSubmitted={isSubmitUpsertTrxTplDetail}
+    {coas}
+  />
+{/if}
 
 <div class="transaction_template">
   <div class="info">
@@ -79,8 +134,23 @@
       </div>
     </div>
     <div class="options">
+      <button
+        class="btn"
+        title="Refresh"
+        on:click={getTransactionTplDetails}
+        disabled={isSearching}>
+        <Icon
+          className="icon {isSearching ? 'spin' : ''}"
+          size="17"
+          color="var(--gray-006)"
+          src={TrOutlineRefresh}
+        />
+      </button>
       {#if transactionTemplate.deletedAt < 0}
-        <button class="btn" title="Add template">
+        <button class="btn" title="Add template" on:click={() => {
+          trxTplDetailId = 0;
+          popUpTransactionTplDetail.show()
+        }}>
           <Icon
             color="var(--gray-006)"
             className="icon"
@@ -122,19 +192,59 @@
         <table>
           <thead>
             <tr>
-              <th>#</th>
+              <th class="no">#</th>
+              <th class="a_row">Action</th>
               <th>Kredit</th>
               <th>Debit</th>
-              <th>CoA</th>
+              <th>CoA (Chart of Accounts)</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>No</td>
-              <td>Yes</td>
-              <td>Uang Muka</td>
-            </tr>
+            {#if transactionTplDetails && transactionTplDetails.length > 0}
+              {#each (transactionTplDetails || []) as trxTplDetail, i (trxTplDetail.id)}
+                <tr>
+                  <td>{i + 1}</td>
+                  <td class="a_row">
+                    <div class="actions">
+                      <button
+                        class="btn edit"
+                        title="Edit"
+                        on:click={() => {
+                          isSubmitUpsertTrxTplDetail = false;
+                          trxTplDetailId = trxTplDetail.id;
+                          isDebit = trxTplDetail.isDebit ? 'debit' : 'credit';
+                          coaId = trxTplDetail.coaId+'';
+                          popUpTransactionTplDetail.show()
+                        }}
+                      >
+                        <Icon
+                          size="15"
+                          color="var(--gray-007)"
+                          src={RiDesignBallPenLine}
+                        />
+                      </button>
+                      <button
+                        class="btn delete"
+                        title="delete">
+                        <Icon
+                          size="15"
+                          color="var(--gray-007)"
+                          src={RiSystemDeleteBin5Line}
+                        />
+                      </button>
+                    </div>
+                  </td>
+                  <td>{!trxTplDetail.isDebit ? 'Yes' : 'No'}</td>
+                  <td>{trxTplDetail.isDebit ? 'Yes' : 'No'}</td>
+                  <td>{coas[trxTplDetail.coaId]}</td>
+                </tr>
+              {/each}
+            {:else}
+              <tr>
+                <td>0</td>
+                <td>no-data</td>
+              </tr>
+            {/if}
           </tbody>
         </table>
       </div>
@@ -211,7 +321,13 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 5px;
+    gap: 15px;
+  }
+
+  .transaction_template .info .left .name .title {
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0;
   }
 
   .transaction_template .info .options {
@@ -284,6 +400,15 @@
     text-wrap: nowrap;
   }
 
+  .transaction_template_detail .table_container table thead tr th.no {
+    width: 30px;
+  }
+
+  .transaction_template_detail .table_container table thead tr th.a_row {
+    max-width: 100px;
+    width: 100px;
+  }
+
   .transaction_template_detail .table_container table thead tr th:last-child {
     border-right: none;
   }
@@ -324,5 +449,29 @@
     text-align: center;
     border-right: 1px solid var(--gray-004);
     border-bottom: 1px solid var(--gray-004);
+  }
+
+  .transaction_template_detail .table_container table tbody tr td .actions {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .transaction_template_detail .table_container table tbody tr td .actions .btn {
+    border: none;
+    padding: 6px;
+    border-radius: 8px;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .transaction_template_detail .table_container table tbody tr td .actions .btn:hover {
+    background-color: var(--violet-transparent);
+  }
+
+  :global(.transaction_template_detail .table_container table tbody tr td .actions .btn:hover svg) {
+    fill: var(--violet-005);
   }
 </style>

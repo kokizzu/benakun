@@ -67,6 +67,7 @@
       {#each (transactionTemplates || []) as tt}
         <TransactionTemplateTree
           transactionTemplate={tt}
+          coas={coas}
         />
       {/each}
     </div>
@@ -110,6 +111,6 @@
   .container .transaction_templates {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
   }
 </style>

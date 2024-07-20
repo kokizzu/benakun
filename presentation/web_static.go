@@ -453,16 +453,18 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`, 302)
 		}
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
-
 		in.Cmd = zCrud.CmdList
-
 		out := d.TenantAdminTransactionTemplate(&in)
+
+		r := rqFinance.NewCoa(d.AuthOltp)
+		r.TenantCode = user.TenantCode
+		coas := r.FindCoasChoicesByTenant()
 		return views.RenderTenantAdminTransactionTemplate(ctx, M.SX{
 			`title`:                `Tenant Admin Transaction Template`,
 			`user`:                 user,
 			`segments`:             segments,
 			`transactionTemplates`: out.TransactionTemplates,
-			`coas`: out.Coas,
+			`coas`: coas,
 		})
 	})
 

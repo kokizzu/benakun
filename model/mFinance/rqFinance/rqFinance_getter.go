@@ -34,6 +34,25 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 	return
 }
 
+func (c *Coa) FindCoasChoicesByTenant() map[string]string {
+	const comment = `-- Coa) FindCoasChoicesByTenant`
+
+	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode)
+
+	queryRows := comment + `
+SELECT ` + c.SqlId() + `, ` + c.SqlName() + `
+FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
+
+	coaChoices := make(map[string]string)
+	c.Adapter.QuerySql(queryRows, func(row []any) {
+		if len(row) == 2 {
+			coaChoices[X.ToS(row[0])] = X.ToS(row[1])
+		}
+	})
+
+	return coaChoices
+}
+
 func (ttm *TransactionTemplate) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zCrud.PagerOut) (res [][]any) {
 	const comment = `-- TransactionTemplate) FindByPagination`
 

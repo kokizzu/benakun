@@ -25,7 +25,6 @@ type (
 		ResponseCommon
 		TransactionTemplates	*[]rqFinance.TransactionTemplate	`json:"transactionTemplates" form:"transactionTemplates" query:"transactionTemplates" long:"transactionTemplates" msg:"transactionTemplates"`
 		TransactionTemplate		*rqFinance.TransactionTemplate  	`json:"transactionTemplate" form:"transactionTemplate" query:"transactionTemplate" long:"transactionTemplate" msg:"transactionTemplate"`
-		Coas									*[]rqFinance.Coa									`json:"coas" form:"coas" query:"coas" long:"coas" msg:"coas"`
 	}
 )
 
@@ -125,10 +124,6 @@ func (d *Domain) TenantAdminTransactionTemplate(in *TenantAdminTransactionTempla
 		r.TenantCode = user.TenantCode
 		ttpls := r.FindTransactionTemplatesByTenant()
 		out.TransactionTemplates = &ttpls
-		coa := wcFinance.NewCoaMutator(d.AuthOltp)
-		coa.TenantCode = user.TenantCode
-		coas := coa.FindCoasByTenant()
-		out.Coas = &coas
 	}
 
 	return

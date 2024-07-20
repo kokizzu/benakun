@@ -49,14 +49,14 @@ func (pr *Products) FindProductsChoicesByTenantCode(tenantCode string) map[strin
 SELECT ` + pr.SqlId() + `, ` + pr.SqlName() + `
 FROM SEQSCAN ` + pr.SqlTableName() + whereAndSql
 
-	staffChoices := make(map[string]string)
+	productChoices := make(map[string]string)
 	pr.Adapter.QuerySql(queryRows, func(row []any) {
 		if len(row) == 2 {
-			staffChoices[X.ToS(row[0])] = X.ToS(row[1])
+			productChoices[X.ToS(row[0])] = X.ToS(row[1])
 		}
 	})
 
-	return staffChoices
+	return productChoices
 }
 
 func (l *Locations) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zCrud.PagerOut) (res [][]any) {
