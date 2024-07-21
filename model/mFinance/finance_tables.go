@@ -146,7 +146,7 @@ const (
 	EndDate   				= `endDate`
 	CustBankAccountId = `custBankAccountId` 
 	TotalIDR 					= `totalIDR`
-
+	TransactionTplId  = `transactionTemplateId`
 )
 
 const (
@@ -261,7 +261,6 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{TenantCode, Tt.String},
 			{StartDate, Tt.Integer},
 			{EndDate, Tt.Integer},
-			{},
 			{CreatedAt, Tt.Integer},
 			{CreatedBy, Tt.Unsigned},
 			{UpdatedAt, Tt.Integer},
@@ -269,6 +268,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedAt, Tt.Integer},
 			{DeletedBy, Tt.Unsigned},
 			{RestoredBy, Tt.Unsigned},
+			{TransactionTplId, Tt.Unsigned},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,

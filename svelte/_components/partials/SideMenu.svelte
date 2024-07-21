@@ -115,7 +115,7 @@
               icon={AiOutlineWallet}
             />
             <SubMenuLink
-              title='Chart of Acount'
+              title='Chart of Account'
               href='/tenantAdmin/coa'
               icon={BsPostcard}
             />

@@ -87,6 +87,12 @@ const (
 
 const (
 	TableTenants Tt.TableName = `tenants`
+
+	ProductsCoaId 	= `productsCoaId`
+	SuppliersCoaId	= `suppliersCoaId`
+	CustomersCoaId	= `customersCoaId`
+	StaffsCoaId 		= `staffsCoaId`
+	BanksCoaId 		= `banksCoaId`
 )
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
@@ -139,6 +145,11 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UpdatedAt, Tt.Integer},
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
+			{ProductsCoaId, Tt.Unsigned},
+			{SuppliersCoaId, Tt.Unsigned},
+			{CustomersCoaId, Tt.Unsigned},
+			{StaffsCoaId, Tt.Unsigned},
+			{BanksCoaId, Tt.Unsigned},
 		},
 		AutoIncrementId: true,
 		Unique1:         TenantCode,

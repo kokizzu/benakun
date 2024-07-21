@@ -15,12 +15,296 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-// CoaMutator DAO writer/command struct
+// BusinessTransactionMutator DAO writer/command struct
 //
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file wcFinance__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type wcFinance__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type wcFinance__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcFinance__ORM.GEN.go
+type BusinessTransactionMutator struct {
+	rqFinance.BusinessTransaction
+	mutations *tarantool.Operations
+	logs      []A.X
+}
+
+// NewBusinessTransactionMutator create new ORM writer/command object
+func NewBusinessTransactionMutator(adapter *Tt.Adapter) (res *BusinessTransactionMutator) {
+	res = &BusinessTransactionMutator{BusinessTransaction: rqFinance.BusinessTransaction{Adapter: adapter}}
+	res.mutations = tarantool.NewOperations()
+	return
+}
+
+// Logs get array of logs [field, old, new]
+func (b *BusinessTransactionMutator) Logs() []A.X { //nolint:dupl false positive
+	return b.logs
+}
+
+// HaveMutation check whether Set* methods ever called
+func (b *BusinessTransactionMutator) HaveMutation() bool { //nolint:dupl false positive
+	return len(b.logs) > 0
+}
+
+// ClearMutations clear all previously called Set* methods
+func (b *BusinessTransactionMutator) ClearMutations() { //nolint:dupl false positive
+	b.mutations = tarantool.NewOperations()
+	b.logs = []A.X{}
+}
+
+// DoOverwriteById update all columns, error if not exists, not using mutations/Set*
+func (b *BusinessTransactionMutator) DoOverwriteById() bool { //nolint:dupl false positive
+	_, err := b.Adapter.RetryDo(tarantool.NewUpdateRequest(b.SpaceName()).
+		Index(b.UniqueIndexId()).
+		Key(tarantool.UintKey{I: uint(b.Id)}).
+		Operations(b.ToUpdateArray()),
+	)
+	return !L.IsError(err, `BusinessTransaction.DoOverwriteById failed: `+b.SpaceName())
+}
+
+// DoUpdateById update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (b *BusinessTransactionMutator) DoUpdateById() bool { //nolint:dupl false positive
+	if !b.HaveMutation() {
+		return true
+	}
+	_, err := b.Adapter.RetryDo(
+		tarantool.NewUpdateRequest(b.SpaceName()).
+			Index(b.UniqueIndexId()).
+			Key(tarantool.UintKey{I: uint(b.Id)}).
+			Operations(b.mutations),
+	)
+	return !L.IsError(err, `BusinessTransaction.DoUpdateById failed: `+b.SpaceName())
+}
+
+// DoDeletePermanentById permanent delete
+func (b *BusinessTransactionMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
+	_, err := b.Adapter.RetryDo(
+		tarantool.NewDeleteRequest(b.SpaceName()).
+			Index(b.UniqueIndexId()).
+			Key(tarantool.UintKey{I: uint(b.Id)}),
+	)
+	return !L.IsError(err, `BusinessTransaction.DoDeletePermanentById failed: `+b.SpaceName())
+}
+
+// DoInsert insert, error if already exists
+func (b *BusinessTransactionMutator) DoInsert() bool { //nolint:dupl false positive
+	arr := b.ToArray()
+	row, err := b.Adapter.RetryDo(
+		tarantool.NewInsertRequest(b.SpaceName()).
+			Tuple(arr),
+	)
+	if err == nil {
+		if len(row) > 0 {
+			if cells, ok := row[0].([]any); ok && len(cells) > 0 {
+				b.Id = X.ToU(cells[0])
+			}
+		}
+	}
+	return !L.IsError(err, `BusinessTransaction.DoInsert failed: `+b.SpaceName()+`\n%#v`, arr)
+}
+
+// DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
+// tarantool's replace/upsert can only match by primary key
+// previous name: DoReplace
+func (b *BusinessTransactionMutator) DoUpsertById() bool { //nolint:dupl false positive
+	if b.Id > 0 {
+		return b.DoUpdateById()
+	}
+	return b.DoInsert()
+}
+
+// SetId create mutations, should not duplicate
+func (b *BusinessTransactionMutator) SetId(val uint64) bool { //nolint:dupl false positive
+	if val != b.Id {
+		b.mutations.Assign(0, val)
+		b.logs = append(b.logs, A.X{`id`, b.Id, val})
+		b.Id = val
+		return true
+	}
+	return false
+}
+
+// SetTenantCode create mutations, should not duplicate
+func (b *BusinessTransactionMutator) SetTenantCode(val string) bool { //nolint:dupl false positive
+	if val != b.TenantCode {
+		b.mutations.Assign(1, val)
+		b.logs = append(b.logs, A.X{`tenantCode`, b.TenantCode, val})
+		b.TenantCode = val
+		return true
+	}
+	return false
+}
+
+// SetStartDate create mutations, should not duplicate
+func (b *BusinessTransactionMutator) SetStartDate(val int64) bool { //nolint:dupl false positive
+	if val != b.StartDate {
+		b.mutations.Assign(2, val)
+		b.logs = append(b.logs, A.X{`startDate`, b.StartDate, val})
+		b.StartDate = val
+		return true
+	}
+	return false
+}
+
+// SetEndDate create mutations, should not duplicate
+func (b *BusinessTransactionMutator) SetEndDate(val int64) bool { //nolint:dupl false positive
+	if val != b.EndDate {
+		b.mutations.Assign(3, val)
+		b.logs = append(b.logs, A.X{`endDate`, b.EndDate, val})
+		b.EndDate = val
+		return true
+	}
+	return false
+}
+
+// SetCreatedAt create mutations, should not duplicate
+func (b *BusinessTransactionMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
+	if val != b.CreatedAt {
+		b.mutations.Assign(4, val)
+		b.logs = append(b.logs, A.X{`createdAt`, b.CreatedAt, val})
+		b.CreatedAt = val
+		return true
+	}
+	return false
+}
+
+// SetCreatedBy create mutations, should not duplicate
+func (b *BusinessTransactionMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
+	if val != b.CreatedBy {
+		b.mutations.Assign(5, val)
+		b.logs = append(b.logs, A.X{`createdBy`, b.CreatedBy, val})
+		b.CreatedBy = val
+		return true
+	}
+	return false
+}
+
+// SetUpdatedAt create mutations, should not duplicate
+func (b *BusinessTransactionMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
+	if val != b.UpdatedAt {
+		b.mutations.Assign(6, val)
+		b.logs = append(b.logs, A.X{`updatedAt`, b.UpdatedAt, val})
+		b.UpdatedAt = val
+		return true
+	}
+	return false
+}
+
+// SetUpdatedBy create mutations, should not duplicate
+func (b *BusinessTransactionMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
+	if val != b.UpdatedBy {
+		b.mutations.Assign(7, val)
+		b.logs = append(b.logs, A.X{`updatedBy`, b.UpdatedBy, val})
+		b.UpdatedBy = val
+		return true
+	}
+	return false
+}
+
+// SetDeletedAt create mutations, should not duplicate
+func (b *BusinessTransactionMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
+	if val != b.DeletedAt {
+		b.mutations.Assign(8, val)
+		b.logs = append(b.logs, A.X{`deletedAt`, b.DeletedAt, val})
+		b.DeletedAt = val
+		return true
+	}
+	return false
+}
+
+// SetDeletedBy create mutations, should not duplicate
+func (b *BusinessTransactionMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
+	if val != b.DeletedBy {
+		b.mutations.Assign(9, val)
+		b.logs = append(b.logs, A.X{`deletedBy`, b.DeletedBy, val})
+		b.DeletedBy = val
+		return true
+	}
+	return false
+}
+
+// SetRestoredBy create mutations, should not duplicate
+func (b *BusinessTransactionMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
+	if val != b.RestoredBy {
+		b.mutations.Assign(10, val)
+		b.logs = append(b.logs, A.X{`restoredBy`, b.RestoredBy, val})
+		b.RestoredBy = val
+		return true
+	}
+	return false
+}
+
+// SetTransactionTemplateId create mutations, should not duplicate
+func (b *BusinessTransactionMutator) SetTransactionTemplateId(val uint64) bool { //nolint:dupl false positive
+	if val != b.TransactionTemplateId {
+		b.mutations.Assign(11, val)
+		b.logs = append(b.logs, A.X{`transactionTemplateId`, b.TransactionTemplateId, val})
+		b.TransactionTemplateId = val
+		return true
+	}
+	return false
+}
+
+// SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
+func (b *BusinessTransactionMutator) SetAll(from rqFinance.BusinessTransaction, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
+	if excludeMap == nil { // list of fields to exclude
+		excludeMap = M.SB{}
+	}
+	if forceMap == nil { // list of fields to force overwrite
+		forceMap = M.SB{}
+	}
+	if !excludeMap[`id`] && (forceMap[`id`] || from.Id != 0) {
+		b.Id = from.Id
+		changed = true
+	}
+	if !excludeMap[`tenantCode`] && (forceMap[`tenantCode`] || from.TenantCode != ``) {
+		b.TenantCode = S.Trim(from.TenantCode)
+		changed = true
+	}
+	if !excludeMap[`startDate`] && (forceMap[`startDate`] || from.StartDate != 0) {
+		b.StartDate = from.StartDate
+		changed = true
+	}
+	if !excludeMap[`endDate`] && (forceMap[`endDate`] || from.EndDate != 0) {
+		b.EndDate = from.EndDate
+		changed = true
+	}
+	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
+		b.CreatedAt = from.CreatedAt
+		changed = true
+	}
+	if !excludeMap[`createdBy`] && (forceMap[`createdBy`] || from.CreatedBy != 0) {
+		b.CreatedBy = from.CreatedBy
+		changed = true
+	}
+	if !excludeMap[`updatedAt`] && (forceMap[`updatedAt`] || from.UpdatedAt != 0) {
+		b.UpdatedAt = from.UpdatedAt
+		changed = true
+	}
+	if !excludeMap[`updatedBy`] && (forceMap[`updatedBy`] || from.UpdatedBy != 0) {
+		b.UpdatedBy = from.UpdatedBy
+		changed = true
+	}
+	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
+		b.DeletedAt = from.DeletedAt
+		changed = true
+	}
+	if !excludeMap[`deletedBy`] && (forceMap[`deletedBy`] || from.DeletedBy != 0) {
+		b.DeletedBy = from.DeletedBy
+		changed = true
+	}
+	if !excludeMap[`restoredBy`] && (forceMap[`restoredBy`] || from.RestoredBy != 0) {
+		b.RestoredBy = from.RestoredBy
+		changed = true
+	}
+	if !excludeMap[`transactionTemplateId`] && (forceMap[`transactionTemplateId`] || from.TransactionTemplateId != 0) {
+		b.TransactionTemplateId = from.TransactionTemplateId
+		changed = true
+	}
+	return
+}
+
+// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
+
+// CoaMutator DAO writer/command struct
 type CoaMutator struct {
 	rqFinance.Coa
 	mutations *tarantool.Operations

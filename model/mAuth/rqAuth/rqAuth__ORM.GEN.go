@@ -685,14 +685,19 @@ var SessionsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 
 // Tenants DAO reader/query struct
 type Tenants struct {
-	Adapter    *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	Id         uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
-	TenantCode string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
-	CreatedAt  int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	CreatedBy  uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
-	UpdatedAt  int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
-	UpdatedBy  uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
-	DeletedAt  int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	Adapter        *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id             uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	TenantCode     string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
+	CreatedAt      int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy      uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt      int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy      uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt      int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	ProductsCoaId  uint64      `json:"productsCoaId,string" form:"productsCoaId" query:"productsCoaId" long:"productsCoaId" msg:"productsCoaId"`
+	SuppliersCoaId uint64      `json:"suppliersCoaId,string" form:"suppliersCoaId" query:"suppliersCoaId" long:"suppliersCoaId" msg:"suppliersCoaId"`
+	CustomersCoaId uint64      `json:"customersCoaId,string" form:"customersCoaId" query:"customersCoaId" long:"customersCoaId" msg:"customersCoaId"`
+	StaffsCoaId    uint64      `json:"staffsCoaId,string" form:"staffsCoaId" query:"staffsCoaId" long:"staffsCoaId" msg:"staffsCoaId"`
+	BanksCoaId     uint64      `json:"banksCoaId,string" form:"banksCoaId" query:"banksCoaId" long:"banksCoaId" msg:"banksCoaId"`
 }
 
 // NewTenants create new ORM reader/query object
@@ -770,6 +775,11 @@ func (t *Tenants) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "productsCoaId"
+	, "suppliersCoaId"
+	, "customersCoaId"
+	, "staffsCoaId"
+	, "banksCoaId"
 	`
 }
 
@@ -782,6 +792,11 @@ func (t *Tenants) SqlSelectAllUncensoredFields() string { //nolint:dupl false po
 	, "updatedAt"
 	, "updatedBy"
 	, "deletedAt"
+	, "productsCoaId"
+	, "suppliersCoaId"
+	, "customersCoaId"
+	, "staffsCoaId"
+	, "banksCoaId"
 	`
 }
 
@@ -794,7 +809,12 @@ func (t *Tenants) ToUpdateArray() *tarantool.Operations { //nolint:dupl false po
 		Assign(3, t.CreatedBy).
 		Assign(4, t.UpdatedAt).
 		Assign(5, t.UpdatedBy).
-		Assign(6, t.DeletedAt)
+		Assign(6, t.DeletedAt).
+		Assign(7, t.ProductsCoaId).
+		Assign(8, t.SuppliersCoaId).
+		Assign(9, t.CustomersCoaId).
+		Assign(10, t.StaffsCoaId).
+		Assign(11, t.BanksCoaId)
 }
 
 // IdxId return name of the index
@@ -867,6 +887,56 @@ func (t *Tenants) SqlDeletedAt() string { //nolint:dupl false positive
 	return `"deletedAt"`
 }
 
+// IdxProductsCoaId return name of the index
+func (t *Tenants) IdxProductsCoaId() int { //nolint:dupl false positive
+	return 7
+}
+
+// SqlProductsCoaId return name of the column being indexed
+func (t *Tenants) SqlProductsCoaId() string { //nolint:dupl false positive
+	return `"productsCoaId"`
+}
+
+// IdxSuppliersCoaId return name of the index
+func (t *Tenants) IdxSuppliersCoaId() int { //nolint:dupl false positive
+	return 8
+}
+
+// SqlSuppliersCoaId return name of the column being indexed
+func (t *Tenants) SqlSuppliersCoaId() string { //nolint:dupl false positive
+	return `"suppliersCoaId"`
+}
+
+// IdxCustomersCoaId return name of the index
+func (t *Tenants) IdxCustomersCoaId() int { //nolint:dupl false positive
+	return 9
+}
+
+// SqlCustomersCoaId return name of the column being indexed
+func (t *Tenants) SqlCustomersCoaId() string { //nolint:dupl false positive
+	return `"customersCoaId"`
+}
+
+// IdxStaffsCoaId return name of the index
+func (t *Tenants) IdxStaffsCoaId() int { //nolint:dupl false positive
+	return 10
+}
+
+// SqlStaffsCoaId return name of the column being indexed
+func (t *Tenants) SqlStaffsCoaId() string { //nolint:dupl false positive
+	return `"staffsCoaId"`
+}
+
+// IdxBanksCoaId return name of the index
+func (t *Tenants) IdxBanksCoaId() int { //nolint:dupl false positive
+	return 11
+}
+
+// SqlBanksCoaId return name of the column being indexed
+func (t *Tenants) SqlBanksCoaId() string { //nolint:dupl false positive
+	return `"banksCoaId"`
+}
+
 // ToArray receiver fields to slice
 func (t *Tenants) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -875,12 +945,17 @@ func (t *Tenants) ToArray() A.X { //nolint:dupl false positive
 	}
 	return A.X{
 		id,
-		t.TenantCode, // 1
-		t.CreatedAt,  // 2
-		t.CreatedBy,  // 3
-		t.UpdatedAt,  // 4
-		t.UpdatedBy,  // 5
-		t.DeletedAt,  // 6
+		t.TenantCode,     // 1
+		t.CreatedAt,      // 2
+		t.CreatedBy,      // 3
+		t.UpdatedAt,      // 4
+		t.UpdatedBy,      // 5
+		t.DeletedAt,      // 6
+		t.ProductsCoaId,  // 7
+		t.SuppliersCoaId, // 8
+		t.CustomersCoaId, // 9
+		t.StaffsCoaId,    // 10
+		t.BanksCoaId,     // 11
 	}
 }
 
@@ -893,6 +968,11 @@ func (t *Tenants) FromArray(a A.X) *Tenants { //nolint:dupl false positive
 	t.UpdatedAt = X.ToI(a[4])
 	t.UpdatedBy = X.ToU(a[5])
 	t.DeletedAt = X.ToI(a[6])
+	t.ProductsCoaId = X.ToU(a[7])
+	t.SuppliersCoaId = X.ToU(a[8])
+	t.CustomersCoaId = X.ToU(a[9])
+	t.StaffsCoaId = X.ToU(a[10])
+	t.BanksCoaId = X.ToU(a[11])
 	return t
 }
 
@@ -905,6 +985,11 @@ func (t *Tenants) FromUncensoredArray(a A.X) *Tenants { //nolint:dupl false posi
 	t.UpdatedAt = X.ToI(a[4])
 	t.UpdatedBy = X.ToU(a[5])
 	t.DeletedAt = X.ToI(a[6])
+	t.ProductsCoaId = X.ToU(a[7])
+	t.SuppliersCoaId = X.ToU(a[8])
+	t.CustomersCoaId = X.ToU(a[9])
+	t.StaffsCoaId = X.ToU(a[10])
+	t.BanksCoaId = X.ToU(a[11])
 	return t
 }
 
@@ -969,13 +1054,18 @@ func (t *Tenants) Total() int64 { //nolint:dupl false positive
 
 // TenantsFieldTypeMap returns key value of field name and key
 var TenantsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
-	`id`:         Tt.Unsigned,
-	`tenantCode`: Tt.String,
-	`createdAt`:  Tt.Integer,
-	`createdBy`:  Tt.Unsigned,
-	`updatedAt`:  Tt.Integer,
-	`updatedBy`:  Tt.Unsigned,
-	`deletedAt`:  Tt.Integer,
+	`id`:             Tt.Unsigned,
+	`tenantCode`:     Tt.String,
+	`createdAt`:      Tt.Integer,
+	`createdBy`:      Tt.Unsigned,
+	`updatedAt`:      Tt.Integer,
+	`updatedBy`:      Tt.Unsigned,
+	`deletedAt`:      Tt.Integer,
+	`productsCoaId`:  Tt.Unsigned,
+	`suppliersCoaId`: Tt.Unsigned,
+	`customersCoaId`: Tt.Unsigned,
+	`staffsCoaId`:    Tt.Unsigned,
+	`banksCoaId`:     Tt.Unsigned,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

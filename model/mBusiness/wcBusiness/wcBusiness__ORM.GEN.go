@@ -983,6 +983,17 @@ func (p *ProductsMutator) SetCogsIDR(val uint64) bool { //nolint:dupl false posi
 	return false
 }
 
+// SetProfitPercentage create mutations, should not duplicate
+func (p *ProductsMutator) SetProfitPercentage(val float64) bool { //nolint:dupl false positive
+	if val != p.ProfitPercentage {
+		p.mutations.Assign(14, val)
+		p.logs = append(p.logs, A.X{`profitPercentage`, p.ProfitPercentage, val})
+		p.ProfitPercentage = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (p *ProductsMutator) SetAll(from rqBusiness.Products, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -1045,6 +1056,10 @@ func (p *ProductsMutator) SetAll(from rqBusiness.Products, excludeMap, forceMap 
 	}
 	if !excludeMap[`cogsIDR`] && (forceMap[`cogsIDR`] || from.CogsIDR != 0) {
 		p.CogsIDR = from.CogsIDR
+		changed = true
+	}
+	if !excludeMap[`profitPercentage`] && (forceMap[`profitPercentage`] || from.ProfitPercentage != 0) {
+		p.ProfitPercentage = from.ProfitPercentage
 		changed = true
 	}
 	return

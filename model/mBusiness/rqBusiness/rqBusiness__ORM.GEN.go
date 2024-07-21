@@ -922,21 +922,22 @@ var LocationsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 
 // Products DAO reader/query struct
 type Products struct {
-	Adapter    *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	Id         uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
-	TenantCode string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
-	CreatedAt  int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	CreatedBy  uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
-	UpdatedAt  int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
-	UpdatedBy  uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
-	DeletedAt  int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
-	DeletedBy  uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
-	RestoredBy uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
-	Name       string      `json:"name" form:"name" query:"name" long:"name" msg:"name"`
-	Detail     string      `json:"detail" form:"detail" query:"detail" long:"detail" msg:"detail"`
-	Rule       string      `json:"rule" form:"rule" query:"rule" long:"rule" msg:"rule"`
-	Kind       string      `json:"kind" form:"kind" query:"kind" long:"kind" msg:"kind"`
-	CogsIDR    uint64      `json:"cogsIDR,string" form:"cogsIDR" query:"cogsIDR" long:"cogsIDR" msg:"cogsIDR"`
+	Adapter          *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id               uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	TenantCode       string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
+	CreatedAt        int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy        uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt        int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy        uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt        int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	DeletedBy        uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
+	RestoredBy       uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
+	Name             string      `json:"name" form:"name" query:"name" long:"name" msg:"name"`
+	Detail           string      `json:"detail" form:"detail" query:"detail" long:"detail" msg:"detail"`
+	Rule             string      `json:"rule" form:"rule" query:"rule" long:"rule" msg:"rule"`
+	Kind             string      `json:"kind" form:"kind" query:"kind" long:"kind" msg:"kind"`
+	CogsIDR          uint64      `json:"cogsIDR,string" form:"cogsIDR" query:"cogsIDR" long:"cogsIDR" msg:"cogsIDR"`
+	ProfitPercentage float64     `json:"profitPercentage" form:"profitPercentage" query:"profitPercentage" long:"profitPercentage" msg:"profitPercentage"`
 }
 
 // NewProducts create new ORM reader/query object
@@ -995,6 +996,7 @@ func (p *Products) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "rule"
 	, "kind"
 	, "cogsIDR"
+	, "profitPercentage"
 	`
 }
 
@@ -1014,6 +1016,7 @@ func (p *Products) SqlSelectAllUncensoredFields() string { //nolint:dupl false p
 	, "rule"
 	, "kind"
 	, "cogsIDR"
+	, "profitPercentage"
 	`
 }
 
@@ -1033,7 +1036,8 @@ func (p *Products) ToUpdateArray() *tarantool.Operations { //nolint:dupl false p
 		Assign(10, p.Detail).
 		Assign(11, p.Rule).
 		Assign(12, p.Kind).
-		Assign(13, p.CogsIDR)
+		Assign(13, p.CogsIDR).
+		Assign(14, p.ProfitPercentage)
 }
 
 // IdxId return name of the index
@@ -1176,6 +1180,16 @@ func (p *Products) SqlCogsIDR() string { //nolint:dupl false positive
 	return `"cogsIDR"`
 }
 
+// IdxProfitPercentage return name of the index
+func (p *Products) IdxProfitPercentage() int { //nolint:dupl false positive
+	return 14
+}
+
+// SqlProfitPercentage return name of the column being indexed
+func (p *Products) SqlProfitPercentage() string { //nolint:dupl false positive
+	return `"profitPercentage"`
+}
+
 // ToArray receiver fields to slice
 func (p *Products) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -1184,19 +1198,20 @@ func (p *Products) ToArray() A.X { //nolint:dupl false positive
 	}
 	return A.X{
 		id,
-		p.TenantCode, // 1
-		p.CreatedAt,  // 2
-		p.CreatedBy,  // 3
-		p.UpdatedAt,  // 4
-		p.UpdatedBy,  // 5
-		p.DeletedAt,  // 6
-		p.DeletedBy,  // 7
-		p.RestoredBy, // 8
-		p.Name,       // 9
-		p.Detail,     // 10
-		p.Rule,       // 11
-		p.Kind,       // 12
-		p.CogsIDR,    // 13
+		p.TenantCode,       // 1
+		p.CreatedAt,        // 2
+		p.CreatedBy,        // 3
+		p.UpdatedAt,        // 4
+		p.UpdatedBy,        // 5
+		p.DeletedAt,        // 6
+		p.DeletedBy,        // 7
+		p.RestoredBy,       // 8
+		p.Name,             // 9
+		p.Detail,           // 10
+		p.Rule,             // 11
+		p.Kind,             // 12
+		p.CogsIDR,          // 13
+		p.ProfitPercentage, // 14
 	}
 }
 
@@ -1216,6 +1231,7 @@ func (p *Products) FromArray(a A.X) *Products { //nolint:dupl false positive
 	p.Rule = X.ToS(a[11])
 	p.Kind = X.ToS(a[12])
 	p.CogsIDR = X.ToU(a[13])
+	p.ProfitPercentage = X.ToF(a[14])
 	return p
 }
 
@@ -1235,6 +1251,7 @@ func (p *Products) FromUncensoredArray(a A.X) *Products { //nolint:dupl false po
 	p.Rule = X.ToS(a[11])
 	p.Kind = X.ToS(a[12])
 	p.CogsIDR = X.ToU(a[13])
+	p.ProfitPercentage = X.ToF(a[14])
 	return p
 }
 
@@ -1299,20 +1316,21 @@ func (p *Products) Total() int64 { //nolint:dupl false positive
 
 // ProductsFieldTypeMap returns key value of field name and key
 var ProductsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
-	`id`:         Tt.Unsigned,
-	`tenantCode`: Tt.String,
-	`createdAt`:  Tt.Integer,
-	`createdBy`:  Tt.Unsigned,
-	`updatedAt`:  Tt.Integer,
-	`updatedBy`:  Tt.Unsigned,
-	`deletedAt`:  Tt.Integer,
-	`deletedBy`:  Tt.Unsigned,
-	`restoredBy`: Tt.Unsigned,
-	`name`:       Tt.String,
-	`detail`:     Tt.String,
-	`rule`:       Tt.String,
-	`kind`:       Tt.String,
-	`cogsIDR`:    Tt.Unsigned,
+	`id`:               Tt.Unsigned,
+	`tenantCode`:       Tt.String,
+	`createdAt`:        Tt.Integer,
+	`createdBy`:        Tt.Unsigned,
+	`updatedAt`:        Tt.Integer,
+	`updatedBy`:        Tt.Unsigned,
+	`deletedAt`:        Tt.Integer,
+	`deletedBy`:        Tt.Unsigned,
+	`restoredBy`:       Tt.Unsigned,
+	`name`:             Tt.String,
+	`detail`:           Tt.String,
+	`rule`:             Tt.String,
+	`kind`:             Tt.String,
+	`cogsIDR`:          Tt.Unsigned,
+	`profitPercentage`: Tt.Double,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
