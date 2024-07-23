@@ -10,10 +10,16 @@
     RiSystemAddBoxLine, RiDesignBallPenLine, RiSystemDeleteBin5Line
   } from '../node_modules/svelte-icons-pack/dist/ri';
   import { TrOutlineRefresh } from '../node_modules/svelte-icons-pack/dist/tr';
-  import { TenantAdminTransactionTplDetail } from '../jsApi.GEN';
+  import {
+    TenantAdminTransactionTplDetail,
+    TenantAdminTransactionTemplate,
+  } from '../jsApi.GEN';
   import { notifier } from './notifier';
   import PopUpTransactionTplDetail from './PopUpTransactionTplDetail.svelte';
-  import { onMount } from 'svelte';
+  import PopUpTransactionTemplate from './PopUpTransactionTemplate.svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
+
+  const dispatch = createEventDispatcher();
 
   export let transactionTemplate = /** @type {TransactionTemplate} */ ({});
   let transactionTplDetails = /** @type {TransactionTplDetail[]} */ ([]);
@@ -99,6 +105,43 @@
       }
     )
   }
+
+  let idTrxTpl = 0;
+  let name = '';
+  let color = '';
+  let isSubmitUpsertTrxTpl = false;
+  let popUpTransactionTemplate;
+
+  async function SubmitUpsertTrxTpl() {
+    isSubmitUpsertTrxTpl = true;
+    const i = {
+      cmd: 'upsert',
+      transactionTemplate: {
+        id: idTrxTpl,
+        name: name,
+        color: color
+      }
+    }
+    await TenantAdminTransactionTemplate( //@ts-ignore
+      i, /** @type {import('./jsApi.GEN').TenantAdminTransactionTemplateCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        isSubmitUpsertTrxTpl = false;
+        popUpTransactionTemplate.hide();
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+
+        dispatch('update', {
+          trxTemplates: (o.transactionTemplates || [])
+        });
+
+        notifier.showSuccess('transaction template updated');
+      }
+    )
+  }
 </script>
 
 {#if isPopUpFormsReady}
@@ -109,6 +152,15 @@
     onSubmit={SubmitUpsertTrxTplDetail}
     bind:isSubmitted={isSubmitUpsertTrxTplDetail}
     {coas}
+  />
+
+  <PopUpTransactionTemplate
+    bind:this={popUpTransactionTemplate}
+    heading="Edit Transaction Template"
+    bind:isSubmitted={isSubmitUpsertTrxTpl}
+    bind:name
+    bind:color
+    onSubmit={SubmitUpsertTrxTpl}
   />
 {/if}
 
@@ -158,7 +210,14 @@
             src={RiSystemAddBoxLine}
           />
         </button>
-        <button class="btn" title="Edit template">
+        <button class="btn" title="Edit template"
+          on:click={() => {
+            idTrxTpl = transactionTemplate.id;
+            name = transactionTemplate.name;
+            color = transactionTemplate.color;
+            popUpTransactionTemplate.show();
+          }}
+          >
           <Icon
             color="var(--gray-006)"
             className="icon"

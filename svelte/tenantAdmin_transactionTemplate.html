@@ -3365,7 +3365,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminTransaction = async function TenantAdminTransaction(i, cb) {
         return await axios.post("/tenantAdmin/transaction", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminTransactionTemplate = async function TenantAdminTransactionTemplate2(i, cb) {
+      exports.TenantAdminTransactionTemplate = async function TenantAdminTransactionTemplate3(i, cb) {
         return await axios.post("/tenantAdmin/transactionTemplate", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminTransactionTplDetail = async function TenantAdminTransactionTplDetail2(i, cb) {
@@ -3626,6 +3626,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
   }
+  function custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
+    return new CustomEvent(type, { detail, bubbles, cancelable });
+  }
   function get_custom_elements_slots(element2) {
     const result = {};
     element2.childNodes.forEach(
@@ -3649,6 +3652,25 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   }
   function onMount(fn) {
     get_current_component().$.on_mount.push(fn);
+  }
+  function createEventDispatcher() {
+    const component = get_current_component();
+    return (type, detail, { cancelable = false } = {}) => {
+      const callbacks = component.$.callbacks[type];
+      if (callbacks) {
+        const event = custom_event(
+          /** @type {string} */
+          type,
+          detail,
+          { cancelable }
+        );
+        callbacks.slice().forEach((fn) => {
+          fn.call(component, event);
+        });
+        return !event.defaultPrevented;
+      }
+      return true;
+    };
   }
 
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/scheduler.js
@@ -8927,8 +8949,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // _components/TransactionTemplateTree.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[20] = list[i];
-    child_ctx[22] = i;
+    child_ctx[32] = list[i];
+    child_ctx[34] = i;
     return child_ctx;
   }
   function create_if_block_33(ctx) {
@@ -8936,20 +8958,25 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let updating_coaId;
     let updating_isDebit;
     let updating_isSubmitted;
+    let t;
+    let popuptransactiontemplate;
+    let updating_isSubmitted_1;
+    let updating_name;
+    let updating_color;
     let current;
     function popuptransactiontpldetail_coaId_binding(value) {
-      ctx[15](value);
+      ctx[21](value);
     }
     function popuptransactiontpldetail_isDebit_binding(value) {
-      ctx[16](value);
+      ctx[22](value);
     }
     function popuptransactiontpldetail_isSubmitted_binding(value) {
-      ctx[17](value);
+      ctx[23](value);
     }
     let popuptransactiontpldetail_props = {
       onSubmit: (
         /*SubmitUpsertTrxTplDetail*/
-        ctx[13]
+        ctx[18]
       ),
       coas: (
         /*coas*/
@@ -8978,39 +9005,85 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       ctx[10];
     }
     popuptransactiontpldetail = new PopUpTransactionTplDetail_default({ props: popuptransactiontpldetail_props });
-    ctx[14](popuptransactiontpldetail);
+    ctx[20](popuptransactiontpldetail);
     binding_callbacks.push(() => bind(popuptransactiontpldetail, "coaId", popuptransactiontpldetail_coaId_binding));
     binding_callbacks.push(() => bind(popuptransactiontpldetail, "isDebit", popuptransactiontpldetail_isDebit_binding));
     binding_callbacks.push(() => bind(popuptransactiontpldetail, "isSubmitted", popuptransactiontpldetail_isSubmitted_binding));
+    function popuptransactiontemplate_isSubmitted_binding(value) {
+      ctx[25](value);
+    }
+    function popuptransactiontemplate_name_binding(value) {
+      ctx[26](value);
+    }
+    function popuptransactiontemplate_color_binding(value) {
+      ctx[27](value);
+    }
+    let popuptransactiontemplate_props = {
+      heading: "Edit Transaction Template",
+      onSubmit: (
+        /*SubmitUpsertTrxTpl*/
+        ctx[19]
+      )
+    };
+    if (
+      /*isSubmitUpsertTrxTpl*/
+      ctx[14] !== void 0
+    ) {
+      popuptransactiontemplate_props.isSubmitted = /*isSubmitUpsertTrxTpl*/
+      ctx[14];
+    }
+    if (
+      /*name*/
+      ctx[12] !== void 0
+    ) {
+      popuptransactiontemplate_props.name = /*name*/
+      ctx[12];
+    }
+    if (
+      /*color*/
+      ctx[13] !== void 0
+    ) {
+      popuptransactiontemplate_props.color = /*color*/
+      ctx[13];
+    }
+    popuptransactiontemplate = new PopUpTransactionTemplate_default({ props: popuptransactiontemplate_props });
+    ctx[24](popuptransactiontemplate);
+    binding_callbacks.push(() => bind(popuptransactiontemplate, "isSubmitted", popuptransactiontemplate_isSubmitted_binding));
+    binding_callbacks.push(() => bind(popuptransactiontemplate, "name", popuptransactiontemplate_name_binding));
+    binding_callbacks.push(() => bind(popuptransactiontemplate, "color", popuptransactiontemplate_color_binding));
     return {
       c() {
         create_component(popuptransactiontpldetail.$.fragment);
+        t = space();
+        create_component(popuptransactiontemplate.$.fragment);
       },
       m(target, anchor) {
         mount_component(popuptransactiontpldetail, target, anchor);
+        insert(target, t, anchor);
+        mount_component(popuptransactiontemplate, target, anchor);
         current = true;
       },
       p(ctx2, dirty) {
         const popuptransactiontpldetail_changes = {};
-        if (dirty & /*coas*/
+        if (dirty[0] & /*coas*/
         2)
           popuptransactiontpldetail_changes.coas = /*coas*/
           ctx2[1];
-        if (!updating_coaId && dirty & /*coaId*/
+        if (!updating_coaId && dirty[0] & /*coaId*/
         256) {
           updating_coaId = true;
           popuptransactiontpldetail_changes.coaId = /*coaId*/
           ctx2[8];
           add_flush_callback(() => updating_coaId = false);
         }
-        if (!updating_isDebit && dirty & /*isDebit*/
+        if (!updating_isDebit && dirty[0] & /*isDebit*/
         512) {
           updating_isDebit = true;
           popuptransactiontpldetail_changes.isDebit = /*isDebit*/
           ctx2[9];
           add_flush_callback(() => updating_isDebit = false);
         }
-        if (!updating_isSubmitted && dirty & /*isSubmitUpsertTrxTplDetail*/
+        if (!updating_isSubmitted && dirty[0] & /*isSubmitUpsertTrxTplDetail*/
         1024) {
           updating_isSubmitted = true;
           popuptransactiontpldetail_changes.isSubmitted = /*isSubmitUpsertTrxTplDetail*/
@@ -9018,20 +9091,50 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           add_flush_callback(() => updating_isSubmitted = false);
         }
         popuptransactiontpldetail.$set(popuptransactiontpldetail_changes);
+        const popuptransactiontemplate_changes = {};
+        if (!updating_isSubmitted_1 && dirty[0] & /*isSubmitUpsertTrxTpl*/
+        16384) {
+          updating_isSubmitted_1 = true;
+          popuptransactiontemplate_changes.isSubmitted = /*isSubmitUpsertTrxTpl*/
+          ctx2[14];
+          add_flush_callback(() => updating_isSubmitted_1 = false);
+        }
+        if (!updating_name && dirty[0] & /*name*/
+        4096) {
+          updating_name = true;
+          popuptransactiontemplate_changes.name = /*name*/
+          ctx2[12];
+          add_flush_callback(() => updating_name = false);
+        }
+        if (!updating_color && dirty[0] & /*color*/
+        8192) {
+          updating_color = true;
+          popuptransactiontemplate_changes.color = /*color*/
+          ctx2[13];
+          add_flush_callback(() => updating_color = false);
+        }
+        popuptransactiontemplate.$set(popuptransactiontemplate_changes);
       },
       i(local) {
         if (current)
           return;
         transition_in(popuptransactiontpldetail.$.fragment, local);
+        transition_in(popuptransactiontemplate.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(popuptransactiontpldetail.$.fragment, local);
+        transition_out(popuptransactiontemplate.$.fragment, local);
         current = false;
       },
       d(detaching) {
-        ctx[14](null);
+        if (detaching) {
+          detach(t);
+        }
+        ctx[20](null);
         destroy_component(popuptransactiontpldetail, detaching);
+        ctx[24](null);
+        destroy_component(popuptransactiontemplate, detaching);
       }
     };
   }
@@ -9142,12 +9245,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         mount_component(icon2, button2, null);
         current = true;
         if (!mounted) {
-          dispose = listen(
-            button0,
-            "click",
-            /*click_handler*/
-            ctx[18]
-          );
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*click_handler*/
+              ctx[28]
+            ),
+            listen(
+              button1,
+              "click",
+              /*click_handler_1*/
+              ctx[29]
+            )
+          ];
           mounted = true;
         }
       },
@@ -9178,7 +9289,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         destroy_component(icon1);
         destroy_component(icon2);
         mounted = false;
-        dispose();
+        run_all(dispose);
       }
     };
   }
@@ -9203,7 +9314,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type_1(ctx, -1);
+    current_block_type_index = select_block_type_1(ctx, [-1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -9301,7 +9412,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     const get_key = (ctx2) => (
       /*trxTplDetail*/
-      ctx2[20].id
+      ctx2[32].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context2(ctx, each_value, i);
@@ -9325,7 +9436,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*coas, transactionTplDetails, isSubmitUpsertTrxTplDetail, trxTplDetailId, isDebit, coaId, popUpTransactionTplDetail*/
+        if (dirty[0] & /*coas, transactionTplDetails, isSubmitUpsertTrxTplDetail, trxTplDetailId, isDebit, coaId, popUpTransactionTplDetail*/
         1942) {
           each_value = ensure_array_like(
             /*transactionTplDetails*/
@@ -9365,7 +9476,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let td0;
     let t0_value = (
       /*i*/
-      ctx[22] + 1 + ""
+      ctx[34] + 1 + ""
     );
     let t0;
     let t1;
@@ -9379,13 +9490,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let t3;
     let td2;
     let t4_value = !/*trxTplDetail*/
-    ctx[20].isDebit ? "Yes" : "No";
+    ctx[32].isDebit ? "Yes" : "No";
     let t4;
     let t5;
     let td3;
     let t6_value = (
       /*trxTplDetail*/
-      ctx[20].isDebit ? "Yes" : "No"
+      ctx[32].isDebit ? "Yes" : "No"
     );
     let t6;
     let t7;
@@ -9394,7 +9505,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /*coas*/
       ctx[1][
         /*trxTplDetail*/
-        ctx[20].coaId
+        ctx[32].coaId
       ] + ""
     );
     let t8;
@@ -9409,12 +9520,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         src: RiDesignBallPenLine
       }
     });
-    function click_handler_1() {
+    function click_handler_2() {
       return (
-        /*click_handler_1*/
-        ctx[19](
+        /*click_handler_2*/
+        ctx[30](
           /*trxTplDetail*/
-          ctx[20]
+          ctx[32]
         )
       );
     }
@@ -9486,29 +9597,29 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(tr, t9);
         current = true;
         if (!mounted) {
-          dispose = listen(button0, "click", click_handler_1);
+          dispose = listen(button0, "click", click_handler_2);
           mounted = true;
         }
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
-        if ((!current || dirty & /*transactionTplDetails*/
+        if ((!current || dirty[0] & /*transactionTplDetails*/
         4) && t0_value !== (t0_value = /*i*/
-        ctx[22] + 1 + ""))
+        ctx[34] + 1 + ""))
           set_data(t0, t0_value);
-        if ((!current || dirty & /*transactionTplDetails*/
+        if ((!current || dirty[0] & /*transactionTplDetails*/
         4) && t4_value !== (t4_value = !/*trxTplDetail*/
-        ctx[20].isDebit ? "Yes" : "No"))
+        ctx[32].isDebit ? "Yes" : "No"))
           set_data(t4, t4_value);
-        if ((!current || dirty & /*transactionTplDetails*/
+        if ((!current || dirty[0] & /*transactionTplDetails*/
         4) && t6_value !== (t6_value = /*trxTplDetail*/
-        ctx[20].isDebit ? "Yes" : "No"))
+        ctx[32].isDebit ? "Yes" : "No"))
           set_data(t6, t6_value);
-        if ((!current || dirty & /*coas, transactionTplDetails*/
+        if ((!current || dirty[0] & /*coas, transactionTplDetails*/
         6) && t8_value !== (t8_value = /*coas*/
         ctx[1][
           /*trxTplDetail*/
-          ctx[20].coaId
+          ctx[32].coaId
         ] + ""))
           set_data(t8, t8_value);
       },
@@ -9606,7 +9717,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type(ctx, -1);
+    current_block_type_index = select_block_type(ctx, [-1, -1]);
     if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     let if_block2 = (
       /*isShowDetails*/
@@ -9680,26 +9791,26 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               button0,
               "click",
               /*toggleShowDetail*/
-              ctx[12]
+              ctx[17]
             ),
             listen(
               button1,
               "click",
               /*getTransactionTplDetails*/
-              ctx[11]
+              ctx[16]
             )
           ];
           mounted = true;
         }
       },
-      p(ctx2, [dirty]) {
+      p(ctx2, dirty) {
         if (
           /*isPopUpFormsReady*/
           ctx2[3]
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
-            if (dirty & /*isPopUpFormsReady*/
+            if (dirty[0] & /*isPopUpFormsReady*/
             8) {
               transition_in(if_block0, 1);
             }
@@ -9717,28 +9828,28 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           check_outros();
         }
         const icon0_changes = {};
-        if (dirty & /*isShowDetails*/
+        if (dirty[0] & /*isShowDetails*/
         64)
           icon0_changes.className = "icon " + /*isShowDetails*/
           (ctx2[6] ? "rotate" : "dropdown");
         icon0.$set(icon0_changes);
         const icon1_changes = {};
-        if (dirty & /*transactionTemplate*/
+        if (dirty[0] & /*transactionTemplate*/
         1)
           icon1_changes.color = /*transactionTemplate*/
           ctx2[0].color;
         icon1.$set(icon1_changes);
-        if ((!current || dirty & /*transactionTemplate*/
+        if ((!current || dirty[0] & /*transactionTemplate*/
         1) && t3_value !== (t3_value = /*transactionTemplate*/
         ctx2[0].name + ""))
           set_data(t3, t3_value);
         const icon2_changes = {};
-        if (dirty & /*isSearching*/
+        if (dirty[0] & /*isSearching*/
         32)
           icon2_changes.className = "icon " + /*isSearching*/
           (ctx2[5] ? "spin" : "");
         icon2.$set(icon2_changes);
-        if (!current || dirty & /*isSearching*/
+        if (!current || dirty[0] & /*isSearching*/
         32) {
           button1.disabled = /*isSearching*/
           ctx2[5];
@@ -9769,7 +9880,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         ) {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
-            if (dirty & /*isShowDetails*/
+            if (dirty[0] & /*isShowDetails*/
             64) {
               transition_in(if_block2, 1);
             }
@@ -9826,6 +9937,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function instance10($self, $props, $invalidate) {
+    const dispatch = createEventDispatcher();
     let { transactionTemplate = (
       /** @type {TransactionTemplate} */
       {}
@@ -9908,6 +10020,37 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
       );
     }
+    let idTrxTpl = 0;
+    let name = "";
+    let color = "";
+    let isSubmitUpsertTrxTpl = false;
+    let popUpTransactionTemplate;
+    async function SubmitUpsertTrxTpl() {
+      $invalidate(14, isSubmitUpsertTrxTpl = true);
+      const i = {
+        cmd: "upsert",
+        transactionTemplate: { id: idTrxTpl, name, color }
+      };
+      await (0, import_jsApi.TenantAdminTransactionTemplate)(
+        //@ts-ignore
+        i,
+        /** @type {import('./jsApi.GEN').TenantAdminTransactionTemplateCallback} */
+        /** @returns {Promise<void>} */
+        function(o) {
+          $invalidate(14, isSubmitUpsertTrxTpl = false);
+          popUpTransactionTemplate.hide();
+          if (o.error) {
+            console.log(o);
+            notifier.showError(o.error);
+            return;
+          }
+          dispatch("update", {
+            trxTemplates: o.transactionTemplates || []
+          });
+          notifier.showSuccess("transaction template updated");
+        }
+      );
+    }
     function popuptransactiontpldetail_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpTransactionTplDetail = $value;
@@ -9926,11 +10069,35 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       isSubmitUpsertTrxTplDetail = value;
       $invalidate(10, isSubmitUpsertTrxTplDetail);
     }
+    function popuptransactiontemplate_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        popUpTransactionTemplate = $value;
+        $invalidate(15, popUpTransactionTemplate);
+      });
+    }
+    function popuptransactiontemplate_isSubmitted_binding(value) {
+      isSubmitUpsertTrxTpl = value;
+      $invalidate(14, isSubmitUpsertTrxTpl);
+    }
+    function popuptransactiontemplate_name_binding(value) {
+      name = value;
+      $invalidate(12, name);
+    }
+    function popuptransactiontemplate_color_binding(value) {
+      color = value;
+      $invalidate(13, color);
+    }
     const click_handler = () => {
       $invalidate(7, trxTplDetailId = 0);
       popUpTransactionTplDetail.show();
     };
-    const click_handler_1 = (trxTplDetail) => {
+    const click_handler_1 = () => {
+      $invalidate(11, idTrxTpl = transactionTemplate.id);
+      $invalidate(12, name = transactionTemplate.name);
+      $invalidate(13, color = transactionTemplate.color);
+      popUpTransactionTemplate.show();
+    };
+    const click_handler_2 = (trxTplDetail) => {
       $invalidate(10, isSubmitUpsertTrxTplDetail = false);
       $invalidate(7, trxTplDetailId = trxTplDetail.id);
       $invalidate(9, isDebit = trxTplDetail.isDebit ? "debit" : "credit");
@@ -9955,21 +10122,32 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       coaId,
       isDebit,
       isSubmitUpsertTrxTplDetail,
+      idTrxTpl,
+      name,
+      color,
+      isSubmitUpsertTrxTpl,
+      popUpTransactionTemplate,
       getTransactionTplDetails,
       toggleShowDetail,
       SubmitUpsertTrxTplDetail,
+      SubmitUpsertTrxTpl,
       popuptransactiontpldetail_binding,
       popuptransactiontpldetail_coaId_binding,
       popuptransactiontpldetail_isDebit_binding,
       popuptransactiontpldetail_isSubmitted_binding,
+      popuptransactiontemplate_binding,
+      popuptransactiontemplate_isSubmitted_binding,
+      popuptransactiontemplate_name_binding,
+      popuptransactiontemplate_color_binding,
       click_handler,
-      click_handler_1
+      click_handler_1,
+      click_handler_2
     ];
   }
   var TransactionTemplateTree = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance10, create_fragment10, safe_not_equal, { transactionTemplate: 0, coas: 1 });
+      init(this, options, instance10, create_fragment10, safe_not_equal, { transactionTemplate: 0, coas: 1 }, null, [-1, -1]);
     }
   };
   var TransactionTemplateTree_default = TransactionTemplateTree;
@@ -9977,7 +10155,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // tenantAdmin_transactionTemplate.svelte
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[10] = list[i];
+    child_ctx[12] = list[i];
     return child_ctx;
   }
   function create_each_block3(ctx) {
@@ -9987,11 +10165,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       props: {
         transactionTemplate: (
           /*tt*/
-          ctx[10]
+          ctx[12]
         ),
         coas
       }
     });
+    transactiontemplatetree.$on(
+      "update",
+      /*updateTrxTemplate*/
+      ctx[6]
+    );
     return {
       c() {
         create_component(transactiontemplatetree.$.fragment);
@@ -10000,7 +10183,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         mount_component(transactiontemplatetree, target, anchor);
         current = true;
       },
-      p: noop,
+      p(ctx2, dirty) {
+        const transactiontemplatetree_changes = {};
+        if (dirty & /*transactionTemplates*/
+        1)
+          transactiontemplatetree_changes.transactionTemplate = /*tt*/
+          ctx2[12];
+        transactiontemplatetree.$set(transactiontemplatetree_changes);
+      },
       i(local) {
         if (current)
           return;
@@ -10025,7 +10215,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     let mounted;
     let dispose;
-    let each_value = ensure_array_like(transactionTemplates || []);
+    let each_value = ensure_array_like(
+      /*transactionTemplates*/
+      ctx[0] || []
+    );
     let each_blocks = [];
     for (let i = 0; i < each_value.length; i += 1) {
       each_blocks[i] = create_each_block3(get_each_context3(ctx, each_value, i));
@@ -10066,15 +10259,18 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*click_handler*/
-            ctx[9]
+            ctx[11]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*transactionTemplates, coas*/
-        0) {
-          each_value = ensure_array_like(transactionTemplates || []);
+        if (dirty & /*transactionTemplates, coas, updateTrxTemplate*/
+        65) {
+          each_value = ensure_array_like(
+            /*transactionTemplates*/
+            ctx2[0] || []
+          );
           let i;
           for (i = 0; i < each_value.length; i += 1) {
             const child_ctx = get_each_context3(ctx2, each_value, i);
@@ -10129,44 +10325,44 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let mainlayout;
     let current;
     function popuptransactiontemplate_isSubmitted_binding(value) {
-      ctx[6](value);
+      ctx[8](value);
     }
     function popuptransactiontemplate_name_binding(value) {
-      ctx[7](value);
+      ctx[9](value);
     }
     function popuptransactiontemplate_color_binding(value) {
-      ctx[8](value);
+      ctx[10](value);
     }
     let popuptransactiontemplate_props = {
       heading: "Add Transaction Template",
       onSubmit: (
         /*addTransactionTemplate*/
-        ctx[4]
+        ctx[5]
       )
     };
     if (
       /*isSubmitted*/
-      ctx[3] !== void 0
+      ctx[4] !== void 0
     ) {
       popuptransactiontemplate_props.isSubmitted = /*isSubmitted*/
-      ctx[3];
+      ctx[4];
     }
     if (
       /*name*/
-      ctx[1] !== void 0
+      ctx[2] !== void 0
     ) {
       popuptransactiontemplate_props.name = /*name*/
-      ctx[1];
+      ctx[2];
     }
     if (
       /*color*/
-      ctx[2] !== void 0
+      ctx[3] !== void 0
     ) {
       popuptransactiontemplate_props.color = /*color*/
-      ctx[2];
+      ctx[3];
     }
     popuptransactiontemplate = new PopUpTransactionTemplate_default({ props: popuptransactiontemplate_props });
-    ctx[5](popuptransactiontemplate);
+    ctx[7](popuptransactiontemplate);
     binding_callbacks.push(() => bind(popuptransactiontemplate, "isSubmitted", popuptransactiontemplate_isSubmitted_binding));
     binding_callbacks.push(() => bind(popuptransactiontemplate, "name", popuptransactiontemplate_name_binding));
     binding_callbacks.push(() => bind(popuptransactiontemplate, "color", popuptransactiontemplate_color_binding));
@@ -10191,30 +10387,30 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       p(ctx2, [dirty]) {
         const popuptransactiontemplate_changes = {};
         if (!updating_isSubmitted && dirty & /*isSubmitted*/
-        8) {
+        16) {
           updating_isSubmitted = true;
           popuptransactiontemplate_changes.isSubmitted = /*isSubmitted*/
-          ctx2[3];
+          ctx2[4];
           add_flush_callback(() => updating_isSubmitted = false);
         }
         if (!updating_name && dirty & /*name*/
-        2) {
+        4) {
           updating_name = true;
           popuptransactiontemplate_changes.name = /*name*/
-          ctx2[1];
+          ctx2[2];
           add_flush_callback(() => updating_name = false);
         }
         if (!updating_color && dirty & /*color*/
-        4) {
+        8) {
           updating_color = true;
           popuptransactiontemplate_changes.color = /*color*/
-          ctx2[2];
+          ctx2[3];
           add_flush_callback(() => updating_color = false);
         }
         popuptransactiontemplate.$set(popuptransactiontemplate_changes);
         const mainlayout_changes = {};
-        if (dirty & /*$scope, popUpTransactionTemplate*/
-        8193) {
+        if (dirty & /*$scope, transactionTemplates, popUpTransactionTemplate*/
+        32771) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -10235,21 +10431,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (detaching) {
           detach(t);
         }
-        ctx[5](null);
+        ctx[7](null);
         destroy_component(popuptransactiontemplate, detaching);
         destroy_component(mainlayout, detaching);
       }
     };
   }
-  var transactionTemplates = (
-    /** @type {TransactionTemplate[]} */
-    [/* transactionTemplates */]
-  );
   var coas = (
     /** @type {CoA[]} */
     [/* coas */]
   );
   function instance11($self, $props, $invalidate) {
+    let transactionTemplates = (
+      /** @type {TransactionTemplate[]} */
+      [/* transactionTemplates */]
+    );
     console.log("transactionTemplates", transactionTemplates);
     console.log("coas", coas);
     let popUpTransactionTemplate;
@@ -10257,7 +10453,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let color = "";
     let isSubmitted = false;
     async function addTransactionTemplate() {
-      $invalidate(3, isSubmitted = true);
+      $invalidate(4, isSubmitted = true);
       const i = {
         cmd: "upsert",
         transactionTemplate: { name, color }
@@ -10268,43 +10464,49 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         /** @type {import('./jsApi.GEN').TenantAdminTransactionTemplateCallback} */
         /** @returns {Promise<void>} */
         function(o) {
-          $invalidate(3, isSubmitted = false);
+          $invalidate(4, isSubmitted = false);
           popUpTransactionTemplate.hide();
           if (o.error) {
             console.log(o);
             notifier.showError(o.error);
             return;
           }
-          console.log(o);
+          $invalidate(0, transactionTemplates = o.transactionTemplates);
           notifier.showSuccess("transaction template created");
         }
       );
     }
+    function updateTrxTemplate(event) {
+      const { trxTemplates } = event.detail;
+      $invalidate(0, transactionTemplates = trxTemplates);
+    }
     function popuptransactiontemplate_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpTransactionTemplate = $value;
-        $invalidate(0, popUpTransactionTemplate);
+        $invalidate(1, popUpTransactionTemplate);
       });
     }
     function popuptransactiontemplate_isSubmitted_binding(value) {
       isSubmitted = value;
-      $invalidate(3, isSubmitted);
+      $invalidate(4, isSubmitted);
     }
     function popuptransactiontemplate_name_binding(value) {
       name = value;
-      $invalidate(1, name);
+      $invalidate(2, name);
     }
     function popuptransactiontemplate_color_binding(value) {
       color = value;
-      $invalidate(2, color);
+      $invalidate(3, color);
     }
     const click_handler = () => popUpTransactionTemplate.show();
     return [
+      transactionTemplates,
       popUpTransactionTemplate,
       name,
       color,
       isSubmitted,
       addTransactionTemplate,
+      updateTrxTemplate,
       popuptransactiontemplate_binding,
       popuptransactiontemplate_isSubmitted_binding,
       popuptransactiontemplate_name_binding,

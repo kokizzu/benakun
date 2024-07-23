@@ -39,11 +39,16 @@
           notifier.showError(o.error);
           return
         }
-        console.log(o);
+        transactionTemplates = o.transactionTemplates;
 
         notifier.showSuccess('transaction template created');
       }
     )
+  }
+
+  function updateTrxTemplate(event) {
+    const { trxTemplates } = event.detail;
+    transactionTemplates = trxTemplates;
   }
 </script>
 
@@ -68,6 +73,7 @@
         <TransactionTemplateTree
           transactionTemplate={tt}
           coas={coas}
+          on:update={updateTrxTemplate}
         />
       {/each}
     </div>
