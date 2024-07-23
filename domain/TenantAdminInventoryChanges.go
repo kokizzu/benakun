@@ -66,6 +66,7 @@ var TenantAdminInventoryChangesMeta = zCrud.Meta{
 			DataType: zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeCombobox,
 			Description: "Select product",
+			ReadOnly: true,
 		},
 		{
 			Name: mBusiness.CreatedAt,
@@ -141,15 +142,6 @@ func (d *Domain) TenantAdminInventoryChanges(in *TenantAdminInventoryChangesIn) 
 					invChange.SetRestoredBy(sess.UserId)
 				}
 			}
-		} else {
-			product := rqBusiness.NewProducts(d.AuthOltp)
-			product.Id = in.InventoryChange.ProductId
-			if !product.FindById() {
-				out.SetError(400, ErrTenantAdminInventoryChangesProductNotFound)
-				return
-			}
-
-			invChange.SetProductId(product.Id)
 		}
 
 		invChange.SetTenantCode(user.TenantCode)
