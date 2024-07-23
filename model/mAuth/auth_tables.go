@@ -92,7 +92,7 @@ const (
 	SuppliersCoaId	= `suppliersCoaId`
 	CustomersCoaId	= `customersCoaId`
 	StaffsCoaId 		= `staffsCoaId`
-	BanksCoaId 		= `banksCoaId`
+	BanksCoaId 			= `banksCoaId`
 )
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{

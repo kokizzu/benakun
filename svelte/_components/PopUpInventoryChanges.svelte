@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from 'svelte';
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
@@ -16,6 +17,16 @@
 
   let stockDelta = 0;
   let productId = '0';
+
+  onMount(() => {
+    // Get the first product and set as default selected value
+    for (let key in products) {
+      if (products.hasOwnProperty(key)) {
+        productId = key;
+        break;
+      }
+    }
+  })
 
   export const Reset = () => {
     stockDelta = 0;

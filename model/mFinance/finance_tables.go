@@ -29,6 +29,30 @@ const (
 	Label    = `label` // bankAccounts:company locations
 )
 
+const (
+	LabelProducts 					= `products`
+	LabelProduct 						= `product`
+	LabelSuppliers					= `suppliers`
+	LabelCustomer						= `customer`
+	LabelStaff							= `staff`
+	LabelBankAccount				= `bankAccounts`
+	LabelBankAccountCompany = `bankAccounts:company`
+	LabelBankAccountStaff 	= `bankAccounts:staff`
+)
+
+func GetLabelsMap() map[string]string {
+	return map[string]string{
+		LabelProducts: `Products`,
+		LabelProduct: `Product`,
+		LabelSuppliers: `Suppliers`,
+		LabelCustomer: `Customer`,
+		LabelStaff: `Staff`,
+		LabelBankAccount: `Bank Account`,
+		LabelBankAccountCompany: `Bank Account - Company`,
+		LabelBankAccountStaff: `Bank Account - Staff`,
+	}
+}
+
 type CoaDefault struct {
 	Name     string
 	Label    string
@@ -40,7 +64,7 @@ func GetCoaDefaults() []CoaDefault {
 		{
 			Name: `Aktiva`,
 			Children: []CoaDefault{
-				{Name: `Bank`, Label: `bankAccounts`},
+				{Name: `Bank`, Label: LabelBankAccount},
 				{Name: `Deposito Berjangka`},
 				{Name: `Piutang Usaha`},
 				{Name: `Persediaan Barang Dagangan`},
@@ -52,7 +76,7 @@ func GetCoaDefaults() []CoaDefault {
 				{Name: `Aktiva Tetap`},
 				{Name: `Akumulasi Penyusutan Aktiva Tetap`},
 				{Name: `Aktiva Tak Berwujud`},
-				{Name: `Aktiva Lain-lain`},
+				{Name: `Aktiva Lain-lain`, Label: LabelProducts},
 			},
 		},
 		{

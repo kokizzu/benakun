@@ -25911,6 +25911,7 @@ uniform ${i3} ${a3} u_${s3};
     const child_ctx = ctx.slice();
     child_ctx[23] = list[i][0];
     child_ctx[24] = list[i][1];
+    child_ctx[26] = i;
     return child_ctx;
   }
   function create_else_block_1(ctx) {
@@ -27780,10 +27781,9 @@ uniform ${i3} ${a3} u_${s3};
   }
   function create_each_block(ctx) {
     let option;
-    let t_value = (
-      /*v*/
-      ctx[24] + ""
-    );
+    let t_value = `${/*idx*/
+    ctx[26] + 1}: ${/*v*/
+    ctx[24]}`;
     let t;
     let option_value_value;
     return {
@@ -27802,8 +27802,9 @@ uniform ${i3} ${a3} u_${s3};
       },
       p(ctx2, dirty) {
         if (dirty & /*values*/
-        8 && t_value !== (t_value = /*v*/
-        ctx2[24] + ""))
+        8 && t_value !== (t_value = `${/*idx*/
+        ctx2[26] + 1}: ${/*v*/
+        ctx2[24]}`))
           set_data(t, t_value);
         if (dirty & /*values*/
         8 && option_value_value !== (option_value_value = /*k*/
