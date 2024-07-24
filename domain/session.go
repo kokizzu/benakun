@@ -30,7 +30,7 @@ type Session struct {
 	ExpiredAt  int64 // in seconds
 	Email      string
 	TenantCode string
-	Roles      []string
+	Role			 string
 
 	// not saved but retrieved from SUPERADMIN_EMAILS env
 	IsSuperAdmin  	bool
@@ -239,47 +239,67 @@ func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 	user := rqAuth.NewUsers(d.AuthOltp)
 	user.Id = session.UserId
 	if !user.FindById() {
+		sess.Role = GuestSegment
 		out.SetError(498, ErrUserIdNotFound)
 		return nil
+	} else {
+		sess.Role = UserSegment
 	}
-
-	sess.Roles = []string{user.Role}
 	sess.TenantCode = user.TenantCode
-	segment := d.segmentsFromSession(sess)
 
 	if v, ok := hostmap[in.Host]; ok {
-		mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
-		if err == nil {
-			role := mapState.GetRoleByTenantCode(v.TenantCode)
-			switch role {
-			case TenantAdminSegment:
-				sess.Segments[TenantAdminSegment] = true
-				sess.Segments[ReportViewerSegment] = true
-				sess.Segments[DataEntrySegment] = true
-				sess.Segments[UserSegment] = true
-				sess.Segments[GuestSegment] = true
-
-				sess.IsDataEntry = true
-			case DataEntrySegment:
-				sess.Segments[DataEntrySegment] = true
-				sess.Segments[UserSegment] = true
-				sess.Segments[GuestSegment] = true
-
-				sess.IsDataEntry = true
-			case ReportViewerSegment:
-				sess.Segments[ReportViewerSegment] = true
-				sess.Segments[UserSegment] = true
-				sess.Segments[GuestSegment] = true
-			case UserSegment:
-				sess.Segments[GuestSegment] = true
-				sess.Segments[UserSegment] = true
-			case GuestSegment:
-				sess.Segments[GuestSegment] = true
+		if !sess.IsSuperAdmin {
+			mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
+			if err != nil {
+				sess.Role = mapState.GetRoleByTenantCode(v.TenantCode)
 			}
 		}
 	}
 
-	sess.Segments = segment
+	if sess.TenantCode != `` {
+		tCode, _ := GetTenantCodeByHost(in.Host)
+		if tCode == sess.TenantCode {
+			sess.Role = TenantAdminSegment
+		} else {
+			sess.Role = UserSegment
+		}
+	}
+
+	sess.IsSuperAdmin = d.Superadmins[sess.Email]
+
+	sess.Segments = M.SB{}
+
+	switch sess.Role {
+	case TenantAdminSegment:
+		sess.Segments[TenantAdminSegment] = true
+		sess.Segments[ReportViewerSegment] = true
+		sess.Segments[DataEntrySegment] = true
+		sess.Segments[UserSegment] = true
+		sess.Segments[GuestSegment] = true
+	case DataEntrySegment:
+		sess.Segments[DataEntrySegment] = true
+		sess.Segments[UserSegment] = true
+		sess.Segments[GuestSegment] = true
+	case ReportViewerSegment:
+		sess.Segments[ReportViewerSegment] = true
+		sess.Segments[UserSegment] = true
+		sess.Segments[GuestSegment] = true
+	case UserSegment:
+		sess.Segments[GuestSegment] = true
+		sess.Segments[UserSegment] = true
+	case GuestSegment:
+		sess.Segments[GuestSegment] = true
+	}
+	
+	if sess.IsSuperAdmin {
+		sess.Segments[SuperAdminSegment] = true
+		sess.Segments[TenantAdminSegment] = true
+		sess.Segments[ReportViewerSegment] = true
+		sess.Segments[DataEntrySegment] = true
+		sess.Segments[UserSegment] = true
+		sess.Segments[GuestSegment] = true
+	}
+
 	if !sess.Segments[UserSegment] && !sess.Segments[SuperAdminSegment] {
 		out.SetError(403, ErrSegmentNotAllowed)
 		return nil
@@ -314,17 +334,26 @@ func (d *Domain) MustTenantAdmin(in RequestCommon, out *ResponseCommon) (sess *S
 			return nil
 		}
 	} else {
-		tenant := rqAuth.NewTenants(d.AuthOltp)
-		tenant.TenantCode = sess.TenantCode
-		if !tenant.FindByTenantCode() {
-			out.SetError(403, ErrSessionUserNotTenantAdmin)
-			return nil
+		if !sess.IsSuperAdmin {
+			tenantCode, _ := GetTenantCodeByHost(in.Host)
+			if sess.TenantCode != tenantCode {
+				out.SetError(403, ErrSessionUserNotTenantAdmin)
+				return nil
+			}
+			tenant := rqAuth.NewTenants(d.AuthOltp)
+			tenant.TenantCode = sess.TenantCode
+			if !tenant.FindByTenantCode() {
+				out.SetError(403, ErrSessionUserNotTenantAdmin)
+				return nil
+			}
+
+			if tenant.DeletedAt > 0 {
+				out.SetError(403, ErrSessionUserNotTenantAdmin)
+				return nil
+			}
 		}
 
-		if tenant.DeletedAt > 0 {
-			out.SetError(403, ErrSessionUserNotTenantAdmin)
-			return nil
-		}
+		sess.Segments[TenantAdminSegment] = true
 	}
 
 	sess.IsTenantAdmin = true

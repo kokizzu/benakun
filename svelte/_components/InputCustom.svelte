@@ -52,8 +52,8 @@
         <label class="label" for={id}>{label}</label>
         <select name={id} id={id} bind:value={value} {placeholder}>
           <option value="" disabled>-- {placeholder} --</option>
-          {#each Object.entries(values) as [k, v]}
-            <option value={k} selected={value}>{v}</option>
+          {#each Object.entries(values) as [k, v], idx}
+            <option value={k} selected={value}>{`${idx+1}: ${v}`}</option>
           {/each}
         </select>
       {:else}

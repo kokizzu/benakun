@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	RoleUser				 = `user`	
+	RoleUser         = `user`
 	RoleTenantAdmin  = `tenantAdmin`
 	RoleDataEntry    = `dataEntry`
 	RoleReportViewer = `reportViewer`
@@ -36,6 +36,8 @@ const (
 	UpdatedAt          = `updatedAt`
 	UpdatedBy          = `updatedBy`
 	DeletedAt          = `deletedAt`
+	DeletedBy          = `deletedBy`
+	RestoredBy         = `restoredBy`
 	PasswordSetAt      = `passwordSetAt`
 	SecretCode         = `secretCode`
 	SecretCodeAt       = `secretCodeAt`
@@ -49,7 +51,7 @@ const (
 	InvitationState    = `invitationState`
 )
 
-const DefaultPassword	= `user12345678`
+const DefaultPassword = `user12345678`
 
 const (
 	TableSessions Tt.TableName = `sessions`
@@ -85,6 +87,12 @@ const (
 
 const (
 	TableTenants Tt.TableName = `tenants`
+
+	ProductsCoaId 	= `productsCoaId`
+	SuppliersCoaId	= `suppliersCoaId`
+	CustomersCoaId	= `customersCoaId`
+	StaffsCoaId 		= `staffsCoaId`
+	BanksCoaId 			= `banksCoaId`
 )
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
@@ -137,6 +145,11 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UpdatedAt, Tt.Integer},
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
+			{ProductsCoaId, Tt.Unsigned},
+			{SuppliersCoaId, Tt.Unsigned},
+			{CustomersCoaId, Tt.Unsigned},
+			{StaffsCoaId, Tt.Unsigned},
+			{BanksCoaId, Tt.Unsigned},
 		},
 		AutoIncrementId: true,
 		Unique1:         TenantCode,
@@ -156,6 +169,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{UpdatedAt, Tt.Integer},
 			{UpdatedBy, Tt.Unsigned},
 			{DeletedAt, Tt.Integer},
+			{DeletedBy, Tt.Unsigned},
+			{RestoredBy, Tt.Unsigned},
 		},
 		AutoIncrementId: true,
 	},

@@ -22,14 +22,16 @@
 
   let headingPopUp = 'Add activity';
 
+  let lastYearInput = Number(localStorage.getItem('lastYearInput')) || new Date().getFullYear();
+
   // make it as payload
   let planType = PlanTypeActivity, title = '', description = '',
-  yearOf = 0, budgetIDR = '', quantity = 0, unit = '';
+  yearOf = lastYearInput, budgetIDR = '', quantity = 0, unit = '';
 
   // reset payload
   const resetPayload = () => {
     planType = '', title = '', description = '';
-    yearOf = 0, budgetIDR = '', quantity = 0, unit = '';
+    yearOf = lastYearInput, budgetIDR = '', quantity = 0, unit = '';
   }
 
   /** @type BudgetPlan */
@@ -86,6 +88,8 @@
       }, /** @type {import('../jsApi.GEN').TenantAdminBudgetingCallback} */
       function (/** @type {any} */ o) {
         isSubmitPlan = false;
+        lastYearInput = Number(yearOf);
+        localStorage.setItem('lastYearInput', lastYearInput+'');
         if (o.error) {
           notifier.showError(o.error);
           console.log(o);
@@ -178,6 +182,12 @@
     }
 
     popUpBudgetPlan.show();
+  }
+
+  $: {
+    if (lastYearInput) {
+      localStorage.setItem('lastYearInput', lastYearInput+'');
+    }
   }
 </script>
 

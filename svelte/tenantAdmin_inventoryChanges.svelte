@@ -1,6 +1,7 @@
 <script>
   import { Icon } from './node_modules/svelte-icons-pack/dist';
   import { RiSystemAddBoxLine } from './node_modules/svelte-icons-pack/dist/ri';
+  import { FaShareFromSquare } from './node_modules/svelte-icons-pack/dist/fa';
   import MainLayout from './_layouts/mainLayout.svelte';
   import MasterTable from './_components/MasterTable.svelte';
   import PopUpInventoryChanges from './_components/PopUpInventoryChanges.svelte';
@@ -13,6 +14,7 @@
   /** @typedef {import('./_components/types/master.js').PagerIn} PagerIn */
 	/** @typedef {import('./_components/types/master.js').PagerOut} PagerOut */
   /** @typedef {import('./_components/types/user.js').User} User */
+  /** @typedef {import('./_components/types/master.js').ExtendedAction} ExtendedAction */
 
   let segments = /** @type Access */ ({/* segments */});
   let user = /** @type User */ ({/* user */});
@@ -20,8 +22,6 @@
   let pager = /** @type PagerOut */ ({/* pager */});
   let inventoryChanges = /** @type any[][] */ ([/* inventoryChanges */]);
   let products = /** @type Object */ ({/* products */});
-
-  console.log('Products: ', products);
 
   let isPopUpFormsReady = false;
   let popUpInventoryChanges = null;
@@ -160,6 +160,16 @@
     );
     popUpInventoryChanges.Hide();
   }
+
+  /** @type {ExtendedAction[]} */
+  const LINKS = [
+    {
+      icon: FaShareFromSquare,
+      isTargetBlank: true,
+      link: (/** @type any */ row) => `/tenantAdmin/inventoryChanges/${row[2]}`,
+      tooltip: 'View',
+    }
+  ]
 </script>
 
 {#if isPopUpFormsReady}
@@ -186,9 +196,8 @@
       CAN_DELETE_ROW
       CAN_RESTORE_ROW
       CAN_OPEN_LINK
-
-      LINK_PATH='/tenantAdmin/inventoryChanges/'
-      IDX_ID_LINK={2}
+      
+      {LINKS}
 
       {OnDelete}
       {OnEdit}

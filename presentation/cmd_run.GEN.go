@@ -20,6 +20,22 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.DataEntryDashboard(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.DataEntryTemplateAction:
+		in := domain.DataEntryTemplateIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.DataEntryTemplate(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.DataEntryTemplatesAction:
+		in := domain.DataEntryTemplatesIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.DataEntryTemplates(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.DataEntryTransactionEntryAction:
 		in := domain.DataEntryTransactionEntryIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
@@ -116,6 +132,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.ReportViewerDashboard(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.SuperAdminAccessLogAction:
+		in := domain.SuperAdminAccessLogIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.SuperAdminAccessLog(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.SuperAdminDashboardAction:
 		in := domain.SuperAdminDashboardIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
@@ -172,22 +196,6 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminDashboard(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
-	case domain.TenantAdminDeleteCoaChildAction:
-		in := domain.TenantAdminDeleteCoaChildIn{}
-		if !in.RequestCommon.FromCli(action, payload, &in) {
-			return
-		}
-		out := b.TenantAdminDeleteCoaChild(&in)
-		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
-
-	case domain.TenantAdminDeleteOrganizationChildAction:
-		in := domain.TenantAdminDeleteOrganizationChildIn{}
-		if !in.RequestCommon.FromCli(action, payload, &in) {
-			return
-		}
-		out := b.TenantAdminDeleteOrganizationChild(&in)
-		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
-
 	case domain.TenantAdminInventoryChangesAction:
 		in := domain.TenantAdminInventoryChangesIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
@@ -212,22 +220,6 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminLocations(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
-	case domain.TenantAdminMoveCoaChildAction:
-		in := domain.TenantAdminMoveCoaChildIn{}
-		if !in.RequestCommon.FromCli(action, payload, &in) {
-			return
-		}
-		out := b.TenantAdminMoveCoaChild(&in)
-		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
-
-	case domain.TenantAdminMoveOrganizationChildAction:
-		in := domain.TenantAdminMoveOrganizationChildIn{}
-		if !in.RequestCommon.FromCli(action, payload, &in) {
-			return
-		}
-		out := b.TenantAdminMoveOrganizationChild(&in)
-		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
-
 	case domain.TenantAdminOrganizationAction:
 		in := domain.TenantAdminOrganizationIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
@@ -242,22 +234,6 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.TenantAdminProducts(&in)
-		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
-
-	case domain.TenantAdminRestoreCoaChildAction:
-		in := domain.TenantAdminRestoreCoaChildIn{}
-		if !in.RequestCommon.FromCli(action, payload, &in) {
-			return
-		}
-		out := b.TenantAdminRestoreCoaChild(&in)
-		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
-
-	case domain.TenantAdminRestoreOrganizationChildAction:
-		in := domain.TenantAdminRestoreOrganizationChildIn{}
-		if !in.RequestCommon.FromCli(action, payload, &in) {
-			return
-		}
-		out := b.TenantAdminRestoreOrganizationChild(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.TenantAdminTransactionAction:
@@ -276,20 +252,12 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminTransactionTemplate(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
-	case domain.TenantAdminUpsertCoaChildAction:
-		in := domain.TenantAdminUpsertCoaChildIn{}
+	case domain.TenantAdminTransactionTplDetailAction:
+		in := domain.TenantAdminTransactionTplDetailIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
-		out := b.TenantAdminUpsertCoaChild(&in)
-		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
-
-	case domain.TenantAdminUpsertOrganizationChildAction:
-		in := domain.TenantAdminUpsertOrganizationChildIn{}
-		if !in.RequestCommon.FromCli(action, payload, &in) {
-			return
-		}
-		out := b.TenantAdminUpsertOrganizationChild(&in)
+		out := b.TenantAdminTransactionTplDetail(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.UserAutoLoginLinkAction:

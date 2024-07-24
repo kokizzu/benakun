@@ -7,9 +7,9 @@ import (
 
 const (
 	// Rule type
-	RuleTypeFIFO	 	= `fifo`
-	RuleTypeLIFO 		= `lifo`
-	RuleTypeAVERAGE = `average`
+	RuleTypeFIFO	 	= `fifo`		// First in First Out
+	RuleTypeLIFO 		= `lifo`		// Life in First Out
+	RuleTypeAVERAGE = `average` // Rata - rata dari struk kita
 
 	// Kind type
 	KindTypeGOODS 	= `goods`
@@ -43,20 +43,21 @@ func IsValidProductKind(kind string) bool {
 const (
 	TableProducts Tt.TableName = `products`
 
-	Id		      = `id`
-	TenantCode	= `tenantCode`
-	CreatedAt   = `createdAt`
-	CreatedBy   = `createdBy`
-	UpdatedAt   = `updatedAt`
-	UpdatedBy   = `updatedBy`
-	DeletedAt   = `deletedAt`
-	DeletedBy		= `deletedBy`
-	RestoredBy	= `restoredBy`
-	Name				= `name`
-	Detail			= `detail`
-	Rule				= `rule`
-	Kind				= `kind`
-	CogsIDR			= `cogsIDR`
+	Id		      			= `id`
+	TenantCode				= `tenantCode`
+	CreatedAt   			= `createdAt`
+	CreatedBy   			= `createdBy`
+	UpdatedAt   			= `updatedAt`
+	UpdatedBy   			= `updatedBy`
+	DeletedAt   			= `deletedAt`
+	DeletedBy					= `deletedBy`
+	RestoredBy				= `restoredBy`
+	Name							= `name`
+	Detail						= `detail`
+	Rule							= `rule`
+	Kind							= `kind`
+	CogsIDR						= `cogsIDR`
+	ProfitPercentage	= `profitPercentage`
 )
 
 const (
@@ -101,6 +102,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{Rule, Tt.String},
 			{Kind, Tt.String},
 			{CogsIDR, Tt.Unsigned},
+			{ProfitPercentage, Tt.Double},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,

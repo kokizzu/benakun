@@ -27,6 +27,8 @@
   const PlanTypeProgram   = 'program';
   const PlanTypeActivity  = 'activity';
 
+  let lastYearInput = Number(localStorage.getItem('lastYearInput')) || new Date().getFullYear();
+
   let orgType = 'company';
   let orgIcon = RiBuildingsCommunityLine;
 
@@ -66,12 +68,12 @@
 
   // make it as payload
   let id = 0, planType = PlanTypeVision, title = '', description = '',
-    yearOf = 0, budgetIDR = '', unit = '', quantity = 0;
+    yearOf = lastYearInput, budgetIDR = '', unit = '', quantity = 0;
 
   // reset payload
   const resetPayload = () => {
     planType = '', title = '', description = '';
-    yearOf = 0, budgetIDR = '', unit = '', quantity = 0;
+    yearOf = lastYearInput, budgetIDR = '', unit = '', quantity = 0;
   }
 
   // state render budget plans
@@ -136,11 +138,11 @@
       function (/** @type {any} */ o) {
         isSearching = false;
         if (o.error) {
+          console.log(o.error);
           notifier.showError(o.error);
           return;
         }
 
-        console.log(o);
         budgetPlans = o.plans;
         reformatPlans();
       }
@@ -187,6 +189,8 @@
       i, /** @type {import('../jsApi.GEN').TenantAdminBudgetingCallback} */
       function (/** @type {any} */ o) {
         isSubmitPlan = false;
+        lastYearInput = Number(yearOf);
+        localStorage.setItem('lastYearInput', lastYearInput+'');
         if (o.error) {
           notifier.showError(o.error);
           console.log(o);
@@ -261,12 +265,19 @@
     headingPopUp = state + ' ' + planType;
 
     popUpBudgetPlan.show();
+    yearOf = lastYearInput;
   }
 
   function onUpdateProgramActivity(e) {
     const plans = /** @type {BudgetPlan[]}*/ (e.detail);
     budgetPlans = plans;
     reformatPlans();
+  }
+
+  $: {
+    if (lastYearInput) {
+      localStorage.setItem('lastYearInput', lastYearInput+'');
+    }
   }
 </script>
 

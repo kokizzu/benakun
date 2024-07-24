@@ -1,10 +1,13 @@
 package domain
 
 import (
+	"benakun/model"
 	"benakun/model/mAuth/wcAuth"
 	"benakun/model/mBusiness"
 	"benakun/model/mBusiness/rqBusiness"
 	"benakun/model/mBusiness/wcBusiness"
+	"benakun/model/mFinance/rqFinance"
+	"benakun/model/mFinance/wcFinance"
 	"benakun/model/zCrud"
 
 	"github.com/gofiber/fiber/v2"
@@ -177,6 +180,26 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 				}
 			}
 		} else {
+			coaParent := rqFinance.NewCoa(d.AuthOltp)
+			coaParent.Id = tenant.ProductsCoaId
+			if !coaParent.FindById() {
+				out.SetError(400, `todo error`)
+				return
+			}
+
+			coaChild := wcFinance.NewCoaMutator(d.AuthOltp)
+			coaChild.SetLabel(model.COA_LABEL_PRODUCT)
+			coaChild.SetName(in.Product.Name)
+			coaChild.SetTenantCode(user.TenantCode)
+			coaChild.SetParentId(coaParent.Id)
+			coaChild.SetCreatedAt(in.UnixNow())
+			coaChild.SetUpdatedAt(in.UnixNow())
+
+			if !coaChild.DoInsert() {
+				out.SetError(400, `todo error`)
+				return
+			}
+
 			product.SetTenantCode(user.TenantCode)
 		}
 

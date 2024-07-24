@@ -2,7 +2,7 @@
   import MainLayout from './_layouts/mainLayout.svelte';
   import { onMount } from 'svelte';
   import OrgTree from './_components/OrgTree.svelte';
-  import { TenantAdminMoveOrganizationChild } from './jsApi.GEN';
+  import { TenantAdminOrganization } from './jsApi.GEN';
   import { notifier } from './_components/notifier';
 
   /** @typedef {import('./_components/types/organization').Org} Org */
@@ -15,21 +15,23 @@
   function orgMaker(id) {
     /** @type {Org} */
     let orgFormatted = {
-      id: '',
+      children: [],
+      id: 0,
       name: '',
+      headTitle: '',
       orgType: 0,
-      parentId: '',
+      parentId: 0,
       tenantCode: '',
       createdAt: 0,
-      createdBy: '',
+      createdBy: 0,
       updatedAt: 0,
-      updatedBy: '',
+      updatedBy: 0,
       deletedAt: 0,
-      children: [],
-      headTitle: ''
+      deletedBy: 0,
+      restoredBy: 0
     }
     for (let i in orgs) {
-      if (orgs[i].id == String(id)) {
+      if (orgs[i].id == id) {
         const children = orgs[i].children;
         if (children && children.length) {
           for (let j in children) {
@@ -49,6 +51,8 @@
         orgFormatted.updatedAt = orgs[i].updatedAt
         orgFormatted.updatedBy = orgs[i].updatedBy
         orgFormatted.deletedAt = orgs[i].deletedAt
+        orgFormatted.deletedBy = orgs[i].deletedBy
+        orgFormatted.restoredBy = orgs[i].restoredBy
       }
     }
     return orgFormatted;
@@ -109,9 +113,17 @@
     if (parentOrg.orgType !== orgMoving.orgType-1) return console.log(`CANNOT MOVE ${orgMoving.id} TO ${parentOrg.id} - WRONG ORG TYPE`);
     if (parentOrg.id == orgMoving.parentId) return;
 
-    await TenantAdminMoveOrganizationChild(
-      { id: Number(orgMoving.id), moveToIdx: 0, toParentId: Number(parentOrg.id) },
-      /** @type {import('./jsApi.GEN').TenantAdminMoveOrganizationChildCallback}*/
+    const i = {
+      cmd: 'move',
+      org: {
+        id: Number(orgMoving.id),
+        parentId: Number(orgMoving.parentId)
+      },
+      moveToIdx: 0,
+      toParentId: Number(parentOrg.id)
+    }
+    await TenantAdminOrganization( // @ts-ignore
+      i, /** @returns {Promise<void>}*/
       function (/** @type {any} */o) {
         if (o.error) {
           notifier.showError(o.error);

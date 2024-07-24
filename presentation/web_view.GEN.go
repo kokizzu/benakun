@@ -12,6 +12,7 @@ import (
 var viewList = map[string]string{
 	`404`: `../svelte/404.html`, // ../svelte/404.svelte
 	`ApidocsIndex`: `../svelte/apidocs/index.html`, // ../svelte/apidocs/index.svelte
+	`DataEntryTemplatesTemplate`: `../svelte/dataEntry/templates/template.html`, // ../svelte/dataEntry/templates/template.svelte
 	`DataEntryDashboard`: `../svelte/dataEntry_dashboard.html`, // ../svelte/dataEntry_dashboard.svelte
 	`DataEntryTransactionEntry`: `../svelte/dataEntry_transactionEntry.html`, // ../svelte/dataEntry_transactionEntry.svelte
 	`Debug`: `../svelte/debug.html`, // ../svelte/debug.svelte
@@ -20,6 +21,7 @@ var viewList = map[string]string{
 	`GuestVerifyEmail`: `../svelte/guest_verifyEmail.html`, // ../svelte/guest_verifyEmail.svelte
 	`Index`: `../svelte/index.html`, // ../svelte/index.svelte
 	`ReportViewerDashboard`: `../svelte/reportViewer_dashboard.html`, // ../svelte/reportViewer_dashboard.svelte
+	`SuperAdminAccessLog`: `../svelte/superAdmin_accessLog.html`, // ../svelte/superAdmin_accessLog.svelte
 	`SuperAdminDashboard`: `../svelte/superAdmin_dashboard.html`, // ../svelte/superAdmin_dashboard.svelte
 	`SuperAdminTenantManagement`: `../svelte/superAdmin_tenantManagement.html`, // ../svelte/superAdmin_tenantManagement.svelte
 	`SuperAdminUserManagement`: `../svelte/superAdmin_userManagement.html`, // ../svelte/superAdmin_userManagement.svelte
@@ -47,6 +49,11 @@ func (v *Views) Render404(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderApidocsIndex(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`ApidocsIndex`].Str(m))
+}
+
+func (v *Views) RenderDataEntryTemplatesTemplate(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`DataEntryTemplatesTemplate`].Str(m))
 }
 
 func (v *Views) RenderDataEntryDashboard(c *fiber.Ctx, m M.SX) error {
@@ -87,6 +94,11 @@ func (v *Views) RenderIndex(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderReportViewerDashboard(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`ReportViewerDashboard`].Str(m))
+}
+
+func (v *Views) RenderSuperAdminAccessLog(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`SuperAdminAccessLog`].Str(m))
 }
 
 func (v *Views) RenderSuperAdminDashboard(c *fiber.Ctx, m M.SX) error {

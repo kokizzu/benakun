@@ -2,7 +2,6 @@ package domain
 
 import (
 	"benakun/model/mAuth/wcAuth"
-	"benakun/model/mFinance"
 	"benakun/model/mFinance/rqFinance"
 	"benakun/model/mFinance/wcFinance"
 	"benakun/model/zCrud"
@@ -19,17 +18,13 @@ import (
 type (
 	TenantAdminTransactionTemplateIn struct {
 		RequestCommon
-		Cmd      		string        `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		WithMeta		bool          `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
-		Pager    		zCrud.PagerIn `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		Cmd                 string                         `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
 		TransactionTemplate *rqFinance.TransactionTemplate `json:"transactionTemplate" form:"transactionTemplate" query:"transactionTemplate" long:"transactionTemplate" msg:"transactionTemplate"`
 	}
 	TenantAdminTransactionTemplateOut struct {
 		ResponseCommon
-		Pager zCrud.PagerOut `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
-		Meta  *zCrud.Meta    `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
-		TransactionTemplates [][]any `json:"transactionTemplates" form:"transactionTemplates" query:"transactionTemplates" long:"transactionTemplates" msg:"transactionTemplates"`
-		TransactionTemplate *rqFinance.TransactionTemplate `json:"transactionTemplate" form:"transactionTemplate" query:"transactionTemplate" long:"transactionTemplate" msg:"transactionTemplate"`
+		TransactionTemplates	*[]rqFinance.TransactionTemplate	`json:"transactionTemplates" form:"transactionTemplates" query:"transactionTemplates" long:"transactionTemplates" msg:"transactionTemplates"`
+		TransactionTemplate		*rqFinance.TransactionTemplate  	`json:"transactionTemplate" form:"transactionTemplate" query:"transactionTemplate" long:"transactionTemplate" msg:"transactionTemplate"`
 	}
 )
 
@@ -38,58 +33,9 @@ const (
 
 	ErrTenantAdminTransactionTemplateUnauthorized   = `unauthorized user`
 	ErrTenantAdminTransactionTemplateTenantNotFound = `tenant admin not found`
-	ErrTenantAdminTransactionTemplateUserNotFound = `user not found` 
-	ErrTenantAdminTransactionTemplateNotFound = `transaction template not found`
+	ErrTenantAdminTransactionTemplateUserNotFound   = `user not found`
+	ErrTenantAdminTransactionTemplateNotFound       = `transaction template not found`
 )
-
-var TenantAdminTransactionTemplateMeta = zCrud.Meta{
-	Fields: []zCrud.Field{
-		{
-			Name: mFinance.Id,
-			Label: "ID",
-			DataType: zCrud.DataTypeInt,
-			ReadOnly: true,
-		},
-		{
-			Name: mFinance.Name,
-			Label: "Nama / Name",
-			DataType: zCrud.DataTypeString,
-			InputType: zCrud.InputTypeText,
-		},
-		{
-			Name: mFinance.Color,
-			Label: "Warna / Color",
-			DataType: zCrud.DataTypeString,
-			InputType: zCrud.InputTypeColor,
-		},
-		{
-			Name: mFinance.ImageURL,
-			Label: "Gambar / Image",
-			ReadOnly: true,
-		},
-		{
-			Name:      mFinance.CreatedAt,
-			Label:     `Dibuat pada / Created at`,
-			ReadOnly:  true,
-			DataType:  zCrud.DataTypeInt,
-			InputType: zCrud.InputTypeDateTime,
-		},
-		{
-			Name:      mFinance.UpdatedAt,
-			Label:     `Diperbarui pada / Updated at`,
-			ReadOnly:  true,
-			DataType:  zCrud.DataTypeInt,
-			InputType: zCrud.InputTypeDateTime,
-		},
-		{
-			Name:      mFinance.DeletedAt,
-			Label:     `Dihapus pada / Deleted at`,
-			ReadOnly:  true,
-			DataType:  zCrud.DataTypeInt,
-			InputType: zCrud.InputTypeDateTime,
-		},
-	},
-}
 
 func (d *Domain) TenantAdminTransactionTemplate(in *TenantAdminTransactionTemplateIn) (out TenantAdminTransactionTemplateOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
@@ -106,25 +52,18 @@ func (d *Domain) TenantAdminTransactionTemplate(in *TenantAdminTransactionTempla
 		return
 	}
 
-	if in.WithMeta {
-		out.Meta = &TenantAdminTransactionTemplateMeta
-	}
-
 	switch in.Cmd {
 	case zCrud.CmdForm:
-		if in.TransactionTemplate.Id <= 0 {
-			out.Meta = &TenantAdminTransactionTemplateMeta
-			return
-		}
+		if in.TransactionTemplate.Id > 0 {
+			trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
+			trxTemplate.Id = in.TransactionTemplate.Id
+			if !trxTemplate.FindById() {
+				out.SetError(400, ErrTenantAdminTransactionTemplateNotFound)
+				return
+			}
 
-		trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
-		trxTemplate.Id = in.TransactionTemplate.Id
-		if !trxTemplate.FindById() {
-			out.SetError(400, ErrTenantAdminTransactionTemplateNotFound)
-			return
+			out.TransactionTemplate = trxTemplate
 		}
-
-		out.TransactionTemplate = trxTemplate
 	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
 		tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
 		tenant.TenantCode = user.TenantCode
@@ -140,7 +79,7 @@ func (d *Domain) TenantAdminTransactionTemplate(in *TenantAdminTransactionTempla
 				out.SetError(400, ErrTenantAdminTransactionTemplateNotFound)
 				return
 			}
-			
+
 			if in.Cmd == zCrud.CmdDelete {
 				if trxTemplate.DeletedAt == 0 {
 					trxTemplate.SetDeletedAt(in.UnixNow())
@@ -156,7 +95,7 @@ func (d *Domain) TenantAdminTransactionTemplate(in *TenantAdminTransactionTempla
 			trxTemplate.SetTenantCode(user.TenantCode)
 		}
 
-		if in.TransactionTemplate.Name != `` &&  in.TransactionTemplate.Name != trxTemplate.Name {
+		if in.TransactionTemplate.Name != `` && in.TransactionTemplate.Name != trxTemplate.Name {
 			trxTemplate.SetName(in.TransactionTemplate.Name)
 		}
 
@@ -179,20 +118,13 @@ func (d *Domain) TenantAdminTransactionTemplate(in *TenantAdminTransactionTempla
 
 		out.TransactionTemplate = &trxTemplate.TransactionTemplate
 
-		if in.Pager.Page == 0 {
-			break
-		}
-
 		fallthrough
 	case zCrud.CmdList:
 		r := rqFinance.NewTransactionTemplate(d.AuthOltp)
 		r.TenantCode = user.TenantCode
-		out.TransactionTemplates = r.FindByPagination(&TenantAdminTransactionTemplateMeta, &in.Pager, &out.Pager)
+		ttpls := r.FindTransactionTemplatesByTenant()
+		out.TransactionTemplates = &ttpls
 	}
 
-	r := rqFinance.NewTransactionTemplate(d.AuthOltp)
-	r.TenantCode = user.TenantCode
-	out.TransactionTemplates = r.FindByPagination(&TenantAdminTransactionTemplateMeta, &in.Pager, &out.Pager)
-	
 	return
 }

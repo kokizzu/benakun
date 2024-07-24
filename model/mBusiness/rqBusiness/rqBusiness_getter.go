@@ -49,14 +49,14 @@ func (pr *Products) FindProductsChoicesByTenantCode(tenantCode string) map[strin
 SELECT ` + pr.SqlId() + `, ` + pr.SqlName() + `
 FROM SEQSCAN ` + pr.SqlTableName() + whereAndSql
 
-	staffChoices := make(map[string]string)
+	productChoices := make(map[string]string)
 	pr.Adapter.QuerySql(queryRows, func(row []any) {
 		if len(row) == 2 {
-			staffChoices[X.ToS(row[0])] = X.ToS(row[1])
+			productChoices[X.ToS(row[0])] = X.ToS(row[1])
 		}
 	})
 
-	return staffChoices
+	return productChoices
 }
 
 func (l *Locations) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zCrud.PagerOut) (res [][]any) {
@@ -96,10 +96,14 @@ func (ic *InventoryChanges) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn
 
 	validFields := InventoryChangesFieldTypeMap
 	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
+	whereAndSql2 := `AND ` + ic.SqlTenantCode() + ` = ` + S.Z(ic.TenantCode)
+	if whereAndSql == `` {
+		whereAndSql2 = ` WHERE ` + ic.SqlTenantCode() + ` = ` + S.Z(ic.TenantCode)
+	}
 
 	queryCount := comment + `
 SELECT COUNT(1)
-FROM SEQSCAN ` +ic.SqlTableName() + whereAndSql + `
+FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + `
 LIMIT 1`
 	ic.Adapter.QuerySql(queryCount, func(row []any) {
 		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
@@ -110,7 +114,39 @@ LIMIT 1`
 
 	queryRows := comment + `
 SELECT ` + meta.ToSelect() + `
-FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
+FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
+	ic.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
+	return
+}
+
+func (ic *InventoryChanges) FindByPaginationByProduct(meta *zCrud.Meta, in *zCrud.PagerIn, out *zCrud.PagerOut) (res [][]any) {
+	const comment = `-- InventoryChanges) FindByPagination`
+
+	validFields := InventoryChangesFieldTypeMap
+	whereAndSql := out.WhereAndSqlTt(in.Filters, validFields)
+	whereAndSql2 := `AND ` + ic.SqlTenantCode() + ` = ` + S.Z(ic.TenantCode) + ` AND ` + ic.SqlProductId() + ` = ` + I.UToS(ic.ProductId)
+	if whereAndSql == `` {
+		whereAndSql2 = ` WHERE ` + ic.SqlTenantCode() + ` = ` + S.Z(ic.TenantCode) + ` AND ` + ic.SqlProductId() + ` = ` + I.UToS(ic.ProductId)
+	}
+
+	queryCount := comment + `
+SELECT COUNT(1)
+FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + `
+LIMIT 1`
+	ic.Adapter.QuerySql(queryCount, func(row []any) {
+		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
+	})
+
+	orderBySql := out.OrderBySqlTt(in.Order, validFields)
+	limitOffsetSql := out.LimitOffsetSql()
+
+	queryRows := comment + `
+SELECT ` + meta.ToSelect() + `
+FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
 	ic.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)

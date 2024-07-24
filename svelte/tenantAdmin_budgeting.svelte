@@ -4,6 +4,8 @@
   import BudgetPlanTree from './_components/BudgetPlanTree.svelte';
   import { localeDatetime } from './_components/formatter';
 
+  // TODO: set year to localStorage
+
   /** @typedef {import('./_components/types/organization').Org} Org */
   /** @typedef {import('./_components/types/budget').BudgetPlan} BudgetPlan */
 
@@ -15,18 +17,20 @@
   function orgMaker(id) {
     /** @type {Org} */
     let orgFormatted = {
-      id: '',
+      id: 0,
       name: '',
       orgType: 0,
-      parentId: '',
+      parentId: 0,
       tenantCode: '',
       createdAt: 0,
-      createdBy: '',
+      createdBy: 0,
       updatedAt: 0,
-      updatedBy: '',
+      updatedBy: 0,
       deletedAt: 0,
       children: [],
-      headTitle: ''
+      headTitle: '',
+      deletedBy: 0,
+      restoredBy: 0
     }
     for (let i in orgs) {
       if (orgs[i].id == String(id)) {
@@ -72,11 +76,6 @@
 
     return toorgs;
   }
-
-  // TODO:HABIBI show all budget from beginning, this one still empty everytime
-  // eg. refresh the budget page, previously added program still empty
-
-  // TODO:HABIBI find out why "unit" not saved in database or not showing after editing
 
   onMount(() => {
 	  REFORMAT_ORGS = reformatorgs();

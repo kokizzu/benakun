@@ -1,16 +1,18 @@
 /**
   * @typedef {Object} Org
-  * @property {string} id
+  * @property {number} id
   * @property {string} name
   * @property {string} headTitle
   * @property {number} orgType
-  * @property {string} parentId
+  * @property {number} parentId
   * @property {string} tenantCode
   * @property {number} createdAt
-  * @property {string} createdBy
+  * @property {number} createdBy
   * @property {number} updatedAt
-  * @property {string} updatedBy
+  * @property {number} updatedBy
   * @property {number} deletedAt
+  * @property {number} deletedBy
+  * @property {number} restoredBy
   * @property {Array<Org>} children
   */
 module.exports = {};
