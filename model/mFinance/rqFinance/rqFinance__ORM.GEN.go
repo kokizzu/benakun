@@ -1549,6 +1549,7 @@ type TransactionTplDetail struct {
 	DeletedAt  int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
 	DeletedBy  uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
 	RestoredBy uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
+	Attributes []any       `json:"attributes" form:"attributes" query:"attributes" long:"attributes" msg:"attributes"`
 }
 
 // NewTransactionTplDetail create new ORM reader/query object
@@ -1605,6 +1606,7 @@ func (t *TransactionTplDetail) SqlSelectAllFields() string { //nolint:dupl false
 	, "deletedAt"
 	, "deletedBy"
 	, "restoredBy"
+	, "attributes"
 	`
 }
 
@@ -1622,6 +1624,7 @@ func (t *TransactionTplDetail) SqlSelectAllUncensoredFields() string { //nolint:
 	, "deletedAt"
 	, "deletedBy"
 	, "restoredBy"
+	, "attributes"
 	`
 }
 
@@ -1639,7 +1642,8 @@ func (t *TransactionTplDetail) ToUpdateArray() *tarantool.Operations { //nolint:
 		Assign(8, t.UpdatedBy).
 		Assign(9, t.DeletedAt).
 		Assign(10, t.DeletedBy).
-		Assign(11, t.RestoredBy)
+		Assign(11, t.RestoredBy).
+		Assign(12, t.Attributes)
 }
 
 // IdxId return name of the index
@@ -1762,6 +1766,16 @@ func (t *TransactionTplDetail) SqlRestoredBy() string { //nolint:dupl false posi
 	return `"restoredBy"`
 }
 
+// IdxAttributes return name of the index
+func (t *TransactionTplDetail) IdxAttributes() int { //nolint:dupl false positive
+	return 12
+}
+
+// SqlAttributes return name of the column being indexed
+func (t *TransactionTplDetail) SqlAttributes() string { //nolint:dupl false positive
+	return `"attributes"`
+}
+
 // ToArray receiver fields to slice
 func (t *TransactionTplDetail) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -1781,6 +1795,7 @@ func (t *TransactionTplDetail) ToArray() A.X { //nolint:dupl false positive
 		t.DeletedAt,  // 9
 		t.DeletedBy,  // 10
 		t.RestoredBy, // 11
+		t.Attributes, // 12
 	}
 }
 
@@ -1798,6 +1813,7 @@ func (t *TransactionTplDetail) FromArray(a A.X) *TransactionTplDetail { //nolint
 	t.DeletedAt = X.ToI(a[9])
 	t.DeletedBy = X.ToU(a[10])
 	t.RestoredBy = X.ToU(a[11])
+	t.Attributes = X.ToArr(a[12])
 	return t
 }
 
@@ -1815,6 +1831,7 @@ func (t *TransactionTplDetail) FromUncensoredArray(a A.X) *TransactionTplDetail 
 	t.DeletedAt = X.ToI(a[9])
 	t.DeletedBy = X.ToU(a[10])
 	t.RestoredBy = X.ToU(a[11])
+	t.Attributes = X.ToArr(a[12])
 	return t
 }
 
@@ -1891,6 +1908,7 @@ var TransactionTplDetailFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl fal
 	`deletedAt`:  Tt.Integer,
 	`deletedBy`:  Tt.Unsigned,
 	`restoredBy`: Tt.Unsigned,
+	`attributes`: Tt.Array,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

@@ -256,6 +256,9 @@
               <th>Kredit</th>
               <th>Debit</th>
               <th>CoA (Chart of Accounts)</th>
+              <th>Auto Sum</th>
+              <th>Child Only</th>
+              <th>Sales</th>
             </tr>
           </thead>
           <tbody>
@@ -296,6 +299,9 @@
                   <td>{!trxTplDetail.isDebit ? 'Yes' : 'No'}</td>
                   <td>{trxTplDetail.isDebit ? 'Yes' : 'No'}</td>
                   <td>{coas[trxTplDetail.coaId]}</td>
+                  <td>Yes</td>
+                  <td>No</td>
+                  <td>Yes</td>
                 </tr>
               {/each}
             {:else}

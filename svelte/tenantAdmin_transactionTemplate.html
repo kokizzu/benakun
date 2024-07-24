@@ -9299,7 +9299,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let div0;
     let table;
     let thead;
-    let t9;
+    let t15;
     let tbody;
     let current_block_type_index;
     let if_block;
@@ -9323,8 +9323,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         div0 = element("div");
         table = element("table");
         thead = element("thead");
-        thead.innerHTML = `<tr><th class="no svelte-185knf0">#</th> <th class="a_row svelte-185knf0">Action</th> <th class="svelte-185knf0">Kredit</th> <th class="svelte-185knf0">Debit</th> <th class="svelte-185knf0">CoA (Chart of Accounts)</th></tr>`;
-        t9 = space();
+        thead.innerHTML = `<tr><th class="no svelte-185knf0">#</th> <th class="a_row svelte-185knf0">Action</th> <th class="svelte-185knf0">Kredit</th> <th class="svelte-185knf0">Debit</th> <th class="svelte-185knf0">CoA (Chart of Accounts)</th> <th class="svelte-185knf0">Auto Sum</th> <th class="svelte-185knf0">Child Only</th> <th class="svelte-185knf0">Sales</th></tr>`;
+        t15 = space();
         tbody = element("tbody");
         if_block.c();
         attr(thead, "class", "svelte-185knf0");
@@ -9337,7 +9337,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(div1, div0);
         append(div0, table);
         append(table, thead);
-        append(table, t9);
+        append(table, t15);
         append(table, tbody);
         if_blocks[current_block_type_index].m(tbody, null);
         current = true;
@@ -9511,6 +9511,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     let t8;
     let t9;
+    let td5;
+    let t11;
+    let td6;
+    let t13;
+    let td7;
+    let t15;
     let current;
     let mounted;
     let dispose;
@@ -9562,6 +9568,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         td4 = element("td");
         t8 = text(t8_value);
         t9 = space();
+        td5 = element("td");
+        td5.textContent = "Yes";
+        t11 = space();
+        td6 = element("td");
+        td6.textContent = "No";
+        t13 = space();
+        td7 = element("td");
+        td7.textContent = "Yes";
+        t15 = space();
         attr(td0, "class", "svelte-185knf0");
         attr(button0, "class", "btn edit svelte-185knf0");
         attr(button0, "title", "Edit");
@@ -9572,6 +9587,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         attr(td2, "class", "svelte-185knf0");
         attr(td3, "class", "svelte-185knf0");
         attr(td4, "class", "svelte-185knf0");
+        attr(td5, "class", "svelte-185knf0");
+        attr(td6, "class", "svelte-185knf0");
+        attr(td7, "class", "svelte-185knf0");
         this.first = tr;
       },
       m(target, anchor) {
@@ -9596,6 +9614,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(tr, td4);
         append(td4, t8);
         append(tr, t9);
+        append(tr, td5);
+        append(tr, t11);
+        append(tr, td6);
+        append(tr, t13);
+        append(tr, td7);
+        append(tr, t15);
         current = true;
         if (!mounted) {
           dispose = listen(button0, "click", click_handler_2);

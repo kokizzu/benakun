@@ -1225,6 +1225,7 @@ type TransactionTplDetailMutator struct {
 func NewTransactionTplDetailMutator(adapter *Tt.Adapter) (res *TransactionTplDetailMutator) {
 	res = &TransactionTplDetailMutator{TransactionTplDetail: rqFinance.TransactionTplDetail{Adapter: adapter}}
 	res.mutations = tarantool.NewOperations()
+	res.Attributes = []any{}
 	return
 }
 
@@ -1437,6 +1438,14 @@ func (t *TransactionTplDetailMutator) SetRestoredBy(val uint64) bool { //nolint:
 	return false
 }
 
+// SetAttributes create mutations, should not duplicate
+func (t *TransactionTplDetailMutator) SetAttributes(val []any) bool { //nolint:dupl false positive
+	t.mutations.Assign(12, val)
+	t.logs = append(t.logs, A.X{`attributes`, t.Attributes, val})
+	t.Attributes = val
+	return true
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (t *TransactionTplDetailMutator) SetAll(from rqFinance.TransactionTplDetail, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -1491,6 +1500,10 @@ func (t *TransactionTplDetailMutator) SetAll(from rqFinance.TransactionTplDetail
 	}
 	if !excludeMap[`restoredBy`] && (forceMap[`restoredBy`] || from.RestoredBy != 0) {
 		t.RestoredBy = from.RestoredBy
+		changed = true
+	}
+	if !excludeMap[`attributes`] && (forceMap[`attributes`] || from.Attributes != nil) {
+		t.Attributes = from.Attributes
 		changed = true
 	}
 	return

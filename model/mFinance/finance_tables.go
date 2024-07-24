@@ -161,6 +161,13 @@ const (
 
 	IsDebit           = `isDebit`
 	IsAlwaysStartDate = `isAlwaysStartDate`
+	Attributes				= `attributes`
+)
+
+const (
+	AttributesAutoSum 	= `autoSum`
+	AttributesChildOnly	= `childOnly`
+	AttributesSales			= `sales`
 )
 
 const (
@@ -254,6 +261,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedAt, Tt.Integer},
 			{DeletedBy, Tt.Unsigned},
 			{RestoredBy, Tt.Unsigned},
+			{Attributes, Tt.Array},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,
