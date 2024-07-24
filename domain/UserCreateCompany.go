@@ -154,6 +154,16 @@ func insertDefaultCoa(ta *Tt.Adapter, coaDefault mFinance.CoaDefault, tenantCode
 		}
 	}
 
+	switch coaDefault.Label {
+	case mFinance.LabelProducts:
+		tenant := wcAuth.NewTenantsMutator(ta)
+		tenant.TenantCode = tenantCode
+		tenant.SetProductsCoaId(coa.Id)
+		if !tenant.DoUpdateByTenantCode() {
+			return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
+		}
+	}
+
 	return coa.Id, nil
 }
 
