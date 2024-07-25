@@ -598,7 +598,13 @@
 }
 
 /* fakecss:./_components/CoaTree.esbuild-svelte-fake-css */
-.coa-child.svelte-11pm4tq.svelte-11pm4tq {
+.drag-over.svelte-1buuz3b.svelte-1buuz3b {
+  background-color: var(--gray-002);
+}
+.dragging.svelte-1buuz3b.svelte-1buuz3b {
+  background-color: #FFF;
+}
+.coa-child.svelte-1buuz3b.svelte-1buuz3b {
   width: auto;
   display: flex;
   flex-direction: row;
@@ -612,30 +618,30 @@
   border-radius: 8px;
   user-select: none;
 }
-.coa-child.svelte-11pm4tq.svelte-11pm4tq:hover {
+.coa-child.svelte-1buuz3b.svelte-1buuz3b:hover {
   background-color: var(--gray-001);
 }
-.coa-child.svelte-11pm4tq .num-title.svelte-11pm4tq {
+.coa-child.svelte-1buuz3b .num-title.svelte-1buuz3b {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 30px;
   position: relative;
 }
-.coa-child.svelte-11pm4tq .num-title .h-line.svelte-11pm4tq {
+.coa-child.svelte-1buuz3b .num-title .h-line.svelte-1buuz3b {
   position: absolute;
   left: -14px;
   width: 1px;
   height: 41px;
   background-color: var(--gray-003);
 }
-.coa-child.svelte-11pm4tq .num-title .text.svelte-11pm4tq {
+.coa-child.svelte-1buuz3b .num-title .text.svelte-1buuz3b {
   font-size: 14px;
   line-height: 2.2rem;
   font-weight: 500;
   margin: 0;
 }
-.coa-child.svelte-11pm4tq .num-title .text .label.svelte-11pm4tq {
+.coa-child.svelte-1buuz3b .num-title .text .label.svelte-1buuz3b {
   color: var(--blue-006);
   font-weight: 600;
   font-size: 10px;
@@ -647,25 +653,25 @@
   height: fit-content;
   line-height: 2.2rem;
 }
-.coa-child.svelte-11pm4tq .num-title .text.deleted .name.svelte-11pm4tq {
+.coa-child.svelte-1buuz3b .num-title .text.deleted .name.svelte-1buuz3b {
   color: var(--red-005);
   text-decoration: line-through;
   line-height: 2.2rem;
 }
-.coa-child.svelte-11pm4tq .options.svelte-11pm4tq {
+.coa-child.svelte-1buuz3b .options.svelte-1buuz3b {
   display: flex;
   cursor: pointer;
   flex-direction: row;
   align-items: center;
 }
-.coa-child.svelte-11pm4tq .options .label.svelte-11pm4tq {
+.coa-child.svelte-1buuz3b .options .label.svelte-1buuz3b {
   padding: 2px 10px;
   margin-right: 7px;
   border-radius: 999px;
   background-color: var(--violet-transparent);
   color: var(--violet-005);
 }
-.coa-child.svelte-11pm4tq .options .btn.svelte-11pm4tq {
+.coa-child.svelte-1buuz3b .options .btn.svelte-1buuz3b {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -675,7 +681,7 @@
   padding: 5px;
   cursor: pointer;
 }
-.coa-child.svelte-11pm4tq .options .btn.svelte-11pm4tq:hover {
+.coa-child.svelte-1buuz3b .options .btn.svelte-1buuz3b:hover {
   background-color: var(--violet-transparent);
 }
 .coa-child .options .btn:hover svg {
@@ -3418,6 +3424,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   }
   function empty() {
     return text("");
+  }
+  function comment(content) {
+    return document.createComment(content);
   }
   function listen(node, event, handler, options) {
     node.addEventListener(event, handler, options);
@@ -7027,8 +7036,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var import_jsApi = __toESM(require_jsApi_GEN());
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[26] = list[i];
-    child_ctx[28] = i;
+    child_ctx[39] = list[i];
+    child_ctx[41] = i;
     return child_ctx;
   }
   function create_if_block_22(ctx) {
@@ -7042,14 +7051,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       c() {
         span = element("span");
         t = text(t_value);
-        attr(span, "class", "label svelte-11pm4tq");
+        attr(span, "class", "label svelte-1buuz3b");
       },
       m(target, anchor) {
         insert(target, span, anchor);
         append(span, t);
       },
       p(ctx2, dirty) {
-        if (dirty & /*coa*/
+        if (dirty[0] & /*coa*/
         1 && t_value !== (t_value = /*coa*/
         ctx2[0].label + ""))
           set_data(t, t_value);
@@ -7079,7 +7088,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       c() {
         button = element("button");
         create_component(icon.$.fragment);
-        attr(button, "class", "btn svelte-11pm4tq");
+        attr(button, "class", "btn svelte-1buuz3b");
         attr(button, "title", "Rollback");
       },
       m(target, anchor) {
@@ -7091,7 +7100,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*restoreCoaChild*/
-            ctx[13]
+            ctx[15]
           );
           mounted = true;
         }
@@ -7163,11 +7172,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t1 = space();
         button2 = element("button");
         create_component(icon2.$.fragment);
-        attr(button0, "class", "btn svelte-11pm4tq");
+        attr(button0, "class", "btn svelte-1buuz3b");
         attr(button0, "title", "Add child");
-        attr(button1, "class", "btn svelte-11pm4tq");
+        attr(button1, "class", "btn svelte-1buuz3b");
         attr(button1, "title", "Edit");
-        attr(button2, "class", "btn svelte-11pm4tq");
+        attr(button2, "class", "btn svelte-1buuz3b");
         attr(button2, "title", "Delete");
       },
       m(target, anchor) {
@@ -7186,19 +7195,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               button0,
               "click",
               /*click_handler*/
-              ctx[19]
+              ctx[23]
             ),
             listen(
               button1,
               "click",
               /*click_handler_1*/
-              ctx[20]
+              ctx[24]
             ),
             listen(
               button2,
               "click",
               /*deleteCoaChild*/
-              ctx[12]
+              ctx[14]
             )
           ];
           mounted = true;
@@ -7246,7 +7255,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     const get_key = (ctx2) => (
       /*ch*/
-      ctx2[26].id
+      ctx2[39].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context2(ctx, each_value, i);
@@ -7270,7 +7279,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*coa, num, parentNum, indent*/
+        if (dirty[0] & /*coa, num, parentNum, indent*/
         15) {
           each_value = ensure_array_like(
             /*coa*/
@@ -7313,11 +7322,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       props: {
         coa: (
           /*ch*/
-          ctx[26]
+          ctx[39]
         ),
         num: `${/*num*/
         ctx[1]}.${/*idx*/
-        ctx[28] + 1}`,
+        ctx[41] + 1}`,
         parentNum: (
           /*parentNum*/
           ctx[2]
@@ -7325,13 +7334,44 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         indent: (
           /*indent*/
           ctx[3] + 1
-        )
+        ),
+        draggable: "true"
       }
     });
     coatree.$on(
       "update",
       /*update_handler*/
-      ctx[21]
+      ctx[25]
+    );
+    coatree.$on(
+      "info",
+      /*info_handler*/
+      ctx[26]
+    );
+    coatree.$on(
+      "moving",
+      /*moving_handler*/
+      ctx[27]
+    );
+    coatree.$on(
+      "moved",
+      /*moved_handler*/
+      ctx[28]
+    );
+    coatree.$on(
+      "dragover",
+      /*dragover_handler*/
+      ctx[29]
+    );
+    coatree.$on(
+      "dragleave",
+      /*dragleave_handler*/
+      ctx[30]
+    );
+    coatree.$on(
+      "dragend",
+      /*dragend_handler*/
+      ctx[31]
     );
     return {
       key: key_1,
@@ -7349,20 +7389,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         const coatree_changes = {};
-        if (dirty & /*coa*/
+        if (dirty[0] & /*coa*/
         1)
           coatree_changes.coa = /*ch*/
-          ctx[26];
-        if (dirty & /*num, coa*/
+          ctx[39];
+        if (dirty[0] & /*num, coa*/
         3)
           coatree_changes.num = `${/*num*/
           ctx[1]}.${/*idx*/
-          ctx[28] + 1}`;
-        if (dirty & /*parentNum*/
+          ctx[41] + 1}`;
+        if (dirty[0] & /*parentNum*/
         4)
           coatree_changes.parentNum = /*parentNum*/
           ctx[2];
-        if (dirty & /*indent*/
+        if (dirty[0] & /*indent*/
         8)
           coatree_changes.indent = /*indent*/
           ctx[3] + 1;
@@ -7393,46 +7433,51 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let updating_label;
     let updating_isSubmitted;
     let t0;
+    let c;
+    let t1;
     let div3;
     let div2;
     let div0;
     let span0;
-    let t1;
+    let t2;
     let h6;
     let span1;
-    let t2;
     let t3;
     let t4;
     let t5;
+    let t6;
     let span2;
-    let t6_value = (
+    let t7_value = (
       /*coa*/
       ctx[0].name + ""
     );
-    let t6;
-    let h6_class_value;
     let t7;
-    let div1;
+    let h6_class_value;
     let t8;
+    let div1;
+    let t9;
     let current_block_type_index;
     let if_block1;
-    let t9;
+    let t10;
+    let div3_class_value;
     let current;
+    let mounted;
+    let dispose;
     function popupcoa_heading_binding(value) {
-      ctx[14](value);
+      ctx[18](value);
     }
     function popupcoa_name_binding(value) {
-      ctx[16](value);
+      ctx[20](value);
     }
     function popupcoa_label_binding(value) {
-      ctx[17](value);
+      ctx[21](value);
     }
     function popupcoa_isSubmitted_binding(value) {
-      ctx[18](value);
+      ctx[22](value);
     }
     let popupcoa_props = { onSubmit: (
       /*submitUpsertCoa*/
-      ctx[10]
+      ctx[12]
     ) };
     if (
       /*heading*/
@@ -7464,7 +7509,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     popupcoa = new PopUpCoa_default({ props: popupcoa_props });
     binding_callbacks.push(() => bind(popupcoa, "heading", popupcoa_heading_binding));
-    ctx[15](popupcoa);
+    ctx[19](popupcoa);
     binding_callbacks.push(() => bind(popupcoa, "name", popupcoa_name_binding));
     binding_callbacks.push(() => bind(popupcoa, "label", popupcoa_label_binding));
     binding_callbacks.push(() => bind(popupcoa, "isSubmitted", popupcoa_isSubmitted_binding));
@@ -7482,7 +7527,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type(ctx, -1);
+    current_block_type_index = select_block_type(ctx, [-1, -1]);
     if_block1 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     let if_block2 = (
       /*coa*/
@@ -7493,100 +7538,137 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       c() {
         create_component(popupcoa.$.fragment);
         t0 = space();
+        c = comment(" svelte-ignore a11y-no-static-element-interactions ");
+        t1 = space();
         div3 = element("div");
         div2 = element("div");
         div0 = element("div");
         span0 = element("span");
-        t1 = space();
+        t2 = space();
         h6 = element("h6");
         span1 = element("span");
-        t2 = text(
+        t3 = text(
           /*parentNum*/
           ctx[2]
         );
-        t3 = text(".");
-        t4 = text(
+        t4 = text(".");
+        t5 = text(
           /*num*/
           ctx[1]
         );
-        t5 = text("\xA0\xA0\n        ");
+        t6 = text("\xA0\xA0\n        ");
         span2 = element("span");
-        t6 = text(t6_value);
-        t7 = space();
+        t7 = text(t7_value);
+        t8 = space();
         div1 = element("div");
         if (if_block0)
           if_block0.c();
-        t8 = space();
-        if_block1.c();
         t9 = space();
+        if_block1.c();
+        t10 = space();
         if (if_block2)
           if_block2.c();
-        attr(span0, "class", "h-line svelte-11pm4tq");
-        attr(span1, "class", "label svelte-11pm4tq");
-        attr(span2, "class", "name svelte-11pm4tq");
+        attr(span0, "class", "h-line svelte-1buuz3b");
+        attr(span1, "class", "label svelte-1buuz3b");
+        attr(span2, "class", "name svelte-1buuz3b");
         attr(h6, "class", h6_class_value = null_to_empty(`text ${/*coa*/
-        ctx[0].deletedAt > 0 ? "deleted" : ""}`) + " svelte-11pm4tq");
-        attr(div0, "class", "num-title svelte-11pm4tq");
-        attr(div1, "class", "options svelte-11pm4tq");
-        attr(div2, "class", "coa-child svelte-11pm4tq");
+        ctx[0].deletedAt > 0 ? "deleted" : ""}`) + " svelte-1buuz3b");
+        attr(div0, "class", "num-title svelte-1buuz3b");
+        attr(div1, "class", "options svelte-1buuz3b");
+        attr(div2, "class", "coa-child svelte-1buuz3b");
         set_style(
           div2,
           "--indent-width",
           /*indentWidth*/
           ctx[4]
         );
+        attr(div3, "class", div3_class_value = /*isDragOver*/
+        (ctx[10] ? "drag-over" : "") + " " + /*isDragging*/
+        (ctx[11] ? "dragging" : "") + " svelte-1buuz3b");
+        attr(div3, "draggable", "true");
       },
       m(target, anchor) {
         mount_component(popupcoa, target, anchor);
         insert(target, t0, anchor);
+        insert(target, c, anchor);
+        insert(target, t1, anchor);
         insert(target, div3, anchor);
         append(div3, div2);
         append(div2, div0);
         append(div0, span0);
-        append(div0, t1);
+        append(div0, t2);
         append(div0, h6);
         append(h6, span1);
-        append(span1, t2);
         append(span1, t3);
         append(span1, t4);
-        append(h6, t5);
+        append(span1, t5);
+        append(h6, t6);
         append(h6, span2);
-        append(span2, t6);
-        append(div2, t7);
+        append(span2, t7);
+        append(div2, t8);
         append(div2, div1);
         if (if_block0)
           if_block0.m(div1, null);
-        append(div1, t8);
+        append(div1, t9);
         if_blocks[current_block_type_index].m(div1, null);
-        append(div3, t9);
+        append(div3, t10);
         if (if_block2)
           if_block2.m(div3, null);
         current = true;
+        if (!mounted) {
+          dispose = [
+            listen(
+              div3,
+              "dragstart",
+              /*updateOnMoving*/
+              ctx[16]
+            ),
+            listen(div3, "drop", prevent_default(
+              /*updateMovedOrg*/
+              ctx[17]
+            )),
+            listen(div3, "dragover", prevent_default(
+              /*dragover_handler_1*/
+              ctx[32]
+            )),
+            listen(div3, "dragleave", prevent_default(
+              /*dragleave_handler_1*/
+              ctx[33]
+            )),
+            listen(
+              div3,
+              "dragend",
+              /*dragend_handler_1*/
+              ctx[34]
+            )
+          ];
+          mounted = true;
+        }
       },
-      p(ctx2, [dirty]) {
+      p(ctx2, dirty) {
         const popupcoa_changes = {};
-        if (!updating_heading && dirty & /*heading*/
+        if (!updating_heading && dirty[0] & /*heading*/
         512) {
           updating_heading = true;
           popupcoa_changes.heading = /*heading*/
           ctx2[9];
           add_flush_callback(() => updating_heading = false);
         }
-        if (!updating_name && dirty & /*name*/
+        if (!updating_name && dirty[0] & /*name*/
         64) {
           updating_name = true;
           popupcoa_changes.name = /*name*/
           ctx2[6];
           add_flush_callback(() => updating_name = false);
         }
-        if (!updating_label && dirty & /*label*/
+        if (!updating_label && dirty[0] & /*label*/
         128) {
           updating_label = true;
           popupcoa_changes.label = /*label*/
           ctx2[7];
           add_flush_callback(() => updating_label = false);
         }
-        if (!updating_isSubmitted && dirty & /*isSubmitted*/
+        if (!updating_isSubmitted && dirty[0] & /*isSubmitted*/
         256) {
           updating_isSubmitted = true;
           popupcoa_changes.isSubmitted = /*isSubmitted*/
@@ -7594,27 +7676,27 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           add_flush_callback(() => updating_isSubmitted = false);
         }
         popupcoa.$set(popupcoa_changes);
-        if (!current || dirty & /*parentNum*/
+        if (!current || dirty[0] & /*parentNum*/
         4)
           set_data(
-            t2,
+            t3,
             /*parentNum*/
             ctx2[2]
           );
-        if (!current || dirty & /*num*/
+        if (!current || dirty[0] & /*num*/
         2)
           set_data(
-            t4,
+            t5,
             /*num*/
             ctx2[1]
           );
-        if ((!current || dirty & /*coa*/
-        1) && t6_value !== (t6_value = /*coa*/
+        if ((!current || dirty[0] & /*coa*/
+        1) && t7_value !== (t7_value = /*coa*/
         ctx2[0].name + ""))
-          set_data(t6, t6_value);
-        if (!current || dirty & /*coa*/
+          set_data(t7, t7_value);
+        if (!current || dirty[0] & /*coa*/
         1 && h6_class_value !== (h6_class_value = null_to_empty(`text ${/*coa*/
-        ctx2[0].deletedAt > 0 ? "deleted" : ""}`) + " svelte-11pm4tq")) {
+        ctx2[0].deletedAt > 0 ? "deleted" : ""}`) + " svelte-1buuz3b")) {
           attr(h6, "class", h6_class_value);
         }
         if (
@@ -7626,7 +7708,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           } else {
             if_block0 = create_if_block_22(ctx2);
             if_block0.c();
-            if_block0.m(div1, t8);
+            if_block0.m(div1, t9);
           }
         } else if (if_block0) {
           if_block0.d(1);
@@ -7652,7 +7734,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           transition_in(if_block1, 1);
           if_block1.m(div1, null);
         }
-        if (!current || dirty & /*indentWidth*/
+        if (!current || dirty[0] & /*indentWidth*/
         16) {
           set_style(
             div2,
@@ -7668,7 +7750,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         ) {
           if (if_block2) {
             if_block2.p(ctx2, dirty);
-            if (dirty & /*coa*/
+            if (dirty[0] & /*coa*/
             1) {
               transition_in(if_block2, 1);
             }
@@ -7684,6 +7766,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             if_block2 = null;
           });
           check_outros();
+        }
+        if (!current || dirty[0] & /*isDragOver, isDragging*/
+        3072 && div3_class_value !== (div3_class_value = /*isDragOver*/
+        (ctx2[10] ? "drag-over" : "") + " " + /*isDragging*/
+        (ctx2[11] ? "dragging" : "") + " svelte-1buuz3b")) {
+          attr(div3, "class", div3_class_value);
         }
       },
       i(local) {
@@ -7703,15 +7791,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       d(detaching) {
         if (detaching) {
           detach(t0);
+          detach(c);
+          detach(t1);
           detach(div3);
         }
-        ctx[15](null);
+        ctx[19](null);
         destroy_component(popupcoa, detaching);
         if (if_block0)
           if_block0.d();
         if_blocks[current_block_type_index].d();
         if (if_block2)
           if_block2.d();
+        mounted = false;
+        run_all(dispose);
       }
     };
   }
@@ -7822,6 +7914,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
       );
     }
+    let isDragOver = false;
+    let isDragging = false;
+    const updateOnMoving = () => {
+      dispatch("moving", { coa });
+      $invalidate(11, isDragging = true);
+    };
+    const updateMovedOrg = () => {
+      dispatch("moved", { coa });
+      $invalidate(10, isDragOver = false);
+    };
     function popupcoa_heading_binding(value) {
       heading = value;
       $invalidate(9, heading);
@@ -7849,6 +7951,27 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function update_handler(event) {
       bubble.call(this, $self, event);
     }
+    function info_handler(event) {
+      bubble.call(this, $self, event);
+    }
+    function moving_handler(event) {
+      bubble.call(this, $self, event);
+    }
+    function moved_handler(event) {
+      bubble.call(this, $self, event);
+    }
+    function dragover_handler(event) {
+      bubble.call(this, $self, event);
+    }
+    function dragleave_handler(event) {
+      bubble.call(this, $self, event);
+    }
+    function dragend_handler(event) {
+      bubble.call(this, $self, event);
+    }
+    const dragover_handler_1 = () => $invalidate(10, isDragOver = true);
+    const dragleave_handler_1 = () => $invalidate(10, isDragOver = false);
+    const dragend_handler_1 = () => $invalidate(11, isDragging = false);
     $self.$set = ($props2) => {
       if ("coa" in $props2)
         $invalidate(0, coa = $props2.coa);
@@ -7870,10 +7993,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       label,
       isSubmitted,
       heading,
+      isDragOver,
+      isDragging,
       submitUpsertCoa,
       toggleShowPopUpCoa,
       deleteCoaChild,
       restoreCoaChild,
+      updateOnMoving,
+      updateMovedOrg,
       popupcoa_heading_binding,
       popupcoa_binding,
       popupcoa_name_binding,
@@ -7881,13 +8008,22 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       popupcoa_isSubmitted_binding,
       click_handler,
       click_handler_1,
-      update_handler
+      update_handler,
+      info_handler,
+      moving_handler,
+      moved_handler,
+      dragover_handler,
+      dragleave_handler,
+      dragend_handler,
+      dragover_handler_1,
+      dragleave_handler_1,
+      dragend_handler_1
     ];
   }
   var CoaTree = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance4, create_fragment4, safe_not_equal, { coa: 0, num: 1, parentNum: 2, indent: 3 });
+      init(this, options, instance4, create_fragment4, safe_not_equal, { coa: 0, num: 1, parentNum: 2, indent: 3 }, null, [-1, -1]);
     }
   };
   var CoaTree_default = CoaTree;
@@ -9255,14 +9391,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // tenantAdmin_coa.svelte
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[19] = list[i];
-    child_ctx[21] = i;
+    child_ctx[22] = list[i];
+    child_ctx[24] = i;
     return child_ctx;
   }
   function get_each_context_12(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[22] = list[i];
-    child_ctx[24] = i;
+    child_ctx[25] = list[i];
+    child_ctx[27] = i;
     return child_ctx;
   }
   function create_if_block5(ctx) {
@@ -9272,11 +9408,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     let each_value_1 = ensure_array_like(
       /*c*/
-      ctx[19].children
+      ctx[22].children
     );
     const get_key = (ctx2) => (
       /*cc*/
-      ctx2[22].id
+      ctx2[25].id
     );
     for (let i = 0; i < each_value_1.length; i += 1) {
       let child_ctx = get_each_context_12(ctx, each_value_1, i);
@@ -9301,11 +9437,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*REFORMAT_COAS, updateEventHandler*/
-        33) {
+        if (dirty & /*REFORMAT_COAS, updateEventHandler, coaMovingHandler, coaMovedHandler*/
+        801) {
           each_value_1 = ensure_array_like(
             /*c*/
-            ctx2[19].children
+            ctx2[22].children
           );
           group_outros();
           each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value_1, each_1_lookup, div, outro_and_destroy_block, create_each_block_12, null, get_each_context_12);
@@ -9344,13 +9480,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       props: {
         coa: (
           /*cc*/
-          ctx[22]
+          ctx[25]
         ),
         num: `${/*idx*/
-        ctx[24] + 1}`,
+        ctx[27] + 1}`,
         parentNum: (
           /*idxParent*/
-          ctx[21] + 1
+          ctx[24] + 1
         ),
         indent: 1
       }
@@ -9359,6 +9495,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       "update",
       /*updateEventHandler*/
       ctx[5]
+    );
+    coatree.$on(
+      "moving",
+      /*coaMovingHandler*/
+      ctx[8]
+    );
+    coatree.$on(
+      "moved",
+      /*coaMovedHandler*/
+      ctx[9]
     );
     return {
       key: key_1,
@@ -9379,15 +9525,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (dirty & /*REFORMAT_COAS*/
         1)
           coatree_changes.coa = /*cc*/
-          ctx[22];
+          ctx[25];
         if (dirty & /*REFORMAT_COAS*/
         1)
           coatree_changes.num = `${/*idx*/
-          ctx[24] + 1}`;
+          ctx[27] + 1}`;
         if (dirty & /*REFORMAT_COAS*/
         1)
           coatree_changes.parentNum = /*idxParent*/
-          ctx[21] + 1;
+          ctx[24] + 1;
         coatree.$set(coatree_changes);
       },
       i(local) {
@@ -9415,13 +9561,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let span;
     let t0_value = (
       /*idxParent*/
-      ctx[21] + 1 + ""
+      ctx[24] + 1 + ""
     );
     let t0;
     let t1;
     let t2_value = (
       /*c*/
-      ctx[19].name + ""
+      ctx[22].name + ""
     );
     let t2;
     let t3;
@@ -9444,16 +9590,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function click_handler_1() {
       return (
         /*click_handler_1*/
-        ctx[13](
+        ctx[15](
           /*c*/
-          ctx[19]
+          ctx[22]
         )
       );
     }
     let if_block = (
       /*c*/
-      ctx[19].children && /*c*/
-      ctx[19].children.length && create_if_block5(ctx)
+      ctx[22].children && /*c*/
+      ctx[22].children.length && create_if_block5(ctx)
     );
     return {
       key: key_1,
@@ -9509,16 +9655,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         ctx = new_ctx;
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t0_value !== (t0_value = /*idxParent*/
-        ctx[21] + 1 + ""))
+        ctx[24] + 1 + ""))
           set_data(t0, t0_value);
         if ((!current || dirty & /*REFORMAT_COAS*/
         1) && t2_value !== (t2_value = /*c*/
-        ctx[19].name + ""))
+        ctx[22].name + ""))
           set_data(t2, t2_value);
         if (
           /*c*/
-          ctx[19].children && /*c*/
-          ctx[19].children.length
+          ctx[22].children && /*c*/
+          ctx[22].children.length
         ) {
           if (if_block) {
             if_block.p(ctx, dirty);
@@ -9580,7 +9726,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     const get_key = (ctx2) => (
       /*c*/
-      ctx2[19].id
+      ctx2[22].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context3(ctx, each_value, i);
@@ -9617,14 +9763,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             button,
             "click",
             /*click_handler*/
-            ctx[12]
+            ctx[14]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*REFORMAT_COAS, updateEventHandler, toggleShowPopUpCoa*/
-        161) {
+        if (dirty & /*REFORMAT_COAS, updateEventHandler, coaMovingHandler, coaMovedHandler, toggleShowPopUpCoa*/
+        929) {
           each_value = ensure_array_like(
             /*REFORMAT_COAS*/
             ctx2[0] || []
@@ -9669,13 +9815,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let mainlayout;
     let current;
     function popupcoa_name_binding(value) {
-      ctx[9](value);
+      ctx[11](value);
     }
     function popupcoa_label_binding(value) {
-      ctx[10](value);
+      ctx[12](value);
     }
     function popupcoa_isSubmitted_binding(value) {
-      ctx[11](value);
+      ctx[13](value);
     }
     let popupcoa_props = { onSubmit: (
       /*submitUpsertCoa*/
@@ -9703,7 +9849,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       ctx[4];
     }
     popupcoa = new PopUpCoa_default({ props: popupcoa_props });
-    ctx[8](popupcoa);
+    ctx[10](popupcoa);
     binding_callbacks.push(() => bind(popupcoa, "name", popupcoa_name_binding));
     binding_callbacks.push(() => bind(popupcoa, "label", popupcoa_label_binding));
     binding_callbacks.push(() => bind(popupcoa, "isSubmitted", popupcoa_isSubmitted_binding));
@@ -9751,7 +9897,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         popupcoa.$set(popupcoa_changes);
         const mainlayout_changes = {};
         if (dirty & /*$scope, REFORMAT_COAS*/
-        33554433) {
+        268435457) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -9772,7 +9918,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (detaching) {
           detach(t);
         }
-        ctx[8](null);
+        ctx[10](null);
         destroy_component(popupcoa, detaching);
         destroy_component(mainlayout, detaching);
       }
@@ -9887,6 +10033,40 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       label2 = label2;
       popUpCoa.show();
     }
+    let coaMoving = null;
+    const coaMovingHandler = (e) => coaMoving = e.detail.coa;
+    const coaMovedHandler = async (e) => {
+      const parentCoa = e.detail.coa;
+      if (!coaMoving)
+        return;
+      if (parentCoa.id == coaMoving.parentId)
+        return;
+      const i = {
+        cmd: "move",
+        coa: {
+          id: Number(coaMoving.id),
+          parentId: Number(coaMoving.parentId)
+        },
+        moveToIdx: 0,
+        toParentId: Number(parentCoa.id)
+      };
+      await (0, import_jsApi_GEN2.TenantAdminCoa)(
+        // @ts-ignore
+        i,
+        /** @returns {Promise<void>}*/
+        function(o) {
+          if (o.error) {
+            notifier.showError(o.error);
+            console.log(o);
+            return;
+          }
+          coas = o.coas;
+          $invalidate(0, REFORMAT_COAS = []);
+          $invalidate(0, REFORMAT_COAS = reformatCoas());
+          notifier.showSuccess("coa moved");
+        }
+      );
+    };
     function popupcoa_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpCoa = $value;
@@ -9920,6 +10100,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       updateEventHandler,
       submitUpsertCoa,
       toggleShowPopUpCoa,
+      coaMovingHandler,
+      coaMovedHandler,
       popupcoa_binding,
       popupcoa_name_binding,
       popupcoa_label_binding,

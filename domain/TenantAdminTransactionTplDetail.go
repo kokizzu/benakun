@@ -2,6 +2,7 @@ package domain
 
 import (
 	"benakun/model/mAuth/wcAuth"
+	"benakun/model/mFinance"
 	"benakun/model/mFinance/rqFinance"
 	"benakun/model/mFinance/wcFinance"
 	"benakun/model/zCrud"
@@ -106,6 +107,15 @@ func (d *Domain) TenantAdminTransactionTplDetail(in *TenantAdminTransactionTplDe
 				if in.TransactionTplDetail.IsDebit != trxTplDetail.IsDebit {
 					trxTplDetail.SetIsDebit(in.TransactionTplDetail.IsDebit)
 				}
+				
+				if len(in.TransactionTplDetail.Attributes) > 0 {
+					if !mFinance.IsValidAttributes(in.TransactionTplDetail.Attributes) {
+						out.SetError(400, `Invalid attributes`)
+						return
+					}
+
+					trxTplDetail.SetAttributes(in.TransactionTplDetail.Attributes)
+				}
 			case zCrud.CmdDelete:
 				if trxTplDetail.DeletedAt == 0 {
 					trxTplDetail.SetDeletedAt(in.UnixNow())
@@ -128,6 +138,15 @@ func (d *Domain) TenantAdminTransactionTplDetail(in *TenantAdminTransactionTplDe
 
 				trxTplDetail.SetCoaId(in.TransactionTplDetail.CoaId)
 			}
+
+			if len(in.TransactionTplDetail.Attributes) > 0 {
+				if !mFinance.IsValidAttributes(in.TransactionTplDetail.Attributes) {
+					out.SetError(400, `Invalid attributes`)
+					return
+				}
+				trxTplDetail.SetAttributes(in.TransactionTplDetail.Attributes)
+			}
+
 			trxTplDetail.SetParentId(parent.Id)
 			trxTplDetail.SetIsDebit(in.TransactionTplDetail.IsDebit)
 			trxTplDetail.SetTenantCode(tenant.TenantCode)

@@ -74,9 +74,22 @@
   let trxTplDetailId = 0;
   let coaId = '';
   let isDebit = 'debit';
+  let autoSum = false;
+  let childOnly = false;
+  let sales = false;
   let isSubmitUpsertTrxTplDetail = false;
   async function SubmitUpsertTrxTplDetail() {
     isSubmitUpsertTrxTplDetail = true;
+    let attributes = [];
+    if (autoSum) {
+      attributes.push('autoSum')
+    }
+    if (childOnly) {
+      attributes.push('childOnly')
+    }
+    if (sales) {
+      attributes.push('sales')
+    }
     await TenantAdminTransactionTplDetail( //@ts-ignore
       {
         cmd: 'upsert', //@ts-ignore
@@ -85,6 +98,7 @@
           parentId: transactionTemplate.id,
           coaId: Number(coaId),
           isDebit: isDebit == 'debit' ? true : false,
+          attributes: attributes
         }
       },
       /** @type {import('../jsApi.GEN').TenantAdminTransactionTemplateCallback} */
@@ -98,6 +112,7 @@
         notifier.showSuccess('Transaction Template Detail updated');
 
         transactionTplDetails = o.transactionTplDetails;
+        
         console.log('transactionTplDetails', o);
         popUpTransactionTplDetail.hide();
 
@@ -142,6 +157,12 @@
       }
     )
   }
+
+  $: {
+    if (transactionTplDetails) {
+      transactionTplDetails = transactionTplDetails
+    }
+  }
 </script>
 
 {#if isPopUpFormsReady}
@@ -149,6 +170,9 @@
     bind:this={popUpTransactionTplDetail}
     bind:coaId
     bind:isDebit
+    bind:autoSum
+    bind:childOnly
+    bind:sales
     onSubmit={SubmitUpsertTrxTplDetail}
     bind:isSubmitted={isSubmitUpsertTrxTplDetail}
     {coas}
@@ -276,6 +300,9 @@
                           trxTplDetailId = trxTplDetail.id;
                           isDebit = trxTplDetail.isDebit ? 'debit' : 'credit';
                           coaId = trxTplDetail.coaId+'';
+                          autoSum = (trxTplDetail.attributes || []).includes('autoSum');
+                          childOnly = (trxTplDetail.attributes || []).includes('childOnly');
+                          sales = (trxTplDetail.attributes || []).includes('sales');
                           popUpTransactionTplDetail.show()
                         }}
                       >
@@ -299,9 +326,9 @@
                   <td>{!trxTplDetail.isDebit ? 'Yes' : 'No'}</td>
                   <td>{trxTplDetail.isDebit ? 'Yes' : 'No'}</td>
                   <td>{coas[trxTplDetail.coaId]}</td>
-                  <td>Yes</td>
-                  <td>No</td>
-                  <td>Yes</td>
+                  <td>{(trxTplDetail.attributes || []).includes('autoSum') ? 'Yes' : 'No'}</td>
+                  <td>{(trxTplDetail.attributes || []).includes('childOnly') ? 'Yes' : 'No'}</td>
+                  <td>{(trxTplDetail.attributes || []).includes('sales') ? 'Yes' : 'No'}</td>
                 </tr>
               {/each}
             {:else}

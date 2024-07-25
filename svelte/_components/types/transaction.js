@@ -5,6 +5,7 @@
   * @property {number} coaId
   * @property {string} tenantCode
   * @property {boolean} isDebit
+  * @property {string[]} attributes
   * @property {number} createdAt
   * @property {string} createdBy
   * @property {number} updatedAt

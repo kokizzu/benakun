@@ -129,6 +129,43 @@
     name = name; label = label;
     popUpCoa.show();
   }
+
+  /** @type {CoA|null} */
+  let coaMoving = null;
+
+  const coaMovingHandler = (e) => coaMoving = e.detail.coa;
+  
+  const coaMovedHandler = async (e) => {
+    /** @type {CoA} */
+    const parentCoa = e.detail.coa;
+    if (!coaMoving) return;
+    if (parentCoa.id == coaMoving.parentId) return;
+
+    const i = {
+      cmd: 'move',
+      coa: {
+        id: Number(coaMoving.id),
+        parentId: Number(coaMoving.parentId)
+      },
+      moveToIdx: 0,
+      toParentId: Number(parentCoa.id)
+    }
+    await TenantAdminCoa( // @ts-ignore
+      i, /** @returns {Promise<void>}*/
+      function (/** @type {any} */o) {
+        if (o.error) {
+          notifier.showError(o.error);
+          console.log(o);
+          return;
+        }
+        coas = o.coas;
+        REFORMAT_COAS = [];
+        REFORMAT_COAS = reformatCoas();
+
+        notifier.showSuccess('coa moved');
+      }
+    );
+  }
 </script>
 
 <PopUpCoA
@@ -169,6 +206,8 @@
                 parentNum={idxParent+1}
                 indent={1}
                 on:update={updateEventHandler}
+                on:moving={coaMovingHandler}
+                on:moved={coaMovedHandler}
               />
             {/each}
           </div>

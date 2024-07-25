@@ -130,6 +130,19 @@
       }
     )
   }
+
+  let isDragOver = false;
+  let isDragging = false;
+
+  const updateOnMoving = () => {
+    dispatch('moving', { coa: coa });
+    isDragging = true;
+  }
+
+  const updateMovedOrg = () => {
+    dispatch('moved', { coa: coa });
+    isDragOver = false;
+  };
 </script>
 
 <PopUpCoA
@@ -141,7 +154,15 @@
   onSubmit={submitUpsertCoa}
 />
 
-<div>
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div class="{isDragOver ? 'drag-over' : ''} {isDragging ? 'dragging' : ''}"
+  draggable="true"
+  on:dragstart={updateOnMoving}
+  on:drop|preventDefault={updateMovedOrg}
+  on:dragover|preventDefault={() => (isDragOver = true)}
+  on:dragleave|preventDefault={() => (isDragOver = false)}
+  on:dragend={() => (isDragging = false)}
+  >
   <div class="coa-child" style="--indent-width:{indentWidth};">
     <div class="num-title">
       <span class="h-line"></span>
@@ -198,13 +219,27 @@
         num={`${num}.${idx+1}`}
         parentNum={parentNum}
         indent={indent + 1}
+        draggable="true"
         on:update
+        on:info
+        on:moving
+        on:moved
+        on:dragover
+        on:dragleave
+        on:dragend
       />
     {/each}
   {/if}
 </div>
 
 <style>
+  .drag-over {
+    background-color: var(--gray-002);
+  }
+
+  .dragging {
+    background-color: #FFF;
+  }
   .coa-child {
     width: auto;
     display: flex;

@@ -170,6 +170,21 @@ const (
 	AttributesSales			= `sales`
 )
 
+func IsValidAttributes(attr []any) bool {
+	if len(attr) > 0 {
+		for _, v := range attr {
+			switch v {
+			case AttributesAutoSum, AttributesChildOnly, AttributesSales:
+				continue
+			default:
+				return false
+			}
+		}
+	}
+
+	return true
+}
+
 const (
 	TableBusinessTransaction Tt.TableName = `businessTransaction`
 
