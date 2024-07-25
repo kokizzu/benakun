@@ -6,7 +6,7 @@ import (
 	"benakun/model/mBusiness"
 	"benakun/model/mBusiness/rqBusiness"
 	"benakun/model/mBusiness/wcBusiness"
-	"benakun/model/mFinance/rqFinance"
+	"benakun/model/mFinance"
 	"benakun/model/mFinance/wcFinance"
 	"benakun/model/zCrud"
 
@@ -180,7 +180,7 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 				}
 			}
 		} else {
-			coaParent := rqFinance.NewCoa(d.AuthOltp)
+			coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
 			coaParent.Id = tenant.ProductsCoaId
 			if !coaParent.FindById() {
 				out.SetError(400, `todo error`)
@@ -192,10 +192,19 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 			coaChild.SetName(in.Product.Name)
 			coaChild.SetTenantCode(user.TenantCode)
 			coaChild.SetParentId(coaParent.Id)
+			coaChild.SetLabel(mFinance.LabelProduct)
 			coaChild.SetCreatedAt(in.UnixNow())
 			coaChild.SetUpdatedAt(in.UnixNow())
 
 			if !coaChild.DoInsert() {
+				out.SetError(400, `todo error`)
+				return
+			}
+
+			moveToIdx := len(coaParent.Children)
+			children := insertChildToIndex(coaParent.Children, coaChild.Id, moveToIdx)
+			coaParent.SetChildren(children)
+			if !coaParent.DoUpsertById() {
 				out.SetError(400, `todo error`)
 				return
 			}

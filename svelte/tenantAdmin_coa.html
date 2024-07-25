@@ -7270,8 +7270,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*coa, num, indent*/
-        11) {
+        if (dirty & /*coa, num, parentNum, indent*/
+        15) {
           each_value = ensure_array_like(
             /*coa*/
             ctx2[0].children
@@ -7318,6 +7318,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         num: `${/*num*/
         ctx[1]}.${/*idx*/
         ctx[28] + 1}`,
+        parentNum: (
+          /*parentNum*/
+          ctx[2]
+        ),
         indent: (
           /*indent*/
           ctx[3] + 1
@@ -7354,6 +7358,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           coatree_changes.num = `${/*num*/
           ctx[1]}.${/*idx*/
           ctx[28] + 1}`;
+        if (dirty & /*parentNum*/
+        4)
+          coatree_changes.parentNum = /*parentNum*/
+          ctx[2];
         if (dirty & /*indent*/
         8)
           coatree_changes.indent = /*indent*/

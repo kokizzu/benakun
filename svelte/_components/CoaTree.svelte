@@ -196,6 +196,7 @@
       <svelte:self
         coa={ch}
         num={`${num}.${idx+1}`}
+        parentNum={parentNum}
         indent={indent + 1}
         on:update
       />
