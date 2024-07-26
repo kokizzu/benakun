@@ -448,6 +448,8 @@
                   <td>{row[idx] ? datetime(row[idx]) : '--'}</td>
                 {:else if f.inputType === 'combobox' && REFS[f.name]}
                   <td>{REFS[f.name][row[idx]] || '--'}</td>
+                {:else if f.inputType === 'percentage'}
+                  <td>{row[idx] || '0'}%</td>
                 {:else}
                   <td>
                     {typeof row[idx] === 'boolean' ? (row[idx] ? 'Yes' : 'No') : row[idx] || '--'}

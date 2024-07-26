@@ -13,6 +13,7 @@
   // date
   // bool
   // select
+  // percentage
 
   export let type = 'text';
   export let id;
@@ -68,6 +69,12 @@
     {:else if type === 'number'}
       <label class="label" for={id}>{label}</label>
       <input type="number" bind:value={value} {id} {placeholder}/>
+    {:else if type === 'percentage'}
+      <label class="label" for={id}>{label}</label>
+      <div class="input_percentage">
+        <input type="number" bind:value={value} {id} {placeholder} />
+        <span>%</span>
+      </div>
     {:else if type === 'float'}
       <label class="label" for={id}>{label}</label>
       <input type="number" bind:value={value} {id} {placeholder}/>
@@ -271,5 +278,21 @@
 
   :global(.input_box .eye:hover svg) {
     fill: var(--blue-005);
+  }
+
+  .input_percentage {
+    display: flex;
+    position: relative;
+  }
+
+  .input_percentage input {
+    padding-right: 30px !important;
+  }
+
+  .input_percentage span {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-weight: 700;
   }
 </style>

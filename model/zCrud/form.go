@@ -25,16 +25,17 @@ const (
 	DataTypeIntArr DataType = `intArr`
 	DataTypeBool	 DataType = `bool`
 
-	InputTypeText     InputType = `text`
-	InputTypeTextArea InputType = `textarea`
-	InputTypeEmail    InputType = `email`
-	InputTypePassword InputType = `password`
-	InputTypeCombobox InputType = `combobox`
-	InputTypeCheckbox InputType = `checkbox`
-	InputTypeNumber   InputType = `number`
-	InputTypeHidden   InputType = `hidden`
-	InputTypeDateTime InputType = `datetime`
-	InputTypeColor		InputType	= `color`
+	InputTypeText     	InputType = `text`
+	InputTypeTextArea 	InputType = `textarea`
+	InputTypeEmail    	InputType = `email`
+	InputTypePassword 	InputType = `password`
+	InputTypeCombobox 	InputType = `combobox`
+	InputTypeCheckbox 	InputType = `checkbox`
+	InputTypeNumber   	InputType = `number`
+	InputTypePercentage	InputType	= `percentage`
+	InputTypeHidden   	InputType = `hidden`
+	InputTypeDateTime 	InputType = `datetime`
+	InputTypeColor			InputType	= `color`
 
 	ValidationRequired Validation = `required`
 	ValidationMinLen   Validation = `minLen`

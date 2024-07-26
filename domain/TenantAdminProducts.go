@@ -94,6 +94,12 @@ var TenantAdminProductsMeta = zCrud.Meta{
 			InputType: zCrud.InputTypeNumber,
 		},
 		{
+			Name: mBusiness.ProfitPercentage,
+			Label: "Persentase Profit / Profit Percentage",
+			DataType: zCrud.DataTypeInt,
+			InputType: zCrud.InputTypePercentage,
+		},
+		{
 			Name:      mBusiness.CreatedAt,
 			Label:     `Dibuat pada / Created at`,
 			ReadOnly:  true,
@@ -234,6 +240,9 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 		}
 		if in.Product.CogsIDR > 0 {
 			product.SetCogsIDR(in.Product.CogsIDR)
+		}
+		if in.Product.ProfitPercentage > 0 {
+			product.SetProfitPercentage(in.Product.ProfitPercentage)
 		}
 
 		if product.HaveMutation() {
