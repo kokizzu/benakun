@@ -71,19 +71,19 @@ var TenantAdminInventoryChangesMeta = zCrud.Meta{
 		{
 			Name: mBusiness.CreatedAt,
 			Label: "Dibuat pada / Created at",
-			InputType: zCrud.InputTypeHidden,
+			InputType: zCrud.InputTypeDateTime,
 			ReadOnly: true,
 		},
 		{
 			Name: mBusiness.UpdatedAt,
 			Label: "Diperbarui pada / Updated at",
-			InputType: zCrud.InputTypeHidden,
+			InputType: zCrud.InputTypeDateTime,
 			ReadOnly: true,
 		},
 		{
 			Name: mBusiness.DeletedAt,
 			Label: "Dihapus pada / Deleted at",
-			InputType: zCrud.InputTypeHidden,
+			InputType: zCrud.InputTypeDateTime,
 			ReadOnly: true,
 		},
 	},
@@ -142,6 +142,15 @@ func (d *Domain) TenantAdminInventoryChanges(in *TenantAdminInventoryChangesIn) 
 					invChange.SetRestoredBy(sess.UserId)
 				}
 			}
+		} else {
+			product := wcBusiness.NewProductsMutator(d.AuthOltp)
+			product.Id = in.InventoryChange.ProductId
+			if !product.FindById() {
+				out.SetError(400, `product not found`)
+				return
+			}
+
+			invChange.SetProductId(product.Id)
 		}
 
 		invChange.SetTenantCode(user.TenantCode)

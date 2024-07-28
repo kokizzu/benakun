@@ -15,10 +15,15 @@
   let segments  = /** @type Access */ ({/* segments */});
   let user      = /** @type User */   ({/* user */});
   let coas      = /** @type CoA[] */  ([/* coas */]);
+
+  console.log('COAS:', coas)
   
   let REFORMAT_COAS = /** @type CoA[] */ ([]);
 
+  let coaVisited = {};
   function coaMaker(/** @type {string|number} */ id) {
+    if(coaVisited[id]) return null;
+    coaVisited[id] = true;
     /** @type CoA */
     let coaFormatted = {
       id: 0,
@@ -42,6 +47,7 @@
           for (let j in children) {
             const childId = children[j]
             const child = coaMaker(childId); // @ts-ignore
+            if(!child) continue;
             coaFormatted.children = [...coaFormatted.children, child];
           }
         }
@@ -62,12 +68,14 @@
   }
 
   function reformatCoas() {
+    coaVisited = {}
     let toCoas = [];
 
     if (coas && coas.length) {
       for (let i in coas) {
         const id = coas[i].id;
         const coa = coaMaker(id);
+        if (!coa) continue;
         toCoas = [...toCoas, coa];
       }
     }
@@ -138,7 +146,7 @@
 
   async function coaMovingHandler(/** @type {CustomEvent<{ coa: CoA }>} */ e) {
     coaMoving = e.detail.coa;
-    console.log(coaMoving);
+    console.log('MOVING:', coaMoving);
   }
   
   async function coaMovedHandler(/** @type {CustomEvent<{ coa: CoA }>} */ e) {
@@ -182,6 +190,7 @@
 />
 
 <MainLayout>
+  <p>Combobox untuk pilih coa, sebagai productCoaID, suppliersCoaId, customersCoaId, staffsCoaId, banksCoaId</p>
   <div class="coa_levels shadow">
     <div class="header_options">
       <button

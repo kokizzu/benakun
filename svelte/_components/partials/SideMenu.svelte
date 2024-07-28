@@ -25,6 +25,7 @@
   } from '../../node_modules/svelte-icons-pack/dist/ri';
   import { CgLogOut, CgBox } from '../../node_modules/svelte-icons-pack/dist/cg';
   import { BsPostcard } from '../../node_modules/svelte-icons-pack/dist/bs';
+  import { SlBookOpen } from '../../node_modules/svelte-icons-pack/dist/sl';
   import SubMenuLink from './SubMenuLink.svelte';
 
   // @ts-ignore
@@ -143,6 +144,11 @@
               title='Transaction Template'
               href='/tenantAdmin/transactionTemplate'
               icon={RiDocumentStickyNoteAddLine}
+            />
+            <SubMenuLink
+              title='Manual Journal'
+              href='/tenantAdmin/manualJournal'
+              icon={SlBookOpen}
             />
           </div>
         {/if}

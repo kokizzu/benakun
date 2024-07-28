@@ -389,7 +389,7 @@ func (d *Domain) segmentsFromSession(s *Session) M.SB {
 
 
 func moveChildToIndex(slice []any, element any, newIndex int) ([]any, error) {
-	if len(slice) <= 1 {
+	if len(slice) == 0 {
 		return []any{}, errors.New("elements cannot be empty")
 	}
 	var elmIndex int = -1

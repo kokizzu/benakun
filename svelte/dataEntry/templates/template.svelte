@@ -16,6 +16,24 @@
 </script>
 
 <MainLayout>
+  <div>
+    <p>
+      Yang ditampilin adalah transaction template detail dari
+      transaction template [ini]
+    </p>
+    <p>
+      Jika autoSum, maka autoSum disisi apa dulu ?
+      jika kredit, dia autoSum dari debitnya, dan sebaliknya
+    </p>
+    <p>
+      jika ChildOnly, maka yang bisa di entry hanya anak - anak CoA nya
+    </p>
+    <p>
+      Jika sales, maka inputannya = (angka x harga)
+    </p>
+
+    <h3>INI MASUK KE TABLE JOURNAL</h3>
+  </div>
   <div class="data_entry_template___container">
     <div class="form_data_entry_template">
       <InputCustom

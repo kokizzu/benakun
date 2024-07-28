@@ -28,6 +28,9 @@
     isShow	= false;
     isDebit	= 'debit';
   }
+
+  // TODO: coa nomornya harus ada di combobox
+  // combobox bisa di search
 </script>
 
 <div class={`popup_container ${isShow ? 'show' : ''}`}>
