@@ -18,7 +18,7 @@
   
   let REFORMAT_COAS = /** @type CoA[] */ ([]);
 
-  function coaMaker(/** @type any */ id) {
+  function coaMaker(/** @type {string|number} */ id) {
     /** @type CoA */
     let coaFormatted = {
       id: 0,
@@ -82,16 +82,17 @@
 
   onMount(() => REFORMAT_COAS = reformatCoas());
 
-  function updateEventHandler(/** @type any */ e) {
+  function updateEventHandler(/** @type {CustomEvent<{ coas: CoA[] }>} */ e) {
     coas = e.detail.coas;
-    
     REFORMAT_COAS = [];
     REFORMAT_COAS = reformatCoas();
   }
 
   let popUpCoa;
-  let id = 0, parentId = 0;
-  let name = '', label = '';
+  let id        = 0;
+  let parentId  = 0;
+  let name      = ''
+  let label     = '';
   let isSubmittedCoA = false;
 
   async function submitUpsertCoa() {
@@ -124,20 +125,24 @@
     )
   }
 
-  function toggleShowPopUpCoa(idz, parentIdz, name, label) {
-    id = idz; parentId = parentIdz;
-    name = name; label = label;
+  function toggleShowPopUpCoa() {
+    id        = 0;
+    parentId  = 0;
+    name      = '';
+    label     = '';
     popUpCoa.show();
   }
 
-  /** @type {CoA|null} */
-  let coaMoving = null;
-
-  const coaMovingHandler = (e) => coaMoving = e.detail.coa;
   
-  const coaMovedHandler = async (e) => {
-    /** @type {CoA} */
-    const parentCoa = e.detail.coa;
+  let coaMoving = /** @type {CoA|null} */ (null);
+
+  async function coaMovingHandler(/** @type {CustomEvent<{ coa: CoA }>} */ e) {
+    coaMoving = e.detail.coa;
+    console.log(coaMoving);
+  }
+  
+  async function coaMovedHandler(/** @type {CustomEvent<{ coa: CoA }>} */ e) {
+    const parentCoa = /** @type {CoA} */ e.detail.coa;
     if (!coaMoving) return;
     if (parentCoa.id == coaMoving.parentId) return;
 
@@ -181,37 +186,21 @@
     <div class="header_options">
       <button
         class="add"
-        on:click={() => {toggleShowPopUpCoa(0, 0, '', '')}}
+        on:click={toggleShowPopUpCoa}
       >Add</button>
     </div>
     {#each (REFORMAT_COAS || []) as c, idxParent (c.id)}
       <div class="coa">
-        <div class="parent">
-          <h5>
-            <span class="label">{idxParent+1}</span>
-            &nbsp;{c.name}
-          </h5>
-          <div class="options">
-            <button class="btn" title="Add CoA child" on:click={() => {toggleShowPopUpCoa(0, c.id, c.name, c.label)}}>
-              <Icon color="var(--gray-006)" className="icon" size="17" src={RiSystemAddBoxLine}/>
-            </button>
-          </div>
-        </div>
-        {#if c.children && c.children.length}
-          <div class="children">
-            {#each c.children as cc, idx (cc.id)}
-              <CoaTree
-                coa={cc}
-                num={`${idx+1}`}
-                parentNum={idxParent+1}
-                indent={1}
-                on:update={updateEventHandler}
-                on:moving={coaMovingHandler}
-                on:moved={coaMovedHandler}
-              />
-            {/each}
-          </div>
-        {/if}
+        <CoaTree
+          coa={c}
+          num={`${idxParent+1}`}
+          parentNum={idxParent+1}
+          isRootCoA
+          indent={0}
+          on:update={updateEventHandler}
+          on:moving={coaMovingHandler}
+          on:moved={coaMovedHandler}
+        />
       </div>
     {/each}
   </div>
@@ -254,70 +243,6 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-  }
-
-  .coa_levels .coa .parent {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 20px;
-    align-items: center;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--blue-006);
-    padding: 10px 0 10px 15px;
-  }
-
-  .coa_levels .coa .parent h5 {
-    font-size: 18px;
-    line-height: 2.2rem;
-    margin: 0;
-    user-select: none;
-  }
-
-  .coa_levels .coa .parent h5 .label {
-    font-size: 14px;
-    padding: 3px 7px;
-    background-color: var(--blue-006);
-    color: #FFF;
-    border-radius: 9999px;
-  }
-
-  .coa_levels .coa .parent .options {
-    display: flex;
-    padding-right: 10px;
-  }
-
-  .coa_levels .coa .options {
-    display: none;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .coa_levels .coa .options .btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    background-color: transparent;
-    border-radius: 5px;
-    padding: 5px;
-    cursor: pointer;
-  }
-
-  .coa_levels .coa .options .btn:hover {
-    background-color: var(--gray-002);
-  }
-
-  .coa_levels .coa .options .btn:active {
-    background-color: var(--gray-003);
-  }
-
-  .coa_levels .coa .children {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    padding: 0 0 0 10px;
+    gap: 10px;
   }
 </style>

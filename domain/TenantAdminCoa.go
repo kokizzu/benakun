@@ -100,6 +100,10 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 					coa.SetRestoredBy(sess.UserId)
 				}
 			case zCrud.CmdMove:
+				if in.Coa.ParentId == 0 || parent == nil {
+					out.SetError(400, `must include parent id`)
+					return
+				}
 				if parent.Id == in.ToParentId {
 					if len(parent.Children) >= 2 {
 						children, err := moveChildToIndex(parent.Children, coa.Id, in.MoveToIdx)
