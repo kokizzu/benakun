@@ -146,7 +146,7 @@ func (d *Domain) TenantAdminInventoryChanges(in *TenantAdminInventoryChangesIn) 
 			product := wcBusiness.NewProductsMutator(d.AuthOltp)
 			product.Id = in.InventoryChange.ProductId
 			if !product.FindById() {
-				out.SetError(400, `product not found`)
+				out.SetError(400, ErrTenantAdminInventoryChangesProductNotFound)
 				return
 			}
 

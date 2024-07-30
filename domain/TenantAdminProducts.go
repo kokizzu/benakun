@@ -45,6 +45,9 @@ const (
 	ErrTenantAdminProductsKindNotValid    = `invalid product kind (must be goods, service)`
 	ErrTenantAdminProductsSaveFailed      = `product save failed`
 	ErrTenantAdminProductsNotTenant       = `must be tenant admin to do this operation`
+	ErrTenantAdminProductsCoaParentNotFound = `coa parent not found`
+	ErrTenantAdminProductsFailedSave = `failed to create a new product`
+	ErrTenantAdminProductsFailedUpdateCoaParent = `failed to update coa parent of product`
 )
 
 var TenantAdminProductsMeta = zCrud.Meta{
@@ -189,7 +192,7 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 			coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
 			coaParent.Id = tenant.ProductsCoaId
 			if !coaParent.FindById() {
-				out.SetError(400, `todo error`)
+				out.SetError(400, ErrTenantAdminProductsCoaParentNotFound)
 				return
 			}
 
@@ -203,7 +206,7 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 			coaChild.SetUpdatedAt(in.UnixNow())
 
 			if !coaChild.DoInsert() {
-				out.SetError(400, `todo error`)
+				out.SetError(400, ErrTenantAdminProductsFailedSave)
 				return
 			}
 
@@ -211,7 +214,7 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 			children := insertChildToIndex(coaParent.Children, coaChild.Id, moveToIdx)
 			coaParent.SetChildren(children)
 			if !coaParent.DoUpsertById() {
-				out.SetError(400, `todo error`)
+				out.SetError(400, ErrTenantAdminProductsFailedUpdateCoaParent)
 				return
 			}
 

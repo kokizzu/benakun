@@ -36,6 +36,10 @@ const (
 	ErrTenantAdminTransactionTplDetailTenantNotFound = `tenant admin not found`
 	ErrTenantAdminTransactionTplDetailUserNotFound   = `user not found`
 	ErrTenantAdminTransactionTplDetailNotFound       = `transaction template not found`
+	ErrTenantAdminTransactionTplDetailParentNotFound = `parent not found`
+	ErrTenantAdminTransactionTplDetailCoaNotFound = `coa not found`
+	ErrTenantAdminTransactionTplDetailInvalidAttributes = `invalid attributes value`
+	ErrTenantAdminTransactionTplDetailFailedUpdate = `failed to update transaction template detail`
 )
 
 func (d *Domain) TenantAdminTransactionTplDetail(in *TenantAdminTransactionTplDetailIn) (out TenantAdminTransactionTplDetailOut) {
@@ -59,7 +63,7 @@ func (d *Domain) TenantAdminTransactionTplDetail(in *TenantAdminTransactionTplDe
 			trxTplDetail := rqFinance.NewTransactionTplDetail(d.AuthOltp)
 			trxTplDetail.Id = in.TransactionTplDetail.Id
 			if !trxTplDetail.FindById() {
-				out.SetError(400, ``)
+				out.SetError(400, ErrTenantAdminTransactionTplDetailNotFound)
 				return
 			}
 		}
@@ -80,14 +84,14 @@ func (d *Domain) TenantAdminTransactionTplDetail(in *TenantAdminTransactionTplDe
 			parent = wcFinance.NewTransactionTemplateMutator(d.AuthOltp)
 			parent.Id = in.TransactionTplDetail.ParentId
 			if !parent.FindById() {
-				out.SetError(400, ``)
+				out.SetError(400, ErrTenantAdminTransactionTplDetailParentNotFound)
 				return
 			}
 		}
 
 		if trxTplDetail.Id > 0 {
 			if !trxTplDetail.FindById() {
-				out.SetError(400, ``)
+				out.SetError(400, ErrTenantAdminTransactionTplDetailNotFound)
 				return
 			}
 
@@ -97,7 +101,7 @@ func (d *Domain) TenantAdminTransactionTplDetail(in *TenantAdminTransactionTplDe
 					coa := rqFinance.NewCoa(d.AuthOltp)
 					coa.Id = in.TransactionTplDetail.CoaId
 					if !coa.FindById() {
-						out.SetError(400, ``)
+						out.SetError(400, ErrTenantAdminTransactionTplDetailCoaNotFound)
 						return
 					}
 
@@ -110,7 +114,7 @@ func (d *Domain) TenantAdminTransactionTplDetail(in *TenantAdminTransactionTplDe
 				
 				if len(in.TransactionTplDetail.Attributes) > 0 {
 					if !mFinance.IsValidAttributes(in.TransactionTplDetail.Attributes) {
-						out.SetError(400, `Invalid attributes`)
+						out.SetError(400, ErrTenantAdminTransactionTplDetailInvalidAttributes)
 						return
 					}
 
@@ -132,7 +136,7 @@ func (d *Domain) TenantAdminTransactionTplDetail(in *TenantAdminTransactionTplDe
 				coa := rqFinance.NewCoa(d.AuthOltp)
 				coa.Id = in.TransactionTplDetail.CoaId
 				if !coa.FindById() {
-					out.SetError(400, ``)
+					out.SetError(400, ErrTenantAdminTransactionTplDetailCoaNotFound)
 					return
 				}
 
@@ -141,7 +145,7 @@ func (d *Domain) TenantAdminTransactionTplDetail(in *TenantAdminTransactionTplDe
 
 			if len(in.TransactionTplDetail.Attributes) > 0 {
 				if !mFinance.IsValidAttributes(in.TransactionTplDetail.Attributes) {
-					out.SetError(400, `Invalid attributes`)
+					out.SetError(400, ErrTenantAdminTransactionTplDetailInvalidAttributes)
 					return
 				}
 				trxTplDetail.SetAttributes(in.TransactionTplDetail.Attributes)
@@ -162,7 +166,7 @@ func (d *Domain) TenantAdminTransactionTplDetail(in *TenantAdminTransactionTplDe
 		}
 
 		if !trxTplDetail.DoUpsertById() {
-			out.SetError(400, ``)
+			out.SetError(400, ErrTenantAdminTransactionTplDetailFailedUpdate)
 			return
 		}
 
