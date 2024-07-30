@@ -7,6 +7,7 @@
   import CoaTree from './_components/CoaTree.svelte';
   import PopUpCoA from './_components/PopUpCoa.svelte';
   import MainLayout from './_layouts/mainLayout.svelte';
+  import InputCustom from './_components/InputCustom.svelte';
 
   /** @typedef {import('./_components/types/user').User} User */
   /** @typedef {import('./_components/types/access').Access} Access */
@@ -190,13 +191,52 @@
 />
 
 <MainLayout>
-  <p>Combobox untuk pilih coa, sebagai productCoaID, suppliersCoaId, customersCoaId, staffsCoaId, banksCoaId</p>
   <div class="coa_levels shadow">
+    <div class="tenants_sync_coa">
+      <div class="inputs_container">
+        <InputCustom
+          type="combobox"
+          label="Products CoA"
+          id="productCoaId"
+          values={['tess']}
+          value={''}
+        />
+        <InputCustom
+          type="combobox"
+          label="Suppliers CoA"
+          id="suppliersCoaId"
+          values={['tess']}
+          value={''}
+        />
+        <InputCustom
+          type="combobox"
+          label="Customers CoA"
+          id="customersCoaId"
+          values={['tess']}
+          value={''}
+        />
+        <InputCustom
+          type="combobox"
+          label="Staffs CoA"
+          id="staffsCoaId"
+          values={['tess']}
+          value={''}
+        />
+        <InputCustom
+          type="combobox"
+          label="Banks CoA"
+          id="banksCoaId"
+          values={['tess']}
+          value={''}
+        />
+      </div>
+      <button class="sync_btn">Sync CoA</button>
+    </div>
     <div class="header_options">
       <button
         class="add"
         on:click={toggleShowPopUpCoa}
-      >Add</button>
+      >Add new CoA</button>
     </div>
     {#each (REFORMAT_COAS || []) as c, idxParent (c.id)}
       <div class="coa">
@@ -227,13 +267,25 @@
     padding: 15px 15px 20px;
   }
 
+  .tenants_sync_coa {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tenants_sync_coa .inputs_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
   .coa_levels .header_options {
     display: flex;
     flex-direction: row-reverse;
     padding-bottom: 10px;
-    border-bottom: 1px solid var(--gray-003);
   }
 
+  .coa_levels .tenants_sync_coa .sync_btn,
   .coa_levels .header_options .add {
     border: none;
     padding: 10px 20px;
@@ -242,8 +294,10 @@
     color: #FFF;
     font-size: var(--font-lg);
     cursor: pointer;
+    width: fit-content;
   }
 
+  .coa_levels .tenants_sync_coa .sync_btn:hover,
   .coa_levels .header_options .add:hover {
     background-color: var(--blue-005);
   }
