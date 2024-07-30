@@ -25938,14 +25938,14 @@ uniform ${i3} ${a3} u_${s3};
           label_1,
           "for",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(input, "type", "text");
         attr(
           input,
           "id",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(
           input,
@@ -25963,7 +25963,7 @@ uniform ${i3} ${a3} u_${s3};
         set_input_value(
           input,
           /*value*/
-          ctx[0]
+          ctx[1]
         );
         if (!mounted) {
           dispose = listen(
@@ -25984,21 +25984,21 @@ uniform ${i3} ${a3} u_${s3};
             ctx2[4]
           );
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             label_1,
             "for",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             input,
             "id",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*placeholder*/
@@ -26011,12 +26011,12 @@ uniform ${i3} ${a3} u_${s3};
           );
         }
         if (dirty & /*value, values*/
-        9 && input.value !== /*value*/
-        ctx2[0]) {
+        10 && input.value !== /*value*/
+        ctx2[1]) {
           set_input_value(
             input,
             /*value*/
-            ctx2[0]
+            ctx2[1]
           );
         }
       },
@@ -26056,14 +26056,14 @@ uniform ${i3} ${a3} u_${s3};
           label_1,
           "for",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(input, "type", "color");
         attr(
           input,
           "id",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(input, "class", "color-input svelte-1drs2z5");
         attr(div, "class", "color_box svelte-1drs2z5");
@@ -26077,7 +26077,7 @@ uniform ${i3} ${a3} u_${s3};
         set_input_value(
           input,
           /*value*/
-          ctx[0]
+          ctx[1]
         );
         if (!mounted) {
           dispose = listen(
@@ -26098,29 +26098,29 @@ uniform ${i3} ${a3} u_${s3};
             ctx2[4]
           );
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             label_1,
             "for",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             input,
             "id",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*value, values*/
-        9) {
+        10) {
           set_input_value(
             input,
             /*value*/
-            ctx2[0]
+            ctx2[1]
           );
         }
       },
@@ -26149,7 +26149,7 @@ uniform ${i3} ${a3} u_${s3};
     let dispose;
     let if_block = (
       /*type*/
-      ctx[1] === "password" && create_if_block_11(ctx)
+      ctx[2] === "password" && create_if_block_11(ctx)
     );
     return {
       c() {
@@ -26168,13 +26168,13 @@ uniform ${i3} ${a3} u_${s3};
           label_1,
           "for",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(
           input,
           "id",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(
           input,
@@ -26192,7 +26192,7 @@ uniform ${i3} ${a3} u_${s3};
         set_input_value(
           input,
           /*value*/
-          ctx[0]
+          ctx[1]
         );
         ctx[21](input);
         insert(target, t2, anchor);
@@ -26219,21 +26219,21 @@ uniform ${i3} ${a3} u_${s3};
             ctx2[4]
           );
         if (!current || dirty & /*id*/
-        4) {
+        1) {
           attr(
             label_1,
             "for",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (!current || dirty & /*id*/
-        4) {
+        1) {
           attr(
             input,
             "id",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (!current || dirty & /*placeholder*/
@@ -26246,22 +26246,22 @@ uniform ${i3} ${a3} u_${s3};
           );
         }
         if (dirty & /*value, values*/
-        9 && input.value !== /*value*/
-        ctx2[0]) {
+        10 && input.value !== /*value*/
+        ctx2[1]) {
           set_input_value(
             input,
             /*value*/
-            ctx2[0]
+            ctx2[1]
           );
         }
         if (
           /*type*/
-          ctx2[1] === "password"
+          ctx2[2] === "password"
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
             if (dirty & /*type*/
-            2) {
+            4) {
               transition_in(if_block, 1);
             }
           } else {
@@ -26325,14 +26325,14 @@ uniform ${i3} ${a3} u_${s3};
           label_1,
           "for",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(input, "type", "date");
         attr(
           input,
           "id",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(
           input,
@@ -26350,7 +26350,7 @@ uniform ${i3} ${a3} u_${s3};
         set_input_value(
           input,
           /*value*/
-          ctx[0]
+          ctx[1]
         );
         if (!mounted) {
           dispose = listen(
@@ -26371,21 +26371,21 @@ uniform ${i3} ${a3} u_${s3};
             ctx2[4]
           );
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             label_1,
             "for",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             input,
             "id",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*placeholder*/
@@ -26398,11 +26398,11 @@ uniform ${i3} ${a3} u_${s3};
           );
         }
         if (dirty & /*value, values*/
-        9) {
+        10) {
           set_input_value(
             input,
             /*value*/
-            ctx2[0]
+            ctx2[1]
           );
         }
       },
@@ -26440,14 +26440,14 @@ uniform ${i3} ${a3} u_${s3};
           label_1,
           "for",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(input, "type", "email");
         attr(
           input,
           "id",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(
           input,
@@ -26465,7 +26465,7 @@ uniform ${i3} ${a3} u_${s3};
         set_input_value(
           input,
           /*value*/
-          ctx[0]
+          ctx[1]
         );
         if (!mounted) {
           dispose = listen(
@@ -26486,21 +26486,21 @@ uniform ${i3} ${a3} u_${s3};
             ctx2[4]
           );
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             label_1,
             "for",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             input,
             "id",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*placeholder*/
@@ -26513,12 +26513,12 @@ uniform ${i3} ${a3} u_${s3};
           );
         }
         if (dirty & /*value, values*/
-        9 && input.value !== /*value*/
-        ctx2[0]) {
+        10 && input.value !== /*value*/
+        ctx2[1]) {
           set_input_value(
             input,
             /*value*/
-            ctx2[0]
+            ctx2[1]
           );
         }
       },
@@ -26556,14 +26556,14 @@ uniform ${i3} ${a3} u_${s3};
           label_1,
           "for",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(input, "type", "text");
         attr(
           input,
           "id",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(
           input,
@@ -26582,7 +26582,7 @@ uniform ${i3} ${a3} u_${s3};
         set_input_value(
           input,
           /*value*/
-          ctx[0]
+          ctx[1]
         );
         if (!mounted) {
           dispose = listen(
@@ -26603,21 +26603,21 @@ uniform ${i3} ${a3} u_${s3};
             ctx2[4]
           );
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             label_1,
             "for",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             input,
             "id",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*placeholder*/
@@ -26630,12 +26630,12 @@ uniform ${i3} ${a3} u_${s3};
           );
         }
         if (dirty & /*value, values*/
-        9 && input.value !== /*value*/
-        ctx2[0]) {
+        10 && input.value !== /*value*/
+        ctx2[1]) {
           set_input_value(
             input,
             /*value*/
-            ctx2[0]
+            ctx2[1]
           );
         }
       },
@@ -26673,13 +26673,13 @@ uniform ${i3} ${a3} u_${s3};
           label_1,
           "for",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(
           textarea,
           "id",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(
           textarea,
@@ -26697,7 +26697,7 @@ uniform ${i3} ${a3} u_${s3};
         set_input_value(
           textarea,
           /*value*/
-          ctx[0]
+          ctx[1]
         );
         if (!mounted) {
           dispose = listen(
@@ -26718,21 +26718,21 @@ uniform ${i3} ${a3} u_${s3};
             ctx2[4]
           );
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             label_1,
             "for",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             textarea,
             "id",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*placeholder*/
@@ -26745,11 +26745,11 @@ uniform ${i3} ${a3} u_${s3};
           );
         }
         if (dirty & /*value, values*/
-        9) {
+        10) {
           set_input_value(
             textarea,
             /*value*/
-            ctx2[0]
+            ctx2[1]
           );
         }
       },
@@ -26787,14 +26787,14 @@ uniform ${i3} ${a3} u_${s3};
           label_1,
           "for",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(input, "type", "number");
         attr(
           input,
           "id",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(
           input,
@@ -26812,7 +26812,7 @@ uniform ${i3} ${a3} u_${s3};
         set_input_value(
           input,
           /*value*/
-          ctx[0]
+          ctx[1]
         );
         if (!mounted) {
           dispose = listen(
@@ -26833,21 +26833,21 @@ uniform ${i3} ${a3} u_${s3};
             ctx2[4]
           );
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             label_1,
             "for",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             input,
             "id",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*placeholder*/
@@ -26860,12 +26860,12 @@ uniform ${i3} ${a3} u_${s3};
           );
         }
         if (dirty & /*value, values*/
-        9 && to_number(input.value) !== /*value*/
-        ctx2[0]) {
+        10 && to_number(input.value) !== /*value*/
+        ctx2[1]) {
           set_input_value(
             input,
             /*value*/
-            ctx2[0]
+            ctx2[1]
           );
         }
       },
@@ -26910,14 +26910,14 @@ uniform ${i3} ${a3} u_${s3};
           label_1,
           "for",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(input, "type", "number");
         attr(
           input,
           "id",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(
           input,
@@ -26938,7 +26938,7 @@ uniform ${i3} ${a3} u_${s3};
         set_input_value(
           input,
           /*value*/
-          ctx[0]
+          ctx[1]
         );
         append(div, t2);
         append(div, span);
@@ -26961,21 +26961,21 @@ uniform ${i3} ${a3} u_${s3};
             ctx2[4]
           );
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             label_1,
             "for",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             input,
             "id",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*placeholder*/
@@ -26988,12 +26988,12 @@ uniform ${i3} ${a3} u_${s3};
           );
         }
         if (dirty & /*value, values*/
-        9 && to_number(input.value) !== /*value*/
-        ctx2[0]) {
+        10 && to_number(input.value) !== /*value*/
+        ctx2[1]) {
           set_input_value(
             input,
             /*value*/
-            ctx2[0]
+            ctx2[1]
           );
         }
       },
@@ -27031,14 +27031,14 @@ uniform ${i3} ${a3} u_${s3};
           label_1,
           "for",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(input, "type", "number");
         attr(
           input,
           "id",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(
           input,
@@ -27056,7 +27056,7 @@ uniform ${i3} ${a3} u_${s3};
         set_input_value(
           input,
           /*value*/
-          ctx[0]
+          ctx[1]
         );
         if (!mounted) {
           dispose = listen(
@@ -27077,21 +27077,21 @@ uniform ${i3} ${a3} u_${s3};
             ctx2[4]
           );
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             label_1,
             "for",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             input,
             "id",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*placeholder*/
@@ -27104,12 +27104,12 @@ uniform ${i3} ${a3} u_${s3};
           );
         }
         if (dirty & /*value, values*/
-        9 && to_number(input.value) !== /*value*/
-        ctx2[0]) {
+        10 && to_number(input.value) !== /*value*/
+        ctx2[1]) {
           set_input_value(
             input,
             /*value*/
-            ctx2[0]
+            ctx2[1]
           );
         }
       },
@@ -27196,14 +27196,14 @@ uniform ${i3} ${a3} u_${s3};
           label0,
           "for",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(input, "type", "checkbox");
         attr(
           input,
           "id",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(input, "class", "svelte-1drs2z5");
         attr(span, "class", "slider svelte-1drs2z5");
@@ -27212,7 +27212,7 @@ uniform ${i3} ${a3} u_${s3};
           label1,
           "for",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
       },
       m(target, anchor) {
@@ -27222,7 +27222,7 @@ uniform ${i3} ${a3} u_${s3};
         insert(target, label1, anchor);
         append(label1, input);
         input.checked = /*value*/
-        ctx[0];
+        ctx[1];
         append(label1, t2);
         append(label1, span);
         if (!mounted) {
@@ -27244,35 +27244,35 @@ uniform ${i3} ${a3} u_${s3};
             ctx2[4]
           );
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             label0,
             "for",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             input,
             "id",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*value, values*/
-        9) {
+        10) {
           input.checked = /*value*/
-          ctx2[0];
+          ctx2[1];
         }
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             label1,
             "for",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
       },
@@ -27507,7 +27507,7 @@ uniform ${i3} ${a3} u_${s3};
           label_1,
           "for",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         option.__value = "";
         set_input_value(option, option.__value);
@@ -27516,13 +27516,13 @@ uniform ${i3} ${a3} u_${s3};
           select,
           "name",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(
           select,
           "id",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(
           select,
@@ -27533,7 +27533,7 @@ uniform ${i3} ${a3} u_${s3};
         attr(select, "class", "svelte-1drs2z5");
         if (
           /*value*/
-          ctx[0] === void 0
+          ctx[1] === void 0
         )
           add_render_callback(() => (
             /*select_change_handler_1*/
@@ -27557,7 +27557,7 @@ uniform ${i3} ${a3} u_${s3};
         select_option(
           select,
           /*value*/
-          ctx[0],
+          ctx[1],
           true
         );
         if (!mounted) {
@@ -27579,12 +27579,12 @@ uniform ${i3} ${a3} u_${s3};
             ctx2[4]
           );
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             label_1,
             "for",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*placeholder*/
@@ -27595,7 +27595,7 @@ uniform ${i3} ${a3} u_${s3};
             ctx2[5]
           );
         if (dirty & /*values, value*/
-        9) {
+        10) {
           each_value_1 = ensure_array_like(
             /*values*/
             ctx2[3]
@@ -27617,21 +27617,21 @@ uniform ${i3} ${a3} u_${s3};
           each_blocks.length = each_value_1.length;
         }
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             select,
             "name",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             select,
             "id",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*placeholder*/
@@ -27644,11 +27644,11 @@ uniform ${i3} ${a3} u_${s3};
           );
         }
         if (dirty & /*value, values*/
-        9) {
+        10) {
           select_option(
             select,
             /*value*/
-            ctx2[0]
+            ctx2[1]
           );
         }
       },
@@ -27707,7 +27707,7 @@ uniform ${i3} ${a3} u_${s3};
           label_1,
           "for",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         option.__value = "";
         set_input_value(option, option.__value);
@@ -27716,13 +27716,13 @@ uniform ${i3} ${a3} u_${s3};
           select,
           "name",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(
           select,
           "id",
           /*id*/
-          ctx[2]
+          ctx[0]
         );
         attr(
           select,
@@ -27733,7 +27733,7 @@ uniform ${i3} ${a3} u_${s3};
         attr(select, "class", "svelte-1drs2z5");
         if (
           /*value*/
-          ctx[0] === void 0
+          ctx[1] === void 0
         )
           add_render_callback(() => (
             /*select_change_handler*/
@@ -27757,7 +27757,7 @@ uniform ${i3} ${a3} u_${s3};
         select_option(
           select,
           /*value*/
-          ctx[0],
+          ctx[1],
           true
         );
         if (!mounted) {
@@ -27779,12 +27779,12 @@ uniform ${i3} ${a3} u_${s3};
             ctx2[4]
           );
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             label_1,
             "for",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*placeholder*/
@@ -27795,7 +27795,7 @@ uniform ${i3} ${a3} u_${s3};
             ctx2[5]
           );
         if (dirty & /*Object, values, value*/
-        9) {
+        10) {
           each_value = ensure_array_like(Object.entries(
             /*values*/
             ctx2[3]
@@ -27817,21 +27817,21 @@ uniform ${i3} ${a3} u_${s3};
           each_blocks.length = each_value.length;
         }
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             select,
             "name",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*id*/
-        4) {
+        1) {
           attr(
             select,
             "id",
             /*id*/
-            ctx2[2]
+            ctx2[0]
           );
         }
         if (dirty & /*placeholder*/
@@ -27844,11 +27844,11 @@ uniform ${i3} ${a3} u_${s3};
           );
         }
         if (dirty & /*value, values*/
-        9) {
+        10) {
           select_option(
             select,
             /*value*/
-            ctx2[0]
+            ctx2[1]
           );
         }
       },
@@ -27880,7 +27880,7 @@ uniform ${i3} ${a3} u_${s3};
         ctx[25];
         set_input_value(option, option.__value);
         option.selected = /*value*/
-        ctx[0];
+        ctx[1];
       },
       m(target, anchor) {
         insert(target, option, anchor);
@@ -27898,9 +27898,9 @@ uniform ${i3} ${a3} u_${s3};
           set_input_value(option, option.__value);
         }
         if (dirty & /*value, values*/
-        9) {
+        10) {
           option.selected = /*value*/
-          ctx2[0];
+          ctx2[1];
         }
       },
       d(detaching) {
@@ -27925,7 +27925,7 @@ uniform ${i3} ${a3} u_${s3};
         ctx[24];
         set_input_value(option, option.__value);
         option.selected = /*value*/
-        ctx[0];
+        ctx[1];
       },
       m(target, anchor) {
         insert(target, option, anchor);
@@ -27944,9 +27944,9 @@ uniform ${i3} ${a3} u_${s3};
           set_input_value(option, option.__value);
         }
         if (dirty & /*value, values*/
-        9) {
+        10) {
           option.selected = /*value*/
-          ctx2[0];
+          ctx2[1];
         }
       },
       d(detaching) {
@@ -27981,59 +27981,59 @@ uniform ${i3} ${a3} u_${s3};
     function select_block_type(ctx2, dirty) {
       if (
         /*type*/
-        ctx2[1] === "bool" || /*type*/
-        ctx2[1] === "checkbox"
+        ctx2[2] === "bool" || /*type*/
+        ctx2[2] === "checkbox"
       )
         return 0;
       if (
         /*type*/
-        ctx2[1] == "select" || /*type*/
-        ctx2[1] === "combobox"
+        ctx2[2] == "select" || /*type*/
+        ctx2[2] === "combobox"
       )
         return 1;
       if (
         /*type*/
-        ctx2[1] === "number"
+        ctx2[2] === "number"
       )
         return 2;
       if (
         /*type*/
-        ctx2[1] === "percentage"
+        ctx2[2] === "percentage"
       )
         return 3;
       if (
         /*type*/
-        ctx2[1] === "float"
+        ctx2[2] === "float"
       )
         return 4;
       if (
         /*type*/
-        ctx2[1] === "textarea"
+        ctx2[2] === "textarea"
       )
         return 5;
       if (
         /*type*/
-        ctx2[1] === "text"
+        ctx2[2] === "text"
       )
         return 6;
       if (
         /*type*/
-        ctx2[1] === "email"
+        ctx2[2] === "email"
       )
         return 7;
       if (
         /*type*/
-        ctx2[1] === "date"
+        ctx2[2] === "date"
       )
         return 8;
       if (
         /*type*/
-        ctx2[1] === "password"
+        ctx2[2] === "password"
       )
         return 9;
       if (
         /*type*/
-        ctx2[1] === "color"
+        ctx2[2] === "color"
       )
         return 10;
       return 11;
@@ -28046,8 +28046,8 @@ uniform ${i3} ${a3} u_${s3};
         div0 = element("div");
         if_block.c();
         attr(div0, "class", div0_class_value = "input_box " + /*type*/
-        (ctx[1] == "bool" ? "bool" : "") + " " + /*type*/
-        (ctx[1] == "password" ? "with_password" : "") + " svelte-1drs2z5");
+        (ctx[2] == "bool" ? "bool" : "") + " " + /*type*/
+        (ctx[2] == "password" ? "with_password" : "") + " svelte-1drs2z5");
       },
       m(target, anchor) {
         insert(target, div1, anchor);
@@ -28077,9 +28077,9 @@ uniform ${i3} ${a3} u_${s3};
           if_block.m(div0, null);
         }
         if (!current || dirty & /*type*/
-        2 && div0_class_value !== (div0_class_value = "input_box " + /*type*/
-        (ctx2[1] == "bool" ? "bool" : "") + " " + /*type*/
-        (ctx2[1] == "password" ? "with_password" : "") + " svelte-1drs2z5")) {
+        4 && div0_class_value !== (div0_class_value = "input_box " + /*type*/
+        (ctx2[2] == "bool" ? "bool" : "") + " " + /*type*/
+        (ctx2[2] == "password" ? "with_password" : "") + " svelte-1drs2z5")) {
           attr(div0, "class", div0_class_value);
         }
       },
@@ -28116,6 +28116,8 @@ uniform ${i3} ${a3} u_${s3};
     onMount(() => {
       if (type === "password")
         $invalidate(8, inputElm.type = type, inputElm);
+      if (type === "bool")
+        $invalidate(0, id = id + Math.random());
     });
     function toggleShowPassword() {
       $invalidate(7, isShowPassword = !isShowPassword);
@@ -28126,57 +28128,57 @@ uniform ${i3} ${a3} u_${s3};
     }
     function input_change_handler() {
       value = this.checked;
-      $invalidate(0, value);
+      $invalidate(1, value);
       $invalidate(3, values);
     }
     function select_change_handler() {
       value = select_value(this);
-      $invalidate(0, value);
+      $invalidate(1, value);
       $invalidate(3, values);
     }
     function select_change_handler_1() {
       value = select_value(this);
-      $invalidate(0, value);
+      $invalidate(1, value);
       $invalidate(3, values);
     }
     function input_input_handler() {
       value = to_number(this.value);
-      $invalidate(0, value);
+      $invalidate(1, value);
       $invalidate(3, values);
     }
     function input_input_handler_1() {
       value = to_number(this.value);
-      $invalidate(0, value);
+      $invalidate(1, value);
       $invalidate(3, values);
     }
     function input_input_handler_2() {
       value = to_number(this.value);
-      $invalidate(0, value);
+      $invalidate(1, value);
       $invalidate(3, values);
     }
     function textarea_input_handler() {
       value = this.value;
-      $invalidate(0, value);
+      $invalidate(1, value);
       $invalidate(3, values);
     }
     function input_input_handler_3() {
       value = this.value;
-      $invalidate(0, value);
+      $invalidate(1, value);
       $invalidate(3, values);
     }
     function input_input_handler_4() {
       value = this.value;
-      $invalidate(0, value);
+      $invalidate(1, value);
       $invalidate(3, values);
     }
     function input_input_handler_5() {
       value = this.value;
-      $invalidate(0, value);
+      $invalidate(1, value);
       $invalidate(3, values);
     }
     function input_input_handler_6() {
       value = this.value;
-      $invalidate(0, value);
+      $invalidate(1, value);
       $invalidate(3, values);
     }
     function input_binding($value) {
@@ -28187,21 +28189,21 @@ uniform ${i3} ${a3} u_${s3};
     }
     function input_input_handler_7() {
       value = this.value;
-      $invalidate(0, value);
+      $invalidate(1, value);
       $invalidate(3, values);
     }
     function input_input_handler_8() {
       value = this.value;
-      $invalidate(0, value);
+      $invalidate(1, value);
       $invalidate(3, values);
     }
     $self.$set = ($props2) => {
       if ("type" in $props2)
-        $invalidate(1, type = $props2.type);
+        $invalidate(2, type = $props2.type);
       if ("id" in $props2)
-        $invalidate(2, id = $props2.id);
+        $invalidate(0, id = $props2.id);
       if ("value" in $props2)
-        $invalidate(0, value = $props2.value);
+        $invalidate(1, value = $props2.value);
       if ("values" in $props2)
         $invalidate(3, values = $props2.values);
       if ("label" in $props2)
@@ -28212,9 +28214,9 @@ uniform ${i3} ${a3} u_${s3};
         $invalidate(6, isObject = $props2.isObject);
     };
     return [
+      id,
       value,
       type,
-      id,
       values,
       label,
       placeholder,
@@ -28242,9 +28244,9 @@ uniform ${i3} ${a3} u_${s3};
     constructor(options) {
       super();
       init(this, options, instance7, create_fragment7, safe_not_equal, {
-        type: 1,
-        id: 2,
-        value: 0,
+        type: 2,
+        id: 0,
+        value: 1,
         values: 3,
         label: 4,
         placeholder: 5,

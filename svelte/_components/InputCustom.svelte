@@ -31,6 +31,9 @@
   
   onMount(() => {
     if (type === 'password') inputElm.type = type;
+
+    // Boolean input must be use random id, because it's a checkbox
+    if (type === 'bool') id = id + Math.random();
   });
 
   function toggleShowPassword() {

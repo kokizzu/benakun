@@ -25,11 +25,7 @@
   let transactionTplDetails = /** @type {TransactionTplDetail[]} */ ([]);
   export let coas = {};
 
-  let isPopUpFormsReady = false;
   let popUpTransactionTplDetail = null;
-  onMount(() => {
-    isPopUpFormsReady = true;
-  })
 
   let isSearching = false;
   let isShowDetails = false;
@@ -165,28 +161,26 @@
   }
 </script>
 
-{#if isPopUpFormsReady}
-  <PopUpTransactionTplDetail
-    bind:this={popUpTransactionTplDetail}
-    bind:coaId
-    bind:isDebit
-    bind:autoSum
-    bind:childOnly
-    bind:sales
-    onSubmit={SubmitUpsertTrxTplDetail}
-    bind:isSubmitted={isSubmitUpsertTrxTplDetail}
-    {coas}
-  />
+<PopUpTransactionTplDetail
+  bind:this={popUpTransactionTplDetail}
+  bind:coaId
+  bind:isDebit
+  bind:autoSum={autoSum}
+  bind:childOnly={childOnly}
+  bind:sales={sales}
+  onSubmit={SubmitUpsertTrxTplDetail}
+  bind:isSubmitted={isSubmitUpsertTrxTplDetail}
+  {coas}
+/>
 
-  <PopUpTransactionTemplate
-    bind:this={popUpTransactionTemplate}
-    heading="Edit Transaction Template"
-    bind:isSubmitted={isSubmitUpsertTrxTpl}
-    bind:name
-    bind:color
-    onSubmit={SubmitUpsertTrxTpl}
-  />
-{/if}
+<PopUpTransactionTemplate
+  bind:this={popUpTransactionTemplate}
+  heading="Edit Transaction Template"
+  bind:isSubmitted={isSubmitUpsertTrxTpl}
+  bind:name
+  bind:color
+  onSubmit={SubmitUpsertTrxTpl}
+/>
 
 <div class="transaction_template">
   <div class="info">
