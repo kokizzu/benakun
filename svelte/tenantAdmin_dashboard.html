@@ -28143,7 +28143,10 @@ uniform ${i3} ${a3} u_${s3};
     };
   }
   function instance7($self, $props, $invalidate) {
-    let { type = "text" } = $props;
+    let { type = (
+      /** @type {InputType} */
+      "text"
+    ) } = $props;
     let { id } = $props;
     let { value } = $props;
     let { values = [] } = $props;

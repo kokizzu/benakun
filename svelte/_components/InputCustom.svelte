@@ -1,25 +1,19 @@
 <script>
+  /**
+   * @typedef {'text' | 'textarea' | 'email' | 'password'
+   * | 'number' | 'phone' | 'date' | 'bool' | 'checkbox' | 'combobox'
+   * | 'select' | 'percentage' | 'float' | 'color'} InputType
+   */
+
   import { onMount } from 'svelte';
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { AiOutlineEye, AiOutlineEyeInvisible } from '../node_modules/svelte-icons-pack/dist/ai';
 
-  // ==== Input type ======
-  // text (default)
-  // textarea
-  // email
-  // password
-  // number
-  // phone
-  // date
-  // bool
-  // select
-  // percentage
-
-  export let type = 'text';
+  export let type = /** @type {InputType} */ ('text');
   export let id;
   export let value;
 
-  /** @type {Array<any>|Object} */
+  /** @type {Array<number | string> | Object} */
   export let values = [] || {};
   export let label;
   export let placeholder = '';
@@ -31,7 +25,6 @@
   
   onMount(() => {
     if (type === 'password') inputElm.type = type;
-
     // Boolean input must be use random id, because it's a checkbox
     if (type === 'bool') id = id + Math.random();
   });

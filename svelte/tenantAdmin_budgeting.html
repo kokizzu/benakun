@@ -8672,7 +8672,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function instance8($self, $props, $invalidate) {
-    let { type = "text" } = $props;
+    let { type = (
+      /** @type {InputType} */
+      "text"
+    ) } = $props;
     let { id } = $props;
     let { value } = $props;
     let { values = [] } = $props;
