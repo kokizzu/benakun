@@ -766,6 +766,11 @@ exports.SuperAdminDashboard = async function SuperAdminDashboard( i, cb ) {
  * @property {number} tenant.updatedAt
  * @property {number} tenant.updatedBy
  * @property {number} tenant.deletedAt
+ * @property {number} tenant.productsCoaId
+ * @property {number} tenant.suppliersCoaId
+ * @property {number} tenant.customersCoaId
+ * @property {number} tenant.staffsCoaId
+ * @property {number} tenant.banksCoaId
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -782,6 +787,11 @@ const SuperAdminTenantManagementIn = {
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
+    productsCoaId: 0, // uint64
+    suppliersCoaId: 0, // uint64
+    customersCoaId: 0, // uint64
+    staffsCoaId: 0, // uint64
+    banksCoaId: 0, // uint64
   }, // rqAuth.Tenants
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -810,6 +820,11 @@ const SuperAdminTenantManagementIn = {
  * @property {number} tenant.updatedAt
  * @property {number} tenant.updatedBy
  * @property {number} tenant.deletedAt
+ * @property {number} tenant.productsCoaId
+ * @property {number} tenant.suppliersCoaId
+ * @property {number} tenant.customersCoaId
+ * @property {number} tenant.staffsCoaId
+ * @property {number} tenant.banksCoaId
  * @property {Object} tenants
  */
 const SuperAdminTenantManagementOut = {
@@ -837,6 +852,11 @@ const SuperAdminTenantManagementOut = {
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
+    productsCoaId: 0, // uint64
+    suppliersCoaId: 0, // uint64
+    customersCoaId: 0, // uint64
+    staffsCoaId: 0, // uint64
+    banksCoaId: 0, // uint64
   }, // rqAuth.Tenants
   tenants: { // [][]any
   }, // [][]any
@@ -1802,6 +1822,7 @@ exports.TenantAdminOrganization = async function TenantAdminOrganization( i, cb 
  * @property {String} product.rule
  * @property {String} product.kind
  * @property {number} product.cogsIDR
+ * @property {number} product.profitPercentage
  */
 const TenantAdminProductsIn = {
   cmd: '', // string
@@ -1828,6 +1849,7 @@ const TenantAdminProductsIn = {
     rule: '', // string
     kind: '', // string
     cogsIDR: 0, // uint64
+    profitPercentage: 0, // float64
   }, // rqBusiness.Products
 }
 /**
@@ -1855,6 +1877,7 @@ const TenantAdminProductsIn = {
  * @property {String} product.rule
  * @property {String} product.kind
  * @property {number} product.cogsIDR
+ * @property {number} product.profitPercentage
  * @property {Object} products
  */
 const TenantAdminProductsOut = {
@@ -1889,6 +1912,7 @@ const TenantAdminProductsOut = {
     rule: '', // string
     kind: '', // string
     cogsIDR: 0, // uint64
+    profitPercentage: 0, // float64
   }, // rqBusiness.Products
   products: { // [][]any
   }, // [][]any
@@ -1905,6 +1929,58 @@ const TenantAdminProductsOut = {
  */
 exports.TenantAdminProducts = async function TenantAdminProducts( i, cb ) {
   return await axios.post( '/tenantAdmin/products', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminSyncCoaIn
+ * @property {number} tenant.id
+ * @property {String} tenant.tenantCode
+ * @property {number} tenant.createdAt
+ * @property {number} tenant.createdBy
+ * @property {number} tenant.updatedAt
+ * @property {number} tenant.updatedBy
+ * @property {number} tenant.deletedAt
+ * @property {number} tenant.productsCoaId
+ * @property {number} tenant.suppliersCoaId
+ * @property {number} tenant.customersCoaId
+ * @property {number} tenant.staffsCoaId
+ * @property {number} tenant.banksCoaId
+ */
+const TenantAdminSyncCoaIn = {
+  tenant: { // rqAuth.Tenants
+    id: 0, // uint64
+    tenantCode: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    productsCoaId: 0, // uint64
+    suppliersCoaId: 0, // uint64
+    customersCoaId: 0, // uint64
+    staffsCoaId: 0, // uint64
+    banksCoaId: 0, // uint64
+  }, // rqAuth.Tenants
+}
+/**
+ * @typedef {Object} TenantAdminSyncCoaOut
+ */
+const TenantAdminSyncCoaOut = {
+}
+/**
+ * @callback TenantAdminSyncCoaCallback
+ * @param {TenantAdminSyncCoaOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminSyncCoaIn} i
+ * @param {TenantAdminSyncCoaCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminSyncCoa = async function TenantAdminSyncCoa( i, cb ) {
+  return await axios.post( '/tenantAdmin/syncCoa', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -1983,7 +2059,6 @@ const TenantAdminTransactionTemplateIn = {
  * @property {number} transactionTemplate.deletedAt
  * @property {number} transactionTemplate.deletedBy
  * @property {number} transactionTemplate.restoredBy
- * @property {Object} coas
  */
 const TenantAdminTransactionTemplateOut = {
   transactionTemplates: { // []rqFinance.TransactionTemplate
@@ -2002,8 +2077,6 @@ const TenantAdminTransactionTemplateOut = {
     deletedBy: 0, // uint64
     restoredBy: 0, // uint64
   }, // rqFinance.TransactionTemplate
-  coas: { // []rqFinance.Coa
-  }, // []rqFinance.Coa
 }
 /**
  * @callback TenantAdminTransactionTemplateCallback
@@ -2036,6 +2109,7 @@ exports.TenantAdminTransactionTemplate = async function TenantAdminTransactionTe
  * @property {number} transactionTplDetail.deletedAt
  * @property {number} transactionTplDetail.deletedBy
  * @property {number} transactionTplDetail.restoredBy
+ * @property {Object} transactionTplDetail.attributes
  */
 const TenantAdminTransactionTplDetailIn = {
   cmd: '', // string
@@ -2052,6 +2126,8 @@ const TenantAdminTransactionTplDetailIn = {
     deletedAt: 0, // int64
     deletedBy: 0, // uint64
     restoredBy: 0, // uint64
+    attributes: { // []any
+    }, // []any
   }, // rqFinance.TransactionTplDetail
 }
 /**
@@ -2068,6 +2144,7 @@ const TenantAdminTransactionTplDetailIn = {
  * @property {number} transactionTplDetail.deletedAt
  * @property {number} transactionTplDetail.deletedBy
  * @property {number} transactionTplDetail.restoredBy
+ * @property {Object} transactionTplDetail.attributes
  * @property {Object} transactionTplDetails
  */
 const TenantAdminTransactionTplDetailOut = {
@@ -2084,6 +2161,8 @@ const TenantAdminTransactionTplDetailOut = {
     deletedAt: 0, // int64
     deletedBy: 0, // uint64
     restoredBy: 0, // uint64
+    attributes: { // []any
+    }, // []any
   }, // rqFinance.TransactionTplDetail
   transactionTplDetails: { // []rqFinance.TransactionTplDetail
   }, // []rqFinance.TransactionTplDetail

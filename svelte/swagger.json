@@ -1088,6 +1088,21 @@
 								},
 								"deletedAt": {
 										"type": "number"
+								},
+								"productsCoaId": {
+										"type": "number"
+								},
+								"suppliersCoaId": {
+										"type": "number"
+								},
+								"customersCoaId": {
+										"type": "number"
+								},
+								"staffsCoaId": {
+										"type": "number"
+								},
+								"banksCoaId": {
+										"type": "number"
 								}
 								}
 						},
@@ -1197,6 +1212,21 @@
 														"type": "number"
 												},
 												"deletedAt": {
+														"type": "number"
+												},
+												"productsCoaId": {
+														"type": "number"
+												},
+												"suppliersCoaId": {
+														"type": "number"
+												},
+												"customersCoaId": {
+														"type": "number"
+												},
+												"staffsCoaId": {
+														"type": "number"
+												},
+												"banksCoaId": {
 														"type": "number"
 												}
 												}
@@ -2730,6 +2760,9 @@
 								},
 								"cogsIDR": {
 										"type": "number"
+								},
+								"profitPercentage": {
+										"type": "number"
 								}
 								}
 						}
@@ -2836,6 +2869,9 @@
 												},
 												"cogsIDR": {
 														"type": "number"
+												},
+												"profitPercentage": {
+														"type": "number"
 												}
 												}
 										},
@@ -2844,6 +2880,79 @@
 										"properties": {
 												}
 										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"tenant": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"productsCoaId": {
+										"type": "number"
+								},
+								"suppliersCoaId": {
+										"type": "number"
+								},
+								"customersCoaId": {
+										"type": "number"
+								},
+								"staffsCoaId": {
+										"type": "number"
+								},
+								"banksCoaId": {
+										"type": "number"
+								}
+								}
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminSyncCoa",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
 									}
 								}
 							}
@@ -2999,11 +3108,6 @@
 														"type": "number"
 												}
 												}
-										},
-										"coas": {
-										"type": "object",
-										"properties": {
-												}
 										}
 									}
 								}
@@ -3066,6 +3170,11 @@
 								},
 								"restoredBy": {
 										"type": "number"
+								},
+								"attributes": {
+								"type": "object",
+								"properties": {
+										}
 								}
 								}
 						}
@@ -3120,6 +3229,11 @@
 												},
 												"restoredBy": {
 														"type": "number"
+												},
+												"attributes": {
+												"type": "object",
+												"properties": {
+														}
 												}
 												}
 										},

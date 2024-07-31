@@ -290,6 +290,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// TenantAdminSyncCoa
+	fw.Post("/"+domain.TenantAdminSyncCoaAction, func(c *fiber.Ctx) error {
+		in := domain.TenantAdminSyncCoaIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminSyncCoaAction); err != nil {
+			return nil
+		}
+		out := d.TenantAdminSyncCoa(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// TenantAdminTransaction
 	fw.Post("/"+domain.TenantAdminTransactionAction, func(c *fiber.Ctx) error {
 		in := domain.TenantAdminTransactionIn{}

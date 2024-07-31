@@ -2943,6 +2943,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminProducts = async function TenantAdminProducts(i, cb) {
         return await axios.post("/tenantAdmin/products", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminSyncCoa = async function TenantAdminSyncCoa(i, cb) {
+        return await axios.post("/tenantAdmin/syncCoa", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.TenantAdminTransaction = async function TenantAdminTransaction(i, cb) {
         return await axios.post("/tenantAdmin/transaction", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
