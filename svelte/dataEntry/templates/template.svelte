@@ -2,9 +2,14 @@
   /** @typedef {import('../../_components/types/transaction.js').TransactionTemplate} TransactionTemplate */
 
   import MainLayout from '../../_layouts/mainLayout.svelte';
-  import InputCustom from '../../_components/InputCustom.svelte';
+  import { Icon } from '../../node_modules/svelte-icons-pack/dist';
+  import {
+    RiSystemAddBoxLine
+  } from '../../node_modules/svelte-icons-pack/dist/ri';
 
   let transactionTemplate = /** @type TransactionTemplate */ ({/* transactiontemplate */});
+  let transactionTplDetails = /** @type any[] */ ([/* transactionTplDetails */]);
+  let coas = /** @type any[] */ ([/* coas */]);
 
   let coa = '';
   let debitIDR = 0;
@@ -13,6 +18,9 @@
 
   // Nota bagian atas dan bawah adalah business transaction
   // Nota bagian tengah adalah jurnal
+
+  console.log('transactionTemplate', transactionTemplate);
+  console.log('transactionTplDetails', transactionTplDetails);
 </script>
 
 <MainLayout>
@@ -35,40 +43,181 @@
     <h3>INI MASUK KE TABLE JOURNAL</h3>
   </div>
   <div class="data_entry_template___container">
-    <div class="form_data_entry_template">
-      <InputCustom
-        id="coa"
-        label="CoA (Chart of Account)"
-        type="text"
-        placeholder="CoA"
-        bind:value={coa}
-      />
-      <InputCustom
-        id="debitIdr"
-        label="Debit IDR"
-        type="number"
-        placeholder="Debit IDR"
-        bind:value={debitIDR}
-      />
+    <div class="transaction_template_detail">
+      <div class="table_container">
+        <table>
+          <thead>
+            <tr>
+              <th class="no">#</th>
+              <th class="a_row">Action</th>
+              <th>Kredit</th>
+              <th>Debit</th>
+              <th>CoA (Chart of Accounts)</th>
+              <th>Auto Sum</th>
+              <th>Child Only</th>
+              <th>Sales</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#if transactionTplDetails && transactionTplDetails.length > 0}
+              {#each (transactionTplDetails || []) as trxTplDetail, i (trxTplDetail.id)}
+                <tr>
+                  <td>{i + 1}</td>
+                  <td class="a_row">
+                    <div class="actions">
+                      <button
+                        class="btn"
+                        title="Add journal"
+                      >
+                        <Icon
+                          size="15"
+                          color="var(--gray-007)"
+                          src={RiSystemAddBoxLine}
+                        />
+                      </button>
+                    </div>
+                  </td>
+                  <td>{!trxTplDetail.isDebit ? 'Yes' : 'No'}</td>
+                  <td>{trxTplDetail.isDebit ? 'Yes' : 'No'}</td>
+                  <td>{coas[trxTplDetail.coaId]}</td>
+                  <td>{(trxTplDetail.attributes || []).includes('autoSum') ? 'Yes' : 'No'}</td>
+                  <td>{(trxTplDetail.attributes || []).includes('childOnly') ? 'Yes' : 'No'}</td>
+                  <td>{(trxTplDetail.attributes || []).includes('sales') ? 'Yes' : 'No'}</td>
+                </tr>
+              {/each}
+            {:else}
+              <tr>
+                <td>0</td>
+                <td>no-data</td>
+              </tr>
+            {/if}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </MainLayout>
 
 <style>
   .data_entry_template___container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    display: flex;
   }
 
-  .form_data_entry_template {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid var(--gray-300);
+  .transaction_template_detail {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 0;
+    border: 1px solid var(--gray-003);
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .transaction_template_detail .table_container {
+    overflow-x: auto;
+    scrollbar-color: var(--gray-003) transparent;
+    scrollbar-width: thin;
+  }
+
+  .transaction_template_detail .table_container table {
+    width: 100%;
+    background: #fff;
+    box-shadow: none;
+    text-align: left;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+  }
+
+  .transaction_template_detail .table_container table thead {
+    box-shadow: none;
+    border-bottom: 1px solid var(--gray-003);
+  }
+
+  .transaction_template_detail .table_container table thead tr th {
+    padding: 12px;
+		background-color: var(--gray-001);
+		text-transform: capitalize;
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-003);
+		min-width: fit-content;
+		width: auto;
+    text-wrap: nowrap;
+  }
+
+  .transaction_template_detail .table_container table thead tr th.no {
+    width: 30px;
+  }
+
+  .transaction_template_detail .table_container table thead tr th.a_row {
+    max-width: 100px;
+    width: 100px;
+  }
+
+  .transaction_template_detail .table_container table thead tr th:last-child {
+    border-right: none;
+  }
+
+  .transaction_template_detail .table_container table tbody tr td {
+    padding: 8px 12px;
+  }
+
+	.transaction_template_detail .table_container table tbody tr td {
+    padding: 8px 12px;
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-004);
+  }
+
+	.transaction_template_detail .table_container table tbody tr:last-child td,
+	.transaction_template_detail .table_container table tbody tr:last-child th {
+		border-bottom: none !important;
+	}
+
+  .transaction_template_detail .table_container table tbody tr:last-child td:last-child {
+    border-right: none !important;
+  }
+
+  .transaction_template_detail .table_container table tbody tr:last-child td,
+  .transaction_template_detail .table_container table tbody tr:last-child th {
+    border-bottom: none !important;
+  }
+
+  .transaction_template_detail .table_container table tbody tr:last-child td:last-child {
+    border-right: none !important;
+  }
+
+  .transaction_template_detail .table_container table tbody tr td:last-child {
+    border-right: none !important;
+  }
+
+  .transaction_template_detail .table_container table tbody tr th {
+    text-align: center;
+    border-right: 1px solid var(--gray-004);
+    border-bottom: 1px solid var(--gray-004);
+  }
+
+  .transaction_template_detail .table_container table tbody tr td .actions {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .transaction_template_detail .table_container table tbody tr td .actions .btn {
+    border: none;
+    padding: 6px;
+    border-radius: 8px;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .transaction_template_detail .table_container table tbody tr td .actions .btn:hover {
+    background-color: var(--violet-transparent);
+  }
+
+  :global(.transaction_template_detail .table_container table tbody tr td .actions .btn:hover svg) {
+    fill: var(--violet-005);
   }
 </style>

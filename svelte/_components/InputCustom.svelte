@@ -1,9 +1,5 @@
 <script>
-  /**
-   * @typedef {'text' | 'textarea' | 'email' | 'password'
-   * | 'number' | 'phone' | 'date' | 'bool' | 'checkbox' | 'combobox'
-   * | 'select' | 'percentage' | 'float' | 'color'} InputType
-   */
+  /** @typedef {import('./types/master').InputType} InputType*/
 
   import { onMount } from 'svelte';
   import { Icon } from '../node_modules/svelte-icons-pack/dist';

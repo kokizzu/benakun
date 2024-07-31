@@ -177,7 +177,6 @@ func (d *Domain) TenantAdminTransactionTplDetail(in *TenantAdminTransactionTplDe
 		r := rqFinance.NewTransactionTplDetail(d.AuthOltp)
 		r.ParentId = in.TransactionTplDetail.ParentId
 		r.TenantCode = user.TenantCode
-		r.ParentId = in.TransactionTplDetail.ParentId
 		trxTplDetails := r.FindTrxTplDetailsByTenantByTrxTplId()
 
 		out.TransactionTplDetails = &trxTplDetails

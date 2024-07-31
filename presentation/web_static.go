@@ -163,7 +163,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 
 		tenantCode, err := domain.GetTenantCodeByHost(in.Host)
 		if err != nil {
-			L.Print(`TENANT CODE:`, tenantCode)
 			return ctx.Redirect(`/`, 302)
 		}
 
@@ -176,11 +175,22 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`+domain.DataEntryDashboardAction, 302)
 		}
 
+		trxTplDetail := rqFinance.NewTransactionTplDetail(d.AuthOltp)
+		trxTplDetail.ParentId = trxTemplate.Id
+		trxTplDetail.TenantCode = user.TenantCode
+		trxTplDetails := trxTplDetail.FindTrxTplDetailsByTenantByTrxTplId()
+
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.TenantCode = user.TenantCode
+		coas := coa.FindCoasChoicesByTenant()
+
 		return views.RenderDataEntryTemplatesTemplate(ctx, M.SX{
 			`title`:      `Data Entry Template`,
 			`user`:       user,
 			`segments`:   segments,
 			`transactiontemplate`: trxTemplate,
+			`transactionTplDetails`: trxTplDetails,
+			`coas`: coas,
 		})
 	})
 

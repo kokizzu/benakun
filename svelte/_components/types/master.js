@@ -1,10 +1,17 @@
 /**
+ * @typedef { 'text' | 'textarea' | 'email' | 'password'
+ * | 'number' | 'phone' | 'date' | 'bool' | 'checkbox' | 'combobox'
+ * | 'select' | 'percentage' | 'float' | 'color' | 'datetime' } InputType
+*/
+module.exports = {};
+
+/**
  * @typedef {Object} Field
  * @property {string} name
  * @property {string} label
  * @property {string} description
  * @property {string} type
- * @property {string} inputType
+ * @property {InputType} inputType
  * @property {boolean} readOnly
  * @property {string[]} validations
  * @property {string[]} ref

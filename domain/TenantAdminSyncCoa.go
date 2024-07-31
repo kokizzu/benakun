@@ -29,6 +29,7 @@ const (
 	ErrTenantAdminSyncCoaUnauthorized   = `unauthorized user`
 	ErrTenantAdminSyncCoaTenantNotFound	= `tenant not found`
 	ErrTenantAdminSyncCoaNotFound				= `coa not found`
+	ErrTenantAdminSyncFailed						= `failed to sync coa`
 )
 
 func (d *Domain) TenantAdminSyncCoa(in *TenantAdminSyncCoaIn) (out TenantAdminSyncCoaOut) {
@@ -72,6 +73,11 @@ func (d *Domain) TenantAdminSyncCoa(in *TenantAdminSyncCoaIn) (out TenantAdminSy
 
 	if in.Tenant.BanksCoaId != tenant.BanksCoaId {
 		tenant.SetBanksCoaId(in.Tenant.BanksCoaId)
+	}
+
+	if !tenant.DoUpdateByTenantCode() {
+		out.SetError(400, ErrTenantAdminSyncFailed)
+		return
 	}
 
 	return
