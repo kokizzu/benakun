@@ -2,62 +2,32 @@
 	import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
-  import { onMount } from 'svelte';
   import InputCustom from './InputCustom.svelte';
-  import Map from './Map.svelte';
 
-  // @ts-ignore
-  /** @typedef {import('../_components/types/master').Field} Field */
+  export let heading      = 'Add journal';
+  export let isSubmitted  = false;
+  let isShow              = false;
 
-  export let heading = 'Add product';
-  export let FIELDS = /** @type Field[] */ ([]);
-  export let isSubmitted = false;
-  let isShow = false;
-  let payloads = [];
-  let isCoordFieldsExist = false;
-  let IdxLatitude = -1, IdxLongitude = -2;
-  let mapElm;
+  export let isDebit = true;
+  export let isSales = false;
 
-  onMount(() => {
-    if (FIELDS && FIELDS.length > 0) {
-      FIELDS.forEach((f, i) => {
-        payloads = [...payloads, '']
-        if (f.name === 'lat') {
-          isCoordFieldsExist = true;
-          IdxLatitude = i;
-        } else if (f.name === 'lng') {
-          isCoordFieldsExist = true;
-          IdxLongitude = i; 
-        }
-      });
-		}
-  })
+  export let debitIDR = 0;
+  export let creditIDR = 0;
+  export let description = '';
+  export let date = '';
+  export let salesCount = 0;
+  export let salesPriceIDR = 0;
 
-  export let OnSubmit = async function(/** @type any[] */ payloads) {}  
-
+  export let OnSubmit = async function() {}  
   export const Show = () => isShow = true;
   export const Hide = () => isShow = false;
 
   export const Reset = () => {
-    payloads = [];
-    if (FIELDS && FIELDS.length > 0) {
-			FIELDS.forEach(() => payloads = [...payloads, '']);
-		}
+
   }
   
   const cancel = () => {
     isShow = false;
-  }
-
-  let Coord = {
-    lng: 118.0148634,
-    lat: -2.548926,
-    zoom: 4
-  };
-
-  function OnClickMap(lngLat) {
-    payloads[IdxLatitude] = lngLat.lat;
-    payloads[IdxLongitude] = lngLat.lng;
   }
 </script>
 
@@ -70,37 +40,60 @@
       </button>
     </header>
     <div class="forms">
-      {#each (FIELDS || []) as field, idx}
-        {#if field.name !== 'id'}
-          {#if !field.readOnly}
-            <InputCustom
-              id={field.name}
-              label={field.label}
-              placeholder={field.description}
-              bind:value={payloads[idx]}
-              type={field.inputType}
-              values={field.ref}
-            />
-          {/if}
-        {/if}
-      {/each}
-
-      {#if isCoordFieldsExist}
-        <div class="map_container">
-          <Map
-            bind:this={mapElm}
-            {OnClickMap} {Coord}
-            IsClickable
-          />
-        </div>
+      {#if isDebit}
+        <InputCustom
+          id="debitIDR"
+          label="Debit (IDR)"
+          placeholder="0"
+          bind:value={debitIDR}
+          type="number"
+        />
       {/if}
+      {#if !isDebit}
+        <InputCustom
+          id="creditIDR"
+          label="Credit (IDR)"
+          placeholder="0"
+          bind:value={creditIDR}
+          type="number"
+        />
+      {/if}
+      {#if isSales}
+        <InputCustom
+          id="salesCount"
+          label="Sales Count"
+          placeholder="0"
+          bind:value={salesCount}
+          type="number"
+        />
+        <InputCustom
+          id="salesPriceIDR"
+          label="Sales Price (IDR)"
+          placeholder="0"
+          bind:value={salesPriceIDR}
+          type="number"
+        />
+      {/if}
+      <InputCustom
+        id="description"
+        label="Description"
+        placeholder="Description"
+        bind:value={description}
+        type="textarea"
+      />
+      <InputCustom
+        id="date"
+        label="Date"
+        bind:value={date}
+        type="date"
+      />
     </div>
     <div class="foot">
       <div class="left">
       </div>
       <div class="right">
         <button class="cancel" on:click|preventDefault={cancel}>Cancel</button>
-        <button class="ok" on:click|preventDefault={() => OnSubmit(payloads)} disabled={isSubmitted}>
+        <button class="ok" on:click|preventDefault={() => OnSubmit()} disabled={isSubmitted}>
           {#if !isSubmitted}
             <span>Ok</span>
           {/if}

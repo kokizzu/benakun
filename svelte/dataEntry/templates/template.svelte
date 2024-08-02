@@ -6,13 +6,13 @@
   import {
     RiSystemAddBoxLine
   } from '../../node_modules/svelte-icons-pack/dist/ri';
+  import PopUpDataEntryJournal from '../../_components/PopUpDataEntryJournal.svelte';
 
   let transactionTemplate = /** @type TransactionTemplate */ ({/* transactiontemplate */});
   let transactionTplDetails = /** @type any[] */ ([/* transactionTplDetails */]);
   let coas = /** @type any[] */ ([/* coas */]);
 
-  let coa = '';
-  let debitIDR = 0;
+  let popUpDataEntryJournal;
 
   // jika attribut coa adalah childOnly: maka coa pilihan hanya anaknya
 
@@ -21,7 +21,32 @@
 
   console.log('transactionTemplate', transactionTemplate);
   console.log('transactionTplDetails', transactionTplDetails);
+
+  let isDebit = true;
+  let isSales = false;
+
+  let debitIDR = 0;
+  let creditIDR = 0;
+  let description = '';
+  let date = '';
+  let salesCount = 0;
+  let salesPriceIDR = 0;
 </script>
+
+<PopUpDataEntryJournal
+  bind:this={popUpDataEntryJournal}
+  heading="Add journal"
+
+  bind:isDebit
+  bind:isSales
+
+  bind:debitIDR
+  bind:creditIDR
+  bind:description
+  bind:date
+  bind:salesCount
+  bind:salesPriceIDR
+/>
 
 <MainLayout>
   <div>
@@ -66,6 +91,10 @@
                   <td class="a_row">
                     <div class="actions">
                       <button
+                        on:click={() => {
+                          isDebit = trxTplDetail.isDebit
+                          popUpDataEntryJournal.Show()
+                        }}
                         class="btn"
                         title="Add journal"
                       >
