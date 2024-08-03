@@ -1,8 +1,10 @@
 package domain
 
 import (
+	"benakun/model/mAuth"
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
+	"benakun/model/mFinance/rqFinance"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -20,16 +22,23 @@ type (
 	}
 	TenantAdminSyncCoaOut struct {
 		ResponseCommon
+		Tenant		*rqAuth.Tenants `json:"tenant" form:"tenant" query:"tenant" long:"tenant" msg:"tenant"`
 	}
 )
 
 const (
 	TenantAdminSyncCoaAction = `tenantAdmin/syncCoa`
 
-	ErrTenantAdminSyncCoaUnauthorized   = `unauthorized user`
-	ErrTenantAdminSyncCoaTenantNotFound	= `tenant not found`
-	ErrTenantAdminSyncCoaNotFound				= `coa not found`
-	ErrTenantAdminSyncFailed						= `failed to sync coa`
+	ErrTenantAdminSyncCoaUnauthorized   			= `unauthorized user`
+	ErrTenantAdminSyncCoaTenantNotFound				= `tenant not found`
+	ErrTenantAdminSyncCoaNotFound							= `coa not found`
+	ErrTenantAdminSyncCoaFailed								= `failed to sync coa`
+	ErrTenantAdminSyncCoaSameCoa							= `coa cannot be same`
+	ErrTenantAdminSyncCoaProductsCoaNotFound	= `products coa not found`
+	ErrTenantAdminSyncCoaSuppliersCoaNotFound	= `suppliers coa not found`
+	ErrTenantAdminSyncCoaCustomersCoaNotFound	= `sustomers coa not found`
+	ErrTenantAdminSyncCoaStaffsCoaNotFound		= `staffs coa not found`
+	ErrTenantAdminSyncCoaBanksCoaNotFound			= `banks coa not found`
 )
 
 func (d *Domain) TenantAdminSyncCoa(in *TenantAdminSyncCoaIn) (out TenantAdminSyncCoaOut) {
@@ -55,30 +64,70 @@ func (d *Domain) TenantAdminSyncCoa(in *TenantAdminSyncCoaIn) (out TenantAdminSy
 		return
 	}
 
+	if !mAuth.IsCoaDifferent(
+		in.Tenant.ProductsCoaId, in.Tenant.SuppliersCoaId, in.Tenant.CustomersCoaId,
+		in.Tenant.StaffsCoaId, in.Tenant.BanksCoaId,
+	) {
+		out.SetError(400, ErrTenantAdminSyncCoaSameCoa)
+		return
+	}
+
 	if in.Tenant.ProductsCoaId != tenant.ProductsCoaId {
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.Id = in.Tenant.ProductsCoaId
+		if !coa.FindById() {
+			out.SetError(400, ErrTenantAdminSyncCoaProductsCoaNotFound)
+		}
+
 		tenant.SetProductsCoaId(in.Tenant.ProductsCoaId)
 	}
 
 	if in.Tenant.SuppliersCoaId != tenant.SuppliersCoaId {
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.Id = in.Tenant.SuppliersCoaId
+		if !coa.FindById() {
+			out.SetError(400, ErrTenantAdminSyncCoaSuppliersCoaNotFound)
+		}
+
 		tenant.SetSuppliersCoaId(in.Tenant.SuppliersCoaId)
 	}
 
 	if in.Tenant.CustomersCoaId != tenant.CustomersCoaId {
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.Id = in.Tenant.CustomersCoaId
+		if !coa.FindById() {
+			out.SetError(400, ErrTenantAdminSyncCoaCustomersCoaNotFound)
+		}
+
 		tenant.SetCustomersCoaId(in.Tenant.CustomersCoaId)
 	}
 
 	if in.Tenant.StaffsCoaId != tenant.StaffsCoaId {
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.Id = in.Tenant.StaffsCoaId
+		if !coa.FindById() {
+			out.SetError(400, ErrTenantAdminSyncCoaStaffsCoaNotFound)
+		}
+
 		tenant.SetStaffsCoaId(in.Tenant.StaffsCoaId)
 	}
 
 	if in.Tenant.BanksCoaId != tenant.BanksCoaId {
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.Id = in.Tenant.BanksCoaId
+		if !coa.FindById() {
+			out.SetError(400, ErrTenantAdminSyncCoaBanksCoaNotFound)
+		}
+		
 		tenant.SetBanksCoaId(in.Tenant.BanksCoaId)
 	}
 
 	if !tenant.DoUpdateByTenantCode() {
-		out.SetError(400, ErrTenantAdminSyncFailed)
+		out.SetError(400, ErrTenantAdminSyncCoaFailed)
 		return
 	}
+
+	out.Tenant = &tenant.Tenants
 
 	return
 }

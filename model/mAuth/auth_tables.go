@@ -95,6 +95,20 @@ const (
 	BanksCoaId 			= `banksCoaId`
 )
 
+func IsCoaDifferent(values ...uint64) bool {
+	valueMap := make(map[uint64]bool)
+	for _, v := range values {
+		if v == 0 {
+			continue
+		}
+		if _, exist := valueMap[v]; exist {
+			return false
+		}
+		valueMap[v] = true
+	}
+	return true
+}
+
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableUsers: {
 		Fields: []Tt.Field{

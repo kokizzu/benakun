@@ -7,6 +7,11 @@
   * @property {number} updatedAt
   * @property {string} updatedBy
   * @property {number} deletedAt
+  * @property {number} productsCoaId
+  * @property {number} suppliersCoaId
+  * @property {number} customersCoaId
+  * @property {number} staffsCoaId
+  * @property {number} banksCoaId
   */
 module.exports = {};
 

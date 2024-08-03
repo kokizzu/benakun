@@ -337,11 +337,16 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.Cmd = zCrud.CmdList
 
 		out := d.TenantAdminCoa(&in)
+
+		tenant := rqAuth.NewTenants(d.AuthOltp)
+		tenant.TenantCode = user.TenantCode
+		tenant.FindByTenantCode()
 		return views.RenderTenantAdminCoa(ctx, M.SX{
 			`title`:    `Tenant Admin Coa`,
 			`user`:     user,
 			`segments`: segments,
 			`coas`:     out.Coas,
+			`tenant`: tenant,
 		})
 	})
 

@@ -1,23 +1,23 @@
 <script>
-  import { Icon } from './node_modules/svelte-icons-pack/dist';
-  import { RiSystemAddBoxLine } from './node_modules/svelte-icons-pack/dist/ri';
+  /** @typedef {import('./_components/types/user').User} User */
+  /** @typedef {import('./_components/types/access').Access} Access */
+  /** @typedef {import('./_components/types/coa').CoA} CoA */
+  /** @typedef {import('./_components/types/tenant.js').Tenant} Tenant */
+
   import { onMount } from 'svelte';
-  import { TenantAdminCoa } from './jsApi.GEN.js';
+  import { TenantAdminCoa, TenantAdminSyncCoa } from './jsApi.GEN.js';
   import { notifier } from './_components/notifier.js';
   import CoaTree from './_components/CoaTree.svelte';
   import PopUpCoA from './_components/PopUpCoa.svelte';
   import MainLayout from './_layouts/mainLayout.svelte';
   import InputCustom from './_components/InputCustom.svelte';
 
-  /** @typedef {import('./_components/types/user').User} User */
-  /** @typedef {import('./_components/types/access').Access} Access */
-  /** @typedef {import('./_components/types/coa').CoA} CoA */
-
   let segments  = /** @type Access */ ({/* segments */});
   let user      = /** @type User */   ({/* user */});
   let coas      = /** @type CoA[] */  ([/* coas */]);
+  let tenant    = /** @type Tenant */   ({/* tenant */});
 
-  console.log('COAS:', coas)
+  let coasChoices = {};
   
   let REFORMAT_COAS = /** @type CoA[] */ ([]);
 
@@ -89,7 +89,16 @@
     return toCoas;
   }
 
-  onMount(() => REFORMAT_COAS = reformatCoas());
+  onMount(() => {
+    REFORMAT_COAS = reformatCoas();
+
+    if (coas && coas.length > 0) {
+      coasChoices = coas.reduce((obj, item) => {
+        obj[item.id] = item.name;
+        return obj;
+      }, {});
+    }
+  });
 
   function updateEventHandler(/** @type {CustomEvent<{ coas: CoA[] }>} */ e) {
     coas = e.detail.coas;
@@ -180,6 +189,46 @@
       }
     );
   }
+
+  let productsCoaId = tenant.productsCoaId || 0;
+  let suppliersCoaId = tenant.suppliersCoaId || 0;
+  let customersCoaId = tenant.customersCoaId || 0;
+  let staffsCoaId = tenant.staffsCoaId || 0;
+  let banksCoaId = tenant.banksCoaId || 0;
+
+  let isSubmitSyncCoA = false;
+  async function SubmitSyncCoA() {
+    isSubmitSyncCoA = true;
+    const i = {
+      tenant: {
+        productsCoaId,
+        suppliersCoaId,
+        customersCoaId,
+        staffsCoaId,
+        banksCoaId
+      }
+    }
+    await TenantAdminSyncCoa( // @ts-ignore
+      i, /** @type {import('./jsApi.GEN').TenantAdminSyncCoaCallback} */
+      function(/** @type any */ o) {
+        isSubmitSyncCoA = false;
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+
+        const tenant = o.tenant
+        productsCoaId = tenant.productsCoaId;
+        suppliersCoaId = tenant.suppliersCoaId;
+        customersCoaId = tenant.customersCoaId;
+        staffsCoaId = tenant.staffsCoaId;
+        banksCoaId = tenant.banksCoaId;
+
+        notifier.showSuccess('coa synced');
+      }
+    )
+  }
 </script>
 
 <PopUpCoA
@@ -198,39 +247,48 @@
           type="combobox"
           label="Products CoA"
           id="productCoaId"
-          values={['tess']}
-          value={''}
+          values={coasChoices}
+          bind:value={productsCoaId}
+          isObject
         />
         <InputCustom
           type="combobox"
           label="Suppliers CoA"
           id="suppliersCoaId"
-          values={['tess']}
-          value={''}
+          values={coasChoices}
+          bind:value={suppliersCoaId}
+          isObject
         />
         <InputCustom
           type="combobox"
           label="Customers CoA"
           id="customersCoaId"
-          values={['tess']}
-          value={''}
+          values={coasChoices}
+          bind:value={customersCoaId}
+          isObject
         />
         <InputCustom
           type="combobox"
           label="Staffs CoA"
           id="staffsCoaId"
-          values={['tess']}
-          value={''}
+          values={coasChoices}
+          bind:value={staffsCoaId}
+          isObject
         />
         <InputCustom
           type="combobox"
           label="Banks CoA"
           id="banksCoaId"
-          values={['tess']}
-          value={''}
+          values={coasChoices}
+          bind:value={banksCoaId}
+          isObject
         />
       </div>
-      <button class="sync_btn">Sync CoA</button>
+      <button
+        disabled={isSubmitSyncCoA}
+        class="sync_btn"
+        on:click={SubmitSyncCoA}
+      >Sync CoA</button>
     </div>
     <div class="header_options">
       <button
@@ -300,6 +358,13 @@
   .coa_levels .tenants_sync_coa .sync_btn:hover,
   .coa_levels .header_options .add:hover {
     background-color: var(--blue-005);
+  }
+
+  .coa_levels .tenants_sync_coa .sync_btn:disabled,
+  .coa_levels .header_options .add:disabled {
+    background-color: var(--gray-004);
+    cursor: not-allowed;
+    color: var(--gray-008);
   }
 
   .coa_levels .coa {

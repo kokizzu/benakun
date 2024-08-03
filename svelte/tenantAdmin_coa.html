@@ -993,7 +993,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 }
 
 /* fakecss:./tenantAdmin_coa.esbuild-svelte-fake-css */
-.coa_levels.svelte-yamm8h.svelte-yamm8h {
+.coa_levels.svelte-1mzqfbt.svelte-1mzqfbt {
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
@@ -1003,23 +1003,23 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   overflow: hidden;
   padding: 15px 15px 20px;
 }
-.tenants_sync_coa.svelte-yamm8h.svelte-yamm8h {
+.tenants_sync_coa.svelte-1mzqfbt.svelte-1mzqfbt {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.tenants_sync_coa.svelte-yamm8h .inputs_container.svelte-yamm8h {
+.tenants_sync_coa.svelte-1mzqfbt .inputs_container.svelte-1mzqfbt {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
-.coa_levels.svelte-yamm8h .header_options.svelte-yamm8h {
+.coa_levels.svelte-1mzqfbt .header_options.svelte-1mzqfbt {
   display: flex;
   flex-direction: row-reverse;
   padding-bottom: 10px;
 }
-.coa_levels.svelte-yamm8h .tenants_sync_coa .sync_btn.svelte-yamm8h,
-.coa_levels.svelte-yamm8h .header_options .add.svelte-yamm8h {
+.coa_levels.svelte-1mzqfbt .tenants_sync_coa .sync_btn.svelte-1mzqfbt,
+.coa_levels.svelte-1mzqfbt .header_options .add.svelte-1mzqfbt {
   border: none;
   padding: 10px 20px;
   border-radius: 8px;
@@ -1029,11 +1029,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   cursor: pointer;
   width: fit-content;
 }
-.coa_levels.svelte-yamm8h .tenants_sync_coa .sync_btn.svelte-yamm8h:hover,
-.coa_levels.svelte-yamm8h .header_options .add.svelte-yamm8h:hover {
+.coa_levels.svelte-1mzqfbt .tenants_sync_coa .sync_btn.svelte-1mzqfbt:hover,
+.coa_levels.svelte-1mzqfbt .header_options .add.svelte-1mzqfbt:hover {
   background-color: var(--blue-005);
 }
-.coa_levels.svelte-yamm8h .coa.svelte-yamm8h {
+.coa_levels.svelte-1mzqfbt .tenants_sync_coa .sync_btn.svelte-1mzqfbt:disabled,
+.coa_levels.svelte-1mzqfbt .header_options .add.svelte-1mzqfbt:disabled {
+  background-color: var(--gray-004);
+  cursor: not-allowed;
+  color: var(--gray-008);
+}
+.coa_levels.svelte-1mzqfbt .coa.svelte-1mzqfbt {
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -3187,7 +3193,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminProducts = async function TenantAdminProducts(i, cb) {
         return await axios.post("/tenantAdmin/products", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminSyncCoa = async function TenantAdminSyncCoa(i, cb) {
+      exports.TenantAdminSyncCoa = async function TenantAdminSyncCoa2(i, cb) {
         return await axios.post("/tenantAdmin/syncCoa", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminTransaction = async function TenantAdminTransaction(i, cb) {
@@ -4134,6 +4140,82 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
+  // tenantAdmin_coa.svelte
+  var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
+
+  // _components/notifier.js
+  var Notifier = function() {
+    let a = {
+      container: null,
+      default_time: 4500,
+      vanish_time: 300,
+      fps: 30,
+      success: {
+        classes: "alert-success",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)" /></svg>'
+      },
+      error: {
+        classes: "alert-danger",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" /></svg>'
+      },
+      warning: {
+        classes: "alert-warning",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3.09 0c-.06 0-.1.04-.13.09l-2.94 6.81c-.02.05-.03.13-.03.19v.81c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-.81c0-.05-.01-.14-.03-.19l-2.94-6.81c-.02-.05-.07-.09-.13-.09h-.81zm-.09 3h1v2h-1v-2zm0 3h1v1h-1v-1z" /></svg>'
+      },
+      info: {
+        classes: "alert-info",
+        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-1.5 2.5c-.83 0-1.5.67-1.5 1.5h1c0-.28.22-.5.5-.5s.5.22.5.5-1 1.64-1 2.5c0 .86.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h-1c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-.36 1-1.84 1-2.5 0-.81-.67-1.5-1.5-1.5z" transform="translate(2)"/></svg>'
+      }
+    }, b = function(a2, b2, c, d, e, f, g) {
+      this.pushed = false, this.element = document.createElement("div"), this.element.className = "notifyjs-notification " + c.classes, this.element.innerHTML = "<div class='notifyjs-icon'>" + c.icon + "</div>" + b2, a2.appendChild(this.element);
+      let h = document.createElement("p");
+      h.className = "progress", this.element.appendChild(h), this.callback = g;
+      let j = this;
+      this.push = function() {
+        if (!j.pushed) {
+          j.pushed = true;
+          let a3 = 0, b3 = 1e3 / f;
+          j.element.style.display = "block", j.interval = setInterval(function() {
+            a3++;
+            let c2 = 100 * (1 - b3 * a3 / d);
+            h.style.right = c2 + "%", 0 >= c2 && ("function" == typeof g && g(), j.clear());
+          }, b3);
+        }
+      }, this.clear = function() {
+        if (j.pushed) {
+          let a3 = 1e3 / f, b3 = 1;
+          "undefined" != typeof j.interval && clearInterval(j.interval), j.interval = setInterval(function() {
+            b3 -= 1 / (e / a3), j.element.style.opacity = b3, 0 >= b3 && (clearInterval(j.interval), j.destroy());
+          }, a3);
+        }
+      }, this.destroy = function() {
+        j.pushed && (j.pushed = false, "undefined" != typeof j.interval && clearInterval(j.interval), a2.removeChild(j.element));
+      };
+    };
+    return function Notifier2(c) {
+      this.options = Object.assign({}, a), this.options = Object.assign(this.options, c), null === this.options.container && (this.options.container = document.createElement("div"), document.getElementsByTagName("body")[0].appendChild(this.options.container)), this.options.container.className += " notifyjs-container", this.notify = function(a2, c2, d, e) {
+        return "undefined" == typeof this.options[a2] ? void console.error("Notify.js: Error, undefined '" + a2 + "' notification type") : ("undefined" == typeof d && (d = this.options.default_time), new b(this.options.container, c2, this.options[a2], d, this.options.vanish_time, this.options.fps, e));
+      };
+      this.showInfo = function(infoMsg) {
+        let notification = this.notify("info", infoMsg);
+        notification.push();
+      };
+      this.showSuccess = function(okMsg) {
+        let notification = this.notify("success", okMsg);
+        notification.push();
+      };
+      this.showError = function(errMsg) {
+        let notification = this.notify("error", errMsg);
+        notification.push();
+      };
+      this.showWarning = function(warnMsg) {
+        let notification = this.notify("warning", warnMsg);
+        notification.push();
+      };
+    };
+  }();
+  var notifier = new Notifier();
+
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/Icon.svelte
   function create_fragment(ctx) {
     let svg;
@@ -4308,82 +4390,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var RiFinanceSwapBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4.00488 5.00275V19.0027H20.0049V5.00275H4.00488ZM3.00488 3.00275H21.0049C21.5572 3.00275 22.0049 3.45046 22.0049 4.00275V20.0027C22.0049 20.555 21.5572 21.0027 21.0049 21.0027H3.00488C2.4526 21.0027 2.00488 20.555 2.00488 20.0027V4.00275C2.00488 3.45046 2.4526 3.00275 3.00488 3.00275ZM15.0049 7.00275L18.5049 10.0027L15.0049 13.0027V11.0027H11.0049V9.00275H15.0049V7.00275ZM9.00488 17.0027L5.50488 14.0027L9.00488 11.0027V13.0027H13.0049V15.0027H9.00488V17.0027Z"></path>' };
   var RiArrowsArrowGoBackLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M5.82843 6.99955L8.36396 9.53509L6.94975 10.9493L2 5.99955L6.94975 1.0498L8.36396 2.46402L5.82843 4.99955H13C17.4183 4.99955 21 8.58127 21 12.9996C21 17.4178 17.4183 20.9996 13 20.9996H4V18.9996H13C16.3137 18.9996 19 16.3133 19 12.9996C19 9.68584 16.3137 6.99955 13 6.99955H5.82843Z"></path>' };
   var RiEditorOrganizationChart = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M15 3C15.5523 3 16 3.44772 16 4V8C16 8.55228 15.5523 9 15 9H13V11H17C17.5523 11 18 11.4477 18 12V15H20C20.5523 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H14C13.4477 21 13 20.5523 13 20V16C13 15.4477 13.4477 15 14 15H16V13H8V15H10C10.5523 15 11 15.4477 11 16V20C11 20.5523 10.5523 21 10 21H4C3.44772 21 3 20.5523 3 20V16C3 15.4477 3.44772 15 4 15H6V12C6 11.4477 6.44772 11 7 11H11V9H9C8.44772 9 8 8.55228 8 8V4C8 3.44772 8.44772 3 9 3H15ZM9 17H5V19H9V17ZM19 17H15V19H19V17ZM14 5H10V7H14V5Z"></path>' };
-
-  // tenantAdmin_coa.svelte
-  var import_jsApi_GEN2 = __toESM(require_jsApi_GEN());
-
-  // _components/notifier.js
-  var Notifier = function() {
-    let a = {
-      container: null,
-      default_time: 4500,
-      vanish_time: 300,
-      fps: 30,
-      success: {
-        classes: "alert-success",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M6.41 0l-.69.72-2.78 2.78-.81-.78-.72-.72-1.41 1.41.72.72 1.5 1.5.69.72.72-.72 3.5-3.5.72-.72-1.44-1.41z" transform="translate(0 1)" /></svg>'
-      },
-      error: {
-        classes: "alert-danger",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M1.41 0l-1.41 1.41.72.72 1.78 1.81-1.78 1.78-.72.69 1.41 1.44.72-.72 1.81-1.81 1.78 1.81.69.72 1.44-1.44-.72-.69-1.81-1.78 1.81-1.81.72-.72-1.44-1.41-.69.72-1.78 1.78-1.81-1.78-.72-.72z" /></svg>'
-      },
-      warning: {
-        classes: "alert-warning",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3.09 0c-.06 0-.1.04-.13.09l-2.94 6.81c-.02.05-.03.13-.03.19v.81c0 .05.04.09.09.09h6.81c.05 0 .09-.04.09-.09v-.81c0-.05-.01-.14-.03-.19l-2.94-6.81c-.02-.05-.07-.09-.13-.09h-.81zm-.09 3h1v2h-1v-2zm0 3h1v1h-1v-1z" /></svg>'
-      },
-      info: {
-        classes: "alert-info",
-        icon: '<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M3 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm-1.5 2.5c-.83 0-1.5.67-1.5 1.5h1c0-.28.22-.5.5-.5s.5.22.5.5-1 1.64-1 2.5c0 .86.67 1.5 1.5 1.5s1.5-.67 1.5-1.5h-1c0 .28-.22.5-.5.5s-.5-.22-.5-.5c0-.36 1-1.84 1-2.5 0-.81-.67-1.5-1.5-1.5z" transform="translate(2)"/></svg>'
-      }
-    }, b = function(a2, b2, c, d, e, f, g) {
-      this.pushed = false, this.element = document.createElement("div"), this.element.className = "notifyjs-notification " + c.classes, this.element.innerHTML = "<div class='notifyjs-icon'>" + c.icon + "</div>" + b2, a2.appendChild(this.element);
-      let h = document.createElement("p");
-      h.className = "progress", this.element.appendChild(h), this.callback = g;
-      let j = this;
-      this.push = function() {
-        if (!j.pushed) {
-          j.pushed = true;
-          let a3 = 0, b3 = 1e3 / f;
-          j.element.style.display = "block", j.interval = setInterval(function() {
-            a3++;
-            let c2 = 100 * (1 - b3 * a3 / d);
-            h.style.right = c2 + "%", 0 >= c2 && ("function" == typeof g && g(), j.clear());
-          }, b3);
-        }
-      }, this.clear = function() {
-        if (j.pushed) {
-          let a3 = 1e3 / f, b3 = 1;
-          "undefined" != typeof j.interval && clearInterval(j.interval), j.interval = setInterval(function() {
-            b3 -= 1 / (e / a3), j.element.style.opacity = b3, 0 >= b3 && (clearInterval(j.interval), j.destroy());
-          }, a3);
-        }
-      }, this.destroy = function() {
-        j.pushed && (j.pushed = false, "undefined" != typeof j.interval && clearInterval(j.interval), a2.removeChild(j.element));
-      };
-    };
-    return function Notifier2(c) {
-      this.options = Object.assign({}, a), this.options = Object.assign(this.options, c), null === this.options.container && (this.options.container = document.createElement("div"), document.getElementsByTagName("body")[0].appendChild(this.options.container)), this.options.container.className += " notifyjs-container", this.notify = function(a2, c2, d, e) {
-        return "undefined" == typeof this.options[a2] ? void console.error("Notify.js: Error, undefined '" + a2 + "' notification type") : ("undefined" == typeof d && (d = this.options.default_time), new b(this.options.container, c2, this.options[a2], d, this.options.vanish_time, this.options.fps, e));
-      };
-      this.showInfo = function(infoMsg) {
-        let notification = this.notify("info", infoMsg);
-        notification.push();
-      };
-      this.showSuccess = function(okMsg) {
-        let notification = this.notify("success", okMsg);
-        notification.push();
-      };
-      this.showError = function(errMsg) {
-        let notification = this.notify("error", errMsg);
-        notification.push();
-      };
-      this.showWarning = function(warnMsg) {
-        let notification = this.notify("warning", warnMsg);
-        notification.push();
-      };
-    };
-  }();
-  var notifier = new Notifier();
 
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/fi/index.js
   var FiLoader = { a: { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" }, c: '<line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>' };
@@ -9641,8 +9647,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // tenantAdmin_coa.svelte
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[21] = list[i];
-    child_ctx[23] = i;
+    child_ctx[34] = list[i];
+    child_ctx[36] = i;
     return child_ctx;
   }
   function create_each_block3(key_1, ctx) {
@@ -9654,13 +9660,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       props: {
         coa: (
           /*c*/
-          ctx[21]
+          ctx[34]
         ),
         num: `${/*idxParent*/
-        ctx[23] + 1}`,
+        ctx[36] + 1}`,
         parentNum: (
           /*idxParent*/
-          ctx[23] + 1
+          ctx[36] + 1
         ),
         isRootCoA: true,
         indent: 0
@@ -9669,17 +9675,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     coatree.$on(
       "update",
       /*updateEventHandler*/
-      ctx[5]
+      ctx[12]
     );
     coatree.$on(
       "moving",
       /*coaMovingHandler*/
-      ctx[8]
+      ctx[15]
     );
     coatree.$on(
       "moved",
       /*coaMovedHandler*/
-      ctx[9]
+      ctx[16]
     );
     return {
       key: key_1,
@@ -9688,7 +9694,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         div = element("div");
         create_component(coatree.$.fragment);
         t = space();
-        attr(div, "class", "coa svelte-yamm8h");
+        attr(div, "class", "coa svelte-1mzqfbt");
         this.first = div;
       },
       m(target, anchor) {
@@ -9700,18 +9706,18 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         const coatree_changes = {};
-        if (dirty & /*REFORMAT_COAS*/
-        1)
+        if (dirty[0] & /*REFORMAT_COAS*/
+        2)
           coatree_changes.coa = /*c*/
-          ctx[21];
-        if (dirty & /*REFORMAT_COAS*/
-        1)
+          ctx[34];
+        if (dirty[0] & /*REFORMAT_COAS*/
+        2)
           coatree_changes.num = `${/*idxParent*/
-          ctx[23] + 1}`;
-        if (dirty & /*REFORMAT_COAS*/
-        1)
+          ctx[36] + 1}`;
+        if (dirty[0] & /*REFORMAT_COAS*/
+        2)
           coatree_changes.parentNum = /*idxParent*/
-          ctx[23] + 1;
+          ctx[36] + 1;
         coatree.$set(coatree_changes);
       },
       i(local) {
@@ -9737,16 +9743,22 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let div1;
     let div0;
     let inputcustom0;
+    let updating_value;
     let t0;
     let inputcustom1;
+    let updating_value_1;
     let t1;
     let inputcustom2;
+    let updating_value_2;
     let t2;
     let inputcustom3;
+    let updating_value_3;
     let t3;
     let inputcustom4;
+    let updating_value_4;
     let t4;
     let button0;
+    let t5;
     let t6;
     let div2;
     let button1;
@@ -9756,58 +9768,123 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     let mounted;
     let dispose;
-    inputcustom0 = new InputCustom_default({
-      props: {
-        type: "combobox",
-        label: "Products CoA",
-        id: "productCoaId",
-        values: ["tess"],
-        value: ""
-      }
-    });
-    inputcustom1 = new InputCustom_default({
-      props: {
-        type: "combobox",
-        label: "Suppliers CoA",
-        id: "suppliersCoaId",
-        values: ["tess"],
-        value: ""
-      }
-    });
-    inputcustom2 = new InputCustom_default({
-      props: {
-        type: "combobox",
-        label: "Customers CoA",
-        id: "customersCoaId",
-        values: ["tess"],
-        value: ""
-      }
-    });
-    inputcustom3 = new InputCustom_default({
-      props: {
-        type: "combobox",
-        label: "Staffs CoA",
-        id: "staffsCoaId",
-        values: ["tess"],
-        value: ""
-      }
-    });
-    inputcustom4 = new InputCustom_default({
-      props: {
-        type: "combobox",
-        label: "Banks CoA",
-        id: "banksCoaId",
-        values: ["tess"],
-        value: ""
-      }
-    });
+    function inputcustom0_value_binding(value) {
+      ctx[22](value);
+    }
+    let inputcustom0_props = {
+      type: "combobox",
+      label: "Products CoA",
+      id: "productCoaId",
+      values: (
+        /*coasChoices*/
+        ctx[0]
+      ),
+      isObject: true
+    };
+    if (
+      /*productsCoaId*/
+      ctx[6] !== void 0
+    ) {
+      inputcustom0_props.value = /*productsCoaId*/
+      ctx[6];
+    }
+    inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
+    binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
+    function inputcustom1_value_binding(value) {
+      ctx[23](value);
+    }
+    let inputcustom1_props = {
+      type: "combobox",
+      label: "Suppliers CoA",
+      id: "suppliersCoaId",
+      values: (
+        /*coasChoices*/
+        ctx[0]
+      ),
+      isObject: true
+    };
+    if (
+      /*suppliersCoaId*/
+      ctx[7] !== void 0
+    ) {
+      inputcustom1_props.value = /*suppliersCoaId*/
+      ctx[7];
+    }
+    inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
+    binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
+    function inputcustom2_value_binding(value) {
+      ctx[24](value);
+    }
+    let inputcustom2_props = {
+      type: "combobox",
+      label: "Customers CoA",
+      id: "customersCoaId",
+      values: (
+        /*coasChoices*/
+        ctx[0]
+      ),
+      isObject: true
+    };
+    if (
+      /*customersCoaId*/
+      ctx[8] !== void 0
+    ) {
+      inputcustom2_props.value = /*customersCoaId*/
+      ctx[8];
+    }
+    inputcustom2 = new InputCustom_default({ props: inputcustom2_props });
+    binding_callbacks.push(() => bind(inputcustom2, "value", inputcustom2_value_binding));
+    function inputcustom3_value_binding(value) {
+      ctx[25](value);
+    }
+    let inputcustom3_props = {
+      type: "combobox",
+      label: "Staffs CoA",
+      id: "staffsCoaId",
+      values: (
+        /*coasChoices*/
+        ctx[0]
+      ),
+      isObject: true
+    };
+    if (
+      /*staffsCoaId*/
+      ctx[9] !== void 0
+    ) {
+      inputcustom3_props.value = /*staffsCoaId*/
+      ctx[9];
+    }
+    inputcustom3 = new InputCustom_default({ props: inputcustom3_props });
+    binding_callbacks.push(() => bind(inputcustom3, "value", inputcustom3_value_binding));
+    function inputcustom4_value_binding(value) {
+      ctx[26](value);
+    }
+    let inputcustom4_props = {
+      type: "combobox",
+      label: "Banks CoA",
+      id: "banksCoaId",
+      values: (
+        /*coasChoices*/
+        ctx[0]
+      ),
+      isObject: true
+    };
+    if (
+      /*banksCoaId*/
+      ctx[10] !== void 0
+    ) {
+      inputcustom4_props.value = /*banksCoaId*/
+      ctx[10];
+    }
+    inputcustom4 = new InputCustom_default({ props: inputcustom4_props });
+    binding_callbacks.push(() => bind(inputcustom4, "value", inputcustom4_value_binding));
     let each_value = ensure_array_like(
       /*REFORMAT_COAS*/
-      ctx[0] || []
+      ctx[1] || []
     );
     const get_key = (ctx2) => (
       /*c*/
-      ctx2[21].id
+      ctx2[34].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context3(ctx, each_value, i);
@@ -9830,7 +9907,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         create_component(inputcustom4.$.fragment);
         t4 = space();
         button0 = element("button");
-        button0.textContent = "Sync CoA";
+        t5 = text("Sync CoA");
         t6 = space();
         div2 = element("div");
         button1 = element("button");
@@ -9839,12 +9916,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(div0, "class", "inputs_container svelte-yamm8h");
-        attr(button0, "class", "sync_btn svelte-yamm8h");
-        attr(div1, "class", "tenants_sync_coa svelte-yamm8h");
-        attr(button1, "class", "add svelte-yamm8h");
-        attr(div2, "class", "header_options svelte-yamm8h");
-        attr(div3, "class", "coa_levels shadow svelte-yamm8h");
+        attr(div0, "class", "inputs_container svelte-1mzqfbt");
+        button0.disabled = /*isSubmitSyncCoA*/
+        ctx[11];
+        attr(button0, "class", "sync_btn svelte-1mzqfbt");
+        attr(div1, "class", "tenants_sync_coa svelte-1mzqfbt");
+        attr(button1, "class", "add svelte-1mzqfbt");
+        attr(div2, "class", "header_options svelte-1mzqfbt");
+        attr(div3, "class", "coa_levels shadow svelte-1mzqfbt");
       },
       m(target, anchor) {
         insert(target, div3, anchor);
@@ -9861,6 +9940,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         mount_component(inputcustom4, div0, null);
         append(div1, t4);
         append(div1, button0);
+        append(button0, t5);
         append(div3, t6);
         append(div3, div2);
         append(div2, button1);
@@ -9872,21 +9952,99 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         current = true;
         if (!mounted) {
-          dispose = listen(
-            button1,
-            "click",
-            /*toggleShowPopUpCoa*/
-            ctx[7]
-          );
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*SubmitSyncCoA*/
+              ctx[17]
+            ),
+            listen(
+              button1,
+              "click",
+              /*toggleShowPopUpCoa*/
+              ctx[14]
+            )
+          ];
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*REFORMAT_COAS, updateEventHandler, coaMovingHandler, coaMovedHandler*/
-        801) {
+        const inputcustom0_changes = {};
+        if (dirty[0] & /*coasChoices*/
+        1)
+          inputcustom0_changes.values = /*coasChoices*/
+          ctx2[0];
+        if (!updating_value && dirty[0] & /*productsCoaId*/
+        64) {
+          updating_value = true;
+          inputcustom0_changes.value = /*productsCoaId*/
+          ctx2[6];
+          add_flush_callback(() => updating_value = false);
+        }
+        inputcustom0.$set(inputcustom0_changes);
+        const inputcustom1_changes = {};
+        if (dirty[0] & /*coasChoices*/
+        1)
+          inputcustom1_changes.values = /*coasChoices*/
+          ctx2[0];
+        if (!updating_value_1 && dirty[0] & /*suppliersCoaId*/
+        128) {
+          updating_value_1 = true;
+          inputcustom1_changes.value = /*suppliersCoaId*/
+          ctx2[7];
+          add_flush_callback(() => updating_value_1 = false);
+        }
+        inputcustom1.$set(inputcustom1_changes);
+        const inputcustom2_changes = {};
+        if (dirty[0] & /*coasChoices*/
+        1)
+          inputcustom2_changes.values = /*coasChoices*/
+          ctx2[0];
+        if (!updating_value_2 && dirty[0] & /*customersCoaId*/
+        256) {
+          updating_value_2 = true;
+          inputcustom2_changes.value = /*customersCoaId*/
+          ctx2[8];
+          add_flush_callback(() => updating_value_2 = false);
+        }
+        inputcustom2.$set(inputcustom2_changes);
+        const inputcustom3_changes = {};
+        if (dirty[0] & /*coasChoices*/
+        1)
+          inputcustom3_changes.values = /*coasChoices*/
+          ctx2[0];
+        if (!updating_value_3 && dirty[0] & /*staffsCoaId*/
+        512) {
+          updating_value_3 = true;
+          inputcustom3_changes.value = /*staffsCoaId*/
+          ctx2[9];
+          add_flush_callback(() => updating_value_3 = false);
+        }
+        inputcustom3.$set(inputcustom3_changes);
+        const inputcustom4_changes = {};
+        if (dirty[0] & /*coasChoices*/
+        1)
+          inputcustom4_changes.values = /*coasChoices*/
+          ctx2[0];
+        if (!updating_value_4 && dirty[0] & /*banksCoaId*/
+        1024) {
+          updating_value_4 = true;
+          inputcustom4_changes.value = /*banksCoaId*/
+          ctx2[10];
+          add_flush_callback(() => updating_value_4 = false);
+        }
+        inputcustom4.$set(inputcustom4_changes);
+        if (!current || dirty[0] & /*isSubmitSyncCoA*/
+        2048) {
+          button0.disabled = /*isSubmitSyncCoA*/
+          ctx2[11];
+        }
+        if (dirty[0] & /*REFORMAT_COAS, updateEventHandler, coaMovingHandler, coaMovedHandler*/
+        102402) {
           each_value = ensure_array_like(
             /*REFORMAT_COAS*/
-            ctx2[0] || []
+            ctx2[1] || []
           );
           group_outros();
           each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, div3, outro_and_destroy_block, create_each_block3, null, get_each_context3);
@@ -9930,7 +10088,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           each_blocks[i].d();
         }
         mounted = false;
-        dispose();
+        run_all(dispose);
       }
     };
   }
@@ -9943,41 +10101,41 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let mainlayout;
     let current;
     function popupcoa_name_binding(value) {
-      ctx[11](value);
+      ctx[19](value);
     }
     function popupcoa_label_binding(value) {
-      ctx[12](value);
+      ctx[20](value);
     }
     function popupcoa_isSubmitted_binding(value) {
-      ctx[13](value);
+      ctx[21](value);
     }
     let popupcoa_props = { onSubmit: (
       /*submitUpsertCoa*/
-      ctx[6]
+      ctx[13]
     ) };
     if (
       /*name*/
-      ctx[2] !== void 0
-    ) {
-      popupcoa_props.name = /*name*/
-      ctx[2];
-    }
-    if (
-      /*label*/
       ctx[3] !== void 0
     ) {
-      popupcoa_props.label = /*label*/
+      popupcoa_props.name = /*name*/
       ctx[3];
     }
     if (
-      /*isSubmittedCoA*/
+      /*label*/
       ctx[4] !== void 0
     ) {
-      popupcoa_props.isSubmitted = /*isSubmittedCoA*/
+      popupcoa_props.label = /*label*/
       ctx[4];
     }
+    if (
+      /*isSubmittedCoA*/
+      ctx[5] !== void 0
+    ) {
+      popupcoa_props.isSubmitted = /*isSubmittedCoA*/
+      ctx[5];
+    }
     popupcoa = new PopUpCoa_default({ props: popupcoa_props });
-    ctx[10](popupcoa);
+    ctx[18](popupcoa);
     binding_callbacks.push(() => bind(popupcoa, "name", popupcoa_name_binding));
     binding_callbacks.push(() => bind(popupcoa, "label", popupcoa_label_binding));
     binding_callbacks.push(() => bind(popupcoa, "isSubmitted", popupcoa_isSubmitted_binding));
@@ -9999,33 +10157,34 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         mount_component(mainlayout, target, anchor);
         current = true;
       },
-      p(ctx2, [dirty]) {
+      p(ctx2, dirty) {
         const popupcoa_changes = {};
-        if (!updating_name && dirty & /*name*/
-        4) {
+        if (!updating_name && dirty[0] & /*name*/
+        8) {
           updating_name = true;
           popupcoa_changes.name = /*name*/
-          ctx2[2];
+          ctx2[3];
           add_flush_callback(() => updating_name = false);
         }
-        if (!updating_label && dirty & /*label*/
-        8) {
+        if (!updating_label && dirty[0] & /*label*/
+        16) {
           updating_label = true;
           popupcoa_changes.label = /*label*/
-          ctx2[3];
+          ctx2[4];
           add_flush_callback(() => updating_label = false);
         }
-        if (!updating_isSubmitted && dirty & /*isSubmittedCoA*/
-        16) {
+        if (!updating_isSubmitted && dirty[0] & /*isSubmittedCoA*/
+        32) {
           updating_isSubmitted = true;
           popupcoa_changes.isSubmitted = /*isSubmittedCoA*/
-          ctx2[4];
+          ctx2[5];
           add_flush_callback(() => updating_isSubmitted = false);
         }
         popupcoa.$set(popupcoa_changes);
         const mainlayout_changes = {};
-        if (dirty & /*$scope, REFORMAT_COAS*/
-        16777217) {
+        if (dirty[0] & /*REFORMAT_COAS, isSubmitSyncCoA, coasChoices, banksCoaId, staffsCoaId, customersCoaId, suppliersCoaId, productsCoaId*/
+        4035 | dirty[1] & /*$scope*/
+        64) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -10046,18 +10205,22 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (detaching) {
           detach(t);
         }
-        ctx[10](null);
+        ctx[18](null);
         destroy_component(popupcoa, detaching);
         destroy_component(mainlayout, detaching);
       }
     };
   }
+  var tenant = (
+    /** @type Tenant */
+    {/* tenant */}
+  );
   function instance10($self, $props, $invalidate) {
     let coas = (
       /** @type CoA[] */
       [/* coas */]
     );
-    console.log("COAS:", coas);
+    let coasChoices = {};
     let REFORMAT_COAS = (
       /** @type CoA[] */
       []
@@ -10129,11 +10292,22 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
       return toCoas;
     }
-    onMount(() => $invalidate(0, REFORMAT_COAS = reformatCoas()));
+    onMount(() => {
+      $invalidate(1, REFORMAT_COAS = reformatCoas());
+      if (coas && coas.length > 0) {
+        $invalidate(0, coasChoices = coas.reduce(
+          (obj, item) => {
+            obj[item.id] = item.name;
+            return obj;
+          },
+          {}
+        ));
+      }
+    });
     function updateEventHandler(e) {
       coas = e.detail.coas;
-      $invalidate(0, REFORMAT_COAS = []);
-      $invalidate(0, REFORMAT_COAS = reformatCoas());
+      $invalidate(1, REFORMAT_COAS = []);
+      $invalidate(1, REFORMAT_COAS = reformatCoas());
     }
     let popUpCoa;
     let id = 0;
@@ -10142,7 +10316,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let label = "";
     let isSubmittedCoA = false;
     async function submitUpsertCoa() {
-      $invalidate(4, isSubmittedCoA = true);
+      $invalidate(5, isSubmittedCoA = true);
       const coa = { id, parentId, name, label };
       const i = { cmd: "upsert", coa };
       await (0, import_jsApi_GEN2.TenantAdminCoa)(
@@ -10151,8 +10325,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         /** @type {import('./jsApi.GEN').TenantAdminCoaCallback} */
         /** @returns {Promise<void>} */
         function(o) {
-          $invalidate(4, isSubmittedCoA = false);
-          id = 0, parentId = 0, $invalidate(2, name = ""), $invalidate(3, label = "");
+          $invalidate(5, isSubmittedCoA = false);
+          id = 0, parentId = 0, $invalidate(3, name = ""), $invalidate(4, label = "");
           popUpCoa.hide();
           if (o.error) {
             console.log(o);
@@ -10160,8 +10334,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             return;
           }
           coas = o.coas;
-          $invalidate(0, REFORMAT_COAS = []);
-          $invalidate(0, REFORMAT_COAS = reformatCoas());
+          $invalidate(1, REFORMAT_COAS = []);
+          $invalidate(1, REFORMAT_COAS = reformatCoas());
           notifier.showSuccess("coa updated");
         }
       );
@@ -10169,8 +10343,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function toggleShowPopUpCoa() {
       id = 0;
       parentId = 0;
-      $invalidate(2, name = "");
-      $invalidate(3, label = "");
+      $invalidate(3, name = "");
+      $invalidate(4, label = "");
       popUpCoa.show();
     }
     let coaMoving = (
@@ -10210,51 +10384,122 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             return;
           }
           coas = o.coas;
-          $invalidate(0, REFORMAT_COAS = []);
-          $invalidate(0, REFORMAT_COAS = reformatCoas());
+          $invalidate(1, REFORMAT_COAS = []);
+          $invalidate(1, REFORMAT_COAS = reformatCoas());
           notifier.showSuccess("coa moved");
+        }
+      );
+    }
+    let productsCoaId = tenant.productsCoaId || 0;
+    let suppliersCoaId = tenant.suppliersCoaId || 0;
+    let customersCoaId = tenant.customersCoaId || 0;
+    let staffsCoaId = tenant.staffsCoaId || 0;
+    let banksCoaId = tenant.banksCoaId || 0;
+    let isSubmitSyncCoA = false;
+    async function SubmitSyncCoA() {
+      $invalidate(11, isSubmitSyncCoA = true);
+      const i = {
+        tenant: {
+          productsCoaId,
+          suppliersCoaId,
+          customersCoaId,
+          staffsCoaId,
+          banksCoaId
+        }
+      };
+      await (0, import_jsApi_GEN2.TenantAdminSyncCoa)(
+        // @ts-ignore
+        i,
+        /** @type {import('./jsApi.GEN').TenantAdminSyncCoaCallback} */
+        function(o) {
+          $invalidate(11, isSubmitSyncCoA = false);
+          if (o.error) {
+            console.log(o);
+            notifier.showError(o.error);
+            return;
+          }
+          const tenant2 = o.tenant;
+          $invalidate(6, productsCoaId = tenant2.productsCoaId);
+          $invalidate(7, suppliersCoaId = tenant2.suppliersCoaId);
+          $invalidate(8, customersCoaId = tenant2.customersCoaId);
+          $invalidate(9, staffsCoaId = tenant2.staffsCoaId);
+          $invalidate(10, banksCoaId = tenant2.banksCoaId);
+          notifier.showSuccess("coa synced");
         }
       );
     }
     function popupcoa_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpCoa = $value;
-        $invalidate(1, popUpCoa);
+        $invalidate(2, popUpCoa);
       });
     }
     function popupcoa_name_binding(value) {
       name = value;
-      $invalidate(2, name);
+      $invalidate(3, name);
     }
     function popupcoa_label_binding(value) {
       label = value;
-      $invalidate(3, label);
+      $invalidate(4, label);
     }
     function popupcoa_isSubmitted_binding(value) {
       isSubmittedCoA = value;
-      $invalidate(4, isSubmittedCoA);
+      $invalidate(5, isSubmittedCoA);
+    }
+    function inputcustom0_value_binding(value) {
+      productsCoaId = value;
+      $invalidate(6, productsCoaId);
+    }
+    function inputcustom1_value_binding(value) {
+      suppliersCoaId = value;
+      $invalidate(7, suppliersCoaId);
+    }
+    function inputcustom2_value_binding(value) {
+      customersCoaId = value;
+      $invalidate(8, customersCoaId);
+    }
+    function inputcustom3_value_binding(value) {
+      staffsCoaId = value;
+      $invalidate(9, staffsCoaId);
+    }
+    function inputcustom4_value_binding(value) {
+      banksCoaId = value;
+      $invalidate(10, banksCoaId);
     }
     return [
+      coasChoices,
       REFORMAT_COAS,
       popUpCoa,
       name,
       label,
       isSubmittedCoA,
+      productsCoaId,
+      suppliersCoaId,
+      customersCoaId,
+      staffsCoaId,
+      banksCoaId,
+      isSubmitSyncCoA,
       updateEventHandler,
       submitUpsertCoa,
       toggleShowPopUpCoa,
       coaMovingHandler,
       coaMovedHandler,
+      SubmitSyncCoA,
       popupcoa_binding,
       popupcoa_name_binding,
       popupcoa_label_binding,
-      popupcoa_isSubmitted_binding
+      popupcoa_isSubmitted_binding,
+      inputcustom0_value_binding,
+      inputcustom1_value_binding,
+      inputcustom2_value_binding,
+      inputcustom3_value_binding,
+      inputcustom4_value_binding
     ];
   }
   var TenantAdmin_coa = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance10, create_fragment10, safe_not_equal, {});
+      init(this, options, instance10, create_fragment10, safe_not_equal, {}, null, [-1, -1]);
     }
   };
   var tenantAdmin_coa_default = TenantAdmin_coa;
