@@ -1,6 +1,9 @@
 package mFinance
 
-import "github.com/kokizzu/gotro/D/Tt"
+import (
+	"github.com/goccy/go-json"
+	"github.com/kokizzu/gotro/D/Tt"
+)
 
 // TODO: business transaction
 // Fields: startDate, endDate
@@ -203,6 +206,20 @@ const (
 	Date      = `date`
 	DetailObj = `detailObj`
 )
+
+type TransactionJournalDetailObject struct {
+	SalesCount 		uint64 `json:"salesCount"`
+	SalesPriceIDR uint64 `json:"salesPriceIDR"`
+}
+
+func IsValidDetailObject(in string) bool {
+	var trxJournalDetailObj TransactionJournalDetailObject
+	err := json.Unmarshal([]byte(in), &trxJournalDetailObj)
+
+	_ = trxJournalDetailObj // throw to hole
+
+	return err == nil
+}
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableCoa: {
