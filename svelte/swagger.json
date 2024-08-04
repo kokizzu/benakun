@@ -132,6 +132,97 @@
 							"schema": {
 								"type": "object",
 								"properties": {
+						"transactionJournal": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"coaId": {
+										"type": "number"
+								},
+								"debitIDR": {
+										"type": "number"
+								},
+								"creditIDR": {
+										"type": "number"
+								},
+								"descriptions": {
+										"type": "string"
+								},
+								"date": {
+										"type": "string"
+								},
+								"detailObj": {
+										"type": "string"
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"deletedBy": {
+										"type": "number"
+								},
+								"restoredBy": {
+										"type": "number"
+								}
+								}
+						},
+						"businessTransaction": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"startDate": {
+										"type": "number"
+								},
+								"endDate": {
+										"type": "number"
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"deletedBy": {
+										"type": "number"
+								},
+								"restoredBy": {
+										"type": "number"
+								},
+								"transactionTemplateId": {
+										"type": "number"
+								}
+								}
+						}
 								}
 							}
 						}
@@ -2888,6 +2979,7 @@
 				}
 			}
 		},
+		"/tenantAdmin/syncCoa": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -2953,6 +3045,47 @@
 								"schema": {
 									"type": "object",
 									"properties": {
+										"tenant": {
+										"type": "object",
+										"properties": {
+												"id": {
+														"type": "number"
+												},
+												"tenantCode": {
+														"type": "string"
+												},
+												"createdAt": {
+														"type": "number"
+												},
+												"createdBy": {
+														"type": "number"
+												},
+												"updatedAt": {
+														"type": "number"
+												},
+												"updatedBy": {
+														"type": "number"
+												},
+												"deletedAt": {
+														"type": "number"
+												},
+												"productsCoaId": {
+														"type": "number"
+												},
+												"suppliersCoaId": {
+														"type": "number"
+												},
+												"customersCoaId": {
+														"type": "number"
+												},
+												"staffsCoaId": {
+														"type": "number"
+												},
+												"banksCoaId": {
+														"type": "number"
+												}
+												}
+										}
 									}
 								}
 							}

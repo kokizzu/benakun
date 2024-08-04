@@ -31,11 +31,19 @@
   let date = '';
   let salesCount = 0;
   let salesPriceIDR = 0;
+  let heading = 'Add journal for ' + transactionTemplate.name;
+
+  let isSubmitted = false;
+
+  async function addTransactionJournal() {
+    isSubmitted
+  }
 </script>
 
 <PopUpDataEntryJournal
   bind:this={popUpDataEntryJournal}
-  heading="Add journal"
+  bind:isSubmitted
+  heading={heading}
 
   bind:isDebit
   bind:isSales
@@ -50,22 +58,7 @@
 
 <MainLayout>
   <div>
-    <p>
-      Yang ditampilin adalah transaction template detail dari
-      transaction template [ini]
-    </p>
-    <p>
-      Jika autoSum, maka autoSum disisi apa dulu ?
-      jika kredit, dia autoSum dari debitnya, dan sebaliknya
-    </p>
-    <p>
-      jika ChildOnly, maka yang bisa di entry hanya anak - anak CoA nya
-    </p>
-    <p>
-      Jika sales, maka inputannya = (angka x harga)
-    </p>
-
-    <h3>INI MASUK KE TABLE JOURNAL</h3>
+    <h1>Data entry for {transactionTemplate.name}</h1>
   </div>
   <div class="data_entry_template___container">
     <div class="transaction_template_detail">
@@ -93,6 +86,7 @@
                       <button
                         on:click={() => {
                           isDebit = trxTplDetail.isDebit
+                          isSales = trxTplDetail.isSales
                           popUpDataEntryJournal.Show()
                         }}
                         class="btn"

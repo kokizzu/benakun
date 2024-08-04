@@ -185,6 +185,9 @@
       {#if coa.label !== ''}
         <span class="label">{coa.label}</span>
       {/if}
+      {#if coa.tenantLabel !== ''}
+        <span class="label tenant">{coa.tenantLabel}</span>
+      {/if}
       {#if coa.deletedAt <= 0}
         <button class="btn" title="Add child" on:click={() => {
           toggleShowPopUpCoa(0, coa.id, '', '');
@@ -329,6 +332,14 @@
     border-radius: 999px;
     background-color: var(--violet-transparent);
     color: var(--violet-005);
+  }
+
+  .coa-child .options .label.tenant {
+    padding: 2px 10px;
+    margin-right: 7px;
+    border-radius: 999px;
+    background-color: var(--yellow-transparent);
+    color: var(--yellow-002);
   }
 
   .coa-child .options .btn {

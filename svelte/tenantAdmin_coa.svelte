@@ -39,7 +39,8 @@
       tenantCode: '',
       label: '',
       deletedBy: '',
-      restoredBy: ''
+      restoredBy: '',
+      tenantLabel: '',
     }
     for (let i in coas) {
       if (coas[i].id == Number(id)) { // @ts-ignore
@@ -62,6 +63,24 @@
         coaFormatted.updatedAt = coas[i].updatedAt
         coaFormatted.updatedBy = coas[i].updatedBy
         coaFormatted.deletedAt = coas[i].deletedAt
+
+        switch (coas[i].id) {
+          case tenant.productsCoaId:
+            coaFormatted.tenantLabel = 'Products'
+            break;
+          case tenant.suppliersCoaId:
+            coaFormatted.tenantLabel = 'Suppliers'
+            break;
+          case tenant.customersCoaId:
+            coaFormatted.tenantLabel = 'Customers'
+            break;
+          case tenant.staffsCoaId:
+            coaFormatted.tenantLabel = 'Staffs'
+            break;
+          case tenant.banksCoaId:
+            coaFormatted.tenantLabel = 'Banks'
+            break;
+        }
       }
     }
 
@@ -218,12 +237,15 @@
           return
         }
 
-        const tenant = o.tenant
+        tenant = o.tenant
         productsCoaId = tenant.productsCoaId;
         suppliersCoaId = tenant.suppliersCoaId;
         customersCoaId = tenant.customersCoaId;
         staffsCoaId = tenant.staffsCoaId;
         banksCoaId = tenant.banksCoaId;
+
+        REFORMAT_COAS = [];
+        REFORMAT_COAS = reformatCoas();
 
         notifier.showSuccess('coa synced');
       }

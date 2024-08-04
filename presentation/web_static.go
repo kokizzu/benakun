@@ -185,7 +185,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		coas := coa.FindCoasChoicesByTenant()
 
 		return views.RenderDataEntryTemplatesTemplate(ctx, M.SX{
-			`title`:      `Data Entry Template`,
+			`title`:      `Data Entry for ` + trxTemplate.Name,
 			`user`:       user,
 			`segments`:   segments,
 			`transactiontemplate`: trxTemplate,
@@ -298,6 +298,24 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`user`:     user,
 			`segments`: segments,
 			`orgs`:     out.Orgs,
+		})
+	})
+
+	fw.Get(`/`+domain.TenantAdminManualJournalAction, func(ctx *fiber.Ctx) error {
+		var in domain.TenantAdminManualJournalIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminManualJournalAction)
+		if err != nil {
+			return err
+		}
+		if notTenantLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		return views.RenderTenantAdminManualJournal(ctx, M.SX{
+			`title`:    `Tenant Admin Manual Journal`,
+			`user`:     user,
+			`segments`: segments,
 		})
 	})
 

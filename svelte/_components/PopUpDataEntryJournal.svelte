@@ -40,53 +40,58 @@
       </button>
     </header>
     <div class="forms">
-      {#if isDebit}
-        <InputCustom
-          id="debitIDR"
-          label="Debit (IDR)"
-          placeholder="0"
-          bind:value={debitIDR}
-          type="number"
-        />
-      {/if}
-      {#if !isDebit}
-        <InputCustom
-          id="creditIDR"
-          label="Credit (IDR)"
-          placeholder="0"
-          bind:value={creditIDR}
-          type="number"
-        />
-      {/if}
       {#if isSales}
+        <table>todo</table>
+      {/if}
+      {#if !isSales}
+        {#if isDebit}
+          <InputCustom
+            id="debitIDR"
+            label="Debit (IDR)"
+            placeholder="0"
+            bind:value={debitIDR}
+            type="number"
+          />
+        {/if}
+        {#if !isDebit}
+          <InputCustom
+            id="creditIDR"
+            label="Credit (IDR)"
+            placeholder="0"
+            bind:value={creditIDR}
+            type="number"
+          />
+        {/if}
+        {#if isSales}
+          <InputCustom
+            id="salesCount"
+            label="Sales Count"
+            placeholder="0"
+            bind:value={salesCount}
+            type="number"
+          />
+          <InputCustom
+            id="salesPriceIDR"
+            label="Sales Price (IDR)"
+            placeholder="0"
+            bind:value={salesPriceIDR}
+            type="number"
+          />
+        {/if}
         <InputCustom
-          id="salesCount"
-          label="Sales Count"
-          placeholder="0"
-          bind:value={salesCount}
-          type="number"
+          id="description"
+          label="Description"
+          placeholder="Description"
+          bind:value={description}
+          type="textarea"
         />
         <InputCustom
-          id="salesPriceIDR"
-          label="Sales Price (IDR)"
-          placeholder="0"
-          bind:value={salesPriceIDR}
-          type="number"
+          id="date"
+          label="Date"
+          bind:value={date}
+          type="date"
         />
       {/if}
-      <InputCustom
-        id="description"
-        label="Description"
-        placeholder="Description"
-        bind:value={description}
-        type="textarea"
-      />
-      <InputCustom
-        id="date"
-        label="Date"
-        bind:value={date}
-        type="date"
-      />
     </div>
     <div class="foot">
       <div class="left">

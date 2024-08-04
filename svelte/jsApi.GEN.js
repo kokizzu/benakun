@@ -102,8 +102,66 @@ exports.DataEntryTemplates = async function DataEntryTemplates( i, cb ) {
 
 /**
  * @typedef {Object} DataEntryTransactionEntryIn
+ * @property {number} transactionJournal.id
+ * @property {String} transactionJournal.tenantCode
+ * @property {number} transactionJournal.coaId
+ * @property {number} transactionJournal.debitIDR
+ * @property {number} transactionJournal.creditIDR
+ * @property {String} transactionJournal.descriptions
+ * @property {String} transactionJournal.date
+ * @property {String} transactionJournal.detailObj
+ * @property {number} transactionJournal.createdAt
+ * @property {number} transactionJournal.createdBy
+ * @property {number} transactionJournal.updatedAt
+ * @property {number} transactionJournal.updatedBy
+ * @property {number} transactionJournal.deletedAt
+ * @property {number} transactionJournal.deletedBy
+ * @property {number} transactionJournal.restoredBy
+ * @property {number} businessTransaction.id
+ * @property {String} businessTransaction.tenantCode
+ * @property {number} businessTransaction.startDate
+ * @property {number} businessTransaction.endDate
+ * @property {number} businessTransaction.createdAt
+ * @property {number} businessTransaction.createdBy
+ * @property {number} businessTransaction.updatedAt
+ * @property {number} businessTransaction.updatedBy
+ * @property {number} businessTransaction.deletedAt
+ * @property {number} businessTransaction.deletedBy
+ * @property {number} businessTransaction.restoredBy
+ * @property {number} businessTransaction.transactionTemplateId
  */
 const DataEntryTransactionEntryIn = {
+  transactionJournal: { // rqFinance.TransactionJournal
+    id: 0, // uint64
+    tenantCode: '', // string
+    coaId: 0, // uint64
+    debitIDR: 0, // int64
+    creditIDR: 0, // int64
+    descriptions: '', // string
+    date: '', // string
+    detailObj: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+  }, // rqFinance.TransactionJournal
+  businessTransaction: { // rqFinance.BusinessTransaction
+    id: 0, // uint64
+    tenantCode: '', // string
+    startDate: 0, // int64
+    endDate: 0, // int64
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    transactionTemplateId: 0, // uint64
+  }, // rqFinance.BusinessTransaction
 }
 /**
  * @typedef {Object} DataEntryTransactionEntryOut
@@ -1966,8 +2024,34 @@ const TenantAdminSyncCoaIn = {
 }
 /**
  * @typedef {Object} TenantAdminSyncCoaOut
+ * @property {number} tenant.id
+ * @property {String} tenant.tenantCode
+ * @property {number} tenant.createdAt
+ * @property {number} tenant.createdBy
+ * @property {number} tenant.updatedAt
+ * @property {number} tenant.updatedBy
+ * @property {number} tenant.deletedAt
+ * @property {number} tenant.productsCoaId
+ * @property {number} tenant.suppliersCoaId
+ * @property {number} tenant.customersCoaId
+ * @property {number} tenant.staffsCoaId
+ * @property {number} tenant.banksCoaId
  */
 const TenantAdminSyncCoaOut = {
+  tenant: { // rqAuth.Tenants
+    id: 0, // uint64
+    tenantCode: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    productsCoaId: 0, // uint64
+    suppliersCoaId: 0, // uint64
+    customersCoaId: 0, // uint64
+    staffsCoaId: 0, // uint64
+    banksCoaId: 0, // uint64
+  }, // rqAuth.Tenants
 }
 /**
  * @callback TenantAdminSyncCoaCallback

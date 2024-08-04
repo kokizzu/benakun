@@ -101,7 +101,7 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 	trxJournal.SetCreditIDR(in.TransactionJournal.CreditIDR)
 	trxJournal.SetDescriptions(in.TransactionJournal.Descriptions)
 
-	if !isStrDate(in.TransactionJournal.Date) {
+	if !isStrIsoDate(in.TransactionJournal.Date) {
 		out.SetError(400, ErrDataEntryTransactionEntryInvalidDate)
 		return
 	}
@@ -141,8 +141,7 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 	return
 }
 
-
-func isStrDate(dateStr string) bool {
-	_, err := time.Parse("01/02/2006", dateStr)
+func isStrIsoDate(dateStr string) bool {
+	_, err := time.Parse("2006-01-02", dateStr)
 	return err == nil
 }

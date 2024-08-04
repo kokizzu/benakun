@@ -13,5 +13,6 @@
   * @property {number} deletedAt
   * @property {string} deletedBy
   * @property {string} restoredBy
+  * @property {string} tenantLabel
   */
 module.exports = {};

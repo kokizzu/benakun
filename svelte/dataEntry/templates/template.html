@@ -88,6 +88,7 @@
 
       --yellow-001: #fbbf24;
       --yellow-002: #f59e0b;
+      --yellow-transparent: #f59e0b30;
 
       --green-000: #f0fdf4;
       --green-001: #dcfce7;
@@ -8049,7 +8050,228 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var InputCustom_default = InputCustom;
 
   // _components/PopUpDataEntryJournal.svelte
-  function create_if_block_43(ctx) {
+  function create_if_block_62(ctx) {
+    let table;
+    return {
+      c() {
+        table = element("table");
+        table.textContent = "todo";
+      },
+      m(target, anchor) {
+        insert(target, table, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(table);
+        }
+      }
+    };
+  }
+  function create_if_block_23(ctx) {
+    let t0;
+    let t1;
+    let t2;
+    let inputcustom0;
+    let updating_value;
+    let t3;
+    let inputcustom1;
+    let updating_value_1;
+    let current;
+    let if_block0 = (
+      /*isDebit*/
+      ctx[8] && create_if_block_53(ctx)
+    );
+    let if_block1 = !/*isDebit*/
+    ctx[8] && create_if_block_43(ctx);
+    let if_block2 = (
+      /*isSales*/
+      ctx[9] && create_if_block_33(ctx)
+    );
+    function inputcustom0_value_binding_1(value) {
+      ctx[20](value);
+    }
+    let inputcustom0_props = {
+      id: "description",
+      label: "Description",
+      placeholder: "Description",
+      type: "textarea"
+    };
+    if (
+      /*description*/
+      ctx[2] !== void 0
+    ) {
+      inputcustom0_props.value = /*description*/
+      ctx[2];
+    }
+    inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
+    binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding_1));
+    function inputcustom1_value_binding_1(value) {
+      ctx[21](value);
+    }
+    let inputcustom1_props = { id: "date", label: "Date", type: "date" };
+    if (
+      /*date*/
+      ctx[3] !== void 0
+    ) {
+      inputcustom1_props.value = /*date*/
+      ctx[3];
+    }
+    inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
+    binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding_1));
+    return {
+      c() {
+        if (if_block0)
+          if_block0.c();
+        t0 = space();
+        if (if_block1)
+          if_block1.c();
+        t1 = space();
+        if (if_block2)
+          if_block2.c();
+        t2 = space();
+        create_component(inputcustom0.$.fragment);
+        t3 = space();
+        create_component(inputcustom1.$.fragment);
+      },
+      m(target, anchor) {
+        if (if_block0)
+          if_block0.m(target, anchor);
+        insert(target, t0, anchor);
+        if (if_block1)
+          if_block1.m(target, anchor);
+        insert(target, t1, anchor);
+        if (if_block2)
+          if_block2.m(target, anchor);
+        insert(target, t2, anchor);
+        mount_component(inputcustom0, target, anchor);
+        insert(target, t3, anchor);
+        mount_component(inputcustom1, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (
+          /*isDebit*/
+          ctx2[8]
+        ) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+            if (dirty & /*isDebit*/
+            256) {
+              transition_in(if_block0, 1);
+            }
+          } else {
+            if_block0 = create_if_block_53(ctx2);
+            if_block0.c();
+            transition_in(if_block0, 1);
+            if_block0.m(t0.parentNode, t0);
+          }
+        } else if (if_block0) {
+          group_outros();
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
+          check_outros();
+        }
+        if (!/*isDebit*/
+        ctx2[8]) {
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
+            if (dirty & /*isDebit*/
+            256) {
+              transition_in(if_block1, 1);
+            }
+          } else {
+            if_block1 = create_if_block_43(ctx2);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(t1.parentNode, t1);
+          }
+        } else if (if_block1) {
+          group_outros();
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*isSales*/
+          ctx2[9]
+        ) {
+          if (if_block2) {
+            if_block2.p(ctx2, dirty);
+            if (dirty & /*isSales*/
+            512) {
+              transition_in(if_block2, 1);
+            }
+          } else {
+            if_block2 = create_if_block_33(ctx2);
+            if_block2.c();
+            transition_in(if_block2, 1);
+            if_block2.m(t2.parentNode, t2);
+          }
+        } else if (if_block2) {
+          group_outros();
+          transition_out(if_block2, 1, 1, () => {
+            if_block2 = null;
+          });
+          check_outros();
+        }
+        const inputcustom0_changes = {};
+        if (!updating_value && dirty & /*description*/
+        4) {
+          updating_value = true;
+          inputcustom0_changes.value = /*description*/
+          ctx2[2];
+          add_flush_callback(() => updating_value = false);
+        }
+        inputcustom0.$set(inputcustom0_changes);
+        const inputcustom1_changes = {};
+        if (!updating_value_1 && dirty & /*date*/
+        8) {
+          updating_value_1 = true;
+          inputcustom1_changes.value = /*date*/
+          ctx2[3];
+          add_flush_callback(() => updating_value_1 = false);
+        }
+        inputcustom1.$set(inputcustom1_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block0);
+        transition_in(if_block1);
+        transition_in(if_block2);
+        transition_in(inputcustom0.$.fragment, local);
+        transition_in(inputcustom1.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block0);
+        transition_out(if_block1);
+        transition_out(if_block2);
+        transition_out(inputcustom0.$.fragment, local);
+        transition_out(inputcustom1.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(t0);
+          detach(t1);
+          detach(t2);
+          detach(t3);
+        }
+        if (if_block0)
+          if_block0.d(detaching);
+        if (if_block1)
+          if_block1.d(detaching);
+        if (if_block2)
+          if_block2.d(detaching);
+        destroy_component(inputcustom0, detaching);
+        destroy_component(inputcustom1, detaching);
+      }
+    };
+  }
+  function create_if_block_53(ctx) {
     let inputcustom;
     let updating_value;
     let current;
@@ -8105,7 +8327,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_33(ctx) {
+  function create_if_block_43(ctx) {
     let inputcustom;
     let updating_value;
     let current;
@@ -8161,7 +8383,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_23(ctx) {
+  function create_if_block_33(ctx) {
     let inputcustom0;
     let updating_value;
     let t;
@@ -8321,21 +8543,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let div0;
     let t3;
     let t4;
-    let t5;
-    let inputcustom0;
-    let updating_value;
-    let t6;
-    let inputcustom1;
-    let updating_value_1;
-    let t7;
     let div3;
     let div1;
-    let t8;
+    let t5;
     let div2;
     let button1;
-    let t10;
+    let t7;
     let button2;
-    let t11;
+    let t8;
     let div5_class_value;
     let current;
     let mounted;
@@ -8348,49 +8563,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     });
     let if_block0 = (
-      /*isDebit*/
-      ctx[8] && create_if_block_43(ctx)
-    );
-    let if_block1 = !/*isDebit*/
-    ctx[8] && create_if_block_33(ctx);
-    let if_block2 = (
       /*isSales*/
-      ctx[9] && create_if_block_23(ctx)
+      ctx[9] && create_if_block_62(ctx)
     );
-    function inputcustom0_value_binding_1(value) {
-      ctx[20](value);
-    }
-    let inputcustom0_props = {
-      id: "description",
-      label: "Description",
-      placeholder: "Description",
-      type: "textarea"
-    };
-    if (
-      /*description*/
-      ctx[2] !== void 0
-    ) {
-      inputcustom0_props.value = /*description*/
-      ctx[2];
-    }
-    inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
-    binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding_1));
-    function inputcustom1_value_binding_1(value) {
-      ctx[21](value);
-    }
-    let inputcustom1_props = { id: "date", label: "Date", type: "date" };
-    if (
-      /*date*/
-      ctx[3] !== void 0
-    ) {
-      inputcustom1_props.value = /*date*/
-      ctx[3];
-    }
-    inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
-    binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding_1));
-    let if_block3 = !/*isSubmitted*/
+    let if_block1 = !/*isSales*/
+    ctx[9] && create_if_block_23(ctx);
+    let if_block2 = !/*isSubmitted*/
     ctx[7] && create_if_block_15(ctx);
-    let if_block4 = (
+    let if_block3 = (
       /*isSubmitted*/
       ctx[7] && create_if_block3(ctx)
     );
@@ -8415,27 +8595,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (if_block1)
           if_block1.c();
         t4 = space();
-        if (if_block2)
-          if_block2.c();
-        t5 = space();
-        create_component(inputcustom0.$.fragment);
-        t6 = space();
-        create_component(inputcustom1.$.fragment);
-        t7 = space();
         div3 = element("div");
         div1 = element("div");
         div1.innerHTML = ``;
-        t8 = space();
+        t5 = space();
         div2 = element("div");
         button1 = element("button");
         button1.textContent = "Cancel";
-        t10 = space();
+        t7 = space();
         button2 = element("button");
+        if (if_block2)
+          if_block2.c();
+        t8 = space();
         if (if_block3)
           if_block3.c();
-        t11 = space();
-        if (if_block4)
-          if_block4.c();
         attr(h2, "class", "svelte-19kcmoe");
         attr(button0, "class", "svelte-19kcmoe");
         attr(header, "class", "header svelte-19kcmoe");
@@ -8467,26 +8640,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(div0, t3);
         if (if_block1)
           if_block1.m(div0, null);
-        append(div0, t4);
-        if (if_block2)
-          if_block2.m(div0, null);
-        append(div0, t5);
-        mount_component(inputcustom0, div0, null);
-        append(div0, t6);
-        mount_component(inputcustom1, div0, null);
-        append(div4, t7);
+        append(div4, t4);
         append(div4, div3);
         append(div3, div1);
-        append(div3, t8);
+        append(div3, t5);
         append(div3, div2);
         append(div2, button1);
-        append(div2, t10);
+        append(div2, t7);
         append(div2, button2);
+        if (if_block2)
+          if_block2.m(button2, null);
+        append(button2, t8);
         if (if_block3)
           if_block3.m(button2, null);
-        append(button2, t11);
-        if (if_block4)
-          if_block4.m(button2, null);
         current = true;
         if (!mounted) {
           dispose = [
@@ -8517,41 +8683,32 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[6]
           );
         if (
-          /*isDebit*/
-          ctx2[8]
+          /*isSales*/
+          ctx2[9]
         ) {
           if (if_block0) {
-            if_block0.p(ctx2, dirty);
-            if (dirty & /*isDebit*/
-            256) {
-              transition_in(if_block0, 1);
-            }
           } else {
-            if_block0 = create_if_block_43(ctx2);
+            if_block0 = create_if_block_62(ctx2);
             if_block0.c();
-            transition_in(if_block0, 1);
             if_block0.m(div0, t3);
           }
         } else if (if_block0) {
-          group_outros();
-          transition_out(if_block0, 1, 1, () => {
-            if_block0 = null;
-          });
-          check_outros();
+          if_block0.d(1);
+          if_block0 = null;
         }
-        if (!/*isDebit*/
-        ctx2[8]) {
+        if (!/*isSales*/
+        ctx2[9]) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
-            if (dirty & /*isDebit*/
-            256) {
+            if (dirty & /*isSales*/
+            512) {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_33(ctx2);
+            if_block1 = create_if_block_23(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
-            if_block1.m(div0, t4);
+            if_block1.m(div0, null);
           }
         } else if (if_block1) {
           group_outros();
@@ -8560,78 +8717,37 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           });
           check_outros();
         }
-        if (
-          /*isSales*/
-          ctx2[9]
-        ) {
-          if (if_block2) {
-            if_block2.p(ctx2, dirty);
-            if (dirty & /*isSales*/
-            512) {
-              transition_in(if_block2, 1);
-            }
-          } else {
-            if_block2 = create_if_block_23(ctx2);
-            if_block2.c();
-            transition_in(if_block2, 1);
-            if_block2.m(div0, t5);
-          }
-        } else if (if_block2) {
-          group_outros();
-          transition_out(if_block2, 1, 1, () => {
-            if_block2 = null;
-          });
-          check_outros();
-        }
-        const inputcustom0_changes = {};
-        if (!updating_value && dirty & /*description*/
-        4) {
-          updating_value = true;
-          inputcustom0_changes.value = /*description*/
-          ctx2[2];
-          add_flush_callback(() => updating_value = false);
-        }
-        inputcustom0.$set(inputcustom0_changes);
-        const inputcustom1_changes = {};
-        if (!updating_value_1 && dirty & /*date*/
-        8) {
-          updating_value_1 = true;
-          inputcustom1_changes.value = /*date*/
-          ctx2[3];
-          add_flush_callback(() => updating_value_1 = false);
-        }
-        inputcustom1.$set(inputcustom1_changes);
         if (!/*isSubmitted*/
         ctx2[7]) {
-          if (if_block3) {
+          if (if_block2) {
           } else {
-            if_block3 = create_if_block_15(ctx2);
-            if_block3.c();
-            if_block3.m(button2, t11);
+            if_block2 = create_if_block_15(ctx2);
+            if_block2.c();
+            if_block2.m(button2, t8);
           }
-        } else if (if_block3) {
-          if_block3.d(1);
-          if_block3 = null;
+        } else if (if_block2) {
+          if_block2.d(1);
+          if_block2 = null;
         }
         if (
           /*isSubmitted*/
           ctx2[7]
         ) {
-          if (if_block4) {
+          if (if_block3) {
             if (dirty & /*isSubmitted*/
             128) {
-              transition_in(if_block4, 1);
+              transition_in(if_block3, 1);
             }
           } else {
-            if_block4 = create_if_block3(ctx2);
-            if_block4.c();
-            transition_in(if_block4, 1);
-            if_block4.m(button2, null);
+            if_block3 = create_if_block3(ctx2);
+            if_block3.c();
+            transition_in(if_block3, 1);
+            if_block3.m(button2, null);
           }
-        } else if (if_block4) {
+        } else if (if_block3) {
           group_outros();
-          transition_out(if_block4, 1, 1, () => {
-            if_block4 = null;
+          transition_out(if_block3, 1, 1, () => {
+            if_block3 = null;
           });
           check_outros();
         }
@@ -8650,22 +8766,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (current)
           return;
         transition_in(icon.$.fragment, local);
-        transition_in(if_block0);
         transition_in(if_block1);
-        transition_in(if_block2);
-        transition_in(inputcustom0.$.fragment, local);
-        transition_in(inputcustom1.$.fragment, local);
-        transition_in(if_block4);
+        transition_in(if_block3);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
-        transition_out(if_block0);
         transition_out(if_block1);
-        transition_out(if_block2);
-        transition_out(inputcustom0.$.fragment, local);
-        transition_out(inputcustom1.$.fragment, local);
-        transition_out(if_block4);
+        transition_out(if_block3);
         current = false;
       },
       d(detaching) {
@@ -8679,12 +8787,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           if_block1.d();
         if (if_block2)
           if_block2.d();
-        destroy_component(inputcustom0);
-        destroy_component(inputcustom1);
         if (if_block3)
           if_block3.d();
-        if (if_block4)
-          if_block4.d();
         mounted = false;
         run_all(dispose);
       }
@@ -8821,8 +8925,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // dataEntry/templates/template.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[19] = list[i];
-    child_ctx[21] = i;
+    child_ctx[23] = list[i];
+    child_ctx[25] = i;
     return child_ctx;
   }
   function create_else_block2(ctx) {
@@ -8853,7 +8957,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let each_value = ensure_array_like(transactionTplDetails || []);
     const get_key = (ctx2) => (
       /*trxTplDetail*/
-      ctx2[19].id
+      ctx2[23].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context2(ctx, each_value, i);
@@ -8877,8 +8981,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*transactionTplDetails, coas, isDebit, popUpDataEntryJournal*/
-        3) {
+        if (dirty & /*transactionTplDetails, coas, isDebit, isSales, popUpDataEntryJournal*/
+        7) {
           each_value = ensure_array_like(transactionTplDetails || []);
           group_outros();
           each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block2, each_1_anchor, get_each_context2);
@@ -8943,9 +9047,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function click_handler() {
       return (
         /*click_handler*/
-        ctx[18](
+        ctx[21](
           /*trxTplDetail*/
-          ctx[19]
+          ctx[23]
         )
       );
     }
@@ -8956,7 +9060,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         tr = element("tr");
         td0 = element("td");
         td0.textContent = `${/*i*/
-        ctx[21] + 1}`;
+        ctx[25] + 1}`;
         t1 = space();
         td1 = element("td");
         div = element("div");
@@ -8965,29 +9069,29 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t2 = space();
         td2 = element("td");
         td2.textContent = `${!/*trxTplDetail*/
-        ctx[19].isDebit ? "Yes" : "No"}`;
+        ctx[23].isDebit ? "Yes" : "No"}`;
         t4 = space();
         td3 = element("td");
         td3.textContent = `${/*trxTplDetail*/
-        ctx[19].isDebit ? "Yes" : "No"}`;
+        ctx[23].isDebit ? "Yes" : "No"}`;
         t6 = space();
         td4 = element("td");
         td4.textContent = `${coas[
           /*trxTplDetail*/
-          ctx[19].coaId
+          ctx[23].coaId
         ]}`;
         t8 = space();
         td5 = element("td");
         td5.textContent = `${/*trxTplDetail*/
-        (ctx[19].attributes || []).includes("autoSum") ? "Yes" : "No"}`;
+        (ctx[23].attributes || []).includes("autoSum") ? "Yes" : "No"}`;
         t10 = space();
         td6 = element("td");
         td6.textContent = `${/*trxTplDetail*/
-        (ctx[19].attributes || []).includes("childOnly") ? "Yes" : "No"}`;
+        (ctx[23].attributes || []).includes("childOnly") ? "Yes" : "No"}`;
         t12 = space();
         td7 = element("td");
         td7.textContent = `${/*trxTplDetail*/
-        (ctx[19].attributes || []).includes("sales") ? "Yes" : "No"}`;
+        (ctx[23].attributes || []).includes("sales") ? "Yes" : "No"}`;
         t14 = space();
         attr(td0, "class", "svelte-8a5g7");
         attr(button, "class", "btn svelte-8a5g7");
@@ -9054,13 +9158,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   }
   function create_default_slot(ctx) {
     let div0;
-    let t9;
+    let h1;
+    let t2;
     let div3;
     let div2;
     let div1;
     let table;
     let thead;
-    let t25;
+    let t18;
     let tbody;
     let current_block_type_index;
     let if_block;
@@ -9077,17 +9182,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     return {
       c() {
         div0 = element("div");
-        div0.innerHTML = `<p>Yang ditampilin adalah transaction template detail dari
-      transaction template [ini]</p> <p>Jika autoSum, maka autoSum disisi apa dulu ?
-      jika kredit, dia autoSum dari debitnya, dan sebaliknya</p> <p>jika ChildOnly, maka yang bisa di entry hanya anak - anak CoA nya</p> <p>Jika sales, maka inputannya = (angka x harga)</p> <h3>INI MASUK KE TABLE JOURNAL</h3>`;
-        t9 = space();
+        h1 = element("h1");
+        h1.textContent = `Data entry for ${transactionTemplate.name}`;
+        t2 = space();
         div3 = element("div");
         div2 = element("div");
         div1 = element("div");
         table = element("table");
         thead = element("thead");
         thead.innerHTML = `<tr><th class="no svelte-8a5g7">#</th> <th class="a_row svelte-8a5g7">Action</th> <th class="svelte-8a5g7">Kredit</th> <th class="svelte-8a5g7">Debit</th> <th class="svelte-8a5g7">CoA (Chart of Accounts)</th> <th class="svelte-8a5g7">Auto Sum</th> <th class="svelte-8a5g7">Child Only</th> <th class="svelte-8a5g7">Sales</th></tr>`;
-        t25 = space();
+        t18 = space();
         tbody = element("tbody");
         if_block.c();
         attr(thead, "class", "svelte-8a5g7");
@@ -9098,13 +9202,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       m(target, anchor) {
         insert(target, div0, anchor);
-        insert(target, t9, anchor);
+        append(div0, h1);
+        insert(target, t2, anchor);
         insert(target, div3, anchor);
         append(div3, div2);
         append(div2, div1);
         append(div1, table);
         append(table, thead);
-        append(table, t25);
+        append(table, t18);
         append(table, tbody);
         if_blocks[current_block_type_index].m(tbody, null);
         current = true;
@@ -9125,7 +9230,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       d(detaching) {
         if (detaching) {
           detach(div0);
-          detach(t9);
+          detach(t2);
           detach(div3);
         }
         if_blocks[current_block_type_index].d();
@@ -9134,6 +9239,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   }
   function create_fragment9(ctx) {
     let popupdataentryjournal;
+    let updating_isSubmitted;
     let updating_isDebit;
     let updating_isSales;
     let updating_debitIDR;
@@ -9145,31 +9251,44 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let t;
     let mainlayout;
     let current;
-    function popupdataentryjournal_isDebit_binding(value) {
-      ctx[10](value);
-    }
-    function popupdataentryjournal_isSales_binding(value) {
-      ctx[11](value);
-    }
-    function popupdataentryjournal_debitIDR_binding(value) {
+    function popupdataentryjournal_isSubmitted_binding(value) {
       ctx[12](value);
     }
-    function popupdataentryjournal_creditIDR_binding(value) {
+    function popupdataentryjournal_isDebit_binding(value) {
       ctx[13](value);
     }
-    function popupdataentryjournal_description_binding(value) {
+    function popupdataentryjournal_isSales_binding(value) {
       ctx[14](value);
     }
-    function popupdataentryjournal_date_binding(value) {
+    function popupdataentryjournal_debitIDR_binding(value) {
       ctx[15](value);
     }
-    function popupdataentryjournal_salesCount_binding(value) {
+    function popupdataentryjournal_creditIDR_binding(value) {
       ctx[16](value);
     }
-    function popupdataentryjournal_salesPriceIDR_binding(value) {
+    function popupdataentryjournal_description_binding(value) {
       ctx[17](value);
     }
-    let popupdataentryjournal_props = { heading: "Add journal" };
+    function popupdataentryjournal_date_binding(value) {
+      ctx[18](value);
+    }
+    function popupdataentryjournal_salesCount_binding(value) {
+      ctx[19](value);
+    }
+    function popupdataentryjournal_salesPriceIDR_binding(value) {
+      ctx[20](value);
+    }
+    let popupdataentryjournal_props = { heading: (
+      /*heading*/
+      ctx[10]
+    ) };
+    if (
+      /*isSubmitted*/
+      ctx[9] !== void 0
+    ) {
+      popupdataentryjournal_props.isSubmitted = /*isSubmitted*/
+      ctx[9];
+    }
     if (
       /*isDebit*/
       ctx[1] !== void 0
@@ -9227,7 +9346,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       ctx[8];
     }
     popupdataentryjournal = new PopUpDataEntryJournal_default({ props: popupdataentryjournal_props });
-    ctx[9](popupdataentryjournal);
+    ctx[11](popupdataentryjournal);
+    binding_callbacks.push(() => bind(popupdataentryjournal, "isSubmitted", popupdataentryjournal_isSubmitted_binding));
     binding_callbacks.push(() => bind(popupdataentryjournal, "isDebit", popupdataentryjournal_isDebit_binding));
     binding_callbacks.push(() => bind(popupdataentryjournal, "isSales", popupdataentryjournal_isSales_binding));
     binding_callbacks.push(() => bind(popupdataentryjournal, "debitIDR", popupdataentryjournal_debitIDR_binding));
@@ -9256,6 +9376,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, [dirty]) {
         const popupdataentryjournal_changes = {};
+        if (!updating_isSubmitted && dirty & /*isSubmitted*/
+        512) {
+          updating_isSubmitted = true;
+          popupdataentryjournal_changes.isSubmitted = /*isSubmitted*/
+          ctx2[9];
+          add_flush_callback(() => updating_isSubmitted = false);
+        }
         if (!updating_isDebit && dirty & /*isDebit*/
         2) {
           updating_isDebit = true;
@@ -9314,8 +9441,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         popupdataentryjournal.$set(popupdataentryjournal_changes);
         const mainlayout_changes = {};
-        if (dirty & /*$scope, isDebit, popUpDataEntryJournal*/
-        4194307) {
+        if (dirty & /*$scope, isDebit, isSales, popUpDataEntryJournal*/
+        67108871) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -9336,7 +9463,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (detaching) {
           detach(t);
         }
-        ctx[9](null);
+        ctx[11](null);
         destroy_component(popupdataentryjournal, detaching);
         destroy_component(mainlayout, detaching);
       }
@@ -9366,11 +9493,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let date = "";
     let salesCount = 0;
     let salesPriceIDR = 0;
+    let heading = "Add journal for " + transactionTemplate.name;
+    let isSubmitted = false;
+    async function addTransactionJournal() {
+      isSubmitted;
+    }
     function popupdataentryjournal_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpDataEntryJournal = $value;
         $invalidate(0, popUpDataEntryJournal);
       });
+    }
+    function popupdataentryjournal_isSubmitted_binding(value) {
+      isSubmitted = value;
+      $invalidate(9, isSubmitted);
     }
     function popupdataentryjournal_isDebit_binding(value) {
       isDebit = value;
@@ -9406,6 +9542,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     const click_handler = (trxTplDetail) => {
       $invalidate(1, isDebit = trxTplDetail.isDebit);
+      $invalidate(2, isSales = trxTplDetail.isSales);
       popUpDataEntryJournal.Show();
     };
     return [
@@ -9418,7 +9555,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       date,
       salesCount,
       salesPriceIDR,
+      isSubmitted,
+      heading,
       popupdataentryjournal_binding,
+      popupdataentryjournal_isSubmitted_binding,
       popupdataentryjournal_isDebit_binding,
       popupdataentryjournal_isSales_binding,
       popupdataentryjournal_debitIDR_binding,
