@@ -189,11 +189,6 @@
 		gap: 10px;
 	}
 
-  .popup_container .popup .forms .map_container {
-    width: 100%;
-    height: 200px;
-  }
-
 	.popup_container .popup .foot {
 		display: flex;
 		flex-direction: row;

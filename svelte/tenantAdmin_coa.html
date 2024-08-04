@@ -10386,7 +10386,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           coas = o.coas;
           $invalidate(1, REFORMAT_COAS = []);
           $invalidate(1, REFORMAT_COAS = reformatCoas());
-          notifier.showSuccess("coa moved");
+          notifier.showSuccess(`coa "` + coaMoving.name + `" moved to coa "` + parentCoa.name + `"`);
         }
       );
     }

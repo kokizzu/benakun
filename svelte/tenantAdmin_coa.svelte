@@ -185,7 +185,7 @@
         REFORMAT_COAS = [];
         REFORMAT_COAS = reformatCoas();
 
-        notifier.showSuccess('coa moved');
+        notifier.showSuccess(`coa "` + coaMoving.name + `" moved to coa "` + parentCoa.name + `"`);
       }
     );
   }
