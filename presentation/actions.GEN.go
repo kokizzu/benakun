@@ -33,6 +33,7 @@ var allCommands = []string{
 	domain.TenantAdminInventoryChangesAction,
 	domain.TenantAdminInventoryChangesProductAction,
 	domain.TenantAdminLocationsAction,
+	domain.TenantAdminManualJournalAction,
 	domain.TenantAdminOrganizationAction,
 	domain.TenantAdminProductsAction,
 	domain.TenantAdminSyncCoaAction,

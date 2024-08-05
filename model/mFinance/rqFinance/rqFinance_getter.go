@@ -161,3 +161,35 @@ FROM SEQSCAN ` + ttpld.SqlTableName() + whereAndSql
 
 	return
 }
+
+func (tj *TransactionJournal) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zCrud.PagerOut) (res [][]any) {
+	const comment = `-- TransactionJournal) FindByPagination`
+
+	validFields := TransactionJournalFieldTypeMap
+	whereAndSql := z3.WhereAndSqlTt(z2.Filters, validFields)
+	whereAndSql2 := `AND ` + tj.SqlTenantCode() + ` = ` + S.Z(tj.TenantCode)
+	if whereAndSql == `` {
+		whereAndSql2 = ` WHERE ` + tj.SqlTenantCode() + ` = ` + S.Z(tj.TenantCode)
+	}
+
+	queryCount := comment + `
+SELECT COUNT(1)
+FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql + whereAndSql2 + `
+LIMIT 1`
+	tj.Adapter.QuerySql(queryCount, func(row []any) {
+		z3.CalculatePages(z2.Page, z2.PerPage, int(X.ToI(row[0])))
+	})
+
+	orderBySql := z3.OrderBySqlTt(z2.Order, validFields)
+	limitOffsetSql := z3.LimitOffsetSql()
+
+	queryRows := comment + `
+SELECT ` + z.ToSelect() + `
+FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
+	tj.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
+	return
+}

@@ -307,15 +307,23 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if err != nil {
 			return err
 		}
+
 		if notTenantLogin(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
 
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Cmd = zCrud.CmdList
+
+		out := d.TenantAdminManualJournal(&in)
 		return views.RenderTenantAdminManualJournal(ctx, M.SX{
 			`title`:    `Tenant Admin Manual Journal`,
 			`user`:     user,
 			`segments`: segments,
+			`fields`: out.Meta.Fields,
+			`pager`: out.Pager,
+			`transactionJournals`: out.TransactionJournals,
 		})
 	})
 
