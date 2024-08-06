@@ -132,54 +132,12 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-						"transactionJournal": {
+						"coaId": {
+								"type": "number"
+						},
+						"transactionJournals": {
 						"type": "object",
 						"properties": {
-								"id": {
-										"type": "number"
-								},
-								"tenantCode": {
-										"type": "string"
-								},
-								"coaId": {
-										"type": "number"
-								},
-								"debitIDR": {
-										"type": "number"
-								},
-								"creditIDR": {
-										"type": "number"
-								},
-								"descriptions": {
-										"type": "string"
-								},
-								"date": {
-										"type": "string"
-								},
-								"detailObj": {
-										"type": "string"
-								},
-								"createdAt": {
-										"type": "number"
-								},
-								"createdBy": {
-										"type": "number"
-								},
-								"updatedAt": {
-										"type": "number"
-								},
-								"updatedBy": {
-										"type": "number"
-								},
-								"deletedAt": {
-										"type": "number"
-								},
-								"deletedBy": {
-										"type": "number"
-								},
-								"restoredBy": {
-										"type": "number"
-								}
 								}
 						},
 						"businessTransaction": {
@@ -2622,6 +2580,7 @@
 				}
 			}
 		},
+		"/tenantAdmin/manualJournal": {
 			"post": {
 				"security": [{
 					"CookieAuth": []

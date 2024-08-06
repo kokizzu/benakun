@@ -18,8 +18,9 @@ import (
 type (
 	DataEntryTransactionEntryIn struct {
 		RequestCommon
-		TransactionJournal  *rqFinance.TransactionJournal `json:"transactionJournal" form:"transactionJournal" query:"transactionJournal" long:"transactionJournal" msg:"transactionJournal"`
-		BusinessTransaction *rqFinance.BusinessTransaction `json:"businessTransaction" form:"businessTransaction" query:"businessTransaction" long:"businessTransaction" msg:"businessTransaction"`
+		CoaId uint64 `json:"coaId" form:"coaId" query:"coaId" long:"coaId" msg:"coaId"`
+		TransactionJournals []rqFinance.TransactionJournal `json:"transactionJournals" form:"transactionJournals" query:"transactionJournals" long:"transactionJournals" msg:"transactionJournals"`
+		BusinessTransaction rqFinance.BusinessTransaction `json:"businessTransaction" form:"businessTransaction" query:"businessTransaction" long:"businessTransaction" msg:"businessTransaction"`
 	}
 	DataEntryTransactionEntryOut struct {
 		ResponseCommon
@@ -88,38 +89,43 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 	}
 
 	coa := rqFinance.NewCoa(d.AuthOltp)
-	coa.Id = in.TransactionJournal.CoaId
+	coa.Id = in.CoaId
 	if !coa.FindById() {
 		out.SetError(400, ErrDataEntryTransactionEntryCoaNotFound)
 		return
 	}
 
 	trxJournal := wcFinance.NewTransactionJournalMutator(d.AuthOltp)
-	trxJournal.SetTenantCode(tenant.TenantCode)
-	trxJournal.SetCoaId(coa.Id)
-	trxJournal.SetDebitIDR(in.TransactionJournal.DebitIDR)
-	trxJournal.SetCreditIDR(in.TransactionJournal.CreditIDR)
-	trxJournal.SetDescriptions(in.TransactionJournal.Descriptions)
 
-	if !isStrIsoDate(in.TransactionJournal.Date) {
-		out.SetError(400, ErrDataEntryTransactionEntryInvalidDate)
-		return
-	}
-	trxJournal.SetDate(in.TransactionJournal.Date)
+	if len(in.TransactionJournals) > 0 {
+		for _, v := range in.TransactionJournals {
+			trxJournal.SetTenantCode(tenant.TenantCode)
+			trxJournal.SetCoaId(coa.Id)
+			trxJournal.SetDebitIDR(v.DebitIDR)
+			trxJournal.SetCreditIDR(v.CreditIDR)
+			trxJournal.SetDescriptions(v.Descriptions)
 
-	if !mFinance.IsValidDetailObject(in.TransactionJournal.DetailObj) {
-		out.SetError(400, ErrDataEntryTransactionEntryInvalidDetailObject)
-		return
-	}
-	trxJournal.SetDetailObj(in.TransactionJournal.DetailObj)
-	trxJournal.SetCreatedAt(in.UnixNow())
-	trxJournal.SetCreatedBy(sess.UserId)
-	trxJournal.SetUpdatedAt(in.UnixNow())
-	trxJournal.SetUpdatedBy(sess.UserId)
+			if !isStrIsoDate(v.Date) {
+				out.SetError(400, ErrDataEntryTransactionEntryInvalidDate)
+				return
+			}
+			trxJournal.SetDate(v.Date)
 
-	if !trxJournal.DoInsert() {
-		out.SetError(400, ErrDataEntryTransactionEntrySaveFailed)
-		return
+			if !mFinance.IsValidDetailObject(v.DetailObj) {
+				out.SetError(400, ErrDataEntryTransactionEntryInvalidDetailObject)
+				return
+			}
+			trxJournal.SetDetailObj(v.DetailObj)
+			trxJournal.SetCreatedAt(in.UnixNow())
+			trxJournal.SetCreatedBy(sess.UserId)
+			trxJournal.SetUpdatedAt(in.UnixNow())
+			trxJournal.SetUpdatedBy(sess.UserId)
+
+			if !trxJournal.DoInsert() {
+				out.SetError(400, ErrDataEntryTransactionEntrySaveFailed)
+				return
+			}
+		}
 	}
 
 	trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)

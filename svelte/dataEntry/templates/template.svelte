@@ -47,13 +47,6 @@
 
   bind:isDebit
   bind:isSales
-
-  bind:debitIDR
-  bind:creditIDR
-  bind:description
-  bind:date
-  bind:salesCount
-  bind:salesPriceIDR
 />
 
 <MainLayout>

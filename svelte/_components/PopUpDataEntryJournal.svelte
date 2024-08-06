@@ -1,4 +1,6 @@
 <script>
+  /** @typedef {import('./types/transaction').TransactionJournal} TransactionJournal */
+
 	import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
@@ -8,22 +10,24 @@
   export let isSubmitted  = false;
   let isShow              = false;
 
-  export let isDebit = true;
-  export let isSales = false;
+  export let isDebit      = true;
+  export let isSales      = false;
+  export let isChildOnly  = false;
 
-  export let debitIDR = 0;
-  export let creditIDR = 0;
-  export let description = '';
-  export let date = '';
-  export let salesCount = 0;
-  export let salesPriceIDR = 0;
+  export let startDate = new Date();
+  export let endDate = new Date();
+
+  let payloads = /** @type TransactionJournal[] */ ([])
 
   export let OnSubmit = async function() {}  
-  export const Show = () => isShow = true;
+  export const Show = () => {
+    payloads = [];
+    isShow = true;
+  }
   export const Hide = () => isShow = false;
 
   export const Reset = () => {
-
+    payloads = [];
   }
   
   const cancel = () => {
@@ -40,57 +44,27 @@
       </button>
     </header>
     <div class="forms">
+      <InputCustom
+        id="startDate"
+        label="Start Date"
+        bind:value={startDate}
+        type="date"
+      />
+      <InputCustom
+        id="endDate"
+        label="End Date"
+        bind:value={endDate}
+        type="date"
+      />
       {#if isSales}
-        <table>todo</table>
-      {/if}
-      {#if !isSales}
-        {#if isDebit}
-          <InputCustom
-            id="debitIDR"
-            label="Debit (IDR)"
-            placeholder="0"
-            bind:value={debitIDR}
-            type="number"
-          />
-        {/if}
-        {#if !isDebit}
-          <InputCustom
-            id="creditIDR"
-            label="Credit (IDR)"
-            placeholder="0"
-            bind:value={creditIDR}
-            type="number"
-          />
-        {/if}
-        {#if isSales}
-          <InputCustom
-            id="salesCount"
-            label="Sales Count"
-            placeholder="0"
-            bind:value={salesCount}
-            type="number"
-          />
-          <InputCustom
-            id="salesPriceIDR"
-            label="Sales Price (IDR)"
-            placeholder="0"
-            bind:value={salesPriceIDR}
-            type="number"
-          />
-        {/if}
-        <InputCustom
-          id="description"
-          label="Description"
-          placeholder="Description"
-          bind:value={description}
-          type="textarea"
-        />
-        <InputCustom
-          id="date"
-          label="Date"
-          bind:value={date}
-          type="date"
-        />
+        <div>
+          <div>
+            <input type="text" placeholder="Description" />
+          </div>
+          <div>
+            <button>Add row</button>
+          </div>
+        </div>
       {/if}
     </div>
     <div class="foot">
@@ -150,7 +124,7 @@
 		border-radius: 8px;
 		background-color: #FFF;
 		height: fit-content;
-		width: 500px;
+		width: 700px;
 		display: flex;
 		flex-direction: column;
 	}

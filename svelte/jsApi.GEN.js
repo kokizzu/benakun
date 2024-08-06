@@ -102,21 +102,8 @@ exports.DataEntryTemplates = async function DataEntryTemplates( i, cb ) {
 
 /**
  * @typedef {Object} DataEntryTransactionEntryIn
- * @property {number} transactionJournal.id
- * @property {String} transactionJournal.tenantCode
- * @property {number} transactionJournal.coaId
- * @property {number} transactionJournal.debitIDR
- * @property {number} transactionJournal.creditIDR
- * @property {String} transactionJournal.descriptions
- * @property {String} transactionJournal.date
- * @property {String} transactionJournal.detailObj
- * @property {number} transactionJournal.createdAt
- * @property {number} transactionJournal.createdBy
- * @property {number} transactionJournal.updatedAt
- * @property {number} transactionJournal.updatedBy
- * @property {number} transactionJournal.deletedAt
- * @property {number} transactionJournal.deletedBy
- * @property {number} transactionJournal.restoredBy
+ * @property {number} coaId
+ * @property {Object} transactionJournals
  * @property {number} businessTransaction.id
  * @property {String} businessTransaction.tenantCode
  * @property {number} businessTransaction.startDate
@@ -131,23 +118,9 @@ exports.DataEntryTemplates = async function DataEntryTemplates( i, cb ) {
  * @property {number} businessTransaction.transactionTemplateId
  */
 const DataEntryTransactionEntryIn = {
-  transactionJournal: { // rqFinance.TransactionJournal
-    id: 0, // uint64
-    tenantCode: '', // string
-    coaId: 0, // uint64
-    debitIDR: 0, // int64
-    creditIDR: 0, // int64
-    descriptions: '', // string
-    date: '', // string
-    detailObj: '', // string
-    createdAt: 0, // int64
-    createdBy: 0, // uint64
-    updatedAt: 0, // int64
-    updatedBy: 0, // uint64
-    deletedAt: 0, // int64
-    deletedBy: 0, // uint64
-    restoredBy: 0, // uint64
-  }, // rqFinance.TransactionJournal
+  coaId: 0, // uint64
+  transactionJournals: { // []rqFinance.TransactionJournal
+  }, // []rqFinance.TransactionJournal
   businessTransaction: { // rqFinance.BusinessTransaction
     id: 0, // uint64
     tenantCode: '', // string
