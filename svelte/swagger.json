@@ -150,10 +150,10 @@
 										"type": "string"
 								},
 								"startDate": {
-										"type": "number"
+										"type": "string"
 								},
 								"endDate": {
-										"type": "number"
+										"type": "string"
 								},
 								"createdAt": {
 										"type": "number"

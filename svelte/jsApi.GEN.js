@@ -106,8 +106,8 @@ exports.DataEntryTemplates = async function DataEntryTemplates( i, cb ) {
  * @property {Object} transactionJournals
  * @property {number} businessTransaction.id
  * @property {String} businessTransaction.tenantCode
- * @property {number} businessTransaction.startDate
- * @property {number} businessTransaction.endDate
+ * @property {String} businessTransaction.startDate
+ * @property {String} businessTransaction.endDate
  * @property {number} businessTransaction.createdAt
  * @property {number} businessTransaction.createdBy
  * @property {number} businessTransaction.updatedAt
@@ -124,8 +124,8 @@ const DataEntryTransactionEntryIn = {
   businessTransaction: { // rqFinance.BusinessTransaction
     id: 0, // uint64
     tenantCode: '', // string
-    startDate: 0, // int64
-    endDate: 0, // int64
+    startDate: '', // string
+    endDate: '', // string
     createdAt: 0, // int64
     createdBy: 0, // uint64
     updatedAt: 0, // int64

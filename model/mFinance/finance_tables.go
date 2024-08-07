@@ -323,8 +323,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Fields: []Tt.Field{
 			{Id, Tt.Unsigned},
 			{TenantCode, Tt.String},
-			{StartDate, Tt.Integer},
-			{EndDate, Tt.Integer},
+			{StartDate, Tt.String},
+			{EndDate, Tt.String},
 			{CreatedAt, Tt.Integer},
 			{CreatedBy, Tt.Unsigned},
 			{UpdatedAt, Tt.Integer},

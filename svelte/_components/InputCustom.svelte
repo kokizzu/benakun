@@ -5,6 +5,7 @@
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { AiOutlineEye, AiOutlineEyeInvisible } from '../node_modules/svelte-icons-pack/dist/ai';
 
+  export let className = '';
   export let type = /** @type {InputType} */ ('text');
   export let id;
   export let value;
@@ -32,7 +33,7 @@
   }
 </script>
 
-<div>
+<div class={className}>
   <div class="input_box {type == 'bool' ? 'bool' : ''} {type == 'password' ? 'with_password' : ''}">
     {#if type === 'bool' || type === 'checkbox'}
       <label class="label" for={id}>{label}</label>

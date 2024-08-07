@@ -7,6 +7,8 @@
     RiSystemAddBoxLine
   } from '../../node_modules/svelte-icons-pack/dist/ri';
   import PopUpDataEntryJournal from '../../_components/PopUpDataEntryJournal.svelte';
+  import { DataEntryTransactionEntry } from '../../jsApi.GEN';
+    import { notifier } from '../../_components/notifier';
 
   let transactionTemplate = /** @type TransactionTemplate */ ({/* transactiontemplate */});
   let transactionTplDetails = /** @type any[] */ ([/* transactionTplDetails */]);
@@ -25,18 +27,53 @@
   let isDebit = true;
   let isSales = false;
 
+  let startDate;
+  let endDate;
+
+  let coaId = 0;
   let debitIDR = 0;
   let creditIDR = 0;
   let description = '';
   let date = '';
-  let salesCount = 0;
-  let salesPriceIDR = 0;
   let heading = 'Add journal for ' + transactionTemplate.name;
 
   let isSubmitted = false;
 
-  async function addTransactionJournal() {
-    isSubmitted
+  async function Submit() {
+    isSubmitted = true;
+    const i = {
+      coaId: coaId,
+      transactionJournals: [
+        {
+          debitIDR: debitIDR,
+          creditIDR: creditIDR,
+          descriptions: description,
+          date: date,
+        }
+      ],
+      businessTransaction: {
+        startDate: startDate,
+        endDate: endDate,
+      }
+    }
+
+    await DataEntryTransactionEntry( // @ts-ignore
+      i, /** @returns {Promise<any>} */
+      function (o) {
+        isSubmitted = false;
+        if (o.error) {
+          notifier.showError(o.error || 'failed to add journal');
+          return
+        }
+
+        notifier.showSuccess('journal added !');
+        popUpDataEntryJournal.Hide()
+      }
+    )
+  }
+
+  async function SubmitWithSales(payloadsSales) {
+    console.log('Submit sales', payloadsSales);
   }
 </script>
 
@@ -45,8 +82,18 @@
   bind:isSubmitted
   heading={heading}
 
+  bind:startDate
+  bind:endDate
+
   bind:isDebit
   bind:isSales
+  bind:debitIDR
+  bind:creditIDR
+  bind:description
+  bind:date
+
+  OnSubmit={Submit}
+  OnSubmitWithSales={SubmitWithSales}
 />
 
 <MainLayout>
@@ -79,8 +126,13 @@
                       <button
                         on:click={() => {
                           isDebit = trxTplDetail.isDebit
-                          isSales = trxTplDetail.isSales
-                          popUpDataEntryJournal.Show()
+                          isSales = (trxTplDetail.attributes || []).includes('sales')
+                          coaId = trxTplDetail.coaId
+                          if (isSales) {
+                            popUpDataEntryJournal.ShowWithSales()
+                          } else {
+                            popUpDataEntryJournal.Show()
+                          }
                         }}
                         class="btn"
                         title="Add journal"

@@ -134,7 +134,7 @@ func (b *BusinessTransactionMutator) SetTenantCode(val string) bool { //nolint:d
 }
 
 // SetStartDate create mutations, should not duplicate
-func (b *BusinessTransactionMutator) SetStartDate(val int64) bool { //nolint:dupl false positive
+func (b *BusinessTransactionMutator) SetStartDate(val string) bool { //nolint:dupl false positive
 	if val != b.StartDate {
 		b.mutations.Assign(2, val)
 		b.logs = append(b.logs, A.X{`startDate`, b.StartDate, val})
@@ -145,7 +145,7 @@ func (b *BusinessTransactionMutator) SetStartDate(val int64) bool { //nolint:dup
 }
 
 // SetEndDate create mutations, should not duplicate
-func (b *BusinessTransactionMutator) SetEndDate(val int64) bool { //nolint:dupl false positive
+func (b *BusinessTransactionMutator) SetEndDate(val string) bool { //nolint:dupl false positive
 	if val != b.EndDate {
 		b.mutations.Assign(3, val)
 		b.logs = append(b.logs, A.X{`endDate`, b.EndDate, val})
@@ -259,12 +259,12 @@ func (b *BusinessTransactionMutator) SetAll(from rqFinance.BusinessTransaction, 
 		b.TenantCode = S.Trim(from.TenantCode)
 		changed = true
 	}
-	if !excludeMap[`startDate`] && (forceMap[`startDate`] || from.StartDate != 0) {
-		b.StartDate = from.StartDate
+	if !excludeMap[`startDate`] && (forceMap[`startDate`] || from.StartDate != ``) {
+		b.StartDate = S.Trim(from.StartDate)
 		changed = true
 	}
-	if !excludeMap[`endDate`] && (forceMap[`endDate`] || from.EndDate != 0) {
-		b.EndDate = from.EndDate
+	if !excludeMap[`endDate`] && (forceMap[`endDate`] || from.EndDate != ``) {
+		b.EndDate = S.Trim(from.EndDate)
 		changed = true
 	}
 	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {

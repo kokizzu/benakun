@@ -23,8 +23,8 @@ type BusinessTransaction struct {
 	Adapter               *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
 	Id                    uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
 	TenantCode            string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
-	StartDate             int64       `json:"startDate" form:"startDate" query:"startDate" long:"startDate" msg:"startDate"`
-	EndDate               int64       `json:"endDate" form:"endDate" query:"endDate" long:"endDate" msg:"endDate"`
+	StartDate             string      `json:"startDate" form:"startDate" query:"startDate" long:"startDate" msg:"startDate"`
+	EndDate               string      `json:"endDate" form:"endDate" query:"endDate" long:"endDate" msg:"endDate"`
 	CreatedAt             int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
 	CreatedBy             uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
 	UpdatedAt             int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
@@ -272,8 +272,8 @@ func (b *BusinessTransaction) ToArray() A.X { //nolint:dupl false positive
 func (b *BusinessTransaction) FromArray(a A.X) *BusinessTransaction { //nolint:dupl false positive
 	b.Id = X.ToU(a[0])
 	b.TenantCode = X.ToS(a[1])
-	b.StartDate = X.ToI(a[2])
-	b.EndDate = X.ToI(a[3])
+	b.StartDate = X.ToS(a[2])
+	b.EndDate = X.ToS(a[3])
 	b.CreatedAt = X.ToI(a[4])
 	b.CreatedBy = X.ToU(a[5])
 	b.UpdatedAt = X.ToI(a[6])
@@ -289,8 +289,8 @@ func (b *BusinessTransaction) FromArray(a A.X) *BusinessTransaction { //nolint:d
 func (b *BusinessTransaction) FromUncensoredArray(a A.X) *BusinessTransaction { //nolint:dupl false positive
 	b.Id = X.ToU(a[0])
 	b.TenantCode = X.ToS(a[1])
-	b.StartDate = X.ToI(a[2])
-	b.EndDate = X.ToI(a[3])
+	b.StartDate = X.ToS(a[2])
+	b.EndDate = X.ToS(a[3])
 	b.CreatedAt = X.ToI(a[4])
 	b.CreatedBy = X.ToU(a[5])
 	b.UpdatedAt = X.ToI(a[6])
@@ -365,8 +365,8 @@ func (b *BusinessTransaction) Total() int64 { //nolint:dupl false positive
 var BusinessTransactionFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`id`:                    Tt.Unsigned,
 	`tenantCode`:            Tt.String,
-	`startDate`:             Tt.Integer,
-	`endDate`:               Tt.Integer,
+	`startDate`:             Tt.String,
+	`endDate`:               Tt.String,
 	`createdAt`:             Tt.Integer,
 	`createdBy`:             Tt.Unsigned,
 	`updatedAt`:             Tt.Integer,
