@@ -7,8 +7,6 @@ import (
 	"benakun/model/mFinance/rqFinance"
 	"benakun/model/mFinance/wcFinance"
 	"time"
-
-	"github.com/kokizzu/gotro/L"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file DataEntryTransactionEntry.go
@@ -47,81 +45,53 @@ const (
 
 func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out DataEntryTransactionEntryOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
-	
-	L.Print(`Trigger 1`)
+
 	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
-	L.Print(`Trigger 2`)
 	if sess == nil {
-		L.Print(`Trigger 3`)
 		out.SetError(400, ErrDataEntryTransactionEntryUnauthorized)
 		return
 	}
 
-	L.Print(`Trigger 4`)
-	if !sess.IsDataEntry {
-		L.Print(`Trigger 5`)
-		out.SetError(400, ErrDataEntryTransactionEntryNotDataEntry)
-		return
-	}
-
-	L.Print(`Trigger 6`)
 	tenantCode, err := GetTenantCodeByHost(in.Host)
-	L.Print(`Trigger 7`)
 	if err != nil {
-		L.Print(`Trigger 8`)
 		out.SetError(400, ErrDataEntryTransactionEntryTenantNotFound)
 		return
 	}
 
-	L.Print(`Trigger 9`)
 	user := rqAuth.NewUsers(d.AuthOltp)
-	L.Print(`Trigger 10`)
 	user.Id = sess.UserId
 	if !user.FindById() {
-		L.Print(`Trigger 11`)
 		out.SetError(400, ErrDataEntryTransactionEntryUserNotFound)
 		return
 	}
 
-	L.Print(`Trigger 12`)
 	mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
 	if err != nil {
-		L.Print(`Trigger 13`)
 		out.SetError(400, ErrDataEntryTransactionEntryInvalidUserRole)
 		return
 	}
 
-	L.Print(`Trigger 14`)
 	if mapState.GetRoleByTenantCode(tenantCode) != mAuth.RoleDataEntry {
-		L.Print(`Trigger 15`)
 		out.SetError(400, ErrDataEntryTransactionEntryNotDataEntry)
 		return
 	}
 
-	L.Print(`Trigger 16`)
 	tenant := rqAuth.NewTenants(d.AuthOltp)
-	L.Print(`Trigger 17`)
 	tenant.TenantCode = tenantCode
 	if !tenant.FindByTenantCode() {
-		L.Print(`Trigger 18`)
 		out.SetError(400, ErrDataEntryTransactionEntryTenantNotFound)
 		return
 	}
 
-	L.Print(`Trigger 19`)
 	coa := rqFinance.NewCoa(d.AuthOltp)
 	coa.Id = in.CoaId
 	if !coa.FindById() {
-		L.Print(`Trigger 20`)
 		out.SetError(400, ErrDataEntryTransactionEntryCoaNotFound)
 		return
 	}
 
-	L.Print(`Trigger 21`)
 	if len(in.TransactionJournals) > 0 {
-		L.Print(`Trigger 22`)
 		for _, v := range in.TransactionJournals {
-			L.Print(`Trigger 23`)
 			trxJournal := wcFinance.NewTransactionJournalMutator(d.AuthOltp)
 			trxJournal.SetTenantCode(tenant.TenantCode)
 			trxJournal.SetCoaId(coa.Id)
@@ -130,17 +100,18 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 			trxJournal.SetDescriptions(v.Descriptions)
 
 			if !isStrIsoDate(v.Date) {
-				L.Print(`Trigger 24`)
 				out.SetError(400, ErrDataEntryTransactionEntryInvalidDate)
 				return
 			}
 			trxJournal.SetDate(v.Date)
 
-			if !mFinance.IsValidDetailObject(v.DetailObj) {
-				L.Print(`Trigger 25`)
-				out.SetError(400, ErrDataEntryTransactionEntryInvalidDetailObject)
-				return
+			if v.DetailObj != `` {
+				if !mFinance.IsValidDetailObject(v.DetailObj) {
+					out.SetError(400, ErrDataEntryTransactionEntryInvalidDetailObject)
+					return
+				}
 			}
+			
 			trxJournal.SetDetailObj(v.DetailObj)
 			trxJournal.SetCreatedAt(in.UnixNow())
 			trxJournal.SetCreatedBy(sess.UserId)
@@ -148,7 +119,6 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 			trxJournal.SetUpdatedBy(sess.UserId)
 
 			if !trxJournal.DoInsert() {
-				L.Print(`Trigger 26`)
 				out.SetError(400, ErrDataEntryTransactionEntrySaveFailed)
 				return
 			}
@@ -158,7 +128,6 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 	trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
 	trxTemplate.Id = in.BusinessTransaction.TransactionTemplateId
 	if !trxTemplate.FindById() {
-		L.Print(`Trigger 27`)
 		out.SetError(400, ErrDataEntryTransactionEntryTransactionTemplateNotFound)
 		return
 	}
@@ -173,7 +142,6 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 	businessTrx.SetUpdatedBy(sess.UserId)
 
 	if !businessTrx.DoInsert() {
-		L.Print(`Trigger 28`)
 		out.SetError(400, ErrDataEntryTransactionEntrySaveFailed)
 		return
 	}

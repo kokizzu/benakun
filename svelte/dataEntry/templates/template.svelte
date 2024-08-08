@@ -45,8 +45,8 @@
       coaId: coaId,
       transactionJournals: [
         {
-          debitIDR: debitIDR,
-          creditIDR: creditIDR,
+          debitIDR: debitIDR+'',
+          creditIDR: creditIDR+'',
           descriptions: description,
           date: date,
         }
@@ -54,6 +54,7 @@
       businessTransaction: {
         startDate: startDate,
         endDate: endDate,
+        transactionTemplateId: transactionTemplate.id
       }
     }
 
@@ -68,6 +69,7 @@
 
         notifier.showSuccess('journal added !');
         popUpDataEntryJournal.Hide()
+        popUpDataEntryJournal.Reset()
       }
     )
   }

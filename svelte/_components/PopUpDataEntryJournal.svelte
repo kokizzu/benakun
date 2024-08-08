@@ -57,6 +57,18 @@
 
   export const Reset = () => {
     payloadsSales = [];
+    isDebit      = true;
+    isSales      = false;
+    isChildOnly  = false;
+    coas = {}
+
+    debitIDR = 0;
+    creditIDR = 0;
+    description = '';
+    date = '';
+
+    startDate = new Date();
+    endDate = new Date();
   }
   
   const cancel = () => {

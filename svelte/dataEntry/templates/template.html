@@ -8155,7 +8155,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function select_block_type(ctx2, dirty) {
       if (
         /*isDebit*/
-        ctx2[9]
+        ctx2[0]
       )
         return create_if_block_72;
       return create_else_block_3;
@@ -8259,7 +8259,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           }
         }
         if (dirty[0] & /*payloadsSales, isDebit*/
-        16896) {
+        16385) {
           each_value = ensure_array_like(
             /*payloadsSales*/
             ctx2[14]
@@ -8462,7 +8462,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function select_block_type_1(ctx2, dirty) {
       if (
         /*isDebit*/
-        ctx2[9]
+        ctx2[0]
       )
         return create_if_block_62;
       return create_else_block_2;
@@ -8671,7 +8671,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function select_block_type_2(ctx2, dirty) {
       if (
         /*isDebit*/
-        ctx2[9]
+        ctx2[0]
       )
         return create_if_block_43;
       return create_else_block_12;
@@ -8681,7 +8681,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function select_block_type_3(ctx2, dirty) {
       if (
         /*isDebit*/
-        ctx2[9]
+        ctx2[0]
       )
         return create_if_block_33;
       return create_else_block2;
@@ -8754,7 +8754,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         set_input_value(
           textarea,
           /*description*/
-          ctx[3]
+          ctx[4]
         );
         append(tr1, t10);
         append(tr1, td2);
@@ -8762,7 +8762,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         set_input_value(
           input,
           /*date*/
-          ctx[4]
+          ctx[5]
         );
         if (!mounted) {
           dispose = [
@@ -8802,19 +8802,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           }
         }
         if (dirty[0] & /*description*/
-        8) {
+        16) {
           set_input_value(
             textarea,
             /*description*/
-            ctx2[3]
+            ctx2[4]
           );
         }
         if (dirty[0] & /*date*/
-        16) {
+        32) {
           set_input_value(
             input,
             /*date*/
-            ctx2[4]
+            ctx2[5]
           );
         }
       },
@@ -8884,7 +8884,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         set_input_value(
           input,
           /*creditIDR*/
-          ctx[2]
+          ctx[3]
         );
         if (!mounted) {
           dispose = listen(
@@ -8898,12 +8898,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*creditIDR*/
-        4 && to_number(input.value) !== /*creditIDR*/
-        ctx2[2]) {
+        8 && to_number(input.value) !== /*creditIDR*/
+        ctx2[3]) {
           set_input_value(
             input,
             /*creditIDR*/
-            ctx2[2]
+            ctx2[3]
           );
         }
       },
@@ -8935,7 +8935,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         set_input_value(
           input,
           /*debitIDR*/
-          ctx[1]
+          ctx[2]
         );
         if (!mounted) {
           dispose = listen(
@@ -8949,12 +8949,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*debitIDR*/
-        2 && to_number(input.value) !== /*debitIDR*/
-        ctx2[1]) {
+        4 && to_number(input.value) !== /*debitIDR*/
+        ctx2[2]) {
           set_input_value(
             input,
             /*debitIDR*/
-            ctx2[1]
+            ctx2[2]
           );
         }
       },
@@ -9068,10 +9068,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
     if (
       /*startDate*/
-      ctx[5] !== void 0
+      ctx[6] !== void 0
     ) {
       inputcustom0_props.value = /*startDate*/
-      ctx[5];
+      ctx[6];
     }
     inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
     binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
@@ -9086,24 +9086,24 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
     if (
       /*endDate*/
-      ctx[6] !== void 0
+      ctx[7] !== void 0
     ) {
       inputcustom1_props.value = /*endDate*/
-      ctx[6];
+      ctx[7];
     }
     inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
     binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
     let if_block0 = (
       /*isSales*/
-      ctx[0] && create_if_block_53(ctx)
+      ctx[1] && create_if_block_53(ctx)
     );
     let if_block1 = !/*isSales*/
-    ctx[0] && create_if_block_23(ctx);
+    ctx[1] && create_if_block_23(ctx);
     let if_block2 = !/*isSubmitted*/
-    ctx[8] && create_if_block_15(ctx);
+    ctx[9] && create_if_block_15(ctx);
     let if_block3 = (
       /*isSubmitted*/
-      ctx[8] && create_if_block3(ctx)
+      ctx[9] && create_if_block3(ctx)
     );
     return {
       c() {
@@ -9113,7 +9113,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         h2 = element("h2");
         t0 = text(
           /*heading*/
-          ctx[7]
+          ctx[8]
         );
         t1 = space();
         button0 = element("button");
@@ -9154,7 +9154,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         attr(button1, "class", "cancel svelte-rn79tr");
         attr(button2, "class", "ok svelte-rn79tr");
         button2.disabled = /*isSubmitted*/
-        ctx[8];
+        ctx[9];
         attr(div3, "class", "right svelte-rn79tr");
         attr(div4, "class", "foot svelte-rn79tr");
         attr(div5, "class", "popup svelte-rn79tr");
@@ -9218,33 +9218,33 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         if (!current || dirty[0] & /*heading*/
-        128)
+        256)
           set_data(
             t0,
             /*heading*/
-            ctx2[7]
+            ctx2[8]
           );
         const inputcustom0_changes = {};
         if (!updating_value && dirty[0] & /*startDate*/
-        32) {
+        64) {
           updating_value = true;
           inputcustom0_changes.value = /*startDate*/
-          ctx2[5];
+          ctx2[6];
           add_flush_callback(() => updating_value = false);
         }
         inputcustom0.$set(inputcustom0_changes);
         const inputcustom1_changes = {};
         if (!updating_value_1 && dirty[0] & /*endDate*/
-        64) {
+        128) {
           updating_value_1 = true;
           inputcustom1_changes.value = /*endDate*/
-          ctx2[6];
+          ctx2[7];
           add_flush_callback(() => updating_value_1 = false);
         }
         inputcustom1.$set(inputcustom1_changes);
         if (
           /*isSales*/
-          ctx2[0]
+          ctx2[1]
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
@@ -9258,7 +9258,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           if_block0 = null;
         }
         if (!/*isSales*/
-        ctx2[0]) {
+        ctx2[1]) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
           } else {
@@ -9271,7 +9271,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           if_block1 = null;
         }
         if (!/*isSubmitted*/
-        ctx2[8]) {
+        ctx2[9]) {
           if (if_block2) {
           } else {
             if_block2 = create_if_block_15(ctx2);
@@ -9284,11 +9284,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         if (
           /*isSubmitted*/
-          ctx2[8]
+          ctx2[9]
         ) {
           if (if_block3) {
             if (dirty[0] & /*isSubmitted*/
-            256) {
+            512) {
               transition_in(if_block3, 1);
             }
           } else {
@@ -9305,9 +9305,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           check_outros();
         }
         if (!current || dirty[0] & /*isSubmitted*/
-        256) {
+        512) {
           button2.disabled = /*isSubmitted*/
-          ctx2[8];
+          ctx2[9];
         }
         if (!current || dirty[0] & /*isShow*/
         8192 && div6_class_value !== (div6_class_value = null_to_empty(`popup_container ${/*isShow*/
@@ -9378,7 +9378,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       $invalidate(13, isShow = true);
     };
     const ShowWithSales = () => {
-      $invalidate(0, isSales = true);
+      $invalidate(1, isSales = true);
       $invalidate(14, payloadsSales = [
         {
           creditIDR: 0,
@@ -9394,17 +9394,27 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     const Hide = () => $invalidate(13, isShow = false);
     const Reset = () => {
       $invalidate(14, payloadsSales = []);
+      $invalidate(0, isDebit = true);
+      $invalidate(1, isSales = false);
+      $invalidate(16, isChildOnly = false);
+      $invalidate(17, coas2 = {});
+      $invalidate(2, debitIDR = 0);
+      $invalidate(3, creditIDR = 0);
+      $invalidate(4, description = "");
+      $invalidate(5, date = "");
+      $invalidate(6, startDate = new Date());
+      $invalidate(7, endDate = new Date());
     };
     const cancel = () => {
       $invalidate(13, isShow = false);
     };
     function inputcustom0_value_binding(value) {
       startDate = value;
-      $invalidate(5, startDate);
+      $invalidate(6, startDate);
     }
     function inputcustom1_value_binding(value) {
       endDate = value;
-      $invalidate(6, endDate);
+      $invalidate(7, endDate);
     }
     function input_input_handler(each_value, i) {
       each_value[i].debitIDR = to_number(this.value);
@@ -9445,19 +9455,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
     function input_input_handler_2() {
       debitIDR = to_number(this.value);
-      $invalidate(1, debitIDR);
+      $invalidate(2, debitIDR);
     }
     function input_input_handler_3() {
       creditIDR = to_number(this.value);
-      $invalidate(2, creditIDR);
+      $invalidate(3, creditIDR);
     }
     function textarea_input_handler_1() {
       description = this.value;
-      $invalidate(3, description);
+      $invalidate(4, description);
     }
     function input_input_handler_4() {
       date = this.value;
-      $invalidate(4, date);
+      $invalidate(5, date);
     }
     const click_handler_1 = () => {
       if (isSales) {
@@ -9468,35 +9478,36 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
     $self.$set = ($props2) => {
       if ("heading" in $props2)
-        $invalidate(7, heading = $props2.heading);
+        $invalidate(8, heading = $props2.heading);
       if ("isSubmitted" in $props2)
-        $invalidate(8, isSubmitted = $props2.isSubmitted);
+        $invalidate(9, isSubmitted = $props2.isSubmitted);
       if ("isDebit" in $props2)
-        $invalidate(9, isDebit = $props2.isDebit);
+        $invalidate(0, isDebit = $props2.isDebit);
       if ("isSales" in $props2)
-        $invalidate(0, isSales = $props2.isSales);
+        $invalidate(1, isSales = $props2.isSales);
       if ("isChildOnly" in $props2)
         $invalidate(16, isChildOnly = $props2.isChildOnly);
       if ("coas" in $props2)
         $invalidate(17, coas2 = $props2.coas);
       if ("debitIDR" in $props2)
-        $invalidate(1, debitIDR = $props2.debitIDR);
+        $invalidate(2, debitIDR = $props2.debitIDR);
       if ("creditIDR" in $props2)
-        $invalidate(2, creditIDR = $props2.creditIDR);
+        $invalidate(3, creditIDR = $props2.creditIDR);
       if ("description" in $props2)
-        $invalidate(3, description = $props2.description);
+        $invalidate(4, description = $props2.description);
       if ("date" in $props2)
-        $invalidate(4, date = $props2.date);
+        $invalidate(5, date = $props2.date);
       if ("startDate" in $props2)
-        $invalidate(5, startDate = $props2.startDate);
+        $invalidate(6, startDate = $props2.startDate);
       if ("endDate" in $props2)
-        $invalidate(6, endDate = $props2.endDate);
+        $invalidate(7, endDate = $props2.endDate);
       if ("OnSubmit" in $props2)
         $invalidate(10, OnSubmit = $props2.OnSubmit);
       if ("OnSubmitWithSales" in $props2)
         $invalidate(11, OnSubmitWithSales = $props2.OnSubmitWithSales);
     };
     return [
+      isDebit,
       isSales,
       debitIDR,
       creditIDR,
@@ -9506,7 +9517,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       endDate,
       heading,
       isSubmitted,
-      isDebit,
       OnSubmit,
       OnSubmitWithSales,
       Hide,
@@ -9544,18 +9554,18 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         create_fragment8,
         safe_not_equal,
         {
-          heading: 7,
-          isSubmitted: 8,
-          isDebit: 9,
-          isSales: 0,
+          heading: 8,
+          isSubmitted: 9,
+          isDebit: 0,
+          isSales: 1,
           isChildOnly: 16,
           coas: 17,
-          debitIDR: 1,
-          creditIDR: 2,
-          description: 3,
-          date: 4,
-          startDate: 5,
-          endDate: 6,
+          debitIDR: 2,
+          creditIDR: 3,
+          description: 4,
+          date: 5,
+          startDate: 6,
+          endDate: 7,
           OnSubmit: 10,
           OnSubmitWithSales: 11,
           Show: 18,
@@ -10173,13 +10183,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         coaId,
         transactionJournals: [
           {
-            debitIDR,
-            creditIDR,
+            debitIDR: debitIDR + "",
+            creditIDR: creditIDR + "",
             descriptions: description,
             date
           }
         ],
-        businessTransaction: { startDate, endDate }
+        businessTransaction: {
+          startDate,
+          endDate,
+          transactionTemplateId: transactionTemplate.id
+        }
       };
       await (0, import_jsApi.DataEntryTransactionEntry)(
         // @ts-ignore
@@ -10193,6 +10207,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           }
           notifier.showSuccess("journal added !");
           popUpDataEntryJournal.Hide();
+          popUpDataEntryJournal.Reset();
         }
       );
     }

@@ -20,6 +20,9 @@
   let segments  = /** @type Access */ ({/* segments */});
   let myCompany = /** @type Org */    ({/* myCompany */});
 
+  console.log('User:', user);
+  console.log('Segments:', segments);
+
   let google = '#{google}';
 
   function getCookie(name) {

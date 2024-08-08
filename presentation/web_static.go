@@ -143,6 +143,8 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`, 302)
 		}
 
+		L.Print(`TenantCode:`, tenantCode)
+
 		r := rqFinance.NewTransactionTemplate(d.AuthOltp)
 		r.TenantCode = tenantCode
 		trxTemplates := r.FindTransactionTemplatesByTenant()
@@ -166,6 +168,8 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`, 302)
 		}
 
+		L.Print(`TenantCode:`, tenantCode)
+
 		templateId := ctx.Params("templateId")
 
 		trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
@@ -177,11 +181,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 
 		trxTplDetail := rqFinance.NewTransactionTplDetail(d.AuthOltp)
 		trxTplDetail.ParentId = trxTemplate.Id
-		trxTplDetail.TenantCode = user.TenantCode
+		trxTplDetail.TenantCode = tenantCode
 		trxTplDetails := trxTplDetail.FindTrxTplDetailsByTenantByTrxTplId()
 
 		coa := rqFinance.NewCoa(d.AuthOltp)
-		coa.TenantCode = user.TenantCode
+		coa.TenantCode = tenantCode
 		coas := coa.FindCoasChoicesByTenant()
 
 		return views.RenderDataEntryTemplatesTemplate(ctx, M.SX{
