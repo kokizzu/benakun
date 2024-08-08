@@ -37,6 +37,8 @@ const (
 	ErrDataEntryTransactionEntryNotDataEntry = `must be data entry to do this operation`
 	ErrDataEntryTransactionEntryInvalidUserRole = `invalid role to this tenant`
 	ErrDataEntryTransactionEntryCoaNotFound = `coa not found to journaling this transaction`
+	ErrDataEntryTransactionEntryCoaIsEmpty = `coa id cannot be empty`
+	ErrDataEntryTransactionEntryInvalidCoaChild = `invalid coa child`
 	ErrDataEntryTransactionEntryInvalidDate = `invalid date format, must be use format "01/02/2006"`
 	ErrDataEntryTransactionEntryInvalidDetailObject = `invalid detail format`
 	ErrDataEntryTransactionEntrySaveFailed = `failed to save transaction journal`
@@ -94,7 +96,24 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 		for _, v := range in.TransactionJournals {
 			trxJournal := wcFinance.NewTransactionJournalMutator(d.AuthOltp)
 			trxJournal.SetTenantCode(tenant.TenantCode)
-			trxJournal.SetCoaId(coa.Id)
+
+			if v.CoaId > 0 {
+				coaChild := rqFinance.NewCoa(d.AuthOltp)
+				coaChild.Id = v.CoaId
+				if !coaChild.FindById() {
+					out.SetError(400, ErrDataEntryTransactionEntryCoaNotFound)
+					return
+				}
+
+				if coaChild.ParentId != coa.Id {
+					out.SetError(400, ErrDataEntryTransactionEntryInvalidCoaChild)
+					return
+				}
+
+				trxJournal.SetCoaId(coaChild.Id)
+			} else {
+				trxJournal.SetCoaId(coa.Id)
+			}
 			trxJournal.SetDebitIDR(v.DebitIDR)
 			trxJournal.SetCreditIDR(v.CreditIDR)
 			trxJournal.SetDescriptions(v.Descriptions)
