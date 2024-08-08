@@ -209,7 +209,7 @@ const (
 
 type TransactionJournalDetailObject struct {
 	SalesCount 		uint64 `json:"salesCount"`
-	SalesPriceIDR uint64 `json:"salesPriceIDR"`
+	SalesPriceIDR string `json:"salesPriceIDR"` // Currency must be string
 }
 
 func IsValidDetailObject(in string) bool {

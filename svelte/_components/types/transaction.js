@@ -47,9 +47,9 @@ module.exports = {};
   * @property {number} coaId
   * @property {string} debitIDR
   * @property {string} creditIDR
-  * @property {string} description
+  * @property {string} descriptions
   * @property {string|Date} date
-  * @property {string|Object|DetailObjectTransaction} DetailObj
+  * @property {string|Object|DetailObjectTransaction} detailObj
   * @property {number} createdAt
   * @property {string} createdBy
   * @property {number} updatedAt

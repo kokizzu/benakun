@@ -121,9 +121,9 @@
                 </tr>
               </thead>
               <tbody>
-                {#each payloadsSales as pySales, i}
+                {#each (payloadsSales || []) as pySales (pySales)}
                   <tr>
-                    <td>{i+1}</td>
+                    <td><button on:click={() => payloadsSales = payloadsSales.filter((item) => item !== pySales)}>Remove</button></td>
                     {#if isDebit}
                       <td>
                         <input type="number" min=0 bind:value={pySales.debitIDR}/>
@@ -179,7 +179,6 @@
             <table>
               <thead>
                 <tr>
-                  <th>#</th>
                   {#if isDebit}
                     <th>Debit (IDR)</th>
                   {:else}
@@ -191,7 +190,6 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>1</td>
                   {#if isDebit}
                     <td>
                       <input type="number" min=0 bind:value={debitIDR}/>
@@ -354,6 +352,7 @@
 
   .popup_container .popup .forms .sales_forms_container .table_container table thead tr th {
     font-weight: normal;
+    text-align: left;
   }
 
   .popup_container .popup .forms .sales_forms_container .table_container input,

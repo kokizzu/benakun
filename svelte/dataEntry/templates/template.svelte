@@ -1,5 +1,7 @@
 <script>
   /** @typedef {import('../../_components/types/transaction.js').TransactionTemplate} TransactionTemplate */
+  /** @typedef {import('../../_components/types/transaction.js').TransactionJournal} TransactionJournal */
+  /** @typedef {import('../../_components/types/transaction.js').DetailObjectTransaction} DetailObjectTransaction */
 
   import MainLayout from '../../_layouts/mainLayout.svelte';
   import { Icon } from '../../node_modules/svelte-icons-pack/dist';
@@ -74,8 +76,46 @@
     )
   }
 
-  async function SubmitWithSales(payloadsSales) {
-    console.log('Submit sales', payloadsSales);
+  async function SubmitWithSales(/** @type any[] */ payloadsSales) {
+    isSubmitted = true;
+    let trxJournals = /** @type TransactionJournal[]|any */ ([]);
+    for (const payload of payloadsSales) {
+      const detail = /** @type DetailObjectTransaction */ ({
+        salesCount: payload.salesCount,
+        salesPriceIDR: payload.salesPriceIDR+'',
+      });
+      trxJournals.push({
+        debitIDR: payload.debitIDR+'',
+        creditIDR: payload.creditIDR+'',
+        descriptions: payload.description,
+        date: payload.date,
+        detailObj: JSON.stringify(detail)
+      })
+    }
+    const i = {
+      coaId: coaId,
+      transactionJournals: trxJournals,
+      businessTransaction: {
+        startDate: startDate,
+        endDate: endDate,
+        transactionTemplateId: transactionTemplate.id
+      }
+    }
+
+    await DataEntryTransactionEntry( // @ts-ignore
+      i, /** @returns {Promise<any>} */
+      function (o) {
+        isSubmitted = false;
+        if (o.error) {
+          notifier.showError(o.error || 'failed to add journal');
+          return
+        }
+
+        notifier.showSuccess('journal added !');
+        popUpDataEntryJournal.Hide()
+        popUpDataEntryJournal.Reset()
+      }
+    )
   }
 </script>
 
