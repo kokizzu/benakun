@@ -78,3 +78,7 @@ func TestProduct(t *testing.T) {
 		})
 	})
 }
+
+func TestMoveCoA(t *testing.T) {
+	
+}

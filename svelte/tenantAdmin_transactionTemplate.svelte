@@ -33,6 +33,8 @@
       /** @returns {Promise<void>} */
       function(/** @type any */ o) {
         isSubmitted = false;
+        name = '';
+        color = '';
         popUpTransactionTemplate.hide();
         if (o.error) {
           console.log(o);

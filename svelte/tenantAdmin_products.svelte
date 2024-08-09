@@ -111,6 +111,7 @@
       rule: payloads[3],
       kind: payloads[4],
       cogsIDR: payloads[5],
+      profitPercentage: payloads[6],
     }
     const i = {
       pager, product,
@@ -145,6 +146,7 @@
       rule: payloads[3],
       kind: payloads[4],
       cogsIDR: payloads[5],
+      profitPercentage: payloads[6],
     }
     const i = {
       pager, product,

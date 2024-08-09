@@ -78,7 +78,7 @@
   // Rows per page
   let currentRows = PAGER.perPage;
   // Rows per page options
-  let rowsToShow = [10, 1, 40, 60, 70, 100, 200];
+  let rowsToShow = [10, 20, 40, 60, 70, 100, 200];
   // State for show rows options
   let showRowsNum = false;
   // Total rows
@@ -448,6 +448,8 @@
                   <td>{row[idx] ? datetime(row[idx]) : '--'}</td>
                 {:else if f.inputType === 'combobox' && REFS[f.name]}
                   <td>{REFS[f.name][row[idx]] || '--'}</td>
+                {:else if f.inputType === 'percentage'}
+                  <td>{row[idx] || '0'}%</td>
                 {:else}
                   <td>
                     {typeof row[idx] === 'boolean' ? (row[idx] ? 'Yes' : 'No') : row[idx] || '--'}

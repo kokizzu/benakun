@@ -1,24 +1,16 @@
 <script>
+  /** @typedef {import('./types/master').InputType} InputType*/
+
   import { onMount } from 'svelte';
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { AiOutlineEye, AiOutlineEyeInvisible } from '../node_modules/svelte-icons-pack/dist/ai';
 
-  // ==== Input type ======
-  // text (default)
-  // textarea
-  // email
-  // password
-  // number
-  // phone
-  // date
-  // bool
-  // select
-
-  export let type = 'text';
+  export let className = '';
+  export let type = /** @type {InputType} */ ('text');
   export let id;
   export let value;
 
-  /** @type {Array<any>|Object} */
+  /** @type {Array<number | string> | Object} */
   export let values = [] || {};
   export let label;
   export let placeholder = '';
@@ -30,6 +22,8 @@
   
   onMount(() => {
     if (type === 'password') inputElm.type = type;
+    // Boolean input must be use random id, because it's a checkbox
+    if (type === 'bool') id = id + Math.random();
   });
 
   function toggleShowPassword() {
@@ -39,7 +33,7 @@
   }
 </script>
 
-<div>
+<div class={className}>
   <div class="input_box {type == 'bool' ? 'bool' : ''} {type == 'password' ? 'with_password' : ''}">
     {#if type === 'bool' || type === 'checkbox'}
       <label class="label" for={id}>{label}</label>
@@ -68,6 +62,12 @@
     {:else if type === 'number'}
       <label class="label" for={id}>{label}</label>
       <input type="number" bind:value={value} {id} {placeholder}/>
+    {:else if type === 'percentage'}
+      <label class="label" for={id}>{label}</label>
+      <div class="input_percentage">
+        <input type="number" bind:value={value} {id} {placeholder} />
+        <span>%</span>
+      </div>
     {:else if type === 'float'}
       <label class="label" for={id}>{label}</label>
       <input type="number" bind:value={value} {id} {placeholder}/>
@@ -271,5 +271,21 @@
 
   :global(.input_box .eye:hover svg) {
     fill: var(--blue-005);
+  }
+
+  .input_percentage {
+    display: flex;
+    position: relative;
+  }
+
+  .input_percentage input {
+    padding-right: 30px !important;
+  }
+
+  .input_percentage span {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-weight: 700;
   }
 </style>

@@ -247,12 +247,11 @@ func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 	}
 	sess.TenantCode = user.TenantCode
 
-	if v, ok := hostmap[in.Host]; ok {
-		if !sess.IsSuperAdmin {
-			mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
-			if err != nil {
-				sess.Role = mapState.GetRoleByTenantCode(v.TenantCode)
-			}
+	if !sess.IsSuperAdmin {
+		tCode, _ := GetTenantCodeByHost(in.Host)
+		mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
+		if err == nil {
+			sess.Role = mapState.GetRoleByTenantCode(tCode)
 		}
 	}
 

@@ -1,6 +1,9 @@
 package mFinance
 
-import "github.com/kokizzu/gotro/D/Tt"
+import (
+	"github.com/goccy/go-json"
+	"github.com/kokizzu/gotro/D/Tt"
+)
 
 // TODO: business transaction
 // Fields: startDate, endDate
@@ -161,7 +164,29 @@ const (
 
 	IsDebit           = `isDebit`
 	IsAlwaysStartDate = `isAlwaysStartDate`
+	Attributes				= `attributes`
 )
+
+const (
+	AttributesAutoSum 	= `autoSum`
+	AttributesChildOnly	= `childOnly`
+	AttributesSales			= `sales`
+)
+
+func IsValidAttributes(attr []any) bool {
+	if len(attr) > 0 {
+		for _, v := range attr {
+			switch v {
+			case AttributesAutoSum, AttributesChildOnly, AttributesSales:
+				continue
+			default:
+				return false
+			}
+		}
+	}
+
+	return true
+}
 
 const (
 	TableBusinessTransaction Tt.TableName = `businessTransaction`
@@ -181,6 +206,20 @@ const (
 	Date      = `date`
 	DetailObj = `detailObj`
 )
+
+type TransactionJournalDetailObject struct {
+	SalesCount 		uint64 `json:"salesCount"`
+	SalesPriceIDR string `json:"salesPriceIDR"` // Currency must be string
+}
+
+func IsValidDetailObject(in string) bool {
+	var trxJournalDetailObj TransactionJournalDetailObject
+	err := json.Unmarshal([]byte(in), &trxJournalDetailObj)
+
+	_ = trxJournalDetailObj // throw to hole
+
+	return err == nil
+}
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableCoa: {
@@ -254,6 +293,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedAt, Tt.Integer},
 			{DeletedBy, Tt.Unsigned},
 			{RestoredBy, Tt.Unsigned},
+			{Attributes, Tt.Array},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,
@@ -283,8 +323,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Fields: []Tt.Field{
 			{Id, Tt.Unsigned},
 			{TenantCode, Tt.String},
-			{StartDate, Tt.Integer},
-			{EndDate, Tt.Integer},
+			{StartDate, Tt.String},
+			{EndDate, Tt.String},
 			{CreatedAt, Tt.Integer},
 			{CreatedBy, Tt.Unsigned},
 			{UpdatedAt, Tt.Integer},

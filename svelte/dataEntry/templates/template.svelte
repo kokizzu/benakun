@@ -1,56 +1,366 @@
 <script>
   /** @typedef {import('../../_components/types/transaction.js').TransactionTemplate} TransactionTemplate */
+  /** @typedef {import('../../_components/types/transaction.js').TransactionJournal} TransactionJournal */
+  /** @typedef {import('../../_components/types/transaction.js').DetailObjectTransaction} DetailObjectTransaction */
+  /** @typedef {import('../../_components/types/transaction.js').TransactionTplDetail} TransactionTplDetail */
 
   import MainLayout from '../../_layouts/mainLayout.svelte';
-  import InputCustom from '../../_components/InputCustom.svelte';
+  import { Icon } from '../../node_modules/svelte-icons-pack/dist';
+  import {
+    RiSystemAddBoxLine
+  } from '../../node_modules/svelte-icons-pack/dist/ri';
+  import PopUpDataEntryJournal from '../../_components/PopUpDataEntryJournal.svelte';
+  import { DataEntryTransactionEntry } from '../../jsApi.GEN';
+    import { notifier } from '../../_components/notifier';
 
   let transactionTemplate = /** @type TransactionTemplate */ ({/* transactiontemplate */});
+  let transactionTplDetails = /** @type TransactionTplDetail[] */ ([/* transactionTplDetails */]);
+  let coas = /** @type any[] */ ([/* coas */]);
 
-  let coa = '';
-  let debitIDR = 0;
+  let popUpDataEntryJournal;
 
   // jika attribut coa adalah childOnly: maka coa pilihan hanya anaknya
 
   // Nota bagian atas dan bawah adalah business transaction
   // Nota bagian tengah adalah jurnal
+
+  console.log('transactionTemplate', transactionTemplate);
+  console.log('transactionTplDetails', transactionTplDetails);
+
+  let isDebit = true;
+  let isSales = false;
+  let isChildOnly = false;
+
+  let startDate;
+  let endDate;
+
+  let coaId = 0;
+  let debitIDR = 0;
+  let creditIDR = 0;
+  let description = '';
+  let date = '';
+  let heading = 'Add journal for ' + transactionTemplate.name;
+
+  let coaChildren = {}
+
+  async function GetCoaChildren(/** @type number */ coaId) {
+    const i = {
+      cmd: 'form',
+      coaId: coaId
+    }
+    await DataEntryTransactionEntry( // @ts-ignore
+      i, /** @returns {Promise<any>} */
+      function (/** @type {any} */ o) {
+        isSubmitted = false;
+        if (o.error) {
+          notifier.showError(o.error || 'failed to get coa children');
+          return
+        }
+        
+        coaChildren = o.coaChildren;
+      }
+    )
+  }
+
+  let isSubmitted = false;
+
+  async function Submit() {
+    isSubmitted = true;
+    const i = {
+      cmd: 'upsert',
+      coaId: coaId,
+      transactionJournals: [
+        {
+          debitIDR: debitIDR+'',
+          creditIDR: creditIDR+'',
+          descriptions: description,
+          date: date,
+        }
+      ],
+      businessTransaction: {
+        startDate: startDate,
+        endDate: endDate,
+        transactionTemplateId: transactionTemplate.id
+      }
+    }
+
+    await DataEntryTransactionEntry( // @ts-ignore
+      i, /** @returns {Promise<any>} */
+      function (/** @type {any} */ o) {
+        isSubmitted = false;
+        if (o.error) {
+          notifier.showError(o.error || 'failed to add journal');
+          return
+        }
+
+        notifier.showSuccess('journal added !');
+        popUpDataEntryJournal.Hide()
+        popUpDataEntryJournal.Reset()
+      }
+    )
+  }
+
+  async function SubmitWithSales(/** @type any[] */ payloadsSales) {
+    isSubmitted = true;
+    let trxJournals = /** @type TransactionJournal[]|any */ ([]);
+    for (const payload of payloadsSales) {
+      const detail = /** @type DetailObjectTransaction */ ({
+        salesCount: payload.salesCount,
+        salesPriceIDR: payload.salesPriceIDR+'',
+      });
+      trxJournals.push({
+        debitIDR: payload.debitIDR+'',
+        creditIDR: payload.creditIDR+'',
+        descriptions: payload.description,
+        date: payload.date,
+        coaId: payload.coaId,
+        detailObj: JSON.stringify(detail)
+      })
+    }
+    const i = {
+      cmd: 'upsert',
+      coaId: coaId,
+      transactionJournals: trxJournals,
+      businessTransaction: {
+        startDate: startDate,
+        endDate: endDate,
+        transactionTemplateId: transactionTemplate.id
+      }
+    }
+
+    await DataEntryTransactionEntry( // @ts-ignore
+      i, /** @returns {Promise<any>} */
+      function (/** @type {any} */ o) {
+        isSubmitted = false;
+        if (o.error) {
+          notifier.showError(o.error || 'failed to add journal');
+          return
+        }
+
+        notifier.showSuccess('journal added !');
+        popUpDataEntryJournal.Hide()
+        popUpDataEntryJournal.Reset()
+      }
+    )
+  }
 </script>
 
+<PopUpDataEntryJournal
+  bind:this={popUpDataEntryJournal}
+  bind:isSubmitted
+  heading={heading}
+
+  bind:startDate
+  bind:endDate
+
+  bind:isDebit
+  bind:isSales
+  bind:isChildOnly
+
+  bind:debitIDR
+  bind:creditIDR
+  bind:description
+  bind:date
+  bind:coaChildren
+
+  OnSubmit={Submit}
+  OnSubmitWithSales={SubmitWithSales}
+/>
+
 <MainLayout>
+  <div>
+    <h1>Data entry for {transactionTemplate.name}</h1>
+  </div>
   <div class="data_entry_template___container">
-    <div class="form_data_entry_template">
-      <InputCustom
-        id="coa"
-        label="CoA (Chart of Account)"
-        type="text"
-        placeholder="CoA"
-        bind:value={coa}
-      />
-      <InputCustom
-        id="debitIdr"
-        label="Debit IDR"
-        type="number"
-        placeholder="Debit IDR"
-        bind:value={debitIDR}
-      />
+    <div class="transaction_template_detail">
+      <div class="table_container">
+        <table>
+          <thead>
+            <tr>
+              <th class="no">#</th>
+              <th class="a_row">Action</th>
+              <th>Kredit</th>
+              <th>Debit</th>
+              <th>CoA (Chart of Accounts)</th>
+              <th>Auto Sum</th>
+              <th>Child Only</th>
+              <th>Sales</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#if transactionTplDetails && transactionTplDetails.length > 0}
+              {#each (transactionTplDetails || []) as trxTplDetail, i (trxTplDetail.id)}
+                <tr>
+                  <td>{i + 1}</td>
+                  <td class="a_row">
+                    <div class="actions">
+                      <button
+                        on:click={ () => {
+                          isDebit = trxTplDetail.isDebit
+                          isSales = (trxTplDetail.attributes || []).includes('sales')
+                          isChildOnly = (trxTplDetail.attributes || []).includes('childOnly')
+                          coaId = trxTplDetail.coaId
+                          if (isChildOnly) {
+                            GetCoaChildren(trxTplDetail.coaId)
+                          }
+                          if (isSales) {
+                            popUpDataEntryJournal.ShowWithSales()
+                          } else {
+                            popUpDataEntryJournal.Show()
+                          }
+                        }}
+                        class="btn"
+                        title="Add journal"
+                      >
+                        <Icon
+                          size="15"
+                          color="var(--gray-007)"
+                          src={RiSystemAddBoxLine}
+                        />
+                      </button>
+                    </div>
+                  </td>
+                  <td>{!trxTplDetail.isDebit ? 'Yes' : 'No'}</td>
+                  <td>{trxTplDetail.isDebit ? 'Yes' : 'No'}</td>
+                  <td>{coas[trxTplDetail.coaId]}</td>
+                  <td>{(trxTplDetail.attributes || []).includes('autoSum') ? 'Yes' : 'No'}</td>
+                  <td>{(trxTplDetail.attributes || []).includes('childOnly') ? 'Yes' : 'No'}</td>
+                  <td>{(trxTplDetail.attributes || []).includes('sales') ? 'Yes' : 'No'}</td>
+                </tr>
+              {/each}
+            {:else}
+              <tr>
+                <td>0</td>
+                <td>no-data</td>
+              </tr>
+            {/if}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </MainLayout>
 
 <style>
   .data_entry_template___container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    display: flex;
   }
 
-  .form_data_entry_template {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid var(--gray-300);
+  .transaction_template_detail {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 0;
+    border: 1px solid var(--gray-003);
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .transaction_template_detail .table_container {
+    overflow-x: auto;
+    scrollbar-color: var(--gray-003) transparent;
+    scrollbar-width: thin;
+  }
+
+  .transaction_template_detail .table_container table {
+    width: 100%;
+    background: #fff;
+    box-shadow: none;
+    text-align: left;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+  }
+
+  .transaction_template_detail .table_container table thead {
+    box-shadow: none;
+    border-bottom: 1px solid var(--gray-003);
+  }
+
+  .transaction_template_detail .table_container table thead tr th {
+    padding: 12px;
+		background-color: var(--gray-001);
+		text-transform: capitalize;
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-003);
+		min-width: fit-content;
+		width: auto;
+    text-wrap: nowrap;
+  }
+
+  .transaction_template_detail .table_container table thead tr th.no {
+    width: 30px;
+  }
+
+  .transaction_template_detail .table_container table thead tr th.a_row {
+    max-width: 100px;
+    width: 100px;
+  }
+
+  .transaction_template_detail .table_container table thead tr th:last-child {
+    border-right: none;
+  }
+
+  .transaction_template_detail .table_container table tbody tr td {
+    padding: 8px 12px;
+  }
+
+	.transaction_template_detail .table_container table tbody tr td {
+    padding: 8px 12px;
+		border-right: 1px solid var(--gray-004);
+		border-bottom: 1px solid var(--gray-004);
+  }
+
+	.transaction_template_detail .table_container table tbody tr:last-child td,
+	.transaction_template_detail .table_container table tbody tr:last-child th {
+		border-bottom: none !important;
+	}
+
+  .transaction_template_detail .table_container table tbody tr:last-child td:last-child {
+    border-right: none !important;
+  }
+
+  .transaction_template_detail .table_container table tbody tr:last-child td,
+  .transaction_template_detail .table_container table tbody tr:last-child th {
+    border-bottom: none !important;
+  }
+
+  .transaction_template_detail .table_container table tbody tr:last-child td:last-child {
+    border-right: none !important;
+  }
+
+  .transaction_template_detail .table_container table tbody tr td:last-child {
+    border-right: none !important;
+  }
+
+  .transaction_template_detail .table_container table tbody tr th {
+    text-align: center;
+    border-right: 1px solid var(--gray-004);
+    border-bottom: 1px solid var(--gray-004);
+  }
+
+  .transaction_template_detail .table_container table tbody tr td .actions {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .transaction_template_detail .table_container table tbody tr td .actions .btn {
+    border: none;
+    padding: 6px;
+    border-radius: 8px;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .transaction_template_detail .table_container table tbody tr td .actions .btn:hover {
+    background-color: var(--violet-transparent);
+  }
+
+  :global(.transaction_template_detail .table_container table tbody tr td .actions .btn:hover svg) {
+    fill: var(--violet-005);
   }
 </style>

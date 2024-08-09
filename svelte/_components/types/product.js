@@ -6,6 +6,7 @@
   * @property {string} rule
   * @property {string} kind
   * @property {number} cogsIDR
+  * @property {number} profitPercentage
   * @property {number} createdAt
   * @property {string} createdBy
   * @property {number} updatedAt

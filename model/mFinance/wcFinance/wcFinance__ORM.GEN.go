@@ -134,7 +134,7 @@ func (b *BusinessTransactionMutator) SetTenantCode(val string) bool { //nolint:d
 }
 
 // SetStartDate create mutations, should not duplicate
-func (b *BusinessTransactionMutator) SetStartDate(val int64) bool { //nolint:dupl false positive
+func (b *BusinessTransactionMutator) SetStartDate(val string) bool { //nolint:dupl false positive
 	if val != b.StartDate {
 		b.mutations.Assign(2, val)
 		b.logs = append(b.logs, A.X{`startDate`, b.StartDate, val})
@@ -145,7 +145,7 @@ func (b *BusinessTransactionMutator) SetStartDate(val int64) bool { //nolint:dup
 }
 
 // SetEndDate create mutations, should not duplicate
-func (b *BusinessTransactionMutator) SetEndDate(val int64) bool { //nolint:dupl false positive
+func (b *BusinessTransactionMutator) SetEndDate(val string) bool { //nolint:dupl false positive
 	if val != b.EndDate {
 		b.mutations.Assign(3, val)
 		b.logs = append(b.logs, A.X{`endDate`, b.EndDate, val})
@@ -259,12 +259,12 @@ func (b *BusinessTransactionMutator) SetAll(from rqFinance.BusinessTransaction, 
 		b.TenantCode = S.Trim(from.TenantCode)
 		changed = true
 	}
-	if !excludeMap[`startDate`] && (forceMap[`startDate`] || from.StartDate != 0) {
-		b.StartDate = from.StartDate
+	if !excludeMap[`startDate`] && (forceMap[`startDate`] || from.StartDate != ``) {
+		b.StartDate = S.Trim(from.StartDate)
 		changed = true
 	}
-	if !excludeMap[`endDate`] && (forceMap[`endDate`] || from.EndDate != 0) {
-		b.EndDate = from.EndDate
+	if !excludeMap[`endDate`] && (forceMap[`endDate`] || from.EndDate != ``) {
+		b.EndDate = S.Trim(from.EndDate)
 		changed = true
 	}
 	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
@@ -1225,6 +1225,7 @@ type TransactionTplDetailMutator struct {
 func NewTransactionTplDetailMutator(adapter *Tt.Adapter) (res *TransactionTplDetailMutator) {
 	res = &TransactionTplDetailMutator{TransactionTplDetail: rqFinance.TransactionTplDetail{Adapter: adapter}}
 	res.mutations = tarantool.NewOperations()
+	res.Attributes = []any{}
 	return
 }
 
@@ -1437,6 +1438,14 @@ func (t *TransactionTplDetailMutator) SetRestoredBy(val uint64) bool { //nolint:
 	return false
 }
 
+// SetAttributes create mutations, should not duplicate
+func (t *TransactionTplDetailMutator) SetAttributes(val []any) bool { //nolint:dupl false positive
+	t.mutations.Assign(12, val)
+	t.logs = append(t.logs, A.X{`attributes`, t.Attributes, val})
+	t.Attributes = val
+	return true
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (t *TransactionTplDetailMutator) SetAll(from rqFinance.TransactionTplDetail, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -1491,6 +1500,10 @@ func (t *TransactionTplDetailMutator) SetAll(from rqFinance.TransactionTplDetail
 	}
 	if !excludeMap[`restoredBy`] && (forceMap[`restoredBy`] || from.RestoredBy != 0) {
 		t.RestoredBy = from.RestoredBy
+		changed = true
+	}
+	if !excludeMap[`attributes`] && (forceMap[`attributes`] || from.Attributes != nil) {
+		t.Attributes = from.Attributes
 		changed = true
 	}
 	return

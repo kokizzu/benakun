@@ -3,6 +3,8 @@
   import MasterTable from '../../_components/MasterTable.svelte';
   import { TenantAdminInventoryChangesProduct } from '../../jsApi.GEN';
   import { notifier } from '../../_components/notifier';
+  import { Icon } from './../../node_modules/svelte-icons-pack/dist';
+  import { RiSystemAddBoxLine } from './../../node_modules/svelte-icons-pack/dist/ri';
   
   /** @typedef {import('../../_components/types/master.js').Field} Field */
 	/** @typedef {import('../../_components/types/access.js').Access} Access */
@@ -129,6 +131,7 @@
 </script>
 
 <MainLayout>
+  <h3>TODO: can add product here</h3>
   <div class="product_inventory">
     <div class="product_container">
       <h4>Product detail</h4>
@@ -178,7 +181,20 @@
       {OnEdit}
       {OnRefresh}
       {OnRestore}
-    />
+    >
+      {#if user.tenantCode !== ''}
+        <button
+          class="action_btn"
+          title="add inventoryChange"
+        >
+          <Icon
+            color="var(--gray-007)"
+            size="16"
+            src={RiSystemAddBoxLine}
+          />
+        </button>
+      {/if}
+    </MasterTable>
   </div>
 </MainLayout>
 

@@ -46,7 +46,7 @@ function utcDatetime( unixSec ) {
     return formattedDate;
   }
   
-function isoDate(unixSec) {
+function isoTime(unixSec) {
     if( !unixSec ) return '';
     const dt = new Date( unixSec * 1000 );
     const day = dt.toLocaleDateString( 'default', {weekday: 'long'} );
@@ -61,9 +61,21 @@ function isoDate(unixSec) {
     return formattedDate;
 }
 
+function isoDate(unixSec) {
+    if( !unixSec ) return '';
+    const dt = new Date( unixSec * 1000 );
+    const day = dt.toLocaleDateString( 'default', {weekday: 'long'} );
+    const date = dt.getDate();
+    const month = dt.toLocaleDateString( 'default', {month: '2-digit'} );
+    const year = dt.getFullYear();
+    const formattedDate = `${year}-${month}-${date}`;
+    return formattedDate;
+}
+
 module.exports = {
     datetime: datetime,
     localeDatetime: localeDatetime,
     utcDatetime: utcDatetime,
+    isoTime: isoTime,
     isoDate: isoDate
 };

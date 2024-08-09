@@ -16,6 +16,9 @@
   };
   export let coaId = '0';
   export let coas = {};
+  export let autoSum = false;
+  export let childOnly = false;
+  export let sales = false;
 
   let isShow = false;
   export const show = () => isShow = true;
@@ -25,6 +28,9 @@
     isShow	= false;
     isDebit	= 'debit';
   }
+
+  // TODO: coa nomornya harus ada di combobox
+  // combobox bisa di search
 </script>
 
 <div class={`popup_container ${isShow ? 'show' : ''}`}>
@@ -54,6 +60,24 @@
         values={coas}
         isObject
 			/>
+      <InputCustom
+        bind:value={autoSum}
+        id="autoSum"
+        label="Auto Sum ?"
+        type="bool"
+      />
+      <InputCustom
+        bind:value={childOnly}
+        id="childOnly"
+        label="Child Only ?"
+        type="bool"
+      />
+      <InputCustom
+        bind:value={sales}
+        id="sales"
+        label="Sales ?"
+        type="bool"
+      />
     </div>
     <div class="foot">
       <div class="left">

@@ -132,6 +132,58 @@
 							"schema": {
 								"type": "object",
 								"properties": {
+						"cmd": {
+								"type": "string"
+						},
+						"coaId": {
+								"type": "number"
+						},
+						"transactionJournals": {
+						"type": "object",
+						"properties": {
+								}
+						},
+						"businessTransaction": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"startDate": {
+										"type": "string"
+								},
+								"endDate": {
+										"type": "string"
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"deletedBy": {
+										"type": "number"
+								},
+								"restoredBy": {
+										"type": "number"
+								},
+								"transactionTemplateId": {
+										"type": "number"
+								}
+								}
+						}
 								}
 							}
 						}
@@ -145,6 +197,11 @@
 								"schema": {
 									"type": "object",
 									"properties": {
+										"coaChildren": {
+										"type": "object",
+										"properties": {
+												}
+										}
 									}
 								}
 							}
@@ -1088,6 +1145,21 @@
 								},
 								"deletedAt": {
 										"type": "number"
+								},
+								"productsCoaId": {
+										"type": "number"
+								},
+								"suppliersCoaId": {
+										"type": "number"
+								},
+								"customersCoaId": {
+										"type": "number"
+								},
+								"staffsCoaId": {
+										"type": "number"
+								},
+								"banksCoaId": {
+										"type": "number"
 								}
 								}
 						},
@@ -1197,6 +1269,21 @@
 														"type": "number"
 												},
 												"deletedAt": {
+														"type": "number"
+												},
+												"productsCoaId": {
+														"type": "number"
+												},
+												"suppliersCoaId": {
+														"type": "number"
+												},
+												"customersCoaId": {
+														"type": "number"
+												},
+												"staffsCoaId": {
+														"type": "number"
+												},
+												"banksCoaId": {
 														"type": "number"
 												}
 												}
@@ -2501,6 +2588,218 @@
 				}
 			}
 		},
+		"/tenantAdmin/manualJournal": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"cmd": {
+								"type": "string"
+						},
+						"withMeta": {
+							"type": "boolean"
+						},
+						"pager": {
+						"type": "object",
+						"properties": {
+								"page": {
+										"type": "number"
+								},
+								"perPage": {
+										"type": "number"
+								},
+								"filters": {
+								"type": "object",
+								"properties": {
+										}
+								},
+								"order": {
+										"type": "array",
+											"items": {
+												"type": "string"
+											}
+										}
+								}
+						},
+						"transactionJournal": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"coaId": {
+										"type": "number"
+								},
+								"debitIDR": {
+										"type": "number"
+								},
+								"creditIDR": {
+										"type": "number"
+								},
+								"descriptions": {
+										"type": "string"
+								},
+								"date": {
+										"type": "string"
+								},
+								"detailObj": {
+										"type": "string"
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"deletedBy": {
+										"type": "number"
+								},
+								"restoredBy": {
+										"type": "number"
+								}
+								}
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminManualJournal",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"pager": {
+										"type": "object",
+										"properties": {
+												"page": {
+														"type": "number"
+												},
+												"perPage": {
+														"type": "number"
+												},
+												"pages": {
+														"type": "number"
+												},
+												"total": {
+														"type": "number"
+												},
+												"filters": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"order": {
+														"type": "array",
+															"items": {
+																"type": "string"
+															}
+														}
+												}
+										},
+										"meta": {
+										"type": "object",
+										"properties": {
+												"fields": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"mutex": {
+												"type": "object",
+												"properties": {
+														}
+												},
+												"cachedSelect": {
+														"type": "string"
+												}
+												}
+										},
+										"transactionJournal": {
+										"type": "object",
+										"properties": {
+												"id": {
+														"type": "number"
+												},
+												"tenantCode": {
+														"type": "string"
+												},
+												"coaId": {
+														"type": "number"
+												},
+												"debitIDR": {
+														"type": "number"
+												},
+												"creditIDR": {
+														"type": "number"
+												},
+												"descriptions": {
+														"type": "string"
+												},
+												"date": {
+														"type": "string"
+												},
+												"detailObj": {
+														"type": "string"
+												},
+												"createdAt": {
+														"type": "number"
+												},
+												"createdBy": {
+														"type": "number"
+												},
+												"updatedAt": {
+														"type": "number"
+												},
+												"updatedBy": {
+														"type": "number"
+												},
+												"deletedAt": {
+														"type": "number"
+												},
+												"deletedBy": {
+														"type": "number"
+												},
+												"restoredBy": {
+														"type": "number"
+												}
+												}
+										},
+										"transactionJournals": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/tenantAdmin/organization": {
 			"post": {
 				"security": [{
@@ -2730,6 +3029,9 @@
 								},
 								"cogsIDR": {
 										"type": "number"
+								},
+								"profitPercentage": {
+										"type": "number"
 								}
 								}
 						}
@@ -2836,12 +3138,130 @@
 												},
 												"cogsIDR": {
 														"type": "number"
+												},
+												"profitPercentage": {
+														"type": "number"
 												}
 												}
 										},
 										"products": {
 										"type": "object",
 										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/tenantAdmin/syncCoa": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"tenant": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"productsCoaId": {
+										"type": "number"
+								},
+								"suppliersCoaId": {
+										"type": "number"
+								},
+								"customersCoaId": {
+										"type": "number"
+								},
+								"staffsCoaId": {
+										"type": "number"
+								},
+								"banksCoaId": {
+										"type": "number"
+								}
+								}
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminSyncCoa",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"tenant": {
+										"type": "object",
+										"properties": {
+												"id": {
+														"type": "number"
+												},
+												"tenantCode": {
+														"type": "string"
+												},
+												"createdAt": {
+														"type": "number"
+												},
+												"createdBy": {
+														"type": "number"
+												},
+												"updatedAt": {
+														"type": "number"
+												},
+												"updatedBy": {
+														"type": "number"
+												},
+												"deletedAt": {
+														"type": "number"
+												},
+												"productsCoaId": {
+														"type": "number"
+												},
+												"suppliersCoaId": {
+														"type": "number"
+												},
+												"customersCoaId": {
+														"type": "number"
+												},
+												"staffsCoaId": {
+														"type": "number"
+												},
+												"banksCoaId": {
+														"type": "number"
+												}
 												}
 										}
 									}
@@ -2999,11 +3419,6 @@
 														"type": "number"
 												}
 												}
-										},
-										"coas": {
-										"type": "object",
-										"properties": {
-												}
 										}
 									}
 								}
@@ -3066,6 +3481,11 @@
 								},
 								"restoredBy": {
 										"type": "number"
+								},
+								"attributes": {
+								"type": "object",
+								"properties": {
+										}
 								}
 								}
 						}
@@ -3120,6 +3540,11 @@
 												},
 												"restoredBy": {
 														"type": "number"
+												},
+												"attributes": {
+												"type": "object",
+												"properties": {
+														}
 												}
 												}
 										},

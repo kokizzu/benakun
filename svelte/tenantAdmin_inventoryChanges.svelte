@@ -176,6 +176,7 @@
   <PopUpInventoryChanges
     {products}
     bind:this={popUpInventoryChanges}
+    bind:isSubmitAddInventoryChanges={isSubmitAddInvChange}
     OnSubmit={OnAddInventoryChange}
   />
 {/if}

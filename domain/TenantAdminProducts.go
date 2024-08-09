@@ -6,7 +6,7 @@ import (
 	"benakun/model/mBusiness"
 	"benakun/model/mBusiness/rqBusiness"
 	"benakun/model/mBusiness/wcBusiness"
-	"benakun/model/mFinance/rqFinance"
+	"benakun/model/mFinance"
 	"benakun/model/mFinance/wcFinance"
 	"benakun/model/zCrud"
 
@@ -45,6 +45,9 @@ const (
 	ErrTenantAdminProductsKindNotValid    = `invalid product kind (must be goods, service)`
 	ErrTenantAdminProductsSaveFailed      = `product save failed`
 	ErrTenantAdminProductsNotTenant       = `must be tenant admin to do this operation`
+	ErrTenantAdminProductsCoaParentNotFound = `coa parent not found`
+	ErrTenantAdminProductsFailedSave = `failed to create a new product`
+	ErrTenantAdminProductsFailedUpdateCoaParent = `failed to update coa parent of product`
 )
 
 var TenantAdminProductsMeta = zCrud.Meta{
@@ -92,6 +95,12 @@ var TenantAdminProductsMeta = zCrud.Meta{
 			Label:     "HPP / COGS (IDR)",
 			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeNumber,
+		},
+		{
+			Name: mBusiness.ProfitPercentage,
+			Label: "Persentase Profit / Profit Percentage",
+			DataType: zCrud.DataTypeInt,
+			InputType: zCrud.InputTypePercentage,
 		},
 		{
 			Name:      mBusiness.CreatedAt,
@@ -180,10 +189,10 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 				}
 			}
 		} else {
-			coaParent := rqFinance.NewCoa(d.AuthOltp)
+			coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
 			coaParent.Id = tenant.ProductsCoaId
 			if !coaParent.FindById() {
-				out.SetError(400, `todo error`)
+				out.SetError(400, ErrTenantAdminProductsCoaParentNotFound)
 				return
 			}
 
@@ -192,11 +201,20 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 			coaChild.SetName(in.Product.Name)
 			coaChild.SetTenantCode(user.TenantCode)
 			coaChild.SetParentId(coaParent.Id)
+			coaChild.SetLabel(mFinance.LabelProduct)
 			coaChild.SetCreatedAt(in.UnixNow())
 			coaChild.SetUpdatedAt(in.UnixNow())
 
 			if !coaChild.DoInsert() {
-				out.SetError(400, `todo error`)
+				out.SetError(400, ErrTenantAdminProductsFailedSave)
+				return
+			}
+
+			moveToIdx := len(coaParent.Children)
+			children := insertChildToIndex(coaParent.Children, coaChild.Id, moveToIdx)
+			coaParent.SetChildren(children)
+			if !coaParent.DoUpsertById() {
+				out.SetError(400, ErrTenantAdminProductsFailedUpdateCoaParent)
 				return
 			}
 
@@ -225,6 +243,9 @@ func (d *Domain) TenantAdminProducts(in *TenantAdminProductsIn) (out TenantAdmin
 		}
 		if in.Product.CogsIDR > 0 {
 			product.SetCogsIDR(in.Product.CogsIDR)
+		}
+		if in.Product.ProfitPercentage > 0 {
+			product.SetProfitPercentage(in.Product.ProfitPercentage)
 		}
 
 		if product.HaveMutation() {

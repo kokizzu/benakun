@@ -5,6 +5,8 @@ import (
 	"benakun/model/mFinance/rqFinance"
 	"benakun/model/mFinance/wcFinance"
 	"benakun/model/zCrud"
+
+	"github.com/kokizzu/gotro/L"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminCoa.go
@@ -33,6 +35,19 @@ const (
 
 	ErrTenantAdminCoaUnauthorized   = `unauthorized user for coa`
 	ErrTenantAdminCoaTenantNotFound = `tenant admin not found for coa`
+	ErrTenantAdminCoaParentNotFound = `coa parent not found`
+	ErrTenantAdminCoaNotFound = `coa not found`
+	ErrTenantAdminCoaMustIncludeParentId = `must include parent id`
+	ErrTenantAdminCoaChildNotFoundInParent = `child not found in parent`
+	ErrTenantAdminCoaFailedReorderChildren = `failed reorder children`
+	ErrTenantAdminCoaParentDestinationNotFound = `cannot find parent to move coa`
+	ErrTenantAdminCoaChildNotFoundInTargetParent = `child not found in target parent`
+	ErrTenantAdminCoaFailedUpdateDestParent = `failed to update destination parent`
+	ErrTenantAdminCoaFailedRemoveChildSourceParent = `failed to remove child from source parent`
+	ErrTenantAdminCoaFailedUpdateSourceParent = `failed to update source parent`
+	ErrTenantAdminCoaFailedUpdate = `failed to update coa`
+	ErrTenantAdminCoaFailedUpdateParent = `failed to update parent of new coa`
+	ErrTenantAdminCoaFailedCreate = `failed to create a new coa`
 )
 
 func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
@@ -69,14 +84,16 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 			parent = wcFinance.NewCoaMutator(d.AuthOltp)
 			parent.Id = in.Coa.ParentId
 			if !parent.FindById() {
-				out.SetError(400, ``)
+				out.SetError(400, ErrTenantAdminCoaParentNotFound)
 				return
 			}
 		}
 
+		// If coa id > 0
+		// update coa
 		if coa.Id > 0 {
 			if !coa.FindById() {
-				out.SetError(400, ``)
+				out.SetError(400, ErrTenantAdminCoaNotFound)
 				return
 			}
 
@@ -100,17 +117,22 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 					coa.SetRestoredBy(sess.UserId)
 				}
 			case zCrud.CmdMove:
+				if in.Coa.ParentId == 0 || parent == nil {
+					out.SetError(400, ErrTenantAdminCoaMustIncludeParentId)
+					return
+				}
 				if parent.Id == in.ToParentId {
 					if len(parent.Children) >= 2 {
 						children, err := moveChildToIndex(parent.Children, coa.Id, in.MoveToIdx)
 						if err != nil {
-							out.SetError(400, ``)
+							L.Print(err)
+							out.SetError(400, ErrTenantAdminCoaChildNotFoundInParent)
 							return
 						}
 
 						parent.SetChildren(children)
 						if !parent.DoUpdateById() {
-							out.SetError(400, ``)
+							out.SetError(400, ErrTenantAdminCoaFailedReorderChildren)
 							return
 						}
 					}
@@ -118,7 +140,7 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 					toParent := wcFinance.NewCoaMutator(d.AuthOltp)
 					toParent.Id = in.ToParentId
 					if !toParent.FindById() {
-						out.SetError(400, ``)
+						out.SetError(400, ErrTenantAdminCoaParentDestinationNotFound)
 						return
 					}
 
@@ -126,30 +148,33 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 
 					coa.SetParentId(toParent.Id)
 					if !coa.DoUpdateById() {
-						out.SetError(400, ``)
+						out.SetError(400, ErrTenantAdminCoaChildNotFoundInTargetParent)
 						return
 					}
 
 					toParent.SetChildren(children)
 					if !toParent.DoUpdateById() {
-						out.SetError(400, ``)
+						out.SetError(400, ErrTenantAdminCoaFailedUpdateDestParent)
 						return
 					}
 
 					children, err := removeChild(parent.Children, in.Coa.Id)
 					if err != nil {
-						out.SetError(400, ``)
+						out.SetError(400, ErrTenantAdminCoaFailedRemoveChildSourceParent)
 						return
 					}
 
 					parent.SetChildren(children)
 					if !parent.DoUpdateById() {
-						out.SetError(400, ``)
+						out.SetError(400, ErrTenantAdminCoaFailedUpdateSourceParent)
 						return
 					}
 				}
 			}
 		} else {
+			// If coa id == 0
+			// create a new coa
+
 			if in.Coa.Name != `` {
 				coa.SetName(in.Coa.Name)
 			}
@@ -171,11 +196,11 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 		}
 
 		if !coa.DoUpsertById() {
-			out.SetError(400, ``)
+			out.SetError(400, ErrTenantAdminCoaFailedUpdate)
 			return
 		}
 
-		if in.Coa.Id <= 0 {
+		if in.Coa.Id == 0 {
 			if in.Coa.ParentId > 0 {
 				children := parent.Children
 				children = append(children, coa.Id)
@@ -183,13 +208,13 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 				parent.SetUpdatedAt(in.UnixNow())
 				parent.SetUpdatedBy(sess.UserId)
 				if !parent.DoUpdateById() {
-					out.SetError(400, ErrTenantAdminOrganizationUpdatedParentForOrganization)
+					out.SetError(400, ErrTenantAdminCoaFailedUpdateParent)
 					return
 				}
 
 				coa.SetParentId(parent.Id)
 				if !coa.DoUpsertById() {
-					out.SetError(400, ``)
+					out.SetError(400, ErrTenantAdminCoaFailedCreate)
 					return
 				}
 			}
