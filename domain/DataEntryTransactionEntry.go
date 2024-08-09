@@ -6,6 +6,7 @@ import (
 	"benakun/model/mFinance"
 	"benakun/model/mFinance/rqFinance"
 	"benakun/model/mFinance/wcFinance"
+	"benakun/model/zCrud"
 	"time"
 )
 
@@ -18,13 +19,14 @@ import (
 type (
 	DataEntryTransactionEntryIn struct {
 		RequestCommon
+		Cmd      string               `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
 		CoaId uint64 `json:"coaId" form:"coaId" query:"coaId" long:"coaId" msg:"coaId"`
 		TransactionJournals []rqFinance.TransactionJournal `json:"transactionJournals" form:"transactionJournals" query:"transactionJournals" long:"transactionJournals" msg:"transactionJournals"`
 		BusinessTransaction rqFinance.BusinessTransaction `json:"businessTransaction" form:"businessTransaction" query:"businessTransaction" long:"businessTransaction" msg:"businessTransaction"`
 	}
 	DataEntryTransactionEntryOut struct {
 		ResponseCommon
-		
+		CoaChildren map[string]string `json:"coaChildren" form:"coaChildren" query:"coaChildren" long:"coaChildren" msg:"coaChildren"`
 	}
 )
 
@@ -92,77 +94,84 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 		return
 	}
 
-	if len(in.TransactionJournals) > 0 {
-		for _, v := range in.TransactionJournals {
-			trxJournal := wcFinance.NewTransactionJournalMutator(d.AuthOltp)
-			trxJournal.SetTenantCode(tenant.TenantCode)
+	switch in.Cmd {
+	case zCrud.CmdForm:
+		coaChoices := coa.FindCoasChoicesChildByParentByTenant()
+		out.CoaChildren = coaChoices
+	case zCrud.CmdUpsert:
 
-			if v.CoaId > 0 {
-				coaChild := rqFinance.NewCoa(d.AuthOltp)
-				coaChild.Id = v.CoaId
-				if !coaChild.FindById() {
-					out.SetError(400, ErrDataEntryTransactionEntryCoaNotFound)
+		if len(in.TransactionJournals) > 0 {
+			for _, v := range in.TransactionJournals {
+				trxJournal := wcFinance.NewTransactionJournalMutator(d.AuthOltp)
+				trxJournal.SetTenantCode(tenant.TenantCode)
+
+				if v.CoaId > 0 {
+					coaChild := rqFinance.NewCoa(d.AuthOltp)
+					coaChild.Id = v.CoaId
+					if !coaChild.FindById() {
+						out.SetError(400, ErrDataEntryTransactionEntryCoaNotFound)
+						return
+					}
+
+					if coaChild.ParentId != coa.Id {
+						out.SetError(400, ErrDataEntryTransactionEntryInvalidCoaChild)
+						return
+					}
+
+					trxJournal.SetCoaId(coaChild.Id)
+				} else {
+					trxJournal.SetCoaId(coa.Id)
+				}
+				trxJournal.SetDebitIDR(v.DebitIDR)
+				trxJournal.SetCreditIDR(v.CreditIDR)
+				trxJournal.SetDescriptions(v.Descriptions)
+
+				if !isStrIsoDate(v.Date) {
+					out.SetError(400, ErrDataEntryTransactionEntryInvalidDate)
 					return
 				}
+				trxJournal.SetDate(v.Date)
 
-				if coaChild.ParentId != coa.Id {
-					out.SetError(400, ErrDataEntryTransactionEntryInvalidCoaChild)
+				if v.DetailObj != `` {
+					if !mFinance.IsValidDetailObject(v.DetailObj) {
+						out.SetError(400, ErrDataEntryTransactionEntryInvalidDetailObject)
+						return
+					}
+				}
+				
+				trxJournal.SetDetailObj(v.DetailObj)
+				trxJournal.SetCreatedAt(in.UnixNow())
+				trxJournal.SetCreatedBy(sess.UserId)
+				trxJournal.SetUpdatedAt(in.UnixNow())
+				trxJournal.SetUpdatedBy(sess.UserId)
+
+				if !trxJournal.DoInsert() {
+					out.SetError(400, ErrDataEntryTransactionEntrySaveFailed)
 					return
 				}
-
-				trxJournal.SetCoaId(coaChild.Id)
-			} else {
-				trxJournal.SetCoaId(coa.Id)
-			}
-			trxJournal.SetDebitIDR(v.DebitIDR)
-			trxJournal.SetCreditIDR(v.CreditIDR)
-			trxJournal.SetDescriptions(v.Descriptions)
-
-			if !isStrIsoDate(v.Date) {
-				out.SetError(400, ErrDataEntryTransactionEntryInvalidDate)
-				return
-			}
-			trxJournal.SetDate(v.Date)
-
-			if v.DetailObj != `` {
-				if !mFinance.IsValidDetailObject(v.DetailObj) {
-					out.SetError(400, ErrDataEntryTransactionEntryInvalidDetailObject)
-					return
-				}
-			}
-			
-			trxJournal.SetDetailObj(v.DetailObj)
-			trxJournal.SetCreatedAt(in.UnixNow())
-			trxJournal.SetCreatedBy(sess.UserId)
-			trxJournal.SetUpdatedAt(in.UnixNow())
-			trxJournal.SetUpdatedBy(sess.UserId)
-
-			if !trxJournal.DoInsert() {
-				out.SetError(400, ErrDataEntryTransactionEntrySaveFailed)
-				return
 			}
 		}
-	}
 
-	trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
-	trxTemplate.Id = in.BusinessTransaction.TransactionTemplateId
-	if !trxTemplate.FindById() {
-		out.SetError(400, ErrDataEntryTransactionEntryTransactionTemplateNotFound)
-		return
-	}
+		trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
+		trxTemplate.Id = in.BusinessTransaction.TransactionTemplateId
+		if !trxTemplate.FindById() {
+			out.SetError(400, ErrDataEntryTransactionEntryTransactionTemplateNotFound)
+			return
+		}
 
-	businessTrx := wcFinance.NewBusinessTransactionMutator(d.AuthOltp)
-	businessTrx.SetTenantCode(tenant.TenantCode)
-	businessTrx.SetStartDate(in.BusinessTransaction.StartDate)
-	businessTrx.SetEndDate(in.BusinessTransaction.EndDate)
-	businessTrx.SetCreatedAt(in.UnixNow())
-	businessTrx.SetCreatedBy(sess.UserId)
-	businessTrx.SetUpdatedAt(in.UnixNow())
-	businessTrx.SetUpdatedBy(sess.UserId)
+		businessTrx := wcFinance.NewBusinessTransactionMutator(d.AuthOltp)
+		businessTrx.SetTenantCode(tenant.TenantCode)
+		businessTrx.SetStartDate(in.BusinessTransaction.StartDate)
+		businessTrx.SetEndDate(in.BusinessTransaction.EndDate)
+		businessTrx.SetCreatedAt(in.UnixNow())
+		businessTrx.SetCreatedBy(sess.UserId)
+		businessTrx.SetUpdatedAt(in.UnixNow())
+		businessTrx.SetUpdatedBy(sess.UserId)
 
-	if !businessTrx.DoInsert() {
-		out.SetError(400, ErrDataEntryTransactionEntrySaveFailed)
-		return
+		if !businessTrx.DoInsert() {
+			out.SetError(400, ErrDataEntryTransactionEntrySaveFailed)
+			return
+		}
 	}
 	
 	return

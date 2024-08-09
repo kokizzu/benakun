@@ -132,6 +132,9 @@
 							"schema": {
 								"type": "object",
 								"properties": {
+						"cmd": {
+								"type": "string"
+						},
 						"coaId": {
 								"type": "number"
 						},
@@ -194,6 +197,11 @@
 								"schema": {
 									"type": "object",
 									"properties": {
+										"coaChildren": {
+										"type": "object",
+										"properties": {
+												}
+										}
 									}
 								}
 							}

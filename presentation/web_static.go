@@ -168,8 +168,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`, 302)
 		}
 
-		L.Print(`TenantCode:`, tenantCode)
-
 		templateId := ctx.Params("templateId")
 
 		trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
@@ -320,6 +318,10 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.TenantCode = user.TenantCode
+		coas := coa.FindCoasChoicesByTenant()
+
 		out := d.TenantAdminManualJournal(&in)
 		return views.RenderTenantAdminManualJournal(ctx, M.SX{
 			`title`:    `Tenant Admin Manual Journal`,
@@ -328,6 +330,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`fields`: out.Meta.Fields,
 			`pager`: out.Pager,
 			`transactionJournals`: out.TransactionJournals,
+			`coas`: coas,
 		})
 	})
 

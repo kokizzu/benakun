@@ -102,6 +102,7 @@ exports.DataEntryTemplates = async function DataEntryTemplates( i, cb ) {
 
 /**
  * @typedef {Object} DataEntryTransactionEntryIn
+ * @property {String} cmd
  * @property {number} coaId
  * @property {Object} transactionJournals
  * @property {number} businessTransaction.id
@@ -118,6 +119,7 @@ exports.DataEntryTemplates = async function DataEntryTemplates( i, cb ) {
  * @property {number} businessTransaction.transactionTemplateId
  */
 const DataEntryTransactionEntryIn = {
+  cmd: '', // string
   coaId: 0, // uint64
   transactionJournals: { // []rqFinance.TransactionJournal
   }, // []rqFinance.TransactionJournal
@@ -138,8 +140,11 @@ const DataEntryTransactionEntryIn = {
 }
 /**
  * @typedef {Object} DataEntryTransactionEntryOut
+ * @property {Object} coaChildren
  */
 const DataEntryTransactionEntryOut = {
+  coaChildren: { // map[string]string
+  }, // map[string]string
 }
 /**
  * @callback DataEntryTransactionEntryCallback

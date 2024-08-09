@@ -46,7 +46,7 @@ var TenantAdminManualJournalMeta = zCrud.Meta{
 			Name: mFinance.CoaId,
 			Label: "CoA (Chart of Account)",
 			DataType: zCrud.DataTypeInt,
-			InputType: zCrud.InputTypeNumber,
+			InputType: zCrud.InputTypeCombobox,
 		},
 		{
 			Name: mFinance.DebitIDR,

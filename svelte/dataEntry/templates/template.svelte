@@ -2,6 +2,7 @@
   /** @typedef {import('../../_components/types/transaction.js').TransactionTemplate} TransactionTemplate */
   /** @typedef {import('../../_components/types/transaction.js').TransactionJournal} TransactionJournal */
   /** @typedef {import('../../_components/types/transaction.js').DetailObjectTransaction} DetailObjectTransaction */
+  /** @typedef {import('../../_components/types/transaction.js').TransactionTplDetail} TransactionTplDetail */
 
   import MainLayout from '../../_layouts/mainLayout.svelte';
   import { Icon } from '../../node_modules/svelte-icons-pack/dist';
@@ -13,7 +14,7 @@
     import { notifier } from '../../_components/notifier';
 
   let transactionTemplate = /** @type TransactionTemplate */ ({/* transactiontemplate */});
-  let transactionTplDetails = /** @type any[] */ ([/* transactionTplDetails */]);
+  let transactionTplDetails = /** @type TransactionTplDetail[] */ ([/* transactionTplDetails */]);
   let coas = /** @type any[] */ ([/* coas */]);
 
   let popUpDataEntryJournal;
@@ -28,6 +29,7 @@
 
   let isDebit = true;
   let isSales = false;
+  let isChildOnly = false;
 
   let startDate;
   let endDate;
@@ -39,11 +41,33 @@
   let date = '';
   let heading = 'Add journal for ' + transactionTemplate.name;
 
+  let coaChildren = {}
+
+  async function GetCoaChildren(/** @type number */ coaId) {
+    const i = {
+      cmd: 'form',
+      coaId: coaId
+    }
+    await DataEntryTransactionEntry( // @ts-ignore
+      i, /** @returns {Promise<any>} */
+      function (/** @type {any} */ o) {
+        isSubmitted = false;
+        if (o.error) {
+          notifier.showError(o.error || 'failed to get coa children');
+          return
+        }
+        
+        coaChildren = o.coaChildren;
+      }
+    )
+  }
+
   let isSubmitted = false;
 
   async function Submit() {
     isSubmitted = true;
     const i = {
+      cmd: 'upsert',
       coaId: coaId,
       transactionJournals: [
         {
@@ -62,7 +86,7 @@
 
     await DataEntryTransactionEntry( // @ts-ignore
       i, /** @returns {Promise<any>} */
-      function (o) {
+      function (/** @type {any} */ o) {
         isSubmitted = false;
         if (o.error) {
           notifier.showError(o.error || 'failed to add journal');
@@ -89,10 +113,12 @@
         creditIDR: payload.creditIDR+'',
         descriptions: payload.description,
         date: payload.date,
+        coaId: payload.coaId,
         detailObj: JSON.stringify(detail)
       })
     }
     const i = {
+      cmd: 'upsert',
       coaId: coaId,
       transactionJournals: trxJournals,
       businessTransaction: {
@@ -104,7 +130,7 @@
 
     await DataEntryTransactionEntry( // @ts-ignore
       i, /** @returns {Promise<any>} */
-      function (o) {
+      function (/** @type {any} */ o) {
         isSubmitted = false;
         if (o.error) {
           notifier.showError(o.error || 'failed to add journal');
@@ -129,10 +155,13 @@
 
   bind:isDebit
   bind:isSales
+  bind:isChildOnly
+
   bind:debitIDR
   bind:creditIDR
   bind:description
   bind:date
+  bind:coaChildren
 
   OnSubmit={Submit}
   OnSubmitWithSales={SubmitWithSales}
@@ -166,10 +195,14 @@
                   <td class="a_row">
                     <div class="actions">
                       <button
-                        on:click={() => {
+                        on:click={ () => {
                           isDebit = trxTplDetail.isDebit
                           isSales = (trxTplDetail.attributes || []).includes('sales')
+                          isChildOnly = (trxTplDetail.attributes || []).includes('childOnly')
                           coaId = trxTplDetail.coaId
+                          if (isChildOnly) {
+                            GetCoaChildren(trxTplDetail.coaId)
+                          }
                           if (isSales) {
                             popUpDataEntryJournal.ShowWithSales()
                           } else {

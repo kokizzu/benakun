@@ -8,6 +8,7 @@
    * @property {string|Date} date
    * @property {number} salesCount
    * @property {string|number} salesPriceIDR
+   * @property {string|number} coaId
    */
 
 	import { Icon } from '../node_modules/svelte-icons-pack/dist';
@@ -22,7 +23,7 @@
   export let isDebit      = true;
   export let isSales      = false;
   export let isChildOnly  = false;
-  export let coas = {}
+  export let coaChildren = {}
 
   export let debitIDR = 0;
   export let creditIDR = 0;
@@ -47,7 +48,8 @@
       description: '',
       date: new Date(),
       salesCount: 0,
-      salesPriceIDR: 0
+      salesPriceIDR: 0,
+      coaId: ''
     }]
 
     Show();
@@ -60,7 +62,7 @@
     isDebit      = true;
     isSales      = false;
     isChildOnly  = false;
-    coas = {}
+    coaChildren = {}
 
     debitIDR = 0;
     creditIDR = 0;
@@ -115,6 +117,9 @@
                   {/if}
                   
                   <th>Description</th>
+                  {#if isChildOnly}
+                    <th>COA</th>
+                  {/if}
                   <th>Date</th>
                   <th>Sales Count</th>
                   <th>Sales Price (IDR)</th>
@@ -140,6 +145,15 @@
                         rows="1"
                       />
                     </td>
+                    {#if isChildOnly}
+                      <td>
+                        <select bind:value={pySales.coaId}>
+                          {#each Object.entries(coaChildren) as [k, v], idx}
+                            <option value={k} selected={pySales.coaId === k}>{`${idx+1}: ${v}`}</option>
+                          {/each}
+                        </select>
+                      </td>
+                    {/if}
                     <td>
                       <input type="date" bind:value={pySales.date}/>
                     </td>
@@ -164,7 +178,8 @@
                   description: '',
                   date: new Date(),
                   salesCount: 0,
-                  salesPriceIDR: 0
+                  salesPriceIDR: 0,
+                  coaId: ''
                 }
               ]
             }}>

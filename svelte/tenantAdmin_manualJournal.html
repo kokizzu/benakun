@@ -2018,127 +2018,6 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
     gap: 2px;
   }
 }
-
-/* fakecss:./_components/PoUpForms.esbuild-svelte-fake-css */
-@keyframes svelte-rl3zdo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-.spin {
-  animation: svelte-rl3zdo-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-.popup_container.svelte-rl3zdo.svelte-rl3zdo {
-  display: none;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 2000;
-  background-color: rgba(0 0 0 / 40%);
-  backdrop-filter: blur(1px);
-  justify-content: center;
-  padding: 50px;
-  overflow: auto;
-}
-.popup_container.show.svelte-rl3zdo.svelte-rl3zdo {
-  display: flex;
-}
-.popup_container.svelte-rl3zdo .popup.svelte-rl3zdo {
-  border-radius: 8px;
-  background-color: #FFF;
-  height: fit-content;
-  width: 500px;
-  display: flex;
-  flex-direction: column;
-}
-.popup_container.svelte-rl3zdo .popup header.svelte-rl3zdo {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  border-bottom: 1px solid var(--gray-004);
-}
-.popup_container.svelte-rl3zdo .popup header h2.svelte-rl3zdo {
-  margin: 0;
-}
-.popup_container.svelte-rl3zdo .popup header button.svelte-rl3zdo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-  border-radius: 50%;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-}
-.popup_container.svelte-rl3zdo .popup header button.svelte-rl3zdo:hover {
-  background-color: #ef444420;
-}
-.popup_container.svelte-rl3zdo .popup header button.svelte-rl3zdo:active {
-  background-color: #ef444430;
-}
-.popup_container.svelte-rl3zdo .popup .forms.svelte-rl3zdo {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.popup_container.svelte-rl3zdo .popup .forms .map_container.svelte-rl3zdo {
-  width: 100%;
-  height: 200px;
-}
-.popup_container.svelte-rl3zdo .popup .foot.svelte-rl3zdo {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 10px;
-  align-items: center;
-  padding: 10px 20px;
-  border-top: 1px solid var(--gray-004);
-}
-.popup_container.svelte-rl3zdo .popup .foot .right.svelte-rl3zdo {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-}
-.popup_container.svelte-rl3zdo .popup .foot button.svelte-rl3zdo {
-  padding: 8px 13px;
-  border-radius: 9999px;
-  border: none;
-  color: #FFF;
-  cursor: pointer;
-  font-weight: 600;
-}
-.popup_container.svelte-rl3zdo .popup .foot button.ok.svelte-rl3zdo {
-  background-color: var(--green-006);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.popup_container.svelte-rl3zdo .popup .foot button.ok.svelte-rl3zdo:hover {
-  background-color: var(--green-005);
-}
-.popup_container.svelte-rl3zdo .popup .foot button.ok.svelte-rl3zdo:disabled {
-  cursor: not-allowed;
-  background-color: var(--gray-003);
-  color: var(--gray-007);
-}
-.popup_container.svelte-rl3zdo .popup .foot button.cancel.svelte-rl3zdo {
-  background-color: #fbbf2430;
-  color: var(--amber-005);
-}
-.popup_container.svelte-rl3zdo .popup .foot button.cancel.svelte-rl3zdo:hover {
-  background-color: #fbbf2450;
-}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -4287,7 +4166,7 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
       exports.TenantAdminOrganization = async function TenantAdminOrganization(i, cb) {
         return await axios.post("/tenantAdmin/organization", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminProducts = async function TenantAdminProducts2(i, cb) {
+      exports.TenantAdminProducts = async function TenantAdminProducts(i, cb) {
         return await axios.post("/tenantAdmin/products", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminSyncCoa = async function TenantAdminSyncCoa(i, cb) {
@@ -32434,7 +32313,6 @@ uniform ${i3} ${a3} u_${s3};
   var MasterTable_default = MasterTable;
 
   // tenantAdmin_manualJournal.svelte
-  var import_jsApi = __toESM(require_jsApi_GEN());
   function create_if_block5(ctx) {
     let button;
     let icon;
@@ -32530,6 +32408,7 @@ uniform ${i3} ${a3} u_${s3};
     }
     let mastertable_props = {
       ACCESS: segments2,
+      REFS: { "coaId": coas },
       CAN_EDIT_ROW: true,
       CAN_SEARCH_ROW: true,
       CAN_DELETE_ROW: true,
@@ -32667,6 +32546,10 @@ uniform ${i3} ${a3} u_${s3};
     /** @type User */
     {/* user */}
   );
+  var coas = (
+    /** @type CoA[] */
+    [/* coas */]
+  );
   function instance11($self, $props, $invalidate) {
     let fields = (
       /** @type Field[] */
@@ -32680,6 +32563,7 @@ uniform ${i3} ${a3} u_${s3};
       /** @type any[][] */
       [/* transactionJournals */]
     );
+    console.log("Coas", coas);
     function mastertable_FIELDS_binding(value) {
       fields = value;
       $invalidate(0, fields);
