@@ -18,7 +18,6 @@
   let user = /** @type User */ ({/* user */});
   let transactionJournals = /** @type any[][] */ ([/* transactionJournals */]);
   let coas = /** @type CoA[] */ ([/* coas */]);
-  console.log('Coas', coas)
 </script>
 
 <MainLayout>

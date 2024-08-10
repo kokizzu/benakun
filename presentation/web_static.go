@@ -409,9 +409,14 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		r := rqAuth.NewUsers(d.AuthOltp)
 		staffs := r.FindStaffsChoicesByTenantCode(user.TenantCode)
 
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.TenantCode = user.TenantCode
+		coas := coa.FindCoasChoicesByTenant()
+
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.TenantAdminBankAccounts(&in)
+		
 		return views.RenderTenantAdminBankAccounts(ctx, M.SX{
 			`title`:    `Tenant Admin Bank Accounts`,
 			`user`:     user,
@@ -420,6 +425,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`fields`:   out.Meta.Fields,
 			`pager`:    out.Pager,
 			`staffs`:   staffs,
+			`coas`: coas,
 		})
 	})
 

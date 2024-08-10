@@ -21,6 +21,7 @@
   let pager = /** @type PagerOut */ ({/* pager */});
   let accounts = /** @type any[][] */ ([/* accounts */]);
   let staffs = /** @type Object */ ({/* staffs */});
+  let coas = /** @type Object */ ({/* coas */});
 
   // Binding component PopUpAddBankAccount.svelte
   let popUpAddBankAccount = null;
@@ -163,7 +164,7 @@
 
 {#if isPopUpAddBankAccountReady}
   <PopUpAddBankAccount
-    {staffs}
+    {staffs} {coas}
     bind:this={popUpAddBankAccount}
     bind:isSubmitAddBankAccount
     OnSubmit={addAccount}

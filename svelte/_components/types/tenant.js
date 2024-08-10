@@ -33,5 +33,7 @@ module.exports = {};
   * @property {boolean} isProfitCenter
   * @property {boolean} isCostCenter
   * @property {string} staffId
+  * @property {string|number} coaIdProfitCenter
+  * @property {string|number} coaIdCostCenter
   */
 module.exports = {};

@@ -1,66 +1,31 @@
 <script>
-  import { Icon } from '../node_modules/svelte-icons-pack/dist';
+  /** @typedef {import('../_components/types/master').Field} Field */
+  
+	import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
   import InputCustom from './InputCustom.svelte';
 
-  // @ts-ignore
-  /** @typedef {import('../_components/types/tenant').BankAccount} BankAccount*/
-
-  export let heading = 'Add bank account';
-  export let isSubmitAddBankAccount = false;
-  export let staffs = {};
-  export let coas = {};
-  export let OnSubmit = async function(/** @type BankAccount */ bankAccount) {}
-
+  export let heading = 'Add Journal';
+  export let FIELDS = /** @type Field[] */ ([]);
+  export let isSubmitted = false;
   let isShow = false;
+  let payloads = [];
+
+  export let OnSubmit = async function(/** @type any[] */ payloads) {}  
 
   export const Show = () => isShow = true;
   export const Hide = () => isShow = false;
 
-  let name = '';
-  let bankName = '';
-  let accountName = '';
-  let accountNumber = 0;
-  let isProfitCenter = false;
-  let isCostCenter = false;
-  let staffId = '0';
-
-  let coaIdProfitCenter = '0';
-  let coaIdCostCenter = '0';
-
   export const Reset = () => {
-    name = '';
-    bankName = '';
-    accountName = '';
-    accountNumber = 0;
-    isProfitCenter = false;
-    isCostCenter = false;
-    staffId = '0';
-
-    coaIdProfitCenter = '0';
-    coaIdCostCenter = '0';
+    payloads = [];
+    if (FIELDS && FIELDS.length > 0) {
+			FIELDS.forEach(() => payloads = [...payloads, '']);
+		}
   }
-
-  let isStaffAccount = false; // state for staff account or company account
-
-  // reset staff id to 0
-  $: { if (!isStaffAccount) staffId = '0' }
-
+  
   const cancel = () => {
     isShow = false;
-  }
-
-  function submitAddBankAccount() {
-    isSubmitAddBankAccount = true;
-    /** @type BankAccount*/ // @ts-ignore
-    const i = {
-      name, accountNumber, bankName, accountName,
-      isProfitCenter, isCostCenter, staffId,
-      coaIdProfitCenter, coaIdCostCenter
-    }
-
-    OnSubmit(i);
   }
 </script>
 
@@ -73,96 +38,31 @@
       </button>
     </header>
     <div class="forms">
-      <InputCustom
-        bind:value={name}
-        id="name"
-        label="Nama / Name"
-        placeholder="Name"
-        type="text"
-      />
-      <InputCustom
-        bind:value={bankName}
-        id="bankName"
-        label="Nama Bank / Bank Name"
-        placeholder="Bank Name"
-        type="text"
-      />
-      <InputCustom
-        bind:value={accountName}
-        id="accountName"
-        label="Nama Akun / Account Name"
-        placeholder="Account Name"
-        type="text"
-      />
-      <InputCustom
-        bind:value={accountNumber}
-        id="accountNumber"
-        label="Nomor Akun / Account Number"
-        placeholder="0xxxxx"
-        type="number"
-      />
-      <InputCustom
-        bind:value={isProfitCenter}
-        id="isProfitCenter"
-        label="Pusat Profit / Is Profit Center ?"
-        type="bool"
-      />
-      {#if isProfitCenter}
-        <InputCustom
-          bind:value={coaIdProfitCenter}
-          id="coaIdProfitCenter"
-          label="CoA Pusat Profit / CoA Profit Center"
-          type="select"
-          placeholder="Select CoA"
-          values={coas}
-          isObject
-        />
-      {/if}
-      <InputCustom
-        bind:value={isCostCenter}
-        id="isCostCenter"
-        label="Pusat Biaya / Is Cost Center ?"
-        type="bool"
-      />
-      {#if isCostCenter}
-        <InputCustom
-          bind:value={coaIdCostCenter}
-          id="coaIdCostCenter"
-          label="CoA Pusat Biaya / CoA Cost Center"
-          type="select"
-          placeholder="Select CoA"
-          values={coas}
-          isObject
-        />
-      {/if}
-      <InputCustom
-        bind:value={isStaffAccount}
-        id="isStaffAccount"
-        label="Akun Staf / Is Staff Account ?"
-        type="bool"
-      />
-      {#if isStaffAccount}
-        <InputCustom
-          bind:value={staffId}
-          id="staffId"
-          label="Karyawan / Staff"
-          type="select"
-          placeholder="Select staff"
-          values={staffs}
-          isObject
-        />
-      {/if}
+      {#each (FIELDS || []) as field, idx}
+        {#if field.name !== 'id'}
+          {#if !field.readOnly}
+            <InputCustom
+              id={field.name}
+              label={field.label}
+              placeholder={field.description}
+              bind:value={payloads[idx]}
+              type={field.inputType}
+              values={field.ref}
+            />
+          {/if}
+        {/if}
+      {/each}
     </div>
     <div class="foot">
       <div class="left">
       </div>
       <div class="right">
         <button class="cancel" on:click|preventDefault={cancel}>Cancel</button>
-        <button class="ok" on:click|preventDefault={submitAddBankAccount} disabled={isSubmitAddBankAccount}>
-          {#if !isSubmitAddBankAccount}
+        <button class="ok" on:click|preventDefault={() => OnSubmit(payloads)} disabled={isSubmitted}>
+          {#if !isSubmitted}
             <span>Ok</span>
           {/if}
-          {#if isSubmitAddBankAccount}
+          {#if isSubmitted}
             <Icon className="spin" color="#FFF" size="14" src={FiLoader} />
           {/if}
         </button>
