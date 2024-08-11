@@ -11,6 +11,8 @@
   import { RiSystemAddBoxLine } from './node_modules/svelte-icons-pack/dist/ri';
   import MainLayout from './_layouts/mainLayout.svelte';
   import MasterTable from './_components/MasterTable.svelte';
+  import PopUpManualJournal from './_components/PopUpManualJournal.svelte';
+  import { onMount } from 'svelte';
 
   let segments = /** @type Access */ ({/* segments */});
   let fields = /** @type Field[] */ ([/* fields */]);
@@ -18,7 +20,18 @@
   let user = /** @type User */ ({/* user */});
   let transactionJournals = /** @type any[][] */ ([/* transactionJournals */]);
   let coas = /** @type CoA[] */ ([/* coas */]);
+
+  let isPopUpManualJournalReady = false;
+  let popUpManualJournal = null;
+  onMount(() => {
+    isPopUpManualJournalReady = true;
+  })
 </script>
+
+<PopUpManualJournal
+  bind:this={popUpManualJournal}
+  {coas}
+/>
 
 <MainLayout>
   <div>
@@ -40,6 +53,7 @@
         <button
           class="action_btn"
           title="add journal"
+          on:click={() => popUpManualJournal.Show()}
         >
           <Icon
             color="var(--gray-007)"

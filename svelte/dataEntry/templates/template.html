@@ -9617,7 +9617,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           coaId: ""
         }
       ]);
-      Show();
+      $invalidate(15, isShow = true);
     };
     const Hide = () => $invalidate(15, isShow = false);
     const Reset = () => {

@@ -409,9 +409,16 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		r := rqAuth.NewUsers(d.AuthOltp)
 		staffs := r.FindStaffsChoicesByTenantCode(user.TenantCode)
 
+		tenant := rqAuth.NewTenants(d.AuthOltp)
+		tenant.TenantCode = user.TenantCode
+		tenant.FindByTenantCode()
+
 		coa := rqFinance.NewCoa(d.AuthOltp)
 		coa.TenantCode = user.TenantCode
-		coas := coa.FindCoasChoicesByTenant()
+		coa.Id = tenant.BanksCoaId
+		coas := coa.FindCoasChoicesChildByParentByTenant()
+
+		L.Print(`coas:`, coas)
 
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList

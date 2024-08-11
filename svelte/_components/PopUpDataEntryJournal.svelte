@@ -42,7 +42,8 @@
   }
   export const ShowWithSales = () => {
     isSales = true;
-    payloadsSales = [{
+    payloadsSales = [
+    {
       creditIDR: 0,
       debitIDR: 0,
       description: '',
@@ -51,8 +52,7 @@
       salesPriceIDR: 0,
       coaId: ''
     }]
-
-    Show();
+    isShow = true;
   }
 
   export const Hide = () => isShow = false;
