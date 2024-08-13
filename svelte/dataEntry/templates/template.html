@@ -781,181 +781,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   font-weight: 700;
 }
 
-/* fakecss:./_components/PopUpDataEntryJournal.esbuild-svelte-fake-css */
-@keyframes svelte-p9gfc8-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-.spin {
-  animation: svelte-p9gfc8-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-.popup_container.svelte-p9gfc8.svelte-p9gfc8 {
-  display: none;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 2000;
-  background-color: rgba(0 0 0 / 40%);
-  backdrop-filter: blur(1px);
-  justify-content: center;
-  padding: 50px;
-  overflow: auto;
-}
-.popup_container.show.svelte-p9gfc8.svelte-p9gfc8 {
-  display: flex;
-}
-.popup_container.svelte-p9gfc8 .popup.svelte-p9gfc8 {
-  border-radius: 8px;
-  background-color: #FFF;
-  height: fit-content;
-  width: 100%;
-  margin: 80px;
-  display: flex;
-  flex-direction: column;
-}
-.popup_container.svelte-p9gfc8 .popup header.svelte-p9gfc8 {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  border-bottom: 1px solid var(--gray-004);
-}
-.popup_container.svelte-p9gfc8 .popup header h2.svelte-p9gfc8 {
-  margin: 0;
-}
-.popup_container.svelte-p9gfc8 .popup header button.svelte-p9gfc8 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-  border-radius: 50%;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-}
-.popup_container.svelte-p9gfc8 .popup header button.svelte-p9gfc8:hover {
-  background-color: #ef444420;
-}
-.popup_container.svelte-p9gfc8 .popup header button.svelte-p9gfc8:active {
-  background-color: #ef444430;
-}
-.popup_container.svelte-p9gfc8 .popup .forms.svelte-p9gfc8 {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.popup_container.svelte-p9gfc8 .popup .forms .form_rows.svelte-p9gfc8 {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
-.popup_container .popup .forms .form_rows .input_custom {
-  width: 100%;
-}
-.popup_container.svelte-p9gfc8 .popup .forms .sales_forms_container.svelte-p9gfc8 {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.popup_container.svelte-p9gfc8 .popup .forms .sales_forms_container .table_container.svelte-p9gfc8 {
-  overflow-x: auto;
-  scrollbar-color: var(--gray-003) transparent;
-  scrollbar-width: thin;
-}
-.popup_container.svelte-p9gfc8 .popup .forms .sales_forms_container .table_container table thead tr th.svelte-p9gfc8 {
-  font-weight: normal;
-  text-align: left;
-}
-.popup_container.svelte-p9gfc8 .popup .forms .sales_forms_container .table_container input.svelte-p9gfc8,
-.popup_container.svelte-p9gfc8 .popup .forms .sales_forms_container .table_container textarea.svelte-p9gfc8 {
-  padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--gray-003);
-  width: 100%;
-}
-.popup_container.svelte-p9gfc8 .popup .forms .sales_forms_container .table_container textarea.svelte-p9gfc8 {
-  resize: vertical;
-  min-height: 40px;
-  max-height: 100px;
-}
-.popup_container.svelte-p9gfc8 .popup .forms .sales_forms_container .actions.svelte-p9gfc8 {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  gap: 10px;
-}
-.popup_container.svelte-p9gfc8 .popup .forms .sales_forms_container .actions .btn.svelte-p9gfc8 {
-  padding: 8px 13px;
-  border-radius: 9999px;
-  border: none;
-  color: #FFF;
-  cursor: pointer;
-  font-weight: 600;
-  background-color: var(--blue-006);
-}
-.popup_container.svelte-p9gfc8 .popup .forms .sales_forms_container .actions .btn.svelte-p9gfc8:hover {
-  background-color: var(--blue-005);
-}
-.popup_container.svelte-p9gfc8 .popup .foot.svelte-p9gfc8 {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 10px;
-  align-items: center;
-  padding: 10px 20px;
-  border-top: 1px solid var(--gray-004);
-}
-.popup_container.svelte-p9gfc8 .popup .foot .right.svelte-p9gfc8 {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-}
-.popup_container.svelte-p9gfc8 .popup .foot button.svelte-p9gfc8 {
-  padding: 8px 13px;
-  border-radius: 9999px;
-  border: none;
-  color: #FFF;
-  cursor: pointer;
-  font-weight: 600;
-}
-.popup_container.svelte-p9gfc8 .popup .foot button.ok.svelte-p9gfc8 {
-  background-color: var(--green-006);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.popup_container.svelte-p9gfc8 .popup .foot button.ok.svelte-p9gfc8:hover {
-  background-color: var(--green-005);
-}
-.popup_container.svelte-p9gfc8 .popup .foot button.ok.svelte-p9gfc8:disabled {
-  cursor: not-allowed;
-  background-color: var(--gray-003);
-  color: var(--gray-007);
-}
-.popup_container.svelte-p9gfc8 .popup .foot button.cancel.svelte-p9gfc8 {
-  background-color: #fbbf2430;
-  color: var(--amber-005);
-}
-.popup_container.svelte-p9gfc8 .popup .foot button.cancel.svelte-p9gfc8:hover {
-  background-color: #fbbf2450;
-}
-
 /* fakecss:./dataEntry/templates/template.esbuild-svelte-fake-css */
-.data_entry_template___container.svelte-8a5g7.svelte-8a5g7 {
+.data_entry_template___container.svelte-md16jx.svelte-md16jx.svelte-md16jx {
   display: flex;
 }
-.transaction_template_detail.svelte-8a5g7.svelte-8a5g7 {
+.transaction_template_detail.svelte-md16jx.svelte-md16jx.svelte-md16jx {
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -965,12 +795,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   overflow: hidden;
   width: 100%;
 }
-.transaction_template_detail.svelte-8a5g7 .table_container.svelte-8a5g7 {
+.transaction_template_detail.svelte-md16jx .table_container.svelte-md16jx.svelte-md16jx {
   overflow-x: auto;
   scrollbar-color: var(--gray-003) transparent;
   scrollbar-width: thin;
 }
-.transaction_template_detail.svelte-8a5g7 .table_container table.svelte-8a5g7 {
+.transaction_template_detail.svelte-md16jx .table_container table.svelte-md16jx.svelte-md16jx {
   width: 100%;
   background: #fff;
   box-shadow: none;
@@ -979,11 +809,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   border-spacing: 0;
   overflow: hidden;
 }
-.transaction_template_detail.svelte-8a5g7 .table_container table thead.svelte-8a5g7 {
+.transaction_template_detail.svelte-md16jx .table_container table.svelte-md16jx thead.svelte-md16jx {
   box-shadow: none;
   border-bottom: 1px solid var(--gray-003);
 }
-.transaction_template_detail.svelte-8a5g7 .table_container table thead tr th.svelte-8a5g7 {
+.transaction_template_detail.svelte-md16jx .table_container table.svelte-md16jx thead tr th.svelte-md16jx {
   padding: 12px;
   background-color: var(--gray-001);
   text-transform: capitalize;
@@ -993,51 +823,51 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   width: auto;
   text-wrap: nowrap;
 }
-.transaction_template_detail.svelte-8a5g7 .table_container table thead tr th.no.svelte-8a5g7 {
+.transaction_template_detail.svelte-md16jx .table_container table thead tr th.no.svelte-md16jx.svelte-md16jx {
   width: 30px;
 }
-.transaction_template_detail.svelte-8a5g7 .table_container table thead tr th.a_row.svelte-8a5g7 {
+.transaction_template_detail.svelte-md16jx .table_container table thead tr th.a_row.svelte-md16jx.svelte-md16jx {
   max-width: 100px;
   width: 100px;
 }
-.transaction_template_detail.svelte-8a5g7 .table_container table thead tr th.svelte-8a5g7:last-child {
+.transaction_template_detail.svelte-md16jx .table_container table.svelte-md16jx thead tr th.svelte-md16jx:last-child {
   border-right: none;
 }
-.transaction_template_detail.svelte-8a5g7 .table_container table tbody tr td.svelte-8a5g7 {
+.transaction_template_detail.svelte-md16jx .table_container table.svelte-md16jx tbody tr td.svelte-md16jx {
   padding: 8px 12px;
 }
-.transaction_template_detail.svelte-8a5g7 .table_container table tbody tr td.svelte-8a5g7 {
+.transaction_template_detail.svelte-md16jx .table_container table.svelte-md16jx tbody tr td.svelte-md16jx {
   padding: 8px 12px;
   border-right: 1px solid var(--gray-004);
   border-bottom: 1px solid var(--gray-004);
 }
-.transaction_template_detail.svelte-8a5g7 .table_container table tbody tr:last-child td.svelte-8a5g7,
-.transaction_template_detail.svelte-8a5g7 .table_container table tbody tr:last-child th.svelte-8a5g7 {
+.transaction_template_detail.svelte-md16jx .table_container table.svelte-md16jx tbody tr:last-child td.svelte-md16jx,
+.transaction_template_detail.svelte-md16jx .table_container table.svelte-md16jx tbody tr:last-child th.svelte-md16jx {
   border-bottom: none !important;
 }
-.transaction_template_detail.svelte-8a5g7 .table_container table tbody tr:last-child td.svelte-8a5g7:last-child {
+.transaction_template_detail.svelte-md16jx .table_container table.svelte-md16jx tbody tr:last-child td.svelte-md16jx:last-child {
   border-right: none !important;
 }
-.transaction_template_detail.svelte-8a5g7 .table_container table tbody tr:last-child td.svelte-8a5g7,
-.transaction_template_detail.svelte-8a5g7 .table_container table tbody tr:last-child th.svelte-8a5g7 {
+.transaction_template_detail.svelte-md16jx .table_container table.svelte-md16jx tbody tr:last-child td.svelte-md16jx,
+.transaction_template_detail.svelte-md16jx .table_container table.svelte-md16jx tbody tr:last-child th.svelte-md16jx {
   border-bottom: none !important;
 }
-.transaction_template_detail.svelte-8a5g7 .table_container table tbody tr:last-child td.svelte-8a5g7:last-child {
+.transaction_template_detail.svelte-md16jx .table_container table.svelte-md16jx tbody tr:last-child td.svelte-md16jx:last-child {
   border-right: none !important;
 }
-.transaction_template_detail.svelte-8a5g7 .table_container table tbody tr td.svelte-8a5g7:last-child {
+.transaction_template_detail.svelte-md16jx .table_container table.svelte-md16jx tbody tr td.svelte-md16jx:last-child {
   border-right: none !important;
 }
-.transaction_template_detail.svelte-8a5g7 .table_container table tbody tr th.svelte-8a5g7 {
+.transaction_template_detail.svelte-md16jx .table_container table.svelte-md16jx tbody tr th.svelte-md16jx {
   text-align: center;
   border-right: 1px solid var(--gray-004);
   border-bottom: 1px solid var(--gray-004);
 }
-.transaction_template_detail.svelte-8a5g7 .table_container table tbody tr td .actions.svelte-8a5g7 {
+.transaction_template_detail.svelte-md16jx .table_container table tbody tr td .actions.svelte-md16jx.svelte-md16jx {
   display: flex;
   flex-direction: row;
 }
-.transaction_template_detail.svelte-8a5g7 .table_container table tbody tr td .actions .btn.svelte-8a5g7 {
+.transaction_template_detail.svelte-md16jx .table_container table tbody tr td .actions.svelte-md16jx .btn.svelte-md16jx {
   border: none;
   padding: 6px;
   border-radius: 8px;
@@ -1047,11 +877,117 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   justify-content: center;
   align-items: center;
 }
-.transaction_template_detail.svelte-8a5g7 .table_container table tbody tr td .actions .btn.svelte-8a5g7:hover {
+.transaction_template_detail.svelte-md16jx .table_container table tbody tr td .actions.svelte-md16jx .btn.svelte-md16jx:hover {
   background-color: var(--violet-transparent);
 }
 .transaction_template_detail .table_container table tbody tr td .actions .btn:hover svg {
   fill: var(--violet-005);
+}
+.data_entry_journal___container.svelte-md16jx.svelte-md16jx.svelte-md16jx {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid var(--gray-003);
+}
+.data_entry_journal___container.svelte-md16jx .forms_journal.svelte-md16jx.svelte-md16jx {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.data_entry_journal___container.svelte-md16jx .forms_journal .form_date.svelte-md16jx.svelte-md16jx {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.data_entry_journal___container.svelte-md16jx .forms_journal .actions.svelte-md16jx.svelte-md16jx {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.data_entry_journal___container.svelte-md16jx .forms_journal .actions.svelte-md16jx .btn.svelte-md16jx {
+  padding: 8px 13px;
+  border-radius: 9999px;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+  font-weight: 600;
+  background-color: var(--blue-006);
+}
+.data_entry_journal___container.svelte-md16jx .forms_journal .actions.svelte-md16jx .btn.svelte-md16jx:hover {
+  background-color: var(--blue-005);
+}
+.data_entry_journal___container.svelte-md16jx .forms_journal .forms_table.svelte-md16jx.svelte-md16jx {
+  overflow-x: auto;
+  scrollbar-color: var(--gray-003) transparent;
+  scrollbar-width: thin;
+}
+.data_entry_journal___container.svelte-md16jx .forms_journal .forms_table .table_transaction_journals thead.svelte-md16jx tr th.svelte-md16jx {
+  font-weight: normal;
+  text-align: left;
+}
+.data_entry_journal___container.svelte-md16jx .forms_journal .forms_table .table_transaction_journals input.svelte-md16jx.svelte-md16jx,
+.data_entry_journal___container.svelte-md16jx .forms_journal .forms_table .table_transaction_journals textarea.svelte-md16jx.svelte-md16jx,
+.data_entry_journal___container.svelte-md16jx .forms_journal .forms_table .table_transaction_journals select.svelte-md16jx.svelte-md16jx {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--gray-003);
+  width: 100%;
+  resize: vertical;
+  background-color: #FFF;
+}
+.data_entry_journal___container.svelte-md16jx .forms_journal .forms_table .table_transaction_journals input.svelte-md16jx.svelte-md16jx:focus,
+.data_entry_journal___container.svelte-md16jx .forms_journal .forms_table .table_transaction_journals textarea.svelte-md16jx.svelte-md16jx:focus,
+.data_entry_journal___container.svelte-md16jx .forms_journal .forms_table .table_transaction_journals select.svelte-md16jx.svelte-md16jx:focus {
+  border-color: var(--sky-005);
+  outline: 1px solid var(--sky-005);
+}
+.data_entry_journal___container.svelte-md16jx .forms_journal .forms_table .table_transaction_journals .btn_remove.svelte-md16jx.svelte-md16jx {
+  padding: 12px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
+.data_entry_journal___container.svelte-md16jx .forms_journal .forms_table .table_transaction_journals .btn_remove.svelte-md16jx.svelte-md16jx:hover {
+  background-color: var(--red-transparent);
+  color: var(--red-005);
+}
+.data_entry_journal___container.svelte-md16jx .forms_journal .forms_table .table_transaction_journals .btn_remove.svelte-md16jx.svelte-md16jx:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.data_entry_journal___container.svelte-md16jx .actions.svelte-md16jx.svelte-md16jx {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.data_entry_journal___container.svelte-md16jx .actions.svelte-md16jx .btn.svelte-md16jx {
+  padding: 8px 20px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+.data_entry_journal___container.svelte-md16jx .actions .btn.cancel.svelte-md16jx.svelte-md16jx {
+  background-color: transparent;
+}
+.data_entry_journal___container.svelte-md16jx .actions .btn.cancel.svelte-md16jx.svelte-md16jx:hover {
+  background-color: var(--gray-003);
+}
+.data_entry_journal___container.svelte-md16jx .actions .btn.submit.svelte-md16jx.svelte-md16jx {
+  color: #FFF;
+  background-color: var(--green-006);
+}
+.data_entry_journal___container.svelte-md16jx .actions .btn.submit.svelte-md16jx.svelte-md16jx:hover {
+  background-color: var(--green-005);
 }
 </style>
 <script>(() => {
@@ -3065,13 +3001,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance10 = bind2(Axios$1.prototype.request, context);
-        utils$1.extend(instance10, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance10, context, null, { allOwnKeys: true });
-        instance10.create = function create(instanceConfig) {
+        const instance9 = bind2(Axios$1.prototype.request, context);
+        utils$1.extend(instance9, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance9, context, null, { allOwnKeys: true });
+        instance9.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance10;
+        return instance9;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -3419,12 +3355,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     node.addEventListener(event, handler, options);
     return () => node.removeEventListener(event, handler, options);
   }
-  function prevent_default(fn) {
-    return function(event) {
-      event.preventDefault();
-      return fn.call(this, event);
-    };
-  }
   function attr(node, attribute, value) {
     if (value == null)
       node.removeAttribute(attribute);
@@ -3620,16 +3550,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   function ensure_array_like(array_like_or_iterator) {
     return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
   }
-  function destroy_block(block, lookup) {
-    block.d(1);
-    lookup.delete(block.key);
-  }
   function outro_and_destroy_block(block, lookup) {
     transition_out(block, 1, 1, () => {
       lookup.delete(block.key);
     });
   }
-  function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block4, next, get_context) {
+  function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block3, next, get_context) {
     let o = old_blocks.length;
     let n = list.length;
     let i = o;
@@ -3646,7 +3572,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       const key = get_key(child_ctx);
       let block = lookup.get(key);
       if (!block) {
-        block = create_each_block4(key, child_ctx);
+        block = create_each_block3(key, child_ctx);
         block.c();
       } else if (dynamic) {
         updates.push(() => block.p(child_ctx, dirty));
@@ -3809,7 +3735,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance10, create_fragment10, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance9, create_fragment9, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3835,7 +3761,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance10 ? instance10(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance9 ? instance9(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -3848,7 +3774,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment10 ? create_fragment10($.ctx) : false;
+    $.fragment = create_fragment9 ? create_fragment9($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -4378,6 +4304,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var RiUserFacesGroup2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M9.55 11.5C8.30736 11.5 7.3 10.4926 7.3 9.25C7.3 8.00736 8.30736 7 9.55 7C10.7926 7 11.8 8.00736 11.8 9.25C11.8 10.4926 10.7926 11.5 9.55 11.5ZM10 19.748V16.4C10 15.9116 10.1442 15.4627 10.4041 15.0624C10.1087 15.0213 9.80681 15 9.5 15C7.93201 15 6.49369 15.5552 5.37091 16.4797C6.44909 18.0721 8.08593 19.2553 10 19.748ZM4.45286 14.66C5.86432 13.6168 7.61013 13 9.5 13C10.5435 13 11.5431 13.188 12.4667 13.5321C13.3447 13.1888 14.3924 13 15.5 13C17.1597 13 18.6849 13.4239 19.706 14.1563C19.8976 13.4703 20 12.7471 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 12.9325 4.15956 13.8278 4.45286 14.66ZM18.8794 16.0859C18.4862 15.5526 17.1708 15 15.5 15C13.4939 15 12 15.7967 12 16.4V20C14.9255 20 17.4843 18.4296 18.8794 16.0859ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM15.5 12.5C14.3954 12.5 13.5 11.6046 13.5 10.5C13.5 9.39543 14.3954 8.5 15.5 8.5C16.6046 8.5 17.5 9.39543 17.5 10.5C17.5 11.6046 16.6046 12.5 15.5 12.5Z"></path>' };
   var RiUserFacesContactsLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M19 7H24V9H19V7ZM17 12H24V14H17V12ZM20 17H24V19H20V17ZM2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11Z"></path>' };
   var RiSystemAddBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 3H20C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3ZM5 5V19H19V5H5ZM11 11V7H13V11H17V13H13V17H11V13H7V11H11Z"></path>' };
+  var RiSystemDeleteBin6Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M7 4V2H17V4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7ZM6 6V20H18V6H6ZM9 9H11V17H9V9ZM13 9H15V17H13V9Z"></path>' };
   var RiMapMap2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 5L9 2L15 5L21.303 2.2987C21.5569 2.18992 21.8508 2.30749 21.9596 2.56131C21.9862 2.62355 22 2.69056 22 2.75827V19L15 22L9 19L2.69696 21.7013C2.44314 21.8101 2.14921 21.6925 2.04043 21.4387C2.01375 21.3765 2 21.3094 2 21.2417V5ZM16 19.3955L20 17.6812V5.03308L16 6.74736V19.3955ZM14 19.2639V6.73607L10 4.73607V17.2639L14 19.2639ZM8 17.2526V4.60451L4 6.31879V18.9669L8 17.2526Z"></path>' };
   var RiFinanceSwapBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4.00488 5.00275V19.0027H20.0049V5.00275H4.00488ZM3.00488 3.00275H21.0049C21.5572 3.00275 22.0049 3.45046 22.0049 4.00275V20.0027C22.0049 20.555 21.5572 21.0027 21.0049 21.0027H3.00488C2.4526 21.0027 2.00488 20.555 2.00488 20.0027V4.00275C2.00488 3.45046 2.4526 3.00275 3.00488 3.00275ZM15.0049 7.00275L18.5049 10.0027L15.0049 13.0027V11.0027H11.0049V9.00275H15.0049V7.00275ZM9.00488 17.0027L5.50488 14.0027L9.00488 11.0027V13.0027H13.0049V15.0027H9.00488V17.0027Z"></path>' };
   var RiEditorOrganizationChart = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M15 3C15.5523 3 16 3.44772 16 4V8C16 8.55228 15.5523 9 15 9H13V11H17C17.5523 11 18 11.4477 18 12V15H20C20.5523 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H14C13.4477 21 13 20.5523 13 20V16C13 15.4477 13.4477 15 14 15H16V13H8V15H10C10.5523 15 11 15.4477 11 16V20C11 20.5523 10.5523 21 10 21H4C3.44772 21 3 20.5523 3 20V16C3 15.4477 3.44772 15 4 15H6V12C6 11.4477 6.44772 11 7 11H11V9H9C8.44772 9 8 8.55228 8 8V4C8 3.44772 8.44772 3 9 3H15ZM9 17H5V19H9V17ZM19 17H15V19H19V17ZM14 5H10V7H14V5Z"></path>' };
@@ -5748,11 +5675,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   };
   var mainLayout_default = MainLayout;
 
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/fi/index.js
-  var FiLoader = { a: { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" }, c: '<line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>' };
-
-  // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/io/index.js
-  var IoClose = { a: { viewBox: "0 0 512 512" }, c: '<path d="M289.94,256l95-95A24,24,0,0,0,351,127l-95,95-95-95A24,24,0,0,0,127,161l95,95-95,95A24,24,0,1,0,161,385l95-95,95,95A24,24,0,0,0,385,351Z"></path>' };
+  // dataEntry/templates/template.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
 
   // _components/InputCustom.svelte
   function get_each_context_1(ctx, list, i) {
@@ -8126,1729 +8050,114 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   };
   var InputCustom_default = InputCustom;
 
-  // _components/PopUpDataEntryJournal.svelte
+  // dataEntry/templates/template.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[37] = list[i];
-    child_ctx[38] = list;
-    child_ctx[39] = i;
+    child_ctx[39] = list[i];
+    child_ctx[40] = list;
+    child_ctx[41] = i;
     return child_ctx;
   }
   function get_each_context_12(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[40] = list[i][0];
-    child_ctx[41] = list[i][1];
-    child_ctx[43] = i;
+    child_ctx[42] = list[i][0];
+    child_ctx[43] = list[i][1];
+    child_ctx[45] = i;
     return child_ctx;
   }
-  function create_if_block_53(ctx) {
-    let div2;
-    let div0;
-    let table;
-    let thead;
-    let tr;
-    let th0;
-    let t1;
-    let t2;
-    let th1;
-    let t4;
-    let t5;
-    let th2;
-    let t7;
-    let th3;
-    let t9;
-    let th4;
-    let t11;
-    let tbody;
-    let each_blocks = [];
-    let each_1_lookup = /* @__PURE__ */ new Map();
-    let t12;
-    let div1;
-    let button;
-    let mounted;
-    let dispose;
-    function select_block_type(ctx2, dirty) {
-      if (
-        /*isDebit*/
-        ctx2[0]
-      )
-        return create_if_block_92;
-      return create_else_block_3;
-    }
-    let current_block_type = select_block_type(ctx, [-1, -1]);
-    let if_block0 = current_block_type(ctx);
-    let if_block1 = (
-      /*isChildOnly*/
-      ctx[2] && create_if_block_82(ctx)
-    );
-    let each_value = ensure_array_like(
-      /*payloadsSales*/
-      ctx[16] || []
-    );
-    const get_key = (ctx2) => (
-      /*pySales*/
-      ctx2[37]
-    );
-    for (let i = 0; i < each_value.length; i += 1) {
-      let child_ctx = get_each_context2(ctx, each_value, i);
-      let key = get_key(child_ctx);
-      each_1_lookup.set(key, each_blocks[i] = create_each_block2(key, child_ctx));
-    }
-    return {
-      c() {
-        div2 = element("div");
-        div0 = element("div");
-        table = element("table");
-        thead = element("thead");
-        tr = element("tr");
-        th0 = element("th");
-        th0.textContent = "#";
-        t1 = space();
-        if_block0.c();
-        t2 = space();
-        th1 = element("th");
-        th1.textContent = "Description";
-        t4 = space();
-        if (if_block1)
-          if_block1.c();
-        t5 = space();
-        th2 = element("th");
-        th2.textContent = "Date";
-        t7 = space();
-        th3 = element("th");
-        th3.textContent = "Sales Count";
-        t9 = space();
-        th4 = element("th");
-        th4.textContent = "Sales Price (IDR)";
-        t11 = space();
-        tbody = element("tbody");
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].c();
-        }
-        t12 = space();
-        div1 = element("div");
-        button = element("button");
-        button.textContent = "Add row";
-        attr(th0, "class", "svelte-p9gfc8");
-        attr(th1, "class", "svelte-p9gfc8");
-        attr(th2, "class", "svelte-p9gfc8");
-        attr(th3, "class", "svelte-p9gfc8");
-        attr(th4, "class", "svelte-p9gfc8");
-        attr(div0, "class", "table_container svelte-p9gfc8");
-        attr(button, "class", "btn svelte-p9gfc8");
-        attr(div1, "class", "actions svelte-p9gfc8");
-        attr(div2, "class", "sales_forms_container svelte-p9gfc8");
-      },
-      m(target, anchor) {
-        insert(target, div2, anchor);
-        append(div2, div0);
-        append(div0, table);
-        append(table, thead);
-        append(thead, tr);
-        append(tr, th0);
-        append(tr, t1);
-        if_block0.m(tr, null);
-        append(tr, t2);
-        append(tr, th1);
-        append(tr, t4);
-        if (if_block1)
-          if_block1.m(tr, null);
-        append(tr, t5);
-        append(tr, th2);
-        append(tr, t7);
-        append(tr, th3);
-        append(tr, t9);
-        append(tr, th4);
-        append(table, t11);
-        append(table, tbody);
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          if (each_blocks[i]) {
-            each_blocks[i].m(tbody, null);
-          }
-        }
-        append(div2, t12);
-        append(div2, div1);
-        append(div1, button);
-        if (!mounted) {
-          dispose = listen(
-            button,
-            "click",
-            /*click_handler_1*/
-            ctx[31]
-          );
-          mounted = true;
-        }
-      },
-      p(ctx2, dirty) {
-        if (current_block_type !== (current_block_type = select_block_type(ctx2, dirty))) {
-          if_block0.d(1);
-          if_block0 = current_block_type(ctx2);
-          if (if_block0) {
-            if_block0.c();
-            if_block0.m(tr, t2);
-          }
-        }
-        if (
-          /*isChildOnly*/
-          ctx2[2]
-        ) {
-          if (if_block1) {
-          } else {
-            if_block1 = create_if_block_82(ctx2);
-            if_block1.c();
-            if_block1.m(tr, t5);
-          }
-        } else if (if_block1) {
-          if_block1.d(1);
-          if_block1 = null;
-        }
-        if (dirty[0] & /*payloadsSales, coaChildren, isChildOnly, isDebit*/
-        65549) {
-          each_value = ensure_array_like(
-            /*payloadsSales*/
-            ctx2[16] || []
-          );
-          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, tbody, destroy_block, create_each_block2, null, get_each_context2);
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(div2);
-        }
-        if_block0.d();
-        if (if_block1)
-          if_block1.d();
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].d();
-        }
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_else_block_3(ctx) {
-    let th;
-    return {
-      c() {
-        th = element("th");
-        th.textContent = "Credit (IDR)";
-        attr(th, "class", "svelte-p9gfc8");
-      },
-      m(target, anchor) {
-        insert(target, th, anchor);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(th);
-        }
-      }
-    };
-  }
-  function create_if_block_92(ctx) {
-    let th;
-    return {
-      c() {
-        th = element("th");
-        th.textContent = "Debit (IDR)";
-        attr(th, "class", "svelte-p9gfc8");
-      },
-      m(target, anchor) {
-        insert(target, th, anchor);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(th);
-        }
-      }
-    };
-  }
-  function create_if_block_82(ctx) {
-    let th;
-    return {
-      c() {
-        th = element("th");
-        th.textContent = "COA";
-        attr(th, "class", "svelte-p9gfc8");
-      },
-      m(target, anchor) {
-        insert(target, th, anchor);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(th);
-        }
-      }
-    };
-  }
-  function create_else_block_2(ctx) {
-    let td;
-    let input;
-    let mounted;
-    let dispose;
-    function input_input_handler_1() {
-      ctx[25].call(
-        input,
-        /*each_value*/
-        ctx[38],
-        /*pySales_index*/
-        ctx[39]
-      );
-    }
-    return {
-      c() {
-        td = element("td");
-        input = element("input");
-        attr(input, "type", "number");
-        attr(input, "min", "0");
-        attr(input, "class", "svelte-p9gfc8");
-      },
-      m(target, anchor) {
-        insert(target, td, anchor);
-        append(td, input);
-        set_input_value(
-          input,
-          /*pySales*/
-          ctx[37].creditIDR
-        );
-        if (!mounted) {
-          dispose = listen(input, "input", input_input_handler_1);
-          mounted = true;
-        }
-      },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
-        if (dirty[0] & /*payloadsSales, coaChildren*/
-        65544 && to_number(input.value) !== /*pySales*/
-        ctx[37].creditIDR) {
-          set_input_value(
-            input,
-            /*pySales*/
-            ctx[37].creditIDR
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(td);
-        }
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_if_block_72(ctx) {
-    let td;
-    let input;
-    let mounted;
-    let dispose;
-    function input_input_handler() {
-      ctx[24].call(
-        input,
-        /*each_value*/
-        ctx[38],
-        /*pySales_index*/
-        ctx[39]
-      );
-    }
-    return {
-      c() {
-        td = element("td");
-        input = element("input");
-        attr(input, "type", "number");
-        attr(input, "min", "0");
-        attr(input, "class", "svelte-p9gfc8");
-      },
-      m(target, anchor) {
-        insert(target, td, anchor);
-        append(td, input);
-        set_input_value(
-          input,
-          /*pySales*/
-          ctx[37].debitIDR
-        );
-        if (!mounted) {
-          dispose = listen(input, "input", input_input_handler);
-          mounted = true;
-        }
-      },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
-        if (dirty[0] & /*payloadsSales, coaChildren*/
-        65544 && to_number(input.value) !== /*pySales*/
-        ctx[37].debitIDR) {
-          set_input_value(
-            input,
-            /*pySales*/
-            ctx[37].debitIDR
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(td);
-        }
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_if_block_62(ctx) {
-    let td;
-    let select;
-    let mounted;
-    let dispose;
-    let each_value_1 = ensure_array_like(Object.entries(
-      /*coaChildren*/
-      ctx[3]
-    ));
-    let each_blocks = [];
-    for (let i = 0; i < each_value_1.length; i += 1) {
-      each_blocks[i] = create_each_block_12(get_each_context_12(ctx, each_value_1, i));
-    }
-    function select_change_handler() {
-      ctx[27].call(
-        select,
-        /*each_value*/
-        ctx[38],
-        /*pySales_index*/
-        ctx[39]
-      );
-    }
-    return {
-      c() {
-        td = element("td");
-        select = element("select");
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          each_blocks[i].c();
-        }
-        if (
-          /*pySales*/
-          ctx[37].coaId === void 0
-        )
-          add_render_callback(select_change_handler);
-      },
-      m(target, anchor) {
-        insert(target, td, anchor);
-        append(td, select);
-        for (let i = 0; i < each_blocks.length; i += 1) {
-          if (each_blocks[i]) {
-            each_blocks[i].m(select, null);
-          }
-        }
-        select_option(
-          select,
-          /*pySales*/
-          ctx[37].coaId,
-          true
-        );
-        if (!mounted) {
-          dispose = listen(select, "change", select_change_handler);
-          mounted = true;
-        }
-      },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
-        if (dirty[0] & /*coaChildren, payloadsSales*/
-        65544) {
-          each_value_1 = ensure_array_like(Object.entries(
-            /*coaChildren*/
-            ctx[3]
-          ));
-          let i;
-          for (i = 0; i < each_value_1.length; i += 1) {
-            const child_ctx = get_each_context_12(ctx, each_value_1, i);
-            if (each_blocks[i]) {
-              each_blocks[i].p(child_ctx, dirty);
-            } else {
-              each_blocks[i] = create_each_block_12(child_ctx);
-              each_blocks[i].c();
-              each_blocks[i].m(select, null);
-            }
-          }
-          for (; i < each_blocks.length; i += 1) {
-            each_blocks[i].d(1);
-          }
-          each_blocks.length = each_value_1.length;
-        }
-        if (dirty[0] & /*payloadsSales, coaChildren*/
-        65544) {
-          select_option(
-            select,
-            /*pySales*/
-            ctx[37].coaId
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(td);
-        }
-        destroy_each(each_blocks, detaching);
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_each_block_12(ctx) {
-    let option;
-    let t_value = `${/*idx*/
-    ctx[43] + 1}: ${/*v*/
-    ctx[41]}`;
-    let t;
-    let option_value_value;
-    let option_selected_value;
-    return {
-      c() {
-        option = element("option");
-        t = text(t_value);
-        option.__value = option_value_value = /*k*/
-        ctx[40];
-        set_input_value(option, option.__value);
-        option.selected = option_selected_value = /*pySales*/
-        ctx[37].coaId === /*k*/
-        ctx[40];
-      },
-      m(target, anchor) {
-        insert(target, option, anchor);
-        append(option, t);
-      },
-      p(ctx2, dirty) {
-        if (dirty[0] & /*coaChildren*/
-        8 && t_value !== (t_value = `${/*idx*/
-        ctx2[43] + 1}: ${/*v*/
-        ctx2[41]}`))
-          set_data(t, t_value);
-        if (dirty[0] & /*coaChildren*/
-        8 && option_value_value !== (option_value_value = /*k*/
-        ctx2[40])) {
-          option.__value = option_value_value;
-          set_input_value(option, option.__value);
-        }
-        if (dirty[0] & /*payloadsSales, coaChildren*/
-        65544 && option_selected_value !== (option_selected_value = /*pySales*/
-        ctx2[37].coaId === /*k*/
-        ctx2[40])) {
-          option.selected = option_selected_value;
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(option);
-        }
-      }
-    };
-  }
-  function create_each_block2(key_1, ctx) {
-    let tr;
-    let td0;
-    let button;
-    let t1;
-    let t2;
-    let td1;
-    let textarea;
-    let t3;
-    let t4;
-    let td2;
-    let input0;
-    let t5;
-    let td3;
-    let input1;
-    let t6;
-    let td4;
-    let input2;
-    let t7;
-    let mounted;
-    let dispose;
-    function click_handler() {
-      return (
-        /*click_handler*/
-        ctx[23](
-          /*pySales*/
-          ctx[37]
-        )
-      );
-    }
-    function select_block_type_1(ctx2, dirty) {
-      if (
-        /*isDebit*/
-        ctx2[0]
-      )
-        return create_if_block_72;
-      return create_else_block_2;
-    }
-    let current_block_type = select_block_type_1(ctx, [-1, -1]);
-    let if_block0 = current_block_type(ctx);
-    function textarea_input_handler() {
-      ctx[26].call(
-        textarea,
-        /*each_value*/
-        ctx[38],
-        /*pySales_index*/
-        ctx[39]
-      );
-    }
-    let if_block1 = (
-      /*isChildOnly*/
-      ctx[2] && create_if_block_62(ctx)
-    );
-    function input0_input_handler() {
-      ctx[28].call(
-        input0,
-        /*each_value*/
-        ctx[38],
-        /*pySales_index*/
-        ctx[39]
-      );
-    }
-    function input1_input_handler() {
-      ctx[29].call(
-        input1,
-        /*each_value*/
-        ctx[38],
-        /*pySales_index*/
-        ctx[39]
-      );
-    }
-    function input2_input_handler() {
-      ctx[30].call(
-        input2,
-        /*each_value*/
-        ctx[38],
-        /*pySales_index*/
-        ctx[39]
-      );
-    }
-    return {
-      key: key_1,
-      first: null,
-      c() {
-        tr = element("tr");
-        td0 = element("td");
-        button = element("button");
-        button.textContent = "Remove";
-        t1 = space();
-        if_block0.c();
-        t2 = space();
-        td1 = element("td");
-        textarea = element("textarea");
-        t3 = space();
-        if (if_block1)
-          if_block1.c();
-        t4 = space();
-        td2 = element("td");
-        input0 = element("input");
-        t5 = space();
-        td3 = element("td");
-        input1 = element("input");
-        t6 = space();
-        td4 = element("td");
-        input2 = element("input");
-        t7 = space();
-        attr(button, "class", "svelte-p9gfc8");
-        attr(textarea, "placeholder", "Description");
-        attr(textarea, "rows", "1");
-        attr(textarea, "class", "svelte-p9gfc8");
-        attr(input0, "type", "date");
-        attr(input0, "class", "svelte-p9gfc8");
-        attr(input1, "type", "number");
-        attr(input1, "min", "0");
-        attr(input1, "class", "svelte-p9gfc8");
-        attr(input2, "type", "number");
-        attr(input2, "min", "0");
-        attr(input2, "class", "svelte-p9gfc8");
-        this.first = tr;
-      },
-      m(target, anchor) {
-        insert(target, tr, anchor);
-        append(tr, td0);
-        append(td0, button);
-        append(tr, t1);
-        if_block0.m(tr, null);
-        append(tr, t2);
-        append(tr, td1);
-        append(td1, textarea);
-        set_input_value(
-          textarea,
-          /*pySales*/
-          ctx[37].description
-        );
-        append(tr, t3);
-        if (if_block1)
-          if_block1.m(tr, null);
-        append(tr, t4);
-        append(tr, td2);
-        append(td2, input0);
-        set_input_value(
-          input0,
-          /*pySales*/
-          ctx[37].date
-        );
-        append(tr, t5);
-        append(tr, td3);
-        append(td3, input1);
-        set_input_value(
-          input1,
-          /*pySales*/
-          ctx[37].salesCount
-        );
-        append(tr, t6);
-        append(tr, td4);
-        append(td4, input2);
-        set_input_value(
-          input2,
-          /*pySales*/
-          ctx[37].salesPriceIDR
-        );
-        append(tr, t7);
-        if (!mounted) {
-          dispose = [
-            listen(button, "click", click_handler),
-            listen(textarea, "input", textarea_input_handler),
-            listen(input0, "input", input0_input_handler),
-            listen(input1, "input", input1_input_handler),
-            listen(input2, "input", input2_input_handler)
-          ];
-          mounted = true;
-        }
-      },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
-        if (current_block_type === (current_block_type = select_block_type_1(ctx, dirty)) && if_block0) {
-          if_block0.p(ctx, dirty);
-        } else {
-          if_block0.d(1);
-          if_block0 = current_block_type(ctx);
-          if (if_block0) {
-            if_block0.c();
-            if_block0.m(tr, t2);
-          }
-        }
-        if (dirty[0] & /*payloadsSales, coaChildren*/
-        65544) {
-          set_input_value(
-            textarea,
-            /*pySales*/
-            ctx[37].description
-          );
-        }
-        if (
-          /*isChildOnly*/
-          ctx[2]
-        ) {
-          if (if_block1) {
-            if_block1.p(ctx, dirty);
-          } else {
-            if_block1 = create_if_block_62(ctx);
-            if_block1.c();
-            if_block1.m(tr, t4);
-          }
-        } else if (if_block1) {
-          if_block1.d(1);
-          if_block1 = null;
-        }
-        if (dirty[0] & /*payloadsSales, coaChildren*/
-        65544) {
-          set_input_value(
-            input0,
-            /*pySales*/
-            ctx[37].date
-          );
-        }
-        if (dirty[0] & /*payloadsSales, coaChildren*/
-        65544 && to_number(input1.value) !== /*pySales*/
-        ctx[37].salesCount) {
-          set_input_value(
-            input1,
-            /*pySales*/
-            ctx[37].salesCount
-          );
-        }
-        if (dirty[0] & /*payloadsSales, coaChildren*/
-        65544 && to_number(input2.value) !== /*pySales*/
-        ctx[37].salesPriceIDR) {
-          set_input_value(
-            input2,
-            /*pySales*/
-            ctx[37].salesPriceIDR
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(tr);
-        }
-        if_block0.d();
-        if (if_block1)
-          if_block1.d();
-        mounted = false;
-        run_all(dispose);
-      }
-    };
-  }
-  function create_if_block_23(ctx) {
-    let div1;
-    let div0;
-    let table;
-    let thead;
-    let tr0;
-    let t0;
-    let th0;
-    let t2;
-    let th1;
-    let t4;
-    let tbody;
-    let tr1;
-    let t5;
-    let td0;
-    let textarea;
-    let t6;
-    let td1;
-    let input;
-    let mounted;
-    let dispose;
-    function select_block_type_2(ctx2, dirty) {
-      if (
-        /*isDebit*/
-        ctx2[0]
-      )
-        return create_if_block_43;
-      return create_else_block_12;
-    }
-    let current_block_type = select_block_type_2(ctx, [-1, -1]);
-    let if_block0 = current_block_type(ctx);
-    function select_block_type_3(ctx2, dirty) {
-      if (
-        /*isDebit*/
-        ctx2[0]
-      )
-        return create_if_block_33;
-      return create_else_block2;
-    }
-    let current_block_type_1 = select_block_type_3(ctx, [-1, -1]);
-    let if_block1 = current_block_type_1(ctx);
-    return {
-      c() {
-        div1 = element("div");
-        div0 = element("div");
-        table = element("table");
-        thead = element("thead");
-        tr0 = element("tr");
-        if_block0.c();
-        t0 = space();
-        th0 = element("th");
-        th0.textContent = "Description";
-        t2 = space();
-        th1 = element("th");
-        th1.textContent = "Date";
-        t4 = space();
-        tbody = element("tbody");
-        tr1 = element("tr");
-        if_block1.c();
-        t5 = space();
-        td0 = element("td");
-        textarea = element("textarea");
-        t6 = space();
-        td1 = element("td");
-        input = element("input");
-        attr(th0, "class", "svelte-p9gfc8");
-        attr(th1, "class", "svelte-p9gfc8");
-        attr(textarea, "placeholder", "Description");
-        attr(textarea, "rows", "1");
-        attr(textarea, "class", "svelte-p9gfc8");
-        attr(input, "type", "date");
-        attr(input, "class", "svelte-p9gfc8");
-        attr(div0, "class", "table_container svelte-p9gfc8");
-        attr(div1, "class", "sales_forms_container svelte-p9gfc8");
-      },
-      m(target, anchor) {
-        insert(target, div1, anchor);
-        append(div1, div0);
-        append(div0, table);
-        append(table, thead);
-        append(thead, tr0);
-        if_block0.m(tr0, null);
-        append(tr0, t0);
-        append(tr0, th0);
-        append(tr0, t2);
-        append(tr0, th1);
-        append(table, t4);
-        append(table, tbody);
-        append(tbody, tr1);
-        if_block1.m(tr1, null);
-        append(tr1, t5);
-        append(tr1, td0);
-        append(td0, textarea);
-        set_input_value(
-          textarea,
-          /*description*/
-          ctx[6]
-        );
-        append(tr1, t6);
-        append(tr1, td1);
-        append(td1, input);
-        set_input_value(
-          input,
-          /*date*/
-          ctx[7]
-        );
-        if (!mounted) {
-          dispose = [
-            listen(
-              textarea,
-              "input",
-              /*textarea_input_handler_1*/
-              ctx[34]
-            ),
-            listen(
-              input,
-              "input",
-              /*input_input_handler_4*/
-              ctx[35]
-            )
-          ];
-          mounted = true;
-        }
-      },
-      p(ctx2, dirty) {
-        if (current_block_type !== (current_block_type = select_block_type_2(ctx2, dirty))) {
-          if_block0.d(1);
-          if_block0 = current_block_type(ctx2);
-          if (if_block0) {
-            if_block0.c();
-            if_block0.m(tr0, t0);
-          }
-        }
-        if (current_block_type_1 === (current_block_type_1 = select_block_type_3(ctx2, dirty)) && if_block1) {
-          if_block1.p(ctx2, dirty);
-        } else {
-          if_block1.d(1);
-          if_block1 = current_block_type_1(ctx2);
-          if (if_block1) {
-            if_block1.c();
-            if_block1.m(tr1, t5);
-          }
-        }
-        if (dirty[0] & /*description*/
-        64) {
-          set_input_value(
-            textarea,
-            /*description*/
-            ctx2[6]
-          );
-        }
-        if (dirty[0] & /*date*/
-        128) {
-          set_input_value(
-            input,
-            /*date*/
-            ctx2[7]
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(div1);
-        }
-        if_block0.d();
-        if_block1.d();
-        mounted = false;
-        run_all(dispose);
-      }
-    };
-  }
-  function create_else_block_12(ctx) {
-    let th;
-    return {
-      c() {
-        th = element("th");
-        th.textContent = "Credit (IDR)";
-        attr(th, "class", "svelte-p9gfc8");
-      },
-      m(target, anchor) {
-        insert(target, th, anchor);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(th);
-        }
-      }
-    };
-  }
-  function create_if_block_43(ctx) {
-    let th;
-    return {
-      c() {
-        th = element("th");
-        th.textContent = "Debit (IDR)";
-        attr(th, "class", "svelte-p9gfc8");
-      },
-      m(target, anchor) {
-        insert(target, th, anchor);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(th);
-        }
-      }
-    };
-  }
-  function create_else_block2(ctx) {
-    let td;
-    let input;
-    let mounted;
-    let dispose;
-    return {
-      c() {
-        td = element("td");
-        input = element("input");
-        attr(input, "type", "number");
-        attr(input, "min", "0");
-        attr(input, "class", "svelte-p9gfc8");
-      },
-      m(target, anchor) {
-        insert(target, td, anchor);
-        append(td, input);
-        set_input_value(
-          input,
-          /*creditIDR*/
-          ctx[5]
-        );
-        if (!mounted) {
-          dispose = listen(
-            input,
-            "input",
-            /*input_input_handler_3*/
-            ctx[33]
-          );
-          mounted = true;
-        }
-      },
-      p(ctx2, dirty) {
-        if (dirty[0] & /*creditIDR*/
-        32 && to_number(input.value) !== /*creditIDR*/
-        ctx2[5]) {
-          set_input_value(
-            input,
-            /*creditIDR*/
-            ctx2[5]
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(td);
-        }
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_if_block_33(ctx) {
-    let td;
-    let input;
-    let mounted;
-    let dispose;
-    return {
-      c() {
-        td = element("td");
-        input = element("input");
-        attr(input, "type", "number");
-        attr(input, "min", "0");
-        attr(input, "class", "svelte-p9gfc8");
-      },
-      m(target, anchor) {
-        insert(target, td, anchor);
-        append(td, input);
-        set_input_value(
-          input,
-          /*debitIDR*/
-          ctx[4]
-        );
-        if (!mounted) {
-          dispose = listen(
-            input,
-            "input",
-            /*input_input_handler_2*/
-            ctx[32]
-          );
-          mounted = true;
-        }
-      },
-      p(ctx2, dirty) {
-        if (dirty[0] & /*debitIDR*/
-        16 && to_number(input.value) !== /*debitIDR*/
-        ctx2[4]) {
-          set_input_value(
-            input,
-            /*debitIDR*/
-            ctx2[4]
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(td);
-        }
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_if_block_15(ctx) {
-    let span;
-    return {
-      c() {
-        span = element("span");
-        span.textContent = "Save";
-      },
-      m(target, anchor) {
-        insert(target, span, anchor);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(span);
-        }
-      }
-    };
-  }
-  function create_if_block3(ctx) {
-    let icon;
-    let current;
-    icon = new Icon_default({
-      props: {
-        className: "spin",
-        color: "#FFF",
-        size: "14",
-        src: FiLoader
-      }
-    });
-    return {
-      c() {
-        create_component(icon.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(icon, target, anchor);
-        current = true;
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(icon, detaching);
-      }
-    };
-  }
-  function create_fragment8(ctx) {
-    let div6;
-    let div5;
-    let header;
-    let h2;
-    let t0;
-    let t1;
-    let button0;
-    let icon;
-    let t2;
-    let div1;
-    let div0;
-    let inputcustom0;
-    let updating_value;
-    let t3;
-    let inputcustom1;
-    let updating_value_1;
-    let t4;
-    let t5;
-    let t6;
-    let div4;
-    let div2;
-    let t7;
-    let div3;
-    let button1;
-    let t9;
-    let button2;
-    let t10;
-    let div6_class_value;
-    let current;
-    let mounted;
-    let dispose;
-    icon = new Icon_default({
-      props: {
-        size: "22",
-        color: "var(--red-005)",
-        src: IoClose
-      }
-    });
-    function inputcustom0_value_binding(value) {
-      ctx[21](value);
-    }
-    let inputcustom0_props = {
-      className: "input_custom",
-      id: "startDate",
-      label: "Start Date",
-      type: "date"
-    };
-    if (
-      /*startDate*/
-      ctx[8] !== void 0
-    ) {
-      inputcustom0_props.value = /*startDate*/
-      ctx[8];
-    }
-    inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
-    binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
-    function inputcustom1_value_binding(value) {
-      ctx[22](value);
-    }
-    let inputcustom1_props = {
-      className: "input_custom",
-      id: "endDate",
-      label: "End Date",
-      type: "date"
-    };
-    if (
-      /*endDate*/
-      ctx[9] !== void 0
-    ) {
-      inputcustom1_props.value = /*endDate*/
-      ctx[9];
-    }
-    inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
-    binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
-    let if_block0 = (
-      /*isSales*/
-      ctx[1] && create_if_block_53(ctx)
-    );
-    let if_block1 = !/*isSales*/
-    ctx[1] && create_if_block_23(ctx);
-    let if_block2 = !/*isSubmitted*/
-    ctx[11] && create_if_block_15(ctx);
-    let if_block3 = (
-      /*isSubmitted*/
-      ctx[11] && create_if_block3(ctx)
-    );
-    return {
-      c() {
-        div6 = element("div");
-        div5 = element("div");
-        header = element("header");
-        h2 = element("h2");
-        t0 = text(
-          /*heading*/
-          ctx[10]
-        );
-        t1 = space();
-        button0 = element("button");
-        create_component(icon.$.fragment);
-        t2 = space();
-        div1 = element("div");
-        div0 = element("div");
-        create_component(inputcustom0.$.fragment);
-        t3 = space();
-        create_component(inputcustom1.$.fragment);
-        t4 = space();
-        if (if_block0)
-          if_block0.c();
-        t5 = space();
-        if (if_block1)
-          if_block1.c();
-        t6 = space();
-        div4 = element("div");
-        div2 = element("div");
-        div2.innerHTML = ``;
-        t7 = space();
-        div3 = element("div");
-        button1 = element("button");
-        button1.textContent = "Cancel";
-        t9 = space();
-        button2 = element("button");
-        if (if_block2)
-          if_block2.c();
-        t10 = space();
-        if (if_block3)
-          if_block3.c();
-        attr(h2, "class", "svelte-p9gfc8");
-        attr(button0, "class", "svelte-p9gfc8");
-        attr(header, "class", "header svelte-p9gfc8");
-        attr(div0, "class", "form_rows svelte-p9gfc8");
-        attr(div1, "class", "forms svelte-p9gfc8");
-        attr(div2, "class", "left");
-        attr(button1, "class", "cancel svelte-p9gfc8");
-        attr(button2, "class", "ok svelte-p9gfc8");
-        button2.disabled = /*isSubmitted*/
-        ctx[11];
-        attr(div3, "class", "right svelte-p9gfc8");
-        attr(div4, "class", "foot svelte-p9gfc8");
-        attr(div5, "class", "popup svelte-p9gfc8");
-        attr(div6, "class", div6_class_value = null_to_empty(`popup_container ${/*isShow*/
-        ctx[15] ? "show" : ""}`) + " svelte-p9gfc8");
-      },
-      m(target, anchor) {
-        insert(target, div6, anchor);
-        append(div6, div5);
-        append(div5, header);
-        append(header, h2);
-        append(h2, t0);
-        append(header, t1);
-        append(header, button0);
-        mount_component(icon, button0, null);
-        append(div5, t2);
-        append(div5, div1);
-        append(div1, div0);
-        mount_component(inputcustom0, div0, null);
-        append(div0, t3);
-        mount_component(inputcustom1, div0, null);
-        append(div1, t4);
-        if (if_block0)
-          if_block0.m(div1, null);
-        append(div1, t5);
-        if (if_block1)
-          if_block1.m(div1, null);
-        append(div5, t6);
-        append(div5, div4);
-        append(div4, div2);
-        append(div4, t7);
-        append(div4, div3);
-        append(div3, button1);
-        append(div3, t9);
-        append(div3, button2);
-        if (if_block2)
-          if_block2.m(button2, null);
-        append(button2, t10);
-        if (if_block3)
-          if_block3.m(button2, null);
-        current = true;
-        if (!mounted) {
-          dispose = [
-            listen(
-              button0,
-              "click",
-              /*Hide*/
-              ctx[14]
-            ),
-            listen(button1, "click", prevent_default(
-              /*cancel*/
-              ctx[17]
-            )),
-            listen(button2, "click", prevent_default(
-              /*click_handler_2*/
-              ctx[36]
-            ))
-          ];
-          mounted = true;
-        }
-      },
-      p(ctx2, dirty) {
-        if (!current || dirty[0] & /*heading*/
-        1024)
-          set_data(
-            t0,
-            /*heading*/
-            ctx2[10]
-          );
-        const inputcustom0_changes = {};
-        if (!updating_value && dirty[0] & /*startDate*/
-        256) {
-          updating_value = true;
-          inputcustom0_changes.value = /*startDate*/
-          ctx2[8];
-          add_flush_callback(() => updating_value = false);
-        }
-        inputcustom0.$set(inputcustom0_changes);
-        const inputcustom1_changes = {};
-        if (!updating_value_1 && dirty[0] & /*endDate*/
-        512) {
-          updating_value_1 = true;
-          inputcustom1_changes.value = /*endDate*/
-          ctx2[9];
-          add_flush_callback(() => updating_value_1 = false);
-        }
-        inputcustom1.$set(inputcustom1_changes);
-        if (
-          /*isSales*/
-          ctx2[1]
-        ) {
-          if (if_block0) {
-            if_block0.p(ctx2, dirty);
-          } else {
-            if_block0 = create_if_block_53(ctx2);
-            if_block0.c();
-            if_block0.m(div1, t5);
-          }
-        } else if (if_block0) {
-          if_block0.d(1);
-          if_block0 = null;
-        }
-        if (!/*isSales*/
-        ctx2[1]) {
-          if (if_block1) {
-            if_block1.p(ctx2, dirty);
-          } else {
-            if_block1 = create_if_block_23(ctx2);
-            if_block1.c();
-            if_block1.m(div1, null);
-          }
-        } else if (if_block1) {
-          if_block1.d(1);
-          if_block1 = null;
-        }
-        if (!/*isSubmitted*/
-        ctx2[11]) {
-          if (if_block2) {
-          } else {
-            if_block2 = create_if_block_15(ctx2);
-            if_block2.c();
-            if_block2.m(button2, t10);
-          }
-        } else if (if_block2) {
-          if_block2.d(1);
-          if_block2 = null;
-        }
-        if (
-          /*isSubmitted*/
-          ctx2[11]
-        ) {
-          if (if_block3) {
-            if (dirty[0] & /*isSubmitted*/
-            2048) {
-              transition_in(if_block3, 1);
-            }
-          } else {
-            if_block3 = create_if_block3(ctx2);
-            if_block3.c();
-            transition_in(if_block3, 1);
-            if_block3.m(button2, null);
-          }
-        } else if (if_block3) {
-          group_outros();
-          transition_out(if_block3, 1, 1, () => {
-            if_block3 = null;
-          });
-          check_outros();
-        }
-        if (!current || dirty[0] & /*isSubmitted*/
-        2048) {
-          button2.disabled = /*isSubmitted*/
-          ctx2[11];
-        }
-        if (!current || dirty[0] & /*isShow*/
-        32768 && div6_class_value !== (div6_class_value = null_to_empty(`popup_container ${/*isShow*/
-        ctx2[15] ? "show" : ""}`) + " svelte-p9gfc8")) {
-          attr(div6, "class", div6_class_value);
-        }
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(icon.$.fragment, local);
-        transition_in(inputcustom0.$.fragment, local);
-        transition_in(inputcustom1.$.fragment, local);
-        transition_in(if_block3);
-        current = true;
-      },
-      o(local) {
-        transition_out(icon.$.fragment, local);
-        transition_out(inputcustom0.$.fragment, local);
-        transition_out(inputcustom1.$.fragment, local);
-        transition_out(if_block3);
-        current = false;
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(div6);
-        }
-        destroy_component(icon);
-        destroy_component(inputcustom0);
-        destroy_component(inputcustom1);
-        if (if_block0)
-          if_block0.d();
-        if (if_block1)
-          if_block1.d();
-        if (if_block2)
-          if_block2.d();
-        if (if_block3)
-          if_block3.d();
-        mounted = false;
-        run_all(dispose);
-      }
-    };
-  }
-  function instance8($self, $props, $invalidate) {
-    let { heading = "Add journal" } = $props;
-    let { isSubmitted = false } = $props;
-    let isShow = false;
-    let { isDebit = true } = $props;
-    let { isSales = false } = $props;
-    let { isChildOnly = false } = $props;
-    let { coaChildren = {} } = $props;
-    let { debitIDR = 0 } = $props;
-    let { creditIDR = 0 } = $props;
-    let { description = "" } = $props;
-    let { date = "" } = $props;
-    let { startDate = new Date() } = $props;
-    let { endDate = new Date() } = $props;
-    let payloadsSales = (
-      /** @type pySales[] */
-      []
-    );
-    let { OnSubmit = async function() {
-    } } = $props;
-    let { OnSubmitWithSales = async function(payloadsSales2) {
-    } } = $props;
-    const Show = () => {
-      $invalidate(16, payloadsSales = []);
-      $invalidate(15, isShow = true);
-    };
-    const ShowWithSales = () => {
-      $invalidate(1, isSales = true);
-      $invalidate(16, payloadsSales = [
-        {
-          creditIDR: 0,
-          debitIDR: 0,
-          description: "",
-          date: new Date(),
-          salesCount: 0,
-          salesPriceIDR: 0,
-          coaId: ""
-        }
-      ]);
-      $invalidate(15, isShow = true);
-    };
-    const Hide = () => $invalidate(15, isShow = false);
-    const Reset = () => {
-      $invalidate(16, payloadsSales = []);
-      $invalidate(0, isDebit = true);
-      $invalidate(1, isSales = false);
-      $invalidate(2, isChildOnly = false);
-      $invalidate(3, coaChildren = {});
-      $invalidate(4, debitIDR = 0);
-      $invalidate(5, creditIDR = 0);
-      $invalidate(6, description = "");
-      $invalidate(7, date = "");
-      $invalidate(8, startDate = new Date());
-      $invalidate(9, endDate = new Date());
-    };
-    const cancel = () => {
-      $invalidate(15, isShow = false);
-    };
-    function inputcustom0_value_binding(value) {
-      startDate = value;
-      $invalidate(8, startDate);
-    }
-    function inputcustom1_value_binding(value) {
-      endDate = value;
-      $invalidate(9, endDate);
-    }
-    const click_handler = (pySales) => $invalidate(16, payloadsSales = payloadsSales.filter((item) => item !== pySales));
-    function input_input_handler(each_value, pySales_index) {
-      each_value[pySales_index].debitIDR = to_number(this.value);
-      $invalidate(16, payloadsSales);
-      $invalidate(3, coaChildren);
-    }
-    function input_input_handler_1(each_value, pySales_index) {
-      each_value[pySales_index].creditIDR = to_number(this.value);
-      $invalidate(16, payloadsSales);
-      $invalidate(3, coaChildren);
-    }
-    function textarea_input_handler(each_value, pySales_index) {
-      each_value[pySales_index].description = this.value;
-      $invalidate(16, payloadsSales);
-      $invalidate(3, coaChildren);
-    }
-    function select_change_handler(each_value, pySales_index) {
-      each_value[pySales_index].coaId = select_value(this);
-      $invalidate(16, payloadsSales);
-      $invalidate(3, coaChildren);
-    }
-    function input0_input_handler(each_value, pySales_index) {
-      each_value[pySales_index].date = this.value;
-      $invalidate(16, payloadsSales);
-      $invalidate(3, coaChildren);
-    }
-    function input1_input_handler(each_value, pySales_index) {
-      each_value[pySales_index].salesCount = to_number(this.value);
-      $invalidate(16, payloadsSales);
-      $invalidate(3, coaChildren);
-    }
-    function input2_input_handler(each_value, pySales_index) {
-      each_value[pySales_index].salesPriceIDR = to_number(this.value);
-      $invalidate(16, payloadsSales);
-      $invalidate(3, coaChildren);
-    }
-    const click_handler_1 = () => {
-      $invalidate(16, payloadsSales = [
-        ...payloadsSales,
-        {
-          creditIDR: 0,
-          debitIDR: 0,
-          description: "",
-          date: new Date(),
-          salesCount: 0,
-          salesPriceIDR: 0,
-          coaId: ""
-        }
-      ]);
-    };
-    function input_input_handler_2() {
-      debitIDR = to_number(this.value);
-      $invalidate(4, debitIDR);
-    }
-    function input_input_handler_3() {
-      creditIDR = to_number(this.value);
-      $invalidate(5, creditIDR);
-    }
-    function textarea_input_handler_1() {
-      description = this.value;
-      $invalidate(6, description);
-    }
-    function input_input_handler_4() {
-      date = this.value;
-      $invalidate(7, date);
-    }
-    const click_handler_2 = () => {
-      if (isSales) {
-        OnSubmitWithSales(payloadsSales);
-      } else {
-        OnSubmit();
-      }
-    };
-    $self.$set = ($props2) => {
-      if ("heading" in $props2)
-        $invalidate(10, heading = $props2.heading);
-      if ("isSubmitted" in $props2)
-        $invalidate(11, isSubmitted = $props2.isSubmitted);
-      if ("isDebit" in $props2)
-        $invalidate(0, isDebit = $props2.isDebit);
-      if ("isSales" in $props2)
-        $invalidate(1, isSales = $props2.isSales);
-      if ("isChildOnly" in $props2)
-        $invalidate(2, isChildOnly = $props2.isChildOnly);
-      if ("coaChildren" in $props2)
-        $invalidate(3, coaChildren = $props2.coaChildren);
-      if ("debitIDR" in $props2)
-        $invalidate(4, debitIDR = $props2.debitIDR);
-      if ("creditIDR" in $props2)
-        $invalidate(5, creditIDR = $props2.creditIDR);
-      if ("description" in $props2)
-        $invalidate(6, description = $props2.description);
-      if ("date" in $props2)
-        $invalidate(7, date = $props2.date);
-      if ("startDate" in $props2)
-        $invalidate(8, startDate = $props2.startDate);
-      if ("endDate" in $props2)
-        $invalidate(9, endDate = $props2.endDate);
-      if ("OnSubmit" in $props2)
-        $invalidate(12, OnSubmit = $props2.OnSubmit);
-      if ("OnSubmitWithSales" in $props2)
-        $invalidate(13, OnSubmitWithSales = $props2.OnSubmitWithSales);
-    };
-    return [
-      isDebit,
-      isSales,
-      isChildOnly,
-      coaChildren,
-      debitIDR,
-      creditIDR,
-      description,
-      date,
-      startDate,
-      endDate,
-      heading,
-      isSubmitted,
-      OnSubmit,
-      OnSubmitWithSales,
-      Hide,
-      isShow,
-      payloadsSales,
-      cancel,
-      Show,
-      ShowWithSales,
-      Reset,
-      inputcustom0_value_binding,
-      inputcustom1_value_binding,
-      click_handler,
-      input_input_handler,
-      input_input_handler_1,
-      textarea_input_handler,
-      select_change_handler,
-      input0_input_handler,
-      input1_input_handler,
-      input2_input_handler,
-      click_handler_1,
-      input_input_handler_2,
-      input_input_handler_3,
-      textarea_input_handler_1,
-      input_input_handler_4,
-      click_handler_2
-    ];
-  }
-  var PopUpDataEntryJournal = class extends SvelteComponent {
-    constructor(options) {
-      super();
-      init(
-        this,
-        options,
-        instance8,
-        create_fragment8,
-        safe_not_equal,
-        {
-          heading: 10,
-          isSubmitted: 11,
-          isDebit: 0,
-          isSales: 1,
-          isChildOnly: 2,
-          coaChildren: 3,
-          debitIDR: 4,
-          creditIDR: 5,
-          description: 6,
-          date: 7,
-          startDate: 8,
-          endDate: 9,
-          OnSubmit: 12,
-          OnSubmitWithSales: 13,
-          Show: 18,
-          ShowWithSales: 19,
-          Hide: 14,
-          Reset: 20
-        },
-        null,
-        [-1, -1]
-      );
-    }
-    get Show() {
-      return this.$.ctx[18];
-    }
-    get ShowWithSales() {
-      return this.$.ctx[19];
-    }
-    get Hide() {
-      return this.$.ctx[14];
-    }
-    get Reset() {
-      return this.$.ctx[20];
-    }
-  };
-  var PopUpDataEntryJournal_default = PopUpDataEntryJournal;
-
-  // dataEntry/templates/template.svelte
-  var import_jsApi = __toESM(require_jsApi_GEN());
-  function get_each_context3(ctx, list, i) {
+  function get_each_context_2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[30] = list[i];
-    child_ctx[32] = i;
+    child_ctx[46] = list[i];
+    child_ctx[41] = i;
     return child_ctx;
   }
-  function create_else_block3(ctx) {
+  function create_if_block_18(ctx) {
+    let div0;
+    let h1;
+    let t2;
+    let div3;
+    let div2;
+    let div1;
+    let table;
+    let thead;
+    let t18;
+    let tbody;
+    let current_block_type_index;
+    let if_block;
+    let current;
+    const if_block_creators = [create_if_block_19, create_else_block_4];
+    const if_blocks = [];
+    function select_block_type(ctx2, dirty) {
+      if (transactionTplDetails && transactionTplDetails.length > 0)
+        return 0;
+      return 1;
+    }
+    current_block_type_index = select_block_type(ctx, [-1, -1]);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    return {
+      c() {
+        div0 = element("div");
+        h1 = element("h1");
+        h1.textContent = `Data entry for ${transactionTemplate.name}`;
+        t2 = space();
+        div3 = element("div");
+        div2 = element("div");
+        div1 = element("div");
+        table = element("table");
+        thead = element("thead");
+        thead.innerHTML = `<tr><th class="no svelte-md16jx">#</th> <th class="a_row svelte-md16jx">Action</th> <th class="svelte-md16jx">Kredit</th> <th class="svelte-md16jx">Debit</th> <th class="svelte-md16jx">CoA (Chart of Accounts)</th> <th class="svelte-md16jx">Auto Sum</th> <th class="svelte-md16jx">Child Only</th> <th class="svelte-md16jx">Sales</th></tr>`;
+        t18 = space();
+        tbody = element("tbody");
+        if_block.c();
+        attr(thead, "class", "svelte-md16jx");
+        attr(table, "class", "svelte-md16jx");
+        attr(div1, "class", "table_container svelte-md16jx");
+        attr(div2, "class", "transaction_template_detail svelte-md16jx");
+        attr(div3, "class", "data_entry_template___container svelte-md16jx");
+      },
+      m(target, anchor) {
+        insert(target, div0, anchor);
+        append(div0, h1);
+        insert(target, t2, anchor);
+        insert(target, div3, anchor);
+        append(div3, div2);
+        append(div2, div1);
+        append(div1, table);
+        append(table, thead);
+        append(table, t18);
+        append(table, tbody);
+        if_blocks[current_block_type_index].m(tbody, null);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if_block.p(ctx2, dirty);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div0);
+          detach(t2);
+          detach(div3);
+        }
+        if_blocks[current_block_type_index].d();
+      }
+    };
+  }
+  function create_else_block_4(ctx) {
     let tr;
     return {
       c() {
         tr = element("tr");
-        tr.innerHTML = `<td class="svelte-8a5g7">0</td> <td class="svelte-8a5g7">no-data</td>`;
+        tr.innerHTML = `<td class="svelte-md16jx">0</td> <td class="svelte-md16jx">no-data</td>`;
       },
       m(target, anchor) {
         insert(target, tr, anchor);
@@ -9863,20 +8172,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block4(ctx) {
+  function create_if_block_19(ctx) {
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
     let each_1_anchor;
     let current;
-    let each_value = ensure_array_like(transactionTplDetails || []);
+    let each_value_2 = ensure_array_like(transactionTplDetails || []);
     const get_key = (ctx2) => (
       /*trxTplDetail*/
-      ctx2[30].id
+      ctx2[46].id
     );
-    for (let i = 0; i < each_value.length; i += 1) {
-      let child_ctx = get_each_context3(ctx, each_value, i);
+    for (let i = 0; i < each_value_2.length; i += 1) {
+      let child_ctx = get_each_context_2(ctx, each_value_2, i);
       let key = get_key(child_ctx);
-      each_1_lookup.set(key, each_blocks[i] = create_each_block3(key, child_ctx));
+      each_1_lookup.set(key, each_blocks[i] = create_each_block_2(key, child_ctx));
     }
     return {
       c() {
@@ -9895,18 +8204,18 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*isDebit, isSales, isChildOnly, coaId, GetCoaChildren, popUpDataEntryJournal*/
-        16463) {
-          each_value = ensure_array_like(transactionTplDetails || []);
+        if (dirty[0] & /*isDebit, isSales, isChildOnly, coaId, GetCoaChildren, coaChildren, payloadsMulti, isCreatingJournal*/
+        57629) {
+          each_value_2 = ensure_array_like(transactionTplDetails || []);
           group_outros();
-          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block3, each_1_anchor, get_each_context3);
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value_2, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block_2, each_1_anchor, get_each_context_2);
           check_outros();
         }
       },
       i(local) {
         if (current)
           return;
-        for (let i = 0; i < each_value.length; i += 1) {
+        for (let i = 0; i < each_value_2.length; i += 1) {
           transition_in(each_blocks[i]);
         }
         current = true;
@@ -9927,7 +8236,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_each_block3(key_1, ctx) {
+  function create_each_block_2(key_1, ctx) {
     let tr;
     let td0;
     let t1;
@@ -9961,9 +8270,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function click_handler() {
       return (
         /*click_handler*/
-        ctx[29](
+        ctx[18](
           /*trxTplDetail*/
-          ctx[30]
+          ctx[46]
         )
       );
     }
@@ -9974,7 +8283,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         tr = element("tr");
         td0 = element("td");
         td0.textContent = `${/*i*/
-        ctx[32] + 1}`;
+        ctx[41] + 1}`;
         t1 = space();
         td1 = element("td");
         div = element("div");
@@ -9983,41 +8292,41 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t2 = space();
         td2 = element("td");
         td2.textContent = `${!/*trxTplDetail*/
-        ctx[30].isDebit ? "Yes" : "No"}`;
+        ctx[46].isDebit ? "Yes" : "No"}`;
         t4 = space();
         td3 = element("td");
         td3.textContent = `${/*trxTplDetail*/
-        ctx[30].isDebit ? "Yes" : "No"}`;
+        ctx[46].isDebit ? "Yes" : "No"}`;
         t6 = space();
         td4 = element("td");
         td4.textContent = `${coas[
           /*trxTplDetail*/
-          ctx[30].coaId
+          ctx[46].coaId
         ]}`;
         t8 = space();
         td5 = element("td");
         td5.textContent = `${/*trxTplDetail*/
-        (ctx[30].attributes || []).includes("autoSum") ? "Yes" : "No"}`;
+        (ctx[46].attributes || []).includes("autoSum") ? "Yes" : "No"}`;
         t10 = space();
         td6 = element("td");
         td6.textContent = `${/*trxTplDetail*/
-        (ctx[30].attributes || []).includes("childOnly") ? "Yes" : "No"}`;
+        (ctx[46].attributes || []).includes("childOnly") ? "Yes" : "No"}`;
         t12 = space();
         td7 = element("td");
         td7.textContent = `${/*trxTplDetail*/
-        (ctx[30].attributes || []).includes("sales") ? "Yes" : "No"}`;
+        (ctx[46].attributes || []).includes("sales") ? "Yes" : "No"}`;
         t14 = space();
-        attr(td0, "class", "svelte-8a5g7");
-        attr(button, "class", "btn svelte-8a5g7");
+        attr(td0, "class", "svelte-md16jx");
+        attr(button, "class", "btn svelte-md16jx");
         attr(button, "title", "Add journal");
-        attr(div, "class", "actions svelte-8a5g7");
-        attr(td1, "class", "a_row svelte-8a5g7");
-        attr(td2, "class", "svelte-8a5g7");
-        attr(td3, "class", "svelte-8a5g7");
-        attr(td4, "class", "svelte-8a5g7");
-        attr(td5, "class", "svelte-8a5g7");
-        attr(td6, "class", "svelte-8a5g7");
-        attr(td7, "class", "svelte-8a5g7");
+        attr(div, "class", "actions svelte-md16jx");
+        attr(td1, "class", "a_row svelte-md16jx");
+        attr(td2, "class", "svelte-md16jx");
+        attr(td3, "class", "svelte-md16jx");
+        attr(td4, "class", "svelte-md16jx");
+        attr(td5, "class", "svelte-md16jx");
+        attr(td6, "class", "svelte-md16jx");
+        attr(td7, "class", "svelte-md16jx");
         this.first = tr;
       },
       m(target, anchor) {
@@ -10070,240 +8379,1825 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_default_slot(ctx) {
+  function create_if_block3(ctx) {
     let div0;
     let h1;
+    let t0;
+    let t1_value = coas[
+      /*coaId*/
+      ctx[8]
+    ] + "";
+    let t1;
     let t2;
+    let t3;
+    let div5;
     let div3;
-    let div2;
     let div1;
+    let inputcustom0;
+    let updating_value;
+    let t4;
+    let inputcustom1;
+    let updating_value_1;
+    let t5;
+    let t6;
+    let div2;
     let table;
-    let thead;
-    let t18;
-    let tbody;
-    let current_block_type_index;
-    let if_block;
+    let t7;
+    let t8;
+    let div4;
+    let button0;
+    let t10;
+    let button1;
+    let t11;
     let current;
-    const if_block_creators = [create_if_block4, create_else_block3];
-    const if_blocks = [];
-    function select_block_type(ctx2, dirty) {
-      if (transactionTplDetails && transactionTplDetails.length > 0)
-        return 0;
-      return 1;
+    let mounted;
+    let dispose;
+    function inputcustom0_value_binding(value) {
+      ctx[19](value);
     }
-    current_block_type_index = select_block_type(ctx, [-1, -1]);
-    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    let inputcustom0_props = {
+      type: "date",
+      className: "input_custom",
+      id: "startDate",
+      label: "Start Date"
+    };
+    if (
+      /*startDate*/
+      ctx[6] !== void 0
+    ) {
+      inputcustom0_props.value = /*startDate*/
+      ctx[6];
+    }
+    inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
+    binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
+    function inputcustom1_value_binding(value) {
+      ctx[20](value);
+    }
+    let inputcustom1_props = {
+      id: "endDate",
+      label: "End Date",
+      type: "date"
+    };
+    if (
+      /*endDate*/
+      ctx[7] !== void 0
+    ) {
+      inputcustom1_props.value = /*endDate*/
+      ctx[7];
+    }
+    inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
+    binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
+    let if_block0 = (
+      /*isSales*/
+      (ctx[3] || /*isChildOnly*/
+      ctx[4]) && create_if_block_17(ctx)
+    );
+    let if_block1 = !/*isSales*/
+    ctx[3] && !/*isChildOnly*/
+    ctx[4] && create_if_block_123(ctx);
+    let if_block2 = (
+      /*isSales*/
+      (ctx[3] || /*isChildOnly*/
+      ctx[4]) && create_if_block_33(ctx)
+    );
+    let if_block3 = !/*isSubmitted*/
+    ctx[1] && create_if_block_23(ctx);
+    let if_block4 = (
+      /*isSubmitted*/
+      ctx[1] && create_if_block_110(ctx)
+    );
     return {
       c() {
         div0 = element("div");
         h1 = element("h1");
-        h1.textContent = `Data entry for ${transactionTemplate.name}`;
-        t2 = space();
+        t0 = text('Entry journal for "');
+        t1 = text(t1_value);
+        t2 = text('"');
+        t3 = space();
+        div5 = element("div");
         div3 = element("div");
-        div2 = element("div");
         div1 = element("div");
+        create_component(inputcustom0.$.fragment);
+        t4 = space();
+        create_component(inputcustom1.$.fragment);
+        t5 = space();
+        if (if_block0)
+          if_block0.c();
+        t6 = space();
+        div2 = element("div");
         table = element("table");
-        thead = element("thead");
-        thead.innerHTML = `<tr><th class="no svelte-8a5g7">#</th> <th class="a_row svelte-8a5g7">Action</th> <th class="svelte-8a5g7">Kredit</th> <th class="svelte-8a5g7">Debit</th> <th class="svelte-8a5g7">CoA (Chart of Accounts)</th> <th class="svelte-8a5g7">Auto Sum</th> <th class="svelte-8a5g7">Child Only</th> <th class="svelte-8a5g7">Sales</th></tr>`;
-        t18 = space();
-        tbody = element("tbody");
-        if_block.c();
-        attr(thead, "class", "svelte-8a5g7");
-        attr(table, "class", "svelte-8a5g7");
-        attr(div1, "class", "table_container svelte-8a5g7");
-        attr(div2, "class", "transaction_template_detail svelte-8a5g7");
-        attr(div3, "class", "data_entry_template___container svelte-8a5g7");
+        if (if_block1)
+          if_block1.c();
+        t7 = space();
+        if (if_block2)
+          if_block2.c();
+        t8 = space();
+        div4 = element("div");
+        button0 = element("button");
+        button0.textContent = "Cancel";
+        t10 = space();
+        button1 = element("button");
+        if (if_block3)
+          if_block3.c();
+        t11 = space();
+        if (if_block4)
+          if_block4.c();
+        attr(div1, "class", "form_date svelte-md16jx");
+        attr(table, "class", "table_transaction_journals svelte-md16jx");
+        attr(div2, "class", "forms_table svelte-md16jx");
+        attr(div3, "class", "forms_journal svelte-md16jx");
+        attr(button0, "class", "btn cancel svelte-md16jx");
+        attr(button1, "class", "btn submit svelte-md16jx");
+        attr(div4, "class", "actions svelte-md16jx");
+        attr(div5, "class", "data_entry_journal___container svelte-md16jx");
       },
       m(target, anchor) {
         insert(target, div0, anchor);
         append(div0, h1);
-        insert(target, t2, anchor);
-        insert(target, div3, anchor);
+        append(h1, t0);
+        append(h1, t1);
+        append(h1, t2);
+        insert(target, t3, anchor);
+        insert(target, div5, anchor);
+        append(div5, div3);
+        append(div3, div1);
+        mount_component(inputcustom0, div1, null);
+        append(div1, t4);
+        mount_component(inputcustom1, div1, null);
+        append(div3, t5);
+        if (if_block0)
+          if_block0.m(div3, null);
+        append(div3, t6);
         append(div3, div2);
-        append(div2, div1);
-        append(div1, table);
-        append(table, thead);
-        append(table, t18);
-        append(table, tbody);
-        if_blocks[current_block_type_index].m(tbody, null);
+        append(div2, table);
+        if (if_block1)
+          if_block1.m(table, null);
+        append(table, t7);
+        if (if_block2)
+          if_block2.m(table, null);
+        append(div5, t8);
+        append(div5, div4);
+        append(div4, button0);
+        append(div4, t10);
+        append(div4, button1);
+        if (if_block3)
+          if_block3.m(button1, null);
+        append(button1, t11);
+        if (if_block4)
+          if_block4.m(button1, null);
         current = true;
+        if (!mounted) {
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*click_handler_3*/
+              ctx[34]
+            ),
+            listen(
+              button1,
+              "click",
+              /*click_handler_4*/
+              ctx[35]
+            )
+          ];
+          mounted = true;
+        }
       },
       p(ctx2, dirty) {
-        if_block.p(ctx2, dirty);
+        if ((!current || dirty[0] & /*coaId*/
+        256) && t1_value !== (t1_value = coas[
+          /*coaId*/
+          ctx2[8]
+        ] + ""))
+          set_data(t1, t1_value);
+        const inputcustom0_changes = {};
+        if (!updating_value && dirty[0] & /*startDate*/
+        64) {
+          updating_value = true;
+          inputcustom0_changes.value = /*startDate*/
+          ctx2[6];
+          add_flush_callback(() => updating_value = false);
+        }
+        inputcustom0.$set(inputcustom0_changes);
+        const inputcustom1_changes = {};
+        if (!updating_value_1 && dirty[0] & /*endDate*/
+        128) {
+          updating_value_1 = true;
+          inputcustom1_changes.value = /*endDate*/
+          ctx2[7];
+          add_flush_callback(() => updating_value_1 = false);
+        }
+        inputcustom1.$set(inputcustom1_changes);
+        if (
+          /*isSales*/
+          ctx2[3] || /*isChildOnly*/
+          ctx2[4]
+        ) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+          } else {
+            if_block0 = create_if_block_17(ctx2);
+            if_block0.c();
+            if_block0.m(div3, t6);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        if (!/*isSales*/
+        ctx2[3] && !/*isChildOnly*/
+        ctx2[4]) {
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
+          } else {
+            if_block1 = create_if_block_123(ctx2);
+            if_block1.c();
+            if_block1.m(table, t7);
+          }
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
+        }
+        if (
+          /*isSales*/
+          ctx2[3] || /*isChildOnly*/
+          ctx2[4]
+        ) {
+          if (if_block2) {
+            if_block2.p(ctx2, dirty);
+            if (dirty[0] & /*isSales, isChildOnly*/
+            24) {
+              transition_in(if_block2, 1);
+            }
+          } else {
+            if_block2 = create_if_block_33(ctx2);
+            if_block2.c();
+            transition_in(if_block2, 1);
+            if_block2.m(table, null);
+          }
+        } else if (if_block2) {
+          group_outros();
+          transition_out(if_block2, 1, 1, () => {
+            if_block2 = null;
+          });
+          check_outros();
+        }
+        if (!/*isSubmitted*/
+        ctx2[1]) {
+          if (if_block3) {
+          } else {
+            if_block3 = create_if_block_23(ctx2);
+            if_block3.c();
+            if_block3.m(button1, t11);
+          }
+        } else if (if_block3) {
+          if_block3.d(1);
+          if_block3 = null;
+        }
+        if (
+          /*isSubmitted*/
+          ctx2[1]
+        ) {
+          if (if_block4) {
+          } else {
+            if_block4 = create_if_block_110(ctx2);
+            if_block4.c();
+            if_block4.m(button1, null);
+          }
+        } else if (if_block4) {
+          if_block4.d(1);
+          if_block4 = null;
+        }
       },
       i(local) {
         if (current)
           return;
-        transition_in(if_block);
+        transition_in(inputcustom0.$.fragment, local);
+        transition_in(inputcustom1.$.fragment, local);
+        transition_in(if_block2);
         current = true;
       },
       o(local) {
-        transition_out(if_block);
+        transition_out(inputcustom0.$.fragment, local);
+        transition_out(inputcustom1.$.fragment, local);
+        transition_out(if_block2);
         current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(div0);
-          detach(t2);
-          detach(div3);
+          detach(t3);
+          detach(div5);
         }
-        if_blocks[current_block_type_index].d();
+        destroy_component(inputcustom0);
+        destroy_component(inputcustom1);
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        if (if_block2)
+          if_block2.d();
+        if (if_block3)
+          if_block3.d();
+        if (if_block4)
+          if_block4.d();
+        mounted = false;
+        run_all(dispose);
       }
     };
   }
-  function create_fragment9(ctx) {
-    let popupdataentryjournal;
-    let updating_isSubmitted;
-    let updating_startDate;
-    let updating_endDate;
-    let updating_isDebit;
-    let updating_isSales;
-    let updating_isChildOnly;
-    let updating_debitIDR;
-    let updating_creditIDR;
-    let updating_description;
-    let updating_date;
-    let updating_coaChildren;
+  function create_if_block_17(ctx) {
+    let div;
+    let button;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        div = element("div");
+        button = element("button");
+        button.textContent = "Add row";
+        attr(button, "class", "btn svelte-md16jx");
+        attr(div, "class", "actions svelte-md16jx");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+        append(div, button);
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*click_handler_1*/
+            ctx[21]
+          );
+          mounted = true;
+        }
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_123(ctx) {
+    let thead;
+    let tr0;
+    let t0;
+    let th0;
+    let t2;
+    let th1;
+    let t4;
+    let tbody;
+    let tr1;
+    let t5;
+    let td0;
+    let textarea;
+    let t6;
+    let td1;
+    let input;
+    let mounted;
+    let dispose;
+    let if_block0 = !/*isAutoSum*/
+    ctx[5] && create_if_block_15(ctx);
+    let if_block1 = !/*isAutoSum*/
+    ctx[5] && create_if_block_132(ctx);
+    return {
+      c() {
+        thead = element("thead");
+        tr0 = element("tr");
+        if (if_block0)
+          if_block0.c();
+        t0 = space();
+        th0 = element("th");
+        th0.textContent = "Description";
+        t2 = space();
+        th1 = element("th");
+        th1.textContent = "Date";
+        t4 = space();
+        tbody = element("tbody");
+        tr1 = element("tr");
+        if (if_block1)
+          if_block1.c();
+        t5 = space();
+        td0 = element("td");
+        textarea = element("textarea");
+        t6 = space();
+        td1 = element("td");
+        input = element("input");
+        attr(th0, "class", "svelte-md16jx");
+        attr(th1, "class", "svelte-md16jx");
+        attr(thead, "class", "svelte-md16jx");
+        attr(textarea, "placeholder", "Description");
+        attr(textarea, "rows", "1");
+        attr(textarea, "class", "svelte-md16jx");
+        attr(td0, "class", "svelte-md16jx");
+        attr(input, "type", "date");
+        attr(input, "class", "svelte-md16jx");
+        attr(td1, "class", "svelte-md16jx");
+      },
+      m(target, anchor) {
+        insert(target, thead, anchor);
+        append(thead, tr0);
+        if (if_block0)
+          if_block0.m(tr0, null);
+        append(tr0, t0);
+        append(tr0, th0);
+        append(tr0, t2);
+        append(tr0, th1);
+        insert(target, t4, anchor);
+        insert(target, tbody, anchor);
+        append(tbody, tr1);
+        if (if_block1)
+          if_block1.m(tr1, null);
+        append(tr1, t5);
+        append(tr1, td0);
+        append(td0, textarea);
+        set_input_value(
+          textarea,
+          /*descriptions*/
+          ctx[11]
+        );
+        append(tr1, t6);
+        append(tr1, td1);
+        append(td1, input);
+        set_input_value(
+          input,
+          /*date*/
+          ctx[12]
+        );
+        if (!mounted) {
+          dispose = [
+            listen(
+              textarea,
+              "input",
+              /*textarea_input_handler*/
+              ctx[24]
+            ),
+            listen(
+              input,
+              "input",
+              /*input_input_handler_2*/
+              ctx[25]
+            )
+          ];
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (!/*isAutoSum*/
+        ctx2[5]) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+          } else {
+            if_block0 = create_if_block_15(ctx2);
+            if_block0.c();
+            if_block0.m(tr0, t0);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        if (!/*isAutoSum*/
+        ctx2[5]) {
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
+          } else {
+            if_block1 = create_if_block_132(ctx2);
+            if_block1.c();
+            if_block1.m(tr1, t5);
+          }
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
+        }
+        if (dirty[0] & /*descriptions*/
+        2048) {
+          set_input_value(
+            textarea,
+            /*descriptions*/
+            ctx2[11]
+          );
+        }
+        if (dirty[0] & /*date*/
+        4096) {
+          set_input_value(
+            input,
+            /*date*/
+            ctx2[12]
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(thead);
+          detach(t4);
+          detach(tbody);
+        }
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
+  function create_if_block_15(ctx) {
+    let if_block_anchor;
+    function select_block_type_1(ctx2, dirty) {
+      if (
+        /*isDebit*/
+        ctx2[2]
+      )
+        return create_if_block_16;
+      return create_else_block_3;
+    }
+    let current_block_type = select_block_type_1(ctx, [-1, -1]);
+    let if_block = current_block_type(ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (current_block_type !== (current_block_type = select_block_type_1(ctx2, dirty))) {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
+          if (if_block) {
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if_block.d(detaching);
+      }
+    };
+  }
+  function create_else_block_3(ctx) {
+    let th;
+    return {
+      c() {
+        th = element("th");
+        th.textContent = "Credit (IDR)";
+        attr(th, "class", "svelte-md16jx");
+      },
+      m(target, anchor) {
+        insert(target, th, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(th);
+        }
+      }
+    };
+  }
+  function create_if_block_16(ctx) {
+    let th;
+    return {
+      c() {
+        th = element("th");
+        th.textContent = "Debit (IDR)";
+        attr(th, "class", "svelte-md16jx");
+      },
+      m(target, anchor) {
+        insert(target, th, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(th);
+        }
+      }
+    };
+  }
+  function create_if_block_132(ctx) {
+    let if_block_anchor;
+    function select_block_type_2(ctx2, dirty) {
+      if (
+        /*isDebit*/
+        ctx2[2]
+      )
+        return create_if_block_142;
+      return create_else_block_2;
+    }
+    let current_block_type = select_block_type_2(ctx, [-1, -1]);
+    let if_block = current_block_type(ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (current_block_type === (current_block_type = select_block_type_2(ctx2, dirty)) && if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
+          if (if_block) {
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if_block.d(detaching);
+      }
+    };
+  }
+  function create_else_block_2(ctx) {
+    let td;
+    let input;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        td = element("td");
+        input = element("input");
+        attr(input, "type", "number");
+        attr(input, "min", "0");
+        attr(input, "class", "svelte-md16jx");
+        attr(td, "class", "svelte-md16jx");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, input);
+        set_input_value(
+          input,
+          /*creditIDR*/
+          ctx[10]
+        );
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "input",
+            /*input_input_handler_1*/
+            ctx[23]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty[0] & /*creditIDR*/
+        1024 && to_number(input.value) !== /*creditIDR*/
+        ctx2[10]) {
+          set_input_value(
+            input,
+            /*creditIDR*/
+            ctx2[10]
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(td);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_142(ctx) {
+    let td;
+    let input;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        td = element("td");
+        input = element("input");
+        attr(input, "type", "number");
+        attr(input, "min", "0");
+        attr(input, "class", "svelte-md16jx");
+        attr(td, "class", "svelte-md16jx");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, input);
+        set_input_value(
+          input,
+          /*debitIDR*/
+          ctx[9]
+        );
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "input",
+            /*input_input_handler*/
+            ctx[22]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty[0] & /*debitIDR*/
+        512 && to_number(input.value) !== /*debitIDR*/
+        ctx2[9]) {
+          set_input_value(
+            input,
+            /*debitIDR*/
+            ctx2[9]
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(td);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_33(ctx) {
+    let thead;
+    let tr;
+    let th0;
+    let t0;
+    let t1;
+    let th1;
+    let t3;
+    let th2;
+    let t5;
+    let t6;
+    let t7;
+    let tbody;
+    let current;
+    let if_block0 = !/*isAutoSum*/
+    ctx[5] && create_if_block_102(ctx);
+    let if_block1 = (
+      /*isChildOnly*/
+      ctx[4] && create_if_block_92(ctx)
+    );
+    let if_block2 = (
+      /*isSales*/
+      ctx[3] && create_if_block_82(ctx)
+    );
+    let each_value = ensure_array_like(
+      /*payloadsMulti*/
+      ctx[14] || []
+    );
+    let each_blocks = [];
+    for (let i = 0; i < each_value.length; i += 1) {
+      each_blocks[i] = create_each_block2(get_each_context2(ctx, each_value, i));
+    }
+    const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
+      each_blocks[i] = null;
+    });
+    return {
+      c() {
+        thead = element("thead");
+        tr = element("tr");
+        th0 = element("th");
+        t0 = space();
+        if (if_block0)
+          if_block0.c();
+        t1 = space();
+        th1 = element("th");
+        th1.textContent = "Description";
+        t3 = space();
+        th2 = element("th");
+        th2.textContent = "Date";
+        t5 = space();
+        if (if_block1)
+          if_block1.c();
+        t6 = space();
+        if (if_block2)
+          if_block2.c();
+        t7 = space();
+        tbody = element("tbody");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        attr(th0, "class", "svelte-md16jx");
+        attr(th1, "class", "svelte-md16jx");
+        attr(th2, "class", "svelte-md16jx");
+        attr(thead, "class", "svelte-md16jx");
+      },
+      m(target, anchor) {
+        insert(target, thead, anchor);
+        append(thead, tr);
+        append(tr, th0);
+        append(tr, t0);
+        if (if_block0)
+          if_block0.m(tr, null);
+        append(tr, t1);
+        append(tr, th1);
+        append(tr, t3);
+        append(tr, th2);
+        append(tr, t5);
+        if (if_block1)
+          if_block1.m(tr, null);
+        append(tr, t6);
+        if (if_block2)
+          if_block2.m(tr, null);
+        insert(target, t7, anchor);
+        insert(target, tbody, anchor);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(tbody, null);
+          }
+        }
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (!/*isAutoSum*/
+        ctx2[5]) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+          } else {
+            if_block0 = create_if_block_102(ctx2);
+            if_block0.c();
+            if_block0.m(tr, t1);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        if (
+          /*isChildOnly*/
+          ctx2[4]
+        ) {
+          if (if_block1) {
+          } else {
+            if_block1 = create_if_block_92(ctx2);
+            if_block1.c();
+            if_block1.m(tr, t6);
+          }
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
+        }
+        if (
+          /*isSales*/
+          ctx2[3]
+        ) {
+          if (if_block2) {
+          } else {
+            if_block2 = create_if_block_82(ctx2);
+            if_block2.c();
+            if_block2.m(tr, null);
+          }
+        } else if (if_block2) {
+          if_block2.d(1);
+          if_block2 = null;
+        }
+        if (dirty[0] & /*payloadsMulti, isSales, coaChildren, isChildOnly, isDebit, isAutoSum*/
+        24636) {
+          each_value = ensure_array_like(
+            /*payloadsMulti*/
+            ctx2[14] || []
+          );
+          let i;
+          for (i = 0; i < each_value.length; i += 1) {
+            const child_ctx = get_each_context2(ctx2, each_value, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+              transition_in(each_blocks[i], 1);
+            } else {
+              each_blocks[i] = create_each_block2(child_ctx);
+              each_blocks[i].c();
+              transition_in(each_blocks[i], 1);
+              each_blocks[i].m(tbody, null);
+            }
+          }
+          group_outros();
+          for (i = each_value.length; i < each_blocks.length; i += 1) {
+            out(i);
+          }
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        for (let i = 0; i < each_value.length; i += 1) {
+          transition_in(each_blocks[i]);
+        }
+        current = true;
+      },
+      o(local) {
+        each_blocks = each_blocks.filter(Boolean);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          transition_out(each_blocks[i]);
+        }
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(thead);
+          detach(t7);
+          detach(tbody);
+        }
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        if (if_block2)
+          if_block2.d();
+        destroy_each(each_blocks, detaching);
+      }
+    };
+  }
+  function create_if_block_102(ctx) {
+    let if_block_anchor;
+    function select_block_type_3(ctx2, dirty) {
+      if (
+        /*isDebit*/
+        ctx2[2]
+      )
+        return create_if_block_112;
+      return create_else_block_12;
+    }
+    let current_block_type = select_block_type_3(ctx, [-1, -1]);
+    let if_block = current_block_type(ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (current_block_type !== (current_block_type = select_block_type_3(ctx2, dirty))) {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
+          if (if_block) {
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if_block.d(detaching);
+      }
+    };
+  }
+  function create_else_block_12(ctx) {
+    let th;
+    return {
+      c() {
+        th = element("th");
+        th.textContent = "Credit (IDR)";
+        attr(th, "class", "svelte-md16jx");
+      },
+      m(target, anchor) {
+        insert(target, th, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(th);
+        }
+      }
+    };
+  }
+  function create_if_block_112(ctx) {
+    let th;
+    return {
+      c() {
+        th = element("th");
+        th.textContent = "Debit (IDR)";
+        attr(th, "class", "svelte-md16jx");
+      },
+      m(target, anchor) {
+        insert(target, th, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(th);
+        }
+      }
+    };
+  }
+  function create_if_block_92(ctx) {
+    let th;
+    return {
+      c() {
+        th = element("th");
+        th.textContent = "CoA";
+        attr(th, "class", "svelte-md16jx");
+      },
+      m(target, anchor) {
+        insert(target, th, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(th);
+        }
+      }
+    };
+  }
+  function create_if_block_82(ctx) {
+    let th0;
+    let t1;
+    let th1;
+    return {
+      c() {
+        th0 = element("th");
+        th0.textContent = "Sales Count";
+        t1 = space();
+        th1 = element("th");
+        th1.textContent = "Sales Price (IDR)";
+        attr(th0, "class", "svelte-md16jx");
+        attr(th1, "class", "svelte-md16jx");
+      },
+      m(target, anchor) {
+        insert(target, th0, anchor);
+        insert(target, t1, anchor);
+        insert(target, th1, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(th0);
+          detach(t1);
+          detach(th1);
+        }
+      }
+    };
+  }
+  function create_if_block_62(ctx) {
+    let if_block_anchor;
+    function select_block_type_4(ctx2, dirty) {
+      if (
+        /*isDebit*/
+        ctx2[2]
+      )
+        return create_if_block_72;
+      return create_else_block2;
+    }
+    let current_block_type = select_block_type_4(ctx, [-1, -1]);
+    let if_block = current_block_type(ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (current_block_type === (current_block_type = select_block_type_4(ctx2, dirty)) && if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
+          if (if_block) {
+            if_block.c();
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if_block.d(detaching);
+      }
+    };
+  }
+  function create_else_block2(ctx) {
+    let td;
+    let input;
+    let mounted;
+    let dispose;
+    function input_input_handler_4() {
+      ctx[28].call(
+        input,
+        /*each_value*/
+        ctx[40],
+        /*i*/
+        ctx[41]
+      );
+    }
+    return {
+      c() {
+        td = element("td");
+        input = element("input");
+        attr(input, "type", "number");
+        attr(input, "min", "0");
+        attr(input, "class", "svelte-md16jx");
+        attr(td, "class", "svelte-md16jx");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, input);
+        set_input_value(
+          input,
+          /*py*/
+          ctx[39].creditIDR
+        );
+        if (!mounted) {
+          dispose = listen(input, "input", input_input_handler_4);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (dirty[0] & /*payloadsMulti, coaChildren*/
+        24576 && to_number(input.value) !== /*py*/
+        ctx[39].creditIDR) {
+          set_input_value(
+            input,
+            /*py*/
+            ctx[39].creditIDR
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(td);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_72(ctx) {
+    let td;
+    let input;
+    let mounted;
+    let dispose;
+    function input_input_handler_3() {
+      ctx[27].call(
+        input,
+        /*each_value*/
+        ctx[40],
+        /*i*/
+        ctx[41]
+      );
+    }
+    return {
+      c() {
+        td = element("td");
+        input = element("input");
+        attr(input, "type", "number");
+        attr(input, "min", "0");
+        attr(input, "class", "svelte-md16jx");
+        attr(td, "class", "svelte-md16jx");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, input);
+        set_input_value(
+          input,
+          /*py*/
+          ctx[39].debitIDR
+        );
+        if (!mounted) {
+          dispose = listen(input, "input", input_input_handler_3);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (dirty[0] & /*payloadsMulti, coaChildren*/
+        24576 && to_number(input.value) !== /*py*/
+        ctx[39].debitIDR) {
+          set_input_value(
+            input,
+            /*py*/
+            ctx[39].debitIDR
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(td);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_53(ctx) {
+    let td;
+    let select;
+    let mounted;
+    let dispose;
+    let each_value_1 = ensure_array_like(Object.entries(
+      /*coaChildren*/
+      ctx[13]
+    ));
+    let each_blocks = [];
+    for (let i = 0; i < each_value_1.length; i += 1) {
+      each_blocks[i] = create_each_block_12(get_each_context_12(ctx, each_value_1, i));
+    }
+    function select_change_handler() {
+      ctx[31].call(
+        select,
+        /*each_value*/
+        ctx[40],
+        /*i*/
+        ctx[41]
+      );
+    }
+    return {
+      c() {
+        td = element("td");
+        select = element("select");
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        attr(select, "class", "svelte-md16jx");
+        if (
+          /*py*/
+          ctx[39].coaId === void 0
+        )
+          add_render_callback(select_change_handler);
+        attr(td, "class", "svelte-md16jx");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, select);
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(select, null);
+          }
+        }
+        select_option(
+          select,
+          /*py*/
+          ctx[39].coaId,
+          true
+        );
+        if (!mounted) {
+          dispose = listen(select, "change", select_change_handler);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (dirty[0] & /*coaChildren, payloadsMulti*/
+        24576) {
+          each_value_1 = ensure_array_like(Object.entries(
+            /*coaChildren*/
+            ctx[13]
+          ));
+          let i;
+          for (i = 0; i < each_value_1.length; i += 1) {
+            const child_ctx = get_each_context_12(ctx, each_value_1, i);
+            if (each_blocks[i]) {
+              each_blocks[i].p(child_ctx, dirty);
+            } else {
+              each_blocks[i] = create_each_block_12(child_ctx);
+              each_blocks[i].c();
+              each_blocks[i].m(select, null);
+            }
+          }
+          for (; i < each_blocks.length; i += 1) {
+            each_blocks[i].d(1);
+          }
+          each_blocks.length = each_value_1.length;
+        }
+        if (dirty[0] & /*payloadsMulti, coaChildren*/
+        24576) {
+          select_option(
+            select,
+            /*py*/
+            ctx[39].coaId
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(td);
+        }
+        destroy_each(each_blocks, detaching);
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_each_block_12(ctx) {
+    let option;
+    let t_value = `${/*idx*/
+    ctx[45] + 1}: ${/*v*/
+    ctx[43]}`;
     let t;
+    let option_value_value;
+    let option_selected_value;
+    return {
+      c() {
+        option = element("option");
+        t = text(t_value);
+        option.__value = option_value_value = /*k*/
+        ctx[42];
+        set_input_value(option, option.__value);
+        option.selected = option_selected_value = /*py*/
+        ctx[39].coaId === /*k*/
+        ctx[42];
+      },
+      m(target, anchor) {
+        insert(target, option, anchor);
+        append(option, t);
+      },
+      p(ctx2, dirty) {
+        if (dirty[0] & /*coaChildren*/
+        8192 && t_value !== (t_value = `${/*idx*/
+        ctx2[45] + 1}: ${/*v*/
+        ctx2[43]}`))
+          set_data(t, t_value);
+        if (dirty[0] & /*coaChildren*/
+        8192 && option_value_value !== (option_value_value = /*k*/
+        ctx2[42])) {
+          option.__value = option_value_value;
+          set_input_value(option, option.__value);
+        }
+        if (dirty[0] & /*payloadsMulti, coaChildren*/
+        24576 && option_selected_value !== (option_selected_value = /*py*/
+        ctx2[39].coaId === /*k*/
+        ctx2[42])) {
+          option.selected = option_selected_value;
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(option);
+        }
+      }
+    };
+  }
+  function create_if_block_43(ctx) {
+    let td0;
+    let input0;
+    let t;
+    let td1;
+    let input1;
+    let mounted;
+    let dispose;
+    function input0_input_handler() {
+      ctx[32].call(
+        input0,
+        /*each_value*/
+        ctx[40],
+        /*i*/
+        ctx[41]
+      );
+    }
+    function input1_input_handler() {
+      ctx[33].call(
+        input1,
+        /*each_value*/
+        ctx[40],
+        /*i*/
+        ctx[41]
+      );
+    }
+    return {
+      c() {
+        td0 = element("td");
+        input0 = element("input");
+        t = space();
+        td1 = element("td");
+        input1 = element("input");
+        attr(input0, "type", "number");
+        attr(input0, "min", "0");
+        attr(input0, "class", "svelte-md16jx");
+        attr(td0, "class", "svelte-md16jx");
+        attr(input1, "type", "number");
+        attr(input1, "min", "0");
+        attr(input1, "class", "svelte-md16jx");
+        attr(td1, "class", "svelte-md16jx");
+      },
+      m(target, anchor) {
+        insert(target, td0, anchor);
+        append(td0, input0);
+        set_input_value(
+          input0,
+          /*py*/
+          ctx[39].salesCount
+        );
+        insert(target, t, anchor);
+        insert(target, td1, anchor);
+        append(td1, input1);
+        set_input_value(
+          input1,
+          /*py*/
+          ctx[39].salesPriceIDR
+        );
+        if (!mounted) {
+          dispose = [
+            listen(input0, "input", input0_input_handler),
+            listen(input1, "input", input1_input_handler)
+          ];
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (dirty[0] & /*payloadsMulti, coaChildren*/
+        24576 && to_number(input0.value) !== /*py*/
+        ctx[39].salesCount) {
+          set_input_value(
+            input0,
+            /*py*/
+            ctx[39].salesCount
+          );
+        }
+        if (dirty[0] & /*payloadsMulti, coaChildren*/
+        24576 && to_number(input1.value) !== /*py*/
+        ctx[39].salesPriceIDR) {
+          set_input_value(
+            input1,
+            /*py*/
+            ctx[39].salesPriceIDR
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(td0);
+          detach(t);
+          detach(td1);
+        }
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
+  function create_each_block2(ctx) {
+    let tr;
+    let td0;
+    let button;
+    let icon;
+    let button_disabled_value;
+    let button_title_value;
+    let t0;
+    let t1;
+    let td1;
+    let textarea;
+    let t2;
+    let td2;
+    let input;
+    let t3;
+    let t4;
+    let t5;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: { src: RiSystemDeleteBin6Line, size: "16" }
+    });
+    function click_handler_2() {
+      return (
+        /*click_handler_2*/
+        ctx[26](
+          /*py*/
+          ctx[39]
+        )
+      );
+    }
+    let if_block0 = !/*isAutoSum*/
+    ctx[5] && create_if_block_62(ctx);
+    function textarea_input_handler_1() {
+      ctx[29].call(
+        textarea,
+        /*each_value*/
+        ctx[40],
+        /*i*/
+        ctx[41]
+      );
+    }
+    function input_input_handler_5() {
+      ctx[30].call(
+        input,
+        /*each_value*/
+        ctx[40],
+        /*i*/
+        ctx[41]
+      );
+    }
+    let if_block1 = (
+      /*isChildOnly*/
+      ctx[4] && create_if_block_53(ctx)
+    );
+    let if_block2 = (
+      /*isSales*/
+      ctx[3] && create_if_block_43(ctx)
+    );
+    return {
+      c() {
+        tr = element("tr");
+        td0 = element("td");
+        button = element("button");
+        create_component(icon.$.fragment);
+        t0 = space();
+        if (if_block0)
+          if_block0.c();
+        t1 = space();
+        td1 = element("td");
+        textarea = element("textarea");
+        t2 = space();
+        td2 = element("td");
+        input = element("input");
+        t3 = space();
+        if (if_block1)
+          if_block1.c();
+        t4 = space();
+        if (if_block2)
+          if_block2.c();
+        t5 = space();
+        button.disabled = button_disabled_value = /*i*/
+        ctx[41] === 0;
+        attr(button, "title", button_title_value = /*i*/
+        ctx[41] === 0 ? "Cannot remove first row" : "Remove row");
+        attr(button, "class", "btn_remove svelte-md16jx");
+        attr(td0, "class", "svelte-md16jx");
+        attr(textarea, "placeholder", "Description");
+        attr(textarea, "rows", "1");
+        attr(textarea, "class", "svelte-md16jx");
+        attr(td1, "class", "svelte-md16jx");
+        attr(input, "type", "date");
+        attr(input, "class", "svelte-md16jx");
+        attr(td2, "class", "svelte-md16jx");
+      },
+      m(target, anchor) {
+        insert(target, tr, anchor);
+        append(tr, td0);
+        append(td0, button);
+        mount_component(icon, button, null);
+        append(tr, t0);
+        if (if_block0)
+          if_block0.m(tr, null);
+        append(tr, t1);
+        append(tr, td1);
+        append(td1, textarea);
+        set_input_value(
+          textarea,
+          /*py*/
+          ctx[39].descriptions
+        );
+        append(tr, t2);
+        append(tr, td2);
+        append(td2, input);
+        set_input_value(
+          input,
+          /*py*/
+          ctx[39].date
+        );
+        append(tr, t3);
+        if (if_block1)
+          if_block1.m(tr, null);
+        append(tr, t4);
+        if (if_block2)
+          if_block2.m(tr, null);
+        append(tr, t5);
+        current = true;
+        if (!mounted) {
+          dispose = [
+            listen(button, "click", click_handler_2),
+            listen(textarea, "input", textarea_input_handler_1),
+            listen(input, "input", input_input_handler_5)
+          ];
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (!/*isAutoSum*/
+        ctx[5]) {
+          if (if_block0) {
+            if_block0.p(ctx, dirty);
+          } else {
+            if_block0 = create_if_block_62(ctx);
+            if_block0.c();
+            if_block0.m(tr, t1);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        if (dirty[0] & /*payloadsMulti, coaChildren*/
+        24576) {
+          set_input_value(
+            textarea,
+            /*py*/
+            ctx[39].descriptions
+          );
+        }
+        if (dirty[0] & /*payloadsMulti, coaChildren*/
+        24576) {
+          set_input_value(
+            input,
+            /*py*/
+            ctx[39].date
+          );
+        }
+        if (
+          /*isChildOnly*/
+          ctx[4]
+        ) {
+          if (if_block1) {
+            if_block1.p(ctx, dirty);
+          } else {
+            if_block1 = create_if_block_53(ctx);
+            if_block1.c();
+            if_block1.m(tr, t4);
+          }
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
+        }
+        if (
+          /*isSales*/
+          ctx[3]
+        ) {
+          if (if_block2) {
+            if_block2.p(ctx, dirty);
+          } else {
+            if_block2 = create_if_block_43(ctx);
+            if_block2.c();
+            if_block2.m(tr, t5);
+          }
+        } else if (if_block2) {
+          if_block2.d(1);
+          if_block2 = null;
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(tr);
+        }
+        destroy_component(icon);
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        if (if_block2)
+          if_block2.d();
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
+  function create_if_block_23(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Submit";
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
+  }
+  function create_if_block_110(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Submitting ...";
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
+  }
+  function create_default_slot(ctx) {
+    let t;
+    let if_block1_anchor;
+    let current;
+    let if_block0 = !/*isCreatingJournal*/
+    ctx[0] && create_if_block_18(ctx);
+    let if_block1 = (
+      /*isCreatingJournal*/
+      ctx[0] && create_if_block3(ctx)
+    );
+    return {
+      c() {
+        if (if_block0)
+          if_block0.c();
+        t = space();
+        if (if_block1)
+          if_block1.c();
+        if_block1_anchor = empty();
+      },
+      m(target, anchor) {
+        if (if_block0)
+          if_block0.m(target, anchor);
+        insert(target, t, anchor);
+        if (if_block1)
+          if_block1.m(target, anchor);
+        insert(target, if_block1_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (!/*isCreatingJournal*/
+        ctx2[0]) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+            if (dirty[0] & /*isCreatingJournal*/
+            1) {
+              transition_in(if_block0, 1);
+            }
+          } else {
+            if_block0 = create_if_block_18(ctx2);
+            if_block0.c();
+            transition_in(if_block0, 1);
+            if_block0.m(t.parentNode, t);
+          }
+        } else if (if_block0) {
+          group_outros();
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
+          check_outros();
+        }
+        if (
+          /*isCreatingJournal*/
+          ctx2[0]
+        ) {
+          if (if_block1) {
+            if_block1.p(ctx2, dirty);
+            if (dirty[0] & /*isCreatingJournal*/
+            1) {
+              transition_in(if_block1, 1);
+            }
+          } else {
+            if_block1 = create_if_block3(ctx2);
+            if_block1.c();
+            transition_in(if_block1, 1);
+            if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
+          }
+        } else if (if_block1) {
+          group_outros();
+          transition_out(if_block1, 1, 1, () => {
+            if_block1 = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block0);
+        transition_in(if_block1);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block0);
+        transition_out(if_block1);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(t);
+          detach(if_block1_anchor);
+        }
+        if (if_block0)
+          if_block0.d(detaching);
+        if (if_block1)
+          if_block1.d(detaching);
+      }
+    };
+  }
+  function create_fragment8(ctx) {
     let mainlayout;
     let current;
-    function popupdataentryjournal_isSubmitted_binding(value) {
-      ctx[18](value);
-    }
-    function popupdataentryjournal_startDate_binding(value) {
-      ctx[19](value);
-    }
-    function popupdataentryjournal_endDate_binding(value) {
-      ctx[20](value);
-    }
-    function popupdataentryjournal_isDebit_binding(value) {
-      ctx[21](value);
-    }
-    function popupdataentryjournal_isSales_binding(value) {
-      ctx[22](value);
-    }
-    function popupdataentryjournal_isChildOnly_binding(value) {
-      ctx[23](value);
-    }
-    function popupdataentryjournal_debitIDR_binding(value) {
-      ctx[24](value);
-    }
-    function popupdataentryjournal_creditIDR_binding(value) {
-      ctx[25](value);
-    }
-    function popupdataentryjournal_description_binding(value) {
-      ctx[26](value);
-    }
-    function popupdataentryjournal_date_binding(value) {
-      ctx[27](value);
-    }
-    function popupdataentryjournal_coaChildren_binding(value) {
-      ctx[28](value);
-    }
-    let popupdataentryjournal_props = {
-      heading: (
-        /*heading*/
-        ctx[13]
-      ),
-      OnSubmit: (
-        /*Submit*/
-        ctx[15]
-      ),
-      OnSubmitWithSales: (
-        /*SubmitWithSales*/
-        ctx[16]
-      )
-    };
-    if (
-      /*isSubmitted*/
-      ctx[12] !== void 0
-    ) {
-      popupdataentryjournal_props.isSubmitted = /*isSubmitted*/
-      ctx[12];
-    }
-    if (
-      /*startDate*/
-      ctx[4] !== void 0
-    ) {
-      popupdataentryjournal_props.startDate = /*startDate*/
-      ctx[4];
-    }
-    if (
-      /*endDate*/
-      ctx[5] !== void 0
-    ) {
-      popupdataentryjournal_props.endDate = /*endDate*/
-      ctx[5];
-    }
-    if (
-      /*isDebit*/
-      ctx[1] !== void 0
-    ) {
-      popupdataentryjournal_props.isDebit = /*isDebit*/
-      ctx[1];
-    }
-    if (
-      /*isSales*/
-      ctx[2] !== void 0
-    ) {
-      popupdataentryjournal_props.isSales = /*isSales*/
-      ctx[2];
-    }
-    if (
-      /*isChildOnly*/
-      ctx[3] !== void 0
-    ) {
-      popupdataentryjournal_props.isChildOnly = /*isChildOnly*/
-      ctx[3];
-    }
-    if (
-      /*debitIDR*/
-      ctx[7] !== void 0
-    ) {
-      popupdataentryjournal_props.debitIDR = /*debitIDR*/
-      ctx[7];
-    }
-    if (
-      /*creditIDR*/
-      ctx[8] !== void 0
-    ) {
-      popupdataentryjournal_props.creditIDR = /*creditIDR*/
-      ctx[8];
-    }
-    if (
-      /*description*/
-      ctx[9] !== void 0
-    ) {
-      popupdataentryjournal_props.description = /*description*/
-      ctx[9];
-    }
-    if (
-      /*date*/
-      ctx[10] !== void 0
-    ) {
-      popupdataentryjournal_props.date = /*date*/
-      ctx[10];
-    }
-    if (
-      /*coaChildren*/
-      ctx[11] !== void 0
-    ) {
-      popupdataentryjournal_props.coaChildren = /*coaChildren*/
-      ctx[11];
-    }
-    popupdataentryjournal = new PopUpDataEntryJournal_default({ props: popupdataentryjournal_props });
-    ctx[17](popupdataentryjournal);
-    binding_callbacks.push(() => bind(popupdataentryjournal, "isSubmitted", popupdataentryjournal_isSubmitted_binding));
-    binding_callbacks.push(() => bind(popupdataentryjournal, "startDate", popupdataentryjournal_startDate_binding));
-    binding_callbacks.push(() => bind(popupdataentryjournal, "endDate", popupdataentryjournal_endDate_binding));
-    binding_callbacks.push(() => bind(popupdataentryjournal, "isDebit", popupdataentryjournal_isDebit_binding));
-    binding_callbacks.push(() => bind(popupdataentryjournal, "isSales", popupdataentryjournal_isSales_binding));
-    binding_callbacks.push(() => bind(popupdataentryjournal, "isChildOnly", popupdataentryjournal_isChildOnly_binding));
-    binding_callbacks.push(() => bind(popupdataentryjournal, "debitIDR", popupdataentryjournal_debitIDR_binding));
-    binding_callbacks.push(() => bind(popupdataentryjournal, "creditIDR", popupdataentryjournal_creditIDR_binding));
-    binding_callbacks.push(() => bind(popupdataentryjournal, "description", popupdataentryjournal_description_binding));
-    binding_callbacks.push(() => bind(popupdataentryjournal, "date", popupdataentryjournal_date_binding));
-    binding_callbacks.push(() => bind(popupdataentryjournal, "coaChildren", popupdataentryjournal_coaChildren_binding));
     mainlayout = new mainLayout_default({
       props: {
         $slots: { default: [create_default_slot] },
@@ -10312,100 +10206,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     });
     return {
       c() {
-        create_component(popupdataentryjournal.$.fragment);
-        t = space();
         create_component(mainlayout.$.fragment);
       },
       m(target, anchor) {
-        mount_component(popupdataentryjournal, target, anchor);
-        insert(target, t, anchor);
         mount_component(mainlayout, target, anchor);
         current = true;
       },
       p(ctx2, dirty) {
-        const popupdataentryjournal_changes = {};
-        if (!updating_isSubmitted && dirty[0] & /*isSubmitted*/
-        4096) {
-          updating_isSubmitted = true;
-          popupdataentryjournal_changes.isSubmitted = /*isSubmitted*/
-          ctx2[12];
-          add_flush_callback(() => updating_isSubmitted = false);
-        }
-        if (!updating_startDate && dirty[0] & /*startDate*/
-        16) {
-          updating_startDate = true;
-          popupdataentryjournal_changes.startDate = /*startDate*/
-          ctx2[4];
-          add_flush_callback(() => updating_startDate = false);
-        }
-        if (!updating_endDate && dirty[0] & /*endDate*/
-        32) {
-          updating_endDate = true;
-          popupdataentryjournal_changes.endDate = /*endDate*/
-          ctx2[5];
-          add_flush_callback(() => updating_endDate = false);
-        }
-        if (!updating_isDebit && dirty[0] & /*isDebit*/
-        2) {
-          updating_isDebit = true;
-          popupdataentryjournal_changes.isDebit = /*isDebit*/
-          ctx2[1];
-          add_flush_callback(() => updating_isDebit = false);
-        }
-        if (!updating_isSales && dirty[0] & /*isSales*/
-        4) {
-          updating_isSales = true;
-          popupdataentryjournal_changes.isSales = /*isSales*/
-          ctx2[2];
-          add_flush_callback(() => updating_isSales = false);
-        }
-        if (!updating_isChildOnly && dirty[0] & /*isChildOnly*/
-        8) {
-          updating_isChildOnly = true;
-          popupdataentryjournal_changes.isChildOnly = /*isChildOnly*/
-          ctx2[3];
-          add_flush_callback(() => updating_isChildOnly = false);
-        }
-        if (!updating_debitIDR && dirty[0] & /*debitIDR*/
-        128) {
-          updating_debitIDR = true;
-          popupdataentryjournal_changes.debitIDR = /*debitIDR*/
-          ctx2[7];
-          add_flush_callback(() => updating_debitIDR = false);
-        }
-        if (!updating_creditIDR && dirty[0] & /*creditIDR*/
-        256) {
-          updating_creditIDR = true;
-          popupdataentryjournal_changes.creditIDR = /*creditIDR*/
-          ctx2[8];
-          add_flush_callback(() => updating_creditIDR = false);
-        }
-        if (!updating_description && dirty[0] & /*description*/
-        512) {
-          updating_description = true;
-          popupdataentryjournal_changes.description = /*description*/
-          ctx2[9];
-          add_flush_callback(() => updating_description = false);
-        }
-        if (!updating_date && dirty[0] & /*date*/
-        1024) {
-          updating_date = true;
-          popupdataentryjournal_changes.date = /*date*/
-          ctx2[10];
-          add_flush_callback(() => updating_date = false);
-        }
-        if (!updating_coaChildren && dirty[0] & /*coaChildren*/
-        2048) {
-          updating_coaChildren = true;
-          popupdataentryjournal_changes.coaChildren = /*coaChildren*/
-          ctx2[11];
-          add_flush_callback(() => updating_coaChildren = false);
-        }
-        popupdataentryjournal.$set(popupdataentryjournal_changes);
         const mainlayout_changes = {};
-        if (dirty[0] & /*isDebit, isSales, isChildOnly, coaId, popUpDataEntryJournal*/
-        79 | dirty[1] & /*$scope*/
-        4) {
+        if (dirty[0] & /*isSales, isChildOnly, isSubmitted, isCreatingJournal, payloadsMulti, coaChildren, isDebit, isAutoSum, date, descriptions, debitIDR, creditIDR, coaId, endDate, startDate*/
+        32767 | dirty[1] & /*$scope*/
+        131072) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -10413,21 +10224,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       i(local) {
         if (current)
           return;
-        transition_in(popupdataentryjournal.$.fragment, local);
         transition_in(mainlayout.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(popupdataentryjournal.$.fragment, local);
         transition_out(mainlayout.$.fragment, local);
         current = false;
       },
       d(detaching) {
-        if (detaching) {
-          detach(t);
-        }
-        ctx[17](null);
-        destroy_component(popupdataentryjournal, detaching);
         destroy_component(mainlayout, detaching);
       }
     };
@@ -10441,25 +10245,58 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     [/* transactionTplDetails */]
   );
   var coas = (
-    /** @type any[] */
-    [/* coas */]
+    /** @type Record<number|string, string> */
+    {/* coas */}
   );
-  function instance9($self, $props, $invalidate) {
-    let popUpDataEntryJournal;
-    console.log("transactionTemplate", transactionTemplate);
-    console.log("transactionTplDetails", transactionTplDetails);
+  function dateISOFormat(dayTo = 0) {
+    const dt = new Date();
+    const date = dayTo > 0 ? dt.getDate() + dayTo : dt.getDate();
+    const month = dt.toLocaleDateString("default", { month: "2-digit" });
+    const year = dt.getFullYear();
+    return `${year}-${month}-${date}`;
+  }
+  function instance8($self, $props, $invalidate) {
+    let isCreatingJournal = false;
+    let isSubmitted = false;
     let isDebit = true;
     let isSales = false;
     let isChildOnly = false;
-    let startDate;
-    let endDate;
+    let isAutoSum = false;
+    let startDate = dateISOFormat(0);
+    let endDate = dateISOFormat(4);
     let coaId = 0;
     let debitIDR = 0;
     let creditIDR = 0;
-    let description = "";
-    let date = "";
-    let heading = "Add journal for " + transactionTemplate.name;
-    let coaChildren = {};
+    let descriptions = "";
+    let date = dateISOFormat(0);
+    let coaChildren = (
+      /** @type Record<number|string, string> */
+      {}
+    );
+    let payloadsMulti = (
+      /** @type PayloadTransactionJournals[] */
+      []
+    );
+    let totalCreditIDR = 0;
+    let totalDebitIDR = 0;
+    function reset() {
+      $invalidate(0, isCreatingJournal = false);
+      $invalidate(2, isDebit = true);
+      $invalidate(3, isSales = false);
+      $invalidate(4, isChildOnly = false);
+      $invalidate(5, isAutoSum = false);
+      $invalidate(6, startDate = dateISOFormat(0));
+      $invalidate(7, endDate = dateISOFormat(4));
+      $invalidate(8, coaId = 0);
+      $invalidate(9, debitIDR = 0);
+      $invalidate(10, creditIDR = 0);
+      $invalidate(11, descriptions = "");
+      $invalidate(12, date = dateISOFormat(0));
+      $invalidate(13, coaChildren = {});
+      $invalidate(14, payloadsMulti = []);
+      totalCreditIDR = 0;
+      totalDebitIDR = 0;
+    }
     async function GetCoaChildren(coaId2) {
       const i = { cmd: "form", coaId: coaId2 };
       await (0, import_jsApi.DataEntryTransactionEntry)(
@@ -10467,201 +10304,281 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         i,
         /** @returns {Promise<any>} */
         function(o) {
-          $invalidate(12, isSubmitted = false);
+          $invalidate(1, isSubmitted = false);
           if (o.error) {
             notifier.showError(o.error || "failed to get coa children");
             return;
           }
-          $invalidate(11, coaChildren = o.coaChildren);
+          $invalidate(13, coaChildren = o.coaChildren);
         }
       );
     }
-    let isSubmitted = false;
     async function Submit() {
-      $invalidate(12, isSubmitted = true);
+      $invalidate(1, isSubmitted = true);
+      let debit = 0;
+      let credit = 0;
+      if (isDebit)
+        credit = totalCreditIDR;
+      else
+        debit = totalDebitIDR;
       const i = {
         cmd: "upsert",
         coaId,
+        transactionTplId: transactionTemplate.id,
         transactionJournals: [
           {
-            debitIDR: debitIDR + "",
-            creditIDR: creditIDR + "",
-            descriptions: description,
+            debitIDR: debit + "",
+            creditIDR: credit + "",
+            descriptions,
             date
           }
         ],
-        businessTransaction: {
-          startDate,
-          endDate,
-          transactionTemplateId: transactionTemplate.id
-        }
+        businessTransaction: { startDate, endDate }
       };
       await (0, import_jsApi.DataEntryTransactionEntry)(
         // @ts-ignore
         i,
         /** @returns {Promise<any>} */
         function(o) {
-          $invalidate(12, isSubmitted = false);
+          $invalidate(1, isSubmitted = false);
           if (o.error) {
             notifier.showError(o.error || "failed to add journal");
             return;
           }
+          reset();
           notifier.showSuccess("journal added !");
-          popUpDataEntryJournal.Hide();
-          popUpDataEntryJournal.Reset();
         }
       );
     }
-    async function SubmitWithSales(payloadsSales) {
-      $invalidate(12, isSubmitted = true);
+    async function SubmitMulti() {
+      $invalidate(1, isSubmitted = true);
       let trxJournals = (
         /** @type TransactionJournal[]|any */
         []
       );
-      for (const payload of payloadsSales) {
-        const detail = (
-          /** @type DetailObjectTransaction */
-          {
-            salesCount: payload.salesCount,
-            salesPriceIDR: payload.salesPriceIDR + ""
-          }
-        );
+      for (const payload of payloadsMulti) {
+        let detailObj = "";
+        let debit = 0;
+        let credit = 0;
+        if (isSales) {
+          const detail = (
+            /** @type DetailObjectTransaction */
+            {
+              salesCount: payload.salesCount,
+              salesPriceIDR: payload.salesPriceIDR + ""
+            }
+          );
+          detailObj = JSON.stringify(detail);
+          if (isDebit)
+            credit = Number(payload.salesCount) * Number(payload.salesPriceIDR);
+          else
+            debit = Number(payload.salesCount) * Number(payload.salesPriceIDR);
+        }
+        if (isAutoSum) {
+          if (isDebit)
+            credit = totalCreditIDR;
+          else
+            debit = totalDebitIDR;
+        }
         trxJournals.push({
-          debitIDR: payload.debitIDR + "",
-          creditIDR: payload.creditIDR + "",
-          descriptions: payload.description,
+          debitIDR: debit + "",
+          creditIDR: credit + "",
+          descriptions: payload.descriptions,
           date: payload.date,
           coaId: payload.coaId,
-          detailObj: JSON.stringify(detail)
+          detailObj
         });
       }
       const i = {
         cmd: "upsert",
         coaId,
+        transactionTplId: transactionTemplate.id,
         transactionJournals: trxJournals,
-        businessTransaction: {
-          startDate,
-          endDate,
-          transactionTemplateId: transactionTemplate.id
-        }
+        businessTransaction: { startDate, endDate }
       };
       await (0, import_jsApi.DataEntryTransactionEntry)(
         // @ts-ignore
         i,
         /** @returns {Promise<any>} */
         function(o) {
-          $invalidate(12, isSubmitted = false);
+          $invalidate(1, isSubmitted = false);
           if (o.error) {
             notifier.showError(o.error || "failed to add journal");
             return;
           }
+          reset();
           notifier.showSuccess("journal added !");
-          popUpDataEntryJournal.Hide();
-          popUpDataEntryJournal.Reset();
         }
       );
     }
-    function popupdataentryjournal_binding($value) {
-      binding_callbacks[$value ? "unshift" : "push"](() => {
-        popUpDataEntryJournal = $value;
-        $invalidate(0, popUpDataEntryJournal);
-      });
-    }
-    function popupdataentryjournal_isSubmitted_binding(value) {
-      isSubmitted = value;
-      $invalidate(12, isSubmitted);
-    }
-    function popupdataentryjournal_startDate_binding(value) {
-      startDate = value;
-      $invalidate(4, startDate);
-    }
-    function popupdataentryjournal_endDate_binding(value) {
-      endDate = value;
-      $invalidate(5, endDate);
-    }
-    function popupdataentryjournal_isDebit_binding(value) {
-      isDebit = value;
-      $invalidate(1, isDebit);
-    }
-    function popupdataentryjournal_isSales_binding(value) {
-      isSales = value;
-      $invalidate(2, isSales);
-    }
-    function popupdataentryjournal_isChildOnly_binding(value) {
-      isChildOnly = value;
-      $invalidate(3, isChildOnly);
-    }
-    function popupdataentryjournal_debitIDR_binding(value) {
-      debitIDR = value;
-      $invalidate(7, debitIDR);
-    }
-    function popupdataentryjournal_creditIDR_binding(value) {
-      creditIDR = value;
-      $invalidate(8, creditIDR);
-    }
-    function popupdataentryjournal_description_binding(value) {
-      description = value;
-      $invalidate(9, description);
-    }
-    function popupdataentryjournal_date_binding(value) {
-      date = value;
-      $invalidate(10, date);
-    }
-    function popupdataentryjournal_coaChildren_binding(value) {
-      coaChildren = value;
-      $invalidate(11, coaChildren);
-    }
     const click_handler = (trxTplDetail) => {
-      $invalidate(1, isDebit = trxTplDetail.isDebit);
-      $invalidate(2, isSales = (trxTplDetail.attributes || []).includes("sales"));
-      $invalidate(3, isChildOnly = (trxTplDetail.attributes || []).includes("childOnly"));
-      $invalidate(6, coaId = trxTplDetail.coaId);
+      $invalidate(2, isDebit = trxTplDetail.isDebit);
+      $invalidate(3, isSales = (trxTplDetail.attributes || []).includes("sales"));
+      $invalidate(4, isChildOnly = (trxTplDetail.attributes || []).includes("childOnly"));
+      $invalidate(8, coaId = trxTplDetail.coaId);
+      let pyCoaId = trxTplDetail.coaId;
       if (isChildOnly) {
         GetCoaChildren(trxTplDetail.coaId);
+        for (const id in coaChildren) {
+          pyCoaId = Number(id);
+          break;
+        }
       }
+      ;
       if (isSales) {
-        popUpDataEntryJournal.ShowWithSales();
-      } else {
-        popUpDataEntryJournal.Show();
+        $invalidate(14, payloadsMulti = [
+          {
+            coaId: isChildOnly ? pyCoaId : coaId,
+            descriptions: "",
+            creditIDR: 0,
+            debitIDR: 0,
+            date: dateISOFormat(0),
+            salesCount: 0,
+            salesPriceIDR: 0,
+            transactionTplId: transactionTemplate.id
+          }
+        ]);
+      } else if (isChildOnly) {
+        $invalidate(14, payloadsMulti = [
+          {
+            coaId: pyCoaId,
+            descriptions: "",
+            creditIDR: 0,
+            debitIDR: 0,
+            date: dateISOFormat(0),
+            salesCount: 0,
+            salesPriceIDR: 0,
+            transactionTplId: transactionTemplate.id
+          }
+        ]);
       }
+      $invalidate(0, isCreatingJournal = true);
+    };
+    function inputcustom0_value_binding(value) {
+      startDate = value;
+      $invalidate(6, startDate);
+    }
+    function inputcustom1_value_binding(value) {
+      endDate = value;
+      $invalidate(7, endDate);
+    }
+    const click_handler_1 = () => {
+      $invalidate(14, payloadsMulti = [
+        ...payloadsMulti,
+        {
+          coaId,
+          descriptions: "",
+          creditIDR: 0,
+          debitIDR: 0,
+          date: dateISOFormat(0),
+          salesCount: 0,
+          salesPriceIDR: 0,
+          transactionTplId: transactionTemplate.id
+        }
+      ]);
+    };
+    function input_input_handler() {
+      debitIDR = to_number(this.value);
+      $invalidate(9, debitIDR);
+    }
+    function input_input_handler_1() {
+      creditIDR = to_number(this.value);
+      $invalidate(10, creditIDR);
+    }
+    function textarea_input_handler() {
+      descriptions = this.value;
+      $invalidate(11, descriptions);
+    }
+    function input_input_handler_2() {
+      date = this.value;
+      $invalidate(12, date);
+    }
+    const click_handler_2 = (py) => $invalidate(14, payloadsMulti = payloadsMulti.filter((item) => item !== py));
+    function input_input_handler_3(each_value, i) {
+      each_value[i].debitIDR = to_number(this.value);
+      $invalidate(14, payloadsMulti);
+      $invalidate(13, coaChildren);
+    }
+    function input_input_handler_4(each_value, i) {
+      each_value[i].creditIDR = to_number(this.value);
+      $invalidate(14, payloadsMulti);
+      $invalidate(13, coaChildren);
+    }
+    function textarea_input_handler_1(each_value, i) {
+      each_value[i].descriptions = this.value;
+      $invalidate(14, payloadsMulti);
+      $invalidate(13, coaChildren);
+    }
+    function input_input_handler_5(each_value, i) {
+      each_value[i].date = this.value;
+      $invalidate(14, payloadsMulti);
+      $invalidate(13, coaChildren);
+    }
+    function select_change_handler(each_value, i) {
+      each_value[i].coaId = select_value(this);
+      $invalidate(14, payloadsMulti);
+      $invalidate(13, coaChildren);
+    }
+    function input0_input_handler(each_value, i) {
+      each_value[i].salesCount = to_number(this.value);
+      $invalidate(14, payloadsMulti);
+      $invalidate(13, coaChildren);
+    }
+    function input1_input_handler(each_value, i) {
+      each_value[i].salesPriceIDR = to_number(this.value);
+      $invalidate(14, payloadsMulti);
+      $invalidate(13, coaChildren);
+    }
+    const click_handler_3 = () => $invalidate(0, isCreatingJournal = false);
+    const click_handler_4 = () => {
+      if (!isSales && !isChildOnly)
+        Submit();
+      else
+        SubmitMulti();
     };
     return [
-      popUpDataEntryJournal,
+      isCreatingJournal,
+      isSubmitted,
       isDebit,
       isSales,
       isChildOnly,
+      isAutoSum,
       startDate,
       endDate,
       coaId,
       debitIDR,
       creditIDR,
-      description,
+      descriptions,
       date,
       coaChildren,
-      isSubmitted,
-      heading,
+      payloadsMulti,
       GetCoaChildren,
       Submit,
-      SubmitWithSales,
-      popupdataentryjournal_binding,
-      popupdataentryjournal_isSubmitted_binding,
-      popupdataentryjournal_startDate_binding,
-      popupdataentryjournal_endDate_binding,
-      popupdataentryjournal_isDebit_binding,
-      popupdataentryjournal_isSales_binding,
-      popupdataentryjournal_isChildOnly_binding,
-      popupdataentryjournal_debitIDR_binding,
-      popupdataentryjournal_creditIDR_binding,
-      popupdataentryjournal_description_binding,
-      popupdataentryjournal_date_binding,
-      popupdataentryjournal_coaChildren_binding,
-      click_handler
+      SubmitMulti,
+      click_handler,
+      inputcustom0_value_binding,
+      inputcustom1_value_binding,
+      click_handler_1,
+      input_input_handler,
+      input_input_handler_1,
+      textarea_input_handler,
+      input_input_handler_2,
+      click_handler_2,
+      input_input_handler_3,
+      input_input_handler_4,
+      textarea_input_handler_1,
+      input_input_handler_5,
+      select_change_handler,
+      input0_input_handler,
+      input1_input_handler,
+      click_handler_3,
+      click_handler_4
     ];
   }
   var Template = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance9, create_fragment9, safe_not_equal, {}, null, [-1, -1]);
+      init(this, options, instance8, create_fragment8, safe_not_equal, {}, null, [-1, -1]);
     }
   };
   var template_default = Template;

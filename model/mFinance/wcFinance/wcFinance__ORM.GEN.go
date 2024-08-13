@@ -857,6 +857,17 @@ func (t *TransactionJournalMutator) SetRestoredBy(val uint64) bool { //nolint:du
 	return false
 }
 
+// SetTransactionTemplateId create mutations, should not duplicate
+func (t *TransactionJournalMutator) SetTransactionTemplateId(val uint64) bool { //nolint:dupl false positive
+	if val != t.TransactionTemplateId {
+		t.mutations.Assign(15, val)
+		t.logs = append(t.logs, A.X{`transactionTemplateId`, t.TransactionTemplateId, val})
+		t.TransactionTemplateId = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (t *TransactionJournalMutator) SetAll(from rqFinance.TransactionJournal, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -923,6 +934,10 @@ func (t *TransactionJournalMutator) SetAll(from rqFinance.TransactionJournal, ex
 	}
 	if !excludeMap[`restoredBy`] && (forceMap[`restoredBy`] || from.RestoredBy != 0) {
 		t.RestoredBy = from.RestoredBy
+		changed = true
+	}
+	if !excludeMap[`transactionTemplateId`] && (forceMap[`transactionTemplateId`] || from.TransactionTemplateId != 0) {
+		t.TransactionTemplateId = from.TransactionTemplateId
 		changed = true
 	}
 	return

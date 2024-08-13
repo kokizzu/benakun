@@ -50,6 +50,7 @@ module.exports = {};
   * @property {string} descriptions
   * @property {string|Date} date
   * @property {string|Object|DetailObjectTransaction} detailObj
+  * @property {number} transactionTplId
   * @property {number} createdAt
   * @property {string} createdBy
   * @property {number} updatedAt
@@ -59,3 +60,19 @@ module.exports = {};
   * @property {string} restoredBy
  */
 module.exports = {};
+
+/**
+ * @typedef {Object} BusinessTransaction
+ * @property {number} id
+ * @property {string} tenantCode
+ * @property {string|Date} startDate
+ * @property {string|Date} endDate
+ * @property {number} transactionTplId
+ * @property {number} createdAt
+ * @property {string} createdBy
+ * @property {number} updatedAt
+ * @property {string} updatedBy
+ * @property {number} deletedAt
+ * @property {string} deletedBy
+ * @property {string} restoredBy
+ */

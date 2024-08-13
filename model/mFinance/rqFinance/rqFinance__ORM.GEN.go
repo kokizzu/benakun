@@ -760,22 +760,23 @@ var CoaFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 
 // TransactionJournal DAO reader/query struct
 type TransactionJournal struct {
-	Adapter      *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	Id           uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
-	TenantCode   string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
-	CoaId        uint64      `json:"coaId,string" form:"coaId" query:"coaId" long:"coaId" msg:"coaId"`
-	DebitIDR     int64       `json:"debitIDR,string" form:"debitIDR" query:"debitIDR" long:"debitIDR" msg:"debitIDR"`
-	CreditIDR    int64       `json:"creditIDR,string" form:"creditIDR" query:"creditIDR" long:"creditIDR" msg:"creditIDR"`
-	Descriptions string      `json:"descriptions" form:"descriptions" query:"descriptions" long:"descriptions" msg:"descriptions"`
-	Date         string      `json:"date" form:"date" query:"date" long:"date" msg:"date"`
-	DetailObj    string      `json:"detailObj" form:"detailObj" query:"detailObj" long:"detailObj" msg:"detailObj"`
-	CreatedAt    int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	CreatedBy    uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
-	UpdatedAt    int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
-	UpdatedBy    uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
-	DeletedAt    int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
-	DeletedBy    uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
-	RestoredBy   uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
+	Adapter               *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id                    uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	TenantCode            string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
+	CoaId                 uint64      `json:"coaId,string" form:"coaId" query:"coaId" long:"coaId" msg:"coaId"`
+	DebitIDR              int64       `json:"debitIDR,string" form:"debitIDR" query:"debitIDR" long:"debitIDR" msg:"debitIDR"`
+	CreditIDR             int64       `json:"creditIDR,string" form:"creditIDR" query:"creditIDR" long:"creditIDR" msg:"creditIDR"`
+	Descriptions          string      `json:"descriptions" form:"descriptions" query:"descriptions" long:"descriptions" msg:"descriptions"`
+	Date                  string      `json:"date" form:"date" query:"date" long:"date" msg:"date"`
+	DetailObj             string      `json:"detailObj" form:"detailObj" query:"detailObj" long:"detailObj" msg:"detailObj"`
+	CreatedAt             int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy             uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt             int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy             uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt             int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	DeletedBy             uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
+	RestoredBy            uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
+	TransactionTemplateId uint64      `json:"transactionTemplateId,string" form:"transactionTemplateId" query:"transactionTemplateId" long:"transactionTemplateId" msg:"transactionTemplateId"`
 }
 
 // NewTransactionJournal create new ORM reader/query object
@@ -835,6 +836,7 @@ func (t *TransactionJournal) SqlSelectAllFields() string { //nolint:dupl false p
 	, "deletedAt"
 	, "deletedBy"
 	, "restoredBy"
+	, "transactionTemplateId"
 	`
 }
 
@@ -855,6 +857,7 @@ func (t *TransactionJournal) SqlSelectAllUncensoredFields() string { //nolint:du
 	, "deletedAt"
 	, "deletedBy"
 	, "restoredBy"
+	, "transactionTemplateId"
 	`
 }
 
@@ -875,7 +878,8 @@ func (t *TransactionJournal) ToUpdateArray() *tarantool.Operations { //nolint:du
 		Assign(11, t.UpdatedBy).
 		Assign(12, t.DeletedAt).
 		Assign(13, t.DeletedBy).
-		Assign(14, t.RestoredBy)
+		Assign(14, t.RestoredBy).
+		Assign(15, t.TransactionTemplateId)
 }
 
 // IdxId return name of the index
@@ -1028,6 +1032,16 @@ func (t *TransactionJournal) SqlRestoredBy() string { //nolint:dupl false positi
 	return `"restoredBy"`
 }
 
+// IdxTransactionTemplateId return name of the index
+func (t *TransactionJournal) IdxTransactionTemplateId() int { //nolint:dupl false positive
+	return 15
+}
+
+// SqlTransactionTemplateId return name of the column being indexed
+func (t *TransactionJournal) SqlTransactionTemplateId() string { //nolint:dupl false positive
+	return `"transactionTemplateId"`
+}
+
 // ToArray receiver fields to slice
 func (t *TransactionJournal) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -1036,20 +1050,21 @@ func (t *TransactionJournal) ToArray() A.X { //nolint:dupl false positive
 	}
 	return A.X{
 		id,
-		t.TenantCode,   // 1
-		t.CoaId,        // 2
-		t.DebitIDR,     // 3
-		t.CreditIDR,    // 4
-		t.Descriptions, // 5
-		t.Date,         // 6
-		t.DetailObj,    // 7
-		t.CreatedAt,    // 8
-		t.CreatedBy,    // 9
-		t.UpdatedAt,    // 10
-		t.UpdatedBy,    // 11
-		t.DeletedAt,    // 12
-		t.DeletedBy,    // 13
-		t.RestoredBy,   // 14
+		t.TenantCode,            // 1
+		t.CoaId,                 // 2
+		t.DebitIDR,              // 3
+		t.CreditIDR,             // 4
+		t.Descriptions,          // 5
+		t.Date,                  // 6
+		t.DetailObj,             // 7
+		t.CreatedAt,             // 8
+		t.CreatedBy,             // 9
+		t.UpdatedAt,             // 10
+		t.UpdatedBy,             // 11
+		t.DeletedAt,             // 12
+		t.DeletedBy,             // 13
+		t.RestoredBy,            // 14
+		t.TransactionTemplateId, // 15
 	}
 }
 
@@ -1070,6 +1085,7 @@ func (t *TransactionJournal) FromArray(a A.X) *TransactionJournal { //nolint:dup
 	t.DeletedAt = X.ToI(a[12])
 	t.DeletedBy = X.ToU(a[13])
 	t.RestoredBy = X.ToU(a[14])
+	t.TransactionTemplateId = X.ToU(a[15])
 	return t
 }
 
@@ -1090,6 +1106,7 @@ func (t *TransactionJournal) FromUncensoredArray(a A.X) *TransactionJournal { //
 	t.DeletedAt = X.ToI(a[12])
 	t.DeletedBy = X.ToU(a[13])
 	t.RestoredBy = X.ToU(a[14])
+	t.TransactionTemplateId = X.ToU(a[15])
 	return t
 }
 
@@ -1154,21 +1171,22 @@ func (t *TransactionJournal) Total() int64 { //nolint:dupl false positive
 
 // TransactionJournalFieldTypeMap returns key value of field name and key
 var TransactionJournalFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
-	`id`:           Tt.Unsigned,
-	`tenantCode`:   Tt.String,
-	`coaId`:        Tt.Unsigned,
-	`debitIDR`:     Tt.Integer,
-	`creditIDR`:    Tt.Integer,
-	`descriptions`: Tt.String,
-	`date`:         Tt.String,
-	`detailObj`:    Tt.String,
-	`createdAt`:    Tt.Integer,
-	`createdBy`:    Tt.Unsigned,
-	`updatedAt`:    Tt.Integer,
-	`updatedBy`:    Tt.Unsigned,
-	`deletedAt`:    Tt.Integer,
-	`deletedBy`:    Tt.Unsigned,
-	`restoredBy`:   Tt.Unsigned,
+	`id`:                    Tt.Unsigned,
+	`tenantCode`:            Tt.String,
+	`coaId`:                 Tt.Unsigned,
+	`debitIDR`:              Tt.Integer,
+	`creditIDR`:             Tt.Integer,
+	`descriptions`:          Tt.String,
+	`date`:                  Tt.String,
+	`detailObj`:             Tt.String,
+	`createdAt`:             Tt.Integer,
+	`createdBy`:             Tt.Unsigned,
+	`updatedAt`:             Tt.Integer,
+	`updatedBy`:             Tt.Unsigned,
+	`deletedAt`:             Tt.Integer,
+	`deletedBy`:             Tt.Unsigned,
+	`restoredBy`:            Tt.Unsigned,
+	`transactionTemplateId`: Tt.Unsigned,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

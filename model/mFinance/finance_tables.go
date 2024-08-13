@@ -315,6 +315,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedAt, Tt.Integer},
 			{DeletedBy, Tt.Unsigned},
 			{RestoredBy, Tt.Unsigned},
+			{TransactionTplId, Tt.Unsigned},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,

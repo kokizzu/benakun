@@ -20,7 +20,8 @@ type (
 	DataEntryTransactionEntryIn struct {
 		RequestCommon
 		Cmd      string               `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		CoaId uint64 `json:"coaId" form:"coaId" query:"coaId" long:"coaId" msg:"coaId"`
+		CoaId 	 uint64 `json:"coaId" form:"coaId" query:"coaId" long:"coaId" msg:"coaId"`
+		TransactionTplId 	 uint64 `json:"transactionTplId" form:"transactionTplId" query:"transactionTplId" long:"transactionTplId" msg:"transactionTplId"`
 		TransactionJournals []rqFinance.TransactionJournal `json:"transactionJournals" form:"transactionJournals" query:"transactionJournals" long:"transactionJournals" msg:"transactionJournals"`
 		BusinessTransaction rqFinance.BusinessTransaction `json:"businessTransaction" form:"businessTransaction" query:"businessTransaction" long:"businessTransaction" msg:"businessTransaction"`
 	}
@@ -99,6 +100,12 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 		coaChoices := coa.FindCoasChoicesChildByParentByTenant()
 		out.CoaChildren = coaChoices
 	case zCrud.CmdUpsert:
+		trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
+		trxTemplate.Id = in.TransactionTplId
+		if !trxTemplate.FindById() {
+			out.SetError(400, ErrDataEntryTransactionEntryTransactionTemplateNotFound)
+			return
+		}
 
 		if len(in.TransactionJournals) > 0 {
 			for _, v := range in.TransactionJournals {
@@ -139,6 +146,7 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 					}
 				}
 				
+				trxJournal.SetTransactionTemplateId(trxTemplate.Id)
 				trxJournal.SetDetailObj(v.DetailObj)
 				trxJournal.SetCreatedAt(in.UnixNow())
 				trxJournal.SetCreatedBy(sess.UserId)
@@ -152,17 +160,11 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 			}
 		}
 
-		trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
-		trxTemplate.Id = in.BusinessTransaction.TransactionTemplateId
-		if !trxTemplate.FindById() {
-			out.SetError(400, ErrDataEntryTransactionEntryTransactionTemplateNotFound)
-			return
-		}
-
 		businessTrx := wcFinance.NewBusinessTransactionMutator(d.AuthOltp)
 		businessTrx.SetTenantCode(tenant.TenantCode)
 		businessTrx.SetStartDate(in.BusinessTransaction.StartDate)
 		businessTrx.SetEndDate(in.BusinessTransaction.EndDate)
+		businessTrx.SetTransactionTemplateId(trxTemplate.Id)
 		businessTrx.SetCreatedAt(in.UnixNow())
 		businessTrx.SetCreatedBy(sess.UserId)
 		businessTrx.SetUpdatedAt(in.UnixNow())
