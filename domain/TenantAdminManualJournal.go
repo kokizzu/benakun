@@ -2,8 +2,10 @@ package domain
 
 import (
 	"benakun/model/mAuth/rqAuth"
+	"benakun/model/mAuth/wcAuth"
 	"benakun/model/mFinance"
 	"benakun/model/mFinance/rqFinance"
+	"benakun/model/mFinance/wcFinance"
 	"benakun/model/zCrud"
 )
 
@@ -19,7 +21,9 @@ type (
 		Cmd      string               `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
 		WithMeta bool                 `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
 		Pager    zCrud.PagerIn        `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		TransactionTplId 	 uint64 `json:"transactionTplId" form:"transactionTplId" query:"transactionTplId" long:"transactionTplId" msg:"transactionTplId"`
 		TransactionJournal  rqFinance.TransactionJournal `json:"transactionJournal" form:"transactionJournal" query:"transactionJournal" long:"transactionJournal" msg:"transactionJournal"`
+		BusinessTransaction rqFinance.BusinessTransaction `json:"businessTransaction" form:"businessTransaction" query:"businessTransaction" long:"businessTransaction" msg:"businessTransaction"`
 	}
 	TenantAdminManualJournalOut struct {
 		ResponseCommon
@@ -32,6 +36,13 @@ type (
 
 const (
 	TenantAdminManualJournalAction = `tenantAdmin/manualJournal`
+
+	ErrTenantAdminManualJournalUnauthorized 								= `unauthorized user`
+	ErrTenantAdminManualJournalNotTenant    								= `must be tenant admin to do this operation`
+	ErrTenantAdminManualJournalCoANotFound									= `coa not found to entry this journal`
+	ErrTenantAdminManualJournalTransactionTemplateNotFound	= `transaction template not found to entry this journal` 
+	ErrTenantAdminManualJournalSaveFailed										= `failed to save transaction journal`
+	ErrTenantAdminManualJournalSaveFailedBusinessTrx				= `failed to save business transaction`
 )
 
 var TenantAdminManualJournalMeta = zCrud.Meta{
@@ -111,13 +122,68 @@ func (d *Domain) TenantAdminManualJournal(in *TenantAdminManualJournalIn) (out T
 	user := rqAuth.NewUsers(d.AuthOltp)
 	user.Id = sess.UserId
 	if !user.FindById() {
-		out.SetError(400, ErrTenantAdminProductsUnauthorized)
+		out.SetError(400, ErrTenantAdminManualJournalUnauthorized)
 		return
 	}
 
 	switch in.Cmd {
 	case zCrud.CmdForm:
 	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
+		tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
+		tenant.TenantCode = user.TenantCode
+		if !tenant.FindByTenantCode() {
+			out.SetError(400, ErrTenantAdminProductsNotTenant)
+			return
+		}
+
+		if in.Cmd == zCrud.CmdUpsert {
+			coa := rqFinance.NewCoa(d.AuthOltp)
+			coa.Id = in.TransactionJournal.CoaId
+			if !coa.FindById() {
+				out.SetError(400, ErrTenantAdminManualJournalCoANotFound)
+				return
+			}
+
+			trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
+			trxTemplate.Id = in.TransactionTplId
+			if !trxTemplate.FindById() {
+				out.SetError(400, ErrTenantAdminManualJournalTransactionTemplateNotFound)
+				return
+			}
+
+			trxJournal := wcFinance.NewTransactionJournalMutator(d.AuthOltp)
+			trxJournal.SetCoaId(coa.Id)
+			trxJournal.SetTransactionTemplateId(trxTemplate.Id)
+			trxJournal.SetCreditIDR(in.TransactionJournal.CreditIDR)
+			trxJournal.SetDebitIDR(in.TransactionJournal.DebitIDR)
+			trxJournal.SetDescriptions(in.TransactionJournal.Descriptions)
+			trxJournal.SetDate(in.TransactionJournal.Date)
+			trxJournal.SetDetailObj(in.TransactionJournal.DetailObj)
+			trxJournal.SetCreatedAt(in.UnixNow())
+			trxJournal.SetCreatedBy(sess.UserId)
+			trxJournal.SetUpdatedAt(in.UnixNow())
+			trxJournal.SetUpdatedBy(sess.UserId)
+			if !trxJournal.DoInsert() {
+				out.SetError(400, ErrTenantAdminManualJournalSaveFailed)
+				return
+			}
+			
+			businessTrx := wcFinance.NewBusinessTransactionMutator(d.AuthOltp)
+			businessTrx.SetTenantCode(tenant.TenantCode)
+			businessTrx.SetStartDate(in.BusinessTransaction.StartDate)
+			businessTrx.SetEndDate(in.BusinessTransaction.EndDate)
+			businessTrx.SetTransactionTemplateId(trxTemplate.Id)
+			businessTrx.SetCreatedAt(in.UnixNow())
+			businessTrx.SetCreatedBy(sess.UserId)
+			businessTrx.SetUpdatedAt(in.UnixNow())
+			businessTrx.SetUpdatedBy(sess.UserId)
+
+			if !businessTrx.DoInsert() {
+				out.SetError(400, ErrTenantAdminManualJournalSaveFailedBusinessTrx)
+				return
+			}
+		}
+
 		if in.Pager.Page == 0 {
 			break
 		}

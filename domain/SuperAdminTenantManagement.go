@@ -148,9 +148,10 @@ func (d *Domain) SuperAdminTenantManagement(in *SuperAdminTenantManagementIn) (o
 		out.Tenant.Adapter = nil
 
 		L.Print(`tenant.DeletedAt`, tenant.DeletedAt)
-		if createTables {
+		_ = createTables
+		// if createTables {
 			// TODO: migrate tables for this tenant
-		}
+		// }
 
 		if in.Pager.Page == 0 {
 			break

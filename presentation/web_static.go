@@ -186,6 +186,9 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		coa.TenantCode = tenantCode
 		coas := coa.FindCoasChoicesByTenant()
 
+		org := rqAuth.NewOrgs(d.AuthOltp)
+		org.FindCompanyByTenantCode(tenantCode)
+
 		return views.RenderDataEntryTemplatesTemplate(ctx, M.SX{
 			`title`:      `Data Entry for ` + trxTemplate.Name,
 			`user`:       user,
@@ -193,6 +196,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`transactiontemplate`: trxTemplate,
 			`transactionTplDetails`: trxTplDetails,
 			`coas`: coas,
+			`org`: org,
 		})
 	})
 
@@ -322,6 +326,13 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		coa.TenantCode = user.TenantCode
 		coas := coa.FindCoasChoicesByTenant()
 
+		org := rqAuth.NewOrgs(d.AuthOltp)
+		org.FindCompanyByTenantCode(user.TenantCode)
+
+		trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
+		trxTemplate.TenantCode = user.TenantCode
+		trxTemplatesChoices := trxTemplate.FindTransactionTamplatesChoicesByTenant()
+
 		out := d.TenantAdminManualJournal(&in)
 		return views.RenderTenantAdminManualJournal(ctx, M.SX{
 			`title`:    `Tenant Admin Manual Journal`,
@@ -330,7 +341,9 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`fields`: out.Meta.Fields,
 			`pager`: out.Pager,
 			`transactionJournals`: out.TransactionJournals,
+			`transactionTemplates`: trxTemplatesChoices,
 			`coas`: coas,
+			`org`: org,
 		})
 	})
 

@@ -104,6 +104,7 @@ exports.DataEntryTemplates = async function DataEntryTemplates( i, cb ) {
  * @typedef {Object} DataEntryTransactionEntryIn
  * @property {String} cmd
  * @property {number} coaId
+ * @property {number} transactionTplId
  * @property {Object} transactionJournals
  * @property {number} businessTransaction.id
  * @property {String} businessTransaction.tenantCode
@@ -121,6 +122,7 @@ exports.DataEntryTemplates = async function DataEntryTemplates( i, cb ) {
 const DataEntryTransactionEntryIn = {
   cmd: '', // string
   coaId: 0, // uint64
+  transactionTplId: 0, // uint64
   transactionJournals: { // []rqFinance.TransactionJournal
   }, // []rqFinance.TransactionJournal
   businessTransaction: { // rqFinance.BusinessTransaction
@@ -1747,6 +1749,7 @@ exports.TenantAdminLocations = async function TenantAdminLocations( i, cb ) {
  * @property {number} pager.perPage
  * @property {Object} pager.filters
  * @property {Array<String>} pager.order
+ * @property {number} transactionTplId
  * @property {number} transactionJournal.id
  * @property {String} transactionJournal.tenantCode
  * @property {number} transactionJournal.coaId
@@ -1762,6 +1765,19 @@ exports.TenantAdminLocations = async function TenantAdminLocations( i, cb ) {
  * @property {number} transactionJournal.deletedAt
  * @property {number} transactionJournal.deletedBy
  * @property {number} transactionJournal.restoredBy
+ * @property {number} transactionJournal.transactionTemplateId
+ * @property {number} businessTransaction.id
+ * @property {String} businessTransaction.tenantCode
+ * @property {String} businessTransaction.startDate
+ * @property {String} businessTransaction.endDate
+ * @property {number} businessTransaction.createdAt
+ * @property {number} businessTransaction.createdBy
+ * @property {number} businessTransaction.updatedAt
+ * @property {number} businessTransaction.updatedBy
+ * @property {number} businessTransaction.deletedAt
+ * @property {number} businessTransaction.deletedBy
+ * @property {number} businessTransaction.restoredBy
+ * @property {number} businessTransaction.transactionTemplateId
  */
 const TenantAdminManualJournalIn = {
   cmd: '', // string
@@ -1773,6 +1789,7 @@ const TenantAdminManualJournalIn = {
     }, // map[string][]string
     order: [], // []string
   }, // zCrud.PagerIn
+  transactionTplId: 0, // uint64
   transactionJournal: { // rqFinance.TransactionJournal
     id: 0, // uint64
     tenantCode: '', // string
@@ -1789,7 +1806,22 @@ const TenantAdminManualJournalIn = {
     deletedAt: 0, // int64
     deletedBy: 0, // uint64
     restoredBy: 0, // uint64
+    transactionTemplateId: 0, // uint64
   }, // rqFinance.TransactionJournal
+  businessTransaction: { // rqFinance.BusinessTransaction
+    id: 0, // uint64
+    tenantCode: '', // string
+    startDate: '', // string
+    endDate: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    transactionTemplateId: 0, // uint64
+  }, // rqFinance.BusinessTransaction
 }
 /**
  * @typedef {Object} TenantAdminManualJournalOut
@@ -1817,6 +1849,7 @@ const TenantAdminManualJournalIn = {
  * @property {number} transactionJournal.deletedAt
  * @property {number} transactionJournal.deletedBy
  * @property {number} transactionJournal.restoredBy
+ * @property {number} transactionJournal.transactionTemplateId
  * @property {Object} transactionJournals
  */
 const TenantAdminManualJournalOut = {
@@ -1852,6 +1885,7 @@ const TenantAdminManualJournalOut = {
     deletedAt: 0, // int64
     deletedBy: 0, // uint64
     restoredBy: 0, // uint64
+    transactionTemplateId: 0, // uint64
   }, // rqFinance.TransactionJournal
   transactionJournals: { // [][]any
   }, // [][]any

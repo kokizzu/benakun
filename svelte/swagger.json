@@ -138,6 +138,9 @@
 						"coaId": {
 								"type": "number"
 						},
+						"transactionTplId": {
+								"type": "number"
+						},
 						"transactionJournals": {
 						"type": "object",
 						"properties": {
@@ -2628,6 +2631,9 @@
 										}
 								}
 						},
+						"transactionTplId": {
+								"type": "number"
+						},
 						"transactionJournal": {
 						"type": "object",
 						"properties": {
@@ -2674,6 +2680,50 @@
 										"type": "number"
 								},
 								"restoredBy": {
+										"type": "number"
+								},
+								"transactionTemplateId": {
+										"type": "number"
+								}
+								}
+						},
+						"businessTransaction": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"startDate": {
+										"type": "string"
+								},
+								"endDate": {
+										"type": "string"
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"deletedBy": {
+										"type": "number"
+								},
+								"restoredBy": {
+										"type": "number"
+								},
+								"transactionTemplateId": {
 										"type": "number"
 								}
 								}
@@ -2783,6 +2833,9 @@
 														"type": "number"
 												},
 												"restoredBy": {
+														"type": "number"
+												},
+												"transactionTemplateId": {
 														"type": "number"
 												}
 												}

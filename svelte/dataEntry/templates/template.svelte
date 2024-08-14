@@ -3,6 +3,8 @@
   /** @typedef {import('../../_components/types/transaction.js').TransactionJournal} TransactionJournal */
   /** @typedef {import('../../_components/types/transaction.js').DetailObjectTransaction} DetailObjectTransaction */
   /** @typedef {import('../../_components/types/transaction.js').TransactionTplDetail} TransactionTplDetail */
+  /** @typedef {import('../../_components/types/organization.js').Org} Org */
+  /** @typedef {import('../../_components/types/user.js').User} User */
   /**
    * @typedef {Object} PayloadTransactionJournals
    * @property {string|number} creditIDR
@@ -25,6 +27,8 @@
   let transactionTemplate   = /** @type TransactionTemplate */ ({/* transactiontemplate */});
   let transactionTplDetails = /** @type TransactionTplDetail[] */ ([/* transactionTplDetails */]);
   let coas                  = /** @type Record<number|string, string> */ ({/* coas */});
+  let org                   = /** @type Org */ ({/* org */});
+  let user                  = /** @type User */ ({/* user */});
 
   let isCreatingJournal = false;
   let isSubmitted       = false;
@@ -203,11 +207,11 @@
 </script>
 
 <MainLayout>
-  {#if !isCreatingJournal}
-    <div>
+  <div class={!isCreatingJournal ? 'show' : 'hidden'}>
+    <header>
       <h1>Data entry for {transactionTemplate.name}</h1>
-    </div>
-    <div class="data_entry_template___container">
+    </header>
+    <div class="data_entry_template___container" >
       <div class="transaction_template_detail">
         <div class="table_container">
           <table>
@@ -231,7 +235,7 @@
                     <td class="a_row">
                       <div class="actions">
                         <button
-                          on:click={ () => {
+                          on:click={ async () => {
                             isDebit = trxTplDetail.isDebit
                             isSales = (trxTplDetail.attributes || []).includes('sales')
                             isChildOnly = (trxTplDetail.attributes || []).includes('childOnly')
@@ -239,8 +243,10 @@
 
                             let pyCoaId = trxTplDetail.coaId;
                             if (isChildOnly) {
-                              GetCoaChildren(trxTplDetail.coaId);
-                              for (const id in coaChildren) {
+                              await GetCoaChildren(trxTplDetail.coaId);
+                              console.log(coaChildren);
+                              for (const [id, v] of Object.entries(coaChildren)) {
+                                console.log(id, v);
                                 pyCoaId = Number(id);
                                 break;
                               }
@@ -249,7 +255,7 @@
                             if (isSales) {
                               payloadsMulti = [
                                 {
-                                  coaId: (isChildOnly ? pyCoaId : coaId),
+                                  coaId: Number((isChildOnly ? pyCoaId : coaId)),
                                   descriptions: '',
                                   creditIDR: 0,
                                   debitIDR: 0,
@@ -259,6 +265,7 @@
                                   transactionTplId: transactionTemplate.id
                                 }
                               ]
+                              console.log(payloadsMulti);
                             } else if (isChildOnly) {
                               payloadsMulti = [
                                 {
@@ -306,11 +313,11 @@
         </div>
       </div>
     </div>
-  {/if}
-  {#if isCreatingJournal}
-    <div>
+  </div>
+  <div class={isCreatingJournal ? 'show' : 'hidden'}>
+    <header>
       <h1>Entry journal for "{coas[coaId]}"</h1>
-    </div>
+    </header>
     <div class="data_entry_journal___container">
       <div class="forms_journal">
         <div class="form_date">
@@ -327,6 +334,23 @@
             bind:value={endDate}
             type="date"
           />
+        </div>
+        <div class="company_details">
+          <div class="company_name">
+            <div class="title">
+              <span>Company Name</span>
+            </div>
+            <h5>{org.name || ''}</h5>
+          </div>
+          <div class="company_contacts">
+            <div class="title">
+              <span>Company Contacts</span>
+            </div>
+            <div class="contacts">
+              <p>Head Title: {org.headTitle || ''}</p>
+              <p>Email: {user.email}</p>
+            </div>
+          </div>
         </div>
         {#if isSales || isChildOnly}
           <div class="actions">
@@ -415,59 +439,59 @@
               </thead>
               <tbody>
                 {#each (payloadsMulti || []) as py, i}
-                <tr>
-                  <td>
-                    <button
-                      disabled={i === 0}
-                      title={i === 0 ? 'Cannot remove first row' : 'Remove row'}
-                      class="btn_remove"
-                      on:click={() => payloadsMulti = payloadsMulti.filter((item) => item !== py)}
-                    >
-                      <Icon
-                        src={RiSystemDeleteBin6Line}
-                        size="16"
-                      />
-                    </button>
-                    </td>
-                  {#if !isAutoSum}
-                    {#if isDebit}
-                      <td>
-                        <input type="number" min=0 bind:value={py.debitIDR}/>
+                  <tr>
+                    <td>
+                      <button
+                        disabled={i === 0}
+                        title={i === 0 ? 'Cannot remove first row' : 'Remove row'}
+                        class="btn_remove"
+                        on:click={() => payloadsMulti = payloadsMulti.filter((item) => item !== py)}
+                      >
+                        <Icon
+                          src={RiSystemDeleteBin6Line}
+                          size="16"
+                        />
+                      </button>
                       </td>
-                    {:else}
+                    {#if !isAutoSum}
+                      {#if isDebit}
+                        <td>
+                          <input type="number" min=0 bind:value={py.debitIDR}/>
+                        </td>
+                      {:else}
+                        <td>
+                          <input type="number" min=0 bind:value={py.creditIDR}/>
+                        </td>
+                      {/if}
+                    {/if}
+                    <td>
+                      <textarea
+                        placeholder="Description"
+                        bind:value={py.descriptions}
+                        rows="1"
+                      />
+                    </td>
+                    <td>
+                      <input type="date" bind:value={py.date}/>
+                    </td>
+                    {#if isChildOnly}
                       <td>
-                        <input type="number" min=0 bind:value={py.creditIDR}/>
+                        <select bind:value={py.coaId}>
+                          {#each Object.entries(coaChildren) as [k, v], idx}
+                            <option value={k}>{v}</option>
+                          {/each}
+                        </select>
                       </td>
                     {/if}
-                  {/if}
-                  <td>
-                    <textarea
-                      placeholder="Description"
-                      bind:value={py.descriptions}
-                      rows="1"
-                    />
-                  </td>
-                  <td>
-                    <input type="date" bind:value={py.date}/>
-                  </td>
-                  {#if isChildOnly}
-                    <td>
-                      <select bind:value={py.coaId}>
-                        {#each Object.entries(coaChildren) as [k, v], idx}
-                          <option value={k} selected={py.coaId === k}>{`${idx+1}: ${v}`}</option>
-                        {/each}
-                      </select>
-                    </td>
-                  {/if}
-                  {#if isSales}
-                    <td>
-                      <input type="number" min=0 bind:value={py.salesCount}/>
-                    </td>
-                    <td>
-                      <input type="number" min=0 bind:value={py.salesPriceIDR}/>
-                    </td>
-                  {/if}
-                </tr>
+                    {#if isSales}
+                      <td>
+                        <input type="number" min=0 bind:value={py.salesCount}/>
+                      </td>
+                      <td>
+                        <input type="number" min=0 bind:value={py.salesPriceIDR}/>
+                      </td>
+                    {/if}
+                  </tr>
                 {/each}
               </tbody>
             {/if}
@@ -482,6 +506,7 @@
           Cancel
         </button>
         <button
+          disabled={isSubmitted}
           class="btn submit"
           on:click={() => {
             if (!isSales && !isChildOnly) Submit();
@@ -497,10 +522,22 @@
         </button>
       </div>
     </div>
-  {/if}
+  </div>
 </MainLayout>
 
 <style>
+  .show {
+    display: block;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  header {
+    margin-left: 30px;
+  }
+
   .data_entry_template___container {
     display: flex;
   }
@@ -645,6 +682,47 @@
     gap: 10px;
   }
 
+  .data_entry_journal___container .company_details {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: start;
+    gap: 100px;
+    padding: 30px 0;
+  }
+
+  .data_entry_journal___container .company_details .company_name,
+  .data_entry_journal___container .company_details .company_contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .data_entry_journal___container .company_details .company_name .title,
+  .data_entry_journal___container .company_details .company_contacts .title {
+    font-size: var(--font-lg);
+    border-bottom: 2px solid var(--blue-005);
+    padding-bottom: 8px;
+  }
+
+  .data_entry_journal___container .company_details .company_name h5 {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--blue-005);
+    margin: 0;
+  }
+
+  .data_entry_journal___container .company_details .company_contacts .contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .data_entry_journal___container .company_details .company_contacts .contacts p {
+    margin: 0;
+  }
+
   .data_entry_journal___container .forms_journal .actions {
     display: flex;
     flex-direction: row;
@@ -746,5 +824,11 @@
 
   .data_entry_journal___container .actions .btn.submit:hover {
     background-color: var(--green-005);
+  }
+
+  .data_entry_journal___container .actions .btn.submit:disabled {
+    cursor: not-allowed;
+    background-color: var(--gray-003);
+    color: var(--gray-007);
   }
 </style>

@@ -73,6 +73,24 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 	return coaChoices
 }
 
+func (ttpl *TransactionTemplate) FindTransactionTamplatesChoicesByTenant() map[string]string {
+	const comment = `-- TransactionTemplate) FindTransactionTamplatesChoicesByTenant`
+
+	whereAndSql := ` WHERE ` + ttpl.SqlTenantCode() + ` = ` + S.Z(ttpl.TenantCode)
+
+	queryRows := comment + `
+SELECT ` + ttpl.SqlId() + `, ` + ttpl.SqlName() + `
+FROM SEQSCAN ` + ttpl.SqlTableName() + whereAndSql
+
+	ttplsChoices := make(map[string]string)
+	ttpl.Adapter.QuerySql(queryRows, func(row []any) {
+		if len(row) == 2 {
+			ttplsChoices[X.ToS(row[0])] = X.ToS(row[1])
+		}
+	})
+
+	return ttplsChoices
+}
 
 func (ttm *TransactionTemplate) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zCrud.PagerOut) (res [][]any) {
 	const comment = `-- TransactionTemplate) FindByPagination`
