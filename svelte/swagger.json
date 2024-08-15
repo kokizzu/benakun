@@ -2631,6 +2631,9 @@
 										}
 								}
 						},
+						"coaId": {
+								"type": "number"
+						},
 						"transactionTplId": {
 								"type": "number"
 						},

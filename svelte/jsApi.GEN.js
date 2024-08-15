@@ -1749,6 +1749,7 @@ exports.TenantAdminLocations = async function TenantAdminLocations( i, cb ) {
  * @property {number} pager.perPage
  * @property {Object} pager.filters
  * @property {Array<String>} pager.order
+ * @property {number} coaId
  * @property {number} transactionTplId
  * @property {number} transactionJournal.id
  * @property {String} transactionJournal.tenantCode
@@ -1789,6 +1790,7 @@ const TenantAdminManualJournalIn = {
     }, // map[string][]string
     order: [], // []string
   }, // zCrud.PagerIn
+  coaId: 0, // uint64
   transactionTplId: 0, // uint64
   transactionJournal: { // rqFinance.TransactionJournal
     id: 0, // uint64

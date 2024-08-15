@@ -21,6 +21,7 @@ type (
 		Cmd      string               `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
 		WithMeta bool                 `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
 		Pager    zCrud.PagerIn        `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		CoaId 	 uint64 `json:"coaId" form:"coaId" query:"coaId" long:"coaId" msg:"coaId"`
 		TransactionTplId 	 uint64 `json:"transactionTplId" form:"transactionTplId" query:"transactionTplId" long:"transactionTplId" msg:"transactionTplId"`
 		TransactionJournal  rqFinance.TransactionJournal `json:"transactionJournal" form:"transactionJournal" query:"transactionJournal" long:"transactionJournal" msg:"transactionJournal"`
 		BusinessTransaction rqFinance.BusinessTransaction `json:"businessTransaction" form:"businessTransaction" query:"businessTransaction" long:"businessTransaction" msg:"businessTransaction"`
@@ -42,7 +43,10 @@ const (
 	ErrTenantAdminManualJournalCoANotFound									= `coa not found to entry this journal`
 	ErrTenantAdminManualJournalTransactionTemplateNotFound	= `transaction template not found to entry this journal` 
 	ErrTenantAdminManualJournalSaveFailed										= `failed to save transaction journal`
+	ErrTenantAdminManualJournalUpdateFailed									= `failed to update transaction journal`
 	ErrTenantAdminManualJournalSaveFailedBusinessTrx				= `failed to save business transaction`
+	ErrTenantAdminManualJournalNotFound											= `transaction journal not found`
+	ErrTenantAdminManualJournalInvalidDetailObject 					= `invalid format for detail object`
 )
 
 var TenantAdminManualJournalMeta = zCrud.Meta{
@@ -74,14 +78,20 @@ var TenantAdminManualJournalMeta = zCrud.Meta{
 		{
 			Name: mFinance.Description,
 			Label: "Deskripsi / Description",
-			DataType: zCrud.DataTypeInt,
-			InputType: zCrud.InputTypeNumber,
+			DataType: zCrud.DataTypeString,
+			InputType: zCrud.InputTypeTextArea,
+		},
+		{
+			Name: mFinance.Date,
+			Label: "Tanggal / Date",
+			DataType: zCrud.DataTypeString,
+			InputType: zCrud.InputTypeDateTime,
 		},
 		{
 			Name: mFinance.DetailObj,
 			Label: "Detail",
 			DataType: zCrud.DataTypeString,
-			InputType: zCrud.InputTypeText,
+			InputType: zCrud.InputTypeTextArea,
 		},
 		{
 			Name:      mFinance.CreatedAt,
@@ -137,50 +147,93 @@ func (d *Domain) TenantAdminManualJournal(in *TenantAdminManualJournalIn) (out T
 		}
 
 		if in.Cmd == zCrud.CmdUpsert {
-			coa := rqFinance.NewCoa(d.AuthOltp)
-			coa.Id = in.TransactionJournal.CoaId
-			if !coa.FindById() {
-				out.SetError(400, ErrTenantAdminManualJournalCoANotFound)
-				return
-			}
+			if in.TransactionJournal.Id == 0 {
+				coa := rqFinance.NewCoa(d.AuthOltp)
+				coa.Id = in.CoaId
+				if !coa.FindById() {
+					out.SetError(400, ErrTenantAdminManualJournalCoANotFound)
+					return
+				}
 
-			trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
-			trxTemplate.Id = in.TransactionTplId
-			if !trxTemplate.FindById() {
-				out.SetError(400, ErrTenantAdminManualJournalTransactionTemplateNotFound)
-				return
-			}
+				trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
+				trxTemplate.Id = in.TransactionTplId
+				if !trxTemplate.FindById() {
+					out.SetError(400, ErrTenantAdminManualJournalTransactionTemplateNotFound)
+					return
+				}
 
-			trxJournal := wcFinance.NewTransactionJournalMutator(d.AuthOltp)
-			trxJournal.SetCoaId(coa.Id)
-			trxJournal.SetTransactionTemplateId(trxTemplate.Id)
-			trxJournal.SetCreditIDR(in.TransactionJournal.CreditIDR)
-			trxJournal.SetDebitIDR(in.TransactionJournal.DebitIDR)
-			trxJournal.SetDescriptions(in.TransactionJournal.Descriptions)
-			trxJournal.SetDate(in.TransactionJournal.Date)
-			trxJournal.SetDetailObj(in.TransactionJournal.DetailObj)
-			trxJournal.SetCreatedAt(in.UnixNow())
-			trxJournal.SetCreatedBy(sess.UserId)
-			trxJournal.SetUpdatedAt(in.UnixNow())
-			trxJournal.SetUpdatedBy(sess.UserId)
-			if !trxJournal.DoInsert() {
-				out.SetError(400, ErrTenantAdminManualJournalSaveFailed)
-				return
-			}
-			
-			businessTrx := wcFinance.NewBusinessTransactionMutator(d.AuthOltp)
-			businessTrx.SetTenantCode(tenant.TenantCode)
-			businessTrx.SetStartDate(in.BusinessTransaction.StartDate)
-			businessTrx.SetEndDate(in.BusinessTransaction.EndDate)
-			businessTrx.SetTransactionTemplateId(trxTemplate.Id)
-			businessTrx.SetCreatedAt(in.UnixNow())
-			businessTrx.SetCreatedBy(sess.UserId)
-			businessTrx.SetUpdatedAt(in.UnixNow())
-			businessTrx.SetUpdatedBy(sess.UserId)
+				trxJournal := wcFinance.NewTransactionJournalMutator(d.AuthOltp)
+				trxJournal.SetTenantCode(tenant.TenantCode)
+				trxJournal.SetCoaId(coa.Id)
+				trxJournal.SetTransactionTemplateId(trxTemplate.Id)
+				trxJournal.SetCreditIDR(in.TransactionJournal.CreditIDR)
+				trxJournal.SetDebitIDR(in.TransactionJournal.DebitIDR)
+				trxJournal.SetDescriptions(in.TransactionJournal.Descriptions)
+				trxJournal.SetDate(in.TransactionJournal.Date)
+				trxJournal.SetDetailObj(in.TransactionJournal.DetailObj)
+				trxJournal.SetCreatedAt(in.UnixNow())
+				trxJournal.SetCreatedBy(sess.UserId)
+				trxJournal.SetUpdatedAt(in.UnixNow())
+				trxJournal.SetUpdatedBy(sess.UserId)
+				if !trxJournal.DoInsert() {
+					out.SetError(400, ErrTenantAdminManualJournalSaveFailed)
+					return
+				}
+				
+				businessTrx := wcFinance.NewBusinessTransactionMutator(d.AuthOltp)
+				businessTrx.SetTenantCode(tenant.TenantCode)
+				businessTrx.SetStartDate(in.BusinessTransaction.StartDate)
+				businessTrx.SetEndDate(in.BusinessTransaction.EndDate)
+				businessTrx.SetTransactionTemplateId(trxTemplate.Id)
+				businessTrx.SetCreatedAt(in.UnixNow())
+				businessTrx.SetCreatedBy(sess.UserId)
+				businessTrx.SetUpdatedAt(in.UnixNow())
+				businessTrx.SetUpdatedBy(sess.UserId)
 
-			if !businessTrx.DoInsert() {
-				out.SetError(400, ErrTenantAdminManualJournalSaveFailedBusinessTrx)
-				return
+				if !businessTrx.DoInsert() {
+					out.SetError(400, ErrTenantAdminManualJournalSaveFailedBusinessTrx)
+					return
+				}
+			} else {
+				trxJournal := wcFinance.NewTransactionJournalMutator(d.AuthOltp)
+				trxJournal.Id = in.TransactionJournal.Id
+				if !trxJournal.FindById() {
+					out.SetError(400, ErrTenantAdminManualJournalNotFound)
+					return
+				}
+
+				if in.TransactionJournal.DebitIDR != 0 {
+					trxJournal.SetDebitIDR(in.TransactionJournal.DebitIDR)
+				}
+
+				if in.TransactionJournal.CreditIDR != 0 {
+					trxJournal.SetCreditIDR(in.TransactionJournal.CreditIDR)
+				}
+
+				if in.TransactionJournal.Descriptions != `` {
+					trxJournal.SetDescriptions(in.TransactionJournal.Descriptions)
+				}
+
+				if in.TransactionJournal.Date != `` {
+					if mFinance.IsValidDate(in.TransactionJournal.Date) {
+						trxJournal.SetDate(in.TransactionJournal.Date)
+					}
+				}
+
+				if in.TransactionJournal.DetailObj != `` {
+					if mFinance.IsValidDetailObject(in.TransactionJournal.DetailObj) {
+						trxJournal.SetDetailObj(in.TransactionJournal.DetailObj)
+					} else {
+						out.SetError(400, ErrTenantAdminManualJournalInvalidDetailObject)
+						return
+					}
+				}
+
+				trxJournal.SetUpdatedAt(in.UnixNow())
+				if !trxJournal.DoUpdateById() {
+					out.SetError(400, ErrTenantAdminManualJournalUpdateFailed)
+					return
+				}
 			}
 		}
 

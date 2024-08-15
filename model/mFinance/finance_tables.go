@@ -1,15 +1,11 @@
 package mFinance
 
 import (
+	"time"
+
 	"github.com/goccy/go-json"
 	"github.com/kokizzu/gotro/D/Tt"
 )
-
-// TODO: business transaction
-// Fields: startDate, endDate
-
-// TODO: transaction journal
-// Fields: trxStart, trxEnd, parentTransaction
 
 const (
 	Id         = `id`
@@ -210,6 +206,12 @@ const (
 type TransactionJournalDetailObject struct {
 	SalesCount 		uint64 `json:"salesCount"`
 	SalesPriceIDR string `json:"salesPriceIDR"` // Currency must be string
+}
+
+func IsValidDate(dateStr string) bool {
+	_, err := time.Parse("2006-01-02", dateStr)
+	
+	return err == nil
 }
 
 func IsValidDetailObject(in string) bool {

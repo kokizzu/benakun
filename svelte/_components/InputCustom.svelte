@@ -62,6 +62,9 @@
     {:else if type === 'number'}
       <label class="label" for={id}>{label}</label>
       <input type="number" bind:value={value} {id} {placeholder}/>
+    {:else if type === 'datetime'}
+      <label class="label" for={id}>{label}</label>
+      <input type="date" bind:value={value} {id} {placeholder}/>
     {:else if type === 'percentage'}
       <label class="label" for={id}>{label}</label>
       <div class="input_percentage">

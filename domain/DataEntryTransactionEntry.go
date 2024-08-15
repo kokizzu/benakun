@@ -7,7 +7,6 @@ import (
 	"benakun/model/mFinance/rqFinance"
 	"benakun/model/mFinance/wcFinance"
 	"benakun/model/zCrud"
-	"time"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file DataEntryTransactionEntry.go
@@ -34,17 +33,17 @@ type (
 const (
 	DataEntryTransactionEntryAction = `dataEntry/transactionEntry`
 
-	ErrDataEntryTransactionEntryUnauthorized = `you are unauthorized as data entry`
-	ErrDataEntryTransactionEntryUserNotFound = `user not found`
-	ErrDataEntryTransactionEntryTenantNotFound = `tenant not found`
-	ErrDataEntryTransactionEntryNotDataEntry = `must be data entry to do this operation`
-	ErrDataEntryTransactionEntryInvalidUserRole = `invalid role to this tenant`
-	ErrDataEntryTransactionEntryCoaNotFound = `coa not found to journaling this transaction`
-	ErrDataEntryTransactionEntryCoaIsEmpty = `coa id cannot be empty`
-	ErrDataEntryTransactionEntryInvalidCoaChild = `invalid coa child`
-	ErrDataEntryTransactionEntryInvalidDate = `invalid date format, must be use format "01/02/2006"`
-	ErrDataEntryTransactionEntryInvalidDetailObject = `invalid detail format`
-	ErrDataEntryTransactionEntrySaveFailed = `failed to save transaction journal`
+	ErrDataEntryTransactionEntryUnauthorized 								= `you are unauthorized as data entry`
+	ErrDataEntryTransactionEntryUserNotFound 								= `user not found`
+	ErrDataEntryTransactionEntryTenantNotFound 							= `tenant not found`
+	ErrDataEntryTransactionEntryNotDataEntry 								= `must be data entry to do this operation`
+	ErrDataEntryTransactionEntryInvalidUserRole 						= `invalid role to this tenant`
+	ErrDataEntryTransactionEntryCoaNotFound 								= `coa not found to journaling this transaction`
+	ErrDataEntryTransactionEntryCoaIsEmpty 									= `coa id cannot be empty`
+	ErrDataEntryTransactionEntryInvalidCoaChild 						= `invalid coa child`
+	ErrDataEntryTransactionEntryInvalidDate 								= `invalid date format, must be use format "01/02/2006"`
+	ErrDataEntryTransactionEntryInvalidDetailObject 				= `invalid format for detail object`
+	ErrDataEntryTransactionEntrySaveFailed 									= `failed to save transaction journal`
 	ErrDataEntryTransactionEntryTransactionTemplateNotFound = `transaction template not found`
 )
 
@@ -133,7 +132,7 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 				trxJournal.SetCreditIDR(v.CreditIDR)
 				trxJournal.SetDescriptions(v.Descriptions)
 
-				if !isStrIsoDate(v.Date) {
+				if !mFinance.IsValidDate(v.Date) {
 					out.SetError(400, ErrDataEntryTransactionEntryInvalidDate)
 					return
 				}
@@ -177,9 +176,4 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 	}
 	
 	return
-}
-
-func isStrIsoDate(dateStr string) bool {
-	_, err := time.Parse("2006-01-02", dateStr)
-	return err == nil
 }

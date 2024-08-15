@@ -4418,14 +4418,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // _components/InputCustom.svelte
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[26] = list[i];
+    child_ctx[27] = list[i];
     return child_ctx;
   }
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[25] = list[i][0];
-    child_ctx[26] = list[i][1];
-    child_ctx[28] = i;
+    child_ctx[26] = list[i][0];
+    child_ctx[27] = list[i][1];
+    child_ctx[29] = i;
     return child_ctx;
   }
   function create_else_block_1(ctx) {
@@ -4480,21 +4480,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           dispose = listen(
             input,
             "input",
-            /*input_input_handler_8*/
-            ctx[24]
+            /*input_input_handler_9*/
+            ctx[25]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*label*/
+        if (dirty[0] & /*label*/
         32)
           set_data(
             t0,
             /*label*/
             ctx2[5]
           );
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             label_1,
@@ -4503,7 +4503,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             input,
@@ -4512,7 +4512,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*placeholder*/
+        if (dirty[0] & /*placeholder*/
         64) {
           attr(
             input,
@@ -4521,7 +4521,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[6]
           );
         }
-        if (dirty & /*value, values*/
+        if (dirty[0] & /*value, values*/
         18 && input.value !== /*value*/
         ctx2[1]) {
           set_input_value(
@@ -4544,7 +4544,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_14(ctx) {
+  function create_if_block_15(ctx) {
     let label_1;
     let t0;
     let t1;
@@ -4594,21 +4594,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           dispose = listen(
             input,
             "input",
-            /*input_input_handler_7*/
-            ctx[23]
+            /*input_input_handler_8*/
+            ctx[24]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*label*/
+        if (dirty[0] & /*label*/
         32)
           set_data(
             t0,
             /*label*/
             ctx2[5]
           );
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             label_1,
@@ -4617,7 +4617,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             input,
@@ -4626,7 +4626,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*value, values*/
+        if (dirty[0] & /*value, values*/
         18) {
           set_input_value(
             input,
@@ -4648,7 +4648,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_10(ctx) {
+  function create_if_block_11(ctx) {
     let label_1;
     let t0;
     let t1;
@@ -4660,7 +4660,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let dispose;
     let if_block = (
       /*type*/
-      ctx[3] === "password" && create_if_block_11(ctx)
+      ctx[3] === "password" && create_if_block_12(ctx)
     );
     return {
       c() {
@@ -4705,7 +4705,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           /*value*/
           ctx[1]
         );
-        ctx[22](input);
+        ctx[23](input);
         insert(target, t2, anchor);
         if (if_block)
           if_block.m(target, anchor);
@@ -4715,21 +4715,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           dispose = listen(
             input,
             "input",
-            /*input_input_handler_6*/
-            ctx[21]
+            /*input_input_handler_7*/
+            ctx[22]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (!current || dirty & /*label*/
+        if (!current || dirty[0] & /*label*/
         32)
           set_data(
             t0,
             /*label*/
             ctx2[5]
           );
-        if (!current || dirty & /*id*/
+        if (!current || dirty[0] & /*id*/
         1) {
           attr(
             label_1,
@@ -4738,7 +4738,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (!current || dirty & /*id*/
+        if (!current || dirty[0] & /*id*/
         1) {
           attr(
             input,
@@ -4747,7 +4747,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (!current || dirty & /*placeholder*/
+        if (!current || dirty[0] & /*placeholder*/
         64) {
           attr(
             input,
@@ -4756,7 +4756,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[6]
           );
         }
-        if (dirty & /*value, values*/
+        if (dirty[0] & /*value, values*/
         18 && input.value !== /*value*/
         ctx2[1]) {
           set_input_value(
@@ -4771,12 +4771,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
-            if (dirty & /*type*/
+            if (dirty[0] & /*type*/
             8) {
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block_11(ctx2);
+            if_block = create_if_block_12(ctx2);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -4807,7 +4807,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           detach(t2);
           detach(if_block_anchor);
         }
-        ctx[22](null);
+        ctx[23](null);
         if (if_block)
           if_block.d(detaching);
         mounted = false;
@@ -4815,7 +4815,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_9(ctx) {
+  function create_if_block_10(ctx) {
     let label_1;
     let t0;
     let t1;
@@ -4867,21 +4867,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           dispose = listen(
             input,
             "input",
-            /*input_input_handler_5*/
-            ctx[20]
+            /*input_input_handler_6*/
+            ctx[21]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*label*/
+        if (dirty[0] & /*label*/
         32)
           set_data(
             t0,
             /*label*/
             ctx2[5]
           );
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             label_1,
@@ -4890,7 +4890,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             input,
@@ -4899,7 +4899,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*placeholder*/
+        if (dirty[0] & /*placeholder*/
         64) {
           attr(
             input,
@@ -4908,7 +4908,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[6]
           );
         }
-        if (dirty & /*value, values*/
+        if (dirty[0] & /*value, values*/
         18) {
           set_input_value(
             input,
@@ -4930,7 +4930,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_8(ctx) {
+  function create_if_block_9(ctx) {
     let label_1;
     let t0;
     let t1;
@@ -4982,21 +4982,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           dispose = listen(
             input,
             "input",
-            /*input_input_handler_4*/
-            ctx[19]
+            /*input_input_handler_5*/
+            ctx[20]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*label*/
+        if (dirty[0] & /*label*/
         32)
           set_data(
             t0,
             /*label*/
             ctx2[5]
           );
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             label_1,
@@ -5005,7 +5005,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             input,
@@ -5014,7 +5014,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*placeholder*/
+        if (dirty[0] & /*placeholder*/
         64) {
           attr(
             input,
@@ -5023,7 +5023,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[6]
           );
         }
-        if (dirty & /*value, values*/
+        if (dirty[0] & /*value, values*/
         18 && input.value !== /*value*/
         ctx2[1]) {
           set_input_value(
@@ -5046,7 +5046,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_7(ctx) {
+  function create_if_block_8(ctx) {
     let label_1;
     let t0;
     let t1;
@@ -5099,21 +5099,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           dispose = listen(
             input,
             "input",
-            /*input_input_handler_3*/
-            ctx[18]
+            /*input_input_handler_4*/
+            ctx[19]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*label*/
+        if (dirty[0] & /*label*/
         32)
           set_data(
             t0,
             /*label*/
             ctx2[5]
           );
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             label_1,
@@ -5122,7 +5122,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             input,
@@ -5131,7 +5131,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*placeholder*/
+        if (dirty[0] & /*placeholder*/
         64) {
           attr(
             input,
@@ -5140,7 +5140,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[6]
           );
         }
-        if (dirty & /*value, values*/
+        if (dirty[0] & /*value, values*/
         18 && input.value !== /*value*/
         ctx2[1]) {
           set_input_value(
@@ -5163,7 +5163,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_6(ctx) {
+  function create_if_block_7(ctx) {
     let label_1;
     let t0;
     let t1;
@@ -5215,20 +5215,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             textarea,
             "input",
             /*textarea_input_handler*/
-            ctx[17]
+            ctx[18]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*label*/
+        if (dirty[0] & /*label*/
         32)
           set_data(
             t0,
             /*label*/
             ctx2[5]
           );
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             label_1,
@@ -5237,7 +5237,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             textarea,
@@ -5246,7 +5246,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*placeholder*/
+        if (dirty[0] & /*placeholder*/
         64) {
           attr(
             textarea,
@@ -5255,7 +5255,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[6]
           );
         }
-        if (dirty & /*value, values*/
+        if (dirty[0] & /*value, values*/
         18) {
           set_input_value(
             textarea,
@@ -5277,7 +5277,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_5(ctx) {
+  function create_if_block_6(ctx) {
     let label_1;
     let t0;
     let t1;
@@ -5329,21 +5329,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           dispose = listen(
             input,
             "input",
-            /*input_input_handler_2*/
-            ctx[16]
+            /*input_input_handler_3*/
+            ctx[17]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*label*/
+        if (dirty[0] & /*label*/
         32)
           set_data(
             t0,
             /*label*/
             ctx2[5]
           );
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             label_1,
@@ -5352,7 +5352,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             input,
@@ -5361,7 +5361,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*placeholder*/
+        if (dirty[0] & /*placeholder*/
         64) {
           attr(
             input,
@@ -5370,7 +5370,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[6]
           );
         }
-        if (dirty & /*value, values*/
+        if (dirty[0] & /*value, values*/
         18 && to_number(input.value) !== /*value*/
         ctx2[1]) {
           set_input_value(
@@ -5393,7 +5393,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_4(ctx) {
+  function create_if_block_5(ctx) {
     let label_1;
     let t0;
     let t1;
@@ -5457,21 +5457,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           dispose = listen(
             input,
             "input",
-            /*input_input_handler_1*/
-            ctx[15]
+            /*input_input_handler_2*/
+            ctx[16]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*label*/
+        if (dirty[0] & /*label*/
         32)
           set_data(
             t0,
             /*label*/
             ctx2[5]
           );
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             label_1,
@@ -5480,7 +5480,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             input,
@@ -5489,7 +5489,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*placeholder*/
+        if (dirty[0] & /*placeholder*/
         64) {
           attr(
             input,
@@ -5498,7 +5498,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[6]
           );
         }
-        if (dirty & /*value, values*/
+        if (dirty[0] & /*value, values*/
         18 && to_number(input.value) !== /*value*/
         ctx2[1]) {
           set_input_value(
@@ -5515,6 +5515,121 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           detach(label_1);
           detach(t1);
           detach(div);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_4(ctx) {
+    let label_1;
+    let t0;
+    let t1;
+    let input;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        label_1 = element("label");
+        t0 = text(
+          /*label*/
+          ctx[5]
+        );
+        t1 = space();
+        input = element("input");
+        attr(label_1, "class", "label svelte-1drs2z5");
+        attr(
+          label_1,
+          "for",
+          /*id*/
+          ctx[0]
+        );
+        attr(input, "type", "date");
+        attr(
+          input,
+          "id",
+          /*id*/
+          ctx[0]
+        );
+        attr(
+          input,
+          "placeholder",
+          /*placeholder*/
+          ctx[6]
+        );
+        attr(input, "class", "svelte-1drs2z5");
+      },
+      m(target, anchor) {
+        insert(target, label_1, anchor);
+        append(label_1, t0);
+        insert(target, t1, anchor);
+        insert(target, input, anchor);
+        set_input_value(
+          input,
+          /*value*/
+          ctx[1]
+        );
+        if (!mounted) {
+          dispose = listen(
+            input,
+            "input",
+            /*input_input_handler_1*/
+            ctx[15]
+          );
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty[0] & /*label*/
+        32)
+          set_data(
+            t0,
+            /*label*/
+            ctx2[5]
+          );
+        if (dirty[0] & /*id*/
+        1) {
+          attr(
+            label_1,
+            "for",
+            /*id*/
+            ctx2[0]
+          );
+        }
+        if (dirty[0] & /*id*/
+        1) {
+          attr(
+            input,
+            "id",
+            /*id*/
+            ctx2[0]
+          );
+        }
+        if (dirty[0] & /*placeholder*/
+        64) {
+          attr(
+            input,
+            "placeholder",
+            /*placeholder*/
+            ctx2[6]
+          );
+        }
+        if (dirty[0] & /*value, values*/
+        18) {
+          set_input_value(
+            input,
+            /*value*/
+            ctx2[1]
+          );
+        }
+      },
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(label_1);
+          detach(t1);
+          detach(input);
         }
         mounted = false;
         dispose();
@@ -5580,14 +5695,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*label*/
+        if (dirty[0] & /*label*/
         32)
           set_data(
             t0,
             /*label*/
             ctx2[5]
           );
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             label_1,
@@ -5596,7 +5711,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             input,
@@ -5605,7 +5720,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*placeholder*/
+        if (dirty[0] & /*placeholder*/
         64) {
           attr(
             input,
@@ -5614,7 +5729,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[6]
           );
         }
-        if (dirty & /*value, values*/
+        if (dirty[0] & /*value, values*/
         18 && to_number(input.value) !== /*value*/
         ctx2[1]) {
           set_input_value(
@@ -5647,7 +5762,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         return create_if_block_2;
       return create_else_block;
     }
-    let current_block_type = select_block_type_1(ctx, -1);
+    let current_block_type = select_block_type_1(ctx, [-1, -1]);
     let if_block = current_block_type(ctx);
     return {
       c() {
@@ -5747,14 +5862,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*label*/
+        if (dirty[0] & /*label*/
         32)
           set_data(
             t0,
             /*label*/
             ctx2[5]
           );
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             label0,
@@ -5763,7 +5878,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             input,
@@ -5772,12 +5887,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*value, values*/
+        if (dirty[0] & /*value, values*/
         18) {
           input.checked = /*value*/
           ctx2[1];
         }
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             label1,
@@ -5800,17 +5915,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_11(ctx) {
+  function create_if_block_12(ctx) {
     let button;
     let t;
     let current;
     let mounted;
     let dispose;
     let if_block0 = !/*isShowPassword*/
-    ctx[8] && create_if_block_13(ctx);
+    ctx[8] && create_if_block_14(ctx);
     let if_block1 = (
       /*isShowPassword*/
-      ctx[8] && create_if_block_12(ctx)
+      ctx[8] && create_if_block_13(ctx)
     );
     return {
       c() {
@@ -5844,12 +5959,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (!/*isShowPassword*/
         ctx2[8]) {
           if (if_block0) {
-            if (dirty & /*isShowPassword*/
+            if (dirty[0] & /*isShowPassword*/
             256) {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_13(ctx2);
+            if_block0 = create_if_block_14(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(button, t);
@@ -5866,12 +5981,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           ctx2[8]
         ) {
           if (if_block1) {
-            if (dirty & /*isShowPassword*/
+            if (dirty[0] & /*isShowPassword*/
             256) {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_12(ctx2);
+            if_block1 = create_if_block_13(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(button, null);
@@ -5909,7 +6024,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_13(ctx) {
+  function create_if_block_14(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -5942,7 +6057,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_12(ctx) {
+  function create_if_block_13(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -6082,14 +6197,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*label*/
+        if (dirty[0] & /*label*/
         32)
           set_data(
             t0,
             /*label*/
             ctx2[5]
           );
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             label_1,
@@ -6098,14 +6213,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*placeholder*/
+        if (dirty[0] & /*placeholder*/
         64)
           set_data(
             t3,
             /*placeholder*/
             ctx2[6]
           );
-        if (dirty & /*values, value*/
+        if (dirty[0] & /*values, value*/
         18) {
           each_value_1 = ensure_array_like(
             /*values*/
@@ -6127,7 +6242,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           }
           each_blocks.length = each_value_1.length;
         }
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             select,
@@ -6136,7 +6251,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             select,
@@ -6145,7 +6260,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*placeholder*/
+        if (dirty[0] & /*placeholder*/
         64) {
           attr(
             select,
@@ -6154,7 +6269,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[6]
           );
         }
-        if (dirty & /*value, values*/
+        if (dirty[0] & /*value, values*/
         18) {
           select_option(
             select,
@@ -6282,14 +6397,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
       },
       p(ctx2, dirty) {
-        if (dirty & /*label*/
+        if (dirty[0] & /*label*/
         32)
           set_data(
             t0,
             /*label*/
             ctx2[5]
           );
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             label_1,
@@ -6298,14 +6413,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*placeholder*/
+        if (dirty[0] & /*placeholder*/
         64)
           set_data(
             t3,
             /*placeholder*/
             ctx2[6]
           );
-        if (dirty & /*Object, values, value*/
+        if (dirty[0] & /*values, value*/
         18) {
           each_value = ensure_array_like(Object.entries(
             /*values*/
@@ -6327,7 +6442,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           }
           each_blocks.length = each_value.length;
         }
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             select,
@@ -6336,7 +6451,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*id*/
+        if (dirty[0] & /*id*/
         1) {
           attr(
             select,
@@ -6345,7 +6460,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[0]
           );
         }
-        if (dirty & /*placeholder*/
+        if (dirty[0] & /*placeholder*/
         64) {
           attr(
             select,
@@ -6354,7 +6469,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             ctx2[6]
           );
         }
-        if (dirty & /*value, values*/
+        if (dirty[0] & /*value, values*/
         18) {
           select_option(
             select,
@@ -6379,7 +6494,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let option;
     let t_value = (
       /*v*/
-      ctx[26] + ""
+      ctx[27] + ""
     );
     let t;
     let option_value_value;
@@ -6388,7 +6503,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         option = element("option");
         t = text(t_value);
         option.__value = option_value_value = /*v*/
-        ctx[26];
+        ctx[27];
         set_input_value(option, option.__value);
         option.selected = /*value*/
         ctx[1];
@@ -6398,17 +6513,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(option, t);
       },
       p(ctx2, dirty) {
-        if (dirty & /*values*/
+        if (dirty[0] & /*values*/
         16 && t_value !== (t_value = /*v*/
-        ctx2[26] + ""))
+        ctx2[27] + ""))
           set_data(t, t_value);
-        if (dirty & /*values*/
+        if (dirty[0] & /*values*/
         16 && option_value_value !== (option_value_value = /*v*/
-        ctx2[26])) {
+        ctx2[27])) {
           option.__value = option_value_value;
           set_input_value(option, option.__value);
         }
-        if (dirty & /*value, values*/
+        if (dirty[0] & /*value, values*/
         18) {
           option.selected = /*value*/
           ctx2[1];
@@ -6424,8 +6539,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   function create_each_block(ctx) {
     let option;
     let t_value = `${/*idx*/
-    ctx[28] + 1}: ${/*v*/
-    ctx[26]}`;
+    ctx[29] + 1}: ${/*v*/
+    ctx[27]}`;
     let t;
     let option_value_value;
     return {
@@ -6433,7 +6548,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         option = element("option");
         t = text(t_value);
         option.__value = option_value_value = /*k*/
-        ctx[25];
+        ctx[26];
         set_input_value(option, option.__value);
         option.selected = /*value*/
         ctx[1];
@@ -6443,18 +6558,18 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(option, t);
       },
       p(ctx2, dirty) {
-        if (dirty & /*values*/
+        if (dirty[0] & /*values*/
         16 && t_value !== (t_value = `${/*idx*/
-        ctx2[28] + 1}: ${/*v*/
-        ctx2[26]}`))
+        ctx2[29] + 1}: ${/*v*/
+        ctx2[27]}`))
           set_data(t, t_value);
-        if (dirty & /*values*/
+        if (dirty[0] & /*values*/
         16 && option_value_value !== (option_value_value = /*k*/
-        ctx2[25])) {
+        ctx2[26])) {
           option.__value = option_value_value;
           set_input_value(option, option.__value);
         }
-        if (dirty & /*value, values*/
+        if (dirty[0] & /*value, values*/
         18) {
           option.selected = /*value*/
           ctx2[1];
@@ -6486,7 +6601,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       create_if_block_8,
       create_if_block_9,
       create_if_block_10,
-      create_if_block_14,
+      create_if_block_11,
+      create_if_block_15,
       create_else_block_1
     ];
     const if_blocks = [];
@@ -6510,47 +6626,52 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         return 2;
       if (
         /*type*/
-        ctx2[3] === "percentage"
+        ctx2[3] === "datetime"
       )
         return 3;
       if (
         /*type*/
-        ctx2[3] === "float"
+        ctx2[3] === "percentage"
       )
         return 4;
       if (
         /*type*/
-        ctx2[3] === "textarea"
+        ctx2[3] === "float"
       )
         return 5;
       if (
         /*type*/
-        ctx2[3] === "text"
+        ctx2[3] === "textarea"
       )
         return 6;
       if (
         /*type*/
-        ctx2[3] === "email"
+        ctx2[3] === "text"
       )
         return 7;
       if (
         /*type*/
-        ctx2[3] === "date"
+        ctx2[3] === "email"
       )
         return 8;
       if (
         /*type*/
-        ctx2[3] === "password"
+        ctx2[3] === "date"
       )
         return 9;
       if (
         /*type*/
-        ctx2[3] === "color"
+        ctx2[3] === "password"
       )
         return 10;
-      return 11;
+      if (
+        /*type*/
+        ctx2[3] === "color"
+      )
+        return 11;
+      return 12;
     }
-    current_block_type_index = select_block_type(ctx, -1);
+    current_block_type_index = select_block_type(ctx, [-1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -6571,7 +6692,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if_blocks[current_block_type_index].m(div0, null);
         current = true;
       },
-      p(ctx2, [dirty]) {
+      p(ctx2, dirty) {
         let previous_block_index = current_block_type_index;
         current_block_type_index = select_block_type(ctx2, dirty);
         if (current_block_type_index === previous_block_index) {
@@ -6592,13 +6713,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           transition_in(if_block, 1);
           if_block.m(div0, null);
         }
-        if (!current || dirty & /*type*/
+        if (!current || dirty[0] & /*type*/
         8 && div0_class_value !== (div0_class_value = "input_box " + /*type*/
         (ctx2[3] == "bool" ? "bool" : "") + " " + /*type*/
         (ctx2[3] == "password" ? "with_password" : "") + " svelte-1drs2z5")) {
           attr(div0, "class", div0_class_value);
         }
-        if (!current || dirty & /*className*/
+        if (!current || dirty[0] & /*className*/
         4 && div1_class_value !== (div1_class_value = null_to_empty(
           /*className*/
           ctx2[2]
@@ -6674,7 +6795,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       $invalidate(4, values);
     }
     function input_input_handler_1() {
-      value = to_number(this.value);
+      value = this.value;
       $invalidate(1, value);
       $invalidate(4, values);
     }
@@ -6683,12 +6804,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       $invalidate(1, value);
       $invalidate(4, values);
     }
-    function textarea_input_handler() {
-      value = this.value;
+    function input_input_handler_3() {
+      value = to_number(this.value);
       $invalidate(1, value);
       $invalidate(4, values);
     }
-    function input_input_handler_3() {
+    function textarea_input_handler() {
       value = this.value;
       $invalidate(1, value);
       $invalidate(4, values);
@@ -6708,18 +6829,23 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       $invalidate(1, value);
       $invalidate(4, values);
     }
+    function input_input_handler_7() {
+      value = this.value;
+      $invalidate(1, value);
+      $invalidate(4, values);
+    }
     function input_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         inputElm = $value;
         $invalidate(9, inputElm);
       });
     }
-    function input_input_handler_7() {
+    function input_input_handler_8() {
       value = this.value;
       $invalidate(1, value);
       $invalidate(4, values);
     }
-    function input_input_handler_8() {
+    function input_input_handler_9() {
       value = this.value;
       $invalidate(1, value);
       $invalidate(4, values);
@@ -6760,35 +6886,45 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       input_input_handler,
       input_input_handler_1,
       input_input_handler_2,
-      textarea_input_handler,
       input_input_handler_3,
+      textarea_input_handler,
       input_input_handler_4,
       input_input_handler_5,
       input_input_handler_6,
-      input_binding,
       input_input_handler_7,
-      input_input_handler_8
+      input_binding,
+      input_input_handler_8,
+      input_input_handler_9
     ];
   }
   var InputCustom = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance2, create_fragment2, safe_not_equal, {
-        className: 2,
-        type: 3,
-        id: 0,
-        value: 1,
-        values: 4,
-        label: 5,
-        placeholder: 6,
-        isObject: 7
-      });
+      init(
+        this,
+        options,
+        instance2,
+        create_fragment2,
+        safe_not_equal,
+        {
+          className: 2,
+          type: 3,
+          id: 0,
+          value: 1,
+          values: 4,
+          label: 5,
+          placeholder: 6,
+          isObject: 7
+        },
+        null,
+        [-1, -1]
+      );
     }
   };
   var InputCustom_default = InputCustom;
 
   // _components/PopUpCoa.svelte
-  function create_if_block_15(ctx) {
+  function create_if_block_16(ctx) {
     let span;
     return {
       c() {
@@ -6912,7 +7048,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
     binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
     let if_block0 = !/*isSubmitted*/
-    ctx[3] && create_if_block_15(ctx);
+    ctx[3] && create_if_block_16(ctx);
     let if_block1 = (
       /*isSubmitted*/
       ctx[3] && create_if_block2(ctx)
@@ -7045,7 +7181,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         ctx[3]) {
           if (if_block0) {
           } else {
-            if_block0 = create_if_block_15(ctx);
+            if_block0 = create_if_block_16(ctx);
             if_block0.c();
             if_block0.m(button2, t8);
           }
@@ -7380,7 +7516,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_16(ctx) {
+  function create_if_block_17(ctx) {
     let button0;
     let icon0;
     let t0;
@@ -7784,7 +7920,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /*coa*/
       ctx[0].tenantLabel !== "" && create_if_block_22(ctx)
     );
-    const if_block_creators = [create_if_block_16, create_else_block2];
+    const if_block_creators = [create_if_block_17, create_else_block2];
     const if_blocks = [];
     function select_block_type_1(ctx2, dirty) {
       if (
@@ -8976,7 +9112,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  function create_if_block_17(ctx) {
+  function create_if_block_18(ctx) {
     let a;
     let icon;
     let t0;
@@ -9158,7 +9294,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     let if_block4 = (
       /*access*/
-      ctx[0].user && create_if_block_17(ctx)
+      ctx[0].user && create_if_block_18(ctx)
     );
     let if_block5 = (
       /*access*/
@@ -9364,7 +9500,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               transition_in(if_block4, 1);
             }
           } else {
-            if_block4 = create_if_block_17(ctx2);
+            if_block4 = create_if_block_18(ctx2);
             if_block4.c();
             transition_in(if_block4, 1);
             if_block4.m(nav1, t10);

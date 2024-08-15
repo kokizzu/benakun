@@ -80,13 +80,58 @@
     }
   });
 
-  async function Submit() {
+  async function OnRefresh(/** @type PagerIn */ pagerIn) {
+    const i = { pager: pagerIn, cmd: 'list'}
+    await TenantAdminManualJournal( // @ts-ignore
+      i, /** @returns {Promise<any>} */
+      function (/** @type {any} */ o) {
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+
+        pager = o.pager;
+        transactionJournals = o.transactionJournals;
+      }
+    )
+  }
+
+  async function OnEdit(/** @type number */ id, /** @type any[] */ payloads) {
+    isSubmitted = true;
+    const i = {
+      cmd: 'upsert',
+      transactionJournal: {
+        id: id,
+        debitIDR: payloads[2],
+        creditIDR: payloads[3],
+        descriptions: payloads[4],
+        date: payloads[5],
+        detailObj: payloads[6]
+      }
+    }
+    await TenantAdminManualJournal( // @ts-ignore
+      i, /** @returns {Promise<any>} */
+      function (/** @type {any} */ o) {
+        isSubmitted = false;
+        if (o.error) {
+          notifier.showError(o.error);
+          return
+        }
+
+        OnRefresh(pager);
+        notifier.showSuccess('journal updated !');
+      }
+    )
+  }
+
+  async function SubmitAdd() {
     isSubmitted = true;
     const i = {
       cmd: 'upsert',
       coaId: coaId,
       transactionTplId: transactionTplId,
-      transactionJournals: {
+      transactionJournal: {
         debitIDR: debitIDR+'',
         creditIDR: creditIDR+'',
         descriptions: descriptions,
@@ -107,6 +152,7 @@
         }
 
         resetInput();
+        OnRefresh(pager);
         notifier.showSuccess('journal added !');
       }
     )
@@ -128,6 +174,9 @@
       CAN_SEARCH_ROW
       CAN_DELETE_ROW
       CAN_RESTORE_ROW
+
+      {OnRefresh}
+      {OnEdit}
     >
       {#if user.tenantCode !== ''}
         <button
@@ -252,7 +301,7 @@
         <button
           disabled={isSubmitted}
           class="btn submit"
-          on:click={Submit}
+          on:click={SubmitAdd}
         >
           {#if !isSubmitted}
             <span>Submit</span>
