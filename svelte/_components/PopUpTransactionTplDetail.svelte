@@ -59,6 +59,7 @@
         placeholder="CoA (Chart of Accounts)"
         values={coas}
         isObject
+        isPlainHTML
 			/>
       <InputCustom
         bind:value={autoSum}

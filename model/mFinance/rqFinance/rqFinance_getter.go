@@ -2,7 +2,6 @@ package rqFinance
 
 import (
 	"benakun/model/zCrud"
-	"errors"
 	"fmt"
 
 	"github.com/kokizzu/gotro/I"
@@ -86,12 +85,11 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 
 	coasWithNumsF := []coaWithNumF{}
 	coaVisited := map[int]bool{0: true}
-	var coaMaker func(id uint64) (coaWithNumF, error)
-	coaMaker = func(id uint64) (cwnF coaWithNumF, err error) {
-		coaError := errors.New(`coa is already visited`)
+	var coaMaker func(id uint64) (coaWithNumF, bool)
+	coaMaker = func(id uint64) (cwnF coaWithNumF, isVisited bool) {
 
 		if _, exist := coaVisited[int(id)]; exist {
-			err = coaError
+			isVisited = true
 			return
 		}
 
@@ -102,11 +100,11 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 					cld := v.children
 					if len(cld) > 0 {
 						for _, cid := range cld {
-							child, err := coaMaker(X.ToU(cid))
-							if err == nil {
-								cwnF.children = append(cwnF.children, child)
-							} else {
+							child, visited := coaMaker(X.ToU(cid))
+							if visited {
 								continue
+							} else {
+								cwnF.children = append(cwnF.children, child)
 							}
 						}
 					}
@@ -124,8 +122,8 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 	}
 
 	for _, v := range coasWithNums {
-		coa, err := coaMaker(v.id)
-		if err == nil {
+		coa, visited := coaMaker(v.id)
+		if !visited {
 			coasWithNumsF = append(coasWithNumsF, coa)
 		}
 	}
@@ -143,7 +141,7 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 			numStr = num
 		}
 
-		name := numStr + ` ` + c.name
+		name := `<span style="color: var(--blue-005); background-color: var(--blue-transparent); padding: 1px 3px; border-radius: 999px;">`+numStr + `</span> ` + c.name
 		coaChoices[I.UToS(c.id)] = name
 		for ix, v := range c.children {
 			snum := fmt.Sprintf("%v.%v", num, ix+1)

@@ -15,6 +15,7 @@
   export let label;
   export let placeholder = '';
   export let isObject = false;
+  export let isPlainHTML = false;
 
   if (isObject) value = value+'';
   let isShowPassword = false;
@@ -43,13 +44,23 @@
       </label>
     {:else if type == 'select' || type === 'combobox'}
       {#if isObject}
-        <label class="label" for={id}>{label}</label>
-        <select name={id} id={id} bind:value={value} {placeholder}>
-          <option value="" disabled>-- {placeholder} --</option>
-          {#each Object.entries(values) as [k, v], idx}
-            <option value={k} selected={value}>{v}</option>
-          {/each}
-        </select>
+        {#if !isPlainHTML}
+          <label class="label" for={id}>{label}</label>
+          <select name={id} id={id} bind:value={value} {placeholder}>
+            <option value="" disabled>-- {placeholder} --</option>
+            {#each Object.entries(values) as [k, v]}
+              <option value={k} selected={value}>{v}</option>
+            {/each}
+          </select>
+        {:else}
+          <label class="label" for={id}>{label}</label>
+          <select name={id} id={id} bind:value={value} {placeholder}>
+            <option value="" disabled>-- {placeholder} --</option>
+            {#each Object.entries(values) as [k, v]}
+              <option value={k} selected={value}>{@html v}</option>
+            {/each}
+          </select>
+        {/if}
       {:else}
         <label class="label" for={id}>{label}</label>
         <select name={id} id={id} bind:value={value} {placeholder}>
