@@ -2,6 +2,8 @@ package rqFinance
 
 import (
 	"benakun/model/zCrud"
+	"errors"
+	"fmt"
 
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/S"
@@ -34,21 +36,126 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 	return
 }
 
+type (
+	coaWithNum struct {
+		id 				uint64
+		name			string
+		parentId	uint64
+		children	[]any
+	}
+	coaWithNumF struct {
+		id 				uint64
+		name			string
+		parentId	uint64
+		children	[]coaWithNumF
+	}
+)
+
+func removeUnParent(cs []coaWithNumF, cond func(coaWithNumF) bool) []coaWithNumF {
+	var filtered []coaWithNumF
+	for _, c := range cs {
+		if !cond(c) {
+			filtered = append(filtered, c)
+		}
+	}
+
+	return filtered
+}
+
 func (c *Coa) FindCoasChoicesByTenant() map[string]string {
 	const comment = `-- Coa) FindCoasChoicesByTenant`
 
 	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode)
 
 	queryRows := comment + `
-SELECT ` + c.SqlId() + `, ` + c.SqlName() + `
+SELECT ` + c.SqlId() + `, ` + c.SqlName() + `, ` + c.SqlParentId() + `, ` + c.SqlChildren() + `
 FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 
-	coaChoices := make(map[string]string)
+	coasWithNums := []coaWithNum{}
+
 	c.Adapter.QuerySql(queryRows, func(row []any) {
-		if len(row) == 2 {
-			coaChoices[X.ToS(row[0])] = X.ToS(row[1])
+		if len(row) == 4 {
+			coasWithNums = append(coasWithNums, coaWithNum{
+				id: X.ToU(row[0]),
+				name: X.ToS(row[1]),
+				parentId: X.ToU(row[2]),
+				children: X.ToArr(row[3]),
+			})
 		}
 	})
+
+	coasWithNumsF := []coaWithNumF{}
+	coaVisited := map[int]bool{0: true}
+	var coaMaker func(id uint64) (coaWithNumF, error)
+	coaMaker = func(id uint64) (cwnF coaWithNumF, err error) {
+		coaError := errors.New(`coa is already visited`)
+
+		if _, exist := coaVisited[int(id)]; exist {
+			err = coaError
+			return
+		}
+
+		coaVisited = map[int]bool{int(id): true}
+		if len(coasWithNums) > 0 {
+			for _, v := range coasWithNums {
+				if v.id == id {
+					cld := v.children
+					if len(cld) > 0 {
+						for _, cid := range cld {
+							child, err := coaMaker(X.ToU(cid))
+							if err == nil {
+								cwnF.children = append(cwnF.children, child)
+							} else {
+								continue
+							}
+						}
+					}
+
+					cwnF.id = v.id
+					cwnF.name = v.name
+					cwnF.parentId = v.parentId
+
+					return
+				}
+			}
+		}
+
+		return
+	}
+
+	for _, v := range coasWithNums {
+		coa, err := coaMaker(v.id)
+		if err == nil {
+			coasWithNumsF = append(coasWithNumsF, coa)
+		}
+	}
+
+	coasWithNumsF = removeUnParent(coasWithNumsF, func(cwnf coaWithNumF) bool {
+		return cwnf.parentId != 0
+	})
+
+	coaChoices := make(map[string]string)
+
+	var coaTree func(c coaWithNumF, num string, parentNum int64, idx int)
+	coaTree = func(c coaWithNumF, num string, parentNum int64, idx int) {
+		numStr := I.ToS(parentNum)
+		if c.parentId != 0 {
+			numStr = num
+		}
+
+		name := numStr + ` ` + c.name
+		coaChoices[I.UToS(c.id)] = name
+		for ix, v := range c.children {
+			snum := fmt.Sprintf("%v.%v", num, ix+1)
+			coaTree(v, snum, parentNum, ix)
+		}
+
+		_ = idx
+	}
+	
+	for i, v := range coasWithNumsF {
+		coaTree(v, I.ToS(int64(i)+1), int64(i)+1, i)
+	}
 
 	return coaChoices
 }

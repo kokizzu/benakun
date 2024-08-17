@@ -6538,9 +6538,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   }
   function create_each_block(ctx) {
     let option;
-    let t_value = `${/*idx*/
-    ctx[29] + 1}: ${/*v*/
-    ctx[27]}`;
+    let t_value = (
+      /*v*/
+      ctx[27] + ""
+    );
     let t;
     let option_value_value;
     return {
@@ -6559,9 +6560,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*values*/
-        16 && t_value !== (t_value = `${/*idx*/
-        ctx2[29] + 1}: ${/*v*/
-        ctx2[27]}`))
+        16 && t_value !== (t_value = /*v*/
+        ctx2[27] + ""))
           set_data(t, t_value);
         if (dirty[0] & /*values*/
         16 && option_value_value !== (option_value_value = /*k*/
@@ -10516,7 +10516,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     function reformatCoas() {
       coaVisited = {};
-      let toCoas = [];
+      let toCoas = (
+        /** @type CoA[] */
+        []
+      );
       if (coas && coas.length) {
         for (let i in coas) {
           const id2 = coas[i].id;
@@ -10528,7 +10531,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
       if (toCoas && toCoas.length) {
         toCoas = toCoas.filter((obj) => obj.parentId <= 0);
-        toCoas.sort((a, b) => a.level - b.level);
       }
       return toCoas;
     }

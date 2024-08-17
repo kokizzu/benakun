@@ -28075,9 +28075,10 @@ uniform ${i3} ${a3} u_${s3};
   }
   function create_each_block(ctx) {
     let option;
-    let t_value = `${/*idx*/
-    ctx[29] + 1}: ${/*v*/
-    ctx[27]}`;
+    let t_value = (
+      /*v*/
+      ctx[27] + ""
+    );
     let t;
     let option_value_value;
     return {
@@ -28096,9 +28097,8 @@ uniform ${i3} ${a3} u_${s3};
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*values*/
-        16 && t_value !== (t_value = `${/*idx*/
-        ctx2[29] + 1}: ${/*v*/
-        ctx2[27]}`))
+        16 && t_value !== (t_value = /*v*/
+        ctx2[27] + ""))
           set_data(t, t_value);
         if (dirty[0] & /*values*/
         16 && option_value_value !== (option_value_value = /*k*/

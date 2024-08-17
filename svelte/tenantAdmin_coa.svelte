@@ -89,7 +89,7 @@
 
   function reformatCoas() {
     coaVisited = {}
-    let toCoas = [];
+    let toCoas = /** @type CoA[] */ ([]);
 
     if (coas && coas.length) {
       for (let i in coas) {
@@ -102,7 +102,6 @@
 
     if (toCoas && toCoas.length) {
       toCoas = toCoas.filter(obj => obj.parentId <= 0);
-      toCoas.sort((a, b) => a.level - b.level);
     }
 
     return toCoas;
