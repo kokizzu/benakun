@@ -7,6 +7,9 @@ import (
 	"benakun/model/mFinance/rqFinance"
 	"benakun/model/mFinance/wcFinance"
 	"benakun/model/zCrud"
+
+	"github.com/goccy/go-json"
+	"github.com/kokizzu/gotro/S"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file DataEntryTransactionEntry.go
@@ -21,6 +24,7 @@ type (
 		Cmd      string               `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
 		CoaId 	 uint64 `json:"coaId" form:"coaId" query:"coaId" long:"coaId" msg:"coaId"`
 		TransactionTplId 	 uint64 `json:"transactionTplId" form:"transactionTplId" query:"transactionTplId" long:"transactionTplId" msg:"transactionTplId"`
+		TransactionTplDetailId 	 uint64 `json:"transactionTplDetailId" form:"transactionTplDetailId" query:"transactionTplDetailId" long:"transactionTplDetailId" msg:"transactionTplDetailId"`
 		TransactionJournals []rqFinance.TransactionJournal `json:"transactionJournals" form:"transactionJournals" query:"transactionJournals" long:"transactionJournals" msg:"transactionJournals"`
 		BusinessTransaction rqFinance.BusinessTransaction `json:"businessTransaction" form:"businessTransaction" query:"businessTransaction" long:"businessTransaction" msg:"businessTransaction"`
 	}
@@ -108,9 +112,16 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 
 		if len(in.TransactionJournals) > 0 {
 			for _, v := range in.TransactionJournals {
+				trxTplDetail := rqFinance.NewTransactionTplDetail(d.AuthOltp)
+				trxTplDetail.Id = in.TransactionTplDetailId
+				if !trxTplDetail.FindById() {
+					out.SetError(400, `todo error`)
+					return
+				}
+
 				trxJournal := wcFinance.NewTransactionJournalMutator(d.AuthOltp)
 				trxJournal.SetTenantCode(tenant.TenantCode)
-
+				
 				if v.CoaId > 0 {
 					coaChild := rqFinance.NewCoa(d.AuthOltp)
 					coaChild.Id = v.CoaId
@@ -128,8 +139,7 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 				} else {
 					trxJournal.SetCoaId(coa.Id)
 				}
-				trxJournal.SetDebitIDR(v.DebitIDR)
-				trxJournal.SetCreditIDR(v.CreditIDR)
+
 				trxJournal.SetDescriptions(v.Descriptions)
 
 				if !mFinance.IsValidDate(v.Date) {
@@ -138,15 +148,33 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 				}
 				trxJournal.SetDate(v.Date)
 
-				if v.DetailObj != `` {
-					if !mFinance.IsValidDetailObject(v.DetailObj) {
+				parsedAttributes := trxTplDetail.ParseAttributes()
+				var creditDebitIDR int64 = 0
+
+				if v.DetailObj != `` && parsedAttributes.IsSales {
+					var trxJournalDetailObj mFinance.TransactionJournalDetailObject
+					err := json.Unmarshal([]byte(v.DetailObj), &trxJournalDetailObj)
+					if err != nil {
 						out.SetError(400, ErrDataEntryTransactionEntryInvalidDetailObject)
 						return
 					}
+
+					creditDebitIDR = trxJournalDetailObj.SalesCount * S.ToI(trxJournalDetailObj.SalesPriceIDR)
+					trxJournal.SetDetailObj(v.DetailObj)
 				}
-				
+
+				if parsedAttributes.IsSales {
+					if trxTplDetail.IsDebit {
+						trxJournal.SetDebitIDR(creditDebitIDR)
+					} else {
+						trxJournal.SetCreditIDR(creditDebitIDR)
+					}
+				} else {
+					trxJournal.SetDebitIDR(v.DebitIDR)
+					trxJournal.SetCreditIDR(v.CreditIDR)
+				}
+
 				trxJournal.SetTransactionTemplateId(trxTemplate.Id)
-				trxJournal.SetDetailObj(v.DetailObj)
 				trxJournal.SetCreatedAt(in.UnixNow())
 				trxJournal.SetCreatedBy(sess.UserId)
 				trxJournal.SetUpdatedAt(in.UnixNow())

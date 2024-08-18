@@ -10,7 +10,6 @@
   export let heading = 'Add bank account';
   export let isSubmitAddBankAccount = false;
   export let staffs = {};
-  export let coas = {};
   export let OnSubmit = async function(/** @type BankAccount */ bankAccount) {}
 
   let isShow = false;
@@ -107,34 +106,12 @@
         label="Pusat Profit / Is Profit Center ?"
         type="bool"
       />
-      {#if isProfitCenter}
-        <InputCustom
-          bind:value={coaIdProfitCenter}
-          id="coaIdProfitCenter"
-          label="CoA Pusat Profit / CoA Profit Center"
-          type="select"
-          placeholder="Select CoA"
-          values={coas}
-          isObject
-        />
-      {/if}
       <InputCustom
         bind:value={isCostCenter}
         id="isCostCenter"
         label="Pusat Biaya / Is Cost Center ?"
         type="bool"
       />
-      {#if isCostCenter}
-        <InputCustom
-          bind:value={coaIdCostCenter}
-          id="coaIdCostCenter"
-          label="CoA Pusat Biaya / CoA Cost Center"
-          type="select"
-          placeholder="Select CoA"
-          values={coas}
-          isObject
-        />
-      {/if}
       <InputCustom
         bind:value={isStaffAccount}
         id="isStaffAccount"

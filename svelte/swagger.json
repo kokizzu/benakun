@@ -141,6 +141,9 @@
 						"transactionTplId": {
 								"type": "number"
 						},
+						"transactionTplDetailId": {
+								"type": "number"
+						},
 						"transactionJournals": {
 						"type": "object",
 						"properties": {

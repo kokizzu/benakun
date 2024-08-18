@@ -47,6 +47,7 @@
     return `${year}-${month}-${date}`;
   }
 
+  let transactionTplDetailId = 0;
   let startDate     = dateISOFormat(0);
   let endDate       = dateISOFormat(4);
   let coaId         = 0;
@@ -115,6 +116,7 @@
       cmd: 'upsert',
       coaId: coaId,
       transactionTplId: transactionTemplate.id,
+      transactionTplDetailId: transactionTplDetailId,
       transactionJournals: [
         {
           debitIDR: debit+'',
@@ -183,6 +185,7 @@
       cmd: 'upsert',
       coaId: coaId,
       transactionTplId: transactionTemplate.id,
+      transactionTplDetailId: transactionTplDetailId,
       transactionJournals: trxJournals,
       businessTransaction: {
         startDate: startDate,
@@ -236,6 +239,7 @@
                       <div class="actions">
                         <button
                           on:click={ async () => {
+                            transactionTplDetailId = trxTplDetail.id;
                             isDebit = trxTplDetail.isDebit
                             isSales = (trxTplDetail.attributes || []).includes('sales')
                             isChildOnly = (trxTplDetail.attributes || []).includes('childOnly')
@@ -244,7 +248,6 @@
                             let pyCoaId = trxTplDetail.coaId;
                             if (isChildOnly) {
                               await GetCoaChildren(trxTplDetail.coaId);
-                              console.log(coaChildren);
                               for (const [id, v] of Object.entries(coaChildren)) {
                                 console.log(id, v);
                                 pyCoaId = Number(id);

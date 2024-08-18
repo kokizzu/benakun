@@ -16,8 +16,7 @@
   let user      = /** @type User */   ({/* user */});
   let coas      = /** @type CoA[] */  ([/* coas */]);
   let tenant    = /** @type Tenant */   ({/* tenant */});
-
-  let coasChoices = {};
+  let coasChoices = /** @type Record<string|number, string> */   ({/* coaChoices */});
   
   let REFORMAT_COAS = /** @type CoA[] */ ([]);
 
@@ -109,13 +108,6 @@
 
   onMount(() => {
     REFORMAT_COAS = reformatCoas();
-
-    if (coas && coas.length > 0) {
-      coasChoices = coas.reduce((obj, item) => {
-        obj[item.id] = item.name;
-        return obj;
-      }, {});
-    }
   });
 
   function updateEventHandler(/** @type {CustomEvent<{ coas: CoA[] }>} */ e) {
@@ -203,7 +195,7 @@
         REFORMAT_COAS = [];
         REFORMAT_COAS = reformatCoas();
 
-        notifier.showSuccess(`coa "` + coaMoving.name + `" moved to coa "` + parentCoa.name + `"`);
+        notifier.showSuccess(`coa "` + coasChoices[coaMoving.id] + `" moved to coa "` + coasChoices[parentCoa.id] + `"`);
       }
     );
   }

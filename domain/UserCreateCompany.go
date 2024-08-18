@@ -107,6 +107,8 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 		return
 	}
 
+	// TODO: return map[name]id
+	// map[string]uint64
 	err := generateDefaultCoa(d.AuthOltp, tenant.TenantCode)
 	if err != nil {
 		out.SetError(400, err.Error())

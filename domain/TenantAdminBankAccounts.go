@@ -6,6 +6,7 @@ import (
 	"benakun/model/mBudget"
 	"benakun/model/mBudget/rqBudget"
 	"benakun/model/mBudget/wcBudget"
+	"benakun/model/mFinance"
 	"benakun/model/mFinance/wcFinance"
 	"benakun/model/zCrud"
 
@@ -56,6 +57,9 @@ const (
 	ErrTenantAdminBankAccountsBankCoaNotFound 			= `bank coa not found`
 	ErrTenantAdminBankAccountsBankCoaSaveFailed			= `failed to save account to bank coa`
 	ErrTenantAdminBankAccountsBankCoaParentUpdateFailed = `failed to update parent of bank coa`
+	ErrTenantAdminBankAccountsStaffCoaNotFound 			= `staff coa not found`
+	ErrTenantAdminBankAccountsStaffCoaSaveFailed			= `failed to save account to staff coa`
+	ErrTenantAdminBankAccountsStaffCoaParentUpdateFailed = `failed to update parent of Staff coa`
 )
 
 var TenantAdminBankAccountsMeta = zCrud.Meta{
@@ -231,6 +235,37 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 					return
 				}
 
+				coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
+				coaParent.Id = tenant.StaffsCoaId
+				if !coaParent.FindById() {
+					out.SetError(400, ErrTenantAdminBankAccountsStaffCoaNotFound)
+					return
+				}
+
+				coa := wcFinance.NewCoaMutator(d.AuthOltp)
+				coa.SetParentId(coaParent.Id)
+				coa.SetName(in.Account.Name)
+				coa.SetLabel(mFinance.LabelStaff)
+				coa.SetTenantCode(tenant.TenantCode)
+				coa.SetCreatedAt(in.UnixNow())
+				coa.SetCreatedBy(sess.UserId)
+				coa.SetUpdatedAt(in.UnixNow())
+				coa.SetUpdatedBy(sess.UserId)
+				if !coa.DoInsert() {
+					out.SetError(400, ErrTenantAdminBankAccountsStaffCoaSaveFailed)
+					return
+				}
+
+				children := coaParent.Children
+				children = append(children, coa.Id)
+				coaParent.SetChildren(children)
+				coaParent.SetUpdatedAt(in.UnixNow())
+				coaParent.SetUpdatedBy(sess.UserId)
+				if !coaParent.DoUpdateById() {
+					out.SetError(400, ErrTenantAdminBankAccountsStaffCoaParentUpdateFailed)
+					return
+				}
+
 				account.SetStaffId(staff.Id)
 			}
 
@@ -245,6 +280,7 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 				coa := wcFinance.NewCoaMutator(d.AuthOltp)
 				coa.SetParentId(coaParent.Id)
 				coa.SetName(in.Account.Name)
+				coa.SetLabel(mFinance.LabelCustomer)
 				coa.SetTenantCode(tenant.TenantCode)
 				coa.SetCreatedAt(in.UnixNow())
 				coa.SetCreatedBy(sess.UserId)
@@ -278,6 +314,7 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 				coa := wcFinance.NewCoaMutator(d.AuthOltp)
 				coa.SetParentId(coaParent.Id)
 				coa.SetName(in.Account.Name)
+				coa.SetLabel(mFinance.LabelSuppliers)
 				coa.SetTenantCode(tenant.TenantCode)
 				coa.SetCreatedAt(in.UnixNow())
 				coa.SetCreatedBy(sess.UserId)
@@ -300,7 +337,7 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 			} 
 			account.SetIsCostCenter(in.Account.IsCostCenter)
 
-			if !(in.Account.IsProfitCenter && in.Account.IsCostCenter) {
+			if !(in.Account.IsProfitCenter && in.Account.IsCostCenter && (in.Account.StaffId > 0)) {
 				coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
 				coaParent.Id = tenant.BanksCoaId
 				if !coaParent.FindById() {
@@ -311,6 +348,7 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 				coa := wcFinance.NewCoaMutator(d.AuthOltp)
 				coa.SetParentId(coaParent.Id)
 				coa.SetName(in.Account.Name)
+				coa.SetLabel(mFinance.LabelBankAccount)
 				coa.SetTenantCode(tenant.TenantCode)
 				coa.SetCreatedAt(in.UnixNow())
 				coa.SetCreatedBy(sess.UserId)

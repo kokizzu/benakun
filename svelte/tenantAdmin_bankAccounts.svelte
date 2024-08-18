@@ -164,7 +164,7 @@
 
 {#if isPopUpAddBankAccountReady}
   <PopUpAddBankAccount
-    {staffs} {coas}
+    {staffs}
     bind:this={popUpAddBankAccount}
     bind:isSubmitAddBankAccount
     OnSubmit={addAccount}

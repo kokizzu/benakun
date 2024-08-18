@@ -32866,142 +32866,12 @@ uniform ${i3} ${a3} u_${s3};
   var MasterTable_default = MasterTable;
 
   // _components/PopUpAddBankAccount.svelte
-  function create_if_block_44(ctx) {
-    let inputcustom;
-    let updating_value;
-    let current;
-    function inputcustom_value_binding(value) {
-      ctx[26](value);
-    }
-    let inputcustom_props = {
-      id: "coaIdProfitCenter",
-      label: "CoA Pusat Profit / CoA Profit Center",
-      type: "select",
-      placeholder: "Select CoA",
-      values: (
-        /*coas*/
-        ctx[3]
-      ),
-      isObject: true
-    };
-    if (
-      /*coaIdProfitCenter*/
-      ctx[14] !== void 0
-    ) {
-      inputcustom_props.value = /*coaIdProfitCenter*/
-      ctx[14];
-    }
-    inputcustom = new InputCustom_default({ props: inputcustom_props });
-    binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding));
-    return {
-      c() {
-        create_component(inputcustom.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(inputcustom, target, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        const inputcustom_changes = {};
-        if (dirty & /*coas*/
-        8)
-          inputcustom_changes.values = /*coas*/
-          ctx2[3];
-        if (!updating_value && dirty & /*coaIdProfitCenter*/
-        16384) {
-          updating_value = true;
-          inputcustom_changes.value = /*coaIdProfitCenter*/
-          ctx2[14];
-          add_flush_callback(() => updating_value = false);
-        }
-        inputcustom.$set(inputcustom_changes);
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(inputcustom.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(inputcustom.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(inputcustom, detaching);
-      }
-    };
-  }
-  function create_if_block_34(ctx) {
-    let inputcustom;
-    let updating_value;
-    let current;
-    function inputcustom_value_binding_1(value) {
-      ctx[28](value);
-    }
-    let inputcustom_props = {
-      id: "coaIdCostCenter",
-      label: "CoA Pusat Biaya / CoA Cost Center",
-      type: "select",
-      placeholder: "Select CoA",
-      values: (
-        /*coas*/
-        ctx[3]
-      ),
-      isObject: true
-    };
-    if (
-      /*coaIdCostCenter*/
-      ctx[15] !== void 0
-    ) {
-      inputcustom_props.value = /*coaIdCostCenter*/
-      ctx[15];
-    }
-    inputcustom = new InputCustom_default({ props: inputcustom_props });
-    binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding_1));
-    return {
-      c() {
-        create_component(inputcustom.$.fragment);
-      },
-      m(target, anchor) {
-        mount_component(inputcustom, target, anchor);
-        current = true;
-      },
-      p(ctx2, dirty) {
-        const inputcustom_changes = {};
-        if (dirty & /*coas*/
-        8)
-          inputcustom_changes.values = /*coas*/
-          ctx2[3];
-        if (!updating_value && dirty & /*coaIdCostCenter*/
-        32768) {
-          updating_value = true;
-          inputcustom_changes.value = /*coaIdCostCenter*/
-          ctx2[15];
-          add_flush_callback(() => updating_value = false);
-        }
-        inputcustom.$set(inputcustom_changes);
-      },
-      i(local) {
-        if (current)
-          return;
-        transition_in(inputcustom.$.fragment, local);
-        current = true;
-      },
-      o(local) {
-        transition_out(inputcustom.$.fragment, local);
-        current = false;
-      },
-      d(detaching) {
-        destroy_component(inputcustom, detaching);
-      }
-    };
-  }
   function create_if_block_24(ctx) {
     let inputcustom;
     let updating_value;
     let current;
-    function inputcustom_value_binding_2(value) {
-      ctx[30](value);
+    function inputcustom_value_binding(value) {
+      ctx[25](value);
     }
     let inputcustom_props = {
       id: "staffId",
@@ -33016,13 +32886,13 @@ uniform ${i3} ${a3} u_${s3};
     };
     if (
       /*staffId*/
-      ctx[13] !== void 0
+      ctx[12] !== void 0
     ) {
       inputcustom_props.value = /*staffId*/
-      ctx[13];
+      ctx[12];
     }
     inputcustom = new InputCustom_default({ props: inputcustom_props });
-    binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding_2));
+    binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding));
     return {
       c() {
         create_component(inputcustom.$.fragment);
@@ -33038,10 +32908,10 @@ uniform ${i3} ${a3} u_${s3};
           inputcustom_changes.values = /*staffs*/
           ctx2[2];
         if (!updating_value && dirty & /*staffId*/
-        8192) {
+        4096) {
           updating_value = true;
           inputcustom_changes.value = /*staffId*/
-          ctx2[13];
+          ctx2[12];
           add_flush_callback(() => updating_value = false);
         }
         inputcustom.$set(inputcustom_changes);
@@ -33138,23 +33008,21 @@ uniform ${i3} ${a3} u_${s3};
     let inputcustom4;
     let updating_value_4;
     let t7;
-    let t8;
     let inputcustom5;
     let updating_value_5;
-    let t9;
-    let t10;
+    let t8;
     let inputcustom6;
     let updating_value_6;
-    let t11;
-    let t12;
+    let t9;
+    let t10;
     let div3;
     let div1;
-    let t13;
+    let t11;
     let div2;
     let button1;
-    let t15;
+    let t13;
     let button2;
-    let t16;
+    let t14;
     let div5_class_value;
     let current;
     let mounted;
@@ -33167,7 +33035,7 @@ uniform ${i3} ${a3} u_${s3};
       }
     });
     function inputcustom0_value_binding(value) {
-      ctx[21](value);
+      ctx[18](value);
     }
     let inputcustom0_props = {
       id: "name",
@@ -33177,15 +33045,15 @@ uniform ${i3} ${a3} u_${s3};
     };
     if (
       /*name*/
-      ctx[7] !== void 0
+      ctx[6] !== void 0
     ) {
       inputcustom0_props.value = /*name*/
-      ctx[7];
+      ctx[6];
     }
     inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
     binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
     function inputcustom1_value_binding(value) {
-      ctx[22](value);
+      ctx[19](value);
     }
     let inputcustom1_props = {
       id: "bankName",
@@ -33195,15 +33063,15 @@ uniform ${i3} ${a3} u_${s3};
     };
     if (
       /*bankName*/
-      ctx[8] !== void 0
+      ctx[7] !== void 0
     ) {
       inputcustom1_props.value = /*bankName*/
-      ctx[8];
+      ctx[7];
     }
     inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
     binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
     function inputcustom2_value_binding(value) {
-      ctx[23](value);
+      ctx[20](value);
     }
     let inputcustom2_props = {
       id: "accountName",
@@ -33213,15 +33081,15 @@ uniform ${i3} ${a3} u_${s3};
     };
     if (
       /*accountName*/
-      ctx[9] !== void 0
+      ctx[8] !== void 0
     ) {
       inputcustom2_props.value = /*accountName*/
-      ctx[9];
+      ctx[8];
     }
     inputcustom2 = new InputCustom_default({ props: inputcustom2_props });
     binding_callbacks.push(() => bind(inputcustom2, "value", inputcustom2_value_binding));
     function inputcustom3_value_binding(value) {
-      ctx[24](value);
+      ctx[21](value);
     }
     let inputcustom3_props = {
       id: "accountNumber",
@@ -33231,15 +33099,15 @@ uniform ${i3} ${a3} u_${s3};
     };
     if (
       /*accountNumber*/
-      ctx[10] !== void 0
+      ctx[9] !== void 0
     ) {
       inputcustom3_props.value = /*accountNumber*/
-      ctx[10];
+      ctx[9];
     }
     inputcustom3 = new InputCustom_default({ props: inputcustom3_props });
     binding_callbacks.push(() => bind(inputcustom3, "value", inputcustom3_value_binding));
     function inputcustom4_value_binding(value) {
-      ctx[25](value);
+      ctx[22](value);
     }
     let inputcustom4_props = {
       id: "isProfitCenter",
@@ -33248,19 +33116,15 @@ uniform ${i3} ${a3} u_${s3};
     };
     if (
       /*isProfitCenter*/
-      ctx[11] !== void 0
+      ctx[10] !== void 0
     ) {
       inputcustom4_props.value = /*isProfitCenter*/
-      ctx[11];
+      ctx[10];
     }
     inputcustom4 = new InputCustom_default({ props: inputcustom4_props });
     binding_callbacks.push(() => bind(inputcustom4, "value", inputcustom4_value_binding));
-    let if_block0 = (
-      /*isProfitCenter*/
-      ctx[11] && create_if_block_44(ctx)
-    );
     function inputcustom5_value_binding(value) {
-      ctx[27](value);
+      ctx[23](value);
     }
     let inputcustom5_props = {
       id: "isCostCenter",
@@ -33269,19 +33133,15 @@ uniform ${i3} ${a3} u_${s3};
     };
     if (
       /*isCostCenter*/
-      ctx[12] !== void 0
+      ctx[11] !== void 0
     ) {
       inputcustom5_props.value = /*isCostCenter*/
-      ctx[12];
+      ctx[11];
     }
     inputcustom5 = new InputCustom_default({ props: inputcustom5_props });
     binding_callbacks.push(() => bind(inputcustom5, "value", inputcustom5_value_binding));
-    let if_block1 = (
-      /*isCostCenter*/
-      ctx[12] && create_if_block_34(ctx)
-    );
     function inputcustom6_value_binding(value) {
-      ctx[29](value);
+      ctx[24](value);
     }
     let inputcustom6_props = {
       id: "isStaffAccount",
@@ -33290,20 +33150,20 @@ uniform ${i3} ${a3} u_${s3};
     };
     if (
       /*isStaffAccount*/
-      ctx[5] !== void 0
+      ctx[4] !== void 0
     ) {
       inputcustom6_props.value = /*isStaffAccount*/
-      ctx[5];
+      ctx[4];
     }
     inputcustom6 = new InputCustom_default({ props: inputcustom6_props });
     binding_callbacks.push(() => bind(inputcustom6, "value", inputcustom6_value_binding));
-    let if_block2 = (
+    let if_block0 = (
       /*isStaffAccount*/
-      ctx[5] && create_if_block_24(ctx)
+      ctx[4] && create_if_block_24(ctx)
     );
-    let if_block3 = !/*isSubmitAddBankAccount*/
+    let if_block1 = !/*isSubmitAddBankAccount*/
     ctx[0] && create_if_block_111(ctx);
-    let if_block4 = (
+    let if_block2 = (
       /*isSubmitAddBankAccount*/
       ctx[0] && create_if_block5(ctx)
     );
@@ -33332,33 +33192,27 @@ uniform ${i3} ${a3} u_${s3};
         t6 = space();
         create_component(inputcustom4.$.fragment);
         t7 = space();
+        create_component(inputcustom5.$.fragment);
+        t8 = space();
+        create_component(inputcustom6.$.fragment);
+        t9 = space();
         if (if_block0)
           if_block0.c();
-        t8 = space();
-        create_component(inputcustom5.$.fragment);
-        t9 = space();
-        if (if_block1)
-          if_block1.c();
         t10 = space();
-        create_component(inputcustom6.$.fragment);
-        t11 = space();
-        if (if_block2)
-          if_block2.c();
-        t12 = space();
         div3 = element("div");
         div1 = element("div");
         div1.innerHTML = ``;
-        t13 = space();
+        t11 = space();
         div2 = element("div");
         button1 = element("button");
         button1.textContent = "Cancel";
-        t15 = space();
+        t13 = space();
         button2 = element("button");
-        if (if_block3)
-          if_block3.c();
-        t16 = space();
-        if (if_block4)
-          if_block4.c();
+        if (if_block1)
+          if_block1.c();
+        t14 = space();
+        if (if_block2)
+          if_block2.c();
         attr(h2, "class", "svelte-19kcmoe");
         attr(button0, "class", "svelte-19kcmoe");
         attr(header, "class", "header svelte-19kcmoe");
@@ -33372,7 +33226,7 @@ uniform ${i3} ${a3} u_${s3};
         attr(div3, "class", "foot svelte-19kcmoe");
         attr(div4, "class", "popup svelte-19kcmoe");
         attr(div5, "class", div5_class_value = null_to_empty(`popup_container ${/*isShow*/
-        ctx[6] ? "show" : ""}`) + " svelte-19kcmoe");
+        ctx[5] ? "show" : ""}`) + " svelte-19kcmoe");
       },
       m(target, anchor) {
         insert(target, div5, anchor);
@@ -33395,31 +33249,25 @@ uniform ${i3} ${a3} u_${s3};
         append(div0, t6);
         mount_component(inputcustom4, div0, null);
         append(div0, t7);
+        mount_component(inputcustom5, div0, null);
+        append(div0, t8);
+        mount_component(inputcustom6, div0, null);
+        append(div0, t9);
         if (if_block0)
           if_block0.m(div0, null);
-        append(div0, t8);
-        mount_component(inputcustom5, div0, null);
-        append(div0, t9);
-        if (if_block1)
-          if_block1.m(div0, null);
-        append(div0, t10);
-        mount_component(inputcustom6, div0, null);
-        append(div0, t11);
-        if (if_block2)
-          if_block2.m(div0, null);
-        append(div4, t12);
+        append(div4, t10);
         append(div4, div3);
         append(div3, div1);
-        append(div3, t13);
+        append(div3, t11);
         append(div3, div2);
         append(div2, button1);
-        append(div2, t15);
+        append(div2, t13);
         append(div2, button2);
-        if (if_block3)
-          if_block3.m(button2, null);
-        append(button2, t16);
-        if (if_block4)
-          if_block4.m(button2, null);
+        if (if_block1)
+          if_block1.m(button2, null);
+        append(button2, t14);
+        if (if_block2)
+          if_block2.m(button2, null);
         current = true;
         if (!mounted) {
           dispose = [
@@ -33427,15 +33275,15 @@ uniform ${i3} ${a3} u_${s3};
               button0,
               "click",
               /*Hide*/
-              ctx[4]
+              ctx[3]
             ),
             listen(button1, "click", prevent_default(
               /*cancel*/
-              ctx[16]
+              ctx[13]
             )),
             listen(button2, "click", prevent_default(
               /*submitAddBankAccount*/
-              ctx[17]
+              ctx[14]
             ))
           ];
           mounted = true;
@@ -33451,64 +33299,82 @@ uniform ${i3} ${a3} u_${s3};
           );
         const inputcustom0_changes = {};
         if (!updating_value && dirty & /*name*/
-        128) {
+        64) {
           updating_value = true;
           inputcustom0_changes.value = /*name*/
-          ctx2[7];
+          ctx2[6];
           add_flush_callback(() => updating_value = false);
         }
         inputcustom0.$set(inputcustom0_changes);
         const inputcustom1_changes = {};
         if (!updating_value_1 && dirty & /*bankName*/
-        256) {
+        128) {
           updating_value_1 = true;
           inputcustom1_changes.value = /*bankName*/
-          ctx2[8];
+          ctx2[7];
           add_flush_callback(() => updating_value_1 = false);
         }
         inputcustom1.$set(inputcustom1_changes);
         const inputcustom2_changes = {};
         if (!updating_value_2 && dirty & /*accountName*/
-        512) {
+        256) {
           updating_value_2 = true;
           inputcustom2_changes.value = /*accountName*/
-          ctx2[9];
+          ctx2[8];
           add_flush_callback(() => updating_value_2 = false);
         }
         inputcustom2.$set(inputcustom2_changes);
         const inputcustom3_changes = {};
         if (!updating_value_3 && dirty & /*accountNumber*/
-        1024) {
+        512) {
           updating_value_3 = true;
           inputcustom3_changes.value = /*accountNumber*/
-          ctx2[10];
+          ctx2[9];
           add_flush_callback(() => updating_value_3 = false);
         }
         inputcustom3.$set(inputcustom3_changes);
         const inputcustom4_changes = {};
         if (!updating_value_4 && dirty & /*isProfitCenter*/
-        2048) {
+        1024) {
           updating_value_4 = true;
           inputcustom4_changes.value = /*isProfitCenter*/
-          ctx2[11];
+          ctx2[10];
           add_flush_callback(() => updating_value_4 = false);
         }
         inputcustom4.$set(inputcustom4_changes);
+        const inputcustom5_changes = {};
+        if (!updating_value_5 && dirty & /*isCostCenter*/
+        2048) {
+          updating_value_5 = true;
+          inputcustom5_changes.value = /*isCostCenter*/
+          ctx2[11];
+          add_flush_callback(() => updating_value_5 = false);
+        }
+        inputcustom5.$set(inputcustom5_changes);
+        const inputcustom6_changes = {};
+        if (!updating_value_6 && dirty & /*isStaffAccount*/
+        16) {
+          updating_value_6 = true;
+          inputcustom6_changes.value = /*isStaffAccount*/
+          ctx2[4];
+          add_flush_callback(() => updating_value_6 = false);
+        }
+        inputcustom6.$set(inputcustom6_changes);
         if (
-          /*isProfitCenter*/
-          ctx2[11]
+          /*isStaffAccount*/
+          ctx2[4]
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
-            if (dirty & /*isProfitCenter*/
-            2048) {
+            if (dirty & /*isStaffAccount*/
+            16) {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_44(ctx2);
+            if_block0 = create_if_block_24(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
-            if_block0.m(div0, t8);
+            if_block0.m(div0, null);
           }
         } else if (if_block0) {
           group_outros();
@@ -33517,101 +33383,37 @@ uniform ${i3} ${a3} u_${s3};
           });
           check_outros();
         }
-        const inputcustom5_changes = {};
-        if (!updating_value_5 && dirty & /*isCostCenter*/
-        4096) {
-          updating_value_5 = true;
-          inputcustom5_changes.value = /*isCostCenter*/
-          ctx2[12];
-          add_flush_callback(() => updating_value_5 = false);
-        }
-        inputcustom5.$set(inputcustom5_changes);
-        if (
-          /*isCostCenter*/
-          ctx2[12]
-        ) {
-          if (if_block1) {
-            if_block1.p(ctx2, dirty);
-            if (dirty & /*isCostCenter*/
-            4096) {
-              transition_in(if_block1, 1);
-            }
-          } else {
-            if_block1 = create_if_block_34(ctx2);
-            if_block1.c();
-            transition_in(if_block1, 1);
-            if_block1.m(div0, t10);
-          }
-        } else if (if_block1) {
-          group_outros();
-          transition_out(if_block1, 1, 1, () => {
-            if_block1 = null;
-          });
-          check_outros();
-        }
-        const inputcustom6_changes = {};
-        if (!updating_value_6 && dirty & /*isStaffAccount*/
-        32) {
-          updating_value_6 = true;
-          inputcustom6_changes.value = /*isStaffAccount*/
-          ctx2[5];
-          add_flush_callback(() => updating_value_6 = false);
-        }
-        inputcustom6.$set(inputcustom6_changes);
-        if (
-          /*isStaffAccount*/
-          ctx2[5]
-        ) {
-          if (if_block2) {
-            if_block2.p(ctx2, dirty);
-            if (dirty & /*isStaffAccount*/
-            32) {
-              transition_in(if_block2, 1);
-            }
-          } else {
-            if_block2 = create_if_block_24(ctx2);
-            if_block2.c();
-            transition_in(if_block2, 1);
-            if_block2.m(div0, null);
-          }
-        } else if (if_block2) {
-          group_outros();
-          transition_out(if_block2, 1, 1, () => {
-            if_block2 = null;
-          });
-          check_outros();
-        }
         if (!/*isSubmitAddBankAccount*/
         ctx2[0]) {
-          if (if_block3) {
+          if (if_block1) {
           } else {
-            if_block3 = create_if_block_111(ctx2);
-            if_block3.c();
-            if_block3.m(button2, t16);
+            if_block1 = create_if_block_111(ctx2);
+            if_block1.c();
+            if_block1.m(button2, t14);
           }
-        } else if (if_block3) {
-          if_block3.d(1);
-          if_block3 = null;
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
         }
         if (
           /*isSubmitAddBankAccount*/
           ctx2[0]
         ) {
-          if (if_block4) {
+          if (if_block2) {
             if (dirty & /*isSubmitAddBankAccount*/
             1) {
-              transition_in(if_block4, 1);
+              transition_in(if_block2, 1);
             }
           } else {
-            if_block4 = create_if_block5(ctx2);
-            if_block4.c();
-            transition_in(if_block4, 1);
-            if_block4.m(button2, null);
+            if_block2 = create_if_block5(ctx2);
+            if_block2.c();
+            transition_in(if_block2, 1);
+            if_block2.m(button2, null);
           }
-        } else if (if_block4) {
+        } else if (if_block2) {
           group_outros();
-          transition_out(if_block4, 1, 1, () => {
-            if_block4 = null;
+          transition_out(if_block2, 1, 1, () => {
+            if_block2 = null;
           });
           check_outros();
         }
@@ -33621,8 +33423,8 @@ uniform ${i3} ${a3} u_${s3};
           ctx2[0];
         }
         if (!current || dirty & /*isShow*/
-        64 && div5_class_value !== (div5_class_value = null_to_empty(`popup_container ${/*isShow*/
-        ctx2[6] ? "show" : ""}`) + " svelte-19kcmoe")) {
+        32 && div5_class_value !== (div5_class_value = null_to_empty(`popup_container ${/*isShow*/
+        ctx2[5] ? "show" : ""}`) + " svelte-19kcmoe")) {
           attr(div5, "class", div5_class_value);
         }
       },
@@ -33635,12 +33437,10 @@ uniform ${i3} ${a3} u_${s3};
         transition_in(inputcustom2.$.fragment, local);
         transition_in(inputcustom3.$.fragment, local);
         transition_in(inputcustom4.$.fragment, local);
-        transition_in(if_block0);
         transition_in(inputcustom5.$.fragment, local);
-        transition_in(if_block1);
         transition_in(inputcustom6.$.fragment, local);
+        transition_in(if_block0);
         transition_in(if_block2);
-        transition_in(if_block4);
         current = true;
       },
       o(local) {
@@ -33650,12 +33450,10 @@ uniform ${i3} ${a3} u_${s3};
         transition_out(inputcustom2.$.fragment, local);
         transition_out(inputcustom3.$.fragment, local);
         transition_out(inputcustom4.$.fragment, local);
-        transition_out(if_block0);
         transition_out(inputcustom5.$.fragment, local);
-        transition_out(if_block1);
         transition_out(inputcustom6.$.fragment, local);
+        transition_out(if_block0);
         transition_out(if_block2);
-        transition_out(if_block4);
         current = false;
       },
       d(detaching) {
@@ -33668,18 +33466,14 @@ uniform ${i3} ${a3} u_${s3};
         destroy_component(inputcustom2);
         destroy_component(inputcustom3);
         destroy_component(inputcustom4);
+        destroy_component(inputcustom5);
+        destroy_component(inputcustom6);
         if (if_block0)
           if_block0.d();
-        destroy_component(inputcustom5);
         if (if_block1)
           if_block1.d();
-        destroy_component(inputcustom6);
         if (if_block2)
           if_block2.d();
-        if (if_block3)
-          if_block3.d();
-        if (if_block4)
-          if_block4.d();
         mounted = false;
         run_all(dispose);
       }
@@ -33689,12 +33483,11 @@ uniform ${i3} ${a3} u_${s3};
     let { heading = "Add bank account" } = $props;
     let { isSubmitAddBankAccount = false } = $props;
     let { staffs: staffs2 = {} } = $props;
-    let { coas: coas2 = {} } = $props;
     let { OnSubmit = async function(bankAccount) {
     } } = $props;
     let isShow = false;
-    const Show = () => $invalidate(6, isShow = true);
-    const Hide = () => $invalidate(6, isShow = false);
+    const Show = () => $invalidate(5, isShow = true);
+    const Hide = () => $invalidate(5, isShow = false);
     let name = "";
     let bankName = "";
     let accountName = "";
@@ -33705,19 +33498,19 @@ uniform ${i3} ${a3} u_${s3};
     let coaIdProfitCenter = "0";
     let coaIdCostCenter = "0";
     const Reset = () => {
-      $invalidate(7, name = "");
-      $invalidate(8, bankName = "");
-      $invalidate(9, accountName = "");
-      $invalidate(10, accountNumber = 0);
-      $invalidate(11, isProfitCenter = false);
-      $invalidate(12, isCostCenter = false);
-      $invalidate(13, staffId = "0");
-      $invalidate(14, coaIdProfitCenter = "0");
-      $invalidate(15, coaIdCostCenter = "0");
+      $invalidate(6, name = "");
+      $invalidate(7, bankName = "");
+      $invalidate(8, accountName = "");
+      $invalidate(9, accountNumber = 0);
+      $invalidate(10, isProfitCenter = false);
+      $invalidate(11, isCostCenter = false);
+      $invalidate(12, staffId = "0");
+      coaIdProfitCenter = "0";
+      coaIdCostCenter = "0";
     };
     let isStaffAccount = false;
     const cancel = () => {
-      $invalidate(6, isShow = false);
+      $invalidate(5, isShow = false);
     };
     function submitAddBankAccount() {
       $invalidate(0, isSubmitAddBankAccount = true);
@@ -33736,43 +33529,35 @@ uniform ${i3} ${a3} u_${s3};
     }
     function inputcustom0_value_binding(value) {
       name = value;
-      $invalidate(7, name);
+      $invalidate(6, name);
     }
     function inputcustom1_value_binding(value) {
       bankName = value;
-      $invalidate(8, bankName);
+      $invalidate(7, bankName);
     }
     function inputcustom2_value_binding(value) {
       accountName = value;
-      $invalidate(9, accountName);
+      $invalidate(8, accountName);
     }
     function inputcustom3_value_binding(value) {
       accountNumber = value;
-      $invalidate(10, accountNumber);
+      $invalidate(9, accountNumber);
     }
     function inputcustom4_value_binding(value) {
       isProfitCenter = value;
-      $invalidate(11, isProfitCenter);
-    }
-    function inputcustom_value_binding(value) {
-      coaIdProfitCenter = value;
-      $invalidate(14, coaIdProfitCenter);
+      $invalidate(10, isProfitCenter);
     }
     function inputcustom5_value_binding(value) {
       isCostCenter = value;
-      $invalidate(12, isCostCenter);
-    }
-    function inputcustom_value_binding_1(value) {
-      coaIdCostCenter = value;
-      $invalidate(15, coaIdCostCenter);
+      $invalidate(11, isCostCenter);
     }
     function inputcustom6_value_binding(value) {
       isStaffAccount = value;
-      $invalidate(5, isStaffAccount);
+      $invalidate(4, isStaffAccount);
     }
-    function inputcustom_value_binding_2(value) {
+    function inputcustom_value_binding(value) {
       staffId = value;
-      $invalidate(13, staffId), $invalidate(5, isStaffAccount);
+      $invalidate(12, staffId), $invalidate(4, isStaffAccount);
     }
     $self.$set = ($props2) => {
       if ("heading" in $props2)
@@ -33781,17 +33566,15 @@ uniform ${i3} ${a3} u_${s3};
         $invalidate(0, isSubmitAddBankAccount = $props2.isSubmitAddBankAccount);
       if ("staffs" in $props2)
         $invalidate(2, staffs2 = $props2.staffs);
-      if ("coas" in $props2)
-        $invalidate(3, coas2 = $props2.coas);
       if ("OnSubmit" in $props2)
-        $invalidate(18, OnSubmit = $props2.OnSubmit);
+        $invalidate(15, OnSubmit = $props2.OnSubmit);
     };
     $self.$.update = () => {
       if ($self.$.dirty & /*isStaffAccount*/
-      32) {
+      16) {
         $: {
           if (!isStaffAccount)
-            $invalidate(13, staffId = "0");
+            $invalidate(12, staffId = "0");
         }
       }
     };
@@ -33799,7 +33582,6 @@ uniform ${i3} ${a3} u_${s3};
       isSubmitAddBankAccount,
       heading,
       staffs2,
-      coas2,
       Hide,
       isStaffAccount,
       isShow,
@@ -33810,8 +33592,6 @@ uniform ${i3} ${a3} u_${s3};
       isProfitCenter,
       isCostCenter,
       staffId,
-      coaIdProfitCenter,
-      coaIdCostCenter,
       cancel,
       submitAddBankAccount,
       OnSubmit,
@@ -33822,11 +33602,9 @@ uniform ${i3} ${a3} u_${s3};
       inputcustom2_value_binding,
       inputcustom3_value_binding,
       inputcustom4_value_binding,
-      inputcustom_value_binding,
       inputcustom5_value_binding,
-      inputcustom_value_binding_1,
       inputcustom6_value_binding,
-      inputcustom_value_binding_2
+      inputcustom_value_binding
     ];
   }
   var PopUpAddBankAccount = class extends SvelteComponent {
@@ -33836,21 +33614,20 @@ uniform ${i3} ${a3} u_${s3};
         heading: 1,
         isSubmitAddBankAccount: 0,
         staffs: 2,
-        coas: 3,
-        OnSubmit: 18,
-        Show: 19,
-        Hide: 4,
-        Reset: 20
+        OnSubmit: 15,
+        Show: 16,
+        Hide: 3,
+        Reset: 17
       });
     }
     get Show() {
-      return this.$.ctx[19];
+      return this.$.ctx[16];
     }
     get Hide() {
-      return this.$.ctx[4];
+      return this.$.ctx[3];
     }
     get Reset() {
-      return this.$.ctx[20];
+      return this.$.ctx[17];
     }
   };
   var PopUpAddBankAccount_default = PopUpAddBankAccount;
@@ -33864,14 +33641,10 @@ uniform ${i3} ${a3} u_${s3};
     function popupaddbankaccount_isSubmitAddBankAccount_binding(value) {
       ctx[12](value);
     }
-    let popupaddbankaccount_props = {
-      staffs,
-      coas,
-      OnSubmit: (
-        /*addAccount*/
-        ctx[10]
-      )
-    };
+    let popupaddbankaccount_props = { staffs, OnSubmit: (
+      /*addAccount*/
+      ctx[10]
+    ) };
     if (
       /*isSubmitAddBankAccount*/
       ctx[5] !== void 0
@@ -34227,10 +34000,6 @@ uniform ${i3} ${a3} u_${s3};
   var staffs = (
     /** @type Object */
     {/* staffs */}
-  );
-  var coas = (
-    /** @type Object */
-    {/* coas */}
   );
   function instance12($self, $props, $invalidate) {
     let fields = (

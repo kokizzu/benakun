@@ -8538,22 +8538,22 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
   // dataEntry/templates/template.svelte
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[39] = list[i];
-    child_ctx[40] = list;
-    child_ctx[41] = i;
+    child_ctx[40] = list[i];
+    child_ctx[41] = list;
+    child_ctx[42] = i;
     return child_ctx;
   }
   function get_each_context_12(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[42] = list[i][0];
-    child_ctx[43] = list[i][1];
-    child_ctx[45] = i;
+    child_ctx[43] = list[i][0];
+    child_ctx[44] = list[i][1];
+    child_ctx[46] = i;
     return child_ctx;
   }
   function get_each_context_22(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[46] = list[i];
-    child_ctx[41] = i;
+    child_ctx[47] = list[i];
+    child_ctx[42] = i;
     return child_ctx;
   }
   function create_else_block_4(ctx) {
@@ -8584,7 +8584,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
     let each_value_2 = ensure_array_like(transactionTplDetails || []);
     const get_key = (ctx2) => (
       /*trxTplDetail*/
-      ctx2[46].id
+      ctx2[47].id
     );
     for (let i = 0; i < each_value_2.length; i += 1) {
       let child_ctx = get_each_context_22(ctx, each_value_2, i);
@@ -8608,8 +8608,8 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*isDebit, isSales, isChildOnly, coaId, GetCoaChildren, coaChildren, payloadsMulti, isCreatingJournal*/
-        57629) {
+        if (dirty[0] & /*transactionTplDetailId, isDebit, isSales, isChildOnly, coaId, GetCoaChildren, coaChildren, payloadsMulti, isCreatingJournal*/
+        115293) {
           each_value_2 = ensure_array_like(transactionTplDetails || []);
           group_outros();
           each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value_2, each_1_lookup, each_1_anchor.parentNode, outro_and_destroy_block, create_each_block_22, each_1_anchor, get_each_context_22);
@@ -8674,9 +8674,9 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
     function click_handler() {
       return (
         /*click_handler*/
-        ctx[18](
+        ctx[19](
           /*trxTplDetail*/
-          ctx[46]
+          ctx[47]
         )
       );
     }
@@ -8687,7 +8687,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         tr = element("tr");
         td0 = element("td");
         td0.textContent = `${/*i*/
-        ctx[41] + 1}`;
+        ctx[42] + 1}`;
         t1 = space();
         td1 = element("td");
         div = element("div");
@@ -8696,29 +8696,29 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         t2 = space();
         td2 = element("td");
         td2.textContent = `${!/*trxTplDetail*/
-        ctx[46].isDebit ? "Yes" : "No"}`;
+        ctx[47].isDebit ? "Yes" : "No"}`;
         t4 = space();
         td3 = element("td");
         td3.textContent = `${/*trxTplDetail*/
-        ctx[46].isDebit ? "Yes" : "No"}`;
+        ctx[47].isDebit ? "Yes" : "No"}`;
         t6 = space();
         td4 = element("td");
         td4.textContent = `${coas[
           /*trxTplDetail*/
-          ctx[46].coaId
+          ctx[47].coaId
         ]}`;
         t8 = space();
         td5 = element("td");
         td5.textContent = `${/*trxTplDetail*/
-        (ctx[46].attributes || []).includes("autoSum") ? "Yes" : "No"}`;
+        (ctx[47].attributes || []).includes("autoSum") ? "Yes" : "No"}`;
         t10 = space();
         td6 = element("td");
         td6.textContent = `${/*trxTplDetail*/
-        (ctx[46].attributes || []).includes("childOnly") ? "Yes" : "No"}`;
+        (ctx[47].attributes || []).includes("childOnly") ? "Yes" : "No"}`;
         t12 = space();
         td7 = element("td");
         td7.textContent = `${/*trxTplDetail*/
-        (ctx[46].attributes || []).includes("sales") ? "Yes" : "No"}`;
+        (ctx[47].attributes || []).includes("sales") ? "Yes" : "No"}`;
         t14 = space();
         attr(td0, "class", "svelte-a3lf2l");
         attr(button, "class", "btn svelte-a3lf2l");
@@ -8804,7 +8804,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
             button,
             "click",
             /*click_handler_1*/
-            ctx[21]
+            ctx[22]
           );
           mounted = true;
         }
@@ -8895,7 +8895,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         set_input_value(
           textarea,
           /*descriptions*/
-          ctx[11]
+          ctx[12]
         );
         append(tr1, t6);
         append(tr1, td1);
@@ -8903,7 +8903,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         set_input_value(
           input,
           /*date*/
-          ctx[12]
+          ctx[13]
         );
         if (!mounted) {
           dispose = [
@@ -8911,13 +8911,13 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
               textarea,
               "input",
               /*textarea_input_handler*/
-              ctx[24]
+              ctx[25]
             ),
             listen(
               input,
               "input",
               /*input_input_handler_2*/
-              ctx[25]
+              ctx[26]
             )
           ];
           mounted = true;
@@ -8951,19 +8951,19 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
           if_block1 = null;
         }
         if (dirty[0] & /*descriptions*/
-        2048) {
+        4096) {
           set_input_value(
             textarea,
             /*descriptions*/
-            ctx2[11]
+            ctx2[12]
           );
         }
         if (dirty[0] & /*date*/
-        4096) {
+        8192) {
           set_input_value(
             input,
             /*date*/
-            ctx2[12]
+            ctx2[13]
           );
         }
       },
@@ -9118,26 +9118,26 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         set_input_value(
           input,
           /*creditIDR*/
-          ctx[10]
+          ctx[11]
         );
         if (!mounted) {
           dispose = listen(
             input,
             "input",
             /*input_input_handler_1*/
-            ctx[23]
+            ctx[24]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*creditIDR*/
-        1024 && to_number(input.value) !== /*creditIDR*/
-        ctx2[10]) {
+        2048 && to_number(input.value) !== /*creditIDR*/
+        ctx2[11]) {
           set_input_value(
             input,
             /*creditIDR*/
-            ctx2[10]
+            ctx2[11]
           );
         }
       },
@@ -9170,26 +9170,26 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         set_input_value(
           input,
           /*debitIDR*/
-          ctx[9]
+          ctx[10]
         );
         if (!mounted) {
           dispose = listen(
             input,
             "input",
             /*input_input_handler*/
-            ctx[22]
+            ctx[23]
           );
           mounted = true;
         }
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*debitIDR*/
-        512 && to_number(input.value) !== /*debitIDR*/
-        ctx2[9]) {
+        1024 && to_number(input.value) !== /*debitIDR*/
+        ctx2[10]) {
           set_input_value(
             input,
             /*debitIDR*/
-            ctx2[9]
+            ctx2[10]
           );
         }
       },
@@ -9228,7 +9228,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
     );
     let each_value = ensure_array_like(
       /*payloadsMulti*/
-      ctx[14] || []
+      ctx[15] || []
     );
     let each_blocks = [];
     for (let i = 0; i < each_value.length; i += 1) {
@@ -9336,10 +9336,10 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
           if_block2 = null;
         }
         if (dirty[0] & /*payloadsMulti, isSales, coaChildren, isChildOnly, isDebit, isAutoSum*/
-        24636) {
+        49212) {
           each_value = ensure_array_like(
             /*payloadsMulti*/
-            ctx2[14] || []
+            ctx2[15] || []
           );
           let i;
           for (i = 0; i < each_value.length; i += 1) {
@@ -9560,12 +9560,12 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
     let mounted;
     let dispose;
     function input_input_handler_4() {
-      ctx[28].call(
+      ctx[29].call(
         input,
         /*each_value*/
-        ctx[40],
+        ctx[41],
         /*i*/
-        ctx[41]
+        ctx[42]
       );
     }
     return {
@@ -9583,7 +9583,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         set_input_value(
           input,
           /*py*/
-          ctx[39].creditIDR
+          ctx[40].creditIDR
         );
         if (!mounted) {
           dispose = listen(input, "input", input_input_handler_4);
@@ -9593,12 +9593,12 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if (dirty[0] & /*payloadsMulti, coaChildren*/
-        24576 && to_number(input.value) !== /*py*/
-        ctx[39].creditIDR) {
+        49152 && to_number(input.value) !== /*py*/
+        ctx[40].creditIDR) {
           set_input_value(
             input,
             /*py*/
-            ctx[39].creditIDR
+            ctx[40].creditIDR
           );
         }
       },
@@ -9617,12 +9617,12 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
     let mounted;
     let dispose;
     function input_input_handler_3() {
-      ctx[27].call(
+      ctx[28].call(
         input,
         /*each_value*/
-        ctx[40],
+        ctx[41],
         /*i*/
-        ctx[41]
+        ctx[42]
       );
     }
     return {
@@ -9640,7 +9640,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         set_input_value(
           input,
           /*py*/
-          ctx[39].debitIDR
+          ctx[40].debitIDR
         );
         if (!mounted) {
           dispose = listen(input, "input", input_input_handler_3);
@@ -9650,12 +9650,12 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if (dirty[0] & /*payloadsMulti, coaChildren*/
-        24576 && to_number(input.value) !== /*py*/
-        ctx[39].debitIDR) {
+        49152 && to_number(input.value) !== /*py*/
+        ctx[40].debitIDR) {
           set_input_value(
             input,
             /*py*/
-            ctx[39].debitIDR
+            ctx[40].debitIDR
           );
         }
       },
@@ -9675,19 +9675,19 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
     let dispose;
     let each_value_1 = ensure_array_like(Object.entries(
       /*coaChildren*/
-      ctx[13]
+      ctx[14]
     ));
     let each_blocks = [];
     for (let i = 0; i < each_value_1.length; i += 1) {
       each_blocks[i] = create_each_block_12(get_each_context_12(ctx, each_value_1, i));
     }
     function select_change_handler() {
-      ctx[31].call(
+      ctx[32].call(
         select,
         /*each_value*/
-        ctx[40],
+        ctx[41],
         /*i*/
-        ctx[41]
+        ctx[42]
       );
     }
     return {
@@ -9700,7 +9700,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         attr(select, "class", "svelte-a3lf2l");
         if (
           /*py*/
-          ctx[39].coaId === void 0
+          ctx[40].coaId === void 0
         )
           add_render_callback(select_change_handler);
         attr(td, "class", "svelte-a3lf2l");
@@ -9716,7 +9716,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         select_option(
           select,
           /*py*/
-          ctx[39].coaId,
+          ctx[40].coaId,
           true
         );
         if (!mounted) {
@@ -9727,10 +9727,10 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if (dirty[0] & /*coaChildren*/
-        8192) {
+        16384) {
           each_value_1 = ensure_array_like(Object.entries(
             /*coaChildren*/
-            ctx[13]
+            ctx[14]
           ));
           let i;
           for (i = 0; i < each_value_1.length; i += 1) {
@@ -9749,11 +9749,11 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
           each_blocks.length = each_value_1.length;
         }
         if (dirty[0] & /*payloadsMulti, coaChildren*/
-        24576) {
+        49152) {
           select_option(
             select,
             /*py*/
-            ctx[39].coaId
+            ctx[40].coaId
           );
         }
       },
@@ -9771,7 +9771,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
     let option;
     let t_value = (
       /*v*/
-      ctx[43] + ""
+      ctx[44] + ""
     );
     let t;
     let option_value_value;
@@ -9780,7 +9780,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         option = element("option");
         t = text(t_value);
         option.__value = option_value_value = /*k*/
-        ctx[42];
+        ctx[43];
         set_input_value(option, option.__value);
       },
       m(target, anchor) {
@@ -9789,12 +9789,12 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*coaChildren*/
-        8192 && t_value !== (t_value = /*v*/
-        ctx2[43] + ""))
+        16384 && t_value !== (t_value = /*v*/
+        ctx2[44] + ""))
           set_data(t, t_value);
         if (dirty[0] & /*coaChildren*/
-        8192 && option_value_value !== (option_value_value = /*k*/
-        ctx2[42])) {
+        16384 && option_value_value !== (option_value_value = /*k*/
+        ctx2[43])) {
           option.__value = option_value_value;
           set_input_value(option, option.__value);
         }
@@ -9815,21 +9815,21 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
     let mounted;
     let dispose;
     function input0_input_handler() {
-      ctx[32].call(
+      ctx[33].call(
         input0,
         /*each_value*/
-        ctx[40],
+        ctx[41],
         /*i*/
-        ctx[41]
+        ctx[42]
       );
     }
     function input1_input_handler() {
-      ctx[33].call(
+      ctx[34].call(
         input1,
         /*each_value*/
-        ctx[40],
+        ctx[41],
         /*i*/
-        ctx[41]
+        ctx[42]
       );
     }
     return {
@@ -9854,7 +9854,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         set_input_value(
           input0,
           /*py*/
-          ctx[39].salesCount
+          ctx[40].salesCount
         );
         insert(target, t, anchor);
         insert(target, td1, anchor);
@@ -9862,7 +9862,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         set_input_value(
           input1,
           /*py*/
-          ctx[39].salesPriceIDR
+          ctx[40].salesPriceIDR
         );
         if (!mounted) {
           dispose = [
@@ -9875,21 +9875,21 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if (dirty[0] & /*payloadsMulti, coaChildren*/
-        24576 && to_number(input0.value) !== /*py*/
-        ctx[39].salesCount) {
+        49152 && to_number(input0.value) !== /*py*/
+        ctx[40].salesCount) {
           set_input_value(
             input0,
             /*py*/
-            ctx[39].salesCount
+            ctx[40].salesCount
           );
         }
         if (dirty[0] & /*payloadsMulti, coaChildren*/
-        24576 && to_number(input1.value) !== /*py*/
-        ctx[39].salesPriceIDR) {
+        49152 && to_number(input1.value) !== /*py*/
+        ctx[40].salesPriceIDR) {
           set_input_value(
             input1,
             /*py*/
-            ctx[39].salesPriceIDR
+            ctx[40].salesPriceIDR
           );
         }
       },
@@ -9930,30 +9930,30 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
     function click_handler_2() {
       return (
         /*click_handler_2*/
-        ctx[26](
+        ctx[27](
           /*py*/
-          ctx[39]
+          ctx[40]
         )
       );
     }
     let if_block0 = !/*isAutoSum*/
     ctx[5] && create_if_block_53(ctx);
     function textarea_input_handler_1() {
-      ctx[29].call(
+      ctx[30].call(
         textarea,
         /*each_value*/
-        ctx[40],
+        ctx[41],
         /*i*/
-        ctx[41]
+        ctx[42]
       );
     }
     function input_input_handler_5() {
-      ctx[30].call(
+      ctx[31].call(
         input,
         /*each_value*/
-        ctx[40],
+        ctx[41],
         /*i*/
-        ctx[41]
+        ctx[42]
       );
     }
     let if_block1 = (
@@ -9987,9 +9987,9 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
           if_block2.c();
         t5 = space();
         button.disabled = button_disabled_value = /*i*/
-        ctx[41] === 0;
+        ctx[42] === 0;
         attr(button, "title", button_title_value = /*i*/
-        ctx[41] === 0 ? "Cannot remove first row" : "Remove row");
+        ctx[42] === 0 ? "Cannot remove first row" : "Remove row");
         attr(button, "class", "btn_remove svelte-a3lf2l");
         attr(td0, "class", "svelte-a3lf2l");
         attr(textarea, "placeholder", "Description");
@@ -10014,7 +10014,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         set_input_value(
           textarea,
           /*py*/
-          ctx[39].descriptions
+          ctx[40].descriptions
         );
         append(tr, t2);
         append(tr, td2);
@@ -10022,7 +10022,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         set_input_value(
           input,
           /*py*/
-          ctx[39].date
+          ctx[40].date
         );
         append(tr, t3);
         if (if_block1)
@@ -10057,19 +10057,19 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
           if_block0 = null;
         }
         if (dirty[0] & /*payloadsMulti, coaChildren*/
-        24576) {
+        49152) {
           set_input_value(
             textarea,
             /*py*/
-            ctx[39].descriptions
+            ctx[40].descriptions
           );
         }
         if (dirty[0] & /*payloadsMulti, coaChildren*/
-        24576) {
+        49152) {
           set_input_value(
             input,
             /*py*/
-            ctx[39].date
+            ctx[40].date
           );
         }
         if (
@@ -10185,7 +10185,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
     let t20;
     let t21_value = coas[
       /*coaId*/
-      ctx[8]
+      ctx[9]
     ] + "";
     let t21;
     let t22;
@@ -10237,7 +10237,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
     current_block_type_index = select_block_type(ctx, [-1, -1]);
     if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     function inputcustom0_value_binding(value) {
-      ctx[19](value);
+      ctx[20](value);
     }
     let inputcustom0_props = {
       type: "date",
@@ -10247,15 +10247,15 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
     };
     if (
       /*startDate*/
-      ctx[6] !== void 0
+      ctx[7] !== void 0
     ) {
       inputcustom0_props.value = /*startDate*/
-      ctx[6];
+      ctx[7];
     }
     inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
     binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
     function inputcustom1_value_binding(value) {
-      ctx[20](value);
+      ctx[21](value);
     }
     let inputcustom1_props = {
       id: "endDate",
@@ -10264,10 +10264,10 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
     };
     if (
       /*endDate*/
-      ctx[7] !== void 0
+      ctx[8] !== void 0
     ) {
       inputcustom1_props.value = /*endDate*/
-      ctx[7];
+      ctx[8];
     }
     inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
     binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
@@ -10463,13 +10463,13 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
               button0,
               "click",
               /*click_handler_3*/
-              ctx[34]
+              ctx[35]
             ),
             listen(
               button1,
               "click",
               /*click_handler_4*/
-              ctx[35]
+              ctx[36]
             )
           ];
           mounted = true;
@@ -10483,26 +10483,26 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
           attr(div3, "class", div3_class_value);
         }
         if ((!current || dirty[0] & /*coaId*/
-        256) && t21_value !== (t21_value = coas[
+        512) && t21_value !== (t21_value = coas[
           /*coaId*/
-          ctx2[8]
+          ctx2[9]
         ] + ""))
           set_data(t21, t21_value);
         const inputcustom0_changes = {};
         if (!updating_value && dirty[0] & /*startDate*/
-        64) {
+        128) {
           updating_value = true;
           inputcustom0_changes.value = /*startDate*/
-          ctx2[6];
+          ctx2[7];
           add_flush_callback(() => updating_value = false);
         }
         inputcustom0.$set(inputcustom0_changes);
         const inputcustom1_changes = {};
         if (!updating_value_1 && dirty[0] & /*endDate*/
-        128) {
+        256) {
           updating_value_1 = true;
           inputcustom1_changes.value = /*endDate*/
-          ctx2[7];
+          ctx2[8];
           add_flush_callback(() => updating_value_1 = false);
         }
         inputcustom1.$set(inputcustom1_changes);
@@ -10658,9 +10658,9 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
       },
       p(ctx2, dirty) {
         const mainlayout_changes = {};
-        if (dirty[0] & /*isCreatingJournal, isSubmitted, isSales, isChildOnly, payloadsMulti, coaChildren, isDebit, isAutoSum, date, descriptions, debitIDR, creditIDR, coaId, endDate, startDate*/
-        32767 | dirty[1] & /*$scope*/
-        131072) {
+        if (dirty[0] & /*isCreatingJournal, isSubmitted, isSales, isChildOnly, payloadsMulti, coaChildren, isDebit, isAutoSum, date, descriptions, debitIDR, creditIDR, coaId, endDate, startDate, transactionTplDetailId*/
+        65535 | dirty[1] & /*$scope*/
+        262144) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -10714,6 +10714,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
     let isSales = false;
     let isChildOnly = false;
     let isAutoSum = false;
+    let transactionTplDetailId = 0;
     let startDate = dateISOFormat(0);
     let endDate = dateISOFormat(4);
     let coaId = 0;
@@ -10737,15 +10738,15 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
       $invalidate(3, isSales = false);
       $invalidate(4, isChildOnly = false);
       $invalidate(5, isAutoSum = false);
-      $invalidate(6, startDate = dateISOFormat(0));
-      $invalidate(7, endDate = dateISOFormat(4));
-      $invalidate(8, coaId = 0);
-      $invalidate(9, debitIDR = 0);
-      $invalidate(10, creditIDR = 0);
-      $invalidate(11, descriptions = "");
-      $invalidate(12, date = dateISOFormat(0));
-      $invalidate(13, coaChildren = {});
-      $invalidate(14, payloadsMulti = []);
+      $invalidate(7, startDate = dateISOFormat(0));
+      $invalidate(8, endDate = dateISOFormat(4));
+      $invalidate(9, coaId = 0);
+      $invalidate(10, debitIDR = 0);
+      $invalidate(11, creditIDR = 0);
+      $invalidate(12, descriptions = "");
+      $invalidate(13, date = dateISOFormat(0));
+      $invalidate(14, coaChildren = {});
+      $invalidate(15, payloadsMulti = []);
       totalCreditIDR = 0;
       totalDebitIDR = 0;
     }
@@ -10761,7 +10762,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
             notifier.showError(o.error || "failed to get coa children");
             return;
           }
-          $invalidate(13, coaChildren = o.coaChildren);
+          $invalidate(14, coaChildren = o.coaChildren);
         }
       );
     }
@@ -10777,6 +10778,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         cmd: "upsert",
         coaId,
         transactionTplId: transactionTemplate.id,
+        transactionTplDetailId,
         transactionJournals: [
           {
             debitIDR: debit + "",
@@ -10845,6 +10847,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         cmd: "upsert",
         coaId,
         transactionTplId: transactionTemplate.id,
+        transactionTplDetailId,
         transactionJournals: trxJournals,
         businessTransaction: { startDate, endDate }
       };
@@ -10864,14 +10867,14 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
       );
     }
     const click_handler = async (trxTplDetail) => {
+      $invalidate(6, transactionTplDetailId = trxTplDetail.id);
       $invalidate(2, isDebit = trxTplDetail.isDebit);
       $invalidate(3, isSales = (trxTplDetail.attributes || []).includes("sales"));
       $invalidate(4, isChildOnly = (trxTplDetail.attributes || []).includes("childOnly"));
-      $invalidate(8, coaId = trxTplDetail.coaId);
+      $invalidate(9, coaId = trxTplDetail.coaId);
       let pyCoaId = trxTplDetail.coaId;
       if (isChildOnly) {
         await GetCoaChildren(trxTplDetail.coaId);
-        console.log(coaChildren);
         for (const [id, v] of Object.entries(coaChildren)) {
           console.log(id, v);
           pyCoaId = Number(id);
@@ -10880,7 +10883,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
       }
       ;
       if (isSales) {
-        $invalidate(14, payloadsMulti = [
+        $invalidate(15, payloadsMulti = [
           {
             coaId: Number(isChildOnly ? pyCoaId : coaId),
             descriptions: "",
@@ -10894,7 +10897,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
         ]);
         console.log(payloadsMulti);
       } else if (isChildOnly) {
-        $invalidate(14, payloadsMulti = [
+        $invalidate(15, payloadsMulti = [
           {
             coaId: pyCoaId,
             descriptions: "",
@@ -10911,14 +10914,14 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
     };
     function inputcustom0_value_binding(value) {
       startDate = value;
-      $invalidate(6, startDate);
+      $invalidate(7, startDate);
     }
     function inputcustom1_value_binding(value) {
       endDate = value;
-      $invalidate(7, endDate);
+      $invalidate(8, endDate);
     }
     const click_handler_1 = () => {
-      $invalidate(14, payloadsMulti = [
+      $invalidate(15, payloadsMulti = [
         ...payloadsMulti,
         {
           coaId,
@@ -10934,55 +10937,55 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
     };
     function input_input_handler() {
       debitIDR = to_number(this.value);
-      $invalidate(9, debitIDR);
+      $invalidate(10, debitIDR);
     }
     function input_input_handler_1() {
       creditIDR = to_number(this.value);
-      $invalidate(10, creditIDR);
+      $invalidate(11, creditIDR);
     }
     function textarea_input_handler() {
       descriptions = this.value;
-      $invalidate(11, descriptions);
+      $invalidate(12, descriptions);
     }
     function input_input_handler_2() {
       date = this.value;
-      $invalidate(12, date);
+      $invalidate(13, date);
     }
-    const click_handler_2 = (py) => $invalidate(14, payloadsMulti = payloadsMulti.filter((item) => item !== py));
+    const click_handler_2 = (py) => $invalidate(15, payloadsMulti = payloadsMulti.filter((item) => item !== py));
     function input_input_handler_3(each_value, i) {
       each_value[i].debitIDR = to_number(this.value);
-      $invalidate(14, payloadsMulti);
-      $invalidate(13, coaChildren);
+      $invalidate(15, payloadsMulti);
+      $invalidate(14, coaChildren);
     }
     function input_input_handler_4(each_value, i) {
       each_value[i].creditIDR = to_number(this.value);
-      $invalidate(14, payloadsMulti);
-      $invalidate(13, coaChildren);
+      $invalidate(15, payloadsMulti);
+      $invalidate(14, coaChildren);
     }
     function textarea_input_handler_1(each_value, i) {
       each_value[i].descriptions = this.value;
-      $invalidate(14, payloadsMulti);
-      $invalidate(13, coaChildren);
+      $invalidate(15, payloadsMulti);
+      $invalidate(14, coaChildren);
     }
     function input_input_handler_5(each_value, i) {
       each_value[i].date = this.value;
-      $invalidate(14, payloadsMulti);
-      $invalidate(13, coaChildren);
+      $invalidate(15, payloadsMulti);
+      $invalidate(14, coaChildren);
     }
     function select_change_handler(each_value, i) {
       each_value[i].coaId = select_value(this);
-      $invalidate(14, payloadsMulti);
-      $invalidate(13, coaChildren);
+      $invalidate(15, payloadsMulti);
+      $invalidate(14, coaChildren);
     }
     function input0_input_handler(each_value, i) {
       each_value[i].salesCount = to_number(this.value);
-      $invalidate(14, payloadsMulti);
-      $invalidate(13, coaChildren);
+      $invalidate(15, payloadsMulti);
+      $invalidate(14, coaChildren);
     }
     function input1_input_handler(each_value, i) {
       each_value[i].salesPriceIDR = to_number(this.value);
-      $invalidate(14, payloadsMulti);
-      $invalidate(13, coaChildren);
+      $invalidate(15, payloadsMulti);
+      $invalidate(14, coaChildren);
     }
     const click_handler_3 = () => $invalidate(0, isCreatingJournal = false);
     const click_handler_4 = () => {
@@ -10998,6 +11001,7 @@ header.svelte-a3lf2l.svelte-a3lf2l.svelte-a3lf2l {
       isSales,
       isChildOnly,
       isAutoSum,
+      transactionTplDetailId,
       startDate,
       endDate,
       coaId,

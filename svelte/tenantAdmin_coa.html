@@ -10169,8 +10169,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // tenantAdmin_coa.svelte
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[35] = list[i];
-    child_ctx[37] = i;
+    child_ctx[34] = list[i];
+    child_ctx[36] = i;
     return child_ctx;
   }
   function create_each_block3(key_1, ctx) {
@@ -10182,13 +10182,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       props: {
         coa: (
           /*c*/
-          ctx[35]
+          ctx[34]
         ),
         num: `${/*idxParent*/
-        ctx[37] + 1}`,
+        ctx[36] + 1}`,
         parentNum: (
           /*idxParent*/
-          ctx[37] + 1
+          ctx[36] + 1
         ),
         isRootCoA: true,
         indent: 0
@@ -10197,17 +10197,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     coatree.$on(
       "update",
       /*updateEventHandler*/
-      ctx[12]
+      ctx[11]
     );
     coatree.$on(
       "moving",
       /*coaMovingHandler*/
-      ctx[15]
+      ctx[14]
     );
     coatree.$on(
       "moved",
       /*coaMovedHandler*/
-      ctx[16]
+      ctx[15]
     );
     return {
       key: key_1,
@@ -10229,17 +10229,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         ctx = new_ctx;
         const coatree_changes = {};
         if (dirty[0] & /*REFORMAT_COAS*/
-        2)
+        1)
           coatree_changes.coa = /*c*/
-          ctx[35];
+          ctx[34];
         if (dirty[0] & /*REFORMAT_COAS*/
-        2)
+        1)
           coatree_changes.num = `${/*idxParent*/
-          ctx[37] + 1}`;
+          ctx[36] + 1}`;
         if (dirty[0] & /*REFORMAT_COAS*/
-        2)
+        1)
           coatree_changes.parentNum = /*idxParent*/
-          ctx[37] + 1;
+          ctx[36] + 1;
         coatree.$set(coatree_changes);
       },
       i(local) {
@@ -10291,122 +10291,107 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let mounted;
     let dispose;
     function inputcustom0_value_binding(value) {
-      ctx[22](value);
+      ctx[21](value);
     }
     let inputcustom0_props = {
       type: "combobox",
       label: "Products CoA",
       id: "productCoaId",
-      values: (
-        /*coasChoices*/
-        ctx[0]
-      ),
+      values: coasChoices,
       isObject: true
     };
     if (
       /*productsCoaId*/
-      ctx[6] !== void 0
+      ctx[5] !== void 0
     ) {
       inputcustom0_props.value = /*productsCoaId*/
-      ctx[6];
+      ctx[5];
     }
     inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
     binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
     function inputcustom1_value_binding(value) {
-      ctx[23](value);
+      ctx[22](value);
     }
     let inputcustom1_props = {
       type: "combobox",
       label: "Suppliers CoA",
       id: "suppliersCoaId",
-      values: (
-        /*coasChoices*/
-        ctx[0]
-      ),
+      values: coasChoices,
       isObject: true
     };
     if (
       /*suppliersCoaId*/
-      ctx[7] !== void 0
+      ctx[6] !== void 0
     ) {
       inputcustom1_props.value = /*suppliersCoaId*/
-      ctx[7];
+      ctx[6];
     }
     inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
     binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
     function inputcustom2_value_binding(value) {
-      ctx[24](value);
+      ctx[23](value);
     }
     let inputcustom2_props = {
       type: "combobox",
       label: "Customers CoA",
       id: "customersCoaId",
-      values: (
-        /*coasChoices*/
-        ctx[0]
-      ),
+      values: coasChoices,
       isObject: true
     };
     if (
       /*customersCoaId*/
-      ctx[8] !== void 0
+      ctx[7] !== void 0
     ) {
       inputcustom2_props.value = /*customersCoaId*/
-      ctx[8];
+      ctx[7];
     }
     inputcustom2 = new InputCustom_default({ props: inputcustom2_props });
     binding_callbacks.push(() => bind(inputcustom2, "value", inputcustom2_value_binding));
     function inputcustom3_value_binding(value) {
-      ctx[25](value);
+      ctx[24](value);
     }
     let inputcustom3_props = {
       type: "combobox",
       label: "Staffs CoA",
       id: "staffsCoaId",
-      values: (
-        /*coasChoices*/
-        ctx[0]
-      ),
+      values: coasChoices,
       isObject: true
     };
     if (
       /*staffsCoaId*/
-      ctx[9] !== void 0
+      ctx[8] !== void 0
     ) {
       inputcustom3_props.value = /*staffsCoaId*/
-      ctx[9];
+      ctx[8];
     }
     inputcustom3 = new InputCustom_default({ props: inputcustom3_props });
     binding_callbacks.push(() => bind(inputcustom3, "value", inputcustom3_value_binding));
     function inputcustom4_value_binding(value) {
-      ctx[26](value);
+      ctx[25](value);
     }
     let inputcustom4_props = {
       type: "combobox",
       label: "Banks CoA",
       id: "banksCoaId",
-      values: (
-        /*coasChoices*/
-        ctx[0]
-      ),
+      values: coasChoices,
       isObject: true
     };
     if (
       /*banksCoaId*/
-      ctx[10] !== void 0
+      ctx[9] !== void 0
     ) {
       inputcustom4_props.value = /*banksCoaId*/
-      ctx[10];
+      ctx[9];
     }
     inputcustom4 = new InputCustom_default({ props: inputcustom4_props });
     binding_callbacks.push(() => bind(inputcustom4, "value", inputcustom4_value_binding));
     let each_value = ensure_array_like(
       /*REFORMAT_COAS*/
-      ctx[1] || []
+      ctx[0] || []
     );
     const get_key = (ctx2) => (
       /*c*/
-      ctx2[35].id
+      ctx2[34].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context3(ctx, each_value, i);
@@ -10440,7 +10425,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         attr(div0, "class", "inputs_container svelte-1mzqfbt");
         button0.disabled = /*isSubmitSyncCoA*/
-        ctx[11];
+        ctx[10];
         attr(button0, "class", "sync_btn svelte-1mzqfbt");
         attr(div1, "class", "tenants_sync_coa svelte-1mzqfbt");
         attr(button1, "class", "add svelte-1mzqfbt");
@@ -10479,13 +10464,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               button0,
               "click",
               /*SubmitSyncCoA*/
-              ctx[17]
+              ctx[16]
             ),
             listen(
               button1,
               "click",
               /*toggleShowPopUpCoa*/
-              ctx[14]
+              ctx[13]
             )
           ];
           mounted = true;
@@ -10493,80 +10478,60 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, dirty) {
         const inputcustom0_changes = {};
-        if (dirty[0] & /*coasChoices*/
-        1)
-          inputcustom0_changes.values = /*coasChoices*/
-          ctx2[0];
         if (!updating_value && dirty[0] & /*productsCoaId*/
-        64) {
+        32) {
           updating_value = true;
           inputcustom0_changes.value = /*productsCoaId*/
-          ctx2[6];
+          ctx2[5];
           add_flush_callback(() => updating_value = false);
         }
         inputcustom0.$set(inputcustom0_changes);
         const inputcustom1_changes = {};
-        if (dirty[0] & /*coasChoices*/
-        1)
-          inputcustom1_changes.values = /*coasChoices*/
-          ctx2[0];
         if (!updating_value_1 && dirty[0] & /*suppliersCoaId*/
-        128) {
+        64) {
           updating_value_1 = true;
           inputcustom1_changes.value = /*suppliersCoaId*/
-          ctx2[7];
+          ctx2[6];
           add_flush_callback(() => updating_value_1 = false);
         }
         inputcustom1.$set(inputcustom1_changes);
         const inputcustom2_changes = {};
-        if (dirty[0] & /*coasChoices*/
-        1)
-          inputcustom2_changes.values = /*coasChoices*/
-          ctx2[0];
         if (!updating_value_2 && dirty[0] & /*customersCoaId*/
-        256) {
+        128) {
           updating_value_2 = true;
           inputcustom2_changes.value = /*customersCoaId*/
-          ctx2[8];
+          ctx2[7];
           add_flush_callback(() => updating_value_2 = false);
         }
         inputcustom2.$set(inputcustom2_changes);
         const inputcustom3_changes = {};
-        if (dirty[0] & /*coasChoices*/
-        1)
-          inputcustom3_changes.values = /*coasChoices*/
-          ctx2[0];
         if (!updating_value_3 && dirty[0] & /*staffsCoaId*/
-        512) {
+        256) {
           updating_value_3 = true;
           inputcustom3_changes.value = /*staffsCoaId*/
-          ctx2[9];
+          ctx2[8];
           add_flush_callback(() => updating_value_3 = false);
         }
         inputcustom3.$set(inputcustom3_changes);
         const inputcustom4_changes = {};
-        if (dirty[0] & /*coasChoices*/
-        1)
-          inputcustom4_changes.values = /*coasChoices*/
-          ctx2[0];
         if (!updating_value_4 && dirty[0] & /*banksCoaId*/
-        1024) {
+        512) {
           updating_value_4 = true;
           inputcustom4_changes.value = /*banksCoaId*/
-          ctx2[10];
+          ctx2[9];
           add_flush_callback(() => updating_value_4 = false);
         }
         inputcustom4.$set(inputcustom4_changes);
         if (!current || dirty[0] & /*isSubmitSyncCoA*/
-        2048) {
+        1024) {
           button0.disabled = /*isSubmitSyncCoA*/
-          ctx2[11];
+          ctx2[10];
         }
         if (dirty[0] & /*REFORMAT_COAS, updateEventHandler, coaMovingHandler, coaMovedHandler*/
-        102402) {
+        51201) {
           each_value = ensure_array_like(
             /*REFORMAT_COAS*/
-            ctx2[1] || []
+            ctx2[0] || []
           );
           group_outros();
           each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, div3, outro_and_destroy_block, create_each_block3, null, get_each_context3);
@@ -10623,41 +10588,41 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let mainlayout;
     let current;
     function popupcoa_name_binding(value) {
-      ctx[19](value);
+      ctx[18](value);
     }
     function popupcoa_label_binding(value) {
-      ctx[20](value);
+      ctx[19](value);
     }
     function popupcoa_isSubmitted_binding(value) {
-      ctx[21](value);
+      ctx[20](value);
     }
     let popupcoa_props = { onSubmit: (
       /*submitUpsertCoa*/
-      ctx[13]
+      ctx[12]
     ) };
     if (
       /*name*/
-      ctx[3] !== void 0
+      ctx[2] !== void 0
     ) {
       popupcoa_props.name = /*name*/
-      ctx[3];
+      ctx[2];
     }
     if (
       /*label*/
-      ctx[4] !== void 0
+      ctx[3] !== void 0
     ) {
       popupcoa_props.label = /*label*/
-      ctx[4];
+      ctx[3];
     }
     if (
       /*isSubmittedCoA*/
-      ctx[5] !== void 0
+      ctx[4] !== void 0
     ) {
       popupcoa_props.isSubmitted = /*isSubmittedCoA*/
-      ctx[5];
+      ctx[4];
     }
     popupcoa = new PopUpCoa_default({ props: popupcoa_props });
-    ctx[18](popupcoa);
+    ctx[17](popupcoa);
     binding_callbacks.push(() => bind(popupcoa, "name", popupcoa_name_binding));
     binding_callbacks.push(() => bind(popupcoa, "label", popupcoa_label_binding));
     binding_callbacks.push(() => bind(popupcoa, "isSubmitted", popupcoa_isSubmitted_binding));
@@ -10682,31 +10647,31 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       p(ctx2, dirty) {
         const popupcoa_changes = {};
         if (!updating_name && dirty[0] & /*name*/
-        8) {
+        4) {
           updating_name = true;
           popupcoa_changes.name = /*name*/
-          ctx2[3];
+          ctx2[2];
           add_flush_callback(() => updating_name = false);
         }
         if (!updating_label && dirty[0] & /*label*/
-        16) {
+        8) {
           updating_label = true;
           popupcoa_changes.label = /*label*/
-          ctx2[4];
+          ctx2[3];
           add_flush_callback(() => updating_label = false);
         }
         if (!updating_isSubmitted && dirty[0] & /*isSubmittedCoA*/
-        32) {
+        16) {
           updating_isSubmitted = true;
           popupcoa_changes.isSubmitted = /*isSubmittedCoA*/
-          ctx2[5];
+          ctx2[4];
           add_flush_callback(() => updating_isSubmitted = false);
         }
         popupcoa.$set(popupcoa_changes);
         const mainlayout_changes = {};
-        if (dirty[0] & /*REFORMAT_COAS, isSubmitSyncCoA, coasChoices, banksCoaId, staffsCoaId, customersCoaId, suppliersCoaId, productsCoaId*/
-        4035 | dirty[1] & /*$scope*/
-        128) {
+        if (dirty[0] & /*REFORMAT_COAS, isSubmitSyncCoA, banksCoaId, staffsCoaId, customersCoaId, suppliersCoaId, productsCoaId*/
+        2017 | dirty[1] & /*$scope*/
+        64) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -10727,12 +10692,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (detaching) {
           detach(t);
         }
-        ctx[18](null);
+        ctx[17](null);
         destroy_component(popupcoa, detaching);
         destroy_component(mainlayout, detaching);
       }
     };
   }
+  var coasChoices = (
+    /** @type Record<string|number, string> */
+    {/* coaChoices */}
+  );
   function instance10($self, $props, $invalidate) {
     let coas = (
       /** @type CoA[] */
@@ -10742,7 +10711,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /** @type Tenant */
       {/* tenant */}
     );
-    let coasChoices = {};
     let REFORMAT_COAS = (
       /** @type CoA[] */
       []
@@ -10835,21 +10803,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       return toCoas;
     }
     onMount(() => {
-      $invalidate(1, REFORMAT_COAS = reformatCoas());
-      if (coas && coas.length > 0) {
-        $invalidate(0, coasChoices = coas.reduce(
-          (obj, item) => {
-            obj[item.id] = item.name;
-            return obj;
-          },
-          {}
-        ));
-      }
+      $invalidate(0, REFORMAT_COAS = reformatCoas());
     });
     function updateEventHandler(e) {
       coas = e.detail.coas;
-      $invalidate(1, REFORMAT_COAS = []);
-      $invalidate(1, REFORMAT_COAS = reformatCoas());
+      $invalidate(0, REFORMAT_COAS = []);
+      $invalidate(0, REFORMAT_COAS = reformatCoas());
     }
     let popUpCoa;
     let id = 0;
@@ -10858,7 +10817,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let label = "";
     let isSubmittedCoA = false;
     async function submitUpsertCoa() {
-      $invalidate(5, isSubmittedCoA = true);
+      $invalidate(4, isSubmittedCoA = true);
       const coa = { id, parentId, name, label };
       const i = { cmd: "upsert", coa };
       await (0, import_jsApi_GEN2.TenantAdminCoa)(
@@ -10867,8 +10826,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         /** @type {import('./jsApi.GEN').TenantAdminCoaCallback} */
         /** @returns {Promise<void>} */
         function(o) {
-          $invalidate(5, isSubmittedCoA = false);
-          id = 0, parentId = 0, $invalidate(3, name = ""), $invalidate(4, label = "");
+          $invalidate(4, isSubmittedCoA = false);
+          id = 0, parentId = 0, $invalidate(2, name = ""), $invalidate(3, label = "");
           popUpCoa.hide();
           if (o.error) {
             console.log(o);
@@ -10876,8 +10835,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             return;
           }
           coas = o.coas;
-          $invalidate(1, REFORMAT_COAS = []);
-          $invalidate(1, REFORMAT_COAS = reformatCoas());
+          $invalidate(0, REFORMAT_COAS = []);
+          $invalidate(0, REFORMAT_COAS = reformatCoas());
           notifier.showSuccess("coa updated");
         }
       );
@@ -10885,8 +10844,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function toggleShowPopUpCoa() {
       id = 0;
       parentId = 0;
-      $invalidate(3, name = "");
-      $invalidate(4, label = "");
+      $invalidate(2, name = "");
+      $invalidate(3, label = "");
       popUpCoa.show();
     }
     let coaMoving = (
@@ -10926,9 +10885,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             return;
           }
           coas = o.coas;
-          $invalidate(1, REFORMAT_COAS = []);
-          $invalidate(1, REFORMAT_COAS = reformatCoas());
-          notifier.showSuccess(`coa "` + coaMoving.name + `" moved to coa "` + parentCoa.name + `"`);
+          $invalidate(0, REFORMAT_COAS = []);
+          $invalidate(0, REFORMAT_COAS = reformatCoas());
+          notifier.showSuccess(`coa "` + coasChoices[coaMoving.id] + `" moved to coa "` + coasChoices[parentCoa.id] + `"`);
         }
       );
     }
@@ -10939,7 +10898,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let banksCoaId = tenant.banksCoaId || 0;
     let isSubmitSyncCoA = false;
     async function SubmitSyncCoA() {
-      $invalidate(11, isSubmitSyncCoA = true);
+      $invalidate(10, isSubmitSyncCoA = true);
       const i = {
         tenant: {
           productsCoaId,
@@ -10954,20 +10913,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         i,
         /** @type {import('./jsApi.GEN').TenantAdminSyncCoaCallback} */
         function(o) {
-          $invalidate(11, isSubmitSyncCoA = false);
+          $invalidate(10, isSubmitSyncCoA = false);
           if (o.error) {
             console.log(o);
             notifier.showError(o.error);
             return;
           }
           tenant = o.tenant;
-          $invalidate(6, productsCoaId = tenant.productsCoaId);
-          $invalidate(7, suppliersCoaId = tenant.suppliersCoaId);
-          $invalidate(8, customersCoaId = tenant.customersCoaId);
-          $invalidate(9, staffsCoaId = tenant.staffsCoaId);
-          $invalidate(10, banksCoaId = tenant.banksCoaId);
-          $invalidate(1, REFORMAT_COAS = []);
-          $invalidate(1, REFORMAT_COAS = reformatCoas());
+          $invalidate(5, productsCoaId = tenant.productsCoaId);
+          $invalidate(6, suppliersCoaId = tenant.suppliersCoaId);
+          $invalidate(7, customersCoaId = tenant.customersCoaId);
+          $invalidate(8, staffsCoaId = tenant.staffsCoaId);
+          $invalidate(9, banksCoaId = tenant.banksCoaId);
+          $invalidate(0, REFORMAT_COAS = []);
+          $invalidate(0, REFORMAT_COAS = reformatCoas());
           notifier.showSuccess("coa synced");
         }
       );
@@ -10975,43 +10934,42 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function popupcoa_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpCoa = $value;
-        $invalidate(2, popUpCoa);
+        $invalidate(1, popUpCoa);
       });
     }
     function popupcoa_name_binding(value) {
       name = value;
-      $invalidate(3, name);
+      $invalidate(2, name);
     }
     function popupcoa_label_binding(value) {
       label = value;
-      $invalidate(4, label);
+      $invalidate(3, label);
     }
     function popupcoa_isSubmitted_binding(value) {
       isSubmittedCoA = value;
-      $invalidate(5, isSubmittedCoA);
+      $invalidate(4, isSubmittedCoA);
     }
     function inputcustom0_value_binding(value) {
       productsCoaId = value;
-      $invalidate(6, productsCoaId);
+      $invalidate(5, productsCoaId);
     }
     function inputcustom1_value_binding(value) {
       suppliersCoaId = value;
-      $invalidate(7, suppliersCoaId);
+      $invalidate(6, suppliersCoaId);
     }
     function inputcustom2_value_binding(value) {
       customersCoaId = value;
-      $invalidate(8, customersCoaId);
+      $invalidate(7, customersCoaId);
     }
     function inputcustom3_value_binding(value) {
       staffsCoaId = value;
-      $invalidate(9, staffsCoaId);
+      $invalidate(8, staffsCoaId);
     }
     function inputcustom4_value_binding(value) {
       banksCoaId = value;
-      $invalidate(10, banksCoaId);
+      $invalidate(9, banksCoaId);
     }
     return [
-      coasChoices,
       REFORMAT_COAS,
       popUpCoa,
       name,

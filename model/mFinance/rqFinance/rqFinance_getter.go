@@ -1,6 +1,7 @@
 package rqFinance
 
 import (
+	"benakun/model/mFinance"
 	"benakun/model/zCrud"
 	"fmt"
 
@@ -32,6 +33,28 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 		}
 	}
 
+	return
+}
+
+type ParsedAttribute struct {
+	IsAutoSum bool
+	IsSales bool
+	IsChildOnly bool
+}
+
+func (ttpld *TransactionTplDetail) ParseAttributes() (pa ParsedAttribute) {
+	for _, v := range ttpld.Attributes {
+		if v == mFinance.AttributesAutoSum {
+			pa.IsAutoSum = true
+		}
+		if v == mFinance.AttributesSales {
+			pa.IsSales = true
+		}
+		if v == mFinance.AttributesChildOnly {
+			pa.IsChildOnly = true
+		}
+	}
+	
 	return
 }
 
@@ -137,7 +160,7 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 		if c.parentId != 0 {
 			numStr = num
 		}
-		name := `<span style="color: var(--blue-005); background-color: var(--blue-transparent); padding: 1px 3px; border-radius: 999px;">`+numStr + `</span><span>` + c.name + `</span>`
+		name := numStr + ` ` + c.name
 		coaChoices[I.UToS(c.id)] = name
 		for ix, v := range c.children {
 			snum := fmt.Sprintf("%v.%v", num, ix+1)

@@ -387,12 +387,17 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		tenant := rqAuth.NewTenants(d.AuthOltp)
 		tenant.TenantCode = user.TenantCode
 		tenant.FindByTenantCode()
+
+		coaChoices := rqFinance.NewCoa(d.AuthOltp)
+		coaChoices.TenantCode = tenant.TenantCode
+		cChoices := coaChoices.FindCoasChoicesByTenant()
 		return views.RenderTenantAdminCoa(ctx, M.SX{
 			`title`:    `Tenant Admin Coa`,
 			`user`:     user,
 			`segments`: segments,
 			`coas`:     out.Coas,
 			`tenant`: tenant,
+			`coaChoices`: cChoices,
 		})
 	})
 

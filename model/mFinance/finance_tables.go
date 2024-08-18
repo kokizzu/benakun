@@ -58,15 +58,28 @@ type CoaDefault struct {
 	Children []CoaDefault
 }
 
+const (
+	CoaBankName = `Bank`
+	CoaPersediaanBarangDagangan = `Persediaan Barang Dagangan`
+)
+
+var TransactionTemplateMap = map[string]struct{
+	CoaName string
+	IsCredit bool
+	Attribute []string
+}{
+	// TODO
+}
+
 func GetCoaDefaults() []CoaDefault {
 	return []CoaDefault{
 		{
 			Name: `Aktiva`,
 			Children: []CoaDefault{
-				{Name: `Bank`, Label: LabelBankAccount},
+				{Name: CoaBankName, Label: LabelBankAccount},
 				{Name: `Deposito Berjangka`},
 				{Name: `Piutang Usaha`},
-				{Name: `Persediaan Barang Dagangan`},
+				{Name: CoaPersediaanBarangDagangan},
 				{Name: `Uang Muka`},
 				{Name: `Pendapatan yang Masih Harus Diterima`},
 				{Name: `Pajak Dibayar Muka`},
@@ -204,7 +217,7 @@ const (
 )
 
 type TransactionJournalDetailObject struct {
-	SalesCount 		uint64 `json:"salesCount"`
+	SalesCount 		int64 `json:"salesCount"`
 	SalesPriceIDR string `json:"salesPriceIDR"` // Currency must be string
 }
 
