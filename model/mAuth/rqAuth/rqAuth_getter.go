@@ -87,7 +87,8 @@ func (u *Users) FindStaffByIdByTenantCode(id uint64, tenantCode string) bool {
 	var res [][]any
 	const comment = `-- Users) FindStaffByIdByTenantCode`
 
-	whereAndSql := ` WHERE ` + u.SqlId() + ` = ` + I.UToS(id) + ` AND ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
+	whereAndSql := ` WHERE ` + u.SqlId() + ` = ` + I.UToS(id) + ` AND ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+tenantCode+`:`+ mAuth.RoleDataEntry + `:accepted%`) + `
+		OR ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+tenantCode+`:`+ mAuth.RoleReportViewer + `:accepted%`)
 
 	queryRows := comment + `
 SELECT ` + u.SqlSelectAllFields() + `

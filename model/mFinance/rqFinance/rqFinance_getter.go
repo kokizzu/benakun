@@ -108,16 +108,13 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 							}
 						}
 					}
-
 					cwnF.id = v.id
 					cwnF.name = v.name
 					cwnF.parentId = v.parentId
-
 					return
 				}
 			}
 		}
-
 		return
 	}
 
@@ -140,8 +137,7 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 		if c.parentId != 0 {
 			numStr = num
 		}
-
-		name := `<span style="color: var(--blue-005); background-color: var(--blue-transparent); padding: 1px 3px; border-radius: 999px;">`+numStr + `</span> ` + c.name
+		name := `<span style="color: var(--blue-005); background-color: var(--blue-transparent); padding: 1px 3px; border-radius: 999px;">`+numStr + `</span><span>` + c.name + `</span>`
 		coaChoices[I.UToS(c.id)] = name
 		for ix, v := range c.children {
 			snum := fmt.Sprintf("%v.%v", num, ix+1)

@@ -6,6 +6,7 @@ import (
 	"benakun/model/mBudget"
 	"benakun/model/mBudget/rqBudget"
 	"benakun/model/mBudget/wcBudget"
+	"benakun/model/mFinance/wcFinance"
 	"benakun/model/zCrud"
 
 	"github.com/gofiber/fiber/v2"
@@ -38,14 +39,23 @@ type (
 const (
 	TenantAdminBankAccountsAction = `tenantAdmin/bankAccounts`
 
-	ErrTenantAdminBankAccountsUnauthorized    = `unauthorized user`
-	ErrTenantAdminBankAccountsTenantNotFound  = `tenant not found`
-	ErrTenantAdminBankAccountsNotFound        = `bank account not found`
-	ErrTenantAdminBankAccountsSaveFailed      = `bank account save failed`
-	ErrTenantAdminBankAccountsParentNotFound  = `parent bank account not found`
-	ErrTenantAdminBankAccountsParentHaveChild = `parent bank account already have child`
-	ErrTenantAdminBankAccountsStaffNotFound   = `staff not found to choose account's owner`
-	ErrTenantAdminBankAccountsNotTenant       = `must be tenant admin to do this operation`
+	ErrTenantAdminBankAccountsUnauthorized    			= `unauthorized user`
+	ErrTenantAdminBankAccountsTenantNotFound  			= `tenant not found`
+	ErrTenantAdminBankAccountsNotFound        			= `bank account not found`
+	ErrTenantAdminBankAccountsSaveFailed      			= `bank account save failed`
+	ErrTenantAdminBankAccountsParentNotFound  			= `parent bank account not found`
+	ErrTenantAdminBankAccountsParentHaveChild 			= `parent bank account already have child`
+	ErrTenantAdminBankAccountsStaffNotFound   			= `staff not found to choose account's owner`
+	ErrTenantAdminBankAccountsNotTenant       			= `must be tenant admin to do this operation`
+	ErrTenantAdminBankAccountsCustomerCoaNotFound 	= `customer coa not found`
+	ErrTenantAdminBankAccountsCustomerCoaSaveFailed	= `failed to save account to customer coa`
+	ErrTenantAdminBankAccountsCustomerCoaParentUpdateFailed = `failed to update parent of customer coa`
+	ErrTenantAdminBankAccountsSupplierCoaNotFound 	= `supplier coa not found`
+	ErrTenantAdminBankAccountsSupplierCoaSaveFailed	= `failed to save account to supplier coa`
+	ErrTenantAdminBankAccountsSupplierCoaParentUpdateFailed = `failed to update parent of supplier coa`
+	ErrTenantAdminBankAccountsBankCoaNotFound 			= `bank coa not found`
+	ErrTenantAdminBankAccountsBankCoaSaveFailed			= `failed to save account to bank coa`
+	ErrTenantAdminBankAccountsBankCoaParentUpdateFailed = `failed to update parent of bank coa`
 )
 
 var TenantAdminBankAccountsMeta = zCrud.Meta{
@@ -223,6 +233,104 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 
 				account.SetStaffId(staff.Id)
 			}
+
+			if in.Account.IsProfitCenter {
+				coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
+				coaParent.Id = tenant.CustomersCoaId
+				if !coaParent.FindById() {
+					out.SetError(400, ErrTenantAdminBankAccountsCustomerCoaNotFound)
+					return
+				}
+
+				coa := wcFinance.NewCoaMutator(d.AuthOltp)
+				coa.SetParentId(coaParent.Id)
+				coa.SetName(in.Account.Name)
+				coa.SetTenantCode(tenant.TenantCode)
+				coa.SetCreatedAt(in.UnixNow())
+				coa.SetCreatedBy(sess.UserId)
+				coa.SetUpdatedAt(in.UnixNow())
+				coa.SetUpdatedBy(sess.UserId)
+				if !coa.DoInsert() {
+					out.SetError(400, ErrTenantAdminBankAccountsCustomerCoaSaveFailed)
+					return
+				}
+
+				children := coaParent.Children
+				children = append(children, coa.Id)
+				coaParent.SetChildren(children)
+				coaParent.SetUpdatedAt(in.UnixNow())
+				coaParent.SetUpdatedBy(sess.UserId)
+				if !coaParent.DoUpdateById() {
+					out.SetError(400, ErrTenantAdminBankAccountsCustomerCoaParentUpdateFailed)
+					return
+				}
+			}
+			account.SetIsProfitCenter(in.Account.IsProfitCenter)
+			
+			if in.Account.IsCostCenter {
+				coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
+				coaParent.Id = tenant.SuppliersCoaId
+				if !coaParent.FindById() {
+					out.SetError(400, ErrTenantAdminBankAccountsSupplierCoaNotFound)
+					return
+				}
+
+				coa := wcFinance.NewCoaMutator(d.AuthOltp)
+				coa.SetParentId(coaParent.Id)
+				coa.SetName(in.Account.Name)
+				coa.SetTenantCode(tenant.TenantCode)
+				coa.SetCreatedAt(in.UnixNow())
+				coa.SetCreatedBy(sess.UserId)
+				coa.SetUpdatedAt(in.UnixNow())
+				coa.SetUpdatedBy(sess.UserId)
+				if !coa.DoInsert() {
+					out.SetError(400, ErrTenantAdminBankAccountsSupplierCoaSaveFailed)
+					return
+				}
+
+				children := coaParent.Children
+				children = append(children, coa.Id)
+				coaParent.SetChildren(children)
+				coaParent.SetUpdatedAt(in.UnixNow())
+				coaParent.SetUpdatedBy(sess.UserId)
+				if !coaParent.DoUpdateById() {
+					out.SetError(400, ErrTenantAdminBankAccountsSupplierCoaParentUpdateFailed)
+					return
+				}
+			} 
+			account.SetIsCostCenter(in.Account.IsCostCenter)
+
+			if !(in.Account.IsProfitCenter && in.Account.IsCostCenter) {
+				coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
+				coaParent.Id = tenant.BanksCoaId
+				if !coaParent.FindById() {
+					out.SetError(400, ErrTenantAdminBankAccountsBankCoaNotFound)
+					return
+				}
+
+				coa := wcFinance.NewCoaMutator(d.AuthOltp)
+				coa.SetParentId(coaParent.Id)
+				coa.SetName(in.Account.Name)
+				coa.SetTenantCode(tenant.TenantCode)
+				coa.SetCreatedAt(in.UnixNow())
+				coa.SetCreatedBy(sess.UserId)
+				coa.SetUpdatedAt(in.UnixNow())
+				coa.SetUpdatedBy(sess.UserId)
+				if !coa.DoInsert() {
+					out.SetError(400, ErrTenantAdminBankAccountsBankCoaSaveFailed)
+					return
+				}
+
+				children := coaParent.Children
+				children = append(children, coa.Id)
+				coaParent.SetChildren(children)
+				coaParent.SetUpdatedAt(in.UnixNow())
+				coaParent.SetUpdatedBy(sess.UserId)
+				if !coaParent.DoUpdateById() {
+					out.SetError(400, ErrTenantAdminBankAccountsBankCoaParentUpdateFailed)
+					return
+				}
+			}
 		}
 
 		account.SetTenantCode(user.TenantCode)
@@ -239,8 +347,6 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 		if in.Account.AccountNumber > 0 {
 			account.SetAccountNumber(in.Account.AccountNumber)
 		}
-		account.SetIsProfitCenter(in.Account.IsProfitCenter)
-		account.SetIsCostCenter(in.Account.IsCostCenter)
 
 		if account.HaveMutation() {
 			account.SetUpdatedAt(in.UnixNow())
