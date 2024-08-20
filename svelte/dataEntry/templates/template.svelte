@@ -30,7 +30,6 @@
   let org                   = /** @type Org */ ({/* org */});
   let user                  = /** @type User */ ({/* user */});
 
-  let isCreatingJournal = false;
   let isSubmitted       = false;
 
   let isDebit     = true;
@@ -66,7 +65,6 @@
   let totalDebitIDR   = 0;
 
   function reset() {
-    isCreatingJournal = false;
     isDebit       = true;
     isSales       = false;
     isChildOnly   = false;
@@ -210,116 +208,9 @@
 </script>
 
 <MainLayout>
-  <div class={!isCreatingJournal ? 'show' : 'hidden'}>
+  <div class="show">
     <header>
-      <h1>Data entry for {transactionTemplate.name}</h1>
-    </header>
-    <div class="data_entry_template___container" >
-      <div class="transaction_template_detail">
-        <div class="table_container">
-          <table>
-            <thead>
-              <tr>
-                <th class="no">#</th>
-                <th class="a_row">Action</th>
-                <th>Kredit</th>
-                <th>Debit</th>
-                <th>CoA (Chart of Accounts)</th>
-                <th>Auto Sum</th>
-                <th>Child Only</th>
-                <th>Sales</th>
-              </tr>
-            </thead>
-            <tbody>
-              {#if transactionTplDetails && transactionTplDetails.length > 0}
-                {#each (transactionTplDetails || []) as trxTplDetail, i (trxTplDetail.id)}
-                  <tr>
-                    <td>{i + 1}</td>
-                    <td class="a_row">
-                      <div class="actions">
-                        <button
-                          on:click={ async () => {
-                            transactionTplDetailId = trxTplDetail.id;
-                            isDebit = trxTplDetail.isDebit
-                            isSales = (trxTplDetail.attributes || []).includes('sales')
-                            isChildOnly = (trxTplDetail.attributes || []).includes('childOnly')
-                            coaId = trxTplDetail.coaId;
-
-                            let pyCoaId = trxTplDetail.coaId;
-                            if (isChildOnly) {
-                              await GetCoaChildren(trxTplDetail.coaId);
-                              for (const [id, v] of Object.entries(coaChildren)) {
-                                console.log(id, v);
-                                pyCoaId = Number(id);
-                                break;
-                              }
-                            };
-
-                            if (isSales) {
-                              payloadsMulti = [
-                                {
-                                  coaId: Number((isChildOnly ? pyCoaId : coaId)),
-                                  descriptions: '',
-                                  creditIDR: 0,
-                                  debitIDR: 0,
-                                  date: dateISOFormat(0),
-                                  salesCount: 0,
-                                  salesPriceIDR: 0,
-                                  transactionTplId: transactionTemplate.id
-                                }
-                              ]
-                              console.log(payloadsMulti);
-                            } else if (isChildOnly) {
-                              payloadsMulti = [
-                                {
-                                  coaId: pyCoaId,
-                                  descriptions: '',
-                                  creditIDR: 0,
-                                  debitIDR: 0,
-                                  date: dateISOFormat(0),
-                                  salesCount: 0,
-                                  salesPriceIDR: 0,
-                                  transactionTplId: transactionTemplate.id
-                                }
-                              ]
-                            }
-
-                            isCreatingJournal = true;
-                          }}
-                          class="btn"
-                          title="Add journal"
-                        >
-                          <Icon
-                            size="15"
-                            color="var(--gray-007)"
-                            src={RiSystemAddBoxLine}
-                          />
-                        </button>
-                      </div>
-                    </td>
-                    <td>{!trxTplDetail.isDebit ? 'Yes' : 'No'}</td>
-                    <td>{trxTplDetail.isDebit ? 'Yes' : 'No'}</td>
-                    <td>{coas[trxTplDetail.coaId]}</td>
-                    <td>{(trxTplDetail.attributes || []).includes('autoSum') ? 'Yes' : 'No'}</td>
-                    <td>{(trxTplDetail.attributes || []).includes('childOnly') ? 'Yes' : 'No'}</td>
-                    <td>{(trxTplDetail.attributes || []).includes('sales') ? 'Yes' : 'No'}</td>
-                  </tr>
-                {/each}
-              {:else}
-                <tr>
-                  <td>0</td>
-                  <td>no-data</td>
-                </tr>
-              {/if}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class={isCreatingJournal ? 'show' : 'hidden'}>
-    <header>
-      <h1>Entry journal for "{coas[coaId]}"</h1>
+      <h1>Entry journal for "{transactionTemplate.name}"</h1>
     </header>
     <div class="data_entry_journal___container">
       <div class="forms_journal">
@@ -355,159 +246,155 @@
             </div>
           </div>
         </div>
-        {#if isSales || isChildOnly}
-          <div class="actions">
-            <button class="btn" on:click={() => {
-              payloadsMulti = [
-                ...payloadsMulti,
-                {
-                  coaId: coaId,
-                  descriptions: '',
-                  creditIDR: 0,
-                  debitIDR: 0,
-                  date: dateISOFormat(0),
-                  salesCount: 0,
-                  salesPriceIDR: 0,
-                  transactionTplId: transactionTemplate.id
-                }
-              ]
-            }}>
-              Add row
-            </button>
-          </div>
-        {/if}
-        <div class="forms_table">
-          <table class="table_transaction_journals">
-            {#if !isSales && !isChildOnly}
-              <thead>
-                <tr>
-                  {#if !isAutoSum}
-                    {#if isDebit}
-                      <th>Debit (IDR)</th>
-                    {:else}
-                      <th>Credit (IDR)</th>
-                    {/if}
-                  {/if}
-                  <th>Description</th>
-                  <th>Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  {#if !isAutoSum}
-                    {#if isDebit}
-                      <td>
-                        <input type="number" min=0 bind:value={debitIDR}/>
-                      </td>
-                    {:else}
-                      <td>
-                        <input type="number" min=0 bind:value={creditIDR}/>
-                      </td>
-                    {/if}
-                  {/if}
-                  <td>
-                    <textarea
-                      placeholder="Description"
-                      bind:value={descriptions}
-                      rows="1"
-                    />
-                  </td>
-                  <td>
-                    <input type="date" bind:value={date}/>
-                  </td>
-                </tr>
-              </tbody>
-            {/if}
-            {#if isSales || isChildOnly}
-              <thead>
-                <tr>
-                  <th></th>
-                  {#if !isAutoSum}
-                    {#if isDebit}
-                      <th>Debit (IDR)</th>
-                    {:else}
-                      <th>Credit (IDR)</th>
-                    {/if}
-                  {/if}
-                  <th>Description</th>
-                  <th>Date</th>
-                  {#if isChildOnly}
-                    <th>CoA</th>
-                  {/if}
-                  {#if isSales}
-                    <th>Sales Count</th>
-                    <th>Sales Price (IDR)</th>
-                  {/if}
-                </tr>
-              </thead>
-              <tbody>
-                {#each (payloadsMulti || []) as py, i}
+        {#each (transactionTplDetails || []) as transactionTplDetail}
+          {#if (transactionTplDetail.attributes).includes('sales') || (transactionTplDetail.attributes).includes('childOnly')}
+            <div class="actions">
+              <button class="btn" on:click={() => {
+                payloadsMulti = [
+                  ...payloadsMulti,
+                  {
+                    coaId: coaId,
+                    descriptions: '',
+                    creditIDR: 0,
+                    debitIDR: 0,
+                    date: dateISOFormat(0),
+                    salesCount: 0,
+                    salesPriceIDR: 0,
+                    transactionTplId: transactionTemplate.id
+                  }
+                ]
+              }}>
+                Add row
+              </button>
+            </div>
+          {/if}
+          <div class="forms_table">
+            <table class="table_transaction_journals">
+              {#if !isSales && !isChildOnly}
+                <thead>
                   <tr>
-                    <td>
-                      <button
-                        disabled={i === 0}
-                        title={i === 0 ? 'Cannot remove first row' : 'Remove row'}
-                        class="btn_remove"
-                        on:click={() => payloadsMulti = payloadsMulti.filter((item) => item !== py)}
-                      >
-                        <Icon
-                          src={RiSystemDeleteBin6Line}
-                          size="16"
-                        />
-                      </button>
-                      </td>
+                    {#if !isAutoSum}
+                      {#if isDebit}
+                        <th>Debit (IDR)</th>
+                      {:else}
+                        <th>Credit (IDR)</th>
+                      {/if}
+                    {/if}
+                    <th>Description</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
                     {#if !isAutoSum}
                       {#if isDebit}
                         <td>
-                          <input type="number" min=0 bind:value={py.debitIDR}/>
+                          <input type="number" min=0 bind:value={debitIDR}/>
                         </td>
                       {:else}
                         <td>
-                          <input type="number" min=0 bind:value={py.creditIDR}/>
+                          <input type="number" min=0 bind:value={creditIDR}/>
                         </td>
                       {/if}
                     {/if}
                     <td>
                       <textarea
                         placeholder="Description"
-                        bind:value={py.descriptions}
+                        bind:value={descriptions}
                         rows="1"
                       />
                     </td>
                     <td>
-                      <input type="date" bind:value={py.date}/>
+                      <input type="date" bind:value={date}/>
                     </td>
+                  </tr>
+                </tbody>
+              {/if}
+              {#if isSales || isChildOnly}
+                <thead>
+                  <tr>
+                    <th></th>
+                    {#if !isAutoSum}
+                      {#if isDebit}
+                        <th>Debit (IDR)</th>
+                      {:else}
+                        <th>Credit (IDR)</th>
+                      {/if}
+                    {/if}
+                    <th>Description</th>
+                    <th>Date</th>
                     {#if isChildOnly}
-                      <td>
-                        <select bind:value={py.coaId}>
-                          {#each Object.entries(coaChildren) as [k, v], idx}
-                            <option value={k}>{v}</option>
-                          {/each}
-                        </select>
-                      </td>
+                      <th>CoA</th>
                     {/if}
                     {#if isSales}
-                      <td>
-                        <input type="number" min=0 bind:value={py.salesCount}/>
-                      </td>
-                      <td>
-                        <input type="number" min=0 bind:value={py.salesPriceIDR}/>
-                      </td>
+                      <th>Sales Count</th>
+                      <th>Sales Price (IDR)</th>
                     {/if}
                   </tr>
-                {/each}
-              </tbody>
-            {/if}
-          </table>
-        </div>
+                </thead>
+                <tbody>
+                  {#each (payloadsMulti || []) as py, i}
+                    <tr>
+                      <td>
+                        <button
+                          disabled={i === 0}
+                          title={i === 0 ? 'Cannot remove first row' : 'Remove row'}
+                          class="btn_remove"
+                          on:click={() => payloadsMulti = payloadsMulti.filter((item) => item !== py)}
+                        >
+                          <Icon
+                            src={RiSystemDeleteBin6Line}
+                            size="16"
+                          />
+                        </button>
+                        </td>
+                      {#if !isAutoSum}
+                        {#if isDebit}
+                          <td>
+                            <input type="number" min=0 bind:value={py.debitIDR}/>
+                          </td>
+                        {:else}
+                          <td>
+                            <input type="number" min=0 bind:value={py.creditIDR}/>
+                          </td>
+                        {/if}
+                      {/if}
+                      <td>
+                        <textarea
+                          placeholder="Description"
+                          bind:value={py.descriptions}
+                          rows="1"
+                        />
+                      </td>
+                      <td>
+                        <input type="date" bind:value={py.date}/>
+                      </td>
+                      {#if isChildOnly}
+                        <td>
+                          <select bind:value={py.coaId}>
+                            {#each Object.entries(coaChildren) as [k, v], idx}
+                              <option value={k}>{v}</option>
+                            {/each}
+                          </select>
+                        </td>
+                      {/if}
+                      {#if isSales}
+                        <td>
+                          <input type="number" min=0 bind:value={py.salesCount}/>
+                        </td>
+                        <td>
+                          <input type="number" min=0 bind:value={py.salesPriceIDR}/>
+                        </td>
+                      {/if}
+                    </tr>
+                  {/each}
+                </tbody>
+              {/if}
+            </table>
+          </div>
+        {/each}
       </div>
       <div class="actions">
-        <button
-          class="btn cancel"
-          on:click={() => isCreatingJournal = false}
-        >
-          Cancel
-        </button>
         <button
           disabled={isSubmitted}
           class="btn submit"
