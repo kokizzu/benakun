@@ -23,6 +23,7 @@
   import { DataEntryTransactionEntry } from '../../jsApi.GEN';
   import { notifier } from '../../_components/notifier';
   import InputCustom from '../../_components/InputCustom.svelte';
+  import { onMount } from 'svelte';
 
   let transactionTemplate   = /** @type TransactionTemplate */ ({/* transactiontemplate */});
   let transactionTplDetails = /** @type TransactionTplDetail[] */ ([/* transactionTplDetails */]);
@@ -30,12 +31,27 @@
   let org                   = /** @type Org */ ({/* org */});
   let user                  = /** @type User */ ({/* user */});
 
-  let isSubmitted       = false;
+  let payloads    = /** @type PayloadTransactionJournals[][] */ ([]);
+  let isSubmitted = false;
+  let isDataReady = false;
 
-  let isDebit     = true;
-  let isSales     = false;
-  let isChildOnly = false;
-  let isAutoSum   = false;
+  onMount(() => {
+    if (transactionTplDetails && transactionTplDetails.length > 0) {
+      transactionTplDetails.forEach((transactionTplDetail) => {
+        payloads.push([{
+          coaId: transactionTplDetail.coaId,
+          creditIDR: '',
+          debitIDR: '',
+          descriptions: '',
+          date: '',
+          salesCount: 0,
+          salesPriceIDR: '',
+          transactionTplId: 0
+        }])
+      })
+    }
+    isDataReady = true;
+  });
 
   function dateISOFormat(/** @type number */ dayTo = 0) {
     const dt    = new Date();
@@ -46,7 +62,6 @@
     return `${year}-${month}-${date}`;
   }
 
-  let transactionTplDetailId = 0;
   let startDate     = dateISOFormat(0);
   let endDate       = dateISOFormat(4);
   let coaId         = 0;
@@ -55,155 +70,84 @@
   let descriptions  = '';
   let date          = dateISOFormat(0);
 
-  // If isChildOnly is true, then we will show coa children
-  // when input rows in table
-  let coaChildren     = /** @type Record<number|string, string> */ ({});
-  let payloadsMulti   = /** @type PayloadTransactionJournals[] */ ([]);
-
-  // If autoSum and not sales, count credit/debit from other template details
-  let totalCreditIDR  = 0;
-  let totalDebitIDR   = 0;
-
-  function reset() {
-    isDebit       = true;
-    isSales       = false;
-    isChildOnly   = false;
-    isAutoSum     = false;
-    startDate     = dateISOFormat(0);
-    endDate       = dateISOFormat(4);
-    coaId         = 0;
-    debitIDR      = 0;
-    creditIDR     = 0;
-    descriptions  = '';
-    date          = dateISOFormat(0);
-    coaChildren   = {};
-    payloadsMulti = [];
-
-    totalCreditIDR = 0;
-    totalDebitIDR  = 0;
-  }
-
-  async function GetCoaChildren(/** @type number */ coaId) {
-    const i = {
-      cmd: 'form',
-      coaId: coaId
-    }
+  /** @returns {Promise<Record<number|string, string>>} */
+  async function getCoaChildren(/** @type number */ coaId) {
+    let coaChildren = /** @type Record<number|string, string> */ ({});
     await DataEntryTransactionEntry( // @ts-ignore
-      i, /** @returns {Promise<any>} */
+      { cmd: 'form', coaId: coaId }, /** @returns {Promise<any>} */
       function (/** @type {any} */ o) {
         isSubmitted = false;
         if (o.error) {
           notifier.showError(o.error || 'failed to get coa children');
           return
         }
-        
         coaChildren = o.coaChildren;
       }
     )
+
+    return coaChildren;
   }
 
   async function Submit() {
-    isSubmitted = true;
-    let debit = 0;
-    let credit = 0;
+    // isSubmitted = true;
+    // let trxJournals = /** @type TransactionJournal[]|any */ ([]);
 
-    if (isDebit) credit = totalCreditIDR;
-    else debit = totalDebitIDR;
+    // for (const payload of payloads) {
+    //   let detailObj = '';
+    //   let debit = 0;
+    //   let credit = 0;
 
-    const i = {
-      cmd: 'upsert',
-      coaId: coaId,
-      transactionTplId: transactionTemplate.id,
-      transactionTplDetailId: transactionTplDetailId,
-      transactionJournals: [
-        {
-          debitIDR: debit+'',
-          creditIDR: credit+'',
-          descriptions: descriptions,
-          date: date
-        }
-      ],
-      businessTransaction: {
-        startDate: startDate,
-        endDate: endDate
-      }
-    }
+    //   if (isSales) {
+    //     const detail = /** @type DetailObjectTransaction */ ({
+    //       salesCount: payload.salesCount,
+    //       salesPriceIDR: payload.salesPriceIDR+'',
+    //     });
 
-    await DataEntryTransactionEntry( // @ts-ignore
-      i, /** @returns {Promise<any>} */
-      function (/** @type {any} */ o) {
-        isSubmitted = false;
-        if (o.error) {
-          notifier.showError(o.error || 'failed to add journal');
-          return
-        }
+    //     detailObj = JSON.stringify(detail);
 
-        reset();
-        notifier.showSuccess('journal added !');
-      }
-    )
-  }
+    //     if (isDebit) credit = Number(payload.salesCount) * Number(payload.salesPriceIDR);
+    //     else debit = Number(payload.salesCount) * Number(payload.salesPriceIDR);
+    //   }
 
-  async function SubmitMulti() {
-    isSubmitted = true;
-    let trxJournals = /** @type TransactionJournal[]|any */ ([]);
+    //   if (isAutoSum) {
+    //     if (isDebit) credit = totalCreditIDR;
+    //     else debit = totalDebitIDR;
+    //   }
 
-    for (const payload of payloadsMulti) {
-      let detailObj = '';
-      let debit = 0;
-      let credit = 0;
+    //   trxJournals.push({
+    //     debitIDR: debit+'',
+    //     creditIDR: credit+'',
+    //     descriptions: payload.descriptions,
+    //     date: payload.date,
+    //     coaId: payload.coaId,
+    //     detailObj: detailObj
+    //   });
+    // }
+    // const i = {
+    //   cmd: 'upsert',
+    //   coaId: coaId,
+    //   transactionTplId: transactionTemplate.id,
+    //   transactionTplDetailId: transactionTplDetailId,
+    //   transactionJournals: trxJournals,
+    //   businessTransaction: {
+    //     startDate: startDate,
+    //     endDate: endDate
+    //   }
+    // }
 
-      if (isSales) {
-        const detail = /** @type DetailObjectTransaction */ ({
-          salesCount: payload.salesCount,
-          salesPriceIDR: payload.salesPriceIDR+'',
-        });
-
-        detailObj = JSON.stringify(detail);
-
-        if (isDebit) credit = Number(payload.salesCount) * Number(payload.salesPriceIDR);
-        else debit = Number(payload.salesCount) * Number(payload.salesPriceIDR);
-      }
-
-      if (isAutoSum) {
-        if (isDebit) credit = totalCreditIDR;
-        else debit = totalDebitIDR;
-      }
-
-      trxJournals.push({
-        debitIDR: debit+'',
-        creditIDR: credit+'',
-        descriptions: payload.descriptions,
-        date: payload.date,
-        coaId: payload.coaId,
-        detailObj: detailObj
-      });
-    }
-    const i = {
-      cmd: 'upsert',
-      coaId: coaId,
-      transactionTplId: transactionTemplate.id,
-      transactionTplDetailId: transactionTplDetailId,
-      transactionJournals: trxJournals,
-      businessTransaction: {
-        startDate: startDate,
-        endDate: endDate
-      }
-    }
-
-    await DataEntryTransactionEntry( // @ts-ignore
-      i, /** @returns {Promise<any>} */
-      function (/** @type {any} */ o) {
-        isSubmitted = false;
-        if (o.error) {
-          notifier.showError(o.error || 'failed to add journal');
-          return
-        }
+    // await DataEntryTransactionEntry( // @ts-ignore
+    //   i, /** @returns {Promise<any>} */
+    //   function (/** @type {any} */ o) {
+    //     isSubmitted = false;
+    //     if (o.error) {
+    //       notifier.showError(o.error || 'failed to add journal');
+    //       return
+    //     }
         
-        reset();
-        notifier.showSuccess('journal added !');
-      }
-    )
+    //     reset();
+    //     notifier.showSuccess('journal added !');
+    //   }
+    // )
   }
 </script>
 
@@ -246,162 +190,122 @@
             </div>
           </div>
         </div>
-        {#each (transactionTplDetails || []) as transactionTplDetail}
-          {#if (transactionTplDetail.attributes).includes('sales') || (transactionTplDetail.attributes).includes('childOnly')}
-            <div class="actions">
-              <button class="btn" on:click={() => {
-                payloadsMulti = [
-                  ...payloadsMulti,
-                  {
-                    coaId: coaId,
-                    descriptions: '',
-                    creditIDR: 0,
-                    debitIDR: 0,
-                    date: dateISOFormat(0),
-                    salesCount: 0,
-                    salesPriceIDR: 0,
-                    transactionTplId: transactionTemplate.id
-                  }
-                ]
-              }}>
-                Add row
-              </button>
-            </div>
-          {/if}
-          <div class="forms_table">
-            <table class="table_transaction_journals">
-              {#if !isSales && !isChildOnly}
-                <thead>
-                  <tr>
-                    {#if !isAutoSum}
-                      {#if isDebit}
-                        <th>Debit (IDR)</th>
-                      {:else}
-                        <th>Credit (IDR)</th>
-                      {/if}
-                    {/if}
-                    <th>Description</th>
-                    <th>Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    {#if !isAutoSum}
-                      {#if isDebit}
-                        <td>
-                          <input type="number" min=0 bind:value={debitIDR}/>
-                        </td>
-                      {:else}
-                        <td>
-                          <input type="number" min=0 bind:value={creditIDR}/>
-                        </td>
-                      {/if}
-                    {/if}
-                    <td>
-                      <textarea
-                        placeholder="Description"
-                        bind:value={descriptions}
-                        rows="1"
-                      />
-                    </td>
-                    <td>
-                      <input type="date" bind:value={date}/>
-                    </td>
-                  </tr>
-                </tbody>
-              {/if}
-              {#if isSales || isChildOnly}
-                <thead>
-                  <tr>
-                    <th></th>
-                    {#if !isAutoSum}
-                      {#if isDebit}
-                        <th>Debit (IDR)</th>
-                      {:else}
-                        <th>Credit (IDR)</th>
-                      {/if}
-                    {/if}
-                    <th>Description</th>
-                    <th>Date</th>
-                    {#if isChildOnly}
-                      <th>CoA</th>
-                    {/if}
-                    {#if isSales}
-                      <th>Sales Count</th>
-                      <th>Sales Price (IDR)</th>
-                    {/if}
-                  </tr>
-                </thead>
-                <tbody>
-                  {#each (payloadsMulti || []) as py, i}
+        {#if isDataReady}
+          {#each (transactionTplDetails || []) as transactionTplDetail, idx}
+            <div class="form_item">
+              <div class="form_header">
+                <h3>Coa : {coas[transactionTplDetail.coaId]}</h3>
+                {#if (transactionTplDetail.attributes).includes('sales')}
+                  <div class="actions">
+                    <button class="btn" on:click={() => {
+                      payloads[idx] = [...payloads[idx],
+                        {
+                          coaId: coaId,
+                          descriptions: '',
+                          creditIDR: 0,
+                          debitIDR: 0,
+                          date: dateISOFormat(0),
+                          salesCount: 0,
+                          salesPriceIDR: 0,
+                          transactionTplId: transactionTemplate.id
+                        }
+                      ]
+                    }}>
+                      Add row
+                    </button>
+                  </div>
+                {/if}
+              </div>
+              <div class="forms_table">
+                <table class="table_transaction_journals">
+                  <thead>
                     <tr>
-                      <td>
-                        <button
-                          disabled={i === 0}
-                          title={i === 0 ? 'Cannot remove first row' : 'Remove row'}
-                          class="btn_remove"
-                          on:click={() => payloadsMulti = payloadsMulti.filter((item) => item !== py)}
-                        >
-                          <Icon
-                            src={RiSystemDeleteBin6Line}
-                            size="16"
-                          />
-                        </button>
-                        </td>
-                      {#if !isAutoSum}
-                        {#if isDebit}
-                          <td>
-                            <input type="number" min=0 bind:value={py.debitIDR}/>
-                          </td>
+                      <th></th>
+                      {#if !(transactionTplDetail.attributes).includes('autoSum')}
+                        {#if transactionTplDetail.isDebit}
+                          <th>Debit (IDR)</th>
                         {:else}
-                          <td>
-                            <input type="number" min=0 bind:value={py.creditIDR}/>
-                          </td>
+                          <th>Credit (IDR)</th>
                         {/if}
                       {/if}
-                      <td>
-                        <textarea
-                          placeholder="Description"
-                          bind:value={py.descriptions}
-                          rows="1"
-                        />
-                      </td>
-                      <td>
-                        <input type="date" bind:value={py.date}/>
-                      </td>
-                      {#if isChildOnly}
-                        <td>
-                          <select bind:value={py.coaId}>
-                            {#each Object.entries(coaChildren) as [k, v], idx}
-                              <option value={k}>{v}</option>
-                            {/each}
-                          </select>
-                        </td>
+                      <th>Description</th>
+                      <th>Date</th>
+                      {#if transactionTplDetail.attributes.includes('childOnly')}
+                        <th>CoA</th>
                       {/if}
-                      {#if isSales}
-                        <td>
-                          <input type="number" min=0 bind:value={py.salesCount}/>
-                        </td>
-                        <td>
-                          <input type="number" min=0 bind:value={py.salesPriceIDR}/>
-                        </td>
+                      {#if (transactionTplDetail.attributes).includes('sales')}
+                        <th>Sales Count</th>
+                        <th>Sales Price (IDR)</th>
                       {/if}
                     </tr>
-                  {/each}
-                </tbody>
-              {/if}
-            </table>
-          </div>
-        {/each}
+                  </thead>
+                  <tbody>
+                    {#each (payloads[idx] || []) as py, i}
+                      <tr>
+                        <td>
+                          <button
+                            disabled={i === 0}
+                            title={i === 0 ? 'Cannot remove first row' : 'Remove row'}
+                            class="btn_remove"
+                            on:click={() => payloads[idx] = payloads[idx].filter((item) => item !== py)}
+                          >
+                            <Icon
+                              src={RiSystemDeleteBin6Line}
+                              size="16"
+                            />
+                          </button>
+                        </td>
+                        {#if !(transactionTplDetail.attributes).includes('autoSum')}
+                          {#if transactionTplDetail.isDebit}
+                            <td>
+                              <input type="number" min=0 />
+                            </td>
+                          {:else}
+                            <td>
+                              <input type="number" min=0 />
+                            </td>
+                          {/if}
+                        {/if}
+                        <td>
+                          <textarea
+                            placeholder="Description"
+                            rows="1"
+                          />
+                        </td>
+                        <td>
+                          <input type="date"/>
+                        </td>
+                        {#if transactionTplDetail.attributes.includes('childOnly')}
+                          <td>
+                            <select>
+                              {#each Object.entries(coas) as [k, v], idx}
+                                <option value={k}>{v}</option>
+                              {/each}
+                            </select>
+                          </td>
+                        {/if}
+                        {#if (transactionTplDetail.attributes).includes('sales')}
+                          <td>
+                            <input type="number" min=0 />
+                          </td>
+                          <td>
+                            <input type="number" min=0 />
+                          </td>
+                        {/if}
+                      </tr>
+                    {/each}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          {/each}
+        {/if}
       </div>
       <div class="actions">
         <button
           disabled={isSubmitted}
           class="btn submit"
-          on:click={() => {
-            if (!isSales && !isChildOnly) Submit();
-            else SubmitMulti();
-          }}
+          on:click={Submit}
         >
           {#if !isSubmitted}
             <span>Submit</span>
@@ -570,6 +474,29 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
+  }
+
+  .data_entry_journal___container .forms_journal .form_item {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+    background-color: var(--gray-001);
+    border-radius: 8px;
+    border: 1px solid var(--gray-003);
+  }
+
+  .data_entry_journal___container .forms_journal .form_item .form_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--gray-003);
+  }
+
+  .data_entry_journal___container .forms_journal .form_header h3 {
+    margin: 0;
   }
 
   .data_entry_journal___container .company_details {

@@ -73,15 +73,14 @@ type (
 	}
 )
 
-func removeUnParent(cs []coaWithNumF, cond func(coaWithNumF) bool) []coaWithNumF {
-	var filtered []coaWithNumF
+func removeUnParent(cs []coaWithNumF, cond func(coaWithNumF) bool) (filtered []coaWithNumF) {
 	for _, c := range cs {
-		if !cond(c) {
+		if cond(c) {
 			filtered = append(filtered, c)
 		}
 	}
 
-	return filtered
+	return
 }
 
 func (c *Coa) FindCoasChoicesByTenant() map[string]string {
@@ -94,6 +93,7 @@ SELECT ` + c.SqlId() + `, ` + c.SqlName() + `, ` + c.SqlParentId() + `, ` + c.Sq
 FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 
 	coasWithNums := []coaWithNum{}
+	coaChoices := make(map[string]string)
 
 	c.Adapter.QuerySql(queryRows, func(row []any) {
 		if len(row) == 4 {
@@ -106,72 +106,72 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 		}
 	})
 
-	coasWithNumsF := []coaWithNumF{}
-	coaVisited := map[int]bool{0: true}
-	var coaMaker func(id uint64) (coaWithNumF, bool)
-	coaMaker = func(id uint64) (cwnF coaWithNumF, isVisited bool) {
+	if len(coasWithNums) > 0 {
+		coasWithNumsF := []coaWithNumF{}
+		coaVisited := map[int]bool{0: true}
+		var coaMaker func(id uint64) (coaWithNumF, bool)
+		coaMaker = func(id uint64) (cwnF coaWithNumF, isVisited bool) {
 
-		if _, exist := coaVisited[int(id)]; exist {
-			isVisited = true
+			if _, exist := coaVisited[int(id)]; exist {
+				isVisited = true
+				return
+			}
+
+			coaVisited = map[int]bool{int(id): true}
+			if len(coasWithNums) > 0 {
+				for _, v := range coasWithNums {
+					if v.id == id {
+						cld := v.children
+						if len(cld) > 0 {
+							for _, cid := range cld {
+								child, visited := coaMaker(X.ToU(cid))
+								if visited {
+									continue
+								} else {
+									cwnF.children = append(cwnF.children, child)
+								}
+							}
+						}
+						cwnF.id = v.id
+						cwnF.name = v.name
+						cwnF.parentId = v.parentId
+						return
+					}
+				}
+			}
 			return
 		}
 
-		coaVisited = map[int]bool{int(id): true}
-		if len(coasWithNums) > 0 {
-			for _, v := range coasWithNums {
-				if v.id == id {
-					cld := v.children
-					if len(cld) > 0 {
-						for _, cid := range cld {
-							child, visited := coaMaker(X.ToU(cid))
-							if visited {
-								continue
-							} else {
-								cwnF.children = append(cwnF.children, child)
-							}
-						}
-					}
-					cwnF.id = v.id
-					cwnF.name = v.name
-					cwnF.parentId = v.parentId
-					return
-				}
+		for _, v := range coasWithNums {
+			coa, visited := coaMaker(v.id)
+			if !visited {
+				coasWithNumsF = append(coasWithNumsF, coa)
 			}
 		}
-		return
-	}
 
-	for _, v := range coasWithNums {
-		coa, visited := coaMaker(v.id)
-		if !visited {
-			coasWithNumsF = append(coasWithNumsF, coa)
+		coasWithNumsF = removeUnParent(coasWithNumsF, func(cwnf coaWithNumF) bool {
+			return cwnf.parentId == 0
+		})
+
+		var coaTree func(c coaWithNumF, num string, parentNum int64, idx int)
+		coaTree = func(c coaWithNumF, num string, parentNum int64, idx int) {
+			numStr := I.ToS(parentNum)
+			if c.parentId != 0 {
+				numStr = num
+			}
+			name := numStr + ` ` + c.name
+			coaChoices[I.UToS(c.id)] = name
+			for ix, v := range c.children {
+				snum := fmt.Sprintf("%v.%v", num, ix+1)
+				coaTree(v, snum, parentNum, ix)
+			}
+
+			_ = idx
 		}
-	}
-
-	coasWithNumsF = removeUnParent(coasWithNumsF, func(cwnf coaWithNumF) bool {
-		return cwnf.parentId != 0
-	})
-
-	coaChoices := make(map[string]string)
-
-	var coaTree func(c coaWithNumF, num string, parentNum int64, idx int)
-	coaTree = func(c coaWithNumF, num string, parentNum int64, idx int) {
-		numStr := I.ToS(parentNum)
-		if c.parentId != 0 {
-			numStr = num
+		
+		for i, v := range coasWithNumsF {
+			coaTree(v, I.ToS(int64(i)+1), int64(i)+1, i)
 		}
-		name := numStr + ` ` + c.name
-		coaChoices[I.UToS(c.id)] = name
-		for ix, v := range c.children {
-			snum := fmt.Sprintf("%v.%v", num, ix+1)
-			coaTree(v, snum, parentNum, ix)
-		}
-
-		_ = idx
-	}
-	
-	for i, v := range coasWithNumsF {
-		coaTree(v, I.ToS(int64(i)+1), int64(i)+1, i)
 	}
 
 	return coaChoices
