@@ -196,7 +196,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 				coa.ParentId = v.CoaId
 				coaChildren := coa.FindCoasChoicesChildByParentByTenant()
 				coasWithChildren[I.ToS(int64(v.CoaId))] = coaChildren
-				L.Print(`Coa Children [`, v.CoaId, `] = `, coaChildren)
 			}
 		}
 
@@ -356,6 +355,46 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`transactionTemplates`: trxTemplatesChoices,
 			`coas`: coas,
 			`org`: org,
+		})
+	})
+
+	fw.Get(`/`+domain.TenantAdminManualJournalEditAction+`/:id`, func(ctx *fiber.Ctx) error {
+		var in domain.TenantAdminManualJournalEditIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminManualJournalAction)
+		if err != nil {
+			return err
+		}
+
+		if notTenantLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		journalId, err := ctx.ParamsInt("id", 0)
+		if err != nil || journalId == 0 {
+			return views.Render404(ctx, M.SX{
+				`title`: `Invalid Journal ID`,
+				`description`: `Transaction journal ID must be number`,
+			})
+		}
+
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.Cmd = zCrud.CmdForm
+		in.TransactionJournal.Id = uint64(journalId)
+		out := d.TenantAdminManualJournalEdit(&in)
+
+		if out.TransactionJournal == nil {
+			return views.Render404(ctx, M.SX{
+				`title`: `Journal Not Found`,
+				`description`: `Cannot found transaction journal for ID: "`+ I.ToS(int64(journalId)),
+			})
+		}
+
+		L.Print(`Transaction Journal:`, out.TransactionJournal)
+		return views.RenderTenantAdminManualJournalEdit(ctx, M.SX{
+			`title`:    `Tenant Admin Manual Journal Edit`,
+			`user`:     user,
+			`segments`: segments,
+			`transactionJournal`: out.TransactionJournal,
 		})
 	})
 

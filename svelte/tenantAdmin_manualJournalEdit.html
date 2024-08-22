@@ -2636,13 +2636,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance7 = bind(Axios$1.prototype.request, context);
-        utils$1.extend(instance7, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance7, context, null, { allOwnKeys: true });
-        instance7.create = function create(instanceConfig) {
+        const instance8 = bind(Axios$1.prototype.request, context);
+        utils$1.extend(instance8, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance8, context, null, { allOwnKeys: true });
+        instance8.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance7;
+        return instance8;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -3250,7 +3250,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance7, create_fragment8, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance8, create_fragment8, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3276,7 +3276,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance7 ? instance7(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance8 ? instance8(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -5186,21 +5186,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   };
   var mainLayout_default = MainLayout;
 
-  // reportViewer_dashboard.svelte
+  // tenantAdmin_manualJournalEdit.svelte
   function create_default_slot(ctx) {
-    let p;
+    let div;
     return {
       c() {
-        p = element("p");
-        p.textContent = "Report Viewer Dashboard";
+        div = element("div");
+        div.innerHTML = `<h1>Edit journal</h1>`;
       },
       m(target, anchor) {
-        insert(target, p, anchor);
+        insert(target, div, anchor);
       },
       p: noop,
       d(detaching) {
         if (detaching) {
-          detach(p);
+          detach(div);
         }
       }
     };
@@ -5245,16 +5245,24 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  var ReportViewer_dashboard = class extends SvelteComponent {
+  var transactionJournal = (
+    /** @type TransactionJournal */
+    {/* transactionJournal */}
+  );
+  function instance7($self) {
+    console.log(transactionJournal);
+    return [];
+  }
+  var TenantAdmin_manualJournalEdit = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment7, safe_not_equal, {});
+      init(this, options, instance7, create_fragment7, safe_not_equal, {});
     }
   };
-  var reportViewer_dashboard_default = ReportViewer_dashboard;
+  var tenantAdmin_manualJournalEdit_default = TenantAdmin_manualJournalEdit;
 
-  // reportViewer_dashboard.svelte.ts
-  var app = new reportViewer_dashboard_default({ target: document.getElementById("app") });
+  // tenantAdmin_manualJournalEdit.svelte.ts
+  var app = new tenantAdmin_manualJournalEdit_default({ target: document.getElementById("app") });
 })();
 </script>
 </body></html>

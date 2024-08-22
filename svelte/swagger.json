@@ -2858,6 +2858,147 @@
 				}
 			}
 		},
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"cmd": {
+								"type": "string"
+						},
+						"transactionJournal": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"coaId": {
+										"type": "number"
+								},
+								"debitIDR": {
+										"type": "number"
+								},
+								"creditIDR": {
+										"type": "number"
+								},
+								"descriptions": {
+										"type": "string"
+								},
+								"date": {
+										"type": "string"
+								},
+								"detailObj": {
+										"type": "string"
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"deletedBy": {
+										"type": "number"
+								},
+								"restoredBy": {
+										"type": "number"
+								},
+								"transactionTemplateId": {
+										"type": "number"
+								}
+								}
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "TenantAdminManualJournalEdit",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"transactionJournal": {
+										"type": "object",
+										"properties": {
+												"id": {
+														"type": "number"
+												},
+												"tenantCode": {
+														"type": "string"
+												},
+												"coaId": {
+														"type": "number"
+												},
+												"debitIDR": {
+														"type": "number"
+												},
+												"creditIDR": {
+														"type": "number"
+												},
+												"descriptions": {
+														"type": "string"
+												},
+												"date": {
+														"type": "string"
+												},
+												"detailObj": {
+														"type": "string"
+												},
+												"createdAt": {
+														"type": "number"
+												},
+												"createdBy": {
+														"type": "number"
+												},
+												"updatedAt": {
+														"type": "number"
+												},
+												"updatedBy": {
+														"type": "number"
+												},
+												"deletedAt": {
+														"type": "number"
+												},
+												"deletedBy": {
+														"type": "number"
+												},
+												"restoredBy": {
+														"type": "number"
+												},
+												"transactionTemplateId": {
+														"type": "number"
+												}
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/tenantAdmin/organization": {
 			"post": {
 				"security": [{

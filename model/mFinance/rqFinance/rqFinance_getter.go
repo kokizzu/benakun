@@ -366,3 +366,27 @@ FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + l
 
 	return
 }
+
+func (tj *TransactionJournal) FindByIdByTenantCode() bool {
+	const comment = `-- TransactionJournal) FindByTenantCode`
+
+	whereAndSql := ` WHERE ` + tj.SqlTenantCode() + ` = ` + S.Z(tj.TenantCode) + `
+		AND ` + tj.SqlId() + ` = ` + I.UToS(tj.Id)
+
+	queryRows := comment + `
+SELECT ` + tj.SqlSelectAllFields() + `
+FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
+
+	var res []any
+	tj.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToU(row[0])
+		res = row
+	})
+
+	if len(res) > 0 {
+		tj.FromArray(res)
+		return true
+	}
+
+	return false
+}

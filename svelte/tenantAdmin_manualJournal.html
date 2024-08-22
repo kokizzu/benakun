@@ -4282,6 +4282,9 @@ header.svelte-xhdaoc.svelte-xhdaoc {
       exports.TenantAdminManualJournal = async function TenantAdminManualJournal2(i, cb) {
         return await axios.post("/tenantAdmin/manualJournal", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.TenantAdminManualJournalEdit = async function TenantAdminManualJournalEdit(i, cb) {
+        return await axios.post("/tenantAdmin/manualJournal/edit", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.TenantAdminOrganization = async function TenantAdminOrganization(i, cb) {
         return await axios.post("/tenantAdmin/organization", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -33751,6 +33754,7 @@ uniform ${i3} ${a3} u_${s3};
     );
     let isCreatingJournal = false;
     let isSubmitted = false;
+    console.log(transactionJournals);
     let coaId = 0;
     let transactionTplId = 0;
     let startDate = dateISOFormat(0);

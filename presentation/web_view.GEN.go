@@ -33,6 +33,7 @@ var viewList = map[string]string{
 	`TenantAdminInventoryChanges`: `../svelte/tenantAdmin_inventoryChanges.html`, // ../svelte/tenantAdmin_inventoryChanges.svelte
 	`TenantAdminLocations`: `../svelte/tenantAdmin_locations.html`, // ../svelte/tenantAdmin_locations.svelte
 	`TenantAdminManualJournal`: `../svelte/tenantAdmin_manualJournal.html`, // ../svelte/tenantAdmin_manualJournal.svelte
+	`TenantAdminManualJournalEdit`: `../svelte/tenantAdmin_manualJournalEdit.html`, // ../svelte/tenantAdmin_manualJournalEdit.svelte
 	`TenantAdminOrganization`: `../svelte/tenantAdmin_organization.html`, // ../svelte/tenantAdmin_organization.svelte
 	`TenantAdminProducts`: `../svelte/tenantAdmin_products.html`, // ../svelte/tenantAdmin_products.svelte
 	`TenantAdminTransaction`: `../svelte/tenantAdmin_transaction.html`, // ../svelte/tenantAdmin_transaction.svelte
@@ -155,6 +156,11 @@ func (v *Views) RenderTenantAdminLocations(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderTenantAdminManualJournal(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`TenantAdminManualJournal`].Str(m))
+}
+
+func (v *Views) RenderTenantAdminManualJournalEdit(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`TenantAdminManualJournalEdit`].Str(m))
 }
 
 func (v *Views) RenderTenantAdminOrganization(c *fiber.Ctx, m M.SX) error {

@@ -33,6 +33,8 @@
   let isCreatingJournal = false;
   let isSubmitted       = false;
 
+  console.log(transactionJournals);
+
   function dateISOFormat(/** @type number */ dayTo = 0) {
     const dt    = new Date();
     const date  = (dayTo > 0 ? dt.getDate() + dayTo : dt.getDate());
