@@ -90,7 +90,7 @@
           <div class="submenu">
             <SubMenuLink
               title='Transaction Entry'
-              href='/dataEntry/transactionEntry'
+              href='/dataEntry/template'
               icon={OiNote16}
             />
           </div>

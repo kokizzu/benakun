@@ -83,29 +83,8 @@ func removeUnParent(cs []coaWithNumF, cond func(coaWithNumF) bool) (filtered []c
 	return
 }
 
-func (c *Coa) FindCoasChoicesByTenant() map[string]string {
-	const comment = `-- Coa) FindCoasChoicesByTenant`
-
-	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode)
-
-	queryRows := comment + `
-SELECT ` + c.SqlId() + `, ` + c.SqlName() + `, ` + c.SqlParentId() + `, ` + c.SqlChildren() + `
-FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
-
-	coasWithNums := []coaWithNum{}
-	coaChoices := make(map[string]string)
-
-	c.Adapter.QuerySql(queryRows, func(row []any) {
-		if len(row) == 4 {
-			coasWithNums = append(coasWithNums, coaWithNum{
-				id: X.ToU(row[0]),
-				name: X.ToS(row[1]),
-				parentId: X.ToU(row[2]),
-				children: X.ToArr(row[3]),
-			})
-		}
-	})
-
+func generateCoaChoicesMaps(coasWithNums []coaWithNum) map[string]string {
+	coaChoices := make(map[string]string, len(coasWithNums))
 	if len(coasWithNums) > 0 {
 		coasWithNumsF := []coaWithNumF{}
 		coaVisited := map[int]bool{0: true}
@@ -155,42 +134,73 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 
 		var coaTree func(c coaWithNumF, num string, parentNum int64, idx int)
 		coaTree = func(c coaWithNumF, num string, parentNum int64, idx int) {
-			numStr := I.ToS(parentNum)
-			if c.parentId != 0 {
-				numStr = num
-			}
-			name := numStr + ` ` + c.name
-			coaChoices[I.UToS(c.id)] = name
-			for ix, v := range c.children {
-				snum := fmt.Sprintf("%v.%v", num, ix+1)
-				coaTree(v, snum, parentNum, ix)
-			}
+			if c.id != 0 {
+				numStr := I.ToS(parentNum)
+				if c.parentId != 0 {
+					numStr = num
+				}
+				name := numStr + ` ` + c.name
+				coaChoices[I.UToS(c.id)] = name
+				for ix, v := range c.children {
+					snum := fmt.Sprintf("%v.%v", num, ix+1)
+					coaTree(v, snum, parentNum, ix)
+				}
 
-			_ = idx
+				_ = idx
+			}
 		}
 		
 		for i, v := range coasWithNumsF {
 			coaTree(v, I.ToS(int64(i)+1), int64(i)+1, i)
 		}
 	}
+	return coaChoices
+}
 
+
+func (c *Coa) FindCoasChoicesByTenant() map[string]string {
+	const comment = `-- Coa) FindCoasChoicesByTenant`
+
+	whereAndSql := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode)
+
+	queryRows := comment + `
+SELECT ` + c.SqlId() + `, ` + c.SqlName() + `, ` + c.SqlParentId() + `, ` + c.SqlChildren() + `
+FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
+
+	coasWithNums := []coaWithNum{}
+
+	c.Adapter.QuerySql(queryRows, func(row []any) {
+		if len(row) == 4 {
+			coasWithNums = append(coasWithNums, coaWithNum{
+				id: X.ToU(row[0]),
+				name: X.ToS(row[1]),
+				parentId: X.ToU(row[2]),
+				children: X.ToArr(row[3]),
+			})
+		}
+	})
+
+	coaChoices := generateCoaChoicesMaps(coasWithNums)
+	
 	return coaChoices
 }
 
 func (c *Coa) FindCoasChoicesChildByParentByTenant() map[string]string {
 	const comment = `-- Coa) FindCoasChoicesChildByParentByTenant`
 
-	whereAndSql := ` WHERE ` + c.SqlParentId() + ` = ` + I.UToS(c.Id) + `
+	whereAndSql := ` WHERE ` + c.SqlParentId() + ` = ` + I.UToS(c.ParentId) + `
 		AND `  + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode)
 
 	queryRows := comment + `
-SELECT ` + c.SqlId() + `, ` + c.SqlName() + `
-FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
+	SELECT ` + c.SqlId() + `, ` + c.SqlName() + `
+	FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 
 	coaChoices := make(map[string]string)
+	var idx int64 = 1
 	c.Adapter.QuerySql(queryRows, func(row []any) {
 		if len(row) == 2 {
-			coaChoices[X.ToS(row[0])] = X.ToS(row[1])
+			coaChoices[X.ToS(row[0])] = I.ToS(idx) + `. `+ X.ToS(row[1])
+			idx++
 		}
 	})
 

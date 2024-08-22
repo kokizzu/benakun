@@ -7,19 +7,21 @@
   /** @typedef {import('../../_components/types/user.js').User} User */
   /**
    * @typedef {Object} PayloadTransactionJournals
-   * @property {string|number} creditIDR
-   * @property {string|number} debitIDR
+   * @property {number} creditIDR
+   * @property {number} debitIDR
    * @property {string} descriptions
    * @property {string|Date} date
-   * @property {string|number} coaId
+   * @property {number} coaId
+   * @property {boolean?} isSales
+   * @property {boolean?} isAutoSum
    * @property {number?} salesCount?
-   * @property {string|number?} salesPriceIDR?
+   * @property {number?} salesPriceIDR?
    * @property {number?} transactionTplId?
    */
 
   import MainLayout from '../../_layouts/mainLayout.svelte';
   import { Icon } from '../../node_modules/svelte-icons-pack/dist';
-  import { RiSystemAddBoxLine, RiSystemDeleteBin6Line } from '../../node_modules/svelte-icons-pack/dist/ri';
+  import { RiSystemDeleteBin6Line } from '../../node_modules/svelte-icons-pack/dist/ri';
   import { DataEntryTransactionEntry } from '../../jsApi.GEN';
   import { notifier } from '../../_components/notifier';
   import InputCustom from '../../_components/InputCustom.svelte';
@@ -30,28 +32,11 @@
   let coas                  = /** @type Record<number|string, string> */ ({/* coas */});
   let org                   = /** @type Org */ ({/* org */});
   let user                  = /** @type User */ ({/* user */});
+  let coasWithChildren      = /** @type Record<number|string, Record<number|string, string>> */ ({/* coasWithChildren */});  
 
   let payloads    = /** @type PayloadTransactionJournals[][] */ ([]);
   let isSubmitted = false;
   let isDataReady = false;
-
-  onMount(() => {
-    if (transactionTplDetails && transactionTplDetails.length > 0) {
-      transactionTplDetails.forEach((transactionTplDetail) => {
-        payloads.push([{
-          coaId: transactionTplDetail.coaId,
-          creditIDR: '',
-          debitIDR: '',
-          descriptions: '',
-          date: '',
-          salesCount: 0,
-          salesPriceIDR: '',
-          transactionTplId: 0
-        }])
-      })
-    }
-    isDataReady = true;
-  });
 
   function dateISOFormat(/** @type number */ dayTo = 0) {
     const dt    = new Date();
@@ -62,92 +47,100 @@
     return `${year}-${month}-${date}`;
   }
 
+  onMount(() => {
+    if (transactionTplDetails && transactionTplDetails.length > 0) {
+      transactionTplDetails.forEach((transactionTplDetail) => {
+        payloads.push([{
+          coaId: transactionTplDetail.coaId,
+          creditIDR: 0,
+          debitIDR: 0,
+          descriptions: '',
+          date: dateISOFormat(0),
+          salesCount: 0,
+          salesPriceIDR: 0,
+          transactionTplId: 0,
+          isSales: transactionTplDetail.attributes.includes('sales'),
+          // isAutoSum: transactionTplDetail.attributes.includes('autoSum')
+          isAutoSum: false
+        }])
+      })
+    }
+    isDataReady = true;
+  });
+
   let startDate     = dateISOFormat(0);
   let endDate       = dateISOFormat(4);
-  let coaId         = 0;
-  let debitIDR      = 0;
-  let creditIDR     = 0;
-  let descriptions  = '';
-  let date          = dateISOFormat(0);
 
-  /** @returns {Promise<Record<number|string, string>>} */
-  async function getCoaChildren(/** @type number */ coaId) {
-    let coaChildren = /** @type Record<number|string, string> */ ({});
+  async function Submit() {
+    isSubmitted = true;
+
+    let trxJournals = /** @type TransactionJournal[]|any */ ([]);
+    let trxTplDetailsId = /** @type number[] */ ([]);
+    for (const t of transactionTplDetails) {
+      trxTplDetailsId.push(t.id);
+    }
+
+    // Payloads is a matrix, loop it twice
+    for (const payload of payloads) {
+      if (payload.length > 0) {
+        for (const trxJournal of payload) {
+          let detailObj = '';
+          let debit = 0;
+          let credit = 0;
+
+          if (trxJournal.isSales) {
+            const detail = /** @type DetailObjectTransaction */ ({
+              salesCount: trxJournal.salesCount,
+              salesPriceIDR: trxJournal.salesPriceIDR+'',
+            });
+            detailObj = JSON.stringify(detail);
+
+            if (Number(trxJournal.creditIDR) > 0) credit = Number(trxJournal.salesCount) * Number(trxJournal.salesPriceIDR);
+            else debit = Number(trxJournal.salesCount) * Number(trxJournal.salesPriceIDR);
+          } else {
+            if (trxJournal.isAutoSum) {
+              // TODO: auto sum
+            } else {
+              if (Number(trxJournal.creditIDR) > 0) credit = Number(trxJournal.creditIDR);
+              else debit = Number(trxJournal.debitIDR);
+            }
+          }
+
+          trxJournals.push({
+            coaId: trxJournal.coaId,
+            descriptions: trxJournal.descriptions,
+            date: trxJournal.date,
+            debit: debit,
+            credit: credit,
+            detailObj: detailObj
+          })
+        }
+      }
+    }
+
+    const i = {
+      cmd: 'upsert',
+      transactionTplId: transactionTemplate.id,
+      transactionTplDetailsId: trxTplDetailsId,
+      transactionJournals: trxJournals,
+      businessTransaction: {
+        startDate: startDate,
+        endDate: endDate
+      }
+    }
+
     await DataEntryTransactionEntry( // @ts-ignore
-      { cmd: 'form', coaId: coaId }, /** @returns {Promise<any>} */
+      i, /** @returns {Promise<any>} */
       function (/** @type {any} */ o) {
         isSubmitted = false;
         if (o.error) {
-          notifier.showError(o.error || 'failed to get coa children');
+          notifier.showError(o.error || 'failed to add journal');
           return
         }
-        coaChildren = o.coaChildren;
+        
+        notifier.showSuccess('journal added !');
       }
     )
-
-    return coaChildren;
-  }
-
-  async function Submit() {
-    // isSubmitted = true;
-    // let trxJournals = /** @type TransactionJournal[]|any */ ([]);
-
-    // for (const payload of payloads) {
-    //   let detailObj = '';
-    //   let debit = 0;
-    //   let credit = 0;
-
-    //   if (isSales) {
-    //     const detail = /** @type DetailObjectTransaction */ ({
-    //       salesCount: payload.salesCount,
-    //       salesPriceIDR: payload.salesPriceIDR+'',
-    //     });
-
-    //     detailObj = JSON.stringify(detail);
-
-    //     if (isDebit) credit = Number(payload.salesCount) * Number(payload.salesPriceIDR);
-    //     else debit = Number(payload.salesCount) * Number(payload.salesPriceIDR);
-    //   }
-
-    //   if (isAutoSum) {
-    //     if (isDebit) credit = totalCreditIDR;
-    //     else debit = totalDebitIDR;
-    //   }
-
-    //   trxJournals.push({
-    //     debitIDR: debit+'',
-    //     creditIDR: credit+'',
-    //     descriptions: payload.descriptions,
-    //     date: payload.date,
-    //     coaId: payload.coaId,
-    //     detailObj: detailObj
-    //   });
-    // }
-    // const i = {
-    //   cmd: 'upsert',
-    //   coaId: coaId,
-    //   transactionTplId: transactionTemplate.id,
-    //   transactionTplDetailId: transactionTplDetailId,
-    //   transactionJournals: trxJournals,
-    //   businessTransaction: {
-    //     startDate: startDate,
-    //     endDate: endDate
-    //   }
-    // }
-
-    // await DataEntryTransactionEntry( // @ts-ignore
-    //   i, /** @returns {Promise<any>} */
-    //   function (/** @type {any} */ o) {
-    //     isSubmitted = false;
-    //     if (o.error) {
-    //       notifier.showError(o.error || 'failed to add journal');
-    //       return
-    //     }
-        
-    //     reset();
-    //     notifier.showSuccess('journal added !');
-    //   }
-    // )
   }
 </script>
 
@@ -200,14 +193,16 @@
                     <button class="btn" on:click={() => {
                       payloads[idx] = [...payloads[idx],
                         {
-                          coaId: coaId,
+                          coaId: transactionTplDetail.coaId,
                           descriptions: '',
                           creditIDR: 0,
                           debitIDR: 0,
                           date: dateISOFormat(0),
                           salesCount: 0,
                           salesPriceIDR: 0,
-                          transactionTplId: transactionTemplate.id
+                          transactionTplId: transactionTemplate.id,
+                          isSales: true,
+                          isAutoSum: false
                         }
                       ]
                     }}>
@@ -220,8 +215,10 @@
                 <table class="table_transaction_journals">
                   <thead>
                     <tr>
-                      <th></th>
-                      {#if !(transactionTplDetail.attributes).includes('autoSum')}
+                      {#if (transactionTplDetail.attributes).includes('sales')}
+                        <th></th>
+                      {/if}
+                      {#if !(transactionTplDetail.attributes).includes('autoSum') || !(transactionTplDetail.attributes).includes('sales')}
                         {#if transactionTplDetail.isDebit}
                           <th>Debit (IDR)</th>
                         {:else}
@@ -242,27 +239,29 @@
                   <tbody>
                     {#each (payloads[idx] || []) as py, i}
                       <tr>
-                        <td>
-                          <button
-                            disabled={i === 0}
-                            title={i === 0 ? 'Cannot remove first row' : 'Remove row'}
-                            class="btn_remove"
-                            on:click={() => payloads[idx] = payloads[idx].filter((item) => item !== py)}
-                          >
-                            <Icon
-                              src={RiSystemDeleteBin6Line}
-                              size="16"
-                            />
-                          </button>
-                        </td>
-                        {#if !(transactionTplDetail.attributes).includes('autoSum')}
+                        {#if (transactionTplDetail.attributes).includes('sales')}
+                          <td>
+                            <button
+                              disabled={i === 0}
+                              title={i === 0 ? 'Cannot remove first row' : 'Remove row'}
+                              class="btn_remove"
+                              on:click={() => payloads[idx] = payloads[idx].filter((item) => item !== py)}
+                            >
+                              <Icon
+                                src={RiSystemDeleteBin6Line}
+                                size="16"
+                              />
+                            </button>
+                          </td>
+                        {/if}
+                        {#if !(transactionTplDetail.attributes).includes('autoSum') || !(transactionTplDetail.attributes).includes('sales')}
                           {#if transactionTplDetail.isDebit}
                             <td>
-                              <input type="number" min=0 />
+                              <input inputmode="numeric" type="number" min=0 bind:value={py.debitIDR}/>
                             </td>
                           {:else}
                             <td>
-                              <input type="number" min=0 />
+                              <input inputmode="numeric" type="number" min=0 bind:value={py.creditIDR} />
                             </td>
                           {/if}
                         {/if}
@@ -270,26 +269,27 @@
                           <textarea
                             placeholder="Description"
                             rows="1"
+                            bind:value={py.descriptions}
                           />
                         </td>
                         <td>
-                          <input type="date"/>
+                          <input type="date" bind:value={py.date} />
                         </td>
                         {#if transactionTplDetail.attributes.includes('childOnly')}
                           <td>
-                            <select>
-                              {#each Object.entries(coas) as [k, v], idx}
-                                <option value={k}>{v}</option>
+                            <select name={`coa-${py.coaId}`} bind:value={py.coaId}>
+                              {#each Object.entries(coasWithChildren[transactionTplDetail.coaId]) as [k, v], i}
+                                <option value={k} selected={i === 0}>{v}</option>
                               {/each}
                             </select>
                           </td>
                         {/if}
                         {#if (transactionTplDetail.attributes).includes('sales')}
                           <td>
-                            <input type="number" min=0 />
+                            <input inputmode="numeric" type="number" min=0 bind:value={py.salesCount}/>
                           </td>
                           <td>
-                            <input type="number" min=0 />
+                            <input inputmode="numeric" type="number" min=0 bind:value={py.salesPriceIDR} />
                           </td>
                         {/if}
                       </tr>
@@ -324,43 +324,8 @@
     display: block;
   }
 
-  .hidden {
-    display: none;
-  }
-
   header {
     margin-left: 30px;
-  }
-
-  .data_entry_template___container {
-    display: flex;
-  }
-
-  .transaction_template_detail {
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 0;
-    border: 1px solid var(--gray-003);
-    overflow: hidden;
-    width: 100%;
-  }
-
-  .transaction_template_detail .table_container {
-    overflow-x: auto;
-    scrollbar-color: var(--gray-003) transparent;
-    scrollbar-width: thin;
-  }
-
-  .transaction_template_detail .table_container table {
-    width: 100%;
-    background: #fff;
-    box-shadow: none;
-    text-align: left;
-    border-collapse: separate;
-    border-spacing: 0;
-    overflow: hidden;
   }
 
   .transaction_template_detail .table_container table thead {
@@ -377,15 +342,6 @@
 		min-width: fit-content;
 		width: auto;
     text-wrap: nowrap;
-  }
-
-  .transaction_template_detail .table_container table thead tr th.no {
-    width: 30px;
-  }
-
-  .transaction_template_detail .table_container table thead tr th.a_row {
-    max-width: 100px;
-    width: 100px;
   }
 
   .transaction_template_detail .table_container table thead tr th:last-child {
@@ -428,11 +384,6 @@
     text-align: center;
     border-right: 1px solid var(--gray-004);
     border-bottom: 1px solid var(--gray-004);
-  }
-
-  .transaction_template_detail .table_container table tbody tr td .actions {
-    display: flex;
-    flex-direction: row;
   }
 
   .transaction_template_detail .table_container table tbody tr td .actions .btn {
@@ -624,14 +575,6 @@
     border: none;
     cursor: pointer;
     font-weight: 600;
-  }
-
-  .data_entry_journal___container .actions .btn.cancel {
-    background-color: transparent;
-  }
-
-  .data_entry_journal___container .actions .btn.cancel:hover {
-    background-color: var(--gray-003);
   }
 
   .data_entry_journal___container .actions .btn.submit {

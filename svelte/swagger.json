@@ -135,14 +135,13 @@
 						"cmd": {
 								"type": "string"
 						},
-						"coaId": {
-								"type": "number"
-						},
 						"transactionTplId": {
 								"type": "number"
 						},
-						"transactionTplDetailId": {
-								"type": "number"
+						"transactionTplDetailsId": {
+						"type": "object",
+						"properties": {
+								}
 						},
 						"transactionJournals": {
 						"type": "object",

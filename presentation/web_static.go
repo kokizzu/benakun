@@ -2,6 +2,7 @@ package presentation
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
@@ -189,6 +190,16 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		org := rqAuth.NewOrgs(d.AuthOltp)
 		org.FindCompanyByTenantCode(tenantCode)
 
+		coasWithChildren := make(map[string]map[string]string)
+		for _, v := range trxTplDetails {
+			if v.ParseAttributes().IsChildOnly {
+				coa.ParentId = v.CoaId
+				coaChildren := coa.FindCoasChoicesChildByParentByTenant()
+				coasWithChildren[I.ToS(int64(v.CoaId))] = coaChildren
+				L.Print(`Coa Children [`, v.CoaId, `] = `, coaChildren)
+			}
+		}
+
 		return views.RenderDataEntryTemplatesTemplate(ctx, M.SX{
 			`title`:      `Data Entry for ` + trxTemplate.Name,
 			`user`:       user,
@@ -197,6 +208,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`transactionTplDetails`: trxTplDetails,
 			`coas`: coas,
 			`org`: org,
+			`coasWithChildren`: coasWithChildren,
 		})
 	})
 
@@ -390,9 +402,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 
 		coaChoices := rqFinance.NewCoa(d.AuthOltp)
 		coaChoices.TenantCode = tenant.TenantCode
-		L.Print(`Here 1`)
 		cChoices := coaChoices.FindCoasChoicesByTenant()
-		L.Print(`Here 2`)
 		return views.RenderTenantAdminCoa(ctx, M.SX{
 			`title`:    `Tenant Admin Coa`,
 			`user`:     user,

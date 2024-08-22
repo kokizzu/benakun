@@ -22,9 +22,8 @@ type (
 	DataEntryTransactionEntryIn struct {
 		RequestCommon
 		Cmd      string               `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		CoaId 	 uint64 `json:"coaId" form:"coaId" query:"coaId" long:"coaId" msg:"coaId"`
 		TransactionTplId 	 uint64 `json:"transactionTplId" form:"transactionTplId" query:"transactionTplId" long:"transactionTplId" msg:"transactionTplId"`
-		TransactionTplDetailId 	 uint64 `json:"transactionTplDetailId" form:"transactionTplDetailId" query:"transactionTplDetailId" long:"transactionTplDetailId" msg:"transactionTplDetailId"`
+		TransactionTplDetailsId 	 []uint64 `json:"transactionTplDetailsId" form:"transactionTplDetailsId" query:"transactionTplDetailsId" long:"transactionTplDetailsId" msg:"transactionTplDetailsId"`
 		TransactionJournals []rqFinance.TransactionJournal `json:"transactionJournals" form:"transactionJournals" query:"transactionJournals" long:"transactionJournals" msg:"transactionJournals"`
 		BusinessTransaction rqFinance.BusinessTransaction `json:"businessTransaction" form:"businessTransaction" query:"businessTransaction" long:"businessTransaction" msg:"businessTransaction"`
 	}
@@ -45,7 +44,7 @@ const (
 	ErrDataEntryTransactionEntryCoaNotFound 								= `coa not found to journaling this transaction`
 	ErrDataEntryTransactionEntryCoaIsEmpty 									= `coa id cannot be empty`
 	ErrDataEntryTransactionEntryInvalidCoaChild 						= `invalid coa child`
-	ErrDataEntryTransactionEntryInvalidDate 								= `invalid date format, must be use format "01/02/2006"`
+	ErrDataEntryTransactionEntryInvalidDate 								= `invalid date format, must be use format "2006-01-02"`
 	ErrDataEntryTransactionEntryInvalidDetailObject 				= `invalid format for detail object`
 	ErrDataEntryTransactionEntrySaveFailed 									= `failed to save transaction journal`
 	ErrDataEntryTransactionEntryTransactionTemplateNotFound = `transaction template not found`
@@ -91,17 +90,8 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 		return
 	}
 
-	coa := rqFinance.NewCoa(d.AuthOltp)
-	coa.Id = in.CoaId
-	if !coa.FindById() {
-		out.SetError(400, ErrDataEntryTransactionEntryCoaNotFound)
-		return
-	}
-
 	switch in.Cmd {
 	case zCrud.CmdForm:
-		coaChoices := coa.FindCoasChoicesChildByParentByTenant()
-		out.CoaChildren = coaChoices
 	case zCrud.CmdUpsert:
 		trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
 		trxTemplate.Id = in.TransactionTplId
@@ -111,9 +101,9 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 		}
 
 		if len(in.TransactionJournals) > 0 {
-			for _, v := range in.TransactionJournals {
+			for idx, v := range in.TransactionJournals {
 				trxTplDetail := rqFinance.NewTransactionTplDetail(d.AuthOltp)
-				trxTplDetail.Id = in.TransactionTplDetailId
+				trxTplDetail.Id = in.TransactionTplDetailsId[idx]
 				if !trxTplDetail.FindById() {
 					out.SetError(400, `todo error`)
 					return
@@ -130,14 +120,14 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 						return
 					}
 
-					if coaChild.ParentId != coa.Id {
-						out.SetError(400, ErrDataEntryTransactionEntryInvalidCoaChild)
-						return
-					}
+					// if coaChild.ParentId != trxTplDetail.CoaId {
+					// 	out.SetError(400, ErrDataEntryTransactionEntryInvalidCoaChild)
+					// 	return
+					// }
 
 					trxJournal.SetCoaId(coaChild.Id)
 				} else {
-					trxJournal.SetCoaId(coa.Id)
+					trxJournal.SetCoaId(trxTplDetail.CoaId)
 				}
 
 				trxJournal.SetDescriptions(v.Descriptions)
@@ -154,7 +144,7 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 				if v.DetailObj != `` && parsedAttributes.IsSales {
 					var trxJournalDetailObj mFinance.TransactionJournalDetailObject
 					err := json.Unmarshal([]byte(v.DetailObj), &trxJournalDetailObj)
-					if err != nil {
+					if err != nil || S.ToI(trxJournalDetailObj.SalesPriceIDR) == 0{
 						out.SetError(400, ErrDataEntryTransactionEntryInvalidDetailObject)
 						return
 					}
