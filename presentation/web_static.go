@@ -358,8 +358,8 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
-	fw.Get(`/`+domain.TenantAdminManualJournalEditAction+`/:id`, func(ctx *fiber.Ctx) error {
-		var in domain.TenantAdminManualJournalEditIn
+	fw.Get(`/`+domain.TenantAdminManualJournalAction+`/edit/:id`, func(ctx *fiber.Ctx) error {
+		var in domain.TenantAdminManualJournalIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminManualJournalAction)
 		if err != nil {
 			return err
@@ -380,8 +380,8 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
 		in.Cmd = zCrud.CmdForm
 		in.TransactionJournal.Id = uint64(journalId)
-		out := d.TenantAdminManualJournalEdit(&in)
-
+		out := d.TenantAdminManualJournal(&in)
+		
 		if out.TransactionJournal == nil {
 			return views.Render404(ctx, M.SX{
 				`title`: `Journal Not Found`,
@@ -389,11 +389,19 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			})
 		}
 
-		L.Print(`Transaction Journal:`, out.TransactionJournal)
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.TenantCode = user.TenantCode
+		coas := coa.FindCoasChoicesByTenant()
+
+		org := rqAuth.NewOrgs(d.AuthOltp)
+		org.FindCompanyByTenantCode(user.TenantCode)
+
 		return views.RenderTenantAdminManualJournalEdit(ctx, M.SX{
 			`title`:    `Tenant Admin Manual Journal Edit`,
 			`user`:     user,
 			`segments`: segments,
+			`org`: org,
+			`coas`: coas,
 			`transactionJournal`: out.TransactionJournal,
 		})
 	})

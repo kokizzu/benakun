@@ -4296,9 +4296,6 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
       exports.TenantAdminManualJournal = async function TenantAdminManualJournal(i, cb) {
         return await axios.post("/tenantAdmin/manualJournal", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminManualJournalEdit = async function TenantAdminManualJournalEdit(i, cb) {
-        return await axios.post("/tenantAdmin/manualJournal/edit", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
       exports.TenantAdminOrganization = async function TenantAdminOrganization(i, cb) {
         return await axios.post("/tenantAdmin/organization", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -29311,77 +29308,77 @@ uniform ${i3} ${a3} u_${s3};
   var { Map: Map_12 } = globals;
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[74] = list[i];
+    child_ctx[75] = list[i];
     return child_ctx;
   }
   function get_each_context_12(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[77] = list[i];
+    child_ctx[78] = list[i];
     return child_ctx;
   }
   function get_each_context_22(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[80] = list[i];
+    child_ctx[81] = list[i];
     return child_ctx;
   }
   function get_each_context_3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[83] = list[i];
-    child_ctx[85] = i;
+    child_ctx[84] = list[i];
+    child_ctx[86] = i;
     return child_ctx;
   }
   function get_each_context_4(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[86] = list[i];
+    child_ctx[87] = list[i];
     return child_ctx;
   }
   function get_each_context_5(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[83] = list[i];
-    child_ctx[90] = i;
+    child_ctx[84] = list[i];
+    child_ctx[91] = i;
     return child_ctx;
   }
   function get_each_context_6(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[91] = list[i];
-    child_ctx[92] = list;
-    child_ctx[85] = i;
+    child_ctx[92] = list[i];
+    child_ctx[93] = list;
+    child_ctx[86] = i;
     return child_ctx;
   }
-  function create_if_block_20(ctx) {
+  function create_if_block_21(ctx) {
     let filtertable;
     let updating_filterColumns;
     let updating_filtersMap;
     let current;
     function filtertable_filterColumns_binding(value) {
-      ctx[49](value);
+      ctx[50](value);
     }
     function filtertable_filtersMap_binding(value) {
-      ctx[50](value);
+      ctx[51](value);
     }
     let filtertable_props = {};
     if (
       /*filterColumns*/
-      ctx[14] !== void 0
+      ctx[15] !== void 0
     ) {
       filtertable_props.filterColumns = /*filterColumns*/
-      ctx[14];
+      ctx[15];
     }
     if (
       /*filtersMap*/
-      ctx[15] !== void 0
+      ctx[16] !== void 0
     ) {
       filtertable_props.filtersMap = /*filtersMap*/
-      ctx[15];
+      ctx[16];
     }
     filtertable = new FilterTable_default({ props: filtertable_props });
-    ctx[48](filtertable);
+    ctx[49](filtertable);
     binding_callbacks.push(() => bind(filtertable, "filterColumns", filtertable_filterColumns_binding));
     binding_callbacks.push(() => bind(filtertable, "filtersMap", filtertable_filtersMap_binding));
     filtertable.$on(
       "click",
       /*ApplyFilter*/
-      ctx[32]
+      ctx[33]
     );
     return {
       c() {
@@ -29394,17 +29391,17 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         const filtertable_changes = {};
         if (!updating_filterColumns && dirty[0] & /*filterColumns*/
-        16384) {
+        32768) {
           updating_filterColumns = true;
           filtertable_changes.filterColumns = /*filterColumns*/
-          ctx2[14];
+          ctx2[15];
           add_flush_callback(() => updating_filterColumns = false);
         }
         if (!updating_filtersMap && dirty[0] & /*filtersMap*/
-        32768) {
+        65536) {
           updating_filtersMap = true;
           filtertable_changes.filtersMap = /*filtersMap*/
-          ctx2[15];
+          ctx2[16];
           add_flush_callback(() => updating_filtersMap = false);
         }
         filtertable.$set(filtertable_changes);
@@ -29420,12 +29417,12 @@ uniform ${i3} ${a3} u_${s3};
         current = false;
       },
       d(detaching) {
-        ctx[48](null);
+        ctx[49](null);
         destroy_component(filtertable, detaching);
       }
     };
   }
-  function create_if_block_152(ctx) {
+  function create_if_block_162(ctx) {
     let div3;
     let div2;
     let header;
@@ -29462,7 +29459,7 @@ uniform ${i3} ${a3} u_${s3};
     });
     let if_block = (
       /*isCoordFieldsExist*/
-      ctx[25] && create_if_block_162(ctx)
+      ctx[26] && create_if_block_172(ctx)
     );
     return {
       c() {
@@ -29523,13 +29520,13 @@ uniform ${i3} ${a3} u_${s3};
               button0,
               "click",
               /*click_handler*/
-              ctx[51]
+              ctx[52]
             ),
             listen(
               button1,
               "click",
               /*handleSubmitEdit*/
-              ctx[38]
+              ctx[39]
             )
           ];
           mounted = true;
@@ -29537,7 +29534,7 @@ uniform ${i3} ${a3} u_${s3};
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*FIELDS, REFS, payloads*/
-        67108869) {
+        134217733) {
           each_value_6 = ensure_array_like(
             /*FIELDS*/
             ctx2[0] || []
@@ -29563,16 +29560,16 @@ uniform ${i3} ${a3} u_${s3};
         }
         if (
           /*isCoordFieldsExist*/
-          ctx2[25]
+          ctx2[26]
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
             if (dirty[0] & /*isCoordFieldsExist*/
-            33554432) {
+            67108864) {
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block_162(ctx2);
+            if_block = create_if_block_172(ctx2);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(div0, null);
@@ -29617,11 +29614,11 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_172(ctx) {
+  function create_if_block_18(ctx) {
     let if_block_anchor;
     let current;
     let if_block = !/*field*/
-    ctx[91].readOnly && create_if_block_18(ctx);
+    ctx[92].readOnly && create_if_block_19(ctx);
     return {
       c() {
         if (if_block)
@@ -29636,7 +29633,7 @@ uniform ${i3} ${a3} u_${s3};
       },
       p(ctx2, dirty) {
         if (!/*field*/
-        ctx2[91].readOnly) {
+        ctx2[92].readOnly) {
           if (if_block) {
             if_block.p(ctx2, dirty);
             if (dirty[0] & /*FIELDS*/
@@ -29644,7 +29641,7 @@ uniform ${i3} ${a3} u_${s3};
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block_18(ctx2);
+            if_block = create_if_block_19(ctx2);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -29676,22 +29673,22 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_18(ctx) {
+  function create_if_block_19(ctx) {
     let current_block_type_index;
     let if_block;
     let if_block_anchor;
     let current;
-    const if_block_creators = [create_if_block_19, create_else_block_5];
+    const if_block_creators = [create_if_block_20, create_else_block_5];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (
         /*field*/
-        ctx2[91].inputType === "combobox"
+        ctx2[92].inputType === "combobox"
       )
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type(ctx, [-1, -1, -1]);
+    current_block_type_index = select_block_type(ctx, [-1, -1, -1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -29748,41 +29745,41 @@ uniform ${i3} ${a3} u_${s3};
     let updating_value;
     let current;
     function inputcustom_value_binding_1(value) {
-      ctx[53](
+      ctx[54](
         value,
         /*idx*/
-        ctx[85]
+        ctx[86]
       );
     }
     let inputcustom_props = {
       id: (
         /*field*/
-        ctx[91].name
+        ctx[92].name
       ),
       label: (
         /*field*/
-        ctx[91].label
+        ctx[92].label
       ),
       placeholder: (
         /*field*/
-        ctx[91].description
+        ctx[92].description
       ),
       type: (
         /*field*/
-        ctx[91].inputType
+        ctx[92].inputType
       )
     };
     if (
       /*payloads*/
-      ctx[26][
+      ctx[27][
         /*idx*/
-        ctx[85]
+        ctx[86]
       ] !== void 0
     ) {
       inputcustom_props.value = /*payloads*/
-      ctx[26][
+      ctx[27][
         /*idx*/
-        ctx[85]
+        ctx[86]
       ];
     }
     inputcustom = new InputCustom_default({ props: inputcustom_props });
@@ -29801,26 +29798,26 @@ uniform ${i3} ${a3} u_${s3};
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.id = /*field*/
-          ctx[91].name;
+          ctx[92].name;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.label = /*field*/
-          ctx[91].label;
+          ctx[92].label;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.placeholder = /*field*/
-          ctx[91].description;
+          ctx[92].description;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.type = /*field*/
-          ctx[91].inputType;
+          ctx[92].inputType;
         if (!updating_value && dirty[0] & /*payloads*/
-        67108864) {
+        134217728) {
           updating_value = true;
           inputcustom_changes.value = /*payloads*/
-          ctx[26][
+          ctx[27][
             /*idx*/
-            ctx[85]
+            ctx[86]
           ];
           add_flush_callback(() => updating_value = false);
         }
@@ -29841,69 +29838,69 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_19(ctx) {
+  function create_if_block_20(ctx) {
     let inputcustom;
     let updating_value;
     let current;
     function inputcustom_value_binding(value) {
-      ctx[52](
+      ctx[53](
         value,
         /*idx*/
-        ctx[85]
+        ctx[86]
       );
     }
     let inputcustom_props = {
       id: (
         /*field*/
-        ctx[91].name
+        ctx[92].name
       ),
       label: (
         /*field*/
-        ctx[91].label
+        ctx[92].label
       ),
       placeholder: (
         /*field*/
-        ctx[91].description
+        ctx[92].description
       ),
       type: (
         /*field*/
-        ctx[91].inputType
+        ctx[92].inputType
       ),
       values: (
         /*REFS*/
         ctx[2][
           /*field*/
-          ctx[91].name
+          ctx[92].name
         ] ? (
           /*REFS*/
           ctx[2][
             /*field*/
-            ctx[91].name
+            ctx[92].name
           ]
         ) : (
           /*field*/
-          ctx[91].ref
+          ctx[92].ref
         )
       ),
       isObject: (
         /*REFS*/
         ctx[2][
           /*field*/
-          ctx[91].name
+          ctx[92].name
         ] ? true : false
       )
     };
     if (
       /*payloads*/
-      ctx[26][
+      ctx[27][
         /*idx*/
-        ctx[85]
+        ctx[86]
       ] !== void 0
     ) {
       inputcustom_props.value = /*payloads*/
-      ctx[26][
+      ctx[27][
         /*idx*/
-        ctx[85]
+        ctx[86]
       ];
     }
     inputcustom = new InputCustom_default({ props: inputcustom_props });
@@ -29922,49 +29919,49 @@ uniform ${i3} ${a3} u_${s3};
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.id = /*field*/
-          ctx[91].name;
+          ctx[92].name;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.label = /*field*/
-          ctx[91].label;
+          ctx[92].label;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.placeholder = /*field*/
-          ctx[91].description;
+          ctx[92].description;
         if (dirty[0] & /*FIELDS*/
         1)
           inputcustom_changes.type = /*field*/
-          ctx[91].inputType;
+          ctx[92].inputType;
         if (dirty[0] & /*REFS, FIELDS*/
         5)
           inputcustom_changes.values = /*REFS*/
           ctx[2][
             /*field*/
-            ctx[91].name
+            ctx[92].name
           ] ? (
             /*REFS*/
             ctx[2][
               /*field*/
-              ctx[91].name
+              ctx[92].name
             ]
           ) : (
             /*field*/
-            ctx[91].ref
+            ctx[92].ref
           );
         if (dirty[0] & /*REFS, FIELDS*/
         5)
           inputcustom_changes.isObject = /*REFS*/
           ctx[2][
             /*field*/
-            ctx[91].name
+            ctx[92].name
           ] ? true : false;
         if (!updating_value && dirty[0] & /*payloads*/
-        67108864) {
+        134217728) {
           updating_value = true;
           inputcustom_changes.value = /*payloads*/
-          ctx[26][
+          ctx[27][
             /*idx*/
-            ctx[85]
+            ctx[86]
           ];
           add_flush_callback(() => updating_value = false);
         }
@@ -29990,7 +29987,7 @@ uniform ${i3} ${a3} u_${s3};
     let current;
     let if_block = (
       /*field*/
-      ctx[91].name !== "id" && create_if_block_172(ctx)
+      ctx[92].name !== "id" && create_if_block_18(ctx)
     );
     return {
       c() {
@@ -30007,7 +30004,7 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         if (
           /*field*/
-          ctx2[91].name !== "id"
+          ctx2[92].name !== "id"
         ) {
           if (if_block) {
             if_block.p(ctx2, dirty);
@@ -30016,7 +30013,7 @@ uniform ${i3} ${a3} u_${s3};
               transition_in(if_block, 1);
             }
           } else {
-            if_block = create_if_block_172(ctx2);
+            if_block = create_if_block_18(ctx2);
             if_block.c();
             transition_in(if_block, 1);
             if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -30048,31 +30045,31 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_162(ctx) {
+  function create_if_block_172(ctx) {
     let div;
     let map;
     let updating_Coord;
     let current;
     function map_Coord_binding(value) {
-      ctx[55](value);
+      ctx[56](value);
     }
     let map_props = {
       OnClickMap: (
         /*OnClickMap*/
-        ctx[39]
+        ctx[40]
       ),
       IsClickable: true,
       IsDraggable: true
     };
     if (
       /*Coord*/
-      ctx[28] !== void 0
+      ctx[29] !== void 0
     ) {
       map_props.Coord = /*Coord*/
-      ctx[28];
+      ctx[29];
     }
     map = new Map_default({ props: map_props });
-    ctx[54](map);
+    ctx[55](map);
     binding_callbacks.push(() => bind(map, "Coord", map_Coord_binding));
     return {
       c() {
@@ -30088,10 +30085,10 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         const map_changes = {};
         if (!updating_Coord && dirty[0] & /*Coord*/
-        268435456) {
+        536870912) {
           updating_Coord = true;
           map_changes.Coord = /*Coord*/
-          ctx2[28];
+          ctx2[29];
           add_flush_callback(() => updating_Coord = false);
         }
         map.$set(map_changes);
@@ -30110,12 +30107,12 @@ uniform ${i3} ${a3} u_${s3};
         if (detaching) {
           detach(div);
         }
-        ctx[54](null);
+        ctx[55](null);
         destroy_component(map);
       }
     };
   }
-  function create_if_block_142(ctx) {
+  function create_if_block_152(ctx) {
     let div;
     let icon;
     let current;
@@ -30156,7 +30153,7 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_133(ctx) {
+  function create_if_block_142(ctx) {
     let div;
     let button;
     let icon;
@@ -30216,7 +30213,7 @@ uniform ${i3} ${a3} u_${s3};
     let th;
     let t_value = (
       /*f*/
-      ctx[83].label + ""
+      ctx[84].label + ""
     );
     let t;
     let th_class_value;
@@ -30225,9 +30222,9 @@ uniform ${i3} ${a3} u_${s3};
         th = element("th");
         t = text(t_value);
         attr(th, "class", th_class_value = /*f*/
-        (ctx[83].inputType === "textarea" ? "textarea" : "") + " " + /*f*/
-        (ctx[83].inputType === "datetime" ? "datetime" : "") + " " + /*f*/
-        (ctx[83].name === "staffId" ? "staff" : "") + " svelte-1om1xl6");
+        (ctx[84].inputType === "textarea" ? "textarea" : "") + " " + /*f*/
+        (ctx[84].inputType === "datetime" ? "datetime" : "") + " " + /*f*/
+        (ctx[84].name === "staffId" ? "staff" : "") + " svelte-1om1xl6");
       },
       m(target, anchor) {
         insert(target, th, anchor);
@@ -30236,13 +30233,13 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         if (dirty[0] & /*FIELDS*/
         1 && t_value !== (t_value = /*f*/
-        ctx2[83].label + ""))
+        ctx2[84].label + ""))
           set_data(t, t_value);
         if (dirty[0] & /*FIELDS*/
         1 && th_class_value !== (th_class_value = /*f*/
-        (ctx2[83].inputType === "textarea" ? "textarea" : "") + " " + /*f*/
-        (ctx2[83].inputType === "datetime" ? "datetime" : "") + " " + /*f*/
-        (ctx2[83].name === "staffId" ? "staff" : "") + " svelte-1om1xl6")) {
+        (ctx2[84].inputType === "textarea" ? "textarea" : "") + " " + /*f*/
+        (ctx2[84].inputType === "datetime" ? "datetime" : "") + " " + /*f*/
+        (ctx2[84].name === "staffId" ? "staff" : "") + " svelte-1om1xl6")) {
           attr(th, "class", th_class_value);
         }
       },
@@ -30253,7 +30250,7 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_122(ctx) {
+  function create_if_block_133(ctx) {
     let th;
     return {
       c() {
@@ -30278,12 +30275,12 @@ uniform ${i3} ${a3} u_${s3};
     function select_block_type_1(ctx2, dirty) {
       if (
         /*f*/
-        ctx2[83].name === "id"
+        ctx2[84].name === "id"
       )
-        return create_if_block_122;
+        return create_if_block_133;
       return create_else_block_4;
     }
-    let current_block_type = select_block_type_1(ctx, [-1, -1, -1]);
+    let current_block_type = select_block_type_1(ctx, [-1, -1, -1, -1]);
     let if_block = current_block_type(ctx);
     return {
       key: key_1,
@@ -30372,9 +30369,9 @@ uniform ${i3} ${a3} u_${s3};
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*CAN_DELETE_ROW, MASTER_ROWS, deletedIndex, FIELDS, LINKS, CAN_OPEN_LINK, CAN_RESTORE_ROW, CAN_EDIT_ROW, OnInfo, CAN_SHOW_INFO, ACCESS, REFS*/
-        69615 | dirty[1] & /*restoreRow, deleteRow, toggleShowPopUp, Cell*/
-        113) {
+        if (dirty[0] & /*CAN_DELETE_ROW, MASTER_ROWS, deletedIndex, FIELDS, LINKS, CAN_OPEN_LINK, CAN_RESTORE_ROW, CAN_EDIT_ROW, IS_CUSTOM_EDIT, OnInfo, CAN_SHOW_INFO, ACCESS, REFS*/
+        139247 | dirty[1] & /*restoreRow, deleteRow, toggleShowPopUp, Cell*/
+        226) {
           each_value_2 = ensure_array_like(
             /*MASTER_ROWS*/
             ctx2[1]
@@ -30425,20 +30422,20 @@ uniform ${i3} ${a3} u_${s3};
   function create_else_block_22(ctx) {
     let td;
     let t_value = (typeof /*row*/
-    ctx[80][
+    ctx[81][
       /*idx*/
-      ctx[85]
+      ctx[86]
     ] === "boolean" ? (
       /*row*/
-      ctx[80][
+      ctx[81][
         /*idx*/
-        ctx[85]
+        ctx[86]
       ] ? "Yes" : "No"
     ) : (
       /*row*/
-      ctx[80][
+      ctx[81][
         /*idx*/
-        ctx[85]
+        ctx[86]
       ] || "--"
     )) + "";
     let t;
@@ -30455,20 +30452,20 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         if (dirty[0] & /*MASTER_ROWS*/
         2 && t_value !== (t_value = (typeof /*row*/
-        ctx2[80][
+        ctx2[81][
           /*idx*/
-          ctx2[85]
+          ctx2[86]
         ] === "boolean" ? (
           /*row*/
-          ctx2[80][
+          ctx2[81][
             /*idx*/
-            ctx2[85]
+            ctx2[86]
           ] ? "Yes" : "No"
         ) : (
           /*row*/
-          ctx2[80][
+          ctx2[81][
             /*idx*/
-            ctx2[85]
+            ctx2[86]
           ] || "--"
         )) + ""))
           set_data(t, t_value);
@@ -30482,13 +30479,13 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_112(ctx) {
+  function create_if_block_122(ctx) {
     let td;
     let t0_value = (
       /*row*/
-      (ctx[80][
+      (ctx[81][
         /*idx*/
-        ctx[85]
+        ctx[86]
       ] || "0") + ""
     );
     let t0;
@@ -30508,9 +30505,9 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         if (dirty[0] & /*MASTER_ROWS*/
         2 && t0_value !== (t0_value = /*row*/
-        (ctx2[80][
+        (ctx2[81][
           /*idx*/
-          ctx2[85]
+          ctx2[86]
         ] || "0") + ""))
           set_data(t0, t0_value);
       },
@@ -30523,18 +30520,18 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_102(ctx) {
+  function create_if_block_112(ctx) {
     let td;
     let t_value = (
       /*REFS*/
       (ctx[2][
         /*f*/
-        ctx[83].name
+        ctx[84].name
       ][
         /*row*/
-        ctx[80][
+        ctx[81][
           /*idx*/
-          ctx[85]
+          ctx[86]
         ]
       ] || "--") + ""
     );
@@ -30554,12 +30551,12 @@ uniform ${i3} ${a3} u_${s3};
         7 && t_value !== (t_value = /*REFS*/
         (ctx2[2][
           /*f*/
-          ctx2[83].name
+          ctx2[84].name
         ][
           /*row*/
-          ctx2[80][
+          ctx2[81][
             /*idx*/
-            ctx2[85]
+            ctx2[86]
           ]
         ] || "--") + ""))
           set_data(t, t_value);
@@ -30573,18 +30570,18 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_92(ctx) {
+  function create_if_block_102(ctx) {
     let td;
     let t_value = (
       /*row*/
-      (ctx[80][
+      (ctx[81][
         /*idx*/
-        ctx[85]
+        ctx[86]
       ] ? (0, import_formatter.datetime)(
         /*row*/
-        ctx[80][
+        ctx[81][
           /*idx*/
-          ctx[85]
+          ctx[86]
         ]
       ) : "--") + ""
     );
@@ -30602,14 +30599,14 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         if (dirty[0] & /*MASTER_ROWS*/
         2 && t_value !== (t_value = /*row*/
-        (ctx2[80][
+        (ctx2[81][
           /*idx*/
-          ctx2[85]
+          ctx2[86]
         ] ? (0, import_formatter.datetime)(
           /*row*/
-          ctx2[80][
+          ctx2[81][
             /*idx*/
-            ctx2[85]
+            ctx2[86]
           ]
         ) : "--") + ""))
           set_data(t, t_value);
@@ -30641,7 +30638,7 @@ uniform ${i3} ${a3} u_${s3};
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type_4(ctx, [-1, -1, -1]);
+    current_block_type_index = select_block_type_4(ctx, [-1, -1, -1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -30722,12 +30719,10 @@ uniform ${i3} ${a3} u_${s3};
     let current;
     let if_block0 = (
       /*CAN_SHOW_INFO*/
-      ctx[8] && create_if_block_82(ctx)
+      ctx[8] && create_if_block_92(ctx)
     );
-    let if_block1 = (
-      /*CAN_EDIT_ROW*/
-      ctx[5] && create_if_block_72(ctx)
-    );
+    let if_block1 = !/*IS_CUSTOM_EDIT*/
+    ctx[11] && create_if_block_72(ctx);
     let if_block2 = (
       /*CAN_DELETE_ROW*/
       (ctx[6] || /*CAN_RESTORE_ROW*/
@@ -30780,7 +30775,7 @@ uniform ${i3} ${a3} u_${s3};
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_82(ctx2);
+            if_block0 = create_if_block_92(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(div, t0);
@@ -30792,14 +30787,12 @@ uniform ${i3} ${a3} u_${s3};
           });
           check_outros();
         }
-        if (
-          /*CAN_EDIT_ROW*/
-          ctx2[5]
-        ) {
+        if (!/*IS_CUSTOM_EDIT*/
+        ctx2[11]) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
-            if (dirty[0] & /*CAN_EDIT_ROW*/
-            32) {
+            if (dirty[0] & /*IS_CUSTOM_EDIT*/
+            2048) {
               transition_in(if_block1, 1);
             }
           } else {
@@ -30894,7 +30887,7 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_if_block_82(ctx) {
+  function create_if_block_92(ctx) {
     let button;
     let icon;
     let current;
@@ -30910,9 +30903,9 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_2() {
       return (
         /*click_handler_2*/
-        ctx[57](
+        ctx[58](
           /*row*/
-          ctx[80]
+          ctx[81]
         )
       );
     }
@@ -30956,6 +30949,69 @@ uniform ${i3} ${a3} u_${s3};
     };
   }
   function create_if_block_72(ctx) {
+    let if_block_anchor;
+    let current;
+    let if_block = (
+      /*CAN_EDIT_ROW*/
+      ctx[5] && create_if_block_82(ctx)
+    );
+    return {
+      c() {
+        if (if_block)
+          if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        if (
+          /*CAN_EDIT_ROW*/
+          ctx2[5]
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty[0] & /*CAN_EDIT_ROW*/
+            32) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block_82(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if (if_block)
+          if_block.d(detaching);
+      }
+    };
+  }
+  function create_if_block_82(ctx) {
     let button;
     let icon;
     let current;
@@ -30971,13 +31027,13 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_3() {
       return (
         /*click_handler_3*/
-        ctx[58](
+        ctx[59](
           /*row*/
-          ctx[80],
+          ctx[81],
           /*idx*/
-          ctx[85],
+          ctx[86],
           /*f*/
-          ctx[83]
+          ctx[84]
         )
       );
     }
@@ -31030,19 +31086,19 @@ uniform ${i3} ${a3} u_${s3};
     function select_block_type_5(ctx2, dirty) {
       if (
         /*row*/
-        ctx2[80][
+        ctx2[81][
           /*deletedIndex*/
-          ctx2[16]
+          ctx2[17]
         ] > 0 || /*row*/
-        ctx2[80][
+        ctx2[81][
           /*deletedIndex*/
-          ctx2[16]
+          ctx2[17]
         ] === "terminated"
       )
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type_5(ctx, [-1, -1, -1]);
+    current_block_type_index = select_block_type_5(ctx, [-1, -1, -1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -31110,9 +31166,9 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_5() {
       return (
         /*click_handler_5*/
-        ctx[60](
+        ctx[61](
           /*row*/
-          ctx[80]
+          ctx[81]
         )
       );
     }
@@ -31171,9 +31227,9 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_4() {
       return (
         /*click_handler_4*/
-        ctx[59](
+        ctx[60](
           /*row*/
-          ctx[80]
+          ctx[81]
         )
       );
     }
@@ -31308,7 +31364,7 @@ uniform ${i3} ${a3} u_${s3};
         color: "var(--gray-007)",
         src: (
           /*l*/
-          ctx[86].icon
+          ctx[87].icon
         )
       }
     });
@@ -31318,12 +31374,12 @@ uniform ${i3} ${a3} u_${s3};
         create_component(icon.$.fragment);
         attr(a, "class", "btn link svelte-1om1xl6");
         attr(a, "href", a_href_value = /*l*/
-        ctx[86].link(
+        ctx[87].link(
           /*row*/
-          ctx[80]
+          ctx[81]
         ));
         attr(a, "target", a_target_value = /*l*/
-        ctx[86].isTargetBlank ? "_blank" : "");
+        ctx[87].isTargetBlank ? "_blank" : "");
       },
       m(target, anchor) {
         insert(target, a, anchor);
@@ -31335,19 +31391,19 @@ uniform ${i3} ${a3} u_${s3};
         if (dirty[0] & /*LINKS*/
         1024)
           icon_changes.src = /*l*/
-          ctx2[86].icon;
+          ctx2[87].icon;
         icon.$set(icon_changes);
         if (!current || dirty[0] & /*LINKS, MASTER_ROWS*/
         1026 && a_href_value !== (a_href_value = /*l*/
-        ctx2[86].link(
+        ctx2[87].link(
           /*row*/
-          ctx2[80]
+          ctx2[81]
         ))) {
           attr(a, "href", a_href_value);
         }
         if (!current || dirty[0] & /*LINKS*/
         1024 && a_target_value !== (a_target_value = /*l*/
-        ctx2[86].isTargetBlank ? "_blank" : "")) {
+        ctx2[87].isTargetBlank ? "_blank" : "")) {
           attr(a, "target", a_target_value);
         }
       },
@@ -31376,40 +31432,40 @@ uniform ${i3} ${a3} u_${s3};
     let current;
     const if_block_creators = [
       create_if_block_23,
-      create_if_block_92,
       create_if_block_102,
       create_if_block_112,
+      create_if_block_122,
       create_else_block_22
     ];
     const if_blocks = [];
     function select_block_type_3(ctx2, dirty) {
       if (
         /*f*/
-        ctx2[83].name === "id"
+        ctx2[84].name === "id"
       )
         return 0;
       if (
         /*f*/
-        ctx2[83].inputType === "datetime"
+        ctx2[84].inputType === "datetime"
       )
         return 1;
       if (
         /*f*/
-        ctx2[83].inputType === "combobox" && /*REFS*/
+        ctx2[84].inputType === "combobox" && /*REFS*/
         ctx2[2][
           /*f*/
-          ctx2[83].name
+          ctx2[84].name
         ]
       )
         return 2;
       if (
         /*f*/
-        ctx2[83].inputType === "percentage"
+        ctx2[84].inputType === "percentage"
       )
         return 3;
       return 4;
     }
-    current_block_type_index = select_block_type_3(ctx, [-1, -1, -1]);
+    current_block_type_index = select_block_type_3(ctx, [-1, -1, -1, -1]);
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
@@ -31468,7 +31524,7 @@ uniform ${i3} ${a3} u_${s3};
       /*MASTER_ROWS*/
       ctx[1].indexOf(
         /*row*/
-        ctx[80]
+        ctx[81]
       ) + 1 + ""
     );
     let t0;
@@ -31501,13 +31557,13 @@ uniform ${i3} ${a3} u_${s3};
         attr(tr, "class", tr_class_value = null_to_empty(
           /*CAN_DELETE_ROW*/
           ctx[6] && /*row*/
-          (ctx[80][
+          (ctx[81][
             /*deletedIndex*/
-            ctx[16]
+            ctx[17]
           ] > 0 || /*row*/
-          ctx[80][
+          ctx[81][
             /*deletedIndex*/
-            ctx[16]
+            ctx[17]
           ] === "terminated") ? "deleted" : ""
         ) + " svelte-1om1xl6");
       },
@@ -31529,12 +31585,12 @@ uniform ${i3} ${a3} u_${s3};
         2) && t0_value !== (t0_value = /*MASTER_ROWS*/
         ctx2[1].indexOf(
           /*row*/
-          ctx2[80]
+          ctx2[81]
         ) + 1 + ""))
           set_data(t0, t0_value);
-        if (dirty[0] & /*LINKS, MASTER_ROWS, CAN_OPEN_LINK, deletedIndex, CAN_DELETE_ROW, CAN_RESTORE_ROW, FIELDS, CAN_EDIT_ROW, OnInfo, CAN_SHOW_INFO, ACCESS, REFS*/
-        69615 | dirty[1] & /*restoreRow, deleteRow, toggleShowPopUp, Cell*/
-        113) {
+        if (dirty[0] & /*LINKS, MASTER_ROWS, CAN_OPEN_LINK, deletedIndex, CAN_DELETE_ROW, CAN_RESTORE_ROW, FIELDS, CAN_EDIT_ROW, IS_CUSTOM_EDIT, OnInfo, CAN_SHOW_INFO, ACCESS, REFS*/
+        139247 | dirty[1] & /*restoreRow, deleteRow, toggleShowPopUp, Cell*/
+        226) {
           each_value_3 = ensure_array_like(
             /*FIELDS*/
             ctx2[0] || []
@@ -31559,16 +31615,16 @@ uniform ${i3} ${a3} u_${s3};
           check_outros();
         }
         if (!current || dirty[0] & /*CAN_DELETE_ROW, MASTER_ROWS, deletedIndex*/
-        65602 && tr_class_value !== (tr_class_value = null_to_empty(
+        131138 && tr_class_value !== (tr_class_value = null_to_empty(
           /*CAN_DELETE_ROW*/
           ctx2[6] && /*row*/
-          (ctx2[80][
+          (ctx2[81][
             /*deletedIndex*/
-            ctx2[16]
+            ctx2[17]
           ] > 0 || /*row*/
-          ctx2[80][
+          ctx2[81][
             /*deletedIndex*/
-            ctx2[16]
+            ctx2[17]
           ] === "terminated") ? "deleted" : ""
         ) + " svelte-1om1xl6")) {
           attr(tr, "class", tr_class_value);
@@ -31601,7 +31657,7 @@ uniform ${i3} ${a3} u_${s3};
     let div;
     let each_value_1 = ensure_array_like(
       /*rowsToShow*/
-      ctx[29]
+      ctx[30]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value_1.length; i += 1) {
@@ -31625,11 +31681,11 @@ uniform ${i3} ${a3} u_${s3};
       },
       p(ctx2, dirty) {
         if (dirty[0] & /*rowsToShow*/
-        536870912 | dirty[1] & /*toRow*/
-        4) {
+        1073741824 | dirty[1] & /*toRow*/
+        8) {
           each_value_1 = ensure_array_like(
             /*rowsToShow*/
-            ctx2[29]
+            ctx2[30]
           );
           let i;
           for (i = 0; i < each_value_1.length; i += 1) {
@@ -31663,9 +31719,9 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_6() {
       return (
         /*click_handler_6*/
-        ctx[61](
+        ctx[62](
           /*r*/
-          ctx[77]
+          ctx[78]
         )
       );
     }
@@ -31673,7 +31729,7 @@ uniform ${i3} ${a3} u_${s3};
       c() {
         button = element("button");
         button.textContent = `${/*r*/
-        ctx[77]}`;
+        ctx[78]}`;
         attr(button, "class", "svelte-1om1xl6");
       },
       m(target, anchor) {
@@ -31699,7 +31755,7 @@ uniform ${i3} ${a3} u_${s3};
     let button;
     let t_value = (
       /*i*/
-      ctx[74] + ""
+      ctx[75] + ""
     );
     let t;
     let button_disabled_value;
@@ -31710,9 +31766,9 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_9() {
       return (
         /*click_handler_9*/
-        ctx[64](
+        ctx[65](
           /*i*/
-          ctx[74]
+          ctx[75]
         )
       );
     }
@@ -31721,15 +31777,15 @@ uniform ${i3} ${a3} u_${s3};
         button = element("button");
         t = text(t_value);
         button.disabled = button_disabled_value = /*currentPage*/
-        ctx[20] == /*i*/
-        ctx[74];
+        ctx[21] == /*i*/
+        ctx[75];
         attr(button, "class", button_class_value = null_to_empty(
           /*currentPage*/
-          ctx[20] === /*i*/
-          ctx[74] ? "btn active" : "btn"
+          ctx[21] === /*i*/
+          ctx[75] ? "btn active" : "btn"
         ) + " svelte-1om1xl6");
         attr(button, "title", button_title_value = `Go to page ${/*i*/
-        ctx[74]}`);
+        ctx[75]}`);
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -31742,26 +31798,26 @@ uniform ${i3} ${a3} u_${s3};
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if (dirty[0] & /*paginationShow*/
-        524288 && t_value !== (t_value = /*i*/
-        ctx[74] + ""))
+        1048576 && t_value !== (t_value = /*i*/
+        ctx[75] + ""))
           set_data(t, t_value);
         if (dirty[0] & /*currentPage, paginationShow*/
-        1572864 && button_disabled_value !== (button_disabled_value = /*currentPage*/
-        ctx[20] == /*i*/
-        ctx[74])) {
+        3145728 && button_disabled_value !== (button_disabled_value = /*currentPage*/
+        ctx[21] == /*i*/
+        ctx[75])) {
           button.disabled = button_disabled_value;
         }
         if (dirty[0] & /*currentPage, paginationShow*/
-        1572864 && button_class_value !== (button_class_value = null_to_empty(
+        3145728 && button_class_value !== (button_class_value = null_to_empty(
           /*currentPage*/
-          ctx[20] === /*i*/
-          ctx[74] ? "btn active" : "btn"
+          ctx[21] === /*i*/
+          ctx[75] ? "btn active" : "btn"
         ) + " svelte-1om1xl6")) {
           attr(button, "class", button_class_value);
         }
         if (dirty[0] & /*paginationShow*/
-        524288 && button_title_value !== (button_title_value = `Go to page ${/*i*/
-        ctx[74]}`)) {
+        1048576 && button_title_value !== (button_title_value = `Go to page ${/*i*/
+        ctx[75]}`)) {
           attr(button, "title", button_title_value);
         }
       },
@@ -31850,11 +31906,11 @@ uniform ${i3} ${a3} u_${s3};
     let dispose;
     let if_block0 = (
       /*filterTableReady*/
-      ctx[13] && create_if_block_20(ctx)
+      ctx[14] && create_if_block_21(ctx)
     );
     let if_block1 = (
       /*showPopUp*/
-      ctx[17] && create_if_block_152(ctx)
+      ctx[18] && create_if_block_162(ctx)
     );
     icon0 = new Icon_default({
       props: {
@@ -31865,19 +31921,19 @@ uniform ${i3} ${a3} u_${s3};
     });
     const default_slot_template = (
       /*#slots*/
-      ctx[47].default
+      ctx[48].default
     );
     const default_slot = create_slot(
       default_slot_template,
       ctx,
       /*$scope*/
-      ctx[46],
+      ctx[47],
       null
     );
-    let if_block2 = isAjaxSubmitted && create_if_block_142(ctx);
+    let if_block2 = isAjaxSubmitted && create_if_block_152(ctx);
     let if_block3 = (
       /*CAN_SEARCH_ROW*/
-      ctx[4] && create_if_block_133(ctx)
+      ctx[4] && create_if_block_142(ctx)
     );
     let each_value_5 = ensure_array_like(
       /*FIELDS*/
@@ -31885,7 +31941,7 @@ uniform ${i3} ${a3} u_${s3};
     );
     const get_key = (ctx2) => (
       /*f*/
-      ctx2[83].name
+      ctx2[84].name
     );
     for (let i = 0; i < each_value_5.length; i += 1) {
       let child_ctx = get_each_context_5(ctx, each_value_5, i);
@@ -31903,17 +31959,17 @@ uniform ${i3} ${a3} u_${s3};
         return 0;
       return 1;
     }
-    current_block_type_index = select_block_type_2(ctx, [-1, -1, -1]);
+    current_block_type_index = select_block_type_2(ctx, [-1, -1, -1, -1]);
     if_block4 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     let if_block5 = (
       /*showRowsNum*/
-      ctx[22] && create_if_block4(ctx)
+      ctx[23] && create_if_block4(ctx)
     );
     icon1 = new Icon_default({
       props: {
         className: (
           /*showRowsNum*/
-          ctx[22] ? "rotate_right" : "dropdown"
+          ctx[23] ? "rotate_right" : "dropdown"
         ),
         size: "13",
         src: CgChevronRight
@@ -31927,7 +31983,7 @@ uniform ${i3} ${a3} u_${s3};
     });
     let each_value = ensure_array_like(
       /*paginationShow*/
-      ctx[19]
+      ctx[20]
     );
     let each_blocks = [];
     for (let i = 0; i < each_value.length; i += 1) {
@@ -31988,7 +32044,7 @@ uniform ${i3} ${a3} u_${s3};
         span0 = element("span");
         t12 = text(
           /*totalRowsCurrent*/
-          ctx[24]
+          ctx[25]
         );
         t13 = text(" /");
         t14 = space();
@@ -32000,7 +32056,7 @@ uniform ${i3} ${a3} u_${s3};
         span1 = element("span");
         t16 = text(
           /*currentRows*/
-          ctx[21]
+          ctx[22]
         );
         t17 = space();
         create_component(icon1.$.fragment);
@@ -32014,7 +32070,7 @@ uniform ${i3} ${a3} u_${s3};
         span2 = element("span");
         t22 = text(
           /*totalRows*/
-          ctx[23]
+          ctx[24]
         );
         t23 = space();
         div9 = element("div");
@@ -32053,21 +32109,21 @@ uniform ${i3} ${a3} u_${s3};
         attr(span2, "class", "text-violet svelte-1om1xl6");
         attr(p2, "class", "svelte-1om1xl6");
         button2.disabled = button2_disabled_value = /*currentPage*/
-        ctx[20] == 1;
+        ctx[21] == 1;
         attr(button2, "class", "btn to svelte-1om1xl6");
         attr(button2, "title", "Go to first page");
         button3.disabled = button3_disabled_value = /*currentPage*/
-        ctx[20] == 1;
+        ctx[21] == 1;
         attr(button3, "class", "btn to svelte-1om1xl6");
         attr(button3, "title", "Go to previous page");
         button4.disabled = button4_disabled_value = /*currentPage*/
-        ctx[20] == /*paginationTotal*/
-        ctx[18];
+        ctx[21] == /*paginationTotal*/
+        ctx[19];
         attr(button4, "class", "btn to svelte-1om1xl6");
         attr(button4, "title", "Go to next page");
         button5.disabled = button5_disabled_value = /*currentPage*/
-        ctx[20] == /*paginationTotal*/
-        ctx[18];
+        ctx[21] == /*paginationTotal*/
+        ctx[19];
         attr(button5, "class", "btn to svelte-1om1xl6");
         attr(button5, "title", "Go to last page");
         attr(div9, "class", "pagination svelte-1om1xl6");
@@ -32168,37 +32224,37 @@ uniform ${i3} ${a3} u_${s3};
               button0,
               "click",
               /*click_handler_1*/
-              ctx[56]
+              ctx[57]
             ),
             listen(
               button1,
               "click",
               /*toggleRowsNum*/
-              ctx[30]
+              ctx[31]
             ),
             listen(
               button2,
               "click",
               /*click_handler_7*/
-              ctx[62]
+              ctx[63]
             ),
             listen(
               button3,
               "click",
               /*click_handler_8*/
-              ctx[63]
+              ctx[64]
             ),
             listen(
               button4,
               "click",
               /*click_handler_10*/
-              ctx[65]
+              ctx[66]
             ),
             listen(
               button5,
               "click",
               /*click_handler_11*/
-              ctx[66]
+              ctx[67]
             )
           ];
           mounted = true;
@@ -32207,16 +32263,16 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         if (
           /*filterTableReady*/
-          ctx2[13]
+          ctx2[14]
         ) {
           if (if_block0) {
             if_block0.p(ctx2, dirty);
             if (dirty[0] & /*filterTableReady*/
-            8192) {
+            16384) {
               transition_in(if_block0, 1);
             }
           } else {
-            if_block0 = create_if_block_20(ctx2);
+            if_block0 = create_if_block_21(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
             if_block0.m(t0.parentNode, t0);
@@ -32230,16 +32286,16 @@ uniform ${i3} ${a3} u_${s3};
         }
         if (
           /*showPopUp*/
-          ctx2[17]
+          ctx2[18]
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);
             if (dirty[0] & /*showPopUp*/
-            131072) {
+            262144) {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block_152(ctx2);
+            if_block1 = create_if_block_162(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(t1.parentNode, t1);
@@ -32253,20 +32309,20 @@ uniform ${i3} ${a3} u_${s3};
         }
         if (default_slot) {
           if (default_slot.p && (!current || dirty[1] & /*$scope*/
-          32768)) {
+          65536)) {
             update_slot_base(
               default_slot,
               default_slot_template,
               ctx2,
               /*$scope*/
-              ctx2[46],
+              ctx2[47],
               !current ? get_all_dirty_from_scope(
                 /*$scope*/
-                ctx2[46]
+                ctx2[47]
               ) : get_slot_changes(
                 default_slot_template,
                 /*$scope*/
-                ctx2[46],
+                ctx2[47],
                 dirty,
                 null
               ),
@@ -32284,7 +32340,7 @@ uniform ${i3} ${a3} u_${s3};
               transition_in(if_block3, 1);
             }
           } else {
-            if_block3 = create_if_block_133(ctx2);
+            if_block3 = create_if_block_142(ctx2);
             if_block3.c();
             transition_in(if_block3, 1);
             if_block3.m(div2, null);
@@ -32325,15 +32381,15 @@ uniform ${i3} ${a3} u_${s3};
           if_block4.m(tbody, null);
         }
         if (!current || dirty[0] & /*totalRowsCurrent*/
-        16777216)
+        33554432)
           set_data(
             t12,
             /*totalRowsCurrent*/
-            ctx2[24]
+            ctx2[25]
           );
         if (
           /*showRowsNum*/
-          ctx2[22]
+          ctx2[23]
         ) {
           if (if_block5) {
             if_block5.p(ctx2, dirty);
@@ -32347,41 +32403,41 @@ uniform ${i3} ${a3} u_${s3};
           if_block5 = null;
         }
         if (!current || dirty[0] & /*currentRows*/
-        2097152)
+        4194304)
           set_data(
             t16,
             /*currentRows*/
-            ctx2[21]
+            ctx2[22]
           );
         const icon1_changes = {};
         if (dirty[0] & /*showRowsNum*/
-        4194304)
+        8388608)
           icon1_changes.className = /*showRowsNum*/
-          ctx2[22] ? "rotate_right" : "dropdown";
+          ctx2[23] ? "rotate_right" : "dropdown";
         icon1.$set(icon1_changes);
         if (!current || dirty[0] & /*totalRows*/
-        8388608)
+        16777216)
           set_data(
             t22,
             /*totalRows*/
-            ctx2[23]
+            ctx2[24]
           );
         if (!current || dirty[0] & /*currentPage*/
-        1048576 && button2_disabled_value !== (button2_disabled_value = /*currentPage*/
-        ctx2[20] == 1)) {
+        2097152 && button2_disabled_value !== (button2_disabled_value = /*currentPage*/
+        ctx2[21] == 1)) {
           button2.disabled = button2_disabled_value;
         }
         if (!current || dirty[0] & /*currentPage*/
-        1048576 && button3_disabled_value !== (button3_disabled_value = /*currentPage*/
-        ctx2[20] == 1)) {
+        2097152 && button3_disabled_value !== (button3_disabled_value = /*currentPage*/
+        ctx2[21] == 1)) {
           button3.disabled = button3_disabled_value;
         }
         if (dirty[0] & /*currentPage, paginationShow*/
-        1572864 | dirty[1] & /*goToPage*/
-        8) {
+        3145728 | dirty[1] & /*goToPage*/
+        16) {
           each_value = ensure_array_like(
             /*paginationShow*/
-            ctx2[19]
+            ctx2[20]
           );
           let i;
           for (i = 0; i < each_value.length; i += 1) {
@@ -32400,15 +32456,15 @@ uniform ${i3} ${a3} u_${s3};
           each_blocks.length = each_value.length;
         }
         if (!current || dirty[0] & /*currentPage, paginationTotal*/
-        1310720 && button4_disabled_value !== (button4_disabled_value = /*currentPage*/
-        ctx2[20] == /*paginationTotal*/
-        ctx2[18])) {
+        2621440 && button4_disabled_value !== (button4_disabled_value = /*currentPage*/
+        ctx2[21] == /*paginationTotal*/
+        ctx2[19])) {
           button4.disabled = button4_disabled_value;
         }
         if (!current || dirty[0] & /*currentPage, paginationTotal*/
-        1310720 && button5_disabled_value !== (button5_disabled_value = /*currentPage*/
-        ctx2[20] == /*paginationTotal*/
-        ctx2[18])) {
+        2621440 && button5_disabled_value !== (button5_disabled_value = /*currentPage*/
+        ctx2[21] == /*paginationTotal*/
+        ctx2[19])) {
           button5.disabled = button5_disabled_value;
         }
       },
@@ -32506,9 +32562,10 @@ uniform ${i3} ${a3} u_${s3};
     let { CAN_SHOW_INFO = false } = $props;
     let { CAN_OPEN_LINK = false } = $props;
     let { LINKS = (
-      /** @type ExtendedAction */
+      /** @type ExtendedAction[] */
       []
     ) } = $props;
+    let { IS_CUSTOM_EDIT = false } = $props;
     let filterTable = null;
     let filterTableReady = false;
     let filterColumns = [];
@@ -32537,20 +32594,20 @@ uniform ${i3} ${a3} u_${s3};
     let payloads = [];
     let mapElm;
     function toggleRowsNum() {
-      $invalidate(22, showRowsNum = !showRowsNum);
+      $invalidate(23, showRowsNum = !showRowsNum);
     }
     function getPaginationShow() {
-      $invalidate(23, totalRows = PAGER.countResult);
+      $invalidate(24, totalRows = PAGER.countResult);
       totalPages = PAGER.pages;
-      $invalidate(20, currentPage = PAGER.page);
+      $invalidate(21, currentPage = PAGER.page);
       if (MASTER_ROWS && MASTER_ROWS.length)
-        $invalidate(24, totalRowsCurrent = MASTER_ROWS.length);
+        $invalidate(25, totalRowsCurrent = MASTER_ROWS.length);
       else
-        $invalidate(24, totalRowsCurrent = 0);
+        $invalidate(25, totalRowsCurrent = 0);
       totalRound = Math.ceil(totalPages / currentRows) * currentRows;
-      $invalidate(18, paginationTotal = totalRound / currentRows), paginationsAll = [];
+      $invalidate(19, paginationTotal = totalRound / currentRows), paginationsAll = [];
       if (currentRows > PAGER.countResult)
-        $invalidate(18, paginationTotal = 1);
+        $invalidate(19, paginationTotal = 1);
       for (let i = 0; i < paginationTotal; i++) {
         paginationsAll = [...paginationsAll, i + 1];
       }
@@ -32566,7 +32623,7 @@ uniform ${i3} ${a3} u_${s3};
       } else {
         start = currentPage - 3, end = currentPage + 2;
       }
-      $invalidate(19, paginationShow = paginationsAll.slice(start, end));
+      $invalidate(20, paginationShow = paginationsAll.slice(start, end));
     }
     function Cell(row, i, field) {
       if (ARRAY_OF_ARRAY)
@@ -32579,22 +32636,22 @@ uniform ${i3} ${a3} u_${s3};
       zoom: 7
     };
     onMount(() => {
-      $invalidate(12, filterTable = FilterTable_default);
-      $invalidate(13, filterTableReady = true);
+      $invalidate(13, filterTable = FilterTable_default);
+      $invalidate(14, filterTableReady = true);
       totalPages = PAGER.pages;
       if (FIELDS && FIELDS.length > 0) {
-        $invalidate(14, filterColumns = []);
+        $invalidate(15, filterColumns = []);
         FIELDS.forEach((col, idx) => {
           if (col.name === "deletedAt")
-            $invalidate(16, deletedIndex = idx);
+            $invalidate(17, deletedIndex = idx);
           else if (col.name === "invitationState")
-            $invalidate(16, deletedIndex = idx);
-          $invalidate(14, filterColumns = [...filterColumns, { key: col.name, label: col.label }]);
+            $invalidate(17, deletedIndex = idx);
+          $invalidate(15, filterColumns = [...filterColumns, { key: col.name, label: col.label }]);
           if (col.name === "lat") {
-            $invalidate(25, isCoordFieldsExist = true);
+            $invalidate(26, isCoordFieldsExist = true);
             IdxLatitude = idx;
           } else if (col.name === "lng") {
-            $invalidate(25, isCoordFieldsExist = true);
+            $invalidate(26, isCoordFieldsExist = true);
             IdxLongitude = idx;
           }
         });
@@ -32602,9 +32659,9 @@ uniform ${i3} ${a3} u_${s3};
           for (let i in MASTER_ROWS) {
             for (let j in FIELDS) {
               if (FIELDS[j].name === "lat") {
-                $invalidate(28, Coord.lat = MASTER_ROWS[i][j], Coord);
+                $invalidate(29, Coord.lat = MASTER_ROWS[i][j], Coord);
               } else if (FIELDS[j].name === "lng") {
-                $invalidate(28, Coord.lng = MASTER_ROWS[i][j], Coord);
+                $invalidate(29, Coord.lng = MASTER_ROWS[i][j], Coord);
               }
             }
           }
@@ -32612,7 +32669,7 @@ uniform ${i3} ${a3} u_${s3};
       }
       getPaginationShow();
       if (FIELDS && FIELDS.length > 0) {
-        FIELDS.forEach(() => $invalidate(26, payloads = [...payloads, ""]));
+        FIELDS.forEach(() => $invalidate(27, payloads = [...payloads, ""]));
       }
     });
     let { OnRestore = async function(row) {
@@ -32637,13 +32694,13 @@ uniform ${i3} ${a3} u_${s3};
       getPaginationShow();
     }
     async function toRow(perPage) {
-      $invalidate(21, currentRows = perPage);
-      $invalidate(22, showRowsNum = false);
+      $invalidate(22, currentRows = perPage);
+      $invalidate(23, showRowsNum = false);
       await OnRefresh({ ...PAGER, perPage });
       getPaginationShow();
     }
     async function goToPage(page) {
-      $invalidate(20, currentPage = page);
+      $invalidate(21, currentPage = page);
       await OnRefresh({ ...PAGER, page });
       getPaginationShow();
     }
@@ -32659,63 +32716,63 @@ uniform ${i3} ${a3} u_${s3};
     function toggleShowPopUp(id, row) {
       $invalidate(
         /** @type any[]*/
-        26,
+        27,
         payloads = []
       );
       if (FIELDS && FIELDS.length > 0) {
         FIELDS.forEach((_, i) => {
-          $invalidate(26, payloads = [...payloads, row[i]]);
+          $invalidate(27, payloads = [...payloads, row[i]]);
         });
       }
-      $invalidate(17, showPopUp = true);
+      $invalidate(18, showPopUp = true);
       idToMod = id;
     }
     function handleSubmitEdit() {
-      $invalidate(17, showPopUp = false);
+      $invalidate(18, showPopUp = false);
       OnEdit(idToMod, payloads);
     }
     function OnClickMap(lngLat) {
-      $invalidate(26, payloads[IdxLongitude] = lngLat[0], payloads);
-      $invalidate(26, payloads[IdxLatitude] = lngLat[1], payloads);
-      $invalidate(28, Coord.lng = lngLat[0], Coord);
-      $invalidate(28, Coord.lat = lngLat[1], Coord);
+      $invalidate(27, payloads[IdxLongitude] = lngLat[0], payloads);
+      $invalidate(27, payloads[IdxLatitude] = lngLat[1], payloads);
+      $invalidate(29, Coord.lng = lngLat[0], Coord);
+      $invalidate(29, Coord.lat = lngLat[1], Coord);
     }
     function filtertable_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         filterTable = $value;
-        $invalidate(12, filterTable);
+        $invalidate(13, filterTable);
       });
     }
     function filtertable_filterColumns_binding(value) {
       filterColumns = value;
-      $invalidate(14, filterColumns);
+      $invalidate(15, filterColumns);
     }
     function filtertable_filtersMap_binding(value) {
       filtersMap = value;
-      $invalidate(15, filtersMap);
+      $invalidate(16, filtersMap);
     }
-    const click_handler = () => $invalidate(17, showPopUp = false);
+    const click_handler = () => $invalidate(18, showPopUp = false);
     function inputcustom_value_binding(value, idx) {
       if ($self.$.not_equal(payloads[idx], value)) {
         payloads[idx] = value;
-        $invalidate(26, payloads);
+        $invalidate(27, payloads);
       }
     }
     function inputcustom_value_binding_1(value, idx) {
       if ($self.$.not_equal(payloads[idx], value)) {
         payloads[idx] = value;
-        $invalidate(26, payloads);
+        $invalidate(27, payloads);
       }
     }
     function map_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         mapElm = $value;
-        $invalidate(27, mapElm);
+        $invalidate(28, mapElm);
       });
     }
     function map_Coord_binding(value) {
       Coord = value;
-      $invalidate(28, Coord);
+      $invalidate(29, Coord);
     }
     const click_handler_1 = () => filterTable.Show();
     const click_handler_2 = (row) => OnInfo(row);
@@ -32732,7 +32789,7 @@ uniform ${i3} ${a3} u_${s3};
       if ("FIELDS" in $props2)
         $invalidate(0, FIELDS = $props2.FIELDS);
       if ("PAGER" in $props2)
-        $invalidate(40, PAGER = $props2.PAGER);
+        $invalidate(41, PAGER = $props2.PAGER);
       if ("MASTER_ROWS" in $props2)
         $invalidate(1, MASTER_ROWS = $props2.MASTER_ROWS);
       if ("REFS" in $props2)
@@ -32740,7 +32797,7 @@ uniform ${i3} ${a3} u_${s3};
       if ("ACCESS" in $props2)
         $invalidate(3, ACCESS = $props2.ACCESS);
       if ("ARRAY_OF_ARRAY" in $props2)
-        $invalidate(41, ARRAY_OF_ARRAY = $props2.ARRAY_OF_ARRAY);
+        $invalidate(42, ARRAY_OF_ARRAY = $props2.ARRAY_OF_ARRAY);
       if ("CAN_SEARCH_ROW" in $props2)
         $invalidate(4, CAN_SEARCH_ROW = $props2.CAN_SEARCH_ROW);
       if ("CAN_EDIT_ROW" in $props2)
@@ -32755,22 +32812,24 @@ uniform ${i3} ${a3} u_${s3};
         $invalidate(9, CAN_OPEN_LINK = $props2.CAN_OPEN_LINK);
       if ("LINKS" in $props2)
         $invalidate(10, LINKS = $props2.LINKS);
+      if ("IS_CUSTOM_EDIT" in $props2)
+        $invalidate(11, IS_CUSTOM_EDIT = $props2.IS_CUSTOM_EDIT);
       if ("OnRestore" in $props2)
-        $invalidate(42, OnRestore = $props2.OnRestore);
+        $invalidate(43, OnRestore = $props2.OnRestore);
       if ("OnDelete" in $props2)
-        $invalidate(43, OnDelete = $props2.OnDelete);
+        $invalidate(44, OnDelete = $props2.OnDelete);
       if ("OnEdit" in $props2)
-        $invalidate(44, OnEdit = $props2.OnEdit);
+        $invalidate(45, OnEdit = $props2.OnEdit);
       if ("OnRefresh" in $props2)
-        $invalidate(45, OnRefresh = $props2.OnRefresh);
+        $invalidate(46, OnRefresh = $props2.OnRefresh);
       if ("OnInfo" in $props2)
-        $invalidate(11, OnInfo = $props2.OnInfo);
+        $invalidate(12, OnInfo = $props2.OnInfo);
       if ("$scope" in $props2)
-        $invalidate(46, $scope = $props2.$scope);
+        $invalidate(47, $scope = $props2.$scope);
     };
     $self.$.update = () => {
       if ($self.$.dirty[1] & /*PAGER*/
-      512) {
+      1024) {
         $: {
           if (PAGER)
             getPaginationShow();
@@ -32789,6 +32848,7 @@ uniform ${i3} ${a3} u_${s3};
       CAN_SHOW_INFO,
       CAN_OPEN_LINK,
       LINKS,
+      IS_CUSTOM_EDIT,
       OnInfo,
       filterTable,
       filterTableReady,
@@ -32858,11 +32918,11 @@ uniform ${i3} ${a3} u_${s3};
         safe_not_equal,
         {
           FIELDS: 0,
-          PAGER: 40,
+          PAGER: 41,
           MASTER_ROWS: 1,
           REFS: 2,
           ACCESS: 3,
-          ARRAY_OF_ARRAY: 41,
+          ARRAY_OF_ARRAY: 42,
           CAN_SEARCH_ROW: 4,
           CAN_EDIT_ROW: 5,
           CAN_DELETE_ROW: 6,
@@ -32870,14 +32930,15 @@ uniform ${i3} ${a3} u_${s3};
           CAN_SHOW_INFO: 8,
           CAN_OPEN_LINK: 9,
           LINKS: 10,
-          OnRestore: 42,
-          OnDelete: 43,
-          OnEdit: 44,
-          OnRefresh: 45,
-          OnInfo: 11
+          IS_CUSTOM_EDIT: 11,
+          OnRestore: 43,
+          OnDelete: 44,
+          OnEdit: 45,
+          OnRefresh: 46,
+          OnInfo: 12
         },
         null,
-        [-1, -1, -1]
+        [-1, -1, -1, -1]
       );
     }
   };

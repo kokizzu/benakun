@@ -1,4 +1,11 @@
 <script>
+  /** @typedef {import('./_components/types/master.js').Field} Field */
+	/** @typedef {import('./_components/types/access.js').Access} Access */
+  /** @typedef {import('./_components/types/master.js').PagerIn} PagerIn */
+	/** @typedef {import('./_components/types/master.js').PagerOut} PagerOut */
+  /** @typedef {import('./_components/types/user.js').User} User */
+  /** @typedef {import('./_components/types/master.js').ExtendedAction} ExtendedAction */
+  
   import { Icon } from './node_modules/svelte-icons-pack/dist';
   import { RiSystemAddBoxLine } from './node_modules/svelte-icons-pack/dist/ri';
   import { FaShareFromSquare } from './node_modules/svelte-icons-pack/dist/fa';
@@ -8,13 +15,6 @@
   import { onMount } from 'svelte';
   import { TenantAdminInventoryChanges } from './jsApi.GEN';
   import { notifier } from './_components/notifier';
-
-  /** @typedef {import('./_components/types/master.js').Field} Field */
-	/** @typedef {import('./_components/types/access.js').Access} Access */
-  /** @typedef {import('./_components/types/master.js').PagerIn} PagerIn */
-	/** @typedef {import('./_components/types/master.js').PagerOut} PagerOut */
-  /** @typedef {import('./_components/types/user.js').User} User */
-  /** @typedef {import('./_components/types/master.js').ExtendedAction} ExtendedAction */
 
   let segments = /** @type Access */ ({/* segments */});
   let user = /** @type User */ ({/* user */});
@@ -198,7 +198,7 @@
       CAN_RESTORE_ROW
       CAN_OPEN_LINK
       
-      {LINKS}
+      LINKS={LINKS}
 
       {OnDelete}
       {OnEdit}

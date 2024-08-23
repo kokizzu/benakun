@@ -1,4 +1,10 @@
 <script>
+  /** @typedef {import('./types/master.js').Field} Field */
+  /** @typedef {import('./types/access.js').Access} Access */
+  /** @typedef {import('./types/master.js').PagerOut} PagerOut */
+  /** @typedef {import('./types/master.js').PagerIn} PagerIn */
+  /** @typedef {import('./types/master.js').ExtendedAction} ExtendedAction */
+
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import {
     RiDesignBallPenLine,
@@ -7,7 +13,6 @@
     RiArrowsArrowGoBackLine,
     RiSystemInformationLine,
   } from '../node_modules/svelte-icons-pack/dist/ri';
-  import { FaShareFromSquare } from '../node_modules/svelte-icons-pack/dist/fa';
   import { IoSearch, IoClose } from '../node_modules/svelte-icons-pack/dist/io';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import {
@@ -22,12 +27,6 @@
   import { datetime } from './formatter';
   import Map from './Map.svelte';
 
-  /** @typedef {import('./types/master.js').Field} Field */
-  /** @typedef {import('./types/access.js').Access} Access */
-  /** @typedef {import('./types/master.js').PagerOut} PagerOut */ // @ts-ignore
-  /** @typedef {import('./types/master.js').PagerIn} PagerIn */
-  /** @typedef {import('./types/master.js').ExtendedAction} */ // @ts-ignore
-
   export let FIELDS = /** @type Field[] */ ([]); // bind
   export let PAGER = /** @type PagerOut */ ({}); // bind
   export let MASTER_ROWS = /** @type any[][] */ ([]); // bind
@@ -41,7 +40,8 @@
   export let CAN_RESTORE_ROW = false;
   export let CAN_SHOW_INFO = false;
   export let CAN_OPEN_LINK = false;
-  export let LINKS = /** @type ExtendedAction */ [];
+  export let LINKS = /** @type ExtendedAction[] */ ([]);
+  export let IS_CUSTOM_EDIT = false;
 
   // State for loading if hit ajax
   let isAjaxSubmitted = false;
@@ -404,14 +404,16 @@
                             <Icon size="15" color="var(--gray-007)" src={RiSystemInformationLine} />
                           </button>
                         {/if}
-                        {#if CAN_EDIT_ROW}
-                          <button
-                            class="btn edit"
-                            title="Edit"
-                            on:click={() => toggleShowPopUp(Cell(row, idx, f), row)}
-                          >
-                            <Icon size="15" color="var(--gray-007)" src={RiDesignBallPenLine} />
-                          </button>
+                        {#if !IS_CUSTOM_EDIT}
+                          {#if CAN_EDIT_ROW}
+                            <button
+                              class="btn edit"
+                              title="Edit"
+                              on:click={() => toggleShowPopUp(Cell(row, idx, f), row)}
+                            >
+                              <Icon size="15" color="var(--gray-007)" src={RiDesignBallPenLine} />
+                            </button>
+                          {/if}
                         {/if}
                         {#if CAN_DELETE_ROW || CAN_RESTORE_ROW}
                           {#if row[deletedIndex] > 0 || row[deletedIndex] === 'terminated'}

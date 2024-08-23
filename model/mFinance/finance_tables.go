@@ -205,6 +205,7 @@ const (
 	CustBankAccountId = `custBankAccountId` 
 	TotalIDR 					= `totalIDR`
 	TransactionTplId  = `transactionTemplateId`
+	TransactionTplDetailId = `transactionTemplateDetailId`
 )
 
 const (
@@ -331,6 +332,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedBy, Tt.Unsigned},
 			{RestoredBy, Tt.Unsigned},
 			{TransactionTplId, Tt.Unsigned},
+			{TransactionTplDetailId, Tt.Unsigned},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,

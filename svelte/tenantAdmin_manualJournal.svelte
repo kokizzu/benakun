@@ -11,9 +11,10 @@
   /** @typedef {import('./_components/types/transaction.js').DetailObjectTransaction} DetailObjectTransaction */
   /** @typedef {import('./_components/types/transaction.js').TransactionTplDetail} TransactionTplDetail */
   /** @typedef {import('./_components/types/organization.js').Org} Org */
+  /** @typedef {import('./_components/types/master.js').ExtendedAction} ExtendedAction */
 
   import { Icon } from './node_modules/svelte-icons-pack/dist';
-  import { RiSystemAddBoxLine } from './node_modules/svelte-icons-pack/dist/ri';
+  import { RiSystemAddBoxLine, RiDesignBallPenLine } from './node_modules/svelte-icons-pack/dist/ri';
   import MainLayout from './_layouts/mainLayout.svelte';
   import MasterTable from './_components/MasterTable.svelte';
   import InputCustom from './_components/InputCustom.svelte';
@@ -32,8 +33,6 @@
 
   let isCreatingJournal = false;
   let isSubmitted       = false;
-
-  console.log(transactionJournals);
 
   function dateISOFormat(/** @type number */ dayTo = 0) {
     const dt    = new Date();
@@ -99,34 +98,6 @@
     )
   }
 
-  async function OnEdit(/** @type number */ id, /** @type any[] */ payloads) {
-    isSubmitted = true;
-    const i = {
-      cmd: 'upsert',
-      transactionJournal: {
-        id: id,
-        debitIDR: payloads[2],
-        creditIDR: payloads[3],
-        descriptions: payloads[4],
-        date: payloads[5],
-        detailObj: payloads[6]
-      }
-    }
-    await TenantAdminManualJournal( // @ts-ignore
-      i, /** @returns {Promise<any>} */
-      function (/** @type {any} */ o) {
-        isSubmitted = false;
-        if (o.error) {
-          notifier.showError(o.error);
-          return
-        }
-
-        OnRefresh(pager);
-        notifier.showSuccess('journal updated !');
-      }
-    )
-  }
-
   async function SubmitAdd() {
     isSubmitted = true;
     const i = {
@@ -159,6 +130,16 @@
       }
     )
   }
+
+  /** @type {ExtendedAction[]} */
+  const LINKS = [
+    {
+      icon: RiDesignBallPenLine,
+      isTargetBlank: false,
+      link: (/** @type any */ row) => `/tenantAdmin/manualJournal/edit/${row[0]}`,
+      tooltip: 'Edit',
+    }
+  ]
 </script>
 
 <MainLayout>
@@ -176,9 +157,12 @@
       CAN_SEARCH_ROW
       CAN_DELETE_ROW
       CAN_RESTORE_ROW
+      CAN_OPEN_LINK
+      IS_CUSTOM_EDIT
+
+      LINKS={LINKS}
 
       {OnRefresh}
-      {OnEdit}
     >
       {#if user.tenantCode !== ''}
         <button

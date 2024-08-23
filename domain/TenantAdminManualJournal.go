@@ -138,6 +138,14 @@ func (d *Domain) TenantAdminManualJournal(in *TenantAdminManualJournalIn) (out T
 
 	switch in.Cmd {
 	case zCrud.CmdForm:
+		trxJournal := rqFinance.NewTransactionJournal(d.AuthOltp)
+		trxJournal.Id = in.TransactionJournal.Id
+		if !trxJournal.FindById() {
+			out.SetError(400, ErrTenantAdminManualJournalNotFound)
+			return
+		}
+		
+		out.TransactionJournal = trxJournal
 	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
 		tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
 		tenant.TenantCode = user.TenantCode
@@ -202,25 +210,25 @@ func (d *Domain) TenantAdminManualJournal(in *TenantAdminManualJournalIn) (out T
 					return
 				}
 
-				if in.TransactionJournal.DebitIDR != 0 {
+				if in.TransactionJournal.DebitIDR != 0 && in.TransactionJournal.DebitIDR != trxJournal.DebitIDR{
 					trxJournal.SetDebitIDR(in.TransactionJournal.DebitIDR)
 				}
 
-				if in.TransactionJournal.CreditIDR != 0 {
+				if in.TransactionJournal.CreditIDR != 0 && in.TransactionJournal.CreditIDR != trxJournal.CreditIDR {
 					trxJournal.SetCreditIDR(in.TransactionJournal.CreditIDR)
 				}
 
-				if in.TransactionJournal.Descriptions != `` {
+				if in.TransactionJournal.Descriptions != `` && in.TransactionJournal.Descriptions != trxJournal.Descriptions {
 					trxJournal.SetDescriptions(in.TransactionJournal.Descriptions)
 				}
 
-				if in.TransactionJournal.Date != `` {
+				if in.TransactionJournal.Date != `` && in.TransactionJournal.Date != trxJournal.Date {
 					if mFinance.IsValidDate(in.TransactionJournal.Date) {
 						trxJournal.SetDate(in.TransactionJournal.Date)
 					}
 				}
 
-				if in.TransactionJournal.DetailObj != `` {
+				if in.TransactionJournal.DetailObj != `` && in.TransactionJournal.DetailObj != trxJournal.DetailObj {
 					if mFinance.IsValidDetailObject(in.TransactionJournal.DetailObj) {
 						trxJournal.SetDetailObj(in.TransactionJournal.DetailObj)
 					} else {

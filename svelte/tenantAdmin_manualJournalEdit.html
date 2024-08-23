@@ -624,6 +624,120 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   max-height: fit-content;
   overflow: inherit;
 }
+
+/* fakecss:./tenantAdmin_manualJournalEdit.esbuild-svelte-fake-css */
+header.svelte-4nwriy.svelte-4nwriy {
+  margin-left: 30px;
+}
+.data_entry_journal___container.svelte-4nwriy.svelte-4nwriy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid var(--gray-003);
+}
+.data_entry_journal___container.svelte-4nwriy .details.svelte-4nwriy {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  gap: 10px;
+}
+.data_entry_journal___container.svelte-4nwriy .details .left.svelte-4nwriy,
+.data_entry_journal___container.svelte-4nwriy .details .right.svelte-4nwriy {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: start;
+  gap: 50px;
+  padding: 30px 0;
+}
+.data_entry_journal___container.svelte-4nwriy .details .item.svelte-4nwriy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.data_entry_journal___container.svelte-4nwriy .details .item .title.svelte-4nwriy {
+  font-size: var(--font-lg);
+  border-bottom: 2px solid var(--blue-005);
+  padding-bottom: 8px;
+}
+.data_entry_journal___container.svelte-4nwriy .details .item h5.svelte-4nwriy {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--blue-005);
+  margin: 0;
+}
+.data_entry_journal___container.svelte-4nwriy .details .item .detail.svelte-4nwriy {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.data_entry_journal___container.svelte-4nwriy .details .item .detail p.svelte-4nwriy {
+  margin: 0;
+}
+.data_entry_journal___container.svelte-4nwriy .forms_journal.svelte-4nwriy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.data_entry_journal___container.svelte-4nwriy .forms_journal .forms_table.svelte-4nwriy {
+  overflow-x: auto;
+  scrollbar-color: var(--gray-003) transparent;
+  scrollbar-width: thin;
+}
+.data_entry_journal___container.svelte-4nwriy .forms_journal .forms_table .table_transaction_journals thead tr th.svelte-4nwriy {
+  font-weight: normal;
+  text-align: left;
+}
+.data_entry_journal___container.svelte-4nwriy .forms_journal .forms_table .table_transaction_journals input.svelte-4nwriy,
+.data_entry_journal___container.svelte-4nwriy .forms_journal .forms_table .table_transaction_journals textarea.svelte-4nwriy {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--gray-003);
+  width: 100%;
+  resize: vertical;
+  background-color: #FFF;
+}
+.data_entry_journal___container.svelte-4nwriy .forms_journal .forms_table .table_transaction_journals input.svelte-4nwriy:focus,
+.data_entry_journal___container.svelte-4nwriy .forms_journal .forms_table .table_transaction_journals textarea.svelte-4nwriy:focus {
+  border-color: var(--sky-005);
+  outline: 1px solid var(--sky-005);
+}
+.data_entry_journal___container.svelte-4nwriy .actions.svelte-4nwriy {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.data_entry_journal___container.svelte-4nwriy .actions .btn.svelte-4nwriy {
+  padding: 8px 20px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+.data_entry_journal___container.svelte-4nwriy .actions .btn.cancel.svelte-4nwriy {
+  background-color: transparent;
+}
+.data_entry_journal___container.svelte-4nwriy .actions .btn.cancel.svelte-4nwriy:hover {
+  background-color: var(--gray-003);
+}
+.data_entry_journal___container.svelte-4nwriy .actions .btn.submit.svelte-4nwriy {
+  color: #FFF;
+  background-color: var(--green-006);
+}
+.data_entry_journal___container.svelte-4nwriy .actions .btn.submit.svelte-4nwriy:hover {
+  background-color: var(--green-005);
+}
+.data_entry_journal___container.svelte-4nwriy .actions .btn.submit.svelte-4nwriy:disabled {
+  cursor: not-allowed;
+  background-color: var(--gray-003);
+  color: var(--gray-007);
+}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -2766,11 +2880,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.TenantAdminLocations = async function TenantAdminLocations(i, cb) {
         return await axios.post("/tenantAdmin/locations", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminManualJournal = async function TenantAdminManualJournal(i, cb) {
+      exports.TenantAdminManualJournal = async function TenantAdminManualJournal2(i, cb) {
         return await axios.post("/tenantAdmin/manualJournal", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.TenantAdminManualJournalEdit = async function TenantAdminManualJournalEdit(i, cb) {
-        return await axios.post("/tenantAdmin/manualJournal/edit", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminOrganization = async function TenantAdminOrganization(i, cb) {
         return await axios.post("/tenantAdmin/organization", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -2992,6 +3103,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       attr(node, key, attributes[key]);
     }
   }
+  function to_number(value) {
+    return value === "" ? null : +value;
+  }
   function children(element2) {
     return Array.from(element2.childNodes);
   }
@@ -3001,6 +3115,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       return;
     text2.data = /** @type {string} */
     data;
+  }
+  function set_input_value(input, value) {
+    input.value = value == null ? "" : value;
   }
   function toggle_class(element2, name, toggle) {
     element2.classList.toggle(name, !!toggle);
@@ -4988,12 +5105,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function instance4($self, $props, $invalidate) {
-    let { user: user2 = {} } = $props;
+    let { user: user3 = {} } = $props;
     $self.$set = ($props2) => {
       if ("user" in $props2)
-        $invalidate(0, user2 = $props2.user);
+        $invalidate(0, user3 = $props2.user);
     };
-    return [user2];
+    return [user3];
   }
   var Navbar = class extends SvelteComponent {
     constructor(options) {
@@ -5187,21 +5304,461 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var mainLayout_default = MainLayout;
 
   // tenantAdmin_manualJournalEdit.svelte
-  function create_default_slot(ctx) {
-    let div;
+  var import_jsApi = __toESM(require_jsApi_GEN());
+  function create_if_block_12(ctx) {
+    let span;
     return {
       c() {
-        div = element("div");
-        div.innerHTML = `<h1>Edit journal</h1>`;
+        span = element("span");
+        span.textContent = "Submit";
       },
       m(target, anchor) {
-        insert(target, div, anchor);
+        insert(target, span, anchor);
       },
-      p: noop,
       d(detaching) {
         if (detaching) {
-          detach(div);
+          detach(span);
         }
+      }
+    };
+  }
+  function create_if_block2(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Submitting ...";
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
+  }
+  function create_default_slot(ctx) {
+    let div15;
+    let header;
+    let t1;
+    let div14;
+    let div10;
+    let div5;
+    let div1;
+    let div0;
+    let t3;
+    let h5;
+    let t5;
+    let div4;
+    let div2;
+    let t7;
+    let div3;
+    let p0;
+    let t10;
+    let p1;
+    let t13;
+    let div9;
+    let div8;
+    let div6;
+    let t15;
+    let div7;
+    let p2;
+    let t17;
+    let div12;
+    let div11;
+    let table;
+    let thead;
+    let t29;
+    let tbody;
+    let tr1;
+    let td0;
+    let input0;
+    let t30;
+    let td1;
+    let input1;
+    let t31;
+    let td2;
+    let textarea;
+    let t32;
+    let td3;
+    let input2;
+    let t33;
+    let td4;
+    let input3;
+    let t34;
+    let td5;
+    let input4;
+    let t35;
+    let div13;
+    let button0;
+    let t37;
+    let button1;
+    let t38;
+    let mounted;
+    let dispose;
+    let if_block0 = !/*isSubmitted*/
+    ctx[0] && create_if_block_12(ctx);
+    let if_block1 = (
+      /*isSubmitted*/
+      ctx[0] && create_if_block2(ctx)
+    );
+    return {
+      c() {
+        div15 = element("div");
+        header = element("header");
+        header.innerHTML = `<h1>Edit journal</h1>`;
+        t1 = space();
+        div14 = element("div");
+        div10 = element("div");
+        div5 = element("div");
+        div1 = element("div");
+        div0 = element("div");
+        div0.innerHTML = `<span>Company Name</span>`;
+        t3 = space();
+        h5 = element("h5");
+        h5.textContent = `${org.name || ""}`;
+        t5 = space();
+        div4 = element("div");
+        div2 = element("div");
+        div2.innerHTML = `<span>Company Contacts</span>`;
+        t7 = space();
+        div3 = element("div");
+        p0 = element("p");
+        p0.textContent = `Head Title: ${org.headTitle || ""}`;
+        t10 = space();
+        p1 = element("p");
+        p1.textContent = `Email: ${user2.email}`;
+        t13 = space();
+        div9 = element("div");
+        div8 = element("div");
+        div6 = element("div");
+        div6.innerHTML = `<span>CoA (Chart of Account)</span>`;
+        t15 = space();
+        div7 = element("div");
+        p2 = element("p");
+        p2.textContent = `${coas[transactionJournal.coaId]}`;
+        t17 = space();
+        div12 = element("div");
+        div11 = element("div");
+        table = element("table");
+        thead = element("thead");
+        thead.innerHTML = `<tr><th class="svelte-4nwriy">Debit (IDR)</th> <th class="svelte-4nwriy">Credit (IDR)</th> <th class="svelte-4nwriy">Description</th> <th class="svelte-4nwriy">Date</th> <th class="svelte-4nwriy">Sales Count</th> <th class="svelte-4nwriy">Sales Price (IDR)</th></tr>`;
+        t29 = space();
+        tbody = element("tbody");
+        tr1 = element("tr");
+        td0 = element("td");
+        input0 = element("input");
+        t30 = space();
+        td1 = element("td");
+        input1 = element("input");
+        t31 = space();
+        td2 = element("td");
+        textarea = element("textarea");
+        t32 = space();
+        td3 = element("td");
+        input2 = element("input");
+        t33 = space();
+        td4 = element("td");
+        input3 = element("input");
+        t34 = space();
+        td5 = element("td");
+        input4 = element("input");
+        t35 = space();
+        div13 = element("div");
+        button0 = element("button");
+        button0.textContent = "Cancel";
+        t37 = space();
+        button1 = element("button");
+        if (if_block0)
+          if_block0.c();
+        t38 = space();
+        if (if_block1)
+          if_block1.c();
+        attr(header, "class", "svelte-4nwriy");
+        attr(div0, "class", "title svelte-4nwriy");
+        attr(h5, "class", "svelte-4nwriy");
+        attr(div1, "class", "item svelte-4nwriy");
+        attr(div2, "class", "title svelte-4nwriy");
+        attr(p0, "class", "svelte-4nwriy");
+        attr(p1, "class", "svelte-4nwriy");
+        attr(div3, "class", "detail svelte-4nwriy");
+        attr(div4, "class", "item svelte-4nwriy");
+        attr(div5, "class", "left svelte-4nwriy");
+        attr(div6, "class", "title svelte-4nwriy");
+        attr(p2, "class", "svelte-4nwriy");
+        attr(div7, "class", "detail svelte-4nwriy");
+        attr(div8, "class", "item svelte-4nwriy");
+        attr(div9, "class", "right svelte-4nwriy");
+        attr(div10, "class", "details svelte-4nwriy");
+        attr(input0, "type", "number");
+        attr(input0, "min", "0");
+        attr(input0, "class", "svelte-4nwriy");
+        attr(input1, "type", "number");
+        attr(input1, "min", "0");
+        attr(input1, "class", "svelte-4nwriy");
+        attr(textarea, "placeholder", "Description");
+        attr(textarea, "rows", "1");
+        attr(textarea, "class", "svelte-4nwriy");
+        attr(input2, "type", "date");
+        attr(input2, "class", "svelte-4nwriy");
+        attr(input3, "type", "number");
+        attr(input3, "min", "0");
+        attr(input3, "class", "svelte-4nwriy");
+        attr(input4, "type", "number");
+        attr(input4, "min", "0");
+        attr(input4, "class", "svelte-4nwriy");
+        attr(table, "class", "table_transaction_journals");
+        attr(div11, "class", "forms_table svelte-4nwriy");
+        attr(div12, "class", "forms_journal svelte-4nwriy");
+        attr(button0, "class", "btn cancel svelte-4nwriy");
+        button1.disabled = /*isSubmitted*/
+        ctx[0];
+        attr(button1, "class", "btn submit svelte-4nwriy");
+        attr(div13, "class", "actions svelte-4nwriy");
+        attr(div14, "class", "data_entry_journal___container svelte-4nwriy");
+      },
+      m(target, anchor) {
+        insert(target, div15, anchor);
+        append(div15, header);
+        append(div15, t1);
+        append(div15, div14);
+        append(div14, div10);
+        append(div10, div5);
+        append(div5, div1);
+        append(div1, div0);
+        append(div1, t3);
+        append(div1, h5);
+        append(div5, t5);
+        append(div5, div4);
+        append(div4, div2);
+        append(div4, t7);
+        append(div4, div3);
+        append(div3, p0);
+        append(div3, t10);
+        append(div3, p1);
+        append(div10, t13);
+        append(div10, div9);
+        append(div9, div8);
+        append(div8, div6);
+        append(div8, t15);
+        append(div8, div7);
+        append(div7, p2);
+        append(div14, t17);
+        append(div14, div12);
+        append(div12, div11);
+        append(div11, table);
+        append(table, thead);
+        append(table, t29);
+        append(table, tbody);
+        append(tbody, tr1);
+        append(tr1, td0);
+        append(td0, input0);
+        set_input_value(
+          input0,
+          /*debitIDR*/
+          ctx[1]
+        );
+        append(tr1, t30);
+        append(tr1, td1);
+        append(td1, input1);
+        set_input_value(
+          input1,
+          /*creditIDR*/
+          ctx[2]
+        );
+        append(tr1, t31);
+        append(tr1, td2);
+        append(td2, textarea);
+        set_input_value(
+          textarea,
+          /*descriptions*/
+          ctx[3]
+        );
+        append(tr1, t32);
+        append(tr1, td3);
+        append(td3, input2);
+        set_input_value(
+          input2,
+          /*date*/
+          ctx[4]
+        );
+        append(tr1, t33);
+        append(tr1, td4);
+        append(td4, input3);
+        set_input_value(
+          input3,
+          /*salesCount*/
+          ctx[5]
+        );
+        append(tr1, t34);
+        append(tr1, td5);
+        append(td5, input4);
+        set_input_value(
+          input4,
+          /*salesPriceIDR*/
+          ctx[6]
+        );
+        append(div14, t35);
+        append(div14, div13);
+        append(div13, button0);
+        append(div13, t37);
+        append(div13, button1);
+        if (if_block0)
+          if_block0.m(button1, null);
+        append(button1, t38);
+        if (if_block1)
+          if_block1.m(button1, null);
+        if (!mounted) {
+          dispose = [
+            listen(
+              input0,
+              "input",
+              /*input0_input_handler*/
+              ctx[8]
+            ),
+            listen(
+              input1,
+              "input",
+              /*input1_input_handler*/
+              ctx[9]
+            ),
+            listen(
+              textarea,
+              "input",
+              /*textarea_input_handler*/
+              ctx[10]
+            ),
+            listen(
+              input2,
+              "input",
+              /*input2_input_handler*/
+              ctx[11]
+            ),
+            listen(
+              input3,
+              "input",
+              /*input3_input_handler*/
+              ctx[12]
+            ),
+            listen(
+              input4,
+              "input",
+              /*input4_input_handler*/
+              ctx[13]
+            ),
+            listen(
+              button0,
+              "click",
+              /*click_handler*/
+              ctx[14]
+            ),
+            listen(
+              button1,
+              "click",
+              /*SubmitEdit*/
+              ctx[7]
+            )
+          ];
+          mounted = true;
+        }
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*debitIDR*/
+        2 && to_number(input0.value) !== /*debitIDR*/
+        ctx2[1]) {
+          set_input_value(
+            input0,
+            /*debitIDR*/
+            ctx2[1]
+          );
+        }
+        if (dirty & /*creditIDR*/
+        4 && to_number(input1.value) !== /*creditIDR*/
+        ctx2[2]) {
+          set_input_value(
+            input1,
+            /*creditIDR*/
+            ctx2[2]
+          );
+        }
+        if (dirty & /*descriptions*/
+        8) {
+          set_input_value(
+            textarea,
+            /*descriptions*/
+            ctx2[3]
+          );
+        }
+        if (dirty & /*date*/
+        16) {
+          set_input_value(
+            input2,
+            /*date*/
+            ctx2[4]
+          );
+        }
+        if (dirty & /*salesCount*/
+        32 && to_number(input3.value) !== /*salesCount*/
+        ctx2[5]) {
+          set_input_value(
+            input3,
+            /*salesCount*/
+            ctx2[5]
+          );
+        }
+        if (dirty & /*salesPriceIDR*/
+        64 && to_number(input4.value) !== /*salesPriceIDR*/
+        ctx2[6]) {
+          set_input_value(
+            input4,
+            /*salesPriceIDR*/
+            ctx2[6]
+          );
+        }
+        if (!/*isSubmitted*/
+        ctx2[0]) {
+          if (if_block0) {
+          } else {
+            if_block0 = create_if_block_12(ctx2);
+            if_block0.c();
+            if_block0.m(button1, t38);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        if (
+          /*isSubmitted*/
+          ctx2[0]
+        ) {
+          if (if_block1) {
+          } else {
+            if_block1 = create_if_block2(ctx2);
+            if_block1.c();
+            if_block1.m(button1, null);
+          }
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
+        }
+        if (dirty & /*isSubmitted*/
+        1) {
+          button1.disabled = /*isSubmitted*/
+          ctx2[0];
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div15);
+        }
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        mounted = false;
+        run_all(dispose);
       }
     };
   }
@@ -5224,8 +5781,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, [dirty]) {
         const mainlayout_changes = {};
-        if (dirty & /*$scope*/
-        1) {
+        if (dirty & /*$scope, isSubmitted, salesPriceIDR, salesCount, date, descriptions, creditIDR, debitIDR*/
+        65663) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -5245,13 +5802,117 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
+  var user2 = (
+    /** @type User */
+    {/* user */}
+  );
+  var org = (
+    /** @type Org */
+    {/* org */}
+  );
+  var coas = (
+    /** @type Record<number, string> */
+    {/* coas */}
+  );
   var transactionJournal = (
     /** @type TransactionJournal */
     {/* transactionJournal */}
   );
-  function instance7($self) {
+  function dateISOFormat(dateStr) {
+    const dt = new Date(dateStr);
+    const date = dt.getDate();
+    const month = dt.toLocaleDateString("default", { month: "2-digit" });
+    const year = dt.getFullYear();
+    return `${year}-${month}-${date}`;
+  }
+  function instance7($self, $props, $invalidate) {
     console.log(transactionJournal);
-    return [];
+    let isSubmitted = false;
+    const detailObj = (
+      /** @type DetailObjectTransaction */
+      JSON.parse(transactionJournal.detailObj || '{"salesCount": 0, "salesPriceIDR": "0"}')
+    );
+    let debitIDR = transactionJournal.debitIDR;
+    let creditIDR = transactionJournal.creditIDR;
+    let descriptions = transactionJournal.descriptions;
+    let date = dateISOFormat(transactionJournal.date);
+    let salesCount = detailObj.salesCount;
+    let salesPriceIDR = detailObj.salesPriceIDR;
+    async function SubmitEdit() {
+      $invalidate(0, isSubmitted = true);
+      if (salesPriceIDR !== 0) {
+        detailObj.salesPriceIDR = salesPriceIDR + "";
+        detailObj.salesCount = salesCount;
+      }
+      const i = {
+        cmd: "upsert",
+        transactionJournal: {
+          id: transactionJournal.id,
+          debitIDR: debitIDR + "",
+          creditIDR: creditIDR + "",
+          descriptions,
+          date,
+          detailObj: salesPriceIDR !== 0 ? JSON.stringify(detailObj) : ""
+        }
+      };
+      await (0, import_jsApi.TenantAdminManualJournal)(
+        // @ts-ignore
+        i,
+        /** @returns {Promise<any>} */
+        function(o) {
+          $invalidate(0, isSubmitted = false);
+          if (o.error) {
+            notifier.showError(o.error || "failed to edit journal");
+            return;
+          }
+          notifier.showSuccess("journal edited !");
+        }
+      );
+    }
+    function input0_input_handler() {
+      debitIDR = to_number(this.value);
+      $invalidate(1, debitIDR);
+    }
+    function input1_input_handler() {
+      creditIDR = to_number(this.value);
+      $invalidate(2, creditIDR);
+    }
+    function textarea_input_handler() {
+      descriptions = this.value;
+      $invalidate(3, descriptions);
+    }
+    function input2_input_handler() {
+      date = this.value;
+      $invalidate(4, date);
+    }
+    function input3_input_handler() {
+      salesCount = to_number(this.value);
+      $invalidate(5, salesCount);
+    }
+    function input4_input_handler() {
+      salesPriceIDR = to_number(this.value);
+      $invalidate(6, salesPriceIDR);
+    }
+    const click_handler = () => {
+      window.location.href = "/tenantAdmin/manualJournal";
+    };
+    return [
+      isSubmitted,
+      debitIDR,
+      creditIDR,
+      descriptions,
+      date,
+      salesCount,
+      salesPriceIDR,
+      SubmitEdit,
+      input0_input_handler,
+      input1_input_handler,
+      textarea_input_handler,
+      input2_input_handler,
+      input3_input_handler,
+      input4_input_handler,
+      click_handler
+    ];
   }
   var TenantAdmin_manualJournalEdit = class extends SvelteComponent {
     constructor(options) {

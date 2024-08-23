@@ -228,14 +228,6 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminManualJournal(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
-	case domain.TenantAdminManualJournalEditAction:
-		in := domain.TenantAdminManualJournalEditIn{}
-		if !in.RequestCommon.FromCli(action, payload, &in) {
-			return
-		}
-		out := b.TenantAdminManualJournalEdit(&in)
-		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
-
 	case domain.TenantAdminOrganizationAction:
 		in := domain.TenantAdminOrganizationIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
