@@ -4,8 +4,7 @@
   import { onMount } from 'svelte';
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { AiOutlineEye, AiOutlineEyeInvisible } from '../node_modules/svelte-icons-pack/dist/ai';
-  import { RiArrowsArrowRightSLine } from '../node_modules/svelte-icons-pack/dist/ri';
-    import { each } from 'chart.js/helpers';
+  import { generateRandomString } from './xState';
 
   export let className = '';
   export let type = /** @type {InputType} */ ('text');
@@ -22,12 +21,13 @@
   let inputElm;
 
   let valueToShowFromObj = /** @type {string|number} */ ('');
+
+  const randStr = generateRandomString(5);
   
   onMount(() => {
     if (type === 'password') inputElm.type = type;
     // Boolean input must be use random id, because it's a checkbox
     if (type === 'bool') id = id + Math.random();
-
     if (isObject) {
       for (const [k, v] of Object.entries(values)) {
         value = k;
@@ -35,7 +35,7 @@
         break;
       }
     } else {
-      if (values.length > 0) {
+      if (values && values.length > 0) {
         value = values[0];
         valueToShowFromObj = values[0];
       }
@@ -49,16 +49,72 @@
   }
 
   let isShowOptions = false;
+  let currentFocus = -1;
 
-  function filterOptions() {
-
+  function filterOptions(options) {
+    if (valueToShowFromObj === '') {
+      options.forEach((option) => {
+        option.style.display = 'block';
+      });
+      currentFocus = -1;
+      return;
+    } else {
+      options.forEach((option) => {
+        const textValue = option.textContent; // @ts-ignore
+        if (textValue.toUpperCase().indexOf(valueToShowFromObj.toUpperCase()) > -1) { // @ts-ignore
+          option.style.display = 'block';        
+        } else { // @ts-ignore
+          option.style.display = 'none'; 
+        }
+      });
+    }
   }
 
-  document.addEventListener("click", function(e) {
-    if (!document.querySelector('.options_container').contains(e.target)) {
-      isShowOptions = false;
+  function highlightOption(optionsElm, isIncreased) {
+    if (!optionsElm.length) return;
+
+    if (currentFocus >= optionsElm.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = optionsElm.length - 1;
+
+    if (isIncreased) {
+      currentFocus++;
+    } else {
+      currentFocus--;
     }
-  });
+
+    removeActive(optionsElm);
+
+    if(optionsElm[currentFocus].style.display === 'none') {
+      highlightOption(optionsElm, isIncreased);
+    };
+
+    optionsElm[currentFocus].classList.add('active');
+    optionsElm[currentFocus].scrollIntoView({block: 'nearest'});
+  }
+
+  function removeActive(options) {
+    options.forEach(option => option.classList.remove('active'));
+  }
+
+  function handleKey(/** @type {KeyboardEvent} */e) {
+    const options = document.querySelectorAll('.option.'+randStr);
+
+    if (e.key === 'ArrowDown') {
+      highlightOption(options, true);
+    } else if (e.key === 'ArrowUp') {
+      highlightOption(options, false);
+    } else if (e.key === 'Enter') {
+      if (currentFocus > -1) { // @ts-ignore
+        options[currentFocus].click();
+      }
+    } else if (e.key === 'Backspace') {
+      filterOptions(options);
+    } else {
+      filterOptions(options);
+    }
+  }
+
+  let optionClicked = false;
 </script>
 
 <div class={className}>
@@ -72,25 +128,30 @@
     {:else if type == 'select' || type === 'combobox'}
       {#if isObject}
         <label class="label" for={id}>{label}</label>
-        <!-- <select name={id} id={id} bind:value={value} {placeholder}>
-          <option value="" disabled>-- {placeholder} --</option>
-          {#each Object.entries(values) as [k, v]}
-            <option value={k} selected={value}>{v}</option>
-          {/each}
-        </select> -->
-        <div class="options_container" id="options_container">
+        <div class={`options_container ${randStr}`}>
           <input
             type="text"
             bind:value={valueToShowFromObj}
             on:focus={() => isShowOptions = true}
-            on:keyup={filterOptions}
+            on:blur={() => {
+              if (optionClicked) {
+                isShowOptions = false;
+              } else {
+                setTimeout(() => {
+                  isShowOptions = false;
+                  optionClicked = false;  
+                }, 200);
+              }
+            }}
+            on:keyup={handleKey}
           />
           <div class="options_list {isShowOptions ? 'show' : 'hidden'}">
             {#each Object.entries(values) as [k, v]}
-              <button class="option" on:click={() => {
+              <button class="option {randStr}" on:click={() => {
                 value = k;
                 valueToShowFromObj = v;
                 isShowOptions = false;
+                optionClicked = true;
               }}>
                 {v}
               </button>
@@ -99,12 +160,35 @@
         </div>
       {:else}
         <label class="label" for={id}>{label}</label>
-        <select name={id} id={id} bind:value={value} {placeholder}>
-          <option value="" disabled>-- {placeholder} --</option>
-          {#each values as v}
-            <option value={v} selected={value}>{v}</option>
-          {/each}
-        </select>
+        <div class="options_container {randStr}">
+          <input
+            type="text"
+            bind:value={valueToShowFromObj}
+            on:focus={() => isShowOptions = true}
+            on:blur={() => {
+              if (optionClicked) {
+                isShowOptions = false;
+              } else {
+                setTimeout(() => {
+                  isShowOptions = false;
+                  optionClicked = false;  
+                }, 200);
+              }
+            }}
+            on:keyup={handleKey}
+          />
+          <div class="options_list {isShowOptions ? 'show' : 'hidden'}">
+            {#each values as v}
+              <button class="option {randStr}" on:click={() => {
+                value = v;
+                valueToShowFromObj = v;
+                isShowOptions = false;
+              }}>
+                {v}
+              </button>
+            {/each}
+          </div>
+        </div>
       {/if}
     {:else if type === 'number'}
       <label class="label" for={id}>{label}</label>
@@ -238,20 +322,6 @@
     min-height: 50px;
     max-height: 300px;
   }
-
-  .input_box select {
-    cursor: pointer;
-    width: 100%;
-    border: 1px solid var(--gray-003);
-    border-radius: 5px;
-    background-color: transparent;
-    padding: 10px 12px;
-  }
-
-  .input_box select:focus {
-    border-color: var(--sky-005);
-    outline: 1px solid var(--sky-005);
-  }
   
   /* The switch - the box around the slider */
   .switcher {
@@ -365,7 +435,7 @@
     height: fit-content;
     max-height: 250px;
     overflow-y: auto;
-    z-index: 20;
+    z-index: 1999;
   }
 
   .input_box .options_container .options_list .option {
@@ -385,5 +455,9 @@
 
   .input_box .options_container .options_list .option:hover {
     background-color: var(--gray-002);
+  }
+
+  :global(.input_box .options_container .options_list .option.active) {
+    background-color: var(--gray-002) !important;
   }
 </style>

@@ -17,8 +17,6 @@
   let coas      = /** @type CoA[] */  ([/* coas */]);
   let tenant    = /** @type Tenant */   ({/* tenant */});
   let coasChoices = /** @type Record<string|number, string> */   ({/* coaChoices */});
-
-  console.log(coas);
   
   let REFORMAT_COAS = /** @type CoA[] */ ([]);
 
