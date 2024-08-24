@@ -4,27 +4,42 @@
   import { onMount } from 'svelte';
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { AiOutlineEye, AiOutlineEyeInvisible } from '../node_modules/svelte-icons-pack/dist/ai';
+  import { RiArrowsArrowRightSLine } from '../node_modules/svelte-icons-pack/dist/ri';
+    import { each } from 'chart.js/helpers';
 
   export let className = '';
   export let type = /** @type {InputType} */ ('text');
   export let id;
   export let value;
 
-  /** @type {Array<number | string> | Object} */
-  export let values = [] || {};
+  export let values = /** @type {Array<string|number> | Record<string|number, string> | any} */ ([] || {});
   export let label;
   export let placeholder = '';
   export let isObject = false;
-  export let isPlainHTML = false;
 
   if (isObject) value = value+'';
   let isShowPassword = false;
   let inputElm;
+
+  let valueToShowFromObj = /** @type {string|number} */ ('');
   
   onMount(() => {
     if (type === 'password') inputElm.type = type;
     // Boolean input must be use random id, because it's a checkbox
     if (type === 'bool') id = id + Math.random();
+
+    if (isObject) {
+      for (const [k, v] of Object.entries(values)) {
+        value = k;
+        valueToShowFromObj = v;
+        break;
+      }
+    } else {
+      if (values.length > 0) {
+        value = values[0];
+        valueToShowFromObj = values[0];
+      }
+    }
   });
 
   function toggleShowPassword() {
@@ -32,6 +47,18 @@
     if (isShowPassword) inputElm.type = 'text';
     else inputElm.type = 'password';
   }
+
+  let isShowOptions = false;
+
+  function filterOptions() {
+
+  }
+
+  document.addEventListener("click", function(e) {
+    if (!document.querySelector('.options_container').contains(e.target)) {
+      isShowOptions = false;
+    }
+  });
 </script>
 
 <div class={className}>
@@ -44,23 +71,32 @@
       </label>
     {:else if type == 'select' || type === 'combobox'}
       {#if isObject}
-        {#if !isPlainHTML}
-          <label class="label" for={id}>{label}</label>
-          <select name={id} id={id} bind:value={value} {placeholder}>
-            <option value="" disabled>-- {placeholder} --</option>
+        <label class="label" for={id}>{label}</label>
+        <!-- <select name={id} id={id} bind:value={value} {placeholder}>
+          <option value="" disabled>-- {placeholder} --</option>
+          {#each Object.entries(values) as [k, v]}
+            <option value={k} selected={value}>{v}</option>
+          {/each}
+        </select> -->
+        <div class="options_container" id="options_container">
+          <input
+            type="text"
+            bind:value={valueToShowFromObj}
+            on:focus={() => isShowOptions = true}
+            on:keyup={filterOptions}
+          />
+          <div class="options_list {isShowOptions ? 'show' : 'hidden'}">
             {#each Object.entries(values) as [k, v]}
-              <option value={k} selected={value}>{v}</option>
+              <button class="option" on:click={() => {
+                value = k;
+                valueToShowFromObj = v;
+                isShowOptions = false;
+              }}>
+                {v}
+              </button>
             {/each}
-          </select>
-        {:else}
-          <label class="label" for={id}>{label}</label>
-          <select name={id} id={id} bind:value={value} {placeholder}>
-            <option value="" disabled>-- {placeholder} --</option>
-            {#each Object.entries(values) as [k, v]}
-              <option value={k} selected={value}>{@html v}</option>
-            {/each}
-          </select>
-        {/if}
+          </div>
+        </div>
       {:else}
         <label class="label" for={id}>{label}</label>
         <select name={id} id={id} bind:value={value} {placeholder}>
@@ -123,6 +159,14 @@
 </div>
 
 <style>
+  .show {
+    display: block;
+  }
+
+  .hidden {
+    display: none;
+  }
+
   .input_box {
     position: relative;
     display: flex;
@@ -301,5 +345,45 @@
     right: 10px;
     bottom: 10px;
     font-weight: 700;
+  }
+
+  .input_box .options_container {
+    display: block;
+    position: relative;
+    width: 100%;
+  }
+
+  .input_box .options_container .options_list {
+    margin-top: 5px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #FFF;
+    border: 1px solid var(--gray-003);
+    border-radius: 8px;
+    height: fit-content;
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 20;
+  }
+
+  .input_box .options_container .options_list .option {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #FFF;
+    border: none;
+    height: fit-content;
+    width: 100%;
+    text-align: left;
+  }
+
+  .input_box .options_container .options_list .option:hover {
+    background-color: var(--gray-002);
   }
 </style>
