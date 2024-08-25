@@ -10,6 +10,7 @@
   * @property {number} productsCoaId
   * @property {number} suppliersCoaId
   * @property {number} customersCoaId
+  * @property {number} customersReceivablesCoaId
   * @property {number} staffsCoaId
   * @property {number} banksCoaId
   */

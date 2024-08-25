@@ -16,10 +16,6 @@ const (
 	InvitationStateTerminated = `terminated`
 	InvitationStateLeft       = `left`
 
-	InvitationStateRoleUser 				= `user`
-	InvitationStateRoleDataEntry 		= `dataEntry`
-	InvitationStateRoleReportViewer = `reportViewer`
-
 	InvitationStateRespAccept = `accept`
 	InvitationStateRespReject = `reject`
 
@@ -98,7 +94,7 @@ func (s InvitationStateMap) ModifyRole(tenantCode, newRole string) error {
 	}
 
 	switch newRole {
-	case InvitationStateRoleUser, InvitationStateRoleDataEntry, InvitationStateRoleReportViewer:
+	case RoleUser, RoleDataEntry, RoleReportViewer, RoleFieldSupervisor:
 		break
 	default:
 		return wrapInvitationRoleError(ErrInvitationStateInvalidRole, newRole)

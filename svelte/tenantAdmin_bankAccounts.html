@@ -344,7 +344,7 @@
 
 
 <style>/* fakecss:./_components/partials/SubMenuLink.esbuild-svelte-fake-css */
-a.svelte-1smdkid {
+a.svelte-1m42kx1.svelte-1m42kx1 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -357,15 +357,25 @@ a.svelte-1smdkid {
   padding: 10px 12px;
   border-radius: 8px;
 }
-a.svelte-1smdkid:hover {
+a.svelte-1m42kx1.svelte-1m42kx1:hover {
   background-color: var(--gray-001);
 }
-a.svelte-1smdkid:active {
+a.svelte-1m42kx1.svelte-1m42kx1:active {
   background-color: var(--gray-002);
 }
-a.active.svelte-1smdkid {
+a.active.svelte-1m42kx1.svelte-1m42kx1 {
   color: var(--violet-005);
   background-color: var(--violet-transparent);
+}
+a.svelte-1m42kx1 span.svelte-1m42kx1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+a .icon {
+  flex-shrink: 0;
 }
 
 /* fakecss:./_components/partials/SideMenu.esbuild-svelte-fake-css */
@@ -24583,7 +24593,7 @@ uniform ${i3} ${a3} u_${s3};
           ctx[3].includes(
             /*href*/
             ctx[0]
-          ) ? "icon_active" : "icon_dark"
+          ) ? "icon_active icon" : "icon_dark icon"
         ),
         src: (
           /*icon*/
@@ -24601,13 +24611,14 @@ uniform ${i3} ${a3} u_${s3};
           /*title*/
           ctx[2]
         );
+        attr(span, "class", "svelte-1m42kx1");
         attr(
           a,
           "href",
           /*href*/
           ctx[0]
         );
-        attr(a, "class", "svelte-1smdkid");
+        attr(a, "class", "svelte-1m42kx1");
         toggle_class(
           a,
           "active",
@@ -24638,7 +24649,7 @@ uniform ${i3} ${a3} u_${s3};
           ctx2[3].includes(
             /*href*/
             ctx2[0]
-          ) ? "icon_active" : "icon_dark";
+          ) ? "icon_active icon" : "icon_dark icon";
         if (dirty & /*icon*/
         2)
           icon_1_changes.src = /*icon*/
@@ -24725,6 +24736,11 @@ uniform ${i3} ${a3} u_${s3};
     let icon;
     let t0;
     let span;
+    let t2;
+    let div;
+    let submenulink0;
+    let t3;
+    let submenulink1;
     let current;
     icon = new Icon_default({
       props: {
@@ -24736,6 +24752,20 @@ uniform ${i3} ${a3} u_${s3};
         src: AiOutlineWarning
       }
     });
+    submenulink0 = new SubMenuLink_default({
+      props: {
+        title: "General Ledger / Buku Besar",
+        href: "/reportViewer/generalLedger",
+        icon: RiEditorOrganizationChart
+      }
+    });
+    submenulink1 = new SubMenuLink_default({
+      props: {
+        title: "Trial Balance / Neraca Saldo",
+        href: "/reportViewer/trialBalance",
+        icon: RiEditorOrganizationChart
+      }
+    });
     return {
       c() {
         a = element("a");
@@ -24743,6 +24773,11 @@ uniform ${i3} ${a3} u_${s3};
         t0 = space();
         span = element("span");
         span.textContent = "Report Viewer";
+        t2 = space();
+        div = element("div");
+        create_component(submenulink0.$.fragment);
+        t3 = space();
+        create_component(submenulink1.$.fragment);
         attr(a, "href", "/reportViewer/dashboard");
         attr(a, "class", "svelte-1ityera");
         toggle_class(
@@ -24751,12 +24786,18 @@ uniform ${i3} ${a3} u_${s3};
           /*segment1*/
           ctx[1] === "reportViewer"
         );
+        attr(div, "class", "submenu svelte-1ityera");
       },
       m(target, anchor) {
         insert(target, a, anchor);
         mount_component(icon, a, null);
         append(a, t0);
         append(a, span);
+        insert(target, t2, anchor);
+        insert(target, div, anchor);
+        mount_component(submenulink0, div, null);
+        append(div, t3);
+        mount_component(submenulink1, div, null);
         current = true;
       },
       p(ctx2, dirty) {
@@ -24780,17 +24821,25 @@ uniform ${i3} ${a3} u_${s3};
         if (current)
           return;
         transition_in(icon.$.fragment, local);
+        transition_in(submenulink0.$.fragment, local);
+        transition_in(submenulink1.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
+        transition_out(submenulink0.$.fragment, local);
+        transition_out(submenulink1.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(a);
+          detach(t2);
+          detach(div);
         }
         destroy_component(icon);
+        destroy_component(submenulink0);
+        destroy_component(submenulink1);
       }
     };
   }
@@ -32891,7 +32940,7 @@ uniform ${i3} ${a3} u_${s3};
     let updating_value;
     let current;
     function inputcustom_value_binding(value) {
-      ctx[25](value);
+      ctx[26](value);
     }
     let inputcustom_props = {
       id: "staffId",
@@ -33035,14 +33084,17 @@ uniform ${i3} ${a3} u_${s3};
     let updating_value_6;
     let t9;
     let t10;
+    let inputcustom7;
+    let updating_value_7;
+    let t11;
     let div3;
     let div1;
-    let t11;
+    let t12;
     let div2;
     let button1;
-    let t13;
-    let button2;
     let t14;
+    let button2;
+    let t15;
     let div5_class_value;
     let current;
     let mounted;
@@ -33055,7 +33107,7 @@ uniform ${i3} ${a3} u_${s3};
       }
     });
     function inputcustom0_value_binding(value) {
-      ctx[18](value);
+      ctx[19](value);
     }
     let inputcustom0_props = {
       id: "name",
@@ -33073,7 +33125,7 @@ uniform ${i3} ${a3} u_${s3};
     inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
     binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
     function inputcustom1_value_binding(value) {
-      ctx[19](value);
+      ctx[20](value);
     }
     let inputcustom1_props = {
       id: "bankName",
@@ -33091,7 +33143,7 @@ uniform ${i3} ${a3} u_${s3};
     inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
     binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
     function inputcustom2_value_binding(value) {
-      ctx[20](value);
+      ctx[21](value);
     }
     let inputcustom2_props = {
       id: "accountName",
@@ -33109,7 +33161,7 @@ uniform ${i3} ${a3} u_${s3};
     inputcustom2 = new InputCustom_default({ props: inputcustom2_props });
     binding_callbacks.push(() => bind(inputcustom2, "value", inputcustom2_value_binding));
     function inputcustom3_value_binding(value) {
-      ctx[21](value);
+      ctx[22](value);
     }
     let inputcustom3_props = {
       id: "accountNumber",
@@ -33127,7 +33179,7 @@ uniform ${i3} ${a3} u_${s3};
     inputcustom3 = new InputCustom_default({ props: inputcustom3_props });
     binding_callbacks.push(() => bind(inputcustom3, "value", inputcustom3_value_binding));
     function inputcustom4_value_binding(value) {
-      ctx[22](value);
+      ctx[23](value);
     }
     let inputcustom4_props = {
       id: "isProfitCenter",
@@ -33144,7 +33196,7 @@ uniform ${i3} ${a3} u_${s3};
     inputcustom4 = new InputCustom_default({ props: inputcustom4_props });
     binding_callbacks.push(() => bind(inputcustom4, "value", inputcustom4_value_binding));
     function inputcustom5_value_binding(value) {
-      ctx[23](value);
+      ctx[24](value);
     }
     let inputcustom5_props = {
       id: "isCostCenter",
@@ -33161,7 +33213,7 @@ uniform ${i3} ${a3} u_${s3};
     inputcustom5 = new InputCustom_default({ props: inputcustom5_props });
     binding_callbacks.push(() => bind(inputcustom5, "value", inputcustom5_value_binding));
     function inputcustom6_value_binding(value) {
-      ctx[24](value);
+      ctx[25](value);
     }
     let inputcustom6_props = {
       id: "isStaffAccount",
@@ -33181,6 +33233,23 @@ uniform ${i3} ${a3} u_${s3};
       /*isStaffAccount*/
       ctx[4] && create_if_block_24(ctx)
     );
+    function inputcustom7_value_binding(value) {
+      ctx[27](value);
+    }
+    let inputcustom7_props = {
+      id: "isFunder",
+      label: "Pemberi modal / Is Funder ?",
+      type: "bool"
+    };
+    if (
+      /*isFunder*/
+      ctx[13] !== void 0
+    ) {
+      inputcustom7_props.value = /*isFunder*/
+      ctx[13];
+    }
+    inputcustom7 = new InputCustom_default({ props: inputcustom7_props });
+    binding_callbacks.push(() => bind(inputcustom7, "value", inputcustom7_value_binding));
     let if_block1 = !/*isSubmitAddBankAccount*/
     ctx[0] && create_if_block_111(ctx);
     let if_block2 = (
@@ -33219,18 +33288,20 @@ uniform ${i3} ${a3} u_${s3};
         if (if_block0)
           if_block0.c();
         t10 = space();
+        create_component(inputcustom7.$.fragment);
+        t11 = space();
         div3 = element("div");
         div1 = element("div");
         div1.innerHTML = ``;
-        t11 = space();
+        t12 = space();
         div2 = element("div");
         button1 = element("button");
         button1.textContent = "Cancel";
-        t13 = space();
+        t14 = space();
         button2 = element("button");
         if (if_block1)
           if_block1.c();
-        t14 = space();
+        t15 = space();
         if (if_block2)
           if_block2.c();
         attr(h2, "class", "svelte-19kcmoe");
@@ -33275,17 +33346,19 @@ uniform ${i3} ${a3} u_${s3};
         append(div0, t9);
         if (if_block0)
           if_block0.m(div0, null);
-        append(div4, t10);
+        append(div0, t10);
+        mount_component(inputcustom7, div0, null);
+        append(div4, t11);
         append(div4, div3);
         append(div3, div1);
-        append(div3, t11);
+        append(div3, t12);
         append(div3, div2);
         append(div2, button1);
-        append(div2, t13);
+        append(div2, t14);
         append(div2, button2);
         if (if_block1)
           if_block1.m(button2, null);
-        append(button2, t14);
+        append(button2, t15);
         if (if_block2)
           if_block2.m(button2, null);
         current = true;
@@ -33299,11 +33372,11 @@ uniform ${i3} ${a3} u_${s3};
             ),
             listen(button1, "click", prevent_default(
               /*cancel*/
-              ctx[13]
+              ctx[14]
             )),
             listen(button2, "click", prevent_default(
               /*submitAddBankAccount*/
-              ctx[14]
+              ctx[15]
             ))
           ];
           mounted = true;
@@ -33394,7 +33467,7 @@ uniform ${i3} ${a3} u_${s3};
             if_block0 = create_if_block_24(ctx2);
             if_block0.c();
             transition_in(if_block0, 1);
-            if_block0.m(div0, null);
+            if_block0.m(div0, t10);
           }
         } else if (if_block0) {
           group_outros();
@@ -33403,13 +33476,22 @@ uniform ${i3} ${a3} u_${s3};
           });
           check_outros();
         }
+        const inputcustom7_changes = {};
+        if (!updating_value_7 && dirty & /*isFunder*/
+        8192) {
+          updating_value_7 = true;
+          inputcustom7_changes.value = /*isFunder*/
+          ctx2[13];
+          add_flush_callback(() => updating_value_7 = false);
+        }
+        inputcustom7.$set(inputcustom7_changes);
         if (!/*isSubmitAddBankAccount*/
         ctx2[0]) {
           if (if_block1) {
           } else {
             if_block1 = create_if_block_111(ctx2);
             if_block1.c();
-            if_block1.m(button2, t14);
+            if_block1.m(button2, t15);
           }
         } else if (if_block1) {
           if_block1.d(1);
@@ -33460,6 +33542,7 @@ uniform ${i3} ${a3} u_${s3};
         transition_in(inputcustom5.$.fragment, local);
         transition_in(inputcustom6.$.fragment, local);
         transition_in(if_block0);
+        transition_in(inputcustom7.$.fragment, local);
         transition_in(if_block2);
         current = true;
       },
@@ -33473,6 +33556,7 @@ uniform ${i3} ${a3} u_${s3};
         transition_out(inputcustom5.$.fragment, local);
         transition_out(inputcustom6.$.fragment, local);
         transition_out(if_block0);
+        transition_out(inputcustom7.$.fragment, local);
         transition_out(if_block2);
         current = false;
       },
@@ -33490,6 +33574,7 @@ uniform ${i3} ${a3} u_${s3};
         destroy_component(inputcustom6);
         if (if_block0)
           if_block0.d();
+        destroy_component(inputcustom7);
         if (if_block1)
           if_block1.d();
         if (if_block2)
@@ -33515,6 +33600,7 @@ uniform ${i3} ${a3} u_${s3};
     let isProfitCenter = false;
     let isCostCenter = false;
     let staffId = "0";
+    let isFunder = false;
     let coaIdProfitCenter = "0";
     let coaIdCostCenter = "0";
     const Reset = () => {
@@ -33579,6 +33665,10 @@ uniform ${i3} ${a3} u_${s3};
       staffId = value;
       $invalidate(12, staffId), $invalidate(4, isStaffAccount);
     }
+    function inputcustom7_value_binding(value) {
+      isFunder = value;
+      $invalidate(13, isFunder);
+    }
     $self.$set = ($props2) => {
       if ("heading" in $props2)
         $invalidate(1, heading = $props2.heading);
@@ -33587,7 +33677,7 @@ uniform ${i3} ${a3} u_${s3};
       if ("staffs" in $props2)
         $invalidate(2, staffs2 = $props2.staffs);
       if ("OnSubmit" in $props2)
-        $invalidate(15, OnSubmit = $props2.OnSubmit);
+        $invalidate(16, OnSubmit = $props2.OnSubmit);
     };
     $self.$.update = () => {
       if ($self.$.dirty & /*isStaffAccount*/
@@ -33612,6 +33702,7 @@ uniform ${i3} ${a3} u_${s3};
       isProfitCenter,
       isCostCenter,
       staffId,
+      isFunder,
       cancel,
       submitAddBankAccount,
       OnSubmit,
@@ -33624,7 +33715,8 @@ uniform ${i3} ${a3} u_${s3};
       inputcustom4_value_binding,
       inputcustom5_value_binding,
       inputcustom6_value_binding,
-      inputcustom_value_binding
+      inputcustom_value_binding,
+      inputcustom7_value_binding
     ];
   }
   var PopUpAddBankAccount = class extends SvelteComponent {
@@ -33634,20 +33726,20 @@ uniform ${i3} ${a3} u_${s3};
         heading: 1,
         isSubmitAddBankAccount: 0,
         staffs: 2,
-        OnSubmit: 15,
-        Show: 16,
+        OnSubmit: 16,
+        Show: 17,
         Hide: 3,
-        Reset: 17
+        Reset: 18
       });
     }
     get Show() {
-      return this.$.ctx[16];
+      return this.$.ctx[17];
     }
     get Hide() {
       return this.$.ctx[3];
     }
     get Reset() {
-      return this.$.ctx[17];
+      return this.$.ctx[18];
     }
   };
   var PopUpAddBankAccount_default = PopUpAddBankAccount;

@@ -11,6 +11,7 @@ import (
 	"benakun/model/mAuth"
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mAuth/wcAuth"
+	"benakun/model/mBudget/wcBudget"
 	"benakun/model/mFinance"
 	"benakun/model/mFinance/wcFinance"
 
@@ -107,6 +108,16 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 		return
 	}
 
+	// TODO: fix it
+	bankAccount := wcBudget.NewBankAccountsMutator(d.AuthOltp)
+	bankAccount.TenantCode = tenant.TenantCode
+	bankAccount.AccountName = `Rekening Utama`
+	bankAccount.AccountNumber = 0000000
+	if !bankAccount.DoInsert() {
+		out.SetError(400, `todo error`)
+		return
+	}
+
 	// TODO: return map[name]id
 	// map[string]uint64
 	err := generateDefaultCoa(d.AuthOltp, tenant.TenantCode)
@@ -161,6 +172,34 @@ func insertDefaultCoa(ta *Tt.Adapter, coaDefault mFinance.CoaDefault, tenantCode
 		tenant := wcAuth.NewTenantsMutator(ta)
 		tenant.TenantCode = tenantCode
 		tenant.SetProductsCoaId(coa.Id)
+		if !tenant.DoUpdateByTenantCode() {
+			return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
+		}
+	case mFinance.LabelSuppliers:
+		tenant := wcAuth.NewTenantsMutator(ta)
+		tenant.TenantCode = tenantCode
+		tenant.SetSuppliersCoaId(coa.Id)
+		if !tenant.DoUpdateByTenantCode() {
+			return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
+		}
+	case mFinance.LabelStaff:
+		tenant := wcAuth.NewTenantsMutator(ta)
+		tenant.TenantCode = tenantCode
+		tenant.SetStaffsCoaId(coa.Id)
+		if !tenant.DoUpdateByTenantCode() {
+			return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
+		}
+	case mFinance.LabelBankAccount:
+		tenant := wcAuth.NewTenantsMutator(ta)
+		tenant.TenantCode = tenantCode
+		tenant.SetBanksCoaId(coa.Id)
+		if !tenant.DoUpdateByTenantCode() {
+			return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
+		}
+	case mFinance.LabelCustomer:
+		tenant := wcAuth.NewTenantsMutator(ta)
+		tenant.TenantCode = tenantCode
+		tenant.SetCustomersCoaId(coa.Id)
 		if !tenant.DoUpdateByTenantCode() {
 			return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
 		}

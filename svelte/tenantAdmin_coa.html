@@ -752,7 +752,7 @@
 }
 
 /* fakecss:./_components/partials/SubMenuLink.esbuild-svelte-fake-css */
-a.svelte-1smdkid {
+a.svelte-1m42kx1.svelte-1m42kx1 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -765,15 +765,25 @@ a.svelte-1smdkid {
   padding: 10px 12px;
   border-radius: 8px;
 }
-a.svelte-1smdkid:hover {
+a.svelte-1m42kx1.svelte-1m42kx1:hover {
   background-color: var(--gray-001);
 }
-a.svelte-1smdkid:active {
+a.svelte-1m42kx1.svelte-1m42kx1:active {
   background-color: var(--gray-002);
 }
-a.active.svelte-1smdkid {
+a.active.svelte-1m42kx1.svelte-1m42kx1 {
   color: var(--violet-005);
   background-color: var(--violet-transparent);
+}
+a.svelte-1m42kx1 span.svelte-1m42kx1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+a .icon {
+  flex-shrink: 0;
 }
 
 /* fakecss:./_components/partials/SideMenu.esbuild-svelte-fake-css */
@@ -8669,7 +8679,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           ctx[3].includes(
             /*href*/
             ctx[0]
-          ) ? "icon_active" : "icon_dark"
+          ) ? "icon_active icon" : "icon_dark icon"
         ),
         src: (
           /*icon*/
@@ -8687,13 +8697,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           /*title*/
           ctx[2]
         );
+        attr(span, "class", "svelte-1m42kx1");
         attr(
           a,
           "href",
           /*href*/
           ctx[0]
         );
-        attr(a, "class", "svelte-1smdkid");
+        attr(a, "class", "svelte-1m42kx1");
         toggle_class(
           a,
           "active",
@@ -8724,7 +8735,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           ctx2[3].includes(
             /*href*/
             ctx2[0]
-          ) ? "icon_active" : "icon_dark";
+          ) ? "icon_active icon" : "icon_dark icon";
         if (dirty & /*icon*/
         2)
           icon_1_changes.src = /*icon*/
@@ -8811,6 +8822,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let icon;
     let t0;
     let span;
+    let t2;
+    let div;
+    let submenulink0;
+    let t3;
+    let submenulink1;
     let current;
     icon = new Icon_default({
       props: {
@@ -8822,6 +8838,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         src: AiOutlineWarning
       }
     });
+    submenulink0 = new SubMenuLink_default({
+      props: {
+        title: "General Ledger / Buku Besar",
+        href: "/reportViewer/generalLedger",
+        icon: RiEditorOrganizationChart
+      }
+    });
+    submenulink1 = new SubMenuLink_default({
+      props: {
+        title: "Trial Balance / Neraca Saldo",
+        href: "/reportViewer/trialBalance",
+        icon: RiEditorOrganizationChart
+      }
+    });
     return {
       c() {
         a = element("a");
@@ -8829,6 +8859,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t0 = space();
         span = element("span");
         span.textContent = "Report Viewer";
+        t2 = space();
+        div = element("div");
+        create_component(submenulink0.$.fragment);
+        t3 = space();
+        create_component(submenulink1.$.fragment);
         attr(a, "href", "/reportViewer/dashboard");
         attr(a, "class", "svelte-1ityera");
         toggle_class(
@@ -8837,12 +8872,18 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           /*segment1*/
           ctx[1] === "reportViewer"
         );
+        attr(div, "class", "submenu svelte-1ityera");
       },
       m(target, anchor) {
         insert(target, a, anchor);
         mount_component(icon, a, null);
         append(a, t0);
         append(a, span);
+        insert(target, t2, anchor);
+        insert(target, div, anchor);
+        mount_component(submenulink0, div, null);
+        append(div, t3);
+        mount_component(submenulink1, div, null);
         current = true;
       },
       p(ctx2, dirty) {
@@ -8866,17 +8907,25 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (current)
           return;
         transition_in(icon.$.fragment, local);
+        transition_in(submenulink0.$.fragment, local);
+        transition_in(submenulink1.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
+        transition_out(submenulink0.$.fragment, local);
+        transition_out(submenulink1.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(a);
+          detach(t2);
+          detach(div);
         }
         destroy_component(icon);
+        destroy_component(submenulink0);
+        destroy_component(submenulink1);
       }
     };
   }
@@ -10125,8 +10174,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // tenantAdmin_coa.svelte
   function get_each_context3(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[34] = list[i];
-    child_ctx[36] = i;
+    child_ctx[36] = list[i];
+    child_ctx[38] = i;
     return child_ctx;
   }
   function create_each_block3(key_1, ctx) {
@@ -10138,13 +10187,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       props: {
         coa: (
           /*c*/
-          ctx[34]
+          ctx[36]
         ),
         num: `${/*idxParent*/
-        ctx[36] + 1}`,
+        ctx[38] + 1}`,
         parentNum: (
           /*idxParent*/
-          ctx[36] + 1
+          ctx[38] + 1
         ),
         isRootCoA: true,
         indent: 0
@@ -10153,17 +10202,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     coatree.$on(
       "update",
       /*updateEventHandler*/
-      ctx[11]
+      ctx[12]
     );
     coatree.$on(
       "moving",
       /*coaMovingHandler*/
-      ctx[14]
+      ctx[15]
     );
     coatree.$on(
       "moved",
       /*coaMovedHandler*/
-      ctx[15]
+      ctx[16]
     );
     return {
       key: key_1,
@@ -10187,15 +10236,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (dirty[0] & /*REFORMAT_COAS*/
         1)
           coatree_changes.coa = /*c*/
-          ctx[34];
+          ctx[36];
         if (dirty[0] & /*REFORMAT_COAS*/
         1)
           coatree_changes.num = `${/*idxParent*/
-          ctx[36] + 1}`;
+          ctx[38] + 1}`;
         if (dirty[0] & /*REFORMAT_COAS*/
         1)
           coatree_changes.parentNum = /*idxParent*/
-          ctx[36] + 1;
+          ctx[38] + 1;
         coatree.$set(coatree_changes);
       },
       i(local) {
@@ -10235,19 +10284,22 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let inputcustom4;
     let updating_value_4;
     let t4;
-    let button0;
+    let inputcustom5;
+    let updating_value_5;
     let t5;
+    let button0;
     let t6;
+    let t7;
     let div2;
     let button1;
-    let t8;
+    let t9;
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
     let current;
     let mounted;
     let dispose;
     function inputcustom0_value_binding(value) {
-      ctx[21](value);
+      ctx[22](value);
     }
     let inputcustom0_props = {
       type: "combobox",
@@ -10266,7 +10318,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
     binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
     function inputcustom1_value_binding(value) {
-      ctx[22](value);
+      ctx[23](value);
     }
     let inputcustom1_props = {
       type: "combobox",
@@ -10285,7 +10337,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
     binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
     function inputcustom2_value_binding(value) {
-      ctx[23](value);
+      ctx[24](value);
     }
     let inputcustom2_props = {
       type: "combobox",
@@ -10304,9 +10356,28 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     inputcustom2 = new InputCustom_default({ props: inputcustom2_props });
     binding_callbacks.push(() => bind(inputcustom2, "value", inputcustom2_value_binding));
     function inputcustom3_value_binding(value) {
-      ctx[24](value);
+      ctx[25](value);
     }
     let inputcustom3_props = {
+      type: "combobox",
+      label: "Customers Receivables CoA",
+      id: "customersReceivablesCoaId",
+      values: coasChoices,
+      isObject: true
+    };
+    if (
+      /*customersReceivablesCoaId*/
+      ctx[8] !== void 0
+    ) {
+      inputcustom3_props.value = /*customersReceivablesCoaId*/
+      ctx[8];
+    }
+    inputcustom3 = new InputCustom_default({ props: inputcustom3_props });
+    binding_callbacks.push(() => bind(inputcustom3, "value", inputcustom3_value_binding));
+    function inputcustom4_value_binding(value) {
+      ctx[26](value);
+    }
+    let inputcustom4_props = {
       type: "combobox",
       label: "Staffs CoA",
       id: "staffsCoaId",
@@ -10315,17 +10386,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
     if (
       /*staffsCoaId*/
-      ctx[8] !== void 0
+      ctx[9] !== void 0
     ) {
-      inputcustom3_props.value = /*staffsCoaId*/
-      ctx[8];
+      inputcustom4_props.value = /*staffsCoaId*/
+      ctx[9];
     }
-    inputcustom3 = new InputCustom_default({ props: inputcustom3_props });
-    binding_callbacks.push(() => bind(inputcustom3, "value", inputcustom3_value_binding));
-    function inputcustom4_value_binding(value) {
-      ctx[25](value);
+    inputcustom4 = new InputCustom_default({ props: inputcustom4_props });
+    binding_callbacks.push(() => bind(inputcustom4, "value", inputcustom4_value_binding));
+    function inputcustom5_value_binding(value) {
+      ctx[27](value);
     }
-    let inputcustom4_props = {
+    let inputcustom5_props = {
       type: "combobox",
       label: "Banks CoA",
       id: "banksCoaId",
@@ -10334,20 +10405,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
     if (
       /*banksCoaId*/
-      ctx[9] !== void 0
+      ctx[10] !== void 0
     ) {
-      inputcustom4_props.value = /*banksCoaId*/
-      ctx[9];
+      inputcustom5_props.value = /*banksCoaId*/
+      ctx[10];
     }
-    inputcustom4 = new InputCustom_default({ props: inputcustom4_props });
-    binding_callbacks.push(() => bind(inputcustom4, "value", inputcustom4_value_binding));
+    inputcustom5 = new InputCustom_default({ props: inputcustom5_props });
+    binding_callbacks.push(() => bind(inputcustom5, "value", inputcustom5_value_binding));
     let each_value = ensure_array_like(
       /*REFORMAT_COAS*/
       ctx[0] || []
     );
     const get_key = (ctx2) => (
       /*c*/
-      ctx2[34].id
+      ctx2[36].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context3(ctx, each_value, i);
@@ -10369,19 +10440,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t3 = space();
         create_component(inputcustom4.$.fragment);
         t4 = space();
+        create_component(inputcustom5.$.fragment);
+        t5 = space();
         button0 = element("button");
-        t5 = text("Sync CoA");
-        t6 = space();
+        t6 = text("Sync CoA");
+        t7 = space();
         div2 = element("div");
         button1 = element("button");
         button1.textContent = "Add new CoA";
-        t8 = space();
+        t9 = space();
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
         attr(div0, "class", "inputs_container svelte-1mzqfbt");
         button0.disabled = /*isSubmitSyncCoA*/
-        ctx[10];
+        ctx[11];
         attr(button0, "class", "sync_btn svelte-1mzqfbt");
         attr(div1, "class", "tenants_sync_coa svelte-1mzqfbt");
         attr(button1, "class", "add svelte-1mzqfbt");
@@ -10401,13 +10474,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         mount_component(inputcustom3, div0, null);
         append(div0, t3);
         mount_component(inputcustom4, div0, null);
-        append(div1, t4);
+        append(div0, t4);
+        mount_component(inputcustom5, div0, null);
+        append(div1, t5);
         append(div1, button0);
-        append(button0, t5);
-        append(div3, t6);
+        append(button0, t6);
+        append(div3, t7);
         append(div3, div2);
         append(div2, button1);
-        append(div3, t8);
+        append(div3, t9);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
             each_blocks[i].m(div3, null);
@@ -10420,13 +10495,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
               button0,
               "click",
               /*SubmitSyncCoA*/
-              ctx[16]
+              ctx[17]
             ),
             listen(
               button1,
               "click",
               /*toggleShowPopUpCoa*/
-              ctx[13]
+              ctx[14]
             )
           ];
           mounted = true;
@@ -10461,30 +10536,39 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         inputcustom2.$set(inputcustom2_changes);
         const inputcustom3_changes = {};
-        if (!updating_value_3 && dirty[0] & /*staffsCoaId*/
+        if (!updating_value_3 && dirty[0] & /*customersReceivablesCoaId*/
         256) {
           updating_value_3 = true;
-          inputcustom3_changes.value = /*staffsCoaId*/
+          inputcustom3_changes.value = /*customersReceivablesCoaId*/
           ctx2[8];
           add_flush_callback(() => updating_value_3 = false);
         }
         inputcustom3.$set(inputcustom3_changes);
         const inputcustom4_changes = {};
-        if (!updating_value_4 && dirty[0] & /*banksCoaId*/
+        if (!updating_value_4 && dirty[0] & /*staffsCoaId*/
         512) {
           updating_value_4 = true;
-          inputcustom4_changes.value = /*banksCoaId*/
+          inputcustom4_changes.value = /*staffsCoaId*/
           ctx2[9];
           add_flush_callback(() => updating_value_4 = false);
         }
         inputcustom4.$set(inputcustom4_changes);
-        if (!current || dirty[0] & /*isSubmitSyncCoA*/
+        const inputcustom5_changes = {};
+        if (!updating_value_5 && dirty[0] & /*banksCoaId*/
         1024) {
-          button0.disabled = /*isSubmitSyncCoA*/
+          updating_value_5 = true;
+          inputcustom5_changes.value = /*banksCoaId*/
           ctx2[10];
+          add_flush_callback(() => updating_value_5 = false);
+        }
+        inputcustom5.$set(inputcustom5_changes);
+        if (!current || dirty[0] & /*isSubmitSyncCoA*/
+        2048) {
+          button0.disabled = /*isSubmitSyncCoA*/
+          ctx2[11];
         }
         if (dirty[0] & /*REFORMAT_COAS, updateEventHandler, coaMovingHandler, coaMovedHandler*/
-        51201) {
+        102401) {
           each_value = ensure_array_like(
             /*REFORMAT_COAS*/
             ctx2[0] || []
@@ -10502,6 +10586,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_in(inputcustom2.$.fragment, local);
         transition_in(inputcustom3.$.fragment, local);
         transition_in(inputcustom4.$.fragment, local);
+        transition_in(inputcustom5.$.fragment, local);
         for (let i = 0; i < each_value.length; i += 1) {
           transition_in(each_blocks[i]);
         }
@@ -10513,6 +10598,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_out(inputcustom2.$.fragment, local);
         transition_out(inputcustom3.$.fragment, local);
         transition_out(inputcustom4.$.fragment, local);
+        transition_out(inputcustom5.$.fragment, local);
         for (let i = 0; i < each_blocks.length; i += 1) {
           transition_out(each_blocks[i]);
         }
@@ -10527,6 +10613,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         destroy_component(inputcustom2);
         destroy_component(inputcustom3);
         destroy_component(inputcustom4);
+        destroy_component(inputcustom5);
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].d();
         }
@@ -10544,17 +10631,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let mainlayout;
     let current;
     function popupcoa_name_binding(value) {
-      ctx[18](value);
-    }
-    function popupcoa_label_binding(value) {
       ctx[19](value);
     }
-    function popupcoa_isSubmitted_binding(value) {
+    function popupcoa_label_binding(value) {
       ctx[20](value);
+    }
+    function popupcoa_isSubmitted_binding(value) {
+      ctx[21](value);
     }
     let popupcoa_props = { onSubmit: (
       /*submitUpsertCoa*/
-      ctx[12]
+      ctx[13]
     ) };
     if (
       /*name*/
@@ -10578,7 +10665,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       ctx[4];
     }
     popupcoa = new PopUpCoa_default({ props: popupcoa_props });
-    ctx[17](popupcoa);
+    ctx[18](popupcoa);
     binding_callbacks.push(() => bind(popupcoa, "name", popupcoa_name_binding));
     binding_callbacks.push(() => bind(popupcoa, "label", popupcoa_label_binding));
     binding_callbacks.push(() => bind(popupcoa, "isSubmitted", popupcoa_isSubmitted_binding));
@@ -10625,9 +10712,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         popupcoa.$set(popupcoa_changes);
         const mainlayout_changes = {};
-        if (dirty[0] & /*REFORMAT_COAS, isSubmitSyncCoA, banksCoaId, staffsCoaId, customersCoaId, suppliersCoaId, productsCoaId*/
-        2017 | dirty[1] & /*$scope*/
-        64) {
+        if (dirty[0] & /*REFORMAT_COAS, isSubmitSyncCoA, banksCoaId, staffsCoaId, customersReceivablesCoaId, customersCoaId, suppliersCoaId, productsCoaId*/
+        4065 | dirty[1] & /*$scope*/
+        256) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -10648,7 +10735,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (detaching) {
           detach(t);
         }
-        ctx[17](null);
+        ctx[18](null);
         destroy_component(popupcoa, detaching);
         destroy_component(mainlayout, detaching);
       }
@@ -10810,7 +10897,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     async function coaMovingHandler(e) {
       coaMoving = e.detail.coa;
-      console.log("MOVING:", coaMoving);
     }
     async function coaMovedHandler(e) {
       const parentCoa = (
@@ -10820,6 +10906,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       if (!coaMoving)
         return;
       if (parentCoa.id == coaMoving.parentId)
+        return;
+      if (parentCoa.id === coaMoving.id)
         return;
       const i = {
         cmd: "move",
@@ -10850,16 +10938,18 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let productsCoaId = tenant.productsCoaId || 0;
     let suppliersCoaId = tenant.suppliersCoaId || 0;
     let customersCoaId = tenant.customersCoaId || 0;
+    let customersReceivablesCoaId = tenant.customersReceivablesCoaId || 0;
     let staffsCoaId = tenant.staffsCoaId || 0;
     let banksCoaId = tenant.banksCoaId || 0;
     let isSubmitSyncCoA = false;
     async function SubmitSyncCoA() {
-      $invalidate(10, isSubmitSyncCoA = true);
+      $invalidate(11, isSubmitSyncCoA = true);
       const i = {
         tenant: {
           productsCoaId,
           suppliersCoaId,
           customersCoaId,
+          customersReceivablesCoaId,
           staffsCoaId,
           banksCoaId
         }
@@ -10869,7 +10959,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         i,
         /** @type {import('./jsApi.GEN').TenantAdminSyncCoaCallback} */
         function(o) {
-          $invalidate(10, isSubmitSyncCoA = false);
+          $invalidate(11, isSubmitSyncCoA = false);
           if (o.error) {
             console.log(o);
             notifier.showError(o.error);
@@ -10879,8 +10969,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           $invalidate(5, productsCoaId = tenant.productsCoaId);
           $invalidate(6, suppliersCoaId = tenant.suppliersCoaId);
           $invalidate(7, customersCoaId = tenant.customersCoaId);
-          $invalidate(8, staffsCoaId = tenant.staffsCoaId);
-          $invalidate(9, banksCoaId = tenant.banksCoaId);
+          $invalidate(9, staffsCoaId = tenant.staffsCoaId);
+          $invalidate(10, banksCoaId = tenant.banksCoaId);
           $invalidate(0, REFORMAT_COAS = []);
           $invalidate(0, REFORMAT_COAS = reformatCoas());
           notifier.showSuccess("coa synced");
@@ -10918,12 +11008,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       $invalidate(7, customersCoaId);
     }
     function inputcustom3_value_binding(value) {
-      staffsCoaId = value;
-      $invalidate(8, staffsCoaId);
+      customersReceivablesCoaId = value;
+      $invalidate(8, customersReceivablesCoaId);
     }
     function inputcustom4_value_binding(value) {
+      staffsCoaId = value;
+      $invalidate(9, staffsCoaId);
+    }
+    function inputcustom5_value_binding(value) {
       banksCoaId = value;
-      $invalidate(9, banksCoaId);
+      $invalidate(10, banksCoaId);
     }
     return [
       REFORMAT_COAS,
@@ -10934,6 +11028,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       productsCoaId,
       suppliersCoaId,
       customersCoaId,
+      customersReceivablesCoaId,
       staffsCoaId,
       banksCoaId,
       isSubmitSyncCoA,
@@ -10951,7 +11046,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       inputcustom1_value_binding,
       inputcustom2_value_binding,
       inputcustom3_value_binding,
-      inputcustom4_value_binding
+      inputcustom4_value_binding,
+      inputcustom5_value_binding
     ];
   }
   var TenantAdmin_coa = class extends SvelteComponent {

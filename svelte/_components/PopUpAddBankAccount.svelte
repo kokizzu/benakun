@@ -24,6 +24,7 @@
   let isProfitCenter = false;
   let isCostCenter = false;
   let staffId = '0';
+  let isFunder = false;
 
   let coaIdProfitCenter = '0';
   let coaIdCostCenter = '0';
@@ -129,6 +130,12 @@
           isObject
         />
       {/if}
+      <InputCustom
+        bind:value={isFunder}
+        id="isFunder"
+        label="Pemberi modal / Is Funder ?"
+        type="bool"
+      />
     </div>
     <div class="foot">
       <div class="left">

@@ -344,7 +344,7 @@
 
 
 <style>/* fakecss:./_components/partials/SubMenuLink.esbuild-svelte-fake-css */
-a.svelte-1smdkid {
+a.svelte-1m42kx1.svelte-1m42kx1 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -357,15 +357,25 @@ a.svelte-1smdkid {
   padding: 10px 12px;
   border-radius: 8px;
 }
-a.svelte-1smdkid:hover {
+a.svelte-1m42kx1.svelte-1m42kx1:hover {
   background-color: var(--gray-001);
 }
-a.svelte-1smdkid:active {
+a.svelte-1m42kx1.svelte-1m42kx1:active {
   background-color: var(--gray-002);
 }
-a.active.svelte-1smdkid {
+a.active.svelte-1m42kx1.svelte-1m42kx1 {
   color: var(--violet-005);
   background-color: var(--violet-transparent);
+}
+a.svelte-1m42kx1 span.svelte-1m42kx1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+a .icon {
+  flex-shrink: 0;
 }
 
 /* fakecss:./_components/partials/SideMenu.esbuild-svelte-fake-css */
@@ -4327,7 +4337,7 @@ header.svelte-146z4fm.svelte-146z4fm {
           ctx[3].includes(
             /*href*/
             ctx[0]
-          ) ? "icon_active" : "icon_dark"
+          ) ? "icon_active icon" : "icon_dark icon"
         ),
         src: (
           /*icon*/
@@ -4345,13 +4355,14 @@ header.svelte-146z4fm.svelte-146z4fm {
           /*title*/
           ctx[2]
         );
+        attr(span, "class", "svelte-1m42kx1");
         attr(
           a,
           "href",
           /*href*/
           ctx[0]
         );
-        attr(a, "class", "svelte-1smdkid");
+        attr(a, "class", "svelte-1m42kx1");
         toggle_class(
           a,
           "active",
@@ -4382,7 +4393,7 @@ header.svelte-146z4fm.svelte-146z4fm {
           ctx2[3].includes(
             /*href*/
             ctx2[0]
-          ) ? "icon_active" : "icon_dark";
+          ) ? "icon_active icon" : "icon_dark icon";
         if (dirty & /*icon*/
         2)
           icon_1_changes.src = /*icon*/
@@ -4469,6 +4480,11 @@ header.svelte-146z4fm.svelte-146z4fm {
     let icon;
     let t0;
     let span;
+    let t2;
+    let div;
+    let submenulink0;
+    let t3;
+    let submenulink1;
     let current;
     icon = new Icon_default({
       props: {
@@ -4480,6 +4496,20 @@ header.svelte-146z4fm.svelte-146z4fm {
         src: AiOutlineWarning
       }
     });
+    submenulink0 = new SubMenuLink_default({
+      props: {
+        title: "General Ledger / Buku Besar",
+        href: "/reportViewer/generalLedger",
+        icon: RiEditorOrganizationChart
+      }
+    });
+    submenulink1 = new SubMenuLink_default({
+      props: {
+        title: "Trial Balance / Neraca Saldo",
+        href: "/reportViewer/trialBalance",
+        icon: RiEditorOrganizationChart
+      }
+    });
     return {
       c() {
         a = element("a");
@@ -4487,6 +4517,11 @@ header.svelte-146z4fm.svelte-146z4fm {
         t0 = space();
         span = element("span");
         span.textContent = "Report Viewer";
+        t2 = space();
+        div = element("div");
+        create_component(submenulink0.$.fragment);
+        t3 = space();
+        create_component(submenulink1.$.fragment);
         attr(a, "href", "/reportViewer/dashboard");
         attr(a, "class", "svelte-1ityera");
         toggle_class(
@@ -4495,12 +4530,18 @@ header.svelte-146z4fm.svelte-146z4fm {
           /*segment1*/
           ctx[1] === "reportViewer"
         );
+        attr(div, "class", "submenu svelte-1ityera");
       },
       m(target, anchor) {
         insert(target, a, anchor);
         mount_component(icon, a, null);
         append(a, t0);
         append(a, span);
+        insert(target, t2, anchor);
+        insert(target, div, anchor);
+        mount_component(submenulink0, div, null);
+        append(div, t3);
+        mount_component(submenulink1, div, null);
         current = true;
       },
       p(ctx2, dirty) {
@@ -4524,17 +4565,25 @@ header.svelte-146z4fm.svelte-146z4fm {
         if (current)
           return;
         transition_in(icon.$.fragment, local);
+        transition_in(submenulink0.$.fragment, local);
+        transition_in(submenulink1.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
+        transition_out(submenulink0.$.fragment, local);
+        transition_out(submenulink1.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(a);
+          detach(t2);
+          detach(div);
         }
         destroy_component(icon);
+        destroy_component(submenulink0);
+        destroy_component(submenulink1);
       }
     };
   }
@@ -8567,14 +8616,60 @@ header.svelte-146z4fm.svelte-146z4fm {
       }
     };
   }
+  function create_if_block_112(ctx) {
+    let th;
+    return {
+      c() {
+        th = element("th");
+        th.textContent = "CoA";
+        attr(th, "class", "svelte-146z4fm");
+      },
+      m(target, anchor) {
+        insert(target, th, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(th);
+        }
+      }
+    };
+  }
   function create_if_block_102(ctx) {
+    let th0;
+    let t1;
+    let th1;
+    return {
+      c() {
+        th0 = element("th");
+        th0.textContent = "Sales Count";
+        t1 = space();
+        th1 = element("th");
+        th1.textContent = "Sales Price (IDR)";
+        attr(th0, "class", "svelte-146z4fm");
+        attr(th1, "class", "svelte-146z4fm");
+      },
+      m(target, anchor) {
+        insert(target, th0, anchor);
+        insert(target, t1, anchor);
+        insert(target, th1, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(th0);
+          detach(t1);
+          detach(th1);
+        }
+      }
+    };
+  }
+  function create_if_block_82(ctx) {
     let if_block_anchor;
     function select_block_type(ctx2, dirty) {
       if (
         /*transactionTplDetail*/
         ctx2[17].isDebit
       )
-        return create_if_block_112;
+        return create_if_block_92;
       return create_else_block_12;
     }
     let current_block_type = select_block_type(ctx, -1);
@@ -8615,7 +8710,7 @@ header.svelte-146z4fm.svelte-146z4fm {
       }
     };
   }
-  function create_if_block_112(ctx) {
+  function create_if_block_92(ctx) {
     let th;
     return {
       c() {
@@ -8629,52 +8724,6 @@ header.svelte-146z4fm.svelte-146z4fm {
       d(detaching) {
         if (detaching) {
           detach(th);
-        }
-      }
-    };
-  }
-  function create_if_block_92(ctx) {
-    let th;
-    return {
-      c() {
-        th = element("th");
-        th.textContent = "CoA";
-        attr(th, "class", "svelte-146z4fm");
-      },
-      m(target, anchor) {
-        insert(target, th, anchor);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(th);
-        }
-      }
-    };
-  }
-  function create_if_block_82(ctx) {
-    let th0;
-    let t1;
-    let th1;
-    return {
-      c() {
-        th0 = element("th");
-        th0.textContent = "Sales Count";
-        t1 = space();
-        th1 = element("th");
-        th1.textContent = "Sales Price (IDR)";
-        attr(th0, "class", "svelte-146z4fm");
-        attr(th1, "class", "svelte-146z4fm");
-      },
-      m(target, anchor) {
-        insert(target, th0, anchor);
-        insert(target, t1, anchor);
-        insert(target, th1, anchor);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(th0);
-          detach(t1);
-          detach(th1);
         }
       }
     };
@@ -8747,155 +8796,7 @@ header.svelte-146z4fm.svelte-146z4fm {
       }
     };
   }
-  function create_if_block_53(ctx) {
-    let if_block_anchor;
-    function select_block_type_1(ctx2, dirty) {
-      if (
-        /*transactionTplDetail*/
-        ctx2[17].isDebit
-      )
-        return create_if_block_63;
-      return create_else_block2;
-    }
-    let current_block_type = select_block_type_1(ctx, -1);
-    let if_block = current_block_type(ctx);
-    return {
-      c() {
-        if_block.c();
-        if_block_anchor = empty();
-      },
-      m(target, anchor) {
-        if_block.m(target, anchor);
-        insert(target, if_block_anchor, anchor);
-      },
-      p(ctx2, dirty) {
-        if_block.p(ctx2, dirty);
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(if_block_anchor);
-        }
-        if_block.d(detaching);
-      }
-    };
-  }
-  function create_else_block2(ctx) {
-    let td;
-    let input;
-    let mounted;
-    let dispose;
-    function input_input_handler_1() {
-      ctx[11].call(
-        input,
-        /*each_value_1*/
-        ctx[21],
-        /*i*/
-        ctx[22]
-      );
-    }
-    return {
-      c() {
-        td = element("td");
-        input = element("input");
-        attr(input, "inputmode", "numeric");
-        attr(input, "type", "number");
-        attr(input, "min", "0");
-        attr(input, "class", "svelte-146z4fm");
-        attr(td, "class", "svelte-146z4fm");
-      },
-      m(target, anchor) {
-        insert(target, td, anchor);
-        append(td, input);
-        set_input_value(
-          input,
-          /*py*/
-          ctx[20].creditIDR
-        );
-        if (!mounted) {
-          dispose = listen(input, "input", input_input_handler_1);
-          mounted = true;
-        }
-      },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
-        if (dirty & /*payloads, Object, coasWithChildren, transactionTplDetails*/
-        1 && to_number(input.value) !== /*py*/
-        ctx[20].creditIDR) {
-          set_input_value(
-            input,
-            /*py*/
-            ctx[20].creditIDR
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(td);
-        }
-        mounted = false;
-        dispose();
-      }
-    };
-  }
   function create_if_block_63(ctx) {
-    let td;
-    let input;
-    let mounted;
-    let dispose;
-    function input_input_handler() {
-      ctx[10].call(
-        input,
-        /*each_value_1*/
-        ctx[21],
-        /*i*/
-        ctx[22]
-      );
-    }
-    return {
-      c() {
-        td = element("td");
-        input = element("input");
-        attr(input, "inputmode", "numeric");
-        attr(input, "type", "number");
-        attr(input, "min", "0");
-        attr(input, "class", "svelte-146z4fm");
-        attr(td, "class", "svelte-146z4fm");
-      },
-      m(target, anchor) {
-        insert(target, td, anchor);
-        append(td, input);
-        set_input_value(
-          input,
-          /*py*/
-          ctx[20].debitIDR
-        );
-        if (!mounted) {
-          dispose = listen(input, "input", input_input_handler);
-          mounted = true;
-        }
-      },
-      p(new_ctx, dirty) {
-        ctx = new_ctx;
-        if (dirty & /*payloads, Object, coasWithChildren, transactionTplDetails*/
-        1 && to_number(input.value) !== /*py*/
-        ctx[20].debitIDR) {
-          set_input_value(
-            input,
-            /*py*/
-            ctx[20].debitIDR
-          );
-        }
-      },
-      d(detaching) {
-        if (detaching) {
-          detach(td);
-        }
-        mounted = false;
-        dispose();
-      }
-    };
-  }
-  function create_if_block_43(ctx) {
     let td;
     let select;
     let select_name_value;
@@ -8910,7 +8811,7 @@ header.svelte-146z4fm.svelte-146z4fm {
       each_blocks[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
     }
     function select_change_handler() {
-      ctx[14].call(
+      ctx[11].call(
         select,
         /*each_value_1*/
         ctx[21],
@@ -9033,7 +8934,7 @@ header.svelte-146z4fm.svelte-146z4fm {
       }
     };
   }
-  function create_if_block_33(ctx) {
+  function create_if_block_53(ctx) {
     let td0;
     let input0;
     let t;
@@ -9042,7 +8943,7 @@ header.svelte-146z4fm.svelte-146z4fm {
     let mounted;
     let dispose;
     function input0_input_handler() {
-      ctx[15].call(
+      ctx[12].call(
         input0,
         /*each_value_1*/
         ctx[21],
@@ -9051,7 +8952,7 @@ header.svelte-146z4fm.svelte-146z4fm {
       );
     }
     function input1_input_handler() {
-      ctx[16].call(
+      ctx[13].call(
         input1,
         /*each_value_1*/
         ctx[21],
@@ -9133,49 +9034,45 @@ header.svelte-146z4fm.svelte-146z4fm {
       }
     };
   }
-  function create_each_block_12(ctx) {
-    let tr;
-    let show_if_3 = (
-      /*transactionTplDetail*/
-      ctx[17].attributes.includes("sales")
-    );
-    let t0;
-    let show_if_2 = !/*transactionTplDetail*/
-    ctx[17].attributes.includes("autoSum") || !/*transactionTplDetail*/
-    ctx[17].attributes.includes("sales");
-    let t1;
-    let td0;
-    let textarea;
-    let t2;
-    let td1;
+  function create_if_block_33(ctx) {
+    let if_block_anchor;
+    function select_block_type_1(ctx2, dirty) {
+      if (
+        /*transactionTplDetail*/
+        ctx2[17].isDebit
+      )
+        return create_if_block_43;
+      return create_else_block2;
+    }
+    let current_block_type = select_block_type_1(ctx, -1);
+    let if_block = current_block_type(ctx);
+    return {
+      c() {
+        if_block.c();
+        if_block_anchor = empty();
+      },
+      m(target, anchor) {
+        if_block.m(target, anchor);
+        insert(target, if_block_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if_block.p(ctx2, dirty);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(if_block_anchor);
+        }
+        if_block.d(detaching);
+      }
+    };
+  }
+  function create_else_block2(ctx) {
+    let td;
     let input;
-    let t3;
-    let show_if_1 = (
-      /*transactionTplDetail*/
-      ctx[17].attributes.includes("childOnly")
-    );
-    let t4;
-    let show_if = (
-      /*transactionTplDetail*/
-      ctx[17].attributes.includes("sales")
-    );
-    let t5;
-    let current;
     let mounted;
     let dispose;
-    let if_block0 = show_if_3 && create_if_block_72(ctx);
-    let if_block1 = show_if_2 && create_if_block_53(ctx);
-    function textarea_input_handler() {
-      ctx[12].call(
-        textarea,
-        /*each_value_1*/
-        ctx[21],
-        /*i*/
-        ctx[22]
-      );
-    }
     function input_input_handler_2() {
-      ctx[13].call(
+      ctx[16].call(
         input,
         /*each_value_1*/
         ctx[21],
@@ -9183,7 +9080,159 @@ header.svelte-146z4fm.svelte-146z4fm {
         ctx[22]
       );
     }
-    let if_block2 = show_if_1 && create_if_block_43(ctx);
+    return {
+      c() {
+        td = element("td");
+        input = element("input");
+        attr(input, "inputmode", "numeric");
+        attr(input, "type", "number");
+        attr(input, "min", "0");
+        attr(input, "class", "svelte-146z4fm");
+        attr(td, "class", "svelte-146z4fm");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, input);
+        set_input_value(
+          input,
+          /*py*/
+          ctx[20].creditIDR
+        );
+        if (!mounted) {
+          dispose = listen(input, "input", input_input_handler_2);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (dirty & /*payloads, Object, coasWithChildren, transactionTplDetails*/
+        1 && to_number(input.value) !== /*py*/
+        ctx[20].creditIDR) {
+          set_input_value(
+            input,
+            /*py*/
+            ctx[20].creditIDR
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(td);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_if_block_43(ctx) {
+    let td;
+    let input;
+    let mounted;
+    let dispose;
+    function input_input_handler_1() {
+      ctx[15].call(
+        input,
+        /*each_value_1*/
+        ctx[21],
+        /*i*/
+        ctx[22]
+      );
+    }
+    return {
+      c() {
+        td = element("td");
+        input = element("input");
+        attr(input, "inputmode", "numeric");
+        attr(input, "type", "number");
+        attr(input, "min", "0");
+        attr(input, "class", "svelte-146z4fm");
+        attr(td, "class", "svelte-146z4fm");
+      },
+      m(target, anchor) {
+        insert(target, td, anchor);
+        append(td, input);
+        set_input_value(
+          input,
+          /*py*/
+          ctx[20].debitIDR
+        );
+        if (!mounted) {
+          dispose = listen(input, "input", input_input_handler_1);
+          mounted = true;
+        }
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+        if (dirty & /*payloads, Object, coasWithChildren, transactionTplDetails*/
+        1 && to_number(input.value) !== /*py*/
+        ctx[20].debitIDR) {
+          set_input_value(
+            input,
+            /*py*/
+            ctx[20].debitIDR
+          );
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(td);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
+  function create_each_block_12(ctx) {
+    let tr;
+    let show_if_3 = (
+      /*transactionTplDetail*/
+      ctx[17].attributes.includes("sales")
+    );
+    let t0;
+    let td0;
+    let textarea;
+    let t1;
+    let show_if_2 = (
+      /*transactionTplDetail*/
+      ctx[17].attributes.includes("childOnly")
+    );
+    let t2;
+    let show_if_1 = (
+      /*transactionTplDetail*/
+      ctx[17].attributes.includes("sales")
+    );
+    let t3;
+    let td1;
+    let input;
+    let t4;
+    let show_if = !/*transactionTplDetail*/
+    ctx[17].attributes.includes("autoSum") || !/*transactionTplDetail*/
+    ctx[17].attributes.includes("sales");
+    let t5;
+    let current;
+    let mounted;
+    let dispose;
+    let if_block0 = show_if_3 && create_if_block_72(ctx);
+    function textarea_input_handler() {
+      ctx[10].call(
+        textarea,
+        /*each_value_1*/
+        ctx[21],
+        /*i*/
+        ctx[22]
+      );
+    }
+    let if_block1 = show_if_2 && create_if_block_63(ctx);
+    let if_block2 = show_if_1 && create_if_block_53(ctx);
+    function input_input_handler() {
+      ctx[14].call(
+        input,
+        /*each_value_1*/
+        ctx[21],
+        /*i*/
+        ctx[22]
+      );
+    }
     let if_block3 = show_if && create_if_block_33(ctx);
     return {
       c() {
@@ -9191,17 +9240,17 @@ header.svelte-146z4fm.svelte-146z4fm {
         if (if_block0)
           if_block0.c();
         t0 = space();
-        if (if_block1)
-          if_block1.c();
-        t1 = space();
         td0 = element("td");
         textarea = element("textarea");
+        t1 = space();
+        if (if_block1)
+          if_block1.c();
         t2 = space();
-        td1 = element("td");
-        input = element("input");
-        t3 = space();
         if (if_block2)
           if_block2.c();
+        t3 = space();
+        td1 = element("td");
+        input = element("input");
         t4 = space();
         if (if_block3)
           if_block3.c();
@@ -9219,9 +9268,6 @@ header.svelte-146z4fm.svelte-146z4fm {
         if (if_block0)
           if_block0.m(tr, null);
         append(tr, t0);
-        if (if_block1)
-          if_block1.m(tr, null);
-        append(tr, t1);
         append(tr, td0);
         append(td0, textarea);
         set_input_value(
@@ -9229,7 +9275,13 @@ header.svelte-146z4fm.svelte-146z4fm {
           /*py*/
           ctx[20].descriptions
         );
+        append(tr, t1);
+        if (if_block1)
+          if_block1.m(tr, null);
         append(tr, t2);
+        if (if_block2)
+          if_block2.m(tr, null);
+        append(tr, t3);
         append(tr, td1);
         append(td1, input);
         set_input_value(
@@ -9237,9 +9289,6 @@ header.svelte-146z4fm.svelte-146z4fm {
           /*py*/
           ctx[20].date
         );
-        append(tr, t3);
-        if (if_block2)
-          if_block2.m(tr, null);
         append(tr, t4);
         if (if_block3)
           if_block3.m(tr, null);
@@ -9248,7 +9297,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         if (!mounted) {
           dispose = [
             listen(textarea, "input", textarea_input_handler),
-            listen(input, "input", input_input_handler_2)
+            listen(input, "input", input_input_handler)
           ];
           mounted = true;
         }
@@ -9257,8 +9306,6 @@ header.svelte-146z4fm.svelte-146z4fm {
         ctx = new_ctx;
         if (show_if_3)
           if_block0.p(ctx, dirty);
-        if (show_if_2)
-          if_block1.p(ctx, dirty);
         if (dirty & /*payloads, Object, coasWithChildren, transactionTplDetails*/
         1) {
           set_input_value(
@@ -9267,6 +9314,10 @@ header.svelte-146z4fm.svelte-146z4fm {
             ctx[20].descriptions
           );
         }
+        if (show_if_2)
+          if_block1.p(ctx, dirty);
+        if (show_if_1)
+          if_block2.p(ctx, dirty);
         if (dirty & /*payloads, Object, coasWithChildren, transactionTplDetails*/
         1) {
           set_input_value(
@@ -9275,8 +9326,6 @@ header.svelte-146z4fm.svelte-146z4fm {
             ctx[20].date
           );
         }
-        if (show_if_1)
-          if_block2.p(ctx, dirty);
         if (show_if)
           if_block3.p(ctx, dirty);
       },
@@ -9326,31 +9375,31 @@ header.svelte-146z4fm.svelte-146z4fm {
       ctx[17].attributes.includes("sales")
     );
     let t4;
-    let show_if_2 = !/*transactionTplDetail*/
-    ctx[17].attributes.includes("autoSum") || !/*transactionTplDetail*/
-    ctx[17].attributes.includes("sales");
-    let t5;
     let th0;
-    let t7;
-    let th1;
-    let t9;
-    let show_if_1 = (
+    let t6;
+    let show_if_2 = (
       /*transactionTplDetail*/
       ctx[17].attributes.includes("childOnly")
     );
-    let t10;
-    let show_if = (
+    let t7;
+    let show_if_1 = (
       /*transactionTplDetail*/
       ctx[17].attributes.includes("sales")
     );
+    let t8;
+    let th1;
+    let t10;
+    let show_if = !/*transactionTplDetail*/
+    ctx[17].attributes.includes("autoSum") || !/*transactionTplDetail*/
+    ctx[17].attributes.includes("sales");
     let t11;
     let tbody;
     let t12;
     let current;
     let if_block0 = show_if_4 && create_if_block_132(ctx);
     let if_block1 = show_if_3 && create_if_block_123(ctx);
-    let if_block2 = show_if_2 && create_if_block_102(ctx);
-    let if_block3 = show_if_1 && create_if_block_92(ctx);
+    let if_block2 = show_if_2 && create_if_block_112(ctx);
+    let if_block3 = show_if_1 && create_if_block_102(ctx);
     let if_block4 = show_if && create_if_block_82(ctx);
     let each_value_1 = ensure_array_like(
       /*payloads*/
@@ -9386,17 +9435,17 @@ header.svelte-146z4fm.svelte-146z4fm {
         if (if_block1)
           if_block1.c();
         t4 = space();
-        if (if_block2)
-          if_block2.c();
-        t5 = space();
         th0 = element("th");
         th0.textContent = "Description";
+        t6 = space();
+        if (if_block2)
+          if_block2.c();
         t7 = space();
-        th1 = element("th");
-        th1.textContent = "Date";
-        t9 = space();
         if (if_block3)
           if_block3.c();
+        t8 = space();
+        th1 = element("th");
+        th1.textContent = "Date";
         t10 = space();
         if (if_block4)
           if_block4.c();
@@ -9430,15 +9479,15 @@ header.svelte-146z4fm.svelte-146z4fm {
         if (if_block1)
           if_block1.m(tr, null);
         append(tr, t4);
+        append(tr, th0);
+        append(tr, t6);
         if (if_block2)
           if_block2.m(tr, null);
-        append(tr, t5);
-        append(tr, th0);
         append(tr, t7);
-        append(tr, th1);
-        append(tr, t9);
         if (if_block3)
           if_block3.m(tr, null);
+        append(tr, t8);
+        append(tr, th1);
         append(tr, t10);
         if (if_block4)
           if_block4.m(tr, null);
@@ -9455,8 +9504,8 @@ header.svelte-146z4fm.svelte-146z4fm {
       p(ctx2, dirty) {
         if (show_if_4)
           if_block0.p(ctx2, dirty);
-        if (show_if_2)
-          if_block2.p(ctx2, dirty);
+        if (show_if)
+          if_block4.p(ctx2, dirty);
         if (dirty & /*payloads, transactionTplDetails, Object, coasWithChildren*/
         1) {
           each_value_1 = ensure_array_like(
@@ -10054,20 +10103,8 @@ header.svelte-146z4fm.svelte-146z4fm {
       );
     };
     const click_handler_1 = (idx, py) => $invalidate(0, payloads[idx] = payloads[idx].filter((item) => item !== py), payloads);
-    function input_input_handler(each_value_1, i) {
-      each_value_1[i].debitIDR = to_number(this.value);
-      $invalidate(0, payloads);
-    }
-    function input_input_handler_1(each_value_1, i) {
-      each_value_1[i].creditIDR = to_number(this.value);
-      $invalidate(0, payloads);
-    }
     function textarea_input_handler(each_value_1, i) {
       each_value_1[i].descriptions = this.value;
-      $invalidate(0, payloads);
-    }
-    function input_input_handler_2(each_value_1, i) {
-      each_value_1[i].date = this.value;
       $invalidate(0, payloads);
     }
     function select_change_handler(each_value_1, i) {
@@ -10082,6 +10119,18 @@ header.svelte-146z4fm.svelte-146z4fm {
       each_value_1[i].salesPriceIDR = to_number(this.value);
       $invalidate(0, payloads);
     }
+    function input_input_handler(each_value_1, i) {
+      each_value_1[i].date = this.value;
+      $invalidate(0, payloads);
+    }
+    function input_input_handler_1(each_value_1, i) {
+      each_value_1[i].debitIDR = to_number(this.value);
+      $invalidate(0, payloads);
+    }
+    function input_input_handler_2(each_value_1, i) {
+      each_value_1[i].creditIDR = to_number(this.value);
+      $invalidate(0, payloads);
+    }
     return [
       payloads,
       isSubmitted,
@@ -10093,13 +10142,13 @@ header.svelte-146z4fm.svelte-146z4fm {
       inputcustom1_value_binding,
       click_handler,
       click_handler_1,
-      input_input_handler,
-      input_input_handler_1,
       textarea_input_handler,
-      input_input_handler_2,
       select_change_handler,
       input0_input_handler,
-      input1_input_handler
+      input1_input_handler,
+      input_input_handler,
+      input_input_handler_1,
+      input_input_handler_2
     ];
   }
   var Template = class extends SvelteComponent {

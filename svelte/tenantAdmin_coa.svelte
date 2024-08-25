@@ -166,13 +166,13 @@
 
   async function coaMovingHandler(/** @type {CustomEvent<{ coa: CoA }>} */ e) {
     coaMoving = e.detail.coa;
-    console.log('MOVING:', coaMoving);
   }
   
   async function coaMovedHandler(/** @type {CustomEvent<{ coa: CoA }>} */ e) {
     const parentCoa = /** @type {CoA} */ e.detail.coa;
     if (!coaMoving) return;
     if (parentCoa.id == coaMoving.parentId) return;
+    if (parentCoa.id === coaMoving.id) return;
 
     const i = {
       cmd: 'move',
@@ -203,6 +203,7 @@
   let productsCoaId = tenant.productsCoaId || 0;
   let suppliersCoaId = tenant.suppliersCoaId || 0;
   let customersCoaId = tenant.customersCoaId || 0;
+  let customersReceivablesCoaId = tenant.customersReceivablesCoaId || 0;
   let staffsCoaId = tenant.staffsCoaId || 0;
   let banksCoaId = tenant.banksCoaId || 0;
 
@@ -214,6 +215,7 @@
         productsCoaId,
         suppliersCoaId,
         customersCoaId,
+        customersReceivablesCoaId,
         staffsCoaId,
         banksCoaId
       }
@@ -278,6 +280,14 @@
           id="customersCoaId"
           values={coasChoices}
           bind:value={customersCoaId}
+          isObject
+        />
+        <InputCustom
+          type="combobox"
+          label="Customers Receivables CoA"
+          id="customersReceivablesCoaId"
+          values={coasChoices}
+          bind:value={customersReceivablesCoaId}
           isObject
         />
         <InputCustom

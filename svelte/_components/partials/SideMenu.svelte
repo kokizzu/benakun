@@ -70,6 +70,18 @@
             />
             <span>Report Viewer</span>
           </a>
+          <div class="submenu">
+            <SubMenuLink
+              title='General Ledger / Buku Besar'
+              href='/reportViewer/generalLedger'
+              icon={RiEditorOrganizationChart}
+            />
+            <SubMenuLink
+              title='Trial Balance / Neraca Saldo'
+              href='/reportViewer/trialBalance'
+              icon={RiEditorOrganizationChart}
+            />
+          </div>
         {/if}
         {#if access.fieldSupervisor }
           <a href="/fieldSupervisor/dashboard" class:active={segment1 === 'fieldSupervisor'}>

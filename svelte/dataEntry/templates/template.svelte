@@ -218,21 +218,21 @@
                       {#if (transactionTplDetail.attributes).includes('sales')}
                         <th></th>
                       {/if}
-                      {#if !(transactionTplDetail.attributes).includes('autoSum') || !(transactionTplDetail.attributes).includes('sales')}
-                        {#if transactionTplDetail.isDebit}
-                          <th>Debit (IDR)</th>
-                        {:else}
-                          <th>Credit (IDR)</th>
-                        {/if}
-                      {/if}
                       <th>Description</th>
-                      <th>Date</th>
                       {#if transactionTplDetail.attributes.includes('childOnly')}
                         <th>CoA</th>
                       {/if}
                       {#if (transactionTplDetail.attributes).includes('sales')}
                         <th>Sales Count</th>
                         <th>Sales Price (IDR)</th>
+                      {/if}
+                      <th>Date</th>
+                      {#if !(transactionTplDetail.attributes).includes('autoSum') || !(transactionTplDetail.attributes).includes('sales')}
+                        {#if transactionTplDetail.isDebit}
+                          <th>Debit (IDR)</th>
+                        {:else}
+                          <th>Credit (IDR)</th>
+                        {/if}
                       {/if}
                     </tr>
                   </thead>
@@ -254,26 +254,12 @@
                             </button>
                           </td>
                         {/if}
-                        {#if !(transactionTplDetail.attributes).includes('autoSum') || !(transactionTplDetail.attributes).includes('sales')}
-                          {#if transactionTplDetail.isDebit}
-                            <td>
-                              <input inputmode="numeric" type="number" min=0 bind:value={py.debitIDR}/>
-                            </td>
-                          {:else}
-                            <td>
-                              <input inputmode="numeric" type="number" min=0 bind:value={py.creditIDR} />
-                            </td>
-                          {/if}
-                        {/if}
                         <td>
                           <textarea
                             placeholder="Description"
                             rows="1"
                             bind:value={py.descriptions}
                           />
-                        </td>
-                        <td>
-                          <input type="date" bind:value={py.date} />
                         </td>
                         {#if transactionTplDetail.attributes.includes('childOnly')}
                           <td>
@@ -291,6 +277,20 @@
                           <td>
                             <input inputmode="numeric" type="number" min=0 bind:value={py.salesPriceIDR} />
                           </td>
+                        {/if}
+                        <td>
+                          <input type="date" bind:value={py.date} />
+                        </td>
+                        {#if !(transactionTplDetail.attributes).includes('autoSum') || !(transactionTplDetail.attributes).includes('sales')}
+                          {#if transactionTplDetail.isDebit}
+                            <td>
+                              <input inputmode="numeric" type="number" min=0 bind:value={py.debitIDR}/>
+                            </td>
+                          {:else}
+                            <td>
+                              <input inputmode="numeric" type="number" min=0 bind:value={py.creditIDR} />
+                            </td>
+                          {/if}
                         {/if}
                       </tr>
                     {/each}

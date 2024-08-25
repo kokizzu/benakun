@@ -781,6 +781,28 @@ func (t *TenantsMutator) SetBanksCoaId(val uint64) bool { //nolint:dupl false po
 	return false
 }
 
+// SetCustomerReceivablesCoaId create mutations, should not duplicate
+func (t *TenantsMutator) SetCustomerReceivablesCoaId(val uint64) bool { //nolint:dupl false positive
+	if val != t.CustomerReceivablesCoaId {
+		t.mutations.Assign(12, val)
+		t.logs = append(t.logs, A.X{`customerReceivablesCoaId`, t.CustomerReceivablesCoaId, val})
+		t.CustomerReceivablesCoaId = val
+		return true
+	}
+	return false
+}
+
+// SetFundersCoaId create mutations, should not duplicate
+func (t *TenantsMutator) SetFundersCoaId(val uint64) bool { //nolint:dupl false positive
+	if val != t.FundersCoaId {
+		t.mutations.Assign(13, val)
+		t.logs = append(t.logs, A.X{`fundersCoaId`, t.FundersCoaId, val})
+		t.FundersCoaId = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (t *TenantsMutator) SetAll(from rqAuth.Tenants, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -835,6 +857,14 @@ func (t *TenantsMutator) SetAll(from rqAuth.Tenants, excludeMap, forceMap M.SB) 
 	}
 	if !excludeMap[`banksCoaId`] && (forceMap[`banksCoaId`] || from.BanksCoaId != 0) {
 		t.BanksCoaId = from.BanksCoaId
+		changed = true
+	}
+	if !excludeMap[`customerReceivablesCoaId`] && (forceMap[`customerReceivablesCoaId`] || from.CustomerReceivablesCoaId != 0) {
+		t.CustomerReceivablesCoaId = from.CustomerReceivablesCoaId
+		changed = true
+	}
+	if !excludeMap[`fundersCoaId`] && (forceMap[`fundersCoaId`] || from.FundersCoaId != 0) {
+		t.FundersCoaId = from.FundersCoaId
 		changed = true
 	}
 	return

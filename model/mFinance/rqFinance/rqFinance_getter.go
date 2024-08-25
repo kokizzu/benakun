@@ -40,6 +40,7 @@ type ParsedAttribute struct {
 	IsAutoSum bool
 	IsSales bool
 	IsChildOnly bool
+	IsSelfSum bool
 }
 
 func (ttpld *TransactionTplDetail) ParseAttributes() (pa ParsedAttribute) {
@@ -53,27 +54,32 @@ func (ttpld *TransactionTplDetail) ParseAttributes() (pa ParsedAttribute) {
 		if v == mFinance.AttributesChildOnly {
 			pa.IsChildOnly = true
 		}
+		if v == mFinance.AttributeSelfSum {
+			pa.IsSelfSum = true
+		}
 	}
 	
 	return
 }
 
 type (
-	coaWithNum struct {
+	// obtain from db
+	coaFromDB struct {
 		id 				uint64
 		name			string
 		parentId	uint64
 		children	[]any
 	}
-	coaWithNumF struct {
+	// Convert coawithnum to Tree
+	coaTreeNode struct {
 		id 				uint64
 		name			string
 		parentId	uint64
-		children	[]coaWithNumF
+		children	[]coaTreeNode
 	}
 )
 
-func removeUnParent(cs []coaWithNumF, cond func(coaWithNumF) bool) (filtered []coaWithNumF) {
+func removeUnParent(cs []coaTreeNode, cond func(coaTreeNode) bool) (filtered []coaTreeNode) {
 	for _, c := range cs {
 		if cond(c) {
 			filtered = append(filtered, c)
@@ -83,80 +89,83 @@ func removeUnParent(cs []coaWithNumF, cond func(coaWithNumF) bool) (filtered []c
 	return
 }
 
-func generateCoaChoicesMaps(coasWithNums []coaWithNum) map[string]string {
+func generateCoaChoicesMaps(coasWithNums []coaFromDB) map[string]string {
 	coaChoices := make(map[string]string, len(coasWithNums))
-	if len(coasWithNums) > 0 {
-		coasWithNumsF := []coaWithNumF{}
-		coaVisited := map[int]bool{0: true}
-		var coaMaker func(id uint64) (coaWithNumF, bool)
-		coaMaker = func(id uint64) (cwnF coaWithNumF, isVisited bool) {
 
-			if _, exist := coaVisited[int(id)]; exist {
-				isVisited = true
-				return
-			}
+	if len(coasWithNums) <= 0 {
+		return coaChoices
+	}
 
-			coaVisited = map[int]bool{int(id): true}
-			if len(coasWithNums) > 0 {
-				for _, v := range coasWithNums {
-					if v.id == id {
-						cld := v.children
-						if len(cld) > 0 {
-							for _, cid := range cld {
-								child, visited := coaMaker(X.ToU(cid))
-								if visited {
-									continue
-								} else {
-									cwnF.children = append(cwnF.children, child)
-								}
-							}
-						}
-						cwnF.id = v.id
-						cwnF.name = v.name
-						cwnF.parentId = v.parentId
-						return
-					}
-				}
-			}
+	coasWithNumsF := []coaTreeNode{}
+	coaVisited := map[int]bool{0: true}
+
+	var coaMaker func(id uint64) (coaTreeNode, bool)
+	coaMaker = func(id uint64) (cwnF coaTreeNode, isVisited bool) {
+		if coaVisited[int(id)] {
+			isVisited = true
 			return
 		}
 
-		for _, v := range coasWithNums {
-			coa, visited := coaMaker(v.id)
-			if !visited {
-				coasWithNumsF = append(coasWithNumsF, coa)
-			}
-		}
-
-		coasWithNumsF = removeUnParent(coasWithNumsF, func(cwnf coaWithNumF) bool {
-			return cwnf.parentId == 0
-		})
-
-		var coaTree func(c coaWithNumF, num string, parentNum int64, idx int)
-		coaTree = func(c coaWithNumF, num string, parentNum int64, idx int) {
-			if c.id != 0 {
-				numStr := I.ToS(parentNum)
-				if c.parentId != 0 {
-					numStr = num
-				}
-				name := numStr + ` ` + c.name
-				coaChoices[I.UToS(c.id)] = name
-				for ix, v := range c.children {
-					snum := fmt.Sprintf("%v.%v", num, ix+1)
-					coaTree(v, snum, parentNum, ix)
-				}
-
-				_ = idx
-			}
-		}
+		coaVisited[int(id)] = true
 		
-		for i, v := range coasWithNumsF {
-			coaTree(v, I.ToS(int64(i)+1), int64(i)+1, i)
+		for _, v := range coasWithNums {
+			if v.id == id {
+				cld := v.children
+				if len(cld) > 0 {
+					for _, cid := range cld {
+						child, visited := coaMaker(X.ToU(cid))
+						if visited {
+							continue
+						} else {
+							cwnF.children = append(cwnF.children, child)
+						}
+					}
+				}
+				cwnF.id = v.id
+				cwnF.name = v.name
+				cwnF.parentId = v.parentId
+				return
+			}
+		}
+
+		return
+	}
+
+	for _, v := range coasWithNums {
+		coa, visited := coaMaker(v.id)
+		if !visited {
+			coasWithNumsF = append(coasWithNumsF, coa)
 		}
 	}
+
+	coasWithNumsF = removeUnParent(coasWithNumsF, func(cwnf coaTreeNode) bool {
+		return cwnf.parentId == 0
+	})
+
+	var coaTree func(c coaTreeNode, num string, parentNum int64, idx int)
+	coaTree = func(c coaTreeNode, num string, parentNum int64, idx int) {
+		if c.id != 0 {
+			numStr := I.ToS(parentNum)
+			if c.parentId != 0 {
+				numStr = num
+			}
+			name := numStr + ` ` + c.name
+			coaChoices[I.UToS(c.id)] = name
+			for ix, v := range c.children {
+				snum := fmt.Sprintf("%v.%v", num, ix+1)
+				coaTree(v, snum, parentNum, ix)
+			}
+
+			_ = idx
+		}
+	}
+	
+	for i, v := range coasWithNumsF {
+		coaTree(v, I.ToS(int64(i)+1), int64(i)+1, i)
+	}
+	
 	return coaChoices
 }
-
 
 func (c *Coa) FindCoasChoicesByTenant() map[string]string {
 	const comment = `-- Coa) FindCoasChoicesByTenant`
@@ -167,11 +176,11 @@ func (c *Coa) FindCoasChoicesByTenant() map[string]string {
 SELECT ` + c.SqlId() + `, ` + c.SqlName() + `, ` + c.SqlParentId() + `, ` + c.SqlChildren() + `
 FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 
-	coasWithNums := []coaWithNum{}
+	coasWithNums := []coaFromDB{}
 
 	c.Adapter.QuerySql(queryRows, func(row []any) {
 		if len(row) == 4 {
-			coasWithNums = append(coasWithNums, coaWithNum{
+			coasWithNums = append(coasWithNums, coaFromDB{
 				id: X.ToU(row[0]),
 				name: X.ToS(row[1]),
 				parentId: X.ToU(row[2]),
@@ -263,6 +272,30 @@ func (ttm *TransactionTemplate) FindByIdByTenantCode() bool {
 
 	whereAndSql := ` WHERE ` + ttm.SqlTenantCode() + ` = ` + S.Z(ttm.TenantCode) + `
 		AND ` + ttm.SqlId() + ` = ` + I.UToS(ttm.Id)
+
+	queryRows := comment + `
+SELECT ` + ttm.SqlSelectAllFields() + `
+FROM SEQSCAN ` + ttm.SqlTableName() + whereAndSql
+
+	var res []any
+	ttm.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToU(row[0])
+		res = row
+	})
+
+	if len(res) > 0 {
+		ttm.FromArray(res)
+		return true
+	}
+
+	return false
+}
+
+func (ttm *TransactionTemplate) FindByNameByTenantCode() bool {
+	const comment = `-- TransactionTemplate) FindByTenantCode`
+
+	whereAndSql := ` WHERE ` + ttm.SqlTenantCode() + ` = ` + S.Z(ttm.TenantCode) + `
+		AND ` + ttm.SqlName() + ` = ` + S.Z(ttm.Name)
 
 	queryRows := comment + `
 SELECT ` + ttm.SqlSelectAllFields() + `

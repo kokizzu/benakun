@@ -12,8 +12,8 @@
   <Icon
     size="18"
     className={pathname === href || pathname.includes(href)
-      ? 'icon_active'
-      : 'icon_dark'
+      ? 'icon_active icon'
+      : 'icon_dark icon'
     }
     src={icon}
   />
@@ -46,5 +46,17 @@
   a.active {
     color: var(--violet-005);
     background-color: var(--violet-transparent);
+  }
+
+  a span {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+  }
+
+  :global(a .icon) {
+    flex-shrink: 0;
   }
 </style>

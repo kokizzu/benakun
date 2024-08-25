@@ -344,7 +344,7 @@
 
 
 <style>/* fakecss:./_components/partials/SubMenuLink.esbuild-svelte-fake-css */
-a.svelte-1smdkid {
+a.svelte-1m42kx1.svelte-1m42kx1 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -357,15 +357,25 @@ a.svelte-1smdkid {
   padding: 10px 12px;
   border-radius: 8px;
 }
-a.svelte-1smdkid:hover {
+a.svelte-1m42kx1.svelte-1m42kx1:hover {
   background-color: var(--gray-001);
 }
-a.svelte-1smdkid:active {
+a.svelte-1m42kx1.svelte-1m42kx1:active {
   background-color: var(--gray-002);
 }
-a.active.svelte-1smdkid {
+a.active.svelte-1m42kx1.svelte-1m42kx1 {
   color: var(--violet-005);
   background-color: var(--violet-transparent);
+}
+a.svelte-1m42kx1 span.svelte-1m42kx1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+a .icon {
+  flex-shrink: 0;
 }
 
 /* fakecss:./_components/partials/SideMenu.esbuild-svelte-fake-css */
@@ -3843,7 +3853,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           ctx[3].includes(
             /*href*/
             ctx[0]
-          ) ? "icon_active" : "icon_dark"
+          ) ? "icon_active icon" : "icon_dark icon"
         ),
         src: (
           /*icon*/
@@ -3861,13 +3871,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           /*title*/
           ctx[2]
         );
+        attr(span, "class", "svelte-1m42kx1");
         attr(
           a,
           "href",
           /*href*/
           ctx[0]
         );
-        attr(a, "class", "svelte-1smdkid");
+        attr(a, "class", "svelte-1m42kx1");
         toggle_class(
           a,
           "active",
@@ -3898,7 +3909,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           ctx2[3].includes(
             /*href*/
             ctx2[0]
-          ) ? "icon_active" : "icon_dark";
+          ) ? "icon_active icon" : "icon_dark icon";
         if (dirty & /*icon*/
         2)
           icon_1_changes.src = /*icon*/
@@ -3985,6 +3996,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let icon;
     let t0;
     let span;
+    let t2;
+    let div;
+    let submenulink0;
+    let t3;
+    let submenulink1;
     let current;
     icon = new Icon_default({
       props: {
@@ -3996,6 +4012,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         src: AiOutlineWarning
       }
     });
+    submenulink0 = new SubMenuLink_default({
+      props: {
+        title: "General Ledger / Buku Besar",
+        href: "/reportViewer/generalLedger",
+        icon: RiEditorOrganizationChart
+      }
+    });
+    submenulink1 = new SubMenuLink_default({
+      props: {
+        title: "Trial Balance / Neraca Saldo",
+        href: "/reportViewer/trialBalance",
+        icon: RiEditorOrganizationChart
+      }
+    });
     return {
       c() {
         a = element("a");
@@ -4003,6 +4033,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t0 = space();
         span = element("span");
         span.textContent = "Report Viewer";
+        t2 = space();
+        div = element("div");
+        create_component(submenulink0.$.fragment);
+        t3 = space();
+        create_component(submenulink1.$.fragment);
         attr(a, "href", "/reportViewer/dashboard");
         attr(a, "class", "svelte-1ityera");
         toggle_class(
@@ -4011,12 +4046,18 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           /*segment1*/
           ctx[1] === "reportViewer"
         );
+        attr(div, "class", "submenu svelte-1ityera");
       },
       m(target, anchor) {
         insert(target, a, anchor);
         mount_component(icon, a, null);
         append(a, t0);
         append(a, span);
+        insert(target, t2, anchor);
+        insert(target, div, anchor);
+        mount_component(submenulink0, div, null);
+        append(div, t3);
+        mount_component(submenulink1, div, null);
         current = true;
       },
       p(ctx2, dirty) {
@@ -4040,17 +4081,25 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (current)
           return;
         transition_in(icon.$.fragment, local);
+        transition_in(submenulink0.$.fragment, local);
+        transition_in(submenulink1.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
+        transition_out(submenulink0.$.fragment, local);
+        transition_out(submenulink1.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(a);
+          detach(t2);
+          detach(div);
         }
         destroy_component(icon);
+        destroy_component(submenulink0);
+        destroy_component(submenulink1);
       }
     };
   }

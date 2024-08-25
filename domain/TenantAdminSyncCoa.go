@@ -36,7 +36,8 @@ const (
 	ErrTenantAdminSyncCoaSameCoa							= `coa cannot be same`
 	ErrTenantAdminSyncCoaProductsCoaNotFound	= `products coa not found`
 	ErrTenantAdminSyncCoaSuppliersCoaNotFound	= `suppliers coa not found`
-	ErrTenantAdminSyncCoaCustomersCoaNotFound	= `sustomers coa not found`
+	ErrTenantAdminSyncCoaCustomersCoaNotFound	= `customers coa not found`
+	ErrTenantAdminSyncCoaCustomersRecCoaNotFound	= `customers receivables coa not found`
 	ErrTenantAdminSyncCoaStaffsCoaNotFound		= `staffs coa not found`
 	ErrTenantAdminSyncCoaBanksCoaNotFound			= `banks coa not found`
 )
@@ -100,6 +101,16 @@ func (d *Domain) TenantAdminSyncCoa(in *TenantAdminSyncCoaIn) (out TenantAdminSy
 		}
 
 		tenant.SetCustomersCoaId(in.Tenant.CustomersCoaId)
+	}
+
+	if in.Tenant.CustomerReceivablesCoaId != tenant.CustomerReceivablesCoaId {
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.Id = in.Tenant.CustomersCoaId
+		if !coa.FindById() {
+			out.SetError(400, ErrTenantAdminSyncCoaCustomersRecCoaNotFound)
+		}
+
+		tenant.SetCustomerReceivablesCoaId(in.Tenant.CustomersCoaId)
 	}
 
 	if in.Tenant.StaffsCoaId != tenant.StaffsCoaId {

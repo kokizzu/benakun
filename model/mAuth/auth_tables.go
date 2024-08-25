@@ -94,8 +94,10 @@ const (
 	ProductsCoaId 	= `productsCoaId`
 	SuppliersCoaId	= `suppliersCoaId`
 	CustomersCoaId	= `customersCoaId`
+	CustomerReceivablesCoaId = `customerReceivablesCoaId`
 	StaffsCoaId 		= `staffsCoaId`
 	BanksCoaId 			= `banksCoaId`
+	FundersCoaId		= `fundersCoaId`
 )
 
 func IsCoaDifferent(values ...uint64) bool {
@@ -167,6 +169,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{CustomersCoaId, Tt.Unsigned},
 			{StaffsCoaId, Tt.Unsigned},
 			{BanksCoaId, Tt.Unsigned},
+			{CustomerReceivablesCoaId, Tt.Unsigned},
+			{FundersCoaId, Tt.Unsigned},
 		},
 		AutoIncrementId: true,
 		Unique1:         TenantCode,

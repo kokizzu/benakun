@@ -344,7 +344,7 @@
 
 
 <style>/* fakecss:./_components/partials/SubMenuLink.esbuild-svelte-fake-css */
-a.svelte-1smdkid {
+a.svelte-1m42kx1.svelte-1m42kx1 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -357,15 +357,25 @@ a.svelte-1smdkid {
   padding: 10px 12px;
   border-radius: 8px;
 }
-a.svelte-1smdkid:hover {
+a.svelte-1m42kx1.svelte-1m42kx1:hover {
   background-color: var(--gray-001);
 }
-a.svelte-1smdkid:active {
+a.svelte-1m42kx1.svelte-1m42kx1:active {
   background-color: var(--gray-002);
 }
-a.active.svelte-1smdkid {
+a.active.svelte-1m42kx1.svelte-1m42kx1 {
   color: var(--violet-005);
   background-color: var(--violet-transparent);
+}
+a.svelte-1m42kx1 span.svelte-1m42kx1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+a .icon {
+  flex-shrink: 0;
 }
 
 /* fakecss:./_components/partials/SideMenu.esbuild-svelte-fake-css */
@@ -24585,7 +24595,7 @@ uniform ${i3} ${a3} u_${s3};
           ctx[3].includes(
             /*href*/
             ctx[0]
-          ) ? "icon_active" : "icon_dark"
+          ) ? "icon_active icon" : "icon_dark icon"
         ),
         src: (
           /*icon*/
@@ -24603,13 +24613,14 @@ uniform ${i3} ${a3} u_${s3};
           /*title*/
           ctx[2]
         );
+        attr(span, "class", "svelte-1m42kx1");
         attr(
           a,
           "href",
           /*href*/
           ctx[0]
         );
-        attr(a, "class", "svelte-1smdkid");
+        attr(a, "class", "svelte-1m42kx1");
         toggle_class(
           a,
           "active",
@@ -24640,7 +24651,7 @@ uniform ${i3} ${a3} u_${s3};
           ctx2[3].includes(
             /*href*/
             ctx2[0]
-          ) ? "icon_active" : "icon_dark";
+          ) ? "icon_active icon" : "icon_dark icon";
         if (dirty & /*icon*/
         2)
           icon_1_changes.src = /*icon*/
@@ -24727,6 +24738,11 @@ uniform ${i3} ${a3} u_${s3};
     let icon;
     let t0;
     let span;
+    let t2;
+    let div;
+    let submenulink0;
+    let t3;
+    let submenulink1;
     let current;
     icon = new Icon_default({
       props: {
@@ -24738,6 +24754,20 @@ uniform ${i3} ${a3} u_${s3};
         src: AiOutlineWarning
       }
     });
+    submenulink0 = new SubMenuLink_default({
+      props: {
+        title: "General Ledger / Buku Besar",
+        href: "/reportViewer/generalLedger",
+        icon: RiEditorOrganizationChart
+      }
+    });
+    submenulink1 = new SubMenuLink_default({
+      props: {
+        title: "Trial Balance / Neraca Saldo",
+        href: "/reportViewer/trialBalance",
+        icon: RiEditorOrganizationChart
+      }
+    });
     return {
       c() {
         a = element("a");
@@ -24745,6 +24775,11 @@ uniform ${i3} ${a3} u_${s3};
         t0 = space();
         span = element("span");
         span.textContent = "Report Viewer";
+        t2 = space();
+        div = element("div");
+        create_component(submenulink0.$.fragment);
+        t3 = space();
+        create_component(submenulink1.$.fragment);
         attr(a, "href", "/reportViewer/dashboard");
         attr(a, "class", "svelte-1ityera");
         toggle_class(
@@ -24753,12 +24788,18 @@ uniform ${i3} ${a3} u_${s3};
           /*segment1*/
           ctx[1] === "reportViewer"
         );
+        attr(div, "class", "submenu svelte-1ityera");
       },
       m(target, anchor) {
         insert(target, a, anchor);
         mount_component(icon, a, null);
         append(a, t0);
         append(a, span);
+        insert(target, t2, anchor);
+        insert(target, div, anchor);
+        mount_component(submenulink0, div, null);
+        append(div, t3);
+        mount_component(submenulink1, div, null);
         current = true;
       },
       p(ctx2, dirty) {
@@ -24782,17 +24823,25 @@ uniform ${i3} ${a3} u_${s3};
         if (current)
           return;
         transition_in(icon.$.fragment, local);
+        transition_in(submenulink0.$.fragment, local);
+        transition_in(submenulink1.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
+        transition_out(submenulink0.$.fragment, local);
+        transition_out(submenulink1.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(a);
+          detach(t2);
+          detach(div);
         }
         destroy_component(icon);
+        destroy_component(submenulink0);
+        destroy_component(submenulink1);
       }
     };
   }
@@ -33027,65 +33076,65 @@ uniform ${i3} ${a3} u_${s3};
     let t0;
     let div12;
     let header;
-    let t2;
+    let t4;
     let div11;
     let div9;
     let div1;
     let inputcustom0;
     let updating_value;
-    let t3;
+    let t5;
     let inputcustom1;
     let updating_value_1;
-    let t4;
+    let t6;
     let inputcustom2;
     let updating_value_2;
-    let t5;
+    let t7;
     let inputcustom3;
     let updating_value_3;
-    let t6;
+    let t8;
     let div7;
     let div3;
     let div2;
-    let t8;
-    let h5;
     let t10;
+    let h5;
+    let t12;
     let div6;
     let div4;
-    let t12;
+    let t14;
     let div5;
-    let p0;
-    let t15;
     let p1;
-    let t18;
+    let t17;
+    let p2;
+    let t20;
     let div8;
     let table;
     let thead;
-    let t30;
+    let t32;
     let tbody;
     let tr1;
     let td0;
     let input0;
-    let t31;
+    let t33;
     let td1;
     let input1;
-    let t32;
+    let t34;
     let td2;
     let textarea;
-    let t33;
+    let t35;
     let td3;
     let input2;
-    let t34;
+    let t36;
     let td4;
     let input3;
-    let t35;
+    let t37;
     let td5;
     let input4;
-    let t36;
+    let t38;
     let div10;
     let button0;
-    let t38;
+    let t40;
     let button1;
-    let t39;
+    let t41;
     let div12_class_value;
     let current;
     let mounted;
@@ -33230,71 +33279,71 @@ uniform ${i3} ${a3} u_${s3};
         t0 = space();
         div12 = element("div");
         header = element("header");
-        header.innerHTML = `<h1>Entry journal manual</h1>`;
-        t2 = space();
+        header.innerHTML = `<h1>Entry journal manual</h1> <p>gak perlu pilih transaction template waktu add</p>`;
+        t4 = space();
         div11 = element("div");
         div9 = element("div");
         div1 = element("div");
         create_component(inputcustom0.$.fragment);
-        t3 = space();
-        create_component(inputcustom1.$.fragment);
-        t4 = space();
-        create_component(inputcustom2.$.fragment);
         t5 = space();
-        create_component(inputcustom3.$.fragment);
+        create_component(inputcustom1.$.fragment);
         t6 = space();
+        create_component(inputcustom2.$.fragment);
+        t7 = space();
+        create_component(inputcustom3.$.fragment);
+        t8 = space();
         div7 = element("div");
         div3 = element("div");
         div2 = element("div");
         div2.innerHTML = `<span>Company Name</span>`;
-        t8 = space();
+        t10 = space();
         h5 = element("h5");
         h5.textContent = `${org.name || ""}`;
-        t10 = space();
+        t12 = space();
         div6 = element("div");
         div4 = element("div");
         div4.innerHTML = `<span>Company Contacts</span>`;
-        t12 = space();
+        t14 = space();
         div5 = element("div");
-        p0 = element("p");
-        p0.textContent = `Head Title: ${org.headTitle || ""}`;
-        t15 = space();
         p1 = element("p");
-        p1.textContent = `Email: ${user2.email}`;
-        t18 = space();
+        p1.textContent = `Head Title: ${org.headTitle || ""}`;
+        t17 = space();
+        p2 = element("p");
+        p2.textContent = `Email: ${user2.email}`;
+        t20 = space();
         div8 = element("div");
         table = element("table");
         thead = element("thead");
         thead.innerHTML = `<tr><th class="svelte-xhdaoc">Debit (IDR)</th> <th class="svelte-xhdaoc">Credit (IDR)</th> <th class="svelte-xhdaoc">Description</th> <th class="svelte-xhdaoc">Date</th> <th class="svelte-xhdaoc">Sales Count</th> <th class="svelte-xhdaoc">Sales Price (IDR)</th></tr>`;
-        t30 = space();
+        t32 = space();
         tbody = element("tbody");
         tr1 = element("tr");
         td0 = element("td");
         input0 = element("input");
-        t31 = space();
+        t33 = space();
         td1 = element("td");
         input1 = element("input");
-        t32 = space();
+        t34 = space();
         td2 = element("td");
         textarea = element("textarea");
-        t33 = space();
+        t35 = space();
         td3 = element("td");
         input2 = element("input");
-        t34 = space();
+        t36 = space();
         td4 = element("td");
         input3 = element("input");
-        t35 = space();
+        t37 = space();
         td5 = element("td");
         input4 = element("input");
-        t36 = space();
+        t38 = space();
         div10 = element("div");
         button0 = element("button");
         button0.textContent = "Cancel";
-        t38 = space();
+        t40 = space();
         button1 = element("button");
         if (if_block0)
           if_block0.c();
-        t39 = space();
+        t41 = space();
         if (if_block1)
           if_block1.c();
         attr(div0, "class", div0_class_value = null_to_empty(!/*isCreatingJournal*/
@@ -33305,8 +33354,8 @@ uniform ${i3} ${a3} u_${s3};
         attr(h5, "class", "svelte-xhdaoc");
         attr(div3, "class", "company_name svelte-xhdaoc");
         attr(div4, "class", "title svelte-xhdaoc");
-        attr(p0, "class", "svelte-xhdaoc");
         attr(p1, "class", "svelte-xhdaoc");
+        attr(p2, "class", "svelte-xhdaoc");
         attr(div5, "class", "contacts svelte-xhdaoc");
         attr(div6, "class", "company_contacts svelte-xhdaoc");
         attr(div7, "class", "company_details svelte-xhdaoc");
@@ -33347,36 +33396,36 @@ uniform ${i3} ${a3} u_${s3};
         insert(target, t0, anchor);
         insert(target, div12, anchor);
         append(div12, header);
-        append(div12, t2);
+        append(div12, t4);
         append(div12, div11);
         append(div11, div9);
         append(div9, div1);
         mount_component(inputcustom0, div1, null);
-        append(div1, t3);
-        mount_component(inputcustom1, div1, null);
-        append(div1, t4);
-        mount_component(inputcustom2, div1, null);
         append(div1, t5);
+        mount_component(inputcustom1, div1, null);
+        append(div1, t6);
+        mount_component(inputcustom2, div1, null);
+        append(div1, t7);
         mount_component(inputcustom3, div1, null);
-        append(div9, t6);
+        append(div9, t8);
         append(div9, div7);
         append(div7, div3);
         append(div3, div2);
-        append(div3, t8);
+        append(div3, t10);
         append(div3, h5);
-        append(div7, t10);
+        append(div7, t12);
         append(div7, div6);
         append(div6, div4);
-        append(div6, t12);
+        append(div6, t14);
         append(div6, div5);
-        append(div5, p0);
-        append(div5, t15);
         append(div5, p1);
-        append(div9, t18);
+        append(div5, t17);
+        append(div5, p2);
+        append(div9, t20);
         append(div9, div8);
         append(div8, table);
         append(table, thead);
-        append(table, t30);
+        append(table, t32);
         append(table, tbody);
         append(tbody, tr1);
         append(tr1, td0);
@@ -33386,7 +33435,7 @@ uniform ${i3} ${a3} u_${s3};
           /*debitIDR*/
           ctx[9]
         );
-        append(tr1, t31);
+        append(tr1, t33);
         append(tr1, td1);
         append(td1, input1);
         set_input_value(
@@ -33394,7 +33443,7 @@ uniform ${i3} ${a3} u_${s3};
           /*creditIDR*/
           ctx[10]
         );
-        append(tr1, t32);
+        append(tr1, t34);
         append(tr1, td2);
         append(td2, textarea);
         set_input_value(
@@ -33402,7 +33451,7 @@ uniform ${i3} ${a3} u_${s3};
           /*descriptions*/
           ctx[11]
         );
-        append(tr1, t33);
+        append(tr1, t35);
         append(tr1, td3);
         append(td3, input2);
         set_input_value(
@@ -33410,7 +33459,7 @@ uniform ${i3} ${a3} u_${s3};
           /*date*/
           ctx[12]
         );
-        append(tr1, t34);
+        append(tr1, t36);
         append(tr1, td4);
         append(td4, input3);
         set_input_value(
@@ -33418,7 +33467,7 @@ uniform ${i3} ${a3} u_${s3};
           /*salesCount*/
           ctx[13]
         );
-        append(tr1, t35);
+        append(tr1, t37);
         append(tr1, td5);
         append(td5, input4);
         set_input_value(
@@ -33426,14 +33475,14 @@ uniform ${i3} ${a3} u_${s3};
           /*salesPriceIDR*/
           ctx[14]
         );
-        append(div11, t36);
+        append(div11, t38);
         append(div11, div10);
         append(div10, button0);
-        append(div10, t38);
+        append(div10, t40);
         append(div10, button1);
         if (if_block0)
           if_block0.m(button1, null);
-        append(button1, t39);
+        append(button1, t41);
         if (if_block1)
           if_block1.m(button1, null);
         current = true;
@@ -33619,7 +33668,7 @@ uniform ${i3} ${a3} u_${s3};
           } else {
             if_block0 = create_if_block_111(ctx2);
             if_block0.c();
-            if_block0.m(button1, t39);
+            if_block0.m(button1, t41);
           }
         } else if (if_block0) {
           if_block0.d(1);

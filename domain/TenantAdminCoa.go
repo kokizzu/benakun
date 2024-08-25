@@ -48,6 +48,7 @@ const (
 	ErrTenantAdminCoaFailedUpdate = `failed to update coa`
 	ErrTenantAdminCoaFailedUpdateParent = `failed to update parent of new coa`
 	ErrTenantAdminCoaFailedCreate = `failed to create a new coa`
+	ErrTenantAdminCoaSameCoa			= `cannot move coa to the same coa`
 )
 
 func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
@@ -117,6 +118,10 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 					coa.SetRestoredBy(sess.UserId)
 				}
 			case zCrud.CmdMove:
+				if in.Coa.Id == in.ToParentId {
+					out.SetError(400, ErrTenantAdminCoaSameCoa)
+					return
+				}
 				if in.Coa.ParentId == 0 || parent == nil {
 					out.SetError(400, ErrTenantAdminCoaMustIncludeParentId)
 					return

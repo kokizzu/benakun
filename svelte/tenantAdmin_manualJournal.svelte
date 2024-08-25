@@ -182,6 +182,7 @@
   <div class={isCreatingJournal ? 'show' : 'hidden'}>
     <header>
       <h1>Entry journal manual</h1>
+      <p>gak perlu pilih transaction template waktu add</p>
     </header>
     <div class="data_entry_journal___container">
       <div class="forms_journal">
