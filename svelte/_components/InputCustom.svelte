@@ -66,13 +66,14 @@
   function highlightOption(optionsElm, isIncreased) {
     if (!optionsElm.length) return;
 
-    if (currentFocus > optionsElm.length) currentFocus = 0;
-
     if (isIncreased) {
       currentFocus++;
     } else {
       currentFocus--;
     }
+
+    if (currentFocus < 0) currentFocus = optionsElm.length - 1;
+    if (currentFocus > optionsElm.length - 1) currentFocus = 0;
 
     removeActive(optionsElm);
 
@@ -137,7 +138,8 @@
               } else {
                 setTimeout(() => {
                   isShowOptions = false;
-                  optionClicked = false;  
+                  optionClicked = false;
+                  valueToShowFromObj = values[value];
                 }, 200);
               }
             }}
@@ -169,7 +171,8 @@
               } else {
                 setTimeout(() => {
                   isShowOptions = false;
-                  optionClicked = false;  
+                  optionClicked = false;
+                  valueToShowFromObj = value;
                 }, 200);
               }
             }}

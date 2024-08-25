@@ -28319,13 +28319,15 @@ uniform ${i3} ${a3} u_${s3};
     function highlightOption(optionsElm, isIncreased) {
       if (!optionsElm.length)
         return;
-      if (currentFocus > optionsElm.length)
-        currentFocus = 0;
       if (isIncreased) {
         currentFocus++;
       } else {
         currentFocus--;
       }
+      if (currentFocus < 0)
+        currentFocus = optionsElm.length - 1;
+      if (currentFocus > optionsElm.length - 1)
+        currentFocus = 0;
       removeActive(optionsElm);
       if (optionsElm[currentFocus] && optionsElm[currentFocus].style.display === "none") {
         highlightOption(optionsElm, isIncreased);
@@ -28374,6 +28376,7 @@ uniform ${i3} ${a3} u_${s3};
           () => {
             $invalidate(11, isShowOptions = false);
             $invalidate(12, optionClicked = false);
+            $invalidate(10, valueToShowFromObj = values[value]);
           },
           200
         );
@@ -28398,6 +28401,7 @@ uniform ${i3} ${a3} u_${s3};
           () => {
             $invalidate(11, isShowOptions = false);
             $invalidate(12, optionClicked = false);
+            $invalidate(10, valueToShowFromObj = value);
           },
           200
         );

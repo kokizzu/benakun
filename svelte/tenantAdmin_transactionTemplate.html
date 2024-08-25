@@ -8366,13 +8366,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     function highlightOption(optionsElm, isIncreased) {
       if (!optionsElm.length)
         return;
-      if (currentFocus > optionsElm.length)
-        currentFocus = 0;
       if (isIncreased) {
         currentFocus++;
       } else {
         currentFocus--;
       }
+      if (currentFocus < 0)
+        currentFocus = optionsElm.length - 1;
+      if (currentFocus > optionsElm.length - 1)
+        currentFocus = 0;
       removeActive(optionsElm);
       if (optionsElm[currentFocus] && optionsElm[currentFocus].style.display === "none") {
         highlightOption(optionsElm, isIncreased);
@@ -8421,6 +8423,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           () => {
             $invalidate(11, isShowOptions = false);
             $invalidate(12, optionClicked = false);
+            $invalidate(10, valueToShowFromObj = values[value]);
           },
           200
         );
@@ -8445,6 +8448,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           () => {
             $invalidate(11, isShowOptions = false);
             $invalidate(12, optionClicked = false);
+            $invalidate(10, valueToShowFromObj = value);
           },
           200
         );
