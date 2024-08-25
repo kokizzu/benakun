@@ -6,10 +6,11 @@ import (
 )
 
 const (
-	RoleUser         = `user`
-	RoleTenantAdmin  = `tenantAdmin`
-	RoleDataEntry    = `dataEntry`
-	RoleReportViewer = `reportViewer`
+	RoleUser         		= `user`
+	RoleTenantAdmin  		= `tenantAdmin`
+	RoleDataEntry    		= `dataEntry`
+	RoleReportViewer 		= `reportViewer`
+	RoleFieldSupervisor = `fieldSupervisor`
 )
 
 func IsValidRole(role string) bool {
@@ -19,6 +20,8 @@ func IsValidRole(role string) bool {
 	case RoleDataEntry:
 		return true
 	case RoleReportViewer:
+		return true
+	case RoleFieldSupervisor:
 		return true
 	default:
 		return false

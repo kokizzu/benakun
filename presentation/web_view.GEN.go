@@ -16,6 +16,7 @@ var viewList = map[string]string{
 	`DataEntryDashboard`: `../svelte/dataEntry_dashboard.html`, // ../svelte/dataEntry_dashboard.svelte
 	`DataEntryTransactionEntry`: `../svelte/dataEntry_transactionEntry.html`, // ../svelte/dataEntry_transactionEntry.svelte
 	`Debug`: `../svelte/debug.html`, // ../svelte/debug.svelte
+	`FieldSupervisorDashboard`: `../svelte/fieldSupervisor_dashboard.html`, // ../svelte/fieldSupervisor_dashboard.svelte
 	`GuestOauthCallback`: `../svelte/guest_oauthCallback.html`, // ../svelte/guest_oauthCallback.svelte
 	`GuestResetPassword`: `../svelte/guest_resetPassword.html`, // ../svelte/guest_resetPassword.svelte
 	`GuestVerifyEmail`: `../svelte/guest_verifyEmail.html`, // ../svelte/guest_verifyEmail.svelte
@@ -71,6 +72,11 @@ func (v *Views) RenderDataEntryTransactionEntry(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderDebug(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`Debug`].Str(m))
+}
+
+func (v *Views) RenderFieldSupervisorDashboard(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`FieldSupervisorDashboard`].Str(m))
 }
 
 func (v *Views) RenderGuestOauthCallback(c *fiber.Ctx, m M.SX) error {

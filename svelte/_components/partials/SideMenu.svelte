@@ -12,16 +12,11 @@
   import { OiNote16 } from '../../node_modules/svelte-icons-pack/dist/oi';
   import { FaCircleUser } from '../../node_modules/svelte-icons-pack/dist/fa';
   import {
-    RiEditorOrganizationChart,
-    RiUserFacesAdminLine,
-    RiBuildingsCommunityLine,
-    RiBuildingsBankLine,
-    RiUserFacesGroup2Line,
-    RiUserFacesContactsLine,
-    RiMapMap2Line,
-    RiFinanceSwapBoxLine,
-    RiDocumentStickyNoteAddLine,
-    RiDocumentFileCopy2Line
+    RiEditorOrganizationChart, RiUserFacesAdminLine,
+    RiBuildingsCommunityLine, RiBuildingsBankLine,
+    RiUserFacesGroup2Line, RiUserFacesContactsLine,
+    RiMapMap2Line, RiFinanceSwapBoxLine, RiDocumentStickyNoteAddLine,
+    RiDocumentFileCopy2Line, RiUserFacesUserLocationLine
   } from '../../node_modules/svelte-icons-pack/dist/ri';
   import { CgLogOut, CgBox } from '../../node_modules/svelte-icons-pack/dist/cg';
   import { BsPostcard } from '../../node_modules/svelte-icons-pack/dist/bs';
@@ -74,6 +69,16 @@
               src={AiOutlineWarning}
             />
             <span>Report Viewer</span>
+          </a>
+        {/if}
+        {#if access.fieldSupervisor }
+          <a href="/fieldSupervisor/dashboard" class:active={segment1 === 'fieldSupervisor'}>
+            <Icon
+              size="18"
+              className={segment1 === 'fieldSupervisor'  ? 'icon_active' : 'icon_dark'}
+              src={RiUserFacesUserLocationLine}
+            />
+            <span>Field Supervisor</span>
           </a>
         {/if}
         {#if access.dataEntry }

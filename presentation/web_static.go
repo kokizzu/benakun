@@ -133,6 +133,20 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.FieldSupervisorAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		
+		if notFieldSupervisorLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		return views.RenderFieldSupervisorDashboard(ctx, M.SX{
+			`title`:    `Field Supervisor Dashboard`,
+			`user`:     user,
+			`segments`: segments,
+		})
+	})
+
 	fw.Get(`/`+domain.DataEntryDashboardAction, func(ctx *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(ctx, d)
 		if notDataEntryLogin(d, in.RequestCommon) {
@@ -770,6 +784,16 @@ func notDataEntryLogin(d *domain.Domain, in domain.RequestCommon) bool {
 	var check domain.ResponseCommon
 
 	if sess := d.MustDataEntry(in, &check); sess == nil {
+		return true
+	}
+
+	return false
+}
+
+func notFieldSupervisorLogin(d *domain.Domain, in domain.RequestCommon) bool {
+	var check domain.ResponseCommon
+
+	if sess := d.MustFieldSupervisor(in, &check); sess == nil {
 		return true
 	}
 

@@ -5,6 +5,7 @@
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { AiOutlineEye, AiOutlineEyeInvisible } from '../node_modules/svelte-icons-pack/dist/ai';
   import { generateRandomString } from './xState';
+  // import { RiArrowsArrowRightSLine } from '../node_modules/svelte-icons-pack/dist/ri';
 
   export let className = '';
   export let type = /** @type {InputType} */ ('text');
@@ -108,6 +109,7 @@
         if (currentFocus > -1) { // @ts-ignore
           options[currentFocus].click();
           removeActive(options);
+          optionClicked = false;
         }
         break;
       default:

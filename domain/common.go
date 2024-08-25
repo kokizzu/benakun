@@ -369,6 +369,10 @@ func (d *Domain) segmentsFromSession(s *Session) M.SB {
 		s.Segments[ReportViewerSegment] = true
 		s.Segments[UserSegment] = true
 		s.Segments[GuestSegment] = true
+	case FieldSupervisorSegment:
+		s.Segments[FieldSupervisorSegment] = true
+		s.Segments[UserSegment] = true
+		s.Segments[GuestSegment] = true
 	case UserSegment:
 		s.Segments[GuestSegment] = true
 		s.Segments[UserSegment] = true
@@ -381,6 +385,7 @@ func (d *Domain) segmentsFromSession(s *Session) M.SB {
 		s.Segments[TenantAdminSegment] = true
 		s.Segments[ReportViewerSegment] = true
 		s.Segments[DataEntrySegment] = true
+		s.Segments[FieldSupervisorSegment] = true
 		s.Segments[UserSegment] = true
 		s.Segments[GuestSegment] = true
 	}

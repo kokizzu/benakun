@@ -166,7 +166,8 @@
   const roles = {
 		'user': 'User',
 		'dataEntry': 'Data Entry',
-		'reportViewer': 'Report Viewer'
+		'reportViewer': 'Report Viewer',
+    'fieldSupervisor': 'Field Supervisor'
 	};
 </script>
 
