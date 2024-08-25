@@ -29,16 +29,9 @@
     // Boolean input must be use random id, because it's a checkbox
     if (type === 'bool') id = id + Math.random();
     if (isObject) {
-      for (const [k, v] of Object.entries(values)) {
-        value = k;
-        valueToShowFromObj = v;
-        break;
-      }
+      valueToShowFromObj = values[value];
     } else {
-      if (values && values.length > 0) {
-        value = values[0];
-        valueToShowFromObj = values[0];
-      }
+      valueToShowFromObj = value;
     }
   });
 
@@ -73,8 +66,7 @@
   function highlightOption(optionsElm, isIncreased) {
     if (!optionsElm.length) return;
 
-    if (currentFocus >= optionsElm.length) currentFocus = 0;
-    if (currentFocus < 0) currentFocus = optionsElm.length - 1;
+    if (currentFocus > optionsElm.length) currentFocus = 0;
 
     if (isIncreased) {
       currentFocus++;
@@ -84,12 +76,14 @@
 
     removeActive(optionsElm);
 
-    if(optionsElm[currentFocus].style.display === 'none') {
+    if(optionsElm[currentFocus] && optionsElm[currentFocus].style.display === 'none') {
       highlightOption(optionsElm, isIncreased);
     };
 
-    optionsElm[currentFocus].classList.add('active');
-    optionsElm[currentFocus].scrollIntoView({block: 'nearest'});
+    if (optionsElm[currentFocus]) {
+      optionsElm[currentFocus].classList.add('active');
+      optionsElm[currentFocus].scrollIntoView({block: 'nearest'});
+    }
   }
 
   function removeActive(options) {
@@ -97,6 +91,10 @@
   }
 
   function handleKey(/** @type {KeyboardEvent} */e) {
+    if (e.key === 'Enter' && !isShowOptions) {
+      isShowOptions = true;
+      return;
+    }
     const options = document.querySelectorAll('.option.'+randStr);
 
     if (e.key === 'ArrowDown') {

@@ -28204,16 +28204,9 @@ uniform ${i3} ${a3} u_${s3};
       if (type === "bool")
         $invalidate(0, id = id + Math.random());
       if (isObject) {
-        for (const [k, v] of Object.entries(values)) {
-          $invalidate(1, value = k);
-          $invalidate(10, valueToShowFromObj = v);
-          break;
-        }
+        $invalidate(10, valueToShowFromObj = values[value]);
       } else {
-        if (values && values.length > 0) {
-          $invalidate(1, value = values[0]);
-          $invalidate(10, valueToShowFromObj = values[0]);
-        }
+        $invalidate(10, valueToShowFromObj = value);
       }
     });
     function toggleShowPassword() {
@@ -28246,24 +28239,28 @@ uniform ${i3} ${a3} u_${s3};
     function highlightOption(optionsElm, isIncreased) {
       if (!optionsElm.length)
         return;
-      if (currentFocus >= optionsElm.length)
+      if (currentFocus > optionsElm.length)
         currentFocus = 0;
-      if (currentFocus < 0)
-        currentFocus = optionsElm.length - 1;
       if (isIncreased) {
         currentFocus++;
       } else {
         currentFocus--;
       }
       removeActive(optionsElm);
-      if (optionsElm[currentFocus].style.display === "none") {
+      if (optionsElm[currentFocus] && optionsElm[currentFocus].style.display === "none") {
         highlightOption(optionsElm, isIncreased);
       }
       ;
-      optionsElm[currentFocus].classList.add("active");
-      optionsElm[currentFocus].scrollIntoView({ block: "nearest" });
+      if (optionsElm[currentFocus]) {
+        optionsElm[currentFocus].classList.add("active");
+        optionsElm[currentFocus].scrollIntoView({ block: "nearest" });
+      }
     }
     function handleKey(e) {
+      if (e.key === "Enter" && !isShowOptions) {
+        $invalidate(11, isShowOptions = true);
+        return;
+      }
       const options = document.querySelectorAll(".option." + randStr);
       if (e.key === "ArrowDown") {
         highlightOption(options, true);
