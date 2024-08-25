@@ -23642,6 +23642,12 @@ uniform ${i3} ${a3} u_${s3};
       return fn.call(this, event);
     };
   }
+  function stop_propagation(fn) {
+    return function(event) {
+      event.stopPropagation();
+      return fn.call(this, event);
+    };
+  }
   function attr(node, attribute, value) {
     if (value == null)
       node.removeAttribute(attribute);
@@ -26028,13 +26034,13 @@ uniform ${i3} ${a3} u_${s3};
   // _components/InputCustom.svelte
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[41] = list[i];
+    child_ctx[42] = list[i];
     return child_ctx;
   }
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[40] = list[i][0];
-    child_ctx[41] = list[i][1];
+    child_ctx[41] = list[i][0];
+    child_ctx[42] = list[i][1];
     return child_ctx;
   }
   function create_else_block_1(ctx) {
@@ -26090,7 +26096,7 @@ uniform ${i3} ${a3} u_${s3};
             input,
             "input",
             /*input_input_handler_11*/
-            ctx[36]
+            ctx[38]
           );
           mounted = true;
         }
@@ -26204,7 +26210,7 @@ uniform ${i3} ${a3} u_${s3};
             input,
             "input",
             /*input_input_handler_10*/
-            ctx[35]
+            ctx[37]
           );
           mounted = true;
         }
@@ -26314,7 +26320,7 @@ uniform ${i3} ${a3} u_${s3};
           /*value*/
           ctx[1]
         );
-        ctx[34](input);
+        ctx[36](input);
         insert(target, t2, anchor);
         if (if_block)
           if_block.m(target, anchor);
@@ -26325,7 +26331,7 @@ uniform ${i3} ${a3} u_${s3};
             input,
             "input",
             /*input_input_handler_9*/
-            ctx[33]
+            ctx[35]
           );
           mounted = true;
         }
@@ -26416,7 +26422,7 @@ uniform ${i3} ${a3} u_${s3};
           detach(t2);
           detach(if_block_anchor);
         }
-        ctx[34](null);
+        ctx[36](null);
         if (if_block)
           if_block.d(detaching);
         mounted = false;
@@ -26477,7 +26483,7 @@ uniform ${i3} ${a3} u_${s3};
             input,
             "input",
             /*input_input_handler_8*/
-            ctx[32]
+            ctx[34]
           );
           mounted = true;
         }
@@ -26592,7 +26598,7 @@ uniform ${i3} ${a3} u_${s3};
             input,
             "input",
             /*input_input_handler_7*/
-            ctx[31]
+            ctx[33]
           );
           mounted = true;
         }
@@ -26709,7 +26715,7 @@ uniform ${i3} ${a3} u_${s3};
             input,
             "input",
             /*input_input_handler_6*/
-            ctx[30]
+            ctx[32]
           );
           mounted = true;
         }
@@ -26824,7 +26830,7 @@ uniform ${i3} ${a3} u_${s3};
             textarea,
             "input",
             /*textarea_input_handler*/
-            ctx[29]
+            ctx[31]
           );
           mounted = true;
         }
@@ -26939,7 +26945,7 @@ uniform ${i3} ${a3} u_${s3};
             input,
             "input",
             /*input_input_handler_5*/
-            ctx[28]
+            ctx[30]
           );
           mounted = true;
         }
@@ -27067,7 +27073,7 @@ uniform ${i3} ${a3} u_${s3};
             input,
             "input",
             /*input_input_handler_4*/
-            ctx[27]
+            ctx[29]
           );
           mounted = true;
         }
@@ -27183,7 +27189,7 @@ uniform ${i3} ${a3} u_${s3};
             input,
             "input",
             /*input_input_handler_3*/
-            ctx[26]
+            ctx[28]
           );
           mounted = true;
         }
@@ -27298,7 +27304,7 @@ uniform ${i3} ${a3} u_${s3};
             input,
             "input",
             /*input_input_handler_2*/
-            ctx[25]
+            ctx[27]
           );
           mounted = true;
         }
@@ -27465,7 +27471,7 @@ uniform ${i3} ${a3} u_${s3};
             input,
             "change",
             /*input_change_handler*/
-            ctx[16]
+            ctx[18]
           );
           mounted = true;
         }
@@ -27559,7 +27565,7 @@ uniform ${i3} ${a3} u_${s3};
             button,
             "click",
             /*toggleShowPassword*/
-            ctx[14]
+            ctx[15]
           );
           mounted = true;
         }
@@ -27746,7 +27752,7 @@ uniform ${i3} ${a3} u_${s3};
         attr(div0, "class", div0_class_value = "options_list " + /*isShowOptions*/
         (ctx[11] ? "show" : "hidden") + " svelte-30kpl9");
         attr(div1, "class", div1_class_value = "options_container " + /*randStr*/
-        ctx[13] + " svelte-30kpl9");
+        ctx[14] + " svelte-30kpl9");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -27772,26 +27778,24 @@ uniform ${i3} ${a3} u_${s3};
               input,
               "input",
               /*input_input_handler_1*/
-              ctx[21]
+              ctx[23]
             ),
             listen(
               input,
               "focus",
               /*focus_handler_1*/
-              ctx[22]
+              ctx[24]
             ),
             listen(
               input,
               "blur",
               /*blur_handler_1*/
-              ctx[23]
+              ctx[25]
             ),
-            listen(
-              input,
-              "keyup",
+            listen(input, "keyup", stop_propagation(prevent_default(
               /*handleKey*/
-              ctx[15]
-            )
+              ctx[17]
+            )))
           ];
           mounted = true;
         }
@@ -27823,7 +27827,7 @@ uniform ${i3} ${a3} u_${s3};
           );
         }
         if (dirty[0] & /*randStr, value, values, valueToShowFromObj, isShowOptions*/
-        11282) {
+        19474) {
           each_value_1 = ensure_array_like(
             /*values*/
             ctx2[4]
@@ -27909,7 +27913,7 @@ uniform ${i3} ${a3} u_${s3};
         attr(div0, "class", div0_class_value = "options_list " + /*isShowOptions*/
         (ctx[11] ? "show" : "hidden") + " svelte-30kpl9");
         attr(div1, "class", div1_class_value = null_to_empty(`options_container ${/*randStr*/
-        ctx[13]}`) + " svelte-30kpl9");
+        ctx[14]}`) + " svelte-30kpl9");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -27935,26 +27939,22 @@ uniform ${i3} ${a3} u_${s3};
               input,
               "input",
               /*input_input_handler*/
-              ctx[17]
+              ctx[19]
             ),
             listen(
               input,
               "focus",
               /*focus_handler*/
-              ctx[18]
+              ctx[20]
             ),
-            listen(
-              input,
-              "blur",
+            listen(input, "blur", prevent_default(
               /*blur_handler*/
-              ctx[19]
-            ),
-            listen(
-              input,
-              "keyup",
+              ctx[21]
+            )),
+            listen(input, "keyup", stop_propagation(prevent_default(
               /*handleKey*/
-              ctx[15]
-            )
+              ctx[17]
+            )), { passive: false })
           ];
           mounted = true;
         }
@@ -27986,7 +27986,7 @@ uniform ${i3} ${a3} u_${s3};
           );
         }
         if (dirty[0] & /*randStr, value, values, valueToShowFromObj, isShowOptions, optionClicked*/
-        15378) {
+        27666) {
           each_value = ensure_array_like(Object.entries(
             /*values*/
             ctx2[4]
@@ -28029,7 +28029,7 @@ uniform ${i3} ${a3} u_${s3};
     let button;
     let t0_value = (
       /*v*/
-      ctx[41] + ""
+      ctx[42] + ""
     );
     let t0;
     let t1;
@@ -28039,9 +28039,9 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler_1() {
       return (
         /*click_handler_1*/
-        ctx[24](
+        ctx[26](
           /*v*/
-          ctx[41]
+          ctx[42]
         )
       );
     }
@@ -28051,7 +28051,7 @@ uniform ${i3} ${a3} u_${s3};
         t0 = text(t0_value);
         t1 = space();
         attr(button, "class", button_class_value = "option " + /*randStr*/
-        ctx[13] + " svelte-30kpl9");
+        ctx[14] + " svelte-30kpl9");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -28066,7 +28066,7 @@ uniform ${i3} ${a3} u_${s3};
         ctx = new_ctx;
         if (dirty[0] & /*values*/
         16 && t0_value !== (t0_value = /*v*/
-        ctx[41] + ""))
+        ctx[42] + ""))
           set_data(t0, t0_value);
       },
       d(detaching) {
@@ -28082,7 +28082,7 @@ uniform ${i3} ${a3} u_${s3};
     let button;
     let t0_value = (
       /*v*/
-      ctx[41] + ""
+      ctx[42] + ""
     );
     let t0;
     let t1;
@@ -28092,11 +28092,11 @@ uniform ${i3} ${a3} u_${s3};
     function click_handler() {
       return (
         /*click_handler*/
-        ctx[20](
+        ctx[22](
           /*k*/
-          ctx[40],
+          ctx[41],
           /*v*/
-          ctx[41]
+          ctx[42]
         )
       );
     }
@@ -28106,7 +28106,7 @@ uniform ${i3} ${a3} u_${s3};
         t0 = text(t0_value);
         t1 = space();
         attr(button, "class", button_class_value = "option " + /*randStr*/
-        ctx[13] + " svelte-30kpl9");
+        ctx[14] + " svelte-30kpl9");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -28121,7 +28121,7 @@ uniform ${i3} ${a3} u_${s3};
         ctx = new_ctx;
         if (dirty[0] & /*values*/
         16 && t0_value !== (t0_value = /*v*/
-        ctx[41] + ""))
+        ctx[42] + ""))
           set_data(t0, t0_value);
       },
       d(detaching) {
@@ -28296,9 +28296,6 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function removeActive(options) {
-    options.forEach((option) => option.classList.remove("active"));
-  }
   function instance7($self, $props, $invalidate) {
     let { className = "" } = $props;
     let { type = (
@@ -28320,7 +28317,7 @@ uniform ${i3} ${a3} u_${s3};
     let inputElm;
     let valueToShowFromObj = (
       /** @type {string|number} */
-      ""
+      value + ""
     );
     const randStr = generateRandomString(5);
     onMount(() => {
@@ -28328,7 +28325,7 @@ uniform ${i3} ${a3} u_${s3};
         $invalidate(9, inputElm.type = type, inputElm);
       if (type === "bool")
         $invalidate(0, id = id + Math.random());
-      if (isObject) {
+      if (isObject || typeof values == "object") {
         $invalidate(10, valueToShowFromObj = values[value]);
       } else {
         $invalidate(10, valueToShowFromObj = value);
@@ -28348,7 +28345,7 @@ uniform ${i3} ${a3} u_${s3};
         options.forEach((option) => {
           option.style.display = "block";
         });
-        currentFocus = -1;
+        $invalidate(12, currentFocus = -1);
         return;
       } else {
         options.forEach((option) => {
@@ -28361,46 +28358,53 @@ uniform ${i3} ${a3} u_${s3};
         });
       }
     }
-    function highlightOption(optionsElm, isIncreased) {
-      if (!optionsElm.length)
+    function highlightOption(options, isIncreased) {
+      if (!options.length)
         return;
       if (isIncreased) {
-        currentFocus++;
+        $invalidate(12, currentFocus++, currentFocus);
       } else {
-        currentFocus--;
+        $invalidate(12, currentFocus--, currentFocus);
       }
       if (currentFocus < 0)
-        currentFocus = optionsElm.length - 1;
-      if (currentFocus > optionsElm.length - 1)
-        currentFocus = 0;
-      removeActive(optionsElm);
-      if (optionsElm[currentFocus] && optionsElm[currentFocus].style.display === "none") {
-        highlightOption(optionsElm, isIncreased);
+        $invalidate(12, currentFocus = options.length - 1);
+      if (currentFocus > options.length - 1)
+        $invalidate(12, currentFocus = 0);
+      removeActive(options);
+      if (options[currentFocus] && options[currentFocus].style.display === "none") {
+        highlightOption(options, isIncreased);
       }
       ;
-      if (optionsElm[currentFocus]) {
-        optionsElm[currentFocus].classList.add("active");
-        optionsElm[currentFocus].scrollIntoView({ block: "nearest" });
+      if (options[currentFocus]) {
+        options[currentFocus].classList.add("active");
+        options[currentFocus].scrollIntoView({ block: "nearest" });
       }
     }
-    function handleKey(e) {
-      if (e.key === "Enter" && !isShowOptions) {
-        $invalidate(11, isShowOptions = true);
-        return;
+    function removeActive(options) {
+      if (!options.length) {
+        options = document.querySelectorAll(".option." + randStr);
       }
+      ;
+      options.forEach((option) => option.classList.remove("active"));
+    }
+    function handleKey(e) {
       const options = document.querySelectorAll(".option." + randStr);
-      if (e.key === "ArrowDown") {
-        highlightOption(options, true);
-      } else if (e.key === "ArrowUp") {
-        highlightOption(options, false);
-      } else if (e.key === "Enter") {
-        if (currentFocus > -1) {
-          options[currentFocus].click();
-        }
-      } else if (e.key === "Backspace") {
-        filterOptions(options);
-      } else {
-        filterOptions(options);
+      switch (e.key) {
+        case "ArrowDown":
+          highlightOption(options, true);
+          break;
+        case "ArrowUp":
+          highlightOption(options, false);
+          break;
+        case "Enter":
+          if (currentFocus > -1) {
+            options[currentFocus].click();
+            removeActive(options);
+          }
+          break;
+        default:
+          filterOptions(options);
+          break;
       }
     }
     let optionClicked = false;
@@ -28414,14 +28418,17 @@ uniform ${i3} ${a3} u_${s3};
     }
     const focus_handler = () => $invalidate(11, isShowOptions = true);
     const blur_handler = () => {
+      $invalidate(12, currentFocus = -1);
+      const options = document.querySelectorAll(".option ." + randStr);
+      removeActive(options);
+      $invalidate(10, valueToShowFromObj = values[value]);
       if (optionClicked) {
         $invalidate(11, isShowOptions = false);
       } else {
         setTimeout(
           () => {
             $invalidate(11, isShowOptions = false);
-            $invalidate(12, optionClicked = false);
-            $invalidate(10, valueToShowFromObj = values[value]);
+            $invalidate(13, optionClicked = false);
           },
           200
         );
@@ -28431,7 +28438,7 @@ uniform ${i3} ${a3} u_${s3};
       $invalidate(1, value = k);
       $invalidate(10, valueToShowFromObj = v);
       $invalidate(11, isShowOptions = false);
-      $invalidate(12, optionClicked = true);
+      $invalidate(13, optionClicked = true);
     };
     function input_input_handler_1() {
       valueToShowFromObj = this.value;
@@ -28439,14 +28446,16 @@ uniform ${i3} ${a3} u_${s3};
     }
     const focus_handler_1 = () => $invalidate(11, isShowOptions = true);
     const blur_handler_1 = () => {
+      $invalidate(12, currentFocus = -1);
+      removeActive();
+      $invalidate(10, valueToShowFromObj = value);
       if (optionClicked) {
         $invalidate(11, isShowOptions = false);
       } else {
         setTimeout(
           () => {
             $invalidate(11, isShowOptions = false);
-            $invalidate(12, optionClicked = false);
-            $invalidate(10, valueToShowFromObj = value);
+            $invalidate(13, optionClicked = false);
           },
           200
         );
@@ -28538,9 +28547,11 @@ uniform ${i3} ${a3} u_${s3};
       inputElm,
       valueToShowFromObj,
       isShowOptions,
+      currentFocus,
       optionClicked,
       randStr,
       toggleShowPassword,
+      removeActive,
       handleKey,
       input_change_handler,
       input_input_handler,
@@ -33643,13 +33654,13 @@ uniform ${i3} ${a3} u_${s3};
     let updating_isSubmitted;
     let current;
     function popupinviteuser_email_binding(value) {
-      ctx[14](value);
-    }
-    function popupinviteuser_role_binding(value) {
       ctx[15](value);
     }
-    function popupinviteuser_isSubmitted_binding(value) {
+    function popupinviteuser_role_binding(value) {
       ctx[16](value);
+    }
+    function popupinviteuser_isSubmitted_binding(value) {
+      ctx[17](value);
     }
     let popupinviteuser_props = { onSubmit: (
       /*submitInviteUser*/
@@ -33677,7 +33688,7 @@ uniform ${i3} ${a3} u_${s3};
       ctx[7];
     }
     popupinviteuser = new PopUpInviteUser_default({ props: popupinviteuser_props });
-    ctx[13](popupinviteuser);
+    ctx[14](popupinviteuser);
     binding_callbacks.push(() => bind(popupinviteuser, "email", popupinviteuser_email_binding));
     binding_callbacks.push(() => bind(popupinviteuser, "role", popupinviteuser_role_binding));
     binding_callbacks.push(() => bind(popupinviteuser, "isSubmitted", popupinviteuser_isSubmitted_binding));
@@ -33725,7 +33736,7 @@ uniform ${i3} ${a3} u_${s3};
         current = false;
       },
       d(detaching) {
-        ctx[13](null);
+        ctx[14](null);
         destroy_component(popupinviteuser, detaching);
       }
     };
@@ -33759,7 +33770,7 @@ uniform ${i3} ${a3} u_${s3};
             button,
             "click",
             /*click_handler*/
-            ctx[17]
+            ctx[18]
           );
           mounted = true;
         }
@@ -33832,16 +33843,20 @@ uniform ${i3} ${a3} u_${s3};
     let updating_MASTER_ROWS;
     let current;
     function mastertable_FIELDS_binding(value) {
-      ctx[18](value);
-    }
-    function mastertable_PAGER_binding(value) {
       ctx[19](value);
     }
-    function mastertable_MASTER_ROWS_binding(value) {
+    function mastertable_PAGER_binding(value) {
       ctx[20](value);
+    }
+    function mastertable_MASTER_ROWS_binding(value) {
+      ctx[21](value);
     }
     let mastertable_props = {
       ACCESS: segments2,
+      REFS: { "role": (
+        /*roles*/
+        ctx[13]
+      ) },
       CAN_EDIT_ROW: true,
       CAN_SEARCH_ROW: true,
       CAN_DELETE_ROW: true,
@@ -33903,7 +33918,7 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         const mastertable_changes = {};
         if (dirty & /*$scope, popUpInviteUser*/
-        2097160) {
+        4194312) {
           mastertable_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_FIELDS && dirty & /*fields*/
@@ -34001,7 +34016,7 @@ uniform ${i3} ${a3} u_${s3};
         }
         const mainlayout_changes = {};
         if (dirty & /*$scope, fields, pager, staffs, popUpInviteUser*/
-        2097167) {
+        4194319) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -34182,6 +34197,11 @@ uniform ${i3} ${a3} u_${s3};
         }
       );
     }
+    const roles = {
+      "user": "User",
+      "dataEntry": "Data Entry",
+      "reportViewer": "Report Viewer"
+    };
     function popupinviteuser_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpInviteUser = $value;
@@ -34227,6 +34247,7 @@ uniform ${i3} ${a3} u_${s3};
       OnDelete,
       submitInviteUser,
       OnEdit,
+      roles,
       popupinviteuser_binding,
       popupinviteuser_email_binding,
       popupinviteuser_role_binding,

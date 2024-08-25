@@ -20,7 +20,7 @@
   let isShowPassword = false;
   let inputElm;
 
-  let valueToShowFromObj = /** @type {string|number} */ ('');
+  let valueToShowFromObj = /** @type {string|number} */ (value+'');
 
   const randStr = generateRandomString(5);
   
@@ -28,7 +28,7 @@
     if (type === 'password') inputElm.type = type;
     // Boolean input must be use random id, because it's a checkbox
     if (type === 'bool') id = id + Math.random();
-    if (isObject) {
+    if (isObject || typeof values == 'object') {
       valueToShowFromObj = values[value];
     } else {
       valueToShowFromObj = value;
@@ -63,8 +63,8 @@
     }
   }
 
-  function highlightOption(optionsElm, isIncreased) {
-    if (!optionsElm.length) return;
+  function highlightOption(options, isIncreased) {
+    if (!options.length) return;
 
     if (isIncreased) {
       currentFocus++;
@@ -72,44 +72,47 @@
       currentFocus--;
     }
 
-    if (currentFocus < 0) currentFocus = optionsElm.length - 1;
-    if (currentFocus > optionsElm.length - 1) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = options.length - 1;
+    if (currentFocus > options.length - 1) currentFocus = 0;
 
-    removeActive(optionsElm);
+    removeActive(options);
 
-    if(optionsElm[currentFocus] && optionsElm[currentFocus].style.display === 'none') {
-      highlightOption(optionsElm, isIncreased);
+    if(options[currentFocus] && options[currentFocus].style.display === 'none') {
+      highlightOption(options, isIncreased);
     };
 
-    if (optionsElm[currentFocus]) {
-      optionsElm[currentFocus].classList.add('active');
-      optionsElm[currentFocus].scrollIntoView({block: 'nearest'});
+    if (options[currentFocus]) {
+      options[currentFocus].classList.add('active');
+      options[currentFocus].scrollIntoView({block: 'nearest'});
     }
   }
 
   function removeActive(options) {
+    if (!options.length) {
+      options = document.querySelectorAll('.option.'+randStr);
+    };
     options.forEach(option => option.classList.remove('active'));
   }
 
   function handleKey(/** @type {KeyboardEvent} */e) {
-    if (e.key === 'Enter' && !isShowOptions) {
-      isShowOptions = true;
-      return;
-    }
     const options = document.querySelectorAll('.option.'+randStr);
 
-    if (e.key === 'ArrowDown') {
-      highlightOption(options, true);
-    } else if (e.key === 'ArrowUp') {
-      highlightOption(options, false);
-    } else if (e.key === 'Enter') {
-      if (currentFocus > -1) { // @ts-ignore
-        options[currentFocus].click();
-      }
-    } else if (e.key === 'Backspace') {
-      filterOptions(options);
-    } else {
-      filterOptions(options);
+    switch (e.key) {
+      case 'ArrowDown':
+        highlightOption(options, true);
+        break;
+      case 'ArrowUp':
+        highlightOption(options, false);
+        break;
+      case 'Enter':
+        if (currentFocus > -1) { // @ts-ignore
+          options[currentFocus].click();
+          removeActive(options);
+        }
+        break;
+      default:
+        filterOptions(options);
+        break;
     }
   }
 
@@ -132,18 +135,21 @@
             type="text"
             bind:value={valueToShowFromObj}
             on:focus={() => isShowOptions = true}
-            on:blur={() => {
+            on:blur|preventDefault={() => {
+              currentFocus = -1;
+              const options = document.querySelectorAll('.option .'+randStr);
+              removeActive(options);
+              valueToShowFromObj = values[value];
               if (optionClicked) {
                 isShowOptions = false;
               } else {
                 setTimeout(() => {
                   isShowOptions = false;
                   optionClicked = false;
-                  valueToShowFromObj = values[value];
                 }, 200);
               }
             }}
-            on:keyup={handleKey}
+            on:keyup|preventDefault|stopPropagation|nonpassive={handleKey}
           />
           <div class="options_list {isShowOptions ? 'show' : 'hidden'}">
             {#each Object.entries(values) as [k, v]}
@@ -166,17 +172,19 @@
             bind:value={valueToShowFromObj}
             on:focus={() => isShowOptions = true}
             on:blur={() => {
+              currentFocus = -1;
+              removeActive();
+              valueToShowFromObj = value;
               if (optionClicked) {
                 isShowOptions = false;
               } else {
                 setTimeout(() => {
                   isShowOptions = false;
                   optionClicked = false;
-                  valueToShowFromObj = value;
                 }, 200);
               }
             }}
-            on:keyup={handleKey}
+            on:keyup|preventDefault|stopPropagation={handleKey}
           />
           <div class="options_list {isShowOptions ? 'show' : 'hidden'}">
             {#each values as v}
