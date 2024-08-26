@@ -2,8 +2,7 @@
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
-  import InputBox from "./InputBox.svelte";
-	import InputCustom from "./InputCustom.svelte";
+  import InputBox from './InputBox.svelte';
 
   export let onSubmit = () => {}
   export let isSubmitted = false;
@@ -79,7 +78,7 @@
 					placeholder="unit"
 				/>
 			{/if}
-			<InputCustom
+			<InputBox
         id="description"
         label="Deskripsi / Description"
         bind:value={description}

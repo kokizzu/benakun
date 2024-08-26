@@ -24,7 +24,7 @@
   import { RiSystemDeleteBin6Line } from '../../node_modules/svelte-icons-pack/dist/ri';
   import { DataEntryTransactionEntry } from '../../jsApi.GEN';
   import { notifier } from '../../_components/notifier';
-  import InputCustom from '../../_components/InputCustom.svelte';
+  import InputBox from '../../_components/InputBox.svelte';
   import { onMount } from 'svelte';
 
   let transactionTemplate   = /** @type TransactionTemplate */ ({/* transactiontemplate */});
@@ -152,14 +152,14 @@
     <div class="data_entry_journal___container">
       <div class="forms_journal">
         <div class="form_date">
-          <InputCustom
+          <InputBox
             type="date"
             className="input_custom"
             id="startDate"
             label="Start Date"
             bind:value={startDate}
           />
-          <InputCustom
+          <InputBox
             id="endDate"
             label="End Date"
             bind:value={endDate}

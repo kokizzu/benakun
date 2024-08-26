@@ -705,7 +705,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   overflow: inherit;
 }
 
-/* fakecss:./_components/InputCustom.esbuild-svelte-fake-css */
+/* fakecss:./_components/InputBox.esbuild-svelte-fake-css */
 .show.svelte-30kpl9.svelte-30kpl9.svelte-30kpl9 {
   display: block;
 }
@@ -26756,7 +26756,7 @@ uniform ${i3} ${a3} u_${s3};
     return result;
   }
 
-  // _components/InputCustom.svelte
+  // _components/InputBox.svelte
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[42] = list[i];
@@ -29159,7 +29159,7 @@ uniform ${i3} ${a3} u_${s3};
             $invalidate(11, isShowOptions = false);
             $invalidate(13, optionClicked = false);
           },
-          200
+          100
         );
       }
     };
@@ -29186,7 +29186,7 @@ uniform ${i3} ${a3} u_${s3};
             $invalidate(11, isShowOptions = false);
             $invalidate(13, optionClicked = false);
           },
-          200
+          100
         );
       }
     };
@@ -29305,7 +29305,7 @@ uniform ${i3} ${a3} u_${s3};
       input_input_handler_11
     ];
   }
-  var InputCustom = class extends SvelteComponent {
+  var InputBox = class extends SvelteComponent {
     constructor(options) {
       super();
       init(
@@ -29329,7 +29329,7 @@ uniform ${i3} ${a3} u_${s3};
       );
     }
   };
-  var InputCustom_default = InputCustom;
+  var InputBox_default = InputBox;
 
   // _components/FilterTable.svelte
   function get_each_context2(ctx, list, i) {
@@ -30342,17 +30342,17 @@ uniform ${i3} ${a3} u_${s3};
     };
   }
   function create_else_block_5(ctx) {
-    let inputcustom;
+    let inputbox;
     let updating_value;
     let current;
-    function inputcustom_value_binding_1(value) {
+    function inputbox_value_binding_1(value) {
       ctx[54](
         value,
         /*idx*/
         ctx[86]
       );
     }
-    let inputcustom_props = {
+    let inputbox_props = {
       id: (
         /*field*/
         ctx[92].name
@@ -30377,80 +30377,80 @@ uniform ${i3} ${a3} u_${s3};
         ctx[86]
       ] !== void 0
     ) {
-      inputcustom_props.value = /*payloads*/
+      inputbox_props.value = /*payloads*/
       ctx[27][
         /*idx*/
         ctx[86]
       ];
     }
-    inputcustom = new InputCustom_default({ props: inputcustom_props });
-    binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding_1));
+    inputbox = new InputBox_default({ props: inputbox_props });
+    binding_callbacks.push(() => bind(inputbox, "value", inputbox_value_binding_1));
     return {
       c() {
-        create_component(inputcustom.$.fragment);
+        create_component(inputbox.$.fragment);
       },
       m(target, anchor) {
-        mount_component(inputcustom, target, anchor);
+        mount_component(inputbox, target, anchor);
         current = true;
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
-        const inputcustom_changes = {};
+        const inputbox_changes = {};
         if (dirty[0] & /*FIELDS*/
         1)
-          inputcustom_changes.id = /*field*/
+          inputbox_changes.id = /*field*/
           ctx[92].name;
         if (dirty[0] & /*FIELDS*/
         1)
-          inputcustom_changes.label = /*field*/
+          inputbox_changes.label = /*field*/
           ctx[92].label;
         if (dirty[0] & /*FIELDS*/
         1)
-          inputcustom_changes.placeholder = /*field*/
+          inputbox_changes.placeholder = /*field*/
           ctx[92].description;
         if (dirty[0] & /*FIELDS*/
         1)
-          inputcustom_changes.type = /*field*/
+          inputbox_changes.type = /*field*/
           ctx[92].inputType;
         if (!updating_value && dirty[0] & /*payloads*/
         134217728) {
           updating_value = true;
-          inputcustom_changes.value = /*payloads*/
+          inputbox_changes.value = /*payloads*/
           ctx[27][
             /*idx*/
             ctx[86]
           ];
           add_flush_callback(() => updating_value = false);
         }
-        inputcustom.$set(inputcustom_changes);
+        inputbox.$set(inputbox_changes);
       },
       i(local) {
         if (current)
           return;
-        transition_in(inputcustom.$.fragment, local);
+        transition_in(inputbox.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(inputcustom.$.fragment, local);
+        transition_out(inputbox.$.fragment, local);
         current = false;
       },
       d(detaching) {
-        destroy_component(inputcustom, detaching);
+        destroy_component(inputbox, detaching);
       }
     };
   }
   function create_if_block_20(ctx) {
-    let inputcustom;
+    let inputbox;
     let updating_value;
     let current;
-    function inputcustom_value_binding(value) {
+    function inputbox_value_binding(value) {
       ctx[53](
         value,
         /*idx*/
         ctx[86]
       );
     }
-    let inputcustom_props = {
+    let inputbox_props = {
       id: (
         /*field*/
         ctx[92].name
@@ -30500,44 +30500,44 @@ uniform ${i3} ${a3} u_${s3};
         ctx[86]
       ] !== void 0
     ) {
-      inputcustom_props.value = /*payloads*/
+      inputbox_props.value = /*payloads*/
       ctx[27][
         /*idx*/
         ctx[86]
       ];
     }
-    inputcustom = new InputCustom_default({ props: inputcustom_props });
-    binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding));
+    inputbox = new InputBox_default({ props: inputbox_props });
+    binding_callbacks.push(() => bind(inputbox, "value", inputbox_value_binding));
     return {
       c() {
-        create_component(inputcustom.$.fragment);
+        create_component(inputbox.$.fragment);
       },
       m(target, anchor) {
-        mount_component(inputcustom, target, anchor);
+        mount_component(inputbox, target, anchor);
         current = true;
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
-        const inputcustom_changes = {};
+        const inputbox_changes = {};
         if (dirty[0] & /*FIELDS*/
         1)
-          inputcustom_changes.id = /*field*/
+          inputbox_changes.id = /*field*/
           ctx[92].name;
         if (dirty[0] & /*FIELDS*/
         1)
-          inputcustom_changes.label = /*field*/
+          inputbox_changes.label = /*field*/
           ctx[92].label;
         if (dirty[0] & /*FIELDS*/
         1)
-          inputcustom_changes.placeholder = /*field*/
+          inputbox_changes.placeholder = /*field*/
           ctx[92].description;
         if (dirty[0] & /*FIELDS*/
         1)
-          inputcustom_changes.type = /*field*/
+          inputbox_changes.type = /*field*/
           ctx[92].inputType;
         if (dirty[0] & /*REFS, FIELDS*/
         5)
-          inputcustom_changes.values = /*REFS*/
+          inputbox_changes.values = /*REFS*/
           ctx[2] && /*REFS*/
           ctx[2][
             /*field*/
@@ -30554,7 +30554,7 @@ uniform ${i3} ${a3} u_${s3};
           );
         if (dirty[0] & /*REFS, FIELDS*/
         5)
-          inputcustom_changes.isObject = /*REFS*/
+          inputbox_changes.isObject = /*REFS*/
           ctx[2] && /*REFS*/
           ctx[2][
             /*field*/
@@ -30563,27 +30563,27 @@ uniform ${i3} ${a3} u_${s3};
         if (!updating_value && dirty[0] & /*payloads*/
         134217728) {
           updating_value = true;
-          inputcustom_changes.value = /*payloads*/
+          inputbox_changes.value = /*payloads*/
           ctx[27][
             /*idx*/
             ctx[86]
           ];
           add_flush_callback(() => updating_value = false);
         }
-        inputcustom.$set(inputcustom_changes);
+        inputbox.$set(inputbox_changes);
       },
       i(local) {
         if (current)
           return;
-        transition_in(inputcustom.$.fragment, local);
+        transition_in(inputbox.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(inputcustom.$.fragment, local);
+        transition_out(inputbox.$.fragment, local);
         current = false;
       },
       d(detaching) {
-        destroy_component(inputcustom, detaching);
+        destroy_component(inputbox, detaching);
       }
     };
   }
@@ -33357,13 +33357,13 @@ uniform ${i3} ${a3} u_${s3};
       $invalidate(16, filtersMap);
     }
     const click_handler = () => $invalidate(18, showPopUp = false);
-    function inputcustom_value_binding(value, idx) {
+    function inputbox_value_binding(value, idx) {
       if ($self.$.not_equal(payloads[idx], value)) {
         payloads[idx] = value;
         $invalidate(27, payloads);
       }
     }
-    function inputcustom_value_binding_1(value, idx) {
+    function inputbox_value_binding_1(value, idx) {
       if ($self.$.not_equal(payloads[idx], value)) {
         payloads[idx] = value;
         $invalidate(27, payloads);
@@ -33495,8 +33495,8 @@ uniform ${i3} ${a3} u_${s3};
       filtertable_filterColumns_binding,
       filtertable_filtersMap_binding,
       click_handler,
-      inputcustom_value_binding,
-      inputcustom_value_binding_1,
+      inputbox_value_binding,
+      inputbox_value_binding_1,
       map_binding,
       map_Coord_binding,
       click_handler_1,
@@ -33642,13 +33642,13 @@ uniform ${i3} ${a3} u_${s3};
     };
   }
   function create_if_block_34(ctx) {
-    let inputcustom;
+    let inputbox;
     let updating_value;
     let current;
-    function inputcustom_value_binding(value) {
+    function inputbox_value_binding(value) {
       ctx[20](value);
     }
-    let inputcustom_props = {
+    let inputbox_props = {
       id: "tenantAdmin",
       label: "Tenant Admin",
       type: "combobox",
@@ -33661,46 +33661,46 @@ uniform ${i3} ${a3} u_${s3};
       /*tenantAdmin*/
       ctx[8] !== void 0
     ) {
-      inputcustom_props.value = /*tenantAdmin*/
+      inputbox_props.value = /*tenantAdmin*/
       ctx[8];
     }
-    inputcustom = new InputCustom_default({ props: inputcustom_props });
-    binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding));
+    inputbox = new InputBox_default({ props: inputbox_props });
+    binding_callbacks.push(() => bind(inputbox, "value", inputbox_value_binding));
     return {
       c() {
-        create_component(inputcustom.$.fragment);
+        create_component(inputbox.$.fragment);
       },
       m(target, anchor) {
-        mount_component(inputcustom, target, anchor);
+        mount_component(inputbox, target, anchor);
         current = true;
       },
       p(ctx2, dirty) {
-        const inputcustom_changes = {};
+        const inputbox_changes = {};
         if (dirty & /*tenants*/
         1024)
-          inputcustom_changes.values = /*tenants*/
+          inputbox_changes.values = /*tenants*/
           ctx2[10];
         if (!updating_value && dirty & /*tenantAdmin*/
         256) {
           updating_value = true;
-          inputcustom_changes.value = /*tenantAdmin*/
+          inputbox_changes.value = /*tenantAdmin*/
           ctx2[8];
           add_flush_callback(() => updating_value = false);
         }
-        inputcustom.$set(inputcustom_changes);
+        inputbox.$set(inputbox_changes);
       },
       i(local) {
         if (current)
           return;
-        transition_in(inputcustom.$.fragment, local);
+        transition_in(inputbox.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(inputcustom.$.fragment, local);
+        transition_out(inputbox.$.fragment, local);
         current = false;
       },
       d(detaching) {
-        destroy_component(inputcustom, detaching);
+        destroy_component(inputbox, detaching);
       }
     };
   }
@@ -33766,13 +33766,13 @@ uniform ${i3} ${a3} u_${s3};
     let icon;
     let t2;
     let div0;
-    let inputcustom0;
+    let inputbox0;
     let updating_value;
     let t3;
-    let inputcustom1;
+    let inputbox1;
     let updating_value_1;
     let t4;
-    let inputcustom2;
+    let inputbox2;
     let updating_value_2;
     let t5;
     let t6;
@@ -33795,10 +33795,10 @@ uniform ${i3} ${a3} u_${s3};
         src: IoClose
       }
     });
-    function inputcustom0_value_binding(value) {
+    function inputbox0_value_binding(value) {
       ctx[17](value);
     }
-    let inputcustom0_props = {
+    let inputbox0_props = {
       id: "email",
       label: "Surel / Email",
       placeholder: "email@example.com",
@@ -33808,15 +33808,15 @@ uniform ${i3} ${a3} u_${s3};
       /*email*/
       ctx[6] !== void 0
     ) {
-      inputcustom0_props.value = /*email*/
+      inputbox0_props.value = /*email*/
       ctx[6];
     }
-    inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
-    binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
-    function inputcustom1_value_binding(value) {
+    inputbox0 = new InputBox_default({ props: inputbox0_props });
+    binding_callbacks.push(() => bind(inputbox0, "value", inputbox0_value_binding));
+    function inputbox1_value_binding(value) {
       ctx[18](value);
     }
-    let inputcustom1_props = {
+    let inputbox1_props = {
       id: "fullName",
       label: "Nama Lengkap / Full Name",
       placeholder: "John Doe",
@@ -33826,15 +33826,15 @@ uniform ${i3} ${a3} u_${s3};
       /*fullName*/
       ctx[7] !== void 0
     ) {
-      inputcustom1_props.value = /*fullName*/
+      inputbox1_props.value = /*fullName*/
       ctx[7];
     }
-    inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
-    binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
-    function inputcustom2_value_binding(value) {
+    inputbox1 = new InputBox_default({ props: inputbox1_props });
+    binding_callbacks.push(() => bind(inputbox1, "value", inputbox1_value_binding));
+    function inputbox2_value_binding(value) {
       ctx[19](value);
     }
-    let inputcustom2_props = {
+    let inputbox2_props = {
       id: "role",
       label: "Peran / Role",
       type: "combobox",
@@ -33848,11 +33848,11 @@ uniform ${i3} ${a3} u_${s3};
       /*role*/
       ctx[3] !== void 0
     ) {
-      inputcustom2_props.value = /*role*/
+      inputbox2_props.value = /*role*/
       ctx[3];
     }
-    inputcustom2 = new InputCustom_default({ props: inputcustom2_props });
-    binding_callbacks.push(() => bind(inputcustom2, "value", inputcustom2_value_binding));
+    inputbox2 = new InputBox_default({ props: inputbox2_props });
+    binding_callbacks.push(() => bind(inputbox2, "value", inputbox2_value_binding));
     let if_block0 = (
       /*isRequireTenantAdmin*/
       ctx[9] && create_if_block_24(ctx)
@@ -33878,11 +33878,11 @@ uniform ${i3} ${a3} u_${s3};
         create_component(icon.$.fragment);
         t2 = space();
         div0 = element("div");
-        create_component(inputcustom0.$.fragment);
+        create_component(inputbox0.$.fragment);
         t3 = space();
-        create_component(inputcustom1.$.fragment);
+        create_component(inputbox1.$.fragment);
         t4 = space();
-        create_component(inputcustom2.$.fragment);
+        create_component(inputbox2.$.fragment);
         t5 = space();
         if (if_block0)
           if_block0.c();
@@ -33927,11 +33927,11 @@ uniform ${i3} ${a3} u_${s3};
         mount_component(icon, button0, null);
         append(div4, t2);
         append(div4, div0);
-        mount_component(inputcustom0, div0, null);
+        mount_component(inputbox0, div0, null);
         append(div0, t3);
-        mount_component(inputcustom1, div0, null);
+        mount_component(inputbox1, div0, null);
         append(div0, t4);
-        mount_component(inputcustom2, div0, null);
+        mount_component(inputbox2, div0, null);
         append(div0, t5);
         if (if_block0)
           if_block0.m(div0, null);
@@ -33977,33 +33977,33 @@ uniform ${i3} ${a3} u_${s3};
             /*heading*/
             ctx2[0]
           );
-        const inputcustom0_changes = {};
+        const inputbox0_changes = {};
         if (!updating_value && dirty & /*email*/
         64) {
           updating_value = true;
-          inputcustom0_changes.value = /*email*/
+          inputbox0_changes.value = /*email*/
           ctx2[6];
           add_flush_callback(() => updating_value = false);
         }
-        inputcustom0.$set(inputcustom0_changes);
-        const inputcustom1_changes = {};
+        inputbox0.$set(inputbox0_changes);
+        const inputbox1_changes = {};
         if (!updating_value_1 && dirty & /*fullName*/
         128) {
           updating_value_1 = true;
-          inputcustom1_changes.value = /*fullName*/
+          inputbox1_changes.value = /*fullName*/
           ctx2[7];
           add_flush_callback(() => updating_value_1 = false);
         }
-        inputcustom1.$set(inputcustom1_changes);
-        const inputcustom2_changes = {};
+        inputbox1.$set(inputbox1_changes);
+        const inputbox2_changes = {};
         if (!updating_value_2 && dirty & /*role*/
         8) {
           updating_value_2 = true;
-          inputcustom2_changes.value = /*role*/
+          inputbox2_changes.value = /*role*/
           ctx2[3];
           add_flush_callback(() => updating_value_2 = false);
         }
-        inputcustom2.$set(inputcustom2_changes);
+        inputbox2.$set(inputbox2_changes);
         if (
           /*isRequireTenantAdmin*/
           ctx2[9]
@@ -34076,18 +34076,18 @@ uniform ${i3} ${a3} u_${s3};
         if (current)
           return;
         transition_in(icon.$.fragment, local);
-        transition_in(inputcustom0.$.fragment, local);
-        transition_in(inputcustom1.$.fragment, local);
-        transition_in(inputcustom2.$.fragment, local);
+        transition_in(inputbox0.$.fragment, local);
+        transition_in(inputbox1.$.fragment, local);
+        transition_in(inputbox2.$.fragment, local);
         transition_in(if_block0);
         transition_in(if_block2);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
-        transition_out(inputcustom0.$.fragment, local);
-        transition_out(inputcustom1.$.fragment, local);
-        transition_out(inputcustom2.$.fragment, local);
+        transition_out(inputbox0.$.fragment, local);
+        transition_out(inputbox1.$.fragment, local);
+        transition_out(inputbox2.$.fragment, local);
         transition_out(if_block0);
         transition_out(if_block2);
         current = false;
@@ -34097,9 +34097,9 @@ uniform ${i3} ${a3} u_${s3};
           detach(div5);
         }
         destroy_component(icon);
-        destroy_component(inputcustom0);
-        destroy_component(inputcustom1);
-        destroy_component(inputcustom2);
+        destroy_component(inputbox0);
+        destroy_component(inputbox1);
+        destroy_component(inputbox2);
         if (if_block0)
           if_block0.d();
         if (if_block1)
@@ -34181,19 +34181,19 @@ uniform ${i3} ${a3} u_${s3};
       };
       OnSubmit(payload);
     }
-    function inputcustom0_value_binding(value) {
+    function inputbox0_value_binding(value) {
       email = value;
       $invalidate(6, email);
     }
-    function inputcustom1_value_binding(value) {
+    function inputbox1_value_binding(value) {
       fullName = value;
       $invalidate(7, fullName);
     }
-    function inputcustom2_value_binding(value) {
+    function inputbox2_value_binding(value) {
       role = value;
       $invalidate(3, role);
     }
-    function inputcustom_value_binding(value) {
+    function inputbox_value_binding(value) {
       tenantAdmin = value;
       $invalidate(8, tenantAdmin);
     }
@@ -34237,10 +34237,10 @@ uniform ${i3} ${a3} u_${s3};
       OnSubmit,
       Show,
       Reset,
-      inputcustom0_value_binding,
-      inputcustom1_value_binding,
-      inputcustom2_value_binding,
-      inputcustom_value_binding
+      inputbox0_value_binding,
+      inputbox1_value_binding,
+      inputbox2_value_binding,
+      inputbox_value_binding
     ];
   }
   var PopUpAddUser = class extends SvelteComponent {

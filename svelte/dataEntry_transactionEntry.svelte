@@ -1,6 +1,6 @@
 <script>
   import MainLayout from './_layouts/mainLayout.svelte';
-  import InputCustom from './_components/InputCustom.svelte';
+  import InputBox from './_components/InputBox.svelte';
 
   let coa = '';
 </script>
@@ -14,7 +14,7 @@
     Tapi, terbatas hanya ke jenis coa yg ada di transaction template detail
   </p>
   <div>
-    <InputCustom
+    <InputBox
       id="coa"
       label="CoA (Chart of Account)"
       type="text"

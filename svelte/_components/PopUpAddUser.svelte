@@ -2,7 +2,7 @@
 	import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
-  import InputCustom from './InputCustom.svelte';
+  import InputBox from './InputBox.svelte';
   import { SuperAdminTenantManagement } from '../jsApi.GEN';
   import { notifier } from './notifier';
 
@@ -107,21 +107,21 @@
       </button>
     </header>
     <div class="forms">
-      <InputCustom
+      <InputBox
         id="email"
         label="Surel / Email"
         placeholder="email@example.com"
         bind:value={email}
         type="email"
       />
-      <InputCustom
+      <InputBox
         id="fullName"
         label="Nama Lengkap / Full Name"
         placeholder="John Doe"
         bind:value={fullName}
         type="text"
       />
-      <InputCustom
+      <InputBox
         id="role"
         label="Peran / Role"
         bind:value={role}
@@ -131,7 +131,7 @@
       />
       {#if isRequireTenantAdmin}
         {#if isTenantsReady}
-          <InputCustom
+          <InputBox
             id="tenantAdmin"
             label="Tenant Admin"
             bind:value={tenantAdmin}

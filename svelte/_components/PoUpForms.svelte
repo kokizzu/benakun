@@ -3,7 +3,7 @@
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
   import { onMount } from 'svelte';
-  import InputCustom from './InputCustom.svelte';
+  import InputBox from './InputBox.svelte';
   import Map from './Map.svelte';
 
   // @ts-ignore
@@ -73,7 +73,7 @@
       {#each (FIELDS || []) as field, idx}
         {#if field.name !== 'id'}
           {#if !field.readOnly}
-            <InputCustom
+            <InputBox
               id={field.name}
               label={field.label}
               placeholder={field.description}

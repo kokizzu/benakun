@@ -3,7 +3,6 @@
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
   import InputBox from './InputBox.svelte';
-	import InputCustom from './InputCustom.svelte';
 
   export let heading = 'Invite user';
 
@@ -39,7 +38,7 @@
     </header>
     <div class="forms">
       <InputBox id="email" label="Nama" bind:value={email} type="email" placeholder="name@example.com" />
-			<InputCustom
+			<InputBox
 				id="role"
 				label="Role"
 				isObject={true}

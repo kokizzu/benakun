@@ -705,7 +705,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   overflow: inherit;
 }
 
-/* fakecss:./_components/InputCustom.esbuild-svelte-fake-css */
+/* fakecss:./_components/InputBox.esbuild-svelte-fake-css */
 .show.svelte-30kpl9.svelte-30kpl9.svelte-30kpl9 {
   display: block;
 }
@@ -26756,7 +26756,7 @@ uniform ${i3} ${a3} u_${s3};
     return result;
   }
 
-  // _components/InputCustom.svelte
+  // _components/InputBox.svelte
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[42] = list[i];
@@ -29159,7 +29159,7 @@ uniform ${i3} ${a3} u_${s3};
             $invalidate(11, isShowOptions = false);
             $invalidate(13, optionClicked = false);
           },
-          200
+          100
         );
       }
     };
@@ -29186,7 +29186,7 @@ uniform ${i3} ${a3} u_${s3};
             $invalidate(11, isShowOptions = false);
             $invalidate(13, optionClicked = false);
           },
-          200
+          100
         );
       }
     };
@@ -29305,7 +29305,7 @@ uniform ${i3} ${a3} u_${s3};
       input_input_handler_11
     ];
   }
-  var InputCustom = class extends SvelteComponent {
+  var InputBox = class extends SvelteComponent {
     constructor(options) {
       super();
       init(
@@ -29329,7 +29329,7 @@ uniform ${i3} ${a3} u_${s3};
       );
     }
   };
-  var InputCustom_default = InputCustom;
+  var InputBox_default = InputBox;
 
   // _components/FilterTable.svelte
   function get_each_context2(ctx, list, i) {
@@ -30342,17 +30342,17 @@ uniform ${i3} ${a3} u_${s3};
     };
   }
   function create_else_block_5(ctx) {
-    let inputcustom;
+    let inputbox;
     let updating_value;
     let current;
-    function inputcustom_value_binding_1(value) {
+    function inputbox_value_binding_1(value) {
       ctx[54](
         value,
         /*idx*/
         ctx[86]
       );
     }
-    let inputcustom_props = {
+    let inputbox_props = {
       id: (
         /*field*/
         ctx[92].name
@@ -30377,80 +30377,80 @@ uniform ${i3} ${a3} u_${s3};
         ctx[86]
       ] !== void 0
     ) {
-      inputcustom_props.value = /*payloads*/
+      inputbox_props.value = /*payloads*/
       ctx[27][
         /*idx*/
         ctx[86]
       ];
     }
-    inputcustom = new InputCustom_default({ props: inputcustom_props });
-    binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding_1));
+    inputbox = new InputBox_default({ props: inputbox_props });
+    binding_callbacks.push(() => bind(inputbox, "value", inputbox_value_binding_1));
     return {
       c() {
-        create_component(inputcustom.$.fragment);
+        create_component(inputbox.$.fragment);
       },
       m(target, anchor) {
-        mount_component(inputcustom, target, anchor);
+        mount_component(inputbox, target, anchor);
         current = true;
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
-        const inputcustom_changes = {};
+        const inputbox_changes = {};
         if (dirty[0] & /*FIELDS*/
         1)
-          inputcustom_changes.id = /*field*/
+          inputbox_changes.id = /*field*/
           ctx[92].name;
         if (dirty[0] & /*FIELDS*/
         1)
-          inputcustom_changes.label = /*field*/
+          inputbox_changes.label = /*field*/
           ctx[92].label;
         if (dirty[0] & /*FIELDS*/
         1)
-          inputcustom_changes.placeholder = /*field*/
+          inputbox_changes.placeholder = /*field*/
           ctx[92].description;
         if (dirty[0] & /*FIELDS*/
         1)
-          inputcustom_changes.type = /*field*/
+          inputbox_changes.type = /*field*/
           ctx[92].inputType;
         if (!updating_value && dirty[0] & /*payloads*/
         134217728) {
           updating_value = true;
-          inputcustom_changes.value = /*payloads*/
+          inputbox_changes.value = /*payloads*/
           ctx[27][
             /*idx*/
             ctx[86]
           ];
           add_flush_callback(() => updating_value = false);
         }
-        inputcustom.$set(inputcustom_changes);
+        inputbox.$set(inputbox_changes);
       },
       i(local) {
         if (current)
           return;
-        transition_in(inputcustom.$.fragment, local);
+        transition_in(inputbox.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(inputcustom.$.fragment, local);
+        transition_out(inputbox.$.fragment, local);
         current = false;
       },
       d(detaching) {
-        destroy_component(inputcustom, detaching);
+        destroy_component(inputbox, detaching);
       }
     };
   }
   function create_if_block_20(ctx) {
-    let inputcustom;
+    let inputbox;
     let updating_value;
     let current;
-    function inputcustom_value_binding(value) {
+    function inputbox_value_binding(value) {
       ctx[53](
         value,
         /*idx*/
         ctx[86]
       );
     }
-    let inputcustom_props = {
+    let inputbox_props = {
       id: (
         /*field*/
         ctx[92].name
@@ -30500,44 +30500,44 @@ uniform ${i3} ${a3} u_${s3};
         ctx[86]
       ] !== void 0
     ) {
-      inputcustom_props.value = /*payloads*/
+      inputbox_props.value = /*payloads*/
       ctx[27][
         /*idx*/
         ctx[86]
       ];
     }
-    inputcustom = new InputCustom_default({ props: inputcustom_props });
-    binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding));
+    inputbox = new InputBox_default({ props: inputbox_props });
+    binding_callbacks.push(() => bind(inputbox, "value", inputbox_value_binding));
     return {
       c() {
-        create_component(inputcustom.$.fragment);
+        create_component(inputbox.$.fragment);
       },
       m(target, anchor) {
-        mount_component(inputcustom, target, anchor);
+        mount_component(inputbox, target, anchor);
         current = true;
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
-        const inputcustom_changes = {};
+        const inputbox_changes = {};
         if (dirty[0] & /*FIELDS*/
         1)
-          inputcustom_changes.id = /*field*/
+          inputbox_changes.id = /*field*/
           ctx[92].name;
         if (dirty[0] & /*FIELDS*/
         1)
-          inputcustom_changes.label = /*field*/
+          inputbox_changes.label = /*field*/
           ctx[92].label;
         if (dirty[0] & /*FIELDS*/
         1)
-          inputcustom_changes.placeholder = /*field*/
+          inputbox_changes.placeholder = /*field*/
           ctx[92].description;
         if (dirty[0] & /*FIELDS*/
         1)
-          inputcustom_changes.type = /*field*/
+          inputbox_changes.type = /*field*/
           ctx[92].inputType;
         if (dirty[0] & /*REFS, FIELDS*/
         5)
-          inputcustom_changes.values = /*REFS*/
+          inputbox_changes.values = /*REFS*/
           ctx[2] && /*REFS*/
           ctx[2][
             /*field*/
@@ -30554,7 +30554,7 @@ uniform ${i3} ${a3} u_${s3};
           );
         if (dirty[0] & /*REFS, FIELDS*/
         5)
-          inputcustom_changes.isObject = /*REFS*/
+          inputbox_changes.isObject = /*REFS*/
           ctx[2] && /*REFS*/
           ctx[2][
             /*field*/
@@ -30563,27 +30563,27 @@ uniform ${i3} ${a3} u_${s3};
         if (!updating_value && dirty[0] & /*payloads*/
         134217728) {
           updating_value = true;
-          inputcustom_changes.value = /*payloads*/
+          inputbox_changes.value = /*payloads*/
           ctx[27][
             /*idx*/
             ctx[86]
           ];
           add_flush_callback(() => updating_value = false);
         }
-        inputcustom.$set(inputcustom_changes);
+        inputbox.$set(inputbox_changes);
       },
       i(local) {
         if (current)
           return;
-        transition_in(inputcustom.$.fragment, local);
+        transition_in(inputbox.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(inputcustom.$.fragment, local);
+        transition_out(inputbox.$.fragment, local);
         current = false;
       },
       d(detaching) {
-        destroy_component(inputcustom, detaching);
+        destroy_component(inputbox, detaching);
       }
     };
   }
@@ -33357,13 +33357,13 @@ uniform ${i3} ${a3} u_${s3};
       $invalidate(16, filtersMap);
     }
     const click_handler = () => $invalidate(18, showPopUp = false);
-    function inputcustom_value_binding(value, idx) {
+    function inputbox_value_binding(value, idx) {
       if ($self.$.not_equal(payloads[idx], value)) {
         payloads[idx] = value;
         $invalidate(27, payloads);
       }
     }
-    function inputcustom_value_binding_1(value, idx) {
+    function inputbox_value_binding_1(value, idx) {
       if ($self.$.not_equal(payloads[idx], value)) {
         payloads[idx] = value;
         $invalidate(27, payloads);
@@ -33495,8 +33495,8 @@ uniform ${i3} ${a3} u_${s3};
       filtertable_filterColumns_binding,
       filtertable_filtersMap_binding,
       click_handler,
-      inputcustom_value_binding,
-      inputcustom_value_binding_1,
+      inputbox_value_binding,
+      inputbox_value_binding_1,
       map_binding,
       map_Coord_binding,
       click_handler_1,
@@ -33551,13 +33551,13 @@ uniform ${i3} ${a3} u_${s3};
 
   // _components/PopUpAddBankAccount.svelte
   function create_if_block_24(ctx) {
-    let inputcustom;
+    let inputbox;
     let updating_value;
     let current;
-    function inputcustom_value_binding(value) {
+    function inputbox_value_binding(value) {
       ctx[26](value);
     }
-    let inputcustom_props = {
+    let inputbox_props = {
       id: "staffId",
       label: "Karyawan / Staff",
       type: "select",
@@ -33572,46 +33572,46 @@ uniform ${i3} ${a3} u_${s3};
       /*staffId*/
       ctx[12] !== void 0
     ) {
-      inputcustom_props.value = /*staffId*/
+      inputbox_props.value = /*staffId*/
       ctx[12];
     }
-    inputcustom = new InputCustom_default({ props: inputcustom_props });
-    binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding));
+    inputbox = new InputBox_default({ props: inputbox_props });
+    binding_callbacks.push(() => bind(inputbox, "value", inputbox_value_binding));
     return {
       c() {
-        create_component(inputcustom.$.fragment);
+        create_component(inputbox.$.fragment);
       },
       m(target, anchor) {
-        mount_component(inputcustom, target, anchor);
+        mount_component(inputbox, target, anchor);
         current = true;
       },
       p(ctx2, dirty) {
-        const inputcustom_changes = {};
+        const inputbox_changes = {};
         if (dirty & /*staffs*/
         4)
-          inputcustom_changes.values = /*staffs*/
+          inputbox_changes.values = /*staffs*/
           ctx2[2];
         if (!updating_value && dirty & /*staffId*/
         4096) {
           updating_value = true;
-          inputcustom_changes.value = /*staffId*/
+          inputbox_changes.value = /*staffId*/
           ctx2[12];
           add_flush_callback(() => updating_value = false);
         }
-        inputcustom.$set(inputcustom_changes);
+        inputbox.$set(inputbox_changes);
       },
       i(local) {
         if (current)
           return;
-        transition_in(inputcustom.$.fragment, local);
+        transition_in(inputbox.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(inputcustom.$.fragment, local);
+        transition_out(inputbox.$.fragment, local);
         current = false;
       },
       d(detaching) {
-        destroy_component(inputcustom, detaching);
+        destroy_component(inputbox, detaching);
       }
     };
   }
@@ -33677,29 +33677,29 @@ uniform ${i3} ${a3} u_${s3};
     let icon;
     let t2;
     let div0;
-    let inputcustom0;
+    let inputbox0;
     let updating_value;
     let t3;
-    let inputcustom1;
+    let inputbox1;
     let updating_value_1;
     let t4;
-    let inputcustom2;
+    let inputbox2;
     let updating_value_2;
     let t5;
-    let inputcustom3;
+    let inputbox3;
     let updating_value_3;
     let t6;
-    let inputcustom4;
+    let inputbox4;
     let updating_value_4;
     let t7;
-    let inputcustom5;
+    let inputbox5;
     let updating_value_5;
     let t8;
-    let inputcustom6;
+    let inputbox6;
     let updating_value_6;
     let t9;
     let t10;
-    let inputcustom7;
+    let inputbox7;
     let updating_value_7;
     let t11;
     let div3;
@@ -33721,10 +33721,10 @@ uniform ${i3} ${a3} u_${s3};
         src: IoClose
       }
     });
-    function inputcustom0_value_binding(value) {
+    function inputbox0_value_binding(value) {
       ctx[19](value);
     }
-    let inputcustom0_props = {
+    let inputbox0_props = {
       id: "name",
       label: "Nama / Name",
       placeholder: "Name",
@@ -33734,15 +33734,15 @@ uniform ${i3} ${a3} u_${s3};
       /*name*/
       ctx[6] !== void 0
     ) {
-      inputcustom0_props.value = /*name*/
+      inputbox0_props.value = /*name*/
       ctx[6];
     }
-    inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
-    binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
-    function inputcustom1_value_binding(value) {
+    inputbox0 = new InputBox_default({ props: inputbox0_props });
+    binding_callbacks.push(() => bind(inputbox0, "value", inputbox0_value_binding));
+    function inputbox1_value_binding(value) {
       ctx[20](value);
     }
-    let inputcustom1_props = {
+    let inputbox1_props = {
       id: "bankName",
       label: "Nama Bank / Bank Name",
       placeholder: "Bank Name",
@@ -33752,15 +33752,15 @@ uniform ${i3} ${a3} u_${s3};
       /*bankName*/
       ctx[7] !== void 0
     ) {
-      inputcustom1_props.value = /*bankName*/
+      inputbox1_props.value = /*bankName*/
       ctx[7];
     }
-    inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
-    binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
-    function inputcustom2_value_binding(value) {
+    inputbox1 = new InputBox_default({ props: inputbox1_props });
+    binding_callbacks.push(() => bind(inputbox1, "value", inputbox1_value_binding));
+    function inputbox2_value_binding(value) {
       ctx[21](value);
     }
-    let inputcustom2_props = {
+    let inputbox2_props = {
       id: "accountName",
       label: "Nama Akun / Account Name",
       placeholder: "Account Name",
@@ -33770,15 +33770,15 @@ uniform ${i3} ${a3} u_${s3};
       /*accountName*/
       ctx[8] !== void 0
     ) {
-      inputcustom2_props.value = /*accountName*/
+      inputbox2_props.value = /*accountName*/
       ctx[8];
     }
-    inputcustom2 = new InputCustom_default({ props: inputcustom2_props });
-    binding_callbacks.push(() => bind(inputcustom2, "value", inputcustom2_value_binding));
-    function inputcustom3_value_binding(value) {
+    inputbox2 = new InputBox_default({ props: inputbox2_props });
+    binding_callbacks.push(() => bind(inputbox2, "value", inputbox2_value_binding));
+    function inputbox3_value_binding(value) {
       ctx[22](value);
     }
-    let inputcustom3_props = {
+    let inputbox3_props = {
       id: "accountNumber",
       label: "Nomor Akun / Account Number",
       placeholder: "0xxxxx",
@@ -33788,15 +33788,15 @@ uniform ${i3} ${a3} u_${s3};
       /*accountNumber*/
       ctx[9] !== void 0
     ) {
-      inputcustom3_props.value = /*accountNumber*/
+      inputbox3_props.value = /*accountNumber*/
       ctx[9];
     }
-    inputcustom3 = new InputCustom_default({ props: inputcustom3_props });
-    binding_callbacks.push(() => bind(inputcustom3, "value", inputcustom3_value_binding));
-    function inputcustom4_value_binding(value) {
+    inputbox3 = new InputBox_default({ props: inputbox3_props });
+    binding_callbacks.push(() => bind(inputbox3, "value", inputbox3_value_binding));
+    function inputbox4_value_binding(value) {
       ctx[23](value);
     }
-    let inputcustom4_props = {
+    let inputbox4_props = {
       id: "isProfitCenter",
       label: "Pusat Profit / Is Profit Center ?",
       type: "bool"
@@ -33805,15 +33805,15 @@ uniform ${i3} ${a3} u_${s3};
       /*isProfitCenter*/
       ctx[10] !== void 0
     ) {
-      inputcustom4_props.value = /*isProfitCenter*/
+      inputbox4_props.value = /*isProfitCenter*/
       ctx[10];
     }
-    inputcustom4 = new InputCustom_default({ props: inputcustom4_props });
-    binding_callbacks.push(() => bind(inputcustom4, "value", inputcustom4_value_binding));
-    function inputcustom5_value_binding(value) {
+    inputbox4 = new InputBox_default({ props: inputbox4_props });
+    binding_callbacks.push(() => bind(inputbox4, "value", inputbox4_value_binding));
+    function inputbox5_value_binding(value) {
       ctx[24](value);
     }
-    let inputcustom5_props = {
+    let inputbox5_props = {
       id: "isCostCenter",
       label: "Pusat Biaya / Is Cost Center ?",
       type: "bool"
@@ -33822,15 +33822,15 @@ uniform ${i3} ${a3} u_${s3};
       /*isCostCenter*/
       ctx[11] !== void 0
     ) {
-      inputcustom5_props.value = /*isCostCenter*/
+      inputbox5_props.value = /*isCostCenter*/
       ctx[11];
     }
-    inputcustom5 = new InputCustom_default({ props: inputcustom5_props });
-    binding_callbacks.push(() => bind(inputcustom5, "value", inputcustom5_value_binding));
-    function inputcustom6_value_binding(value) {
+    inputbox5 = new InputBox_default({ props: inputbox5_props });
+    binding_callbacks.push(() => bind(inputbox5, "value", inputbox5_value_binding));
+    function inputbox6_value_binding(value) {
       ctx[25](value);
     }
-    let inputcustom6_props = {
+    let inputbox6_props = {
       id: "isStaffAccount",
       label: "Akun Staf / Is Staff Account ?",
       type: "bool"
@@ -33839,19 +33839,19 @@ uniform ${i3} ${a3} u_${s3};
       /*isStaffAccount*/
       ctx[4] !== void 0
     ) {
-      inputcustom6_props.value = /*isStaffAccount*/
+      inputbox6_props.value = /*isStaffAccount*/
       ctx[4];
     }
-    inputcustom6 = new InputCustom_default({ props: inputcustom6_props });
-    binding_callbacks.push(() => bind(inputcustom6, "value", inputcustom6_value_binding));
+    inputbox6 = new InputBox_default({ props: inputbox6_props });
+    binding_callbacks.push(() => bind(inputbox6, "value", inputbox6_value_binding));
     let if_block0 = (
       /*isStaffAccount*/
       ctx[4] && create_if_block_24(ctx)
     );
-    function inputcustom7_value_binding(value) {
+    function inputbox7_value_binding(value) {
       ctx[27](value);
     }
-    let inputcustom7_props = {
+    let inputbox7_props = {
       id: "isFunder",
       label: "Pemberi modal / Is Funder ?",
       type: "bool"
@@ -33860,11 +33860,11 @@ uniform ${i3} ${a3} u_${s3};
       /*isFunder*/
       ctx[13] !== void 0
     ) {
-      inputcustom7_props.value = /*isFunder*/
+      inputbox7_props.value = /*isFunder*/
       ctx[13];
     }
-    inputcustom7 = new InputCustom_default({ props: inputcustom7_props });
-    binding_callbacks.push(() => bind(inputcustom7, "value", inputcustom7_value_binding));
+    inputbox7 = new InputBox_default({ props: inputbox7_props });
+    binding_callbacks.push(() => bind(inputbox7, "value", inputbox7_value_binding));
     let if_block1 = !/*isSubmitAddBankAccount*/
     ctx[0] && create_if_block_111(ctx);
     let if_block2 = (
@@ -33886,24 +33886,24 @@ uniform ${i3} ${a3} u_${s3};
         create_component(icon.$.fragment);
         t2 = space();
         div0 = element("div");
-        create_component(inputcustom0.$.fragment);
+        create_component(inputbox0.$.fragment);
         t3 = space();
-        create_component(inputcustom1.$.fragment);
+        create_component(inputbox1.$.fragment);
         t4 = space();
-        create_component(inputcustom2.$.fragment);
+        create_component(inputbox2.$.fragment);
         t5 = space();
-        create_component(inputcustom3.$.fragment);
+        create_component(inputbox3.$.fragment);
         t6 = space();
-        create_component(inputcustom4.$.fragment);
+        create_component(inputbox4.$.fragment);
         t7 = space();
-        create_component(inputcustom5.$.fragment);
+        create_component(inputbox5.$.fragment);
         t8 = space();
-        create_component(inputcustom6.$.fragment);
+        create_component(inputbox6.$.fragment);
         t9 = space();
         if (if_block0)
           if_block0.c();
         t10 = space();
-        create_component(inputcustom7.$.fragment);
+        create_component(inputbox7.$.fragment);
         t11 = space();
         div3 = element("div");
         div1 = element("div");
@@ -33945,24 +33945,24 @@ uniform ${i3} ${a3} u_${s3};
         mount_component(icon, button0, null);
         append(div4, t2);
         append(div4, div0);
-        mount_component(inputcustom0, div0, null);
+        mount_component(inputbox0, div0, null);
         append(div0, t3);
-        mount_component(inputcustom1, div0, null);
+        mount_component(inputbox1, div0, null);
         append(div0, t4);
-        mount_component(inputcustom2, div0, null);
+        mount_component(inputbox2, div0, null);
         append(div0, t5);
-        mount_component(inputcustom3, div0, null);
+        mount_component(inputbox3, div0, null);
         append(div0, t6);
-        mount_component(inputcustom4, div0, null);
+        mount_component(inputbox4, div0, null);
         append(div0, t7);
-        mount_component(inputcustom5, div0, null);
+        mount_component(inputbox5, div0, null);
         append(div0, t8);
-        mount_component(inputcustom6, div0, null);
+        mount_component(inputbox6, div0, null);
         append(div0, t9);
         if (if_block0)
           if_block0.m(div0, null);
         append(div0, t10);
-        mount_component(inputcustom7, div0, null);
+        mount_component(inputbox7, div0, null);
         append(div4, t11);
         append(div4, div3);
         append(div3, div1);
@@ -34005,69 +34005,69 @@ uniform ${i3} ${a3} u_${s3};
             /*heading*/
             ctx2[1]
           );
-        const inputcustom0_changes = {};
+        const inputbox0_changes = {};
         if (!updating_value && dirty & /*name*/
         64) {
           updating_value = true;
-          inputcustom0_changes.value = /*name*/
+          inputbox0_changes.value = /*name*/
           ctx2[6];
           add_flush_callback(() => updating_value = false);
         }
-        inputcustom0.$set(inputcustom0_changes);
-        const inputcustom1_changes = {};
+        inputbox0.$set(inputbox0_changes);
+        const inputbox1_changes = {};
         if (!updating_value_1 && dirty & /*bankName*/
         128) {
           updating_value_1 = true;
-          inputcustom1_changes.value = /*bankName*/
+          inputbox1_changes.value = /*bankName*/
           ctx2[7];
           add_flush_callback(() => updating_value_1 = false);
         }
-        inputcustom1.$set(inputcustom1_changes);
-        const inputcustom2_changes = {};
+        inputbox1.$set(inputbox1_changes);
+        const inputbox2_changes = {};
         if (!updating_value_2 && dirty & /*accountName*/
         256) {
           updating_value_2 = true;
-          inputcustom2_changes.value = /*accountName*/
+          inputbox2_changes.value = /*accountName*/
           ctx2[8];
           add_flush_callback(() => updating_value_2 = false);
         }
-        inputcustom2.$set(inputcustom2_changes);
-        const inputcustom3_changes = {};
+        inputbox2.$set(inputbox2_changes);
+        const inputbox3_changes = {};
         if (!updating_value_3 && dirty & /*accountNumber*/
         512) {
           updating_value_3 = true;
-          inputcustom3_changes.value = /*accountNumber*/
+          inputbox3_changes.value = /*accountNumber*/
           ctx2[9];
           add_flush_callback(() => updating_value_3 = false);
         }
-        inputcustom3.$set(inputcustom3_changes);
-        const inputcustom4_changes = {};
+        inputbox3.$set(inputbox3_changes);
+        const inputbox4_changes = {};
         if (!updating_value_4 && dirty & /*isProfitCenter*/
         1024) {
           updating_value_4 = true;
-          inputcustom4_changes.value = /*isProfitCenter*/
+          inputbox4_changes.value = /*isProfitCenter*/
           ctx2[10];
           add_flush_callback(() => updating_value_4 = false);
         }
-        inputcustom4.$set(inputcustom4_changes);
-        const inputcustom5_changes = {};
+        inputbox4.$set(inputbox4_changes);
+        const inputbox5_changes = {};
         if (!updating_value_5 && dirty & /*isCostCenter*/
         2048) {
           updating_value_5 = true;
-          inputcustom5_changes.value = /*isCostCenter*/
+          inputbox5_changes.value = /*isCostCenter*/
           ctx2[11];
           add_flush_callback(() => updating_value_5 = false);
         }
-        inputcustom5.$set(inputcustom5_changes);
-        const inputcustom6_changes = {};
+        inputbox5.$set(inputbox5_changes);
+        const inputbox6_changes = {};
         if (!updating_value_6 && dirty & /*isStaffAccount*/
         16) {
           updating_value_6 = true;
-          inputcustom6_changes.value = /*isStaffAccount*/
+          inputbox6_changes.value = /*isStaffAccount*/
           ctx2[4];
           add_flush_callback(() => updating_value_6 = false);
         }
-        inputcustom6.$set(inputcustom6_changes);
+        inputbox6.$set(inputbox6_changes);
         if (
           /*isStaffAccount*/
           ctx2[4]
@@ -34091,15 +34091,15 @@ uniform ${i3} ${a3} u_${s3};
           });
           check_outros();
         }
-        const inputcustom7_changes = {};
+        const inputbox7_changes = {};
         if (!updating_value_7 && dirty & /*isFunder*/
         8192) {
           updating_value_7 = true;
-          inputcustom7_changes.value = /*isFunder*/
+          inputbox7_changes.value = /*isFunder*/
           ctx2[13];
           add_flush_callback(() => updating_value_7 = false);
         }
-        inputcustom7.$set(inputcustom7_changes);
+        inputbox7.$set(inputbox7_changes);
         if (!/*isSubmitAddBankAccount*/
         ctx2[0]) {
           if (if_block1) {
@@ -34149,29 +34149,29 @@ uniform ${i3} ${a3} u_${s3};
         if (current)
           return;
         transition_in(icon.$.fragment, local);
-        transition_in(inputcustom0.$.fragment, local);
-        transition_in(inputcustom1.$.fragment, local);
-        transition_in(inputcustom2.$.fragment, local);
-        transition_in(inputcustom3.$.fragment, local);
-        transition_in(inputcustom4.$.fragment, local);
-        transition_in(inputcustom5.$.fragment, local);
-        transition_in(inputcustom6.$.fragment, local);
+        transition_in(inputbox0.$.fragment, local);
+        transition_in(inputbox1.$.fragment, local);
+        transition_in(inputbox2.$.fragment, local);
+        transition_in(inputbox3.$.fragment, local);
+        transition_in(inputbox4.$.fragment, local);
+        transition_in(inputbox5.$.fragment, local);
+        transition_in(inputbox6.$.fragment, local);
         transition_in(if_block0);
-        transition_in(inputcustom7.$.fragment, local);
+        transition_in(inputbox7.$.fragment, local);
         transition_in(if_block2);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
-        transition_out(inputcustom0.$.fragment, local);
-        transition_out(inputcustom1.$.fragment, local);
-        transition_out(inputcustom2.$.fragment, local);
-        transition_out(inputcustom3.$.fragment, local);
-        transition_out(inputcustom4.$.fragment, local);
-        transition_out(inputcustom5.$.fragment, local);
-        transition_out(inputcustom6.$.fragment, local);
+        transition_out(inputbox0.$.fragment, local);
+        transition_out(inputbox1.$.fragment, local);
+        transition_out(inputbox2.$.fragment, local);
+        transition_out(inputbox3.$.fragment, local);
+        transition_out(inputbox4.$.fragment, local);
+        transition_out(inputbox5.$.fragment, local);
+        transition_out(inputbox6.$.fragment, local);
         transition_out(if_block0);
-        transition_out(inputcustom7.$.fragment, local);
+        transition_out(inputbox7.$.fragment, local);
         transition_out(if_block2);
         current = false;
       },
@@ -34180,16 +34180,16 @@ uniform ${i3} ${a3} u_${s3};
           detach(div5);
         }
         destroy_component(icon);
-        destroy_component(inputcustom0);
-        destroy_component(inputcustom1);
-        destroy_component(inputcustom2);
-        destroy_component(inputcustom3);
-        destroy_component(inputcustom4);
-        destroy_component(inputcustom5);
-        destroy_component(inputcustom6);
+        destroy_component(inputbox0);
+        destroy_component(inputbox1);
+        destroy_component(inputbox2);
+        destroy_component(inputbox3);
+        destroy_component(inputbox4);
+        destroy_component(inputbox5);
+        destroy_component(inputbox6);
         if (if_block0)
           if_block0.d();
-        destroy_component(inputcustom7);
+        destroy_component(inputbox7);
         if (if_block1)
           if_block1.d();
         if (if_block2)
@@ -34248,39 +34248,39 @@ uniform ${i3} ${a3} u_${s3};
       };
       OnSubmit(i);
     }
-    function inputcustom0_value_binding(value) {
+    function inputbox0_value_binding(value) {
       name = value;
       $invalidate(6, name);
     }
-    function inputcustom1_value_binding(value) {
+    function inputbox1_value_binding(value) {
       bankName = value;
       $invalidate(7, bankName);
     }
-    function inputcustom2_value_binding(value) {
+    function inputbox2_value_binding(value) {
       accountName = value;
       $invalidate(8, accountName);
     }
-    function inputcustom3_value_binding(value) {
+    function inputbox3_value_binding(value) {
       accountNumber = value;
       $invalidate(9, accountNumber);
     }
-    function inputcustom4_value_binding(value) {
+    function inputbox4_value_binding(value) {
       isProfitCenter = value;
       $invalidate(10, isProfitCenter);
     }
-    function inputcustom5_value_binding(value) {
+    function inputbox5_value_binding(value) {
       isCostCenter = value;
       $invalidate(11, isCostCenter);
     }
-    function inputcustom6_value_binding(value) {
+    function inputbox6_value_binding(value) {
       isStaffAccount = value;
       $invalidate(4, isStaffAccount);
     }
-    function inputcustom_value_binding(value) {
+    function inputbox_value_binding(value) {
       staffId = value;
       $invalidate(12, staffId), $invalidate(4, isStaffAccount);
     }
-    function inputcustom7_value_binding(value) {
+    function inputbox7_value_binding(value) {
       isFunder = value;
       $invalidate(13, isFunder);
     }
@@ -34323,15 +34323,15 @@ uniform ${i3} ${a3} u_${s3};
       OnSubmit,
       Show,
       Reset,
-      inputcustom0_value_binding,
-      inputcustom1_value_binding,
-      inputcustom2_value_binding,
-      inputcustom3_value_binding,
-      inputcustom4_value_binding,
-      inputcustom5_value_binding,
-      inputcustom6_value_binding,
-      inputcustom_value_binding,
-      inputcustom7_value_binding
+      inputbox0_value_binding,
+      inputbox1_value_binding,
+      inputbox2_value_binding,
+      inputbox3_value_binding,
+      inputbox4_value_binding,
+      inputbox5_value_binding,
+      inputbox6_value_binding,
+      inputbox_value_binding,
+      inputbox7_value_binding
     ];
   }
   var PopUpAddBankAccount = class extends SvelteComponent {

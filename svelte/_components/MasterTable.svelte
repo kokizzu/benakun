@@ -21,7 +21,7 @@
     CgChevronDoubleRight,
     CgChevronDoubleLeft,
   } from '../node_modules/svelte-icons-pack/dist/cg';
-  import InputCustom from './InputCustom.svelte';
+  import InputBox from './InputBox.svelte';
   import { onMount } from 'svelte';
   import FilterTable from './FilterTable.svelte';
   import { datetime } from './formatter';
@@ -305,7 +305,7 @@
           {#if field.name !== 'id'}
             {#if !field.readOnly}
               {#if field.inputType === 'combobox'}
-                <InputCustom
+                <InputBox
                   id={field.name}
                   label={field.label}
                   placeholder={field.description}
@@ -315,7 +315,7 @@
                   isObject={REFS && REFS[field.name] ? true : false}
                 />
               {:else}
-                <InputCustom
+                <InputBox
                   id={field.name}
                   label={field.label}
                   placeholder={field.description}

@@ -4,6 +4,8 @@ import (
 	"benakun/model/mFinance"
 	"benakun/model/zCrud"
 	"fmt"
+	"sort"
+	"strings"
 
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/S"
@@ -89,14 +91,14 @@ func removeUnParent(cs []coaTreeNode, cond func(coaTreeNode) bool) (filtered []c
 	return
 }
 
-func generateCoaChoicesMaps(coasWithNums []coaFromDB) map[string]string {
-	coaChoices := make(map[string]string, len(coasWithNums))
+func generateCoaChoicesMaps(coasFromDBs []coaFromDB) map[string]string {
+	coaChoices := make(map[string]string, len(coasFromDBs))
 
-	if len(coasWithNums) <= 0 {
+	if len(coasFromDBs) <= 0 {
 		return coaChoices
 	}
 
-	coasWithNumsF := []coaTreeNode{}
+	coasTreeNodes := []coaTreeNode{}
 	coaVisited := map[int]bool{0: true}
 
 	var coaMaker func(id uint64) (coaTreeNode, bool)
@@ -108,7 +110,7 @@ func generateCoaChoicesMaps(coasWithNums []coaFromDB) map[string]string {
 
 		coaVisited[int(id)] = true
 		
-		for _, v := range coasWithNums {
+		for _, v := range coasFromDBs {
 			if v.id == id {
 				cld := v.children
 				if len(cld) > 0 {
@@ -131,14 +133,14 @@ func generateCoaChoicesMaps(coasWithNums []coaFromDB) map[string]string {
 		return
 	}
 
-	for _, v := range coasWithNums {
+	for _, v := range coasFromDBs {
 		coa, visited := coaMaker(v.id)
 		if !visited {
-			coasWithNumsF = append(coasWithNumsF, coa)
+			coasTreeNodes = append(coasTreeNodes, coa)
 		}
 	}
 
-	coasWithNumsF = removeUnParent(coasWithNumsF, func(cwnf coaTreeNode) bool {
+	coasTreeNodes = removeUnParent(coasTreeNodes, func(cwnf coaTreeNode) bool {
 		return cwnf.parentId == 0
 	})
 
@@ -160,11 +162,40 @@ func generateCoaChoicesMaps(coasWithNums []coaFromDB) map[string]string {
 		}
 	}
 	
-	for i, v := range coasWithNumsF {
+	for i, v := range coasTreeNodes {
 		coaTree(v, I.ToS(int64(i)+1), int64(i)+1, i)
 	}
 	
 	return coaChoices
+}
+
+func extractNumParts(s string) []int {
+	parts := strings.Fields(s)
+	numberStr := parts[0]
+	numberParts := S.Split(numberStr, `.`)
+
+	var result []int
+	for _, part := range numberParts {
+		num := S.ToInt(part)
+		result = append(result, num)
+	}
+
+	return result
+}
+
+func compareCoaNums(a, b []int) bool {
+	minLen := len(a)
+	if len(b) < minLen {
+		minLen = len(b)
+	}
+
+	for i := 0; i < minLen; i++ {
+		if a[i] != b[i] {
+			return a[i] < b[i]
+		}
+	}
+
+	return len(a) < len(b)
 }
 
 func (c *Coa) FindCoasChoicesByTenant() map[string]string {
@@ -176,11 +207,11 @@ func (c *Coa) FindCoasChoicesByTenant() map[string]string {
 SELECT ` + c.SqlId() + `, ` + c.SqlName() + `, ` + c.SqlParentId() + `, ` + c.SqlChildren() + `
 FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 
-	coasWithNums := []coaFromDB{}
+	coasFromDBs := []coaFromDB{}
 
 	c.Adapter.QuerySql(queryRows, func(row []any) {
 		if len(row) == 4 {
-			coasWithNums = append(coasWithNums, coaFromDB{
+			coasFromDBs = append(coasFromDBs, coaFromDB{
 				id: X.ToU(row[0]),
 				name: X.ToS(row[1]),
 				parentId: X.ToU(row[2]),
@@ -189,7 +220,32 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 		}
 	})
 
-	coaChoices := generateCoaChoicesMaps(coasWithNums)
+	coaChoices := generateCoaChoicesMaps(coasFromDBs)
+
+	type kv struct {
+		key string
+		value string
+	}
+	
+	kvsCoaChoices := []kv{}
+
+	for k, v := range coaChoices {
+		kvsCoaChoices = append(kvsCoaChoices, kv{k, v})
+	}
+
+	sort.Slice(kvsCoaChoices, func(i, j int) bool {
+		numsI := extractNumParts(kvsCoaChoices[i].value)
+		numsJ := extractNumParts(kvsCoaChoices[j].value)
+
+		return compareCoaNums(numsI, numsJ)
+	})
+
+	if len(kvsCoaChoices) > 0 {
+		coaChoices = map[string]string{}
+		for _, v := range kvsCoaChoices {
+			coaChoices[v.key] = v.value
+		}
+	}
 	
 	return coaChoices
 }

@@ -10,7 +10,7 @@
   import CoaTree from './_components/CoaTree.svelte';
   import PopUpCoA from './_components/PopUpCoa.svelte';
   import MainLayout from './_layouts/mainLayout.svelte';
-  import InputCustom from './_components/InputCustom.svelte';
+  import InputBox from './_components/InputBox.svelte';
 
   let segments  = /** @type Access */ ({/* segments */});
   let user      = /** @type User */   ({/* user */});
@@ -266,7 +266,7 @@
   <div class="coa_levels shadow">
     <div class="tenants_sync_coa">
       <div class="inputs_container">
-        <InputCustom
+        <InputBox
           type="combobox"
           label="Products CoA"
           id="productCoaId"
@@ -274,7 +274,7 @@
           bind:value={productsCoaId}
           isObject
         />
-        <InputCustom
+        <InputBox
           type="combobox"
           label="Suppliers CoA"
           id="suppliersCoaId"
@@ -282,7 +282,7 @@
           bind:value={suppliersCoaId}
           isObject
         />
-        <InputCustom
+        <InputBox
           type="combobox"
           label="Customers CoA"
           id="customersCoaId"
@@ -290,7 +290,7 @@
           bind:value={customersCoaId}
           isObject
         />
-        <InputCustom
+        <InputBox
           type="combobox"
           label="Customers Receivables CoA"
           id="customersReceivablesCoaId"
@@ -298,7 +298,7 @@
           bind:value={customerReceivablesCoaId}
           isObject
         />
-        <InputCustom
+        <InputBox
           type="combobox"
           label="Staffs CoA"
           id="staffsCoaId"
@@ -306,7 +306,7 @@
           bind:value={staffsCoaId}
           isObject
         />
-        <InputCustom
+        <InputBox
           type="combobox"
           label="Banks CoA"
           id="banksCoaId"

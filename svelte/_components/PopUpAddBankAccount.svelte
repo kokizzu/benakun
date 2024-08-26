@@ -2,7 +2,7 @@
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
-  import InputCustom from './InputCustom.svelte';
+  import InputBox from './InputBox.svelte';
 
   // @ts-ignore
   /** @typedef {import('../_components/types/tenant').BankAccount} BankAccount*/
@@ -73,54 +73,54 @@
       </button>
     </header>
     <div class="forms">
-      <InputCustom
+      <InputBox
         bind:value={name}
         id="name"
         label="Nama / Name"
         placeholder="Name"
         type="text"
       />
-      <InputCustom
+      <InputBox
         bind:value={bankName}
         id="bankName"
         label="Nama Bank / Bank Name"
         placeholder="Bank Name"
         type="text"
       />
-      <InputCustom
+      <InputBox
         bind:value={accountName}
         id="accountName"
         label="Nama Akun / Account Name"
         placeholder="Account Name"
         type="text"
       />
-      <InputCustom
+      <InputBox
         bind:value={accountNumber}
         id="accountNumber"
         label="Nomor Akun / Account Number"
         placeholder="0xxxxx"
         type="number"
       />
-      <InputCustom
+      <InputBox
         bind:value={isProfitCenter}
         id="isProfitCenter"
         label="Pusat Profit / Is Profit Center ?"
         type="bool"
       />
-      <InputCustom
+      <InputBox
         bind:value={isCostCenter}
         id="isCostCenter"
         label="Pusat Biaya / Is Cost Center ?"
         type="bool"
       />
-      <InputCustom
+      <InputBox
         bind:value={isStaffAccount}
         id="isStaffAccount"
         label="Akun Staf / Is Staff Account ?"
         type="bool"
       />
       {#if isStaffAccount}
-        <InputCustom
+        <InputBox
           bind:value={staffId}
           id="staffId"
           label="Karyawan / Staff"
@@ -130,7 +130,7 @@
           isObject
         />
       {/if}
-      <InputCustom
+      <InputBox
         bind:value={isFunder}
         id="isFunder"
         label="Pemberi modal / Is Funder ?"

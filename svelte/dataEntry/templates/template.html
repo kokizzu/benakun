@@ -705,7 +705,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   overflow: inherit;
 }
 
-/* fakecss:./_components/InputCustom.esbuild-svelte-fake-css */
+/* fakecss:./_components/InputBox.esbuild-svelte-fake-css */
 .show.svelte-30kpl9.svelte-30kpl9.svelte-30kpl9 {
   display: block;
 }
@@ -6496,7 +6496,7 @@ header.svelte-146z4fm.svelte-146z4fm {
     return result;
   }
 
-  // _components/InputCustom.svelte
+  // _components/InputBox.svelte
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[42] = list[i];
@@ -8899,7 +8899,7 @@ header.svelte-146z4fm.svelte-146z4fm {
             $invalidate(11, isShowOptions = false);
             $invalidate(13, optionClicked = false);
           },
-          200
+          100
         );
       }
     };
@@ -8926,7 +8926,7 @@ header.svelte-146z4fm.svelte-146z4fm {
             $invalidate(11, isShowOptions = false);
             $invalidate(13, optionClicked = false);
           },
-          200
+          100
         );
       }
     };
@@ -9045,7 +9045,7 @@ header.svelte-146z4fm.svelte-146z4fm {
       input_input_handler_11
     ];
   }
-  var InputCustom = class extends SvelteComponent {
+  var InputBox = class extends SvelteComponent {
     constructor(options) {
       super();
       init(
@@ -9069,7 +9069,7 @@ header.svelte-146z4fm.svelte-146z4fm {
       );
     }
   };
-  var InputCustom_default = InputCustom;
+  var InputBox_default = InputBox;
 
   // dataEntry/templates/template.svelte
   function get_each_context2(ctx, list, i) {
@@ -10221,10 +10221,10 @@ header.svelte-146z4fm.svelte-146z4fm {
     let div9;
     let div7;
     let div0;
-    let inputcustom0;
+    let inputbox0;
     let updating_value;
     let t4;
-    let inputcustom1;
+    let inputbox1;
     let updating_value_1;
     let t5;
     let div6;
@@ -10248,10 +10248,10 @@ header.svelte-146z4fm.svelte-146z4fm {
     let current;
     let mounted;
     let dispose;
-    function inputcustom0_value_binding(value) {
+    function inputbox0_value_binding(value) {
       ctx[6](value);
     }
-    let inputcustom0_props = {
+    let inputbox0_props = {
       type: "date",
       className: "input_custom",
       id: "startDate",
@@ -10261,15 +10261,15 @@ header.svelte-146z4fm.svelte-146z4fm {
       /*startDate*/
       ctx[3] !== void 0
     ) {
-      inputcustom0_props.value = /*startDate*/
+      inputbox0_props.value = /*startDate*/
       ctx[3];
     }
-    inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
-    binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
-    function inputcustom1_value_binding(value) {
+    inputbox0 = new InputBox_default({ props: inputbox0_props });
+    binding_callbacks.push(() => bind(inputbox0, "value", inputbox0_value_binding));
+    function inputbox1_value_binding(value) {
       ctx[7](value);
     }
-    let inputcustom1_props = {
+    let inputbox1_props = {
       id: "endDate",
       label: "End Date",
       type: "date"
@@ -10278,11 +10278,11 @@ header.svelte-146z4fm.svelte-146z4fm {
       /*endDate*/
       ctx[4] !== void 0
     ) {
-      inputcustom1_props.value = /*endDate*/
+      inputbox1_props.value = /*endDate*/
       ctx[4];
     }
-    inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
-    binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
+    inputbox1 = new InputBox_default({ props: inputbox1_props });
+    binding_callbacks.push(() => bind(inputbox1, "value", inputbox1_value_binding));
     let if_block0 = (
       /*isDataReady*/
       ctx[2] && create_if_block_23(ctx)
@@ -10303,9 +10303,9 @@ header.svelte-146z4fm.svelte-146z4fm {
         div9 = element("div");
         div7 = element("div");
         div0 = element("div");
-        create_component(inputcustom0.$.fragment);
+        create_component(inputbox0.$.fragment);
         t4 = space();
-        create_component(inputcustom1.$.fragment);
+        create_component(inputbox1.$.fragment);
         t5 = space();
         div6 = element("div");
         div2 = element("div");
@@ -10363,9 +10363,9 @@ header.svelte-146z4fm.svelte-146z4fm {
         append(div10, div9);
         append(div9, div7);
         append(div7, div0);
-        mount_component(inputcustom0, div0, null);
+        mount_component(inputbox0, div0, null);
         append(div0, t4);
-        mount_component(inputcustom1, div0, null);
+        mount_component(inputbox1, div0, null);
         append(div7, t5);
         append(div7, div6);
         append(div6, div2);
@@ -10403,24 +10403,24 @@ header.svelte-146z4fm.svelte-146z4fm {
         }
       },
       p(ctx2, dirty) {
-        const inputcustom0_changes = {};
+        const inputbox0_changes = {};
         if (!updating_value && dirty & /*startDate*/
         8) {
           updating_value = true;
-          inputcustom0_changes.value = /*startDate*/
+          inputbox0_changes.value = /*startDate*/
           ctx2[3];
           add_flush_callback(() => updating_value = false);
         }
-        inputcustom0.$set(inputcustom0_changes);
-        const inputcustom1_changes = {};
+        inputbox0.$set(inputbox0_changes);
+        const inputbox1_changes = {};
         if (!updating_value_1 && dirty & /*endDate*/
         16) {
           updating_value_1 = true;
-          inputcustom1_changes.value = /*endDate*/
+          inputbox1_changes.value = /*endDate*/
           ctx2[4];
           add_flush_callback(() => updating_value_1 = false);
         }
-        inputcustom1.$set(inputcustom1_changes);
+        inputbox1.$set(inputbox1_changes);
         if (
           /*isDataReady*/
           ctx2[2]
@@ -10479,14 +10479,14 @@ header.svelte-146z4fm.svelte-146z4fm {
       i(local) {
         if (current)
           return;
-        transition_in(inputcustom0.$.fragment, local);
-        transition_in(inputcustom1.$.fragment, local);
+        transition_in(inputbox0.$.fragment, local);
+        transition_in(inputbox1.$.fragment, local);
         transition_in(if_block0);
         current = true;
       },
       o(local) {
-        transition_out(inputcustom0.$.fragment, local);
-        transition_out(inputcustom1.$.fragment, local);
+        transition_out(inputbox0.$.fragment, local);
+        transition_out(inputbox1.$.fragment, local);
         transition_out(if_block0);
         current = false;
       },
@@ -10494,8 +10494,8 @@ header.svelte-146z4fm.svelte-146z4fm {
         if (detaching) {
           detach(div10);
         }
-        destroy_component(inputcustom0);
-        destroy_component(inputcustom1);
+        destroy_component(inputbox0);
+        destroy_component(inputbox1);
         if (if_block0)
           if_block0.d();
         if (if_block1)
@@ -10684,11 +10684,11 @@ header.svelte-146z4fm.svelte-146z4fm {
         }
       );
     }
-    function inputcustom0_value_binding(value) {
+    function inputbox0_value_binding(value) {
       startDate = value;
       $invalidate(3, startDate);
     }
-    function inputcustom1_value_binding(value) {
+    function inputbox1_value_binding(value) {
       endDate = value;
       $invalidate(4, endDate);
     }
@@ -10749,8 +10749,8 @@ header.svelte-146z4fm.svelte-146z4fm {
       startDate,
       endDate,
       Submit,
-      inputcustom0_value_binding,
-      inputcustom1_value_binding,
+      inputbox0_value_binding,
+      inputbox1_value_binding,
       click_handler,
       click_handler_1,
       textarea_input_handler,

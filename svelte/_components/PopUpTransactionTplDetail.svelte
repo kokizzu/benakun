@@ -2,7 +2,7 @@
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
-	import InputCustom from './InputCustom.svelte';
+	import InputBox from './InputBox.svelte';
 
   export let heading = 'Add Transaction Template Detail';
 
@@ -42,7 +42,7 @@
       </button>
     </header>
     <div class="forms">
-      <InputCustom
+      <InputBox
         bind:value={isDebit}
         id="isDebit"
         label="Debit / Kredit"
@@ -51,7 +51,7 @@
         values={debitOrCredit}
         isObject
 			/>
-      <InputCustom
+      <InputBox
         bind:value={coaId}
         id="coa"
         label="CoA (Chart of Accounts)"
@@ -59,21 +59,20 @@
         placeholder="CoA (Chart of Accounts)"
         values={coas}
         isObject
-        isPlainHTML
 			/>
-      <InputCustom
+      <InputBox
         bind:value={autoSum}
         id="autoSum"
         label="Auto Sum ?"
         type="bool"
       />
-      <InputCustom
+      <InputBox
         bind:value={childOnly}
         id="childOnly"
         label="Child Only ?"
         type="bool"
       />
-      <InputCustom
+      <InputBox
         bind:value={sales}
         id="sales"
         label="Sales ?"

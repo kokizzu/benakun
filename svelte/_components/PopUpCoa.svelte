@@ -2,7 +2,7 @@
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
-	import InputCustom from './InputCustom.svelte';
+	import InputBox from './InputBox.svelte';
 
   export let heading = 'Add CoA';
 
@@ -32,14 +32,14 @@
       </button>
     </header>
     <div class="forms">
-      <InputCustom
+      <InputBox
 				id="name"
 				label="Nama / Name"
 				bind:value={name}
 				type="text"
 				placeholder="Barang..."
 			/>
-			<InputCustom
+			<InputBox
 				id="lael"
 				label="Label"
 				bind:value={label}

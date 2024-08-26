@@ -705,7 +705,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   overflow: inherit;
 }
 
-/* fakecss:./_components/InputCustom.esbuild-svelte-fake-css */
+/* fakecss:./_components/InputBox.esbuild-svelte-fake-css */
 .show.svelte-30kpl9.svelte-30kpl9.svelte-30kpl9 {
   display: block;
 }
@@ -6245,7 +6245,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     return result;
   }
 
-  // _components/InputCustom.svelte
+  // _components/InputBox.svelte
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[42] = list[i];
@@ -8648,7 +8648,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             $invalidate(11, isShowOptions = false);
             $invalidate(13, optionClicked = false);
           },
-          200
+          100
         );
       }
     };
@@ -8675,7 +8675,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             $invalidate(11, isShowOptions = false);
             $invalidate(13, optionClicked = false);
           },
-          200
+          100
         );
       }
     };
@@ -8794,7 +8794,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       input_input_handler_11
     ];
   }
-  var InputCustom = class extends SvelteComponent {
+  var InputBox = class extends SvelteComponent {
     constructor(options) {
       super();
       init(
@@ -8818,7 +8818,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       );
     }
   };
-  var InputCustom_default = InputCustom;
+  var InputBox_default = InputBox;
 
   // dataEntry_transactionEntry.svelte
   function create_default_slot(ctx) {
@@ -8829,13 +8829,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let p2;
     let t5;
     let div;
-    let inputcustom;
+    let inputbox;
     let updating_value;
     let current;
-    function inputcustom_value_binding(value) {
+    function inputbox_value_binding(value) {
       ctx[1](value);
     }
-    let inputcustom_props = {
+    let inputbox_props = {
       id: "coa",
       label: "CoA (Chart of Account)",
       type: "text",
@@ -8845,11 +8845,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /*coa*/
       ctx[0] !== void 0
     ) {
-      inputcustom_props.value = /*coa*/
+      inputbox_props.value = /*coa*/
       ctx[0];
     }
-    inputcustom = new InputCustom_default({ props: inputcustom_props });
-    binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding));
+    inputbox = new InputBox_default({ props: inputbox_props });
+    binding_callbacks.push(() => bind(inputbox, "value", inputbox_value_binding));
     return {
       c() {
         p0 = element("p");
@@ -8862,7 +8862,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         p2.textContent = "Tapi, terbatas hanya ke jenis coa yg ada di transaction template detail";
         t5 = space();
         div = element("div");
-        create_component(inputcustom.$.fragment);
+        create_component(inputbox.$.fragment);
       },
       m(target, anchor) {
         insert(target, p0, anchor);
@@ -8872,28 +8872,28 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         insert(target, p2, anchor);
         insert(target, t5, anchor);
         insert(target, div, anchor);
-        mount_component(inputcustom, div, null);
+        mount_component(inputbox, div, null);
         current = true;
       },
       p(ctx2, dirty) {
-        const inputcustom_changes = {};
+        const inputbox_changes = {};
         if (!updating_value && dirty & /*coa*/
         1) {
           updating_value = true;
-          inputcustom_changes.value = /*coa*/
+          inputbox_changes.value = /*coa*/
           ctx2[0];
           add_flush_callback(() => updating_value = false);
         }
-        inputcustom.$set(inputcustom_changes);
+        inputbox.$set(inputbox_changes);
       },
       i(local) {
         if (current)
           return;
-        transition_in(inputcustom.$.fragment, local);
+        transition_in(inputbox.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(inputcustom.$.fragment, local);
+        transition_out(inputbox.$.fragment, local);
         current = false;
       },
       d(detaching) {
@@ -8906,7 +8906,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           detach(t5);
           detach(div);
         }
-        destroy_component(inputcustom);
+        destroy_component(inputbox);
       }
     };
   }
@@ -8952,11 +8952,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   }
   function instance8($self, $props, $invalidate) {
     let coa = "";
-    function inputcustom_value_binding(value) {
+    function inputbox_value_binding(value) {
       coa = value;
       $invalidate(0, coa);
     }
-    return [coa, inputcustom_value_binding];
+    return [coa, inputbox_value_binding];
   }
   var DataEntry_transactionEntry = class extends SvelteComponent {
     constructor(options) {

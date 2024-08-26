@@ -343,7 +343,7 @@
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>/* fakecss:./_components/InputCustom.esbuild-svelte-fake-css */
+<style>/* fakecss:./_components/InputBox.esbuild-svelte-fake-css */
 .show.svelte-30kpl9.svelte-30kpl9.svelte-30kpl9 {
   display: block;
 }
@@ -4606,7 +4606,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     return result;
   }
 
-  // _components/InputCustom.svelte
+  // _components/InputBox.svelte
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[42] = list[i];
@@ -7009,7 +7009,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             $invalidate(11, isShowOptions = false);
             $invalidate(13, optionClicked = false);
           },
-          200
+          100
         );
       }
     };
@@ -7036,7 +7036,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             $invalidate(11, isShowOptions = false);
             $invalidate(13, optionClicked = false);
           },
-          200
+          100
         );
       }
     };
@@ -7155,7 +7155,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       input_input_handler_11
     ];
   }
-  var InputCustom = class extends SvelteComponent {
+  var InputBox = class extends SvelteComponent {
     constructor(options) {
       super();
       init(
@@ -7179,7 +7179,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       );
     }
   };
-  var InputCustom_default = InputCustom;
+  var InputBox_default = InputBox;
 
   // _components/PopUpCoa.svelte
   function create_if_block_16(ctx) {
@@ -7244,10 +7244,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let icon;
     let t2;
     let div0;
-    let inputcustom0;
+    let inputbox0;
     let updating_value;
     let t3;
-    let inputcustom1;
+    let inputbox1;
     let updating_value_1;
     let t4;
     let div3;
@@ -7269,10 +7269,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         src: IoClose
       }
     });
-    function inputcustom0_value_binding(value) {
+    function inputbox0_value_binding(value) {
       ctx[9](value);
     }
-    let inputcustom0_props = {
+    let inputbox0_props = {
       id: "name",
       label: "Nama / Name",
       type: "text",
@@ -7282,15 +7282,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /*name*/
       ctx[0] !== void 0
     ) {
-      inputcustom0_props.value = /*name*/
+      inputbox0_props.value = /*name*/
       ctx[0];
     }
-    inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
-    binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
-    function inputcustom1_value_binding(value) {
+    inputbox0 = new InputBox_default({ props: inputbox0_props });
+    binding_callbacks.push(() => bind(inputbox0, "value", inputbox0_value_binding));
+    function inputbox1_value_binding(value) {
       ctx[10](value);
     }
-    let inputcustom1_props = {
+    let inputbox1_props = {
       id: "lael",
       label: "Label",
       type: "text",
@@ -7300,11 +7300,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /*label*/
       ctx[1] !== void 0
     ) {
-      inputcustom1_props.value = /*label*/
+      inputbox1_props.value = /*label*/
       ctx[1];
     }
-    inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
-    binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
+    inputbox1 = new InputBox_default({ props: inputbox1_props });
+    binding_callbacks.push(() => bind(inputbox1, "value", inputbox1_value_binding));
     let if_block0 = !/*isSubmitted*/
     ctx[3] && create_if_block_16(ctx);
     let if_block1 = (
@@ -7326,9 +7326,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         create_component(icon.$.fragment);
         t2 = space();
         div0 = element("div");
-        create_component(inputcustom0.$.fragment);
+        create_component(inputbox0.$.fragment);
         t3 = space();
-        create_component(inputcustom1.$.fragment);
+        create_component(inputbox1.$.fragment);
         t4 = space();
         div3 = element("div");
         div1 = element("div");
@@ -7368,9 +7368,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         mount_component(icon, button0, null);
         append(div4, t2);
         append(div4, div0);
-        mount_component(inputcustom0, div0, null);
+        mount_component(inputbox0, div0, null);
         append(div0, t3);
-        mount_component(inputcustom1, div0, null);
+        mount_component(inputbox1, div0, null);
         append(div4, t4);
         append(div4, div3);
         append(div3, div1);
@@ -7417,24 +7417,24 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             /*heading*/
             ctx[2]
           );
-        const inputcustom0_changes = {};
+        const inputbox0_changes = {};
         if (!updating_value && dirty & /*name*/
         1) {
           updating_value = true;
-          inputcustom0_changes.value = /*name*/
+          inputbox0_changes.value = /*name*/
           ctx[0];
           add_flush_callback(() => updating_value = false);
         }
-        inputcustom0.$set(inputcustom0_changes);
-        const inputcustom1_changes = {};
+        inputbox0.$set(inputbox0_changes);
+        const inputbox1_changes = {};
         if (!updating_value_1 && dirty & /*label*/
         2) {
           updating_value_1 = true;
-          inputcustom1_changes.value = /*label*/
+          inputbox1_changes.value = /*label*/
           ctx[1];
           add_flush_callback(() => updating_value_1 = false);
         }
-        inputcustom1.$set(inputcustom1_changes);
+        inputbox1.$set(inputbox1_changes);
         if (!/*isSubmitted*/
         ctx[3]) {
           if (if_block0) {
@@ -7479,15 +7479,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (current)
           return;
         transition_in(icon.$.fragment, local);
-        transition_in(inputcustom0.$.fragment, local);
-        transition_in(inputcustom1.$.fragment, local);
+        transition_in(inputbox0.$.fragment, local);
+        transition_in(inputbox1.$.fragment, local);
         transition_in(if_block1);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
-        transition_out(inputcustom0.$.fragment, local);
-        transition_out(inputcustom1.$.fragment, local);
+        transition_out(inputbox0.$.fragment, local);
+        transition_out(inputbox1.$.fragment, local);
         transition_out(if_block1);
         current = false;
       },
@@ -7496,8 +7496,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           detach(div5);
         }
         destroy_component(icon);
-        destroy_component(inputcustom0);
-        destroy_component(inputcustom1);
+        destroy_component(inputbox0);
+        destroy_component(inputbox1);
         if (if_block0)
           if_block0.d();
         if (if_block1)
@@ -7522,11 +7522,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       $invalidate(0, name = "");
       $invalidate(1, label = "");
     };
-    function inputcustom0_value_binding(value) {
+    function inputbox0_value_binding(value) {
       name = value;
       $invalidate(0, name);
     }
-    function inputcustom1_value_binding(value) {
+    function inputbox1_value_binding(value) {
       label = value;
       $invalidate(1, label);
     }
@@ -7552,8 +7552,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       isShow,
       cancel,
       show,
-      inputcustom0_value_binding,
-      inputcustom1_value_binding
+      inputbox0_value_binding,
+      inputbox1_value_binding
     ];
   }
   var PopUpCoa = class extends SvelteComponent {
@@ -10880,22 +10880,22 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let div3;
     let div1;
     let div0;
-    let inputcustom0;
+    let inputbox0;
     let updating_value;
     let t0;
-    let inputcustom1;
+    let inputbox1;
     let updating_value_1;
     let t1;
-    let inputcustom2;
+    let inputbox2;
     let updating_value_2;
     let t2;
-    let inputcustom3;
+    let inputbox3;
     let updating_value_3;
     let t3;
-    let inputcustom4;
+    let inputbox4;
     let updating_value_4;
     let t4;
-    let inputcustom5;
+    let inputbox5;
     let updating_value_5;
     let t5;
     let button0;
@@ -10909,10 +10909,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let current;
     let mounted;
     let dispose;
-    function inputcustom0_value_binding(value) {
+    function inputbox0_value_binding(value) {
       ctx[23](value);
     }
-    let inputcustom0_props = {
+    let inputbox0_props = {
       type: "combobox",
       label: "Products CoA",
       id: "productCoaId",
@@ -10926,15 +10926,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /*productsCoaId*/
       ctx[6] !== void 0
     ) {
-      inputcustom0_props.value = /*productsCoaId*/
+      inputbox0_props.value = /*productsCoaId*/
       ctx[6];
     }
-    inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
-    binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
-    function inputcustom1_value_binding(value) {
+    inputbox0 = new InputBox_default({ props: inputbox0_props });
+    binding_callbacks.push(() => bind(inputbox0, "value", inputbox0_value_binding));
+    function inputbox1_value_binding(value) {
       ctx[24](value);
     }
-    let inputcustom1_props = {
+    let inputbox1_props = {
       type: "combobox",
       label: "Suppliers CoA",
       id: "suppliersCoaId",
@@ -10948,15 +10948,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /*suppliersCoaId*/
       ctx[7] !== void 0
     ) {
-      inputcustom1_props.value = /*suppliersCoaId*/
+      inputbox1_props.value = /*suppliersCoaId*/
       ctx[7];
     }
-    inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
-    binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
-    function inputcustom2_value_binding(value) {
+    inputbox1 = new InputBox_default({ props: inputbox1_props });
+    binding_callbacks.push(() => bind(inputbox1, "value", inputbox1_value_binding));
+    function inputbox2_value_binding(value) {
       ctx[25](value);
     }
-    let inputcustom2_props = {
+    let inputbox2_props = {
       type: "combobox",
       label: "Customers CoA",
       id: "customersCoaId",
@@ -10970,15 +10970,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /*customersCoaId*/
       ctx[8] !== void 0
     ) {
-      inputcustom2_props.value = /*customersCoaId*/
+      inputbox2_props.value = /*customersCoaId*/
       ctx[8];
     }
-    inputcustom2 = new InputCustom_default({ props: inputcustom2_props });
-    binding_callbacks.push(() => bind(inputcustom2, "value", inputcustom2_value_binding));
-    function inputcustom3_value_binding(value) {
+    inputbox2 = new InputBox_default({ props: inputbox2_props });
+    binding_callbacks.push(() => bind(inputbox2, "value", inputbox2_value_binding));
+    function inputbox3_value_binding(value) {
       ctx[26](value);
     }
-    let inputcustom3_props = {
+    let inputbox3_props = {
       type: "combobox",
       label: "Customers Receivables CoA",
       id: "customersReceivablesCoaId",
@@ -10992,15 +10992,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /*customerReceivablesCoaId*/
       ctx[9] !== void 0
     ) {
-      inputcustom3_props.value = /*customerReceivablesCoaId*/
+      inputbox3_props.value = /*customerReceivablesCoaId*/
       ctx[9];
     }
-    inputcustom3 = new InputCustom_default({ props: inputcustom3_props });
-    binding_callbacks.push(() => bind(inputcustom3, "value", inputcustom3_value_binding));
-    function inputcustom4_value_binding(value) {
+    inputbox3 = new InputBox_default({ props: inputbox3_props });
+    binding_callbacks.push(() => bind(inputbox3, "value", inputbox3_value_binding));
+    function inputbox4_value_binding(value) {
       ctx[27](value);
     }
-    let inputcustom4_props = {
+    let inputbox4_props = {
       type: "combobox",
       label: "Staffs CoA",
       id: "staffsCoaId",
@@ -11014,15 +11014,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /*staffsCoaId*/
       ctx[10] !== void 0
     ) {
-      inputcustom4_props.value = /*staffsCoaId*/
+      inputbox4_props.value = /*staffsCoaId*/
       ctx[10];
     }
-    inputcustom4 = new InputCustom_default({ props: inputcustom4_props });
-    binding_callbacks.push(() => bind(inputcustom4, "value", inputcustom4_value_binding));
-    function inputcustom5_value_binding(value) {
+    inputbox4 = new InputBox_default({ props: inputbox4_props });
+    binding_callbacks.push(() => bind(inputbox4, "value", inputbox4_value_binding));
+    function inputbox5_value_binding(value) {
       ctx[28](value);
     }
-    let inputcustom5_props = {
+    let inputbox5_props = {
       type: "combobox",
       label: "Banks CoA",
       id: "banksCoaId",
@@ -11036,11 +11036,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /*banksCoaId*/
       ctx[11] !== void 0
     ) {
-      inputcustom5_props.value = /*banksCoaId*/
+      inputbox5_props.value = /*banksCoaId*/
       ctx[11];
     }
-    inputcustom5 = new InputCustom_default({ props: inputcustom5_props });
-    binding_callbacks.push(() => bind(inputcustom5, "value", inputcustom5_value_binding));
+    inputbox5 = new InputBox_default({ props: inputbox5_props });
+    binding_callbacks.push(() => bind(inputbox5, "value", inputbox5_value_binding));
     let each_value = ensure_array_like(
       /*REFORMAT_COAS*/
       ctx[1] || []
@@ -11059,17 +11059,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         div3 = element("div");
         div1 = element("div");
         div0 = element("div");
-        create_component(inputcustom0.$.fragment);
+        create_component(inputbox0.$.fragment);
         t0 = space();
-        create_component(inputcustom1.$.fragment);
+        create_component(inputbox1.$.fragment);
         t1 = space();
-        create_component(inputcustom2.$.fragment);
+        create_component(inputbox2.$.fragment);
         t2 = space();
-        create_component(inputcustom3.$.fragment);
+        create_component(inputbox3.$.fragment);
         t3 = space();
-        create_component(inputcustom4.$.fragment);
+        create_component(inputbox4.$.fragment);
         t4 = space();
-        create_component(inputcustom5.$.fragment);
+        create_component(inputbox5.$.fragment);
         t5 = space();
         button0 = element("button");
         t6 = text("Sync CoA");
@@ -11094,17 +11094,17 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         insert(target, div3, anchor);
         append(div3, div1);
         append(div1, div0);
-        mount_component(inputcustom0, div0, null);
+        mount_component(inputbox0, div0, null);
         append(div0, t0);
-        mount_component(inputcustom1, div0, null);
+        mount_component(inputbox1, div0, null);
         append(div0, t1);
-        mount_component(inputcustom2, div0, null);
+        mount_component(inputbox2, div0, null);
         append(div0, t2);
-        mount_component(inputcustom3, div0, null);
+        mount_component(inputbox3, div0, null);
         append(div0, t3);
-        mount_component(inputcustom4, div0, null);
+        mount_component(inputbox4, div0, null);
         append(div0, t4);
-        mount_component(inputcustom5, div0, null);
+        mount_component(inputbox5, div0, null);
         append(div1, t5);
         append(div1, button0);
         append(button0, t6);
@@ -11137,84 +11137,84 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
       },
       p(ctx2, dirty) {
-        const inputcustom0_changes = {};
+        const inputbox0_changes = {};
         if (dirty[0] & /*coasChoices*/
         1)
-          inputcustom0_changes.values = /*coasChoices*/
+          inputbox0_changes.values = /*coasChoices*/
           ctx2[0];
         if (!updating_value && dirty[0] & /*productsCoaId*/
         64) {
           updating_value = true;
-          inputcustom0_changes.value = /*productsCoaId*/
+          inputbox0_changes.value = /*productsCoaId*/
           ctx2[6];
           add_flush_callback(() => updating_value = false);
         }
-        inputcustom0.$set(inputcustom0_changes);
-        const inputcustom1_changes = {};
+        inputbox0.$set(inputbox0_changes);
+        const inputbox1_changes = {};
         if (dirty[0] & /*coasChoices*/
         1)
-          inputcustom1_changes.values = /*coasChoices*/
+          inputbox1_changes.values = /*coasChoices*/
           ctx2[0];
         if (!updating_value_1 && dirty[0] & /*suppliersCoaId*/
         128) {
           updating_value_1 = true;
-          inputcustom1_changes.value = /*suppliersCoaId*/
+          inputbox1_changes.value = /*suppliersCoaId*/
           ctx2[7];
           add_flush_callback(() => updating_value_1 = false);
         }
-        inputcustom1.$set(inputcustom1_changes);
-        const inputcustom2_changes = {};
+        inputbox1.$set(inputbox1_changes);
+        const inputbox2_changes = {};
         if (dirty[0] & /*coasChoices*/
         1)
-          inputcustom2_changes.values = /*coasChoices*/
+          inputbox2_changes.values = /*coasChoices*/
           ctx2[0];
         if (!updating_value_2 && dirty[0] & /*customersCoaId*/
         256) {
           updating_value_2 = true;
-          inputcustom2_changes.value = /*customersCoaId*/
+          inputbox2_changes.value = /*customersCoaId*/
           ctx2[8];
           add_flush_callback(() => updating_value_2 = false);
         }
-        inputcustom2.$set(inputcustom2_changes);
-        const inputcustom3_changes = {};
+        inputbox2.$set(inputbox2_changes);
+        const inputbox3_changes = {};
         if (dirty[0] & /*coasChoices*/
         1)
-          inputcustom3_changes.values = /*coasChoices*/
+          inputbox3_changes.values = /*coasChoices*/
           ctx2[0];
         if (!updating_value_3 && dirty[0] & /*customerReceivablesCoaId*/
         512) {
           updating_value_3 = true;
-          inputcustom3_changes.value = /*customerReceivablesCoaId*/
+          inputbox3_changes.value = /*customerReceivablesCoaId*/
           ctx2[9];
           add_flush_callback(() => updating_value_3 = false);
         }
-        inputcustom3.$set(inputcustom3_changes);
-        const inputcustom4_changes = {};
+        inputbox3.$set(inputbox3_changes);
+        const inputbox4_changes = {};
         if (dirty[0] & /*coasChoices*/
         1)
-          inputcustom4_changes.values = /*coasChoices*/
+          inputbox4_changes.values = /*coasChoices*/
           ctx2[0];
         if (!updating_value_4 && dirty[0] & /*staffsCoaId*/
         1024) {
           updating_value_4 = true;
-          inputcustom4_changes.value = /*staffsCoaId*/
+          inputbox4_changes.value = /*staffsCoaId*/
           ctx2[10];
           add_flush_callback(() => updating_value_4 = false);
         }
-        inputcustom4.$set(inputcustom4_changes);
-        const inputcustom5_changes = {};
+        inputbox4.$set(inputbox4_changes);
+        const inputbox5_changes = {};
         if (dirty[0] & /*coasChoices*/
         1)
-          inputcustom5_changes.values = /*coasChoices*/
+          inputbox5_changes.values = /*coasChoices*/
           ctx2[0];
         if (!updating_value_5 && dirty[0] & /*banksCoaId*/
         2048) {
           updating_value_5 = true;
-          inputcustom5_changes.value = /*banksCoaId*/
+          inputbox5_changes.value = /*banksCoaId*/
           ctx2[11];
           add_flush_callback(() => updating_value_5 = false);
         }
-        inputcustom5.$set(inputcustom5_changes);
+        inputbox5.$set(inputbox5_changes);
         if (!current || dirty[0] & /*isSubmitSyncCoA*/
         4096) {
           button0.disabled = /*isSubmitSyncCoA*/
@@ -11234,24 +11234,24 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       i(local) {
         if (current)
           return;
-        transition_in(inputcustom0.$.fragment, local);
-        transition_in(inputcustom1.$.fragment, local);
-        transition_in(inputcustom2.$.fragment, local);
-        transition_in(inputcustom3.$.fragment, local);
-        transition_in(inputcustom4.$.fragment, local);
-        transition_in(inputcustom5.$.fragment, local);
+        transition_in(inputbox0.$.fragment, local);
+        transition_in(inputbox1.$.fragment, local);
+        transition_in(inputbox2.$.fragment, local);
+        transition_in(inputbox3.$.fragment, local);
+        transition_in(inputbox4.$.fragment, local);
+        transition_in(inputbox5.$.fragment, local);
         for (let i = 0; i < each_value.length; i += 1) {
           transition_in(each_blocks[i]);
         }
         current = true;
       },
       o(local) {
-        transition_out(inputcustom0.$.fragment, local);
-        transition_out(inputcustom1.$.fragment, local);
-        transition_out(inputcustom2.$.fragment, local);
-        transition_out(inputcustom3.$.fragment, local);
-        transition_out(inputcustom4.$.fragment, local);
-        transition_out(inputcustom5.$.fragment, local);
+        transition_out(inputbox0.$.fragment, local);
+        transition_out(inputbox1.$.fragment, local);
+        transition_out(inputbox2.$.fragment, local);
+        transition_out(inputbox3.$.fragment, local);
+        transition_out(inputbox4.$.fragment, local);
+        transition_out(inputbox5.$.fragment, local);
         for (let i = 0; i < each_blocks.length; i += 1) {
           transition_out(each_blocks[i]);
         }
@@ -11261,12 +11261,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (detaching) {
           detach(div3);
         }
-        destroy_component(inputcustom0);
-        destroy_component(inputcustom1);
-        destroy_component(inputcustom2);
-        destroy_component(inputcustom3);
-        destroy_component(inputcustom4);
-        destroy_component(inputcustom5);
+        destroy_component(inputbox0);
+        destroy_component(inputbox1);
+        destroy_component(inputbox2);
+        destroy_component(inputbox3);
+        destroy_component(inputbox4);
+        destroy_component(inputbox5);
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].d();
         }
@@ -11654,27 +11654,27 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       isSubmittedCoA = value;
       $invalidate(5, isSubmittedCoA);
     }
-    function inputcustom0_value_binding(value) {
+    function inputbox0_value_binding(value) {
       productsCoaId = value;
       $invalidate(6, productsCoaId);
     }
-    function inputcustom1_value_binding(value) {
+    function inputbox1_value_binding(value) {
       suppliersCoaId = value;
       $invalidate(7, suppliersCoaId);
     }
-    function inputcustom2_value_binding(value) {
+    function inputbox2_value_binding(value) {
       customersCoaId = value;
       $invalidate(8, customersCoaId);
     }
-    function inputcustom3_value_binding(value) {
+    function inputbox3_value_binding(value) {
       customerReceivablesCoaId = value;
       $invalidate(9, customerReceivablesCoaId);
     }
-    function inputcustom4_value_binding(value) {
+    function inputbox4_value_binding(value) {
       staffsCoaId = value;
       $invalidate(10, staffsCoaId);
     }
-    function inputcustom5_value_binding(value) {
+    function inputbox5_value_binding(value) {
       banksCoaId = value;
       $invalidate(11, banksCoaId);
     }
@@ -11702,12 +11702,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       popupcoa_name_binding,
       popupcoa_label_binding,
       popupcoa_isSubmitted_binding,
-      inputcustom0_value_binding,
-      inputcustom1_value_binding,
-      inputcustom2_value_binding,
-      inputcustom3_value_binding,
-      inputcustom4_value_binding,
-      inputcustom5_value_binding
+      inputbox0_value_binding,
+      inputbox1_value_binding,
+      inputbox2_value_binding,
+      inputbox3_value_binding,
+      inputbox4_value_binding,
+      inputbox5_value_binding
     ];
   }
   var TenantAdmin_coa = class extends SvelteComponent {

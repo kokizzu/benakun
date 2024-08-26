@@ -2,7 +2,7 @@
     //@ts-nocheck
     import {GuestResetPassword} from './jsApi.GEN';
     import {notifier} from './_components/notifier.js'
-    import InputCustom from './_components/InputCustom.svelte';
+    import InputBox from './_components/InputBox.svelte';
 
     let password = '';
     let pass2 = '';
@@ -43,13 +43,13 @@
         <span>Reset Password</span>
     </h1>
     <div class="input_container">
-      <InputCustom
+      <InputBox
         id="newPass"
         type="password"
         label="New Password"
         bind:value={password}
       />
-      <InputCustom
+      <InputBox
         id="confirmPass"
         type="password"
         label="Confirm New Password"
