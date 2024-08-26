@@ -36,13 +36,16 @@ const (
 	ErrUserResponseInvitationUserNotFound       = `user not found on invitation`
 	ErrUserResponseInvitationTenantNotFound     = `tenant admin not found on invitation`
 	ErrUserResponseInvitationModificationFailed = `failed verify invitation user`
-	ErrUserResponseInvitationInvalidCSRFToken = `invalid csrf token, make sure you are the right person who operate this action`
+	ErrUserResponseInvitationInvalidCSRFToken = `invalid csrf token, make sure you are authorized to do this action`
+	ErrUserResponseInvitationUnauthorized = `you are unauthorized to do this action`
 )
 
 func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserResponseInvitationOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
 	if sess == nil {
+		out.Message = ErrUserResponseInvitationUnauthorized
+		out.SetError(400, ErrUserResponseInvitationUnauthorized)
 		return
 	}
 
