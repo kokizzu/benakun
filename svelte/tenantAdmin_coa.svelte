@@ -151,6 +151,8 @@
         REFORMAT_COAS = [];
         REFORMAT_COAS = reformatCoas();
 
+        coasChoices = o.coaChoices;
+
         notifier.showSuccess('coa updated');
       }
     )
@@ -197,6 +199,8 @@
         coas = o.coas;
         REFORMAT_COAS = [];
         REFORMAT_COAS = reformatCoas();
+
+        coasChoices = o.coaChoices;
 
         notifier.showSuccess(`coa "` + coasChoices[coaMoving.id] + `" moved to coa "` + coasChoices[parentCoa.id] + `"`);
       }

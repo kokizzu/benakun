@@ -15,7 +15,6 @@
       }}>
         <Icon src={RiDesignLayoutLeftLine} size={20} />
       </button>
-      <!-- <h2 class="display_title">BenAkun</h2> -->
     </div>
     <div class="right">
       <span class="display_email">{user.email}</span>
@@ -30,7 +29,6 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0 20px;
-    /* background: linear-gradient(66deg, rgb(230, 251, 254) 0%, rgb(237, 221, 251) 100%); */
     background-color: #FFF;
 		position: sticky;
     top: 0;
@@ -48,6 +46,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    height: var(--navbar-height);
   }
 
   .navbar_container .navbar .left,
