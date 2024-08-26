@@ -61,17 +61,17 @@ type CoaDefault struct {
 }
 
 const (
-	CoaBank 										= `Bank`
-	CoaPersediaanBarangDagangan = `Persediaan Barang Dagangan`
-	CoaStok											= `Stock`
-	CoaPiutangUsaha							= `Piutang Usaha`
-	CoaCOGS											= `Cost of Goods Sold / Harga Pokok Penjualan`
-	CoaIncome										= `Income / Pendapatan Usaha`
-	CoaHutangDagang							= `Hutang Dagang`
-	CoaPerlengkapan							= `Peralatan - Perlengkapan`
-	CoaAdm											= `Beban Administrasi dan Umum`
-	CoaPrive										= `Prive`
-	CoaLiability								= `Liability / Hutang - Kewajiban`
+	CoaBank 							= `Bank / Bank`
+	CoaGoodsInventory 		= `Goods Inventory / Persediaan Barang Dagangan`
+	CoaStock							= `Stock / Stok`
+	CoaAccountsDebt		= `Acccounts Debt / Hutang Dagang`
+	CoaAccountsReceivable	= `Accounts Receivable / Piutang Usaha`
+	CoaCOGS								= `Cost of Goods Sold / Harga Pokok Penjualan`
+	CoaIncome							= `Income / Pendapatan Usaha`
+	CoaEquipments					= `Equipments / Peralatan - Perlengkapan`
+	CoaAdmExpenses				= `Administrative Expenses / Beban Administrasi dan Umum`
+	CoaPrive							= `Prive / Prive`
+	CoaLiability					= `Liability / Hutang - Kewajiban`
 )
 
 const (
@@ -115,7 +115,7 @@ var TransactionTemplateDetailsMap = map[string][]struct{
 }{
 	TemplatePenjualan: {
 		{
-			CoaName: CoaStok,
+			CoaName: CoaStock,
 			IsDebit: false,
 			Attributes: []any{
 				AttributesChildOnly, AttributesSales,
@@ -129,7 +129,7 @@ var TransactionTemplateDetailsMap = map[string][]struct{
 			},
 		},
 		{
-			CoaName: CoaPiutangUsaha,
+			CoaName: CoaAccountsReceivable,
 			IsDebit: true,
 			Attributes: []any{
 				AttributesAutoSum,
@@ -160,7 +160,7 @@ var TransactionTemplateDetailsMap = map[string][]struct{
 			},
 		},
 		{
-			CoaName: CoaHutangDagang,
+			CoaName: CoaAccountsDebt,
 			IsDebit: false,
 			Attributes: []any{
 				AttributesChildOnly,
@@ -168,7 +168,7 @@ var TransactionTemplateDetailsMap = map[string][]struct{
 			},
 		},
 		{
-			CoaName: CoaStok,
+			CoaName: CoaStock,
 			IsDebit: true,
 			Attributes: []any{
 				AttributesSales,
@@ -176,7 +176,7 @@ var TransactionTemplateDetailsMap = map[string][]struct{
 			},
 		},
 		{
-			CoaName: CoaPerlengkapan,
+			CoaName: CoaEquipments,
 			IsDebit: true,
 			Attributes: []any{
 				AttributesSales,
@@ -199,7 +199,7 @@ var TransactionTemplateDetailsMap = map[string][]struct{
 	},
 	TemplatePembayaranGaji: {
 		{
-			CoaName: CoaAdm,
+			CoaName: CoaAdmExpenses,
 			IsDebit: true,
 			Attributes: []any{
 				AttributesChildOnly,
@@ -215,7 +215,7 @@ var TransactionTemplateDetailsMap = map[string][]struct{
 	},
 	TemplatePembayaranListrik: {
 		{
-			CoaName: CoaAdm,
+			CoaName: CoaAdmExpenses,
 			IsDebit: true,
 			Attributes: []any{
 				AttributesChildOnly,
@@ -257,51 +257,51 @@ func GetCoaDefaults() []CoaDefault {
 					Label: LabelBankAccount,
 					Children: []CoaDefault{
 						{
-							Name: `Cash`,
+							Name: `Cash / Tunai`,
 						},
 						{
-							Name: `Rekening Utama Perusahaan`,
+							Name: `Company's Main Account / Rekening Utama Perusahaan`,
 						},
 					},
 				},
-				{Name: `Deposito Berjangka`},
-				{Name: CoaPiutangUsaha, Label: LabelCustomerReceivables},
-				{Name: CoaPersediaanBarangDagangan},
-				{Name: `Pajak Dibayar Muka`},
-				{Name: `Biaya Dibayar Muka`},
-				{Name: `Investasi Jangka Panjang`},
-				{Name: `Aktiva Tetap`}, 
-				{Name: `Akumulasi Penyusutan Aktiva Tetap`}, // Gak yakin
-				{Name: `Aktiva Tak Berwujud`},
-				{Name: CoaStok, Label: LabelProducts},
-				{Name: CoaPerlengkapan},
-				{Name: `Aktiva Lain-lain`},
+				{Name: `Time Deposits / Deposito Berjangka`},
+				{Name: CoaAccountsReceivable, Label: LabelCustomerReceivables},
+				{Name: CoaGoodsInventory},
+				{Name: `Prepaid Tax / Pajak Dibayar Muka`},
+				{Name: `Prepayment Fee / Biaya Dibayar Muka`},
+				{Name: `Long-term Investment / Investasi Jangka Panjang`},
+				{Name: `Fixed Asset / Aktiva Tetap`}, 
+				{Name: `Accumulated Depreciation of Fixed Asset / Akumulasi Penyusutan Aktiva Tetap`}, // Gak yakin
+				{Name: `Intengible Asset / Aktiva Tak Berwujud`},
+				{Name: CoaStock, Label: LabelProducts},
+				{Name: CoaEquipments},
+				{Name: `Other Assets / Aktiva Lain-lain`},
 			},
 		},
 		{
 			Name: CoaLiability,
 			Children: []CoaDefault{
-				{Name: CoaHutangDagang, Label: LabelSuppliers},
-				{Name: `Uang Muka Pelanggan`},
-				{Name: `Hutang Pajak`},
-				{Name: `Biaya yang Masih Harus Dibayar`},
-				{Name: `Hutang Jangka Panjang - Lancar`},
-				{Name: `Hutang Lain-lain`},
-				{Name: `Hutang Jangka Panjang`},
+				{Name: CoaAccountsDebt, Label: LabelSuppliers},
+				{Name: `Customer Advance / Uang Muka Pelanggan`},
+				{Name: `Tax Debt / Hutang Pajak`},
+				{Name: `Accrued Cost / Biaya yang Masih Harus Dibayar`},
+				{Name: `Current Long-term Debt / Hutang Jangka Panjang - Lancar`},
+				{Name: `Other Debts / Hutang Lain-lain`},
+				{Name: `Long-term Debt / Hutang Jangka Panjang`},
 			},
 		},
 		{
 			Name: `Equity / Ekuitas - Modal`,
 			Children: []CoaDefault{
 				{
-					Name: `Penanaman Modal`,
+					Name: `Capital Investment / Penanaman Modal`,
 					Children: []CoaDefault{
 						{
-							Name: `Modal dari Owner 1`,
+							Name: `Capital from Owner 1 / Modal dari Owner 1`,
 						},
 					},
 				},
-				{Name: `Saldo Laba`},
+				{Name: `Retained Earnings / Saldo Laba`},
 			},
 		},
 		{
@@ -314,33 +314,33 @@ func GetCoaDefaults() []CoaDefault {
 		{
 			Name: `Expense / Beban Usaha`,
 			Children: []CoaDefault{
-				{Name: `Beban Pemasaran`},
-				{Name: CoaAdm, Label: LabelStaff},
+				{Name: `Marketing Expenses / Beban Pemasaran`},
+				{Name: CoaAdmExpenses, Label: LabelStaff},
 				{Name: CoaCOGS},
 			},
 		},
 		{
 			Name: `Other Incomes / Penghasilan Lain-lain`,
 			Children: []CoaDefault{
-				{Name: `Penghasilan Bunga Deposito`},
-				{Name: `Penghasilan Bunga Obligasi`},
-				{Name: `Penghasilan Deviden`},
-				{Name: `Penghasilan Bunga Jasa Giro`},
-				{Name: `Laba Penjualan Aktiva Tetap`},
-				{Name: `Penghasilan Sewa`},
-				{Name: `Laba Selisih Kurs`},
-				{Name: `Penghasilan Lainnya`},
+				{Name: `Deposit Interest Income / Penghasilan Bunga Deposito`},
+				{Name: `Bond Interest Income / Penghasilan Bunga Obligasi`},
+				{Name: `Deviden Income / Penghasilan Deviden`},
+				{Name: `Current Account Service Interest Income / Penghasilan Bunga Jasa Giro`},
+				{Name: `Profit on Sale of Fixed Assets / Laba Penjualan Aktiva Tetap`},
+				{Name: `Rental Income / Penghasilan Sewa`},
+				{Name: `Foreign Exchange Gain / Laba Selisih Kurs`},
+				{Name: `Other Incomes Penghasilan Lainnya`},
 			},
 		},
 		{
 			Name: `Other Expenses / Biaya Lain-lain`,
 			Children: []CoaDefault{
 				{Name: CoaPrive},
-				{Name: `Beban Pajak Jasa Giro`},
-				{Name: `Beban Administrasi Jasa Giro`},
-				{Name: `Rugi Penjualan Aktiva Tetap`},
-				{Name: `Rugi Selisih Kurs`},
-				{Name: `Beban Lainnya`},
+				{Name: `Current Account Tax Expense / Beban Pajak Jasa Giro`},
+				{Name: `Current Account Administration Expenses / Beban Administrasi Jasa Giro`},
+				{Name: `Loss on Sale of Fixed Assets / Rugi Penjualan Aktiva Tetap`},
+				{Name: `Loss on Foreign Exchange / Rugi Selisih Kurs`},
+				{Name: `Other Expenses / Beban Lainnya`},
 			},
 		},
 	}

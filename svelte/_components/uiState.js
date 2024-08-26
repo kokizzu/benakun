@@ -1,5 +1,7 @@
 import { writable } from 'svelte/store';
 
-export let isSideMenuOpen = writable(false); // Side Menu
+/** @type {import('svelte/store').Writable<boolean>} */
+export const IsShrinkMenu = writable(false);
 
-export let isShowFilterTable = writable(false); // Filter Table
+/** @type {import('svelte/store').Writable<boolean>} */
+export const IsShowFilterTable = writable(false);

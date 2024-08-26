@@ -1,18 +1,26 @@
 <script>
+  /** @typedef {import('../_components/types/access').Access} Access */
+  /** @typedef {import('../_components/types/user').User} User*/
+
   import SideMenu from '../_components/partials/SideMenu.svelte';
   import Navbar from '../_components/partials/Navbar.svelte';
   import Footer from '../_components/partials/Footer.svelte';
+  import { IsShrinkMenu } from '../_components/uiState';
+  import { onMount } from 'svelte';
+  
+  let segments = /** @type Access */ ({/* segments */});
+  let user = /** @type User */ ({/* user */});
 
-  /** @type {import('../_components/types/access').Access} */ // @ts-ignore
-  let segments = {/* segments */};
-  /** @type {import('../_components/types/user').User} */ // @ts-ignore
-  let user = {/* user */}
+  onMount(() => {
+    const isShrink = localStorage.getItem('IsShrinkMenu');
+    IsShrinkMenu.set(JSON.parse(isShrink));
+  })
 </script>
 
 <div class="root_layout">
   <div class="root_container">
     <SideMenu access={segments} />
-    <div class="root_content">
+    <div class="root_content {$IsShrinkMenu ? 'shrink' : 'expand'}">
       <Navbar {user} />
       <div class="content">
         <main><slot /></main>
@@ -40,7 +48,6 @@
   }
 
   .root_layout .root_container .root_content {
-		margin-left: var(--sidemenu-width);
 		display: flex;
 		flex-direction: column;
 		-webkit-box-orient: vertical;
@@ -49,6 +56,14 @@
 		min-height: calc(100vh - var(--navbar-height));
 		transition: 0.3s;
 		width: 100%;
+  }
+
+  .root_layout .root_container .root_content.shrink {
+    margin-left: var(--sidemenu-width-sm);
+  }
+
+  .root_layout .root_container .root_content.expand {
+		margin-left: var(--sidemenu-width);
   }
 
   .root_layout .root_container .root_content .content {

@@ -79,6 +79,9 @@
           case tenant.banksCoaId:
             coaFormatted.tenantLabel = 'Banks'
             break;
+          case tenant.customerReceivablesCoaId:
+            coaFormatted.tenantLabel = 'Customers Receivables'
+            break;
         }
       }
     }
@@ -203,7 +206,7 @@
   let productsCoaId = tenant.productsCoaId || 0;
   let suppliersCoaId = tenant.suppliersCoaId || 0;
   let customersCoaId = tenant.customersCoaId || 0;
-  let customersReceivablesCoaId = tenant.customersReceivablesCoaId || 0;
+  let customerReceivablesCoaId = tenant.customerReceivablesCoaId || 0;
   let staffsCoaId = tenant.staffsCoaId || 0;
   let banksCoaId = tenant.banksCoaId || 0;
 
@@ -215,7 +218,7 @@
         productsCoaId,
         suppliersCoaId,
         customersCoaId,
-        customersReceivablesCoaId,
+        customerReceivablesCoaId,
         staffsCoaId,
         banksCoaId
       }
@@ -236,6 +239,7 @@
         customersCoaId = tenant.customersCoaId;
         staffsCoaId = tenant.staffsCoaId;
         banksCoaId = tenant.banksCoaId;
+        customerReceivablesCoaId = tenant.customerReceivablesCoaId;
 
         REFORMAT_COAS = [];
         REFORMAT_COAS = reformatCoas();
@@ -287,7 +291,7 @@
           label="Customers Receivables CoA"
           id="customersReceivablesCoaId"
           values={coasChoices}
-          bind:value={customersReceivablesCoaId}
+          bind:value={customerReceivablesCoaId}
           isObject
         />
         <InputCustom

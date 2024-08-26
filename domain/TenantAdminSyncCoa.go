@@ -105,12 +105,12 @@ func (d *Domain) TenantAdminSyncCoa(in *TenantAdminSyncCoaIn) (out TenantAdminSy
 
 	if in.Tenant.CustomerReceivablesCoaId != tenant.CustomerReceivablesCoaId {
 		coa := rqFinance.NewCoa(d.AuthOltp)
-		coa.Id = in.Tenant.CustomersCoaId
+		coa.Id = in.Tenant.CustomerReceivablesCoaId
 		if !coa.FindById() {
 			out.SetError(400, ErrTenantAdminSyncCoaCustomersRecCoaNotFound)
 		}
 
-		tenant.SetCustomerReceivablesCoaId(in.Tenant.CustomersCoaId)
+		tenant.SetCustomerReceivablesCoaId(coa.Id)
 	}
 
 	if in.Tenant.StaffsCoaId != tenant.StaffsCoaId {
