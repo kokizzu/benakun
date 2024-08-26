@@ -12,6 +12,7 @@ require (
 	github.com/kokizzu/ch-timed-buffer v1.2025.1416
 	github.com/kokizzu/gotro v1.4202.2154
 	github.com/kokizzu/id64 v1.2829.1452
+	github.com/kokizzu/json5b v0.1.3-0.20240602205133-4415d251eaad
 	github.com/kokizzu/lexid v1.2423.1347
 	github.com/kpango/fastime v1.1.9
 	github.com/mojura/enkodo v0.5.6
@@ -19,7 +20,6 @@ require (
 	github.com/rs/zerolog v1.31.0
 	github.com/segmentio/fasthash v1.0.3
 	github.com/stretchr/testify v1.9.0
-	github.com/tarantool/go-tarantool v1.12.2
 	github.com/tarantool/go-tarantool/v2 v2.1.0
 	github.com/vburenin/nsync v0.0.0-20160822015540-9a75d1c80410
 	github.com/wneessen/go-mail v0.4.0
@@ -60,14 +60,12 @@ require (
 	github.com/jxskiss/base62 v1.1.0 // indirect
 	github.com/klauspost/compress v1.17.8 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.7 // indirect
-	github.com/kokizzu/json5b v0.1.3-0.20240602205133-4415d251eaad // indirect
 	github.com/kokizzu/rand v0.0.0-20221021123447-6043c55a8bad // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/lib/pq v1.10.9 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
-	github.com/mattn/go-pointer v0.0.1 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/moby/docker-image-spec v1.3.1 // indirect
@@ -87,9 +85,7 @@ require (
 	github.com/segmentio/asm v1.2.0 // indirect
 	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
-	github.com/spacemonkeygo/spacelog v0.0.0-20180420211403-2296661a0572 // indirect
 	github.com/tarantool/go-iproto v1.0.0 // indirect
-	github.com/tarantool/go-openssl v1.0.0 // indirect
 	github.com/tinylib/msgp v1.1.8 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.54.0 // indirect
@@ -108,7 +104,6 @@ require (
 	golang.org/x/xerrors v0.0.0-20231012003039-104605ab7028 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/protobuf v1.33.0 // indirect
-	gopkg.in/vmihailenco/msgpack.v2 v2.9.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

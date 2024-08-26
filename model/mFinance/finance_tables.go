@@ -32,6 +32,7 @@ const (
 	LabelProducts 						= `products`
 	LabelProduct 							= `product`
 	LabelSuppliers						= `suppliers`
+	LabelSupplier							= `supplier`
 	LabelCustomer							= `customer`
 	LabelCustomerReceivables	= `customer:receivables`
 	LabelStaff								= `staff`

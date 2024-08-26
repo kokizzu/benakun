@@ -228,7 +228,12 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 
 				account.SetParentBankAccountId(in.Account.ParentBankAccountId)
 			}
+
+			var isSyncToBank bool = true
+
 			if in.Account.StaffId > 0 {
+				isSyncToBank = false
+
 				staff := rqAuth.NewUsers(d.AuthOltp)
 				if !staff.FindStaffByIdByTenantCode(in.Account.StaffId, tenant.TenantCode) {
 					out.SetError(400, ErrTenantAdminBankAccountsStaffNotFound)
@@ -270,6 +275,8 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 			}
 
 			if in.Account.IsProfitCenter {
+				isSyncToBank = false
+
 				coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
 				coaParent.Id = tenant.CustomersCoaId
 				if !coaParent.FindById() {
@@ -304,6 +311,8 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 			account.SetIsProfitCenter(in.Account.IsProfitCenter)
 			
 			if in.Account.IsCostCenter {
+				isSyncToBank = false
+
 				coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
 				coaParent.Id = tenant.SuppliersCoaId
 				if !coaParent.FindById() {
@@ -314,7 +323,7 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 				coa := wcFinance.NewCoaMutator(d.AuthOltp)
 				coa.SetParentId(coaParent.Id)
 				coa.SetName(in.Account.Name)
-				coa.SetLabel(mFinance.LabelSuppliers)
+				coa.SetLabel(mFinance.LabelSupplier)
 				coa.SetTenantCode(tenant.TenantCode)
 				coa.SetCreatedAt(in.UnixNow())
 				coa.SetCreatedBy(sess.UserId)
@@ -337,7 +346,7 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 			} 
 			account.SetIsCostCenter(in.Account.IsCostCenter)
 
-			if !(in.Account.IsProfitCenter && in.Account.IsCostCenter && (in.Account.StaffId > 0)) {
+			if isSyncToBank {
 				coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
 				coaParent.Id = tenant.BanksCoaId
 				if !coaParent.FindById() {
