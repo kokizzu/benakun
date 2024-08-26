@@ -48,6 +48,8 @@ const (
 	ErrUserCreateCompanyFailedSaveDefaultCoa  = `save default coa failed`
 	ErrUserCreateCompanyFailedUpdateCoaParent = `failed to update coa parent`
 	ErrUserCreateCompanyAlreadyHaveCompany    = `already have company`
+	ErrUserCreateCompanyFailedSaveTrxTemplate			= `failed to save transaction template`
+	ErrUserCreateCompanyFailedSaveTrxTemplateDetail			= `failed to save transaction template detail`
 )
 
 func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompanyOut) {
@@ -118,12 +120,141 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 		return
 	}
 
-	// TODO: return map[name]id
-	// map[string]uint64
+	trxTemplateMaps := make(map[string]uint64)
+
+	for _, ttpl := range mFinance.TransactionTemplatesDefault {
+		trxTemplate := wcFinance.NewTransactionTemplateMutator(d.AuthOltp)
+		trxTemplate.SetName(ttpl.Name)
+		trxTemplate.SetColor(ttpl.Color)
+		trxTemplate.SetTenantCode(tenant.TenantCode)
+		trxTemplate.SetCreatedAt(in.UnixNow())
+		trxTemplate.SetCreatedBy(sess.UserId)
+		trxTemplate.SetUpdatedAt(in.UnixNow())
+		trxTemplate.SetUpdatedBy(sess.UserId)
+		if !trxTemplate.DoInsert() {
+			out.SetError(400, ErrUserCreateCompanyFailedSaveTrxTemplate)
+			return
+		}
+
+		trxTemplateMaps[trxTemplate.Name] = trxTemplate.Id
+	}
+
+	coaMaps := make(map[string]uint64)
+
+	var insertDefaultCoa func(ta *Tt.Adapter, coaDefault mFinance.CoaDefault, tenantCode string, parentId uint64) (uint64, error)
+	insertDefaultCoa = func(ta *Tt.Adapter, coaDefault mFinance.CoaDefault, tenantCode string, parentId uint64) (uint64, error) {
+		coa := wcFinance.NewCoaMutator(ta)
+		coa.SetName(coaDefault.Name)
+		coa.SetLabel(coaDefault.Label)
+		coa.SetTenantCode(tenantCode)
+	
+		if parentId > 0 {
+			coa.SetParentId(parentId)
+		}
+	
+		if !coa.DoUpsertById() {
+			return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
+		}
+	
+		if len(coaDefault.Children) > 0 {
+			var children []any
+			for _, childCoaDefault := range coaDefault.Children {
+				childId, err := insertDefaultCoa(ta, childCoaDefault, tenantCode, coa.Id)
+				if err != nil {
+					return 0, err
+				}
+	
+				children = append(children, childId)
+			}
+	
+			coa.SetChildren(children)
+			if !coa.DoUpsertById() {
+				return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
+			}
+		}
+	
+		switch coaDefault.Label {
+		case mFinance.LabelProducts:
+			tenant := wcAuth.NewTenantsMutator(ta)
+			tenant.TenantCode = tenantCode
+			tenant.SetProductsCoaId(coa.Id)
+			if !tenant.DoUpdateByTenantCode() {
+				return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
+			}
+		case mFinance.LabelSuppliers:
+			tenant := wcAuth.NewTenantsMutator(ta)
+			tenant.TenantCode = tenantCode
+			tenant.SetSuppliersCoaId(coa.Id)
+			if !tenant.DoUpdateByTenantCode() {
+				return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
+			}
+		case mFinance.LabelStaff:
+			tenant := wcAuth.NewTenantsMutator(ta)
+			tenant.TenantCode = tenantCode
+			tenant.SetStaffsCoaId(coa.Id)
+			if !tenant.DoUpdateByTenantCode() {
+				return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
+			}
+		case mFinance.LabelBankAccount:
+			tenant := wcAuth.NewTenantsMutator(ta)
+			tenant.TenantCode = tenantCode
+			tenant.SetBanksCoaId(coa.Id)
+			if !tenant.DoUpdateByTenantCode() {
+				return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
+			}
+		case mFinance.LabelCustomer:
+			tenant := wcAuth.NewTenantsMutator(ta)
+			tenant.TenantCode = tenantCode
+			tenant.SetCustomersCoaId(coa.Id)
+			if !tenant.DoUpdateByTenantCode() {
+				return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
+			}
+		}
+	
+		coaMaps[coa.Name] = coa.Id
+		return coa.Id, nil
+	}
+	
+
+	var generateDefaultCoa func(ta *Tt.Adapter, tenantCode string) error
+	generateDefaultCoa = func(ta *Tt.Adapter, tenantCode string) error {
+		coaDefaults := mFinance.GetCoaDefaults()
+		for _, coaDefault := range coaDefaults {
+			if _, err := insertDefaultCoa(ta, coaDefault, tenantCode, 0); err != nil {
+				return err
+			}
+		}
+	
+		return nil
+	}
+
 	err := generateDefaultCoa(d.AuthOltp, tenant.TenantCode)
 	if err != nil {
 		out.SetError(400, err.Error())
 		return
+	}
+
+	for tplName, tplDetails := range mFinance.TransactionTemplateDetailsMap {
+		for _, td := range tplDetails {
+			if id, exist := coaMaps[td.CoaName]; exist {
+				trxTplDetail := wcFinance.NewTransactionTplDetailMutator(d.AuthOltp)
+				trxTplDetail.SetCoaId(id)
+				trxTplDetail.SetIsDebit(td.IsDebit)
+				if len(td.Attributes) > 0 {
+					trxTplDetail.SetAttributes(td.Attributes)
+				}
+				trxTplDetail.SetParentId(trxTemplateMaps[tplName])
+				trxTplDetail.SetTenantCode(tenant.TenantCode)
+				trxTplDetail.SetCreatedAt(in.UnixNow())
+				trxTplDetail.SetCreatedBy(sess.UserId)
+				trxTplDetail.SetUpdatedAt(in.UnixNow())
+				trxTplDetail.SetUpdatedBy(sess.UserId)
+				if !trxTplDetail.DoInsert() {
+					out.SetError(400, ErrUserCreateCompanyFailedSaveTrxTemplateDetail)
+					return
+				}
+			}
+		}
 	}
 
 	out.Company = &org.Orgs
@@ -134,89 +265,6 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 	}
 
 	return
-}
-
-func insertDefaultCoa(ta *Tt.Adapter, coaDefault mFinance.CoaDefault, tenantCode string, parentId uint64) (uint64, error) {
-	coa := wcFinance.NewCoaMutator(ta)
-	coa.SetName(coaDefault.Name)
-	coa.SetLabel(coaDefault.Label)
-	coa.SetTenantCode(tenantCode)
-
-	if parentId > 0 {
-		coa.SetParentId(parentId)
-	}
-
-	if !coa.DoUpsertById() {
-		return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
-	}
-
-	if len(coaDefault.Children) > 0 {
-		var children []any
-		for _, childCoaDefault := range coaDefault.Children {
-			childId, err := insertDefaultCoa(ta, childCoaDefault, tenantCode, coa.Id)
-			if err != nil {
-				return 0, err
-			}
-
-			children = append(children, childId)
-		}
-
-		coa.SetChildren(children)
-		if !coa.DoUpsertById() {
-			return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
-		}
-	}
-
-	switch coaDefault.Label {
-	case mFinance.LabelProducts:
-		tenant := wcAuth.NewTenantsMutator(ta)
-		tenant.TenantCode = tenantCode
-		tenant.SetProductsCoaId(coa.Id)
-		if !tenant.DoUpdateByTenantCode() {
-			return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
-		}
-	case mFinance.LabelSuppliers:
-		tenant := wcAuth.NewTenantsMutator(ta)
-		tenant.TenantCode = tenantCode
-		tenant.SetSuppliersCoaId(coa.Id)
-		if !tenant.DoUpdateByTenantCode() {
-			return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
-		}
-	case mFinance.LabelStaff:
-		tenant := wcAuth.NewTenantsMutator(ta)
-		tenant.TenantCode = tenantCode
-		tenant.SetStaffsCoaId(coa.Id)
-		if !tenant.DoUpdateByTenantCode() {
-			return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
-		}
-	case mFinance.LabelBankAccount:
-		tenant := wcAuth.NewTenantsMutator(ta)
-		tenant.TenantCode = tenantCode
-		tenant.SetBanksCoaId(coa.Id)
-		if !tenant.DoUpdateByTenantCode() {
-			return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
-		}
-	case mFinance.LabelCustomer:
-		tenant := wcAuth.NewTenantsMutator(ta)
-		tenant.TenantCode = tenantCode
-		tenant.SetCustomersCoaId(coa.Id)
-		if !tenant.DoUpdateByTenantCode() {
-			return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
-		}
-	}
-
-	return coa.Id, nil
-}
-
-func generateDefaultCoa(ta *Tt.Adapter, tenantCode string) error {
-	coaDefaults := mFinance.GetCoaDefaults()
-	for _, coaDefault := range coaDefaults {
-		if _, err := insertDefaultCoa(ta, coaDefault, tenantCode, 0); err != nil {
-			return err
-		}
-	}
-
-	return nil
 }
 
 func generate4RandomNumber() string {

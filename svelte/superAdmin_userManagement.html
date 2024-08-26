@@ -33226,7 +33226,8 @@ uniform ${i3} ${a3} u_${s3};
       values: (
         /*roles*/
         ctx[11]
-      )
+      ),
+      isObject: true
     };
     if (
       /*role*/
@@ -33507,8 +33508,17 @@ uniform ${i3} ${a3} u_${s3};
     let fullName = "";
     let tenantCode = "";
     let role = "";
-    const RoleUser = `user`, RoleTenantAdmin = `tenantAdmin`, RoleDataEntry = `dataEntry`, RoleReportViewer = `reportViewer`;
-    const roles = [RoleUser, RoleTenantAdmin, RoleDataEntry, RoleReportViewer];
+    const RoleUser = `user`;
+    const RoleTenantAdmin = `tenantAdmin`;
+    const RoleDataEntry = `dataEntry`;
+    const RoleReportViewer = `reportViewer`;
+    const roles = {
+      "superAdmin": "Super Admin",
+      "tenantAdmin": "Tenant Admin",
+      "dataEntry": "Data Entry",
+      "reportViewer": "Report Viewer",
+      "fieldSupervisor": "Field Supervisor"
+    };
     let tenantAdmin = "";
     let isRequireTenantAdmin = false;
     let isTenantsReady = false;
@@ -33654,7 +33664,7 @@ uniform ${i3} ${a3} u_${s3};
       )
     };
     popupadduser = new PopUpAddUser_default({ props: popupadduser_props });
-    ctx[10](popupadduser);
+    ctx[11](popupadduser);
     return {
       c() {
         create_component(popupadduser.$.fragment);
@@ -33678,7 +33688,7 @@ uniform ${i3} ${a3} u_${s3};
         current = false;
       },
       d(detaching) {
-        ctx[10](null);
+        ctx[11](null);
         destroy_component(popupadduser, detaching);
       }
     };
@@ -33712,7 +33722,7 @@ uniform ${i3} ${a3} u_${s3};
             button,
             "click",
             /*click_handler*/
-            ctx[11]
+            ctx[12]
           );
           mounted = true;
         }
@@ -33746,16 +33756,20 @@ uniform ${i3} ${a3} u_${s3};
     let updating_MASTER_ROWS;
     let current;
     function mastertable_FIELDS_binding(value) {
-      ctx[12](value);
-    }
-    function mastertable_PAGER_binding(value) {
       ctx[13](value);
     }
-    function mastertable_MASTER_ROWS_binding(value) {
+    function mastertable_PAGER_binding(value) {
       ctx[14](value);
+    }
+    function mastertable_MASTER_ROWS_binding(value) {
+      ctx[15](value);
     }
     let mastertable_props = {
       ACCESS: segments2,
+      REFS: { "role": (
+        /*roles*/
+        ctx[10]
+      ) },
       CAN_EDIT_ROW: true,
       CAN_SEARCH_ROW: true,
       CAN_DELETE_ROW: true,
@@ -33817,7 +33831,7 @@ uniform ${i3} ${a3} u_${s3};
       p(ctx2, dirty) {
         const mastertable_changes = {};
         if (dirty & /*$scope, popUpAddUser*/
-        65552) {
+        131088) {
           mastertable_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_FIELDS && dirty & /*fields*/
@@ -33915,7 +33929,7 @@ uniform ${i3} ${a3} u_${s3};
         }
         const mainlayout_changes = {};
         if (dirty & /*$scope, fields, pager, users, popUpAddUser*/
-        65559) {
+        131095) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -34088,6 +34102,13 @@ uniform ${i3} ${a3} u_${s3};
       );
       popUpAddUser.Hide();
     }
+    const roles = {
+      "superAdmin": "Super Admin",
+      "tenantAdmin": "Tenant Admin",
+      "dataEntry": "Data Entry",
+      "reportViewer": "Report Viewer",
+      "fieldSupervisor": "Field Supervisor"
+    };
     function popupadduser_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpAddUser = $value;
@@ -34118,6 +34139,7 @@ uniform ${i3} ${a3} u_${s3};
       OnDelete,
       OnEdit,
       onAddUser,
+      roles,
       popupadduser_binding,
       click_handler,
       mastertable_FIELDS_binding,

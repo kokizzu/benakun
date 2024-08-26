@@ -78,7 +78,7 @@
       CHART_ACTION_COUNTS = new ApexCharts( chartActionCountsElm, chdata2);
       CHART_ACTION_COUNTS.render();
 		});
-  })
+  });
 </script>
 
 <MainLayout>

@@ -61,33 +61,32 @@ type CoaDefault struct {
 }
 
 const (
-	CoaBank = `Bank`
+	CoaBank 										= `Bank`
 	CoaPersediaanBarangDagangan = `Persediaan Barang Dagangan`
-	CoaStok = `Stock`
-	CoaPiutangUsaha = `Piutang Usaha`
-	CoaCOGS = `Cost of Goods Sold / Harga Pokok Penjualan`
-	CoaIncome = `Income / Pendapatan Usaha`
-	CoaHutangDagang = `Hutang Dagang`
-	CoaPerlengkapan = `Peralatan - Perlengkapan`
-	CoaAdm = `Beban Administrasi dan Umum`
-	CoaPrive = `Prive`
+	CoaStok											= `Stock`
+	CoaPiutangUsaha							= `Piutang Usaha`
+	CoaCOGS											= `Cost of Goods Sold / Harga Pokok Penjualan`
+	CoaIncome										= `Income / Pendapatan Usaha`
+	CoaHutangDagang							= `Hutang Dagang`
+	CoaPerlengkapan							= `Peralatan - Perlengkapan`
+	CoaAdm											= `Beban Administrasi dan Umum`
+	CoaPrive										= `Prive`
+	CoaLiability								= `Liability / Hutang - Kewajiban`
 )
 
-type TrxTemplate string
-
 const (
-	TemplatePenjualan TrxTemplate = `Penjualan`
-	TemplatePembelian TrxTemplate= `Pembelian`
-	TemplatePenanamanModal TrxTemplate = `Penanaman Modal`
-	TemplatePengambilanPrive TrxTemplate = `Pengambilan Prive`
-	TemplatePembayaranGaji TrxTemplate= `Pembayaran Gaji`
-	TemplatePembayaranListrik TrxTemplate= `Pembayaran Listrik` 
-	TemplatePembayaranHutang TrxTemplate = `Pembayaran Hutang`
+	TemplatePenjualan  = `Penjualan`
+	TemplatePembelian = `Pembelian`
+	TemplatePenanamanModal  = `Penanaman Modal`
+	TemplatePengambilanPrive  = `Pengambilan Prive`
+	TemplatePembayaranGaji = `Pembayaran Gaji`
+	TemplatePembayaranListrik = `Pembayaran Listrik` 
+	TemplatePembayaranHutang  = `Pembayaran Hutang`
 )
 
 // Generate transaction template
 var TransactionTemplatesDefault = []struct{
-	Name TrxTemplate
+	Name string
 	Color string
 }{
 	{
@@ -109,44 +108,44 @@ var TransactionTemplatesDefault = []struct{
 }
 
 // Generate transaction template detail to transaction template
-var TransactionTemplateDetailsMap = map[TrxTemplate][]struct{
+var TransactionTemplateDetailsMap = map[string][]struct{
 	CoaName string
-	IsCredit bool
-	Attribute []string
+	IsDebit bool
+	Attributes []any
 }{
 	TemplatePenjualan: {
 		{
 			CoaName: CoaStok,
-			IsCredit: true,
-			Attribute: []string{
+			IsDebit: false,
+			Attributes: []any{
 				AttributesChildOnly, AttributesSales,
 			},
 		},
 		{
 			CoaName: CoaBank,
-			IsCredit: false,
-			Attribute: []string{
+			IsDebit: true,
+			Attributes: []any{
 				AttributesAutoSum, AttributesChildOnly,
 			},
 		},
 		{
 			CoaName: CoaPiutangUsaha,
-			IsCredit: false,
-			Attribute: []string{
+			IsDebit: true,
+			Attributes: []any{
 				AttributesAutoSum,
 			},
 		},
 		{
 			CoaName: CoaCOGS,
-			IsCredit: false,
-			Attribute: []string{
+			IsDebit: true,
+			Attributes: []any{
 				AttributeSelfSum,
 			},
 		},
 		{
 			CoaName: CoaIncome,
-			IsCredit: true,
-			Attribute: []string{
+			IsDebit: false,
+			Attributes: []any{
 				AttributeSelfSum, AttributesChildOnly,
 			},
 		},
@@ -154,32 +153,32 @@ var TransactionTemplateDetailsMap = map[TrxTemplate][]struct{
 	TemplatePembelian: {
 		{
 			CoaName: CoaBank,
-			IsCredit: true,
-			Attribute: []string{
+			IsDebit: false,
+			Attributes: []any{
 				AttributesChildOnly,
 				AttributesAutoSum,
 			},
 		},
 		{
 			CoaName: CoaHutangDagang,
-			IsCredit: true,
-			Attribute: []string{
+			IsDebit: false,
+			Attributes: []any{
 				AttributesChildOnly,
 				AttributesAutoSum,
 			},
 		},
 		{
 			CoaName: CoaStok,
-			IsCredit: false,
-			Attribute: []string{
+			IsDebit: true,
+			Attributes: []any{
 				AttributesSales,
 				AttributesChildOnly,
 			},
 		},
 		{
 			CoaName: CoaPerlengkapan,
-			IsCredit: false,
-			Attribute: []string{
+			IsDebit: true,
+			Attributes: []any{
 				AttributesSales,
 				AttributesChildOnly,
 			},
@@ -188,34 +187,64 @@ var TransactionTemplateDetailsMap = map[TrxTemplate][]struct{
 	TemplatePengambilanPrive: {
 		{
 			CoaName: CoaBank,
-			IsCredit: false,
-			Attribute: []string{
+			IsDebit: true,
+			Attributes: []any{
 				AttributesAutoSum,
 			},
 		},
 		{
 			CoaName: CoaPrive,
-			IsCredit: true,
+			IsDebit: false,
 		},
 	},
 	TemplatePembayaranGaji: {
 		{
 			CoaName: CoaAdm,
-			IsCredit: false,
-			Attribute: []string{
+			IsDebit: true,
+			Attributes: []any{
 				AttributesChildOnly,
 			},
 		},
 		{
 			CoaName: CoaBank,
-			IsCredit: true,
-			Attribute: []string{
+			IsDebit: false,
+			Attributes: []any{
 				AttributesAutoSum,
 			},
 		},
 	},
-	TemplatePembayaranListrik: {},
-	TemplatePembayaranHutang: {},
+	TemplatePembayaranListrik: {
+		{
+			CoaName: CoaAdm,
+			IsDebit: true,
+			Attributes: []any{
+				AttributesChildOnly,
+			},
+		},
+		{
+			CoaName: CoaBank,
+			IsDebit: true,
+			Attributes: []any{
+				AttributesAutoSum,
+			},
+		},
+	},
+	TemplatePembayaranHutang: {
+		{
+			CoaName: CoaLiability,
+			IsDebit: false,
+			Attributes: []any{
+				AttributesChildOnly,
+			},
+		},
+		{
+			CoaName: CoaBank,
+			IsDebit: true,
+			Attributes: []any{
+				AttributesAutoSum,
+			},
+		},
+	},
 }
 
 func GetCoaDefaults() []CoaDefault {
@@ -250,7 +279,7 @@ func GetCoaDefaults() []CoaDefault {
 			},
 		},
 		{
-			Name: `Liability / Hutang - Kewajiban`,
+			Name: CoaLiability,
 			Children: []CoaDefault{
 				{Name: CoaHutangDagang, Label: LabelSuppliers},
 				{Name: `Uang Muka Pelanggan`},

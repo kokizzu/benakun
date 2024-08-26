@@ -23,12 +23,18 @@
   let tenantCode = '';
   let role = '';
 
-  const RoleUser    = `user`,
-    RoleTenantAdmin = `tenantAdmin`,
-    RoleDataEntry   = `dataEntry`,
-    RoleReportViewer = `reportViewer`;
+  const RoleUser          = `user`;
+  const RoleTenantAdmin   = `tenantAdmin`;
+  const RoleDataEntry     = `dataEntry`;
+  const RoleReportViewer  = `reportViewer`;
 
-  const roles = [RoleUser, RoleTenantAdmin, RoleDataEntry, RoleReportViewer];
+  const roles = {
+    'superAdmin': 'Super Admin',
+    'tenantAdmin': 'Tenant Admin',
+    'dataEntry': 'Data Entry',
+    'reportViewer': 'Report Viewer',
+    'fieldSupervisor': 'Field Supervisor'
+  }
 
   let tenantAdmin = '';
 
@@ -121,6 +127,7 @@
         bind:value={role}
         type="combobox"
         values={roles}
+        isObject
       />
       {#if isRequireTenantAdmin}
         {#if isTenantsReady}

@@ -155,6 +155,14 @@
     );
     popUpAddUser.Hide();
   }
+
+  const roles = {
+    'superAdmin': 'Super Admin',
+    'tenantAdmin': 'Tenant Admin',
+    'dataEntry': 'Data Entry',
+    'reportViewer': 'Report Viewer',
+    'fieldSupervisor': 'Field Supervisor'
+  }
 </script>
 
 {#if isPopUpAddUserReady}
@@ -172,6 +180,9 @@
       bind:FIELDS={fields}
       bind:PAGER={pager}
       bind:MASTER_ROWS={users}
+      REFS={{
+        'role': roles
+      }}
 
       CAN_EDIT_ROW
       CAN_SEARCH_ROW
