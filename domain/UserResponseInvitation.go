@@ -5,6 +5,9 @@ import (
 
 	"benakun/model/mAuth"
 	"benakun/model/mAuth/wcAuth"
+
+	"github.com/kokizzu/gotro/S"
+	"github.com/segmentio/fasthash/fnv1a"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserResponseInvitation.go
@@ -17,6 +20,7 @@ type (
 	UserResponseInvitationIn struct {
 		RequestCommon
 		TenantCode string `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
+		CSRFToken string `json:"csrf_token" form:"csrf_token" query:"csrf_token" long:"csrf_token" msg:"csrf_token"`
 		Response   string `json:"response" form:"response" query:"response" long:"response" msg:"response"`
 	}
 	UserResponseInvitationOut struct {
@@ -32,6 +36,7 @@ const (
 	ErrUserResponseInvitationUserNotFound       = `user not found on invitation`
 	ErrUserResponseInvitationTenantNotFound     = `tenant admin not found on invitation`
 	ErrUserResponseInvitationModificationFailed = `failed verify invitation user`
+	ErrUserResponseInvitationInvalidCSRFToken = `invalid csrf token, make sure you are the right person who operate this action`
 )
 
 func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserResponseInvitationOut) {
@@ -64,6 +69,13 @@ func (d *Domain) UserResponseInvitation(in *UserResponseInvitationIn) (out UserR
 	if !tenant.FindByTenantCode() {
 		out.SetError(400, ErrUserResponseInvitationTenantNotFound)
 		out.Message = ErrUserResponseInvitationTenantNotFound
+		return
+	}
+
+	token := S.EncodeCB63(fnv1a.HashString64(user.Email+tenant.TenantCode), 10)
+	if token != in.CSRFToken {
+		out.SetError(400, ErrUserResponseInvitationInvalidCSRFToken)
+		out.Message = ErrUserResponseInvitationInvalidCSRFToken
 		return
 	}
 

@@ -16,7 +16,7 @@ type (
 )
 
 const (
-	ReportViewerGeneralLedgerAction = `reportViewer/dashboard`
+	ReportViewerGeneralLedgerAction = `reportViewer/generalLedger`
 )
 
 func (d *Domain) ReportViewerGeneralLedger(in *ReportViewerGeneralLedgerIn) (out ReportViewerGeneralLedgerOut) {

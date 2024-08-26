@@ -44,6 +44,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.DataEntryTransactionEntry(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.FieldSupervisorAction:
+		in := domain.FieldSupervisorIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.FieldSupervisor(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.GuestAutoLoginAction:
 		in := domain.GuestAutoLoginIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
@@ -130,6 +138,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.ReportViewerDashboard(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.ReportViewerGeneralLedgerAction:
+		in := domain.ReportViewerGeneralLedgerIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.ReportViewerGeneralLedger(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.SuperAdminAccessLogAction:

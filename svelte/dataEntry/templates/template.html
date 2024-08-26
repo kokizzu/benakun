@@ -3200,6 +3200,9 @@ header.svelte-146z4fm.svelte-146z4fm {
       exports.DataEntryTransactionEntry = async function DataEntryTransactionEntry2(i, cb) {
         return await axios.post("/dataEntry/transactionEntry", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.FieldSupervisor = async function FieldSupervisor(i, cb) {
+        return await axios.post("/fieldSupervisor/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.GuestAutoLogin = async function GuestAutoLogin(i, cb) {
         return await axios.post("/guest/autoLogin", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -3232,6 +3235,9 @@ header.svelte-146z4fm.svelte-146z4fm {
       };
       exports.ReportViewerDashboard = async function ReportViewerDashboard(i, cb) {
         return await axios.post("/reportViewer/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.ReportViewerGeneralLedger = async function ReportViewerGeneralLedger(i, cb) {
+        return await axios.post("/reportViewer/generalLedger", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.SuperAdminAccessLog = async function SuperAdminAccessLog(i, cb) {
         return await axios.post("/superAdmin/accessLog", i).then(wrapOk(cb)).catch(wrapErr(cb));

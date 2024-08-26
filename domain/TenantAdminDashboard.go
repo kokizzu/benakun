@@ -9,7 +9,9 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/kokizzu/gotro/L"
+	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/T"
+	"github.com/segmentio/fasthash/fnv1a"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file TenantAdminDashboard.go
@@ -243,7 +245,9 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 
 			if in.Cmd == zCrud.CmdUpsert || in.Cmd == zCrud.CmdRestore {
 				d.runSubtask(func() {
-					inviteRespUrl := in.Host + `/` + UserResponseInvitationAction + `?tenantCode=` + tenant.TenantCode + `&response=`
+					queryParamCSRF := `&csrf_token=` + S.EncodeCB63(fnv1a.HashString64(staff.Email+tenant.TenantCode), 10)
+
+					inviteRespUrl := in.Host + `/` + UserResponseInvitationAction + `?tenantCode=` + tenant.TenantCode + queryParamCSRF + `&response=`
 					err := d.Mailer.SendInviteUserEmail(tenant.TenantCode, staff.Email, inviteRespUrl)
 					L.IsError(err, `SendInviteUserEmail`)
 					// TODO: insert failed event to clickhouse

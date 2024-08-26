@@ -2907,6 +2907,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.DataEntryTransactionEntry = async function DataEntryTransactionEntry(i, cb) {
         return await axios.post("/dataEntry/transactionEntry", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.FieldSupervisor = async function FieldSupervisor(i, cb) {
+        return await axios.post("/fieldSupervisor/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.GuestAutoLogin = async function GuestAutoLogin(i, cb) {
         return await axios.post("/guest/autoLogin", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -2939,6 +2942,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       };
       exports.ReportViewerDashboard = async function ReportViewerDashboard(i, cb) {
         return await axios.post("/reportViewer/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.ReportViewerGeneralLedger = async function ReportViewerGeneralLedger(i, cb) {
+        return await axios.post("/reportViewer/generalLedger", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.SuperAdminAccessLog = async function SuperAdminAccessLog(i, cb) {
         return await axios.post("/superAdmin/accessLog", i).then(wrapOk(cb)).catch(wrapErr(cb));

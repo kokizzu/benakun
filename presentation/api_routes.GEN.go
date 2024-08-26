@@ -50,6 +50,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// FieldSupervisor
+	fw.Post("/"+domain.FieldSupervisorAction, func(c *fiber.Ctx) error {
+		in := domain.FieldSupervisorIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.FieldSupervisorAction); err != nil {
+			return nil
+		}
+		out := d.FieldSupervisor(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// GuestAutoLogin
 	fw.Post("/"+domain.GuestAutoLoginAction, func(c *fiber.Ctx) error {
 		in := domain.GuestAutoLoginIn{}
@@ -157,6 +167,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return nil
 		}
 		out := d.ReportViewerDashboard(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// ReportViewerGeneralLedger
+	fw.Post("/"+domain.ReportViewerGeneralLedgerAction, func(c *fiber.Ctx) error {
+		in := domain.ReportViewerGeneralLedgerIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.ReportViewerGeneralLedgerAction); err != nil {
+			return nil
+		}
+		out := d.ReportViewerGeneralLedger(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

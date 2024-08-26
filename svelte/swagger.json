@@ -215,6 +215,38 @@
 				}
 			}
 		},
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "FieldSupervisor",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/guest/autoLogin": {
 			"post": {
 				"security": [{
@@ -944,6 +976,39 @@
 				}
 			}
 		},
+		"/reportViewer/generalLedger": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "ReportViewerGeneralLedger",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/superAdmin/accessLog": {
 			"post": {
 				"security": [{
@@ -1165,6 +1230,12 @@
 								},
 								"banksCoaId": {
 										"type": "number"
+								},
+								"customerReceivablesCoaId": {
+										"type": "number"
+								},
+								"fundersCoaId": {
+										"type": "number"
 								}
 								}
 						},
@@ -1289,6 +1360,12 @@
 														"type": "number"
 												},
 												"banksCoaId": {
+														"type": "number"
+												},
+												"customerReceivablesCoaId": {
+														"type": "number"
+												},
+												"fundersCoaId": {
 														"type": "number"
 												}
 												}
@@ -2012,6 +2089,11 @@
 												}
 										},
 										"coas": {
+										"type": "object",
+										"properties": {
+												}
+										},
+										"coaChoices": {
 										"type": "object",
 										"properties": {
 												}
@@ -3265,6 +3347,12 @@
 								},
 								"banksCoaId": {
 										"type": "number"
+								},
+								"customerReceivablesCoaId": {
+										"type": "number"
+								},
+								"fundersCoaId": {
+										"type": "number"
 								}
 								}
 						}
@@ -3318,6 +3406,12 @@
 														"type": "number"
 												},
 												"banksCoaId": {
+														"type": "number"
+												},
+												"customerReceivablesCoaId": {
+														"type": "number"
+												},
+												"fundersCoaId": {
 														"type": "number"
 												}
 												}
@@ -3980,6 +4074,9 @@
 								"type": "object",
 								"properties": {
 						"tenantCode": {
+								"type": "string"
+						},
+						"cSRFToken": {
 								"type": "string"
 						},
 						"response": {

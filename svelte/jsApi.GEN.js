@@ -166,6 +166,32 @@ exports.DataEntryTransactionEntry = async function DataEntryTransactionEntry( i,
 }
 
 /**
+ * @typedef {Object} FieldSupervisorIn
+ */
+const FieldSupervisorIn = {
+}
+/**
+ * @typedef {Object} FieldSupervisorOut
+ */
+const FieldSupervisorOut = {
+}
+/**
+ * @callback FieldSupervisorCallback
+ * @param {FieldSupervisorOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {FieldSupervisorIn} i
+ * @param {FieldSupervisorCallback} cb
+ * @returns {Promise}
+ */
+exports.FieldSupervisor = async function FieldSupervisor( i, cb ) {
+  return await axios.post( '/fieldSupervisor/dashboard', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} GuestAutoLoginIn
  * @property {String} uid
  * @property {String} token
@@ -687,6 +713,32 @@ exports.ReportViewerDashboard = async function ReportViewerDashboard( i, cb ) {
 }
 
 /**
+ * @typedef {Object} ReportViewerGeneralLedgerIn
+ */
+const ReportViewerGeneralLedgerIn = {
+}
+/**
+ * @typedef {Object} ReportViewerGeneralLedgerOut
+ */
+const ReportViewerGeneralLedgerOut = {
+}
+/**
+ * @callback ReportViewerGeneralLedgerCallback
+ * @param {ReportViewerGeneralLedgerOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {ReportViewerGeneralLedgerIn} i
+ * @param {ReportViewerGeneralLedgerCallback} cb
+ * @returns {Promise}
+ */
+exports.ReportViewerGeneralLedger = async function ReportViewerGeneralLedger( i, cb ) {
+  return await axios.post( '/reportViewer/generalLedger', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} SuperAdminAccessLogIn
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -810,6 +862,8 @@ exports.SuperAdminDashboard = async function SuperAdminDashboard( i, cb ) {
  * @property {number} tenant.customersCoaId
  * @property {number} tenant.staffsCoaId
  * @property {number} tenant.banksCoaId
+ * @property {number} tenant.customerReceivablesCoaId
+ * @property {number} tenant.fundersCoaId
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -831,6 +885,8 @@ const SuperAdminTenantManagementIn = {
     customersCoaId: 0, // uint64
     staffsCoaId: 0, // uint64
     banksCoaId: 0, // uint64
+    customerReceivablesCoaId: 0, // uint64
+    fundersCoaId: 0, // uint64
   }, // rqAuth.Tenants
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -864,6 +920,8 @@ const SuperAdminTenantManagementIn = {
  * @property {number} tenant.customersCoaId
  * @property {number} tenant.staffsCoaId
  * @property {number} tenant.banksCoaId
+ * @property {number} tenant.customerReceivablesCoaId
+ * @property {number} tenant.fundersCoaId
  * @property {Object} tenants
  */
 const SuperAdminTenantManagementOut = {
@@ -896,6 +954,8 @@ const SuperAdminTenantManagementOut = {
     customersCoaId: 0, // uint64
     staffsCoaId: 0, // uint64
     banksCoaId: 0, // uint64
+    customerReceivablesCoaId: 0, // uint64
+    fundersCoaId: 0, // uint64
   }, // rqAuth.Tenants
   tenants: { // [][]any
   }, // [][]any
@@ -1343,6 +1403,7 @@ const TenantAdminCoaIn = {
  * @property {number} coa.deletedBy
  * @property {number} coa.restoredBy
  * @property {Object} coas
+ * @property {Object} coaChoices
  */
 const TenantAdminCoaOut = {
   coa: { // rqFinance.Coa
@@ -1363,6 +1424,8 @@ const TenantAdminCoaOut = {
   }, // rqFinance.Coa
   coas: { // []rqFinance.Coa
   }, // []rqFinance.Coa
+  coaChoices: { // map[string]string
+  }, // map[string]string
 }
 /**
  * @callback TenantAdminCoaCallback
@@ -2153,6 +2216,8 @@ exports.TenantAdminProducts = async function TenantAdminProducts( i, cb ) {
  * @property {number} tenant.customersCoaId
  * @property {number} tenant.staffsCoaId
  * @property {number} tenant.banksCoaId
+ * @property {number} tenant.customerReceivablesCoaId
+ * @property {number} tenant.fundersCoaId
  */
 const TenantAdminSyncCoaIn = {
   tenant: { // rqAuth.Tenants
@@ -2168,6 +2233,8 @@ const TenantAdminSyncCoaIn = {
     customersCoaId: 0, // uint64
     staffsCoaId: 0, // uint64
     banksCoaId: 0, // uint64
+    customerReceivablesCoaId: 0, // uint64
+    fundersCoaId: 0, // uint64
   }, // rqAuth.Tenants
 }
 /**
@@ -2184,6 +2251,8 @@ const TenantAdminSyncCoaIn = {
  * @property {number} tenant.customersCoaId
  * @property {number} tenant.staffsCoaId
  * @property {number} tenant.banksCoaId
+ * @property {number} tenant.customerReceivablesCoaId
+ * @property {number} tenant.fundersCoaId
  */
 const TenantAdminSyncCoaOut = {
   tenant: { // rqAuth.Tenants
@@ -2199,6 +2268,8 @@ const TenantAdminSyncCoaOut = {
     customersCoaId: 0, // uint64
     staffsCoaId: 0, // uint64
     banksCoaId: 0, // uint64
+    customerReceivablesCoaId: 0, // uint64
+    fundersCoaId: 0, // uint64
   }, // rqAuth.Tenants
 }
 /**
@@ -2665,10 +2736,12 @@ exports.UserProfile = async function UserProfile( i, cb ) {
 /**
  * @typedef {Object} UserResponseInvitationIn
  * @property {String} tenantCode
+ * @property {String} cSRFToken
  * @property {String} response
  */
 const UserResponseInvitationIn = {
   tenantCode: '', // string
+  cSRFToken: '', // string
   response: '', // string
 }
 /**
