@@ -29052,9 +29052,12 @@ uniform ${i3} ${a3} u_${s3};
       if (type === "bool")
         $invalidate(0, id = id + Math.random());
       if (isObject || typeof values == "object") {
-        $invalidate(10, valueToShowFromObj = values[value]);
+        if (values && values[value])
+          $invalidate(10, valueToShowFromObj = values[value]);
+        else
+          $invalidate(10, valueToShowFromObj = "");
       } else {
-        $invalidate(10, valueToShowFromObj = value);
+        $invalidate(10, valueToShowFromObj = values[value] || value || "");
       }
     });
     function toggleShowPassword() {
@@ -30467,6 +30470,7 @@ uniform ${i3} ${a3} u_${s3};
       ),
       values: (
         /*REFS*/
+        ctx[2] && /*REFS*/
         ctx[2][
           /*field*/
           ctx[92].name
@@ -30483,6 +30487,7 @@ uniform ${i3} ${a3} u_${s3};
       ),
       isObject: (
         /*REFS*/
+        ctx[2] && /*REFS*/
         ctx[2][
           /*field*/
           ctx[92].name
@@ -30534,6 +30539,7 @@ uniform ${i3} ${a3} u_${s3};
         if (dirty[0] & /*REFS, FIELDS*/
         5)
           inputcustom_changes.values = /*REFS*/
+          ctx[2] && /*REFS*/
           ctx[2][
             /*field*/
             ctx[92].name
@@ -30550,6 +30556,7 @@ uniform ${i3} ${a3} u_${s3};
         if (dirty[0] & /*REFS, FIELDS*/
         5)
           inputcustom_changes.isObject = /*REFS*/
+          ctx[2] && /*REFS*/
           ctx[2][
             /*field*/
             ctx[92].name
@@ -33574,7 +33581,7 @@ uniform ${i3} ${a3} u_${s3};
             button,
             "click",
             /*click_handler*/
-            ctx[19]
+            ctx[18]
           );
           mounted = true;
         }
@@ -33696,64 +33703,61 @@ uniform ${i3} ${a3} u_${s3};
     let inputcustom2;
     let updating_value_2;
     let t7;
-    let inputcustom3;
-    let updating_value_3;
-    let t8;
     let div7;
     let div3;
     let div2;
-    let t10;
+    let t9;
     let h5;
-    let t12;
+    let t11;
     let div6;
     let div4;
-    let t14;
+    let t13;
     let div5;
     let p1;
-    let t17;
+    let t16;
     let p2;
-    let t20;
+    let t19;
     let div8;
     let table;
     let thead;
-    let t32;
+    let t31;
     let tbody;
     let tr1;
     let td0;
     let input0;
-    let t33;
+    let t32;
     let td1;
     let input1;
-    let t34;
+    let t33;
     let td2;
     let textarea;
-    let t35;
+    let t34;
     let td3;
     let input2;
-    let t36;
+    let t35;
     let td4;
     let input3;
-    let t37;
+    let t36;
     let td5;
     let input4;
-    let t38;
+    let t37;
     let div10;
     let button0;
-    let t40;
+    let t39;
     let button1;
-    let t41;
+    let t40;
     let div12_class_value;
     let current;
     let mounted;
     let dispose;
     function mastertable_FIELDS_binding(value) {
-      ctx[20](value);
+      ctx[19](value);
     }
     function mastertable_PAGER_binding(value) {
-      ctx[21](value);
+      ctx[20](value);
     }
     function mastertable_MASTER_ROWS_binding(value) {
-      ctx[22](value);
+      ctx[21](value);
     }
     let mastertable_props = {
       ACCESS: segments2,
@@ -33766,11 +33770,11 @@ uniform ${i3} ${a3} u_${s3};
       IS_CUSTOM_EDIT: true,
       LINKS: (
         /*LINKS*/
-        ctx[18]
+        ctx[17]
       ),
       OnRefresh: (
         /*OnRefresh*/
-        ctx[16]
+        ctx[15]
       ),
       $slots: { default: [create_default_slot_1] },
       $scope: { ctx }
@@ -33801,7 +33805,7 @@ uniform ${i3} ${a3} u_${s3};
     binding_callbacks.push(() => bind(mastertable, "PAGER", mastertable_PAGER_binding));
     binding_callbacks.push(() => bind(mastertable, "MASTER_ROWS", mastertable_MASTER_ROWS_binding));
     function inputcustom0_value_binding(value) {
-      ctx[23](value);
+      ctx[22](value);
     }
     let inputcustom0_props = {
       type: "date",
@@ -33811,15 +33815,15 @@ uniform ${i3} ${a3} u_${s3};
     };
     if (
       /*startDate*/
-      ctx[7] !== void 0
+      ctx[6] !== void 0
     ) {
       inputcustom0_props.value = /*startDate*/
-      ctx[7];
+      ctx[6];
     }
     inputcustom0 = new InputCustom_default({ props: inputcustom0_props });
     binding_callbacks.push(() => bind(inputcustom0, "value", inputcustom0_value_binding));
     function inputcustom1_value_binding(value) {
-      ctx[24](value);
+      ctx[23](value);
     }
     let inputcustom1_props = {
       id: "endDate",
@@ -33828,15 +33832,15 @@ uniform ${i3} ${a3} u_${s3};
     };
     if (
       /*endDate*/
-      ctx[8] !== void 0
+      ctx[7] !== void 0
     ) {
       inputcustom1_props.value = /*endDate*/
-      ctx[8];
+      ctx[7];
     }
     inputcustom1 = new InputCustom_default({ props: inputcustom1_props });
     binding_callbacks.push(() => bind(inputcustom1, "value", inputcustom1_value_binding));
     function inputcustom2_value_binding(value) {
-      ctx[25](value);
+      ctx[24](value);
     }
     let inputcustom2_props = {
       id: "coaId",
@@ -33854,25 +33858,6 @@ uniform ${i3} ${a3} u_${s3};
     }
     inputcustom2 = new InputCustom_default({ props: inputcustom2_props });
     binding_callbacks.push(() => bind(inputcustom2, "value", inputcustom2_value_binding));
-    function inputcustom3_value_binding(value) {
-      ctx[26](value);
-    }
-    let inputcustom3_props = {
-      id: "transactionTplId",
-      label: "Transaction Template",
-      type: "select",
-      values: transactionTemplates,
-      isObject: true
-    };
-    if (
-      /*transactionTplId*/
-      ctx[6] !== void 0
-    ) {
-      inputcustom3_props.value = /*transactionTplId*/
-      ctx[6];
-    }
-    inputcustom3 = new InputCustom_default({ props: inputcustom3_props });
-    binding_callbacks.push(() => bind(inputcustom3, "value", inputcustom3_value_binding));
     let if_block0 = !/*isSubmitted*/
     ctx[4] && create_if_block_111(ctx);
     let if_block1 = (
@@ -33897,60 +33882,58 @@ uniform ${i3} ${a3} u_${s3};
         t6 = space();
         create_component(inputcustom2.$.fragment);
         t7 = space();
-        create_component(inputcustom3.$.fragment);
-        t8 = space();
         div7 = element("div");
         div3 = element("div");
         div2 = element("div");
         div2.innerHTML = `<span>Company Name</span>`;
-        t10 = space();
+        t9 = space();
         h5 = element("h5");
         h5.textContent = `${org.name || ""}`;
-        t12 = space();
+        t11 = space();
         div6 = element("div");
         div4 = element("div");
         div4.innerHTML = `<span>Company Contacts</span>`;
-        t14 = space();
+        t13 = space();
         div5 = element("div");
         p1 = element("p");
         p1.textContent = `Head Title: ${org.headTitle || ""}`;
-        t17 = space();
+        t16 = space();
         p2 = element("p");
         p2.textContent = `Email: ${user2.email}`;
-        t20 = space();
+        t19 = space();
         div8 = element("div");
         table = element("table");
         thead = element("thead");
         thead.innerHTML = `<tr><th class="svelte-xhdaoc">Debit (IDR)</th> <th class="svelte-xhdaoc">Credit (IDR)</th> <th class="svelte-xhdaoc">Description</th> <th class="svelte-xhdaoc">Date</th> <th class="svelte-xhdaoc">Sales Count</th> <th class="svelte-xhdaoc">Sales Price (IDR)</th></tr>`;
-        t32 = space();
+        t31 = space();
         tbody = element("tbody");
         tr1 = element("tr");
         td0 = element("td");
         input0 = element("input");
-        t33 = space();
+        t32 = space();
         td1 = element("td");
         input1 = element("input");
-        t34 = space();
+        t33 = space();
         td2 = element("td");
         textarea = element("textarea");
-        t35 = space();
+        t34 = space();
         td3 = element("td");
         input2 = element("input");
-        t36 = space();
+        t35 = space();
         td4 = element("td");
         input3 = element("input");
-        t37 = space();
+        t36 = space();
         td5 = element("td");
         input4 = element("input");
-        t38 = space();
+        t37 = space();
         div10 = element("div");
         button0 = element("button");
         button0.textContent = "Cancel";
-        t40 = space();
+        t39 = space();
         button1 = element("button");
         if (if_block0)
           if_block0.c();
-        t41 = space();
+        t40 = space();
         if (if_block1)
           if_block1.c();
         attr(div0, "class", div0_class_value = null_to_empty(!/*isCreatingJournal*/
@@ -34012,27 +33995,25 @@ uniform ${i3} ${a3} u_${s3};
         mount_component(inputcustom1, div1, null);
         append(div1, t6);
         mount_component(inputcustom2, div1, null);
-        append(div1, t7);
-        mount_component(inputcustom3, div1, null);
-        append(div9, t8);
+        append(div9, t7);
         append(div9, div7);
         append(div7, div3);
         append(div3, div2);
-        append(div3, t10);
+        append(div3, t9);
         append(div3, h5);
-        append(div7, t12);
+        append(div7, t11);
         append(div7, div6);
         append(div6, div4);
-        append(div6, t14);
+        append(div6, t13);
         append(div6, div5);
         append(div5, p1);
-        append(div5, t17);
+        append(div5, t16);
         append(div5, p2);
-        append(div9, t20);
+        append(div9, t19);
         append(div9, div8);
         append(div8, table);
         append(table, thead);
-        append(table, t32);
+        append(table, t31);
         append(table, tbody);
         append(tbody, tr1);
         append(tr1, td0);
@@ -34040,56 +34021,56 @@ uniform ${i3} ${a3} u_${s3};
         set_input_value(
           input0,
           /*debitIDR*/
-          ctx[9]
+          ctx[8]
         );
-        append(tr1, t33);
+        append(tr1, t32);
         append(tr1, td1);
         append(td1, input1);
         set_input_value(
           input1,
           /*creditIDR*/
-          ctx[10]
+          ctx[9]
         );
-        append(tr1, t34);
+        append(tr1, t33);
         append(tr1, td2);
         append(td2, textarea);
         set_input_value(
           textarea,
           /*descriptions*/
-          ctx[11]
+          ctx[10]
         );
-        append(tr1, t35);
+        append(tr1, t34);
         append(tr1, td3);
         append(td3, input2);
         set_input_value(
           input2,
           /*date*/
-          ctx[12]
+          ctx[11]
         );
-        append(tr1, t36);
+        append(tr1, t35);
         append(tr1, td4);
         append(td4, input3);
         set_input_value(
           input3,
           /*salesCount*/
-          ctx[13]
+          ctx[12]
         );
-        append(tr1, t37);
+        append(tr1, t36);
         append(tr1, td5);
         append(td5, input4);
         set_input_value(
           input4,
           /*salesPriceIDR*/
-          ctx[14]
+          ctx[13]
         );
-        append(div11, t38);
+        append(div11, t37);
         append(div11, div10);
         append(div10, button0);
-        append(div10, t40);
+        append(div10, t39);
         append(div10, button1);
         if (if_block0)
           if_block0.m(button1, null);
-        append(button1, t41);
+        append(button1, t40);
         if (if_block1)
           if_block1.m(button1, null);
         current = true;
@@ -34099,49 +34080,49 @@ uniform ${i3} ${a3} u_${s3};
               input0,
               "input",
               /*input0_input_handler*/
-              ctx[27]
+              ctx[25]
             ),
             listen(
               input1,
               "input",
               /*input1_input_handler*/
-              ctx[28]
+              ctx[26]
             ),
             listen(
               textarea,
               "input",
               /*textarea_input_handler*/
-              ctx[29]
+              ctx[27]
             ),
             listen(
               input2,
               "input",
               /*input2_input_handler*/
-              ctx[30]
+              ctx[28]
             ),
             listen(
               input3,
               "input",
               /*input3_input_handler*/
-              ctx[31]
+              ctx[29]
             ),
             listen(
               input4,
               "input",
               /*input4_input_handler*/
-              ctx[32]
+              ctx[30]
             ),
             listen(
               button0,
               "click",
               /*click_handler_1*/
-              ctx[33]
+              ctx[31]
             ),
             listen(
               button1,
               "click",
               /*SubmitAdd*/
-              ctx[17]
+              ctx[16]
             )
           ];
           mounted = true;
@@ -34151,7 +34132,7 @@ uniform ${i3} ${a3} u_${s3};
         const mastertable_changes = {};
         if (dirty[0] & /*isCreatingJournal*/
         8 | dirty[1] & /*$scope*/
-        8) {
+        4) {
           mastertable_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_FIELDS && dirty[0] & /*fields*/
@@ -34183,19 +34164,19 @@ uniform ${i3} ${a3} u_${s3};
         }
         const inputcustom0_changes = {};
         if (!updating_value && dirty[0] & /*startDate*/
-        128) {
+        64) {
           updating_value = true;
           inputcustom0_changes.value = /*startDate*/
-          ctx2[7];
+          ctx2[6];
           add_flush_callback(() => updating_value = false);
         }
         inputcustom0.$set(inputcustom0_changes);
         const inputcustom1_changes = {};
         if (!updating_value_1 && dirty[0] & /*endDate*/
-        256) {
+        128) {
           updating_value_1 = true;
           inputcustom1_changes.value = /*endDate*/
-          ctx2[8];
+          ctx2[7];
           add_flush_callback(() => updating_value_1 = false);
         }
         inputcustom1.$set(inputcustom1_changes);
@@ -34208,65 +34189,56 @@ uniform ${i3} ${a3} u_${s3};
           add_flush_callback(() => updating_value_2 = false);
         }
         inputcustom2.$set(inputcustom2_changes);
-        const inputcustom3_changes = {};
-        if (!updating_value_3 && dirty[0] & /*transactionTplId*/
-        64) {
-          updating_value_3 = true;
-          inputcustom3_changes.value = /*transactionTplId*/
-          ctx2[6];
-          add_flush_callback(() => updating_value_3 = false);
-        }
-        inputcustom3.$set(inputcustom3_changes);
         if (dirty[0] & /*debitIDR*/
-        512 && to_number(input0.value) !== /*debitIDR*/
-        ctx2[9]) {
+        256 && to_number(input0.value) !== /*debitIDR*/
+        ctx2[8]) {
           set_input_value(
             input0,
             /*debitIDR*/
-            ctx2[9]
+            ctx2[8]
           );
         }
         if (dirty[0] & /*creditIDR*/
-        1024 && to_number(input1.value) !== /*creditIDR*/
-        ctx2[10]) {
+        512 && to_number(input1.value) !== /*creditIDR*/
+        ctx2[9]) {
           set_input_value(
             input1,
             /*creditIDR*/
-            ctx2[10]
+            ctx2[9]
           );
         }
         if (dirty[0] & /*descriptions*/
-        2048) {
+        1024) {
           set_input_value(
             textarea,
             /*descriptions*/
-            ctx2[11]
+            ctx2[10]
           );
         }
         if (dirty[0] & /*date*/
-        4096) {
+        2048) {
           set_input_value(
             input2,
             /*date*/
-            ctx2[12]
+            ctx2[11]
           );
         }
         if (dirty[0] & /*salesCount*/
-        8192 && to_number(input3.value) !== /*salesCount*/
-        ctx2[13]) {
+        4096 && to_number(input3.value) !== /*salesCount*/
+        ctx2[12]) {
           set_input_value(
             input3,
             /*salesCount*/
-            ctx2[13]
+            ctx2[12]
           );
         }
         if (dirty[0] & /*salesPriceIDR*/
-        16384 && to_number(input4.value) !== /*salesPriceIDR*/
-        ctx2[14]) {
+        8192 && to_number(input4.value) !== /*salesPriceIDR*/
+        ctx2[13]) {
           set_input_value(
             input4,
             /*salesPriceIDR*/
-            ctx2[14]
+            ctx2[13]
           );
         }
         if (!/*isSubmitted*/
@@ -34275,7 +34247,7 @@ uniform ${i3} ${a3} u_${s3};
           } else {
             if_block0 = create_if_block_111(ctx2);
             if_block0.c();
-            if_block0.m(button1, t41);
+            if_block0.m(button1, t40);
           }
         } else if (if_block0) {
           if_block0.d(1);
@@ -34315,7 +34287,6 @@ uniform ${i3} ${a3} u_${s3};
         transition_in(inputcustom0.$.fragment, local);
         transition_in(inputcustom1.$.fragment, local);
         transition_in(inputcustom2.$.fragment, local);
-        transition_in(inputcustom3.$.fragment, local);
         current = true;
       },
       o(local) {
@@ -34323,7 +34294,6 @@ uniform ${i3} ${a3} u_${s3};
         transition_out(inputcustom0.$.fragment, local);
         transition_out(inputcustom1.$.fragment, local);
         transition_out(inputcustom2.$.fragment, local);
-        transition_out(inputcustom3.$.fragment, local);
         current = false;
       },
       d(detaching) {
@@ -34336,7 +34306,6 @@ uniform ${i3} ${a3} u_${s3};
         destroy_component(inputcustom0);
         destroy_component(inputcustom1);
         destroy_component(inputcustom2);
-        destroy_component(inputcustom3);
         if (if_block0)
           if_block0.d();
         if (if_block1)
@@ -34365,9 +34334,9 @@ uniform ${i3} ${a3} u_${s3};
       },
       p(ctx2, dirty) {
         const mainlayout_changes = {};
-        if (dirty[0] & /*isCreatingJournal, isSubmitted, salesPriceIDR, salesCount, date, descriptions, creditIDR, debitIDR, transactionTplId, coaId, endDate, startDate, fields, pager, transactionJournals*/
-        32767 | dirty[1] & /*$scope*/
-        8) {
+        if (dirty[0] & /*isCreatingJournal, isSubmitted, salesPriceIDR, salesCount, date, descriptions, creditIDR, debitIDR, coaId, endDate, startDate, fields, pager, transactionJournals*/
+        16383 | dirty[1] & /*$scope*/
+        4) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -34398,10 +34367,6 @@ uniform ${i3} ${a3} u_${s3};
   var coas = (
     /** @type Record<number, string> */
     {/* coas */}
-  );
-  var transactionTemplates = (
-    /** @type Record<number, string> */
-    {/* transactionTemplates */}
   );
   var org = (
     /** @type Org */
@@ -34443,23 +34408,19 @@ uniform ${i3} ${a3} u_${s3};
       $invalidate(3, isCreatingJournal = false);
       $invalidate(4, isSubmitted = false);
       $invalidate(5, coaId = 0);
-      $invalidate(6, transactionTplId = 0);
-      $invalidate(7, startDate = dateISOFormat(0));
-      $invalidate(8, endDate = dateISOFormat(4));
-      $invalidate(9, debitIDR = 0);
-      $invalidate(10, creditIDR = 0);
-      $invalidate(11, descriptions = "");
-      $invalidate(12, date = dateISOFormat(0));
-      $invalidate(13, salesCount = 0);
-      $invalidate(14, salesPriceIDR = 0);
+      transactionTplId = 0;
+      $invalidate(6, startDate = dateISOFormat(0));
+      $invalidate(7, endDate = dateISOFormat(4));
+      $invalidate(8, debitIDR = 0);
+      $invalidate(9, creditIDR = 0);
+      $invalidate(10, descriptions = "");
+      $invalidate(11, date = dateISOFormat(0));
+      $invalidate(12, salesCount = 0);
+      $invalidate(13, salesPriceIDR = 0);
     }
     onMount(() => {
       for (const [k, v] of Object.entries(coas)) {
         $invalidate(5, coaId = Number(k));
-        break;
-      }
-      for (const [k, v] of Object.entries(transactionTemplates)) {
-        $invalidate(6, transactionTplId = Number(k));
         break;
       }
     });
@@ -34485,7 +34446,6 @@ uniform ${i3} ${a3} u_${s3};
       const i = {
         cmd: "upsert",
         coaId,
-        transactionTplId,
         transactionJournal: {
           debitIDR: debitIDR + "",
           creditIDR: creditIDR + "",
@@ -34536,43 +34496,39 @@ uniform ${i3} ${a3} u_${s3};
     }
     function inputcustom0_value_binding(value) {
       startDate = value;
-      $invalidate(7, startDate);
+      $invalidate(6, startDate);
     }
     function inputcustom1_value_binding(value) {
       endDate = value;
-      $invalidate(8, endDate);
+      $invalidate(7, endDate);
     }
     function inputcustom2_value_binding(value) {
       coaId = value;
       $invalidate(5, coaId);
     }
-    function inputcustom3_value_binding(value) {
-      transactionTplId = value;
-      $invalidate(6, transactionTplId);
-    }
     function input0_input_handler() {
       debitIDR = to_number(this.value);
-      $invalidate(9, debitIDR);
+      $invalidate(8, debitIDR);
     }
     function input1_input_handler() {
       creditIDR = to_number(this.value);
-      $invalidate(10, creditIDR);
+      $invalidate(9, creditIDR);
     }
     function textarea_input_handler() {
       descriptions = this.value;
-      $invalidate(11, descriptions);
+      $invalidate(10, descriptions);
     }
     function input2_input_handler() {
       date = this.value;
-      $invalidate(12, date);
+      $invalidate(11, date);
     }
     function input3_input_handler() {
       salesCount = to_number(this.value);
-      $invalidate(13, salesCount);
+      $invalidate(12, salesCount);
     }
     function input4_input_handler() {
       salesPriceIDR = to_number(this.value);
-      $invalidate(14, salesPriceIDR);
+      $invalidate(13, salesPriceIDR);
     }
     const click_handler_1 = () => {
       $invalidate(3, isCreatingJournal = false);
@@ -34585,7 +34541,6 @@ uniform ${i3} ${a3} u_${s3};
       isCreatingJournal,
       isSubmitted,
       coaId,
-      transactionTplId,
       startDate,
       endDate,
       debitIDR,
@@ -34605,7 +34560,6 @@ uniform ${i3} ${a3} u_${s3};
       inputcustom0_value_binding,
       inputcustom1_value_binding,
       inputcustom2_value_binding,
-      inputcustom3_value_binding,
       input0_input_handler,
       input1_input_handler,
       textarea_input_handler,

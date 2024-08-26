@@ -218,27 +218,16 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 			}
 		}
 	
-		coaMaps[coa.Name] = coa.Id
+		coaMaps[coa.Name] =  coa.Id
 		return coa.Id, nil
 	}
 	
-
-	var generateDefaultCoa func(ta *Tt.Adapter, tenantCode string) error
-	generateDefaultCoa = func(ta *Tt.Adapter, tenantCode string) error {
-		coaDefaults := mFinance.GetCoaDefaults()
-		for _, coaDefault := range coaDefaults {
-			if _, err := insertDefaultCoa(ta, coaDefault, tenantCode, 0); err != nil {
-				return err
-			}
+	coaDefaults := mFinance.GetCoaDefaults()
+	for _, coaDefault := range coaDefaults {
+		if _, err := insertDefaultCoa(d.AuthOltp, coaDefault, tenant.TenantCode, 0); err != nil {
+			out.SetError(400, err.Error())
+			return
 		}
-	
-		return nil
-	}
-
-	err := generateDefaultCoa(d.AuthOltp, tenant.TenantCode)
-	if err != nil {
-		out.SetError(400, err.Error())
-		return
 	}
 
 	for tplName, tplDetails := range mFinance.TransactionTemplateDetailsMap {

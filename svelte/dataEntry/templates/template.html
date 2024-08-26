@@ -8793,9 +8793,12 @@ header.svelte-146z4fm.svelte-146z4fm {
       if (type === "bool")
         $invalidate(0, id = id + Math.random());
       if (isObject || typeof values == "object") {
-        $invalidate(10, valueToShowFromObj = values[value]);
+        if (values && values[value])
+          $invalidate(10, valueToShowFromObj = values[value]);
+        else
+          $invalidate(10, valueToShowFromObj = "");
       } else {
-        $invalidate(10, valueToShowFromObj = value);
+        $invalidate(10, valueToShowFromObj = values[value] || value || "");
       }
     });
     function toggleShowPassword() {

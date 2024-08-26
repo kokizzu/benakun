@@ -30,9 +30,10 @@
     // Boolean input must be use random id, because it's a checkbox
     if (type === 'bool') id = id + Math.random();
     if (isObject || typeof values == 'object') {
-      valueToShowFromObj = values[value];
+      if (values && values[value]) valueToShowFromObj = values[value];
+      else valueToShowFromObj = '';
     } else {
-      valueToShowFromObj = value;
+      valueToShowFromObj = values[value] || value || '' ;
     }
   });
 

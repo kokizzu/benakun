@@ -20,10 +20,12 @@
 
   onMount(() => {
     // Get the first product and set as default selected value
-    for (let key in products) {
-      if (products.hasOwnProperty(key)) {
-        productId = key;
-        break;
+    if (products ) {
+      for (let key in products) {
+        if (products.hasOwnProperty(key)) {
+          productId = key;
+          break;
+        }
       }
     }
   })
@@ -60,15 +62,17 @@
         placeholder="Stock Delta"
         type="number"
       />
-      <InputCustom
-        bind:value={productId}
-        id="productId"
-        label="Produk / Product"
-        type="select"
-        placeholder="Select product"
-        values={products}
-        isObject
-      />
+      {#if products && Object.keys(products).length > 0}
+        <InputCustom
+          bind:value={productId}
+          id="productId"
+          label="Produk / Product"
+          type="select"
+          placeholder="Select product"
+          values={products}
+          isObject
+        />
+      {/if}
     </div>
     <div class="foot">
       <div class="left">

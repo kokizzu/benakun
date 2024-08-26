@@ -2131,6 +2131,123 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
   }
 }
 
+/* fakecss:./_components/PopUpInventoryChanges.esbuild-svelte-fake-css */
+@keyframes svelte-19kcmoe-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin {
+  animation: svelte-19kcmoe-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.popup_container.svelte-19kcmoe.svelte-19kcmoe {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2000;
+  background-color: rgba(0 0 0 / 40%);
+  backdrop-filter: blur(1px);
+  justify-content: center;
+  padding: 50px;
+  overflow: auto;
+}
+.popup_container.show.svelte-19kcmoe.svelte-19kcmoe {
+  display: flex;
+}
+.popup_container.svelte-19kcmoe .popup.svelte-19kcmoe {
+  border-radius: 8px;
+  background-color: #FFF;
+  height: fit-content;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+.popup_container.svelte-19kcmoe .popup header.svelte-19kcmoe {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--gray-004);
+}
+.popup_container.svelte-19kcmoe .popup header h2.svelte-19kcmoe {
+  margin: 0;
+}
+.popup_container.svelte-19kcmoe .popup header button.svelte-19kcmoe {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.popup_container.svelte-19kcmoe .popup header button.svelte-19kcmoe:hover {
+  background-color: #ef444420;
+}
+.popup_container.svelte-19kcmoe .popup header button.svelte-19kcmoe:active {
+  background-color: #ef444430;
+}
+.popup_container.svelte-19kcmoe .popup .forms.svelte-19kcmoe {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.popup_container.svelte-19kcmoe .popup .foot.svelte-19kcmoe {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 20px;
+  border-top: 1px solid var(--gray-004);
+}
+.popup_container.svelte-19kcmoe .popup .foot .right.svelte-19kcmoe {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.popup_container.svelte-19kcmoe .popup .foot button.svelte-19kcmoe {
+  padding: 8px 13px;
+  border-radius: 9999px;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+  font-weight: 600;
+}
+.popup_container.svelte-19kcmoe .popup .foot button.ok.svelte-19kcmoe {
+  background-color: var(--green-006);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popup_container.svelte-19kcmoe .popup .foot button.ok.svelte-19kcmoe:hover {
+  background-color: var(--green-005);
+}
+.popup_container.svelte-19kcmoe .popup .foot button.ok.svelte-19kcmoe:disabled {
+  cursor: not-allowed;
+  background-color: var(--gray-003);
+  color: var(--gray-007);
+}
+.popup_container.svelte-19kcmoe .popup .foot button.cancel.svelte-19kcmoe {
+  background-color: #fbbf2430;
+  color: var(--amber-005);
+}
+.popup_container.svelte-19kcmoe .popup .foot button.cancel.svelte-19kcmoe:hover {
+  background-color: #fbbf2450;
+}
+
 /* fakecss:./tenantAdmin/inventoryChanges/product.esbuild-svelte-fake-css */
 .product_inventory.svelte-1oh5ax1.svelte-1oh5ax1 {
   display: flex;
@@ -4179,13 +4296,13 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance12 = bind2(Axios$1.prototype.request, context);
-        utils$1.extend(instance12, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance12, context, null, { allOwnKeys: true });
-        instance12.create = function create(instanceConfig) {
+        const instance13 = bind2(Axios$1.prototype.request, context);
+        utils$1.extend(instance13, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance13, context, null, { allOwnKeys: true });
+        instance13.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance12;
+        return instance13;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -4300,10 +4417,10 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
       exports.TenantAdminDashboard = async function TenantAdminDashboard(i, cb) {
         return await axios.post("/tenantAdmin/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminInventoryChanges = async function TenantAdminInventoryChanges(i, cb) {
+      exports.TenantAdminInventoryChanges = async function TenantAdminInventoryChanges2(i, cb) {
         return await axios.post("/tenantAdmin/inventoryChanges", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.TenantAdminInventoryChangesProduct = async function TenantAdminInventoryChangesProduct2(i, cb) {
+      exports.TenantAdminInventoryChangesProduct = async function TenantAdminInventoryChangesProduct(i, cb) {
         return await axios.post("/tenantAdmin/inventoryChanges/", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.TenantAdminLocations = async function TenantAdminLocations(i, cb) {
@@ -23997,7 +24114,7 @@ uniform ${i3} ${a3} u_${s3};
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance12, create_fragment12, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance13, create_fragment13, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -24023,7 +24140,7 @@ uniform ${i3} ${a3} u_${s3};
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance12 ? instance12(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance13 ? instance13(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -24036,7 +24153,7 @@ uniform ${i3} ${a3} u_${s3};
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment12 ? create_fragment12($.ctx) : false;
+    $.fragment = create_fragment13 ? create_fragment13($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -28970,9 +29087,12 @@ uniform ${i3} ${a3} u_${s3};
       if (type === "bool")
         $invalidate(0, id = id + Math.random());
       if (isObject || typeof values == "object") {
-        $invalidate(10, valueToShowFromObj = values[value]);
+        if (values && values[value])
+          $invalidate(10, valueToShowFromObj = values[value]);
+        else
+          $invalidate(10, valueToShowFromObj = "");
       } else {
-        $invalidate(10, valueToShowFromObj = value);
+        $invalidate(10, valueToShowFromObj = values[value] || value || "");
       }
     });
     function toggleShowPassword() {
@@ -30385,6 +30505,7 @@ uniform ${i3} ${a3} u_${s3};
       ),
       values: (
         /*REFS*/
+        ctx[2] && /*REFS*/
         ctx[2][
           /*field*/
           ctx[92].name
@@ -30401,6 +30522,7 @@ uniform ${i3} ${a3} u_${s3};
       ),
       isObject: (
         /*REFS*/
+        ctx[2] && /*REFS*/
         ctx[2][
           /*field*/
           ctx[92].name
@@ -30452,6 +30574,7 @@ uniform ${i3} ${a3} u_${s3};
         if (dirty[0] & /*REFS, FIELDS*/
         5)
           inputcustom_changes.values = /*REFS*/
+          ctx[2] && /*REFS*/
           ctx[2][
             /*field*/
             ctx[92].name
@@ -30468,6 +30591,7 @@ uniform ${i3} ${a3} u_${s3};
         if (dirty[0] & /*REFS, FIELDS*/
         5)
           inputcustom_changes.isObject = /*REFS*/
+          ctx[2] && /*REFS*/
           ctx[2][
             /*field*/
             ctx[92].name
@@ -33463,10 +33587,569 @@ uniform ${i3} ${a3} u_${s3};
 
   // tenantAdmin/inventoryChanges/product.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
+
+  // _components/PopUpInventoryChanges.svelte
+  function create_if_block_24(ctx) {
+    let inputcustom;
+    let updating_value;
+    let current;
+    function inputcustom_value_binding_1(value) {
+      ctx[13](value);
+    }
+    let inputcustom_props = {
+      id: "productId",
+      label: "Produk / Product",
+      type: "select",
+      placeholder: "Select product",
+      values: (
+        /*products*/
+        ctx[2]
+      ),
+      isObject: true
+    };
+    if (
+      /*productId*/
+      ctx[6] !== void 0
+    ) {
+      inputcustom_props.value = /*productId*/
+      ctx[6];
+    }
+    inputcustom = new InputCustom_default({ props: inputcustom_props });
+    binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding_1));
+    return {
+      c() {
+        create_component(inputcustom.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(inputcustom, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const inputcustom_changes = {};
+        if (dirty & /*products*/
+        4)
+          inputcustom_changes.values = /*products*/
+          ctx2[2];
+        if (!updating_value && dirty & /*productId*/
+        64) {
+          updating_value = true;
+          inputcustom_changes.value = /*productId*/
+          ctx2[6];
+          add_flush_callback(() => updating_value = false);
+        }
+        inputcustom.$set(inputcustom_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(inputcustom.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(inputcustom.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(inputcustom, detaching);
+      }
+    };
+  }
+  function create_if_block_111(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Ok";
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
+  }
   function create_if_block6(ctx) {
+    let icon;
+    let current;
+    icon = new Icon_default({
+      props: {
+        className: "spin",
+        color: "#FFF",
+        size: "14",
+        src: FiLoader
+      }
+    });
+    return {
+      c() {
+        create_component(icon.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(icon, target, anchor);
+        current = true;
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        destroy_component(icon, detaching);
+      }
+    };
+  }
+  function create_fragment11(ctx) {
+    let div5;
+    let div4;
+    let header;
+    let h2;
+    let t0;
+    let t1;
+    let button0;
+    let icon;
+    let t2;
+    let div0;
+    let inputcustom;
+    let updating_value;
+    let t3;
+    let show_if = (
+      /*products*/
+      ctx[2] && Object.keys(
+        /*products*/
+        ctx[2]
+      ).length > 0
+    );
+    let t4;
+    let div3;
+    let div1;
+    let t5;
+    let div2;
+    let button1;
+    let t7;
+    let button2;
+    let t8;
+    let div5_class_value;
+    let current;
+    let mounted;
+    let dispose;
+    icon = new Icon_default({
+      props: {
+        size: "22",
+        color: "var(--red-005)",
+        src: IoClose
+      }
+    });
+    function inputcustom_value_binding(value) {
+      ctx[12](value);
+    }
+    let inputcustom_props = {
+      id: "stockDelta",
+      label: "Delta Stok / Stock Delta",
+      placeholder: "Stock Delta",
+      type: "number"
+    };
+    if (
+      /*stockDelta*/
+      ctx[5] !== void 0
+    ) {
+      inputcustom_props.value = /*stockDelta*/
+      ctx[5];
+    }
+    inputcustom = new InputCustom_default({ props: inputcustom_props });
+    binding_callbacks.push(() => bind(inputcustom, "value", inputcustom_value_binding));
+    let if_block0 = show_if && create_if_block_24(ctx);
+    let if_block1 = !/*isSubmitAddInventoryChanges*/
+    ctx[0] && create_if_block_111(ctx);
+    let if_block2 = (
+      /*isSubmitAddInventoryChanges*/
+      ctx[0] && create_if_block6(ctx)
+    );
+    return {
+      c() {
+        div5 = element("div");
+        div4 = element("div");
+        header = element("header");
+        h2 = element("h2");
+        t0 = text(
+          /*heading*/
+          ctx[1]
+        );
+        t1 = space();
+        button0 = element("button");
+        create_component(icon.$.fragment);
+        t2 = space();
+        div0 = element("div");
+        create_component(inputcustom.$.fragment);
+        t3 = space();
+        if (if_block0)
+          if_block0.c();
+        t4 = space();
+        div3 = element("div");
+        div1 = element("div");
+        div1.innerHTML = ``;
+        t5 = space();
+        div2 = element("div");
+        button1 = element("button");
+        button1.textContent = "Cancel";
+        t7 = space();
+        button2 = element("button");
+        if (if_block1)
+          if_block1.c();
+        t8 = space();
+        if (if_block2)
+          if_block2.c();
+        attr(h2, "class", "svelte-19kcmoe");
+        attr(button0, "class", "svelte-19kcmoe");
+        attr(header, "class", "header svelte-19kcmoe");
+        attr(div0, "class", "forms svelte-19kcmoe");
+        attr(div1, "class", "left");
+        attr(button1, "class", "cancel svelte-19kcmoe");
+        attr(button2, "class", "ok svelte-19kcmoe");
+        button2.disabled = /*isSubmitAddInventoryChanges*/
+        ctx[0];
+        attr(div2, "class", "right svelte-19kcmoe");
+        attr(div3, "class", "foot svelte-19kcmoe");
+        attr(div4, "class", "popup svelte-19kcmoe");
+        attr(div5, "class", div5_class_value = null_to_empty(`popup_container ${/*isShow*/
+        ctx[4] ? "show" : ""}`) + " svelte-19kcmoe");
+      },
+      m(target, anchor) {
+        insert(target, div5, anchor);
+        append(div5, div4);
+        append(div4, header);
+        append(header, h2);
+        append(h2, t0);
+        append(header, t1);
+        append(header, button0);
+        mount_component(icon, button0, null);
+        append(div4, t2);
+        append(div4, div0);
+        mount_component(inputcustom, div0, null);
+        append(div0, t3);
+        if (if_block0)
+          if_block0.m(div0, null);
+        append(div4, t4);
+        append(div4, div3);
+        append(div3, div1);
+        append(div3, t5);
+        append(div3, div2);
+        append(div2, button1);
+        append(div2, t7);
+        append(div2, button2);
+        if (if_block1)
+          if_block1.m(button2, null);
+        append(button2, t8);
+        if (if_block2)
+          if_block2.m(button2, null);
+        current = true;
+        if (!mounted) {
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*Hide*/
+              ctx[3]
+            ),
+            listen(button1, "click", prevent_default(
+              /*cancel*/
+              ctx[7]
+            )),
+            listen(button2, "click", prevent_default(
+              /*submitAddInventoryChanges*/
+              ctx[8]
+            ))
+          ];
+          mounted = true;
+        }
+      },
+      p(ctx2, [dirty]) {
+        if (!current || dirty & /*heading*/
+        2)
+          set_data(
+            t0,
+            /*heading*/
+            ctx2[1]
+          );
+        const inputcustom_changes = {};
+        if (!updating_value && dirty & /*stockDelta*/
+        32) {
+          updating_value = true;
+          inputcustom_changes.value = /*stockDelta*/
+          ctx2[5];
+          add_flush_callback(() => updating_value = false);
+        }
+        inputcustom.$set(inputcustom_changes);
+        if (dirty & /*products*/
+        4)
+          show_if = /*products*/
+          ctx2[2] && Object.keys(
+            /*products*/
+            ctx2[2]
+          ).length > 0;
+        if (show_if) {
+          if (if_block0) {
+            if_block0.p(ctx2, dirty);
+            if (dirty & /*products*/
+            4) {
+              transition_in(if_block0, 1);
+            }
+          } else {
+            if_block0 = create_if_block_24(ctx2);
+            if_block0.c();
+            transition_in(if_block0, 1);
+            if_block0.m(div0, null);
+          }
+        } else if (if_block0) {
+          group_outros();
+          transition_out(if_block0, 1, 1, () => {
+            if_block0 = null;
+          });
+          check_outros();
+        }
+        if (!/*isSubmitAddInventoryChanges*/
+        ctx2[0]) {
+          if (if_block1) {
+          } else {
+            if_block1 = create_if_block_111(ctx2);
+            if_block1.c();
+            if_block1.m(button2, t8);
+          }
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
+        }
+        if (
+          /*isSubmitAddInventoryChanges*/
+          ctx2[0]
+        ) {
+          if (if_block2) {
+            if (dirty & /*isSubmitAddInventoryChanges*/
+            1) {
+              transition_in(if_block2, 1);
+            }
+          } else {
+            if_block2 = create_if_block6(ctx2);
+            if_block2.c();
+            transition_in(if_block2, 1);
+            if_block2.m(button2, null);
+          }
+        } else if (if_block2) {
+          group_outros();
+          transition_out(if_block2, 1, 1, () => {
+            if_block2 = null;
+          });
+          check_outros();
+        }
+        if (!current || dirty & /*isSubmitAddInventoryChanges*/
+        1) {
+          button2.disabled = /*isSubmitAddInventoryChanges*/
+          ctx2[0];
+        }
+        if (!current || dirty & /*isShow*/
+        16 && div5_class_value !== (div5_class_value = null_to_empty(`popup_container ${/*isShow*/
+        ctx2[4] ? "show" : ""}`) + " svelte-19kcmoe")) {
+          attr(div5, "class", div5_class_value);
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        transition_in(inputcustom.$.fragment, local);
+        transition_in(if_block0);
+        transition_in(if_block2);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        transition_out(inputcustom.$.fragment, local);
+        transition_out(if_block0);
+        transition_out(if_block2);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div5);
+        }
+        destroy_component(icon);
+        destroy_component(inputcustom);
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        if (if_block2)
+          if_block2.d();
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
+  function instance11($self, $props, $invalidate) {
+    let { heading = "Add inventory changes" } = $props;
+    let { isSubmitAddInventoryChanges = false } = $props;
+    let { products: products2 = {} } = $props;
+    let { OnSubmit = async function(inventoryChanges) {
+    } } = $props;
+    let isShow = false;
+    const Show = () => $invalidate(4, isShow = true);
+    const Hide = () => $invalidate(4, isShow = false);
+    let stockDelta = 0;
+    let productId = "0";
+    onMount(() => {
+      if (products2) {
+        for (let key in products2) {
+          if (products2.hasOwnProperty(key)) {
+            $invalidate(6, productId = key);
+            break;
+          }
+        }
+      }
+    });
+    const Reset = () => {
+      $invalidate(5, stockDelta = 0);
+      $invalidate(6, productId = "0");
+    };
+    const cancel = () => {
+      $invalidate(4, isShow = false);
+    };
+    function submitAddInventoryChanges() {
+      $invalidate(0, isSubmitAddInventoryChanges = true);
+      const i = { stockDelta, productId };
+      OnSubmit(i);
+    }
+    function inputcustom_value_binding(value) {
+      stockDelta = value;
+      $invalidate(5, stockDelta);
+    }
+    function inputcustom_value_binding_1(value) {
+      productId = value;
+      $invalidate(6, productId);
+    }
+    $self.$set = ($props2) => {
+      if ("heading" in $props2)
+        $invalidate(1, heading = $props2.heading);
+      if ("isSubmitAddInventoryChanges" in $props2)
+        $invalidate(0, isSubmitAddInventoryChanges = $props2.isSubmitAddInventoryChanges);
+      if ("products" in $props2)
+        $invalidate(2, products2 = $props2.products);
+      if ("OnSubmit" in $props2)
+        $invalidate(9, OnSubmit = $props2.OnSubmit);
+    };
+    return [
+      isSubmitAddInventoryChanges,
+      heading,
+      products2,
+      Hide,
+      isShow,
+      stockDelta,
+      productId,
+      cancel,
+      submitAddInventoryChanges,
+      OnSubmit,
+      Show,
+      Reset,
+      inputcustom_value_binding,
+      inputcustom_value_binding_1
+    ];
+  }
+  var PopUpInventoryChanges = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance11, create_fragment11, safe_not_equal, {
+        heading: 1,
+        isSubmitAddInventoryChanges: 0,
+        products: 2,
+        OnSubmit: 9,
+        Show: 10,
+        Hide: 3,
+        Reset: 11
+      });
+    }
+    get Show() {
+      return this.$.ctx[10];
+    }
+    get Hide() {
+      return this.$.ctx[3];
+    }
+    get Reset() {
+      return this.$.ctx[11];
+    }
+  };
+  var PopUpInventoryChanges_default = PopUpInventoryChanges;
+
+  // tenantAdmin/inventoryChanges/product.svelte
+  function create_if_block_114(ctx) {
+    let popupinventorychanges;
+    let updating_isSubmitAddInventoryChanges;
+    let current;
+    function popupinventorychanges_isSubmitAddInventoryChanges_binding(value) {
+      ctx[13](value);
+    }
+    let popupinventorychanges_props = {
+      products: null,
+      OnSubmit: (
+        /*OnAddInventoryChange*/
+        ctx[11]
+      )
+    };
+    if (
+      /*isSubmitAddInvChange*/
+      ctx[5] !== void 0
+    ) {
+      popupinventorychanges_props.isSubmitAddInventoryChanges = /*isSubmitAddInvChange*/
+      ctx[5];
+    }
+    popupinventorychanges = new PopUpInventoryChanges_default({ props: popupinventorychanges_props });
+    ctx[12](popupinventorychanges);
+    binding_callbacks.push(() => bind(popupinventorychanges, "isSubmitAddInventoryChanges", popupinventorychanges_isSubmitAddInventoryChanges_binding));
+    return {
+      c() {
+        create_component(popupinventorychanges.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(popupinventorychanges, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const popupinventorychanges_changes = {};
+        if (!updating_isSubmitAddInventoryChanges && dirty & /*isSubmitAddInvChange*/
+        32) {
+          updating_isSubmitAddInventoryChanges = true;
+          popupinventorychanges_changes.isSubmitAddInventoryChanges = /*isSubmitAddInvChange*/
+          ctx2[5];
+          add_flush_callback(() => updating_isSubmitAddInventoryChanges = false);
+        }
+        popupinventorychanges.$set(popupinventorychanges_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(popupinventorychanges.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(popupinventorychanges.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        ctx[12](null);
+        destroy_component(popupinventorychanges, detaching);
+      }
+    };
+  }
+  function create_if_block7(ctx) {
     let button;
     let icon;
     let current;
+    let mounted;
+    let dispose;
     icon = new Icon_default({
       props: {
         color: "var(--gray-007)",
@@ -33485,7 +34168,17 @@ uniform ${i3} ${a3} u_${s3};
         insert(target, button, anchor);
         mount_component(icon, button, null);
         current = true;
+        if (!mounted) {
+          dispose = listen(
+            button,
+            "click",
+            /*click_handler*/
+            ctx[14]
+          );
+          mounted = true;
+        }
       },
+      p: noop,
       i(local) {
         if (current)
           return;
@@ -33501,13 +34194,15 @@ uniform ${i3} ${a3} u_${s3};
           detach(button);
         }
         destroy_component(icon);
+        mounted = false;
+        dispose();
       }
     };
   }
   function create_default_slot_1(ctx) {
     let if_block_anchor;
     let current;
-    let if_block = user2.tenantCode !== "" && create_if_block6(ctx);
+    let if_block = user2.tenantCode !== "" && create_if_block7(ctx);
     return {
       c() {
         if (if_block)
@@ -33520,7 +34215,10 @@ uniform ${i3} ${a3} u_${s3};
         insert(target, if_block_anchor, anchor);
         current = true;
       },
-      p: noop,
+      p(ctx2, dirty) {
+        if (user2.tenantCode !== "")
+          if_block.p(ctx2, dirty);
+      },
       i(local) {
         if (current)
           return;
@@ -33589,13 +34287,13 @@ uniform ${i3} ${a3} u_${s3};
     let updating_MASTER_ROWS;
     let current;
     function mastertable_FIELDS_binding(value) {
-      ctx[8](value);
+      ctx[15](value);
     }
     function mastertable_PAGER_binding(value) {
-      ctx[9](value);
+      ctx[16](value);
     }
     function mastertable_MASTER_ROWS_binding(value) {
-      ctx[10](value);
+      ctx[17](value);
     }
     let mastertable_props = {
       ACCESS: segments2,
@@ -33606,19 +34304,19 @@ uniform ${i3} ${a3} u_${s3};
       CAN_RESTORE_ROW: true,
       OnDelete: (
         /*OnDelete*/
-        ctx[6]
+        ctx[9]
       ),
       OnEdit: (
         /*OnEdit*/
-        ctx[7]
+        ctx[10]
       ),
       OnRefresh: (
         /*OnRefresh*/
-        ctx[4]
+        ctx[7]
       ),
       OnRestore: (
         /*OnRestore*/
-        ctx[5]
+        ctx[8]
       ),
       $slots: { default: [create_default_slot_1] },
       $scope: { ctx }
@@ -33708,7 +34406,7 @@ uniform ${i3} ${a3} u_${s3};
         t31 = space();
         p4 = element("p");
         p4.textContent = `${/*cogsIDR*/
-        ctx[3]}`;
+        ctx[6]}`;
         t33 = space();
         create_component(mastertable.$.fragment);
         attr(h4, "class", "svelte-1oh5ax1");
@@ -33779,8 +34477,8 @@ uniform ${i3} ${a3} u_${s3};
       },
       p(ctx2, dirty) {
         const mastertable_changes = {};
-        if (dirty & /*$scope*/
-        2048) {
+        if (dirty & /*$scope, popUpInventoryChanges*/
+        262160) {
           mastertable_changes.$scope = { dirty, ctx: ctx2 };
         }
         if (!updating_FIELDS && dirty & /*fields*/
@@ -33826,9 +34524,14 @@ uniform ${i3} ${a3} u_${s3};
       }
     };
   }
-  function create_fragment11(ctx) {
+  function create_fragment12(ctx) {
+    let t;
     let mainlayout;
     let current;
+    let if_block = (
+      /*isPopUpFormsReady*/
+      ctx[3] && create_if_block_114(ctx)
+    );
     mainlayout = new mainLayout_default({
       props: {
         $slots: { default: [create_default_slot] },
@@ -33837,16 +34540,45 @@ uniform ${i3} ${a3} u_${s3};
     });
     return {
       c() {
+        if (if_block)
+          if_block.c();
+        t = space();
         create_component(mainlayout.$.fragment);
       },
       m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, t, anchor);
         mount_component(mainlayout, target, anchor);
         current = true;
       },
       p(ctx2, [dirty]) {
+        if (
+          /*isPopUpFormsReady*/
+          ctx2[3]
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*isPopUpFormsReady*/
+            8) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block_114(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(t.parentNode, t);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
         const mainlayout_changes = {};
-        if (dirty & /*$scope, fields, pager, inventoryChanges*/
-        2055) {
+        if (dirty & /*$scope, fields, pager, inventoryChanges, popUpInventoryChanges*/
+        262167) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -33854,14 +34586,21 @@ uniform ${i3} ${a3} u_${s3};
       i(local) {
         if (current)
           return;
+        transition_in(if_block);
         transition_in(mainlayout.$.fragment, local);
         current = true;
       },
       o(local) {
+        transition_out(if_block);
         transition_out(mainlayout.$.fragment, local);
         current = false;
       },
       d(detaching) {
+        if (detaching) {
+          detach(t);
+        }
+        if (if_block)
+          if_block.d(detaching);
         destroy_component(mainlayout, detaching);
       }
     };
@@ -33882,7 +34621,7 @@ uniform ${i3} ${a3} u_${s3};
     /** @type Object */
     {/* products */}
   );
-  function instance11($self, $props, $invalidate) {
+  function instance12($self, $props, $invalidate) {
     let fields = (
       /** @type Field[] */
       [/* fields */]
@@ -33906,9 +34645,14 @@ uniform ${i3} ${a3} u_${s3};
         // to ensure no decimal places
       }
     ).format(Number(product.cogsIDR) || 0);
+    let isPopUpFormsReady = false;
+    let popUpInventoryChanges = null;
+    onMount(() => {
+      $invalidate(3, isPopUpFormsReady = true);
+    });
     async function OnRefresh(pagerIn) {
       const i = { pager: pagerIn, cmd: "list" };
-      await (0, import_jsApi.TenantAdminInventoryChangesProduct)(
+      await (0, import_jsApi.TenantAdminInventoryChanges)(
         // @ts-ignore
         i,
         /** @type {import('../jsApi.GEN').TenantAdminInventoryChangesCallback} */
@@ -33930,7 +34674,7 @@ uniform ${i3} ${a3} u_${s3};
         inventoryChange: { id: row[0] },
         cmd: "restore"
       };
-      await (0, import_jsApi.TenantAdminInventoryChangesProduct)(
+      await (0, import_jsApi.TenantAdminInventoryChanges)(
         // @ts-ignore
         i,
         /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
@@ -33954,7 +34698,7 @@ uniform ${i3} ${a3} u_${s3};
         inventoryChange: { id: row[0] },
         cmd: "delete"
       };
-      await (0, import_jsApi.TenantAdminInventoryChangesProduct)(
+      await (0, import_jsApi.TenantAdminInventoryChanges)(
         // @ts-ignore
         i,
         /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
@@ -33979,7 +34723,7 @@ uniform ${i3} ${a3} u_${s3};
         stockDelta: payloads[1]
       };
       const i = { pager, inventoryChange, cmd: "upsert" };
-      await (0, import_jsApi.TenantAdminInventoryChangesProduct)(
+      await (0, import_jsApi.TenantAdminInventoryChanges)(
         // @ts-ignore
         i,
         /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
@@ -33997,6 +34741,47 @@ uniform ${i3} ${a3} u_${s3};
         }
       );
     }
+    let isSubmitAddInvChange = false;
+    async function OnAddInventoryChange(payloads) {
+      $invalidate(5, isSubmitAddInvChange = true);
+      payloads.productId = product.id;
+      const i = {
+        pager,
+        inventoryChange: payloads,
+        cmd: "upsert"
+      };
+      await (0, import_jsApi.TenantAdminInventoryChanges)(
+        // @ts-ignore
+        i,
+        /** @type {import('../jsApi.GEN').TenantAdminInventoryChangesCallback} */
+        /** @returns {Promise<void>} */
+        function(o) {
+          $invalidate(5, isSubmitAddInvChange = false);
+          if (o.error) {
+            console.log(o);
+            notifier.showError(o.error);
+            return;
+          }
+          $invalidate(1, pager = o.pager);
+          $invalidate(2, inventoryChanges = o.inventoryChanges);
+          notifier.showSuccess("inventoryChange created");
+          popUpInventoryChanges.Reset();
+          OnRefresh(pager);
+        }
+      );
+      popUpInventoryChanges.Hide();
+    }
+    function popupinventorychanges_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        popUpInventoryChanges = $value;
+        $invalidate(4, popUpInventoryChanges);
+      });
+    }
+    function popupinventorychanges_isSubmitAddInventoryChanges_binding(value) {
+      isSubmitAddInvChange = value;
+      $invalidate(5, isSubmitAddInvChange);
+    }
+    const click_handler = () => popUpInventoryChanges.Show();
     function mastertable_FIELDS_binding(value) {
       fields = value;
       $invalidate(0, fields);
@@ -34013,11 +34798,18 @@ uniform ${i3} ${a3} u_${s3};
       fields,
       pager,
       inventoryChanges,
+      isPopUpFormsReady,
+      popUpInventoryChanges,
+      isSubmitAddInvChange,
       cogsIDR,
       OnRefresh,
       OnRestore,
       OnDelete,
       OnEdit,
+      OnAddInventoryChange,
+      popupinventorychanges_binding,
+      popupinventorychanges_isSubmitAddInventoryChanges_binding,
+      click_handler,
       mastertable_FIELDS_binding,
       mastertable_PAGER_binding,
       mastertable_MASTER_ROWS_binding
@@ -34026,7 +34818,7 @@ uniform ${i3} ${a3} u_${s3};
   var Product = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance11, create_fragment11, safe_not_equal, {});
+      init(this, options, instance12, create_fragment12, safe_not_equal, {});
     }
   };
   var product_default = Product;

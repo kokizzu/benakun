@@ -311,8 +311,8 @@
                   placeholder={field.description}
                   bind:value={payloads[idx]}
                   type={field.inputType}
-                  values={REFS[field.name] ? REFS[field.name] : field.ref}
-                  isObject={REFS[field.name] ? true : false}
+                  values={REFS && REFS[field.name] ? REFS[field.name] : field.ref}
+                  isObject={REFS && REFS[field.name] ? true : false}
                 />
               {:else}
                 <InputCustom

@@ -29065,9 +29065,12 @@ uniform ${i3} ${a3} u_${s3};
       if (type === "bool")
         $invalidate(0, id = id + Math.random());
       if (isObject || typeof values == "object") {
-        $invalidate(10, valueToShowFromObj = values[value]);
+        if (values && values[value])
+          $invalidate(10, valueToShowFromObj = values[value]);
+        else
+          $invalidate(10, valueToShowFromObj = "");
       } else {
-        $invalidate(10, valueToShowFromObj = value);
+        $invalidate(10, valueToShowFromObj = values[value] || value || "");
       }
     });
     function toggleShowPassword() {
@@ -30480,6 +30483,7 @@ uniform ${i3} ${a3} u_${s3};
       ),
       values: (
         /*REFS*/
+        ctx[2] && /*REFS*/
         ctx[2][
           /*field*/
           ctx[92].name
@@ -30496,6 +30500,7 @@ uniform ${i3} ${a3} u_${s3};
       ),
       isObject: (
         /*REFS*/
+        ctx[2] && /*REFS*/
         ctx[2][
           /*field*/
           ctx[92].name
@@ -30547,6 +30552,7 @@ uniform ${i3} ${a3} u_${s3};
         if (dirty[0] & /*REFS, FIELDS*/
         5)
           inputcustom_changes.values = /*REFS*/
+          ctx[2] && /*REFS*/
           ctx[2][
             /*field*/
             ctx[92].name
@@ -30563,6 +30569,7 @@ uniform ${i3} ${a3} u_${s3};
         if (dirty[0] & /*REFS, FIELDS*/
         5)
           inputcustom_changes.isObject = /*REFS*/
+          ctx[2] && /*REFS*/
           ctx[2][
             /*field*/
             ctx[92].name

@@ -163,17 +163,9 @@ func (d *Domain) TenantAdminManualJournal(in *TenantAdminManualJournalIn) (out T
 					return
 				}
 
-				trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
-				trxTemplate.Id = in.TransactionTplId
-				if !trxTemplate.FindById() {
-					out.SetError(400, ErrTenantAdminManualJournalTransactionTemplateNotFound)
-					return
-				}
-
 				trxJournal := wcFinance.NewTransactionJournalMutator(d.AuthOltp)
 				trxJournal.SetTenantCode(tenant.TenantCode)
 				trxJournal.SetCoaId(coa.Id)
-				trxJournal.SetTransactionTemplateId(trxTemplate.Id)
 				trxJournal.SetCreditIDR(in.TransactionJournal.CreditIDR)
 				trxJournal.SetDebitIDR(in.TransactionJournal.DebitIDR)
 				trxJournal.SetDescriptions(in.TransactionJournal.Descriptions)
@@ -192,7 +184,6 @@ func (d *Domain) TenantAdminManualJournal(in *TenantAdminManualJournalIn) (out T
 				businessTrx.SetTenantCode(tenant.TenantCode)
 				businessTrx.SetStartDate(in.BusinessTransaction.StartDate)
 				businessTrx.SetEndDate(in.BusinessTransaction.EndDate)
-				businessTrx.SetTransactionTemplateId(trxTemplate.Id)
 				businessTrx.SetCreatedAt(in.UnixNow())
 				businessTrx.SetCreatedBy(sess.UserId)
 				businessTrx.SetUpdatedAt(in.UnixNow())

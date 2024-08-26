@@ -28,7 +28,6 @@
   let user                  = /** @type User */ ({/* user */});
   let transactionJournals   = /** @type any[][] */ ([/* transactionJournals */]);
   let coas                  = /** @type Record<number, string> */ ({/* coas */});
-  let transactionTemplates  = /** @type Record<number, string> */ ({/* transactionTemplates */});
   let org                   = /** @type Org */ ({/* org */});
 
   let isCreatingJournal = false;
@@ -74,11 +73,6 @@
       coaId = Number(k);
       break;
     }
-
-    for (const [k, v] of Object.entries(transactionTemplates)) {
-      transactionTplId = Number(k);
-      break;
-    }
   });
 
   async function OnRefresh(/** @type PagerIn */ pagerIn) {
@@ -103,7 +97,6 @@
     const i = {
       cmd: 'upsert',
       coaId: coaId,
-      transactionTplId: transactionTplId,
       transactionJournal: {
         debitIDR: debitIDR+'',
         creditIDR: creditIDR+'',
@@ -206,14 +199,6 @@
             bind:value={coaId}
             type="select"
             values={coas}
-            isObject
-          />
-          <InputCustom
-            id="transactionTplId"
-            label="Transaction Template"
-            bind:value={transactionTplId}
-            type="select"
-            values={transactionTemplates}
             isObject
           />
         </div>

@@ -354,10 +354,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		org := rqAuth.NewOrgs(d.AuthOltp)
 		org.FindCompanyByTenantCode(user.TenantCode)
 
-		trxTemplate := rqFinance.NewTransactionTemplate(d.AuthOltp)
-		trxTemplate.TenantCode = user.TenantCode
-		trxTemplatesChoices := trxTemplate.FindTransactionTamplatesChoicesByTenant()
-
 		out := d.TenantAdminManualJournal(&in)
 		return views.RenderTenantAdminManualJournal(ctx, M.SX{
 			`title`:    `Tenant Admin Manual Journal`,
@@ -366,7 +362,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`fields`: out.Meta.Fields,
 			`pager`: out.Pager,
 			`transactionJournals`: out.TransactionJournals,
-			`transactionTemplates`: trxTemplatesChoices,
 			`coas`: coas,
 			`org`: org,
 		})
