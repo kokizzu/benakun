@@ -706,13 +706,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 }
 
 /* fakecss:./_components/InputBox.esbuild-svelte-fake-css */
-.show.svelte-30kpl9.svelte-30kpl9.svelte-30kpl9 {
+.dropdown {
+  transition: all .2s ease-in-out;
+}
+.rotate {
+  transition: all .2s ease-in-out;
+  transform: rotate(90deg);
+}
+.show.svelte-148kfbm.svelte-148kfbm.svelte-148kfbm {
   display: block;
 }
-.hidden.svelte-30kpl9.svelte-30kpl9.svelte-30kpl9 {
+.hidden.svelte-148kfbm.svelte-148kfbm.svelte-148kfbm {
   display: none;
 }
-.input_box.svelte-30kpl9.svelte-30kpl9.svelte-30kpl9 {
+.input_box.svelte-148kfbm.svelte-148kfbm.svelte-148kfbm {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -722,35 +729,35 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   flex-direction: column;
   gap: 5px;
 }
-.input_box.with_password.svelte-30kpl9 input.svelte-30kpl9.svelte-30kpl9 {
+.input_box.with_password.svelte-148kfbm input.svelte-148kfbm.svelte-148kfbm {
   padding-right: 40px !important;
 }
-.input_box.bool.svelte-30kpl9.svelte-30kpl9.svelte-30kpl9 {
+.input_box.bool.svelte-148kfbm.svelte-148kfbm.svelte-148kfbm {
   width: fit-content;
 }
-.input_box.svelte-30kpl9 .label.svelte-30kpl9.svelte-30kpl9 {
+.input_box.svelte-148kfbm .label.svelte-148kfbm.svelte-148kfbm {
   font-size: var(--font-base);
   margin-left: 10px;
 }
-.input_box.svelte-30kpl9 input.svelte-30kpl9.svelte-30kpl9,
-.input_box.svelte-30kpl9 textarea.svelte-30kpl9.svelte-30kpl9 {
+.input_box.svelte-148kfbm input.svelte-148kfbm.svelte-148kfbm,
+.input_box.svelte-148kfbm textarea.svelte-148kfbm.svelte-148kfbm {
   width: 100%;
   border: 1px solid var(--gray-003);
   border-radius: 5px;
   background-color: transparent;
   padding: 10px 12px;
 }
-.input_box.svelte-30kpl9 input.svelte-30kpl9.svelte-30kpl9:focus,
-.input_box.svelte-30kpl9 textarea.svelte-30kpl9.svelte-30kpl9:focus {
+.input_box.svelte-148kfbm input.svelte-148kfbm.svelte-148kfbm:focus,
+.input_box.svelte-148kfbm textarea.svelte-148kfbm.svelte-148kfbm:focus {
   border-color: var(--sky-005);
   outline: 1px solid var(--sky-005);
 }
-.color_box.svelte-30kpl9.svelte-30kpl9.svelte-30kpl9 {
+.color_box.svelte-148kfbm.svelte-148kfbm.svelte-148kfbm {
   display: flex;
   flex-direction: column;
   justify-content: start;
 }
-.color-input.svelte-30kpl9.svelte-30kpl9.svelte-30kpl9 {
+.color-input.svelte-148kfbm.svelte-148kfbm.svelte-148kfbm {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -761,33 +768,33 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   cursor: pointer;
   padding: 0 !important;
 }
-.color-input.svelte-30kpl9.svelte-30kpl9.svelte-30kpl9::-webkit-color-swatch {
+.color-input.svelte-148kfbm.svelte-148kfbm.svelte-148kfbm::-webkit-color-swatch {
   border-radius: 5px;
   border: none;
 }
-.color-input.svelte-30kpl9.svelte-30kpl9.svelte-30kpl9::-moz-color-swatch {
+.color-input.svelte-148kfbm.svelte-148kfbm.svelte-148kfbm::-moz-color-swatch {
   border-radius: 5px;
   border: none;
 }
-.input_box.svelte-30kpl9 textarea.svelte-30kpl9.svelte-30kpl9 {
+.input_box.svelte-148kfbm textarea.svelte-148kfbm.svelte-148kfbm {
   resize: vertical;
   height: 90px;
   min-height: 50px;
   max-height: 300px;
 }
-.switcher.svelte-30kpl9.svelte-30kpl9.svelte-30kpl9 {
+.switcher.svelte-148kfbm.svelte-148kfbm.svelte-148kfbm {
   position: relative;
   display: inline-block;
   width: 50px;
   height: 24px;
   margin-left: 0 !important;
 }
-.switcher.svelte-30kpl9 input.svelte-30kpl9.svelte-30kpl9 {
+.switcher.svelte-148kfbm input.svelte-148kfbm.svelte-148kfbm {
   opacity: 0 !important;
   width: 0 !important;
   height: 0 !important;
 }
-.switcher.svelte-30kpl9 .slider.svelte-30kpl9.svelte-30kpl9 {
+.switcher.svelte-148kfbm .slider.svelte-148kfbm.svelte-148kfbm {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -798,7 +805,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   -webkit-transition: .2s;
   transition: .2s;
 }
-.switcher.svelte-30kpl9 .slider.svelte-30kpl9.svelte-30kpl9:before {
+.switcher.svelte-148kfbm .slider.svelte-148kfbm.svelte-148kfbm:before {
   position: absolute;
   content: "";
   height: 16px;
@@ -809,24 +816,24 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   -webkit-transition: .2s;
   transition: .2s;
 }
-.switcher.svelte-30kpl9 input.svelte-30kpl9:checked + .slider.svelte-30kpl9 {
+.switcher.svelte-148kfbm input.svelte-148kfbm:checked + .slider.svelte-148kfbm {
   background-color: var(--sky-006) !important;
 }
-.switcher.svelte-30kpl9 input.svelte-30kpl9:focus + .slider.svelte-30kpl9 {
+.switcher.svelte-148kfbm input.svelte-148kfbm:focus + .slider.svelte-148kfbm {
   box-shadow: 0 0 1px var(--sky-006) !important;
 }
-.switcher.svelte-30kpl9 input.svelte-30kpl9:checked + .slider.svelte-30kpl9:before {
+.switcher.svelte-148kfbm input.svelte-148kfbm:checked + .slider.svelte-148kfbm:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
-.switcher.svelte-30kpl9 .slider.svelte-30kpl9.svelte-30kpl9 {
+.switcher.svelte-148kfbm .slider.svelte-148kfbm.svelte-148kfbm {
   border-radius: 34px;
 }
-.switcher.svelte-30kpl9 .slider.svelte-30kpl9.svelte-30kpl9:before {
+.switcher.svelte-148kfbm .slider.svelte-148kfbm.svelte-148kfbm:before {
   border-radius: 50%;
 }
-.input_box.svelte-30kpl9 .eye.svelte-30kpl9.svelte-30kpl9 {
+.input_box.svelte-148kfbm .eye.svelte-148kfbm.svelte-148kfbm {
   position: absolute;
   height: fit-content;
   width: fit-content;
@@ -841,25 +848,60 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 .input_box .eye:hover svg {
   fill: var(--blue-005);
 }
-.input_percentage.svelte-30kpl9.svelte-30kpl9.svelte-30kpl9 {
+.input_percentage.svelte-148kfbm.svelte-148kfbm.svelte-148kfbm {
   display: flex;
   position: relative;
 }
-.input_percentage.svelte-30kpl9 input.svelte-30kpl9.svelte-30kpl9 {
+.input_percentage.svelte-148kfbm input.svelte-148kfbm.svelte-148kfbm {
   padding-right: 30px !important;
 }
-.input_percentage.svelte-30kpl9 span.svelte-30kpl9.svelte-30kpl9 {
+.input_percentage.svelte-148kfbm span.svelte-148kfbm.svelte-148kfbm {
   position: absolute;
   right: 10px;
   bottom: 10px;
   font-weight: 700;
 }
-.input_box.svelte-30kpl9 .options_container.svelte-30kpl9.svelte-30kpl9 {
+.input_box.svelte-148kfbm .options_container.svelte-148kfbm.svelte-148kfbm {
   display: block;
   position: relative;
   width: 100%;
 }
-.input_box.svelte-30kpl9 .options_container .options_list.svelte-30kpl9.svelte-30kpl9 {
+.input_box.svelte-148kfbm .options_container .input_container.svelte-148kfbm.svelte-148kfbm {
+  position: relative;
+  width: 100%;
+}
+.input_box.svelte-148kfbm .options_container .input_container input.svelte-148kfbm.svelte-148kfbm {
+  padding-right: 30px !important;
+}
+.input_box.svelte-148kfbm .options_container .input_container .arrow.svelte-148kfbm.svelte-148kfbm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: transparent;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-left: 1px solid transparent;
+  border-right: 2px solid transparent;
+  cursor: pointer;
+  padding: 8px;
+  height: 100%;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.input_box.svelte-148kfbm .options_container .input_container .arrow.svelte-148kfbm.svelte-148kfbm:hover {
+  background-color: var(--gray-001);
+  border-top: 2px solid var(--gray-003);
+  border-bottom: 2px solid var(--gray-003);
+  border-left: 1px solid var(--gray-003);
+  border-right: 2px solid var(--gray-003);
+  padding: 12px;
+  outline: 1px solid var(--gray-003);
+}
+.input_box.svelte-148kfbm .options_container .options_list.svelte-148kfbm.svelte-148kfbm {
   margin-top: 5px;
   position: absolute;
   top: 100%;
@@ -873,7 +915,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   overflow-y: auto;
   z-index: 1999;
 }
-.input_box.svelte-30kpl9 .options_container .options_list .option.svelte-30kpl9.svelte-30kpl9 {
+.input_box.svelte-148kfbm .options_container .options_list .option.svelte-148kfbm.svelte-148kfbm {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -887,7 +929,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   width: 100%;
   text-align: left;
 }
-.input_box.svelte-30kpl9 .options_container .options_list .option.svelte-30kpl9.svelte-30kpl9:hover {
+.input_box.svelte-148kfbm .options_container .options_list .option.svelte-148kfbm.svelte-148kfbm:hover {
   background-color: var(--gray-002);
 }
 .input_box .options_container .options_list .option.active {
@@ -4411,6 +4453,7 @@ header.svelte-146z4fm.svelte-146z4fm {
   var RiSystemDeleteBin6Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M7 4V2H17V4H22V6H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V6H2V4H7ZM6 6V20H18V6H6ZM9 9H11V17H9V9ZM13 9H15V17H13V9Z"></path>' };
   var RiMapMap2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 5L9 2L15 5L21.303 2.2987C21.5569 2.18992 21.8508 2.30749 21.9596 2.56131C21.9862 2.62355 22 2.69056 22 2.75827V19L15 22L9 19L2.69696 21.7013C2.44314 21.8101 2.14921 21.6925 2.04043 21.4387C2.01375 21.3765 2 21.3094 2 21.2417V5ZM16 19.3955L20 17.6812V5.03308L16 6.74736V19.3955ZM14 19.2639V6.73607L10 4.73607V17.2639L14 19.2639ZM8 17.2526V4.60451L4 6.31879V18.9669L8 17.2526Z"></path>' };
   var RiFinanceSwapBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4.00488 5.00275V19.0027H20.0049V5.00275H4.00488ZM3.00488 3.00275H21.0049C21.5572 3.00275 22.0049 3.45046 22.0049 4.00275V20.0027C22.0049 20.555 21.5572 21.0027 21.0049 21.0027H3.00488C2.4526 21.0027 2.00488 20.555 2.00488 20.0027V4.00275C2.00488 3.45046 2.4526 3.00275 3.00488 3.00275ZM15.0049 7.00275L18.5049 10.0027L15.0049 13.0027V11.0027H11.0049V9.00275H15.0049V7.00275ZM9.00488 17.0027L5.50488 14.0027L9.00488 11.0027V13.0027H13.0049V15.0027H9.00488V17.0027Z"></path>' };
+  var RiArrowsArrowRightSLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z"></path>' };
   var RiEditorOrganizationChart = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M15 3C15.5523 3 16 3.44772 16 4V8C16 8.55228 15.5523 9 15 9H13V11H17C17.5523 11 18 11.4477 18 12V15H20C20.5523 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H14C13.4477 21 13 20.5523 13 20V16C13 15.4477 13.4477 15 14 15H16V13H8V15H10C10.5523 15 11 15.4477 11 16V20C11 20.5523 10.5523 21 10 21H4C3.44772 21 3 20.5523 3 20V16C3 15.4477 3.44772 15 4 15H6V12C6 11.4477 6.44772 11 7 11H11V9H9C8.44772 9 8 8.55228 8 8V4C8 3.44772 8.44772 3 9 3H15ZM9 17H5V19H9V17ZM19 17H15V19H19V17ZM14 5H10V7H14V5Z"></path>' };
 
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/cg/index.js
@@ -6499,13 +6542,13 @@ header.svelte-146z4fm.svelte-146z4fm {
   // _components/InputBox.svelte
   function get_each_context_1(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[42] = list[i];
+    child_ctx[43] = list[i];
     return child_ctx;
   }
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[41] = list[i][0];
-    child_ctx[42] = list[i][1];
+    child_ctx[42] = list[i][0];
+    child_ctx[43] = list[i][1];
     return child_ctx;
   }
   function create_else_block_1(ctx) {
@@ -6524,7 +6567,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         );
         t1 = space();
         input = element("input");
-        attr(label_1, "class", "label svelte-30kpl9");
+        attr(label_1, "class", "label svelte-148kfbm");
         attr(
           label_1,
           "for",
@@ -6544,7 +6587,7 @@ header.svelte-146z4fm.svelte-146z4fm {
           /*placeholder*/
           ctx[6]
         );
-        attr(input, "class", "svelte-30kpl9");
+        attr(input, "class", "svelte-148kfbm");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -6561,7 +6604,7 @@ header.svelte-146z4fm.svelte-146z4fm {
             input,
             "input",
             /*input_input_handler_11*/
-            ctx[38]
+            ctx[39]
           );
           mounted = true;
         }
@@ -6642,7 +6685,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         t1 = space();
         div = element("div");
         input = element("input");
-        attr(label_1, "class", "label svelte-30kpl9");
+        attr(label_1, "class", "label svelte-148kfbm");
         attr(
           label_1,
           "for",
@@ -6656,8 +6699,8 @@ header.svelte-146z4fm.svelte-146z4fm {
           /*id*/
           ctx[0]
         );
-        attr(input, "class", "color-input svelte-30kpl9");
-        attr(div, "class", "color_box svelte-30kpl9");
+        attr(input, "class", "color-input svelte-148kfbm");
+        attr(div, "class", "color_box svelte-148kfbm");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -6675,7 +6718,7 @@ header.svelte-146z4fm.svelte-146z4fm {
             input,
             "input",
             /*input_input_handler_10*/
-            ctx[37]
+            ctx[38]
           );
           mounted = true;
         }
@@ -6773,7 +6816,7 @@ header.svelte-146z4fm.svelte-146z4fm {
           /*placeholder*/
           ctx[6]
         );
-        attr(input, "class", "svelte-30kpl9");
+        attr(input, "class", "svelte-148kfbm");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -6785,7 +6828,7 @@ header.svelte-146z4fm.svelte-146z4fm {
           /*value*/
           ctx[1]
         );
-        ctx[36](input);
+        ctx[37](input);
         insert(target, t2, anchor);
         if (if_block)
           if_block.m(target, anchor);
@@ -6796,7 +6839,7 @@ header.svelte-146z4fm.svelte-146z4fm {
             input,
             "input",
             /*input_input_handler_9*/
-            ctx[35]
+            ctx[36]
           );
           mounted = true;
         }
@@ -6887,7 +6930,7 @@ header.svelte-146z4fm.svelte-146z4fm {
           detach(t2);
           detach(if_block_anchor);
         }
-        ctx[36](null);
+        ctx[37](null);
         if (if_block)
           if_block.d(detaching);
         mounted = false;
@@ -6911,7 +6954,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         );
         t1 = space();
         input = element("input");
-        attr(label_1, "class", "label svelte-30kpl9");
+        attr(label_1, "class", "label svelte-148kfbm");
         attr(
           label_1,
           "for",
@@ -6931,7 +6974,7 @@ header.svelte-146z4fm.svelte-146z4fm {
           /*placeholder*/
           ctx[6]
         );
-        attr(input, "class", "svelte-30kpl9");
+        attr(input, "class", "svelte-148kfbm");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -6948,7 +6991,7 @@ header.svelte-146z4fm.svelte-146z4fm {
             input,
             "input",
             /*input_input_handler_8*/
-            ctx[34]
+            ctx[35]
           );
           mounted = true;
         }
@@ -7026,7 +7069,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         );
         t1 = space();
         input = element("input");
-        attr(label_1, "class", "label svelte-30kpl9");
+        attr(label_1, "class", "label svelte-148kfbm");
         attr(
           label_1,
           "for",
@@ -7046,7 +7089,7 @@ header.svelte-146z4fm.svelte-146z4fm {
           /*placeholder*/
           ctx[6]
         );
-        attr(input, "class", "svelte-30kpl9");
+        attr(input, "class", "svelte-148kfbm");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -7063,7 +7106,7 @@ header.svelte-146z4fm.svelte-146z4fm {
             input,
             "input",
             /*input_input_handler_7*/
-            ctx[33]
+            ctx[34]
           );
           mounted = true;
         }
@@ -7142,7 +7185,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         );
         t1 = space();
         input = element("input");
-        attr(label_1, "class", "label svelte-30kpl9");
+        attr(label_1, "class", "label svelte-148kfbm");
         attr(
           label_1,
           "for",
@@ -7163,7 +7206,7 @@ header.svelte-146z4fm.svelte-146z4fm {
           ctx[6]
         );
         attr(input, "autocomplete", "off");
-        attr(input, "class", "svelte-30kpl9");
+        attr(input, "class", "svelte-148kfbm");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -7180,7 +7223,7 @@ header.svelte-146z4fm.svelte-146z4fm {
             input,
             "input",
             /*input_input_handler_6*/
-            ctx[32]
+            ctx[33]
           );
           mounted = true;
         }
@@ -7259,7 +7302,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         );
         t1 = space();
         textarea = element("textarea");
-        attr(label_1, "class", "label svelte-30kpl9");
+        attr(label_1, "class", "label svelte-148kfbm");
         attr(
           label_1,
           "for",
@@ -7278,7 +7321,7 @@ header.svelte-146z4fm.svelte-146z4fm {
           /*placeholder*/
           ctx[6]
         );
-        attr(textarea, "class", "svelte-30kpl9");
+        attr(textarea, "class", "svelte-148kfbm");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -7295,7 +7338,7 @@ header.svelte-146z4fm.svelte-146z4fm {
             textarea,
             "input",
             /*textarea_input_handler*/
-            ctx[31]
+            ctx[32]
           );
           mounted = true;
         }
@@ -7373,7 +7416,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         );
         t1 = space();
         input = element("input");
-        attr(label_1, "class", "label svelte-30kpl9");
+        attr(label_1, "class", "label svelte-148kfbm");
         attr(
           label_1,
           "for",
@@ -7393,7 +7436,7 @@ header.svelte-146z4fm.svelte-146z4fm {
           /*placeholder*/
           ctx[6]
         );
-        attr(input, "class", "svelte-30kpl9");
+        attr(input, "class", "svelte-148kfbm");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -7410,7 +7453,7 @@ header.svelte-146z4fm.svelte-146z4fm {
             input,
             "input",
             /*input_input_handler_5*/
-            ctx[30]
+            ctx[31]
           );
           mounted = true;
         }
@@ -7496,7 +7539,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         t2 = space();
         span = element("span");
         span.textContent = "%";
-        attr(label_1, "class", "label svelte-30kpl9");
+        attr(label_1, "class", "label svelte-148kfbm");
         attr(
           label_1,
           "for",
@@ -7516,9 +7559,9 @@ header.svelte-146z4fm.svelte-146z4fm {
           /*placeholder*/
           ctx[6]
         );
-        attr(input, "class", "svelte-30kpl9");
-        attr(span, "class", "svelte-30kpl9");
-        attr(div, "class", "input_percentage svelte-30kpl9");
+        attr(input, "class", "svelte-148kfbm");
+        attr(span, "class", "svelte-148kfbm");
+        attr(div, "class", "input_percentage svelte-148kfbm");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -7538,7 +7581,7 @@ header.svelte-146z4fm.svelte-146z4fm {
             input,
             "input",
             /*input_input_handler_4*/
-            ctx[29]
+            ctx[30]
           );
           mounted = true;
         }
@@ -7617,7 +7660,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         );
         t1 = space();
         input = element("input");
-        attr(label_1, "class", "label svelte-30kpl9");
+        attr(label_1, "class", "label svelte-148kfbm");
         attr(
           label_1,
           "for",
@@ -7637,7 +7680,7 @@ header.svelte-146z4fm.svelte-146z4fm {
           /*placeholder*/
           ctx[6]
         );
-        attr(input, "class", "svelte-30kpl9");
+        attr(input, "class", "svelte-148kfbm");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -7654,7 +7697,7 @@ header.svelte-146z4fm.svelte-146z4fm {
             input,
             "input",
             /*input_input_handler_3*/
-            ctx[28]
+            ctx[29]
           );
           mounted = true;
         }
@@ -7732,7 +7775,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         );
         t1 = space();
         input = element("input");
-        attr(label_1, "class", "label svelte-30kpl9");
+        attr(label_1, "class", "label svelte-148kfbm");
         attr(
           label_1,
           "for",
@@ -7752,7 +7795,7 @@ header.svelte-146z4fm.svelte-146z4fm {
           /*placeholder*/
           ctx[6]
         );
-        attr(input, "class", "svelte-30kpl9");
+        attr(input, "class", "svelte-148kfbm");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -7769,7 +7812,7 @@ header.svelte-146z4fm.svelte-146z4fm {
             input,
             "input",
             /*input_input_handler_2*/
-            ctx[27]
+            ctx[28]
           );
           mounted = true;
         }
@@ -7833,45 +7876,69 @@ header.svelte-146z4fm.svelte-146z4fm {
     };
   }
   function create_if_block_16(ctx) {
+    let current_block_type_index;
+    let if_block;
     let if_block_anchor;
+    let current;
+    const if_block_creators = [create_if_block_22, create_else_block];
+    const if_blocks = [];
     function select_block_type_1(ctx2, dirty) {
       if (
         /*isObject*/
         ctx2[7]
       )
-        return create_if_block_22;
-      return create_else_block;
+        return 0;
+      return 1;
     }
-    let current_block_type = select_block_type_1(ctx, [-1, -1]);
-    let if_block = current_block_type(ctx);
+    current_block_type_index = select_block_type_1(ctx, [-1, -1]);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
         if_block.c();
         if_block_anchor = empty();
       },
       m(target, anchor) {
-        if_block.m(target, anchor);
+        if_blocks[current_block_type_index].m(target, anchor);
         insert(target, if_block_anchor, anchor);
+        current = true;
       },
       p(ctx2, dirty) {
-        if (current_block_type === (current_block_type = select_block_type_1(ctx2, dirty)) && if_block) {
-          if_block.p(ctx2, dirty);
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type_1(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
         } else {
-          if_block.d(1);
-          if_block = current_block_type(ctx2);
-          if (if_block) {
+          group_outros();
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
+          });
+          check_outros();
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
             if_block.c();
-            if_block.m(if_block_anchor.parentNode, if_block_anchor);
+          } else {
+            if_block.p(ctx2, dirty);
           }
+          transition_in(if_block, 1);
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
         }
       },
-      i: noop,
-      o: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(if_block);
+        current = true;
+      },
+      o(local) {
+        transition_out(if_block);
+        current = false;
+      },
       d(detaching) {
         if (detaching) {
           detach(if_block_anchor);
         }
-        if_block.d(detaching);
+        if_blocks[current_block_type_index].d(detaching);
       }
     };
   }
@@ -7897,7 +7964,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         input = element("input");
         t2 = space();
         span = element("span");
-        attr(label0, "class", "label svelte-30kpl9");
+        attr(label0, "class", "label svelte-148kfbm");
         attr(
           label0,
           "for",
@@ -7911,9 +7978,9 @@ header.svelte-146z4fm.svelte-146z4fm {
           /*id*/
           ctx[0]
         );
-        attr(input, "class", "svelte-30kpl9");
-        attr(span, "class", "slider svelte-30kpl9");
-        attr(label1, "class", "switcher svelte-30kpl9");
+        attr(input, "class", "svelte-148kfbm");
+        attr(span, "class", "slider svelte-148kfbm");
+        attr(label1, "class", "switcher svelte-148kfbm");
         attr(
           label1,
           "for",
@@ -8015,7 +8082,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         t = space();
         if (if_block1)
           if_block1.c();
-        attr(button, "class", "eye svelte-30kpl9");
+        attr(button, "class", "eye svelte-148kfbm");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -8205,7 +8272,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(label_1, "class", "label svelte-30kpl9");
+        attr(label_1, "class", "label svelte-148kfbm");
         attr(
           label_1,
           "for",
@@ -8213,11 +8280,11 @@ header.svelte-146z4fm.svelte-146z4fm {
           ctx[0]
         );
         attr(input, "type", "text");
-        attr(input, "class", "svelte-30kpl9");
+        attr(input, "class", "svelte-148kfbm");
         attr(div0, "class", div0_class_value = "options_list " + /*isShowOptions*/
-        (ctx[11] ? "show" : "hidden") + " svelte-30kpl9");
+        (ctx[11] ? "show" : "hidden") + " svelte-148kfbm");
         attr(div1, "class", div1_class_value = "options_container " + /*randStr*/
-        ctx[14] + " svelte-30kpl9");
+        ctx[14] + " svelte-148kfbm");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -8243,19 +8310,19 @@ header.svelte-146z4fm.svelte-146z4fm {
               input,
               "input",
               /*input_input_handler_1*/
-              ctx[23]
+              ctx[24]
             ),
             listen(
               input,
               "focus",
               /*focus_handler_1*/
-              ctx[24]
+              ctx[25]
             ),
             listen(
               input,
               "blur",
               /*blur_handler_1*/
-              ctx[25]
+              ctx[26]
             ),
             listen(input, "keyup", stop_propagation(prevent_default(
               /*handleKey*/
@@ -8315,10 +8382,12 @@ header.svelte-146z4fm.svelte-146z4fm {
         }
         if (dirty[0] & /*isShowOptions*/
         2048 && div0_class_value !== (div0_class_value = "options_list " + /*isShowOptions*/
-        (ctx2[11] ? "show" : "hidden") + " svelte-30kpl9")) {
+        (ctx2[11] ? "show" : "hidden") + " svelte-148kfbm")) {
           attr(div0, "class", div0_class_value);
         }
       },
+      i: noop,
+      o: noop,
       d(detaching) {
         if (detaching) {
           detach(label_1);
@@ -8335,14 +8404,28 @@ header.svelte-146z4fm.svelte-146z4fm {
     let label_1;
     let t0;
     let t1;
-    let div1;
+    let div2;
+    let div0;
     let input;
     let t2;
-    let div0;
-    let div0_class_value;
+    let button;
+    let icon;
+    let t3;
+    let div1;
     let div1_class_value;
+    let div2_class_value;
+    let current;
     let mounted;
     let dispose;
+    icon = new Icon_default({
+      props: {
+        className: "icon " + /*isShowOptions*/
+        (ctx[11] ? "rotate" : "dropdown"),
+        color: "var(--gray-007)",
+        src: RiArrowsArrowRightSLine,
+        size: "17"
+      }
+    });
     let each_value = ensure_array_like(Object.entries(
       /*values*/
       ctx[4]
@@ -8359,14 +8442,18 @@ header.svelte-146z4fm.svelte-146z4fm {
           ctx[5]
         );
         t1 = space();
-        div1 = element("div");
+        div2 = element("div");
+        div0 = element("div");
         input = element("input");
         t2 = space();
-        div0 = element("div");
+        button = element("button");
+        create_component(icon.$.fragment);
+        t3 = space();
+        div1 = element("div");
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(label_1, "class", "label svelte-30kpl9");
+        attr(label_1, "class", "label svelte-148kfbm");
         attr(
           label_1,
           "for",
@@ -8374,30 +8461,37 @@ header.svelte-146z4fm.svelte-146z4fm {
           ctx[0]
         );
         attr(input, "type", "text");
-        attr(input, "class", "svelte-30kpl9");
-        attr(div0, "class", div0_class_value = "options_list " + /*isShowOptions*/
-        (ctx[11] ? "show" : "hidden") + " svelte-30kpl9");
-        attr(div1, "class", div1_class_value = null_to_empty(`options_container ${/*randStr*/
-        ctx[14]}`) + " svelte-30kpl9");
+        attr(input, "class", "svelte-148kfbm");
+        attr(button, "class", "arrow svelte-148kfbm");
+        attr(div0, "class", "input_container svelte-148kfbm");
+        attr(div1, "class", div1_class_value = "options_list " + /*isShowOptions*/
+        (ctx[11] ? "show" : "hidden") + " svelte-148kfbm");
+        attr(div2, "class", div2_class_value = null_to_empty(`options_container ${/*randStr*/
+        ctx[14]}`) + " svelte-148kfbm");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
         append(label_1, t0);
         insert(target, t1, anchor);
-        insert(target, div1, anchor);
-        append(div1, input);
+        insert(target, div2, anchor);
+        append(div2, div0);
+        append(div0, input);
         set_input_value(
           input,
           /*valueToShowFromObj*/
           ctx[10]
         );
-        append(div1, t2);
-        append(div1, div0);
+        append(div0, t2);
+        append(div0, button);
+        mount_component(icon, button, null);
+        append(div2, t3);
+        append(div2, div1);
         for (let i = 0; i < each_blocks.length; i += 1) {
           if (each_blocks[i]) {
-            each_blocks[i].m(div0, null);
+            each_blocks[i].m(div1, null);
           }
         }
+        current = true;
         if (!mounted) {
           dispose = [
             listen(
@@ -8419,20 +8513,24 @@ header.svelte-146z4fm.svelte-146z4fm {
             listen(input, "keyup", stop_propagation(prevent_default(
               /*handleKey*/
               ctx[17]
-            )), { passive: false })
+            )), { passive: false }),
+            listen(button, "click", stop_propagation(
+              /*click_handler*/
+              ctx[22]
+            ))
           ];
           mounted = true;
         }
       },
       p(ctx2, dirty) {
-        if (dirty[0] & /*label*/
+        if (!current || dirty[0] & /*label*/
         32)
           set_data(
             t0,
             /*label*/
             ctx2[5]
           );
-        if (dirty[0] & /*id*/
+        if (!current || dirty[0] & /*id*/
         1) {
           attr(
             label_1,
@@ -8450,6 +8548,12 @@ header.svelte-146z4fm.svelte-146z4fm {
             ctx2[10]
           );
         }
+        const icon_changes = {};
+        if (dirty[0] & /*isShowOptions*/
+        2048)
+          icon_changes.className = "icon " + /*isShowOptions*/
+          (ctx2[11] ? "rotate" : "dropdown");
+        icon.$set(icon_changes);
         if (dirty[0] & /*randStr, value, values, valueToShowFromObj, isShowOptions, optionClicked*/
         27666) {
           each_value = ensure_array_like(Object.entries(
@@ -8464,7 +8568,7 @@ header.svelte-146z4fm.svelte-146z4fm {
             } else {
               each_blocks[i] = create_each_block(child_ctx);
               each_blocks[i].c();
-              each_blocks[i].m(div0, null);
+              each_blocks[i].m(div1, null);
             }
           }
           for (; i < each_blocks.length; i += 1) {
@@ -8472,18 +8576,29 @@ header.svelte-146z4fm.svelte-146z4fm {
           }
           each_blocks.length = each_value.length;
         }
-        if (dirty[0] & /*isShowOptions*/
-        2048 && div0_class_value !== (div0_class_value = "options_list " + /*isShowOptions*/
-        (ctx2[11] ? "show" : "hidden") + " svelte-30kpl9")) {
-          attr(div0, "class", div0_class_value);
+        if (!current || dirty[0] & /*isShowOptions*/
+        2048 && div1_class_value !== (div1_class_value = "options_list " + /*isShowOptions*/
+        (ctx2[11] ? "show" : "hidden") + " svelte-148kfbm")) {
+          attr(div1, "class", div1_class_value);
         }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon.$.fragment, local);
+        current = false;
       },
       d(detaching) {
         if (detaching) {
           detach(label_1);
           detach(t1);
-          detach(div1);
+          detach(div2);
         }
+        destroy_component(icon);
         destroy_each(each_blocks, detaching);
         mounted = false;
         run_all(dispose);
@@ -8494,19 +8609,19 @@ header.svelte-146z4fm.svelte-146z4fm {
     let button;
     let t0_value = (
       /*v*/
-      ctx[42] + ""
+      ctx[43] + ""
     );
     let t0;
     let t1;
     let button_class_value;
     let mounted;
     let dispose;
-    function click_handler_1() {
+    function click_handler_2() {
       return (
-        /*click_handler_1*/
-        ctx[26](
+        /*click_handler_2*/
+        ctx[27](
           /*v*/
-          ctx[42]
+          ctx[43]
         )
       );
     }
@@ -8516,14 +8631,14 @@ header.svelte-146z4fm.svelte-146z4fm {
         t0 = text(t0_value);
         t1 = space();
         attr(button, "class", button_class_value = "option " + /*randStr*/
-        ctx[14] + " svelte-30kpl9");
+        ctx[14] + " svelte-148kfbm");
       },
       m(target, anchor) {
         insert(target, button, anchor);
         append(button, t0);
         append(button, t1);
         if (!mounted) {
-          dispose = listen(button, "click", click_handler_1);
+          dispose = listen(button, "click", click_handler_2);
           mounted = true;
         }
       },
@@ -8531,7 +8646,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         ctx = new_ctx;
         if (dirty[0] & /*values*/
         16 && t0_value !== (t0_value = /*v*/
-        ctx[42] + ""))
+        ctx[43] + ""))
           set_data(t0, t0_value);
       },
       d(detaching) {
@@ -8547,21 +8662,21 @@ header.svelte-146z4fm.svelte-146z4fm {
     let button;
     let t0_value = (
       /*v*/
-      ctx[42] + ""
+      ctx[43] + ""
     );
     let t0;
     let t1;
     let button_class_value;
     let mounted;
     let dispose;
-    function click_handler() {
+    function click_handler_1() {
       return (
-        /*click_handler*/
-        ctx[22](
+        /*click_handler_1*/
+        ctx[23](
           /*k*/
-          ctx[41],
+          ctx[42],
           /*v*/
-          ctx[42]
+          ctx[43]
         )
       );
     }
@@ -8571,14 +8686,14 @@ header.svelte-146z4fm.svelte-146z4fm {
         t0 = text(t0_value);
         t1 = space();
         attr(button, "class", button_class_value = "option " + /*randStr*/
-        ctx[14] + " svelte-30kpl9");
+        ctx[14] + " svelte-148kfbm");
       },
       m(target, anchor) {
         insert(target, button, anchor);
         append(button, t0);
         append(button, t1);
         if (!mounted) {
-          dispose = listen(button, "click", click_handler);
+          dispose = listen(button, "click", click_handler_1);
           mounted = true;
         }
       },
@@ -8586,7 +8701,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         ctx = new_ctx;
         if (dirty[0] & /*values*/
         16 && t0_value !== (t0_value = /*v*/
-        ctx[42] + ""))
+        ctx[43] + ""))
           set_data(t0, t0_value);
       },
       d(detaching) {
@@ -8696,11 +8811,11 @@ header.svelte-146z4fm.svelte-146z4fm {
         if_block.c();
         attr(div0, "class", div0_class_value = "input_box " + /*type*/
         (ctx[3] == "bool" ? "bool" : "") + " " + /*type*/
-        (ctx[3] == "password" ? "with_password" : "") + " svelte-30kpl9");
+        (ctx[3] == "password" ? "with_password" : "") + " svelte-148kfbm");
         attr(div1, "class", div1_class_value = null_to_empty(
           /*className*/
           ctx[2]
-        ) + " svelte-30kpl9");
+        ) + " svelte-148kfbm");
       },
       m(target, anchor) {
         insert(target, div1, anchor);
@@ -8732,14 +8847,14 @@ header.svelte-146z4fm.svelte-146z4fm {
         if (!current || dirty[0] & /*type*/
         8 && div0_class_value !== (div0_class_value = "input_box " + /*type*/
         (ctx2[3] == "bool" ? "bool" : "") + " " + /*type*/
-        (ctx2[3] == "password" ? "with_password" : "") + " svelte-30kpl9")) {
+        (ctx2[3] == "password" ? "with_password" : "") + " svelte-148kfbm")) {
           attr(div0, "class", div0_class_value);
         }
         if (!current || dirty[0] & /*className*/
         4 && div1_class_value !== (div1_class_value = null_to_empty(
           /*className*/
           ctx2[2]
-        ) + " svelte-30kpl9")) {
+        ) + " svelte-148kfbm")) {
           attr(div1, "class", div1_class_value);
         }
       },
@@ -8903,7 +9018,8 @@ header.svelte-146z4fm.svelte-146z4fm {
         );
       }
     };
-    const click_handler = (k, v) => {
+    const click_handler = () => $invalidate(11, isShowOptions = !isShowOptions);
+    const click_handler_1 = (k, v) => {
       $invalidate(1, value = k);
       $invalidate(10, valueToShowFromObj = v);
       $invalidate(11, isShowOptions = false);
@@ -8930,7 +9046,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         );
       }
     };
-    const click_handler_1 = (v) => {
+    const click_handler_2 = (v) => {
       $invalidate(1, value = v);
       $invalidate(10, valueToShowFromObj = v);
       $invalidate(11, isShowOptions = false);
@@ -9027,10 +9143,11 @@ header.svelte-146z4fm.svelte-146z4fm {
       focus_handler,
       blur_handler,
       click_handler,
+      click_handler_1,
       input_input_handler_1,
       focus_handler_1,
       blur_handler_1,
-      click_handler_1,
+      click_handler_2,
       input_input_handler_2,
       input_input_handler_3,
       input_input_handler_4,

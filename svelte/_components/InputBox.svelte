@@ -134,26 +134,36 @@
       {#if isObject}
         <label class="label" for={id}>{label}</label>
         <div class={`options_container ${randStr}`}>
-          <input
-            type="text"
-            bind:value={valueToShowFromObj}
-            on:focus={() => isShowOptions = true}
-            on:blur|preventDefault={() => {
-              currentFocus = -1;
-              const options = document.querySelectorAll('.option .'+randStr);
-              removeActive(options);
-              valueToShowFromObj = values[value];
-              if (optionClicked) {
-                isShowOptions = false;
-              } else {
-                setTimeout(() => {
+          <div class="input_container">
+            <input
+              type="text"
+              bind:value={valueToShowFromObj}
+              on:focus={() => isShowOptions = true}
+              on:blur|preventDefault={() => {
+                currentFocus = -1;
+                const options = document.querySelectorAll('.option .'+randStr);
+                removeActive(options);
+                valueToShowFromObj = values[value];
+                if (optionClicked) {
                   isShowOptions = false;
-                  optionClicked = false;
-                }, 100);
-              }
-            }}
-            on:keyup|preventDefault|stopPropagation|nonpassive={handleKey}
-          />
+                } else {
+                  setTimeout(() => {
+                    isShowOptions = false;
+                    optionClicked = false;
+                  }, 100);
+                }
+              }}
+              on:keyup|preventDefault|stopPropagation|nonpassive={handleKey}
+            />
+            <button class="arrow" on:click|stopPropagation={() => isShowOptions = !isShowOptions}>
+              <Icon
+                className="icon {isShowOptions ? 'rotate' : 'dropdown'}"
+                color="var(--gray-007)"
+                src={RiArrowsArrowRightSLine}
+                size="17"
+              />
+            </button>
+          </div>
           <div class="options_list {isShowOptions ? 'show' : 'hidden'}">
             {#each Object.entries(values) as [k, v]}
               <button class="option {randStr}" on:click={() => {
@@ -255,6 +265,15 @@
 </div>
 
 <style>
+  :global(.dropdown) {
+		transition: all .2s ease-in-out;
+	}
+
+	:global(.rotate) {
+		transition: all .2s ease-in-out;
+		transform: rotate(90deg);
+	}
+
   .show {
     display: block;
   }
@@ -433,6 +452,45 @@
     display: block;
     position: relative;
     width: 100%;
+  }
+
+  .input_box .options_container .input_container {
+    position: relative;
+    width: 100%;
+  }
+
+  .input_box .options_container .input_container input {
+    padding-right: 30px !important;
+  }
+
+  .input_box .options_container .input_container .arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: transparent;
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    border-left: 1px solid transparent;
+    border-right: 2px solid transparent;
+    cursor: pointer;
+    padding: 8px;
+    height: 100%;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  .input_box .options_container .input_container .arrow:hover {
+    background-color: var(--gray-001);
+    border-top: 2px solid var(--gray-003);
+    border-bottom: 2px solid var(--gray-003);
+    border-left: 1px solid var(--gray-003);
+    border-right: 2px solid var(--gray-003);
+    padding: 12px;
+    outline: 1px solid var(--gray-003);
   }
 
   .input_box .options_container .options_list {
