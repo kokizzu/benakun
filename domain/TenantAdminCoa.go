@@ -54,6 +54,7 @@ const (
 	ErrTenantAdminCoaFailedCreate = `failed to create a new coa`
 	ErrTenantAdminCoaSameCoa			= `cannot move coa to the same coa`
 	ErrTenantAdminCoaShouldNotChildChild = `cannot move coa to its child or grand child`
+	ErrTenantAdminCoaNotEditable = `cannot modify uneditable coa`
 )
 
 func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
@@ -100,6 +101,11 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 		if coa.Id > 0 {
 			if !coa.FindById() {
 				out.SetError(400, ErrTenantAdminCoaNotFound)
+				return
+			}
+
+			if !coa.Editable {
+				out.SetError(400, ErrTenantAdminCoaNotEditable)
 				return
 			}
 
@@ -249,6 +255,7 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 			coa.SetUpdatedAt(in.UnixNow())
 			coa.SetUpdatedBy(sess.UserId)
 			if coa.Id == 0 {
+				coa.SetEditable(true)
 				coa.SetCreatedAt(in.UnixNow())
 				coa.SetCreatedBy(sess.UserId)
 			}

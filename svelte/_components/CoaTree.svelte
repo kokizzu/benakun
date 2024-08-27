@@ -160,7 +160,7 @@
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div class="{isDragOver ? 'drag-over' : ''} {isDragging ? 'dragging' : ''}"
-  draggable={!isRootCoA}
+  draggable={!isRootCoA || coa.editable}
   on:dragstart={() => {
     if (!isRootCoA) updateOnMoving();
   }}

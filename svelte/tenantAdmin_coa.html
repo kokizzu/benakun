@@ -8433,7 +8433,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         (ctx[11] ? "drag-over" : "") + " " + /*isDragging*/
         (ctx[12] ? "dragging" : "") + " svelte-kep1p2");
         attr(div3, "draggable", div3_draggable_value = !/*isRootCoA*/
-        ctx[1]);
+        ctx[1] || /*coa*/
+        ctx[0].editable);
       },
       m(target, anchor) {
         mount_component(popupcoa, target, anchor);
@@ -8609,9 +8610,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         (ctx2[12] ? "dragging" : "") + " svelte-kep1p2")) {
           attr(div3, "class", div3_class_value);
         }
-        if (!current || dirty[0] & /*isRootCoA*/
-        2 && div3_draggable_value !== (div3_draggable_value = !/*isRootCoA*/
-        ctx2[1])) {
+        if (!current || dirty[0] & /*isRootCoA, coa*/
+        3 && div3_draggable_value !== (div3_draggable_value = !/*isRootCoA*/
+        ctx2[1] || /*coa*/
+        ctx2[0].editable)) {
           attr(div3, "draggable", div3_draggable_value);
         }
         if (

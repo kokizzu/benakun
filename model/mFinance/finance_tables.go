@@ -25,7 +25,8 @@ const (
 	Name     = `name`
 	ParentId = `parentId`
 	Children = `children`
-	Label    = `label` // bankAccounts:company locations
+	Label    = `label`
+	Editable = `editable`
 )
 
 const (
@@ -42,19 +43,6 @@ const (
 	LabelFunders							= `funders`
 	LabelFunder								= `funder`
 )
-
-func GetLabelsMap() map[string]string {
-	return map[string]string{
-		LabelProducts: `Products`,
-		LabelProduct: `Product`,
-		LabelSuppliers: `Suppliers`,
-		LabelCustomer: `Customer`,
-		LabelStaff: `Staff`,
-		LabelBankAccount: `Bank Account`,
-		LabelBankAccountCompany: `Bank Account - Company`,
-		LabelBankAccountStaff: `Bank Account - Staff`,
-	}
-}
 
 type CoaDefault struct {
 	Name     string
@@ -453,6 +441,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedAt, Tt.Integer},
 			{DeletedBy, Tt.Unsigned},
 			{RestoredBy, Tt.Unsigned},
+			{Editable, Tt.Boolean},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,

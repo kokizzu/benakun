@@ -147,6 +147,13 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 		coa.SetName(coaDefault.Name)
 		coa.SetLabel(coaDefault.Label)
 		coa.SetTenantCode(tenantCode)
+
+		switch coa.Name {
+		case mFinance.CoaStock, mFinance.CoaBank:
+			coa.SetEditable(false)
+		default:
+			coa.SetEditable(true)
+		}
 	
 		if parentId > 0 {
 			coa.SetParentId(parentId)

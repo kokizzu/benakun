@@ -395,6 +395,7 @@ type Coa struct {
 	DeletedAt  int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
 	DeletedBy  uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
 	RestoredBy uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
+	Editable   bool        `json:"editable" form:"editable" query:"editable" long:"editable" msg:"editable"`
 }
 
 // NewCoa create new ORM reader/query object
@@ -452,6 +453,7 @@ func (c *Coa) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "deletedAt"
 	, "deletedBy"
 	, "restoredBy"
+	, "editable"
 	`
 }
 
@@ -470,6 +472,7 @@ func (c *Coa) SqlSelectAllUncensoredFields() string { //nolint:dupl false positi
 	, "deletedAt"
 	, "deletedBy"
 	, "restoredBy"
+	, "editable"
 	`
 }
 
@@ -488,7 +491,8 @@ func (c *Coa) ToUpdateArray() *tarantool.Operations { //nolint:dupl false positi
 		Assign(9, c.UpdatedBy).
 		Assign(10, c.DeletedAt).
 		Assign(11, c.DeletedBy).
-		Assign(12, c.RestoredBy)
+		Assign(12, c.RestoredBy).
+		Assign(13, c.Editable)
 }
 
 // IdxId return name of the index
@@ -621,6 +625,16 @@ func (c *Coa) SqlRestoredBy() string { //nolint:dupl false positive
 	return `"restoredBy"`
 }
 
+// IdxEditable return name of the index
+func (c *Coa) IdxEditable() int { //nolint:dupl false positive
+	return 13
+}
+
+// SqlEditable return name of the column being indexed
+func (c *Coa) SqlEditable() string { //nolint:dupl false positive
+	return `"editable"`
+}
+
 // ToArray receiver fields to slice
 func (c *Coa) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -641,6 +655,7 @@ func (c *Coa) ToArray() A.X { //nolint:dupl false positive
 		c.DeletedAt,  // 10
 		c.DeletedBy,  // 11
 		c.RestoredBy, // 12
+		c.Editable,   // 13
 	}
 }
 
@@ -659,6 +674,7 @@ func (c *Coa) FromArray(a A.X) *Coa { //nolint:dupl false positive
 	c.DeletedAt = X.ToI(a[10])
 	c.DeletedBy = X.ToU(a[11])
 	c.RestoredBy = X.ToU(a[12])
+	c.Editable = X.ToBool(a[13])
 	return c
 }
 
@@ -677,6 +693,7 @@ func (c *Coa) FromUncensoredArray(a A.X) *Coa { //nolint:dupl false positive
 	c.DeletedAt = X.ToI(a[10])
 	c.DeletedBy = X.ToU(a[11])
 	c.RestoredBy = X.ToU(a[12])
+	c.Editable = X.ToBool(a[13])
 	return c
 }
 
@@ -754,6 +771,7 @@ var CoaFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`deletedAt`:  Tt.Integer,
 	`deletedBy`:  Tt.Unsigned,
 	`restoredBy`: Tt.Unsigned,
+	`editable`:   Tt.Boolean,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

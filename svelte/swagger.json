@@ -2026,6 +2026,9 @@
 								},
 								"restoredBy": {
 										"type": "number"
+								},
+								"editable": {
+									"type": "boolean"
 								}
 								}
 						},
@@ -2091,6 +2094,9 @@
 												},
 												"restoredBy": {
 														"type": "number"
+												},
+												"editable": {
+													"type": "boolean"
 												}
 												}
 										},

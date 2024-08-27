@@ -536,6 +536,17 @@ func (c *CoaMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positi
 	return false
 }
 
+// SetEditable create mutations, should not duplicate
+func (c *CoaMutator) SetEditable(val bool) bool { //nolint:dupl false positive
+	if val != c.Editable {
+		c.mutations.Assign(13, val)
+		c.logs = append(c.logs, A.X{`editable`, c.Editable, val})
+		c.Editable = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (c *CoaMutator) SetAll(from rqFinance.Coa, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -594,6 +605,10 @@ func (c *CoaMutator) SetAll(from rqFinance.Coa, excludeMap, forceMap M.SB) (chan
 	}
 	if !excludeMap[`restoredBy`] && (forceMap[`restoredBy`] || from.RestoredBy != 0) {
 		c.RestoredBy = from.RestoredBy
+		changed = true
+	}
+	if !excludeMap[`editable`] && (forceMap[`editable`] || from.Editable != false) {
+		c.Editable = from.Editable
 		changed = true
 	}
 	return

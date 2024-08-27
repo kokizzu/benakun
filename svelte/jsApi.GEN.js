@@ -1367,6 +1367,7 @@ exports.TenantAdminBudgeting = async function TenantAdminBudgeting( i, cb ) {
  * @property {number} coa.deletedAt
  * @property {number} coa.deletedBy
  * @property {number} coa.restoredBy
+ * @property {Object} coa.editable
  * @property {number} moveToIdx
  * @property {number} toParentId
  */
@@ -1387,6 +1388,7 @@ const TenantAdminCoaIn = {
     deletedAt: 0, // int64
     deletedBy: 0, // uint64
     restoredBy: 0, // uint64
+    editable: false, // bool
   }, // rqFinance.Coa
   moveToIdx: 0, // int
   toParentId: 0, // uint64
@@ -1406,6 +1408,7 @@ const TenantAdminCoaIn = {
  * @property {number} coa.deletedAt
  * @property {number} coa.deletedBy
  * @property {number} coa.restoredBy
+ * @property {Object} coa.editable
  * @property {Object} coas
  * @property {Object} coaChoices
  */
@@ -1425,6 +1428,7 @@ const TenantAdminCoaOut = {
     deletedAt: 0, // int64
     deletedBy: 0, // uint64
     restoredBy: 0, // uint64
+    editable: false, // bool
   }, // rqFinance.Coa
   coas: { // []rqFinance.Coa
   }, // []rqFinance.Coa
