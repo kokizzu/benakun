@@ -102,6 +102,7 @@ var TenantAdminBankAccountsMeta = zCrud.Meta{
 			DataType:    zCrud.DataTypeInt,
 			InputType:   zCrud.InputTypeCombobox,
 			Description: `Select staff`,
+			ReadOnly: true,
 		},
 		{
 			Name:      mBudget.IsProfitCenter,
@@ -202,6 +203,11 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 		account := wcBudget.NewBankAccountsMutator(d.AuthOltp)
 		account.Id = in.Account.Id
 
+		var isCostCenter bool = false
+		var isProfitCenter bool = false
+		var isFunder bool = false
+		var isSyncToBank bool = false
+
 		if account.Id > 0 {
 			if !account.FindById() {
 				out.SetError(400, ErrTenantAdminBankAccountsNotFound)
@@ -218,6 +224,20 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 					account.SetDeletedAt(0)
 					account.SetRestoredBy(sess.UserId)
 				}
+			}
+
+			if in.Account.IsCostCenter != account.IsCostCenter {
+				isCostCenter = in.Account.IsCostCenter
+			}
+			if in.Account.IsProfitCenter != account.IsProfitCenter {
+				isProfitCenter = in.Account.IsProfitCenter
+			}
+			if in.Account.IsFunder != account.IsFunder {
+				isFunder = in.Account.IsFunder
+			}
+
+			if !isCostCenter && !isProfitCenter && !isFunder {
+				isSyncToBank = true
 			}
 		} else {
 			if in.Account.ParentBankAccountId > 0 {
@@ -237,190 +257,196 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 				account.SetParentBankAccountId(in.Account.ParentBankAccountId)
 			}
 
-			var isSyncToBank bool = true
+			isCostCenter = in.Account.IsCostCenter
+			isProfitCenter = in.Account.IsProfitCenter
+			isFunder = in.Account.IsFunder
 
-			if in.Account.StaffId > 0 {
-				isSyncToBank = false
+			if !isCostCenter && !isProfitCenter && !isFunder {
+				isSyncToBank = true
+			}
+		}
 
-				staff := rqAuth.NewUsers(d.AuthOltp)
-				if !staff.FindStaffByIdByTenantCode(in.Account.StaffId, tenant.TenantCode) {
-					out.SetError(400, ErrTenantAdminBankAccountsStaffNotFound)
-					return
-				}
+		if in.Account.StaffId > 0 || account.StaffId != in.Account.StaffId{
+			isSyncToBank = false
 
-				coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
-				coaParent.Id = tenant.StaffsCoaId
-				if !coaParent.FindById() {
-					out.SetError(400, ErrTenantAdminBankAccountsStaffCoaNotFound)
-					return
-				}
-
-				coa := wcFinance.NewCoaMutator(d.AuthOltp)
-				coa.SetParentId(coaParent.Id)
-				coa.SetName(in.Account.Name)
-				coa.SetLabel(mFinance.LabelStaff)
-				coa.SetTenantCode(tenant.TenantCode)
-				coa.SetCreatedAt(in.UnixNow())
-				coa.SetCreatedBy(sess.UserId)
-				coa.SetUpdatedAt(in.UnixNow())
-				coa.SetUpdatedBy(sess.UserId)
-				if !coa.DoInsert() {
-					out.SetError(400, ErrTenantAdminBankAccountsStaffCoaSaveFailed)
-					return
-				}
-
-				children := coaParent.Children
-				children = append(children, coa.Id)
-				coaParent.SetChildren(children)
-				coaParent.SetUpdatedAt(in.UnixNow())
-				coaParent.SetUpdatedBy(sess.UserId)
-				if !coaParent.DoUpdateById() {
-					out.SetError(400, ErrTenantAdminBankAccountsStaffCoaParentUpdateFailed)
-					return
-				}
-
-				account.SetStaffId(staff.Id)
+			staff := rqAuth.NewUsers(d.AuthOltp)
+			if !staff.FindStaffByIdByTenantCode(in.Account.StaffId, tenant.TenantCode) {
+				out.SetError(400, ErrTenantAdminBankAccountsStaffNotFound)
+				return
 			}
 
-			if in.Account.IsProfitCenter {
-				isSyncToBank = false
-
-				coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
-				coaParent.Id = tenant.CustomersCoaId
-				if !coaParent.FindById() {
-					out.SetError(400, ErrTenantAdminBankAccountsCustomerCoaNotFound)
-					return
-				}
-
-				coa := wcFinance.NewCoaMutator(d.AuthOltp)
-				coa.SetParentId(coaParent.Id)
-				coa.SetName(in.Account.Name)
-				coa.SetLabel(mFinance.LabelCustomer)
-				coa.SetTenantCode(tenant.TenantCode)
-				coa.SetCreatedAt(in.UnixNow())
-				coa.SetCreatedBy(sess.UserId)
-				coa.SetUpdatedAt(in.UnixNow())
-				coa.SetUpdatedBy(sess.UserId)
-				if !coa.DoInsert() {
-					out.SetError(400, ErrTenantAdminBankAccountsCustomerCoaSaveFailed)
-					return
-				}
-
-				children := coaParent.Children
-				children = append(children, coa.Id)
-				coaParent.SetChildren(children)
-				coaParent.SetUpdatedAt(in.UnixNow())
-				coaParent.SetUpdatedBy(sess.UserId)
-				if !coaParent.DoUpdateById() {
-					out.SetError(400, ErrTenantAdminBankAccountsCustomerCoaParentUpdateFailed)
-					return
-				}
+			coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
+			coaParent.Id = tenant.StaffsCoaId
+			if !coaParent.FindById() {
+				out.SetError(400, ErrTenantAdminBankAccountsStaffCoaNotFound)
+				return
 			}
-			account.SetIsProfitCenter(in.Account.IsProfitCenter)
-			
-			if in.Account.IsCostCenter {
-				isSyncToBank = false
 
-				coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
-				coaParent.Id = tenant.SuppliersCoaId
-				if !coaParent.FindById() {
-					out.SetError(400, ErrTenantAdminBankAccountsSupplierCoaNotFound)
-					return
-				}
+			coa := wcFinance.NewCoaMutator(d.AuthOltp)
+			coa.SetParentId(coaParent.Id)
+			coa.SetName(in.Account.Name)
+			coa.SetLabel(mFinance.LabelStaff)
+			coa.SetTenantCode(tenant.TenantCode)
+			coa.SetCreatedAt(in.UnixNow())
+			coa.SetCreatedBy(sess.UserId)
+			coa.SetUpdatedAt(in.UnixNow())
+			coa.SetUpdatedBy(sess.UserId)
+			if !coa.DoInsert() {
+				out.SetError(400, ErrTenantAdminBankAccountsStaffCoaSaveFailed)
+				return
+			}
 
-				coa := wcFinance.NewCoaMutator(d.AuthOltp)
-				coa.SetParentId(coaParent.Id)
-				coa.SetName(in.Account.Name)
-				coa.SetLabel(mFinance.LabelSupplier)
-				coa.SetTenantCode(tenant.TenantCode)
-				coa.SetCreatedAt(in.UnixNow())
-				coa.SetCreatedBy(sess.UserId)
-				coa.SetUpdatedAt(in.UnixNow())
-				coa.SetUpdatedBy(sess.UserId)
-				if !coa.DoInsert() {
-					out.SetError(400, ErrTenantAdminBankAccountsSupplierCoaSaveFailed)
-					return
-				}
+			children := coaParent.Children
+			children = append(children, coa.Id)
+			coaParent.SetChildren(children)
+			coaParent.SetUpdatedAt(in.UnixNow())
+			coaParent.SetUpdatedBy(sess.UserId)
+			if !coaParent.DoUpdateById() {
+				out.SetError(400, ErrTenantAdminBankAccountsStaffCoaParentUpdateFailed)
+				return
+			}
 
-				children := coaParent.Children
-				children = append(children, coa.Id)
-				coaParent.SetChildren(children)
-				coaParent.SetUpdatedAt(in.UnixNow())
-				coaParent.SetUpdatedBy(sess.UserId)
-				if !coaParent.DoUpdateById() {
-					out.SetError(400, ErrTenantAdminBankAccountsSupplierCoaParentUpdateFailed)
-					return
-				}
-			} 
-			account.SetIsCostCenter(in.Account.IsCostCenter)
+			account.SetStaffId(staff.Id)
+		}
 
-			if in.Account.IsFunder {
-				isSyncToBank = false
+		if isProfitCenter {
+			isSyncToBank = false
 
-				coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
-				coaParent.Id = tenant.FundersCoaId
-				if !coaParent.FindById() {
-					out.SetError(400, ErrTenantAdminBankAccountsFundersCoaNotFound)
-					return
-				}
+			coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
+			coaParent.Id = tenant.CustomersCoaId
+			if !coaParent.FindById() {
+				out.SetError(400, ErrTenantAdminBankAccountsCustomerCoaNotFound)
+				return
+			}
 
-				coa := wcFinance.NewCoaMutator(d.AuthOltp)
-				coa.SetParentId(coaParent.Id)
-				coa.SetName(in.Account.Name)
-				coa.SetLabel(mFinance.LabelFunder)
-				coa.SetTenantCode(tenant.TenantCode)
-				coa.SetCreatedAt(in.UnixNow())
-				coa.SetCreatedBy(sess.UserId)
-				coa.SetUpdatedAt(in.UnixNow())
-				coa.SetUpdatedBy(sess.UserId)
-				if !coa.DoInsert() {
-					out.SetError(400, ErrTenantAdminBankAccountsFundersCoaSaveFailed)
-					return
-				}
+			coa := wcFinance.NewCoaMutator(d.AuthOltp)
+			coa.SetParentId(coaParent.Id)
+			coa.SetName(in.Account.Name)
+			coa.SetLabel(mFinance.LabelCustomer)
+			coa.SetTenantCode(tenant.TenantCode)
+			coa.SetCreatedAt(in.UnixNow())
+			coa.SetCreatedBy(sess.UserId)
+			coa.SetUpdatedAt(in.UnixNow())
+			coa.SetUpdatedBy(sess.UserId)
+			if !coa.DoInsert() {
+				out.SetError(400, ErrTenantAdminBankAccountsCustomerCoaSaveFailed)
+				return
+			}
 
-				children := coaParent.Children
-				children = append(children, coa.Id)
-				coaParent.SetChildren(children)
-				coaParent.SetUpdatedAt(in.UnixNow())
-				coaParent.SetUpdatedBy(sess.UserId)
-				if !coaParent.DoUpdateById() {
-					out.SetError(400, ErrTenantAdminBankAccountsFundersCoaParentUpdateFailed)
-					return
-				}
-			} 
-			account.SetIsFunder(in.Account.IsFunder)
+			children := coaParent.Children
+			children = append(children, coa.Id)
+			coaParent.SetChildren(children)
+			coaParent.SetUpdatedAt(in.UnixNow())
+			coaParent.SetUpdatedBy(sess.UserId)
+			if !coaParent.DoUpdateById() {
+				out.SetError(400, ErrTenantAdminBankAccountsCustomerCoaParentUpdateFailed)
+				return
+			}
+		}
+		account.SetIsProfitCenter(in.Account.IsProfitCenter)
+		
+		if isCostCenter {
+			isSyncToBank = false
 
-			if isSyncToBank {
-				coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
-				coaParent.Id = tenant.BanksCoaId
-				if !coaParent.FindById() {
-					out.SetError(400, ErrTenantAdminBankAccountsBankCoaNotFound)
-					return
-				}
+			coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
+			coaParent.Id = tenant.SuppliersCoaId
+			if !coaParent.FindById() {
+				out.SetError(400, ErrTenantAdminBankAccountsSupplierCoaNotFound)
+				return
+			}
 
-				coa := wcFinance.NewCoaMutator(d.AuthOltp)
-				coa.SetParentId(coaParent.Id)
-				coa.SetName(in.Account.Name)
-				coa.SetLabel(mFinance.LabelBankAccount)
-				coa.SetTenantCode(tenant.TenantCode)
-				coa.SetCreatedAt(in.UnixNow())
-				coa.SetCreatedBy(sess.UserId)
-				coa.SetUpdatedAt(in.UnixNow())
-				coa.SetUpdatedBy(sess.UserId)
-				if !coa.DoInsert() {
-					out.SetError(400, ErrTenantAdminBankAccountsBankCoaSaveFailed)
-					return
-				}
+			coa := wcFinance.NewCoaMutator(d.AuthOltp)
+			coa.SetParentId(coaParent.Id)
+			coa.SetName(in.Account.Name)
+			coa.SetLabel(mFinance.LabelSupplier)
+			coa.SetTenantCode(tenant.TenantCode)
+			coa.SetCreatedAt(in.UnixNow())
+			coa.SetCreatedBy(sess.UserId)
+			coa.SetUpdatedAt(in.UnixNow())
+			coa.SetUpdatedBy(sess.UserId)
+			if !coa.DoInsert() {
+				out.SetError(400, ErrTenantAdminBankAccountsSupplierCoaSaveFailed)
+				return
+			}
 
-				children := coaParent.Children
-				children = append(children, coa.Id)
-				coaParent.SetChildren(children)
-				coaParent.SetUpdatedAt(in.UnixNow())
-				coaParent.SetUpdatedBy(sess.UserId)
-				if !coaParent.DoUpdateById() {
-					out.SetError(400, ErrTenantAdminBankAccountsBankCoaParentUpdateFailed)
-					return
-				}
+			children := coaParent.Children
+			children = append(children, coa.Id)
+			coaParent.SetChildren(children)
+			coaParent.SetUpdatedAt(in.UnixNow())
+			coaParent.SetUpdatedBy(sess.UserId)
+			if !coaParent.DoUpdateById() {
+				out.SetError(400, ErrTenantAdminBankAccountsSupplierCoaParentUpdateFailed)
+				return
+			}
+		} 
+		account.SetIsCostCenter(in.Account.IsCostCenter)
+
+		if isFunder {
+			isSyncToBank = false
+
+			coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
+			coaParent.Id = tenant.FundersCoaId
+			if !coaParent.FindById() {
+				out.SetError(400, ErrTenantAdminBankAccountsFundersCoaNotFound)
+				return
+			}
+
+			coa := wcFinance.NewCoaMutator(d.AuthOltp)
+			coa.SetParentId(coaParent.Id)
+			coa.SetName(in.Account.Name)
+			coa.SetLabel(mFinance.LabelFunder)
+			coa.SetTenantCode(tenant.TenantCode)
+			coa.SetCreatedAt(in.UnixNow())
+			coa.SetCreatedBy(sess.UserId)
+			coa.SetUpdatedAt(in.UnixNow())
+			coa.SetUpdatedBy(sess.UserId)
+			if !coa.DoInsert() {
+				out.SetError(400, ErrTenantAdminBankAccountsFundersCoaSaveFailed)
+				return
+			}
+
+			children := coaParent.Children
+			children = append(children, coa.Id)
+			coaParent.SetChildren(children)
+			coaParent.SetUpdatedAt(in.UnixNow())
+			coaParent.SetUpdatedBy(sess.UserId)
+			if !coaParent.DoUpdateById() {
+				out.SetError(400, ErrTenantAdminBankAccountsFundersCoaParentUpdateFailed)
+				return
+			}
+		} 
+		account.SetIsFunder(in.Account.IsFunder)
+
+		if isSyncToBank {
+			coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
+			coaParent.Id = tenant.BanksCoaId
+			if !coaParent.FindById() {
+				out.SetError(400, ErrTenantAdminBankAccountsBankCoaNotFound)
+				return
+			}
+
+			coa := wcFinance.NewCoaMutator(d.AuthOltp)
+			coa.SetParentId(coaParent.Id)
+			coa.SetName(in.Account.Name)
+			coa.SetLabel(mFinance.LabelBankAccount)
+			coa.SetTenantCode(tenant.TenantCode)
+			coa.SetCreatedAt(in.UnixNow())
+			coa.SetCreatedBy(sess.UserId)
+			coa.SetUpdatedAt(in.UnixNow())
+			coa.SetUpdatedBy(sess.UserId)
+			if !coa.DoInsert() {
+				out.SetError(400, ErrTenantAdminBankAccountsBankCoaSaveFailed)
+				return
+			}
+
+			children := coaParent.Children
+			children = append(children, coa.Id)
+			coaParent.SetChildren(children)
+			coaParent.SetUpdatedAt(in.UnixNow())
+			coaParent.SetUpdatedBy(sess.UserId)
+			if !coaParent.DoUpdateById() {
+				out.SetError(400, ErrTenantAdminBankAccountsBankCoaParentUpdateFailed)
+				return
 			}
 		}
 
