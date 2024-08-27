@@ -140,22 +140,25 @@
               bind:value={valueToShowFromObj}
               on:focus={() => isShowOptions = true}
               on:blur|preventDefault={() => {
+                console.log('isOptionClicked', optionClicked);
                 currentFocus = -1;
                 const options = document.querySelectorAll('.option .'+randStr);
                 removeActive(options);
                 valueToShowFromObj = values[value];
-                if (optionClicked) {
-                  isShowOptions = false;
-                } else {
-                  setTimeout(() => {
+                setTimeout(() => {
+                  if (optionClicked) {
                     isShowOptions = false;
-                    optionClicked = false;
-                  }, 100);
-                }
+                  } else {
+                    setTimeout(() => {
+                      isShowOptions = false;
+                      optionClicked = false;
+                    }, 100);
+                  }
+                }, 200);
               }}
-              on:keyup|preventDefault|stopPropagation|nonpassive={handleKey}
+              on:keyup={handleKey}
             />
-            <button class="arrow" on:click|stopPropagation={() => isShowOptions = !isShowOptions}>
+            <button class="arrow" on:click={() => isShowOptions = !isShowOptions}>
               <Icon
                 className="icon {isShowOptions ? 'rotate' : 'dropdown'}"
                 color="var(--gray-007)"
@@ -180,28 +183,42 @@
       {:else}
         <label class="label" for={id}>{label}</label>
         <div class="options_container {randStr}">
-          <input
-            type="text"
-            bind:value={valueToShowFromObj}
-            on:focus={() => isShowOptions = true}
-            on:blur={() => {
-              currentFocus = -1;
-              removeActive();
-              valueToShowFromObj = value;
-              if (optionClicked) {
-                isShowOptions = false;
-              } else {
+          <div class="input_container">
+            <input
+              type="text"
+              bind:value={valueToShowFromObj}
+              on:focus={() => isShowOptions = true}
+              on:blur={() => {
+                currentFocus = -1;
+                const options = document.querySelectorAll('.option .'+randStr);
+                removeActive(options);
+                valueToShowFromObj = value || values[value] || values[0] || options[0].textContent; ;
+                if (isShowOptions) optionClicked = true;
                 setTimeout(() => {
-                  isShowOptions = false;
-                  optionClicked = false;
-                }, 100);
-              }
-            }}
-            on:keyup|preventDefault|stopPropagation={handleKey}
-          />
+                  if (optionClicked) {
+                    isShowOptions = false;
+                  } else {
+                    setTimeout(() => {
+                      isShowOptions = false;
+                      optionClicked = false;
+                    }, 100);
+                  }
+                }, 200);
+              }}
+              on:keyup={handleKey}
+            />
+            <button class="arrow" on:click={() => isShowOptions = !isShowOptions}>
+              <Icon
+                className="icon {isShowOptions ? 'rotate' : 'dropdown'}"
+                color="var(--gray-007)"
+                src={RiArrowsArrowRightSLine}
+                size="17"
+              />
+            </button>
+          </div>
           <div class="options_list {isShowOptions ? 'show' : 'hidden'}">
             {#each values as v}
-              <button class="option {randStr}" on:click={() => {
+              <button class="option {randStr}" on:click|preventDefault={() => {
                 value = v;
                 valueToShowFromObj = v;
                 isShowOptions = false;
@@ -265,15 +282,6 @@
 </div>
 
 <style>
-  :global(.dropdown) {
-		transition: all .2s ease-in-out;
-	}
-
-	:global(.rotate) {
-		transition: all .2s ease-in-out;
-		transform: rotate(90deg);
-	}
-
   .show {
     display: block;
   }
@@ -492,6 +500,15 @@
     padding: 12px;
     outline: 1px solid var(--gray-003);
   }
+
+  :global(.input_box .options_container .input_container .arrow .dropdown) {
+		transition: all .2s ease-in-out;
+	}
+
+	:global(.input_box .options_container .input_container .arrow .rotate) {
+		transition: all .2s ease-in-out;
+		transform: rotate(90deg);
+	}
 
   .input_box .options_container .options_list {
     margin-top: 5px;

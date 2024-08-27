@@ -48,18 +48,21 @@ const (
 	ErrTenantAdminBankAccountsParentHaveChild 			= `parent bank account already have child`
 	ErrTenantAdminBankAccountsStaffNotFound   			= `staff not found to choose account's owner`
 	ErrTenantAdminBankAccountsNotTenant       			= `must be tenant admin to do this operation`
-	ErrTenantAdminBankAccountsCustomerCoaNotFound 	= `customer coa not found`
+	ErrTenantAdminBankAccountsCustomerCoaNotFound 	= `customer coa not found, you must sync it first`
 	ErrTenantAdminBankAccountsCustomerCoaSaveFailed	= `failed to save account to customer coa`
 	ErrTenantAdminBankAccountsCustomerCoaParentUpdateFailed = `failed to update parent of customer coa`
-	ErrTenantAdminBankAccountsSupplierCoaNotFound 	= `supplier coa not found`
+	ErrTenantAdminBankAccountsSupplierCoaNotFound 	= `supplier coa not found, you must sync it first`
 	ErrTenantAdminBankAccountsSupplierCoaSaveFailed	= `failed to save account to supplier coa`
 	ErrTenantAdminBankAccountsSupplierCoaParentUpdateFailed = `failed to update parent of supplier coa`
-	ErrTenantAdminBankAccountsBankCoaNotFound 			= `bank coa not found`
+	ErrTenantAdminBankAccountsBankCoaNotFound 			= `bank coa not found, you must sync it first`
 	ErrTenantAdminBankAccountsBankCoaSaveFailed			= `failed to save account to bank coa`
 	ErrTenantAdminBankAccountsBankCoaParentUpdateFailed = `failed to update parent of bank coa`
-	ErrTenantAdminBankAccountsStaffCoaNotFound 			= `staff coa not found`
+	ErrTenantAdminBankAccountsStaffCoaNotFound 			= `staff coa not found, you must sync it first`
 	ErrTenantAdminBankAccountsStaffCoaSaveFailed			= `failed to save account to staff coa`
-	ErrTenantAdminBankAccountsStaffCoaParentUpdateFailed = `failed to update parent of Staff coa`
+	ErrTenantAdminBankAccountsStaffCoaParentUpdateFailed = `failed to update parent of staff coa`
+	ErrTenantAdminBankAccountsFundersCoaSaveFailed			= `failed to save account to funders coa`
+	ErrTenantAdminBankAccountsFundersCoaParentUpdateFailed = `failed to update parent of funders coa`
+	ErrTenantAdminBankAccountsFundersCoaNotFound 			= `funders coa not found, you must sync it first`
 )
 
 var TenantAdminBankAccountsMeta = zCrud.Meta{
@@ -94,22 +97,27 @@ var TenantAdminBankAccountsMeta = zCrud.Meta{
 			DataType: zCrud.DataTypeString,
 		},
 		{
+			Name:        mBudget.StaffId,
+			Label:       "Karyawan / Staff",
+			DataType:    zCrud.DataTypeInt,
+			InputType:   zCrud.InputTypeCombobox,
+			Description: `Select staff`,
+		},
+		{
 			Name:      mBudget.IsProfitCenter,
 			Label:     "Pusat Profit / Profit Center ?",
 			DataType:  zCrud.DataTypeBool,
 			InputType: zCrud.InputTypeCheckbox,
 		},
 		{
-			Name:        mBudget.StaffId,
-			Label:       "Karyawan / Staff",
-			DataType:    zCrud.DataTypeInt,
-			InputType:   zCrud.InputTypeCombobox,
-			Description: `Select staff`,
-			ReadOnly: true,
-		},
-		{
 			Name:      mBudget.IsCostCenter,
 			Label:     "Pusat Biaya / Cost Center ?",
+			DataType:  zCrud.DataTypeBool,
+			InputType: zCrud.InputTypeCheckbox,
+		},
+		{
+			Name: mBudget.IsFunder,
+			Label: "Pemodal / Funder ?",
 			DataType:  zCrud.DataTypeBool,
 			InputType: zCrud.InputTypeCheckbox,
 		},
@@ -345,6 +353,42 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 				}
 			} 
 			account.SetIsCostCenter(in.Account.IsCostCenter)
+
+			if in.Account.IsFunder {
+				isSyncToBank = false
+
+				coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
+				coaParent.Id = tenant.FundersCoaId
+				if !coaParent.FindById() {
+					out.SetError(400, ErrTenantAdminBankAccountsFundersCoaNotFound)
+					return
+				}
+
+				coa := wcFinance.NewCoaMutator(d.AuthOltp)
+				coa.SetParentId(coaParent.Id)
+				coa.SetName(in.Account.Name)
+				coa.SetLabel(mFinance.LabelFunder)
+				coa.SetTenantCode(tenant.TenantCode)
+				coa.SetCreatedAt(in.UnixNow())
+				coa.SetCreatedBy(sess.UserId)
+				coa.SetUpdatedAt(in.UnixNow())
+				coa.SetUpdatedBy(sess.UserId)
+				if !coa.DoInsert() {
+					out.SetError(400, ErrTenantAdminBankAccountsFundersCoaSaveFailed)
+					return
+				}
+
+				children := coaParent.Children
+				children = append(children, coa.Id)
+				coaParent.SetChildren(children)
+				coaParent.SetUpdatedAt(in.UnixNow())
+				coaParent.SetUpdatedBy(sess.UserId)
+				if !coaParent.DoUpdateById() {
+					out.SetError(400, ErrTenantAdminBankAccountsFundersCoaParentUpdateFailed)
+					return
+				}
+			} 
+			account.SetIsFunder(in.Account.IsFunder)
 
 			if isSyncToBank {
 				coaParent := wcFinance.NewCoaMutator(d.AuthOltp)

@@ -216,6 +216,13 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 			if !tenant.DoUpdateByTenantCode() {
 				return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
 			}
+		case mFinance.LabelFunders:
+			tenant := wcAuth.NewTenantsMutator(ta)
+			tenant.TenantCode = tenantCode
+			tenant.SetFundersCoaId(coa.Id)
+			if !tenant.DoUpdateByTenantCode() {
+				return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
+			}
 		}
 	
 		coaMaps[coa.Name] =  coa.Id

@@ -39,6 +39,7 @@ type BankAccounts struct {
 	IsProfitCenter      bool        `json:"isProfitCenter" form:"isProfitCenter" query:"isProfitCenter" long:"isProfitCenter" msg:"isProfitCenter"`
 	IsCostCenter        bool        `json:"isCostCenter" form:"isCostCenter" query:"isCostCenter" long:"isCostCenter" msg:"isCostCenter"`
 	StaffId             uint64      `json:"staffId,string" form:"staffId" query:"staffId" long:"staffId" msg:"staffId"`
+	IsFunder            bool        `json:"isFunder" form:"isFunder" query:"isFunder" long:"isFunder" msg:"isFunder"`
 }
 
 // NewBankAccounts create new ORM reader/query object
@@ -101,6 +102,7 @@ func (b *BankAccounts) SqlSelectAllFields() string { //nolint:dupl false positiv
 	, "isProfitCenter "
 	, "isCostCenter"
 	, "staffId"
+	, "isFunder"
 	`
 }
 
@@ -124,6 +126,7 @@ func (b *BankAccounts) SqlSelectAllUncensoredFields() string { //nolint:dupl fal
 	, "isProfitCenter "
 	, "isCostCenter"
 	, "staffId"
+	, "isFunder"
 	`
 }
 
@@ -147,7 +150,8 @@ func (b *BankAccounts) ToUpdateArray() *tarantool.Operations { //nolint:dupl fal
 		Assign(14, b.AccountName).
 		Assign(15, b.IsProfitCenter).
 		Assign(16, b.IsCostCenter).
-		Assign(17, b.StaffId)
+		Assign(17, b.StaffId).
+		Assign(18, b.IsFunder)
 }
 
 // IdxId return name of the index
@@ -330,6 +334,16 @@ func (b *BankAccounts) SqlStaffId() string { //nolint:dupl false positive
 	return `"staffId"`
 }
 
+// IdxIsFunder return name of the index
+func (b *BankAccounts) IdxIsFunder() int { //nolint:dupl false positive
+	return 18
+}
+
+// SqlIsFunder return name of the column being indexed
+func (b *BankAccounts) SqlIsFunder() string { //nolint:dupl false positive
+	return `"isFunder"`
+}
+
 // ToArray receiver fields to slice
 func (b *BankAccounts) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -355,6 +369,7 @@ func (b *BankAccounts) ToArray() A.X { //nolint:dupl false positive
 		b.IsProfitCenter,      // 15
 		b.IsCostCenter,        // 16
 		b.StaffId,             // 17
+		b.IsFunder,            // 18
 	}
 }
 
@@ -378,6 +393,7 @@ func (b *BankAccounts) FromArray(a A.X) *BankAccounts { //nolint:dupl false posi
 	b.IsProfitCenter = X.ToBool(a[15])
 	b.IsCostCenter = X.ToBool(a[16])
 	b.StaffId = X.ToU(a[17])
+	b.IsFunder = X.ToBool(a[18])
 	return b
 }
 
@@ -401,6 +417,7 @@ func (b *BankAccounts) FromUncensoredArray(a A.X) *BankAccounts { //nolint:dupl 
 	b.IsProfitCenter = X.ToBool(a[15])
 	b.IsCostCenter = X.ToBool(a[16])
 	b.StaffId = X.ToU(a[17])
+	b.IsFunder = X.ToBool(a[18])
 	return b
 }
 
@@ -483,6 +500,7 @@ var BankAccountsFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false posit
 	`isProfitCenter `:     Tt.Boolean,
 	`isCostCenter`:        Tt.Boolean,
 	`staffId`:             Tt.Unsigned,
+	`isFunder`:            Tt.Boolean,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

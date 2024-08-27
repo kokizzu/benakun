@@ -1687,6 +1687,9 @@
 								},
 								"staffId": {
 										"type": "number"
+								},
+								"isFunder": {
+									"type": "boolean"
 								}
 								}
 						},
@@ -1835,6 +1838,9 @@
 												},
 												"staffId": {
 														"type": "number"
+												},
+												"isFunder": {
+													"type": "boolean"
 												}
 												}
 										},

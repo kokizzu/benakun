@@ -39,7 +39,8 @@ const (
 	LabelBankAccount					= `bankAccounts`
 	LabelBankAccountCompany 	= `bankAccounts:company`
 	LabelBankAccountStaff 		= `bankAccounts:staff`
-	LabelFunders								= `funders`
+	LabelFunders							= `funders`
+	LabelFunder								= `funder`
 )
 
 func GetLabelsMap() map[string]string {
@@ -73,6 +74,7 @@ const (
 	CoaAdmExpenses				= `Administrative Expenses / Beban Administrasi dan Umum`
 	CoaPrive							= `Prive / Prive`
 	CoaLiability					= `Liability / Hutang - Kewajiban`
+	CoaCapitalInvestment = `Capital Investment / Penanaman Modal`
 )
 
 const (
@@ -295,10 +297,12 @@ func GetCoaDefaults() []CoaDefault {
 			Name: `Equity / Ekuitas - Modal`,
 			Children: []CoaDefault{
 				{
-					Name: `Capital Investment / Penanaman Modal`,
+					Name: CoaCapitalInvestment,
+					Label: LabelFunders,
 					Children: []CoaDefault{
 						{
 							Name: `Capital from Owner 1 / Modal dari Owner 1`,
+							Label: LabelFunder,
 						},
 					},
 				},

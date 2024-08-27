@@ -178,7 +178,7 @@
         {:else}
           <span class="label">{num}</span>&nbsp;&nbsp;
         {/if}
-        <span class="name">{coa.name}</span>
+        <p class="name">{coa.name}</p>
       </h6>
     </div>
     <div class="options">
@@ -295,9 +295,12 @@
 
   .coa-child .num-title .text {
     font-size: 14px;
-    line-height: 2.2rem;
     font-weight: 500;
     margin: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    align-items: center;
   }
 
   .coa-child .num-title .text .label {
@@ -310,13 +313,23 @@
     text-decoration: none;
     width: fit-content;
     height: fit-content;
-    line-height: 2.2rem;
+    flex-shrink: 0;
+  }
+
+  .coa-child .num-title .text .name{
+    line-height: 1em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    text-overflow: ellipsis;
+    margin: 0;
   }
 
   .coa-child .num-title .text.deleted .name{
-    color: var(--red-005);
     text-decoration: line-through;
-    line-height: 2.2rem;
+    color: var(--red-005);
   }
 
   .coa-child .options {

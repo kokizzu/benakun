@@ -37,6 +37,7 @@
     isProfitCenter = false;
     isCostCenter = false;
     staffId = '0';
+    isFunder = false;
 
     coaIdProfitCenter = '0';
     coaIdCostCenter = '0';
@@ -56,8 +57,7 @@
     /** @type BankAccount*/ // @ts-ignore
     const i = {
       name, accountNumber, bankName, accountName,
-      isProfitCenter, isCostCenter, staffId,
-      coaIdProfitCenter, coaIdCostCenter
+      isProfitCenter, isCostCenter, staffId, isFunder,
     }
 
     OnSubmit(i);

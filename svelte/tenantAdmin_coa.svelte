@@ -213,6 +213,7 @@
   let customerReceivablesCoaId = tenant.customerReceivablesCoaId || 0;
   let staffsCoaId = tenant.staffsCoaId || 0;
   let banksCoaId = tenant.banksCoaId || 0;
+  let fundersCoaId = tenant.fundersCoaId || 0;
 
   let isSubmitSyncCoA = false;
   async function SubmitSyncCoA() {
@@ -224,7 +225,8 @@
         customersCoaId,
         customerReceivablesCoaId,
         staffsCoaId,
-        banksCoaId
+        banksCoaId,
+        fundersCoaId
       }
     }
     await TenantAdminSyncCoa( // @ts-ignore
@@ -268,7 +270,7 @@
       <div class="inputs_container">
         <InputBox
           type="combobox"
-          label="Products CoA"
+          label="Products / Produk"
           id="productCoaId"
           values={coasChoices}
           bind:value={productsCoaId}
@@ -276,7 +278,7 @@
         />
         <InputBox
           type="combobox"
-          label="Suppliers CoA"
+          label="Suppliers / Pemasok"
           id="suppliersCoaId"
           values={coasChoices}
           bind:value={suppliersCoaId}
@@ -284,7 +286,7 @@
         />
         <InputBox
           type="combobox"
-          label="Customers CoA"
+          label="Customers / Pelanggan"
           id="customersCoaId"
           values={coasChoices}
           bind:value={customersCoaId}
@@ -292,7 +294,7 @@
         />
         <InputBox
           type="combobox"
-          label="Customers Receivables CoA"
+          label="Customers Receivables / Piutang Pelanggan"
           id="customersReceivablesCoaId"
           values={coasChoices}
           bind:value={customerReceivablesCoaId}
@@ -300,7 +302,7 @@
         />
         <InputBox
           type="combobox"
-          label="Staffs CoA"
+          label="Staffs / Karyawan"
           id="staffsCoaId"
           values={coasChoices}
           bind:value={staffsCoaId}
@@ -308,10 +310,18 @@
         />
         <InputBox
           type="combobox"
-          label="Banks CoA"
+          label="Banks / Bank"
           id="banksCoaId"
           values={coasChoices}
           bind:value={banksCoaId}
+          isObject
+        />
+        <InputBox
+          type="combobox"
+          label="Funders / Pemodal"
+          id="fundersCoaId"
+          values={coasChoices}
+          bind:value={fundersCoaId}
           isObject
         />
       </div>

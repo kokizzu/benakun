@@ -1144,6 +1144,7 @@ exports.SuperAdminUserManagement = async function SuperAdminUserManagement( i, c
  * @property {Object} account.isProfitCenter
  * @property {Object} account.isCostCenter
  * @property {number} account.staffId
+ * @property {Object} account.isFunder
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -1171,6 +1172,7 @@ const TenantAdminBankAccountsIn = {
     isProfitCenter: false, // bool
     isCostCenter: false, // bool
     staffId: 0, // uint64
+    isFunder: false, // bool
   }, // rqBudget.BankAccounts
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -1211,6 +1213,7 @@ const TenantAdminBankAccountsIn = {
  * @property {Object} account.isProfitCenter
  * @property {Object} account.isCostCenter
  * @property {number} account.staffId
+ * @property {Object} account.isFunder
  * @property {Object} accounts
  */
 const TenantAdminBankAccountsOut = {
@@ -1251,6 +1254,7 @@ const TenantAdminBankAccountsOut = {
     isProfitCenter: false, // bool
     isCostCenter: false, // bool
     staffId: 0, // uint64
+    isFunder: false, // bool
   }, // rqBudget.BankAccounts
   accounts: { // [][]any
   }, // [][]any
