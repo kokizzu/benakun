@@ -739,6 +739,32 @@ exports.ReportViewerGeneralLedger = async function ReportViewerGeneralLedger( i,
 }
 
 /**
+ * @typedef {Object} ReportViewerTrialBalanceIn
+ */
+const ReportViewerTrialBalanceIn = {
+}
+/**
+ * @typedef {Object} ReportViewerTrialBalanceOut
+ */
+const ReportViewerTrialBalanceOut = {
+}
+/**
+ * @callback ReportViewerTrialBalanceCallback
+ * @param {ReportViewerTrialBalanceOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {ReportViewerTrialBalanceIn} i
+ * @param {ReportViewerTrialBalanceCallback} cb
+ * @returns {Promise}
+ */
+exports.ReportViewerTrialBalance = async function ReportViewerTrialBalance( i, cb ) {
+  return await axios.post( '/reportViewer/generalLedger', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} SuperAdminAccessLogIn
  * @property {number} pager.page
  * @property {number} pager.perPage

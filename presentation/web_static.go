@@ -123,11 +123,35 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 
 	fw.Get(`/`+domain.ReportViewerDashboardAction, func(ctx *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(ctx, d)
-		if notLogin(d, in.RequestCommon, false) {
+		if notReportViewer(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
 		return views.RenderReportViewerDashboard(ctx, M.SX{
 			`title`:    `Report Viewer Dashboard`,
+			`user`:     user,
+			`segments`: segments,
+		})
+	})
+
+	fw.Get(`/`+domain.ReportViewerGeneralLedgerAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notReportViewer(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		return views.RenderReportViewerGeneralLedger(ctx, M.SX{
+			`title`:    `Report Viewer General Ledger`,
+			`user`:     user,
+			`segments`: segments,
+		})
+	})
+
+	fw.Get(`/`+domain.ReportViewerTrialBalanceAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notReportViewer(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		return views.RenderReportViewerTrialBalance(ctx, M.SX{
+			`title`:    `Report Viewer Trial Balance`,
 			`user`:     user,
 			`segments`: segments,
 		})
@@ -779,6 +803,16 @@ func notDataEntryLogin(d *domain.Domain, in domain.RequestCommon) bool {
 	var check domain.ResponseCommon
 
 	if sess := d.MustDataEntry(in, &check); sess == nil {
+		return true
+	}
+
+	return false
+}
+
+func notReportViewer(d *domain.Domain, in domain.RequestCommon) bool {
+	var check domain.ResponseCommon
+
+	if sess := d.MustReportViewer(in, &check); sess == nil {
 		return true
 	}
 

@@ -24,6 +24,7 @@ var allCommands = []string{
 	domain.GuestVerifyEmailAction,
 	domain.ReportViewerDashboardAction,
 	domain.ReportViewerGeneralLedgerAction,
+	domain.ReportViewerTrialBalanceAction,
 	domain.SuperAdminAccessLogAction,
 	domain.SuperAdminDashboardAction,
 	domain.SuperAdminTenantManagementAction,

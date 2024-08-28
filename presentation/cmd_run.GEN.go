@@ -148,6 +148,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.ReportViewerGeneralLedger(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.ReportViewerTrialBalanceAction:
+		in := domain.ReportViewerTrialBalanceIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.ReportViewerTrialBalance(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.SuperAdminAccessLogAction:
 		in := domain.SuperAdminAccessLogIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

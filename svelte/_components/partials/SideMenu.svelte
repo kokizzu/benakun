@@ -14,7 +14,7 @@
   import { OiNote16 } from '../../node_modules/svelte-icons-pack/dist/oi';
   import { FaCircleUser } from '../../node_modules/svelte-icons-pack/dist/fa';
   import {
-    RiEditorOrganizationChart, RiUserFacesAdminLine,
+    RiEditorOrganizationChart, RiUserFacesUserSettingsLine,
     RiBuildingsCommunityLine, RiBuildingsBankLine,
     RiUserFacesGroupLine, RiUserFacesContactsLine,
     RiMapMap2Line, RiFinanceSwapBoxLine, RiDocumentStickyNoteAddLine,
@@ -76,11 +76,11 @@
           <a
             href="/reportViewer/dashboard"
             title="Report Viewer"
-            class:active={segment === 'reportViewer'}
+            class:active={window.location.pathname === '/reportViewer/dashboard'}
           >
             <Icon
               size="18"
-              className="{segment === 'reportViewer'  ? 'icon_active' : 'icon_dark'} icon"
+              className="{window.location.pathname === '/reportViewer/dashboard' ? 'icon_active' : 'icon_dark'} icon"
               src={AiOutlineWarning}
             />
             {#if !$IsShrinkMenu}
@@ -147,7 +147,7 @@
           <hr />
           <a
             href="/tenantAdmin/dashboard"
-            title="Tenant Admin"
+            title="Tenant Admin Dashboard"
             class:active={window.location.pathname === '/tenantAdmin/dashboard'}
           >
             <Icon
@@ -211,13 +211,13 @@
           <hr />
           <a
             href="/superAdmin/dashboard"
-            title="Super Admin"
+            title="Super Admin Dashboard"
             class:active={window.location.pathname === '/superAdmin/dashboard'}
           >
             <Icon
               size="18"
               className="{window.location.pathname === '/superAdmin/dashboard'  ? 'icon_active' : 'icon_dark'} icon"
-              src={RiUserFacesAdminLine}
+              src={RiUserFacesUserSettingsLine}
             />
             {#if !$IsShrinkMenu}
               <span>Super Admin / Admin Super</span>
@@ -298,6 +298,11 @@
     padding          : 16px 0;
     border-right: 1px solid var(--gray-002);
     user-select: none;
+  }
+
+  .side_menu::view-transition {
+    position: fixed;
+    inset: 0;
   }
 
   .side_menu.expand {

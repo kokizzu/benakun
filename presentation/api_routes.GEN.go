@@ -180,6 +180,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// ReportViewerTrialBalance
+	fw.Post("/"+domain.ReportViewerTrialBalanceAction, func(c *fiber.Ctx) error {
+		in := domain.ReportViewerTrialBalanceIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.ReportViewerTrialBalanceAction); err != nil {
+			return nil
+		}
+		out := d.ReportViewerTrialBalance(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// SuperAdminAccessLog
 	fw.Post("/"+domain.SuperAdminAccessLogAction, func(c *fiber.Ctx) error {
 		in := domain.SuperAdminAccessLogIn{}
