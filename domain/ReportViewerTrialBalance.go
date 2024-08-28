@@ -26,6 +26,7 @@ const (
 	ReportViewerTrialBalanceAction = `reportViewer/trialBalance`
 
 	ErrReportViewerUnauthorized = `you are unauthorized as report viewer`
+	ErrReportViewerInvalidDate 								= `invalid date format, must be use format "2006-01-02"`
 )
 
 func (d *Domain) ReportViewerTrialBalance(in *ReportViewerTrialBalanceIn) (out ReportViewerTrialBalanceOut) {
@@ -48,7 +49,7 @@ func (d *Domain) ReportViewerTrialBalance(in *ReportViewerTrialBalanceIn) (out R
 	}
 
 	if !mFinance.IsValidDate(in.TransactionJournal.Date) {
-		out.SetError(400, ErrDataEntryTransactionEntryInvalidDate)
+		out.SetError(400, ErrReportViewerInvalidDate)
 		return
 	}
 
