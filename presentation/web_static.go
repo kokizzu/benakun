@@ -1,6 +1,8 @@
 package presentation
 
 import (
+	"time"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
@@ -150,10 +152,29 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notReportViewer(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
+
+		tenantCode, err := domain.GetTenantCodeByHost(in.Host)
+		if err != nil {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.TenantCode = tenantCode
+		coaChoices := coa.FindCoasChoicesByTenant()
+
+		trxJournal := rqFinance.NewTransactionJournal(d.AuthOltp)
+		trxJournal.TenantCode = tenantCode
+
+		t := time.Now()
+		trxJournal.Date = t.Format("2006-01-02")
+		trxJournals := trxJournal.FindTrxJournalsByDateByTenant()
+
 		return views.RenderReportViewerTrialBalance(ctx, M.SX{
 			`title`:    `Report Viewer Trial Balance`,
 			`user`:     user,
 			`segments`: segments,
+			`coaChoices`: coaChoices,
+			`transactionJournals`: trxJournals,
 		})
 	})
 
@@ -181,8 +202,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if err != nil {
 			return ctx.Redirect(`/`, 302)
 		}
-
-		L.Print(`TenantCode:`, tenantCode)
 
 		r := rqFinance.NewTransactionTemplate(d.AuthOltp)
 		r.TenantCode = tenantCode

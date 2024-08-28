@@ -740,13 +740,50 @@ exports.ReportViewerGeneralLedger = async function ReportViewerGeneralLedger( i,
 
 /**
  * @typedef {Object} ReportViewerTrialBalanceIn
+ * @property {number} transactionJournal.id
+ * @property {String} transactionJournal.tenantCode
+ * @property {number} transactionJournal.coaId
+ * @property {number} transactionJournal.debitIDR
+ * @property {number} transactionJournal.creditIDR
+ * @property {String} transactionJournal.descriptions
+ * @property {String} transactionJournal.date
+ * @property {String} transactionJournal.detailObj
+ * @property {number} transactionJournal.createdAt
+ * @property {number} transactionJournal.createdBy
+ * @property {number} transactionJournal.updatedAt
+ * @property {number} transactionJournal.updatedBy
+ * @property {number} transactionJournal.deletedAt
+ * @property {number} transactionJournal.deletedBy
+ * @property {number} transactionJournal.restoredBy
+ * @property {number} transactionJournal.transactionTemplateId
  */
 const ReportViewerTrialBalanceIn = {
+  transactionJournal: { // rqFinance.TransactionJournal
+    id: 0, // uint64
+    tenantCode: '', // string
+    coaId: 0, // uint64
+    debitIDR: 0, // int64
+    creditIDR: 0, // int64
+    descriptions: '', // string
+    date: '', // string
+    detailObj: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    transactionTemplateId: 0, // uint64
+  }, // rqFinance.TransactionJournal
 }
 /**
  * @typedef {Object} ReportViewerTrialBalanceOut
+ * @property {Object} transactionJournals
  */
 const ReportViewerTrialBalanceOut = {
+  transactionJournals: { // []rqFinance.TransactionJournal
+  }, // []rqFinance.TransactionJournal
 }
 /**
  * @callback ReportViewerTrialBalanceCallback
@@ -759,7 +796,7 @@ const ReportViewerTrialBalanceOut = {
  * @returns {Promise}
  */
 exports.ReportViewerTrialBalance = async function ReportViewerTrialBalance( i, cb ) {
-  return await axios.post( '/reportViewer/generalLedger', i ).
+  return await axios.post( '/reportViewer/trialBalance', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

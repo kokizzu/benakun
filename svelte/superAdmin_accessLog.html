@@ -2951,7 +2951,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         return await axios.post("/reportViewer/generalLedger", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.ReportViewerTrialBalance = async function ReportViewerTrialBalance(i, cb) {
-        return await axios.post("/reportViewer/generalLedger", i).then(wrapOk(cb)).catch(wrapErr(cb));
+        return await axios.post("/reportViewer/trialBalance", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.SuperAdminAccessLog = async function SuperAdminAccessLog(i, cb) {
         return await axios.post("/superAdmin/accessLog", i).then(wrapOk(cb)).catch(wrapErr(cb));
