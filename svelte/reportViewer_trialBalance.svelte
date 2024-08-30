@@ -53,8 +53,6 @@
           return
         }
 
-        console.log('Result', o);
-
         transactionJournals = o.transactionJournals || [];
         if (transactionJournals.length == 0) {
           notifier.showInfo('No data found at ' + dateToFilter);

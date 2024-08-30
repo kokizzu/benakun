@@ -9877,7 +9877,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
             notifier.showError(o.error);
             return;
           }
-          console.log("Result", o);
           $invalidate(0, transactionJournals = o.transactionJournals || []);
           if (transactionJournals.length == 0) {
             notifier.showInfo("No data found at " + dateToFilter);

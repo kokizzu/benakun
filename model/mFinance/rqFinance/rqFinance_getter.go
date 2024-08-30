@@ -532,3 +532,30 @@ FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
 
 	return
 }
+
+func (tj *TransactionJournal) FindTrxJournalsByCoaByTenant() (trxJournals []TransactionJournal) {
+	var res [][]any
+	const comment = `-- TransactionJournal) FindTrxJournalsByCoaByTenant`
+
+	whereAndSql := ` WHERE ` + tj.SqlTenantCode() + ` = ` + S.Z(tj.TenantCode) + `
+		AND ` + tj.SqlCoaId() + ` = ` + I.UToS(tj.CoaId)
+
+	queryRows := comment + `
+SELECT ` + tj.SqlSelectAllFields() + `
+FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
+
+	tj.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
+	if len(res) > 0 {
+		for _, oa := range res {
+			if len(oa) >= 5 {
+				trxJournals = append(trxJournals, *tj.FromArray(oa))
+			}
+		}
+	}
+
+	return
+}

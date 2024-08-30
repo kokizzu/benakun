@@ -25,8 +25,9 @@ type (
 const (
 	ReportViewerTrialBalanceAction = `reportViewer/trialBalance`
 
-	ErrReportViewerUnauthorized = `you are unauthorized as report viewer`
-	ErrReportViewerInvalidDate 								= `invalid date format, must be use format "2006-01-02"`
+	ErrReportViewerTrialBalanceUnauthorized = `you are unauthorized as report viewer`
+	ErrReportViewerTrialBalanceInvalidDate 								= `invalid date format, must be use format "2006-01-02"`
+	ErrReportViewerTrialBalanceNotTenantHost = `invalid tenant, must be in valid domain`
 )
 
 func (d *Domain) ReportViewerTrialBalance(in *ReportViewerTrialBalanceIn) (out ReportViewerTrialBalanceOut) {
@@ -39,17 +40,17 @@ func (d *Domain) ReportViewerTrialBalance(in *ReportViewerTrialBalanceIn) (out R
 	}
 
 	if !sess.IsReportViewer {
-		out.SetError(400, ErrReportViewerUnauthorized)
+		out.SetError(400, ErrReportViewerTrialBalanceUnauthorized)
 	}
 
 	tenantCode, err := GetTenantCodeByHost(in.Host)
 	if err != nil {
-		out.SetError(400, ErrDataEntryTransactionEntryTenantNotFound)
+		out.SetError(400, ErrReportViewerTrialBalanceNotTenantHost)
 		return
 	}
 
 	if !mFinance.IsValidDate(in.TransactionJournal.Date) {
-		out.SetError(400, ErrReportViewerInvalidDate)
+		out.SetError(400, ErrReportViewerTrialBalanceInvalidDate)
 		return
 	}
 

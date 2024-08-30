@@ -140,10 +140,33 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notReportViewer(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
+
+		tenantCode, err := domain.GetTenantCodeByHost(in.Host)
+		if err != nil {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.TenantCode = tenantCode
+		coaChoices := coa.FindCoasChoicesByTenant()
+
+		var coaIdToShow uint64 = 1
+		for id := range coaChoices {
+			coaIdToShow = S.ToU(id)
+			break
+		}
+		
+		trxJournal := rqFinance.NewTransactionJournal(d.AuthOltp)
+		trxJournal.TenantCode = tenantCode
+		trxJournal.CoaId = coaIdToShow
+		trxJournals := trxJournal.FindTrxJournalsByCoaByTenant()
+		
 		return views.RenderReportViewerGeneralLedger(ctx, M.SX{
 			`title`:    `Report Viewer General Ledger`,
 			`user`:     user,
 			`segments`: segments,
+			`coaChoices`: coaChoices,
+			`transactionJournals`: trxJournals,
 		})
 	})
 
