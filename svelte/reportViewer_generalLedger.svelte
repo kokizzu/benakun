@@ -94,6 +94,7 @@
               <th>Name / Nama</th>
               <th>Debit / Debet</th>
               <th>Credit / Kredit</th>
+              <th>Total</th>
             </tr>
           </thead>
           <tbody>
@@ -104,15 +105,16 @@
                   <td>{coaChoices[trxJournal.coaId]}</td>
                   <td>{trxJournal.debitIDR}</td>
                   <td>{trxJournal.creditIDR}</td>
+                  <td>{Number(trxJournal.debitIDR) + Number(trxJournal.creditIDR)}</td>
                 </tr>
               {/each}
             {:else}
               <tr>
-                <td colspan="4">No data</td>
+                <td colspan="5">No data</td>
               </tr>
             {/if}
             <tr>
-              <td colspan="2">
+              <td colspan="3">
                 <b>Total</b>
               </td>
               <td>

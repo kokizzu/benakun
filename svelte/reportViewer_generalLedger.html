@@ -9425,7 +9425,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     return {
       c() {
         tr = element("tr");
-        tr.innerHTML = `<td colspan="4" class="svelte-1utmn92">No data</td>`;
+        tr.innerHTML = `<td colspan="5" class="svelte-1utmn92">No data</td>`;
       },
       m(target, anchor) {
         insert(target, tr, anchor);
@@ -9471,7 +9471,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         insert(target, each_1_anchor, anchor);
       },
       p(ctx2, dirty) {
-        if (dirty & /*transactionJournals, coaChoices*/
+        if (dirty & /*Number, transactionJournals, coaChoices*/
         1) {
           each_value = ensure_array_like(
             /*transactionJournals*/
@@ -9520,6 +9520,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     let t6;
     let t7;
+    let td4;
+    let t8_value = Number(
+      /*trxJournal*/
+      ctx[8].debitIDR
+    ) + Number(
+      /*trxJournal*/
+      ctx[8].creditIDR
+    ) + "";
+    let t8;
+    let t9;
     return {
       key: key_1,
       first: null,
@@ -9537,10 +9547,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         td3 = element("td");
         t6 = text(t6_value);
         t7 = space();
+        td4 = element("td");
+        t8 = text(t8_value);
+        t9 = space();
         attr(td0, "class", "no svelte-1utmn92");
         attr(td1, "class", "svelte-1utmn92");
         attr(td2, "class", "svelte-1utmn92");
         attr(td3, "class", "svelte-1utmn92");
+        attr(td4, "class", "svelte-1utmn92");
         this.first = tr;
       },
       m(target, anchor) {
@@ -9557,6 +9571,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(tr, td3);
         append(td3, t6);
         append(tr, t7);
+        append(tr, td4);
+        append(td4, t8);
+        append(tr, t9);
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
@@ -9578,6 +9595,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         1 && t6_value !== (t6_value = /*trxJournal*/
         ctx[8].creditIDR + ""))
           set_data(t6, t6_value);
+        if (dirty & /*transactionJournals*/
+        1 && t8_value !== (t8_value = Number(
+          /*trxJournal*/
+          ctx[8].debitIDR
+        ) + Number(
+          /*trxJournal*/
+          ctx[8].creditIDR
+        ) + ""))
+          set_data(t8, t8_value);
       },
       d(detaching) {
         if (detaching) {
@@ -9599,19 +9625,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let div1;
     let table;
     let thead;
-    let t9;
+    let t11;
     let tbody;
-    let t10;
+    let t12;
     let tr1;
     let td0;
-    let t12;
+    let t14;
     let td1;
     let b1;
-    let t13;
-    let t14;
+    let t15;
+    let t16;
     let td2;
     let b2;
-    let t15;
+    let t17;
     let current;
     function inputbox_value_binding(value) {
       ctx[6](value);
@@ -9673,31 +9699,31 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         div1 = element("div");
         table = element("table");
         thead = element("thead");
-        thead.innerHTML = `<tr><th class="no svelte-1utmn92">No. Acc / No. Rek</th> <th class="svelte-1utmn92">Name / Nama</th> <th class="svelte-1utmn92">Debit / Debet</th> <th class="svelte-1utmn92">Credit / Kredit</th></tr>`;
-        t9 = space();
+        thead.innerHTML = `<tr><th class="no svelte-1utmn92">No. Acc / No. Rek</th> <th class="svelte-1utmn92">Name / Nama</th> <th class="svelte-1utmn92">Debit / Debet</th> <th class="svelte-1utmn92">Credit / Kredit</th> <th class="svelte-1utmn92">Total</th></tr>`;
+        t11 = space();
         tbody = element("tbody");
         if_block.c();
-        t10 = space();
+        t12 = space();
         tr1 = element("tr");
         td0 = element("td");
         td0.innerHTML = `<b>Total</b>`;
-        t12 = space();
+        t14 = space();
         td1 = element("td");
         b1 = element("b");
-        t13 = text(
+        t15 = text(
           /*DebitIDRTotal*/
           ctx[1]
         );
-        t14 = space();
+        t16 = space();
         td2 = element("td");
         b2 = element("b");
-        t15 = text(
+        t17 = text(
           /*CreditIDRTotal*/
           ctx[2]
         );
         attr(div0, "class", "coa_filter svelte-1utmn92");
         attr(thead, "class", "svelte-1utmn92");
-        attr(td0, "colspan", "2");
+        attr(td0, "colspan", "3");
         attr(td0, "class", "svelte-1utmn92");
         attr(td1, "class", "svelte-1utmn92");
         attr(td2, "class", "svelte-1utmn92");
@@ -9716,20 +9742,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(div2, div1);
         append(div1, table);
         append(table, thead);
-        append(table, t9);
+        append(table, t11);
         append(table, tbody);
         if_block.m(tbody, null);
-        append(tbody, t10);
+        append(tbody, t12);
         append(tbody, tr1);
         append(tr1, td0);
-        append(tr1, t12);
+        append(tr1, t14);
         append(tr1, td1);
         append(td1, b1);
-        append(b1, t13);
-        append(tr1, t14);
+        append(b1, t15);
+        append(tr1, t16);
         append(tr1, td2);
         append(td2, b2);
-        append(b2, t15);
+        append(b2, t17);
         current = true;
       },
       p(ctx2, dirty) {
@@ -9758,20 +9784,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           if_block = current_block_type(ctx2);
           if (if_block) {
             if_block.c();
-            if_block.m(tbody, t10);
+            if_block.m(tbody, t12);
           }
         }
         if (!current || dirty & /*DebitIDRTotal*/
         2)
           set_data(
-            t13,
+            t15,
             /*DebitIDRTotal*/
             ctx2[1]
           );
         if (!current || dirty & /*CreditIDRTotal*/
         4)
           set_data(
-            t15,
+            t17,
             /*CreditIDRTotal*/
             ctx2[2]
           );
