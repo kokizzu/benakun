@@ -9425,7 +9425,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     return {
       c() {
         tr = element("tr");
-        tr.innerHTML = `<td colspan="5" class="svelte-1utmn92">No data</td>`;
+        tr.innerHTML = `<td colspan="4" class="svelte-1utmn92">No data</td>`;
       },
       m(target, anchor) {
         insert(target, tr, anchor);
@@ -9638,6 +9638,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let td2;
     let b2;
     let t17;
+    let t18;
+    let td3;
     let current;
     function inputbox_value_binding(value) {
       ctx[6](value);
@@ -9721,12 +9723,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           /*CreditIDRTotal*/
           ctx[2]
         );
+        t18 = space();
+        td3 = element("td");
         attr(div0, "class", "coa_filter svelte-1utmn92");
         attr(thead, "class", "svelte-1utmn92");
-        attr(td0, "colspan", "3");
+        attr(td0, "colspan", "2");
         attr(td0, "class", "svelte-1utmn92");
         attr(td1, "class", "svelte-1utmn92");
         attr(td2, "class", "svelte-1utmn92");
+        attr(td3, "class", "svelte-1utmn92");
         attr(table, "class", "svelte-1utmn92");
         attr(div1, "class", "table_container svelte-1utmn92");
         attr(div2, "class", "table_root svelte-1utmn92");
@@ -9756,6 +9761,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(tr1, td2);
         append(td2, b2);
         append(b2, t17);
+        append(tr1, t18);
+        append(tr1, td3);
         current = true;
       },
       p(ctx2, dirty) {

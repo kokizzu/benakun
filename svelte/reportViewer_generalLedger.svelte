@@ -110,11 +110,11 @@
               {/each}
             {:else}
               <tr>
-                <td colspan="5">No data</td>
+                <td colspan="4">No data</td>
               </tr>
             {/if}
             <tr>
-              <td colspan="3">
+              <td colspan="2">
                 <b>Total</b>
               </td>
               <td>
@@ -123,6 +123,7 @@
               <td>
                 <b>{CreditIDRTotal}</b>
               </td>
+              <td></td>
             </tr>
           </tbody>
         </table>

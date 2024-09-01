@@ -89,6 +89,10 @@ var TransactionTemplatesDefault = []struct{
 		Color: `#2563eb`,
 	},
 	{
+		Name: TemplatePengambilanPrive,
+		Color: `#2563eb`,
+	},
+	{
 		Name: TemplatePembayaranGaji,
 		Color: `#2563eb`,
 	},
@@ -248,7 +252,7 @@ func GetCoaDefaults() []CoaDefault {
 					Label: LabelBankAccount,
 					Children: []CoaDefault{
 						{
-							Name: `Cash / Tunai`,
+							Name: `Cash / Kas Tunai`,
 						},
 						{
 							Name: `Company's Main Account / Rekening Utama Perusahaan`,

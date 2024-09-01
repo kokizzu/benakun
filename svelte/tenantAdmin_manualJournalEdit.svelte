@@ -163,7 +163,7 @@
             window.location.href = '/tenantAdmin/manualJournal';
           }}
         >
-          Cancel
+          Cancel / Back
         </button>
         <button
           disabled={isSubmitted}
