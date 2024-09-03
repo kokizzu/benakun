@@ -33369,12 +33369,14 @@ uniform ${i3} ${a3} u_${s3};
       $invalidate(24, totalRows = PAGER.countResult);
       totalPages = PAGER.pages;
       $invalidate(21, currentPage = PAGER.page);
-      if (MASTER_ROWS && MASTER_ROWS.length)
+      if (MASTER_ROWS && MASTER_ROWS.length) {
         $invalidate(25, totalRowsCurrent = MASTER_ROWS.length);
-      else
+      } else {
         $invalidate(25, totalRowsCurrent = 0);
-      totalRound = Math.ceil(totalPages / currentRows) * currentRows;
-      $invalidate(19, paginationTotal = totalRound / currentRows), paginationsAll = [];
+      }
+      totalRound = Math.ceil(totalRows / currentRows) * currentRows;
+      $invalidate(19, paginationTotal = totalRound / currentRows);
+      paginationsAll = [];
       if (currentRows > PAGER.countResult)
         $invalidate(19, paginationTotal = 1);
       for (let i = 0; i < paginationTotal; i++) {
@@ -34756,6 +34758,11 @@ uniform ${i3} ${a3} u_${s3};
       /** @type any[][] */
       [/* users */]
     );
+    console.log("SEGMENTS", segments2);
+    console.log("USER", user2);
+    console.log("FIELDS", fields);
+    console.log("PAGER", pager);
+    console.log("USERS", users);
     let isPopUpAddUserReady = false;
     let popUpAddUser = null;
     onMount(() => {

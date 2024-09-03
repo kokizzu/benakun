@@ -20,6 +20,12 @@
   let pager     = /** @type PagerOut */ ({/* pager */});
   let users   = /** @type any[][] */ ([/* users */]);
 
+  console.log('SEGMENTS', segments);
+  console.log('USER', user);
+  console.log('FIELDS', fields);
+  console.log('PAGER', pager);
+  console.log('USERS', users);
+
   let isPopUpAddUserReady = false;
   let popUpAddUser = null;
   onMount(() => {

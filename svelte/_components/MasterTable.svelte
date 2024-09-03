@@ -107,17 +107,21 @@
     totalRows = PAGER.countResult;
     totalPages = PAGER.pages;
     currentPage = PAGER.page;
-    if (MASTER_ROWS && MASTER_ROWS.length) totalRowsCurrent = MASTER_ROWS.length;
-    else totalRowsCurrent = 0;
+    if (MASTER_ROWS && MASTER_ROWS.length) {
+      totalRowsCurrent = MASTER_ROWS.length;
+    } else {
+      totalRowsCurrent = 0;
+    }
 
-    totalRound = Math.ceil(totalPages / currentRows) * currentRows;
-    (paginationTotal = totalRound / currentRows), (paginationsAll = []);
+    totalRound = Math.ceil(totalRows / currentRows) * currentRows;
+    paginationTotal = totalRound / currentRows;
+    paginationsAll = [];
     if (currentRows > PAGER.countResult) paginationTotal = 1;
     for (let i = 0; i < paginationTotal; i++) {
       paginationsAll = [...paginationsAll, i + 1];
     }
-    let start = 0,
-      end = 0;
+
+    let start = 0, end = 0;
     if (paginationTotal < 5) {
       (start = 0), (end = paginationTotal);
     } else if (currentPage < 5 && currentPage - 3 < 0) {
@@ -129,6 +133,7 @@
     } else {
       (start = currentPage - 3), (end = currentPage + 2);
     }
+
     paginationShow = paginationsAll.slice(start, end);
   }
 
