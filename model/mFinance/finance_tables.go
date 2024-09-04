@@ -76,30 +76,10 @@ const (
 )
 
 // Generate transaction template
-var TransactionTemplatesDefault = []struct{
-	Name string
-	Color string
-}{
-	{
-		Name: TemplatePenjualan,
-		Color: `#2563eb`,
-	},
-	{
-		Name: TemplatePembelian,
-		Color: `#2563eb`,
-	},
-	{
-		Name: TemplatePengambilanPrive,
-		Color: `#2563eb`,
-	},
-	{
-		Name: TemplatePembayaranGaji,
-		Color: `#2563eb`,
-	},
-	{
-		Name: TemplatePembayaranListrik,
-		Color: `#2563eb`,
-	},
+var TransactionTemplatesDefault = []string{
+	TemplatePenjualan, TemplatePembelian,
+	TemplatePengambilanPrive, TemplatePembayaranGaji,
+	TemplatePembayaranListrik,
 }
 
 // Generate transaction template detail to transaction template

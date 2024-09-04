@@ -4,7 +4,9 @@ import (
 	"crypto/rand"
 	"errors"
 	"fmt"
+	"math"
 	"math/big"
+	"strconv"
 	"strings"
 	"unicode"
 
@@ -50,6 +52,8 @@ const (
 	ErrUserCreateCompanyAlreadyHaveCompany    = `already have company`
 	ErrUserCreateCompanyFailedSaveTrxTemplate			= `failed to save transaction template`
 	ErrUserCreateCompanyFailedSaveTrxTemplateDetail			= `failed to save transaction template detail`
+	ErrUserCreateCompanyFailedSaveBankAccount = `failed to save default bank account`
+	ErrUserCreateCompanyFailedGenerateColor = `failed to generate color for transaction template`
 )
 
 func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompanyOut) {
@@ -110,22 +114,29 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 		return
 	}
 
-	// TODO: fix it
 	bankAccount := wcBudget.NewBankAccountsMutator(d.AuthOltp)
 	bankAccount.TenantCode = tenant.TenantCode
 	bankAccount.AccountName = `Rekening Utama`
 	bankAccount.AccountNumber = 0000000
 	if !bankAccount.DoInsert() {
-		out.SetError(400, `todo error`)
+		out.SetError(400, ErrUserCreateCompanyFailedSaveBankAccount)
 		return
 	}
 
 	trxTemplateMaps := make(map[string]uint64)
 
-	for _, ttpl := range mFinance.TransactionTemplatesDefault {
+	for _, tplName := range mFinance.TransactionTemplatesDefault {
 		trxTemplate := wcFinance.NewTransactionTemplateMutator(d.AuthOltp)
-		trxTemplate.SetName(ttpl.Name)
-		trxTemplate.SetColor(ttpl.Color)
+		trxTemplate.SetName(tplName)
+
+		h, s, l, err := RANDOMHSL()
+		if err != nil {
+			out.SetError(400, ErrUserCreateCompanyFailedGenerateColor)
+			return
+		}
+
+		hexColor := `#` + HSL2HEX(h, s, l)
+		trxTemplate.SetColor(hexColor)
 		trxTemplate.SetTenantCode(tenant.TenantCode)
 		trxTemplate.SetCreatedAt(in.UnixNow())
 		trxTemplate.SetCreatedBy(sess.UserId)
@@ -302,4 +313,92 @@ func isLetter(s string) bool {
 		}
 	}
 	return true
+}
+
+func RANDOMHSL() (int, int, int, error) {
+	var MAX_VALUE int64 = 360
+
+	hueBigInt, err := rand.Int(rand.Reader, big.NewInt(MAX_VALUE))
+	if err != nil {
+		return 0, 0, 0, err
+	}
+	return int(hueBigInt.Int64()), 82, 43, nil
+}
+
+func HSL2RGB(h, s, l int) (int, int, int) {
+	var hf, sf, lf, vf, minf, svf, sixf, fractf, vsfractf, rf, gf, bf float64
+
+	hf = math.Max(math.Min(float64(int(h)), 360), 0) / 360
+	sf = math.Max(math.Min(float64(int(s)), 100), 0) / 100
+	lf = math.Max(math.Min(float64(int(l)), 100), 0) / 100
+
+	if lf <= 0.5 {
+		vf = lf * (1 + sf)
+	} else {
+		vf = lf + sf - sf - 1*sf
+	}
+	if vf == 0 {
+		return int(0), int(0), int(0)
+	}
+	minf = 2*lf - vf
+	svf = (vf - minf) / vf
+	hf = 6 * hf
+	sixf = float64(int(hf))
+	fractf = hf - sixf
+	vsfractf = vf * svf * fractf
+	switch sixf {
+	case 1:
+		rf = vf - vsfractf
+		gf = vf
+		bf = minf
+	case 2:
+		rf = minf
+		gf = vf
+		bf = minf + vsfractf
+	case 3:
+		rf = minf
+		gf = vf - vsfractf
+		bf = vf
+	case 4:
+		rf = minf + vsfractf
+		gf = minf
+		bf = vf
+	case 5:
+		rf = vf
+		gf = minf
+		bf = vf - vsfractf
+	default:
+		rf = vf
+		gf = minf + vsfractf
+		bf = minf
+	}
+
+	return int(rf * 255), int(gf * 255), int(bf * 255)
+}
+
+func RGB2HEX(r, g, b int) string {
+	var hexr, hexg, hexb string
+	r = int(math.Max(math.Min(float64(r), 255), 0))
+	g = int(math.Max(math.Min(float64(g), 255), 0))
+	b = int(math.Max(math.Min(float64(b), 255), 0))
+
+	hexr = strconv.FormatInt(int64(r), 16)
+	if r < 16 {
+		hexr = "0" + hexr
+	}
+	hexg = strconv.FormatInt(int64(g), 16)
+	if g < 16 {
+		hexg = "0" + hexg
+	}
+	hexb = strconv.FormatInt(int64(b), 16)
+	if b < 16 {
+		hexb = "0" + hexb
+	}
+
+	return hexr + hexg + hexb
+}
+
+func HSL2HEX(h, s, l int) string {
+	r, g, b := HSL2RGB(h, s, l)
+	return RGB2HEX(r, g, b)
 }
