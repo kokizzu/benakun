@@ -344,10 +344,10 @@
 
 
 <style>/* fakecss:./_components/partials/SubMenuLink.esbuild-svelte-fake-css */
-a.svelte-vuh4zm.svelte-vuh4zm {
+a.svelte-424ore.svelte-424ore {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: start;
   gap: 10px;
   text-decoration: none;
   text-transform: capitalize;
@@ -357,17 +357,32 @@ a.svelte-vuh4zm.svelte-vuh4zm {
   padding: 10px 12px;
   border-radius: 8px;
 }
-a.svelte-vuh4zm.svelte-vuh4zm:hover {
+a.svelte-424ore.svelte-424ore:hover {
   background-color: var(--gray-001);
 }
-a.svelte-vuh4zm.svelte-vuh4zm:active {
+a.svelte-424ore.svelte-424ore:active {
   background-color: var(--gray-002);
 }
-a.active.svelte-vuh4zm.svelte-vuh4zm {
+a.active.svelte-424ore.svelte-424ore {
   color: var(--violet-005);
   background-color: var(--violet-transparent);
 }
-a.svelte-vuh4zm span.svelte-vuh4zm {
+a.svelte-424ore .title.svelte-424ore {
+  margin-top: -2px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+a.svelte-424ore .subtext.svelte-424ore {
+  font-size: 10px;
+  color: var(--gray-006);
+}
+a.active.svelte-424ore .subtext.svelte-424ore {
+  color: var(--violet-005);
+}
+a.svelte-424ore span.svelte-424ore {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -388,13 +403,14 @@ a .icon {
 .icon_logout {
   fill: var(--red-002);
 }
-.side_menu.svelte-1s8rl8t.svelte-1s8rl8t {
+.side_menu.svelte-yox2t3.svelte-yox2t3 {
   position: fixed;
   z-index: 800;
   bottom: 0;
   top: 0;
   display: block;
-  overflow-y: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
   flex-direction: row;
   flex-wrap: nowrap;
   background-color: white;
@@ -402,17 +418,17 @@ a .icon {
   border-right: 1px solid var(--gray-002);
   user-select: none;
 }
-.side_menu.svelte-1s8rl8t.svelte-1s8rl8t::view-transition {
+.side_menu.svelte-yox2t3.svelte-yox2t3::view-transition {
   position: fixed;
   inset: 0;
 }
-.side_menu.expand.svelte-1s8rl8t.svelte-1s8rl8t {
+.side_menu.expand.svelte-yox2t3.svelte-yox2t3 {
   width: var(--sidemenu-width);
 }
-.side_menu.shrink.svelte-1s8rl8t.svelte-1s8rl8t {
+.side_menu.shrink.svelte-yox2t3.svelte-yox2t3 {
   width: var(--sidemenu-width-sm);
 }
-.side_menu_container.svelte-1s8rl8t.svelte-1s8rl8t {
+.side_menu_container.svelte-yox2t3.svelte-yox2t3 {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -422,39 +438,48 @@ a .icon {
   width: 100%;
   margin: 0;
 }
-.side_menu.expand.svelte-1s8rl8t.svelte-1s8rl8t::-webkit-scrollbar-thumb {
+.side_menu.expand.svelte-yox2t3.svelte-yox2t3::-webkit-scrollbar-thumb {
   background-color: var(--gray-003);
   border-radius: 8px;
   visibility: hidden;
+  position: fixed;
 }
-.side_menu.expand.svelte-1s8rl8t.svelte-1s8rl8t::-webkit-scrollbar-thumb:hover {
+.side_menu.expand.svelte-yox2t3.svelte-yox2t3::-webkit-resizer,
+.side_menu.expand.svelte-yox2t3.svelte-yox2t3::-webkit-scrollbar-button,
+.side_menu.expand.svelte-yox2t3.svelte-yox2t3::-webkit-scrollbar-corner {
+  display: none;
+}
+.side_menu.side_menu.expand.svelte-yox2t3.svelte-yox2t3::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+.side_menu.expand.svelte-yox2t3.svelte-yox2t3::-webkit-scrollbar-thumb:hover {
   background-color: var(--gray-004);
   visibility: initial;
 }
-.side_menu.shrink.svelte-1s8rl8t.svelte-1s8rl8t::-webkit-scrollbar-thumb:hover {
+.side_menu.shrink.svelte-yox2t3.svelte-yox2t3::-webkit-scrollbar-thumb:hover {
   visibility: hidden;
 }
-.side_menu.svelte-1s8rl8t.svelte-1s8rl8t:hover::-webkit-scrollbar-thumb {
+.side_menu.svelte-yox2t3.svelte-yox2t3:hover::-webkit-scrollbar-thumb {
   visibility: initial;
 }
-.side_menu.expand.svelte-1s8rl8t.svelte-1s8rl8t::-webkit-scrollbar {
+.side_menu.expand.svelte-yox2t3.svelte-yox2t3::-webkit-scrollbar {
   width: 8px;
   visibility: hidden;
 }
-.side_menu.shrink.svelte-1s8rl8t.svelte-1s8rl8t::-webkit-scrollbar {
+.side_menu.shrink.svelte-yox2t3.svelte-yox2t3::-webkit-scrollbar {
   width: 0;
   visibility: hidden;
 }
-.side_menu.svelte-1s8rl8t.svelte-1s8rl8t::-webkit-scrollbar:hover {
+.side_menu.svelte-yox2t3.svelte-yox2t3::-webkit-scrollbar:hover {
   visibility: initial;
 }
-.side_menu.svelte-1s8rl8t.svelte-1s8rl8t:hover::-webkit-scrollbar {
+.side_menu.svelte-yox2t3.svelte-yox2t3:hover::-webkit-scrollbar {
   visibility: initial;
 }
-.side_menu.svelte-1s8rl8t.svelte-1s8rl8t::-webkit-scrollbar-track {
+.side_menu.svelte-yox2t3.svelte-yox2t3::-webkit-scrollbar-track {
   background-color: transparent;
 }
-.side_menu_container.svelte-1s8rl8t header.svelte-1s8rl8t {
+.side_menu_container.svelte-yox2t3 header.svelte-yox2t3 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -463,25 +488,25 @@ a .icon {
   flex-grow: 0;
   user-select: none;
 }
-.side_menu.expand.svelte-1s8rl8t header.svelte-1s8rl8t {
+.side_menu.expand.svelte-yox2t3 header.svelte-yox2t3 {
   margin: 0 24px 15px 24px;
 }
-.side_menu.shrink.svelte-1s8rl8t header.svelte-1s8rl8t {
+.side_menu.shrink.svelte-yox2t3 header.svelte-yox2t3 {
   margin: 0 0 15px 0;
   justify-content: center;
 }
-.side_menu_container.svelte-1s8rl8t header img.svelte-1s8rl8t {
+.side_menu_container.svelte-yox2t3 header img.svelte-yox2t3 {
   width: 30px;
   height: 30px;
 }
-.side_menu_container.svelte-1s8rl8t header h3.svelte-1s8rl8t {
+.side_menu_container.svelte-yox2t3 header h3.svelte-yox2t3 {
   font-size: var(--font-lg);
   line-height: 1.5rem;
   font-weight: 800;
   padding: 0;
   margin: 0;
 }
-.side_menu_container.svelte-1s8rl8t .menu_container.svelte-1s8rl8t {
+.side_menu_container.svelte-yox2t3 .menu_container.svelte-yox2t3 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -489,19 +514,19 @@ a .icon {
   flex-grow: 1;
   padding-bottom: 10px;
 }
-.side_menu_container.svelte-1s8rl8t .menu_container .menu_list.svelte-1s8rl8t {
+.side_menu_container.svelte-yox2t3 .menu_container .menu_list.svelte-yox2t3 {
   display: flex;
   flex-direction: column;
   gap: 0;
-  padding: 0 10px;
+  padding: 0 2px 0 10px;
 }
-.side_menu.shrink.svelte-1s8rl8t .side_menu_container .menu_container .menu_list.svelte-1s8rl8t {
+.side_menu.shrink.svelte-yox2t3 .side_menu_container .menu_container .menu_list.svelte-yox2t3 {
   align-items: center;
 }
-.side_menu_container.svelte-1s8rl8t .menu_container .menu_list a.svelte-1s8rl8t {
+.side_menu_container.svelte-yox2t3 .menu_container .menu_list a.svelte-yox2t3 {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: start;
   gap: 10px;
   text-decoration: none;
   text-transform: capitalize;
@@ -511,10 +536,10 @@ a .icon {
   padding: 10px 12px;
   border-radius: 8px;
 }
-.side_menu.expand.svelte-1s8rl8t .menu_list hr.svelte-1s8rl8t {
+.side_menu.expand.svelte-yox2t3 .menu_list hr.svelte-yox2t3 {
   display: none;
 }
-.side_menu.shrink.svelte-1s8rl8t .menu_list hr.svelte-1s8rl8t {
+.side_menu.shrink.svelte-yox2t3 .menu_list hr.svelte-yox2t3 {
   background-color: var(--gray-003);
   border-radius: 9999px;
   height: 2px;
@@ -522,42 +547,58 @@ a .icon {
   margin: 5px;
   width: 75%;
 }
-.side_menu.shrink.svelte-1s8rl8t .side_menu_container .menu_container .menu_list a.svelte-1s8rl8t {
+.side_menu.shrink.svelte-yox2t3 .side_menu_container .menu_container .menu_list a.svelte-yox2t3 {
   justify-content: center;
+  align-items: start;
   width: fit-content;
 }
 .side_menu_container .menu_container .menu_list a .icon {
   flex-shrink: 0;
 }
-.side_menu_container.svelte-1s8rl8t .menu_container .menu_list a.svelte-1s8rl8t:hover {
+.side_menu_container.svelte-yox2t3 .menu_container .menu_list a.svelte-yox2t3:hover {
   background-color: var(--gray-001);
 }
-.side_menu_container.svelte-1s8rl8t .menu_container .menu_list a.svelte-1s8rl8t:active {
+.side_menu_container.svelte-yox2t3 .menu_container .menu_list a.svelte-yox2t3:active {
   background-color: var(--gray-002);
 }
-.side_menu_container.svelte-1s8rl8t .menu_container .menu_list a.active.svelte-1s8rl8t {
+.side_menu_container.svelte-yox2t3 .menu_container .menu_list a.active.svelte-yox2t3 {
   color: var(--violet-005);
   background-color: var(--violet-transparent);
 }
-.side_menu_container.svelte-1s8rl8t .menu_container .menu_list a span.svelte-1s8rl8t {
+.side_menu_container.svelte-yox2t3 .menu_container .menu_list a .title.svelte-yox2t3 {
+  margin-top: -2px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.side_menu_container.svelte-yox2t3 .menu_container .menu_list a .subtext.svelte-yox2t3 {
+  font-size: 10px;
+  color: var(--gray-006);
+}
+.side_menu_container.svelte-yox2t3 .menu_container .menu_list a.active .subtext.svelte-yox2t3 {
+  color: var(--violet-005);
+}
+.side_menu_container.svelte-yox2t3 .menu_container .menu_list a span.svelte-yox2t3 {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
   line-clamp: 1;
 }
-.side_menu_container.svelte-1s8rl8t .menu_container .menu_list .submenu.svelte-1s8rl8t {
+.side_menu_container.svelte-yox2t3 .menu_container .menu_list .submenu.svelte-yox2t3 {
   display: flex;
   flex-direction: column;
   gap: 0;
 }
-.side_menu.expand.svelte-1s8rl8t .side_menu_container .menu_container .menu_list .submenu.svelte-1s8rl8t {
+.side_menu.expand.svelte-yox2t3 .side_menu_container .menu_container .menu_list .submenu.svelte-yox2t3 {
   padding-left: 20px;
 }
-.side_menu.shrink.svelte-1s8rl8t .side_menu_container .menu_container .menu_list .submenu.svelte-1s8rl8t {
+.side_menu.shrink.svelte-yox2t3 .side_menu_container .menu_container .menu_list .submenu.svelte-yox2t3 {
   padding-left: 0;
 }
-.menu_list.svelte-1s8rl8t .logout.svelte-1s8rl8t {
+.menu_list.svelte-yox2t3 .logout.svelte-yox2t3 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -574,11 +615,11 @@ a .icon {
   cursor: pointer;
   color: var(--red-005);
 }
-.side_menu.shrink.svelte-1s8rl8t .logout.svelte-1s8rl8t {
+.side_menu.shrink.svelte-yox2t3 .logout.svelte-yox2t3 {
   justify-content: center;
   width: fit-content;
 }
-.menu_list.svelte-1s8rl8t .logout.svelte-1s8rl8t:hover {
+.menu_list.svelte-yox2t3 .logout.svelte-yox2t3:hover {
   background-color: var(--red-transparent);
 }
 
@@ -4018,33 +4059,57 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 
   // _components/partials/SubMenuLink.svelte
   function create_if_block(ctx) {
-    let span;
-    let t;
+    let div;
+    let span0;
+    let t0;
+    let t1;
+    let span1;
+    let t2;
     return {
       c() {
-        span = element("span");
-        t = text(
+        div = element("div");
+        span0 = element("span");
+        t0 = text(
           /*title*/
           ctx[2]
         );
-        attr(span, "class", "svelte-vuh4zm");
+        t1 = space();
+        span1 = element("span");
+        t2 = text(
+          /*subtitle*/
+          ctx[3]
+        );
+        attr(span0, "class", "text svelte-424ore");
+        attr(span1, "class", "subtext svelte-424ore");
+        attr(div, "class", "title svelte-424ore");
       },
       m(target, anchor) {
-        insert(target, span, anchor);
-        append(span, t);
+        insert(target, div, anchor);
+        append(div, span0);
+        append(span0, t0);
+        append(div, t1);
+        append(div, span1);
+        append(span1, t2);
       },
       p(ctx2, dirty) {
         if (dirty & /*title*/
         4)
           set_data(
-            t,
+            t0,
             /*title*/
             ctx2[2]
+          );
+        if (dirty & /*subtitle*/
+        8)
+          set_data(
+            t2,
+            /*subtitle*/
+            ctx2[3]
           );
       },
       d(detaching) {
         if (detaching) {
-          detach(span);
+          detach(div);
         }
       }
     };
@@ -4059,9 +4124,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         size: "18",
         className: (
           /*pathname*/
-          ctx[4] === /*href*/
+          ctx[5] === /*href*/
           ctx[0] || /*pathname*/
-          ctx[4].includes(
+          ctx[5].includes(
             /*href*/
             ctx[0]
           ) ? "icon_active icon" : "icon_dark icon"
@@ -4073,7 +4138,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     });
     let if_block = !/*$IsShrinkMenu*/
-    ctx[3] && create_if_block(ctx);
+    ctx[4] && create_if_block(ctx);
     return {
       c() {
         a = element("a");
@@ -4093,14 +4158,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           /*title*/
           ctx[2]
         );
-        attr(a, "class", "svelte-vuh4zm");
+        attr(a, "class", "svelte-424ore");
         toggle_class(
           a,
           "active",
           /*pathname*/
-          ctx[4] === /*href*/
+          ctx[5] === /*href*/
           ctx[0] || /*pathname*/
-          ctx[4].includes(
+          ctx[5].includes(
             /*href*/
             ctx[0]
           )
@@ -4119,9 +4184,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (dirty & /*href*/
         1)
           icon_1_changes.className = /*pathname*/
-          ctx2[4] === /*href*/
+          ctx2[5] === /*href*/
           ctx2[0] || /*pathname*/
-          ctx2[4].includes(
+          ctx2[5].includes(
             /*href*/
             ctx2[0]
           ) ? "icon_active icon" : "icon_dark icon";
@@ -4131,7 +4196,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           ctx2[1];
         icon_1.$set(icon_1_changes);
         if (!/*$IsShrinkMenu*/
-        ctx2[3]) {
+        ctx2[4]) {
           if (if_block) {
             if_block.p(ctx2, dirty);
           } else {
@@ -4162,14 +4227,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           );
         }
         if (!current || dirty & /*pathname, href*/
-        17) {
+        33) {
           toggle_class(
             a,
             "active",
             /*pathname*/
-            ctx2[4] === /*href*/
+            ctx2[5] === /*href*/
             ctx2[0] || /*pathname*/
-            ctx2[4].includes(
+            ctx2[5].includes(
               /*href*/
               ctx2[0]
             )
@@ -4198,13 +4263,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   }
   function instance2($self, $props, $invalidate) {
     let $IsShrinkMenu;
-    component_subscribe($self, IsShrinkMenu, ($value) => $invalidate(3, $IsShrinkMenu = $value));
+    component_subscribe($self, IsShrinkMenu, ($value) => $invalidate(4, $IsShrinkMenu = $value));
     let { href = "" } = $props;
     let { icon = (
       /** @type {import('svelte-icons-pack').IconType} */
       {}
     ) } = $props;
     let { title = "" } = $props;
+    let { subtitle = "" } = $props;
     const pathname = window.location.pathname;
     $self.$set = ($props2) => {
       if ("href" in $props2)
@@ -4213,13 +4279,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         $invalidate(1, icon = $props2.icon);
       if ("title" in $props2)
         $invalidate(2, title = $props2.title);
+      if ("subtitle" in $props2)
+        $invalidate(3, subtitle = $props2.subtitle);
     };
-    return [href, icon, title, $IsShrinkMenu, pathname];
+    return [href, icon, title, subtitle, $IsShrinkMenu, pathname];
   }
   var SubMenuLink = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance2, create_fragment2, safe_not_equal, { href: 0, icon: 1, title: 2 });
+      init(this, options, instance2, create_fragment2, safe_not_equal, { href: 0, icon: 1, title: 2, subtitle: 3 });
     }
   };
   var SubMenuLink_default = SubMenuLink;
@@ -4231,7 +4299,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       c() {
         h3 = element("h3");
         h3.textContent = "BenAkun";
-        attr(h3, "class", "svelte-1s8rl8t");
+        attr(h3, "class", "svelte-yox2t3");
       },
       m(target, anchor) {
         insert(target, h3, anchor);
@@ -4244,19 +4312,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function create_if_block_14(ctx) {
-    let span;
+    let div;
     return {
       c() {
-        span = element("span");
-        span.textContent = "Home / Beranda";
-        attr(span, "class", "svelte-1s8rl8t");
+        div = element("div");
+        div.innerHTML = `<span class="text svelte-yox2t3">Home</span> <span class="subtext svelte-yox2t3">Beranda</span>`;
+        attr(div, "class", "title svelte-yox2t3");
       },
       m(target, anchor) {
-        insert(target, span, anchor);
+        insert(target, div, anchor);
       },
       d(detaching) {
         if (detaching) {
-          detach(span);
+          detach(div);
         }
       }
     };
@@ -4284,14 +4352,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     ctx[2] && create_if_block_13(ctx);
     submenulink0 = new SubMenuLink_default({
       props: {
-        title: "General Ledger / Buku Besar",
+        title: "General Ledger",
+        subtitle: "Buku Besar",
         href: "/reportViewer/generalLedger",
         icon: RiDocumentBookReadLine
       }
     });
     submenulink1 = new SubMenuLink_default({
       props: {
-        title: "Trial Balance / Neraca Saldo",
+        title: "Trial Balance",
+        subtitle: "Neraca Saldo",
         href: "/reportViewer/trialBalance",
         icon: VscLaw
       }
@@ -4310,12 +4380,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         create_component(submenulink0.$.fragment);
         t3 = space();
         create_component(submenulink1.$.fragment);
-        attr(hr, "class", "svelte-1s8rl8t");
+        attr(hr, "class", "svelte-yox2t3");
         attr(a, "href", "/reportViewer/dashboard");
         attr(a, "title", "Report Viewer");
-        attr(a, "class", "svelte-1s8rl8t");
+        attr(a, "class", "svelte-yox2t3");
         toggle_class(a, "active", window.location.pathname === "/reportViewer/dashboard");
-        attr(div, "class", "submenu svelte-1s8rl8t");
+        attr(div, "class", "submenu svelte-yox2t3");
       },
       m(target, anchor) {
         insert(target, hr, anchor);
@@ -4377,19 +4447,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function create_if_block_13(ctx) {
-    let span;
+    let div;
     return {
       c() {
-        span = element("span");
-        span.textContent = "Report Viewer / Laporan";
-        attr(span, "class", "svelte-1s8rl8t");
+        div = element("div");
+        div.innerHTML = `<span class="text svelte-yox2t3">Report Viewer</span> <span class="subtext svelte-yox2t3">Laporan</span>`;
+        attr(div, "class", "title svelte-yox2t3");
       },
       m(target, anchor) {
-        insert(target, span, anchor);
+        insert(target, div, anchor);
       },
       d(detaching) {
         if (detaching) {
-          detach(span);
+          detach(div);
         }
       }
     };
@@ -4422,10 +4492,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t1 = space();
         if (if_block)
           if_block.c();
-        attr(hr, "class", "svelte-1s8rl8t");
+        attr(hr, "class", "svelte-yox2t3");
         attr(a, "href", "/fieldSupervisor/dashboard");
         attr(a, "title", "Field Supervisor");
-        attr(a, "class", "svelte-1s8rl8t");
+        attr(a, "class", "svelte-yox2t3");
         toggle_class(
           a,
           "active",
@@ -4495,19 +4565,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function create_if_block_11(ctx) {
-    let span;
+    let div;
     return {
       c() {
-        span = element("span");
-        span.textContent = "Field Supervisor / Pengawas Lapangan";
-        attr(span, "class", "svelte-1s8rl8t");
+        div = element("div");
+        div.innerHTML = `<span class="text svelte-yox2t3">Field Supervisor</span> <span class="subtext svelte-yox2t3">Pengawas Lapangan</span>`;
+        attr(div, "class", "title svelte-yox2t3");
       },
       m(target, anchor) {
-        insert(target, span, anchor);
+        insert(target, div, anchor);
       },
       d(detaching) {
         if (detaching) {
-          detach(span);
+          detach(div);
         }
       }
     };
@@ -4534,6 +4604,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     submenulink = new SubMenuLink_default({
       props: {
         title: "Transaction Entry",
+        subtitle: "Entri Transaksi",
         href: "/dataEntry/template",
         icon: OiNote16
       }
@@ -4550,12 +4621,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t2 = space();
         div = element("div");
         create_component(submenulink.$.fragment);
-        attr(hr, "class", "svelte-1s8rl8t");
+        attr(hr, "class", "svelte-yox2t3");
         attr(a, "href", "/dataEntry/dashboard");
         attr(a, "title", "Data Entry");
-        attr(a, "class", "svelte-1s8rl8t");
+        attr(a, "class", "svelte-yox2t3");
         toggle_class(a, "active", window.location.pathname === "/dataEntry/dashboard");
-        attr(div, "class", "submenu svelte-1s8rl8t");
+        attr(div, "class", "submenu svelte-yox2t3");
       },
       m(target, anchor) {
         insert(target, hr, anchor);
@@ -4612,19 +4683,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function create_if_block_9(ctx) {
-    let span;
+    let div;
     return {
       c() {
-        span = element("span");
-        span.textContent = "Data Entry / Entri Data";
-        attr(span, "class", "svelte-1s8rl8t");
+        div = element("div");
+        div.innerHTML = `<span class="text svelte-yox2t3">Data Entry</span> <span class="subtext svelte-yox2t3">Entri Data</span>`;
+        attr(div, "class", "title svelte-yox2t3");
       },
       m(target, anchor) {
-        insert(target, span, anchor);
+        insert(target, div, anchor);
       },
       d(detaching) {
         if (detaching) {
-          detach(span);
+          detach(div);
         }
       }
     };
@@ -4666,63 +4737,72 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     ctx[2] && create_if_block_7(ctx);
     submenulink0 = new SubMenuLink_default({
       props: {
-        title: "Organization / Organisasi",
+        title: "Organization",
+        subtitle: "Organisasi",
         href: "/tenantAdmin/organization",
         icon: RiEditorOrganizationChart
       }
     });
     submenulink1 = new SubMenuLink_default({
       props: {
-        title: "Budgeting / Pengelolaan Anggaran",
+        title: "Budgeting",
+        subtitle: "Pengelolaan Anggaran",
         href: "/tenantAdmin/budgeting",
         icon: AiOutlineWallet
       }
     });
     submenulink2 = new SubMenuLink_default({
       props: {
-        title: "Chart of Account / Bagan Akun",
+        title: "Chart of Account",
+        subtitle: "Bagan Akun",
         href: "/tenantAdmin/coa",
         icon: BsPostcard
       }
     });
     submenulink3 = new SubMenuLink_default({
       props: {
-        title: "Bank Accounts / Rekening Bank",
+        title: "Bank Accounts",
+        subtitle: "Rekening Bank",
         href: "/tenantAdmin/bankAccounts",
         icon: RiBuildingsBankLine
       }
     });
     submenulink4 = new SubMenuLink_default({
       props: {
-        title: "Products / Produk",
+        title: "Products",
+        subtitle: "Produk",
         href: "/tenantAdmin/products",
         icon: CgBox
       }
     });
     submenulink5 = new SubMenuLink_default({
       props: {
-        title: "Locations / Lokasi",
+        title: "Locations",
+        subtitle: "Lokasi",
         href: "/tenantAdmin/locations",
         icon: RiMapMap2Line
       }
     });
     submenulink6 = new SubMenuLink_default({
       props: {
-        title: "Inventory Changes / Perubahan Inventory",
+        title: "Inventory Changes",
+        subtitle: "Perubahan Inventory",
         href: "/tenantAdmin/inventoryChanges",
         icon: RiFinanceSwapBoxLine
       }
     });
     submenulink7 = new SubMenuLink_default({
       props: {
-        title: "Transaction Template / Template Transaksi",
+        title: "Transaction Template",
+        subtitle: "Template Transaksi",
         href: "/tenantAdmin/transactionTemplate",
         icon: RiDocumentStickyNoteAddLine
       }
     });
     submenulink8 = new SubMenuLink_default({
       props: {
-        title: "Manual Journal / Jurnal Manual",
+        title: "Manual Journal",
+        subtitle: "Jurnal Manual",
         href: "/tenantAdmin/manualJournal",
         icon: SlBookOpen
       }
@@ -4755,12 +4835,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         create_component(submenulink7.$.fragment);
         t10 = space();
         create_component(submenulink8.$.fragment);
-        attr(hr, "class", "svelte-1s8rl8t");
+        attr(hr, "class", "svelte-yox2t3");
         attr(a, "href", "/tenantAdmin/dashboard");
         attr(a, "title", "Tenant Admin Dashboard");
-        attr(a, "class", "svelte-1s8rl8t");
+        attr(a, "class", "svelte-yox2t3");
         toggle_class(a, "active", window.location.pathname === "/tenantAdmin/dashboard");
-        attr(div, "class", "submenu svelte-1s8rl8t");
+        attr(div, "class", "submenu svelte-yox2t3");
       },
       m(target, anchor) {
         insert(target, hr, anchor);
@@ -4857,19 +4937,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function create_if_block_7(ctx) {
-    let span;
+    let div;
     return {
       c() {
-        span = element("span");
-        span.textContent = "Tenant Admin / Admin Penyewa";
-        attr(span, "class", "svelte-1s8rl8t");
+        div = element("div");
+        div.innerHTML = `<span class="text svelte-yox2t3">Tenant Admin</span> <span class="subtext svelte-yox2t3">Admin Penyewa</span>`;
+        attr(div, "class", "title svelte-yox2t3");
       },
       m(target, anchor) {
-        insert(target, span, anchor);
+        insert(target, div, anchor);
       },
       d(detaching) {
         if (detaching) {
-          detach(span);
+          detach(div);
         }
       }
     };
@@ -4899,21 +4979,24 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     ctx[2] && create_if_block_5(ctx);
     submenulink0 = new SubMenuLink_default({
       props: {
-        title: "Users / Pengguna",
+        title: "Users",
+        subtitle: "Pengguna",
         href: "/superAdmin/userManagement",
         icon: RiUserFacesGroupLine
       }
     });
     submenulink1 = new SubMenuLink_default({
       props: {
-        title: "Tenants / Penyewa",
+        title: "Tenants",
+        subtitle: "Penyewa",
         href: "/superAdmin/tenantManagement",
         icon: RiUserFacesContactsLine
       }
     });
     submenulink2 = new SubMenuLink_default({
       props: {
-        title: "Access Log / Log Akses",
+        title: "Access Log",
+        subtitle: "Log Akses",
         href: "/superAdmin/accessLog",
         icon: RiDocumentFileCopy2Line
       }
@@ -4934,12 +5017,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         create_component(submenulink1.$.fragment);
         t4 = space();
         create_component(submenulink2.$.fragment);
-        attr(hr, "class", "svelte-1s8rl8t");
+        attr(hr, "class", "svelte-yox2t3");
         attr(a, "href", "/superAdmin/dashboard");
         attr(a, "title", "Super Admin Dashboard");
-        attr(a, "class", "svelte-1s8rl8t");
+        attr(a, "class", "svelte-yox2t3");
         toggle_class(a, "active", window.location.pathname === "/superAdmin/dashboard");
-        attr(div, "class", "submenu svelte-1s8rl8t");
+        attr(div, "class", "submenu svelte-yox2t3");
       },
       m(target, anchor) {
         insert(target, hr, anchor);
@@ -5006,19 +5089,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function create_if_block_5(ctx) {
-    let span;
+    let div;
     return {
       c() {
-        span = element("span");
-        span.textContent = "Super Admin / Admin Super";
-        attr(span, "class", "svelte-1s8rl8t");
+        div = element("div");
+        div.innerHTML = `<span class="text svelte-yox2t3">Super Admin</span> <span class="subtext svelte-yox2t3">Admin Super</span>`;
+        attr(div, "class", "title svelte-yox2t3");
       },
       m(target, anchor) {
-        insert(target, span, anchor);
+        insert(target, div, anchor);
       },
       d(detaching) {
         if (detaching) {
-          detach(span);
+          detach(div);
         }
       }
     };
@@ -5049,7 +5132,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           if_block.c();
         attr(a, "href", "/user/profile");
         attr(a, "title", "Profile");
-        attr(a, "class", "svelte-1s8rl8t");
+        attr(a, "class", "svelte-yox2t3");
         toggle_class(
           a,
           "active",
@@ -5115,19 +5198,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function create_if_block_3(ctx) {
-    let span;
+    let div;
     return {
       c() {
-        span = element("span");
-        span.textContent = "Profile / Profil";
-        attr(span, "class", "svelte-1s8rl8t");
+        div = element("div");
+        div.innerHTML = `<span class="text svelte-yox2t3">Profile</span> <span class="subtext svelte-yox2t3">Profil</span>`;
+        attr(div, "class", "title svelte-yox2t3");
       },
       m(target, anchor) {
-        insert(target, span, anchor);
+        insert(target, div, anchor);
       },
       d(detaching) {
         if (detaching) {
-          detach(span);
+          detach(div);
         }
       }
     };
@@ -5155,7 +5238,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         t = space();
         if (if_block)
           if_block.c();
-        attr(button, "class", "logout svelte-1s8rl8t");
+        attr(button, "class", "logout svelte-yox2t3");
         attr(button, "title", "Logout");
       },
       m(target, anchor) {
@@ -5217,7 +5300,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       c() {
         span = element("span");
         span.textContent = "Logout";
-        attr(span, "class", "svelte-1s8rl8t");
+        attr(span, "class", "svelte-yox2t3");
       },
       m(target, anchor) {
         insert(target, span, anchor);
@@ -5337,23 +5420,23 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         if (!src_url_equal(img.src, img_src_value = "/assets/icons/benakun-logo.png"))
           attr(img, "src", img_src_value);
         attr(img, "alt", "");
-        attr(img, "class", "svelte-1s8rl8t");
-        attr(header, "class", "svelte-1s8rl8t");
+        attr(img, "class", "svelte-yox2t3");
+        attr(header, "class", "svelte-yox2t3");
         attr(a, "href", "/");
         attr(a, "title", "Home");
-        attr(a, "class", "svelte-1s8rl8t");
+        attr(a, "class", "svelte-yox2t3");
         toggle_class(
           a,
           "active",
           /*segment*/
           ctx[1] === ""
         );
-        attr(nav0, "class", "menu_list svelte-1s8rl8t");
-        attr(nav1, "class", "menu_list svelte-1s8rl8t");
-        attr(div0, "class", "menu_container svelte-1s8rl8t");
-        attr(div1, "class", "side_menu_container svelte-1s8rl8t");
+        attr(nav0, "class", "menu_list svelte-yox2t3");
+        attr(nav1, "class", "menu_list svelte-yox2t3");
+        attr(div0, "class", "menu_container svelte-yox2t3");
+        attr(div1, "class", "side_menu_container svelte-yox2t3");
         attr(aside, "class", aside_class_value = "side_menu " + /*$IsShrinkMenu*/
-        (ctx[2] ? "shrink" : "expand") + " svelte-1s8rl8t");
+        (ctx[2] ? "shrink" : "expand") + " svelte-yox2t3");
       },
       m(target, anchor) {
         insert(target, aside, anchor);
@@ -5599,7 +5682,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         if (!current || dirty & /*$IsShrinkMenu*/
         4 && aside_class_value !== (aside_class_value = "side_menu " + /*$IsShrinkMenu*/
-        (ctx2[2] ? "shrink" : "expand") + " svelte-1s8rl8t")) {
+        (ctx2[2] ? "shrink" : "expand") + " svelte-yox2t3")) {
           attr(aside, "class", aside_class_value);
         }
       },

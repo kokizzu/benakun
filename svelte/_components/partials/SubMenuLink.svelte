@@ -5,6 +5,7 @@
   export let href = '';
   export let icon = /** @type {import('svelte-icons-pack').IconType} */ ({});
   export let title = '';
+  export let subtitle = '';
 
   const pathname = window.location.pathname;
 </script>
@@ -23,7 +24,10 @@
     src={icon}
   />
   {#if !$IsShrinkMenu}
-    <span>{title}</span>
+    <div class="title">
+      <span class="text">{title}</span>
+      <span class="subtext">{subtitle}</span>
+    </div>
   {/if}
 </a>
 
@@ -31,7 +35,7 @@
   a {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: start;
     gap: 10px;
     text-decoration: none;
     text-transform: capitalize;
@@ -55,6 +59,24 @@
     background-color: var(--violet-transparent);
   }
 
+  a .title {
+    margin-top: -2px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  a .subtext {
+    font-size: 10px;
+    color: var(--gray-006);
+  }
+
+  a.active .subtext {
+    color: var(--violet-005);
+  }
+
   a span {
     overflow: hidden;
     display: -webkit-box;
@@ -66,4 +88,5 @@
   :global(a .icon) {
     flex-shrink: 0;
   }
+  
 </style>

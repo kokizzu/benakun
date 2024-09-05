@@ -68,7 +68,10 @@
             className="{segment === ''  ? 'icon_active' : 'icon_dark'} icon"
           />
           {#if !$IsShrinkMenu}
-            <span>Home / Beranda</span>
+            <div class="title">
+              <span class="text">Home</span>
+              <span class="subtext">Beranda</span>
+            </div>
           {/if}
         </a>
         {#if access.reportViewer }
@@ -84,17 +87,22 @@
               src={AiOutlineWarning}
             />
             {#if !$IsShrinkMenu}
-              <span>Report Viewer / Laporan</span>
+              <div class="title">
+                <span class="text">Report Viewer</span>
+                <span class="subtext">Laporan</span>
+              </div>
             {/if}
           </a>
           <div class="submenu">
             <SubMenuLink
-              title='General Ledger / Buku Besar'
+              title='General Ledger'
+              subtitle='Buku Besar'
               href='/reportViewer/generalLedger'
               icon={RiDocumentBookReadLine}
             />
             <SubMenuLink
-              title='Trial Balance / Neraca Saldo'
+              title='Trial Balance'
+              subtitle='Neraca Saldo'
               href='/reportViewer/trialBalance'
               icon={VscLaw}
             />
@@ -113,7 +121,10 @@
               src={RiUserFacesUserLocationLine}
             />
             {#if !$IsShrinkMenu}
-              <span>Field Supervisor / Pengawas Lapangan</span>
+              <div class="title">
+                <span class="text">Field Supervisor</span>
+                <span class="subtext">Pengawas Lapangan</span>
+              </div>
             {/if}
           </a>
         {/if}
@@ -132,12 +143,16 @@
               src={BsDatabaseAdd}
             />
             {#if !$IsShrinkMenu}
-              <span>Data Entry / Entri Data</span>
+              <div class="title">
+                <span class="text">Data Entry</span>
+                <span class="subtext">Entri Data</span>
+              </div>
             {/if}
           </a>
           <div class="submenu">
             <SubMenuLink
               title='Transaction Entry'
+              subtitle='Entri Transaksi'
               href='/dataEntry/template'
               icon={OiNote16}
             />
@@ -156,52 +171,64 @@
               src={RiBuildingsCommunityLine}
             />
             {#if !$IsShrinkMenu}
-              <span>Tenant Admin / Admin Penyewa</span>
+              <div class="title">
+                <span class="text">Tenant Admin</span>
+                <span class="subtext">Admin Penyewa</span>
+              </div>
             {/if}
           </a>
           <div class="submenu">
             <SubMenuLink
-              title='Organization / Organisasi'
+              title='Organization'
+              subtitle='Organisasi'
               href='/tenantAdmin/organization'
               icon={RiEditorOrganizationChart}
             />
             <SubMenuLink
-              title='Budgeting / Pengelolaan Anggaran'
+              title='Budgeting'
+              subtitle='Pengelolaan Anggaran'
               href='/tenantAdmin/budgeting'
               icon={AiOutlineWallet}
             />
             <SubMenuLink
-              title='Chart of Account / Bagan Akun'
+              title='Chart of Account'
+              subtitle='Bagan Akun'
               href='/tenantAdmin/coa'
               icon={BsPostcard}
             />
             <SubMenuLink
-              title='Bank Accounts / Rekening Bank'
+              title='Bank Accounts'
+              subtitle='Rekening Bank'
               href='/tenantAdmin/bankAccounts'
               icon={RiBuildingsBankLine}
             />
             <SubMenuLink
-              title='Products / Produk'
+              title='Products'
+              subtitle='Produk'
               href='/tenantAdmin/products'
               icon={CgBox}
             />
             <SubMenuLink
-              title='Locations / Lokasi'
+              title='Locations'
+              subtitle='Lokasi'
               href='/tenantAdmin/locations'
               icon={RiMapMap2Line}
             />
             <SubMenuLink
-              title='Inventory Changes / Perubahan Inventory'
+              title='Inventory Changes'
+              subtitle='Perubahan Inventory'
               href='/tenantAdmin/inventoryChanges'
               icon={RiFinanceSwapBoxLine}
             />
             <SubMenuLink
-              title='Transaction Template / Template Transaksi'
+              title='Transaction Template'
+              subtitle='Template Transaksi'
               href='/tenantAdmin/transactionTemplate'
               icon={RiDocumentStickyNoteAddLine}
             />
             <SubMenuLink
-              title='Manual Journal / Jurnal Manual'
+              title='Manual Journal'
+              subtitle='Jurnal Manual'
               href='/tenantAdmin/manualJournal'
               icon={SlBookOpen}
             />
@@ -220,22 +247,28 @@
               src={RiUserFacesUserSettingsLine}
             />
             {#if !$IsShrinkMenu}
-              <span>Super Admin / Admin Super</span>
+              <div class="title">
+                <span class="text">Super Admin</span>
+                <span class="subtext">Admin Super</span>
+              </div>
             {/if}
           </a>
           <div class="submenu">
             <SubMenuLink
-              title="Users / Pengguna"
+              title="Users"
+              subtitle="Pengguna"
               href="/superAdmin/userManagement"
               icon={RiUserFacesGroupLine}
             />
             <SubMenuLink
-              title="Tenants / Penyewa"
+              title="Tenants"
+              subtitle="Penyewa"
               href="/superAdmin/tenantManagement"
               icon={RiUserFacesContactsLine}
             />
             <SubMenuLink
-              title="Access Log / Log Akses"
+              title="Access Log"
+              subtitle="Log Akses"
               href="/superAdmin/accessLog"
               icon={RiDocumentFileCopy2Line}
             />
@@ -255,7 +288,10 @@
               src={FaCircleUser}
             />
             {#if !$IsShrinkMenu}
-              <span>Profile / Profil</span>
+              <div class="title">
+                <span class="text">Profile</span>
+                <span class="subtext">Profil</span>
+              </div>
             {/if}
           </a>
         {/if}
@@ -291,7 +327,8 @@
     bottom: 0;
     top: 0;
     display          : block;
-    overflow-y       : auto;
+    overflow-y       : scroll;
+    overflow-x: hidden;
     flex-direction   : row;
     flex-wrap        : nowrap;
     background-color : white;
@@ -328,6 +365,17 @@
     background-color : var(--gray-003);
     border-radius    : 8px;
     visibility: hidden;
+    position: fixed;
+  }
+
+  .side_menu.expand::-webkit-resizer,
+  .side_menu.expand::-webkit-scrollbar-button,
+  .side_menu.expand::-webkit-scrollbar-corner {
+    display: none;
+  }
+
+  .side_menu.side_menu.expand::-webkit-scrollbar-track-piece {
+    background:transparent;
   }
 
   .side_menu.expand::-webkit-scrollbar-thumb:hover {
@@ -410,7 +458,7 @@
     display: flex;
     flex-direction: column;
     gap: 0;
-    padding: 0 10px;
+    padding: 0 2px 0 10px;
   }
 
   .side_menu.shrink .side_menu_container .menu_container .menu_list {
@@ -420,7 +468,7 @@
   .side_menu_container .menu_container .menu_list a {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: start;
     gap: 10px;
     text-decoration: none;
     text-transform: capitalize;
@@ -446,6 +494,7 @@
 
   .side_menu.shrink .side_menu_container .menu_container .menu_list a {
     justify-content: center;
+    align-items: start;
     width: fit-content;
   }
 
@@ -464,6 +513,24 @@
   .side_menu_container .menu_container .menu_list a.active {
     color: var(--violet-005);
     background-color: var(--violet-transparent);
+  }
+
+  .side_menu_container .menu_container .menu_list a .title {
+    margin-top: -2px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .side_menu_container .menu_container .menu_list a .subtext {
+    font-size: 10px;
+    color: var(--gray-006);
+  }
+
+  .side_menu_container .menu_container .menu_list a.active .subtext {
+    color: var(--violet-005);
   }
 
   .side_menu_container .menu_container .menu_list a span {
