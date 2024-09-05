@@ -1015,15 +1015,33 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 }
 
 /* fakecss:./reportViewer_trialBalance.esbuild-svelte-fake-css */
-.date_filter.svelte-16pzbtu.svelte-16pzbtu {
+.chart_and_filter.svelte-yvhnpp.svelte-yvhnpp {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  align-items: flex-end;
-  gap: 12px;
+  gap: 20px;
   margin-bottom: 20px;
+  align-items: start;
+  flex-grow: 1;
 }
-.table_root.svelte-16pzbtu.svelte-16pzbtu {
+.chart_container.svelte-yvhnpp.svelte-yvhnpp {
+  width: 100%;
+  height: 370px;
+  border: 1px solid var(--gray-004);
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #FFF;
+}
+.chart_container.svelte-yvhnpp .chart.svelte-yvhnpp {
+  width: 100%;
+  height: 350px;
+}
+.date_filter.svelte-yvhnpp.svelte-yvhnpp {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.table_root.svelte-yvhnpp.svelte-yvhnpp {
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -1032,12 +1050,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   border: 1px solid var(--gray-003);
   overflow: hidden;
 }
-.table_root.svelte-16pzbtu .table_container.svelte-16pzbtu {
+.table_root.svelte-yvhnpp .table_container.svelte-yvhnpp {
   overflow-x: auto;
   scrollbar-color: var(--gray-003) transparent;
   scrollbar-width: thin;
 }
-.table_root.svelte-16pzbtu .table_container table.svelte-16pzbtu {
+.table_root.svelte-yvhnpp .table_container table.svelte-yvhnpp {
   width: 100%;
   background: #fff;
   box-shadow: none;
@@ -1046,11 +1064,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   border-spacing: 0;
   overflow: hidden;
 }
-.table_root.svelte-16pzbtu .table_container table thead.svelte-16pzbtu {
+.table_root.svelte-yvhnpp .table_container table thead.svelte-yvhnpp {
   box-shadow: none;
   border-bottom: 1px solid var(--gray-003);
 }
-.table_root.svelte-16pzbtu .table_container table thead tr th.svelte-16pzbtu {
+.table_root.svelte-yvhnpp .table_container table thead tr th.svelte-yvhnpp {
   padding: 12px;
   background-color: var(--gray-001);
   text-transform: capitalize;
@@ -1060,38 +1078,38 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   width: auto;
   text-wrap: nowrap;
 }
-.table_root.svelte-16pzbtu .table_container table thead tr th.no.svelte-16pzbtu {
+.table_root.svelte-yvhnpp .table_container table thead tr th.no.svelte-yvhnpp {
   width: 30px;
 }
-.table_root.svelte-16pzbtu .table_container table thead tr th.svelte-16pzbtu:last-child {
+.table_root.svelte-yvhnpp .table_container table thead tr th.svelte-yvhnpp:last-child {
   border-right: none;
 }
-.table_root.svelte-16pzbtu .table_container table tbody tr td.svelte-16pzbtu {
+.table_root.svelte-yvhnpp .table_container table tbody tr td.svelte-yvhnpp {
   padding: 8px 12px;
 }
-.table_root.svelte-16pzbtu .table_container table tbody tr td.svelte-16pzbtu {
+.table_root.svelte-yvhnpp .table_container table tbody tr td.svelte-yvhnpp {
   padding: 8px 12px;
   border-right: 1px solid var(--gray-004);
   border-bottom: 1px solid var(--gray-004);
 }
-.table_root.svelte-16pzbtu .table_container table tbody tr:last-child td.svelte-16pzbtu,
-.table_root.svelte-16pzbtu .table_container table tbody tr:last-child th.svelte-16pzbtu {
+.table_root.svelte-yvhnpp .table_container table tbody tr:last-child td.svelte-yvhnpp,
+.table_root.svelte-yvhnpp .table_container table tbody tr:last-child th.svelte-yvhnpp {
   border-bottom: none !important;
 }
-.table_root.svelte-16pzbtu .table_container table tbody tr:last-child td.svelte-16pzbtu:last-child {
+.table_root.svelte-yvhnpp .table_container table tbody tr:last-child td.svelte-yvhnpp:last-child {
   border-right: none !important;
 }
-.table_root.svelte-16pzbtu .table_container table tbody tr:last-child td.svelte-16pzbtu,
-.table_root.svelte-16pzbtu .table_container table tbody tr:last-child th.svelte-16pzbtu {
+.table_root.svelte-yvhnpp .table_container table tbody tr:last-child td.svelte-yvhnpp,
+.table_root.svelte-yvhnpp .table_container table tbody tr:last-child th.svelte-yvhnpp {
   border-bottom: none !important;
 }
-.table_root.svelte-16pzbtu .table_container table tbody tr:last-child td.svelte-16pzbtu:last-child {
+.table_root.svelte-yvhnpp .table_container table tbody tr:last-child td.svelte-yvhnpp:last-child {
   border-right: none !important;
 }
-.table_root.svelte-16pzbtu .table_container table tbody tr td.svelte-16pzbtu:last-child {
+.table_root.svelte-yvhnpp .table_container table tbody tr td.svelte-yvhnpp:last-child {
   border-right: none !important;
 }
-.table_root.svelte-16pzbtu .table_container table tbody tr th.svelte-16pzbtu {
+.table_root.svelte-yvhnpp .table_container table tbody tr th.svelte-yvhnpp {
   text-align: center;
   border-right: 1px solid var(--gray-004);
   border-bottom: 1px solid var(--gray-004);
@@ -3294,6 +3312,115 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       };
       exports.UserUpdateProfile = async function UserUpdateProfile(i, cb) {
         return await axios.post("/user/updateProfile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+    }
+  });
+
+  // _components/formatter.js
+  var require_formatter = __commonJS({
+    "_components/formatter.js"(exports, module) {
+      function datetime(unixSec, humanize) {
+        if (!unixSec)
+          return "";
+        if (typeof unixSec === "string")
+          return unixSec;
+        let dt = new Date(unixSec * 1e3);
+        if (!humanize) {
+          dt = dt.toISOString();
+          return dt.substring(0, 10) + " " + dt.substring(11, 16);
+        }
+        const options = { day: "2-digit", month: "long", year: "numeric" };
+        const formattedDate = dt.toLocaleDateString(void 0, options);
+        return formattedDate;
+      }
+      function localeDatetime(unixSec) {
+        if (!unixSec)
+          return "";
+        const dt = new Date(unixSec * 1e3);
+        const day = dt.toLocaleDateString("default", { weekday: "long" });
+        const date = dt.getDate();
+        const month = dt.toLocaleDateString("default", { month: "short" });
+        const year = dt.getFullYear();
+        let hh = dt.getHours();
+        if (hh < 10)
+          hh = "0" + hh;
+        let mm = dt.getMinutes();
+        if (mm < 10)
+          mm = "0" + mm;
+        const formattedDate = `${date} ${month} ${year} - ${hh}:${mm}`;
+        return formattedDate;
+      }
+      function utcDatetime(unixSec) {
+        if (!unixSec)
+          return "";
+        let dt = new Date(unixSec * 1e3);
+        if (typeof unixSec !== "number")
+          dt = new Date(unixSec);
+        const year = dt.toLocaleDateString("en-US", { year: "2-digit", timeZone: "UTC" });
+        const month = dt.toLocaleDateString("en-US", { month: "2-digit", timeZone: "UTC" });
+        const date = dt.getUTCDate();
+        let hh = dt.getUTCHours();
+        if (hh < 10)
+          hh = "0" + hh;
+        let mm = dt.getUTCMinutes();
+        if (mm < 10)
+          mm = "0" + mm;
+        const formattedDate = `${date}/${month}/${year} - ${hh}:${mm}`;
+        return formattedDate;
+      }
+      function isoTime(unixSec) {
+        if (!unixSec)
+          return "";
+        const dt = new Date(unixSec * 1e3);
+        const day = dt.toLocaleDateString("default", { weekday: "long" });
+        const date = dt.getDate();
+        const month = dt.toLocaleDateString("default", { month: "2-digit" });
+        const year = dt.getFullYear();
+        let hh = dt.getHours();
+        if (hh < 10)
+          hh = "0" + hh;
+        let mm = dt.getMinutes();
+        if (mm < 10)
+          mm = "0" + mm;
+        const formattedDate = `${year}-${month}-${date} ${hh}:${mm}`;
+        return formattedDate;
+      }
+      function isoDate(unixSec) {
+        if (!unixSec)
+          return "";
+        const dt = new Date(unixSec * 1e3);
+        const day = dt.toLocaleDateString("default", { weekday: "long" });
+        const date = dt.getDate();
+        const month = dt.toLocaleDateString("default", { month: "2-digit" });
+        const year = dt.getFullYear();
+        const formattedDate = `${year}-${month}-${date}`;
+        return formattedDate;
+      }
+      function dateISOFormat2(dayTo = 0) {
+        const dt = new Date();
+        const date = dayTo > 0 ? String(dt.getDate() + dayTo).padStart(2, "0") : String(dt.getDate()).padStart(2, "0");
+        const month = String(dt.getMonth() + 1).padStart(2, "0");
+        const year = dt.getFullYear();
+        return `${year}-${month}-${date}`;
+      }
+      function loadScript2(url, callback) {
+        let script = (
+          /** @type {HTMLScriptElement} */
+          document.createElement("script")
+        );
+        script.type = "text/javascript";
+        script.src = url;
+        script.onload = () => callback();
+        document.getElementsByTagName("head")[0].appendChild(script);
+      }
+      module.exports = {
+        datetime,
+        localeDatetime,
+        utcDatetime,
+        isoTime,
+        isoDate,
+        dateISOFormat: dateISOFormat2,
+        loadScript: loadScript2
       };
     }
   });
@@ -8952,23 +9079,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       value = value + "";
     let isShowPassword = false;
     let inputElm;
-    let valueToShowFromObj = (
-      /** @type {string|number} */
-      value + ""
-    );
+    let valueToShowFromObj = value + "";
     const randStr = generateRandomString(5);
     onMount(() => {
       if (type === "password")
         $invalidate(9, inputElm.type = type, inputElm);
       if (type === "bool")
         $invalidate(0, id = id + Math.random());
-      if (isObject || typeof values == "object") {
+      if (isObject) {
         if (values && values[value])
           $invalidate(10, valueToShowFromObj = values[value]);
         else
           $invalidate(10, valueToShowFromObj = "");
       } else {
-        $invalidate(10, valueToShowFromObj = values[value] || value || "");
+        $invalidate(10, valueToShowFromObj = value + "");
       }
     });
     function toggleShowPassword() {
@@ -9494,10 +9618,11 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 
   // reportViewer_trialBalance.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
+  var import_formatter = __toESM(require_formatter());
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[8] = list[i];
-    child_ctx[10] = i;
+    child_ctx[15] = list[i];
+    child_ctx[17] = i;
     return child_ctx;
   }
   function create_else_block2(ctx) {
@@ -9505,7 +9630,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     return {
       c() {
         tr = element("tr");
-        tr.innerHTML = `<td colspan="4" class="svelte-16pzbtu">No data</td>`;
+        tr.innerHTML = `<td colspan="4" class="svelte-yvhnpp">No data</td>`;
       },
       m(target, anchor) {
         insert(target, tr, anchor);
@@ -9528,7 +9653,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     );
     const get_key = (ctx2) => (
       /*trxJournal*/
-      ctx2[8].id
+      ctx2[15].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context2(ctx, each_value, i);
@@ -9575,28 +9700,28 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let td0;
     let t0_value = (
       /*trxJournal*/
-      ctx[8].coaId + ""
+      ctx[15].coaId + ""
     );
     let t0;
     let t1;
     let td1;
     let t2_value = coaChoices[
       /*trxJournal*/
-      ctx[8].coaId
+      ctx[15].coaId
     ] + "";
     let t2;
     let t3;
     let td2;
     let t4_value = (
       /*trxJournal*/
-      ctx[8].debitIDR + ""
+      ctx[15].debitIDR + ""
     );
     let t4;
     let t5;
     let td3;
     let t6_value = (
       /*trxJournal*/
-      ctx[8].creditIDR + ""
+      ctx[15].creditIDR + ""
     );
     let t6;
     let t7;
@@ -9617,10 +9742,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         td3 = element("td");
         t6 = text(t6_value);
         t7 = space();
-        attr(td0, "class", "no svelte-16pzbtu");
-        attr(td1, "class", "svelte-16pzbtu");
-        attr(td2, "class", "svelte-16pzbtu");
-        attr(td3, "class", "svelte-16pzbtu");
+        attr(td0, "class", "no svelte-yvhnpp");
+        attr(td1, "class", "svelte-yvhnpp");
+        attr(td2, "class", "svelte-yvhnpp");
+        attr(td3, "class", "svelte-yvhnpp");
         this.first = tr;
       },
       m(target, anchor) {
@@ -9642,21 +9767,21 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         ctx = new_ctx;
         if (dirty & /*transactionJournals*/
         1 && t0_value !== (t0_value = /*trxJournal*/
-        ctx[8].coaId + ""))
+        ctx[15].coaId + ""))
           set_data(t0, t0_value);
         if (dirty & /*transactionJournals*/
         1 && t2_value !== (t2_value = coaChoices[
           /*trxJournal*/
-          ctx[8].coaId
+          ctx[15].coaId
         ] + ""))
           set_data(t2, t2_value);
         if (dirty & /*transactionJournals*/
         1 && t4_value !== (t4_value = /*trxJournal*/
-        ctx[8].debitIDR + ""))
+        ctx[15].debitIDR + ""))
           set_data(t4, t4_value);
         if (dirty & /*transactionJournals*/
         1 && t6_value !== (t6_value = /*trxJournal*/
-        ctx[8].creditIDR + ""))
+        ctx[15].creditIDR + ""))
           set_data(t6, t6_value);
       },
       d(detaching) {
@@ -9667,36 +9792,65 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
   }
   function create_default_slot(ctx) {
+    let div6;
     let div3;
+    let div1;
     let div0;
-    let inputbox;
-    let updating_value;
     let t0;
+    let div2;
+    let inputbox0;
+    let updating_value;
+    let t1;
+    let inputbox1;
+    let updating_value_1;
+    let t2;
     let submitbutton;
     let updating_isSubmitted;
-    let t1;
-    let div2;
-    let div1;
+    let t3;
+    let div5;
+    let div4;
     let table;
     let thead;
-    let t9;
+    let t11;
     let tbody;
-    let t10;
+    let t12;
     let tr1;
     let td0;
-    let t12;
+    let t14;
     let td1;
     let b1;
-    let t13;
-    let t14;
+    let t15;
+    let t16;
     let td2;
     let b2;
-    let t15;
+    let t17;
     let current;
-    function inputbox_value_binding(value) {
-      ctx[6](value);
+    function inputbox0_value_binding(value) {
+      ctx[10](value);
     }
-    let inputbox_props = {
+    let inputbox0_props = {
+      id: "dateFilter",
+      label: "Filter Dates",
+      type: "combobox",
+      values: (
+        /*filterDatesOptions*/
+        ctx[8]
+      ),
+      isObject: false
+    };
+    if (
+      /*toFilter*/
+      ctx[5] !== void 0
+    ) {
+      inputbox0_props.value = /*toFilter*/
+      ctx[5];
+    }
+    inputbox0 = new InputBox_default({ props: inputbox0_props });
+    binding_callbacks.push(() => bind(inputbox0, "value", inputbox0_value_binding));
+    function inputbox1_value_binding(value) {
+      ctx[11](value);
+    }
+    let inputbox1_props = {
       id: "dateToFilter",
       label: "Date",
       type: "date"
@@ -9705,15 +9859,15 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       /*dateToFilter*/
       ctx[3] !== void 0
     ) {
-      inputbox_props.value = /*dateToFilter*/
+      inputbox1_props.value = /*dateToFilter*/
       ctx[3];
     }
-    inputbox = new InputBox_default({ props: inputbox_props });
-    binding_callbacks.push(() => bind(inputbox, "value", inputbox_value_binding));
+    inputbox1 = new InputBox_default({ props: inputbox1_props });
+    binding_callbacks.push(() => bind(inputbox1, "value", inputbox1_value_binding));
     function submitbutton_isSubmitted_binding(value) {
-      ctx[7](value);
+      ctx[12](value);
     }
-    let submitbutton_props = { label: "Submit", isFullWidth: false };
+    let submitbutton_props = { label: "Submit", isFullWidth: true };
     if (
       /*isSubmitted*/
       ctx[4] !== void 0
@@ -9726,7 +9880,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     submitbutton.$on(
       "click",
       /*getTrxJournalsByDate*/
-      ctx[5]
+      ctx[7]
     );
     function select_block_type(ctx2, dirty) {
       if (
@@ -9741,85 +9895,110 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let if_block = current_block_type(ctx);
     return {
       c() {
+        div6 = element("div");
         div3 = element("div");
-        div0 = element("div");
-        create_component(inputbox.$.fragment);
-        t0 = space();
-        create_component(submitbutton.$.fragment);
-        t1 = space();
-        div2 = element("div");
         div1 = element("div");
+        div0 = element("div");
+        t0 = space();
+        div2 = element("div");
+        create_component(inputbox0.$.fragment);
+        t1 = space();
+        create_component(inputbox1.$.fragment);
+        t2 = space();
+        create_component(submitbutton.$.fragment);
+        t3 = space();
+        div5 = element("div");
+        div4 = element("div");
         table = element("table");
         thead = element("thead");
-        thead.innerHTML = `<tr><th class="no svelte-16pzbtu">No. Acc / No. Rek</th> <th class="svelte-16pzbtu">Name / Nama</th> <th class="svelte-16pzbtu">Debit / Debet</th> <th class="svelte-16pzbtu">Credit / Kredit</th></tr>`;
-        t9 = space();
+        thead.innerHTML = `<tr><th class="no svelte-yvhnpp">No. Acc / No. Rek</th> <th class="svelte-yvhnpp">Name / Nama</th> <th class="svelte-yvhnpp">Debit / Debet</th> <th class="svelte-yvhnpp">Credit / Kredit</th></tr>`;
+        t11 = space();
         tbody = element("tbody");
         if_block.c();
-        t10 = space();
+        t12 = space();
         tr1 = element("tr");
         td0 = element("td");
         td0.innerHTML = `<b>Total</b>`;
-        t12 = space();
+        t14 = space();
         td1 = element("td");
         b1 = element("b");
-        t13 = text(
+        t15 = text(
           /*DebitIDRTotal*/
           ctx[1]
         );
-        t14 = space();
+        t16 = space();
         td2 = element("td");
         b2 = element("b");
-        t15 = text(
+        t17 = text(
           /*CreditIDRTotal*/
           ctx[2]
         );
-        attr(div0, "class", "date_filter svelte-16pzbtu");
-        attr(thead, "class", "svelte-16pzbtu");
+        attr(div0, "class", "chart svelte-yvhnpp");
+        attr(div1, "class", "chart_container svelte-yvhnpp");
+        attr(div2, "class", "date_filter svelte-yvhnpp");
+        attr(div3, "class", "chart_and_filter svelte-yvhnpp");
+        attr(thead, "class", "svelte-yvhnpp");
         attr(td0, "colspan", "2");
-        attr(td0, "class", "svelte-16pzbtu");
-        attr(td1, "class", "svelte-16pzbtu");
-        attr(td2, "class", "svelte-16pzbtu");
-        attr(table, "class", "svelte-16pzbtu");
-        attr(div1, "class", "table_container svelte-16pzbtu");
-        attr(div2, "class", "table_root svelte-16pzbtu");
+        attr(td0, "class", "svelte-yvhnpp");
+        attr(td1, "class", "svelte-yvhnpp");
+        attr(td2, "class", "svelte-yvhnpp");
+        attr(table, "class", "svelte-yvhnpp");
+        attr(div4, "class", "table_container svelte-yvhnpp");
+        attr(div5, "class", "table_root svelte-yvhnpp");
       },
       m(target, anchor) {
-        insert(target, div3, anchor);
-        append(div3, div0);
-        mount_component(inputbox, div0, null);
-        append(div0, t0);
-        mount_component(submitbutton, div0, null);
-        append(div3, t1);
+        insert(target, div6, anchor);
+        append(div6, div3);
+        append(div3, div1);
+        append(div1, div0);
+        ctx[9](div0);
+        append(div3, t0);
         append(div3, div2);
-        append(div2, div1);
-        append(div1, table);
+        mount_component(inputbox0, div2, null);
+        append(div2, t1);
+        mount_component(inputbox1, div2, null);
+        append(div2, t2);
+        mount_component(submitbutton, div2, null);
+        append(div6, t3);
+        append(div6, div5);
+        append(div5, div4);
+        append(div4, table);
         append(table, thead);
-        append(table, t9);
+        append(table, t11);
         append(table, tbody);
         if_block.m(tbody, null);
-        append(tbody, t10);
+        append(tbody, t12);
         append(tbody, tr1);
         append(tr1, td0);
-        append(tr1, t12);
+        append(tr1, t14);
         append(tr1, td1);
         append(td1, b1);
-        append(b1, t13);
-        append(tr1, t14);
+        append(b1, t15);
+        append(tr1, t16);
         append(tr1, td2);
         append(td2, b2);
-        append(b2, t15);
+        append(b2, t17);
         current = true;
       },
       p(ctx2, dirty) {
-        const inputbox_changes = {};
-        if (!updating_value && dirty & /*dateToFilter*/
-        8) {
+        const inputbox0_changes = {};
+        if (!updating_value && dirty & /*toFilter*/
+        32) {
           updating_value = true;
-          inputbox_changes.value = /*dateToFilter*/
-          ctx2[3];
+          inputbox0_changes.value = /*toFilter*/
+          ctx2[5];
           add_flush_callback(() => updating_value = false);
         }
-        inputbox.$set(inputbox_changes);
+        inputbox0.$set(inputbox0_changes);
+        const inputbox1_changes = {};
+        if (!updating_value_1 && dirty & /*dateToFilter*/
+        8) {
+          updating_value_1 = true;
+          inputbox1_changes.value = /*dateToFilter*/
+          ctx2[3];
+          add_flush_callback(() => updating_value_1 = false);
+        }
+        inputbox1.$set(inputbox1_changes);
         const submitbutton_changes = {};
         if (!updating_isSubmitted && dirty & /*isSubmitted*/
         16) {
@@ -9836,20 +10015,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           if_block = current_block_type(ctx2);
           if (if_block) {
             if_block.c();
-            if_block.m(tbody, t10);
+            if_block.m(tbody, t12);
           }
         }
         if (!current || dirty & /*DebitIDRTotal*/
         2)
           set_data(
-            t13,
+            t15,
             /*DebitIDRTotal*/
             ctx2[1]
           );
         if (!current || dirty & /*CreditIDRTotal*/
         4)
           set_data(
-            t15,
+            t17,
             /*CreditIDRTotal*/
             ctx2[2]
           );
@@ -9857,20 +10036,24 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       i(local) {
         if (current)
           return;
-        transition_in(inputbox.$.fragment, local);
+        transition_in(inputbox0.$.fragment, local);
+        transition_in(inputbox1.$.fragment, local);
         transition_in(submitbutton.$.fragment, local);
         current = true;
       },
       o(local) {
-        transition_out(inputbox.$.fragment, local);
+        transition_out(inputbox0.$.fragment, local);
+        transition_out(inputbox1.$.fragment, local);
         transition_out(submitbutton.$.fragment, local);
         current = false;
       },
       d(detaching) {
         if (detaching) {
-          detach(div3);
+          detach(div6);
         }
-        destroy_component(inputbox);
+        ctx[9](null);
+        destroy_component(inputbox0);
+        destroy_component(inputbox1);
         destroy_component(submitbutton);
         if_block.d();
       }
@@ -9895,8 +10078,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, [dirty]) {
         const mainlayout_changes = {};
-        if (dirty & /*$scope, CreditIDRTotal, DebitIDRTotal, transactionJournals, isSubmitted, dateToFilter*/
-        2079) {
+        if (dirty & /*$scope, CreditIDRTotal, DebitIDRTotal, transactionJournals, isSubmitted, dateToFilter, toFilter, accountActivityElm*/
+        262271) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -9920,13 +10103,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     /** @type Record<string|number, string> */
     {/* coaChoices */}
   );
-  function dateISOFormat() {
-    const dt = new Date();
-    const date = dt.getDate();
-    const month = dt.toLocaleDateString("default", { month: "2-digit" });
-    const year = dt.getFullYear();
-    return `${year}-${month}-${date}`;
-  }
   function instance9($self, $props, $invalidate) {
     let transactionJournals = (
       /** @type TransactionJournal[] */
@@ -9942,7 +10118,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         });
       }
     });
-    let dateToFilter = dateISOFormat();
+    let dateToFilter = (0, import_formatter.dateISOFormat)(0);
     let isSubmitted = false;
     async function getTrxJournalsByDate() {
       $invalidate(4, isSubmitted = true);
@@ -9973,7 +10149,360 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
       );
     }
-    function inputbox_value_binding(value) {
+    const filterDatesOptions = ["Weekly", "Monthly", "Quarterly", "Yearly"];
+    let toFilter = filterDatesOptions[0] || "Weekly";
+    let CHART_ACCOUNT_ACTIVITY = null;
+    let accountActivityElm;
+    let isChartReady = false;
+    onMount(() => {
+      (0, import_formatter.loadScript)("/assets/apexcharts.js", () => {
+        isChartReady = true;
+        var options = {
+          series: [
+            {
+              data: [
+                [13273596e5, 30.95],
+                [1327446e6, 31.34],
+                [13275324e5, 31.18],
+                [13276188e5, 31.05],
+                [1327878e6, 31],
+                [13279644e5, 30.95],
+                [13280508e5, 31.24],
+                [13281372e5, 31.29],
+                [13282236e5, 31.85],
+                [13284828e5, 31.86],
+                [13285692e5, 32.28],
+                [13286556e5, 32.1],
+                [1328742e6, 32.65],
+                [13288284e5, 32.21],
+                [13290876e5, 32.35],
+                [1329174e6, 32.44],
+                [13292604e5, 32.46],
+                [13293468e5, 32.86],
+                [13294332e5, 32.75],
+                [13297788e5, 32.54],
+                [13298652e5, 32.33],
+                [13299516e5, 32.97],
+                [1330038e6, 33.41],
+                [13302972e5, 33.27],
+                [13303836e5, 33.27],
+                [133047e7, 32.89],
+                [13305564e5, 33.1],
+                [13306428e5, 33.73],
+                [1330902e6, 33.22],
+                [13309884e5, 31.99],
+                [13310748e5, 32.41],
+                [13311612e5, 33.05],
+                [13312476e5, 33.64],
+                [13315068e5, 33.56],
+                [13315932e5, 34.22],
+                [13316796e5, 33.77],
+                [1331766e6, 34.17],
+                [13318524e5, 33.82],
+                [13321116e5, 34.51],
+                [1332198e6, 33.16],
+                [13322844e5, 33.56],
+                [13323708e5, 33.71],
+                [13324572e5, 33.81],
+                [13327128e5, 34.4],
+                [13327992e5, 34.63],
+                [13328856e5, 34.46],
+                [1332972e6, 34.48],
+                [13330584e5, 34.31],
+                [13333176e5, 34.7],
+                [1333404e6, 34.31],
+                [13334904e5, 33.46],
+                [13335768e5, 33.59],
+                [13339224e5, 33.22],
+                [13340088e5, 32.61],
+                [13340952e5, 33.01],
+                [13341816e5, 33.55],
+                [1334268e6, 33.18],
+                [13345272e5, 32.84],
+                [13346136e5, 33.84],
+                [13347e8, 33.39],
+                [13347864e5, 32.91],
+                [13348728e5, 33.06],
+                [1335132e6, 32.62],
+                [13352184e5, 32.4],
+                [13353048e5, 33.13],
+                [13353912e5, 33.26],
+                [13354776e5, 33.58],
+                [13357368e5, 33.55],
+                [13358232e5, 33.77],
+                [13359096e5, 33.76],
+                [1335996e6, 33.32],
+                [13360824e5, 32.61],
+                [13363416e5, 32.52],
+                [1336428e6, 32.67],
+                [13365144e5, 32.52],
+                [13366008e5, 31.92],
+                [13366872e5, 32.2],
+                [13369464e5, 32.23],
+                [13370328e5, 32.33],
+                [13371192e5, 32.36],
+                [13372056e5, 32.01],
+                [1337292e6, 31.31],
+                [13375512e5, 32.01],
+                [13376376e5, 32.01],
+                [1337724e6, 32.18],
+                [13378104e5, 31.54],
+                [13378968e5, 31.6],
+                [13382424e5, 32.05],
+                [13383288e5, 31.29],
+                [13384152e5, 31.05],
+                [13385016e5, 29.82],
+                [13387608e5, 30.31],
+                [13388472e5, 30.7],
+                [13389336e5, 31.69],
+                [133902e7, 31.32],
+                [13391064e5, 31.65],
+                [13393656e5, 31.13],
+                [1339452e6, 31.77],
+                [13395384e5, 31.79],
+                [13396248e5, 31.67],
+                [13397112e5, 32.39],
+                [13399704e5, 32.63],
+                [13400568e5, 32.89],
+                [13401432e5, 31.99],
+                [13402296e5, 31.23],
+                [1340316e6, 31.57],
+                [13405752e5, 30.84],
+                [13406616e5, 31.07],
+                [1340748e6, 31.41],
+                [13408344e5, 31.17],
+                [13409208e5, 32.37],
+                [134118e7, 32.19],
+                [13412664e5, 32.51],
+                [13414392e5, 32.53],
+                [13415256e5, 31.37],
+                [13417848e5, 30.43],
+                [13418712e5, 30.44],
+                [13419576e5, 30.2],
+                [1342044e6, 30.14],
+                [13421304e5, 30.65],
+                [13423896e5, 30.4],
+                [1342476e6, 30.65],
+                [13425624e5, 31.43],
+                [13426488e5, 31.89],
+                [13427352e5, 31.38],
+                [13429944e5, 30.64],
+                [13430808e5, 30.02],
+                [13431672e5, 30.33],
+                [13432536e5, 30.95],
+                [134334e7, 31.89],
+                [13435992e5, 31.01],
+                [13436856e5, 30.88],
+                [1343772e6, 30.69],
+                [13438584e5, 30.58],
+                [13439448e5, 32.02],
+                [1344204e6, 32.14],
+                [13442904e5, 32.37],
+                [13443768e5, 32.51],
+                [13444632e5, 32.65],
+                [13445496e5, 32.64],
+                [13448088e5, 32.27],
+                [13448952e5, 32.1],
+                [13449816e5, 32.91],
+                [1345068e6, 33.65],
+                [13451544e5, 33.8],
+                [13454136e5, 33.92],
+                [13455e8, 33.75],
+                [13455864e5, 33.84],
+                [13456728e5, 33.5],
+                [13457592e5, 32.26],
+                [13460184e5, 32.32],
+                [13461048e5, 32.06],
+                [13461912e5, 31.96],
+                [13462776e5, 31.46],
+                [1346364e6, 31.27],
+                [13467096e5, 31.43],
+                [1346796e6, 32.26],
+                [13468824e5, 32.79],
+                [13469688e5, 32.46],
+                [1347228e6, 32.13],
+                [13473144e5, 32.43],
+                [13474008e5, 32.42],
+                [13474872e5, 32.81],
+                [13475736e5, 33.34],
+                [13478328e5, 33.41],
+                [13479192e5, 32.57],
+                [13480056e5, 33.12],
+                [1348092e6, 34.53],
+                [13481784e5, 33.83],
+                [13484376e5, 33.41],
+                [1348524e6, 32.9],
+                [13486104e5, 32.53],
+                [13486968e5, 32.8],
+                [13487832e5, 32.44],
+                [13490424e5, 32.62],
+                [13491288e5, 32.57],
+                [13492152e5, 32.6],
+                [13493016e5, 32.68],
+                [1349388e6, 32.47],
+                [13496472e5, 32.23],
+                [13497336e5, 31.68],
+                [134982e7, 31.51],
+                [13499064e5, 31.78],
+                [13499928e5, 31.94],
+                [1350252e6, 32.33],
+                [13503384e5, 33.24],
+                [13504248e5, 33.44],
+                [13505112e5, 33.48],
+                [13505976e5, 33.24],
+                [13508568e5, 33.49],
+                [13509432e5, 33.31],
+                [13510296e5, 33.36],
+                [1351116e6, 33.4],
+                [13512024e5, 34.01],
+                [1351638e6, 34.02],
+                [13517244e5, 34.36],
+                [13518108e5, 34.39],
+                [135207e7, 34.24],
+                [13521564e5, 34.39],
+                [13522428e5, 33.47],
+                [13523292e5, 32.98],
+                [13524156e5, 32.9],
+                [13526748e5, 32.7],
+                [13527612e5, 32.54],
+                [13528476e5, 32.23],
+                [1352934e6, 32.64],
+                [13530204e5, 32.65],
+                [13532796e5, 32.92],
+                [1353366e6, 32.64],
+                [13534524e5, 32.84],
+                [13536252e5, 33.4],
+                [13538844e5, 33.3],
+                [13539708e5, 33.18],
+                [13540572e5, 33.88],
+                [13541436e5, 34.09],
+                [135423e7, 34.61],
+                [13544892e5, 34.7],
+                [13545756e5, 35.3],
+                [1354662e6, 35.4],
+                [13547484e5, 35.14],
+                [13548348e5, 35.48],
+                [1355094e6, 35.75],
+                [13551804e5, 35.54],
+                [13552668e5, 35.96],
+                [13553532e5, 35.53],
+                [13554396e5, 37.56],
+                [13556988e5, 37.42],
+                [13557852e5, 37.49],
+                [13558716e5, 38.09],
+                [1355958e6, 37.87],
+                [13560444e5, 37.71],
+                [13563036e5, 37.53],
+                [13564764e5, 37.55],
+                [13565628e5, 37.3],
+                [13566492e5, 36.9],
+                [13569084e5, 37.68],
+                [13570812e5, 38.34],
+                [13571676e5, 37.75],
+                [1357254e6, 38.13],
+                [13575132e5, 37.94],
+                [13575996e5, 38.14],
+                [1357686e6, 38.66],
+                [13577724e5, 38.62],
+                [13578588e5, 38.09],
+                [1358118e6, 38.16],
+                [13582044e5, 38.15],
+                [13582908e5, 37.88],
+                [13583772e5, 37.73],
+                [13584636e5, 37.98],
+                [13588092e5, 37.95],
+                [13588956e5, 38.25],
+                [1358982e6, 38.1],
+                [13590684e5, 38.32],
+                [13593276e5, 38.24],
+                [1359414e6, 38.52],
+                [13595004e5, 37.94],
+                [13595868e5, 37.83],
+                [13596732e5, 38.34],
+                [13599324e5, 38.1],
+                [13600188e5, 38.51],
+                [13601052e5, 38.4],
+                [13601916e5, 38.07],
+                [1360278e6, 39.12],
+                [13605372e5, 38.64],
+                [13606236e5, 38.89],
+                [136071e7, 38.81],
+                [13607964e5, 38.61],
+                [13608828e5, 38.63],
+                [13612284e5, 38.99],
+                [13613148e5, 38.77],
+                [13614012e5, 38.34],
+                [13614876e5, 38.55],
+                [13617468e5, 38.11],
+                [13618332e5, 38.59],
+                [13619196e5, 39.6]
+              ]
+            }
+          ],
+          chart: {
+            id: "area-datetime",
+            type: "area",
+            height: 350,
+            zoom: { autoScaleYaxis: true }
+          },
+          annotations: {
+            yaxis: [
+              {
+                y: 30,
+                borderColor: "#999",
+                label: {
+                  show: true,
+                  text: "Support",
+                  style: { color: "#fff", background: "#00E396" }
+                }
+              }
+            ],
+            xaxis: [
+              {
+                x: new Date("14 Nov 2012").getTime(),
+                borderColor: "#999",
+                yAxisIndex: 0,
+                label: {
+                  show: true,
+                  text: "Rally",
+                  style: { color: "#fff", background: "#775DD0" }
+                }
+              }
+            ]
+          },
+          dataLabels: { enabled: false },
+          markers: { size: 0, style: "hollow" },
+          xaxis: {
+            type: "datetime",
+            min: new Date("01 Mar 2012").getTime(),
+            tickAmount: 6
+          },
+          tooltip: { x: { format: "dd MMM yyyy" } },
+          fill: {
+            type: "gradient",
+            gradient: {
+              shadeIntensity: 1,
+              opacityFrom: 0.7,
+              opacityTo: 0.9,
+              stops: [0, 100]
+            }
+          }
+        };
+        CHART_ACCOUNT_ACTIVITY = new ApexCharts(accountActivityElm, options);
+        CHART_ACCOUNT_ACTIVITY.render();
+      });
+    });
+    function div0_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        accountActivityElm = $value;
+        $invalidate(6, accountActivityElm);
+      });
+    }
+    function inputbox0_value_binding(value) {
+      toFilter = value;
+      $invalidate(5, toFilter);
+    }
+    function inputbox1_value_binding(value) {
       dateToFilter = value;
       $invalidate(3, dateToFilter);
     }
@@ -9987,8 +10516,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       CreditIDRTotal,
       dateToFilter,
       isSubmitted,
+      toFilter,
+      accountActivityElm,
       getTrxJournalsByDate,
-      inputbox_value_binding,
+      filterDatesOptions,
+      div0_binding,
+      inputbox0_value_binding,
+      inputbox1_value_binding,
       submitbutton_isSubmitted_binding
     ];
   }

@@ -7111,23 +7111,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       value = value + "";
     let isShowPassword = false;
     let inputElm;
-    let valueToShowFromObj = (
-      /** @type {string|number} */
-      value + ""
-    );
+    let valueToShowFromObj = value + "";
     const randStr = generateRandomString(5);
     onMount(() => {
       if (type === "password")
         $invalidate(9, inputElm.type = type, inputElm);
       if (type === "bool")
         $invalidate(0, id = id + Math.random());
-      if (isObject || typeof values == "object") {
+      if (isObject) {
         if (values && values[value])
           $invalidate(10, valueToShowFromObj = values[value]);
         else
           $invalidate(10, valueToShowFromObj = "");
       } else {
-        $invalidate(10, valueToShowFromObj = values[value] || value || "");
+        $invalidate(10, valueToShowFromObj = value + "");
       }
     });
     function toggleShowPassword() {

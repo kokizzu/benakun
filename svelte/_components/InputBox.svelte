@@ -21,7 +21,7 @@
   let isShowPassword = false;
   let inputElm;
 
-  let valueToShowFromObj = /** @type {string|number} */ (value+'');
+  let valueToShowFromObj = value+'';
 
   const randStr = generateRandomString(5);
   
@@ -29,11 +29,11 @@
     if (type === 'password') inputElm.type = type;
     // Boolean input must be use random id, because it's a checkbox
     if (type === 'bool') id = id + Math.random();
-    if (isObject || typeof values == 'object') {
+    if (isObject) {
       if (values && values[value]) valueToShowFromObj = values[value];
       else valueToShowFromObj = '';
     } else {
-      valueToShowFromObj = values[value] || value || '' ;
+      valueToShowFromObj = value+'';
     }
   });
 

@@ -54,7 +54,7 @@ const (
 	CoaBank 							= `Bank / Bank`
 	CoaGoodsInventory 		= `Goods Inventory / Persediaan Barang Dagangan`
 	CoaStock							= `Stock / Stok`
-	CoaAccountsDebt		= `Acccounts Debt / Hutang Dagang`
+	CoaAccountsDebt				= `Acccounts Debt / Hutang Dagang`
 	CoaAccountsReceivable	= `Accounts Receivable / Piutang Usaha`
 	CoaCOGS								= `Cost of Goods Sold / Harga Pokok Penjualan`
 	CoaIncome							= `Income / Pendapatan Usaha`
@@ -62,7 +62,8 @@ const (
 	CoaAdmExpenses				= `Administrative Expenses / Beban Administrasi dan Umum`
 	CoaPrive							= `Prive / Prive`
 	CoaLiability					= `Liability / Hutang - Kewajiban`
-	CoaCapitalInvestment = `Capital Investment / Penanaman Modal`
+	CoaCapitalInvestment 	= `Capital Investment / Penanaman Modal`
+	CoaTemporary					= `Temporary / Sementara` 
 )
 
 const (
@@ -319,6 +320,9 @@ func GetCoaDefaults() []CoaDefault {
 				{Name: `Loss on Foreign Exchange / Rugi Selisih Kurs`},
 				{Name: `Other Expenses / Beban Lainnya`},
 			},
+		},
+		{
+			Name: CoaTemporary,
 		},
 	}
 }

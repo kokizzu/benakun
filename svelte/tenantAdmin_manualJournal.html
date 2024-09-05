@@ -4619,12 +4619,31 @@ header.svelte-xhdaoc.svelte-xhdaoc {
         const formattedDate = `${year}-${month}-${date}`;
         return formattedDate;
       }
+      function dateISOFormat2(dayTo = 0) {
+        const dt = new Date();
+        const date = dayTo > 0 ? String(dt.getDate() + dayTo).padStart(2, "0") : String(dt.getDate()).padStart(2, "0");
+        const month = String(dt.getMonth() + 1).padStart(2, "0");
+        const year = dt.getFullYear();
+        return `${year}-${month}-${date}`;
+      }
+      function loadScript(url, callback) {
+        let script = (
+          /** @type {HTMLScriptElement} */
+          document.createElement("script")
+        );
+        script.type = "text/javascript";
+        script.src = url;
+        script.onload = () => callback();
+        document.getElementsByTagName("head")[0].appendChild(script);
+      }
       module.exports = {
         datetime: datetime2,
         localeDatetime,
         utcDatetime,
         isoTime,
-        isoDate
+        isoDate,
+        dateISOFormat: dateISOFormat2,
+        loadScript
       };
     }
   });
@@ -29270,23 +29289,20 @@ uniform ${i3} ${a3} u_${s3};
       value = value + "";
     let isShowPassword = false;
     let inputElm;
-    let valueToShowFromObj = (
-      /** @type {string|number} */
-      value + ""
-    );
+    let valueToShowFromObj = value + "";
     const randStr = generateRandomString(5);
     onMount(() => {
       if (type === "password")
         $invalidate(9, inputElm.type = type, inputElm);
       if (type === "bool")
         $invalidate(0, id = id + Math.random());
-      if (isObject || typeof values == "object") {
+      if (isObject) {
         if (values && values[value])
           $invalidate(10, valueToShowFromObj = values[value]);
         else
           $invalidate(10, valueToShowFromObj = "");
       } else {
-        $invalidate(10, valueToShowFromObj = values[value] || value || "");
+        $invalidate(10, valueToShowFromObj = value + "");
       }
     });
     function toggleShowPassword() {
@@ -33802,6 +33818,7 @@ uniform ${i3} ${a3} u_${s3};
 
   // tenantAdmin_manualJournal.svelte
   var import_jsApi = __toESM(require_jsApi_GEN());
+  var import_formatter2 = __toESM(require_formatter());
   function create_if_block_24(ctx) {
     let button;
     let icon;
@@ -34622,13 +34639,6 @@ uniform ${i3} ${a3} u_${s3};
     /** @type Org */
     {/* org */}
   );
-  function dateISOFormat(dayTo = 0) {
-    const dt = new Date();
-    const date = dayTo > 0 ? dt.getDate() + dayTo : dt.getDate();
-    const month = dt.toLocaleDateString("default", { month: "2-digit" });
-    const year = dt.getFullYear();
-    return `${year}-${month}-${date}`;
-  }
   function instance11($self, $props, $invalidate) {
     let fields = (
       /** @type Field[] */
@@ -34646,12 +34656,12 @@ uniform ${i3} ${a3} u_${s3};
     let isSubmitted = false;
     let coaId = 0;
     let transactionTplId = 0;
-    let startDate = dateISOFormat(0);
-    let endDate = dateISOFormat(4);
+    let startDate = (0, import_formatter2.dateISOFormat)(0);
+    let endDate = (0, import_formatter2.dateISOFormat)(4);
     let debitIDR = 0;
     let creditIDR = 0;
     let descriptions = "";
-    let date = dateISOFormat(0);
+    let date = (0, import_formatter2.dateISOFormat)(0);
     let salesCount = 0;
     let salesPriceIDR = 0;
     function resetInput() {
@@ -34659,12 +34669,12 @@ uniform ${i3} ${a3} u_${s3};
       $invalidate(4, isSubmitted = false);
       $invalidate(5, coaId = 0);
       transactionTplId = 0;
-      $invalidate(6, startDate = dateISOFormat(0));
-      $invalidate(7, endDate = dateISOFormat(4));
+      $invalidate(6, startDate = (0, import_formatter2.dateISOFormat)(0));
+      $invalidate(7, endDate = (0, import_formatter2.dateISOFormat)(4));
       $invalidate(8, debitIDR = 0);
       $invalidate(9, creditIDR = 0);
       $invalidate(10, descriptions = "");
-      $invalidate(11, date = dateISOFormat(0));
+      $invalidate(11, date = (0, import_formatter2.dateISOFormat)(0));
       $invalidate(12, salesCount = 0);
       $invalidate(13, salesPriceIDR = 0);
     }

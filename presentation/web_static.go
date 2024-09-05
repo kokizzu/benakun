@@ -149,17 +149,10 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		coa := rqFinance.NewCoa(d.AuthOltp)
 		coa.TenantCode = tenantCode
 		coaChoices := coa.FindCoasChoicesByTenant()
-
-		var coaIdToShow uint64 = 1
-		for id := range coaChoices {
-			coaIdToShow = S.ToU(id)
-			break
-		}
 		
 		trxJournal := rqFinance.NewTransactionJournal(d.AuthOltp)
 		trxJournal.TenantCode = tenantCode
-		trxJournal.CoaId = coaIdToShow
-		trxJournals := trxJournal.FindTrxJournalsByCoaByTenant()
+		trxJournals := trxJournal.FindTrxJournalsByTenant()
 		
 		return views.RenderReportViewerGeneralLedger(ctx, M.SX{
 			`title`:    `Report Viewer General Ledger`,

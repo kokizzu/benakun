@@ -21,6 +21,7 @@
   import { onMount } from 'svelte';
   import { TenantAdminManualJournal } from './jsApi.GEN';
   import { notifier } from './_components/notifier';
+  import { dateISOFormat } from './_components/formatter';
 
   let segments              = /** @type Access */ ({/* segments */});
   let fields                = /** @type Field[] */ ([/* fields */]);
@@ -32,15 +33,6 @@
 
   let isCreatingJournal = false;
   let isSubmitted       = false;
-
-  function dateISOFormat(/** @type number */ dayTo = 0) {
-    const dt    = new Date();
-    const date  = (dayTo > 0 ? dt.getDate() + dayTo : dt.getDate());
-    const month = dt.toLocaleDateString('default', {month: '2-digit'});
-    const year  = dt.getFullYear();
-
-    return `${year}-${month}-${date}`;
-  }
 
   let coaId             = 0;
   let transactionTplId  = 0;

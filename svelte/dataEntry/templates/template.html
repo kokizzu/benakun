@@ -3413,6 +3413,115 @@ header.svelte-146z4fm.svelte-146z4fm {
     }
   });
 
+  // _components/formatter.js
+  var require_formatter = __commonJS({
+    "_components/formatter.js"(exports, module) {
+      function datetime(unixSec, humanize) {
+        if (!unixSec)
+          return "";
+        if (typeof unixSec === "string")
+          return unixSec;
+        let dt = new Date(unixSec * 1e3);
+        if (!humanize) {
+          dt = dt.toISOString();
+          return dt.substring(0, 10) + " " + dt.substring(11, 16);
+        }
+        const options = { day: "2-digit", month: "long", year: "numeric" };
+        const formattedDate = dt.toLocaleDateString(void 0, options);
+        return formattedDate;
+      }
+      function localeDatetime(unixSec) {
+        if (!unixSec)
+          return "";
+        const dt = new Date(unixSec * 1e3);
+        const day = dt.toLocaleDateString("default", { weekday: "long" });
+        const date = dt.getDate();
+        const month = dt.toLocaleDateString("default", { month: "short" });
+        const year = dt.getFullYear();
+        let hh = dt.getHours();
+        if (hh < 10)
+          hh = "0" + hh;
+        let mm = dt.getMinutes();
+        if (mm < 10)
+          mm = "0" + mm;
+        const formattedDate = `${date} ${month} ${year} - ${hh}:${mm}`;
+        return formattedDate;
+      }
+      function utcDatetime(unixSec) {
+        if (!unixSec)
+          return "";
+        let dt = new Date(unixSec * 1e3);
+        if (typeof unixSec !== "number")
+          dt = new Date(unixSec);
+        const year = dt.toLocaleDateString("en-US", { year: "2-digit", timeZone: "UTC" });
+        const month = dt.toLocaleDateString("en-US", { month: "2-digit", timeZone: "UTC" });
+        const date = dt.getUTCDate();
+        let hh = dt.getUTCHours();
+        if (hh < 10)
+          hh = "0" + hh;
+        let mm = dt.getUTCMinutes();
+        if (mm < 10)
+          mm = "0" + mm;
+        const formattedDate = `${date}/${month}/${year} - ${hh}:${mm}`;
+        return formattedDate;
+      }
+      function isoTime(unixSec) {
+        if (!unixSec)
+          return "";
+        const dt = new Date(unixSec * 1e3);
+        const day = dt.toLocaleDateString("default", { weekday: "long" });
+        const date = dt.getDate();
+        const month = dt.toLocaleDateString("default", { month: "2-digit" });
+        const year = dt.getFullYear();
+        let hh = dt.getHours();
+        if (hh < 10)
+          hh = "0" + hh;
+        let mm = dt.getMinutes();
+        if (mm < 10)
+          mm = "0" + mm;
+        const formattedDate = `${year}-${month}-${date} ${hh}:${mm}`;
+        return formattedDate;
+      }
+      function isoDate(unixSec) {
+        if (!unixSec)
+          return "";
+        const dt = new Date(unixSec * 1e3);
+        const day = dt.toLocaleDateString("default", { weekday: "long" });
+        const date = dt.getDate();
+        const month = dt.toLocaleDateString("default", { month: "2-digit" });
+        const year = dt.getFullYear();
+        const formattedDate = `${year}-${month}-${date}`;
+        return formattedDate;
+      }
+      function dateISOFormat2(dayTo = 0) {
+        const dt = new Date();
+        const date = dayTo > 0 ? String(dt.getDate() + dayTo).padStart(2, "0") : String(dt.getDate()).padStart(2, "0");
+        const month = String(dt.getMonth() + 1).padStart(2, "0");
+        const year = dt.getFullYear();
+        return `${year}-${month}-${date}`;
+      }
+      function loadScript(url, callback) {
+        let script = (
+          /** @type {HTMLScriptElement} */
+          document.createElement("script")
+        );
+        script.type = "text/javascript";
+        script.src = url;
+        script.onload = () => callback();
+        document.getElementsByTagName("head")[0].appendChild(script);
+      }
+      module.exports = {
+        datetime,
+        localeDatetime,
+        utcDatetime,
+        isoTime,
+        isoDate,
+        dateISOFormat: dateISOFormat2,
+        loadScript
+      };
+    }
+  });
+
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/utils.js
   function noop() {
   }
@@ -9008,23 +9117,20 @@ header.svelte-146z4fm.svelte-146z4fm {
       value = value + "";
     let isShowPassword = false;
     let inputElm;
-    let valueToShowFromObj = (
-      /** @type {string|number} */
-      value + ""
-    );
+    let valueToShowFromObj = value + "";
     const randStr = generateRandomString(5);
     onMount(() => {
       if (type === "password")
         $invalidate(9, inputElm.type = type, inputElm);
       if (type === "bool")
         $invalidate(0, id = id + Math.random());
-      if (isObject || typeof values == "object") {
+      if (isObject) {
         if (values && values[value])
           $invalidate(10, valueToShowFromObj = values[value]);
         else
           $invalidate(10, valueToShowFromObj = "");
       } else {
-        $invalidate(10, valueToShowFromObj = values[value] || value || "");
+        $invalidate(10, valueToShowFromObj = value + "");
       }
     });
     function toggleShowPassword() {
@@ -9319,6 +9425,7 @@ header.svelte-146z4fm.svelte-146z4fm {
   var InputBox_default = InputBox;
 
   // dataEntry/templates/template.svelte
+  var import_formatter = __toESM(require_formatter());
   function get_each_context2(ctx, list, i) {
     const child_ctx = ctx.slice();
     child_ctx[17] = list[i];
@@ -9367,7 +9474,7 @@ header.svelte-146z4fm.svelte-146z4fm {
         current = true;
       },
       p(ctx2, dirty) {
-        if (dirty & /*payloads, transactionTplDetails, Object, coasWithChildren, dateISOFormat, transactionTemplate, coas*/
+        if (dirty & /*payloads, transactionTplDetails, Object, coasWithChildren, transactionTemplate, coas*/
         1) {
           each_value = ensure_array_like(transactionTplDetails || []);
           let i;
@@ -10818,13 +10925,6 @@ header.svelte-146z4fm.svelte-146z4fm {
     /** @type Record<number|string, Record<number|string, string>> */
     {/* coasWithChildren */}
   );
-  function dateISOFormat(dayTo = 0) {
-    const dt = new Date();
-    const date = dayTo > 0 ? dt.getDate() + dayTo : dt.getDate();
-    const month = dt.toLocaleDateString("default", { month: "2-digit" });
-    const year = dt.getFullYear();
-    return `${year}-${month}-${date}`;
-  }
   function instance8($self, $props, $invalidate) {
     let payloads = (
       /** @type PayloadTransactionJournals[][] */
@@ -10841,7 +10941,7 @@ header.svelte-146z4fm.svelte-146z4fm {
               creditIDR: 0,
               debitIDR: 0,
               descriptions: "",
-              date: dateISOFormat(0),
+              date: (0, import_formatter.dateISOFormat)(0),
               salesCount: 0,
               salesPriceIDR: 0,
               transactionTplId: 0,
@@ -10854,8 +10954,8 @@ header.svelte-146z4fm.svelte-146z4fm {
       }
       $invalidate(2, isDataReady = true);
     });
-    let startDate = dateISOFormat(0);
-    let endDate = dateISOFormat(4);
+    let startDate = (0, import_formatter.dateISOFormat)(0);
+    let endDate = (0, import_formatter.dateISOFormat)(4);
     async function Submit() {
       $invalidate(1, isSubmitted = true);
       let trxJournals = (
@@ -10949,7 +11049,7 @@ header.svelte-146z4fm.svelte-146z4fm {
             descriptions: "",
             creditIDR: 0,
             debitIDR: 0,
-            date: dateISOFormat(0),
+            date: (0, import_formatter.dateISOFormat)(0),
             salesCount: 0,
             salesPriceIDR: 0,
             transactionTplId: transactionTemplate.id,

@@ -3158,12 +3158,31 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         const formattedDate = `${year}-${month}-${date}`;
         return formattedDate;
       }
+      function dateISOFormat(dayTo = 0) {
+        const dt = new Date();
+        const date = dayTo > 0 ? String(dt.getDate() + dayTo).padStart(2, "0") : String(dt.getDate()).padStart(2, "0");
+        const month = String(dt.getMonth() + 1).padStart(2, "0");
+        const year = dt.getFullYear();
+        return `${year}-${month}-${date}`;
+      }
+      function loadScript(url, callback) {
+        let script = (
+          /** @type {HTMLScriptElement} */
+          document.createElement("script")
+        );
+        script.type = "text/javascript";
+        script.src = url;
+        script.onload = () => callback();
+        document.getElementsByTagName("head")[0].appendChild(script);
+      }
       module.exports = {
         datetime,
         localeDatetime,
         utcDatetime: utcDatetime2,
         isoTime,
-        isoDate
+        isoDate,
+        dateISOFormat,
+        loadScript
       };
     }
   });

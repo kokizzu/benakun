@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import MainLayout from './_layouts/mainLayout.svelte';
   import { httpRequestOptions, actionCountsOptions } from './_components/yChartOptions';
+  import { loadScript } from './_components/formatter';
 
   let registeredUserTotal     = '#registeredUserTotal';
   let registeredUserToday     = '#registeredUserToday';
@@ -32,14 +33,6 @@
   let chartHttpRequestsElm;
   let chartActionCountsElm;
   let isChartReady = false;
-
-  function loadScript(/** @type {string} */ url, /** @type {Function} */ callback) {
-    let script = /** @type {HTMLScriptElement} */ (document.createElement("script"));
-    script.type = "text/javascript";
-    script.src = url;
-    script.onload = () => callback();
-    document.getElementsByTagName("head")[0].appendChild(script);
-  }
 
   onMount(() => {
     for (let key in requestsPerDate) {

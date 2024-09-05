@@ -3062,12 +3062,31 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         const formattedDate = `${year}-${month}-${date}`;
         return formattedDate;
       }
+      function dateISOFormat(dayTo = 0) {
+        const dt = new Date();
+        const date = dayTo > 0 ? String(dt.getDate() + dayTo).padStart(2, "0") : String(dt.getDate()).padStart(2, "0");
+        const month = String(dt.getMonth() + 1).padStart(2, "0");
+        const year = dt.getFullYear();
+        return `${year}-${month}-${date}`;
+      }
+      function loadScript2(url, callback) {
+        let script = (
+          /** @type {HTMLScriptElement} */
+          document.createElement("script")
+        );
+        script.type = "text/javascript";
+        script.src = url;
+        script.onload = () => callback();
+        document.getElementsByTagName("head")[0].appendChild(script);
+      }
       module.exports = {
         datetime,
         localeDatetime,
         utcDatetime,
         isoTime,
-        isoDate
+        isoDate,
+        dateISOFormat,
+        loadScript: loadScript2
       };
     }
   });
@@ -6415,6 +6434,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 
   // superAdmin_dashboard.svelte
   var import_yChartOptions = __toESM(require_yChartOptions());
+  var import_formatter = __toESM(require_formatter());
   function create_default_slot(ctx) {
     let div4;
     let div1;
@@ -6502,19 +6522,6 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var uniqueUserPerDate = {/* uniqueUserPerDate */};
   var uniqueIpPerDate = {/* uniqueIpPerDate */};
   var countPerActionsPerDate = {/* countPerActionsPerDate */};
-  function loadScript(url, callback) {
-    let script = (
-      /** @type {HTMLScriptElement} */
-      document.createElement(
-        /** @type {Function} */
-        "script"
-      )
-    );
-    script.type = "text/javascript";
-    script.src = url;
-    script.onload = () => callback();
-    document.getElementsByTagName("head")[0].appendChild(script);
-  }
   function instance7($self, $props, $invalidate) {
     console.log(registeredUserTotal, registeredUserToday);
     let CHDATA_REQUESTS_PER_DATE = [];
@@ -6573,7 +6580,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         }
         CHDATA_ACTION_COUNTS = [...CHDATA_ACTION_COUNTS, { name: key, data }];
       }
-      loadScript("/assets/apexcharts.js", () => {
+      (0, import_formatter.loadScript)("/assets/apexcharts.js", () => {
         isChartReady = true;
         let chdata = (0, import_yChartOptions.httpRequestOptions)(CHDATA_REQUESTS_PER_DATE, CHDATA_UNIQUE_USER_PER_DATE, CHDATA_UNIQUE_IP_PER_DATE);
         let chdata2 = (0, import_yChartOptions.actionCountsOptions)(CHDATA_ACTION_COUNTS);
