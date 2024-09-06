@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/kokizzu/gotro/I"
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/S"
 	"github.com/kokizzu/gotro/X"
 )
@@ -506,16 +507,19 @@ FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
 	return
 }
 
-func (tj *TransactionJournal) FindTrxJournalsByDateByTenant() (trxJournals []TransactionJournal) {
+func (tj *TransactionJournal) FindTrxJournalsByDateByTenant(startDate, endDate string) (trxJournals []TransactionJournal) {
 	var res [][]any
 	const comment = `-- TransactionJournal) FindTrxJournalsByDateByTenant`
 
 	whereAndSql := ` WHERE ` + tj.SqlTenantCode() + ` = ` + S.Z(tj.TenantCode) + `
-		AND ` + tj.SqlDate() + ` = ` + S.Z(tj.Date)
+		AND ` + tj.SqlDate() + ` >= ` + S.Z(startDate) + `
+		AND ` + tj.SqlDate() + ` <= ` + S.Z(endDate)
 
 	queryRows := comment + `
 SELECT ` + tj.SqlSelectAllFields() + `
 FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
+
+L.Print(`Query:`, queryRows)
 
 	tj.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string

@@ -14,7 +14,9 @@ import (
 type (
 	ReportViewerTrialBalanceIn struct {
 		RequestCommon
-		TransactionJournal rqFinance.TransactionJournal `json:"transactionJournal" form:"transactionJournal" query:"transactionJournal" long:"transactionJournal" msg:"transactionJournal"`
+		Cmd      string               `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
+		StartDate string `json:"startDate" form:"startDate" query:"startDate" long:"startDate" msg:"startDate"`
+		EndDate string `json:"endDate" form:"endDate" query:"endDate" long:"endDate" msg:"endDate"`
 	}
 	ReportViewerTrialBalanceOut struct {
 		ResponseCommon
@@ -49,16 +51,22 @@ func (d *Domain) ReportViewerTrialBalance(in *ReportViewerTrialBalanceIn) (out R
 		return
 	}
 
-	if !mFinance.IsValidDate(in.TransactionJournal.Date) {
+	if !mFinance.IsValidDate(in.StartDate) {
+		out.SetError(400, ErrReportViewerTrialBalanceInvalidDate)
+		return
+	}
+
+	if !mFinance.IsValidDate(in.EndDate) {
 		out.SetError(400, ErrReportViewerTrialBalanceInvalidDate)
 		return
 	}
 
 	trxJournal := rqFinance.NewTransactionJournal(d.AuthOltp)
 	trxJournal.TenantCode = tenantCode
-	trxJournal.Date = in.TransactionJournal.Date
 
-	out.TransactionJournals = trxJournal.FindTrxJournalsByDateByTenant()
+	out.TransactionJournals = trxJournal.FindTrxJournalsByDateByTenant(
+		in.StartDate, in.EndDate,
+	)
 
 	return
 }

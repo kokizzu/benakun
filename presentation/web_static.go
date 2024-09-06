@@ -181,9 +181,13 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		trxJournal := rqFinance.NewTransactionJournal(d.AuthOltp)
 		trxJournal.TenantCode = tenantCode
 
-		t := time.Now()
-		trxJournal.Date = t.Format("2006-01-02")
-		trxJournals := trxJournal.FindTrxJournalsByDateByTenant()
+		stTime := time.Now().AddDate(0, 0, -7)
+		startDate := stTime.Format("2006-01-02")
+
+		edTime := time.Now()
+		endDate := edTime.Format("2006-01-02")
+
+		trxJournals := trxJournal.FindTrxJournalsByDateByTenant(startDate, endDate)
 
 		return views.RenderReportViewerTrialBalance(ctx, M.SX{
 			`title`:    `Report Viewer Trial Balance`,

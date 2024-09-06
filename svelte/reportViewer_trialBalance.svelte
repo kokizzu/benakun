@@ -15,6 +15,9 @@
   let DebitIDRTotal = 0;
   let CreditIDRTotal = 0;
 
+  let startDate = dateISOFormat(-7);
+  let endDate = dateISOFormat(0);
+
   onMount(() => {
     if (transactionJournals && transactionJournals.length > 0) {
       transactionJournals.forEach((trxJournal) => {
@@ -24,14 +27,13 @@
     }
   });
 
-  let dateToFilter = dateISOFormat(0);
   let isSubmitted = false;
 
   async function getTrxJournalsByDate() {
     isSubmitted = true;
     const i = {
       transactionJournal: {
-        date: dateToFilter
+        date: startDate
       }
     }
 
@@ -47,7 +49,7 @@
 
         transactionJournals = o.transactionJournals || [];
         if (transactionJournals.length == 0) {
-          notifier.showInfo('No data found at ' + dateToFilter);
+          notifier.showInfo('No data found at ' + startDate);
         }
 
         if (transactionJournals && transactionJournals.length > 0) {
@@ -363,37 +365,6 @@
             autoScaleYaxis: true,
           },
         },
-        annotations: {
-          yaxis: [
-            {
-              y: 30,
-              borderColor: "#999",
-              label: {
-                show: true,
-                text: "Support",
-                style: {
-                  color: "#fff",
-                  background: "#00E396",
-                },
-              },
-            },
-          ],
-          xaxis: [
-            {
-              x: new Date("14 Nov 2012").getTime(),
-              borderColor: "#999",
-              yAxisIndex: 0,
-              label: {
-                show: true,
-                text: "Rally",
-                style: {
-                  color: "#fff",
-                  background: "#775DD0",
-                },
-              },
-            },
-          ],
-        },
         dataLabels: {
           enabled: false,
         },
@@ -445,9 +416,15 @@
           isObject={false}
         />
         <InputBox
-          id="dateToFilter"
-          label="Date"
-          bind:value={dateToFilter}
+          id="startDate"
+          label="Start Date"
+          bind:value={startDate}
+          type="date"
+        />
+        <InputBox
+          id="endDate"
+          label="End Date"
+          bind:value={endDate}
           type="date"
         />
         <SubmitButton
@@ -510,6 +487,7 @@
     margin-bottom: 20px;
     align-items: start;
     flex-grow: 1;
+    max-width: 100%;
   }
   .chart_container {
 		width: 100%;
@@ -537,7 +515,7 @@
     background-color: #fff;
     border-radius: 10px;
     padding: 0;
-    border: 1px solid var(--gray-003);
+    border: 1px solid var(--gray-004);
     overflow: hidden;
   }
 

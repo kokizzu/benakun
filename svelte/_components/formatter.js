@@ -73,7 +73,9 @@ function isoDate(unixSec) {
 
 function dateISOFormat(/** @type number */ dayTo = 0) {
   const dt = new Date();
-  const date = dayTo > 0 ? String(dt.getDate() + dayTo).padStart(2, '0') : String(dt.getDate()).padStart(2, '0');
+  dt.setDate(dt.getDate() + dayTo);
+
+  const date = String(dt.getDate()).padStart(2, '0');
   const month = String(dt.getMonth() + 1).padStart(2, '0');
   const year = dt.getFullYear();
 
