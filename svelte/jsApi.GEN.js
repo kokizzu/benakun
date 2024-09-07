@@ -714,13 +714,47 @@ exports.ReportViewerDashboard = async function ReportViewerDashboard( i, cb ) {
 
 /**
  * @typedef {Object} ReportViewerGeneralLedgerIn
+ * @property {number} coa.id
+ * @property {String} coa.tenantCode
+ * @property {String} coa.name
+ * @property {String} coa.label
+ * @property {number} coa.parentId
+ * @property {Object} coa.children
+ * @property {number} coa.createdAt
+ * @property {number} coa.createdBy
+ * @property {number} coa.updatedAt
+ * @property {number} coa.updatedBy
+ * @property {number} coa.deletedAt
+ * @property {number} coa.deletedBy
+ * @property {number} coa.restoredBy
+ * @property {Object} coa.editable
  */
 const ReportViewerGeneralLedgerIn = {
+  coa: { // rqFinance.Coa
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    label: '', // string
+    parentId: 0, // uint64
+    children: { // []any
+    }, // []any
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    editable: false, // bool
+  }, // rqFinance.Coa
 }
 /**
  * @typedef {Object} ReportViewerGeneralLedgerOut
+ * @property {Object} transactionJournals
  */
 const ReportViewerGeneralLedgerOut = {
+  transactionJournals: { // []rqFinance.TransactionJournal
+  }, // []rqFinance.TransactionJournal
 }
 /**
  * @callback ReportViewerGeneralLedgerCallback
@@ -740,42 +774,14 @@ exports.ReportViewerGeneralLedger = async function ReportViewerGeneralLedger( i,
 
 /**
  * @typedef {Object} ReportViewerTrialBalanceIn
- * @property {number} transactionJournal.id
- * @property {String} transactionJournal.tenantCode
- * @property {number} transactionJournal.coaId
- * @property {number} transactionJournal.debitIDR
- * @property {number} transactionJournal.creditIDR
- * @property {String} transactionJournal.descriptions
- * @property {String} transactionJournal.date
- * @property {String} transactionJournal.detailObj
- * @property {number} transactionJournal.createdAt
- * @property {number} transactionJournal.createdBy
- * @property {number} transactionJournal.updatedAt
- * @property {number} transactionJournal.updatedBy
- * @property {number} transactionJournal.deletedAt
- * @property {number} transactionJournal.deletedBy
- * @property {number} transactionJournal.restoredBy
- * @property {number} transactionJournal.transactionTemplateId
+ * @property {String} cmd
+ * @property {String} startDate
+ * @property {String} endDate
  */
 const ReportViewerTrialBalanceIn = {
-  transactionJournal: { // rqFinance.TransactionJournal
-    id: 0, // uint64
-    tenantCode: '', // string
-    coaId: 0, // uint64
-    debitIDR: 0, // int64
-    creditIDR: 0, // int64
-    descriptions: '', // string
-    date: '', // string
-    detailObj: '', // string
-    createdAt: 0, // int64
-    createdBy: 0, // uint64
-    updatedAt: 0, // int64
-    updatedBy: 0, // uint64
-    deletedAt: 0, // int64
-    deletedBy: 0, // uint64
-    restoredBy: 0, // uint64
-    transactionTemplateId: 0, // uint64
-  }, // rqFinance.TransactionJournal
+  cmd: '', // string
+  startDate: '', // string
+  endDate: '', // string
 }
 /**
  * @typedef {Object} ReportViewerTrialBalanceOut

@@ -988,40 +988,7 @@
 							"schema": {
 								"type": "object",
 								"properties": {
-								}
-							}
-						}
-					}
-				},
-				"responses": {
-					"200": {
-						"description": "ReportViewerGeneralLedger",
-						"content": {
-							"application/json": {
-								"schema": {
-									"type": "object",
-									"properties": {
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"/reportViewer/trialBalance": {
-			"post": {
-				"security": [{
-					"CookieAuth": []
-				}],
-				"tags": ["API"],
-				"requestBody": {
-					"content": {
-						"application/json": {
-							"schema": {
-								"type": "object",
-								"properties": {
-						"transactionJournal": {
+						"coa": {
 						"type": "object",
 						"properties": {
 								"id": {
@@ -1030,23 +997,19 @@
 								"tenantCode": {
 										"type": "string"
 								},
-								"coaId": {
-										"type": "number"
-								},
-								"debitIDR": {
-										"type": "number"
-								},
-								"creditIDR": {
-										"type": "number"
-								},
-								"descriptions": {
+								"name": {
 										"type": "string"
 								},
-								"date": {
+								"label": {
 										"type": "string"
 								},
-								"detailObj": {
-										"type": "string"
+								"parentId": {
+										"type": "number"
+								},
+								"children": {
+								"type": "object",
+								"properties": {
+										}
 								},
 								"createdAt": {
 										"type": "number"
@@ -1069,10 +1032,57 @@
 								"restoredBy": {
 										"type": "number"
 								},
-								"transactionTemplateId": {
-										"type": "number"
+								"editable": {
+									"type": "boolean"
 								}
 								}
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "ReportViewerGeneralLedger",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"transactionJournals": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/reportViewer/trialBalance": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"cmd": {
+								"type": "string"
+						},
+						"startDate": {
+								"type": "string"
+						},
+						"endDate": {
+								"type": "string"
 						}
 								}
 							}
