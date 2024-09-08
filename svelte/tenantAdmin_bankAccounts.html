@@ -4411,8 +4411,8 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
       exports.DataEntryTransactionEntry = async function DataEntryTransactionEntry(i, cb) {
         return await axios.post("/dataEntry/transactionEntry", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.FieldSupervisor = async function FieldSupervisor(i, cb) {
-        return await axios.post("/fieldSupervisor/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      exports.FieldSupervisorDashboard = async function FieldSupervisorDashboard(i, cb) {
+        return await axios.post("/fieldSupervisorDashboard/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.GuestAutoLogin = async function GuestAutoLogin(i, cb) {
         return await axios.post("/guest/autoLogin", i).then(wrapOk(cb)).catch(wrapErr(cb));

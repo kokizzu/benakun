@@ -166,27 +166,126 @@ exports.DataEntryTransactionEntry = async function DataEntryTransactionEntry( i,
 }
 
 /**
- * @typedef {Object} FieldSupervisorIn
+ * @typedef {Object} FieldSupervisorDashboardIn
+ * @property {String} cmd
+ * @property {Object} withMeta
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {number} transaction.id
+ * @property {String} transaction.tenantCode
+ * @property {number} transaction.createdAt
+ * @property {number} transaction.createdBy
+ * @property {number} transaction.updatedAt
+ * @property {number} transaction.updatedBy
+ * @property {number} transaction.deletedAt
+ * @property {number} transaction.deletedBy
+ * @property {number} transaction.restoredBy
+ * @property {number} transaction.completedAt
+ * @property {number} transaction.price
+ * @property {String} transaction.descriptions
+ * @property {number} transaction.qty
  */
-const FieldSupervisorIn = {
+const FieldSupervisorDashboardIn = {
+  cmd: '', // string
+  withMeta: false, // bool
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
+  transaction: { // rqFinance.Transactions
+    id: 0, // uint64
+    tenantCode: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    completedAt: 0, // int64
+    price: 0, // uint64
+    descriptions: '', // string
+    qty: 0, // int64
+  }, // rqFinance.Transactions
 }
 /**
- * @typedef {Object} FieldSupervisorOut
+ * @typedef {Object} FieldSupervisorDashboardOut
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
+ * @property {number} transaction.id
+ * @property {String} transaction.tenantCode
+ * @property {number} transaction.createdAt
+ * @property {number} transaction.createdBy
+ * @property {number} transaction.updatedAt
+ * @property {number} transaction.updatedBy
+ * @property {number} transaction.deletedAt
+ * @property {number} transaction.deletedBy
+ * @property {number} transaction.restoredBy
+ * @property {number} transaction.completedAt
+ * @property {number} transaction.price
+ * @property {String} transaction.descriptions
+ * @property {number} transaction.qty
+ * @property {Object} transactions
  */
-const FieldSupervisorOut = {
+const FieldSupervisorDashboardOut = {
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
+  transaction: { // rqFinance.Transactions
+    id: 0, // uint64
+    tenantCode: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    completedAt: 0, // int64
+    price: 0, // uint64
+    descriptions: '', // string
+    qty: 0, // int64
+  }, // rqFinance.Transactions
+  transactions: { // [][]any
+  }, // [][]any
 }
 /**
- * @callback FieldSupervisorCallback
- * @param {FieldSupervisorOut} o
+ * @callback FieldSupervisorDashboardCallback
+ * @param {FieldSupervisorDashboardOut} o
  * @returns {Promise}
  */
 /**
- * @param  {FieldSupervisorIn} i
- * @param {FieldSupervisorCallback} cb
+ * @param  {FieldSupervisorDashboardIn} i
+ * @param {FieldSupervisorDashboardCallback} cb
  * @returns {Promise}
  */
-exports.FieldSupervisor = async function FieldSupervisor( i, cb ) {
-  return await axios.post( '/fieldSupervisor/dashboard', i ).
+exports.FieldSupervisorDashboard = async function FieldSupervisorDashboard( i, cb ) {
+  return await axios.post( '/fieldSupervisorDashboard/dashboard', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

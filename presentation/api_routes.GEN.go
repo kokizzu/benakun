@@ -50,13 +50,13 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
-	// FieldSupervisor
-	fw.Post("/"+domain.FieldSupervisorAction, func(c *fiber.Ctx) error {
-		in := domain.FieldSupervisorIn{}
-		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.FieldSupervisorAction); err != nil {
+	// FieldSupervisorDashboard
+	fw.Post("/"+domain.FieldSupervisorDashboardAction, func(c *fiber.Ctx) error {
+		in := domain.FieldSupervisorDashboardIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.FieldSupervisorDashboardAction); err != nil {
 			return nil
 		}
-		out := d.FieldSupervisor(&in)
+		out := d.FieldSupervisorDashboard(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

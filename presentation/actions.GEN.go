@@ -11,7 +11,7 @@ var allCommands = []string{
 	domain.DataEntryTemplateAction,
 	domain.DataEntryTemplatesAction,
 	domain.DataEntryTransactionEntryAction,
-	domain.FieldSupervisorAction,
+	domain.FieldSupervisorDashboardAction,
 	domain.GuestAutoLoginAction,
 	domain.GuestDebugAction,
 	domain.GuestExternalAuthAction,

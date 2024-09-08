@@ -198,10 +198,23 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
-	fw.Get(`/`+domain.FieldSupervisorAction, func(ctx *fiber.Ctx) error {
-		in, user, segments := userInfoFromContext(ctx, d)
+	fw.Get(`/`+domain.FieldSupervisorDashboardAction, func(ctx *fiber.Ctx) error {
+		var in domain.FieldSupervisorDashboardIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminProductsAction)
+		if err != nil {
+			return err
+		}
 		
 		if notFieldSupervisorLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Cmd = zCrud.CmdList
+		out := d.FieldSupervisorDashboard(&in)
+
+		if out.Error != `` {
 			return ctx.Redirect(`/`, 302)
 		}
 
@@ -209,6 +222,9 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`title`:    `Field Supervisor Dashboard`,
 			`user`:     user,
 			`segments`: segments,
+			`pager`: out.Pager,
+			`transaction`: out.Transaction,
+			`transactions`: out.Transactions,
 		})
 	})
 

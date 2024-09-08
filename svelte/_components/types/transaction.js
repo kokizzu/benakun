@@ -76,3 +76,22 @@ module.exports = {};
  * @property {string} deletedBy
  * @property {string} restoredBy
  */
+module.exports = {};
+
+/**
+ * @typedef {Object} Transaction
+ * @property {number} id
+ * @property {string} tenantCode
+ * @property {string|Date} completedAt
+ * @property {number} price
+ * @property {string} descriptions
+ * @property {number} quantity
+ * @property {number} createdAt
+ * @property {string} createdBy
+ * @property {number} updatedAt
+ * @property {string} updatedBy
+ * @property {number} deletedAt
+ * @property {string} deletedBy
+ * @property {string} restoredBy
+ */
+module.exports = {};
