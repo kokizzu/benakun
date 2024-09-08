@@ -8,7 +8,10 @@
   import { ReportViewerTrialBalance } from './jsApi.GEN';
   import { notifier } from './_components/notifier';
   import { dateISOFormat, loadScript } from './_components/formatter';
-    import { trialBalanceOptions } from './_components/yChartOptions';
+  import { trialBalanceOptions } from './_components/yChartOptions';
+  import { Icon } from './node_modules/svelte-icons-pack/dist';
+  import { RiArrowsArrowRightSLine, RiArrowsArrowLeftSLine } from './node_modules/svelte-icons-pack/dist/ri';
+  import Select from './node_modules/svelte-select';
 
   const coaChoices = /** @type Record<string|number, string> */ ({/* coaChoices */});
   let transactionJournals = /** @type TransactionJournal[] */ ([/* transactionJournals */]);
@@ -51,7 +54,7 @@
 
         transactionJournals = o.transactionJournals || [];
         if (transactionJournals.length == 0) {
-          notifier.showInfo('No data found at ' + startDate);
+          notifier.showInfo('No data found at "' + startDate+'" to "'+endDate+'"');
         }
 
         DebitIDRTotal = 0;
@@ -72,34 +75,36 @@
     );
   }
 
-
   const filterDatesOptions = [
-    'Weekly', 'Monthly', 'Quarterly', 'Yearly',
+    {value: 'weekly', label: 'Weekly'},
+    {value: 'monthly', label: 'Monthly'},
+    {value: 'quarterly', label: 'Quarterly'},
+    {value: 'yearly', label: 'Yearly'},
   ]
 
-  let toFilter = filterDatesOptions[0] || 'Weekly';
+  let toFilter = {value: 'weekly', label: 'Weekly'};
 
-  $: {
-    if (toFilter) {
-      switch (toFilter) {
-        case 'Weekly':
-          startDate = dateISOFormat(-7);
-          endDate = dateISOFormat(0);
-          break;
-        case 'Monthly':
-          startDate = dateISOFormat(-30);
-          endDate = dateISOFormat(0);
-          break;
-        case 'Quarterly':
-          startDate = dateISOFormat(-90);
-          endDate = dateISOFormat(0);
-          break;
-        case 'Yearly':
-          startDate = dateISOFormat(-365);
-          endDate = dateISOFormat(0);
-          break;
-      }
+  async function HandleSelectFilter(e) {
+    switch (e.detail.value) {
+      case 'weekly':
+        startDate = dateISOFormat(-7);
+        endDate = dateISOFormat(0);
+        break;
+      case 'monthly':
+        startDate = dateISOFormat(-30);
+        endDate = dateISOFormat(0);
+        break;
+      case 'quarterly':
+        startDate = dateISOFormat(-90);
+        endDate = dateISOFormat(0);
+        break;
+      case 'yearly':
+        startDate = dateISOFormat(-365);
+        endDate = dateISOFormat(0);
+        break;
     }
+
+    await getTrxJournalsByDate();
   }
 
   /** @returns {Array<Record<string, any>>} */
@@ -133,7 +138,64 @@
       CHART_ACCOUNT_ACTIVITY = new ApexCharts( accountActivityElm, dataOption);
       CHART_ACCOUNT_ACTIVITY.render();
 		});
-  })
+  });
+
+  function getDateBy(dateISOstr, dayTo) {
+    const dt = new Date(dateISOstr);
+    dt.setDate(dt.getDate() + dayTo);
+
+    const date = String(dt.getDate()).padStart(2, '0');
+    const month = String(dt.getMonth() + 1).padStart(2, '0');
+    const year = dt.getFullYear();
+
+    return `${year}-${month}-${date}`;
+  }
+
+  async function PrevDate() {
+    switch (toFilter.value) {
+      case 'weekly':
+        startDate = endDate;
+        endDate = getDateBy(endDate, -7);
+        break;
+      case 'monthly':
+        startDate = endDate;
+        endDate = getDateBy(endDate, -30);
+        break;
+      case 'quarterly':
+        startDate = endDate;
+        endDate = getDateBy(endDate, -90);
+        break;
+      case 'yearly':
+        startDate = endDate;
+        endDate = getDateBy(endDate, -365);
+        break;
+    }
+
+    await getTrxJournalsByDate();
+  }
+
+  async function NextDate() {
+    switch (toFilter.value) {
+      case 'weekly':
+        startDate = endDate;
+        endDate = getDateBy(endDate, 7);
+        break;
+      case 'monthly':
+        startDate = endDate;
+        endDate = getDateBy(endDate, 30);
+        break;
+      case 'quarterly':
+        startDate = endDate;
+        endDate = getDateBy(endDate, 90);
+        break;
+      case 'yearly':
+        startDate = endDate;
+        endDate = getDateBy(endDate, 365);
+        break;
+    }
+
+    await getTrxJournalsByDate();
+  }
 </script>
 
 <MainLayout>
@@ -143,13 +205,10 @@
         <div class="chart" bind:this={accountActivityElm}></div>
       </div>
       <div class="date_filter">
-        <InputBox
-          id="dateFilter"
-          label="Filter Dates"
+        <Select
+          items={filterDatesOptions}
           bind:value={toFilter}
-          type="combobox"
-          values={filterDatesOptions}
-          isObject={false}
+          on:select={HandleSelectFilter}
         />
         <InputBox
           id="startDate"
@@ -163,6 +222,22 @@
           bind:value={endDate}
           type="date"
         />
+        <div class="prev_next">
+          <button class="btn" on:click={PrevDate}>
+            <Icon
+             src={RiArrowsArrowLeftSLine}
+             size="20"
+            />
+            <span>Prev</span>
+          </button>
+          <button class="btn" on:click={NextDate}>
+            <span>Next</span>
+            <Icon
+             src={RiArrowsArrowRightSLine}
+             size="20"
+            />
+          </button>
+        </div>
         <SubmitButton
           label="Submit"
           bind:isSubmitted
@@ -246,6 +321,34 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+  }
+
+  .date_filter .prev_next {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .date_filter .prev_next .btn {
+    width: 100%;
+    border: none;
+    padding: 7px 15px;
+    border-radius: 8px;
+    background-color: var(--blue-006);
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .date_filter .prev_next .btn:hover {
+    background-color: var(--blue-005);
   }
 
   .table_root {
