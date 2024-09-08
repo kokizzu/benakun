@@ -564,21 +564,21 @@ FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
 	return
 }
 
-func (t *Transactions) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zCrud.PagerOut) (res [][]any) {
-	const comment = `-- Transactions) FindByPagination`
+func (bt *BusinessTransaction) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zCrud.PagerOut) (res [][]any) {
+	const comment = `-- BusinessTransaction) FindByPagination`
 
 	validFields := TransactionsFieldTypeMap
 	whereAndSql := z3.WhereAndSqlTt(z2.Filters, validFields)
-	whereAndSql2 := `AND ` + t.SqlTenantCode() + ` = ` + S.Z(t.TenantCode)
+	whereAndSql2 := `AND ` + bt.SqlTenantCode() + ` = ` + S.Z(bt.TenantCode)
 	if whereAndSql == `` {
-		whereAndSql2 = ` WHERE ` + t.SqlTenantCode() + ` = ` + S.Z(t.TenantCode)
+		whereAndSql2 = ` WHERE ` + bt.SqlTenantCode() + ` = ` + S.Z(bt.TenantCode)
 	}
 
 	queryCount := comment + `
 SELECT COUNT(1)
-FROM SEQSCAN ` + t.SqlTableName() + whereAndSql + whereAndSql2 + `
+FROM SEQSCAN ` + bt.SqlTableName() + whereAndSql + whereAndSql2 + `
 LIMIT 1`
-	t.Adapter.QuerySql(queryCount, func(row []any) {
+	bt.Adapter.QuerySql(queryCount, func(row []any) {
 		z3.CalculatePages(z2.Page, z2.PerPage, int(X.ToI(row[0])))
 	})
 
@@ -587,8 +587,8 @@ LIMIT 1`
 
 	queryRows := comment + `
 SELECT ` + z.ToSelect() + `
-FROM SEQSCAN ` + t.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
-	t.Adapter.QuerySql(queryRows, func(row []any) {
+FROM SEQSCAN ` + bt.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
+	bt.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
 	})

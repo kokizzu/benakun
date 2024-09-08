@@ -59,7 +59,8 @@ const (
 	CoaCOGS								= `Cost of Goods Sold / Harga Pokok Penjualan`
 	CoaIncome							= `Income / Pendapatan Usaha`
 	CoaEquipments					= `Equipments / Peralatan - Perlengkapan`
-	CoaAdmExpenses				= `Administrative Expenses / Beban Administrasi dan Umum`
+	CoaAdmExpenses				= `Administrative Expenses / Beban Administrasi`
+	CoaGeneralExpenses		= `General Expenses / Beban Umum`
 	CoaPrive							= `Prive / Prive`
 	CoaLiability					= `Liability / Hutang - Kewajiban`
 	CoaCapitalInvestment 	= `Capital Investment / Penanaman Modal`
@@ -72,7 +73,7 @@ const (
 	TemplatePenanamanModal  = `Penanaman Modal`
 	TemplatePengambilanPrive  = `Pengambilan Prive`
 	TemplatePembayaranGaji = `Pembayaran Gaji`
-	TemplatePembayaranListrik = `Pembayaran Listrik` 
+	TemplatePembayaranUmum = `Pembayaran Beban Umum` 
 	TemplatePembayaranHutang  = `Pembayaran Hutang`
 )
 
@@ -80,7 +81,7 @@ const (
 var TransactionTemplatesDefault = []string{
 	TemplatePenjualan, TemplatePembelian,
 	TemplatePengambilanPrive, TemplatePembayaranGaji,
-	TemplatePembayaranListrik,
+	TemplatePembayaranUmum,
 }
 
 // Generate transaction template detail to transaction template
@@ -189,9 +190,9 @@ var TransactionTemplateDetailsMap = map[string][]struct{
 			},
 		},
 	},
-	TemplatePembayaranListrik: {
+	TemplatePembayaranUmum: {
 		{
-			CoaName: CoaAdmExpenses,
+			CoaName: CoaGeneralExpenses,
 			IsDebit: true,
 			Attributes: []any{
 				AttributesChildOnly,
@@ -294,6 +295,17 @@ func GetCoaDefaults() []CoaDefault {
 			Children: []CoaDefault{
 				{Name: `Marketing Expenses / Beban Pemasaran`},
 				{Name: CoaAdmExpenses, Label: LabelStaff},
+				{
+					Name: CoaGeneralExpenses,
+					Children: []CoaDefault{
+						{Name: `Electricity Bill / Beban Listrik - PLN`},
+						{Name: `Water Bill / Beban Air - PDAM`},
+						{Name: `Internet Bill / Beban Internet`},
+						{Name: `Building Rent / Sewa Gedung`},
+						{Name: `Security Bill / Beban Keamanan`},
+						{Name: `Garbage Fee / Beban Kebersihan`},
+					},
+				},
 				{Name: CoaCOGS},
 			},
 		},
@@ -430,25 +442,6 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedBy, Tt.Unsigned},
 			{RestoredBy, Tt.Unsigned},
 			{Editable, Tt.Boolean},
-		},
-		AutoIncrementId: true,
-		Engine:          Tt.Vinyl,
-	},
-	TableTransactions: {
-		Fields: []Tt.Field{
-			{Id, Tt.Unsigned},
-			{TenantCode, Tt.String},
-			{CreatedAt, Tt.Integer},
-			{CreatedBy, Tt.Unsigned},
-			{UpdatedAt, Tt.Integer},
-			{UpdatedBy, Tt.Unsigned},
-			{DeletedAt, Tt.Integer},
-			{DeletedBy, Tt.Unsigned},
-			{RestoredBy, Tt.Unsigned},
-			{CompletedAt, Tt.Integer},
-			{Price, Tt.Unsigned},
-			{Description, Tt.String},
-			{Qty, Tt.Integer},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,

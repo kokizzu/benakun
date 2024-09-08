@@ -398,7 +398,7 @@
             <tr
               class={CAN_DELETE_ROW && (row[deletedIndex] > 0 || row[deletedIndex] === 'terminated') ? 'deleted' : ''}
             >
-              <td class="num_row">{MASTER_ROWS.indexOf(row) + 1}</td>
+              <td class="num_row">{(PAGER.page -1) * PAGER.perPage + MASTER_ROWS.indexOf(row) + 1}</td>
               {#each FIELDS || [] as f, idx}
                 {#if f.name === 'id'}
                   <td class="a_row">

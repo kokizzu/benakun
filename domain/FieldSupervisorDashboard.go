@@ -43,22 +43,24 @@ var FieldSupervisorDashboardMeta = zCrud.Meta{
 			ReadOnly: true,
 		},
 		{
-			Name: mFinance.Price,
-			Label: "Harga / Price",
+			Name: mFinance.TransactionTplId,
+			Label: "Templat Transaksi / Transaction Template",
 			DataType: zCrud.DataTypeInt,
-			InputType: zCrud.InputTypeNumber,
+			InputType: zCrud.InputTypeCombobox,
+			Description: "Select Transaction Template",
+			ReadOnly: true,
 		},
 		{
-			Name: mFinance.Qty,
-			Label: "Kuantitas / Quantity",
-			DataType: zCrud.DataTypeInt,
-			InputType: zCrud.InputTypeNumber,
-		},
-		{
-			Name: mFinance.Description,
-			Label: "Deskripsi / Description",
+			Name: mFinance.StartDate,
+			Label: "Tanggal Mulai / Start Date",
 			DataType: zCrud.DataTypeString,
-			InputType: zCrud.InputTypeTextArea,
+			InputType: zCrud.InputTypeDateTime,
+		},
+		{
+			Name: mFinance.EndDate,
+			Label: "Tanggal Selesai / End Date",
+			DataType: zCrud.DataTypeString,
+			InputType: zCrud.InputTypeDateTime,
 		},
 		{
 			Name:      mFinance.CreatedAt,
@@ -117,12 +119,16 @@ func (d *Domain) FieldSupervisorDashboard(in *FieldSupervisorDashboardIn) (out F
 		out.SetError(400, ErrDataEntryTransactionEntryTenantNotFound)
 		return
 	}
+
+	if in.WithMeta {
+		out.Meta = &FieldSupervisorDashboardMeta
+	}
 	
 	switch in.Cmd {
 	case zCrud.CmdForm:
 	case zCrud.CmdUpsert:
 	case zCrud.CmdList:
-		r := rqFinance.NewTransactions(d.AuthOltp)
+		r := rqFinance.NewBusinessTransaction(d.AuthOltp)
 		r.TenantCode = tenant.TenantCode
 		out.Transactions = r.FindByPagination(&FieldSupervisorDashboardMeta, &in.Pager, &out.Pager)
 	}

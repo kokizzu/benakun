@@ -223,6 +223,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`user`:     user,
 			`segments`: segments,
 			`pager`: out.Pager,
+			`fields`: out.Meta.Fields,
 			`transaction`: out.Transaction,
 			`transactions`: out.Transactions,
 		})
@@ -331,6 +332,8 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.TenantAdminDashboard(&in)
+
+		
 		return views.RenderTenantAdminDashboard(ctx, M.SX{
 			`title`:    `Tenant Admin Dashboard`,
 			`user`:     user,

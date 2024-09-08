@@ -10,7 +10,7 @@
   /** @typedef {import('./_components/types/transaction.js').Transaction} Transaction */
 
   let segments = /** @type Access */ ({/* segments */});
-  // let fields = /** @type Field[] */ ([/* fields */]);
+  let fields = /** @type Field[] */ ([/* fields */]);
   let pager = /** @type PagerOut */ ({/* pager */});
   let user = /** @type User */ ({/* user */});
   let transaction = {/* transaction */}
@@ -22,6 +22,7 @@
     <MasterTable
       ACCESS={segments}
       bind:PAGER={pager}
+      bind:FIELDS={fields}
       bind:MASTER_ROWS={transactions}
       
       CAN_EDIT_ROW

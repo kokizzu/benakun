@@ -148,6 +148,9 @@
     }, {
       key: 'role',
       label: 'Role'
+    }, {
+      key: 'date',
+      label: 'Date'
     }
   ];
 </script>
@@ -232,7 +235,7 @@
 		border-radius: 8px;
 		background-color: #FFF;
 		height: fit-content;
-		width: 500px;
+		width: 650px;
 		display: flex;
 		flex-direction: column;
 	}
