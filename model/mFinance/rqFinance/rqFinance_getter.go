@@ -567,7 +567,7 @@ FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
 func (bt *BusinessTransaction) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zCrud.PagerOut) (res [][]any) {
 	const comment = `-- BusinessTransaction) FindByPagination`
 
-	validFields := TransactionsFieldTypeMap
+	validFields := BusinessTransactionFieldTypeMap
 	whereAndSql := z3.WhereAndSqlTt(z2.Filters, validFields)
 	whereAndSql2 := `AND ` + bt.SqlTenantCode() + ` = ` + S.Z(bt.TenantCode)
 	if whereAndSql == `` {

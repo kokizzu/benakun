@@ -22,7 +22,9 @@ var viewList = map[string]string{
 	`GuestVerifyEmail`: `../svelte/guest_verifyEmail.html`, // ../svelte/guest_verifyEmail.svelte
 	`Index`: `../svelte/index.html`, // ../svelte/index.svelte
 	`ReportViewerDashboard`: `../svelte/reportViewer_dashboard.html`, // ../svelte/reportViewer_dashboard.svelte
+	`ReportViewerFinancialPosition`: `../svelte/reportViewer_financialPosition.html`, // ../svelte/reportViewer_financialPosition.svelte
 	`ReportViewerGeneralLedger`: `../svelte/reportViewer_generalLedger.html`, // ../svelte/reportViewer_generalLedger.svelte
+	`ReportViewerLossIncomeStatements`: `../svelte/reportViewer_lossIncomeStatements.html`, // ../svelte/reportViewer_lossIncomeStatements.svelte
 	`ReportViewerTrialBalance`: `../svelte/reportViewer_trialBalance.html`, // ../svelte/reportViewer_trialBalance.svelte
 	`SuperAdminAccessLog`: `../svelte/superAdmin_accessLog.html`, // ../svelte/superAdmin_accessLog.svelte
 	`SuperAdminDashboard`: `../svelte/superAdmin_dashboard.html`, // ../svelte/superAdmin_dashboard.svelte
@@ -106,9 +108,19 @@ func (v *Views) RenderReportViewerDashboard(c *fiber.Ctx, m M.SX) error {
 	return c.SendString(v.cache[`ReportViewerDashboard`].Str(m))
 }
 
+func (v *Views) RenderReportViewerFinancialPosition(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`ReportViewerFinancialPosition`].Str(m))
+}
+
 func (v *Views) RenderReportViewerGeneralLedger(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`ReportViewerGeneralLedger`].Str(m))
+}
+
+func (v *Views) RenderReportViewerLossIncomeStatements(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`ReportViewerLossIncomeStatements`].Str(m))
 }
 
 func (v *Views) RenderReportViewerTrialBalance(c *fiber.Ctx, m M.SX) error {

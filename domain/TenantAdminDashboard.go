@@ -219,7 +219,7 @@ func (d *Domain) TenantAdminDashboard(in *TenantAdminDashboardIn) (out TenantAdm
 					staff.SetInvitationState(mapState.ToStateString())
 				}
 
-				staff.SetRole(UserSegment)
+				// staff.SetRole(UserSegment)
 			} else if in.Cmd == zCrud.CmdRestore {
 				mapState, err := mAuth.ToInvitationStateMap(staff.InvitationState)
 				if errors.Is(err, mAuth.ErrInvitationStateEmpty) {

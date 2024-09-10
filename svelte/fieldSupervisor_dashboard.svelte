@@ -15,6 +15,13 @@
   let user = /** @type User */ ({/* user */});
   let transaction = {/* transaction */}
   let transactions = /** @type any[][] */ ([/* transactions */]);
+  let transactionTemplates = /** @type Record<string|number, string> */ ({/* transactionTemplates */});
+
+  console.log('TRANSACTIONS: ', transactions);
+  console.log('FIELDS: ', fields);
+  console.log('PAGER: ', pager);
+
+  console.log('TRANSACTION TEMPLATES: ', transactionTemplates);
 </script>
 
 <MainLayout>
@@ -24,6 +31,9 @@
       bind:PAGER={pager}
       bind:FIELDS={fields}
       bind:MASTER_ROWS={transactions}
+      REFS={{
+        'transactionTemplateId': transactionTemplates
+      }}
       
       CAN_EDIT_ROW
       CAN_SEARCH_ROW

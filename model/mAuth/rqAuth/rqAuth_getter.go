@@ -159,6 +159,10 @@ SELECT ` + meta.ToSelect() + `
 FROM SEQSCAN ` + u.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	u.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
+		if X.ToS(row[4]) == `` {
+			mapState, _ := mAuth.ToInvitationStateMap(X.ToS(row[5]))
+			row[4] = mapState.GetRoleByAccepted()
+		}
 		res = append(res, row)
 	})
 

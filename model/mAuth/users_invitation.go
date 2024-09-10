@@ -22,7 +22,7 @@ const (
 	ErrInvitationStateIsTheSame       = `state is same as previous state`
 	ErrInvitationStateAlreadyAccepted = `state already accepted`
 	ErrInvitationStateIsTheSameRole		= `role is same as previous role`
-	ErrInvitationStateInvalidRole			= `invalid role (must be user/dataEntry/reportViewer)`
+	ErrInvitationStateInvalidRole			= `invalid role (must be user/dataEntry/reportViewer/fieldSupervisor)`
 )
 
 // Invitation State:
@@ -162,4 +162,15 @@ func (s InvitationStateMap) GetStateByTenantCode(tenantCode string) string {
 
 func (s InvitationStateMap) GetRoleByTenantCode(tenantCode string) string {
 	return s[tenantCode].Role
+}
+
+func (s InvitationStateMap) GetRoleByAccepted() (role string) {
+	for _, v := range s {
+		if v.State == InvitationStateAccepted {
+			role = v.Role
+			return
+		}
+	}
+
+	return
 }

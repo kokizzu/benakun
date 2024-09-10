@@ -19,7 +19,8 @@
     RiUserFacesGroupLine, RiUserFacesContactsLine,
     RiMapMap2Line, RiFinanceSwapBoxLine, RiDocumentStickyNoteAddLine,
     RiDocumentFileCopy2Line, RiUserFacesUserLocationLine,
-    RiDocumentBookReadLine
+    RiDocumentBookReadLine, RiFinanceCurrencyLine,
+    RiBusinessBarChartBoxLine
   } from '../../node_modules/svelte-icons-pack/dist/ri';
   import { CgLogOut, CgBox } from '../../node_modules/svelte-icons-pack/dist/cg';
   import { BsPostcard } from '../../node_modules/svelte-icons-pack/dist/bs';
@@ -105,6 +106,18 @@
               subtitle='Neraca Saldo'
               href='/reportViewer/trialBalance'
               icon={VscLaw}
+            />
+            <SubMenuLink
+              title='Financial Posistion'
+              subtitle='Laporan Posisi Keuangan'
+              href='/reportViewer/financialPosition'
+              icon={RiFinanceCurrencyLine}
+            />
+            <SubMenuLink
+              title='Loss / Income Statements'
+              subtitle='Laporan Laba / Rugi'
+              href='/reportViewer/lossIncomeStatements'
+              icon={RiBusinessBarChartBoxLine}
             />
           </div>
         {/if}

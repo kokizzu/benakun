@@ -215,6 +215,7 @@
 				}
 			}
 		},
+		"/fieldSupervisor/dashboard": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -263,6 +264,12 @@
 								"tenantCode": {
 										"type": "string"
 								},
+								"startDate": {
+										"type": "string"
+								},
+								"endDate": {
+										"type": "string"
+								},
 								"createdAt": {
 										"type": "number"
 								},
@@ -284,16 +291,7 @@
 								"restoredBy": {
 										"type": "number"
 								},
-								"completedAt": {
-										"type": "number"
-								},
-								"price": {
-										"type": "number"
-								},
-								"descriptions": {
-										"type": "string"
-								},
-								"qty": {
+								"transactionTemplateId": {
 										"type": "number"
 								}
 								}
@@ -366,6 +364,12 @@
 												"tenantCode": {
 														"type": "string"
 												},
+												"startDate": {
+														"type": "string"
+												},
+												"endDate": {
+														"type": "string"
+												},
 												"createdAt": {
 														"type": "number"
 												},
@@ -387,16 +391,7 @@
 												"restoredBy": {
 														"type": "number"
 												},
-												"completedAt": {
-														"type": "number"
-												},
-												"price": {
-														"type": "number"
-												},
-												"descriptions": {
-														"type": "string"
-												},
-												"qty": {
+												"transactionTemplateId": {
 														"type": "number"
 												}
 												}
@@ -1143,6 +1138,92 @@
 				}
 			}
 		},
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"coa": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"name": {
+										"type": "string"
+								},
+								"label": {
+										"type": "string"
+								},
+								"parentId": {
+										"type": "number"
+								},
+								"children": {
+								"type": "object",
+								"properties": {
+										}
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"deletedBy": {
+										"type": "number"
+								},
+								"restoredBy": {
+										"type": "number"
+								},
+								"editable": {
+									"type": "boolean"
+								}
+								}
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "ReportViewerFinancialPosition",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"transactionJournals": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/reportViewer/generalLedger": {
 			"post": {
 				"security": [{
@@ -1212,6 +1293,92 @@
 				"responses": {
 					"200": {
 						"description": "ReportViewerGeneralLedger",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"transactionJournals": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"coa": {
+						"type": "object",
+						"properties": {
+								"id": {
+										"type": "number"
+								},
+								"tenantCode": {
+										"type": "string"
+								},
+								"name": {
+										"type": "string"
+								},
+								"label": {
+										"type": "string"
+								},
+								"parentId": {
+										"type": "number"
+								},
+								"children": {
+								"type": "object",
+								"properties": {
+										}
+								},
+								"createdAt": {
+										"type": "number"
+								},
+								"createdBy": {
+										"type": "number"
+								},
+								"updatedAt": {
+										"type": "number"
+								},
+								"updatedBy": {
+										"type": "number"
+								},
+								"deletedAt": {
+										"type": "number"
+								},
+								"deletedBy": {
+										"type": "number"
+								},
+								"restoredBy": {
+										"type": "number"
+								},
+								"editable": {
+									"type": "boolean"
+								}
+								}
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "ReportViewerLossIncomeStatements",
 						"content": {
 							"application/json": {
 								"schema": {

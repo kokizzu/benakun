@@ -3241,7 +3241,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         return await axios.post("/dataEntry/transactionEntry", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.FieldSupervisorDashboard = async function FieldSupervisorDashboard(i, cb) {
-        return await axios.post("/fieldSupervisorDashboard/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
+        return await axios.post("/fieldSupervisor/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.GuestAutoLogin = async function GuestAutoLogin(i, cb) {
         return await axios.post("/guest/autoLogin", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -3276,8 +3276,14 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.ReportViewerDashboard = async function ReportViewerDashboard(i, cb) {
         return await axios.post("/reportViewer/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.ReportViewerFinancialPosition = async function ReportViewerFinancialPosition(i, cb) {
+        return await axios.post("/reportViewer/financialPosition", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.ReportViewerGeneralLedger = async function ReportViewerGeneralLedger(i, cb) {
         return await axios.post("/reportViewer/generalLedger", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.ReportViewerLossIncomeStatements = async function ReportViewerLossIncomeStatements(i, cb) {
+        return await axios.post("/reportViewer/lossIncomeStatements", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.ReportViewerTrialBalance = async function ReportViewerTrialBalance(i, cb) {
         return await axios.post("/reportViewer/trialBalance", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -4481,6 +4487,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var RiDesignLayoutLeftLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 3C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H21ZM7 5H4V19H7V5ZM20 5H9V19H20V5Z"></path>' };
   var RiBuildingsCommunityLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M21 21H3C2.44772 21 2 20.5523 2 20V12.4868C2 12.1978 2.12501 11.9229 2.34282 11.733L6 8.54435V4C6 3.44772 6.44772 3 7 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21ZM9 19H12V12.9416L8 9.45402L4 12.9416V19H7V15H9V19ZM14 19H20V5H8V7.12729C8.23444 7.12729 8.46888 7.20938 8.65718 7.37355L13.6572 11.733C13.875 11.9229 14 12.1978 14 12.4868V19ZM16 11H18V13H16V11ZM16 15H18V17H16V15ZM16 7H18V9H16V7ZM12 7H14V9H12V7Z"></path>' };
   var RiBuildingsBankLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 20H22V22H2V20ZM4 12H6V19H4V12ZM9 12H11V19H9V12ZM13 12H15V19H13V12ZM18 12H20V19H18V12ZM2 7L12 2L22 7V11H2V7ZM4 8.23607V9H20V8.23607L12 4.23607L4 8.23607ZM12 8C11.4477 8 11 7.55228 11 7C11 6.44772 11.4477 6 12 6C12.5523 6 13 6.44772 13 7C13 7.55228 12.5523 8 12 8Z"></path>' };
+  var RiBusinessBarChartBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3ZM4 5V19H20V5H4ZM7 13H9V17H7V13ZM11 7H13V17H11V7ZM15 10H17V17H15V10Z"></path>' };
   var RiDocumentFileCopy2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M6.9998 6V3C6.9998 2.44772 7.44752 2 7.9998 2H19.9998C20.5521 2 20.9998 2.44772 20.9998 3V17C20.9998 17.5523 20.5521 18 19.9998 18H16.9998V20.9991C16.9998 21.5519 16.5499 22 15.993 22H4.00666C3.45059 22 3 21.5554 3 20.9991L3.0026 7.00087C3.0027 6.44811 3.45264 6 4.00942 6H6.9998ZM5.00242 8L5.00019 20H14.9998V8H5.00242ZM8.9998 6H16.9998V16H18.9998V4H8.9998V6ZM7 11H13V13H7V11ZM7 15H13V17H7V15Z"></path>' };
   var RiDocumentBookReadLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 3.9934C2 3.44476 2.45531 3 2.9918 3H21.0082C21.556 3 22 3.44495 22 3.9934V20.0066C22 20.5552 21.5447 21 21.0082 21H2.9918C2.44405 21 2 20.5551 2 20.0066V3.9934ZM11 5H4V19H11V5ZM13 5V19H20V5H13ZM14 7H19V9H14V7ZM14 10H19V12H14V10Z"></path>' };
   var RiDocumentStickyNoteAddLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4 1V4H1V6H4V9H6V6H9V4H6V1H4ZM3 20.0066V11H5V19H13V14C13 13.45 13.45 13 14 13L19 12.999V5H11V3H20.0066C20.5552 3 21 3.45576 21 4.00247V15L15 20.996L4.00221 21C3.4487 21 3 20.5551 3 20.0066ZM18.171 14.999L15 15V18.169L18.171 14.999Z"></path>' };
@@ -4489,6 +4496,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var RiUserFacesGroupLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11ZM18.2837 14.7028C21.0644 15.9561 23 18.752 23 22H21C21 19.564 19.5483 17.4671 17.4628 16.5271L18.2837 14.7028ZM17.5962 3.41321C19.5944 4.23703 21 6.20361 21 8.5C21 11.3702 18.8042 13.7252 16 13.9776V11.9646C17.6967 11.7222 19 10.264 19 8.5C19 7.11935 18.2016 5.92603 17.041 5.35635L17.5962 3.41321Z"></path>' };
   var RiUserFacesContactsLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M19 7H24V9H19V7ZM17 12H24V14H17V12ZM20 17H24V19H20V17ZM2 22C2 17.5817 5.58172 14 10 14C14.4183 14 18 17.5817 18 22H16C16 18.6863 13.3137 16 10 16C6.68629 16 4 18.6863 4 22H2ZM10 13C6.685 13 4 10.315 4 7C4 3.685 6.685 1 10 1C13.315 1 16 3.685 16 7C16 10.315 13.315 13 10 13ZM10 11C12.21 11 14 9.21 14 7C14 4.79 12.21 3 10 3C7.79 3 6 4.79 6 7C6 9.21 7.79 11 10 11Z"></path>' };
   var RiMapMap2Line = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M2 5L9 2L15 5L21.303 2.2987C21.5569 2.18992 21.8508 2.30749 21.9596 2.56131C21.9862 2.62355 22 2.69056 22 2.75827V19L15 22L9 19L2.69696 21.7013C2.44314 21.8101 2.14921 21.6925 2.04043 21.4387C2.01375 21.3765 2 21.3094 2 21.2417V5ZM16 19.3955L20 17.6812V5.03308L16 6.74736V19.3955ZM14 19.2639V6.73607L10 4.73607V17.2639L14 19.2639ZM8 17.2526V4.60451L4 6.31879V18.9669L8 17.2526Z"></path>' };
+  var RiFinanceCurrencyLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M17.0047 16.0027H19.0047V4.00275H9.00468V6.00275H17.0047V16.0027ZM17.0047 18.0027V21.0019C17.0047 21.5546 16.5547 22.0027 15.9978 22.0027H4.01154C3.45548 22.0027 3.00488 21.5581 3.00488 21.0019L3.00748 7.00362C3.00759 6.45085 3.45752 6.00275 4.0143 6.00275H7.00468V3.00275C7.00468 2.45046 7.4524 2.00275 8.00468 2.00275H20.0047C20.557 2.00275 21.0047 2.45046 21.0047 3.00275V17.0027C21.0047 17.555 20.557 18.0027 20.0047 18.0027H17.0047ZM5.0073 8.00275L5.00507 20.0027H15.0047V8.00275H5.0073ZM7.00468 16.0027H11.5047C11.7808 16.0027 12.0047 15.7789 12.0047 15.5027C12.0047 15.2266 11.7808 15.0027 11.5047 15.0027H8.50468C7.12397 15.0027 6.00468 13.8835 6.00468 12.5027C6.00468 11.122 7.12397 10.0027 8.50468 10.0027H9.00468V9.00275H11.0047V10.0027H13.0047V12.0027H8.50468C8.22854 12.0027 8.00468 12.2266 8.00468 12.5027C8.00468 12.7789 8.22854 13.0027 8.50468 13.0027H11.5047C12.8854 13.0027 14.0047 14.122 14.0047 15.5027C14.0047 16.8835 12.8854 18.0027 11.5047 18.0027H11.0047V19.0027H9.00468V18.0027H7.00468V16.0027Z"></path>' };
   var RiFinanceSwapBoxLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M4.00488 5.00275V19.0027H20.0049V5.00275H4.00488ZM3.00488 3.00275H21.0049C21.5572 3.00275 22.0049 3.45046 22.0049 4.00275V20.0027C22.0049 20.555 21.5572 21.0027 21.0049 21.0027H3.00488C2.4526 21.0027 2.00488 20.555 2.00488 20.0027V4.00275C2.00488 3.45046 2.4526 3.00275 3.00488 3.00275ZM15.0049 7.00275L18.5049 10.0027L15.0049 13.0027V11.0027H11.0049V9.00275H15.0049V7.00275ZM9.00488 17.0027L5.50488 14.0027L9.00488 11.0027V13.0027H13.0049V15.0027H9.00488V17.0027Z"></path>' };
   var RiArrowsArrowRightSLine = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M13.1717 12.0007L8.22192 7.05093L9.63614 5.63672L16.0001 12.0007L9.63614 18.3646L8.22192 16.9504L13.1717 12.0007Z"></path>' };
   var RiEditorOrganizationChart = { a: { viewBox: "0 0 24 24", fill: "currentColor" }, c: '<path d="M15 3C15.5523 3 16 3.44772 16 4V8C16 8.55228 15.5523 9 15 9H13V11H17C17.5523 11 18 11.4477 18 12V15H20C20.5523 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H14C13.4477 21 13 20.5523 13 20V16C13 15.4477 13.4477 15 14 15H16V13H8V15H10C10.5523 15 11 15.4477 11 16V20C11 20.5523 10.5523 21 10 21H4C3.44772 21 3 20.5523 3 20V16C3 15.4477 3.44772 15 4 15H6V12C6 11.4477 6.44772 11 7 11H11V9H9C8.44772 9 8 8.55228 8 8V4C8 3.44772 8.44772 3 9 3H15ZM9 17H5V19H9V17ZM19 17H15V19H19V17ZM14 5H10V7H14V5Z"></path>' };
@@ -7748,6 +7756,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let submenulink0;
     let t3;
     let submenulink1;
+    let t4;
+    let submenulink2;
+    let t5;
+    let submenulink3;
     let current;
     icon = new Icon_default({
       props: {
@@ -7774,6 +7786,22 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         icon: VscLaw
       }
     });
+    submenulink2 = new SubMenuLink_default({
+      props: {
+        title: "Financial Posistion",
+        subtitle: "Laporan Posisi Keuangan",
+        href: "/reportViewer/financialPosition",
+        icon: RiFinanceCurrencyLine
+      }
+    });
+    submenulink3 = new SubMenuLink_default({
+      props: {
+        title: "Loss / Income Statements",
+        subtitle: "Laporan Laba / Rugi",
+        href: "/reportViewer/lossIncomeStatements",
+        icon: RiBusinessBarChartBoxLine
+      }
+    });
     return {
       c() {
         hr = element("hr");
@@ -7788,6 +7816,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         create_component(submenulink0.$.fragment);
         t3 = space();
         create_component(submenulink1.$.fragment);
+        t4 = space();
+        create_component(submenulink2.$.fragment);
+        t5 = space();
+        create_component(submenulink3.$.fragment);
         attr(hr, "class", "svelte-yox2t3");
         attr(a, "href", "/reportViewer/dashboard");
         attr(a, "title", "Report Viewer");
@@ -7808,6 +7840,10 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         mount_component(submenulink0, div, null);
         append(div, t3);
         mount_component(submenulink1, div, null);
+        append(div, t4);
+        mount_component(submenulink2, div, null);
+        append(div, t5);
+        mount_component(submenulink3, div, null);
         current = true;
       },
       p(ctx2, dirty) {
@@ -7830,12 +7866,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         transition_in(icon.$.fragment, local);
         transition_in(submenulink0.$.fragment, local);
         transition_in(submenulink1.$.fragment, local);
+        transition_in(submenulink2.$.fragment, local);
+        transition_in(submenulink3.$.fragment, local);
         current = true;
       },
       o(local) {
         transition_out(icon.$.fragment, local);
         transition_out(submenulink0.$.fragment, local);
         transition_out(submenulink1.$.fragment, local);
+        transition_out(submenulink2.$.fragment, local);
+        transition_out(submenulink3.$.fragment, local);
         current = false;
       },
       d(detaching) {
@@ -7851,6 +7891,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
           if_block.d();
         destroy_component(submenulink0);
         destroy_component(submenulink1);
+        destroy_component(submenulink2);
+        destroy_component(submenulink3);
       }
     };
   }

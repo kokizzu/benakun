@@ -170,6 +170,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// ReportViewerFinancialPosition
+	fw.Post("/"+domain.ReportViewerFinancialPositionAction, func(c *fiber.Ctx) error {
+		in := domain.ReportViewerFinancialPositionIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.ReportViewerFinancialPositionAction); err != nil {
+			return nil
+		}
+		out := d.ReportViewerFinancialPosition(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// ReportViewerGeneralLedger
 	fw.Post("/"+domain.ReportViewerGeneralLedgerAction, func(c *fiber.Ctx) error {
 		in := domain.ReportViewerGeneralLedgerIn{}
@@ -177,6 +187,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return nil
 		}
 		out := d.ReportViewerGeneralLedger(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// ReportViewerLossIncomeStatements
+	fw.Post("/"+domain.ReportViewerLossIncomeStatementsAction, func(c *fiber.Ctx) error {
+		in := domain.ReportViewerLossIncomeStatementsIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.ReportViewerLossIncomeStatementsAction); err != nil {
+			return nil
+		}
+		out := d.ReportViewerLossIncomeStatements(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

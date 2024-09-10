@@ -6106,13 +6106,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   };
   var mainLayout_default = MainLayout;
 
-  // reportViewer_dashboard.svelte
+  // reportViewer_financialPosition.svelte
   function create_default_slot(ctx) {
     let p;
     return {
       c() {
         p = element("p");
-        p.textContent = "Report Viewer Dashboard";
+        p.textContent = "Report Viewer Financial Position";
       },
       m(target, anchor) {
         insert(target, p, anchor);
@@ -6165,16 +6165,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  var ReportViewer_dashboard = class extends SvelteComponent {
+  var ReportViewer_financialPosition = class extends SvelteComponent {
     constructor(options) {
       super();
       init(this, options, null, create_fragment7, safe_not_equal, {});
     }
   };
-  var reportViewer_dashboard_default = ReportViewer_dashboard;
+  var reportViewer_financialPosition_default = ReportViewer_financialPosition;
 
-  // reportViewer_dashboard.svelte.ts
-  var app = new reportViewer_dashboard_default({ target: document.getElementById("app") });
+  // reportViewer_financialPosition.svelte.ts
+  var app = new reportViewer_financialPosition_default({ target: document.getElementById("app") });
 })();
 </script>
 </body></html>

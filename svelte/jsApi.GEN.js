@@ -175,6 +175,8 @@ exports.DataEntryTransactionEntry = async function DataEntryTransactionEntry( i,
  * @property {Array<String>} pager.order
  * @property {number} transaction.id
  * @property {String} transaction.tenantCode
+ * @property {String} transaction.startDate
+ * @property {String} transaction.endDate
  * @property {number} transaction.createdAt
  * @property {number} transaction.createdBy
  * @property {number} transaction.updatedAt
@@ -182,10 +184,7 @@ exports.DataEntryTransactionEntry = async function DataEntryTransactionEntry( i,
  * @property {number} transaction.deletedAt
  * @property {number} transaction.deletedBy
  * @property {number} transaction.restoredBy
- * @property {number} transaction.completedAt
- * @property {number} transaction.price
- * @property {String} transaction.descriptions
- * @property {number} transaction.qty
+ * @property {number} transaction.transactionTemplateId
  */
 const FieldSupervisorDashboardIn = {
   cmd: '', // string
@@ -197,9 +196,11 @@ const FieldSupervisorDashboardIn = {
     }, // map[string][]string
     order: [], // []string
   }, // zCrud.PagerIn
-  transaction: { // rqFinance.Transactions
+  transaction: { // rqFinance.BusinessTransaction
     id: 0, // uint64
     tenantCode: '', // string
+    startDate: '', // string
+    endDate: '', // string
     createdAt: 0, // int64
     createdBy: 0, // uint64
     updatedAt: 0, // int64
@@ -207,11 +208,8 @@ const FieldSupervisorDashboardIn = {
     deletedAt: 0, // int64
     deletedBy: 0, // uint64
     restoredBy: 0, // uint64
-    completedAt: 0, // int64
-    price: 0, // uint64
-    descriptions: '', // string
-    qty: 0, // int64
-  }, // rqFinance.Transactions
+    transactionTemplateId: 0, // uint64
+  }, // rqFinance.BusinessTransaction
 }
 /**
  * @typedef {Object} FieldSupervisorDashboardOut
@@ -226,6 +224,8 @@ const FieldSupervisorDashboardIn = {
  * @property {String} meta.cachedSelect
  * @property {number} transaction.id
  * @property {String} transaction.tenantCode
+ * @property {String} transaction.startDate
+ * @property {String} transaction.endDate
  * @property {number} transaction.createdAt
  * @property {number} transaction.createdBy
  * @property {number} transaction.updatedAt
@@ -233,10 +233,7 @@ const FieldSupervisorDashboardIn = {
  * @property {number} transaction.deletedAt
  * @property {number} transaction.deletedBy
  * @property {number} transaction.restoredBy
- * @property {number} transaction.completedAt
- * @property {number} transaction.price
- * @property {String} transaction.descriptions
- * @property {number} transaction.qty
+ * @property {number} transaction.transactionTemplateId
  * @property {Object} transactions
  */
 const FieldSupervisorDashboardOut = {
@@ -256,9 +253,11 @@ const FieldSupervisorDashboardOut = {
     }, // sync.Mutex
     cachedSelect: '', // string
   }, // zCrud.Meta
-  transaction: { // rqFinance.Transactions
+  transaction: { // rqFinance.BusinessTransaction
     id: 0, // uint64
     tenantCode: '', // string
+    startDate: '', // string
+    endDate: '', // string
     createdAt: 0, // int64
     createdBy: 0, // uint64
     updatedAt: 0, // int64
@@ -266,11 +265,8 @@ const FieldSupervisorDashboardOut = {
     deletedAt: 0, // int64
     deletedBy: 0, // uint64
     restoredBy: 0, // uint64
-    completedAt: 0, // int64
-    price: 0, // uint64
-    descriptions: '', // string
-    qty: 0, // int64
-  }, // rqFinance.Transactions
+    transactionTemplateId: 0, // uint64
+  }, // rqFinance.BusinessTransaction
   transactions: { // [][]any
   }, // [][]any
 }
@@ -285,7 +281,7 @@ const FieldSupervisorDashboardOut = {
  * @returns {Promise}
  */
 exports.FieldSupervisorDashboard = async function FieldSupervisorDashboard( i, cb ) {
-  return await axios.post( '/fieldSupervisorDashboard/dashboard', i ).
+  return await axios.post( '/fieldSupervisor/dashboard', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -812,6 +808,66 @@ exports.ReportViewerDashboard = async function ReportViewerDashboard( i, cb ) {
 }
 
 /**
+ * @typedef {Object} ReportViewerFinancialPositionIn
+ * @property {number} coa.id
+ * @property {String} coa.tenantCode
+ * @property {String} coa.name
+ * @property {String} coa.label
+ * @property {number} coa.parentId
+ * @property {Object} coa.children
+ * @property {number} coa.createdAt
+ * @property {number} coa.createdBy
+ * @property {number} coa.updatedAt
+ * @property {number} coa.updatedBy
+ * @property {number} coa.deletedAt
+ * @property {number} coa.deletedBy
+ * @property {number} coa.restoredBy
+ * @property {Object} coa.editable
+ */
+const ReportViewerFinancialPositionIn = {
+  coa: { // rqFinance.Coa
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    label: '', // string
+    parentId: 0, // uint64
+    children: { // []any
+    }, // []any
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    editable: false, // bool
+  }, // rqFinance.Coa
+}
+/**
+ * @typedef {Object} ReportViewerFinancialPositionOut
+ * @property {Object} transactionJournals
+ */
+const ReportViewerFinancialPositionOut = {
+  transactionJournals: { // []rqFinance.TransactionJournal
+  }, // []rqFinance.TransactionJournal
+}
+/**
+ * @callback ReportViewerFinancialPositionCallback
+ * @param {ReportViewerFinancialPositionOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {ReportViewerFinancialPositionIn} i
+ * @param {ReportViewerFinancialPositionCallback} cb
+ * @returns {Promise}
+ */
+exports.ReportViewerFinancialPosition = async function ReportViewerFinancialPosition( i, cb ) {
+  return await axios.post( '/reportViewer/financialPosition', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} ReportViewerGeneralLedgerIn
  * @property {number} coa.id
  * @property {String} coa.tenantCode
@@ -867,6 +923,66 @@ const ReportViewerGeneralLedgerOut = {
  */
 exports.ReportViewerGeneralLedger = async function ReportViewerGeneralLedger( i, cb ) {
   return await axios.post( '/reportViewer/generalLedger', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} ReportViewerLossIncomeStatementsIn
+ * @property {number} coa.id
+ * @property {String} coa.tenantCode
+ * @property {String} coa.name
+ * @property {String} coa.label
+ * @property {number} coa.parentId
+ * @property {Object} coa.children
+ * @property {number} coa.createdAt
+ * @property {number} coa.createdBy
+ * @property {number} coa.updatedAt
+ * @property {number} coa.updatedBy
+ * @property {number} coa.deletedAt
+ * @property {number} coa.deletedBy
+ * @property {number} coa.restoredBy
+ * @property {Object} coa.editable
+ */
+const ReportViewerLossIncomeStatementsIn = {
+  coa: { // rqFinance.Coa
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    label: '', // string
+    parentId: 0, // uint64
+    children: { // []any
+    }, // []any
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    editable: false, // bool
+  }, // rqFinance.Coa
+}
+/**
+ * @typedef {Object} ReportViewerLossIncomeStatementsOut
+ * @property {Object} transactionJournals
+ */
+const ReportViewerLossIncomeStatementsOut = {
+  transactionJournals: { // []rqFinance.TransactionJournal
+  }, // []rqFinance.TransactionJournal
+}
+/**
+ * @callback ReportViewerLossIncomeStatementsCallback
+ * @param {ReportViewerLossIncomeStatementsOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {ReportViewerLossIncomeStatementsIn} i
+ * @param {ReportViewerLossIncomeStatementsCallback} cb
+ * @returns {Promise}
+ */
+exports.ReportViewerLossIncomeStatements = async function ReportViewerLossIncomeStatements( i, cb ) {
+  return await axios.post( '/reportViewer/lossIncomeStatements', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

@@ -107,7 +107,9 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 		return
 	}
 
-	user.SetRole(TenantAdminSegment)
+	if !sess.IsSuperAdmin {
+		user.SetRole(TenantAdminSegment)
+	}
 	user.SetTenantCode(org.TenantCode)
 	if !user.DoUpdateById() {
 		out.SetError(400, ErrUserCreateCompanyUserNotFound)

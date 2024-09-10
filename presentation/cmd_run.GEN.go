@@ -140,12 +140,28 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.ReportViewerDashboard(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.ReportViewerFinancialPositionAction:
+		in := domain.ReportViewerFinancialPositionIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.ReportViewerFinancialPosition(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.ReportViewerGeneralLedgerAction:
 		in := domain.ReportViewerGeneralLedgerIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
 			return
 		}
 		out := b.ReportViewerGeneralLedger(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.ReportViewerLossIncomeStatementsAction:
+		in := domain.ReportViewerLossIncomeStatementsIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.ReportViewerLossIncomeStatements(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.ReportViewerTrialBalanceAction:

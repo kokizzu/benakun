@@ -163,6 +163,7 @@
   }
 
   const roles = {
+    'user': 'User',
     'superAdmin': 'Super Admin',
     'tenantAdmin': 'Tenant Admin',
     'dataEntry': 'Data Entry',

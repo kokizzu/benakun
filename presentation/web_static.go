@@ -198,6 +198,30 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.ReportViewerFinancialPositionAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notReportViewer(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		return views.RenderReportViewerFinancialPosition(ctx, M.SX{
+			`title`:    `Report Viewer Financial Position`,
+			`user`:     user,
+			`segments`: segments,
+		})
+	})
+
+	fw.Get(`/`+domain.ReportViewerLossIncomeStatementsAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notReportViewer(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+		return views.RenderReportViewerLossIncomeStatements(ctx, M.SX{
+			`title`:    `Report Viewer Loss Income Statements`,
+			`user`:     user,
+			`segments`: segments,
+		})
+	})
+
 	fw.Get(`/`+domain.FieldSupervisorDashboardAction, func(ctx *fiber.Ctx) error {
 		var in domain.FieldSupervisorDashboardIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminProductsAction)
@@ -210,6 +234,16 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		}
 
 		user, segments := userInfoFromRequest(in.RequestCommon, d)
+
+		tenantCode, err := domain.GetTenantCodeByHost(in.Host)
+		if err != nil {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		r := rqFinance.NewTransactionTemplate(d.AuthOltp)
+		r.TenantCode = tenantCode
+		trxTemplates := r.FindTransactionTamplatesChoicesByTenant()
+
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.FieldSupervisorDashboard(&in)
@@ -226,6 +260,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`fields`: out.Meta.Fields,
 			`transaction`: out.Transaction,
 			`transactions`: out.Transactions,
+			`transactionTemplates`: trxTemplates,
 		})
 	})
 

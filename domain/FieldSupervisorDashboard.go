@@ -19,13 +19,13 @@ type (
 		Cmd      string               `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
 		WithMeta bool                 `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
 		Pager    zCrud.PagerIn        `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
-		Transaction *rqFinance.Transactions `json:"transaction" form:"transaction" query:"transaction" long:"transaction" msg:"transaction"`
+		Transaction *rqFinance.BusinessTransaction `json:"transaction" form:"transaction" query:"transaction" long:"transaction" msg:"transaction"`
 	}
 	FieldSupervisorDashboardOut struct {
 		ResponseCommon
 		Pager    zCrud.PagerOut       `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 		Meta     *zCrud.Meta          `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
-		Transaction *rqFinance.Transactions `json:"transaction" form:"transaction" query:"transaction" long:"transaction" msg:"transaction"`
+		Transaction *rqFinance.BusinessTransaction `json:"transaction" form:"transaction" query:"transaction" long:"transaction" msg:"transaction"`
 		Transactions [][]any              `json:"transactions" form:"transactions" query:"transactions" long:"transactions" msg:"transactions"`
 	}
 )
