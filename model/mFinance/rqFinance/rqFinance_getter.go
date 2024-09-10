@@ -238,7 +238,18 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 		numsI := extractNumParts(kvsCoaChoices[i].value)
 		numsJ := extractNumParts(kvsCoaChoices[j].value)
 
-		return compareCoaNums(numsI, numsJ)
+		compared := compareCoaNums(numsI, numsJ)
+
+		return compared
+	})
+
+	sort.Slice(kvsCoaChoices, func(i, j int) bool {
+		numsI := extractNumParts(kvsCoaChoices[i].value)
+		numsJ := extractNumParts(kvsCoaChoices[j].value)
+
+		compared := compareCoaNums(numsI, numsJ)
+
+		return compared
 	})
 
 	if len(kvsCoaChoices) > 0 {

@@ -749,6 +749,81 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   max-height: fit-content;
   overflow: inherit;
 }
+
+/* fakecss:./reportViewer_lossIncomeStatements.esbuild-svelte-fake-css */
+.table_root.svelte-yfougu.svelte-yfougu {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 0;
+  border: 1px solid var(--gray-003);
+  overflow: hidden;
+}
+.table_root.svelte-yfougu .table_container.svelte-yfougu {
+  overflow-x: auto;
+  scrollbar-color: var(--gray-003) transparent;
+  scrollbar-width: thin;
+}
+.table_root.svelte-yfougu .table_container table.svelte-yfougu {
+  width: 100%;
+  background: #fff;
+  box-shadow: none;
+  text-align: left;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+}
+.table_root.svelte-yfougu .table_container table thead.svelte-yfougu {
+  box-shadow: none;
+  border-bottom: 1px solid var(--gray-003);
+}
+.table_root.svelte-yfougu .table_container table thead tr th.svelte-yfougu {
+  padding: 12px;
+  background-color: var(--gray-001);
+  text-transform: capitalize;
+  border-right: 1px solid var(--gray-004);
+  border-bottom: 1px solid var(--gray-003);
+  min-width: fit-content;
+  width: auto;
+  text-wrap: nowrap;
+}
+.table_root.svelte-yfougu .table_container table thead tr th.no.svelte-yfougu {
+  width: 30px;
+}
+.table_root.svelte-yfougu .table_container table thead tr th.svelte-yfougu:last-child {
+  border-right: none;
+}
+.table_root.svelte-yfougu .table_container table tbody tr td.svelte-yfougu {
+  padding: 8px 12px;
+}
+.table_root.svelte-yfougu .table_container table tbody tr td.svelte-yfougu {
+  padding: 8px 12px;
+  border-right: 1px solid var(--gray-004);
+  border-bottom: 1px solid var(--gray-004);
+}
+.table_root.svelte-yfougu .table_container table tbody tr:last-child td.svelte-yfougu,
+.table_root.svelte-yfougu .table_container table tbody tr:last-child th.svelte-yfougu {
+  border-bottom: none !important;
+}
+.table_root.svelte-yfougu .table_container table tbody tr:last-child td.svelte-yfougu:last-child {
+  border-right: none !important;
+}
+.table_root.svelte-yfougu .table_container table tbody tr:last-child td.svelte-yfougu,
+.table_root.svelte-yfougu .table_container table tbody tr:last-child th.svelte-yfougu {
+  border-bottom: none !important;
+}
+.table_root.svelte-yfougu .table_container table tbody tr:last-child td.svelte-yfougu:last-child {
+  border-right: none !important;
+}
+.table_root.svelte-yfougu .table_container table tbody tr td.svelte-yfougu:last-child {
+  border-right: none !important;
+}
+.table_root.svelte-yfougu .table_container table tbody tr th.svelte-yfougu {
+  text-align: center;
+  border-right: 1px solid var(--gray-004);
+  border-bottom: 1px solid var(--gray-004);
+}
 </style>
 <script>(() => {
   var __create = Object.create;
@@ -6111,19 +6186,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 
   // reportViewer_lossIncomeStatements.svelte
   function create_default_slot(ctx) {
-    let p;
+    let div2;
     return {
       c() {
-        p = element("p");
-        p.textContent = "Report Viewer Loss Income Statements";
+        div2 = element("div");
+        div2.innerHTML = `<div class="table_root svelte-yfougu"><div class="table_container svelte-yfougu"><table class="svelte-yfougu"><thead class="svelte-yfougu"><tr><th class="no svelte-yfougu">No. Acc / No. Rek</th> <th class="svelte-yfougu">Name / Nama</th> <th class="svelte-yfougu">Loss / Rugi</th> <th class="svelte-yfougu">Income / Laba</th></tr></thead> <tbody><tr><td class="no svelte-yfougu">1</td> <td class="svelte-yfougu">Pendapatan lainnya</td> <td class="svelte-yfougu">Rp20.000</td> <td class="svelte-yfougu">Rp5.000</td></tr> <tr><td colspan="2" class="svelte-yfougu"><b>Total</b></td> <td class="svelte-yfougu"><b>Rp25.000</b></td> <td class="svelte-yfougu"><b>Rp10.000</b></td> <td class="svelte-yfougu"></td></tr></tbody></table></div></div>`;
       },
       m(target, anchor) {
-        insert(target, p, anchor);
+        insert(target, div2, anchor);
       },
       p: noop,
       d(detaching) {
         if (detaching) {
-          detach(p);
+          detach(div2);
         }
       }
     };

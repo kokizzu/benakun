@@ -215,6 +215,12 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notReportViewer(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
+
+		// tenantCode, err := domain.GetTenantCodeByHost(in.Host)
+		// if err != nil {
+		// 	return ctx.Redirect(`/`, 302)
+		// }
+
 		return views.RenderReportViewerLossIncomeStatements(ctx, M.SX{
 			`title`:    `Report Viewer Loss Income Statements`,
 			`user`:     user,
