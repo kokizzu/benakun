@@ -215,6 +215,43 @@
 				}
 			}
 		},
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "FieldSupervisorBusinessTransactionEdit",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"transactionJournals": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/fieldSupervisor/dashboard": {
 			"post": {
 				"security": [{
@@ -294,6 +331,11 @@
 								"transactionTemplateId": {
 										"type": "number"
 								}
+								}
+						},
+						"transactionJournals": {
+						"type": "object",
+						"properties": {
 								}
 						}
 								}
@@ -1138,6 +1180,7 @@
 				}
 			}
 		},
+		"/reportViewer/financialPosition": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -1311,6 +1354,7 @@
 				}
 			}
 		},
+		"/reportViewer/lossIncomeStatements": {
 			"post": {
 				"security": [{
 					"CookieAuth": []

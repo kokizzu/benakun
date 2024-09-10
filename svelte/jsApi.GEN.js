@@ -166,6 +166,35 @@ exports.DataEntryTransactionEntry = async function DataEntryTransactionEntry( i,
 }
 
 /**
+ * @typedef {Object} FieldSupervisorBusinessTransactionEditIn
+ */
+const FieldSupervisorBusinessTransactionEditIn = {
+}
+/**
+ * @typedef {Object} FieldSupervisorBusinessTransactionEditOut
+ * @property {Object} transactionJournals
+ */
+const FieldSupervisorBusinessTransactionEditOut = {
+  transactionJournals: { // []rqFinance.TransactionJournal
+  }, // []rqFinance.TransactionJournal
+}
+/**
+ * @callback FieldSupervisorBusinessTransactionEditCallback
+ * @param {FieldSupervisorBusinessTransactionEditOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {FieldSupervisorBusinessTransactionEditIn} i
+ * @param {FieldSupervisorBusinessTransactionEditCallback} cb
+ * @returns {Promise}
+ */
+exports.FieldSupervisorBusinessTransactionEdit = async function FieldSupervisorBusinessTransactionEdit( i, cb ) {
+  return await axios.post( '/fieldSupervisor/businessTransaction/', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} FieldSupervisorDashboardIn
  * @property {String} cmd
  * @property {Object} withMeta
@@ -185,6 +214,7 @@ exports.DataEntryTransactionEntry = async function DataEntryTransactionEntry( i,
  * @property {number} transaction.deletedBy
  * @property {number} transaction.restoredBy
  * @property {number} transaction.transactionTemplateId
+ * @property {Object} transactionJournals
  */
 const FieldSupervisorDashboardIn = {
   cmd: '', // string
@@ -210,6 +240,8 @@ const FieldSupervisorDashboardIn = {
     restoredBy: 0, // uint64
     transactionTemplateId: 0, // uint64
   }, // rqFinance.BusinessTransaction
+  transactionJournals: { // []rqFinance.TransactionJournal
+  }, // []rqFinance.TransactionJournal
 }
 /**
  * @typedef {Object} FieldSupervisorDashboardOut

@@ -595,3 +595,54 @@ FROM SEQSCAN ` + bt.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + l
 
 	return
 }
+
+func (bt *BusinessTransaction) FindByIdByTenantCode() bool {
+	const comment = `-- BusinessTransaction) FindByTenantCode`
+
+	whereAndSql := ` WHERE ` + bt.SqlTenantCode() + ` = ` + S.Z(bt.TenantCode) + `
+		AND ` + bt.SqlId() + ` = ` + I.UToS(bt.Id)
+
+	queryRows := comment + `
+SELECT ` + bt.SqlSelectAllFields() + `
+FROM SEQSCAN ` + bt.SqlTableName() + whereAndSql
+
+	var res []any
+	bt.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToU(row[0])
+		res = row
+	})
+
+	if len(res) > 0 {
+		bt.FromArray(res)
+		return true
+	}
+
+	return false
+}
+
+func (tj *TransactionJournal) FindTrxJournalsByTrxTemplateByTenant() (trxJournals []TransactionJournal) {
+	var res [][]any
+	const comment = `-- TransactionJournal) FindTrxJournalsByTrxTemplateByTenant`
+
+	whereAndSql := ` WHERE ` + tj.SqlTenantCode() + ` = ` + S.Z(tj.TenantCode) + `
+		AND ` + tj.SqlTransactionTemplateId() + ` = ` + I.UToS(tj.TransactionTemplateId)
+
+	queryRows := comment + `
+SELECT ` + tj.SqlSelectAllFields() + `
+FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
+
+	tj.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
+	if len(res) > 0 {
+		for _, oa := range res {
+			if len(oa) >= 5 {
+				trxJournals = append(trxJournals, *tj.FromArray(oa))
+			}
+		}
+	}
+
+	return
+}

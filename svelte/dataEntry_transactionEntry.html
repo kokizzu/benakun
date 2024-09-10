@@ -3056,6 +3056,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       exports.DataEntryTransactionEntry = async function DataEntryTransactionEntry(i, cb) {
         return await axios.post("/dataEntry/transactionEntry", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.FieldSupervisorBusinessTransactionEdit = async function FieldSupervisorBusinessTransactionEdit(i, cb) {
+        return await axios.post("/fieldSupervisor/businessTransaction/", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.FieldSupervisorDashboard = async function FieldSupervisorDashboard(i, cb) {
         return await axios.post("/fieldSupervisor/dashboard", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };

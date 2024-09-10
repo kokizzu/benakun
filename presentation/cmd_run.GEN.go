@@ -44,6 +44,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.DataEntryTransactionEntry(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.FieldSupervisorBusinessTransactionEditAction:
+		in := domain.FieldSupervisorBusinessTransactionEditIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.FieldSupervisorBusinessTransactionEdit(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.FieldSupervisorDashboardAction:
 		in := domain.FieldSupervisorDashboardIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

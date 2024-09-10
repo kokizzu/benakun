@@ -402,7 +402,12 @@
               {#each FIELDS || [] as f, idx}
                 {#if f.name === 'id'}
                   <td class="a_row">
-                    {#if ACCESS.superAdmin || ACCESS.tenantAdmin || ACCESS.dataEntry || ACCESS.reportViewer}
+                    {#if ACCESS.superAdmin
+                      || ACCESS.tenantAdmin
+                      || ACCESS.dataEntry
+                      || ACCESS.reportViewer
+                      || ACCESS.fieldSupervisor
+                    }
                       <div class="actions">
                         {#if CAN_SHOW_INFO}
                           <button class="btn info" title="Info" on:click={() => OnInfo(row)}>
@@ -832,6 +837,8 @@
 
   .table_root .table_container table thead tr th.a_row {
     max-width: fit-content;
+    min-width: fit-content;
+    width: fit-content;
   }
 
   .table_root .table_container table thead tr th:last-child {

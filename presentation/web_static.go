@@ -264,6 +264,44 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.FieldSupervisorBusinessTransactionEditAction+`:trxId`, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		
+		if notFieldSupervisorLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		tenantCode, err := domain.GetTenantCodeByHost(in.Host)
+		if err != nil {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		businessTrxId := ctx.Params(`trxId`)
+		transaction := rqFinance.NewBusinessTransaction(d.AuthOltp)
+		transaction.Id = S.ToU(businessTrxId)
+		transaction.TenantCode = tenantCode
+		if !transaction.FindByIdByTenantCode() {
+			return views.Render404(ctx, M.SX{
+				`title`: `Business Transaction Not Found`,
+				`description`: `Make sure given id is valid`, 
+			})
+		}
+
+		trxJournal := rqFinance.NewTransactionJournal(d.AuthOltp)
+		trxJournal.TransactionTemplateId = transaction.TransactionTemplateId
+		trxJournal.TenantCode = tenantCode
+		
+		trxJournals := trxJournal.FindTrxJournalsByTrxTemplateByTenant()
+
+		return views.RenderFieldSupervisorBusinessTransactionEdit(ctx, M.SX{
+			`title`:    `Field Supervisor Edit Business Transaction`,
+			`user`:     user,
+			`segments`: segments,
+			`transaction`: transaction,
+			`transactionJournals`: trxJournals,
+		})
+	})
+
 	fw.Get(`/`+domain.DataEntryDashboardAction, func(ctx *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(ctx, d)
 		if notDataEntryLogin(d, in.RequestCommon) {
