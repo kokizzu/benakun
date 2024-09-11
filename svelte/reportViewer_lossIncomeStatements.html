@@ -2836,13 +2836,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance7 = bind(Axios$1.prototype.request, context);
-        utils$1.extend(instance7, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance7, context, null, { allOwnKeys: true });
-        instance7.create = function create(instanceConfig) {
+        const instance8 = bind(Axios$1.prototype.request, context);
+        utils$1.extend(instance8, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance8, context, null, { allOwnKeys: true });
+        instance8.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance7;
+        return instance8;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -3215,6 +3215,9 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   function space() {
     return text(" ");
   }
+  function empty() {
+    return text("");
+  }
   function listen(node, event, handler, options) {
     node.addEventListener(event, handler, options);
     return () => node.removeEventListener(event, handler, options);
@@ -3385,6 +3388,84 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
   }
 
+  // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/each.js
+  function ensure_array_like(array_like_or_iterator) {
+    return array_like_or_iterator?.length !== void 0 ? array_like_or_iterator : Array.from(array_like_or_iterator);
+  }
+  function destroy_block(block, lookup) {
+    block.d(1);
+    lookup.delete(block.key);
+  }
+  function update_keyed_each(old_blocks, dirty, get_key, dynamic, ctx, list, lookup, node, destroy, create_each_block2, next, get_context) {
+    let o = old_blocks.length;
+    let n = list.length;
+    let i = o;
+    const old_indexes = {};
+    while (i--)
+      old_indexes[old_blocks[i].key] = i;
+    const new_blocks = [];
+    const new_lookup = /* @__PURE__ */ new Map();
+    const deltas = /* @__PURE__ */ new Map();
+    const updates = [];
+    i = n;
+    while (i--) {
+      const child_ctx = get_context(ctx, list, i);
+      const key = get_key(child_ctx);
+      let block = lookup.get(key);
+      if (!block) {
+        block = create_each_block2(key, child_ctx);
+        block.c();
+      } else if (dynamic) {
+        updates.push(() => block.p(child_ctx, dirty));
+      }
+      new_lookup.set(key, new_blocks[i] = block);
+      if (key in old_indexes)
+        deltas.set(key, Math.abs(i - old_indexes[key]));
+    }
+    const will_move = /* @__PURE__ */ new Set();
+    const did_move = /* @__PURE__ */ new Set();
+    function insert2(block) {
+      transition_in(block, 1);
+      block.m(node, next);
+      lookup.set(block.key, block);
+      next = block.first;
+      n--;
+    }
+    while (o && n) {
+      const new_block = new_blocks[n - 1];
+      const old_block = old_blocks[o - 1];
+      const new_key = new_block.key;
+      const old_key = old_block.key;
+      if (new_block === old_block) {
+        next = new_block.first;
+        o--;
+        n--;
+      } else if (!new_lookup.has(old_key)) {
+        destroy(old_block, lookup);
+        o--;
+      } else if (!lookup.has(new_key) || will_move.has(new_key)) {
+        insert2(new_block);
+      } else if (did_move.has(old_key)) {
+        o--;
+      } else if (deltas.get(new_key) > deltas.get(old_key)) {
+        did_move.add(new_key);
+        insert2(new_block);
+      } else {
+        will_move.add(old_key);
+        o--;
+      }
+    }
+    while (o--) {
+      const old_block = old_blocks[o];
+      if (!new_lookup.has(old_block.key))
+        destroy(old_block, lookup);
+    }
+    while (n)
+      insert2(new_blocks[n - 1]);
+    run_all(updates);
+    return new_blocks;
+  }
+
   // node_modules/.pnpm/svelte@4.2.2/node_modules/svelte/src/runtime/internal/spread.js
   function get_spread_update(levels, updates) {
     const update2 = {};
@@ -3488,7 +3569,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance7, create_fragment8, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance8, create_fragment8, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -3514,7 +3595,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance7 ? instance7(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance8 ? instance8(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -6185,21 +6266,250 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   var mainLayout_default = MainLayout;
 
   // reportViewer_lossIncomeStatements.svelte
-  function create_default_slot(ctx) {
-    let div2;
+  function get_each_context(ctx, list, i) {
+    const child_ctx = ctx.slice();
+    child_ctx[2] = list[i];
+    child_ctx[4] = i;
+    return child_ctx;
+  }
+  function create_else_block(ctx) {
+    let tr;
     return {
       c() {
-        div2 = element("div");
-        div2.innerHTML = `<div class="table_root svelte-yfougu"><div class="table_container svelte-yfougu"><table class="svelte-yfougu"><thead class="svelte-yfougu"><tr><th class="no svelte-yfougu">No. Acc / No. Rek</th> <th class="svelte-yfougu">Name / Nama</th> <th class="svelte-yfougu">Loss / Rugi</th> <th class="svelte-yfougu">Income / Laba</th></tr></thead> <tbody><tr><td class="no svelte-yfougu">1</td> <td class="svelte-yfougu">Pendapatan lainnya</td> <td class="svelte-yfougu">Rp20.000</td> <td class="svelte-yfougu">Rp5.000</td></tr> <tr><td colspan="2" class="svelte-yfougu"><b>Total</b></td> <td class="svelte-yfougu"><b>Rp25.000</b></td> <td class="svelte-yfougu"><b>Rp10.000</b></td> <td class="svelte-yfougu"></td></tr></tbody></table></div></div>`;
+        tr = element("tr");
+        tr.innerHTML = `<td colspan="4" class="svelte-yfougu">No data</td>`;
       },
       m(target, anchor) {
-        insert(target, div2, anchor);
+        insert(target, tr, anchor);
       },
       p: noop,
       d(detaching) {
         if (detaching) {
+          detach(tr);
+        }
+      }
+    };
+  }
+  function create_if_block3(ctx) {
+    let each_blocks = [];
+    let each_1_lookup = /* @__PURE__ */ new Map();
+    let each_1_anchor;
+    let each_value = ensure_array_like(transactionJournals);
+    const get_key = (ctx2) => (
+      /*trxJournal*/
+      ctx2[2].id
+    );
+    for (let i = 0; i < each_value.length; i += 1) {
+      let child_ctx = get_each_context(ctx, each_value, i);
+      let key = get_key(child_ctx);
+      each_1_lookup.set(key, each_blocks[i] = create_each_block(key, child_ctx));
+    }
+    return {
+      c() {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].c();
+        }
+        each_1_anchor = empty();
+      },
+      m(target, anchor) {
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          if (each_blocks[i]) {
+            each_blocks[i].m(target, anchor);
+          }
+        }
+        insert(target, each_1_anchor, anchor);
+      },
+      p(ctx2, dirty) {
+        if (dirty & /*transactionJournals, coaChoices*/
+        0) {
+          each_value = ensure_array_like(transactionJournals);
+          each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, destroy_block, create_each_block, each_1_anchor, get_each_context);
+        }
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(each_1_anchor);
+        }
+        for (let i = 0; i < each_blocks.length; i += 1) {
+          each_blocks[i].d(detaching);
+        }
+      }
+    };
+  }
+  function create_each_block(key_1, ctx) {
+    let tr;
+    let td0;
+    let t1;
+    let td1;
+    let t3;
+    let td2;
+    let t5;
+    let td3;
+    let t7;
+    return {
+      key: key_1,
+      first: null,
+      c() {
+        tr = element("tr");
+        td0 = element("td");
+        td0.textContent = `${/*trxJournal*/
+        ctx[2].coaId}`;
+        t1 = space();
+        td1 = element("td");
+        td1.textContent = `${coaChoices[
+          /*trxJournal*/
+          ctx[2].coaId
+        ]}`;
+        t3 = space();
+        td2 = element("td");
+        td2.textContent = `${/*trxJournal*/
+        ctx[2].debitIDR}`;
+        t5 = space();
+        td3 = element("td");
+        td3.textContent = `${/*trxJournal*/
+        ctx[2].creditIDR}`;
+        t7 = space();
+        attr(td0, "class", "no svelte-yfougu");
+        attr(td1, "class", "svelte-yfougu");
+        attr(td2, "class", "svelte-yfougu");
+        attr(td3, "class", "svelte-yfougu");
+        this.first = tr;
+      },
+      m(target, anchor) {
+        insert(target, tr, anchor);
+        append(tr, td0);
+        append(tr, t1);
+        append(tr, td1);
+        append(tr, t3);
+        append(tr, td2);
+        append(tr, t5);
+        append(tr, td3);
+        append(tr, t7);
+      },
+      p(new_ctx, dirty) {
+        ctx = new_ctx;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(tr);
+        }
+      }
+    };
+  }
+  function create_default_slot(ctx) {
+    let div2;
+    let div1;
+    let div0;
+    let table;
+    let thead;
+    let t7;
+    let tbody;
+    let t8;
+    let tr1;
+    let td0;
+    let t10;
+    let td1;
+    let b1;
+    let t11;
+    let t12;
+    let td2;
+    let b2;
+    let t13;
+    let t14;
+    let td3;
+    function select_block_type(ctx2, dirty) {
+      if (transactionJournals && transactionJournals.length > 0)
+        return create_if_block3;
+      return create_else_block;
+    }
+    let current_block_type = select_block_type(ctx, -1);
+    let if_block = current_block_type(ctx);
+    return {
+      c() {
+        div2 = element("div");
+        div1 = element("div");
+        div0 = element("div");
+        table = element("table");
+        thead = element("thead");
+        thead.innerHTML = `<tr><th class="no svelte-yfougu">No. Acc / No. Rek</th> <th class="svelte-yfougu">Name / Nama</th> <th class="svelte-yfougu">Income / Laba</th> <th class="svelte-yfougu">Loss / Rugi</th></tr>`;
+        t7 = space();
+        tbody = element("tbody");
+        if_block.c();
+        t8 = space();
+        tr1 = element("tr");
+        td0 = element("td");
+        td0.innerHTML = `<b>Total</b>`;
+        t10 = space();
+        td1 = element("td");
+        b1 = element("b");
+        t11 = text(
+          /*DebitIDRTotal*/
+          ctx[0]
+        );
+        t12 = space();
+        td2 = element("td");
+        b2 = element("b");
+        t13 = text(
+          /*CreditIDRTotal*/
+          ctx[1]
+        );
+        t14 = space();
+        td3 = element("td");
+        attr(thead, "class", "svelte-yfougu");
+        attr(td0, "colspan", "2");
+        attr(td0, "class", "svelte-yfougu");
+        attr(td1, "class", "svelte-yfougu");
+        attr(td2, "class", "svelte-yfougu");
+        attr(td3, "class", "svelte-yfougu");
+        attr(table, "class", "svelte-yfougu");
+        attr(div0, "class", "table_container svelte-yfougu");
+        attr(div1, "class", "table_root svelte-yfougu");
+      },
+      m(target, anchor) {
+        insert(target, div2, anchor);
+        append(div2, div1);
+        append(div1, div0);
+        append(div0, table);
+        append(table, thead);
+        append(table, t7);
+        append(table, tbody);
+        if_block.m(tbody, null);
+        append(tbody, t8);
+        append(tbody, tr1);
+        append(tr1, td0);
+        append(tr1, t10);
+        append(tr1, td1);
+        append(td1, b1);
+        append(b1, t11);
+        append(tr1, t12);
+        append(tr1, td2);
+        append(td2, b2);
+        append(b2, t13);
+        append(tr1, t14);
+        append(tr1, td3);
+      },
+      p(ctx2, dirty) {
+        if_block.p(ctx2, dirty);
+        if (dirty & /*DebitIDRTotal*/
+        1)
+          set_data(
+            t11,
+            /*DebitIDRTotal*/
+            ctx2[0]
+          );
+        if (dirty & /*CreditIDRTotal*/
+        2)
+          set_data(
+            t13,
+            /*CreditIDRTotal*/
+            ctx2[1]
+          );
+      },
+      d(detaching) {
+        if (detaching) {
           detach(div2);
         }
+        if_block.d();
       }
     };
   }
@@ -6222,8 +6532,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, [dirty]) {
         const mainlayout_changes = {};
-        if (dirty & /*$scope*/
-        1) {
+        if (dirty & /*$scope, CreditIDRTotal, DebitIDRTotal*/
+        35) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -6243,10 +6553,31 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
+  var transactionJournals = (
+    /** @type {TransactionJournal[]} */
+    [ /* transactionJournals */ ]
+  );
+  var coaChoices = (
+    /** @type Record<string|number, string> */
+    {/* coaChoices */}
+  );
+  function instance7($self, $props, $invalidate) {
+    let DebitIDRTotal = 0;
+    let CreditIDRTotal = 0;
+    onMount(() => {
+      if (transactionJournals && transactionJournals.length > 0) {
+        transactionJournals.forEach((trxJournal) => {
+          $invalidate(0, DebitIDRTotal += Number(trxJournal.debitIDR));
+          $invalidate(1, CreditIDRTotal += Number(trxJournal.creditIDR));
+        });
+      }
+    });
+    return [DebitIDRTotal, CreditIDRTotal];
+  }
   var ReportViewer_lossIncomeStatements = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment7, safe_not_equal, {});
+      init(this, options, instance7, create_fragment7, safe_not_equal, {});
     }
   };
   var reportViewer_lossIncomeStatements_default = ReportViewer_lossIncomeStatements;

@@ -657,3 +657,99 @@ FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
 
 	return
 }
+
+func (tj *TransactionJournal) FindTrxJournalsLossIncomeByTenant() (trxJournals []TransactionJournal) {
+	coa := NewCoa(tj.Adapter)
+	coa.TenantCode = tj.TenantCode
+	coaIds := coa.FindCoaIDsIncomeExpensesByTenant()
+
+	if len(coaIds) > 0 {
+		var res [][]any
+		for _, id := range coaIds {
+			const comment = `-- TransactionJournal) FindTrxJournalsLossIncomeByTenant`
+
+			whereAndSql := ` WHERE ` + tj.SqlTenantCode() + ` = ` + S.Z(tj.TenantCode) + `
+				AND ` + tj.SqlCoaId() + ` = ` + I.ToS(id)
+				
+			queryRows := comment + `
+		SELECT ` + tj.SqlSelectAllFields() + `
+		FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
+
+			tj.Adapter.QuerySql(queryRows, func(row []any) {
+				row[0] = X.ToS(row[0]) // ensure id is string
+				res = append(res, row)
+			})
+
+			if len(res) > 0 {
+				for _, oa := range res {
+					if len(oa) >= 5 {
+						trxJournals = append(trxJournals, *tj.FromArray(oa))
+					}
+				}
+			}
+		}
+	}
+
+	return
+}
+
+func (c *Coa) FindCoaIDsIncomeExpensesByTenant() (coaIds []int64) {
+	const comment = `-- Coa) FindCoaIDsIncomeExpensesByTenant`
+
+	coaParent1 := NewCoa(c.Adapter)
+	coaParent1.TenantCode = c.TenantCode
+	coaParent1.Name = mFinance.CoaExpense
+	if coaParent1.FindByNameByTenant() {
+		whereAndSql1 := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode) + `
+			AND ` + c.SqlParentId() + ` = ` + I.UToS(coaParent1.Id)
+
+		queryRows1 := comment + `
+	SELECT ` + c.SqlId() + `
+	FROM SEQSCAN ` + c.SqlTableName() + whereAndSql1
+
+		c.Adapter.QuerySql(queryRows1, func(row []any) {
+			coaIds = append(coaIds, X.ToI(row[0]))
+		})
+	}
+
+	coaParent2 := NewCoa(c.Adapter)
+	coaParent2.TenantCode = c.TenantCode
+	coaParent2.Name = mFinance.CoaIncome
+	if coaParent2.FindByNameByTenant() {
+		whereAndSql2 := ` WHERE ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode) + `
+			AND ` + c.SqlParentId() + ` = ` + I.UToS(coaParent2.Id)
+
+		queryRows2 := comment + `
+	SELECT ` + c.SqlId() + `
+	FROM SEQSCAN ` + c.SqlTableName() + whereAndSql2
+
+		c.Adapter.QuerySql(queryRows2, func(row []any) {
+			coaIds = append(coaIds, X.ToI(row[0]))
+		})
+	}
+
+	return
+}
+
+func (c *Coa) FindByNameByTenant() bool {
+	const comment = `-- Coa) FindByNameByTenant`
+	whereAndSql := ` WHERE ` + c.SqlName() + ` = ` + S.Z(c.Name) + `
+		AND ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode) + `
+		LIMIT 1`
+	
+	queryRows := comment + `
+	SELECT ` + c.SqlSelectAllFields() + `
+	FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
+
+	var res [][]any
+	c.Adapter.QuerySql(queryRows, func(row []any) {
+		row[0] = X.ToS(row[0]) // ensure id is string
+		res = append(res, row)
+	})
+
+	if len(res) == 1 {
+		c.FromArray(res[0])
+		return true
+	}
+	return false
+}

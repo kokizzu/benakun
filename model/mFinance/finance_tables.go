@@ -64,7 +64,8 @@ const (
 	CoaPrive							= `Prive / Prive`
 	CoaLiability					= `Liability / Hutang - Kewajiban`
 	CoaCapitalInvestment 	= `Capital Investment / Penanaman Modal`
-	CoaTemporary					= `Temporary / Sementara` 
+	CoaTemporary					= `Temporary / Sementara`
+	CoaExpense						= `Expense / Beban Usaha`
 )
 
 const (
@@ -291,7 +292,7 @@ func GetCoaDefaults() []CoaDefault {
 			// },
 		},
 		{
-			Name: `Expense / Beban Usaha`,
+			Name: CoaExpense,
 			Children: []CoaDefault{
 				{Name: `Marketing Expenses / Beban Pemasaran`},
 				{Name: CoaAdmExpenses, Label: LabelStaff},

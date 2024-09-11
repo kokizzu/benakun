@@ -216,15 +216,25 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`, 302)
 		}
 
-		// tenantCode, err := domain.GetTenantCodeByHost(in.Host)
-		// if err != nil {
-		// 	return ctx.Redirect(`/`, 302)
-		// }
+		tenantCode, err := domain.GetTenantCodeByHost(in.Host)
+		if err != nil {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		trxJournal := rqFinance.NewTransactionJournal(d.AuthOltp)
+		trxJournal.TenantCode = tenantCode
+		trxJournals := trxJournal.FindTrxJournalsLossIncomeByTenant()
+
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.TenantCode = tenantCode
+		coaChoices := coa.FindCoasChoicesByTenant()
 
 		return views.RenderReportViewerLossIncomeStatements(ctx, M.SX{
 			`title`:    `Report Viewer Loss Income Statements`,
 			`user`:     user,
 			`segments`: segments,
+			`transactionJournals`: trxJournals,
+			`coaChoices`: coaChoices,
 		})
 	})
 

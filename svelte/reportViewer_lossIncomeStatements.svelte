@@ -1,5 +1,24 @@
 <script>
-  import MainLayout from './_layouts/mainLayout.svelte';
+  /** @typedef {import('./_components/types/transaction').TransactionJournal} TransactionJournal */
+
+  import { onMount } from 'svelte';
+import MainLayout from './_layouts/mainLayout.svelte';
+
+  let transactionJournals = /** @type {TransactionJournal[]} */ ([ /* transactionJournals */ ]);
+  const coaChoices = /** @type Record<string|number, string> */ ({/* coaChoices */});
+
+  let DebitIDRTotal = 0;
+  let CreditIDRTotal = 0;
+
+  onMount(() => {
+    if (transactionJournals && transactionJournals.length > 0) {
+      transactionJournals.forEach((trxJournal) => {
+        DebitIDRTotal += Number(trxJournal.debitIDR);
+        CreditIDRTotal += Number(trxJournal.creditIDR);
+      });
+    }
+  })
+  
 </script>
 
 <MainLayout>
@@ -11,26 +30,34 @@
             <tr>
               <th class="no">No. Acc / No. Rek</th>
               <th>Name / Nama</th>
-              <th>Loss / Rugi</th>
               <th>Income / Laba</th>
+              <th>Loss / Rugi</th>
             </tr>
           </thead>
           <tbody>
+            {#if transactionJournals && transactionJournals.length > 0}
+              {#each transactionJournals as trxJournal, idx (trxJournal.id)}
+                <tr>
+                  <td class="no">{trxJournal.coaId}</td>
+                  <td>{coaChoices[trxJournal.coaId]}</td>
+                  <td>{trxJournal.debitIDR}</td>
+                  <td>{trxJournal.creditIDR}</td>
+                </tr>
+              {/each}
+            {:else}
               <tr>
-                <td class="no">1</td>
-                <td>Pendapatan lainnya</td>
-                <td>Rp20.000</td>
-                <td>Rp5.000</td>
+                <td colspan="4">No data</td>
               </tr>
+            {/if}
             <tr>
               <td colspan="2">
                 <b>Total</b>
               </td>
               <td>
-                <b>Rp25.000</b>
+                <b>{DebitIDRTotal}</b>
               </td>
               <td>
-                <b>Rp10.000</b>
+                <b>{CreditIDRTotal}</b>
               </td>
               <td></td>
             </tr>
