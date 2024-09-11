@@ -305,6 +305,7 @@ func GetCoaDefaults() []CoaDefault {
 						{Name: `Building Rent / Sewa Gedung`},
 						{Name: `Security Bill / Beban Keamanan`},
 						{Name: `Garbage Fee / Beban Kebersihan`},
+						{Name: `Building Construction Cost / Biaya Pembangunan Gedung`},
 					},
 				},
 				{Name: CoaCOGS},

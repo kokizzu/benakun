@@ -39,7 +39,7 @@
         <table>
           <thead>
             <tr>
-              <th class="no">No. Acc / No. Rek</th>
+              <th class="no">No</th>
               <th>Name / Nama</th>
               <th>Income / Laba</th>
               <th>Loss / Rugi</th>
@@ -49,7 +49,7 @@
             {#if formattedTrxJournals && formattedTrxJournals.length > 0}
               {#each formattedTrxJournals as trxJournal, idx (trxJournal.id)}
                 <tr>
-                  <td class="no">{trxJournal.coaId}</td>
+                  <td class="no">{idx + 1}</td>
                   <td>{coaChoices[trxJournal.coaId]}</td>
                   <td>{trxJournal.debitIDR}</td>
                   <td>{trxJournal.creditIDR}</td>

@@ -6346,8 +6346,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let tr;
     let td0;
     let t0_value = (
-      /*trxJournal*/
-      ctx[4].coaId + ""
+      /*idx*/
+      ctx[6] + 1 + ""
     );
     let t0;
     let t1;
@@ -6413,8 +6413,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       p(new_ctx, dirty) {
         ctx = new_ctx;
         if (dirty & /*formattedTrxJournals*/
-        1 && t0_value !== (t0_value = /*trxJournal*/
-        ctx[4].coaId + ""))
+        1 && t0_value !== (t0_value = /*idx*/
+        ctx[6] + 1 + ""))
           set_data(t0, t0_value);
         if (dirty & /*formattedTrxJournals*/
         1 && t2_value !== (t2_value = coaChoices[
@@ -6475,7 +6475,7 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         div0 = element("div");
         table = element("table");
         thead = element("thead");
-        thead.innerHTML = `<tr><th class="no svelte-yfougu">No. Acc / No. Rek</th> <th class="svelte-yfougu">Name / Nama</th> <th class="svelte-yfougu">Income / Laba</th> <th class="svelte-yfougu">Loss / Rugi</th></tr>`;
+        thead.innerHTML = `<tr><th class="no svelte-yfougu">No</th> <th class="svelte-yfougu">Name / Nama</th> <th class="svelte-yfougu">Income / Laba</th> <th class="svelte-yfougu">Loss / Rugi</th></tr>`;
         t7 = space();
         tbody = element("tbody");
         if_block.c();
