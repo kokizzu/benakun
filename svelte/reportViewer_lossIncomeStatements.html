@@ -6268,8 +6268,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   // reportViewer_lossIncomeStatements.svelte
   function get_each_context(ctx, list, i) {
     const child_ctx = ctx.slice();
-    child_ctx[2] = list[i];
-    child_ctx[4] = i;
+    child_ctx[4] = list[i];
+    child_ctx[6] = i;
     return child_ctx;
   }
   function create_else_block(ctx) {
@@ -6294,10 +6294,13 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
     let each_1_anchor;
-    let each_value = ensure_array_like(transactionJournals);
+    let each_value = ensure_array_like(
+      /*formattedTrxJournals*/
+      ctx[0]
+    );
     const get_key = (ctx2) => (
       /*trxJournal*/
-      ctx2[2].id
+      ctx2[4].id
     );
     for (let i = 0; i < each_value.length; i += 1) {
       let child_ctx = get_each_context(ctx, each_value, i);
@@ -6320,9 +6323,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         insert(target, each_1_anchor, anchor);
       },
       p(ctx2, dirty) {
-        if (dirty & /*transactionJournals, coaChoices*/
-        0) {
-          each_value = ensure_array_like(transactionJournals);
+        if (dirty & /*formattedTrxJournals, coaChoices*/
+        1) {
+          each_value = ensure_array_like(
+            /*formattedTrxJournals*/
+            ctx2[0]
+          );
           each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx2, each_value, each_1_lookup, each_1_anchor.parentNode, destroy_block, create_each_block, each_1_anchor, get_each_context);
         }
       },
@@ -6339,12 +6345,32 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
   function create_each_block(key_1, ctx) {
     let tr;
     let td0;
+    let t0_value = (
+      /*trxJournal*/
+      ctx[4].coaId + ""
+    );
+    let t0;
     let t1;
     let td1;
+    let t2_value = coaChoices[
+      /*trxJournal*/
+      ctx[4].coaId
+    ] + "";
+    let t2;
     let t3;
     let td2;
+    let t4_value = (
+      /*trxJournal*/
+      ctx[4].debitIDR + ""
+    );
+    let t4;
     let t5;
     let td3;
+    let t6_value = (
+      /*trxJournal*/
+      ctx[4].creditIDR + ""
+    );
+    let t6;
     let t7;
     return {
       key: key_1,
@@ -6352,22 +6378,16 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       c() {
         tr = element("tr");
         td0 = element("td");
-        td0.textContent = `${/*trxJournal*/
-        ctx[2].coaId}`;
+        t0 = text(t0_value);
         t1 = space();
         td1 = element("td");
-        td1.textContent = `${coaChoices[
-          /*trxJournal*/
-          ctx[2].coaId
-        ]}`;
+        t2 = text(t2_value);
         t3 = space();
         td2 = element("td");
-        td2.textContent = `${/*trxJournal*/
-        ctx[2].debitIDR}`;
+        t4 = text(t4_value);
         t5 = space();
         td3 = element("td");
-        td3.textContent = `${/*trxJournal*/
-        ctx[2].creditIDR}`;
+        t6 = text(t6_value);
         t7 = space();
         attr(td0, "class", "no svelte-yfougu");
         attr(td1, "class", "svelte-yfougu");
@@ -6378,16 +6398,38 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       m(target, anchor) {
         insert(target, tr, anchor);
         append(tr, td0);
+        append(td0, t0);
         append(tr, t1);
         append(tr, td1);
+        append(td1, t2);
         append(tr, t3);
         append(tr, td2);
+        append(td2, t4);
         append(tr, t5);
         append(tr, td3);
+        append(td3, t6);
         append(tr, t7);
       },
       p(new_ctx, dirty) {
         ctx = new_ctx;
+        if (dirty & /*formattedTrxJournals*/
+        1 && t0_value !== (t0_value = /*trxJournal*/
+        ctx[4].coaId + ""))
+          set_data(t0, t0_value);
+        if (dirty & /*formattedTrxJournals*/
+        1 && t2_value !== (t2_value = coaChoices[
+          /*trxJournal*/
+          ctx[4].coaId
+        ] + ""))
+          set_data(t2, t2_value);
+        if (dirty & /*formattedTrxJournals*/
+        1 && t4_value !== (t4_value = /*trxJournal*/
+        ctx[4].debitIDR + ""))
+          set_data(t4, t4_value);
+        if (dirty & /*formattedTrxJournals*/
+        1 && t6_value !== (t6_value = /*trxJournal*/
+        ctx[4].creditIDR + ""))
+          set_data(t6, t6_value);
       },
       d(detaching) {
         if (detaching) {
@@ -6415,10 +6457,12 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
     let td2;
     let b2;
     let t13;
-    let t14;
-    let td3;
     function select_block_type(ctx2, dirty) {
-      if (transactionJournals && transactionJournals.length > 0)
+      if (
+        /*formattedTrxJournals*/
+        ctx2[0] && /*formattedTrxJournals*/
+        ctx2[0].length > 0
+      )
         return create_if_block3;
       return create_else_block;
     }
@@ -6444,23 +6488,20 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         b1 = element("b");
         t11 = text(
           /*DebitIDRTotal*/
-          ctx[0]
+          ctx[1]
         );
         t12 = space();
         td2 = element("td");
         b2 = element("b");
         t13 = text(
           /*CreditIDRTotal*/
-          ctx[1]
+          ctx[2]
         );
-        t14 = space();
-        td3 = element("td");
         attr(thead, "class", "svelte-yfougu");
         attr(td0, "colspan", "2");
         attr(td0, "class", "svelte-yfougu");
         attr(td1, "class", "svelte-yfougu");
         attr(td2, "class", "svelte-yfougu");
-        attr(td3, "class", "svelte-yfougu");
         attr(table, "class", "svelte-yfougu");
         attr(div0, "class", "table_container svelte-yfougu");
         attr(div1, "class", "table_root svelte-yfougu");
@@ -6485,24 +6526,31 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
         append(tr1, td2);
         append(td2, b2);
         append(b2, t13);
-        append(tr1, t14);
-        append(tr1, td3);
       },
       p(ctx2, dirty) {
-        if_block.p(ctx2, dirty);
+        if (current_block_type === (current_block_type = select_block_type(ctx2, dirty)) && if_block) {
+          if_block.p(ctx2, dirty);
+        } else {
+          if_block.d(1);
+          if_block = current_block_type(ctx2);
+          if (if_block) {
+            if_block.c();
+            if_block.m(tbody, t8);
+          }
+        }
         if (dirty & /*DebitIDRTotal*/
-        1)
+        2)
           set_data(
             t11,
             /*DebitIDRTotal*/
-            ctx2[0]
+            ctx2[1]
           );
         if (dirty & /*CreditIDRTotal*/
-        2)
+        4)
           set_data(
             t13,
             /*CreditIDRTotal*/
-            ctx2[1]
+            ctx2[2]
           );
       },
       d(detaching) {
@@ -6532,8 +6580,8 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       },
       p(ctx2, [dirty]) {
         const mainlayout_changes = {};
-        if (dirty & /*$scope, CreditIDRTotal, DebitIDRTotal*/
-        35) {
+        if (dirty & /*$scope, CreditIDRTotal, DebitIDRTotal, formattedTrxJournals*/
+        135) {
           mainlayout_changes.$scope = { dirty, ctx: ctx2 };
         }
         mainlayout.$set(mainlayout_changes);
@@ -6553,26 +6601,42 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
       }
     };
   }
-  var transactionJournals = (
-    /** @type {TransactionJournal[]} */
-    [ /* transactionJournals */ ]
-  );
   var coaChoices = (
     /** @type Record<string|number, string> */
     {/* coaChoices */}
   );
   function instance7($self, $props, $invalidate) {
+    let transactionJournals = (
+      /** @type {TransactionJournal[]} */
+      [ /* transactionJournals */ ]
+    );
+    let formattedTrxJournals = (
+      /** @type TransactionJournal[] */
+      []
+    );
     let DebitIDRTotal = 0;
     let CreditIDRTotal = 0;
     onMount(() => {
       if (transactionJournals && transactionJournals.length > 0) {
+        let objTrxJournals = (
+          /** @type Record<string, TransactionJournal> */
+          {}
+        );
         transactionJournals.forEach((trxJournal) => {
-          $invalidate(0, DebitIDRTotal += Number(trxJournal.debitIDR));
-          $invalidate(1, CreditIDRTotal += Number(trxJournal.creditIDR));
+          $invalidate(1, DebitIDRTotal += Number(trxJournal.debitIDR));
+          $invalidate(2, CreditIDRTotal += Number(trxJournal.creditIDR));
+          if (objTrxJournals[trxJournal.coaId]) {
+            objTrxJournals[trxJournal.coaId].debitIDR = Number(trxJournal.debitIDR) + Number(objTrxJournals[trxJournal.coaId].debitIDR);
+            objTrxJournals[trxJournal.coaId].creditIDR = Number(trxJournal.creditIDR) + Number(objTrxJournals[trxJournal.coaId].creditIDR);
+          } else {
+            objTrxJournals[trxJournal.coaId] = trxJournal;
+          }
         });
+        $invalidate(0, formattedTrxJournals = Object.values(objTrxJournals));
+        transactionJournals = [];
       }
     });
-    return [DebitIDRTotal, CreditIDRTotal];
+    return [formattedTrxJournals, DebitIDRTotal, CreditIDRTotal];
   }
   var ReportViewer_lossIncomeStatements = class extends SvelteComponent {
     constructor(options) {

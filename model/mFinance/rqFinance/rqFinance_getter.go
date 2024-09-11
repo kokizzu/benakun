@@ -82,9 +82,9 @@ type (
 	}
 )
 
-func removeUnParent(cs []coaTreeNode, cond func(coaTreeNode) bool) (filtered []coaTreeNode) {
+func removeUnParent(cs []coaTreeNode, callback func(coaTreeNode) bool) (filtered []coaTreeNode) {
 	for _, c := range cs {
-		if cond(c) {
+		if callback(c) {
 			filtered = append(filtered, c)
 		}
 	}
@@ -103,7 +103,7 @@ func generateCoaChoicesMaps(coasFromDBs []coaFromDB) map[string]string {
 	coaVisited := map[int]bool{0: true}
 
 	var coaMaker func(id uint64) (coaTreeNode, bool)
-	coaMaker = func(id uint64) (cwnF coaTreeNode, isVisited bool) {
+	coaMaker = func(id uint64) (ctn coaTreeNode, isVisited bool) {
 		if coaVisited[int(id)] {
 			isVisited = true
 			return
@@ -120,13 +120,13 @@ func generateCoaChoicesMaps(coasFromDBs []coaFromDB) map[string]string {
 						if visited {
 							continue
 						} else {
-							cwnF.children = append(cwnF.children, child)
+							ctn.children = append(ctn.children, child)
 						}
 					}
 				}
-				cwnF.id = v.id
-				cwnF.name = v.name
-				cwnF.parentId = v.parentId
+				ctn.id = v.id
+				ctn.name = v.name
+				ctn.parentId = v.parentId
 				return
 			}
 		}

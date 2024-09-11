@@ -2,20 +2,31 @@
   /** @typedef {import('./_components/types/transaction').TransactionJournal} TransactionJournal */
 
   import { onMount } from 'svelte';
-import MainLayout from './_layouts/mainLayout.svelte';
+  import MainLayout from './_layouts/mainLayout.svelte';
 
   let transactionJournals = /** @type {TransactionJournal[]} */ ([ /* transactionJournals */ ]);
   const coaChoices = /** @type Record<string|number, string> */ ({/* coaChoices */});
 
+  let formattedTrxJournals = /** @type TransactionJournal[] */ ([]);
   let DebitIDRTotal = 0;
   let CreditIDRTotal = 0;
 
   onMount(() => {
     if (transactionJournals && transactionJournals.length > 0) {
+      let objTrxJournals = /** @type Record<string, TransactionJournal> */ ({})
       transactionJournals.forEach((trxJournal) => {
         DebitIDRTotal += Number(trxJournal.debitIDR);
         CreditIDRTotal += Number(trxJournal.creditIDR);
+        if (objTrxJournals[trxJournal.coaId]) {
+          objTrxJournals[trxJournal.coaId].debitIDR = Number(trxJournal.debitIDR) + Number(objTrxJournals[trxJournal.coaId].debitIDR);
+          objTrxJournals[trxJournal.coaId].creditIDR = Number(trxJournal.creditIDR) + Number(objTrxJournals[trxJournal.coaId].creditIDR);
+        } else {
+          objTrxJournals[trxJournal.coaId] = trxJournal
+        }
       });
+
+      formattedTrxJournals = Object.values(objTrxJournals);
+      transactionJournals = []; // prevent memory leak
     }
   })
   
@@ -35,8 +46,8 @@ import MainLayout from './_layouts/mainLayout.svelte';
             </tr>
           </thead>
           <tbody>
-            {#if transactionJournals && transactionJournals.length > 0}
-              {#each transactionJournals as trxJournal, idx (trxJournal.id)}
+            {#if formattedTrxJournals && formattedTrxJournals.length > 0}
+              {#each formattedTrxJournals as trxJournal, idx (trxJournal.id)}
                 <tr>
                   <td class="no">{trxJournal.coaId}</td>
                   <td>{coaChoices[trxJournal.coaId]}</td>
@@ -59,7 +70,6 @@ import MainLayout from './_layouts/mainLayout.svelte';
               <td>
                 <b>{CreditIDRTotal}</b>
               </td>
-              <td></td>
             </tr>
           </tbody>
         </table>
