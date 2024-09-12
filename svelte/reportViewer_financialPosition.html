@@ -6111,19 +6111,19 @@ footer.svelte-1rg8n9n nav a.svelte-1rg8n9n:hover {
 
   // reportViewer_financialPosition.svelte
   function create_default_slot(ctx) {
-    let p;
+    let div13;
     return {
       c() {
-        p = element("p");
-        p.textContent = "Report Viewer Financial Position";
+        div13 = element("div");
+        div13.innerHTML = `<div><b>Benalu DEV</b> <h3>Laporan Posisi Keuangan</h3> <b>Periode Septermber 2024</b></div> <div><div><div><div><b>Aktiva</b> <ul><li>iojisdfj</li> <li>sdfgsdfg</li> <li>48hj8sdjfhgishjdio</li></ul></div> <div>Total Aktiva</div></div></div> <div><div><div><b>Modal</b> <ul><li>iojisdfj</li> <li>sdfgsdfg</li> <li>48hj8sdjfhgishjdio</li></ul></div> <div>Total Modal</div></div> <div><div><b>Hutang</b> <ul><li>iojisdfj</li> <li>sdfgsdfg</li> <li>48hj8sdjfhgishjdio</li></ul></div> <div>Total Hutang</div></div></div></div>`;
       },
       m(target, anchor) {
-        insert(target, p, anchor);
+        insert(target, div13, anchor);
       },
       p: noop,
       d(detaching) {
         if (detaching) {
-          detach(p);
+          detach(div13);
         }
       }
     };
