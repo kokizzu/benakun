@@ -39,8 +39,6 @@
   let isSubmitted = false;
   let isDataReady = false;
 
-  
-
   onMount(() => {
     if (transactionTplDetails && transactionTplDetails.length > 0) {
       transactionTplDetails.forEach((transactionTplDetail) => {

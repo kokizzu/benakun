@@ -199,6 +199,10 @@ func (d *Domain) FieldSupervisorDashboard(in *FieldSupervisorDashboardIn) (out F
 					trxJournal.SetDescriptions(v.Descriptions)
 				}
 
+				if v.DetailObj != trxJournal.DetailObj && v.DetailObj != `{}` {
+					trxJournal.SetDetailObj(v.DetailObj)
+				}
+
 				trxJournal.SetUpdatedAt(in.UnixNow())
 				trxJournal.SetUpdatedBy(sess.UserId)
 
