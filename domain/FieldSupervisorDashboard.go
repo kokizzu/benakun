@@ -174,29 +174,34 @@ func (d *Domain) FieldSupervisorDashboard(in *FieldSupervisorDashboardIn) (out F
 				return
 			}
 
-			if trxJournal.TransactionTemplateId == businessTrx.TransactionTemplateId {
-				if v.CoaId != trxJournal.CoaId && v.CoaId != 0 {
-					coa := rqFinance.NewCoa(d.AuthOltp)
-					coa.Id = v.CoaId
+			if trxJournal.TransactionTemplateId == businessTrx.TransactionTemplateId && 
+				trxJournal.TenantCode == tenant.TenantCode {
+				// if v.CoaId != trxJournal.CoaId && v.CoaId != 0 {
+				// 	coa := rqFinance.NewCoa(d.AuthOltp)
+				// 	coa.Id = v.CoaId
 
-					if !coa.FindById() {
-						out.SetError(400, ErrFieldSupervisorDashboardCoaNotFound)
-						return
-					}
+				// 	if !coa.FindById() {
+				// 		out.SetError(400, ErrFieldSupervisorDashboardCoaNotFound)
+				// 		return
+				// 	}
 
-					trxJournal.SetCoaId(coa.Id)
-				}
+				// 	trxJournal.SetCoaId(coa.Id)
+				// }
 
 				if v.Descriptions != trxJournal.Descriptions && v.Descriptions != `` {
 					trxJournal.SetDescriptions(v.Descriptions)
 				}
 
 				if v.Date != trxJournal.Date && v.Date != `` && mFinance.IsValidDate(v.Date){
-					trxJournal.SetDescriptions(v.Date)
+					trxJournal.SetDate(v.Date)
 				}
 
-				if v.Descriptions != trxJournal.Descriptions && v.Descriptions != `` {
-					trxJournal.SetDescriptions(v.Descriptions)
+				if v.DebitIDR != trxJournal.DebitIDR && v.DebitIDR != 0 {
+					trxJournal.SetDebitIDR(v.DebitIDR)
+				}
+
+				if v.CreditIDR != trxJournal.CreditIDR && v.CreditIDR != 0 {
+					trxJournal.SetDebitIDR(v.CreditIDR)
 				}
 
 				if v.DetailObj != trxJournal.DetailObj && v.DetailObj != `{}` {

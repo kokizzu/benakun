@@ -309,12 +309,16 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		
 		trxJournals := trxJournal.FindTrxJournalsByTrxTemplateByTenant()
 
+		org := rqAuth.NewOrgs(d.AuthOltp)
+		org.FindCompanyByTenantCode(tenantCode)
+
 		return views.RenderFieldSupervisorBusinessTransactionEdit(ctx, M.SX{
 			`title`:    `Field Supervisor Edit Business Transaction`,
 			`user`:     user,
 			`segments`: segments,
 			`transaction`: transaction,
 			`transactionJournals`: trxJournals,
+			`org`: org,
 		})
 	})
 

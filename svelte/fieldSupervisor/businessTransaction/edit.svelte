@@ -4,6 +4,7 @@
   /** @typedef {import('../../_components/types/transaction.js').TransactionJournal} TransactionJournal */
   /** @typedef {import('../../_components/types/transaction.js').DetailObjectTransaction} DetailObjectTransaction */
   /** @typedef {import('../../_components/types/transaction.js').BusinessTransaction} BusinessTransaction */
+
   /**
    * @typedef {Object} PayloadTransactionJournals
    * @property {number} id
@@ -21,15 +22,15 @@
   import { notifier } from '../../_components/notifier';
   import InputBox from '../../_components/InputBox.svelte';
   import { onMount } from 'svelte';
-  import { dateISOFormat } from '../../_components/formatter';
 
   let user = /** @type User */ ({/* user */});
-  // let org  = /** @type Org */ ({/* org */});
+  let org  = /** @type Org */ ({/* org */});
   let transaction = /** @type BusinessTransaction */ ({/* transaction */});
   let transactionJournals = /** @type TransactionJournal[] */ ([/* transactionJournals */]);
 
   let payloads    = /** @type PayloadTransactionJournals[] */ ([]);
   let isDataReady = false;
+  let isSubmitted = false;
 
   let startDate     = transaction.startDate;
   let endDate       = transaction.endDate;
@@ -59,7 +60,54 @@
     }
 
     isDataReady = true;
-  })
+  });
+
+  async function Submit() {
+    isSubmitted = true;
+    let trxJournalsPayloads = /** @type TransactionJournal[]|any */ ([]);
+    for (const payload of payloads) {
+      let detailObj = '';
+      if (payload.salesCount > 0 || payload.salesPriceIDR > 0) {
+        const detail = /** @type DetailObjectTransaction */ ({
+          salesCount: payload.salesCount,
+          salesPriceIDR: payload.salesPriceIDR+'',
+        });
+        detailObj = JSON.stringify(detail);
+      }
+
+      trxJournalsPayloads.push({
+        id: payload.id,
+        descriptions: payload.descriptions,
+        date: payload.date,
+        debit: payload.debitIDR,
+        credit: payload.creditIDR,
+        detailObj: detailObj
+      })
+    }
+
+    const i = {
+      cmd: 'upsert',
+      transactionJournals: trxJournalsPayloads,
+      transaction: {
+        id: transaction.id,
+        startDate: startDate,
+        endDate: endDate
+      }
+    }
+
+    await FieldSupervisorDashboard( // @ts-ignore
+      i, /** @returns {Promise<any>} */
+      function (/** @type {any} */ o) {
+        isSubmitted = false;
+        if (o.error) {
+          notifier.showError(o.error || 'failed to edit transaction');
+          return
+        }
+        
+        notifier.showSuccess('transaction edited !');
+      }
+    )
+  }
 </script>
 
 <MainLayout>
@@ -89,44 +137,19 @@
             <div class="title">
               <span>Company Name</span>
             </div>
-            <h5>Aybygsyfgdyugfy</h5>
+            <h5>{org.name}</h5>
           </div>
           <div class="company_contacts">
             <div class="title">
               <span>Company Contacts</span>
             </div>
             <div class="contacts">
-              <p>Head Title: dofdsfg</p>
-              <p>Email: sffgdfg</p>
+              <p>Head Title: {org.headTitle}</p>
+              <p>Email: {user.email}</p>
             </div>
           </div>
         </div>
             <div class="form_item">
-              <!-- <div class="form_header">
-                <h3>Coa : {coas[transactionTplDetail.coaId]}</h3>
-                {#if (transactionTplDetail.attributes).includes('sales')}
-                  <div class="actions">
-                    <button class="btn" on:click={() => {
-                      payloads[idx] = [...payloads[idx],
-                        {
-                          coaId: transactionTplDetail.coaId,
-                          descriptions: '',
-                          creditIDR: 0,
-                          debitIDR: 0,
-                          date: dateISOFormat(0),
-                          salesCount: 0,
-                          salesPriceIDR: 0,
-                          transactionTplId: transactionTemplate.id,
-                          isSales: true,
-                          isAutoSum: false
-                        }
-                      ]
-                    }}>
-                      Add row
-                    </button>
-                  </div>
-                {/if}
-              </div> -->
               <div class="forms_table">
                 <table class="table_transaction_journals">
                   <thead>
@@ -190,8 +213,17 @@
             </div>
       </div>
       <div class="actions">
-        <button class="btn submit" >
-          <span>Submit</span>
+        <button
+          disabled={isSubmitted}
+          class="btn submit"
+          on:click={Submit}
+        >
+          {#if !isSubmitted}
+            <span>Submit</span>
+          {/if}
+          {#if isSubmitted}
+            <span>Submitting ...</span>
+          {/if}
         </button>
       </div>
     </div>
@@ -316,19 +348,6 @@
     border: 1px solid var(--gray-003);
   }
 
-  .data_entry_journal___container .forms_journal .form_item .form_header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--gray-003);
-  }
-
-  .data_entry_journal___container .forms_journal .form_header h3 {
-    margin: 0;
-  }
-
   .data_entry_journal___container .company_details {
     display: flex;
     flex-direction: row;
@@ -403,8 +422,7 @@
   }
 
   .data_entry_journal___container .forms_journal .forms_table .table_transaction_journals input,
-  .data_entry_journal___container .forms_journal .forms_table .table_transaction_journals textarea,
-  .data_entry_journal___container .forms_journal .forms_table .table_transaction_journals select {
+  .data_entry_journal___container .forms_journal .forms_table .table_transaction_journals textarea {
     padding: 10px 12px;
     border-radius: 8px;
     border: 1px solid var(--gray-003);
@@ -414,31 +432,9 @@
   }
 
   .data_entry_journal___container .forms_journal .forms_table .table_transaction_journals input:focus,
-  .data_entry_journal___container .forms_journal .forms_table .table_transaction_journals textarea:focus,
-  .data_entry_journal___container .forms_journal .forms_table .table_transaction_journals select:focus {
+  .data_entry_journal___container .forms_journal .forms_table .table_transaction_journals textarea:focus {
     border-color: var(--sky-005);
     outline: 1px solid var(--sky-005);
-  }
-
-  .data_entry_journal___container .forms_journal .forms_table .table_transaction_journals .btn_remove {
-    padding: 12px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-  }
-
-  .data_entry_journal___container .forms_journal .forms_table .table_transaction_journals .btn_remove:hover {
-    background-color: var(--red-transparent);
-    color: var(--red-005);
-  }
-
-  .data_entry_journal___container .forms_journal .forms_table .table_transaction_journals .btn_remove:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
   }
 
   .data_entry_journal___container .actions {
