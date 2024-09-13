@@ -66,6 +66,8 @@ const (
 	CoaCapitalInvestment 	= `Capital Investment / Penanaman Modal`
 	CoaTemporary					= `Temporary / Sementara`
 	CoaExpense						= `Expense / Beban Usaha`
+	CoaAsset							= `Asset / Aktiva`
+	CoaEquity 						= `Equity / Ekuitas - Modal`
 )
 
 const (
@@ -228,7 +230,7 @@ var TransactionTemplateDetailsMap = map[string][]struct{
 func GetCoaDefaults() []CoaDefault {
 	return []CoaDefault{
 		{
-			Name: `Asset / Aktiva`,
+			Name: CoaAsset,
 			Children: []CoaDefault{
 				{
 					Name: CoaBank,
@@ -269,7 +271,7 @@ func GetCoaDefaults() []CoaDefault {
 			},
 		},
 		{
-			Name: `Equity / Ekuitas - Modal`,
+			Name: CoaEquity,
 			Children: []CoaDefault{
 				{
 					Name: CoaCapitalInvestment,

@@ -203,10 +203,21 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notReportViewer(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
+
+		tenantCode, err := domain.GetTenantCodeByHost(in.Host)
+		if err != nil {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		trxJournal := rqFinance.NewTransactionJournal(d.AuthOltp)
+		trxJournal.TenantCode = tenantCode
+		financialPosition := trxJournal.FindReportOfFinancialPositionByTenant()
+
 		return views.RenderReportViewerFinancialPosition(ctx, M.SX{
 			`title`:    `Report Viewer Financial Position`,
 			`user`:     user,
 			`segments`: segments,
+			`financialPosition`: financialPosition,
 		})
 	})
 
