@@ -77,13 +77,13 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
 - [ ] multi-currency (USD, EUR, IDR)
 - [ ] multi-user tenant (one tenant can have many users)
 - [ ] Reports / Laporan (TODO: find what are the standards and how to use calculate them)
-  - [ ] Profit and Loss / Laporan Laba Rugi --> priority
-  - [ ] Balance Sheet / Laporan Posisi / Neraca Keuangan --> priority
+  - [x] Profit and Loss / Laporan Laba Rugi --> priority
+  - [x] Balance Sheet / Laporan Posisi / Neraca Keuangan --> priority
   - [ ] Cash Flow / Laporan Arus Kas
   - [ ] Statement of Changes in Equity / Laporan Perubahan Ekuitas/Modal
   - [ ] Notes to Financial Statements / Catatan atas Laporan Keuangan
   - [ ] Other Comprehensive Income / Laporan Laba Rugi Komprehensif Lain
-  - [ ] Statement of Financial Position / Laporan Posisi Keuangan
+  - [x] Statement of Financial Position / Laporan Posisi Keuangan
   - [ ] Statement of Comprehensive Income / Laporan Laba Rugi Komprehensif
   - [ ] Statement of Changes in Equity / Laporan Perubahan Ekuitas
   - [ ] Statement of Cash Flows / Laporan Arus Kas
