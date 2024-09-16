@@ -102,6 +102,7 @@ const (
 	AccountName         = `accountName`
 	IsProfitCenter      = `isProfitCenter `
 	IsCostCenter        = `isCostCenter`
+	IsFunder						= `isFunder`
 	StaffId             = `staffId`
 	DeletedBy           = `deletedBy`
 	RestoredBy          = `restoredBy`
@@ -154,6 +155,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{IsProfitCenter, Tt.Boolean},
 			{IsCostCenter, Tt.Boolean},
 			{StaffId, Tt.Unsigned},
+			{IsFunder, Tt.Boolean},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,

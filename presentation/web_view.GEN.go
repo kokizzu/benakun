@@ -16,11 +16,17 @@ var viewList = map[string]string{
 	`DataEntryDashboard`: `../svelte/dataEntry_dashboard.html`, // ../svelte/dataEntry_dashboard.svelte
 	`DataEntryTransactionEntry`: `../svelte/dataEntry_transactionEntry.html`, // ../svelte/dataEntry_transactionEntry.svelte
 	`Debug`: `../svelte/debug.html`, // ../svelte/debug.svelte
+	`FieldSupervisorBusinessTransactionEdit`: `../svelte/fieldSupervisor/businessTransaction/edit.html`, // ../svelte/fieldSupervisor/businessTransaction/edit.svelte
+	`FieldSupervisorDashboard`: `../svelte/fieldSupervisor_dashboard.html`, // ../svelte/fieldSupervisor_dashboard.svelte
 	`GuestOauthCallback`: `../svelte/guest_oauthCallback.html`, // ../svelte/guest_oauthCallback.svelte
 	`GuestResetPassword`: `../svelte/guest_resetPassword.html`, // ../svelte/guest_resetPassword.svelte
 	`GuestVerifyEmail`: `../svelte/guest_verifyEmail.html`, // ../svelte/guest_verifyEmail.svelte
 	`Index`: `../svelte/index.html`, // ../svelte/index.svelte
 	`ReportViewerDashboard`: `../svelte/reportViewer_dashboard.html`, // ../svelte/reportViewer_dashboard.svelte
+	`ReportViewerFinancialPosition`: `../svelte/reportViewer_financialPosition.html`, // ../svelte/reportViewer_financialPosition.svelte
+	`ReportViewerGeneralLedger`: `../svelte/reportViewer_generalLedger.html`, // ../svelte/reportViewer_generalLedger.svelte
+	`ReportViewerLossIncomeStatements`: `../svelte/reportViewer_lossIncomeStatements.html`, // ../svelte/reportViewer_lossIncomeStatements.svelte
+	`ReportViewerTrialBalance`: `../svelte/reportViewer_trialBalance.html`, // ../svelte/reportViewer_trialBalance.svelte
 	`SuperAdminAccessLog`: `../svelte/superAdmin_accessLog.html`, // ../svelte/superAdmin_accessLog.svelte
 	`SuperAdminDashboard`: `../svelte/superAdmin_dashboard.html`, // ../svelte/superAdmin_dashboard.svelte
 	`SuperAdminTenantManagement`: `../svelte/superAdmin_tenantManagement.html`, // ../svelte/superAdmin_tenantManagement.svelte
@@ -32,6 +38,8 @@ var viewList = map[string]string{
 	`TenantAdminDashboard`: `../svelte/tenantAdmin_dashboard.html`, // ../svelte/tenantAdmin_dashboard.svelte
 	`TenantAdminInventoryChanges`: `../svelte/tenantAdmin_inventoryChanges.html`, // ../svelte/tenantAdmin_inventoryChanges.svelte
 	`TenantAdminLocations`: `../svelte/tenantAdmin_locations.html`, // ../svelte/tenantAdmin_locations.svelte
+	`TenantAdminManualJournal`: `../svelte/tenantAdmin_manualJournal.html`, // ../svelte/tenantAdmin_manualJournal.svelte
+	`TenantAdminManualJournalEdit`: `../svelte/tenantAdmin_manualJournalEdit.html`, // ../svelte/tenantAdmin_manualJournalEdit.svelte
 	`TenantAdminOrganization`: `../svelte/tenantAdmin_organization.html`, // ../svelte/tenantAdmin_organization.svelte
 	`TenantAdminProducts`: `../svelte/tenantAdmin_products.html`, // ../svelte/tenantAdmin_products.svelte
 	`TenantAdminTransaction`: `../svelte/tenantAdmin_transaction.html`, // ../svelte/tenantAdmin_transaction.svelte
@@ -71,6 +79,16 @@ func (v *Views) RenderDebug(c *fiber.Ctx, m M.SX) error {
 	return c.SendString(v.cache[`Debug`].Str(m))
 }
 
+func (v *Views) RenderFieldSupervisorBusinessTransactionEdit(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`FieldSupervisorBusinessTransactionEdit`].Str(m))
+}
+
+func (v *Views) RenderFieldSupervisorDashboard(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`FieldSupervisorDashboard`].Str(m))
+}
+
 func (v *Views) RenderGuestOauthCallback(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`GuestOauthCallback`].Str(m))
@@ -94,6 +112,26 @@ func (v *Views) RenderIndex(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderReportViewerDashboard(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`ReportViewerDashboard`].Str(m))
+}
+
+func (v *Views) RenderReportViewerFinancialPosition(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`ReportViewerFinancialPosition`].Str(m))
+}
+
+func (v *Views) RenderReportViewerGeneralLedger(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`ReportViewerGeneralLedger`].Str(m))
+}
+
+func (v *Views) RenderReportViewerLossIncomeStatements(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`ReportViewerLossIncomeStatements`].Str(m))
+}
+
+func (v *Views) RenderReportViewerTrialBalance(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`ReportViewerTrialBalance`].Str(m))
 }
 
 func (v *Views) RenderSuperAdminAccessLog(c *fiber.Ctx, m M.SX) error {
@@ -149,6 +187,16 @@ func (v *Views) RenderTenantAdminInventoryChanges(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderTenantAdminLocations(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`TenantAdminLocations`].Str(m))
+}
+
+func (v *Views) RenderTenantAdminManualJournal(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`TenantAdminManualJournal`].Str(m))
+}
+
+func (v *Views) RenderTenantAdminManualJournalEdit(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`TenantAdminManualJournalEdit`].Str(m))
 }
 
 func (v *Views) RenderTenantAdminOrganization(c *fiber.Ctx, m M.SX) error {

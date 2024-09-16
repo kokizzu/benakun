@@ -50,6 +50,26 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// FieldSupervisorBusinessTransactionEdit
+	fw.Post("/"+domain.FieldSupervisorBusinessTransactionEditAction, func(c *fiber.Ctx) error {
+		in := domain.FieldSupervisorBusinessTransactionEditIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.FieldSupervisorBusinessTransactionEditAction); err != nil {
+			return nil
+		}
+		out := d.FieldSupervisorBusinessTransactionEdit(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// FieldSupervisorDashboard
+	fw.Post("/"+domain.FieldSupervisorDashboardAction, func(c *fiber.Ctx) error {
+		in := domain.FieldSupervisorDashboardIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.FieldSupervisorDashboardAction); err != nil {
+			return nil
+		}
+		out := d.FieldSupervisorDashboard(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// GuestAutoLogin
 	fw.Post("/"+domain.GuestAutoLoginAction, func(c *fiber.Ctx) error {
 		in := domain.GuestAutoLoginIn{}
@@ -157,6 +177,46 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return nil
 		}
 		out := d.ReportViewerDashboard(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// ReportViewerFinancialPosition
+	fw.Post("/"+domain.ReportViewerFinancialPositionAction, func(c *fiber.Ctx) error {
+		in := domain.ReportViewerFinancialPositionIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.ReportViewerFinancialPositionAction); err != nil {
+			return nil
+		}
+		out := d.ReportViewerFinancialPosition(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// ReportViewerGeneralLedger
+	fw.Post("/"+domain.ReportViewerGeneralLedgerAction, func(c *fiber.Ctx) error {
+		in := domain.ReportViewerGeneralLedgerIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.ReportViewerGeneralLedgerAction); err != nil {
+			return nil
+		}
+		out := d.ReportViewerGeneralLedger(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// ReportViewerLossIncomeStatements
+	fw.Post("/"+domain.ReportViewerLossIncomeStatementsAction, func(c *fiber.Ctx) error {
+		in := domain.ReportViewerLossIncomeStatementsIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.ReportViewerLossIncomeStatementsAction); err != nil {
+			return nil
+		}
+		out := d.ReportViewerLossIncomeStatements(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// ReportViewerTrialBalance
+	fw.Post("/"+domain.ReportViewerTrialBalanceAction, func(c *fiber.Ctx) error {
+		in := domain.ReportViewerTrialBalanceIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.ReportViewerTrialBalanceAction); err != nil {
+			return nil
+		}
+		out := d.ReportViewerTrialBalance(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
@@ -270,6 +330,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// TenantAdminManualJournal
+	fw.Post("/"+domain.TenantAdminManualJournalAction, func(c *fiber.Ctx) error {
+		in := domain.TenantAdminManualJournalIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminManualJournalAction); err != nil {
+			return nil
+		}
+		out := d.TenantAdminManualJournal(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// TenantAdminOrganization
 	fw.Post("/"+domain.TenantAdminOrganizationAction, func(c *fiber.Ctx) error {
 		in := domain.TenantAdminOrganizationIn{}
@@ -287,6 +357,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return nil
 		}
 		out := d.TenantAdminProducts(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// TenantAdminSyncCoa
+	fw.Post("/"+domain.TenantAdminSyncCoaAction, func(c *fiber.Ctx) error {
+		in := domain.TenantAdminSyncCoaIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.TenantAdminSyncCoaAction); err != nil {
+			return nil
+		}
+		out := d.TenantAdminSyncCoa(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

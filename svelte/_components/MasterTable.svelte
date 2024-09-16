@@ -1,4 +1,10 @@
 <script>
+  /** @typedef {import('./types/master.js').Field} Field */
+  /** @typedef {import('./types/access.js').Access} Access */
+  /** @typedef {import('./types/master.js').PagerOut} PagerOut */
+  /** @typedef {import('./types/master.js').PagerIn} PagerIn */
+  /** @typedef {import('./types/master.js').ExtendedAction} ExtendedAction */
+
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import {
     RiDesignBallPenLine,
@@ -7,7 +13,6 @@
     RiArrowsArrowGoBackLine,
     RiSystemInformationLine,
   } from '../node_modules/svelte-icons-pack/dist/ri';
-  import { FaShareFromSquare } from '../node_modules/svelte-icons-pack/dist/fa';
   import { IoSearch, IoClose } from '../node_modules/svelte-icons-pack/dist/io';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import {
@@ -16,17 +21,11 @@
     CgChevronDoubleRight,
     CgChevronDoubleLeft,
   } from '../node_modules/svelte-icons-pack/dist/cg';
-  import InputCustom from './InputCustom.svelte';
+  import InputBox from './InputBox.svelte';
   import { onMount } from 'svelte';
   import FilterTable from './FilterTable.svelte';
   import { datetime } from './formatter';
   import Map from './Map.svelte';
-
-  /** @typedef {import('./types/master.js').Field} Field */
-  /** @typedef {import('./types/access.js').Access} Access */
-  /** @typedef {import('./types/master.js').PagerOut} PagerOut */ // @ts-ignore
-  /** @typedef {import('./types/master.js').PagerIn} PagerIn */
-  /** @typedef {import('./types/master.js').ExtendedAction} */ // @ts-ignore
 
   export let FIELDS = /** @type Field[] */ ([]); // bind
   export let PAGER = /** @type PagerOut */ ({}); // bind
@@ -41,7 +40,8 @@
   export let CAN_RESTORE_ROW = false;
   export let CAN_SHOW_INFO = false;
   export let CAN_OPEN_LINK = false;
-  export let LINKS = /** @type ExtendedAction */ [];
+  export let LINKS = /** @type ExtendedAction[] */ ([]);
+  export let IS_CUSTOM_EDIT = false;
 
   // State for loading if hit ajax
   let isAjaxSubmitted = false;
@@ -78,7 +78,7 @@
   // Rows per page
   let currentRows = PAGER.perPage;
   // Rows per page options
-  let rowsToShow = [10, 1, 40, 60, 70, 100, 200];
+  let rowsToShow = [10, 20, 40, 60, 70, 100, 200];
   // State for show rows options
   let showRowsNum = false;
   // Total rows
@@ -107,17 +107,21 @@
     totalRows = PAGER.countResult;
     totalPages = PAGER.pages;
     currentPage = PAGER.page;
-    if (MASTER_ROWS && MASTER_ROWS.length) totalRowsCurrent = MASTER_ROWS.length;
-    else totalRowsCurrent = 0;
+    if (MASTER_ROWS && MASTER_ROWS.length) {
+      totalRowsCurrent = MASTER_ROWS.length;
+    } else {
+      totalRowsCurrent = 0;
+    }
 
-    totalRound = Math.ceil(totalPages / currentRows) * currentRows;
-    (paginationTotal = totalRound / currentRows), (paginationsAll = []);
+    totalRound = Math.ceil(totalRows / currentRows) * currentRows;
+    paginationTotal = totalRound / currentRows;
+    paginationsAll = [];
     if (currentRows > PAGER.countResult) paginationTotal = 1;
     for (let i = 0; i < paginationTotal; i++) {
       paginationsAll = [...paginationsAll, i + 1];
     }
-    let start = 0,
-      end = 0;
+
+    let start = 0, end = 0;
     if (paginationTotal < 5) {
       (start = 0), (end = paginationTotal);
     } else if (currentPage < 5 && currentPage - 3 < 0) {
@@ -129,6 +133,7 @@
     } else {
       (start = currentPage - 3), (end = currentPage + 2);
     }
+
     paginationShow = paginationsAll.slice(start, end);
   }
 
@@ -305,17 +310,17 @@
           {#if field.name !== 'id'}
             {#if !field.readOnly}
               {#if field.inputType === 'combobox'}
-                <InputCustom
+                <InputBox
                   id={field.name}
                   label={field.label}
                   placeholder={field.description}
                   bind:value={payloads[idx]}
                   type={field.inputType}
-                  values={REFS[field.name] ? REFS[field.name] : field.ref}
-                  isObject={REFS[field.name] ? true : false}
+                  values={REFS && REFS[field.name] ? REFS[field.name] : field.ref}
+                  isObject={REFS && REFS[field.name] ? true : false}
                 />
               {:else}
-                <InputCustom
+                <InputBox
                   id={field.name}
                   label={field.label}
                   placeholder={field.description}
@@ -393,25 +398,32 @@
             <tr
               class={CAN_DELETE_ROW && (row[deletedIndex] > 0 || row[deletedIndex] === 'terminated') ? 'deleted' : ''}
             >
-              <td class="num_row">{MASTER_ROWS.indexOf(row) + 1}</td>
+              <td class="num_row">{(PAGER.page -1) * PAGER.perPage + MASTER_ROWS.indexOf(row) + 1}</td>
               {#each FIELDS || [] as f, idx}
                 {#if f.name === 'id'}
                   <td class="a_row">
-                    {#if ACCESS.superAdmin || ACCESS.tenantAdmin || ACCESS.dataEntry || ACCESS.reportViewer}
+                    {#if ACCESS.superAdmin
+                      || ACCESS.tenantAdmin
+                      || ACCESS.dataEntry
+                      || ACCESS.reportViewer
+                      || ACCESS.fieldSupervisor
+                    }
                       <div class="actions">
                         {#if CAN_SHOW_INFO}
                           <button class="btn info" title="Info" on:click={() => OnInfo(row)}>
                             <Icon size="15" color="var(--gray-007)" src={RiSystemInformationLine} />
                           </button>
                         {/if}
-                        {#if CAN_EDIT_ROW}
-                          <button
-                            class="btn edit"
-                            title="Edit"
-                            on:click={() => toggleShowPopUp(Cell(row, idx, f), row)}
-                          >
-                            <Icon size="15" color="var(--gray-007)" src={RiDesignBallPenLine} />
-                          </button>
+                        {#if !IS_CUSTOM_EDIT}
+                          {#if CAN_EDIT_ROW}
+                            <button
+                              class="btn edit"
+                              title="Edit"
+                              on:click={() => toggleShowPopUp(Cell(row, idx, f), row)}
+                            >
+                              <Icon size="15" color="var(--gray-007)" src={RiDesignBallPenLine} />
+                            </button>
+                          {/if}
                         {/if}
                         {#if CAN_DELETE_ROW || CAN_RESTORE_ROW}
                           {#if row[deletedIndex] > 0 || row[deletedIndex] === 'terminated'}
@@ -448,6 +460,8 @@
                   <td>{row[idx] ? datetime(row[idx]) : '--'}</td>
                 {:else if f.inputType === 'combobox' && REFS[f.name]}
                   <td>{REFS[f.name][row[idx]] || '--'}</td>
+                {:else if f.inputType === 'percentage'}
+                  <td>{row[idx] || '0'}%</td>
                 {:else}
                   <td>
                     {typeof row[idx] === 'boolean' ? (row[idx] ? 'Yes' : 'No') : row[idx] || '--'}
@@ -823,6 +837,8 @@
 
   .table_root .table_container table thead tr th.a_row {
     max-width: fit-content;
+    min-width: fit-content;
+    width: fit-content;
   }
 
   .table_root .table_container table thead tr th:last-child {

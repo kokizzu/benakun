@@ -16,7 +16,10 @@
         <tr>
           <th class="no">No</th>
           {#each FIELDS as f}
-            <th>{f.label}</th>
+            <th class="
+              {f.key === 'date' ? 'datetime' : ''}
+              {f.key === 'fullName' ? 'datetime' : ''}
+            ">{f.label}</th>
           {/each}
         </tr>
       </thead>
@@ -83,6 +86,10 @@
 
   .table_root .table_container table thead tr th.no {
     width: 30px;
+  }
+
+  .table_root .table_container table thead tr th.datetime {
+    min-width: 140px !important;
   }
 
   .table_root .table_container table tbody tr td {

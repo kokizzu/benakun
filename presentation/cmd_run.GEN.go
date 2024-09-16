@@ -44,6 +44,22 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.DataEntryTransactionEntry(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.FieldSupervisorBusinessTransactionEditAction:
+		in := domain.FieldSupervisorBusinessTransactionEditIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.FieldSupervisorBusinessTransactionEdit(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.FieldSupervisorDashboardAction:
+		in := domain.FieldSupervisorDashboardIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.FieldSupervisorDashboard(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.GuestAutoLoginAction:
 		in := domain.GuestAutoLoginIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
@@ -130,6 +146,38 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.ReportViewerDashboard(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.ReportViewerFinancialPositionAction:
+		in := domain.ReportViewerFinancialPositionIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.ReportViewerFinancialPosition(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.ReportViewerGeneralLedgerAction:
+		in := domain.ReportViewerGeneralLedgerIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.ReportViewerGeneralLedger(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.ReportViewerLossIncomeStatementsAction:
+		in := domain.ReportViewerLossIncomeStatementsIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.ReportViewerLossIncomeStatements(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.ReportViewerTrialBalanceAction:
+		in := domain.ReportViewerTrialBalanceIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.ReportViewerTrialBalance(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.SuperAdminAccessLogAction:
@@ -220,6 +268,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.TenantAdminLocations(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.TenantAdminManualJournalAction:
+		in := domain.TenantAdminManualJournalIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.TenantAdminManualJournal(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.TenantAdminOrganizationAction:
 		in := domain.TenantAdminOrganizationIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {
@@ -234,6 +290,14 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 			return
 		}
 		out := b.TenantAdminProducts(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.TenantAdminSyncCoaAction:
+		in := domain.TenantAdminSyncCoaIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.TenantAdminSyncCoa(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
 	case domain.TenantAdminTransactionAction:

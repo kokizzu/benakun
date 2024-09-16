@@ -1,12 +1,11 @@
 package mFinance
 
-import "github.com/kokizzu/gotro/D/Tt"
+import (
+	"time"
 
-// TODO: business transaction
-// Fields: startDate, endDate
-
-// TODO: transaction journal
-// Fields: trxStart, trxEnd, parentTransaction
+	"github.com/goccy/go-json"
+	"github.com/kokizzu/gotro/D/Tt"
+)
 
 const (
 	Id         = `id`
@@ -26,32 +25,24 @@ const (
 	Name     = `name`
 	ParentId = `parentId`
 	Children = `children`
-	Label    = `label` // bankAccounts:company locations
+	Label    = `label`
+	Editable = `editable`
 )
 
 const (
-	LabelProducts 					= `products`
-	LabelProduct 						= `product`
-	LabelSuppliers					= `suppliers`
-	LabelCustomer						= `customer`
-	LabelStaff							= `staff`
-	LabelBankAccount				= `bankAccounts`
-	LabelBankAccountCompany = `bankAccounts:company`
-	LabelBankAccountStaff 	= `bankAccounts:staff`
+	LabelProducts 						= `products`
+	LabelProduct 							= `product`
+	LabelSuppliers						= `suppliers`
+	LabelSupplier							= `supplier`
+	LabelCustomer							= `customer`
+	LabelCustomerReceivables	= `customer:receivables`
+	LabelStaff								= `staff`
+	LabelBankAccount					= `bankAccounts`
+	LabelBankAccountCompany 	= `bankAccounts:company`
+	LabelBankAccountStaff 		= `bankAccounts:staff`
+	LabelFunders							= `funders`
+	LabelFunder								= `funder`
 )
-
-func GetLabelsMap() map[string]string {
-	return map[string]string{
-		LabelProducts: `Products`,
-		LabelProduct: `Product`,
-		LabelSuppliers: `Suppliers`,
-		LabelCustomer: `Customer`,
-		LabelStaff: `Staff`,
-		LabelBankAccount: `Bank Account`,
-		LabelBankAccountCompany: `Bank Account - Company`,
-		LabelBankAccountStaff: `Bank Account - Staff`,
-	}
-}
 
 type CoaDefault struct {
 	Name     string
@@ -59,82 +50,295 @@ type CoaDefault struct {
 	Children []CoaDefault
 }
 
+const (
+	CoaBank 							= `Bank / Bank`
+	CoaGoodsInventory 		= `Goods Inventory / Persediaan Barang Dagangan`
+	CoaStock							= `Stock / Stok`
+	CoaAccountsDebt				= `Acccounts Debt / Hutang Dagang`
+	CoaAccountsReceivable	= `Accounts Receivable / Piutang Usaha`
+	CoaCOGS								= `Cost of Goods Sold / Harga Pokok Penjualan`
+	CoaIncome							= `Income / Pendapatan Usaha`
+	CoaEquipments					= `Equipments / Peralatan - Perlengkapan`
+	CoaAdmExpenses				= `Administrative Expenses / Beban Administrasi`
+	CoaGeneralExpenses		= `General Expenses / Beban Umum`
+	CoaPrive							= `Prive / Prive`
+	CoaLiability					= `Liability / Hutang - Kewajiban`
+	CoaCapitalInvestment 	= `Capital Investment / Penanaman Modal`
+	CoaTemporary					= `Temporary / Sementara`
+	CoaExpense						= `Expense / Beban Usaha`
+	CoaAsset							= `Asset / Aktiva`
+	CoaEquity 						= `Equity / Ekuitas - Modal`
+)
+
+const (
+	TemplatePenjualan  = `Penjualan`
+	TemplatePembelian = `Pembelian`
+	TemplatePenanamanModal  = `Penanaman Modal`
+	TemplatePengambilanPrive  = `Pengambilan Prive`
+	TemplatePembayaranGaji = `Pembayaran Gaji`
+	TemplatePembayaranUmum = `Pembayaran Beban Umum` 
+	TemplatePembayaranHutang  = `Pembayaran Hutang`
+)
+
+// Generate transaction template
+var TransactionTemplatesDefault = []string{
+	TemplatePenjualan, TemplatePembelian,
+	TemplatePengambilanPrive, TemplatePembayaranGaji,
+	TemplatePembayaranUmum,
+}
+
+// Generate transaction template detail to transaction template
+var TransactionTemplateDetailsMap = map[string][]struct{
+	CoaName string
+	IsDebit bool
+	Attributes []any
+}{
+	TemplatePenjualan: {
+		{
+			CoaName: CoaStock,
+			IsDebit: false,
+			Attributes: []any{
+				AttributesChildOnly, AttributesSales,
+			},
+		},
+		{
+			CoaName: CoaBank,
+			IsDebit: true,
+			Attributes: []any{
+				AttributesAutoSum, AttributesChildOnly,
+			},
+		},
+		{
+			CoaName: CoaAccountsReceivable,
+			IsDebit: true,
+			Attributes: []any{
+				AttributesAutoSum,
+			},
+		},
+		{
+			CoaName: CoaCOGS,
+			IsDebit: true,
+			Attributes: []any{
+				AttributeSelfSum,
+			},
+		},
+		{
+			CoaName: CoaIncome,
+			IsDebit: false,
+			Attributes: []any{
+				AttributeSelfSum, AttributesChildOnly,
+			},
+		},
+	},
+	TemplatePembelian: {
+		{
+			CoaName: CoaBank,
+			IsDebit: false,
+			Attributes: []any{
+				AttributesChildOnly,
+				AttributesAutoSum,
+			},
+		},
+		{
+			CoaName: CoaAccountsDebt,
+			IsDebit: false,
+			Attributes: []any{
+				AttributesChildOnly,
+				AttributesAutoSum,
+			},
+		},
+		{
+			CoaName: CoaStock,
+			IsDebit: true,
+			Attributes: []any{
+				AttributesSales,
+				AttributesChildOnly,
+			},
+		},
+		{
+			CoaName: CoaEquipments,
+			IsDebit: true,
+			Attributes: []any{
+				AttributesSales,
+				AttributesChildOnly,
+			},
+		},
+	},
+	TemplatePengambilanPrive: {
+		{
+			CoaName: CoaBank,
+			IsDebit: true,
+			Attributes: []any{
+				AttributesAutoSum,
+			},
+		},
+		{
+			CoaName: CoaPrive,
+			IsDebit: false,
+		},
+	},
+	TemplatePembayaranGaji: {
+		{
+			CoaName: CoaAdmExpenses,
+			IsDebit: true,
+			Attributes: []any{
+				AttributesChildOnly,
+			},
+		},
+		{
+			CoaName: CoaBank,
+			IsDebit: false,
+			Attributes: []any{
+				AttributesAutoSum,
+			},
+		},
+	},
+	TemplatePembayaranUmum: {
+		{
+			CoaName: CoaGeneralExpenses,
+			IsDebit: true,
+			Attributes: []any{
+				AttributesChildOnly,
+			},
+		},
+		{
+			CoaName: CoaBank,
+			IsDebit: true,
+			Attributes: []any{
+				AttributesAutoSum,
+			},
+		},
+	},
+	TemplatePembayaranHutang: {
+		{
+			CoaName: CoaLiability,
+			IsDebit: false,
+			Attributes: []any{
+				AttributesChildOnly,
+			},
+		},
+		{
+			CoaName: CoaBank,
+			IsDebit: true,
+			Attributes: []any{
+				AttributesAutoSum,
+			},
+		},
+	},
+}
+
 func GetCoaDefaults() []CoaDefault {
 	return []CoaDefault{
 		{
-			Name: `Aktiva`,
+			Name: CoaAsset,
 			Children: []CoaDefault{
-				{Name: `Bank`, Label: LabelBankAccount},
-				{Name: `Deposito Berjangka`},
-				{Name: `Piutang Usaha`},
-				{Name: `Persediaan Barang Dagangan`},
-				{Name: `Uang Muka`},
-				{Name: `Pendapatan yang Masih Harus Diterima`},
-				{Name: `Pajak Dibayar Muka`},
-				{Name: `Biaya Dibayar Muka`},
-				{Name: `Investasi Jangka Panjang`},
-				{Name: `Aktiva Tetap`},
-				{Name: `Akumulasi Penyusutan Aktiva Tetap`},
-				{Name: `Aktiva Tak Berwujud`},
-				{Name: `Aktiva Lain-lain`, Label: LabelProducts},
+				{
+					Name: CoaBank,
+					Label: LabelBankAccount,
+					Children: []CoaDefault{
+						{
+							Name: `Cash / Kas Tunai`,
+						},
+						{
+							Name: `Company's Main Account / Rekening Utama Perusahaan`,
+						},
+					},
+				},
+				{Name: `Time Deposits / Deposito Berjangka`},
+				{Name: CoaAccountsReceivable, Label: LabelCustomerReceivables},
+				{Name: CoaGoodsInventory},
+				{Name: `Prepaid Tax / Pajak Dibayar Muka`},
+				{Name: `Prepayment Fee / Biaya Dibayar Muka`},
+				{Name: `Long-term Investment / Investasi Jangka Panjang`},
+				{Name: `Fixed Asset / Aktiva Tetap`}, 
+				{Name: `Accumulated Depreciation of Fixed Asset / Akumulasi Penyusutan Aktiva Tetap`}, // Gak yakin
+				{Name: `Intengible Asset / Aktiva Tak Berwujud`},
+				{Name: CoaStock, Label: LabelProducts},
+				{Name: CoaEquipments},
+				{Name: `Other Assets / Aktiva Lain-lain`},
 			},
 		},
 		{
-			Name: `Kewajiban`,
+			Name: CoaLiability,
 			Children: []CoaDefault{
-				{Name: `Hutang Dagang`},
-				{Name: `Uang Muka Pelanggan`},
-				{Name: `Hutang Pajak`},
-				{Name: `Biaya yang Masih Harus Dibayar`},
-				{Name: `Hutang Jangka Panjang - Lancar`},
-				{Name: `Hutang Lain-lain`},
-				{Name: `Hutang Jangka Panjang`},
+				{Name: CoaAccountsDebt, Label: LabelSuppliers},
+				{Name: `Customer Advance / Uang Muka Pelanggan`},
+				{Name: `Tax Debt / Hutang Pajak`},
+				{Name: `Accrued Cost / Biaya yang Masih Harus Dibayar`},
+				{Name: `Current Long-term Debt / Hutang Jangka Panjang - Lancar`},
+				{Name: `Other Debts / Hutang Lain-lain`},
+				{Name: `Long-term Debt / Hutang Jangka Panjang`},
 			},
 		},
 		{
-			Name: `Ekuitas`,
+			Name: CoaEquity,
 			Children: []CoaDefault{
-				{Name: `Modal`},
-				{Name: `Saldo Laba`},
+				{
+					Name: CoaCapitalInvestment,
+					Label: LabelFunders,
+					Children: []CoaDefault{
+						{
+							Name: `Capital from Owner 1 / Modal dari Owner 1`,
+							Label: LabelFunder,
+						},
+					},
+				},
+				{Name: `Retained Earnings / Saldo Laba`},
 			},
 		},
 		{
-			Name: `Pendapatan Usaha`,
-			Children: []CoaDefault{
-				{Name: `Pendapatan Usaha - Penjualan Barang Dagangan`},
-				{Name: `Pendapatan Usaha - Jasa Keagenan dan Distributor`},
-			},
-		},
-		{Name: `Harga Pokok Penjualan`},
-		{
-			Name: `Beban Usaha`,
-			Children: []CoaDefault{
-				{Name: `Beban Pemasaran`},
-				{Name: `Beban Administrasi dan Umum`},
-			},
+			Name: CoaIncome, Label: LabelCustomer,
+			// Children: []CoaDefault{
+			// 	{Name: `Penjualan Barang Dagangan`},
+			// 	{Name: `Pendapatan Jasa`},
+			// },
 		},
 		{
-			Name: `Penghasilan Lain-lain`,
+			Name: CoaExpense,
 			Children: []CoaDefault{
-				{Name: `Penghasilan Bunga Deposito`},
-				{Name: `Penghasilan Bunga Obligasi`},
-				{Name: `Penghasilan Deviden`},
-				{Name: `Penghasilan Bunga Jasa Giro`},
-				{Name: `Laba Penjualan Aktiva Tetap`},
-				{Name: `Penghasilan Sewa`},
-				{Name: `Laba Selisih Kurs`},
-				{Name: `Penghasilan Lainnya`},
+				{Name: `Marketing Expenses / Beban Pemasaran`},
+				{Name: CoaAdmExpenses, Label: LabelStaff},
+				{
+					Name: CoaGeneralExpenses,
+					Children: []CoaDefault{
+						{Name: `Electricity Bill / Beban Listrik - PLN`},
+						{Name: `Water Bill / Beban Air - PDAM`},
+						{Name: `Internet Bill / Beban Internet`},
+						{Name: `Building Rent / Sewa Gedung`},
+						{Name: `Security Bill / Beban Keamanan`},
+						{Name: `Garbage Fee / Beban Kebersihan`},
+						{Name: `Building Construction Cost / Biaya Pembangunan Gedung`},
+					},
+				},
+				{Name: CoaCOGS},
 			},
 		},
 		{
-			Name: `Beban Lain-lain`,
+			Name: `Other Incomes / Penghasilan Lain-lain`,
 			Children: []CoaDefault{
-				{Name: `Beban Pajak Jasa Giro`},
-				{Name: `Beban Administrasi Jasa Giro`},
-				{Name: `Rugi Penjualan Aktiva Tetap`},
-				{Name: `Rugi Selisih Kurs`},
-				{Name: `Beban Lainnya`},
+				{Name: `Deposit Interest Income / Penghasilan Bunga Deposito`},
+				{Name: `Bond Interest Income / Penghasilan Bunga Obligasi`},
+				{Name: `Deviden Income / Penghasilan Deviden`},
+				{Name: `Current Account Service Interest Income / Penghasilan Bunga Jasa Giro`},
+				{Name: `Profit on Sale of Fixed Assets / Laba Penjualan Aktiva Tetap`},
+				{Name: `Rental Income / Penghasilan Sewa`},
+				{Name: `Foreign Exchange Gain / Laba Selisih Kurs`},
+				{Name: `Other Incomes Penghasilan Lainnya`},
 			},
+		},
+		{
+			Name: `Other Expenses / Biaya Lain-lain`,
+			Children: []CoaDefault{
+				{Name: CoaPrive},
+				{Name: `Current Account Tax Expense / Beban Pajak Jasa Giro`},
+				{Name: `Current Account Administration Expenses / Beban Administrasi Jasa Giro`},
+				{Name: `Loss on Sale of Fixed Assets / Rugi Penjualan Aktiva Tetap`},
+				{Name: `Loss on Foreign Exchange / Rugi Selisih Kurs`},
+				{Name: `Other Expenses / Beban Lainnya`},
+			},
+		},
+		{
+			Name: CoaTemporary,
 		},
 	}
 }
@@ -161,7 +365,30 @@ const (
 
 	IsDebit           = `isDebit`
 	IsAlwaysStartDate = `isAlwaysStartDate`
+	Attributes				= `attributes`
 )
+
+const (
+	AttributesAutoSum 	= `autoSum`
+	AttributesChildOnly	= `childOnly`
+	AttributesSales			= `sales`
+	AttributeSelfSum		= `selfSum`
+)
+
+func IsValidAttributes(attr []any) bool {
+	if len(attr) > 0 {
+		for _, v := range attr {
+			switch v {
+			case AttributesAutoSum, AttributesChildOnly, AttributesSales:
+				continue
+			default:
+				return false
+			}
+		}
+	}
+
+	return true
+}
 
 const (
 	TableBusinessTransaction Tt.TableName = `businessTransaction`
@@ -182,6 +409,26 @@ const (
 	DetailObj = `detailObj`
 )
 
+type TransactionJournalDetailObject struct {
+	SalesCount 		int64 `json:"salesCount"`
+	SalesPriceIDR string `json:"salesPriceIDR"` // Currency must be string
+}
+
+func IsValidDate(dateStr string) bool {
+	_, err := time.Parse("2006-01-02", dateStr)
+	
+	return err == nil
+}
+
+func IsValidDetailObject(in string) bool {
+	var trxJournalDetailObj TransactionJournalDetailObject
+	err := json.Unmarshal([]byte(in), &trxJournalDetailObj)
+
+	_ = trxJournalDetailObj // throw to hole
+
+	return err == nil
+}
+
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableCoa: {
 		Fields: []Tt.Field{
@@ -198,25 +445,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedAt, Tt.Integer},
 			{DeletedBy, Tt.Unsigned},
 			{RestoredBy, Tt.Unsigned},
-		},
-		AutoIncrementId: true,
-		Engine:          Tt.Vinyl,
-	},
-	TableTransactions: {
-		Fields: []Tt.Field{
-			{Id, Tt.Unsigned},
-			{TenantCode, Tt.String},
-			{CreatedAt, Tt.Integer},
-			{CreatedBy, Tt.Unsigned},
-			{UpdatedAt, Tt.Integer},
-			{UpdatedBy, Tt.Unsigned},
-			{DeletedAt, Tt.Integer},
-			{DeletedBy, Tt.Unsigned},
-			{RestoredBy, Tt.Unsigned},
-			{CompletedAt, Tt.Integer},
-			{Price, Tt.Unsigned},
-			{Description, Tt.String},
-			{Qty, Tt.Integer},
+			{Editable, Tt.Boolean},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,
@@ -254,6 +483,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedAt, Tt.Integer},
 			{DeletedBy, Tt.Unsigned},
 			{RestoredBy, Tt.Unsigned},
+			{Attributes, Tt.Array},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,
@@ -275,6 +505,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedAt, Tt.Integer},
 			{DeletedBy, Tt.Unsigned},
 			{RestoredBy, Tt.Unsigned},
+			{TransactionTplId, Tt.Unsigned},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,
@@ -283,8 +514,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		Fields: []Tt.Field{
 			{Id, Tt.Unsigned},
 			{TenantCode, Tt.String},
-			{StartDate, Tt.Integer},
-			{EndDate, Tt.Integer},
+			{StartDate, Tt.String},
+			{EndDate, Tt.String},
 			{CreatedAt, Tt.Integer},
 			{CreatedBy, Tt.Unsigned},
 			{UpdatedAt, Tt.Integer},

@@ -21,8 +21,7 @@
   let pager = /** @type PagerOut */ ({/* pager */});
   let accounts = /** @type any[][] */ ([/* accounts */]);
   let staffs = /** @type Object */ ({/* staffs */});
-
-  console.log('Staff: ', staffs);
+  let coas = /** @type Object */ ({/* coas */});
 
   // Binding component PopUpAddBankAccount.svelte
   let popUpAddBankAccount = null;
@@ -110,8 +109,6 @@
         accountName: payloads[2],
         accountNumber: payloads[3],
         bankName: payloads[4],
-        isProfitCenter: payloads[5],
-        isCostCenter: payloads[6]
       },
       cmd: 'upsert'
     };
@@ -155,11 +152,11 @@
         accounts = o.accounts;
         notifier.showSuccess('bank account created')
         popUpAddBankAccount.Reset();
+        popUpAddBankAccount.Hide();
         
         OnRefresh(pager);
       }
     );
-    popUpAddBankAccount.Hide();
   }
 </script>
 

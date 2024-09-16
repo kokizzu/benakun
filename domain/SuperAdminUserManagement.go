@@ -83,6 +83,13 @@ var SuperAdminUserManagementMeta = zCrud.Meta{
 			},
 		},
 		{
+			Name: mAuth.InvitationState,
+			Label: "Status Udangan / Invitation State",
+			DataType: zCrud.DataTypeString,
+			InputType: zCrud.InputTypeText,
+			ReadOnly: true,
+		},
+		{
 			Name:      mAuth.CreatedAt,
 			Label:     `Dibuat pada / Created at`,
 			ReadOnly:  true,
@@ -226,9 +233,6 @@ func (d *Domain) SuperAdminUserManagement(in *SuperAdminUserManagementIn) (out S
 						return
 					}
 				}
-				user.SetRole(in.User.Role)
-			} else {
-				user.SetRole(mAuth.RoleUser)
 			}
 		}
 

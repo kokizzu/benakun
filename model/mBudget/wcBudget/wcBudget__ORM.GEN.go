@@ -309,6 +309,17 @@ func (b *BankAccountsMutator) SetStaffId(val uint64) bool { //nolint:dupl false 
 	return false
 }
 
+// SetIsFunder create mutations, should not duplicate
+func (b *BankAccountsMutator) SetIsFunder(val bool) bool { //nolint:dupl false positive
+	if val != b.IsFunder {
+		b.mutations.Assign(18, val)
+		b.logs = append(b.logs, A.X{`isFunder`, b.IsFunder, val})
+		b.IsFunder = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (b *BankAccountsMutator) SetAll(from rqBudget.BankAccounts, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -387,6 +398,10 @@ func (b *BankAccountsMutator) SetAll(from rqBudget.BankAccounts, excludeMap, for
 	}
 	if !excludeMap[`staffId`] && (forceMap[`staffId`] || from.StaffId != 0) {
 		b.StaffId = from.StaffId
+		changed = true
+	}
+	if !excludeMap[`isFunder`] && (forceMap[`isFunder`] || from.IsFunder != false) {
+		b.IsFunder = from.IsFunder
 		changed = true
 	}
 	return

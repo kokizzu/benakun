@@ -7,6 +7,7 @@
  * @property {boolean} tenantAdmin
  * @property {boolean} dataEntry
  * @property {boolean} reportViewer
+ * @property {boolean} fieldSupervisor
  * @property {boolean} guest
  * @property {boolean} user
  */

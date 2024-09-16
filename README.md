@@ -29,17 +29,17 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
   - [ ] can manage standard CoA (Chart of Account that all company must have)
   - [ ] can create entry-rule template
 - TenantAdmin
-  - [ ] can edit company
-  - [ ] change organizational structure
-  - [ ] can create budgeting
-  - [ ] can manage account source
-  - [ ] can manage users
-  - [ ] can manage accounts
-  - [ ] can manage journals
+  - [x] can edit company
+  - [x] change organizational structure
+  - [x] can create budgeting
+  - [x] can manage account source
+  - [x] can manage users
+  - [x] can manage accounts
+  - [x] can manage journals
   - [ ] can manage reports
   - [x] can manage CoA
-  - [ ] can manage entry-rule
-  - [ ] can manage bank account
+  - [x] can manage entry-rule
+  - [x] can manage bank account
   - [ ] can manage external company (customer, supplier, etc)
   - [ ] can manage service/product/stock
   - [ ] can backup/restore database

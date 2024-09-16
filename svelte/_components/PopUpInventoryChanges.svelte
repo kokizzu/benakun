@@ -3,7 +3,7 @@
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
-  import InputCustom from './InputCustom.svelte';
+  import InputBox from './InputBox.svelte';
 
   export let heading = 'Add inventory changes';
   export let isSubmitAddInventoryChanges = false;
@@ -20,10 +20,12 @@
 
   onMount(() => {
     // Get the first product and set as default selected value
-    for (let key in products) {
-      if (products.hasOwnProperty(key)) {
-        productId = key;
-        break;
+    if (products ) {
+      for (let key in products) {
+        if (products.hasOwnProperty(key)) {
+          productId = key;
+          break;
+        }
       }
     }
   })
@@ -53,22 +55,24 @@
       </button>
     </header>
     <div class="forms">
-      <InputCustom
+      <InputBox
         bind:value={stockDelta}
         id="stockDelta"
         label="Delta Stok / Stock Delta"
         placeholder="Stock Delta"
         type="number"
       />
-      <InputCustom
-        bind:value={productId}
-        id="productId"
-        label="Produk / Product"
-        type="select"
-        placeholder="Select product"
-        values={products}
-        isObject
-      />
+      {#if products && Object.keys(products).length > 0}
+        <InputBox
+          bind:value={productId}
+          id="productId"
+          label="Produk / Product"
+          type="select"
+          placeholder="Select product"
+          values={products}
+          isObject
+        />
+      {/if}
     </div>
     <div class="foot">
       <div class="left">

@@ -122,7 +122,6 @@
     }
 
     reformatPrograms();
-    console.log('REFORMATTED PLANS:', programsActivity);
   }
 
   // +================================================================+

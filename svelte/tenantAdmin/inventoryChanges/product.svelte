@@ -1,8 +1,12 @@
 <script>
   import MainLayout from '../../_layouts/mainLayout.svelte';
   import MasterTable from '../../_components/MasterTable.svelte';
-  import { TenantAdminInventoryChangesProduct } from '../../jsApi.GEN';
+  import { TenantAdminInventoryChanges } from '../../jsApi.GEN';
   import { notifier } from '../../_components/notifier';
+  import { Icon } from './../../node_modules/svelte-icons-pack/dist';
+  import { RiSystemAddBoxLine } from './../../node_modules/svelte-icons-pack/dist/ri';
+  import { onMount } from 'svelte';
+    import PopUpInventoryChanges from '../../_components/PopUpInventoryChanges.svelte';
   
   /** @typedef {import('../../_components/types/master.js').Field} Field */
 	/** @typedef {import('../../_components/types/access.js').Access} Access */
@@ -27,9 +31,15 @@
     maximumFractionDigits: 0  // to ensure no decimal places
   }).format(Number(product.cogsIDR) || 0);
 
+  let isPopUpFormsReady = false;
+  let popUpInventoryChanges = null;
+  onMount(() => {
+    isPopUpFormsReady = true;
+  })
+
   async function OnRefresh(/** @type PagerIn */ pagerIn) {
     const i = { pager: pagerIn, cmd: 'list' };
-    await TenantAdminInventoryChangesProduct( // @ts-ignore
+    await TenantAdminInventoryChanges( // @ts-ignore
       i, /** @type {import('../jsApi.GEN').TenantAdminInventoryChangesCallback} */
       /** @returns {Promise<void>} */
       function(/** @type any */ o) {
@@ -52,7 +62,7 @@
       },
       cmd: 'restore'
     };
-    await TenantAdminInventoryChangesProduct( // @ts-ignore
+    await TenantAdminInventoryChanges( // @ts-ignore
       i, /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
       /** @returns {Promise<void>} */
       function(/** @type any */ o) {
@@ -79,7 +89,7 @@
       },
       cmd: 'delete'
     };
-    await TenantAdminInventoryChangesProduct( // @ts-ignore
+    await TenantAdminInventoryChanges( // @ts-ignore
       i, /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
       /** @returns {Promise<void>} */
       function(/** @type any */ o) {
@@ -108,7 +118,7 @@
       pager, inventoryChange,
       cmd: 'upsert'
     };
-    await TenantAdminInventoryChangesProduct( // @ts-ignore
+    await TenantAdminInventoryChanges( // @ts-ignore
       i, /** @type {import('../jsApi.GEN').TenantAdminBankAccountsCallback} */
       /** @returns {Promise<void>} */
       function(/** @type any */ o) {
@@ -126,9 +136,51 @@
       }
     );
   }
+
+  let isSubmitAddInvChange = false;
+  async function OnAddInventoryChange(/** @type any */ payloads) {
+    isSubmitAddInvChange = true;
+    payloads.productId = product.id;
+    const i = {
+      pager,
+      inventoryChange: payloads,
+      cmd: 'upsert'
+    }
+    await TenantAdminInventoryChanges( // @ts-ignore
+      i, /** @type {import('../jsApi.GEN').TenantAdminInventoryChangesCallback} */
+      /** @returns {Promise<void>} */
+      function(/** @type any */ o) {
+        isSubmitAddInvChange = false;
+        if (o.error) {
+          console.log(o);
+          notifier.showError(o.error);
+          return
+        }
+        
+        pager = o.pager;
+        inventoryChanges = o.inventoryChanges;
+
+        notifier.showSuccess('inventoryChange created')
+        popUpInventoryChanges.Reset();
+
+        OnRefresh(pager);
+      }
+    );
+    popUpInventoryChanges.Hide();
+  }
 </script>
 
+{#if isPopUpFormsReady}
+  <PopUpInventoryChanges
+    products={null}
+    bind:this={popUpInventoryChanges}
+    bind:isSubmitAddInventoryChanges={isSubmitAddInvChange}
+    OnSubmit={OnAddInventoryChange}
+  />
+{/if}
+
 <MainLayout>
+  <h3>TODO: can add product here</h3>
   <div class="product_inventory">
     <div class="product_container">
       <h4>Product detail</h4>
@@ -178,7 +230,21 @@
       {OnEdit}
       {OnRefresh}
       {OnRestore}
-    />
+    >
+      {#if user.tenantCode !== ''}
+        <button
+          class="action_btn"
+          title="add inventoryChange"
+          on:click={() => popUpInventoryChanges.Show()}
+        >
+          <Icon
+            color="var(--gray-007)"
+            size="16"
+            src={RiSystemAddBoxLine}
+          />
+        </button>
+      {/if}
+    </MasterTable>
   </div>
 </MainLayout>
 

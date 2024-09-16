@@ -134,7 +134,7 @@ func (b *BusinessTransactionMutator) SetTenantCode(val string) bool { //nolint:d
 }
 
 // SetStartDate create mutations, should not duplicate
-func (b *BusinessTransactionMutator) SetStartDate(val int64) bool { //nolint:dupl false positive
+func (b *BusinessTransactionMutator) SetStartDate(val string) bool { //nolint:dupl false positive
 	if val != b.StartDate {
 		b.mutations.Assign(2, val)
 		b.logs = append(b.logs, A.X{`startDate`, b.StartDate, val})
@@ -145,7 +145,7 @@ func (b *BusinessTransactionMutator) SetStartDate(val int64) bool { //nolint:dup
 }
 
 // SetEndDate create mutations, should not duplicate
-func (b *BusinessTransactionMutator) SetEndDate(val int64) bool { //nolint:dupl false positive
+func (b *BusinessTransactionMutator) SetEndDate(val string) bool { //nolint:dupl false positive
 	if val != b.EndDate {
 		b.mutations.Assign(3, val)
 		b.logs = append(b.logs, A.X{`endDate`, b.EndDate, val})
@@ -259,12 +259,12 @@ func (b *BusinessTransactionMutator) SetAll(from rqFinance.BusinessTransaction, 
 		b.TenantCode = S.Trim(from.TenantCode)
 		changed = true
 	}
-	if !excludeMap[`startDate`] && (forceMap[`startDate`] || from.StartDate != 0) {
-		b.StartDate = from.StartDate
+	if !excludeMap[`startDate`] && (forceMap[`startDate`] || from.StartDate != ``) {
+		b.StartDate = S.Trim(from.StartDate)
 		changed = true
 	}
-	if !excludeMap[`endDate`] && (forceMap[`endDate`] || from.EndDate != 0) {
-		b.EndDate = from.EndDate
+	if !excludeMap[`endDate`] && (forceMap[`endDate`] || from.EndDate != ``) {
+		b.EndDate = S.Trim(from.EndDate)
 		changed = true
 	}
 	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
@@ -536,6 +536,17 @@ func (c *CoaMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positi
 	return false
 }
 
+// SetEditable create mutations, should not duplicate
+func (c *CoaMutator) SetEditable(val bool) bool { //nolint:dupl false positive
+	if val != c.Editable {
+		c.mutations.Assign(13, val)
+		c.logs = append(c.logs, A.X{`editable`, c.Editable, val})
+		c.Editable = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (c *CoaMutator) SetAll(from rqFinance.Coa, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -594,6 +605,10 @@ func (c *CoaMutator) SetAll(from rqFinance.Coa, excludeMap, forceMap M.SB) (chan
 	}
 	if !excludeMap[`restoredBy`] && (forceMap[`restoredBy`] || from.RestoredBy != 0) {
 		c.RestoredBy = from.RestoredBy
+		changed = true
+	}
+	if !excludeMap[`editable`] && (forceMap[`editable`] || from.Editable != false) {
+		c.Editable = from.Editable
 		changed = true
 	}
 	return
@@ -857,6 +872,17 @@ func (t *TransactionJournalMutator) SetRestoredBy(val uint64) bool { //nolint:du
 	return false
 }
 
+// SetTransactionTemplateId create mutations, should not duplicate
+func (t *TransactionJournalMutator) SetTransactionTemplateId(val uint64) bool { //nolint:dupl false positive
+	if val != t.TransactionTemplateId {
+		t.mutations.Assign(15, val)
+		t.logs = append(t.logs, A.X{`transactionTemplateId`, t.TransactionTemplateId, val})
+		t.TransactionTemplateId = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (t *TransactionJournalMutator) SetAll(from rqFinance.TransactionJournal, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -923,6 +949,10 @@ func (t *TransactionJournalMutator) SetAll(from rqFinance.TransactionJournal, ex
 	}
 	if !excludeMap[`restoredBy`] && (forceMap[`restoredBy`] || from.RestoredBy != 0) {
 		t.RestoredBy = from.RestoredBy
+		changed = true
+	}
+	if !excludeMap[`transactionTemplateId`] && (forceMap[`transactionTemplateId`] || from.TransactionTemplateId != 0) {
+		t.TransactionTemplateId = from.TransactionTemplateId
 		changed = true
 	}
 	return
@@ -1225,6 +1255,7 @@ type TransactionTplDetailMutator struct {
 func NewTransactionTplDetailMutator(adapter *Tt.Adapter) (res *TransactionTplDetailMutator) {
 	res = &TransactionTplDetailMutator{TransactionTplDetail: rqFinance.TransactionTplDetail{Adapter: adapter}}
 	res.mutations = tarantool.NewOperations()
+	res.Attributes = []any{}
 	return
 }
 
@@ -1437,6 +1468,14 @@ func (t *TransactionTplDetailMutator) SetRestoredBy(val uint64) bool { //nolint:
 	return false
 }
 
+// SetAttributes create mutations, should not duplicate
+func (t *TransactionTplDetailMutator) SetAttributes(val []any) bool { //nolint:dupl false positive
+	t.mutations.Assign(12, val)
+	t.logs = append(t.logs, A.X{`attributes`, t.Attributes, val})
+	t.Attributes = val
+	return true
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (t *TransactionTplDetailMutator) SetAll(from rqFinance.TransactionTplDetail, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -1493,303 +1532,8 @@ func (t *TransactionTplDetailMutator) SetAll(from rqFinance.TransactionTplDetail
 		t.RestoredBy = from.RestoredBy
 		changed = true
 	}
-	return
-}
-
-// DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
-
-// TransactionsMutator DAO writer/command struct
-type TransactionsMutator struct {
-	rqFinance.Transactions
-	mutations *tarantool.Operations
-	logs      []A.X
-}
-
-// NewTransactionsMutator create new ORM writer/command object
-func NewTransactionsMutator(adapter *Tt.Adapter) (res *TransactionsMutator) {
-	res = &TransactionsMutator{Transactions: rqFinance.Transactions{Adapter: adapter}}
-	res.mutations = tarantool.NewOperations()
-	return
-}
-
-// Logs get array of logs [field, old, new]
-func (t *TransactionsMutator) Logs() []A.X { //nolint:dupl false positive
-	return t.logs
-}
-
-// HaveMutation check whether Set* methods ever called
-func (t *TransactionsMutator) HaveMutation() bool { //nolint:dupl false positive
-	return len(t.logs) > 0
-}
-
-// ClearMutations clear all previously called Set* methods
-func (t *TransactionsMutator) ClearMutations() { //nolint:dupl false positive
-	t.mutations = tarantool.NewOperations()
-	t.logs = []A.X{}
-}
-
-// DoOverwriteById update all columns, error if not exists, not using mutations/Set*
-func (t *TransactionsMutator) DoOverwriteById() bool { //nolint:dupl false positive
-	_, err := t.Adapter.RetryDo(tarantool.NewUpdateRequest(t.SpaceName()).
-		Index(t.UniqueIndexId()).
-		Key(tarantool.UintKey{I: uint(t.Id)}).
-		Operations(t.ToUpdateArray()),
-	)
-	return !L.IsError(err, `Transactions.DoOverwriteById failed: `+t.SpaceName())
-}
-
-// DoUpdateById update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
-func (t *TransactionsMutator) DoUpdateById() bool { //nolint:dupl false positive
-	if !t.HaveMutation() {
-		return true
-	}
-	_, err := t.Adapter.RetryDo(
-		tarantool.NewUpdateRequest(t.SpaceName()).
-			Index(t.UniqueIndexId()).
-			Key(tarantool.UintKey{I: uint(t.Id)}).
-			Operations(t.mutations),
-	)
-	return !L.IsError(err, `Transactions.DoUpdateById failed: `+t.SpaceName())
-}
-
-// DoDeletePermanentById permanent delete
-func (t *TransactionsMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
-	_, err := t.Adapter.RetryDo(
-		tarantool.NewDeleteRequest(t.SpaceName()).
-			Index(t.UniqueIndexId()).
-			Key(tarantool.UintKey{I: uint(t.Id)}),
-	)
-	return !L.IsError(err, `Transactions.DoDeletePermanentById failed: `+t.SpaceName())
-}
-
-// DoInsert insert, error if already exists
-func (t *TransactionsMutator) DoInsert() bool { //nolint:dupl false positive
-	arr := t.ToArray()
-	row, err := t.Adapter.RetryDo(
-		tarantool.NewInsertRequest(t.SpaceName()).
-			Tuple(arr),
-	)
-	if err == nil {
-		if len(row) > 0 {
-			if cells, ok := row[0].([]any); ok && len(cells) > 0 {
-				t.Id = X.ToU(cells[0])
-			}
-		}
-	}
-	return !L.IsError(err, `Transactions.DoInsert failed: `+t.SpaceName()+`\n%#v`, arr)
-}
-
-// DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
-// tarantool's replace/upsert can only match by primary key
-// previous name: DoReplace
-func (t *TransactionsMutator) DoUpsertById() bool { //nolint:dupl false positive
-	if t.Id > 0 {
-		return t.DoUpdateById()
-	}
-	return t.DoInsert()
-}
-
-// SetId create mutations, should not duplicate
-func (t *TransactionsMutator) SetId(val uint64) bool { //nolint:dupl false positive
-	if val != t.Id {
-		t.mutations.Assign(0, val)
-		t.logs = append(t.logs, A.X{`id`, t.Id, val})
-		t.Id = val
-		return true
-	}
-	return false
-}
-
-// SetTenantCode create mutations, should not duplicate
-func (t *TransactionsMutator) SetTenantCode(val string) bool { //nolint:dupl false positive
-	if val != t.TenantCode {
-		t.mutations.Assign(1, val)
-		t.logs = append(t.logs, A.X{`tenantCode`, t.TenantCode, val})
-		t.TenantCode = val
-		return true
-	}
-	return false
-}
-
-// SetCreatedAt create mutations, should not duplicate
-func (t *TransactionsMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
-	if val != t.CreatedAt {
-		t.mutations.Assign(2, val)
-		t.logs = append(t.logs, A.X{`createdAt`, t.CreatedAt, val})
-		t.CreatedAt = val
-		return true
-	}
-	return false
-}
-
-// SetCreatedBy create mutations, should not duplicate
-func (t *TransactionsMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
-	if val != t.CreatedBy {
-		t.mutations.Assign(3, val)
-		t.logs = append(t.logs, A.X{`createdBy`, t.CreatedBy, val})
-		t.CreatedBy = val
-		return true
-	}
-	return false
-}
-
-// SetUpdatedAt create mutations, should not duplicate
-func (t *TransactionsMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
-	if val != t.UpdatedAt {
-		t.mutations.Assign(4, val)
-		t.logs = append(t.logs, A.X{`updatedAt`, t.UpdatedAt, val})
-		t.UpdatedAt = val
-		return true
-	}
-	return false
-}
-
-// SetUpdatedBy create mutations, should not duplicate
-func (t *TransactionsMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
-	if val != t.UpdatedBy {
-		t.mutations.Assign(5, val)
-		t.logs = append(t.logs, A.X{`updatedBy`, t.UpdatedBy, val})
-		t.UpdatedBy = val
-		return true
-	}
-	return false
-}
-
-// SetDeletedAt create mutations, should not duplicate
-func (t *TransactionsMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
-	if val != t.DeletedAt {
-		t.mutations.Assign(6, val)
-		t.logs = append(t.logs, A.X{`deletedAt`, t.DeletedAt, val})
-		t.DeletedAt = val
-		return true
-	}
-	return false
-}
-
-// SetDeletedBy create mutations, should not duplicate
-func (t *TransactionsMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
-	if val != t.DeletedBy {
-		t.mutations.Assign(7, val)
-		t.logs = append(t.logs, A.X{`deletedBy`, t.DeletedBy, val})
-		t.DeletedBy = val
-		return true
-	}
-	return false
-}
-
-// SetRestoredBy create mutations, should not duplicate
-func (t *TransactionsMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
-	if val != t.RestoredBy {
-		t.mutations.Assign(8, val)
-		t.logs = append(t.logs, A.X{`restoredBy`, t.RestoredBy, val})
-		t.RestoredBy = val
-		return true
-	}
-	return false
-}
-
-// SetCompletedAt create mutations, should not duplicate
-func (t *TransactionsMutator) SetCompletedAt(val int64) bool { //nolint:dupl false positive
-	if val != t.CompletedAt {
-		t.mutations.Assign(9, val)
-		t.logs = append(t.logs, A.X{`completedAt`, t.CompletedAt, val})
-		t.CompletedAt = val
-		return true
-	}
-	return false
-}
-
-// SetPrice create mutations, should not duplicate
-func (t *TransactionsMutator) SetPrice(val uint64) bool { //nolint:dupl false positive
-	if val != t.Price {
-		t.mutations.Assign(10, val)
-		t.logs = append(t.logs, A.X{`price`, t.Price, val})
-		t.Price = val
-		return true
-	}
-	return false
-}
-
-// SetDescriptions create mutations, should not duplicate
-func (t *TransactionsMutator) SetDescriptions(val string) bool { //nolint:dupl false positive
-	if val != t.Descriptions {
-		t.mutations.Assign(11, val)
-		t.logs = append(t.logs, A.X{`descriptions`, t.Descriptions, val})
-		t.Descriptions = val
-		return true
-	}
-	return false
-}
-
-// SetQty create mutations, should not duplicate
-func (t *TransactionsMutator) SetQty(val int64) bool { //nolint:dupl false positive
-	if val != t.Qty {
-		t.mutations.Assign(12, val)
-		t.logs = append(t.logs, A.X{`qty`, t.Qty, val})
-		t.Qty = val
-		return true
-	}
-	return false
-}
-
-// SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
-func (t *TransactionsMutator) SetAll(from rqFinance.Transactions, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
-	if excludeMap == nil { // list of fields to exclude
-		excludeMap = M.SB{}
-	}
-	if forceMap == nil { // list of fields to force overwrite
-		forceMap = M.SB{}
-	}
-	if !excludeMap[`id`] && (forceMap[`id`] || from.Id != 0) {
-		t.Id = from.Id
-		changed = true
-	}
-	if !excludeMap[`tenantCode`] && (forceMap[`tenantCode`] || from.TenantCode != ``) {
-		t.TenantCode = S.Trim(from.TenantCode)
-		changed = true
-	}
-	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
-		t.CreatedAt = from.CreatedAt
-		changed = true
-	}
-	if !excludeMap[`createdBy`] && (forceMap[`createdBy`] || from.CreatedBy != 0) {
-		t.CreatedBy = from.CreatedBy
-		changed = true
-	}
-	if !excludeMap[`updatedAt`] && (forceMap[`updatedAt`] || from.UpdatedAt != 0) {
-		t.UpdatedAt = from.UpdatedAt
-		changed = true
-	}
-	if !excludeMap[`updatedBy`] && (forceMap[`updatedBy`] || from.UpdatedBy != 0) {
-		t.UpdatedBy = from.UpdatedBy
-		changed = true
-	}
-	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
-		t.DeletedAt = from.DeletedAt
-		changed = true
-	}
-	if !excludeMap[`deletedBy`] && (forceMap[`deletedBy`] || from.DeletedBy != 0) {
-		t.DeletedBy = from.DeletedBy
-		changed = true
-	}
-	if !excludeMap[`restoredBy`] && (forceMap[`restoredBy`] || from.RestoredBy != 0) {
-		t.RestoredBy = from.RestoredBy
-		changed = true
-	}
-	if !excludeMap[`completedAt`] && (forceMap[`completedAt`] || from.CompletedAt != 0) {
-		t.CompletedAt = from.CompletedAt
-		changed = true
-	}
-	if !excludeMap[`price`] && (forceMap[`price`] || from.Price != 0) {
-		t.Price = from.Price
-		changed = true
-	}
-	if !excludeMap[`descriptions`] && (forceMap[`descriptions`] || from.Descriptions != ``) {
-		t.Descriptions = S.Trim(from.Descriptions)
-		changed = true
-	}
-	if !excludeMap[`qty`] && (forceMap[`qty`] || from.Qty != 0) {
-		t.Qty = from.Qty
+	if !excludeMap[`attributes`] && (forceMap[`attributes`] || from.Attributes != nil) {
+		t.Attributes = from.Attributes
 		changed = true
 	}
 	return

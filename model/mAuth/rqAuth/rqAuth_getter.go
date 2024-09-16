@@ -17,16 +17,17 @@ type Staff struct {
 	Email    string `json:"email" form:"email" query:"email" long:"email" msg:"email"`
 	FullName string `json:"fullName" form:"fullName" query:"fullName" long:"fullName" msg:"fullName"`
 	Role     string `json:"role" form:"role" query:"role" long:"role" msg:"role"`
+	Date 		 string `json:"date" form:"date" query:"date" long:"date" msg:"date"`
 }
 
 func (u *Users) FindStaffsByTenantCode(tenantCode string) (staffs []Staff) {
 	var res [][]any
 	const comment = `-- Users) FindStaffByTenantCode`
 
-	whereAndSql := ` WHERE ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
+	whereAndSql := ` WHERE ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+tenantCode+`:%:accepted%`)
 
 	queryRows := comment + `
-SELECT ` + u.SqlId() + `, ` + u.SqlEmail() + `, ` + u.SqlFullName() + `, ` + u.SqlRole() + `
+SELECT ` + u.SqlId() + `, ` + u.SqlEmail() + `, ` + u.SqlFullName() + `, ` + u.SqlRole() + `, ` + u.SqlInvitationState() + `
 FROM SEQSCAN ` + u.SqlTableName() + whereAndSql
 
 	u.Adapter.QuerySql(queryRows, func(row []any) {
@@ -36,12 +37,21 @@ FROM SEQSCAN ` + u.SqlTableName() + whereAndSql
 
 	if len(res) > 0 {
 		for _, stf := range res {
-			if len(stf) == 4 {
+			if len(stf) == 5 {
+				ivState := X.ToS(stf[4])
+				ivStatesArr := S.Split(ivState, `:`)
+
+				t := time.Now()
+				date := t.Format(`2006-01-02`)
+				if len(ivStatesArr) == 5 {
+					date = ivStatesArr[4]
+				}
 				st := Staff{
 					Id:       X.ToS(stf[0]),
 					Email:    X.ToS(stf[1]),
 					FullName: X.ToS(stf[2]),
 					Role:     X.ToS(stf[3]),
+					Date: date,
 				}
 
 				staffs = append(staffs, st)
@@ -87,7 +97,8 @@ func (u *Users) FindStaffByIdByTenantCode(id uint64, tenantCode string) bool {
 	var res [][]any
 	const comment = `-- Users) FindStaffByIdByTenantCode`
 
-	whereAndSql := ` WHERE ` + u.SqlId() + ` = ` + I.UToS(id) + ` AND ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+tenantCode+`:accepted%`)
+	whereAndSql := ` WHERE ` + u.SqlId() + ` = ` + I.UToS(id) + ` AND ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+tenantCode+`:`+ mAuth.RoleDataEntry + `:accepted%`) + `
+		OR ` + u.SqlInvitationState() + ` LIKE ` + S.Z(`%tenant:`+tenantCode+`:`+ mAuth.RoleReportViewer + `:accepted%`)
 
 	queryRows := comment + `
 SELECT ` + u.SqlSelectAllFields() + `
@@ -148,6 +159,10 @@ SELECT ` + meta.ToSelect() + `
 FROM SEQSCAN ` + u.SqlTableName() + whereAndSql + orderBySql + limitOffsetSql
 	u.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
+		if X.ToS(row[4]) == `` {
+			mapState, _ := mAuth.ToInvitationStateMap(X.ToS(row[5]))
+			row[4] = mapState.GetRoleByAccepted()
+		}
 		res = append(res, row)
 	})
 

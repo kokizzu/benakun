@@ -7,6 +7,13 @@
   * @property {number} updatedAt
   * @property {string} updatedBy
   * @property {number} deletedAt
+  * @property {number} productsCoaId
+  * @property {number} suppliersCoaId
+  * @property {number} customersCoaId
+  * @property {number} customerReceivablesCoaId
+  * @property {number} staffsCoaId
+  * @property {number} banksCoaId
+  * @property {number} fundersCoaId
   */
 module.exports = {};
 
@@ -27,6 +34,9 @@ module.exports = {};
   * @property {string} accountName
   * @property {boolean} isProfitCenter
   * @property {boolean} isCostCenter
+  * @property {boolean} isFunder 
   * @property {string} staffId
+  * @property {string|number} coaIdProfitCenter
+  * @property {string|number} coaIdCostCenter
   */
 module.exports = {};

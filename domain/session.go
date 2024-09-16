@@ -33,22 +33,24 @@ type Session struct {
 	Role			 string
 
 	// not saved but retrieved from SUPERADMIN_EMAILS env
-	IsSuperAdmin  	bool
-	IsTenantAdmin 	bool
-	IsDataEntry			bool
-	IsReportViewer	bool
+	IsSuperAdmin  		bool
+	IsTenantAdmin 		bool
+	IsDataEntry				bool
+	IsReportViewer		bool
+	IsFieldSupervisor bool
 
 	Segments M.SB
 }
 
 // list of first segment of url path, if empty then only /guest segment
 const (
-	SuperAdminSegment   = `superAdmin`
-	TenantAdminSegment  = `tenantAdmin`
-	DataEntrySegment    = `dataEntry`
-	ReportViewerSegment = `reportViewer`
-	GuestSegment        = `guest` // any user that not yet login
-	UserSegment         = `user`  // any user that already login
+	SuperAdminSegment   		= `superAdmin`
+	TenantAdminSegment  		= `tenantAdmin`
+	DataEntrySegment    		= `dataEntry`
+	ReportViewerSegment 		= `reportViewer`
+	FieldSupervisorSegment	= `fieldSupervisor`
+	GuestSegment        		= `guest` // any user that not yet login
+	UserSegment         		= `user`  // any user that already login
 )
 
 func (s *Session) MarshalEnkodo(enc *enkodo.Encoder) (err error) {
@@ -200,6 +202,8 @@ const (
 	ErrSessionUserNotSuperAdmin  	= `session email is not superadmin`
 	ErrSessionUserNotTenantAdmin 	= `session user is not tenant admin`
 	ErrSessionUserNotDataEntry		=	`session user is not data entry`
+	ErrSessionUserNotFieldSupervisor = `session user is not field supervisor`
+	ErrSessionUserNotReportViewer = `session user is not report viewer`
 )
 
 func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session) {
@@ -247,12 +251,11 @@ func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 	}
 	sess.TenantCode = user.TenantCode
 
-	if v, ok := hostmap[in.Host]; ok {
-		if !sess.IsSuperAdmin {
-			mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
-			if err != nil {
-				sess.Role = mapState.GetRoleByTenantCode(v.TenantCode)
-			}
+	if !sess.IsSuperAdmin {
+		tCode, _ := GetTenantCodeByHost(in.Host)
+		mapState, err := mAuth.ToInvitationStateMap(user.InvitationState)
+		if err == nil {
+			sess.Role = mapState.GetRoleByTenantCode(tCode)
 		}
 	}
 
@@ -274,6 +277,7 @@ func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 		sess.Segments[TenantAdminSegment] = true
 		sess.Segments[ReportViewerSegment] = true
 		sess.Segments[DataEntrySegment] = true
+		sess.Segments[FieldSupervisorSegment] = true
 		sess.Segments[UserSegment] = true
 		sess.Segments[GuestSegment] = true
 	case DataEntrySegment:
@@ -282,6 +286,10 @@ func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 		sess.Segments[GuestSegment] = true
 	case ReportViewerSegment:
 		sess.Segments[ReportViewerSegment] = true
+		sess.Segments[UserSegment] = true
+		sess.Segments[GuestSegment] = true
+	case FieldSupervisorSegment:
+		sess.Segments[FieldSupervisorSegment] = true
 		sess.Segments[UserSegment] = true
 		sess.Segments[GuestSegment] = true
 	case UserSegment:
@@ -296,6 +304,7 @@ func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 		sess.Segments[TenantAdminSegment] = true
 		sess.Segments[ReportViewerSegment] = true
 		sess.Segments[DataEntrySegment] = true
+		sess.Segments[FieldSupervisorSegment] = true
 		sess.Segments[UserSegment] = true
 		sess.Segments[GuestSegment] = true
 	}
@@ -372,6 +381,36 @@ func (d *Domain) MustDataEntry(in RequestCommon, out *ResponseCommon) (sess *Ses
 	}
 
 	sess.IsDataEntry = true
+	return sess
+}
+
+func (d *Domain) MustReportViewer(in RequestCommon, out *ResponseCommon) (sess *Session) {
+	sess = d.MustLogin(in, out)
+	if sess == nil {
+		return nil
+	}
+
+	if _, ok := sess.Segments[ReportViewerSegment]; !ok {
+		out.SetError(403, ErrSessionUserNotReportViewer)
+		return nil
+	}
+
+	sess.IsReportViewer = true
+	return sess
+}
+
+func (d *Domain) MustFieldSupervisor(in RequestCommon, out *ResponseCommon) (sess *Session) {
+	sess = d.MustLogin(in, out)
+	if sess == nil {
+		return nil
+	}
+
+	if _, ok := sess.Segments[FieldSupervisorSegment]; !ok {
+		out.SetError(403, ErrSessionUserNotFieldSupervisor)
+		return nil
+	}
+
+	sess.IsFieldSupervisor = true
 	return sess
 }
 

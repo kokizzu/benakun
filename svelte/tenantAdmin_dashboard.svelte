@@ -162,6 +162,13 @@
       }
     );
   }
+
+  const roles = {
+		'user': 'User',
+		'dataEntry': 'Data Entry',
+		'reportViewer': 'Report Viewer',
+    'fieldSupervisor': 'Field Supervisor'
+	};
 </script>
 
 {#if isPopUpInviteUserReady}
@@ -182,6 +189,9 @@
       bind:FIELDS={fields}
       bind:PAGER={pager}
       bind:MASTER_ROWS={staffs}
+      REFS={{
+        'role': roles
+      }}
       
       CAN_EDIT_ROW
       CAN_SEARCH_ROW

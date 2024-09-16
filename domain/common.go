@@ -359,6 +359,7 @@ func (d *Domain) segmentsFromSession(s *Session) M.SB {
 		s.Segments[TenantAdminSegment] = true
 		s.Segments[ReportViewerSegment] = true
 		s.Segments[DataEntrySegment] = true
+		s.Segments[FieldSupervisorSegment] = true
 		s.Segments[UserSegment] = true
 		s.Segments[GuestSegment] = true
 	case DataEntrySegment:
@@ -367,6 +368,10 @@ func (d *Domain) segmentsFromSession(s *Session) M.SB {
 		s.Segments[GuestSegment] = true
 	case ReportViewerSegment:
 		s.Segments[ReportViewerSegment] = true
+		s.Segments[UserSegment] = true
+		s.Segments[GuestSegment] = true
+	case FieldSupervisorSegment:
+		s.Segments[FieldSupervisorSegment] = true
 		s.Segments[UserSegment] = true
 		s.Segments[GuestSegment] = true
 	case UserSegment:
@@ -381,6 +386,7 @@ func (d *Domain) segmentsFromSession(s *Session) M.SB {
 		s.Segments[TenantAdminSegment] = true
 		s.Segments[ReportViewerSegment] = true
 		s.Segments[DataEntrySegment] = true
+		s.Segments[FieldSupervisorSegment] = true
 		s.Segments[UserSegment] = true
 		s.Segments[GuestSegment] = true
 	}
@@ -389,7 +395,7 @@ func (d *Domain) segmentsFromSession(s *Session) M.SB {
 
 
 func moveChildToIndex(slice []any, element any, newIndex int) ([]any, error) {
-	if len(slice) <= 1 {
+	if len(slice) == 0 {
 		return []any{}, errors.New("elements cannot be empty")
 	}
 	var elmIndex int = -1

@@ -1,12 +1,20 @@
 <script>
-  /** @type {import('../types/user.js').User}*/ // @ts-ignore
-  export let user = {};
+  import { Icon } from '../../node_modules/svelte-icons-pack/dist';
+  import { RiDesignLayoutLeftLine } from '../../node_modules/svelte-icons-pack/dist/ri';
+  import { IsShrinkMenu } from '../uiState.js';
+
+  export let user = /** @type {import('../types/user.js').User}*/ ({});
 </script>
 
 <header class="navbar_container">
   <nav class="navbar">
     <div class="left">
-      <h2 class="display_title">BenAkun</h2>
+      <button class="shrink_btn" on:click={() => {
+        IsShrinkMenu.set(!$IsShrinkMenu)
+        localStorage.setItem('IsShrinkMenu', JSON.stringify($IsShrinkMenu))
+      }}>
+        <Icon src={RiDesignLayoutLeftLine} size={20} />
+      </button>
     </div>
     <div class="right">
       <span class="display_email">{user.email}</span>
@@ -21,7 +29,6 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 0 20px;
-    /* background: linear-gradient(66deg, rgb(230, 251, 254) 0%, rgb(237, 221, 251) 100%); */
     background-color: #FFF;
 		position: sticky;
     top: 0;
@@ -39,6 +46,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    height: var(--navbar-height);
   }
 
   .navbar_container .navbar .left,
@@ -50,10 +58,25 @@
     gap: 20px;
   }
 
-  .navbar_container .navbar .left .display_title {
+  .navbar_container .navbar .left .shrink_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .navbar_container .navbar .left .shrink_btn:hover {
+    background-color: var(--gray-001);
+  }
+
+  /* .navbar_container .navbar .left .display_title {
     font-size: var(--font-lg);
     font-weight: 700;
-  }
+  } */
 
   .navbar_container .navbar .right .display_email {
     padding: 5px 15px;

@@ -20,6 +20,12 @@
   let pager     = /** @type PagerOut */ ({/* pager */});
   let users   = /** @type any[][] */ ([/* users */]);
 
+  console.log('SEGMENTS', segments);
+  console.log('USER', user);
+  console.log('FIELDS', fields);
+  console.log('PAGER', pager);
+  console.log('USERS', users);
+
   let isPopUpAddUserReady = false;
   let popUpAddUser = null;
   onMount(() => {
@@ -155,6 +161,15 @@
     );
     popUpAddUser.Hide();
   }
+
+  const roles = {
+    'user': 'User',
+    'superAdmin': 'Super Admin',
+    'tenantAdmin': 'Tenant Admin',
+    'dataEntry': 'Data Entry',
+    'reportViewer': 'Report Viewer',
+    'fieldSupervisor': 'Field Supervisor'
+  }
 </script>
 
 {#if isPopUpAddUserReady}
@@ -172,6 +187,9 @@
       bind:FIELDS={fields}
       bind:PAGER={pager}
       bind:MASTER_ROWS={users}
+      REFS={{
+        'role': roles
+      }}
 
       CAN_EDIT_ROW
       CAN_SEARCH_ROW

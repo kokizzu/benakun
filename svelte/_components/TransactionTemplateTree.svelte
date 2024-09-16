@@ -25,11 +25,7 @@
   let transactionTplDetails = /** @type {TransactionTplDetail[]} */ ([]);
   export let coas = {};
 
-  let isPopUpFormsReady = false;
   let popUpTransactionTplDetail = null;
-  onMount(() => {
-    isPopUpFormsReady = true;
-  })
 
   let isSearching = false;
   let isShowDetails = false;
@@ -74,9 +70,22 @@
   let trxTplDetailId = 0;
   let coaId = '';
   let isDebit = 'debit';
+  let autoSum = false;
+  let childOnly = false;
+  let sales = false;
   let isSubmitUpsertTrxTplDetail = false;
   async function SubmitUpsertTrxTplDetail() {
     isSubmitUpsertTrxTplDetail = true;
+    let attributes = [];
+    if (autoSum) {
+      attributes.push('autoSum')
+    }
+    if (childOnly) {
+      attributes.push('childOnly')
+    }
+    if (sales) {
+      attributes.push('sales')
+    }
     await TenantAdminTransactionTplDetail( //@ts-ignore
       {
         cmd: 'upsert', //@ts-ignore
@@ -85,6 +94,7 @@
           parentId: transactionTemplate.id,
           coaId: Number(coaId),
           isDebit: isDebit == 'debit' ? true : false,
+          attributes: attributes
         }
       },
       /** @type {import('../jsApi.GEN').TenantAdminTransactionTemplateCallback} */
@@ -98,6 +108,7 @@
         notifier.showSuccess('Transaction Template Detail updated');
 
         transactionTplDetails = o.transactionTplDetails;
+        
         console.log('transactionTplDetails', o);
         popUpTransactionTplDetail.hide();
 
@@ -142,27 +153,34 @@
       }
     )
   }
+
+  $: {
+    if (transactionTplDetails) {
+      transactionTplDetails = transactionTplDetails
+    }
+  }
 </script>
 
-{#if isPopUpFormsReady}
-  <PopUpTransactionTplDetail
-    bind:this={popUpTransactionTplDetail}
-    bind:coaId
-    bind:isDebit
-    onSubmit={SubmitUpsertTrxTplDetail}
-    bind:isSubmitted={isSubmitUpsertTrxTplDetail}
-    {coas}
-  />
+<PopUpTransactionTplDetail
+  bind:this={popUpTransactionTplDetail}
+  bind:coaId
+  bind:isDebit
+  bind:autoSum={autoSum}
+  bind:childOnly={childOnly}
+  bind:sales={sales}
+  onSubmit={SubmitUpsertTrxTplDetail}
+  bind:isSubmitted={isSubmitUpsertTrxTplDetail}
+  {coas}
+/>
 
-  <PopUpTransactionTemplate
-    bind:this={popUpTransactionTemplate}
-    heading="Edit Transaction Template"
-    bind:isSubmitted={isSubmitUpsertTrxTpl}
-    bind:name
-    bind:color
-    onSubmit={SubmitUpsertTrxTpl}
-  />
-{/if}
+<PopUpTransactionTemplate
+  bind:this={popUpTransactionTemplate}
+  heading="Edit Transaction Template"
+  bind:isSubmitted={isSubmitUpsertTrxTpl}
+  bind:name
+  bind:color
+  onSubmit={SubmitUpsertTrxTpl}
+/>
 
 <div class="transaction_template">
   <div class="info">
@@ -256,6 +274,9 @@
               <th>Kredit</th>
               <th>Debit</th>
               <th>CoA (Chart of Accounts)</th>
+              <th>Auto Sum</th>
+              <th>Child Only</th>
+              <th>Sales</th>
             </tr>
           </thead>
           <tbody>
@@ -273,6 +294,9 @@
                           trxTplDetailId = trxTplDetail.id;
                           isDebit = trxTplDetail.isDebit ? 'debit' : 'credit';
                           coaId = trxTplDetail.coaId+'';
+                          autoSum = (trxTplDetail.attributes || []).includes('autoSum');
+                          childOnly = (trxTplDetail.attributes || []).includes('childOnly');
+                          sales = (trxTplDetail.attributes || []).includes('sales');
                           popUpTransactionTplDetail.show()
                         }}
                       >
@@ -296,6 +320,9 @@
                   <td>{!trxTplDetail.isDebit ? 'Yes' : 'No'}</td>
                   <td>{trxTplDetail.isDebit ? 'Yes' : 'No'}</td>
                   <td>{coas[trxTplDetail.coaId]}</td>
+                  <td>{(trxTplDetail.attributes || []).includes('autoSum') ? 'Yes' : 'No'}</td>
+                  <td>{(trxTplDetail.attributes || []).includes('childOnly') ? 'Yes' : 'No'}</td>
+                  <td>{(trxTplDetail.attributes || []).includes('sales') ? 'Yes' : 'No'}</td>
                 </tr>
               {/each}
             {:else}

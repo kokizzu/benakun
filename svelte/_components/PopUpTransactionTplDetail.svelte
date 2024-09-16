@@ -2,7 +2,7 @@
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
-	import InputCustom from './InputCustom.svelte';
+	import InputBox from './InputBox.svelte';
 
   export let heading = 'Add Transaction Template Detail';
 
@@ -16,6 +16,9 @@
   };
   export let coaId = '0';
   export let coas = {};
+  export let autoSum = false;
+  export let childOnly = false;
+  export let sales = false;
 
   let isShow = false;
   export const show = () => isShow = true;
@@ -25,6 +28,9 @@
     isShow	= false;
     isDebit	= 'debit';
   }
+
+  // TODO: coa nomornya harus ada di combobox
+  // combobox bisa di search
 </script>
 
 <div class={`popup_container ${isShow ? 'show' : ''}`}>
@@ -36,7 +42,7 @@
       </button>
     </header>
     <div class="forms">
-      <InputCustom
+      <InputBox
         bind:value={isDebit}
         id="isDebit"
         label="Debit / Kredit"
@@ -45,7 +51,7 @@
         values={debitOrCredit}
         isObject
 			/>
-      <InputCustom
+      <InputBox
         bind:value={coaId}
         id="coa"
         label="CoA (Chart of Accounts)"
@@ -54,6 +60,24 @@
         values={coas}
         isObject
 			/>
+      <InputBox
+        bind:value={autoSum}
+        id="autoSum"
+        label="Auto Sum ?"
+        type="bool"
+      />
+      <InputBox
+        bind:value={childOnly}
+        id="childOnly"
+        label="Child Only ?"
+        type="bool"
+      />
+      <InputBox
+        bind:value={sales}
+        id="sales"
+        label="Sales ?"
+        type="bool"
+      />
     </div>
     <div class="foot">
       <div class="left">

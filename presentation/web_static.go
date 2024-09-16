@@ -1,7 +1,10 @@
 package presentation
 
 import (
+	"time"
+
 	"github.com/gofiber/fiber/v2"
+	"github.com/kokizzu/gotro/I"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 	"github.com/kokizzu/gotro/S"
@@ -122,13 +125,211 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 
 	fw.Get(`/`+domain.ReportViewerDashboardAction, func(ctx *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(ctx, d)
-		if notLogin(d, in.RequestCommon, false) {
+		if notReportViewer(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
 		return views.RenderReportViewerDashboard(ctx, M.SX{
 			`title`:    `Report Viewer Dashboard`,
 			`user`:     user,
 			`segments`: segments,
+		})
+	})
+
+	fw.Get(`/`+domain.ReportViewerGeneralLedgerAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notReportViewer(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		tenantCode, err := domain.GetTenantCodeByHost(in.Host)
+		if err != nil {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.TenantCode = tenantCode
+		coaChoices := coa.FindCoasChoicesByTenant()
+		
+		trxJournal := rqFinance.NewTransactionJournal(d.AuthOltp)
+		trxJournal.TenantCode = tenantCode
+		trxJournals := trxJournal.FindTrxJournalsByTenant()
+		
+		return views.RenderReportViewerGeneralLedger(ctx, M.SX{
+			`title`:    `Report Viewer General Ledger`,
+			`user`:     user,
+			`segments`: segments,
+			`coaChoices`: coaChoices,
+			`transactionJournals`: trxJournals,
+		})
+	})
+
+	fw.Get(`/`+domain.ReportViewerTrialBalanceAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notReportViewer(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		tenantCode, err := domain.GetTenantCodeByHost(in.Host)
+		if err != nil {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.TenantCode = tenantCode
+		coaChoices := coa.FindCoasChoicesByTenant()
+
+		trxJournal := rqFinance.NewTransactionJournal(d.AuthOltp)
+		trxJournal.TenantCode = tenantCode
+
+		stTime := time.Now().AddDate(0, 0, -7)
+		startDate := stTime.Format("2006-01-02")
+
+		edTime := time.Now()
+		endDate := edTime.Format("2006-01-02")
+
+		trxJournals := trxJournal.FindTrxJournalsByDateByTenant(startDate, endDate)
+
+		return views.RenderReportViewerTrialBalance(ctx, M.SX{
+			`title`:    `Report Viewer Trial Balance`,
+			`user`:     user,
+			`segments`: segments,
+			`coaChoices`: coaChoices,
+			`transactionJournals`: trxJournals,
+		})
+	})
+
+	fw.Get(`/`+domain.ReportViewerFinancialPositionAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notReportViewer(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		tenantCode, err := domain.GetTenantCodeByHost(in.Host)
+		if err != nil {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		trxJournal := rqFinance.NewTransactionJournal(d.AuthOltp)
+		trxJournal.TenantCode = tenantCode
+		financialPosition := trxJournal.FindReportOfFinancialPositionByTenant()
+
+		return views.RenderReportViewerFinancialPosition(ctx, M.SX{
+			`title`:    `Report Viewer Financial Position`,
+			`user`:     user,
+			`segments`: segments,
+			`financialPosition`: financialPosition,
+		})
+	})
+
+	fw.Get(`/`+domain.ReportViewerLossIncomeStatementsAction, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notReportViewer(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		tenantCode, err := domain.GetTenantCodeByHost(in.Host)
+		if err != nil {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		trxJournal := rqFinance.NewTransactionJournal(d.AuthOltp)
+		trxJournal.TenantCode = tenantCode
+		trxJournals := trxJournal.FindTrxJournalsLossIncomeByTenant()
+
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.TenantCode = tenantCode
+		coaChoices := coa.FindCoasChoicesByTenant()
+
+		return views.RenderReportViewerLossIncomeStatements(ctx, M.SX{
+			`title`:    `Report Viewer Loss Income Statements`,
+			`user`:     user,
+			`segments`: segments,
+			`transactionJournals`: trxJournals,
+			`coaChoices`: coaChoices,
+		})
+	})
+
+	fw.Get(`/`+domain.FieldSupervisorDashboardAction, func(ctx *fiber.Ctx) error {
+		var in domain.FieldSupervisorDashboardIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminProductsAction)
+		if err != nil {
+			return err
+		}
+		
+		if notFieldSupervisorLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+
+		tenantCode, err := domain.GetTenantCodeByHost(in.Host)
+		if err != nil {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		r := rqFinance.NewTransactionTemplate(d.AuthOltp)
+		r.TenantCode = tenantCode
+		trxTemplates := r.FindTransactionTamplatesChoicesByTenant()
+
+		in.WithMeta = true
+		in.Cmd = zCrud.CmdList
+		out := d.FieldSupervisorDashboard(&in)
+
+		if out.Error != `` {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		return views.RenderFieldSupervisorDashboard(ctx, M.SX{
+			`title`:    `Field Supervisor Dashboard`,
+			`user`:     user,
+			`segments`: segments,
+			`pager`: out.Pager,
+			`fields`: out.Meta.Fields,
+			`transaction`: out.Transaction,
+			`transactions`: out.Transactions,
+			`transactionTemplates`: trxTemplates,
+		})
+	})
+
+	fw.Get(`/`+domain.FieldSupervisorBusinessTransactionEditAction+`:trxId`, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		
+		if notFieldSupervisorLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		tenantCode, err := domain.GetTenantCodeByHost(in.Host)
+		if err != nil {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		businessTrxId := ctx.Params(`trxId`)
+		transaction := rqFinance.NewBusinessTransaction(d.AuthOltp)
+		transaction.Id = S.ToU(businessTrxId)
+		transaction.TenantCode = tenantCode
+		if !transaction.FindByIdByTenantCode() {
+			return views.Render404(ctx, M.SX{
+				`title`: `Business Transaction Not Found`,
+				`description`: `Make sure given id is valid`, 
+			})
+		}
+
+		trxJournal := rqFinance.NewTransactionJournal(d.AuthOltp)
+		trxJournal.TransactionTemplateId = transaction.TransactionTemplateId
+		trxJournal.TenantCode = tenantCode
+		
+		trxJournals := trxJournal.FindTrxJournalsByTrxTemplateByTenant()
+
+		org := rqAuth.NewOrgs(d.AuthOltp)
+		org.FindCompanyByTenantCode(tenantCode)
+
+		return views.RenderFieldSupervisorBusinessTransactionEdit(ctx, M.SX{
+			`title`:    `Field Supervisor Edit Business Transaction`,
+			`user`:     user,
+			`segments`: segments,
+			`transaction`: transaction,
+			`transactionJournals`: trxJournals,
+			`org`: org,
 		})
 	})
 
@@ -163,7 +364,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 
 		tenantCode, err := domain.GetTenantCodeByHost(in.Host)
 		if err != nil {
-			L.Print(`TENANT CODE:`, tenantCode)
 			return ctx.Redirect(`/`, 302)
 		}
 
@@ -176,11 +376,36 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			return ctx.Redirect(`/`+domain.DataEntryDashboardAction, 302)
 		}
 
+		trxTplDetail := rqFinance.NewTransactionTplDetail(d.AuthOltp)
+		trxTplDetail.ParentId = trxTemplate.Id
+		trxTplDetail.TenantCode = tenantCode
+		trxTplDetails := trxTplDetail.FindTrxTplDetailsByTenantByTrxTplId()
+
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.TenantCode = tenantCode
+		coas := coa.FindCoasChoicesByTenant()
+
+		org := rqAuth.NewOrgs(d.AuthOltp)
+		org.FindCompanyByTenantCode(tenantCode)
+
+		coasWithChildren := make(map[string]map[string]string)
+		for _, v := range trxTplDetails {
+			if v.ParseAttributes().IsChildOnly {
+				coa.ParentId = v.CoaId
+				coaChildren := coa.FindCoasChoicesChildByParentByTenant()
+				coasWithChildren[I.ToS(int64(v.CoaId))] = coaChildren
+			}
+		}
+
 		return views.RenderDataEntryTemplatesTemplate(ctx, M.SX{
-			`title`:      `Data Entry Template`,
+			`title`:      `Data Entry for ` + trxTemplate.Name,
 			`user`:       user,
 			`segments`:   segments,
 			`transactiontemplate`: trxTemplate,
+			`transactionTplDetails`: trxTplDetails,
+			`coas`: coas,
+			`org`: org,
+			`coasWithChildren`: coasWithChildren,
 		})
 	})
 
@@ -211,6 +436,8 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.TenantAdminDashboard(&in)
+
+		
 		return views.RenderTenantAdminDashboard(ctx, M.SX{
 			`title`:    `Tenant Admin Dashboard`,
 			`user`:     user,
@@ -291,6 +518,89 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.TenantAdminManualJournalAction, func(ctx *fiber.Ctx) error {
+		var in domain.TenantAdminManualJournalIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminManualJournalAction)
+		if err != nil {
+			return err
+		}
+
+		if notTenantLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.WithMeta = true
+		in.Cmd = zCrud.CmdList
+
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.TenantCode = user.TenantCode
+		coas := coa.FindCoasChoicesByTenant()
+
+		org := rqAuth.NewOrgs(d.AuthOltp)
+		org.FindCompanyByTenantCode(user.TenantCode)
+
+		out := d.TenantAdminManualJournal(&in)
+		return views.RenderTenantAdminManualJournal(ctx, M.SX{
+			`title`:    `Tenant Admin Manual Journal`,
+			`user`:     user,
+			`segments`: segments,
+			`fields`: out.Meta.Fields,
+			`pager`: out.Pager,
+			`transactionJournals`: out.TransactionJournals,
+			`coas`: coas,
+			`org`: org,
+		})
+	})
+
+	fw.Get(`/`+domain.TenantAdminManualJournalAction+`/edit/:id`, func(ctx *fiber.Ctx) error {
+		var in domain.TenantAdminManualJournalIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminManualJournalAction)
+		if err != nil {
+			return err
+		}
+
+		if notTenantLogin(d, in.RequestCommon) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		journalId, err := ctx.ParamsInt("id", 0)
+		if err != nil || journalId == 0 {
+			return views.Render404(ctx, M.SX{
+				`title`: `Invalid Journal ID`,
+				`description`: `Transaction journal ID must be number`,
+			})
+		}
+
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+		in.Cmd = zCrud.CmdForm
+		in.TransactionJournal.Id = uint64(journalId)
+		out := d.TenantAdminManualJournal(&in)
+		
+		if out.TransactionJournal == nil {
+			return views.Render404(ctx, M.SX{
+				`title`: `Journal Not Found`,
+				`description`: `Cannot found transaction journal for ID: "`+ I.ToS(int64(journalId)),
+			})
+		}
+
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.TenantCode = user.TenantCode
+		coas := coa.FindCoasChoicesByTenant()
+
+		org := rqAuth.NewOrgs(d.AuthOltp)
+		org.FindCompanyByTenantCode(user.TenantCode)
+
+		return views.RenderTenantAdminManualJournalEdit(ctx, M.SX{
+			`title`:    `Tenant Admin Manual Journal Edit`,
+			`user`:     user,
+			`segments`: segments,
+			`org`: org,
+			`coas`: coas,
+			`transactionJournal`: out.TransactionJournal,
+		})
+	})
+
 	fw.Get(`/`+domain.TenantAdminOrganizationAction, func(ctx *fiber.Ctx) error {
 		var in domain.TenantAdminOrganizationIn
 		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.TenantAdminOrganizationAction)
@@ -327,11 +637,21 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.Cmd = zCrud.CmdList
 
 		out := d.TenantAdminCoa(&in)
+
+		tenant := rqAuth.NewTenants(d.AuthOltp)
+		tenant.TenantCode = user.TenantCode
+		tenant.FindByTenantCode()
+
+		coaChoices := rqFinance.NewCoa(d.AuthOltp)
+		coaChoices.TenantCode = tenant.TenantCode
+		cChoices := coaChoices.FindCoasChoicesByTenant()
 		return views.RenderTenantAdminCoa(ctx, M.SX{
 			`title`:    `Tenant Admin Coa`,
 			`user`:     user,
 			`segments`: segments,
 			`coas`:     out.Coas,
+			`tenant`: tenant,
+			`coaChoices`: cChoices,
 		})
 	})
 
@@ -361,9 +681,21 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		r := rqAuth.NewUsers(d.AuthOltp)
 		staffs := r.FindStaffsChoicesByTenantCode(user.TenantCode)
 
+		tenant := rqAuth.NewTenants(d.AuthOltp)
+		tenant.TenantCode = user.TenantCode
+		tenant.FindByTenantCode()
+
+		coa := rqFinance.NewCoa(d.AuthOltp)
+		coa.TenantCode = user.TenantCode
+		coa.Id = tenant.BanksCoaId
+		coas := coa.FindCoasChoicesChildByParentByTenant()
+
+		L.Print(`coas:`, coas)
+
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.TenantAdminBankAccounts(&in)
+		
 		return views.RenderTenantAdminBankAccounts(ctx, M.SX{
 			`title`:    `Tenant Admin Bank Accounts`,
 			`user`:     user,
@@ -372,6 +704,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`fields`:   out.Meta.Fields,
 			`pager`:    out.Pager,
 			`staffs`:   staffs,
+			`coas`: coas,
 		})
 	})
 
@@ -632,6 +965,26 @@ func notDataEntryLogin(d *domain.Domain, in domain.RequestCommon) bool {
 	var check domain.ResponseCommon
 
 	if sess := d.MustDataEntry(in, &check); sess == nil {
+		return true
+	}
+
+	return false
+}
+
+func notReportViewer(d *domain.Domain, in domain.RequestCommon) bool {
+	var check domain.ResponseCommon
+
+	if sess := d.MustReportViewer(in, &check); sess == nil {
+		return true
+	}
+
+	return false
+}
+
+func notFieldSupervisorLogin(d *domain.Domain, in domain.RequestCommon) bool {
+	var check domain.ResponseCommon
+
+	if sess := d.MustFieldSupervisor(in, &check); sess == nil {
 		return true
 	}
 

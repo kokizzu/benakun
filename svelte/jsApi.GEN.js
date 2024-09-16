@@ -102,13 +102,52 @@ exports.DataEntryTemplates = async function DataEntryTemplates( i, cb ) {
 
 /**
  * @typedef {Object} DataEntryTransactionEntryIn
+ * @property {String} cmd
+ * @property {number} transactionTplId
+ * @property {Object} transactionTplDetailsId
+ * @property {Object} transactionJournals
+ * @property {number} businessTransaction.id
+ * @property {String} businessTransaction.tenantCode
+ * @property {String} businessTransaction.startDate
+ * @property {String} businessTransaction.endDate
+ * @property {number} businessTransaction.createdAt
+ * @property {number} businessTransaction.createdBy
+ * @property {number} businessTransaction.updatedAt
+ * @property {number} businessTransaction.updatedBy
+ * @property {number} businessTransaction.deletedAt
+ * @property {number} businessTransaction.deletedBy
+ * @property {number} businessTransaction.restoredBy
+ * @property {number} businessTransaction.transactionTemplateId
  */
 const DataEntryTransactionEntryIn = {
+  cmd: '', // string
+  transactionTplId: 0, // uint64
+  transactionTplDetailsId: { // []uint64
+  }, // []uint64
+  transactionJournals: { // []rqFinance.TransactionJournal
+  }, // []rqFinance.TransactionJournal
+  businessTransaction: { // rqFinance.BusinessTransaction
+    id: 0, // uint64
+    tenantCode: '', // string
+    startDate: '', // string
+    endDate: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    transactionTemplateId: 0, // uint64
+  }, // rqFinance.BusinessTransaction
 }
 /**
  * @typedef {Object} DataEntryTransactionEntryOut
+ * @property {Object} coaChildren
  */
 const DataEntryTransactionEntryOut = {
+  coaChildren: { // map[string]string
+  }, // map[string]string
 }
 /**
  * @callback DataEntryTransactionEntryCallback
@@ -122,6 +161,159 @@ const DataEntryTransactionEntryOut = {
  */
 exports.DataEntryTransactionEntry = async function DataEntryTransactionEntry( i, cb ) {
   return await axios.post( '/dataEntry/transactionEntry', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} FieldSupervisorBusinessTransactionEditIn
+ */
+const FieldSupervisorBusinessTransactionEditIn = {
+}
+/**
+ * @typedef {Object} FieldSupervisorBusinessTransactionEditOut
+ * @property {Object} transactionJournals
+ */
+const FieldSupervisorBusinessTransactionEditOut = {
+  transactionJournals: { // []rqFinance.TransactionJournal
+  }, // []rqFinance.TransactionJournal
+}
+/**
+ * @callback FieldSupervisorBusinessTransactionEditCallback
+ * @param {FieldSupervisorBusinessTransactionEditOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {FieldSupervisorBusinessTransactionEditIn} i
+ * @param {FieldSupervisorBusinessTransactionEditCallback} cb
+ * @returns {Promise}
+ */
+exports.FieldSupervisorBusinessTransactionEdit = async function FieldSupervisorBusinessTransactionEdit( i, cb ) {
+  return await axios.post( '/fieldSupervisor/businessTransaction/', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} FieldSupervisorDashboardIn
+ * @property {String} cmd
+ * @property {Object} withMeta
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {number} transaction.id
+ * @property {String} transaction.tenantCode
+ * @property {String} transaction.startDate
+ * @property {String} transaction.endDate
+ * @property {number} transaction.createdAt
+ * @property {number} transaction.createdBy
+ * @property {number} transaction.updatedAt
+ * @property {number} transaction.updatedBy
+ * @property {number} transaction.deletedAt
+ * @property {number} transaction.deletedBy
+ * @property {number} transaction.restoredBy
+ * @property {number} transaction.transactionTemplateId
+ * @property {Object} transactionJournals
+ */
+const FieldSupervisorDashboardIn = {
+  cmd: '', // string
+  withMeta: false, // bool
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
+  transaction: { // rqFinance.BusinessTransaction
+    id: 0, // uint64
+    tenantCode: '', // string
+    startDate: '', // string
+    endDate: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    transactionTemplateId: 0, // uint64
+  }, // rqFinance.BusinessTransaction
+  transactionJournals: { // []rqFinance.TransactionJournal
+  }, // []rqFinance.TransactionJournal
+}
+/**
+ * @typedef {Object} FieldSupervisorDashboardOut
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
+ * @property {number} transaction.id
+ * @property {String} transaction.tenantCode
+ * @property {String} transaction.startDate
+ * @property {String} transaction.endDate
+ * @property {number} transaction.createdAt
+ * @property {number} transaction.createdBy
+ * @property {number} transaction.updatedAt
+ * @property {number} transaction.updatedBy
+ * @property {number} transaction.deletedAt
+ * @property {number} transaction.deletedBy
+ * @property {number} transaction.restoredBy
+ * @property {number} transaction.transactionTemplateId
+ * @property {Object} transactions
+ */
+const FieldSupervisorDashboardOut = {
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
+  transaction: { // rqFinance.BusinessTransaction
+    id: 0, // uint64
+    tenantCode: '', // string
+    startDate: '', // string
+    endDate: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    transactionTemplateId: 0, // uint64
+  }, // rqFinance.BusinessTransaction
+  transactions: { // [][]any
+  }, // [][]any
+}
+/**
+ * @callback FieldSupervisorDashboardCallback
+ * @param {FieldSupervisorDashboardOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {FieldSupervisorDashboardIn} i
+ * @param {FieldSupervisorDashboardCallback} cb
+ * @returns {Promise}
+ */
+exports.FieldSupervisorDashboard = async function FieldSupervisorDashboard( i, cb ) {
+  return await axios.post( '/fieldSupervisor/dashboard', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -648,6 +840,221 @@ exports.ReportViewerDashboard = async function ReportViewerDashboard( i, cb ) {
 }
 
 /**
+ * @typedef {Object} ReportViewerFinancialPositionIn
+ * @property {number} coa.id
+ * @property {String} coa.tenantCode
+ * @property {String} coa.name
+ * @property {String} coa.label
+ * @property {number} coa.parentId
+ * @property {Object} coa.children
+ * @property {number} coa.createdAt
+ * @property {number} coa.createdBy
+ * @property {number} coa.updatedAt
+ * @property {number} coa.updatedBy
+ * @property {number} coa.deletedAt
+ * @property {number} coa.deletedBy
+ * @property {number} coa.restoredBy
+ * @property {Object} coa.editable
+ */
+const ReportViewerFinancialPositionIn = {
+  coa: { // rqFinance.Coa
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    label: '', // string
+    parentId: 0, // uint64
+    children: { // []any
+    }, // []any
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    editable: false, // bool
+  }, // rqFinance.Coa
+}
+/**
+ * @typedef {Object} ReportViewerFinancialPositionOut
+ * @property {Object} transactionJournals
+ */
+const ReportViewerFinancialPositionOut = {
+  transactionJournals: { // []rqFinance.TransactionJournal
+  }, // []rqFinance.TransactionJournal
+}
+/**
+ * @callback ReportViewerFinancialPositionCallback
+ * @param {ReportViewerFinancialPositionOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {ReportViewerFinancialPositionIn} i
+ * @param {ReportViewerFinancialPositionCallback} cb
+ * @returns {Promise}
+ */
+exports.ReportViewerFinancialPosition = async function ReportViewerFinancialPosition( i, cb ) {
+  return await axios.post( '/reportViewer/financialPosition', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} ReportViewerGeneralLedgerIn
+ * @property {number} coa.id
+ * @property {String} coa.tenantCode
+ * @property {String} coa.name
+ * @property {String} coa.label
+ * @property {number} coa.parentId
+ * @property {Object} coa.children
+ * @property {number} coa.createdAt
+ * @property {number} coa.createdBy
+ * @property {number} coa.updatedAt
+ * @property {number} coa.updatedBy
+ * @property {number} coa.deletedAt
+ * @property {number} coa.deletedBy
+ * @property {number} coa.restoredBy
+ * @property {Object} coa.editable
+ */
+const ReportViewerGeneralLedgerIn = {
+  coa: { // rqFinance.Coa
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    label: '', // string
+    parentId: 0, // uint64
+    children: { // []any
+    }, // []any
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    editable: false, // bool
+  }, // rqFinance.Coa
+}
+/**
+ * @typedef {Object} ReportViewerGeneralLedgerOut
+ * @property {Object} transactionJournals
+ */
+const ReportViewerGeneralLedgerOut = {
+  transactionJournals: { // []rqFinance.TransactionJournal
+  }, // []rqFinance.TransactionJournal
+}
+/**
+ * @callback ReportViewerGeneralLedgerCallback
+ * @param {ReportViewerGeneralLedgerOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {ReportViewerGeneralLedgerIn} i
+ * @param {ReportViewerGeneralLedgerCallback} cb
+ * @returns {Promise}
+ */
+exports.ReportViewerGeneralLedger = async function ReportViewerGeneralLedger( i, cb ) {
+  return await axios.post( '/reportViewer/generalLedger', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} ReportViewerLossIncomeStatementsIn
+ * @property {number} coa.id
+ * @property {String} coa.tenantCode
+ * @property {String} coa.name
+ * @property {String} coa.label
+ * @property {number} coa.parentId
+ * @property {Object} coa.children
+ * @property {number} coa.createdAt
+ * @property {number} coa.createdBy
+ * @property {number} coa.updatedAt
+ * @property {number} coa.updatedBy
+ * @property {number} coa.deletedAt
+ * @property {number} coa.deletedBy
+ * @property {number} coa.restoredBy
+ * @property {Object} coa.editable
+ */
+const ReportViewerLossIncomeStatementsIn = {
+  coa: { // rqFinance.Coa
+    id: 0, // uint64
+    tenantCode: '', // string
+    name: '', // string
+    label: '', // string
+    parentId: 0, // uint64
+    children: { // []any
+    }, // []any
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    editable: false, // bool
+  }, // rqFinance.Coa
+}
+/**
+ * @typedef {Object} ReportViewerLossIncomeStatementsOut
+ * @property {Object} transactionJournals
+ */
+const ReportViewerLossIncomeStatementsOut = {
+  transactionJournals: { // []rqFinance.TransactionJournal
+  }, // []rqFinance.TransactionJournal
+}
+/**
+ * @callback ReportViewerLossIncomeStatementsCallback
+ * @param {ReportViewerLossIncomeStatementsOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {ReportViewerLossIncomeStatementsIn} i
+ * @param {ReportViewerLossIncomeStatementsCallback} cb
+ * @returns {Promise}
+ */
+exports.ReportViewerLossIncomeStatements = async function ReportViewerLossIncomeStatements( i, cb ) {
+  return await axios.post( '/reportViewer/lossIncomeStatements', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} ReportViewerTrialBalanceIn
+ * @property {String} cmd
+ * @property {String} startDate
+ * @property {String} endDate
+ */
+const ReportViewerTrialBalanceIn = {
+  cmd: '', // string
+  startDate: '', // string
+  endDate: '', // string
+}
+/**
+ * @typedef {Object} ReportViewerTrialBalanceOut
+ * @property {Object} transactionJournals
+ */
+const ReportViewerTrialBalanceOut = {
+  transactionJournals: { // []rqFinance.TransactionJournal
+  }, // []rqFinance.TransactionJournal
+}
+/**
+ * @callback ReportViewerTrialBalanceCallback
+ * @param {ReportViewerTrialBalanceOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {ReportViewerTrialBalanceIn} i
+ * @param {ReportViewerTrialBalanceCallback} cb
+ * @returns {Promise}
+ */
+exports.ReportViewerTrialBalance = async function ReportViewerTrialBalance( i, cb ) {
+  return await axios.post( '/reportViewer/trialBalance', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} SuperAdminAccessLogIn
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -766,6 +1173,13 @@ exports.SuperAdminDashboard = async function SuperAdminDashboard( i, cb ) {
  * @property {number} tenant.updatedAt
  * @property {number} tenant.updatedBy
  * @property {number} tenant.deletedAt
+ * @property {number} tenant.productsCoaId
+ * @property {number} tenant.suppliersCoaId
+ * @property {number} tenant.customersCoaId
+ * @property {number} tenant.staffsCoaId
+ * @property {number} tenant.banksCoaId
+ * @property {number} tenant.customerReceivablesCoaId
+ * @property {number} tenant.fundersCoaId
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -782,6 +1196,13 @@ const SuperAdminTenantManagementIn = {
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
+    productsCoaId: 0, // uint64
+    suppliersCoaId: 0, // uint64
+    customersCoaId: 0, // uint64
+    staffsCoaId: 0, // uint64
+    banksCoaId: 0, // uint64
+    customerReceivablesCoaId: 0, // uint64
+    fundersCoaId: 0, // uint64
   }, // rqAuth.Tenants
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -810,6 +1231,13 @@ const SuperAdminTenantManagementIn = {
  * @property {number} tenant.updatedAt
  * @property {number} tenant.updatedBy
  * @property {number} tenant.deletedAt
+ * @property {number} tenant.productsCoaId
+ * @property {number} tenant.suppliersCoaId
+ * @property {number} tenant.customersCoaId
+ * @property {number} tenant.staffsCoaId
+ * @property {number} tenant.banksCoaId
+ * @property {number} tenant.customerReceivablesCoaId
+ * @property {number} tenant.fundersCoaId
  * @property {Object} tenants
  */
 const SuperAdminTenantManagementOut = {
@@ -837,6 +1265,13 @@ const SuperAdminTenantManagementOut = {
     updatedAt: 0, // int64
     updatedBy: 0, // uint64
     deletedAt: 0, // int64
+    productsCoaId: 0, // uint64
+    suppliersCoaId: 0, // uint64
+    customersCoaId: 0, // uint64
+    staffsCoaId: 0, // uint64
+    banksCoaId: 0, // uint64
+    customerReceivablesCoaId: 0, // uint64
+    fundersCoaId: 0, // uint64
   }, // rqAuth.Tenants
   tenants: { // [][]any
   }, // [][]any
@@ -1025,6 +1460,7 @@ exports.SuperAdminUserManagement = async function SuperAdminUserManagement( i, c
  * @property {Object} account.isProfitCenter
  * @property {Object} account.isCostCenter
  * @property {number} account.staffId
+ * @property {Object} account.isFunder
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -1052,6 +1488,7 @@ const TenantAdminBankAccountsIn = {
     isProfitCenter: false, // bool
     isCostCenter: false, // bool
     staffId: 0, // uint64
+    isFunder: false, // bool
   }, // rqBudget.BankAccounts
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -1092,6 +1529,7 @@ const TenantAdminBankAccountsIn = {
  * @property {Object} account.isProfitCenter
  * @property {Object} account.isCostCenter
  * @property {number} account.staffId
+ * @property {Object} account.isFunder
  * @property {Object} accounts
  */
 const TenantAdminBankAccountsOut = {
@@ -1132,6 +1570,7 @@ const TenantAdminBankAccountsOut = {
     isProfitCenter: false, // bool
     isCostCenter: false, // bool
     staffId: 0, // uint64
+    isFunder: false, // bool
   }, // rqBudget.BankAccounts
   accounts: { // [][]any
   }, // [][]any
@@ -1244,6 +1683,7 @@ exports.TenantAdminBudgeting = async function TenantAdminBudgeting( i, cb ) {
  * @property {number} coa.deletedAt
  * @property {number} coa.deletedBy
  * @property {number} coa.restoredBy
+ * @property {Object} coa.editable
  * @property {number} moveToIdx
  * @property {number} toParentId
  */
@@ -1264,6 +1704,7 @@ const TenantAdminCoaIn = {
     deletedAt: 0, // int64
     deletedBy: 0, // uint64
     restoredBy: 0, // uint64
+    editable: false, // bool
   }, // rqFinance.Coa
   moveToIdx: 0, // int
   toParentId: 0, // uint64
@@ -1283,7 +1724,9 @@ const TenantAdminCoaIn = {
  * @property {number} coa.deletedAt
  * @property {number} coa.deletedBy
  * @property {number} coa.restoredBy
+ * @property {Object} coa.editable
  * @property {Object} coas
+ * @property {Object} coaChoices
  */
 const TenantAdminCoaOut = {
   coa: { // rqFinance.Coa
@@ -1301,9 +1744,12 @@ const TenantAdminCoaOut = {
     deletedAt: 0, // int64
     deletedBy: 0, // uint64
     restoredBy: 0, // uint64
+    editable: false, // bool
   }, // rqFinance.Coa
   coas: { // []rqFinance.Coa
   }, // []rqFinance.Coa
+  coaChoices: { // map[string]string
+  }, // map[string]string
 }
 /**
  * @callback TenantAdminCoaCallback
@@ -1684,6 +2130,173 @@ exports.TenantAdminLocations = async function TenantAdminLocations( i, cb ) {
 }
 
 /**
+ * @typedef {Object} TenantAdminManualJournalIn
+ * @property {String} cmd
+ * @property {Object} withMeta
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {number} coaId
+ * @property {number} transactionTplId
+ * @property {number} transactionJournal.id
+ * @property {String} transactionJournal.tenantCode
+ * @property {number} transactionJournal.coaId
+ * @property {number} transactionJournal.debitIDR
+ * @property {number} transactionJournal.creditIDR
+ * @property {String} transactionJournal.descriptions
+ * @property {String} transactionJournal.date
+ * @property {String} transactionJournal.detailObj
+ * @property {number} transactionJournal.createdAt
+ * @property {number} transactionJournal.createdBy
+ * @property {number} transactionJournal.updatedAt
+ * @property {number} transactionJournal.updatedBy
+ * @property {number} transactionJournal.deletedAt
+ * @property {number} transactionJournal.deletedBy
+ * @property {number} transactionJournal.restoredBy
+ * @property {number} transactionJournal.transactionTemplateId
+ * @property {number} businessTransaction.id
+ * @property {String} businessTransaction.tenantCode
+ * @property {String} businessTransaction.startDate
+ * @property {String} businessTransaction.endDate
+ * @property {number} businessTransaction.createdAt
+ * @property {number} businessTransaction.createdBy
+ * @property {number} businessTransaction.updatedAt
+ * @property {number} businessTransaction.updatedBy
+ * @property {number} businessTransaction.deletedAt
+ * @property {number} businessTransaction.deletedBy
+ * @property {number} businessTransaction.restoredBy
+ * @property {number} businessTransaction.transactionTemplateId
+ */
+const TenantAdminManualJournalIn = {
+  cmd: '', // string
+  withMeta: false, // bool
+  pager: { // zCrud.PagerIn
+    page: 0, // int
+    perPage: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerIn
+  coaId: 0, // uint64
+  transactionTplId: 0, // uint64
+  transactionJournal: { // rqFinance.TransactionJournal
+    id: 0, // uint64
+    tenantCode: '', // string
+    coaId: 0, // uint64
+    debitIDR: 0, // int64
+    creditIDR: 0, // int64
+    descriptions: '', // string
+    date: '', // string
+    detailObj: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    transactionTemplateId: 0, // uint64
+  }, // rqFinance.TransactionJournal
+  businessTransaction: { // rqFinance.BusinessTransaction
+    id: 0, // uint64
+    tenantCode: '', // string
+    startDate: '', // string
+    endDate: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    transactionTemplateId: 0, // uint64
+  }, // rqFinance.BusinessTransaction
+}
+/**
+ * @typedef {Object} TenantAdminManualJournalOut
+ * @property {number} pager.page
+ * @property {number} pager.perPage
+ * @property {number} pager.pages
+ * @property {number} pager.total
+ * @property {Object} pager.filters
+ * @property {Array<String>} pager.order
+ * @property {Object} meta.fields
+ * @property {Object} meta.mutex
+ * @property {String} meta.cachedSelect
+ * @property {number} transactionJournal.id
+ * @property {String} transactionJournal.tenantCode
+ * @property {number} transactionJournal.coaId
+ * @property {number} transactionJournal.debitIDR
+ * @property {number} transactionJournal.creditIDR
+ * @property {String} transactionJournal.descriptions
+ * @property {String} transactionJournal.date
+ * @property {String} transactionJournal.detailObj
+ * @property {number} transactionJournal.createdAt
+ * @property {number} transactionJournal.createdBy
+ * @property {number} transactionJournal.updatedAt
+ * @property {number} transactionJournal.updatedBy
+ * @property {number} transactionJournal.deletedAt
+ * @property {number} transactionJournal.deletedBy
+ * @property {number} transactionJournal.restoredBy
+ * @property {number} transactionJournal.transactionTemplateId
+ * @property {Object} transactionJournals
+ */
+const TenantAdminManualJournalOut = {
+  pager: { // zCrud.PagerOut
+    page: 0, // int
+    perPage: 0, // int
+    pages: 0, // int
+    total: 0, // int
+    filters: { // map[string][]string
+    }, // map[string][]string
+    order: [], // []string
+  }, // zCrud.PagerOut
+  meta: { // zCrud.Meta
+    fields: { // []Field
+    }, // []Field
+    mutex: { // sync.Mutex
+    }, // sync.Mutex
+    cachedSelect: '', // string
+  }, // zCrud.Meta
+  transactionJournal: { // rqFinance.TransactionJournal
+    id: 0, // uint64
+    tenantCode: '', // string
+    coaId: 0, // uint64
+    debitIDR: 0, // int64
+    creditIDR: 0, // int64
+    descriptions: '', // string
+    date: '', // string
+    detailObj: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+    transactionTemplateId: 0, // uint64
+  }, // rqFinance.TransactionJournal
+  transactionJournals: { // [][]any
+  }, // [][]any
+}
+/**
+ * @callback TenantAdminManualJournalCallback
+ * @param {TenantAdminManualJournalOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminManualJournalIn} i
+ * @param {TenantAdminManualJournalCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminManualJournal = async function TenantAdminManualJournal( i, cb ) {
+  return await axios.post( '/tenantAdmin/manualJournal', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} TenantAdminOrganizationIn
  * @property {String} cmd
  * @property {number} org.id
@@ -1802,6 +2415,7 @@ exports.TenantAdminOrganization = async function TenantAdminOrganization( i, cb 
  * @property {String} product.rule
  * @property {String} product.kind
  * @property {number} product.cogsIDR
+ * @property {number} product.profitPercentage
  */
 const TenantAdminProductsIn = {
   cmd: '', // string
@@ -1828,6 +2442,7 @@ const TenantAdminProductsIn = {
     rule: '', // string
     kind: '', // string
     cogsIDR: 0, // uint64
+    profitPercentage: 0, // float64
   }, // rqBusiness.Products
 }
 /**
@@ -1855,6 +2470,7 @@ const TenantAdminProductsIn = {
  * @property {String} product.rule
  * @property {String} product.kind
  * @property {number} product.cogsIDR
+ * @property {number} product.profitPercentage
  * @property {Object} products
  */
 const TenantAdminProductsOut = {
@@ -1889,6 +2505,7 @@ const TenantAdminProductsOut = {
     rule: '', // string
     kind: '', // string
     cogsIDR: 0, // uint64
+    profitPercentage: 0, // float64
   }, // rqBusiness.Products
   products: { // [][]any
   }, // [][]any
@@ -1905,6 +2522,92 @@ const TenantAdminProductsOut = {
  */
 exports.TenantAdminProducts = async function TenantAdminProducts( i, cb ) {
   return await axios.post( '/tenantAdmin/products', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} TenantAdminSyncCoaIn
+ * @property {number} tenant.id
+ * @property {String} tenant.tenantCode
+ * @property {number} tenant.createdAt
+ * @property {number} tenant.createdBy
+ * @property {number} tenant.updatedAt
+ * @property {number} tenant.updatedBy
+ * @property {number} tenant.deletedAt
+ * @property {number} tenant.productsCoaId
+ * @property {number} tenant.suppliersCoaId
+ * @property {number} tenant.customersCoaId
+ * @property {number} tenant.staffsCoaId
+ * @property {number} tenant.banksCoaId
+ * @property {number} tenant.customerReceivablesCoaId
+ * @property {number} tenant.fundersCoaId
+ */
+const TenantAdminSyncCoaIn = {
+  tenant: { // rqAuth.Tenants
+    id: 0, // uint64
+    tenantCode: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    productsCoaId: 0, // uint64
+    suppliersCoaId: 0, // uint64
+    customersCoaId: 0, // uint64
+    staffsCoaId: 0, // uint64
+    banksCoaId: 0, // uint64
+    customerReceivablesCoaId: 0, // uint64
+    fundersCoaId: 0, // uint64
+  }, // rqAuth.Tenants
+}
+/**
+ * @typedef {Object} TenantAdminSyncCoaOut
+ * @property {number} tenant.id
+ * @property {String} tenant.tenantCode
+ * @property {number} tenant.createdAt
+ * @property {number} tenant.createdBy
+ * @property {number} tenant.updatedAt
+ * @property {number} tenant.updatedBy
+ * @property {number} tenant.deletedAt
+ * @property {number} tenant.productsCoaId
+ * @property {number} tenant.suppliersCoaId
+ * @property {number} tenant.customersCoaId
+ * @property {number} tenant.staffsCoaId
+ * @property {number} tenant.banksCoaId
+ * @property {number} tenant.customerReceivablesCoaId
+ * @property {number} tenant.fundersCoaId
+ */
+const TenantAdminSyncCoaOut = {
+  tenant: { // rqAuth.Tenants
+    id: 0, // uint64
+    tenantCode: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    productsCoaId: 0, // uint64
+    suppliersCoaId: 0, // uint64
+    customersCoaId: 0, // uint64
+    staffsCoaId: 0, // uint64
+    banksCoaId: 0, // uint64
+    customerReceivablesCoaId: 0, // uint64
+    fundersCoaId: 0, // uint64
+  }, // rqAuth.Tenants
+}
+/**
+ * @callback TenantAdminSyncCoaCallback
+ * @param {TenantAdminSyncCoaOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {TenantAdminSyncCoaIn} i
+ * @param {TenantAdminSyncCoaCallback} cb
+ * @returns {Promise}
+ */
+exports.TenantAdminSyncCoa = async function TenantAdminSyncCoa( i, cb ) {
+  return await axios.post( '/tenantAdmin/syncCoa', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -1983,7 +2686,6 @@ const TenantAdminTransactionTemplateIn = {
  * @property {number} transactionTemplate.deletedAt
  * @property {number} transactionTemplate.deletedBy
  * @property {number} transactionTemplate.restoredBy
- * @property {Object} coas
  */
 const TenantAdminTransactionTemplateOut = {
   transactionTemplates: { // []rqFinance.TransactionTemplate
@@ -2002,8 +2704,6 @@ const TenantAdminTransactionTemplateOut = {
     deletedBy: 0, // uint64
     restoredBy: 0, // uint64
   }, // rqFinance.TransactionTemplate
-  coas: { // []rqFinance.Coa
-  }, // []rqFinance.Coa
 }
 /**
  * @callback TenantAdminTransactionTemplateCallback
@@ -2036,6 +2736,7 @@ exports.TenantAdminTransactionTemplate = async function TenantAdminTransactionTe
  * @property {number} transactionTplDetail.deletedAt
  * @property {number} transactionTplDetail.deletedBy
  * @property {number} transactionTplDetail.restoredBy
+ * @property {Object} transactionTplDetail.attributes
  */
 const TenantAdminTransactionTplDetailIn = {
   cmd: '', // string
@@ -2052,6 +2753,8 @@ const TenantAdminTransactionTplDetailIn = {
     deletedAt: 0, // int64
     deletedBy: 0, // uint64
     restoredBy: 0, // uint64
+    attributes: { // []any
+    }, // []any
   }, // rqFinance.TransactionTplDetail
 }
 /**
@@ -2068,6 +2771,7 @@ const TenantAdminTransactionTplDetailIn = {
  * @property {number} transactionTplDetail.deletedAt
  * @property {number} transactionTplDetail.deletedBy
  * @property {number} transactionTplDetail.restoredBy
+ * @property {Object} transactionTplDetail.attributes
  * @property {Object} transactionTplDetails
  */
 const TenantAdminTransactionTplDetailOut = {
@@ -2084,6 +2788,8 @@ const TenantAdminTransactionTplDetailOut = {
     deletedAt: 0, // int64
     deletedBy: 0, // uint64
     restoredBy: 0, // uint64
+    attributes: { // []any
+    }, // []any
   }, // rqFinance.TransactionTplDetail
   transactionTplDetails: { // []rqFinance.TransactionTplDetail
   }, // []rqFinance.TransactionTplDetail
@@ -2354,10 +3060,12 @@ exports.UserProfile = async function UserProfile( i, cb ) {
 /**
  * @typedef {Object} UserResponseInvitationIn
  * @property {String} tenantCode
+ * @property {String} cSRFToken
  * @property {String} response
  */
 const UserResponseInvitationIn = {
   tenantCode: '', // string
+  cSRFToken: '', // string
   response: '', // string
 }
 /**

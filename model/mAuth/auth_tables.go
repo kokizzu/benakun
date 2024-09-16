@@ -6,10 +6,11 @@ import (
 )
 
 const (
-	RoleUser         = `user`
-	RoleTenantAdmin  = `tenantAdmin`
-	RoleDataEntry    = `dataEntry`
-	RoleReportViewer = `reportViewer`
+	RoleUser         		= `user`
+	RoleTenantAdmin  		= `tenantAdmin`
+	RoleDataEntry    		= `dataEntry`
+	RoleReportViewer 		= `reportViewer`
+	RoleFieldSupervisor = `fieldSupervisor`
 )
 
 func IsValidRole(role string) bool {
@@ -19,6 +20,8 @@ func IsValidRole(role string) bool {
 	case RoleDataEntry:
 		return true
 	case RoleReportViewer:
+		return true
+	case RoleFieldSupervisor:
 		return true
 	default:
 		return false
@@ -91,9 +94,25 @@ const (
 	ProductsCoaId 	= `productsCoaId`
 	SuppliersCoaId	= `suppliersCoaId`
 	CustomersCoaId	= `customersCoaId`
+	CustomerReceivablesCoaId = `customerReceivablesCoaId`
 	StaffsCoaId 		= `staffsCoaId`
 	BanksCoaId 			= `banksCoaId`
+	FundersCoaId		= `fundersCoaId`
 )
+
+func IsCoaDifferent(values ...uint64) bool {
+	valueMap := make(map[uint64]bool)
+	for _, v := range values {
+		if v == 0 {
+			continue
+		}
+		if _, exist := valueMap[v]; exist {
+			return false
+		}
+		valueMap[v] = true
+	}
+	return true
+}
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableUsers: {
@@ -150,6 +169,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{CustomersCoaId, Tt.Unsigned},
 			{StaffsCoaId, Tt.Unsigned},
 			{BanksCoaId, Tt.Unsigned},
+			{CustomerReceivablesCoaId, Tt.Unsigned},
+			{FundersCoaId, Tt.Unsigned},
 		},
 		AutoIncrementId: true,
 		Unique1:         TenantCode,
