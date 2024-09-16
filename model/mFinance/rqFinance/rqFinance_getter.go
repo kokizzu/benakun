@@ -40,10 +40,10 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 }
 
 type ParsedAttribute struct {
-	IsAutoSum bool
-	IsSales bool
+	IsAutoSum   bool
+	IsSales     bool
 	IsChildOnly bool
-	IsSelfSum bool
+	IsSelfSum   bool
 }
 
 func (ttpld *TransactionTplDetail) ParseAttributes() (pa ParsedAttribute) {
@@ -61,24 +61,24 @@ func (ttpld *TransactionTplDetail) ParseAttributes() (pa ParsedAttribute) {
 			pa.IsSelfSum = true
 		}
 	}
-	
+
 	return
 }
 
 type (
 	// obtain from db
 	coaFromDB struct {
-		id 				uint64
-		name			string
-		parentId	uint64
-		children	[]any
+		id       uint64
+		name     string
+		parentId uint64
+		children []any
 	}
 	// Convert coawithnum to Tree
 	coaTreeNode struct {
-		id 				uint64
-		name			string
-		parentId	uint64
-		children	[]coaTreeNode
+		id       uint64
+		name     string
+		parentId uint64
+		children []coaTreeNode
 	}
 )
 
@@ -110,7 +110,7 @@ func generateCoaChoicesMaps(coasFromDBs []coaFromDB) map[string]string {
 		}
 
 		coaVisited[int(id)] = true
-		
+
 		for _, v := range coasFromDBs {
 			if v.id == id {
 				cld := v.children
@@ -162,11 +162,11 @@ func generateCoaChoicesMaps(coasFromDBs []coaFromDB) map[string]string {
 			_ = idx
 		}
 	}
-	
+
 	for i, v := range coasTreeNodes {
 		coaTree(v, I.ToS(int64(i)+1), int64(i)+1, i)
 	}
-	
+
 	return coaChoices
 }
 
@@ -184,19 +184,14 @@ func extractNumParts(s string) []int {
 	return result
 }
 
-func compareCoaNums(a, b []int) bool {
-	minLen := len(a)
-	if len(b) < minLen {
-		minLen = len(b)
-	}
-
-	for i := 0; i < minLen; i++ {
-		if a[i] != b[i] {
-			return a[i] < b[i]
+func compareCoaNums(va, vb []int) bool {
+	for i := 0; i < len(va) && i < len(vb); i++ {
+		if va[i] != vb[i] {
+			return va[i] < vb[i]
 		}
 	}
 
-	return len(a) < len(b)
+	return len(va) < len(vb)
 }
 
 func (c *Coa) FindCoasChoicesByTenant() map[string]string {
@@ -213,8 +208,8 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 	c.Adapter.QuerySql(queryRows, func(row []any) {
 		if len(row) == 4 {
 			coasFromDBs = append(coasFromDBs, coaFromDB{
-				id: X.ToU(row[0]),
-				name: X.ToS(row[1]),
+				id:       X.ToU(row[0]),
+				name:     X.ToS(row[1]),
 				parentId: X.ToU(row[2]),
 				children: X.ToArr(row[3]),
 			})
@@ -222,51 +217,31 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 	})
 
 	coaChoices := generateCoaChoicesMaps(coasFromDBs)
-
-	type kv struct {
-		key string
-		value string
-	}
-	
-	kvsCoaChoices := []kv{}
-
-	for k, v := range coaChoices {
-		kvsCoaChoices = append(kvsCoaChoices, kv{k, v})
+	var keys []string = make([]string, 0, len(coaChoices))
+	for key := range coaChoices {
+		keys = append(keys, key)
 	}
 
-	sort.Slice(kvsCoaChoices, func(i, j int) bool {
-		numsI := extractNumParts(kvsCoaChoices[i].value)
-		numsJ := extractNumParts(kvsCoaChoices[j].value)
+	sort.SliceStable(keys, func(i, j int) bool {
+		numsI := extractNumParts(coaChoices[keys[i]])
+		numsJ := extractNumParts(coaChoices[keys[j]])
 
-		compared := compareCoaNums(numsI, numsJ)
-
-		return compared
+		return compareCoaNums(numsI, numsJ)
 	})
 
-	sort.Slice(kvsCoaChoices, func(i, j int) bool {
-		numsI := extractNumParts(kvsCoaChoices[i].value)
-		numsJ := extractNumParts(kvsCoaChoices[j].value)
-
-		compared := compareCoaNums(numsI, numsJ)
-
-		return compared
-	})
-
-	if len(kvsCoaChoices) > 0 {
-		coaChoices = map[string]string{}
-		for _, v := range kvsCoaChoices {
-			coaChoices[v.key] = v.value
-		}
+	newCoaChoices := make(map[string]string)
+	for _, k := range keys {
+		newCoaChoices[k] = coaChoices[k]
 	}
-	
-	return coaChoices
+
+	return newCoaChoices
 }
 
 func (c *Coa) FindCoasChoicesChildByParentByTenant() map[string]string {
 	const comment = `-- Coa) FindCoasChoicesChildByParentByTenant`
 
 	whereAndSql := ` WHERE ` + c.SqlParentId() + ` = ` + I.UToS(c.ParentId) + `
-		AND `  + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode)
+		AND ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode)
 
 	queryRows := comment + `
 	SELECT ` + c.SqlId() + `, ` + c.SqlName() + `
@@ -276,7 +251,7 @@ func (c *Coa) FindCoasChoicesChildByParentByTenant() map[string]string {
 	var idx int64 = 1
 	c.Adapter.QuerySql(queryRows, func(row []any) {
 		if len(row) == 2 {
-			coaChoices[X.ToS(row[0])] = I.ToS(idx) + `. `+ X.ToS(row[1])
+			coaChoices[X.ToS(row[0])] = I.ToS(idx) + `. ` + X.ToS(row[1])
 			idx++
 		}
 	})
@@ -530,7 +505,7 @@ func (tj *TransactionJournal) FindTrxJournalsByDateByTenant(startDate, endDate s
 SELECT ` + tj.SqlSelectAllFields() + `
 FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
 
-L.Print(`Query:`, queryRows)
+	L.Print(`Query:`, queryRows)
 
 	tj.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
@@ -670,7 +645,7 @@ func (tj *TransactionJournal) FindTrxJournalsLossIncomeByTenant() (trxJournals [
 		for _, id := range coaIds {
 			whereAndSql := ` WHERE ` + tj.SqlTenantCode() + ` = ` + S.Z(tj.TenantCode) + `
 				AND ` + tj.SqlCoaId() + ` = ` + I.ToS(id)
-				
+
 			queryRows := comment + `
 		SELECT ` + tj.SqlSelectAllFields() + `
 		FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
@@ -736,7 +711,7 @@ func (c *Coa) FindByNameByTenant() bool {
 	whereAndSql := ` WHERE ` + c.SqlName() + ` = ` + S.Z(c.Name) + `
 		AND ` + c.SqlTenantCode() + ` = ` + S.Z(c.TenantCode) + `
 		LIMIT 1`
-	
+
 	queryRows := comment + `
 	SELECT ` + c.SqlSelectAllFields() + `
 	FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
@@ -756,156 +731,99 @@ func (c *Coa) FindByNameByTenant() bool {
 
 type (
 	financialPosition struct {
-		CoaName string `json:"coaName"`
-		AmountIDR int64 `json:"amountIDR"`
+		CoaId     uint64 `json:"coaId"`
+		CoaName   string `json:"coaName"`
+		AmountIDR int64  `json:"amountIDR"`
 	}
 	parentName string
 )
 
 const (
-	rfpAsset parentName= `asset`
-	rfpEquity parentName = `equity`
-	rfpLiability parentName= `liability`
+	rfpAsset     parentName = `asset`
+	rfpEquity    parentName = `equity`
+	rfpLiability parentName = `liability`
 )
 
 func (tj *TransactionJournal) FindReportOfFinancialPositionByTenant() map[parentName][]*financialPosition {
-	rfp := map[parentName][]*financialPosition{}
+	var rfps = map[parentName][]*financialPosition{}
 
 	const comment = `-- TransactionJournal) FindReportOfFinancialPositionByTenant`
+	var findByCoas func(coas []Coa) (res []*financialPosition)
+	findByCoas = func(coas []Coa) (res []*financialPosition) {
+		cidsMap := map[uint64]bool{}
+		cids := func() (res []string) {
+			for _, c := range coas {
+				cidsMap[c.Id] = false
+				res = append(res, I.UToS(c.Id))
+			}
+			return
+		}()
+
+		whereAndSql := ` WHERE ` + tj.SqlTenantCode() + ` = ` + S.Z(tj.TenantCode) + `
+			AND ` + tj.SqlCoaId() + ` IN (` + strings.Join(cids, `, `) + `)`
+
+		queryRows := comment + `
+			SELECT ` + tj.SqlSelectAllFields() + `
+			FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
+
+		tj.Adapter.QuerySql(queryRows, func(row []any) {
+			coaId := X.ToU(row[2])
+			debit := X.ToI(row[3])
+			credit := X.ToI(row[4])
+			amount := debit - credit
+
+			if cidsMap[coaId] {
+				for _, rc := range res {
+					if rc.CoaId == coaId {
+						rc.AmountIDR = rc.AmountIDR + amount
+					}
+				}
+
+			} else {
+				cName := func() (n string) {
+					for _, c := range coas {
+						if c.Id == coaId {
+							n = c.Name
+							return
+						}
+					}
+					return
+				}
+				res = append(res, &financialPosition{
+					CoaId:     coaId,
+					CoaName:   cName(),
+					AmountIDR: amount,
+				})
+
+				cidsMap[coaId] = true
+			}
+		})
+
+		return
+	}
 
 	// Find asset
 	coaAsset := NewCoa(tj.Adapter)
 	coaAsset.TenantCode = tj.TenantCode
 	coaAsset.Name = mFinance.CoaAsset
 	coaAssetChildren := coaAsset.FindCoaChildrenByParentNameByTenant()
-	if len(coaAssetChildren) > 0 {
-		res := []*financialPosition{}
-		for _, c := range coaAssetChildren {
-			whereAndSql := ` WHERE ` + tj.SqlTenantCode() + ` = ` + S.Z(tj.TenantCode) + `
-				AND ` + tj.SqlCoaId() + ` = ` + I.UToS(c.Id)
-				
-			queryRows := comment + `
-		SELECT ` + tj.SqlSelectAllFields() + `
-		FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
-
-			isVisited := false
-			tj.Adapter.QuerySql(queryRows, func(row []any) {
-				debit := X.ToI(row[3])
-				credit := X.ToI(row[4])
-				amount := debit - credit
-
-				if isVisited {
-					for _, rc := range res {
-						if rc.CoaName == c.Name {
-							rc.AmountIDR = rc.AmountIDR + amount
-						}
-					}
-
-				} else {
-					res = append(res, &financialPosition{
-						CoaName: c.Name,
-						AmountIDR: amount,
-					})
-
-					isVisited = true
-				}
-			})
-		}
-
-		rfp[rfpAsset] = res
-	} else {
-		rfp[rfpAsset] = []*financialPosition{}
-	}
+	rfps[rfpAsset] = findByCoas(coaAssetChildren)
 
 	// Find equity
 	coaEquity := NewCoa(tj.Adapter)
 	coaEquity.TenantCode = tj.TenantCode
 	coaEquity.Name = mFinance.CoaEquity
 	coaEquityChildren := coaEquity.FindCoaChildrenByParentNameByTenant()
-	if len(coaEquityChildren) > 0 {
-		res := []*financialPosition{}
-		for _, c := range coaEquityChildren {
-			whereAndSql := ` WHERE ` + tj.SqlTenantCode() + ` = ` + S.Z(tj.TenantCode) + `
-				AND ` + tj.SqlCoaId() + ` = ` + I.UToS(c.Id)
-				
-			queryRows := comment + `
-		SELECT ` + tj.SqlSelectAllFields() + `
-		FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
-
-			isVisited := false
-			tj.Adapter.QuerySql(queryRows, func(row []any) {
-				debit := X.ToI(row[3])
-				credit := X.ToI(row[4])
-				amount := debit - credit
-
-				if isVisited {
-					for _, rc := range res {
-						if rc.CoaName == c.Name {
-							rc.AmountIDR = rc.AmountIDR + amount
-						}
-					}
-
-				} else {
-					res = append(res, &financialPosition{
-						CoaName: c.Name,
-						AmountIDR: amount,
-					})
-
-					isVisited = true
-				}
-			})
-		}
-
-		rfp[rfpEquity] = res
-	} else {
-		rfp[rfpEquity] = []*financialPosition{}
-	}
+	rfps[rfpEquity] = findByCoas(coaEquityChildren)
 
 	// Find equity
 	coaLiability := NewCoa(tj.Adapter)
 	coaLiability.TenantCode = tj.TenantCode
 	coaLiability.Name = mFinance.CoaLiability
 	coaLiabilityChildren := coaLiability.FindCoaChildrenByParentNameByTenant()
-	if len(coaLiabilityChildren) > 0 {
-		res := []*financialPosition{}
-		for _, c := range coaLiabilityChildren {
-			whereAndSql := ` WHERE ` + tj.SqlTenantCode() + ` = ` + S.Z(tj.TenantCode) + `
-				AND ` + tj.SqlCoaId() + ` = ` + I.UToS(c.Id)
-				
-			queryRows := comment + `
-		SELECT ` + tj.SqlSelectAllFields() + `
-		FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
+	rfps[rfpLiability] = findByCoas(coaLiabilityChildren)
 
-			isVisited := false
-			tj.Adapter.QuerySql(queryRows, func(row []any) {
-				debit := X.ToI(row[3])
-				credit := X.ToI(row[4])
-				amount := debit - credit
-
-				if isVisited {
-					for _, rc := range res {
-						if rc.CoaName == c.Name {
-							rc.AmountIDR = rc.AmountIDR + amount
-						}
-					}
-
-				} else {
-					res = append(res, &financialPosition{
-						CoaName: c.Name,
-						AmountIDR: amount,
-					})
-
-					isVisited = true
-				}
-			})
-		}
-
-		rfp[rfpLiability] = res
-	} else {
-		rfp[rfpLiability] = []*financialPosition{}
-	}
-
-	return rfp
+	return rfps
 }
 
 func (c *Coa) FindCoaChildrenByParentNameByTenant() (coas []Coa) {
