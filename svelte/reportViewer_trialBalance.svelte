@@ -6,8 +6,8 @@
   import InputBox from './_components/InputBox.svelte';
   import SubmitButton from './_components/SubmitButton.svelte';
   import { ReportViewerTrialBalance } from './jsApi.GEN';
-  import { notifier } from './_components/notifier';
-  import { dateISOFormat, loadScript } from './_components/formatter';
+  import { notifier } from './_components/xNotifier.js';
+  import { dateISOFormat, loadScript } from './_components/xformatter.js';
   import { trialBalanceOptions } from './_components/yChartOptions';
   import { Icon } from './node_modules/svelte-icons-pack/dist';
   import { RiArrowsArrowRightSLine, RiArrowsArrowLeftSLine } from './node_modules/svelte-icons-pack/dist/ri';

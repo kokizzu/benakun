@@ -6,7 +6,7 @@
 
   import { onMount } from 'svelte';
   import { TenantAdminCoa, TenantAdminSyncCoa } from './jsApi.GEN.js';
-  import { notifier } from './_components/notifier.js';
+  import { notifier } from './_components/xNotifier.js';
   import CoaTree from './_components/CoaTree.svelte';
   import PopUpCoA from './_components/PopUpCoa.svelte';
   import MainLayout from './_layouts/mainLayout.svelte';
@@ -24,7 +24,7 @@
   function coaMaker(/** @type {string|number} */ id) {
     if(coaVisited[id]) return null;
     coaVisited[id] = true;
-    /** @type CoA */
+    /** @type CoA */ //@ts-ignore
     let coaFormatted = {
       id: 0,
       name: '',

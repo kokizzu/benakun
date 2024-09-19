@@ -6,7 +6,7 @@
   import PoUpForms from './_components/PoUpForms.svelte';
   import { onMount } from 'svelte';
   import { TenantAdminProducts } from './jsApi.GEN';
-  import { notifier } from './_components/notifier';
+  import { notifier } from './_components/xNotifier';
 
   /** @typedef {import('./_components/types/master.js').Field} Field */
 	/** @typedef {import('./_components/types/access.js').Access} Access */

@@ -4,7 +4,7 @@
 
     // @ts-nocheck
     import { onMount } from 'svelte';
-    import { datetime } from './formatter.js';
+    import { datetime } from './xformatter.js';
 
     import Icon from 'svelte-icons-pack/Icon.svelte';
     import HiOutlinePencil from 'svelte-icons-pack/hi/HiOutlinePencil';

@@ -1,6 +1,6 @@
 <script>
   /** @typedef {import('./types/admin.js').AccessLog} AccessLog */
-  import { utcDatetime } from './formatter';
+  import { utcDatetime } from './xformatter.js';
 
   export let logs = /** @type {AccessLog[]} */ ([]);
 </script>

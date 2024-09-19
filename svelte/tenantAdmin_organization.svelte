@@ -3,7 +3,7 @@
   import { onMount } from 'svelte';
   import OrgTree from './_components/OrgTree.svelte';
   import { TenantAdminOrganization } from './jsApi.GEN';
-  import { notifier } from './_components/notifier';
+  import { notifier } from './_components/xNotifier.js';
 
   /** @typedef {import('./_components/types/organization').Org} Org */
   /** @type {Org[]} */

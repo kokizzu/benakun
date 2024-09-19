@@ -2,7 +2,7 @@
   import MainLayout from '../../_layouts/mainLayout.svelte';
   import MasterTable from '../../_components/MasterTable.svelte';
   import { TenantAdminInventoryChanges } from '../../jsApi.GEN';
-  import { notifier } from '../../_components/notifier';
+  import { notifier } from '../../_components/xNotifier.js';
   import { Icon } from './../../node_modules/svelte-icons-pack/dist';
   import { RiSystemAddBoxLine } from './../../node_modules/svelte-icons-pack/dist/ri';
   import { onMount } from 'svelte';

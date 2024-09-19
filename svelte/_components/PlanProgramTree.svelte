@@ -12,7 +12,7 @@
   import { createEventDispatcher } from 'svelte';
   import { TenantAdminBudgeting } from '../jsApi.GEN.js';
   import PopUpBudgetPlan from './PopUpBudgetPlan.svelte';
-  import { notifier } from './notifier.js';
+  import { notifier } from './xNotifier.js';
 
   /** @typedef {import('./types/budget.js').BudgetPlan} BudgetPlan */
 

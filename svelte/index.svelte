@@ -7,7 +7,7 @@
     GuestResendVerificationEmail
   } from './jsApi.GEN.js';
   import { onMount, tick } from 'svelte';
-  import { notifier } from './_components/notifier.js';
+  import { notifier } from './_components/xNotifier.js';
   import InputBox from './_components/InputBox.svelte';
   import SubmitButton from './_components/SubmitButton.svelte';
   import MainLayout from './_layouts/mainLayout.svelte';
@@ -261,13 +261,28 @@
       <div class="sign_in_container">
         <div class="input_container">
           {#if mode === LOGIN || mode === REGISTER || mode === RESEND_VERIFICATION_EMAIL || mode === FORGOT_PASSWORD}
-            <InputBox id="email" label="Email" bind:value={email} type="email" />
+            <InputBox
+              id="email"
+              label="Email"
+              bind:value={email}
+              type="email"
+            />
           {/if}
           {#if mode === LOGIN || mode === REGISTER}
-            <InputBox id="password" label="Password" bind:value={password} type="password" />
+            <InputBox
+              id="password"
+              label="Password"
+              bind:value={password}
+              type="password"
+            />
           {/if}
           {#if mode === REGISTER}
-            <InputBox id="confirmPass" label="Confirm Password" bind:value={confirmPass} type="password" />
+            <InputBox
+              id="confirmPass"
+              label="Confirm Password"
+              bind:value={confirmPass}
+              type="password"
+            />
           {/if}
         </div>
         <!-- Forgot Password -->
@@ -501,5 +516,22 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+
+  @media only screen and (max-width : 768px) {
+    .auth_section {
+      background-color: #FFF;
+    }
+    .main_container {
+      width: 100%;
+      margin: 30px auto;
+      border: none;
+      filter: none;
+      background-color: transparent;
+    }
+
+    .create_company {
+      width: 100%;
+    }
   }
 </style>

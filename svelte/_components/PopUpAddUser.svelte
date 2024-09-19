@@ -4,7 +4,7 @@
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
   import InputBox from './InputBox.svelte';
   import { SuperAdminTenantManagement } from '../jsApi.GEN';
-  import { notifier } from './notifier';
+  import { notifier } from './xNotifier.js';
 
   // @ts-ignore
   /** @typedef {import('../_components/types/user').User} User */

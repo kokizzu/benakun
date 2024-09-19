@@ -4,7 +4,7 @@
   import MainLayout from './_layouts/mainLayout.svelte';
   import MasterTable from './_components/MasterTable.svelte';
   import { SuperAdminUserManagement } from './jsApi.GEN';
-  import { notifier } from './_components/notifier';
+  import { notifier } from './_components/xNotifier.js';
   import { onMount } from 'svelte';
   import PopUpAddUser from './_components/PopUpAddUser.svelte';
 

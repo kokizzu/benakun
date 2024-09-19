@@ -12,7 +12,7 @@
   import { TrOutlineRefresh } from '../node_modules/svelte-icons-pack/dist/tr';
   import PlanProgramTree from './PlanProgramTree.svelte';
   import { TenantAdminBudgeting } from '../jsApi.GEN.js';
-  import { notifier } from './notifier.js';
+  import { notifier } from './xNotifier.js';
   import PopUpBudgetPlan from './PopUpBudgetPlan.svelte';
   import { createEventDispatcher } from 'svelte';
 

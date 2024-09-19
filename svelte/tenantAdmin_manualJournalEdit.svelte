@@ -14,7 +14,7 @@
 
   import MainLayout from './_layouts/mainLayout.svelte';
   import { TenantAdminManualJournal } from './jsApi.GEN';
-  import { notifier } from './_components/notifier';
+  import { notifier } from './_components/xNotifier';
 
   let segments              = /** @type Access */ ({/* segments */});
   let user                  = /** @type User */ ({/* user */});

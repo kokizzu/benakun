@@ -14,7 +14,7 @@
     TenantAdminTransactionTplDetail,
     TenantAdminTransactionTemplate,
   } from '../jsApi.GEN';
-  import { notifier } from './notifier';
+  import { notifier } from './xNotifier';
   import PopUpTransactionTplDetail from './PopUpTransactionTplDetail.svelte';
   import PopUpTransactionTemplate from './PopUpTransactionTemplate.svelte';
   import { createEventDispatcher, onMount } from 'svelte';

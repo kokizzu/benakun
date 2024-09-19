@@ -11,9 +11,23 @@
   let segments = /** @type Access */ ({/* segments */});
   let user = /** @type User */ ({/* user */});
 
+  let viewportWidth = window.innerWidth;
+
   onMount(() => {
-    const isShrink = localStorage.getItem('IsShrinkMenu');
-    IsShrinkMenu.set(JSON.parse(isShrink));
+    if (viewportWidth > 768) {
+      const isShrink = localStorage.getItem('IsShrinkMenu');
+      IsShrinkMenu.set(JSON.parse(isShrink));
+    } else {
+      localStorage.setItem('IsShrinkMenu', 'true');
+      IsShrinkMenu.set(true);
+      document.addEventListener('click', (e) => {
+        const elm = /** @type HTMLElement */ (e.target);
+        if (elm.tagName == 'a') {
+          console.log('TRIGGERED')
+          $IsShrinkMenu = true;
+        }
+      })
+    }
   })
 </script>
 
@@ -76,5 +90,19 @@
     min-height: calc(100vh - var(--navbar-height));
     max-height: fit-content;
     overflow: inherit;
+  }
+
+  @media only screen and (max-width : 768px) {
+    .root_layout .root_container .root_content.shrink {
+      margin-left: 0;
+    }
+
+    .root_layout .root_container .root_content.expand {
+      margin-left: 0;
+    }
+
+    .root_layout .root_container .root_content .content {
+      padding: 15px;
+    }
   }
 </style>

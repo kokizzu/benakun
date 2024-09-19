@@ -8,7 +8,7 @@
   } from '../node_modules/svelte-icons-pack/dist/ri';
   import { onMount } from 'svelte';
   import PopUpCoA from './PopUpCoa.svelte';
-  import { notifier } from './notifier.js';
+  import { notifier } from './xNotifier.js';
   import { TenantAdminCoa } from '../jsApi.GEN';
   import { createEventDispatcher } from 'svelte';
 

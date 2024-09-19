@@ -5,7 +5,7 @@
   import MasterTable from './_components/MasterTable.svelte';
   import PopUpInviteUser from './_components/PopUpInviteUser.svelte';
   import { TenantAdminDashboard } from './jsApi.GEN';
-  import { notifier } from './_components/notifier';
+  import { notifier } from './_components/xNotifier';
   import { onMount } from 'svelte';
 
   /** @typedef {import('./_components/types/master.js').Field} Field */

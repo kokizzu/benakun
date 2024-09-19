@@ -6,7 +6,7 @@
   import PopUpAddBankAccount from './_components/PopUpAddBankAccount.svelte';
   import { onMount } from 'svelte';
   import { TenantAdminBankAccounts } from './jsApi.GEN';
-  import { notifier } from './_components/notifier';
+  import { notifier } from './_components/xNotifier.js';
 
   /** @typedef {import('./_components/types/master.js').Field} Field */
 	/** @typedef {import('./_components/types/access.js').Access} Access */

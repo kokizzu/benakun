@@ -6,7 +6,7 @@
   import InputBox from './_components/InputBox.svelte';
   import SubmitButton from './_components/SubmitButton.svelte';
   import { ReportViewerGeneralLedger } from './jsApi.GEN';
-  import { notifier } from './_components/notifier';
+  import { notifier } from './_components/xNotifier.js';
 
   const coaChoices = /** @type Record<string|number, string> */ ({/* coaChoices */});
   let transactionJournals = /** @type TransactionJournal[] */ ([/* transactionJournals */]);

@@ -23,10 +23,10 @@
   import { Icon } from '../../node_modules/svelte-icons-pack/dist';
   import { RiSystemDeleteBin6Line } from '../../node_modules/svelte-icons-pack/dist/ri';
   import { DataEntryTransactionEntry } from '../../jsApi.GEN';
-  import { notifier } from '../../_components/notifier';
+  import { notifier } from '../../_components/xNotifier.js';
   import InputBox from '../../_components/InputBox.svelte';
   import { onMount } from 'svelte';
-  import { dateISOFormat } from '../../_components/formatter';
+  import { dateISOFormat } from '../../_components/xformatter.js';
 
   let transactionTemplate   = /** @type TransactionTemplate */ ({/* transactiontemplate */});
   let transactionTplDetails = /** @type TransactionTplDetail[] */ ([/* transactionTplDetails */]);

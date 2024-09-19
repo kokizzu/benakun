@@ -14,7 +14,7 @@
   import PopUpInventoryChanges from './_components/PopUpInventoryChanges.svelte';
   import { onMount } from 'svelte';
   import { TenantAdminInventoryChanges } from './jsApi.GEN';
-  import { notifier } from './_components/notifier';
+  import { notifier } from './_components/xNotifier.js';
 
   let segments = /** @type Access */ ({/* segments */});
   let user = /** @type User */ ({/* user */});

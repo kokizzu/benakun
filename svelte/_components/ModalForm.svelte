@@ -1,5 +1,5 @@
 <script>
-    import {datetime} from './formatter.js';
+    import {datetime} from './xformatter.js';
 
     export let fields = []; // list of editable properties
     export let visible = false;

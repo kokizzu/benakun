@@ -5,7 +5,7 @@
     SuperAdminTenantManagement,
     TenantAdminDashboard
   } from './jsApi.GEN';
-  import { notifier } from './_components/notifier';
+  import { notifier } from './_components/xNotifier.js';
   import ReadOnlyTable from './_components/ReadOnlyTable.svelte';
   import { Icon } from './node_modules/svelte-icons-pack/dist';
   import { IoClose } from './node_modules/svelte-icons-pack/dist/io';

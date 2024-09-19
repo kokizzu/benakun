@@ -1,7 +1,6 @@
 <script>
-    //@ts-nocheck
     import {GuestResetPassword} from './jsApi.GEN';
-    import {notifier} from './_components/notifier.js'
+    import {notifier} from './_components/xNotifier.js'
     import InputBox from './_components/InputBox.svelte';
 
     let password = '';
@@ -23,8 +22,8 @@
             if (key === 'secretCode') secretCode = value;
             if (key === 'hash') hash = value;
         }
-        let i = {secretCode, hash, password};
-        await GuestResetPassword(i, function(o) {
+        let i = {secretCode, hash, password}; //@ts-ignore
+        await GuestResetPassword(i, function(/** @type {any} */ o) {
             console.log(o);
             if (o.error) {
                 return notifier.showError(o.error);

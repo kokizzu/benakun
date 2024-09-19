@@ -16,7 +16,7 @@
   import { onMount, createEventDispatcher } from 'svelte';
   import PopUpOrg from './PopUpOrg.svelte';
   import { TenantAdminOrganization } from '../jsApi.GEN';
-  import { notifier } from './notifier';
+  import { notifier } from './xNotifier';
 
   const dispatch = createEventDispatcher();
   

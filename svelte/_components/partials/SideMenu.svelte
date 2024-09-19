@@ -3,7 +3,7 @@
 
   import { UserLogout } from '../../jsApi.GEN.js';
   import { onMount } from 'svelte';
-  import { notifier } from '../notifier.js'
+  import { notifier } from '../xNotifier.js'
   import { Icon } from '../../node_modules/svelte-icons-pack/dist';
   import {
     AiOutlineWarning,
@@ -593,5 +593,26 @@
 
   .menu_list .logout:hover {
     background-color: var(--red-transparent);
+  }
+
+  @media only screen and (max-width : 768px) {
+    .side_menu.shrink {
+      width: 0;
+      border: none;
+      padding: none;
+    }
+
+    .side_menu.expand {
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .side_menu_container header {
+      display: none;
+    }
+
+    .side_menu_container {
+      padding-top: var(--navbar-height);
+    }
   }
 </style>

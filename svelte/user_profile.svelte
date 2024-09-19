@@ -1,13 +1,12 @@
 <script>
   import { Icon } from './node_modules/svelte-icons-pack/dist';
   import { IoClose } from './node_modules/svelte-icons-pack/dist/io';
-  import { notifier } from './_components/notifier.js';
-  import { datetime } from './_components/formatter';
+  import { notifier } from './_components/xNotifier.js';
+  import { datetime, localeDatetime } from './_components/xformatter.js';
   import { onMount } from 'svelte';
   import { UserChangePassword, UserSessionKill, UserSessionsActive, UserUpdateProfile } from './jsApi.GEN.js';
   import InputBox from './_components/InputBox.svelte';
   import SubmitButton from './_components/SubmitButton.svelte';
-  import { localeDatetime } from './_components/formatter.js';
   import MainLayout from './_layouts/mainLayout.svelte';
 
   let user = {/* user */};

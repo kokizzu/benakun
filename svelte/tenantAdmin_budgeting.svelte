@@ -2,7 +2,7 @@
   import MainLayout from './_layouts/mainLayout.svelte';
   import { onMount } from 'svelte';
   import BudgetPlanTree from './_components/BudgetPlanTree.svelte';
-  import { localeDatetime } from './_components/formatter';
+  import { localeDatetime } from './_components/xformatter.js';
 
   // TODO: set year to localStorage
 

@@ -12,7 +12,7 @@
   export let id;
   export let value;
 
-  export let values = /** @type {Array<string|number> | Record<string|number, string> | any} */ ([] || {});
+  export let values = /** @type {Array<string|number> | Record<string|number, string> | any} */ ({});
   export let label;
   export let placeholder = '';
   export let isObject = false;
@@ -257,7 +257,7 @@
       <label class="label" for={id}>{label}</label>
       <input type="date" bind:value={value} {id} {placeholder}/>
     {:else if type === 'password'}
-      <label for={id}>{label}</label>
+      <label class="label" for={id}>{label}</label>
       <input bind:value={value} {id} bind:this={inputElm} {placeholder}/>
       {#if type === 'password'}
         <button class="eye" on:click={toggleShowPassword}>

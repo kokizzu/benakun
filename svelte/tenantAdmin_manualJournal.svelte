@@ -20,8 +20,8 @@
   import InputBox from './_components/InputBox.svelte';
   import { onMount } from 'svelte';
   import { TenantAdminManualJournal } from './jsApi.GEN';
-  import { notifier } from './_components/notifier';
-  import { dateISOFormat } from './_components/formatter';
+  import { notifier } from './_components/xNotifier.js';
+  import { dateISOFormat } from './_components/xformatter.js';
 
   let segments              = /** @type Access */ ({/* segments */});
   let fields                = /** @type Field[] */ ([/* fields */]);

@@ -1,4 +1,4 @@
-const isoDate = require('./formatter').isoDate;
+const isoDate = require('./xformatter').isoDate;
 
 function httpRequestOptions(requestsPerDate, uniqueUserPerDate, uniqueIpPerDate) {
   return {

@@ -19,7 +19,7 @@
 
   import MainLayout from '../../_layouts/mainLayout.svelte';
   import { FieldSupervisorDashboard } from '../../jsApi.GEN';
-  import { notifier } from '../../_components/notifier';
+  import { notifier } from '../../_components/xNotifier.js';
   import InputBox from '../../_components/InputBox.svelte';
   import { onMount } from 'svelte';
 

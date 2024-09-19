@@ -24,7 +24,7 @@
   import InputBox from './InputBox.svelte';
   import { onMount } from 'svelte';
   import FilterTable from './FilterTable.svelte';
-  import { datetime } from './formatter';
+  import { datetime } from './xformatter.js';
   import Map from './Map.svelte';
 
   export let FIELDS = /** @type Field[] */ ([]); // bind

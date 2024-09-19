@@ -2,7 +2,7 @@
   import MainLayout from './_layouts/mainLayout.svelte';
   import PopUpTransactionTemplate from './_components/PopUpTransactionTemplate.svelte';
   import { TenantAdminTransactionTemplate } from './jsApi.GEN';
-  import { notifier } from './_components/notifier';
+  import { notifier } from './_components/xNotifier.js';
   import TransactionTemplateTree from './_components/TransactionTemplateTree.svelte';
 
   /** @typedef {import('./_components/types/master.js').Field} Field */

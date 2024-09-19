@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import MainLayout from './_layouts/mainLayout.svelte';
   import { httpRequestOptions, actionCountsOptions } from './_components/yChartOptions';
-  import { loadScript } from './_components/formatter';
+  import { loadScript } from './_components/xformatter.js';
 
   let registeredUserTotal     = '#registeredUserTotal';
   let registeredUserToday     = '#registeredUserToday';

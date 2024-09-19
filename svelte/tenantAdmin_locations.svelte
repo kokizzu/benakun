@@ -7,7 +7,7 @@
   import PoUpForms from './_components/PoUpForms.svelte';
   import { onMount } from 'svelte';
   import { TenantAdminLocations } from './jsApi.GEN';
-  import { notifier } from './_components/notifier';
+  import { notifier } from './_components/xNotifier';
   import Map from './_components/Map.svelte';
 
   /** @typedef {import('./_components/types/master.js').Field} Field */
