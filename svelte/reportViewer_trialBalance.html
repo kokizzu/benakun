@@ -641,7 +641,7 @@ a .icon {
 }
 
 /* fakecss:./_components/partials/Navbar.esbuild-svelte-fake-css */
-.navbar_container.svelte-19n3w4o.svelte-19n3w4o {
+.navbar_container.svelte-g6zjaz.svelte-g6zjaz {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -657,7 +657,7 @@ a .icon {
   z-index: 1200;
   top: 0;
 }
-.navbar_container.svelte-19n3w4o .navbar.svelte-19n3w4o {
+.navbar_container.svelte-g6zjaz .navbar.svelte-g6zjaz {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -665,15 +665,15 @@ a .icon {
   align-items: center;
   height: var(--navbar-height);
 }
-.navbar_container.svelte-19n3w4o .navbar .left.svelte-19n3w4o,
-.navbar_container.svelte-19n3w4o .navbar .right.svelte-19n3w4o {
+.navbar_container.svelte-g6zjaz .navbar .left.svelte-g6zjaz,
+.navbar_container.svelte-g6zjaz .navbar .right.svelte-g6zjaz {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 20px;
 }
-.navbar_container.svelte-19n3w4o .navbar .left .shrink_btn.svelte-19n3w4o {
+.navbar_container.svelte-g6zjaz .navbar .left .shrink_btn.svelte-g6zjaz {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -683,7 +683,7 @@ a .icon {
   border: none;
   cursor: pointer;
 }
-.navbar_container.svelte-19n3w4o .navbar .left .shrink_btn.svelte-19n3w4o:hover {
+.navbar_container.svelte-g6zjaz .navbar .left .shrink_btn.svelte-g6zjaz:hover {
   background-color: var(--gray-001);
 }
 .navbar_container .navbar .left .shrink_btn .icon_wide {
@@ -692,24 +692,27 @@ a .icon {
 .navbar_container .navbar .left .shrink_btn .icon_small {
   display: none;
 }
-.navbar_container.svelte-19n3w4o .navbar .right .display_email.svelte-19n3w4o {
+.navbar_container.svelte-g6zjaz .navbar .right .display_email.svelte-g6zjaz {
   padding: 5px 15px;
   border-radius: 8px;
   background-color: #0000000e;
   color: var(--gray-009);
   font-weight: 600;
 }
+.navbar_container.svelte-g6zjaz .navbar .right picture.svelte-g6zjaz {
+  display: none;
+}
 @media only screen and (max-width : 768px) {
-  .navbar_container.svelte-19n3w4o.svelte-19n3w4o {
+  .navbar_container.svelte-g6zjaz.svelte-g6zjaz {
     padding: 0 15px;
   }
-  .navbar_container.svelte-19n3w4o .navbar.svelte-19n3w4o {
+  .navbar_container.svelte-g6zjaz .navbar.svelte-g6zjaz {
     flex-direction: row-reverse;
   }
-  .navbar_container.svelte-19n3w4o .navbar .left .shrink_btn.svelte-19n3w4o {
+  .navbar_container.svelte-g6zjaz .navbar .left .shrink_btn.svelte-g6zjaz {
     padding: 0;
   }
-  .navbar_container.svelte-19n3w4o .navbar .left .shrink_btn.svelte-19n3w4o:hover {
+  .navbar_container.svelte-g6zjaz .navbar .left .shrink_btn.svelte-g6zjaz:hover {
     background-color: transparent;
   }
   .navbar_container .navbar .left .shrink_btn .icon_wide {
@@ -719,13 +722,16 @@ a .icon {
     display: block;
     transform: rotate(180deg);
   }
-  .navbar_container.svelte-19n3w4o .navbar .right.svelte-19n3w4o {
+  .navbar_container.svelte-g6zjaz .navbar .right.svelte-g6zjaz {
     display: flex;
     flex-direction: row;
     gap: 20px;
     align-items: center;
   }
-  .navbar_container.svelte-19n3w4o .navbar .right picture img.svelte-19n3w4o {
+  .navbar_container.svelte-g6zjaz .navbar .right picture.svelte-g6zjaz {
+    display: block;
+  }
+  .navbar_container.svelte-g6zjaz .navbar .right picture img.svelte-g6zjaz {
     width: 30px;
     height: 30px;
   }
@@ -820,13 +826,13 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
 }
 
 /* fakecss:./_components/InputBox.esbuild-svelte-fake-css */
-.show.svelte-234ttg.svelte-234ttg.svelte-234ttg {
+.show.svelte-axevbn.svelte-axevbn.svelte-axevbn {
   display: block;
 }
-.hidden.svelte-234ttg.svelte-234ttg.svelte-234ttg {
+.hidden.svelte-axevbn.svelte-axevbn.svelte-axevbn {
   display: none;
 }
-.input_box.svelte-234ttg.svelte-234ttg.svelte-234ttg {
+.input_box.svelte-axevbn.svelte-axevbn.svelte-axevbn {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -836,35 +842,40 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   flex-direction: column;
   gap: 5px;
 }
-.input_box.with_password.svelte-234ttg input.svelte-234ttg.svelte-234ttg {
+.input_box.with_password.svelte-axevbn input.svelte-axevbn.svelte-axevbn {
   padding-right: 40px !important;
 }
-.input_box.bool.svelte-234ttg.svelte-234ttg.svelte-234ttg {
+.input_box.bool.svelte-axevbn.svelte-axevbn.svelte-axevbn {
   width: fit-content;
 }
-.input_box.svelte-234ttg .label.svelte-234ttg.svelte-234ttg {
+.input_box.svelte-axevbn .label.svelte-axevbn.svelte-axevbn {
   font-size: var(--font-base);
   margin-left: 10px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
 }
-.input_box.svelte-234ttg input.svelte-234ttg.svelte-234ttg,
-.input_box.svelte-234ttg textarea.svelte-234ttg.svelte-234ttg {
+.input_box.svelte-axevbn input.svelte-axevbn.svelte-axevbn,
+.input_box.svelte-axevbn textarea.svelte-axevbn.svelte-axevbn {
   width: 100%;
   border: 1px solid var(--gray-003);
   border-radius: 5px;
   background-color: transparent;
   padding: 10px 12px;
 }
-.input_box.svelte-234ttg input.svelte-234ttg.svelte-234ttg:focus,
-.input_box.svelte-234ttg textarea.svelte-234ttg.svelte-234ttg:focus {
+.input_box.svelte-axevbn input.svelte-axevbn.svelte-axevbn:focus,
+.input_box.svelte-axevbn textarea.svelte-axevbn.svelte-axevbn:focus {
   border-color: var(--sky-005);
   outline: 1px solid var(--sky-005);
 }
-.color_box.svelte-234ttg.svelte-234ttg.svelte-234ttg {
+.color_box.svelte-axevbn.svelte-axevbn.svelte-axevbn {
   display: flex;
   flex-direction: column;
   justify-content: start;
 }
-.color-input.svelte-234ttg.svelte-234ttg.svelte-234ttg {
+.color-input.svelte-axevbn.svelte-axevbn.svelte-axevbn {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -875,33 +886,33 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   cursor: pointer;
   padding: 0 !important;
 }
-.color-input.svelte-234ttg.svelte-234ttg.svelte-234ttg::-webkit-color-swatch {
+.color-input.svelte-axevbn.svelte-axevbn.svelte-axevbn::-webkit-color-swatch {
   border-radius: 5px;
   border: none;
 }
-.color-input.svelte-234ttg.svelte-234ttg.svelte-234ttg::-moz-color-swatch {
+.color-input.svelte-axevbn.svelte-axevbn.svelte-axevbn::-moz-color-swatch {
   border-radius: 5px;
   border: none;
 }
-.input_box.svelte-234ttg textarea.svelte-234ttg.svelte-234ttg {
+.input_box.svelte-axevbn textarea.svelte-axevbn.svelte-axevbn {
   resize: vertical;
   height: 90px;
   min-height: 50px;
   max-height: 300px;
 }
-.switcher.svelte-234ttg.svelte-234ttg.svelte-234ttg {
+.switcher.svelte-axevbn.svelte-axevbn.svelte-axevbn {
   position: relative;
   display: inline-block;
   width: 50px;
   height: 24px;
   margin-left: 0 !important;
 }
-.switcher.svelte-234ttg input.svelte-234ttg.svelte-234ttg {
+.switcher.svelte-axevbn input.svelte-axevbn.svelte-axevbn {
   opacity: 0 !important;
   width: 0 !important;
   height: 0 !important;
 }
-.switcher.svelte-234ttg .slider.svelte-234ttg.svelte-234ttg {
+.switcher.svelte-axevbn .slider.svelte-axevbn.svelte-axevbn {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -912,7 +923,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   -webkit-transition: .2s;
   transition: .2s;
 }
-.switcher.svelte-234ttg .slider.svelte-234ttg.svelte-234ttg:before {
+.switcher.svelte-axevbn .slider.svelte-axevbn.svelte-axevbn:before {
   position: absolute;
   content: "";
   height: 16px;
@@ -923,24 +934,24 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   -webkit-transition: .2s;
   transition: .2s;
 }
-.switcher.svelte-234ttg input.svelte-234ttg:checked + .slider.svelte-234ttg {
+.switcher.svelte-axevbn input.svelte-axevbn:checked + .slider.svelte-axevbn {
   background-color: var(--sky-006) !important;
 }
-.switcher.svelte-234ttg input.svelte-234ttg:focus + .slider.svelte-234ttg {
+.switcher.svelte-axevbn input.svelte-axevbn:focus + .slider.svelte-axevbn {
   box-shadow: 0 0 1px var(--sky-006) !important;
 }
-.switcher.svelte-234ttg input.svelte-234ttg:checked + .slider.svelte-234ttg:before {
+.switcher.svelte-axevbn input.svelte-axevbn:checked + .slider.svelte-axevbn:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
-.switcher.svelte-234ttg .slider.svelte-234ttg.svelte-234ttg {
+.switcher.svelte-axevbn .slider.svelte-axevbn.svelte-axevbn {
   border-radius: 34px;
 }
-.switcher.svelte-234ttg .slider.svelte-234ttg.svelte-234ttg:before {
+.switcher.svelte-axevbn .slider.svelte-axevbn.svelte-axevbn:before {
   border-radius: 50%;
 }
-.input_box.svelte-234ttg .eye.svelte-234ttg.svelte-234ttg {
+.input_box.svelte-axevbn .eye.svelte-axevbn.svelte-axevbn {
   position: absolute;
   height: fit-content;
   width: fit-content;
@@ -955,32 +966,32 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
 .input_box .eye:hover svg {
   fill: var(--blue-005);
 }
-.input_percentage.svelte-234ttg.svelte-234ttg.svelte-234ttg {
+.input_percentage.svelte-axevbn.svelte-axevbn.svelte-axevbn {
   display: flex;
   position: relative;
 }
-.input_percentage.svelte-234ttg input.svelte-234ttg.svelte-234ttg {
+.input_percentage.svelte-axevbn input.svelte-axevbn.svelte-axevbn {
   padding-right: 30px !important;
 }
-.input_percentage.svelte-234ttg span.svelte-234ttg.svelte-234ttg {
+.input_percentage.svelte-axevbn span.svelte-axevbn.svelte-axevbn {
   position: absolute;
   right: 10px;
   bottom: 10px;
   font-weight: 700;
 }
-.input_box.svelte-234ttg .options_container.svelte-234ttg.svelte-234ttg {
+.input_box.svelte-axevbn .options_container.svelte-axevbn.svelte-axevbn {
   display: block;
   position: relative;
   width: 100%;
 }
-.input_box.svelte-234ttg .options_container .input_container.svelte-234ttg.svelte-234ttg {
+.input_box.svelte-axevbn .options_container .input_container.svelte-axevbn.svelte-axevbn {
   position: relative;
   width: 100%;
 }
-.input_box.svelte-234ttg .options_container .input_container input.svelte-234ttg.svelte-234ttg {
+.input_box.svelte-axevbn .options_container .input_container input.svelte-axevbn.svelte-axevbn {
   padding-right: 30px !important;
 }
-.input_box.svelte-234ttg .options_container .input_container .arrow.svelte-234ttg.svelte-234ttg {
+.input_box.svelte-axevbn .options_container .input_container .arrow.svelte-axevbn.svelte-axevbn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -999,7 +1010,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-.input_box.svelte-234ttg .options_container .input_container .arrow.svelte-234ttg.svelte-234ttg:hover {
+.input_box.svelte-axevbn .options_container .input_container .arrow.svelte-axevbn.svelte-axevbn:hover {
   background-color: var(--gray-001);
   border-top: 2px solid var(--gray-003);
   border-bottom: 2px solid var(--gray-003);
@@ -1015,7 +1026,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   transition: all .2s ease-in-out;
   transform: rotate(90deg);
 }
-.input_box.svelte-234ttg .options_container .options_list.svelte-234ttg.svelte-234ttg {
+.input_box.svelte-axevbn .options_container .options_list.svelte-axevbn.svelte-axevbn {
   margin-top: 5px;
   position: absolute;
   top: 100%;
@@ -1029,7 +1040,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   overflow-y: auto;
   z-index: 1999;
 }
-.input_box.svelte-234ttg .options_container .options_list .option.svelte-234ttg.svelte-234ttg {
+.input_box.svelte-axevbn .options_container .options_list .option.svelte-axevbn.svelte-axevbn {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -1043,7 +1054,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   width: 100%;
   text-align: left;
 }
-.input_box.svelte-234ttg .options_container .options_list .option.svelte-234ttg.svelte-234ttg:hover {
+.input_box.svelte-axevbn .options_container .options_list .option.svelte-axevbn.svelte-axevbn:hover {
   background-color: var(--gray-002);
 }
 .input_box .options_container .options_list .option.active {
@@ -1460,7 +1471,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
 }
 
 /* fakecss:./reportViewer_trialBalance.esbuild-svelte-fake-css */
-.chart_and_filter.svelte-ewzlc7.svelte-ewzlc7 {
+.chart_and_filter.svelte-e4cbc.svelte-e4cbc {
   display: flex;
   flex-direction: row;
   gap: 20px;
@@ -1469,7 +1480,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   flex-grow: 1;
   max-width: 100%;
 }
-.chart_container.svelte-ewzlc7.svelte-ewzlc7 {
+.chart_container.svelte-e4cbc.svelte-e4cbc {
   width: 100%;
   height: 370px;
   border: 1px solid var(--gray-004);
@@ -1477,23 +1488,23 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   padding: 10px;
   background-color: #FFF;
 }
-.chart_container.svelte-ewzlc7 .chart.svelte-ewzlc7 {
+.chart_container.svelte-e4cbc .chart.svelte-e4cbc {
   width: 100%;
   height: 350px;
 }
-.date_filter.svelte-ewzlc7.svelte-ewzlc7 {
+.date_filter.svelte-e4cbc.svelte-e4cbc {
   width: 30%;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
-.date_filter.svelte-ewzlc7 .prev_next.svelte-ewzlc7 {
+.date_filter.svelte-e4cbc .prev_next.svelte-e4cbc {
   display: flex;
   flex-direction: row;
   gap: 10px;
   width: 100%;
 }
-.date_filter.svelte-ewzlc7 .prev_next .btn.svelte-ewzlc7 {
+.date_filter.svelte-e4cbc .prev_next .btn.svelte-e4cbc {
   width: 100%;
   border: none;
   padding: 7px 15px;
@@ -1509,10 +1520,10 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   text-align: center;
   font-weight: 700;
 }
-.date_filter.svelte-ewzlc7 .prev_next .btn.svelte-ewzlc7:hover {
+.date_filter.svelte-e4cbc .prev_next .btn.svelte-e4cbc:hover {
   background-color: var(--blue-005);
 }
-.table_root.svelte-ewzlc7.svelte-ewzlc7 {
+.table_root.svelte-e4cbc.svelte-e4cbc {
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -1521,12 +1532,12 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   border: 1px solid var(--gray-004);
   overflow: hidden;
 }
-.table_root.svelte-ewzlc7 .table_container.svelte-ewzlc7 {
+.table_root.svelte-e4cbc .table_container.svelte-e4cbc {
   overflow-x: auto;
   scrollbar-color: var(--gray-003) transparent;
   scrollbar-width: thin;
 }
-.table_root.svelte-ewzlc7 .table_container table.svelte-ewzlc7 {
+.table_root.svelte-e4cbc .table_container table.svelte-e4cbc {
   width: 100%;
   background: #fff;
   box-shadow: none;
@@ -1535,11 +1546,11 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   border-spacing: 0;
   overflow: hidden;
 }
-.table_root.svelte-ewzlc7 .table_container table thead.svelte-ewzlc7 {
+.table_root.svelte-e4cbc .table_container table thead.svelte-e4cbc {
   box-shadow: none;
   border-bottom: 1px solid var(--gray-003);
 }
-.table_root.svelte-ewzlc7 .table_container table thead tr th.svelte-ewzlc7 {
+.table_root.svelte-e4cbc .table_container table thead tr th.svelte-e4cbc {
   padding: 12px;
   background-color: var(--gray-001);
   text-transform: capitalize;
@@ -1549,41 +1560,49 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   width: auto;
   text-wrap: nowrap;
 }
-.table_root.svelte-ewzlc7 .table_container table thead tr th.no.svelte-ewzlc7 {
+.table_root.svelte-e4cbc .table_container table thead tr th.no.svelte-e4cbc {
   width: 30px;
 }
-.table_root.svelte-ewzlc7 .table_container table thead tr th.svelte-ewzlc7:last-child {
+.table_root.svelte-e4cbc .table_container table thead tr th.svelte-e4cbc:last-child {
   border-right: none;
 }
-.table_root.svelte-ewzlc7 .table_container table tbody tr td.svelte-ewzlc7 {
+.table_root.svelte-e4cbc .table_container table tbody tr td.svelte-e4cbc {
   padding: 8px 12px;
 }
-.table_root.svelte-ewzlc7 .table_container table tbody tr td.svelte-ewzlc7 {
+.table_root.svelte-e4cbc .table_container table tbody tr td.svelte-e4cbc {
   padding: 8px 12px;
   border-right: 1px solid var(--gray-004);
   border-bottom: 1px solid var(--gray-004);
 }
-.table_root.svelte-ewzlc7 .table_container table tbody tr:last-child td.svelte-ewzlc7,
-.table_root.svelte-ewzlc7 .table_container table tbody tr:last-child th.svelte-ewzlc7 {
+.table_root.svelte-e4cbc .table_container table tbody tr:last-child td.svelte-e4cbc,
+.table_root.svelte-e4cbc .table_container table tbody tr:last-child th.svelte-e4cbc {
   border-bottom: none !important;
 }
-.table_root.svelte-ewzlc7 .table_container table tbody tr:last-child td.svelte-ewzlc7:last-child {
+.table_root.svelte-e4cbc .table_container table tbody tr:last-child td.svelte-e4cbc:last-child {
   border-right: none !important;
 }
-.table_root.svelte-ewzlc7 .table_container table tbody tr:last-child td.svelte-ewzlc7,
-.table_root.svelte-ewzlc7 .table_container table tbody tr:last-child th.svelte-ewzlc7 {
+.table_root.svelte-e4cbc .table_container table tbody tr:last-child td.svelte-e4cbc,
+.table_root.svelte-e4cbc .table_container table tbody tr:last-child th.svelte-e4cbc {
   border-bottom: none !important;
 }
-.table_root.svelte-ewzlc7 .table_container table tbody tr:last-child td.svelte-ewzlc7:last-child {
+.table_root.svelte-e4cbc .table_container table tbody tr:last-child td.svelte-e4cbc:last-child {
   border-right: none !important;
 }
-.table_root.svelte-ewzlc7 .table_container table tbody tr td.svelte-ewzlc7:last-child {
+.table_root.svelte-e4cbc .table_container table tbody tr td.svelte-e4cbc:last-child {
   border-right: none !important;
 }
-.table_root.svelte-ewzlc7 .table_container table tbody tr th.svelte-ewzlc7 {
+.table_root.svelte-e4cbc .table_container table tbody tr th.svelte-e4cbc {
   text-align: center;
   border-right: 1px solid var(--gray-004);
   border-bottom: 1px solid var(--gray-004);
+}
+@media only screen and (max-width : 768px) {
+  .chart_and_filter.svelte-e4cbc.svelte-e4cbc {
+    flex-direction: column;
+  }
+  .date_filter.svelte-e4cbc.svelte-e4cbc {
+    width: 100%;
+  }
 }
 </style>
 <script>(() => {
@@ -7287,16 +7306,17 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         t1 = space();
         div1 = element("div");
         picture = element("picture");
-        picture.innerHTML = `<img src="/assets/icons/benakun-logo.png" alt="" class="svelte-19n3w4o"/>`;
+        picture.innerHTML = `<img src="/assets/icons/benakun-logo.png" alt="" class="svelte-g6zjaz"/>`;
         t2 = space();
         span = element("span");
         t3 = text(t3_value);
-        attr(button, "class", "shrink_btn svelte-19n3w4o");
-        attr(div0, "class", "left svelte-19n3w4o");
-        attr(span, "class", "display_email svelte-19n3w4o");
-        attr(div1, "class", "right svelte-19n3w4o");
-        attr(nav, "class", "navbar svelte-19n3w4o");
-        attr(header, "class", "navbar_container svelte-19n3w4o");
+        attr(button, "class", "shrink_btn svelte-g6zjaz");
+        attr(div0, "class", "left svelte-g6zjaz");
+        attr(picture, "class", "svelte-g6zjaz");
+        attr(span, "class", "display_email svelte-g6zjaz");
+        attr(div1, "class", "right svelte-g6zjaz");
+        attr(nav, "class", "navbar svelte-g6zjaz");
+        attr(header, "class", "navbar_container svelte-g6zjaz");
       },
       m(target, anchor) {
         insert(target, header, anchor);
@@ -7638,7 +7658,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         );
         t1 = space();
         input = element("input");
-        attr(label_1, "class", "label svelte-234ttg");
+        attr(label_1, "class", "label svelte-axevbn");
         attr(
           label_1,
           "for",
@@ -7658,7 +7678,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           /*placeholder*/
           ctx[6]
         );
-        attr(input, "class", "svelte-234ttg");
+        attr(input, "class", "svelte-axevbn");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -7756,7 +7776,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         t1 = space();
         div = element("div");
         input = element("input");
-        attr(label_1, "class", "label svelte-234ttg");
+        attr(label_1, "class", "label svelte-axevbn");
         attr(
           label_1,
           "for",
@@ -7770,8 +7790,8 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           /*id*/
           ctx[0]
         );
-        attr(input, "class", "color-input svelte-234ttg");
-        attr(div, "class", "color_box svelte-234ttg");
+        attr(input, "class", "color-input svelte-axevbn");
+        attr(div, "class", "color_box svelte-axevbn");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -7869,7 +7889,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         if (if_block)
           if_block.c();
         if_block_anchor = empty();
-        attr(label_1, "class", "label svelte-234ttg");
+        attr(label_1, "class", "label svelte-axevbn");
         attr(
           label_1,
           "for",
@@ -7888,7 +7908,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           /*placeholder*/
           ctx[6]
         );
-        attr(input, "class", "svelte-234ttg");
+        attr(input, "class", "svelte-axevbn");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -8026,7 +8046,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         );
         t1 = space();
         input = element("input");
-        attr(label_1, "class", "label svelte-234ttg");
+        attr(label_1, "class", "label svelte-axevbn");
         attr(
           label_1,
           "for",
@@ -8046,7 +8066,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           /*placeholder*/
           ctx[6]
         );
-        attr(input, "class", "svelte-234ttg");
+        attr(input, "class", "svelte-axevbn");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -8141,7 +8161,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         );
         t1 = space();
         input = element("input");
-        attr(label_1, "class", "label svelte-234ttg");
+        attr(label_1, "class", "label svelte-axevbn");
         attr(
           label_1,
           "for",
@@ -8161,7 +8181,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           /*placeholder*/
           ctx[6]
         );
-        attr(input, "class", "svelte-234ttg");
+        attr(input, "class", "svelte-axevbn");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -8257,7 +8277,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         );
         t1 = space();
         input = element("input");
-        attr(label_1, "class", "label svelte-234ttg");
+        attr(label_1, "class", "label svelte-axevbn");
         attr(
           label_1,
           "for",
@@ -8278,7 +8298,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           ctx[6]
         );
         attr(input, "autocomplete", "off");
-        attr(input, "class", "svelte-234ttg");
+        attr(input, "class", "svelte-axevbn");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -8374,7 +8394,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         );
         t1 = space();
         textarea = element("textarea");
-        attr(label_1, "class", "label svelte-234ttg");
+        attr(label_1, "class", "label svelte-axevbn");
         attr(
           label_1,
           "for",
@@ -8393,7 +8413,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           /*placeholder*/
           ctx[6]
         );
-        attr(textarea, "class", "svelte-234ttg");
+        attr(textarea, "class", "svelte-axevbn");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -8488,7 +8508,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         );
         t1 = space();
         input = element("input");
-        attr(label_1, "class", "label svelte-234ttg");
+        attr(label_1, "class", "label svelte-axevbn");
         attr(
           label_1,
           "for",
@@ -8508,7 +8528,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           /*placeholder*/
           ctx[6]
         );
-        attr(input, "class", "svelte-234ttg");
+        attr(input, "class", "svelte-axevbn");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -8611,7 +8631,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         t2 = space();
         span = element("span");
         span.textContent = "%";
-        attr(label_1, "class", "label svelte-234ttg");
+        attr(label_1, "class", "label svelte-axevbn");
         attr(
           label_1,
           "for",
@@ -8631,9 +8651,9 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           /*placeholder*/
           ctx[6]
         );
-        attr(input, "class", "svelte-234ttg");
-        attr(span, "class", "svelte-234ttg");
-        attr(div, "class", "input_percentage svelte-234ttg");
+        attr(input, "class", "svelte-axevbn");
+        attr(span, "class", "svelte-axevbn");
+        attr(div, "class", "input_percentage svelte-axevbn");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -8732,7 +8752,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         );
         t1 = space();
         input = element("input");
-        attr(label_1, "class", "label svelte-234ttg");
+        attr(label_1, "class", "label svelte-axevbn");
         attr(
           label_1,
           "for",
@@ -8752,7 +8772,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           /*placeholder*/
           ctx[6]
         );
-        attr(input, "class", "svelte-234ttg");
+        attr(input, "class", "svelte-axevbn");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -8847,7 +8867,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         );
         t1 = space();
         input = element("input");
-        attr(label_1, "class", "label svelte-234ttg");
+        attr(label_1, "class", "label svelte-axevbn");
         attr(
           label_1,
           "for",
@@ -8867,7 +8887,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           /*placeholder*/
           ctx[6]
         );
-        attr(input, "class", "svelte-234ttg");
+        attr(input, "class", "svelte-axevbn");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -9036,7 +9056,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         input = element("input");
         t2 = space();
         span = element("span");
-        attr(label0, "class", "label svelte-234ttg");
+        attr(label0, "class", "label svelte-axevbn");
         attr(
           label0,
           "for",
@@ -9050,9 +9070,9 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           /*id*/
           ctx[0]
         );
-        attr(input, "class", "svelte-234ttg");
-        attr(span, "class", "slider svelte-234ttg");
-        attr(label1, "class", "switcher svelte-234ttg");
+        attr(input, "class", "svelte-axevbn");
+        attr(span, "class", "slider svelte-axevbn");
+        attr(label1, "class", "switcher svelte-axevbn");
         attr(
           label1,
           "for",
@@ -9154,7 +9174,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         t = space();
         if (if_block1)
           if_block1.c();
-        attr(button, "class", "eye svelte-234ttg");
+        attr(button, "class", "eye svelte-axevbn");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -9362,7 +9382,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(label_1, "class", "label svelte-234ttg");
+        attr(label_1, "class", "label svelte-axevbn");
         attr(
           label_1,
           "for",
@@ -9370,13 +9390,13 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           ctx[0]
         );
         attr(input, "type", "text");
-        attr(input, "class", "svelte-234ttg");
-        attr(button, "class", "arrow svelte-234ttg");
-        attr(div0, "class", "input_container svelte-234ttg");
+        attr(input, "class", "svelte-axevbn");
+        attr(button, "class", "arrow svelte-axevbn");
+        attr(div0, "class", "input_container svelte-axevbn");
         attr(div1, "class", div1_class_value = "options_list " + /*isShowOptions*/
-        (ctx[11] ? "show" : "hidden") + " svelte-234ttg");
+        (ctx[11] ? "show" : "hidden") + " svelte-axevbn");
         attr(div2, "class", div2_class_value = "options_container " + /*randStr*/
-        ctx[14] + " svelte-234ttg");
+        ctx[14] + " svelte-axevbn");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -9493,7 +9513,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         }
         if (!current || dirty[0] & /*isShowOptions*/
         2048 && div1_class_value !== (div1_class_value = "options_list " + /*isShowOptions*/
-        (ctx2[11] ? "show" : "hidden") + " svelte-234ttg")) {
+        (ctx2[11] ? "show" : "hidden") + " svelte-axevbn")) {
           attr(div1, "class", div1_class_value);
         }
       },
@@ -9573,7 +9593,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         for (let i = 0; i < each_blocks.length; i += 1) {
           each_blocks[i].c();
         }
-        attr(label_1, "class", "label svelte-234ttg");
+        attr(label_1, "class", "label svelte-axevbn");
         attr(
           label_1,
           "for",
@@ -9581,13 +9601,13 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           ctx[0]
         );
         attr(input, "type", "text");
-        attr(input, "class", "svelte-234ttg");
-        attr(button, "class", "arrow svelte-234ttg");
-        attr(div0, "class", "input_container svelte-234ttg");
+        attr(input, "class", "svelte-axevbn");
+        attr(button, "class", "arrow svelte-axevbn");
+        attr(div0, "class", "input_container svelte-axevbn");
         attr(div1, "class", div1_class_value = "options_list " + /*isShowOptions*/
-        (ctx[11] ? "show" : "hidden") + " svelte-234ttg");
+        (ctx[11] ? "show" : "hidden") + " svelte-axevbn");
         attr(div2, "class", div2_class_value = null_to_empty(`options_container ${/*randStr*/
-        ctx[14]}`) + " svelte-234ttg");
+        ctx[14]}`) + " svelte-axevbn");
       },
       m(target, anchor) {
         insert(target, label_1, anchor);
@@ -9702,7 +9722,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         }
         if (!current || dirty[0] & /*isShowOptions*/
         2048 && div1_class_value !== (div1_class_value = "options_list " + /*isShowOptions*/
-        (ctx2[11] ? "show" : "hidden") + " svelte-234ttg")) {
+        (ctx2[11] ? "show" : "hidden") + " svelte-axevbn")) {
           attr(div1, "class", div1_class_value);
         }
       },
@@ -9755,7 +9775,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         t0 = text(t0_value);
         t1 = space();
         attr(button, "class", button_class_value = "option " + /*randStr*/
-        ctx[14] + " svelte-234ttg");
+        ctx[14] + " svelte-axevbn");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -9810,7 +9830,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         t0 = text(t0_value);
         t1 = space();
         attr(button, "class", button_class_value = "option " + /*randStr*/
-        ctx[14] + " svelte-234ttg");
+        ctx[14] + " svelte-axevbn");
       },
       m(target, anchor) {
         insert(target, button, anchor);
@@ -9935,11 +9955,11 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         if_block.c();
         attr(div0, "class", div0_class_value = "input_box " + /*type*/
         (ctx[3] == "bool" ? "bool" : "") + " " + /*type*/
-        (ctx[3] == "password" ? "with_password" : "") + " svelte-234ttg");
+        (ctx[3] == "password" ? "with_password" : "") + " svelte-axevbn");
         attr(div1, "class", div1_class_value = null_to_empty(
           /*className*/
           ctx[2]
-        ) + " svelte-234ttg");
+        ) + " svelte-axevbn");
       },
       m(target, anchor) {
         insert(target, div1, anchor);
@@ -9971,14 +9991,14 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         if (!current || dirty[0] & /*type*/
         8 && div0_class_value !== (div0_class_value = "input_box " + /*type*/
         (ctx2[3] == "bool" ? "bool" : "") + " " + /*type*/
-        (ctx2[3] == "password" ? "with_password" : "") + " svelte-234ttg")) {
+        (ctx2[3] == "password" ? "with_password" : "") + " svelte-axevbn")) {
           attr(div0, "class", div0_class_value);
         }
         if (!current || dirty[0] & /*className*/
         4 && div1_class_value !== (div1_class_value = null_to_empty(
           /*className*/
           ctx2[2]
-        ) + " svelte-234ttg")) {
+        ) + " svelte-axevbn")) {
           attr(div1, "class", div1_class_value);
         }
       },
@@ -15903,7 +15923,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     return {
       c() {
         tr = element("tr");
-        tr.innerHTML = `<td colspan="4" class="svelte-ewzlc7">No data</td>`;
+        tr.innerHTML = `<td colspan="4" class="svelte-e4cbc">No data</td>`;
       },
       m(target, anchor) {
         insert(target, tr, anchor);
@@ -16025,11 +16045,11 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         td4 = element("td");
         t8 = text(t8_value);
         t9 = space();
-        attr(td0, "class", "no svelte-ewzlc7");
-        attr(td1, "class", "svelte-ewzlc7");
-        attr(td2, "class", "svelte-ewzlc7");
-        attr(td3, "class", "svelte-ewzlc7");
-        attr(td4, "class", "svelte-ewzlc7");
+        attr(td0, "class", "no svelte-e4cbc");
+        attr(td1, "class", "svelte-e4cbc");
+        attr(td2, "class", "svelte-e4cbc");
+        attr(td3, "class", "svelte-e4cbc");
+        attr(td4, "class", "svelte-e4cbc");
         this.first = tr;
       },
       m(target, anchor) {
@@ -16257,7 +16277,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         div5 = element("div");
         table = element("table");
         thead = element("thead");
-        thead.innerHTML = `<tr><th class="no svelte-ewzlc7">No. Acc / No. Rek</th> <th class="svelte-ewzlc7">Name / Nama</th> <th class="svelte-ewzlc7">Debit / Debet</th> <th class="svelte-ewzlc7">Credit / Kredit</th> <th class="svelte-ewzlc7">Date / Tanggal</th></tr>`;
+        thead.innerHTML = `<tr><th class="no svelte-e4cbc">No. Acc / No. Rek</th> <th class="svelte-e4cbc">Name / Nama</th> <th class="svelte-e4cbc">Debit / Debet</th> <th class="svelte-e4cbc">Credit / Kredit</th> <th class="svelte-e4cbc">Date / Tanggal</th></tr>`;
         t20 = space();
         tbody = element("tbody");
         if_block.c();
@@ -16281,22 +16301,22 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         );
         t27 = space();
         td3 = element("td");
-        attr(div0, "class", "chart svelte-ewzlc7");
-        attr(div1, "class", "chart_container svelte-ewzlc7");
-        attr(button0, "class", "btn svelte-ewzlc7");
-        attr(button1, "class", "btn svelte-ewzlc7");
-        attr(div2, "class", "prev_next svelte-ewzlc7");
-        attr(div3, "class", "date_filter svelte-ewzlc7");
-        attr(div4, "class", "chart_and_filter svelte-ewzlc7");
-        attr(thead, "class", "svelte-ewzlc7");
+        attr(div0, "class", "chart svelte-e4cbc");
+        attr(div1, "class", "chart_container svelte-e4cbc");
+        attr(button0, "class", "btn svelte-e4cbc");
+        attr(button1, "class", "btn svelte-e4cbc");
+        attr(div2, "class", "prev_next svelte-e4cbc");
+        attr(div3, "class", "date_filter svelte-e4cbc");
+        attr(div4, "class", "chart_and_filter svelte-e4cbc");
+        attr(thead, "class", "svelte-e4cbc");
         attr(td0, "colspan", "2");
-        attr(td0, "class", "svelte-ewzlc7");
-        attr(td1, "class", "svelte-ewzlc7");
-        attr(td2, "class", "svelte-ewzlc7");
-        attr(td3, "class", "svelte-ewzlc7");
-        attr(table, "class", "svelte-ewzlc7");
-        attr(div5, "class", "table_container svelte-ewzlc7");
-        attr(div6, "class", "table_root svelte-ewzlc7");
+        attr(td0, "class", "svelte-e4cbc");
+        attr(td1, "class", "svelte-e4cbc");
+        attr(td2, "class", "svelte-e4cbc");
+        attr(td3, "class", "svelte-e4cbc");
+        attr(table, "class", "svelte-e4cbc");
+        attr(div5, "class", "table_container svelte-e4cbc");
+        attr(div6, "class", "table_root svelte-e4cbc");
       },
       m(target, anchor) {
         insert(target, div7, anchor);

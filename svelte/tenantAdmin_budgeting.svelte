@@ -287,4 +287,15 @@
     font-size: var(--font-md);
     line-height: 1.2em;
   }
+
+  @media only screen and (max-width : 768px) {
+    .orgs_container .plan_detail {
+      right: -100%;
+    }
+
+    .orgs_container .plan_detail.show {
+      position: fixed;
+      width: 100%;
+    }
+  }
 </style>

@@ -45,4 +45,16 @@
   .menu_container .menu_item:hover {
     font-size: 20px;
   }
+
+  @media only screen and (max-width : 768px) {
+    .menu_container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 10px;
+    }
+
+    .menu_container .menu_item {
+      width: 100%;
+    }
+  }
 </style>

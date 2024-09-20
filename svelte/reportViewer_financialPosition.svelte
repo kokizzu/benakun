@@ -30,7 +30,7 @@
           </div>
           <div class="foot">
             <span>Total Aktiva</span>
-            <b>Rp. {financialPosition[`asset`].map((asset) => asset.amountIDR).reduce((a, b) => a + b, 0)}</b>
+            <b>Rp. {(financialPosition[`asset`] || []).map((asset) => asset.amountIDR).reduce((a, b) => a + b, 0) || 0}</b>
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@
           </div>
           <div class="foot">
             <span>Total Modal</span>
-            <b>Rp. {financialPosition[`equity`].map((equity) => equity.amountIDR).reduce((a, b) => a + b, 0)}</b>
+            <b>Rp. {(financialPosition[`equity`] || []).map((equity) => equity.amountIDR).reduce((a, b) => a + b, 0)}</b>
           </div>
         </div>
         <div class="section">
@@ -60,7 +60,7 @@
           </div>
           <div class="foot">
             <span>Total Hutang</span>
-            <b>Rp. {financialPosition[`liability`].map((liability) => liability.amountIDR).reduce((a, b) => a + b, 0)}</b>
+            <b>Rp. {(financialPosition[`liability`] || []).map((liability) => liability.amountIDR).reduce((a, b) => a + b, 0)}</b>
           </div>
         </div>
       </div>

@@ -190,4 +190,14 @@
     padding: 20px;
     background-color: #FFF;
   }
+
+  @media only screen and (max-width : 768px) {
+    .orgs_container {
+      grid-template-columns: auto;
+    }
+    
+    .info {
+      display: none;
+    }
+  }
 </style>

@@ -438,4 +438,14 @@
     border-right: 1px solid var(--gray-004);
     border-bottom: 1px solid var(--gray-004);
   }
+
+  @media only screen and (max-width : 768px) {
+    .chart_and_filter {
+      flex-direction: column;
+    }
+
+    .date_filter {
+      width: 100%;
+    }
+  }
 </style>

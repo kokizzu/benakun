@@ -149,68 +149,70 @@
             </div>
           </div>
         </div>
-            <div class="form_item">
-              <div class="forms_table">
-                <table class="table_transaction_journals">
-                  <thead>
-                    <tr>
-                      <th>Description</th>
-                      <th>Sales Count</th>
-                      <th>Sales Price (IDR)</th>
-                      <th>Date</th>
-                      <th>Debit (IDR)</th>
-                      <th>Credit (IDR)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {#if isDataReady}
-                      {#each (payloads || []) as py, idx}
-                        <tr>
-                          <td>
-                            <textarea
-                              placeholder="Description"
-                              rows="1"
-                              bind:value={py.descriptions}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              inputmode="numeric" 
-                              type="number" min=0
-                              bind:value={py.salesCount}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              inputmode="numeric" 
-                              type="number" min=0
-                              bind:value={py.salesPriceIDR}
-                            />
-                          </td>
-                          <td>
-                            <input type="date" bind:value={py.date}/>
-                          </td>
-                          <td>
-                            <input
-                              inputmode="numeric" 
-                              type="number" min=0
-                              bind:value={py.debitIDR}
-                            />
-                          </td>
-                          <td>
-                            <input
-                              inputmode="numeric" 
-                              type="number" min=0
-                              bind:value={py.creditIDR}
-                            />
-                          </td>
-                        </tr>
-                      {/each}
-                    {/if}
-                  </tbody>
-                </table>
-              </div>
+        <div class="form_container">
+          <div class="form_item">
+            <div class="forms_table">
+              <table class="table_transaction_journals">
+                <thead>
+                  <tr>
+                    <th>Description</th>
+                    <th>Sales Count</th>
+                    <th>Sales Price (IDR)</th>
+                    <th>Date</th>
+                    <th>Debit (IDR)</th>
+                    <th>Credit (IDR)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {#if isDataReady}
+                    {#each (payloads || []) as py, idx}
+                      <tr>
+                        <td>
+                          <textarea
+                            placeholder="Description"
+                            rows="1"
+                            bind:value={py.descriptions}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            inputmode="numeric" 
+                            type="number" min=0
+                            bind:value={py.salesCount}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            inputmode="numeric" 
+                            type="number" min=0
+                            bind:value={py.salesPriceIDR}
+                          />
+                        </td>
+                        <td>
+                          <input type="date" bind:value={py.date}/>
+                        </td>
+                        <td>
+                          <input
+                            inputmode="numeric" 
+                            type="number" min=0
+                            bind:value={py.debitIDR}
+                          />
+                        </td>
+                        <td>
+                          <input
+                            inputmode="numeric" 
+                            type="number" min=0
+                            bind:value={py.creditIDR}
+                          />
+                        </td>
+                      </tr>
+                    {/each}
+                  {/if}
+                </tbody>
+              </table>
             </div>
+          </div>
+        </div>
       </div>
       <div class="actions">
         <button
@@ -465,5 +467,15 @@
     cursor: not-allowed;
     background-color: var(--gray-003);
     color: var(--gray-007);
+  }
+
+  @media only screen and (max-width : 768px) {
+    .data_entry_journal___container .forms_journal .forms_table .table_transaction_journals td textarea {
+      width: 200px;   
+    }
+
+    .data_entry_journal___container .forms_journal .forms_table .table_transaction_journals td input {
+      width: 120px;
+    }
   }
 </style>

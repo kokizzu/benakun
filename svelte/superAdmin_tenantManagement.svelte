@@ -278,4 +278,14 @@
 		flex-direction: column;
 		gap: 10px;
 	}
+
+  @media only screen and (max-width : 768px) {
+    .popup_container {
+      padding: 10px;
+    }
+
+    .popup_container .popup {
+      width: 100%;
+    }
+  }
 </style>

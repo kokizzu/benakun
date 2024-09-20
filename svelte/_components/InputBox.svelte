@@ -312,6 +312,11 @@
   .input_box .label {
     font-size: var(--font-base);
     margin-left: 10px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
   }
 
   .input_box input,

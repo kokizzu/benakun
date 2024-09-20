@@ -109,6 +109,10 @@
     font-weight: 600;
   }
 
+  .navbar_container .navbar .right picture {
+    display: none;
+  }
+
   @media only screen and (max-width : 768px) {
     .navbar_container {
       padding: 0 15px;
@@ -140,6 +144,10 @@
       flex-direction: row;
       gap: 20px;
       align-items: center;
+    }
+
+    .navbar_container .navbar .right picture {
+      display: block;
     }
 
     .navbar_container .navbar .right picture img {

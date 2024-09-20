@@ -321,7 +321,10 @@
     background-color: var(--red-004);
   }
 
-  /* Responsive to mobile device */
-  @media (max-width: 768px) {
+  @media only screen and (max-width : 768px) {
+    .user_details_container {
+      flex-direction: column;
+      gap: 20px;
+    }
   }
 </style>

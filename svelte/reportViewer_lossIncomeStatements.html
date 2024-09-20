@@ -641,7 +641,7 @@ a .icon {
 }
 
 /* fakecss:./_components/partials/Navbar.esbuild-svelte-fake-css */
-.navbar_container.svelte-19n3w4o.svelte-19n3w4o {
+.navbar_container.svelte-g6zjaz.svelte-g6zjaz {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -657,7 +657,7 @@ a .icon {
   z-index: 1200;
   top: 0;
 }
-.navbar_container.svelte-19n3w4o .navbar.svelte-19n3w4o {
+.navbar_container.svelte-g6zjaz .navbar.svelte-g6zjaz {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -665,15 +665,15 @@ a .icon {
   align-items: center;
   height: var(--navbar-height);
 }
-.navbar_container.svelte-19n3w4o .navbar .left.svelte-19n3w4o,
-.navbar_container.svelte-19n3w4o .navbar .right.svelte-19n3w4o {
+.navbar_container.svelte-g6zjaz .navbar .left.svelte-g6zjaz,
+.navbar_container.svelte-g6zjaz .navbar .right.svelte-g6zjaz {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 20px;
 }
-.navbar_container.svelte-19n3w4o .navbar .left .shrink_btn.svelte-19n3w4o {
+.navbar_container.svelte-g6zjaz .navbar .left .shrink_btn.svelte-g6zjaz {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -683,7 +683,7 @@ a .icon {
   border: none;
   cursor: pointer;
 }
-.navbar_container.svelte-19n3w4o .navbar .left .shrink_btn.svelte-19n3w4o:hover {
+.navbar_container.svelte-g6zjaz .navbar .left .shrink_btn.svelte-g6zjaz:hover {
   background-color: var(--gray-001);
 }
 .navbar_container .navbar .left .shrink_btn .icon_wide {
@@ -692,24 +692,27 @@ a .icon {
 .navbar_container .navbar .left .shrink_btn .icon_small {
   display: none;
 }
-.navbar_container.svelte-19n3w4o .navbar .right .display_email.svelte-19n3w4o {
+.navbar_container.svelte-g6zjaz .navbar .right .display_email.svelte-g6zjaz {
   padding: 5px 15px;
   border-radius: 8px;
   background-color: #0000000e;
   color: var(--gray-009);
   font-weight: 600;
 }
+.navbar_container.svelte-g6zjaz .navbar .right picture.svelte-g6zjaz {
+  display: none;
+}
 @media only screen and (max-width : 768px) {
-  .navbar_container.svelte-19n3w4o.svelte-19n3w4o {
+  .navbar_container.svelte-g6zjaz.svelte-g6zjaz {
     padding: 0 15px;
   }
-  .navbar_container.svelte-19n3w4o .navbar.svelte-19n3w4o {
+  .navbar_container.svelte-g6zjaz .navbar.svelte-g6zjaz {
     flex-direction: row-reverse;
   }
-  .navbar_container.svelte-19n3w4o .navbar .left .shrink_btn.svelte-19n3w4o {
+  .navbar_container.svelte-g6zjaz .navbar .left .shrink_btn.svelte-g6zjaz {
     padding: 0;
   }
-  .navbar_container.svelte-19n3w4o .navbar .left .shrink_btn.svelte-19n3w4o:hover {
+  .navbar_container.svelte-g6zjaz .navbar .left .shrink_btn.svelte-g6zjaz:hover {
     background-color: transparent;
   }
   .navbar_container .navbar .left .shrink_btn .icon_wide {
@@ -719,13 +722,16 @@ a .icon {
     display: block;
     transform: rotate(180deg);
   }
-  .navbar_container.svelte-19n3w4o .navbar .right.svelte-19n3w4o {
+  .navbar_container.svelte-g6zjaz .navbar .right.svelte-g6zjaz {
     display: flex;
     flex-direction: row;
     gap: 20px;
     align-items: center;
   }
-  .navbar_container.svelte-19n3w4o .navbar .right picture img.svelte-19n3w4o {
+  .navbar_container.svelte-g6zjaz .navbar .right picture.svelte-g6zjaz {
+    display: block;
+  }
+  .navbar_container.svelte-g6zjaz .navbar .right picture img.svelte-g6zjaz {
     width: 30px;
     height: 30px;
   }
@@ -6076,16 +6082,17 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         t1 = space();
         div1 = element("div");
         picture = element("picture");
-        picture.innerHTML = `<img src="/assets/icons/benakun-logo.png" alt="" class="svelte-19n3w4o"/>`;
+        picture.innerHTML = `<img src="/assets/icons/benakun-logo.png" alt="" class="svelte-g6zjaz"/>`;
         t2 = space();
         span = element("span");
         t3 = text(t3_value);
-        attr(button, "class", "shrink_btn svelte-19n3w4o");
-        attr(div0, "class", "left svelte-19n3w4o");
-        attr(span, "class", "display_email svelte-19n3w4o");
-        attr(div1, "class", "right svelte-19n3w4o");
-        attr(nav, "class", "navbar svelte-19n3w4o");
-        attr(header, "class", "navbar_container svelte-19n3w4o");
+        attr(button, "class", "shrink_btn svelte-g6zjaz");
+        attr(div0, "class", "left svelte-g6zjaz");
+        attr(picture, "class", "svelte-g6zjaz");
+        attr(span, "class", "display_email svelte-g6zjaz");
+        attr(div1, "class", "right svelte-g6zjaz");
+        attr(nav, "class", "navbar svelte-g6zjaz");
+        attr(header, "class", "navbar_container svelte-g6zjaz");
       },
       m(target, anchor) {
         insert(target, header, anchor);

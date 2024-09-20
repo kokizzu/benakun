@@ -583,4 +583,26 @@
     background-color: var(--gray-003);
     color: var(--gray-007);
   }
+
+  @media only screen and (max-width : 768px) {
+    header {
+      margin: 0;
+    }
+
+    .data_entry_journal___container .forms_journal .forms_table .table_transaction_journals td textarea {
+      width: 200px;   
+    }
+
+    .data_entry_journal___container .forms_journal .forms_table .table_transaction_journals td select {
+      width: 160px;
+    }
+
+    .data_entry_journal___container .forms_journal .forms_table .table_transaction_journals td input {
+      width: 120px;
+    }
+
+    .data_entry_journal___container .company_details {
+      gap: 20px;
+    }
+  }
 </style>

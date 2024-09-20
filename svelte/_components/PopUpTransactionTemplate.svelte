@@ -192,4 +192,16 @@
 	.popup_container .popup .foot button.cancel:hover {
 		background-color: #fbbf2450;
 	}
+
+	@media only screen and (max-width : 768px) {
+    .popup_container {
+      padding: 10px;
+    }
+  }
+
+	@media only screen and (max-width : 768px) {
+    .popup_container {
+      padding: 10px;
+    }
+  }
 </style>
