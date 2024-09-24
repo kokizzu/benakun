@@ -1,6 +1,7 @@
 <script>
   /** @typedef {import('./types/transaction').TransactionTemplate} TransactionTemplate */
   /** @typedef {import('./types/transaction').TransactionTplDetail} TransactionTplDetail */
+  /** @typedef {import('./types/coa').SelectCoa} SelectCoa */
 
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FaCircleDot } from '../node_modules/svelte-icons-pack/dist/fa';
@@ -68,7 +69,7 @@
   }
 
   let trxTplDetailId = 0;
-  let coaId = '';
+  let coaId = /** @type {SelectCoa} */ ({});
   let isDebit = 'debit';
   let autoSum = false;
   let childOnly = false;
@@ -92,7 +93,7 @@
         transactionTplDetail: {
           id: trxTplDetailId,
           parentId: transactionTemplate.id,
-          coaId: Number(coaId),
+          coaId: coaId.value,
           isDebit: isDebit == 'debit' ? true : false,
           attributes: attributes
         }
@@ -293,7 +294,7 @@
                           isSubmitUpsertTrxTplDetail = false;
                           trxTplDetailId = trxTplDetail.id;
                           isDebit = trxTplDetail.isDebit ? 'debit' : 'credit';
-                          coaId = trxTplDetail.coaId+'';
+                          coaId = { value: trxTplDetail.coaId+'', label: coas[trxTplDetail.coaId] };
                           autoSum = (trxTplDetail.attributes || []).includes('autoSum');
                           childOnly = (trxTplDetail.attributes || []).includes('childOnly');
                           sales = (trxTplDetail.attributes || []).includes('sales');

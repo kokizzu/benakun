@@ -14,9 +14,6 @@
   let transactionTemplates = /** @type {TransactionTemplate[]} */ ([/* transactionTemplates */]);
   let coas = /** @type {CoA[]} */ ([/* coas */]);
 
-  console.log('transactionTemplates', transactionTemplates);
-  console.log('coas', coas);
-
   let popUpTransactionTemplate;
   let name = '';
   let color = '';

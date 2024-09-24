@@ -3,6 +3,7 @@
   /** @typedef {import('./_components/types/access').Access} Access */
   /** @typedef {import('./_components/types/coa').CoA} CoA */
   /** @typedef {import('./_components/types/tenant.js').Tenant} Tenant */
+  /** @typedef {import('./_components/types/coa.js').SelectCoa} SelectCoa */
 
   import { onMount } from 'svelte';
   import { TenantAdminCoa, TenantAdminSyncCoa } from './jsApi.GEN.js';
@@ -11,6 +12,7 @@
   import PopUpCoA from './_components/PopUpCoa.svelte';
   import MainLayout from './_layouts/mainLayout.svelte';
   import InputBox from './_components/InputBox.svelte';
+  import InputCoa from './_components/InputCoa.svelte';
 
   let segments  = /** @type Access */ ({/* segments */});
   let user      = /** @type User */   ({/* user */});
@@ -207,26 +209,26 @@
     );
   }
 
-  let productsCoaId = tenant.productsCoaId || 0;
-  let suppliersCoaId = tenant.suppliersCoaId || 0;
-  let customersCoaId = tenant.customersCoaId || 0;
-  let customerReceivablesCoaId = tenant.customerReceivablesCoaId || 0;
-  let staffsCoaId = tenant.staffsCoaId || 0;
-  let banksCoaId = tenant.banksCoaId || 0;
-  let fundersCoaId = tenant.fundersCoaId || 0;
+  let productsCoaId = /** @type {SelectCoa|any} */ ({ value: tenant.productsCoaId, label: coasChoices[tenant.productsCoaId] });
+  let suppliersCoaId = /** @type {SelectCoa|any} */ ({ value: tenant.suppliersCoaId, label: coasChoices[tenant.suppliersCoaId] });
+  let customersCoaId = /** @type {SelectCoa|any} */ ({ value: tenant.customersCoaId, label: coasChoices[tenant.customersCoaId] });
+  let customerReceivablesCoaId = /** @type {SelectCoa|any} */ ({ value: tenant.customerReceivablesCoaId, label: coasChoices[tenant.customerReceivablesCoaId] });
+  let staffsCoaId = /** @type {SelectCoa|any} */ ({ value: tenant.staffsCoaId, label: coasChoices[tenant.staffsCoaId] });
+  let banksCoaId = /** @type {SelectCoa|any} */ ({ value: tenant.banksCoaId, label: coasChoices[tenant.banksCoaId] });
+  let fundersCoaId = /** @type {SelectCoa|any} */ ({ value: tenant.fundersCoaId, label: coasChoices[tenant.fundersCoaId] });
 
   let isSubmitSyncCoA = false;
   async function SubmitSyncCoA() {
     isSubmitSyncCoA = true;
     const i = {
       tenant: {
-        productsCoaId,
-        suppliersCoaId,
-        customersCoaId,
-        customerReceivablesCoaId,
-        staffsCoaId,
-        banksCoaId,
-        fundersCoaId
+        productsCoaId: productsCoaId.value,
+        suppliersCoaId: suppliersCoaId.value,
+        customersCoaId: customersCoaId.value,
+        customerReceivablesCoaId: customerReceivablesCoaId.value,
+        staffsCoaId: staffsCoaId.value,
+        banksCoaId: banksCoaId.value,
+        fundersCoaId: fundersCoaId.value
       }
     }
     await TenantAdminSyncCoa( // @ts-ignore
@@ -240,12 +242,14 @@
         }
 
         tenant = o.tenant
-        productsCoaId = tenant.productsCoaId;
-        suppliersCoaId = tenant.suppliersCoaId;
-        customersCoaId = tenant.customersCoaId;
-        staffsCoaId = tenant.staffsCoaId;
-        banksCoaId = tenant.banksCoaId;
-        customerReceivablesCoaId = tenant.customerReceivablesCoaId;
+        
+        productsCoaId = { value: tenant.productsCoaId, label: coasChoices[tenant.productsCoaId] };
+        suppliersCoaId = { value: tenant.suppliersCoaId, label: coasChoices[tenant.suppliersCoaId] };
+        customersCoaId = { value: tenant.customersCoaId, label: coasChoices[tenant.customersCoaId] };
+        customerReceivablesCoaId = { value: tenant.customerReceivablesCoaId, label: coasChoices[tenant.customerReceivablesCoaId] };
+        staffsCoaId = { value: tenant.staffsCoaId, label: coasChoices[tenant.staffsCoaId] };
+        banksCoaId = { value: tenant.banksCoaId, label: coasChoices[tenant.banksCoaId] };
+        fundersCoaId = { value: tenant.fundersCoaId, label: coasChoices[tenant.fundersCoaId] };
 
         REFORMAT_COAS = [];
         REFORMAT_COAS = reformatCoas();
@@ -268,61 +272,40 @@
   <div class="coa_levels shadow">
     <div class="tenants_sync_coa">
       <div class="inputs_container">
-        <InputBox
-          type="combobox"
+        <InputCoa
           label="Products / Produk"
-          id="productCoaId"
           values={coasChoices}
           bind:value={productsCoaId}
-          isObject
         />
-        <InputBox
-          type="combobox"
+        <InputCoa
           label="Suppliers / Pemasok"
-          id="suppliersCoaId"
           values={coasChoices}
           bind:value={suppliersCoaId}
-          isObject
         />
-        <InputBox
-          type="combobox"
+        <InputCoa
           label="Customers / Pelanggan"
-          id="customersCoaId"
           values={coasChoices}
           bind:value={customersCoaId}
-          isObject
         />
-        <InputBox
-          type="combobox"
+        <InputCoa
           label="Customers Receivables / Piutang Pelanggan"
-          id="customersReceivablesCoaId"
           values={coasChoices}
           bind:value={customerReceivablesCoaId}
-          isObject
         />
-        <InputBox
-          type="combobox"
+        <InputCoa
           label="Staffs / Karyawan"
-          id="staffsCoaId"
           values={coasChoices}
           bind:value={staffsCoaId}
-          isObject
         />
-        <InputBox
-          type="combobox"
+        <InputCoa
           label="Banks / Bank"
-          id="banksCoaId"
           values={coasChoices}
           bind:value={banksCoaId}
-          isObject
         />
-        <InputBox
-          type="combobox"
+        <InputCoa
           label="Funders / Pemodal"
-          id="fundersCoaId"
           values={coasChoices}
           bind:value={fundersCoaId}
-          isObject
         />
       </div>
       <button
@@ -413,5 +396,13 @@
     flex-direction: column;
     overflow: hidden;
     gap: 10px;
+  }
+
+  @media only screen and (max-width : 768px) {
+    .tenants_sync_coa .inputs_container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
   }
 </style>

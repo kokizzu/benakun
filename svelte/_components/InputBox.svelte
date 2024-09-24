@@ -12,7 +12,9 @@
   export let id;
   export let value;
 
-  export let values = /** @type {Array<string|number> | Record<string|number, string> | any} */ ({});
+  export let values = /** @type {
+    Array<string|number> | Record<string|number, string> | any
+  } */ ({});
   export let label;
   export let placeholder = '';
   export let isObject = false;
@@ -30,9 +32,16 @@
     // Boolean input must be use random id, because it's a checkbox
     if (type === 'bool') id = id + Math.random();
     if (isObject) {
+      if (type === 'combobox' || type === 'select') {
+        const valuesArr = Object.entries(values);
+        value = valuesArr[0][0];
+      }
       if (values && values[value]) valueToShowFromObj = values[value];
       else valueToShowFromObj = '';
     } else {
+      if (type === 'combobox' || type === 'select') {
+        value = values[0];
+      }
       valueToShowFromObj = value+'';
     }
   });

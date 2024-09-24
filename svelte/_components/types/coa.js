@@ -17,3 +17,11 @@
   * @property {boolean} editable
   */
 module.exports = {};
+
+
+/**
+ * @typedef {Object} SelectCoa
+ * @property {string} label
+ * @property {string} value
+ */
+module.exports = {};

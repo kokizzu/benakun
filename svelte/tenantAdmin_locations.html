@@ -29537,7 +29537,9 @@ uniform ${i3} ${a3} u_${s3};
     let { id } = $props;
     let { value } = $props;
     let { values = (
-      /** @type {Array<string|number> | Record<string|number, string> | any} */
+      /** @type {
+        Array<string|number> | Record<string|number, string> | any
+      } */
       {}
     ) } = $props;
     let { label } = $props;
@@ -29555,11 +29557,18 @@ uniform ${i3} ${a3} u_${s3};
       if (type === "bool")
         $invalidate(0, id = id + Math.random());
       if (isObject) {
+        if (type === "combobox" || type === "select") {
+          const valuesArr = Object.entries(values);
+          $invalidate(1, value = valuesArr[0][0]);
+        }
         if (values && values[value])
           $invalidate(10, valueToShowFromObj = values[value]);
         else
           $invalidate(10, valueToShowFromObj = "");
       } else {
+        if (type === "combobox" || type === "select") {
+          $invalidate(1, value = values[0]);
+        }
         $invalidate(10, valueToShowFromObj = value + "");
       }
     });

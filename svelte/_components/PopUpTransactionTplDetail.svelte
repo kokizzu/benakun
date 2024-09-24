@@ -1,8 +1,10 @@
 <script>
+  /** @typedef {import('./types/coa').SelectCoa} SelectCoa */
   import { Icon } from '../node_modules/svelte-icons-pack/dist';
   import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
   import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
 	import InputBox from './InputBox.svelte';
+    import InputCoa from './InputCoa.svelte';
 
   export let heading = 'Add Transaction Template Detail';
 
@@ -14,7 +16,7 @@
     'credit': 'Kredit',
     'debit': 'Debit'
   };
-  export let coaId = '0';
+  export let coaId = /** @type {SelectCoa} */ ({});
   export let coas = {};
   export let autoSum = false;
   export let childOnly = false;
@@ -28,9 +30,6 @@
     isShow	= false;
     isDebit	= 'debit';
   }
-
-  // TODO: coa nomornya harus ada di combobox
-  // combobox bisa di search
 </script>
 
 <div class={`popup_container ${isShow ? 'show' : ''}`}>
@@ -51,14 +50,10 @@
         values={debitOrCredit}
         isObject
 			/>
-      <InputBox
+      <InputCoa
         bind:value={coaId}
-        id="coa"
         label="CoA (Chart of Accounts)"
-        type="select"
-        placeholder="CoA (Chart of Accounts)"
         values={coas}
-        isObject
 			/>
       <InputBox
         bind:value={autoSum}

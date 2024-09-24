@@ -4,7 +4,6 @@ import (
 	"benakun/model/mFinance"
 	"benakun/model/zCrud"
 	"fmt"
-	"sort"
 	"strings"
 
 	"github.com/kokizzu/gotro/I"
@@ -170,29 +169,29 @@ func generateCoaChoicesMaps(coasFromDBs []coaFromDB) map[string]string {
 	return coaChoices
 }
 
-func extractNumParts(s string) []int {
-	parts := strings.Fields(s)
-	numberStr := parts[0]
-	numberParts := S.Split(numberStr, `.`)
+// func extractNumParts(s string) []int {
+// 	parts := strings.Fields(s)
+// 	numberStr := parts[0]
+// 	numberParts := S.Split(numberStr, `.`)
 
-	var result []int
-	for _, part := range numberParts {
-		num := S.ToInt(part)
-		result = append(result, num)
-	}
+// 	var result []int
+// 	for _, part := range numberParts {
+// 		num := S.ToInt(part)
+// 		result = append(result, num)
+// 	}
 
-	return result
-}
+// 	return result
+// }
 
-func compareCoaNums(va, vb []int) bool {
-	for i := 0; i < len(va) && i < len(vb); i++ {
-		if va[i] != vb[i] {
-			return va[i] < vb[i]
-		}
-	}
+// func compareCoaNums(va, vb []int) bool {
+// 	for i := 0; i < len(va) && i < len(vb); i++ {
+// 		if va[i] != vb[i] {
+// 			return va[i] < vb[i]
+// 		}
+// 	}
 
-	return len(va) < len(vb)
-}
+// 	return len(va) < len(vb)
+// }
 
 func (c *Coa) FindCoasChoicesByTenant() map[string]string {
 	const comment = `-- Coa) FindCoasChoicesByTenant`
@@ -217,24 +216,27 @@ FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
 	})
 
 	coaChoices := generateCoaChoicesMaps(coasFromDBs)
-	var keys []string = make([]string, 0, len(coaChoices))
-	for key := range coaChoices {
-		keys = append(keys, key)
-	}
 
-	sort.SliceStable(keys, func(i, j int) bool {
-		numsI := extractNumParts(coaChoices[keys[i]])
-		numsJ := extractNumParts(coaChoices[keys[j]])
+	// Map cannot be sorted
 
-		return compareCoaNums(numsI, numsJ)
-	})
+	// var keys []string = make([]string, 0, len(coaChoices))
+	// for key := range coaChoices {
+	// 	keys = append(keys, key)
+	// }
 
-	newCoaChoices := make(map[string]string)
-	for _, k := range keys {
-		newCoaChoices[k] = coaChoices[k]
-	}
+	// sort.SliceStable(keys, func(i, j int) bool {
+	// 	numsI := extractNumParts(coaChoices[keys[i]])
+	// 	numsJ := extractNumParts(coaChoices[keys[j]])
 
-	return newCoaChoices
+	// 	return compareCoaNums(numsI, numsJ)
+	// })
+
+	// newCoaChoices := make(map[string]string)
+	// for _, k := range keys {
+	// 	newCoaChoices[k] = coaChoices[k]
+	// }
+
+	return coaChoices
 }
 
 func (c *Coa) FindCoasChoicesChildByParentByTenant() map[string]string {
@@ -748,8 +750,7 @@ func (tj *TransactionJournal) FindReportOfFinancialPositionByTenant() map[parent
 	var rfps = map[parentName][]*financialPosition{}
 
 	const comment = `-- TransactionJournal) FindReportOfFinancialPositionByTenant`
-	var findByCoas func(coas []Coa) (res []*financialPosition)
-	findByCoas = func(coas []Coa) (res []*financialPosition) {
+	var findByCoas = func(coas []Coa) (res []*financialPosition) {
 		cidsMap := map[uint64]bool{}
 		cids := func() (res []string) {
 			for _, c := range coas {
