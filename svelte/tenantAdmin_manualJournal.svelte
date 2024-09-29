@@ -12,6 +12,7 @@
   /** @typedef {import('./_components/types/transaction.js').TransactionTplDetail} TransactionTplDetail */
   /** @typedef {import('./_components/types/organization.js').Org} Org */
   /** @typedef {import('./_components/types/master.js').ExtendedAction} ExtendedAction */
+  /** @typedef {import('./_components/types/coa.js').SelectCoa} SelectCoa */
 
   import { Icon } from './node_modules/svelte-icons-pack/dist';
   import { RiSystemAddBoxLine, RiDesignBallPenLine } from './node_modules/svelte-icons-pack/dist/ri';
@@ -22,6 +23,7 @@
   import { TenantAdminManualJournal } from './jsApi.GEN';
   import { notifier } from './_components/xNotifier.js';
   import { dateISOFormat } from './_components/xformatter.js';
+  import InputCoa from './_components/InputCoa.svelte';
 
   let segments              = /** @type Access */ ({/* segments */});
   let fields                = /** @type Field[] */ ([/* fields */]);
@@ -34,7 +36,10 @@
   let isCreatingJournal = false;
   let isSubmitted       = false;
 
-  let coaId             = 0;
+  let coaId = /** @type {SelectCoa|any} */ ({
+    value: 0,
+    label: ''
+  });
   let transactionTplId  = 0;
   let startDate         = dateISOFormat(0);
   let endDate           = dateISOFormat(4);
@@ -48,7 +53,6 @@
   function resetInput() {
     isCreatingJournal = false;
     isSubmitted       = false;
-    coaId             = 0;
     transactionTplId  = 0;
     startDate         = dateISOFormat(0);
     endDate           = dateISOFormat(4);
@@ -62,7 +66,8 @@
 
   onMount(() => {
     for (const [k, v] of Object.entries(coas)) {
-      coaId = Number(k);
+      coaId.value = k;
+      coaId.label = v;
       break;
     }
   });
@@ -88,7 +93,7 @@
     isSubmitted = true;
     const i = {
       cmd: 'upsert',
-      coaId: coaId,
+      coaId: coaId.value,
       transactionJournal: {
         debitIDR: debitIDR+'',
         creditIDR: creditIDR+'',
@@ -185,13 +190,10 @@
             bind:value={endDate}
             type="date"
           />
-          <InputBox
-            id="coaId"
+          <InputCoa
             label="CoA (Chart of Account)"
-            bind:value={coaId}
-            type="select"
             values={coas}
-            isObject
+            bind:value={coaId}
           />
         </div>
         <div class="company_details">

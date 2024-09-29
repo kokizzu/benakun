@@ -11,7 +11,6 @@
   import CoaTree from './_components/CoaTree.svelte';
   import PopUpCoA from './_components/PopUpCoa.svelte';
   import MainLayout from './_layouts/mainLayout.svelte';
-  import InputBox from './_components/InputBox.svelte';
   import InputCoa from './_components/InputCoa.svelte';
 
   let segments  = /** @type Access */ ({/* segments */});
