@@ -243,3 +243,20 @@ func testAdminRequestCommon(action string) RequestCommon {
 		start:         testTime,
 	}
 }
+
+func testGuestRequestCommon(action string) RequestCommon {
+	return RequestCommon{
+		TracerContext: context.Background(),
+		RequestId:     lexid.ID(),
+		SessionToken:  "",
+		UserAgent:     "",
+		IpAddress:     "127.0.2.1",
+		Debug:         true,
+		Host:          "localhost:1234",
+		Action:        action,
+		Lat:           -1,
+		Long:          -2,
+		now:           testTime.Unix(),
+		start:         testTime,
+	}
+}

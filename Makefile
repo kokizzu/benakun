@@ -37,3 +37,9 @@ views:
 migrate:
 	# migrate table schema
 	go run main.go migrate
+
+test-coverage:
+	go test ./.... -coverprofile=coverage.out
+
+show-coverage:
+	go tool cover -html=coverage.out
