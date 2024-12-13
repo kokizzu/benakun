@@ -113,3 +113,7 @@ https://docs.google.com/document/d/11u00Ch0oE0EEIGylYg4FlDKLoTWySnHonpFznSPb5Ik/
 ## FAQ
 - **Q**: got error when starting docker container: `LuajitError: builtin/config/applier/mkdir.lua:26: mkdir.apply[wal.dir]: failed to create directory /var/lib/tarantool/sys_env/app/instance-001: Error creating directory /var/lib/tarantool/sys_env: fio: Permission denied`
   - **a**: run ``sudo chown `whoami` -Rv _tmpdb``
+
+## Testing
+
+- **Coverage testing**: run ``USE_COMPOSE=true go test -timeout=9999s -cover -run TestFunctionName ./dir -v``

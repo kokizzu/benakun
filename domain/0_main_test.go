@@ -37,9 +37,9 @@ var testSuperAdminSessionToken string
 var testAdmin *rqAuth.Users
 
 const (
-	testSuperAdminEmail    		= `admin@localhost`
-	testSuperAdminUserName 		= `admin1`
-	testSuperAdminTenantCode 	= `admin-1234`
+	testSuperAdminEmail      = `admin@localhost`
+	testSuperAdminUserName   = `admin1`
+	testSuperAdminTenantCode = `admin-1234`
 )
 
 func TestMain(m *testing.M) {
@@ -208,10 +208,10 @@ func testDomain() (*Domain, func()) {
 	session := wcAuth.NewSessionsMutator(testTt)
 	session.UserId = admin.Id
 	sess := &Session{
-		UserId:    admin.Id,
-		ExpiredAt: testTime.AddDate(0, 0, conf.CookieDays).Unix(),
-		Email:     admin.Email,
-		TenantCode: testSuperAdminTenantCode,
+		UserId:        admin.Id,
+		ExpiredAt:     testTime.AddDate(0, 0, conf.CookieDays).Unix(),
+		Email:         admin.Email,
+		TenantCode:    testSuperAdminTenantCode,
 		IsTenantAdmin: true,
 	}
 	testSuperAdminSessionToken = sess.Encrypt(``) // empty user agent to simplify testing
