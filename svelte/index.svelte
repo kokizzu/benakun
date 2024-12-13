@@ -212,54 +212,56 @@
 
 {#if mode === USER}
   <MainLayout>
-      <section class="create_company">
-        <header>
-          <h2>Create Company</h2>
-				  <h3>
-            Use this if you have your own company you want to be associated with this email: <i>{user.email}</i>
-          </h3>
-        </header>
-        <div class="form">
-          <InputBox
-            id="tenantCode"
-            label="Kode Tenant / Tenant Code"
-            bind:value={tenantCode}
-            type="text"
-            placeholder="johnxdoe"
-          />
-          <InputBox
-            id="companyName"
-            label="Nama Perusahaan / Company Name"
-            bind:value={companyName}
-            type="text"
-            placeholder="My Company"
-          />
-          <InputBox
-            id="headTitle"
-            label="Kepala Jabatan / Head Title"
-            bind:value={headTitle}
-            type="text"
-            placeholder="Director, CEO, President, etc"
-          />
-          <SubmitButton
-            on:click={SubmitCreateCompany}
-            isSubmitted={isCreatingCompany}
-            isFullWidth
-          />
-        </div>
-      </section>
-
-	  <!-- TODO:HABIBI list of companies i joined (see hostmapper), show in: table of tenantCode, CompanyName (link to hostmapper) -->
+    <section class="create-company">
+      <header>
+        <h2>Create Company</h2>
+        <h3>
+          Use this if you have your own company you want to be associated with this email: <i>{user.email}</i>
+        </h3>
+      </header>
+      <div class="form">
+        <InputBox
+          id="tenantCode"
+          label="Kode Tenant / Tenant Code"
+          bind:value={tenantCode}
+          type="text"
+          placeholder="johnxdoe"
+        />
+        <InputBox
+          id="companyName"
+          label="Nama Perusahaan / Company Name"
+          bind:value={companyName}
+          type="text"
+          placeholder="My Company"
+        />
+        <InputBox
+          id="headTitle"
+          label="Kepala Jabatan / Head Title"
+          bind:value={headTitle}
+          type="text"
+          placeholder="Director, CEO, President, etc"
+        />
+        <SubmitButton
+          on:click={SubmitCreateCompany}
+          isSubmitted={isCreatingCompany}
+          isFullWidth
+        />
+      </div>
+    </section>
+    <!-- TODO:HABIBI list of companies i joined (see hostmapper), show in: table of tenantCode, CompanyName (link to hostmapper) -->
   </MainLayout>
 {:else}
-  <section class="auth_section">
-    <div class="main_container">
-      <div class="title_container">
-        <p>{title}</p>
+  <section class="auth-section">
+    <div class="main-container">
+      <div class="title-container">
+        <div class="label">
+          <img src="/assets/icons/benakun-logo.png" alt="Benakun" />
+          <span>Benakun</span>
+        </div>
         <h1>{mode.split('_').join(' ')}</h1>
       </div>
-      <div class="sign_in_container">
-        <div class="input_container">
+      <div class="sign-in-container">
+        <div class="input-container">
           {#if mode === LOGIN || mode === REGISTER || mode === RESEND_VERIFICATION_EMAIL || mode === FORGOT_PASSWORD}
             <InputBox
               id="email"
@@ -357,7 +359,7 @@
     animation: spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
-  .auth_section {
+  .auth-section {
     height: 100dvh;
     width: 100%;
     background-color: var(--gray-002);
@@ -365,7 +367,7 @@
     color: var(--gray-007);
   }
 
-  .main_container {
+  .main-container {
     width: 480px;
     height: fit-content;
     padding: 20px;
@@ -378,27 +380,43 @@
     border: 1px solid #cbd5e1;
   }
 
-  .title_container {
+  .title-container {
     display: flex;
     flex-direction: column;
     width: 100%;
     text-align: center;
+    gap: 15px;
   }
 
-  .title_container p {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--purple-002);
+  .title-container .label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .title-container .label img {
+    width: 17px;
+    height: auto;
     margin: 0;
   }
 
-  .title_container h1 {
+  .title-container .label span {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--purple-002);
+    margin-bottom: -2px;
+  }
+
+  .title-container h1 {
     margin: 5px 0 0 0;
     font-size: 22px;
     font-weight: 700;
+    color: var(--blue-005);
   }
 
-  .input_container {
+  .input-container {
     display: flex;
     flex-direction: column;
     margin-bottom: 25px;
@@ -495,7 +513,7 @@
     text-decoration: underline;
   }
 
-  .create_company {
+  .create-company {
     display: flex;
     flex-direction: column;
     height: fit-content;
@@ -507,22 +525,22 @@
   }
 
   .invite_user header h2,
-  .create_company header h2 {
+  .create-company header h2 {
     margin: 0;
     text-align: center;
   }
 
-  .create_company .form {
+  .create-company .form {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
 
   @media only screen and (max-width : 768px) {
-    .auth_section {
+    .auth-section {
       background-color: #FFF;
     }
-    .main_container {
+    .main-container {
       width: 100%;
       margin: 30px auto;
       border: none;
@@ -530,7 +548,7 @@
       background-color: transparent;
     }
 
-    .create_company {
+    .create-company {
       width: 100%;
     }
   }

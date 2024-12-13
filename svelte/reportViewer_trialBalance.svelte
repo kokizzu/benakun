@@ -225,16 +225,16 @@
         <div class="prev_next">
           <button class="btn" on:click={PrevDate}>
             <Icon
-             src={RiArrowsArrowLeftSLine}
-             size="20"
+              src={RiArrowsArrowLeftSLine}
+              size="20"
             />
             <span>Prev</span>
           </button>
           <button class="btn" on:click={NextDate}>
             <span>Next</span>
             <Icon
-             src={RiArrowsArrowRightSLine}
-             size="20"
+              src={RiArrowsArrowRightSLine}
+              size="20"
             />
           </button>
         </div>

@@ -68,22 +68,25 @@
 </script>
 
 <MainLayout>
-  <div>
-    <div class="coa_filter">
-      <InputBox
-        id="coaIdFilter"
-        label="CoA (Chart of Account)"
-        bind:value={coaId}
-        type="combobox"
-        values={coaChoices}
-        isObject
-      />
-      <SubmitButton
-        label="Submit"
-        bind:isSubmitted
-        on:click={getTrxJournalsByCoa}
-        isFullWidth={false}
-      />
+  <div class="general-ledger">
+    <div class="coa-filter-container">
+      <div class="coa_filter">
+        <InputBox
+          className="select-coa"
+          id="coaIdFilter"
+          label="CoA (Chart of Account)"
+          bind:value={coaId}
+          type="combobox"
+          values={coaChoices}
+          isObject
+        />
+        <SubmitButton
+          label="Submit"
+          bind:isSubmitted
+          on:click={getTrxJournalsByCoa}
+          isFullWidth={false}
+        />
+      </div>
     </div>
     <div class="table_root">
       <div class="table_container">
@@ -133,17 +136,32 @@
 </MainLayout>
 
 <style>
+  .general-ledger {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .coa-filter-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
   .coa_filter {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: flex-end;
     gap: 12px;
-    margin-bottom: 20px;
+    width: 400px;
+    right: 0;
   }
 
   :global(.coa_filter .input_box) {
-    width: 300px !important;
+    width: 100%;
+    flex-grow: 1;
   }
 
   .table_root {
@@ -156,7 +174,7 @@
     overflow: hidden;
   }
 
- .table_root .table_container {
+  .table_root .table_container {
     overflow-x: auto;
     scrollbar-color: var(--gray-003) transparent;
     scrollbar-width: thin;
@@ -232,5 +250,11 @@
     text-align: center;
     border-right: 1px solid var(--gray-004);
     border-bottom: 1px solid var(--gray-004);
+  }
+
+  @media only screen and (max-width : 768px) {
+    .coa_filter {
+      width: 100%;
+    }
   }
 </style>

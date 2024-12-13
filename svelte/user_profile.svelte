@@ -160,6 +160,10 @@
             </button>
           </div>
         {/each}
+      {:else}
+        <div class="session">
+          <span>No active sessions</span>
+        </div>
       {/if}
     </div>
   </div>

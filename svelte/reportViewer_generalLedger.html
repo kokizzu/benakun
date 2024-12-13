@@ -1095,18 +1095,31 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
 }
 
 /* fakecss:./reportViewer_generalLedger.esbuild-svelte-fake-css */
-.coa_filter.svelte-1utmn92.svelte-1utmn92 {
+.general-ledger.svelte-lfh37m.svelte-lfh37m {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.coa-filter-container.svelte-lfh37m.svelte-lfh37m {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+.coa_filter.svelte-lfh37m.svelte-lfh37m {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: flex-end;
   gap: 12px;
-  margin-bottom: 20px;
+  width: 400px;
+  right: 0;
 }
 .coa_filter .input_box {
-  width: 300px !important;
+  width: 100%;
+  flex-grow: 1;
 }
-.table_root.svelte-1utmn92.svelte-1utmn92 {
+.table_root.svelte-lfh37m.svelte-lfh37m {
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -1115,12 +1128,12 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   border: 1px solid var(--gray-003);
   overflow: hidden;
 }
-.table_root.svelte-1utmn92 .table_container.svelte-1utmn92 {
+.table_root.svelte-lfh37m .table_container.svelte-lfh37m {
   overflow-x: auto;
   scrollbar-color: var(--gray-003) transparent;
   scrollbar-width: thin;
 }
-.table_root.svelte-1utmn92 .table_container table.svelte-1utmn92 {
+.table_root.svelte-lfh37m .table_container table.svelte-lfh37m {
   width: 100%;
   background: #fff;
   box-shadow: none;
@@ -1129,11 +1142,11 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   border-spacing: 0;
   overflow: hidden;
 }
-.table_root.svelte-1utmn92 .table_container table thead.svelte-1utmn92 {
+.table_root.svelte-lfh37m .table_container table thead.svelte-lfh37m {
   box-shadow: none;
   border-bottom: 1px solid var(--gray-003);
 }
-.table_root.svelte-1utmn92 .table_container table thead tr th.svelte-1utmn92 {
+.table_root.svelte-lfh37m .table_container table thead tr th.svelte-lfh37m {
   padding: 12px;
   background-color: var(--gray-001);
   text-transform: capitalize;
@@ -1143,41 +1156,46 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   width: auto;
   text-wrap: nowrap;
 }
-.table_root.svelte-1utmn92 .table_container table thead tr th.no.svelte-1utmn92 {
+.table_root.svelte-lfh37m .table_container table thead tr th.no.svelte-lfh37m {
   width: 30px;
 }
-.table_root.svelte-1utmn92 .table_container table thead tr th.svelte-1utmn92:last-child {
+.table_root.svelte-lfh37m .table_container table thead tr th.svelte-lfh37m:last-child {
   border-right: none;
 }
-.table_root.svelte-1utmn92 .table_container table tbody tr td.svelte-1utmn92 {
+.table_root.svelte-lfh37m .table_container table tbody tr td.svelte-lfh37m {
   padding: 8px 12px;
 }
-.table_root.svelte-1utmn92 .table_container table tbody tr td.svelte-1utmn92 {
+.table_root.svelte-lfh37m .table_container table tbody tr td.svelte-lfh37m {
   padding: 8px 12px;
   border-right: 1px solid var(--gray-004);
   border-bottom: 1px solid var(--gray-004);
 }
-.table_root.svelte-1utmn92 .table_container table tbody tr:last-child td.svelte-1utmn92,
-.table_root.svelte-1utmn92 .table_container table tbody tr:last-child th.svelte-1utmn92 {
+.table_root.svelte-lfh37m .table_container table tbody tr:last-child td.svelte-lfh37m,
+.table_root.svelte-lfh37m .table_container table tbody tr:last-child th.svelte-lfh37m {
   border-bottom: none !important;
 }
-.table_root.svelte-1utmn92 .table_container table tbody tr:last-child td.svelte-1utmn92:last-child {
+.table_root.svelte-lfh37m .table_container table tbody tr:last-child td.svelte-lfh37m:last-child {
   border-right: none !important;
 }
-.table_root.svelte-1utmn92 .table_container table tbody tr:last-child td.svelte-1utmn92,
-.table_root.svelte-1utmn92 .table_container table tbody tr:last-child th.svelte-1utmn92 {
+.table_root.svelte-lfh37m .table_container table tbody tr:last-child td.svelte-lfh37m,
+.table_root.svelte-lfh37m .table_container table tbody tr:last-child th.svelte-lfh37m {
   border-bottom: none !important;
 }
-.table_root.svelte-1utmn92 .table_container table tbody tr:last-child td.svelte-1utmn92:last-child {
+.table_root.svelte-lfh37m .table_container table tbody tr:last-child td.svelte-lfh37m:last-child {
   border-right: none !important;
 }
-.table_root.svelte-1utmn92 .table_container table tbody tr td.svelte-1utmn92:last-child {
+.table_root.svelte-lfh37m .table_container table tbody tr td.svelte-lfh37m:last-child {
   border-right: none !important;
 }
-.table_root.svelte-1utmn92 .table_container table tbody tr th.svelte-1utmn92 {
+.table_root.svelte-lfh37m .table_container table tbody tr th.svelte-lfh37m {
   text-align: center;
   border-right: 1px solid var(--gray-004);
   border-bottom: 1px solid var(--gray-004);
+}
+@media only screen and (max-width : 768px) {
+  .coa_filter.svelte-lfh37m.svelte-lfh37m {
+    width: 100%;
+  }
 }
 </style>
 <script>(() => {
@@ -9694,7 +9712,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     return {
       c() {
         tr = element("tr");
-        tr.innerHTML = `<td colspan="4" class="svelte-1utmn92">No data</td>`;
+        tr.innerHTML = `<td colspan="4" class="svelte-lfh37m">No data</td>`;
       },
       m(target, anchor) {
         insert(target, tr, anchor);
@@ -9819,11 +9837,11 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         td4 = element("td");
         t8 = text(t8_value);
         t9 = space();
-        attr(td0, "class", "no svelte-1utmn92");
-        attr(td1, "class", "svelte-1utmn92");
-        attr(td2, "class", "svelte-1utmn92");
-        attr(td3, "class", "svelte-1utmn92");
-        attr(td4, "class", "svelte-1utmn92");
+        attr(td0, "class", "no svelte-lfh37m");
+        attr(td1, "class", "svelte-lfh37m");
+        attr(td2, "class", "svelte-lfh37m");
+        attr(td3, "class", "svelte-lfh37m");
+        attr(td4, "class", "svelte-lfh37m");
         this.first = tr;
       },
       m(target, anchor) {
@@ -9882,7 +9900,8 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     };
   }
   function create_default_slot(ctx) {
-    let div3;
+    let div4;
+    let div1;
     let div0;
     let inputbox;
     let updating_value;
@@ -9890,8 +9909,8 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     let submitbutton;
     let updating_isSubmitted;
     let t1;
+    let div3;
     let div2;
-    let div1;
     let table;
     let thead;
     let t11;
@@ -9914,6 +9933,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       ctx[6](value);
     }
     let inputbox_props = {
+      className: "select-coa",
       id: "coaIdFilter",
       label: "CoA (Chart of Account)",
       type: "combobox",
@@ -9960,17 +9980,18 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     let if_block = current_block_type(ctx);
     return {
       c() {
-        div3 = element("div");
+        div4 = element("div");
+        div1 = element("div");
         div0 = element("div");
         create_component(inputbox.$.fragment);
         t0 = space();
         create_component(submitbutton.$.fragment);
         t1 = space();
+        div3 = element("div");
         div2 = element("div");
-        div1 = element("div");
         table = element("table");
         thead = element("thead");
-        thead.innerHTML = `<tr><th class="no svelte-1utmn92">No. Acc / No. Rek</th> <th class="svelte-1utmn92">Name / Nama</th> <th class="svelte-1utmn92">Debit / Debet</th> <th class="svelte-1utmn92">Credit / Kredit</th> <th class="svelte-1utmn92">Total</th></tr>`;
+        thead.innerHTML = `<tr><th class="no svelte-lfh37m">No. Acc / No. Rek</th> <th class="svelte-lfh37m">Name / Nama</th> <th class="svelte-lfh37m">Debit / Debet</th> <th class="svelte-lfh37m">Credit / Kredit</th> <th class="svelte-lfh37m">Total</th></tr>`;
         t11 = space();
         tbody = element("tbody");
         if_block.c();
@@ -9994,27 +10015,30 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         );
         t18 = space();
         td3 = element("td");
-        attr(div0, "class", "coa_filter svelte-1utmn92");
-        attr(thead, "class", "svelte-1utmn92");
+        attr(div0, "class", "coa_filter svelte-lfh37m");
+        attr(div1, "class", "coa-filter-container svelte-lfh37m");
+        attr(thead, "class", "svelte-lfh37m");
         attr(td0, "colspan", "2");
-        attr(td0, "class", "svelte-1utmn92");
-        attr(td1, "class", "svelte-1utmn92");
-        attr(td2, "class", "svelte-1utmn92");
-        attr(td3, "class", "svelte-1utmn92");
-        attr(table, "class", "svelte-1utmn92");
-        attr(div1, "class", "table_container svelte-1utmn92");
-        attr(div2, "class", "table_root svelte-1utmn92");
+        attr(td0, "class", "svelte-lfh37m");
+        attr(td1, "class", "svelte-lfh37m");
+        attr(td2, "class", "svelte-lfh37m");
+        attr(td3, "class", "svelte-lfh37m");
+        attr(table, "class", "svelte-lfh37m");
+        attr(div2, "class", "table_container svelte-lfh37m");
+        attr(div3, "class", "table_root svelte-lfh37m");
+        attr(div4, "class", "general-ledger svelte-lfh37m");
       },
       m(target, anchor) {
-        insert(target, div3, anchor);
-        append(div3, div0);
+        insert(target, div4, anchor);
+        append(div4, div1);
+        append(div1, div0);
         mount_component(inputbox, div0, null);
         append(div0, t0);
         mount_component(submitbutton, div0, null);
-        append(div3, t1);
+        append(div4, t1);
+        append(div4, div3);
         append(div3, div2);
-        append(div2, div1);
-        append(div1, table);
+        append(div2, table);
         append(table, thead);
         append(table, t11);
         append(table, tbody);
@@ -10092,7 +10116,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(div3);
+          detach(div4);
         }
         destroy_component(inputbox);
         destroy_component(submitbutton);

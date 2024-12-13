@@ -9782,6 +9782,27 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     child_ctx[14] = list[i];
     return child_ctx;
   }
+  function create_else_block2(ctx) {
+    let div;
+    return {
+      c() {
+        div = element("div");
+        div.innerHTML = `<span class="svelte-1o3sji5">No active sessions</span>`;
+        attr(div, "class", "session svelte-1o3sji5");
+      },
+      m(target, anchor) {
+        insert(target, div, anchor);
+      },
+      p: noop,
+      i: noop,
+      o: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(div);
+        }
+      }
+    };
+  }
   function create_if_block5(ctx) {
     let each_1_anchor;
     let current;
@@ -10092,6 +10113,8 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     let div13;
     let t48;
     let div14;
+    let current_block_type_index;
+    let if_block;
     let current;
     function inputbox0_value_binding(value) {
       ctx[10](value);
@@ -10188,11 +10211,19 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       /*changePassword*/
       ctx[8]
     );
-    let if_block = (
-      /*sessionActiveLists*/
-      ctx[1] && /*sessionActiveLists*/
-      ctx[1].length && create_if_block5(ctx)
-    );
+    const if_block_creators = [create_if_block5, create_else_block2];
+    const if_blocks = [];
+    function select_block_type(ctx2, dirty) {
+      if (
+        /*sessionActiveLists*/
+        ctx2[1] && /*sessionActiveLists*/
+        ctx2[1].length
+      )
+        return 0;
+      return 1;
+    }
+    current_block_type_index = select_block_type(ctx, -1);
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
         div12 = element("div");
@@ -10281,8 +10312,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         div13.innerHTML = `<span class="svelte-1o3sji5">IP Address</span> <span class="svelte-1o3sji5">Expired At</span> <span class="svelte-1o3sji5">Device</span>`;
         t48 = space();
         div14 = element("div");
-        if (if_block)
-          if_block.c();
+        if_block.c();
         attr(h30, "class", "svelte-1o3sji5");
         attr(div0, "class", "input_row svelte-1o3sji5");
         attr(span0, "class", "svelte-1o3sji5");
@@ -10394,8 +10424,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         append(div15, div13);
         append(div15, t48);
         append(div15, div14);
-        if (if_block)
-          if_block.m(div14, null);
+        if_blocks[current_block_type_index].m(div14, null);
         current = true;
       },
       p(ctx2, dirty) {
@@ -10489,29 +10518,25 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
           submitbutton1_changes.isSubmitted = /*passwordSubmit*/
           ctx2[6];
         submitbutton1.$set(submitbutton1_changes);
-        if (
-          /*sessionActiveLists*/
-          ctx2[1] && /*sessionActiveLists*/
-          ctx2[1].length
-        ) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
-            if (dirty & /*sessionActiveLists*/
-            2) {
-              transition_in(if_block, 1);
-            }
-          } else {
-            if_block = create_if_block5(ctx2);
-            if_block.c();
-            transition_in(if_block, 1);
-            if_block.m(div14, null);
-          }
-        } else if (if_block) {
+        let previous_block_index = current_block_type_index;
+        current_block_type_index = select_block_type(ctx2, dirty);
+        if (current_block_type_index === previous_block_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
+        } else {
           group_outros();
-          transition_out(if_block, 1, 1, () => {
-            if_block = null;
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
           });
           check_outros();
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block.c();
+          } else {
+            if_block.p(ctx2, dirty);
+          }
+          transition_in(if_block, 1);
+          if_block.m(div14, null);
         }
       },
       i(local) {
@@ -10551,8 +10576,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         destroy_component(inputbox3);
         destroy_component(inputbox4);
         destroy_component(submitbutton1);
-        if (if_block)
-          if_block.d();
+        if_blocks[current_block_type_index].d();
       }
     };
   }

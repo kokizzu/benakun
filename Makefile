@@ -39,7 +39,7 @@ migrate:
 	go run main.go migrate
 
 test-coverage:
-	go test ./.... -coverprofile=coverage.out
+	go test ./... -coverprofile=coverage.out -coverpkg=./...
 
 show-coverage:
 	go tool cover -html=coverage.out
