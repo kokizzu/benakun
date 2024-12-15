@@ -239,3 +239,53 @@ func TestMoveCoA(t *testing.T) {
 		})
 	})
 }
+
+func TestSyncCoa(t *testing.T) {
+	d, closer := testDomain()
+	defer closer()
+
+	var insertCoa = func(ta *Tt.Adapter, name string) (id uint64, err error) {
+		coa := wcFinance.NewCoaMutator(ta)
+		coa.SetTenantCode(testSuperAdminTenantCode)
+		coa.SetName(name)
+		coa.SetCreatedAt(fastime.UnixNow())
+		coa.SetUpdatedAt(fastime.UnixNow())
+
+		if !coa.DoUpsertById() {
+			return 0, errors.New(`failed to insert coa: "` + coa.Name + `"`)
+		}
+
+		return coa.Id, nil
+	}
+
+	t.Run(`syncMustSucceed`, func(t *testing.T) {
+		coaProductId, err := insertCoa(d.AuthOltp, `Product`)
+		assert.Nil(t, err, `insert product coa`)
+
+		coaSupplierId, err := insertCoa(d.AuthOltp, `Supplier`)
+		assert.Nil(t, err, `insert supplier coa`)
+
+		coaCustomerId, err := insertCoa(d.AuthOltp, `Customer`)
+		assert.Nil(t, err, `insert customer coa`)
+
+		coaStaffId, err := insertCoa(d.AuthOltp, `Staff`)
+		assert.Nil(t, err, `insert staff coa`)
+
+		coaBankId, err := insertCoa(d.AuthOltp, `Bank`)
+		assert.Nil(t, err, `insert bank coa`)
+
+		in := TenantAdminSyncCoaIn{
+			RequestCommon: testAdminRequestCommon(TenantAdminSyncCoaAction),
+			Tenant: &rqAuth.Tenants{
+				ProductsCoaId:  coaProductId,
+				SuppliersCoaId: coaSupplierId,
+				CustomersCoaId: coaCustomerId,
+				StaffsCoaId:    coaStaffId,
+				BanksCoaId:     coaBankId,
+			},
+		}
+
+		out := d.TenantAdminSyncCoa(&in)
+		assert.Nil(t, out.Error, `sync coa`)
+	})
+}

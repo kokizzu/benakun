@@ -14,6 +14,8 @@ import (
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/gotro/S"
+	"github.com/kokizzu/id64"
 	"github.com/kokizzu/lexid"
 	"github.com/kpango/fastime"
 	"github.com/ory/dockertest/v3"
@@ -38,6 +40,7 @@ var testAdmin *rqAuth.Users
 
 const (
 	testSuperAdminEmail      = `admin@localhost`
+	testSuperAdminPassword   = `adminPass`
 	testSuperAdminUserName   = `admin1`
 	testSuperAdminTenantCode = `admin-1234`
 )
@@ -190,6 +193,8 @@ func testDomain() (*Domain, func()) {
 	// create admin
 	admin := wcAuth.NewUsersMutator(testTt)
 	admin.Email = testSuperAdminEmail
+	admin.SetEncryptedPassword(testSuperAdminPassword, fastime.UnixNow())
+	admin.SecretCode = id64.SID() + S.RandomCB63(1)
 	admin.TenantCode = testSuperAdminTenantCode
 	if !admin.FindByEmail() {
 		admin.DoInsert()
