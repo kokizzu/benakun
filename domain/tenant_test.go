@@ -2,6 +2,7 @@ package domain
 
 import (
 	"benakun/model/mAuth/rqAuth"
+	"benakun/model/mBudget/rqBudget"
 	"benakun/model/mBusiness"
 	"benakun/model/mBusiness/rqBusiness"
 	"benakun/model/mFinance"
@@ -287,5 +288,69 @@ func TestSyncCoa(t *testing.T) {
 
 		out := d.TenantAdminSyncCoa(&in)
 		assert.Nil(t, out.Error, `sync coa`)
+	})
+}
+
+func TestBankAccounts(t *testing.T) {
+	d, closer := testDomain()
+	defer closer()
+
+	t.Run(`insertMustSucceed`, func(t *testing.T) {
+		in := TenantAdminBankAccountsIn{
+			RequestCommon: testAdminRequestCommon(TenantAdminBankAccountsAction),
+			Cmd:           zCrud.CmdUpsert,
+			Account: &rqBudget.BankAccounts{
+				TenantCode:  testSuperAdminTenantCode,
+				AccountName: `Account 01`,
+				BankName:    `Bank 01`,
+				Name:        `Account for bank 01`,
+			},
+		}
+
+		out := d.TenantAdminBankAccounts(&in)
+		assert.Nil(t, out.Error, `insert bank account`)
+	})
+
+	t.Run(`updateMustSucceed`, func(t *testing.T) {
+		in := TenantAdminBankAccountsIn{
+			RequestCommon: testAdminRequestCommon(TenantAdminBankAccountsAction),
+			Cmd:           zCrud.CmdUpsert,
+			Account: &rqBudget.BankAccounts{
+				Id:          1,
+				TenantCode:  testSuperAdminTenantCode,
+				AccountName: `Account 01`,
+				BankName:    `Bank 01`,
+				Name:        `Account for bank 01`,
+			},
+		}
+
+		out := d.TenantAdminBankAccounts(&in)
+		assert.Nil(t, out.Error, `update bank account`)
+
+		t.Run(`deleteMustSucceed`, func(t *testing.T) {
+			in := TenantAdminBankAccountsIn{
+				RequestCommon: testAdminRequestCommon(TenantAdminBankAccountsAction),
+				Cmd:           zCrud.CmdDelete,
+				Account: &rqBudget.BankAccounts{
+					Id: 1,
+				},
+			}
+
+			out := d.TenantAdminBankAccounts(&in)
+			assert.Nil(t, out.Error, `delete bank account`)
+
+			t.Run(`restoreMustSucceed`, func(t *testing.T) {
+				in := TenantAdminBankAccountsIn{
+					RequestCommon: testAdminRequestCommon(TenantAdminBankAccountsAction),
+					Cmd:           zCrud.CmdRestore,
+					Account: &rqBudget.BankAccounts{
+						Id: 1,
+					},
+				}
+
+				out := d.TenantAdminBankAccounts(&in)
+				assert.Nil(t, out.Error, `restore bank account`)
+			})
+		})
 	})
 }

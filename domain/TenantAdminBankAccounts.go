@@ -22,10 +22,10 @@ import (
 type (
 	TenantAdminBankAccountsIn struct {
 		RequestCommon
-		Cmd      string                `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
+		Cmd      string                 `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
 		Account  *rqBudget.BankAccounts `json:"account" form:"account" query:"account" long:"account" msg:"account"`
-		WithMeta bool                  `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
-		Pager    zCrud.PagerIn         `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		WithMeta bool                   `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
+		Pager    zCrud.PagerIn          `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 	}
 	TenantAdminBankAccountsOut struct {
 		ResponseCommon
@@ -40,29 +40,29 @@ type (
 const (
 	TenantAdminBankAccountsAction = `tenantAdmin/bankAccounts`
 
-	ErrTenantAdminBankAccountsUnauthorized    			= `unauthorized user`
-	ErrTenantAdminBankAccountsTenantNotFound  			= `tenant not found`
-	ErrTenantAdminBankAccountsNotFound        			= `bank account not found`
-	ErrTenantAdminBankAccountsSaveFailed      			= `bank account save failed`
-	ErrTenantAdminBankAccountsParentNotFound  			= `parent bank account not found`
-	ErrTenantAdminBankAccountsParentHaveChild 			= `parent bank account already have child`
-	ErrTenantAdminBankAccountsStaffNotFound   			= `staff not found to choose account's owner`
-	ErrTenantAdminBankAccountsNotTenant       			= `must be tenant admin to do this operation`
-	ErrTenantAdminBankAccountsCustomerCoaNotFound 	= `customer coa not found, you must sync it first`
-	ErrTenantAdminBankAccountsCustomerCoaSaveFailed	= `failed to save account to customer coa`
+	ErrTenantAdminBankAccountsUnauthorized                  = `unauthorized user`
+	ErrTenantAdminBankAccountsTenantNotFound                = `tenant not found`
+	ErrTenantAdminBankAccountsNotFound                      = `bank account not found`
+	ErrTenantAdminBankAccountsSaveFailed                    = `bank account save failed`
+	ErrTenantAdminBankAccountsParentNotFound                = `parent bank account not found`
+	ErrTenantAdminBankAccountsParentHaveChild               = `parent bank account already have child`
+	ErrTenantAdminBankAccountsStaffNotFound                 = `staff not found to choose account's owner`
+	ErrTenantAdminBankAccountsNotTenant                     = `must be tenant admin to do this operation`
+	ErrTenantAdminBankAccountsCustomerCoaNotFound           = `customer coa not found, you must sync it first`
+	ErrTenantAdminBankAccountsCustomerCoaSaveFailed         = `failed to save account to customer coa`
 	ErrTenantAdminBankAccountsCustomerCoaParentUpdateFailed = `failed to update parent of customer coa`
-	ErrTenantAdminBankAccountsSupplierCoaNotFound 	= `supplier coa not found, you must sync it first`
-	ErrTenantAdminBankAccountsSupplierCoaSaveFailed	= `failed to save account to supplier coa`
+	ErrTenantAdminBankAccountsSupplierCoaNotFound           = `supplier coa not found, you must sync it first`
+	ErrTenantAdminBankAccountsSupplierCoaSaveFailed         = `failed to save account to supplier coa`
 	ErrTenantAdminBankAccountsSupplierCoaParentUpdateFailed = `failed to update parent of supplier coa`
-	ErrTenantAdminBankAccountsBankCoaNotFound 			= `bank coa not found, you must sync it first`
-	ErrTenantAdminBankAccountsBankCoaSaveFailed			= `failed to save account to bank coa`
-	ErrTenantAdminBankAccountsBankCoaParentUpdateFailed = `failed to update parent of bank coa`
-	ErrTenantAdminBankAccountsStaffCoaNotFound 			= `staff coa not found, you must sync it first`
-	ErrTenantAdminBankAccountsStaffCoaSaveFailed			= `failed to save account to staff coa`
-	ErrTenantAdminBankAccountsStaffCoaParentUpdateFailed = `failed to update parent of staff coa`
-	ErrTenantAdminBankAccountsFundersCoaSaveFailed			= `failed to save account to funders coa`
-	ErrTenantAdminBankAccountsFundersCoaParentUpdateFailed = `failed to update parent of funders coa`
-	ErrTenantAdminBankAccountsFundersCoaNotFound 			= `funders coa not found, you must sync it first`
+	ErrTenantAdminBankAccountsBankCoaNotFound               = `bank coa not found, you must sync it first`
+	ErrTenantAdminBankAccountsBankCoaSaveFailed             = `failed to save account to bank coa`
+	ErrTenantAdminBankAccountsBankCoaParentUpdateFailed     = `failed to update parent of bank coa`
+	ErrTenantAdminBankAccountsStaffCoaNotFound              = `staff coa not found, you must sync it first`
+	ErrTenantAdminBankAccountsStaffCoaSaveFailed            = `failed to save account to staff coa`
+	ErrTenantAdminBankAccountsStaffCoaParentUpdateFailed    = `failed to update parent of staff coa`
+	ErrTenantAdminBankAccountsFundersCoaSaveFailed          = `failed to save account to funders coa`
+	ErrTenantAdminBankAccountsFundersCoaParentUpdateFailed  = `failed to update parent of funders coa`
+	ErrTenantAdminBankAccountsFundersCoaNotFound            = `funders coa not found, you must sync it first`
 )
 
 var TenantAdminBankAccountsMeta = zCrud.Meta{
@@ -102,7 +102,7 @@ var TenantAdminBankAccountsMeta = zCrud.Meta{
 			DataType:    zCrud.DataTypeInt,
 			InputType:   zCrud.InputTypeCombobox,
 			Description: `Select staff`,
-			ReadOnly: true,
+			ReadOnly:    true,
 		},
 		{
 			Name:      mBudget.IsProfitCenter,
@@ -117,8 +117,8 @@ var TenantAdminBankAccountsMeta = zCrud.Meta{
 			InputType: zCrud.InputTypeCheckbox,
 		},
 		{
-			Name: mBudget.IsFunder,
-			Label: "Pemodal / Funder ?",
+			Name:      mBudget.IsFunder,
+			Label:     "Pemodal / Funder ?",
 			DataType:  zCrud.DataTypeBool,
 			InputType: zCrud.InputTypeCheckbox,
 		},
@@ -266,7 +266,7 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 			}
 		}
 
-		if in.Account.StaffId > 0 || account.StaffId != in.Account.StaffId{
+		if in.Account.StaffId > 0 || account.StaffId != in.Account.StaffId {
 			isSyncToBank = false
 
 			staff := rqAuth.NewUsers(d.AuthOltp)
@@ -346,7 +346,7 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 			}
 		}
 		account.SetIsProfitCenter(in.Account.IsProfitCenter)
-		
+
 		if isCostCenter {
 			isSyncToBank = false
 
@@ -381,7 +381,7 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 				out.SetError(400, ErrTenantAdminBankAccountsSupplierCoaParentUpdateFailed)
 				return
 			}
-		} 
+		}
 		account.SetIsCostCenter(in.Account.IsCostCenter)
 
 		if isFunder {
@@ -418,7 +418,7 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 				out.SetError(400, ErrTenantAdminBankAccountsFundersCoaParentUpdateFailed)
 				return
 			}
-		} 
+		}
 		account.SetIsFunder(in.Account.IsFunder)
 
 		if isSyncToBank {

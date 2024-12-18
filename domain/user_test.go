@@ -12,13 +12,12 @@ func TestCreateCompany(t *testing.T) {
 	defer closer()
 
 	t.Run(`insertMustSucceed`, func(t *testing.T) {
-
 		in := UserCreateCompanyIn{
 			RequestCommon: testAdminRequestCommon(UserCreateCompanyAction),
 			Company: rqAuth.Orgs{
 				TenantCode: `coolcompany`,
-				Name:   `Cool Company`,
-				HeadTitle:     `Mr. Ben`,
+				Name:       `Cool Company`,
+				HeadTitle:  `Mr. Ben`,
 			},
 		}
 
