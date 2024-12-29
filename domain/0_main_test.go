@@ -43,6 +43,7 @@ const (
 	testSuperAdminPassword   = `adminPass`
 	testSuperAdminUserName   = `admin1`
 	testSuperAdminTenantCode = `admin-1234`
+	testSuperAdminHost       = `http://admin-1234:1234`
 )
 
 func TestMain(m *testing.M) {
@@ -114,7 +115,7 @@ func TestMain(m *testing.M) {
 				Password: "passC",
 				Database: "default",
 			}
-			img := cdt.ImageLatest(dockerPool)
+			img := cdt.ImageVersion(dockerPool, `24.8.9`)
 			dockerPool.Spawn(img, func(res *dockertest.Resource) error {
 				c, err := cdt.ConnectCheck(res)
 				time.Sleep(1 * time.Second)
@@ -240,7 +241,7 @@ func testAdminRequestCommon(action string) RequestCommon {
 		UserAgent:     "",
 		IpAddress:     "127.0.2.1",
 		Debug:         true,
-		Host:          "localhost:1234",
+		Host:          testSuperAdminHost,
 		Action:        action,
 		Lat:           -1,
 		Long:          -2,

@@ -18,15 +18,13 @@ var hostmap = map[string]TenantHost{
 	// change it with the actual data from your database
 	`http://admin-2642:1235`: {
 		TenantCode: `admin-2642`,
-		OrgId: 10,
+		OrgId:      10,
 	},
 }
 
-var RgxFindTenantCode *regexp.Regexp
+var RgxFindTenantCode = regexp.MustCompile(`://([^:./]+)`)
 
 func (d *Domain) InitHostMapper() {
-	RgxFindTenantCode = regexp.MustCompile(`://([^:./]+)`)
-
 	orgs := rqAuth.NewOrgs(d.AuthOltp)
 	tenantsHost := orgs.FindTenantsHost()
 
@@ -35,7 +33,7 @@ func (d *Domain) InitHostMapper() {
 			subdomain := generateTenantSubdomain(X.ToS(v[0]))
 			hostmap[subdomain] = TenantHost{
 				TenantCode: X.ToS(v[0]),
-				OrgId: X.ToU(v[1]),
+				OrgId:      X.ToU(v[1]),
 			}
 		}
 	}
@@ -54,5 +52,5 @@ func GetTenantCodeByHost(hostname string) (string, error) {
 }
 
 func generateTenantSubdomain(tenantCode string) string {
-	return `https://`+ tenantCode +`.benakun.com`
+	return `https://` + tenantCode + `.benakun.com`
 }

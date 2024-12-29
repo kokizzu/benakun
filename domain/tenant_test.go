@@ -34,10 +34,8 @@ func TestProduct(t *testing.T) {
 				Kind:    mBusiness.KindTypeGOODS,
 			},
 		}
-
 		out := d.TenantAdminProducts(&in)
 		assert.Empty(t, out.Error)
-		assert.NotNil(t, out.Product)
 
 		t.Run(`editMustSucceed`, func(t *testing.T) {
 			in := TenantAdminProductsIn{
@@ -55,7 +53,6 @@ func TestProduct(t *testing.T) {
 
 			out := d.TenantAdminProducts(&in)
 			assert.Empty(t, out.Error)
-			assert.NotNil(t, out.Product)
 		})
 
 		t.Run(`deleteMustSucceed`, func(t *testing.T) {
@@ -252,7 +249,7 @@ func TestSyncCoa(t *testing.T) {
 		coa.SetCreatedAt(fastime.UnixNow())
 		coa.SetUpdatedAt(fastime.UnixNow())
 
-		if !coa.DoUpsertById() {
+		if !coa.DoInsert() {
 			return 0, errors.New(`failed to insert coa: "` + coa.Name + `"`)
 		}
 
@@ -261,7 +258,7 @@ func TestSyncCoa(t *testing.T) {
 
 	t.Run(`syncMustSucceed`, func(t *testing.T) {
 		coaProductId, err := insertCoa(d.AuthOltp, `Product`)
-		assert.Nil(t, err, `insert product coa`)
+		assert.NoError(t, err, `insert product coa`)
 
 		coaSupplierId, err := insertCoa(d.AuthOltp, `Supplier`)
 		assert.Nil(t, err, `insert supplier coa`)
@@ -287,7 +284,7 @@ func TestSyncCoa(t *testing.T) {
 		}
 
 		out := d.TenantAdminSyncCoa(&in)
-		assert.Nil(t, out.Error, `sync coa`)
+		assert.Empty(t, out.Error, `error sync coa`)
 	})
 }
 

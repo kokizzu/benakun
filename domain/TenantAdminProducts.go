@@ -39,14 +39,14 @@ type (
 const (
 	TenantAdminProductsAction = `tenantAdmin/products`
 
-	ErrTenantAdminProductsUnauthorized    = `unauthorized user`
-	ErrTenantAdminProductsProductNotFound = `product not found`
-	ErrTenantAdminProductsRuleNotValid    = `invalid product rule (must be fifo, lifo, average)`
-	ErrTenantAdminProductsKindNotValid    = `invalid product kind (must be goods, service)`
-	ErrTenantAdminProductsSaveFailed      = `product save failed`
-	ErrTenantAdminProductsNotTenant       = `must be tenant admin to do this operation`
-	ErrTenantAdminProductsCoaParentNotFound = `coa parent not found`
-	ErrTenantAdminProductsFailedSave = `failed to create a new product`
+	ErrTenantAdminProductsUnauthorized          = `unauthorized user`
+	ErrTenantAdminProductsProductNotFound       = `product not found`
+	ErrTenantAdminProductsRuleNotValid          = `invalid product rule (must be fifo, lifo, average)`
+	ErrTenantAdminProductsKindNotValid          = `invalid product kind (must be goods, service)`
+	ErrTenantAdminProductsSaveFailed            = `product save failed`
+	ErrTenantAdminProductsNotTenant             = `must be tenant admin to do this operation`
+	ErrTenantAdminProductsCoaParentNotFound     = `coa parent not found`
+	ErrTenantAdminProductsFailedSave            = `failed to create a new product`
 	ErrTenantAdminProductsFailedUpdateCoaParent = `failed to update coa parent of product`
 )
 
@@ -71,20 +71,20 @@ var TenantAdminProductsMeta = zCrud.Meta{
 			InputType: zCrud.InputTypeTextArea,
 		},
 		{
-			Name:      mBusiness.Rule,
-			Label:     "Aturan / Rule",
-			DataType:  zCrud.DataTypeString,
-			InputType: zCrud.InputTypeCombobox,
+			Name:        mBusiness.Rule,
+			Label:       "Aturan / Rule",
+			DataType:    zCrud.DataTypeString,
+			InputType:   zCrud.InputTypeCombobox,
 			Description: `Product rule`,
 			Ref: []string{
 				mBusiness.RuleTypeFIFO, mBusiness.RuleTypeLIFO, mBusiness.RuleTypeAVERAGE,
 			},
 		},
 		{
-			Name:      mBusiness.Kind,
-			Label:     "Jenis / Kind",
-			DataType:  zCrud.DataTypeString,
-			InputType: zCrud.InputTypeCombobox,
+			Name:        mBusiness.Kind,
+			Label:       "Jenis / Kind",
+			DataType:    zCrud.DataTypeString,
+			InputType:   zCrud.InputTypeCombobox,
 			Description: `Product kind`,
 			Ref: []string{
 				mBusiness.KindTypeGOODS, mBusiness.KindTypeService,
@@ -97,9 +97,9 @@ var TenantAdminProductsMeta = zCrud.Meta{
 			InputType: zCrud.InputTypeNumber,
 		},
 		{
-			Name: mBusiness.ProfitPercentage,
-			Label: "Persentase Profit / Profit Percentage",
-			DataType: zCrud.DataTypeInt,
+			Name:      mBusiness.ProfitPercentage,
+			Label:     "Persentase Profit / Profit Percentage",
+			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypePercentage,
 		},
 		{
