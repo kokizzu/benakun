@@ -2,6 +2,7 @@ package domain
 
 import (
 	"benakun/model/mAuth/rqAuth"
+	"benakun/model/mAuth/wcAuth"
 	"benakun/model/mBudget/rqBudget"
 	"benakun/model/mBusiness"
 	"benakun/model/mBusiness/rqBusiness"
@@ -23,6 +24,20 @@ func TestProduct(t *testing.T) {
 	defer closer()
 
 	t.Run(`insertMustSucceed`, func(t *testing.T) {
+		coaParent := wcFinance.NewCoaMutator(d.AuthOltp)
+		coaParent.SetTenantCode(testSuperAdminTenantCode)
+		coaParent.SetName(`Product`)
+		coaParent.SetCreatedAt(fastime.UnixNow())
+		coaParent.SetUpdatedAt(fastime.UnixNow())
+		isInsertCoaParent := coaParent.DoInsert()
+		assert.True(t, isInsertCoaParent, `failed to insert coa parent`)
+
+		tenant := wcAuth.NewTenantsMutator(d.AuthOltp)
+		tenant.TenantCode = testSuperAdminTenantCode
+		tenant.SetProductsCoaId(coaParent.Id)
+		isUpdateTenantProductsCoa := tenant.DoUpdateByTenantCode()
+		assert.True(t, isUpdateTenantProductsCoa, `failed to update tenant products coa`)
+
 		in := TenantAdminProductsIn{
 			RequestCommon: testAdminRequestCommon(TenantAdminProductsAction),
 			Cmd:           zCrud.CmdUpsert,

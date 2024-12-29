@@ -1,9 +1,10 @@
 package domain
 
 import (
-	"benakun/model/mAuth/rqAuth"
 	"errors"
 	"regexp"
+
+	"benakun/model/mAuth/rqAuth"
 
 	"github.com/kokizzu/gotro/X"
 )
