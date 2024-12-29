@@ -114,7 +114,7 @@ func TestMain(m *testing.M) {
 				Password: "passC",
 				Database: "default",
 			}
-			img := cdt.ImageLatest(dockerPool)
+			img := cdt.ImageVersion(dockerPool, `24.8.9`)
 			dockerPool.Spawn(img, func(res *dockertest.Resource) error {
 				c, err := cdt.ConnectCheck(res)
 				time.Sleep(1 * time.Second)
