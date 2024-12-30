@@ -174,7 +174,8 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 		if in.Account.Id <= 0 {
 			out.Meta = &SuperAdminUserManagementMeta
 
-			if user.Role != TenantAdminSegment {
+			sess := d.MustTenantAdmin(in.RequestCommon, &out.ResponseCommon)
+			if sess == nil {
 				out.SetError(400, ErrTenantAdminBankAccountsNotTenant)
 				return
 			}
@@ -195,7 +196,8 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 
 		out.Account = account
 	case zCrud.CmdUpsert, zCrud.CmdDelete, zCrud.CmdRestore:
-		if user.Role != TenantAdminSegment {
+		sess := d.MustTenantAdmin(in.RequestCommon, &out.ResponseCommon)
+		if sess == nil {
 			out.SetError(400, ErrTenantAdminBankAccountsNotTenant)
 			return
 		}
