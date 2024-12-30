@@ -30,13 +30,13 @@ type Session struct {
 	ExpiredAt  int64 // in seconds
 	Email      string
 	TenantCode string
-	Role			 string
+	Role       string
 
 	// not saved but retrieved from SUPERADMIN_EMAILS env
-	IsSuperAdmin  		bool
-	IsTenantAdmin 		bool
-	IsDataEntry				bool
-	IsReportViewer		bool
+	IsSuperAdmin      bool
+	IsTenantAdmin     bool
+	IsDataEntry       bool
+	IsReportViewer    bool
 	IsFieldSupervisor bool
 
 	Segments M.SB
@@ -44,13 +44,13 @@ type Session struct {
 
 // list of first segment of url path, if empty then only /guest segment
 const (
-	SuperAdminSegment   		= `superAdmin`
-	TenantAdminSegment  		= `tenantAdmin`
-	DataEntrySegment    		= `dataEntry`
-	ReportViewerSegment 		= `reportViewer`
-	FieldSupervisorSegment	= `fieldSupervisor`
-	GuestSegment        		= `guest` // any user that not yet login
-	UserSegment         		= `user`  // any user that already login
+	SuperAdminSegment      = `superAdmin`
+	TenantAdminSegment     = `tenantAdmin`
+	DataEntrySegment       = `dataEntry`
+	ReportViewerSegment    = `reportViewer`
+	FieldSupervisorSegment = `fieldSupervisor`
+	GuestSegment           = `guest` // any user that not yet login
+	UserSegment            = `user`  // any user that already login
 )
 
 func (s *Session) MarshalEnkodo(enc *enkodo.Encoder) (err error) {
@@ -199,11 +199,11 @@ const (
 
 	ErrSegmentNotAllowed = `session segment not allowed`
 
-	ErrSessionUserNotSuperAdmin  	= `session email is not superadmin`
-	ErrSessionUserNotTenantAdmin 	= `session user is not tenant admin`
-	ErrSessionUserNotDataEntry		=	`session user is not data entry`
+	ErrSessionUserNotSuperAdmin      = `session email is not superadmin`
+	ErrSessionUserNotTenantAdmin     = `session user is not tenant admin`
+	ErrSessionUserNotDataEntry       = `session user is not data entry`
 	ErrSessionUserNotFieldSupervisor = `session user is not field supervisor`
-	ErrSessionUserNotReportViewer = `session user is not report viewer`
+	ErrSessionUserNotReportViewer    = `session user is not report viewer`
 )
 
 func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session) {
@@ -298,7 +298,7 @@ func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 	case GuestSegment:
 		sess.Segments[GuestSegment] = true
 	}
-	
+
 	if sess.IsSuperAdmin {
 		sess.Segments[SuperAdminSegment] = true
 		sess.Segments[TenantAdminSegment] = true
