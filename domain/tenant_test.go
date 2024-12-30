@@ -6,6 +6,7 @@ import (
 	"benakun/model/mBudget/rqBudget"
 	"benakun/model/mBusiness"
 	"benakun/model/mBusiness/rqBusiness"
+	"benakun/model/mFinance/rqFinance"
 	"benakun/model/mFinance/wcFinance"
 	"benakun/model/zCrud"
 	"errors"
@@ -354,6 +355,68 @@ func TestLocation(t *testing.T) {
 
 					out := d.TenantAdminLocations(&in)
 					assert.Empty(t, out.Error, `failed to restore location`)
+				})
+			})
+		})
+	})
+}
+
+func TestTransactionTemplate(t *testing.T) {
+	d, closer := testDomain()
+	defer closer()
+
+	t.Run(`insertMustSucceed`, func(t *testing.T) {
+		in := TenantAdminTransactionTemplateIn{
+			RequestCommon: testAdminRequestCommon(TenantAdminTransactionTemplateAction),
+			Cmd:           zCrud.CmdUpsert,
+			TransactionTemplate: &rqFinance.TransactionTemplate{
+				Name:     `Transaction Template 01`,
+				Color:    `#000000`,
+				ImageURL: `https://example.com/image.png`,
+			},
+		}
+
+		out := d.TenantAdminTransactionTemplate(&in)
+		assert.Empty(t, out.Error, `failed to insert transaction template`)
+
+		t.Run(`updateMustSucceed`, func(t *testing.T) {
+			in := TenantAdminTransactionTemplateIn{
+				RequestCommon: testAdminRequestCommon(TenantAdminTransactionTemplateAction),
+				Cmd:           zCrud.CmdUpsert,
+				TransactionTemplate: &rqFinance.TransactionTemplate{
+					Id:       out.TransactionTemplate.Id,
+					Name:     `Transaction Template XD`,
+					Color:    `#000000`,
+					ImageURL: `https://example.com/image.png`,
+				},
+			}
+
+			out := d.TenantAdminTransactionTemplate(&in)
+			assert.Empty(t, out.Error, `failed to update transaction template`)
+
+			t.Run(`deleteMustSucceed`, func(t *testing.T) {
+				in := TenantAdminTransactionTemplateIn{
+					RequestCommon: testAdminRequestCommon(TenantAdminTransactionTemplateAction),
+					Cmd:           zCrud.CmdDelete,
+					TransactionTemplate: &rqFinance.TransactionTemplate{
+						Id: out.TransactionTemplate.Id,
+					},
+				}
+
+				out := d.TenantAdminTransactionTemplate(&in)
+				assert.Empty(t, out.Error, `failed to delete transaction template`)
+
+				t.Run(`restoreMustSucceed`, func(t *testing.T) {
+					in := TenantAdminTransactionTemplateIn{
+						RequestCommon: testAdminRequestCommon(TenantAdminTransactionTemplateAction),
+						Cmd:           zCrud.CmdRestore,
+						TransactionTemplate: &rqFinance.TransactionTemplate{
+							Id: out.TransactionTemplate.Id,
+						},
+					}
+
+					out := d.TenantAdminTransactionTemplate(&in)
+					assert.Empty(t, out.Error, `failed to restore transaction template`)
 				})
 			})
 		})
