@@ -240,7 +240,7 @@ func testAdminRequestCommon(action string) RequestCommon {
 		UserAgent:     "",
 		IpAddress:     "127.0.2.1",
 		Debug:         true,
-		Host:          "localhost:1234",
+		Host:          fmt.Sprintf("http://%s:1234", testSuperAdminTenantCode),
 		Action:        action,
 		Lat:           -1,
 		Long:          -2,

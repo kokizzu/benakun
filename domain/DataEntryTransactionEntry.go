@@ -21,11 +21,11 @@ import (
 type (
 	DataEntryTransactionEntryIn struct {
 		RequestCommon
-		Cmd      string               `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		TransactionTplId 	 uint64 `json:"transactionTplId" form:"transactionTplId" query:"transactionTplId" long:"transactionTplId" msg:"transactionTplId"`
-		TransactionTplDetailsId 	 []uint64 `json:"transactionTplDetailsId" form:"transactionTplDetailsId" query:"transactionTplDetailsId" long:"transactionTplDetailsId" msg:"transactionTplDetailsId"`
-		TransactionJournals []rqFinance.TransactionJournal `json:"transactionJournals" form:"transactionJournals" query:"transactionJournals" long:"transactionJournals" msg:"transactionJournals"`
-		BusinessTransaction rqFinance.BusinessTransaction `json:"businessTransaction" form:"businessTransaction" query:"businessTransaction" long:"businessTransaction" msg:"businessTransaction"`
+		Cmd                     string                         `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
+		TransactionTplId        uint64                         `json:"transactionTplId" form:"transactionTplId" query:"transactionTplId" long:"transactionTplId" msg:"transactionTplId"`
+		TransactionTplDetailsId []uint64                       `json:"transactionTplDetailsId" form:"transactionTplDetailsId" query:"transactionTplDetailsId" long:"transactionTplDetailsId" msg:"transactionTplDetailsId"`
+		TransactionJournals     []rqFinance.TransactionJournal `json:"transactionJournals" form:"transactionJournals" query:"transactionJournals" long:"transactionJournals" msg:"transactionJournals"`
+		BusinessTransaction     rqFinance.BusinessTransaction  `json:"businessTransaction" form:"businessTransaction" query:"businessTransaction" long:"businessTransaction" msg:"businessTransaction"`
 	}
 	DataEntryTransactionEntryOut struct {
 		ResponseCommon
@@ -36,17 +36,17 @@ type (
 const (
 	DataEntryTransactionEntryAction = `dataEntry/transactionEntry`
 
-	ErrDataEntryTransactionEntryUnauthorized 								= `you are unauthorized as data entry`
-	ErrDataEntryTransactionEntryUserNotFound 								= `user not found`
-	ErrDataEntryTransactionEntryTenantNotFound 							= `tenant not found`
-	ErrDataEntryTransactionEntryNotDataEntry 								= `must be data entry to do this operation`
-	ErrDataEntryTransactionEntryInvalidUserRole 						= `invalid role to this tenant`
-	ErrDataEntryTransactionEntryCoaNotFound 								= `coa not found to journaling this transaction`
-	ErrDataEntryTransactionEntryCoaIsEmpty 									= `coa id cannot be empty`
-	ErrDataEntryTransactionEntryInvalidCoaChild 						= `invalid coa child`
-	ErrDataEntryTransactionEntryInvalidDate 								= `invalid date format, must be use format "2006-01-02"`
-	ErrDataEntryTransactionEntryInvalidDetailObject 				= `invalid format for detail object`
-	ErrDataEntryTransactionEntrySaveFailed 									= `failed to save transaction journal`
+	ErrDataEntryTransactionEntryUnauthorized                = `you are unauthorized as data entry`
+	ErrDataEntryTransactionEntryUserNotFound                = `user not found`
+	ErrDataEntryTransactionEntryTenantNotFound              = `tenant not found`
+	ErrDataEntryTransactionEntryNotDataEntry                = `must be data entry to do this operation`
+	ErrDataEntryTransactionEntryInvalidUserRole             = `invalid role to this tenant`
+	ErrDataEntryTransactionEntryCoaNotFound                 = `coa not found to journaling this transaction`
+	ErrDataEntryTransactionEntryCoaIsEmpty                  = `coa id cannot be empty`
+	ErrDataEntryTransactionEntryInvalidCoaChild             = `invalid coa child`
+	ErrDataEntryTransactionEntryInvalidDate                 = `invalid date format, must be use format "2006-01-02"`
+	ErrDataEntryTransactionEntryInvalidDetailObject         = `invalid format for detail object`
+	ErrDataEntryTransactionEntrySaveFailed                  = `failed to save transaction journal`
 	ErrDataEntryTransactionEntryTransactionTemplateNotFound = `transaction template not found`
 )
 
@@ -111,7 +111,7 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 
 				trxJournal := wcFinance.NewTransactionJournalMutator(d.AuthOltp)
 				trxJournal.SetTenantCode(tenant.TenantCode)
-				
+
 				if v.CoaId > 0 {
 					coaChild := rqFinance.NewCoa(d.AuthOltp)
 					coaChild.Id = v.CoaId
@@ -144,7 +144,7 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 				if v.DetailObj != `` && parsedAttributes.IsSales {
 					var trxJournalDetailObj mFinance.TransactionJournalDetailObject
 					err := json.Unmarshal([]byte(v.DetailObj), &trxJournalDetailObj)
-					if err != nil || S.ToI(trxJournalDetailObj.SalesPriceIDR) == 0{
+					if err != nil || S.ToI(trxJournalDetailObj.SalesPriceIDR) == 0 {
 						out.SetError(400, ErrDataEntryTransactionEntryInvalidDetailObject)
 						return
 					}
@@ -192,6 +192,6 @@ func (d *Domain) DataEntryTransactionEntry(in *DataEntryTransactionEntryIn) (out
 			return
 		}
 	}
-	
+
 	return
 }
