@@ -1192,6 +1192,17 @@ func (u *UsersMutator) SetInvitationState(val string) bool { //nolint:dupl false
 	return false
 }
 
+// SetSupportExpiredAt create mutations, should not duplicate
+func (u *UsersMutator) SetSupportExpiredAt(val int64) bool { //nolint:dupl false positive
+	if val != u.SupportExpiredAt {
+		u.mutations.Assign(18, val)
+		u.logs = append(u.logs, A.X{`supportExpiredAt`, u.SupportExpiredAt, val})
+		u.SupportExpiredAt = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (u *UsersMutator) SetAll(from rqAuth.Users, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -1270,6 +1281,10 @@ func (u *UsersMutator) SetAll(from rqAuth.Users, excludeMap, forceMap M.SB) (cha
 	}
 	if !excludeMap[`invitationState`] && (forceMap[`invitationState`] || from.InvitationState != ``) {
 		u.InvitationState = S.Trim(from.InvitationState)
+		changed = true
+	}
+	if !excludeMap[`supportExpiredAt`] && (forceMap[`supportExpiredAt`] || from.SupportExpiredAt != 0) {
+		u.SupportExpiredAt = from.SupportExpiredAt
 		changed = true
 	}
 	return

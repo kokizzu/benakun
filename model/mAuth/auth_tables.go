@@ -62,6 +62,7 @@ const (
 	Role               = `role`
 	InvitedAt          = `invitedAt`
 	InvitationState    = `invitationState`
+	SupportExpiredAt   = `supportExpiredAt`
 )
 
 const DefaultPassword = `user12345678`
@@ -145,6 +146,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{TenantCode, Tt.String},
 			{Role, Tt.String},
 			{InvitationState, Tt.String},
+			{SupportExpiredAt, Tt.Integer},
 		},
 		AutoIncrementId:  true,
 		Unique1:          Email,

@@ -1127,6 +1127,7 @@ type Users struct {
 	TenantCode         string      `json:"tenantCode" form:"tenantCode" query:"tenantCode" long:"tenantCode" msg:"tenantCode"`
 	Role               string      `json:"role" form:"role" query:"role" long:"role" msg:"role"`
 	InvitationState    string      `json:"invitationState" form:"invitationState" query:"invitationState" long:"invitationState" msg:"invitationState"`
+	SupportExpiredAt   int64       `json:"supportExpiredAt" form:"supportExpiredAt" query:"supportExpiredAt" long:"supportExpiredAt" msg:"supportExpiredAt"`
 }
 
 // NewUsers create new ORM reader/query object
@@ -1215,6 +1216,7 @@ func (u *Users) SqlSelectAllFields() string { //nolint:dupl false positive
 	, "tenantCode"
 	, "role"
 	, "invitationState"
+	, "supportExpiredAt"
 	`
 }
 
@@ -1238,6 +1240,7 @@ func (u *Users) SqlSelectAllUncensoredFields() string { //nolint:dupl false posi
 	, "tenantCode"
 	, "role"
 	, "invitationState"
+	, "supportExpiredAt"
 	`
 }
 
@@ -1261,7 +1264,8 @@ func (u *Users) ToUpdateArray() *tarantool.Operations { //nolint:dupl false posi
 		Assign(14, u.FullName).
 		Assign(15, u.TenantCode).
 		Assign(16, u.Role).
-		Assign(17, u.InvitationState)
+		Assign(17, u.InvitationState).
+		Assign(18, u.SupportExpiredAt)
 }
 
 // IdxId return name of the index
@@ -1444,6 +1448,16 @@ func (u *Users) SqlInvitationState() string { //nolint:dupl false positive
 	return `"invitationState"`
 }
 
+// IdxSupportExpiredAt return name of the index
+func (u *Users) IdxSupportExpiredAt() int { //nolint:dupl false positive
+	return 18
+}
+
+// SqlSupportExpiredAt return name of the column being indexed
+func (u *Users) SqlSupportExpiredAt() string { //nolint:dupl false positive
+	return `"supportExpiredAt"`
+}
+
 // CensorFields remove sensitive fields for output
 func (u *Users) CensorFields() { //nolint:dupl false positive
 	u.Password = ``
@@ -1476,6 +1490,7 @@ func (u *Users) ToArray() A.X { //nolint:dupl false positive
 		u.TenantCode,         // 15
 		u.Role,               // 16
 		u.InvitationState,    // 17
+		u.SupportExpiredAt,   // 18
 	}
 }
 
@@ -1499,6 +1514,7 @@ func (u *Users) FromArray(a A.X) *Users { //nolint:dupl false positive
 	u.TenantCode = X.ToS(a[15])
 	u.Role = X.ToS(a[16])
 	u.InvitationState = X.ToS(a[17])
+	u.SupportExpiredAt = X.ToI(a[18])
 	return u
 }
 
@@ -1519,6 +1535,7 @@ func (u *Users) FromUncensoredArray(a A.X) *Users { //nolint:dupl false positive
 	u.TenantCode = X.ToS(a[15])
 	u.Role = X.ToS(a[16])
 	u.InvitationState = X.ToS(a[17])
+	u.SupportExpiredAt = X.ToI(a[18])
 	return u
 }
 
@@ -1601,6 +1618,7 @@ var UsersFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
 	`tenantCode`:         Tt.String,
 	`role`:               Tt.String,
 	`invitationState`:    Tt.String,
+	`supportExpiredAt`:   Tt.Integer,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
