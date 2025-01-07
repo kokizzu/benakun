@@ -450,6 +450,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// UserPurchaseSupport
+	fw.Post("/"+domain.UserPurchaseSupportAction, func(c *fiber.Ctx) error {
+		in := domain.UserPurchaseSupportIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserPurchaseSupportAction); err != nil {
+			return nil
+		}
+		out := d.UserPurchaseSupport(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// UserResponseInvitation
 	fw.Post("/"+domain.UserResponseInvitationAction, func(c *fiber.Ctx) error {
 		in := domain.UserResponseInvitationIn{}

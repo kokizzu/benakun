@@ -541,6 +541,9 @@
 												},
 												"invitationState": {
 														"type": "string"
+												},
+												"supportExpiredAt": {
+														"type": "number"
 												}
 												}
 										},
@@ -781,6 +784,9 @@
 												},
 												"invitationState": {
 														"type": "string"
+												},
+												"supportExpiredAt": {
+														"type": "number"
 												}
 												}
 										},
@@ -895,6 +901,9 @@
 												},
 												"invitationState": {
 														"type": "string"
+												},
+												"supportExpiredAt": {
+														"type": "number"
 												}
 												}
 										},
@@ -1001,6 +1010,9 @@
 												},
 												"invitationState": {
 														"type": "string"
+												},
+												"supportExpiredAt": {
+														"type": "number"
 												}
 												}
 										},
@@ -1936,6 +1948,9 @@
 								},
 								"invitationState": {
 										"type": "string"
+								},
+								"supportExpiredAt": {
+										"type": "number"
 								}
 								}
 						},
@@ -2079,6 +2094,9 @@
 												},
 												"invitationState": {
 														"type": "string"
+												},
+												"supportExpiredAt": {
+														"type": "number"
 												}
 												}
 										},
@@ -4536,6 +4554,9 @@
 												},
 												"invitationState": {
 														"type": "string"
+												},
+												"supportExpiredAt": {
+														"type": "number"
 												}
 												}
 										},
@@ -4544,6 +4565,38 @@
 										"properties": {
 												}
 										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "UserPurchaseSupport",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
 									}
 								}
 							}
@@ -4773,6 +4826,9 @@
 												},
 												"invitationState": {
 														"type": "string"
+												},
+												"supportExpiredAt": {
+														"type": "number"
 												}
 												}
 										},

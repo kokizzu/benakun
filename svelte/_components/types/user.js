@@ -18,5 +18,6 @@
  * @property {string} updatedBy
  * @property {number} verificationSentAt
  * @property {number} verifiedAt
+ * @property {number} supportExpiredAt
  */
 module.exports = {};
