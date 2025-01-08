@@ -5,7 +5,9 @@
   import SideMenu from '../_components/partials/SideMenu.svelte';
   import Navbar from '../_components/partials/Navbar.svelte';
   import Footer from '../_components/partials/Footer.svelte';
+  import PopUpPurchaseSupport from '../_components/PopUpPurchaseSupport.svelte';
   import { IsShrinkMenu } from '../_components/uiState';
+  import { IsUnixTimeExpired } from '../_components/xHelper';
   import { onMount } from 'svelte';
   
   let segments = /** @type Access */ ({/* segments */});
@@ -28,8 +30,21 @@
         }
       })
     }
-  })
+  });
+
+  let popUpPurchaseSupport;
+  let popUpPurchaseSupportInterval;
+
+  if (!IsUnixTimeExpired(user.supportExpiredAt)) {
+    popUpPurchaseSupportInterval = setInterval(() => {
+      popUpPurchaseSupport.Show();
+    }, 5000);
+  }
 </script>
+
+<PopUpPurchaseSupport
+  bind:this={popUpPurchaseSupport}
+/>
 
 <div class="root_layout">
   <div class="root_container">

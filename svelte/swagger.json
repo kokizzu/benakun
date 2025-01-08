@@ -4573,6 +4573,7 @@
 				}
 			}
 		},
+		"/user/purchaseSupport": {
 			"post": {
 				"security": [{
 					"CookieAuth": []

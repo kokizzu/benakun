@@ -40,6 +40,7 @@
       </button>
     </div>
     <div class="right">
+      <!-- <button on:click={purchaseSupport}>purchase</button> -->
       <picture>
         <img src="/assets/icons/benakun-logo.png" alt="" />
       </picture>

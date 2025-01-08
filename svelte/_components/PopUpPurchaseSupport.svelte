@@ -1,7 +1,4 @@
 <script>
-  import { Icon } from '../node_modules/svelte-icons-pack/dist';
-  import { FiLoader } from '../node_modules/svelte-icons-pack/dist/fi';
-  import { IoClose } from '../node_modules/svelte-icons-pack/dist/io';
   import { UserPurchaseSupport } from '../jsApi.GEN';
 
   let isShow = false;
@@ -17,37 +14,33 @@
   }
 </script>
 
-<div class={`popup_container ${isShow ? 'show' : ''}`}>
+<div class={`popup-container ${isShow ? 'show' : ''}`}>
   <div class="popup">
-    <header class="header">
-      <h2>Purchase support</h2>
-      <button on:click={Hide}>
-        <Icon size="22" color="var(--red-005)" src={IoClose}/>
-      </button>
+    <header>
+      <img
+				src="/assets/img/banner-support-plus.png"
+				alt="Banner Support Plus"
+				class="banner"
+			/>
     </header>
-    <div class="forms">
-      <button class="btn" on:click={purchaseSupport}>
-        Purchase support +++
-      </button>
+    <div class="content">
+			<div class="description">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente ad quidem magni incidunt accusantium illum amet repellat ea distinctio voluptatum! Similique molestias vel quos in omnis aut vero debitis velit.</p>
+			</div>
+			<div class="buttons">
+				<button class="btn buy" on:click={purchaseSupport}>
+					<span>Buy Support+</span>
+				</button>
+				<button class="btn skip" on:click={Hide}>
+					<span>Skip for now</span>
+				</button>
+			</div>
     </div>
   </div>
 </div>
 
 <style>
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  :global(.spin) {
-    animation: spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
-  }
-
-  .popup_container {
+  .popup-container {
     display: none;
 		position: fixed;
 		width: 100%;
@@ -64,113 +57,72 @@
     overflow: auto;
 	}
 
-  .popup_container.show {
+  .popup-container.show {
     display: flex;
   }
 
-	.popup_container .popup {
-		border-radius: 8px;
+	.popup-container .popup {
+		border-radius: 14px;
 		background-color: #FFF;
 		height: fit-content;
 		width: 500px;
 		display: flex;
 		flex-direction: column;
+		overflow: hidden;
 	}
 
-  .popup_container .popup header {
+  .popup-container .popup header {
 		display: flex;
 		flex-direction: row;
-		justify-content: space-between;
 		align-items: center;
-		padding: 10px 20px;
-		border-bottom: 1px solid var(--gray-004);
 	}
 
-	.popup_container .popup header h2 {
+	.popup-container .popup header img {
+		width: 100%;
+		height: auto;
+	}
+
+	.popup-container .popup .content {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		padding: 20px;
+	}
+
+	.popup-container .popup .content .description p {
 		margin: 0;
 	}
 
-	.popup_container .popup header button {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		padding: 5px;
-		border-radius: 50%;
-		border: none;
-		background-color: transparent;
-		cursor: pointer;
-	}
-
-	.popup_container .popup header button:hover {
-		background-color: #ef444420;
-	}
-
-	.popup_container .popup header button:active {
-		background-color: #ef444430;
-	}
-
-	.popup_container .popup .forms {
-		padding: 20px;
+	.popup-container .popup .content .buttons {
 		display: flex;
 		flex-direction: column;
 		gap: 10px;
 	}
 
-	.popup_container .popup .foot {
-		display: flex;
-		flex-direction: row;
-    justify-content: space-between;
-		gap: 10px;
-		align-items: center;
+	.popup-container .popup .content .buttons .btn {
+		width: 100%;
 		padding: 10px 20px;
-		border-top: 1px solid var(--gray-004);
-	}
-
-  .popup_container .popup .foot .right {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-  }
-
-	.popup_container .popup .foot button {
-		padding: 8px 13px;
 		border-radius: 9999px;
 		border: none;
-		color: #FFF;
 		cursor: pointer;
 		font-weight: 600;
 	}
 
-	.popup_container .popup .foot button.ok {
-		background-color: var(--green-006);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	.popup-container .popup .content .buttons .btn.buy {
+		background-color: var(--sky-006);
+		color: #FFF;
 	}
 
-	.popup_container .popup .foot button.ok:hover {
-		background-color: var(--green-005);
+	.popup-container .popup .content .buttons .btn.buy:hover {
+		background-color: var(--sky-005);
 	}
 
-	.popup_container .popup .foot button.cancel {
-		background-color: #fbbf2430;
-		color: var(--amber-005);
+	.popup-container .popup .content .buttons .btn.skip {
+		background-color: transparent;
+		color: var(--gray-008);
 	}
 
-	.popup_container .popup .foot button.cancel:hover {
-		background-color: #fbbf2450;
+	.popup-container .popup .content .buttons .btn.skip:hover {
+		background-color: var(--gray-002);
 	}
-
-	@media only screen and (max-width : 768px) {
-    .popup_container {
-      padding: 10px;
-    }
-  }
-
-	@media only screen and (max-width : 768px) {
-    .popup_container {
-      padding: 10px;
-    }
-  }
 </style>
