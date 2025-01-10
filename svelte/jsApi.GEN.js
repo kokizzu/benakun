@@ -3073,8 +3073,10 @@ exports.UserProfile = async function UserProfile( i, cb ) {
 
 /**
  * @typedef {Object} UserPurchaseSupportIn
+ * @property {String} state
  */
 const UserPurchaseSupportIn = {
+  state: '', // string
 }
 /**
  * @typedef {Object} UserPurchaseSupportOut

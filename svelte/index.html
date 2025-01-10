@@ -3,6 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/assets/favicons/favicon.png">
     <title>/*! title */</title>
+    <script src="https://sandbox.doku.com/jokul-checkout-js/v1/jokul-checkout-1.0.0.js"></script>
   </head>
 
   <body>
@@ -1054,7 +1055,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
 }
 
 /* fakecss:./_components/PopUpPurchaseSupport.esbuild-svelte-fake-css */
-.popup-container.svelte-1hds64t.svelte-1hds64t {
+.popup-container.svelte-tnesgs.svelte-tnesgs {
   display: none;
   position: fixed;
   width: 100%;
@@ -1070,10 +1071,10 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   padding: 50px;
   overflow: auto;
 }
-.popup-container.show.svelte-1hds64t.svelte-1hds64t {
+.popup-container.show.svelte-tnesgs.svelte-tnesgs {
   display: flex;
 }
-.popup-container.svelte-1hds64t .popup.svelte-1hds64t {
+.popup-container.svelte-tnesgs .popup.svelte-tnesgs {
   border-radius: 14px;
   background-color: #FFF;
   height: fit-content;
@@ -1082,30 +1083,30 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   flex-direction: column;
   overflow: hidden;
 }
-.popup-container.svelte-1hds64t .popup header.svelte-1hds64t {
+.popup-container.svelte-tnesgs .popup header.svelte-tnesgs {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.popup-container.svelte-1hds64t .popup header img.svelte-1hds64t {
+.popup-container.svelte-tnesgs .popup header img.svelte-tnesgs {
   width: 100%;
   height: auto;
 }
-.popup-container.svelte-1hds64t .popup .content.svelte-1hds64t {
+.popup-container.svelte-tnesgs .popup .content.svelte-tnesgs {
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 20px;
 }
-.popup-container.svelte-1hds64t .popup .content .description p.svelte-1hds64t {
+.popup-container.svelte-tnesgs .popup .content .description p.svelte-tnesgs {
   margin: 0;
 }
-.popup-container.svelte-1hds64t .popup .content .buttons.svelte-1hds64t {
+.popup-container.svelte-tnesgs .popup .content .buttons.svelte-tnesgs {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.popup-container.svelte-1hds64t .popup .content .buttons .btn.svelte-1hds64t {
+.popup-container.svelte-tnesgs .popup .content .buttons .btn.svelte-tnesgs {
   width: 100%;
   padding: 10px 20px;
   border-radius: 9999px;
@@ -1113,18 +1114,24 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   cursor: pointer;
   font-weight: 600;
 }
-.popup-container.svelte-1hds64t .popup .content .buttons .btn.buy.svelte-1hds64t {
+.popup-container.svelte-tnesgs .popup .content .buttons .btn.svelte-tnesgs:disabled {
+  cursor: not-allowed;
+}
+.popup-container.svelte-tnesgs .popup .content .buttons .btn.buy.svelte-tnesgs {
   background-color: var(--sky-006);
   color: #FFF;
 }
-.popup-container.svelte-1hds64t .popup .content .buttons .btn.buy.svelte-1hds64t:hover {
+.popup-container.svelte-tnesgs .popup .content .buttons .btn.buy.svelte-tnesgs:hover {
   background-color: var(--sky-005);
 }
-.popup-container.svelte-1hds64t .popup .content .buttons .btn.skip.svelte-1hds64t {
+.popup-container.svelte-tnesgs .popup .content .buttons .btn.buy.svelte-tnesgs:disabled {
+  background-color: var(--sky-005);
+}
+.popup-container.svelte-tnesgs .popup .content .buttons .btn.skip.svelte-tnesgs {
   background-color: transparent;
   color: var(--gray-008);
 }
-.popup-container.svelte-1hds64t .popup .content .buttons .btn.skip.svelte-1hds64t:hover {
+.popup-container.svelte-tnesgs .popup .content .buttons .btn.skip.svelte-tnesgs:hover {
   background-color: var(--gray-002);
 }
 
@@ -4583,7 +4590,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     let { size = "1em" } = $props;
     let { viewBox = void 0 } = $props;
     let { color = "currentColor" } = $props;
-    let { title = void 0 } = $props;
+    let { title: title2 = void 0 } = $props;
     let { className = "" } = $props;
     let innerHtml;
     let attr2 = {};
@@ -4597,7 +4604,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       if ("color" in $props2)
         $invalidate(3, color = $props2.color);
       if ("title" in $props2)
-        $invalidate(7, title = $props2.title);
+        $invalidate(7, title2 = $props2.title);
       if ("className" in $props2)
         $invalidate(4, className = $props2.className);
     };
@@ -4619,11 +4626,11 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       if ($self.$.dirty & /*title, src*/
       129) {
         $: {
-          $invalidate(5, innerHtml = (title ? `<title>${title}</title>` : "") + src.c);
+          $invalidate(5, innerHtml = (title2 ? `<title>${title2}</title>` : "") + src.c);
         }
       }
     };
-    return [src, size, viewBox, color, className, innerHtml, attr2, title];
+    return [src, size, viewBox, color, className, innerHtml, attr2, title2];
   }
   var Icon = class extends SvelteComponent {
     constructor(options) {
@@ -7918,7 +7925,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       /** @type {import('svelte-icons-pack').IconType} */
       {}
     ) } = $props;
-    let { title = "" } = $props;
+    let { title: title2 = "" } = $props;
     let { subtitle = "" } = $props;
     const pathname = window.location.pathname;
     $self.$set = ($props2) => {
@@ -7927,11 +7934,11 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       if ("icon" in $props2)
         $invalidate(1, icon = $props2.icon);
       if ("title" in $props2)
-        $invalidate(2, title = $props2.title);
+        $invalidate(2, title2 = $props2.title);
       if ("subtitle" in $props2)
         $invalidate(3, subtitle = $props2.subtitle);
     };
-    return [href, icon, title, subtitle, $IsShrinkMenu, pathname];
+    return [href, icon, title2, subtitle, $IsShrinkMenu, pathname];
   }
   var SubMenuLink = class extends SvelteComponent {
     constructor(options) {
@@ -9468,17 +9475,15 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     let icon1;
     let t1;
     let div2;
-    let c;
-    let t2;
     let picture;
-    let t3;
+    let t2;
     let span;
     let div1;
-    let t4_value = (
+    let t3_value = (
       /*user*/
       ctx[0].email + ""
     );
-    let t4;
+    let t3;
     let span_class_value;
     let current;
     let mounted;
@@ -9508,14 +9513,12 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         create_component(icon1.$.fragment);
         t1 = space();
         div2 = element("div");
-        c = comment(" <button on:click={purchaseSupport}>purchase</button> ");
-        t2 = space();
         picture = element("picture");
         picture.innerHTML = `<img src="/assets/icons/benakun-logo.png" alt="" class="svelte-4fogfh"/>`;
-        t3 = space();
+        t2 = space();
         span = element("span");
         div1 = element("div");
-        t4 = text(t4_value);
+        t3 = text(t3_value);
         attr(button, "class", "shrink_btn svelte-4fogfh");
         attr(div0, "class", "left svelte-4fogfh");
         attr(picture, "class", "svelte-4fogfh");
@@ -9538,29 +9541,27 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         mount_component(icon1, button, null);
         append(nav, t1);
         append(nav, div2);
-        append(div2, c);
-        append(div2, t2);
         append(div2, picture);
-        append(div2, t3);
+        append(div2, t2);
         append(div2, span);
         append(span, div1);
-        append(div1, t4);
+        append(div1, t3);
         current = true;
         if (!mounted) {
           dispose = listen(
             button,
             "click",
-            /*click_handler*/
-            ctx[3]
+            /*handleShrinkMenu*/
+            ctx[1]
           );
           mounted = true;
         }
       },
       p(ctx2, [dirty]) {
         if ((!current || dirty & /*user*/
-        1) && t4_value !== (t4_value = /*user*/
+        1) && t3_value !== (t3_value = /*user*/
         ctx2[0].email + ""))
-          set_data(t4, t4_value);
+          set_data(t3, t3_value);
         if (!current || dirty & /*user*/
         1 && span_class_value !== (span_class_value = "display-email " + ((0, import_xHelper.IsUnixTimeExpired)(
           /*user*/
@@ -9594,23 +9595,23 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   }
   function instance6($self, $props, $invalidate) {
     let $IsShrinkMenu;
-    component_subscribe($self, IsShrinkMenu, ($value) => $invalidate(1, $IsShrinkMenu = $value));
+    component_subscribe($self, IsShrinkMenu, ($value) => $invalidate(2, $IsShrinkMenu = $value));
     let { user: user2 = (
       /** @type {import('../types/user.js').User}*/
       {}
     ) } = $props;
-    let viewportWidth = window.innerWidth;
-    const click_handler = () => {
+    function handleShrinkMenu() {
+      console.log("handleShrinkMenu", $IsShrinkMenu);
       IsShrinkMenu.set(!$IsShrinkMenu);
-      if (viewportWidth > 768) {
+      if (window.innerWidth > 768) {
         localStorage.setItem("IsShrinkMenu", JSON.stringify($IsShrinkMenu));
       }
-    };
+    }
     $self.$set = ($props2) => {
       if ("user" in $props2)
         $invalidate(0, user2 = $props2.user);
     };
-    return [user2, $IsShrinkMenu, viewportWidth, click_handler];
+    return [user2, handleShrinkMenu];
   }
   var Navbar = class extends SvelteComponent {
     constructor(options) {
@@ -9668,7 +9669,40 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   var Footer_default = Footer;
 
   // _components/PopUpPurchaseSupport.svelte
-  var import_jsApi = __toESM(require_jsApi_GEN());
+  function create_if_block_18(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Purchasing...";
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
+  }
+  function create_if_block5(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Purchase";
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
+  }
   function create_fragment8(ctx) {
     let div4;
     let div3;
@@ -9679,37 +9713,54 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     let t2;
     let div1;
     let button0;
+    let t3;
     let t4;
     let button1;
+    let span;
     let div4_class_value;
     let mounted;
     let dispose;
+    let if_block0 = (
+      /*isPurchasing*/
+      ctx[1] && create_if_block_18(ctx)
+    );
+    let if_block1 = !/*isPurchasing*/
+    ctx[1] && create_if_block5(ctx);
     return {
       c() {
         div4 = element("div");
         div3 = element("div");
         header = element("header");
-        header.innerHTML = `<img src="/assets/img/banner-support-plus.png" alt="Banner Support Plus" class="banner svelte-1hds64t"/>`;
+        header.innerHTML = `<img src="/assets/img/banner-support-plus.png" alt="Banner Support Plus" class="banner svelte-tnesgs"/>`;
         t0 = space();
         div2 = element("div");
         div0 = element("div");
-        div0.innerHTML = `<p class="svelte-1hds64t">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente ad quidem magni incidunt accusantium illum amet repellat ea distinctio voluptatum! Similique molestias vel quos in omnis aut vero debitis velit.</p>`;
+        div0.innerHTML = `<p class="svelte-tnesgs">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente ad quidem magni incidunt accusantium illum amet repellat ea distinctio voluptatum! Similique molestias vel quos in omnis aut vero debitis velit.</p>`;
         t2 = space();
         div1 = element("div");
         button0 = element("button");
-        button0.innerHTML = `<span>Buy Support+</span>`;
+        if (if_block0)
+          if_block0.c();
+        t3 = space();
+        if (if_block1)
+          if_block1.c();
         t4 = space();
         button1 = element("button");
-        button1.innerHTML = `<span>Skip for now</span>`;
-        attr(header, "class", "svelte-1hds64t");
+        span = element("span");
+        span.textContent = "Skip for now";
+        attr(header, "class", "svelte-tnesgs");
         attr(div0, "class", "description");
-        attr(button0, "class", "btn buy svelte-1hds64t");
-        attr(button1, "class", "btn skip svelte-1hds64t");
-        attr(div1, "class", "buttons svelte-1hds64t");
-        attr(div2, "class", "content svelte-1hds64t");
-        attr(div3, "class", "popup svelte-1hds64t");
+        attr(button0, "class", "btn buy svelte-tnesgs");
+        button0.disabled = /*isPurchasing*/
+        ctx[1];
+        attr(button1, "class", "btn skip svelte-tnesgs");
+        button1.disabled = /*isPurchasing*/
+        ctx[1];
+        attr(div1, "class", "buttons svelte-tnesgs");
+        attr(div2, "class", "content svelte-tnesgs");
+        attr(div3, "class", "popup svelte-tnesgs");
         attr(div4, "class", div4_class_value = null_to_empty(`popup-container ${/*isShow*/
-        ctx[1] ? "show" : ""}`) + " svelte-1hds64t");
+        ctx[0] ? "show" : ""}`) + " svelte-tnesgs");
       },
       m(target, anchor) {
         insert(target, div4, anchor);
@@ -9721,30 +9772,74 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         append(div2, t2);
         append(div2, div1);
         append(div1, button0);
+        if (if_block0)
+          if_block0.m(button0, null);
+        append(button0, t3);
+        if (if_block1)
+          if_block1.m(button0, null);
         append(div1, t4);
         append(div1, button1);
+        append(button1, span);
         if (!mounted) {
           dispose = [
-            listen(
-              button0,
-              "click",
-              /*purchaseSupport*/
-              ctx[2]
-            ),
+            listen(button0, "click", function() {
+              if (is_function(
+                /*OnSubmit*/
+                ctx[3]
+              ))
+                ctx[3].apply(this, arguments);
+            }),
             listen(
               button1,
               "click",
               /*Hide*/
-              ctx[0]
+              ctx[2]
             )
           ];
           mounted = true;
         }
       },
-      p(ctx2, [dirty]) {
+      p(new_ctx, [dirty]) {
+        ctx = new_ctx;
+        if (
+          /*isPurchasing*/
+          ctx[1]
+        ) {
+          if (if_block0) {
+          } else {
+            if_block0 = create_if_block_18(ctx);
+            if_block0.c();
+            if_block0.m(button0, t3);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        if (!/*isPurchasing*/
+        ctx[1]) {
+          if (if_block1) {
+          } else {
+            if_block1 = create_if_block5(ctx);
+            if_block1.c();
+            if_block1.m(button0, null);
+          }
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
+        }
+        if (dirty & /*isPurchasing*/
+        2) {
+          button0.disabled = /*isPurchasing*/
+          ctx[1];
+        }
+        if (dirty & /*isPurchasing*/
+        2) {
+          button1.disabled = /*isPurchasing*/
+          ctx[1];
+        }
         if (dirty & /*isShow*/
-        2 && div4_class_value !== (div4_class_value = null_to_empty(`popup-container ${/*isShow*/
-        ctx2[1] ? "show" : ""}`) + " svelte-1hds64t")) {
+        1 && div4_class_value !== (div4_class_value = null_to_empty(`popup-container ${/*isShow*/
+        ctx[0] ? "show" : ""}`) + " svelte-tnesgs")) {
           attr(div4, "class", div4_class_value);
         }
       },
@@ -9754,41 +9849,131 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         if (detaching) {
           detach(div4);
         }
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
         mounted = false;
         run_all(dispose);
       }
     };
   }
   function instance8($self, $props, $invalidate) {
-    let isShow = false;
-    const Show = () => $invalidate(1, isShow = true);
-    const Hide = () => $invalidate(1, isShow = false);
-    async function purchaseSupport() {
-      await (0, import_jsApi.UserPurchaseSupport)({}, async (res) => {
-        console.log(res);
-      });
-      Hide();
-    }
-    return [Hide, isShow, purchaseSupport, Show];
+    let { isShow = false } = $props;
+    let { isPurchasing = false } = $props;
+    const Show = () => $invalidate(0, isShow = true);
+    const Hide = () => $invalidate(0, isShow = false);
+    let { OnSubmit = async () => {
+    } } = $props;
+    $self.$set = ($props2) => {
+      if ("isShow" in $props2)
+        $invalidate(0, isShow = $props2.isShow);
+      if ("isPurchasing" in $props2)
+        $invalidate(1, isPurchasing = $props2.isPurchasing);
+      if ("OnSubmit" in $props2)
+        $invalidate(3, OnSubmit = $props2.OnSubmit);
+    };
+    return [isShow, isPurchasing, Hide, OnSubmit, Show];
   }
   var PopUpPurchaseSupport = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance8, create_fragment8, safe_not_equal, { Show: 3, Hide: 0 });
+      init(this, options, instance8, create_fragment8, safe_not_equal, {
+        isShow: 0,
+        isPurchasing: 1,
+        Show: 4,
+        Hide: 2,
+        OnSubmit: 3
+      });
     }
     get Show() {
-      return this.$.ctx[3];
+      return this.$.ctx[4];
     }
     get Hide() {
-      return this.$.ctx[0];
+      return this.$.ctx[2];
     }
   };
   var PopUpPurchaseSupport_default = PopUpPurchaseSupport;
 
   // _layouts/mainLayout.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
   var import_xHelper2 = __toESM(require_xHelper());
-  function create_fragment9(ctx) {
+  function create_if_block6(ctx) {
     let popuppurchasesupport;
+    let updating_isPurchasing;
+    let updating_isShow;
+    let current;
+    function popuppurchasesupport_isPurchasing_binding(value) {
+      ctx[9](value);
+    }
+    function popuppurchasesupport_isShow_binding(value) {
+      ctx[10](value);
+    }
+    let popuppurchasesupport_props = { OnSubmit: (
+      /*purchaseSupport*/
+      ctx[5]
+    ) };
+    if (
+      /*isPurchasing*/
+      ctx[3] !== void 0
+    ) {
+      popuppurchasesupport_props.isPurchasing = /*isPurchasing*/
+      ctx[3];
+    }
+    if (
+      /*isPopUpShowing*/
+      ctx[1] !== void 0
+    ) {
+      popuppurchasesupport_props.isShow = /*isPopUpShowing*/
+      ctx[1];
+    }
+    popuppurchasesupport = new PopUpPurchaseSupport_default({ props: popuppurchasesupport_props });
+    ctx[8](popuppurchasesupport);
+    binding_callbacks.push(() => bind(popuppurchasesupport, "isPurchasing", popuppurchasesupport_isPurchasing_binding));
+    binding_callbacks.push(() => bind(popuppurchasesupport, "isShow", popuppurchasesupport_isShow_binding));
+    return {
+      c() {
+        create_component(popuppurchasesupport.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(popuppurchasesupport, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const popuppurchasesupport_changes = {};
+        if (!updating_isPurchasing && dirty & /*isPurchasing*/
+        8) {
+          updating_isPurchasing = true;
+          popuppurchasesupport_changes.isPurchasing = /*isPurchasing*/
+          ctx2[3];
+          add_flush_callback(() => updating_isPurchasing = false);
+        }
+        if (!updating_isShow && dirty & /*isPopUpShowing*/
+        2) {
+          updating_isShow = true;
+          popuppurchasesupport_changes.isShow = /*isPopUpShowing*/
+          ctx2[1];
+          add_flush_callback(() => updating_isShow = false);
+        }
+        popuppurchasesupport.$set(popuppurchasesupport_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(popuppurchasesupport.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(popuppurchasesupport.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        ctx[8](null);
+        destroy_component(popuppurchasesupport, detaching);
+      }
+    };
+  }
+  function create_fragment9(ctx) {
     let t0;
     let div3;
     let div2;
@@ -9803,26 +9988,28 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     let footer;
     let div1_class_value;
     let current;
-    let popuppurchasesupport_props = {};
-    popuppurchasesupport = new PopUpPurchaseSupport_default({ props: popuppurchasesupport_props });
-    ctx[4](popuppurchasesupport);
+    let if_block = (
+      /*isPopUpReady*/
+      ctx[0] && create_if_block6(ctx)
+    );
     sidemenu = new SideMenu_default({ props: { access: segments } });
     navbar = new Navbar_default({ props: { user } });
     const default_slot_template = (
       /*#slots*/
-      ctx[3].default
+      ctx[7].default
     );
     const default_slot = create_slot(
       default_slot_template,
       ctx,
       /*$scope*/
-      ctx[2],
+      ctx[6],
       null
     );
     footer = new Footer_default({});
     return {
       c() {
-        create_component(popuppurchasesupport.$.fragment);
+        if (if_block)
+          if_block.c();
         t0 = space();
         div3 = element("div");
         div2 = element("div");
@@ -9839,12 +10026,13 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         create_component(footer.$.fragment);
         attr(div0, "class", "content svelte-19qdxe4");
         attr(div1, "class", div1_class_value = "root_content " + /*$IsShrinkMenu*/
-        (ctx[1] ? "shrink" : "expand") + " svelte-19qdxe4");
+        (ctx[4] ? "shrink" : "expand") + " svelte-19qdxe4");
         attr(div2, "class", "root_container svelte-19qdxe4");
         attr(div3, "class", "root_layout svelte-19qdxe4");
       },
       m(target, anchor) {
-        mount_component(popuppurchasesupport, target, anchor);
+        if (if_block)
+          if_block.m(target, anchor);
         insert(target, t0, anchor);
         insert(target, div3, anchor);
         append(div3, div2);
@@ -9863,24 +10051,45 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         current = true;
       },
       p(ctx2, [dirty]) {
-        const popuppurchasesupport_changes = {};
-        popuppurchasesupport.$set(popuppurchasesupport_changes);
+        if (
+          /*isPopUpReady*/
+          ctx2[0]
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*isPopUpReady*/
+            1) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block6(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(t0.parentNode, t0);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
         if (default_slot) {
           if (default_slot.p && (!current || dirty & /*$scope*/
-          4)) {
+          64)) {
             update_slot_base(
               default_slot,
               default_slot_template,
               ctx2,
               /*$scope*/
-              ctx2[2],
+              ctx2[6],
               !current ? get_all_dirty_from_scope(
                 /*$scope*/
-                ctx2[2]
+                ctx2[6]
               ) : get_slot_changes(
                 default_slot_template,
                 /*$scope*/
-                ctx2[2],
+                ctx2[6],
                 dirty,
                 null
               ),
@@ -9889,15 +10098,15 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
           }
         }
         if (!current || dirty & /*$IsShrinkMenu*/
-        2 && div1_class_value !== (div1_class_value = "root_content " + /*$IsShrinkMenu*/
-        (ctx2[1] ? "shrink" : "expand") + " svelte-19qdxe4")) {
+        16 && div1_class_value !== (div1_class_value = "root_content " + /*$IsShrinkMenu*/
+        (ctx2[4] ? "shrink" : "expand") + " svelte-19qdxe4")) {
           attr(div1, "class", div1_class_value);
         }
       },
       i(local) {
         if (current)
           return;
-        transition_in(popuppurchasesupport.$.fragment, local);
+        transition_in(if_block);
         transition_in(sidemenu.$.fragment, local);
         transition_in(navbar.$.fragment, local);
         transition_in(default_slot, local);
@@ -9905,7 +10114,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         current = true;
       },
       o(local) {
-        transition_out(popuppurchasesupport.$.fragment, local);
+        transition_out(if_block);
         transition_out(sidemenu.$.fragment, local);
         transition_out(navbar.$.fragment, local);
         transition_out(default_slot, local);
@@ -9917,8 +10126,8 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
           detach(t0);
           detach(div3);
         }
-        ctx[4](null);
-        destroy_component(popuppurchasesupport, detaching);
+        if (if_block)
+          if_block.d(detaching);
         destroy_component(sidemenu);
         destroy_component(navbar);
         if (default_slot)
@@ -9937,10 +10146,13 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   );
   function instance9($self, $props, $invalidate) {
     let $IsShrinkMenu;
-    component_subscribe($self, IsShrinkMenu, ($value) => $invalidate(1, $IsShrinkMenu = $value));
+    component_subscribe($self, IsShrinkMenu, ($value) => $invalidate(4, $IsShrinkMenu = $value));
     let { $slots: slots = {}, $scope } = $props;
     let viewportWidth = window.innerWidth;
+    let isPopUpReady = false;
+    let isPopUpShowing = false;
     onMount(() => {
+      $invalidate(0, isPopUpReady = true);
       if (viewportWidth > 768) {
         const isShrink = localStorage.getItem("IsShrinkMenu");
         IsShrinkMenu.set(JSON.parse(isShrink));
@@ -9958,33 +10170,67 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
           }
         });
       }
+      if (!(0, import_xHelper2.IsUnixTimeExpired)(user.supportExpiredAt)) {
+        setInterval(
+          () => {
+            if (!isPopUpShowing)
+              popUpPurchaseSupport.Show();
+          },
+          5e3
+        );
+      }
     });
     let popUpPurchaseSupport;
-    let popUpPurchaseSupportInterval;
-    if (!(0, import_xHelper2.IsUnixTimeExpired)(user.supportExpiredAt)) {
-      popUpPurchaseSupportInterval = setInterval(
-        () => {
-          popUpPurchaseSupport.Show();
-        },
-        5e3
+    let isPurchasing = false;
+    async function purchaseSupport() {
+      $invalidate(3, isPurchasing = true);
+      await (0, import_jsApi.UserPurchaseSupport)(
+        /** @type {import('../jsApi.GEN').UserPurchaseSupportIn} */
+        { state: "paymentRequest" },
+        /** @type {import('../jsApi.GEN').UserPurchaseSupportCallback} */
+        async (res) => {
+          $invalidate(3, isPurchasing = false);
+          console.log(res);
+          if (res.error) {
+            notifier.showError(res.error || "failed to purchase support+");
+            return;
+          }
+          notifier.showSuccess("support+ purchased successfully");
+          return;
+        }
       );
+      popUpPurchaseSupport.Hide();
     }
     function popuppurchasesupport_binding($value) {
       binding_callbacks[$value ? "unshift" : "push"](() => {
         popUpPurchaseSupport = $value;
-        $invalidate(0, popUpPurchaseSupport);
+        $invalidate(2, popUpPurchaseSupport);
       });
+    }
+    function popuppurchasesupport_isPurchasing_binding(value) {
+      isPurchasing = value;
+      $invalidate(3, isPurchasing);
+    }
+    function popuppurchasesupport_isShow_binding(value) {
+      isPopUpShowing = value;
+      $invalidate(1, isPopUpShowing);
     }
     $self.$set = ($props2) => {
       if ("$scope" in $props2)
-        $invalidate(2, $scope = $props2.$scope);
+        $invalidate(6, $scope = $props2.$scope);
     };
     return [
+      isPopUpReady,
+      isPopUpShowing,
       popUpPurchaseSupport,
+      isPurchasing,
       $IsShrinkMenu,
+      purchaseSupport,
       $scope,
       slots,
-      popuppurchasesupport_binding
+      popuppurchasesupport_binding,
+      popuppurchasesupport_isPurchasing_binding,
+      popuppurchasesupport_isShow_binding
     ];
   }
   var MainLayout = class extends SvelteComponent {
@@ -10081,7 +10327,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     );
     let if_block11 = (
       /*mode*/
-      ctx[4] !== RESEND_VERIFICATION_EMAIL && create_if_block_18(ctx)
+      ctx[4] !== RESEND_VERIFICATION_EMAIL && create_if_block_19(ctx)
     );
     return {
       c() {
@@ -10438,7 +10684,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
           if (if_block11) {
             if_block11.p(ctx2, dirty);
           } else {
-            if_block11 = create_if_block_18(ctx2);
+            if_block11 = create_if_block_19(ctx2);
             if_block11.c();
             if_block11.m(div4, null);
           }
@@ -10500,7 +10746,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       }
     };
   }
-  function create_if_block5(ctx) {
+  function create_if_block7(ctx) {
     let mainlayout;
     let current;
     mainlayout = new mainLayout_default({
@@ -11037,7 +11283,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       }
     };
   }
-  function create_if_block_18(ctx) {
+  function create_if_block_19(ctx) {
     let p;
     let t0;
     let a;
@@ -11297,7 +11543,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     let current;
     let mounted;
     let dispose;
-    const if_block_creators = [create_if_block5, create_else_block2];
+    const if_block_creators = [create_if_block7, create_else_block2];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (
@@ -11374,6 +11620,8 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     /** @type Org */
     {/* myCompany */}
   );
+  var google = '#{google}';
+  var title = '#{title}';
   var LOGIN = "LOGIN";
   var REGISTER = "REGISTER";
   var RESEND_VERIFICATION_EMAIL = "RESEND_VERIFICATION_EMAIL";
@@ -11395,7 +11643,11 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     );
     console.log("User:", user2);
     console.log("Segments:", segments2);
-    let email = "", password = "", confirmPass = "";
+    console.log("Google OAuth link:", google);
+    console.log("Title:", title);
+    let email = "";
+    let password = "";
+    let confirmPass = "";
     let mode = LOGIN, isSubmitted = false;
     async function onHashChange() {
       const auth = getCookie("akun");
@@ -11419,9 +11671,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         location.hash = LOGIN;
       await tick();
     }
-    onMount(() => {
-      onHashChange();
-    });
+    onMount(() => onHashChange());
     async function guestRegister() {
       $invalidate(5, isSubmitted = true);
       if (!email) {
@@ -11529,7 +11779,9 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         }
       );
     }
-    let tenantCode = "", companyName = "", headTitle = "";
+    let tenantCode = "";
+    let companyName = "";
+    let headTitle = "";
     onMount(() => {
       console.log("My Company:", myCompany);
       if (myCompany) {

@@ -7,15 +7,20 @@
   import Footer from '../_components/partials/Footer.svelte';
   import PopUpPurchaseSupport from '../_components/PopUpPurchaseSupport.svelte';
   import { IsShrinkMenu } from '../_components/uiState';
-  import { IsUnixTimeExpired } from '../_components/xHelper';
   import { onMount } from 'svelte';
+    import { UserPurchaseSupport } from '../jsApi.GEN';
+    import { notifier } from '../_components/xNotifier';
+    import { IsUnixTimeExpired } from '../_components/xHelper';
   
   let segments = /** @type Access */ ({/* segments */});
   let user = /** @type User */ ({/* user */});
 
   let viewportWidth = window.innerWidth;
+  let isPopUpReady = false;
+  let isPopUpShowing = false;
 
   onMount(() => {
+    isPopUpReady = true;
     if (viewportWidth > 768) {
       const isShrink = localStorage.getItem('IsShrinkMenu');
       IsShrinkMenu.set(JSON.parse(isShrink));
@@ -30,21 +35,53 @@
         }
       })
     }
+
+    if (!IsUnixTimeExpired(user.supportExpiredAt)) {
+      setInterval(() => {
+        if (!isPopUpShowing) popUpPurchaseSupport.Show();
+      }, 5000);
+    }
   });
 
   let popUpPurchaseSupport;
-  let popUpPurchaseSupportInterval;
+  let isPurchasing = false;
 
-  if (!IsUnixTimeExpired(user.supportExpiredAt)) {
-    popUpPurchaseSupportInterval = setInterval(() => {
-      popUpPurchaseSupport.Show();
-    }, 5000);
+  async function purchaseSupport() {
+		isPurchasing = true;
+		await UserPurchaseSupport(
+    /** @type {import('../jsApi.GEN').UserPurchaseSupportIn} */ ({
+      state: 'paymentRequest'
+    }),
+    /** @type {import('../jsApi.GEN').UserPurchaseSupportCallback} */ async (res) => {
+			isPurchasing = false;
+			console.log(res);
+
+			if (res.error) {
+				notifier.showError(res.error || 'failed to purchase support+');
+				return;
+			}
+
+      // TODO: Habibi
+      // Replace it with the response.payment.url you retrieved from the response
+      // @ts-ignore
+      // loadJokulCheckout('https://jokul.doku.com/checkout/link/SU5WFDferd561dfasfasdfae123c20200510090550775');
+
+			notifier.showSuccess('support+ purchased successfully');
+			return;
+		});
+
+		popUpPurchaseSupport.Hide();
   }
 </script>
 
-<PopUpPurchaseSupport
-  bind:this={popUpPurchaseSupport}
-/>
+{#if isPopUpReady}
+  <PopUpPurchaseSupport
+    bind:this={popUpPurchaseSupport}
+    bind:isPurchasing
+    bind:isShow={isPopUpShowing}
+    OnSubmit={purchaseSupport}
+  />
+{/if}
 
 <div class="root_layout">
   <div class="root_container">

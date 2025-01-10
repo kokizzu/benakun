@@ -1,17 +1,9 @@
 <script>
-  import { UserPurchaseSupport } from '../jsApi.GEN';
-
-  let isShow = false;
+  export let isShow = false;
+	export let isPurchasing = false;
   export const Show = () => isShow = true;
   export const Hide = () => isShow = false;
-
-  async function purchaseSupport() {
-    await UserPurchaseSupport({}, async (res) => {
-      console.log(res);
-    });
-
-    Hide();
-  }
+	export let OnSubmit = async () => {};
 </script>
 
 <div class={`popup-container ${isShow ? 'show' : ''}`}>
@@ -28,10 +20,15 @@
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente ad quidem magni incidunt accusantium illum amet repellat ea distinctio voluptatum! Similique molestias vel quos in omnis aut vero debitis velit.</p>
 			</div>
 			<div class="buttons">
-				<button class="btn buy" on:click={purchaseSupport}>
-					<span>Buy Support+</span>
+				<button class="btn buy" on:click={OnSubmit} disabled={isPurchasing}>
+					{#if isPurchasing}
+						<span>Purchasing...</span>
+					{/if}
+					{#if !isPurchasing}
+						<span>Purchase</span>
+					{/if}
 				</button>
-				<button class="btn skip" on:click={Hide}>
+				<button class="btn skip" on:click={Hide} disabled={isPurchasing}>
 					<span>Skip for now</span>
 				</button>
 			</div>
@@ -108,12 +105,20 @@
 		font-weight: 600;
 	}
 
+	.popup-container .popup .content .buttons .btn:disabled {
+		cursor: not-allowed;
+	}
+
 	.popup-container .popup .content .buttons .btn.buy {
 		background-color: var(--sky-006);
 		color: #FFF;
 	}
 
 	.popup-container .popup .content .buttons .btn.buy:hover {
+		background-color: var(--sky-005);
+	}
+
+	.popup-container .popup .content .buttons .btn.buy:disabled {
 		background-color: var(--sky-005);
 	}
 

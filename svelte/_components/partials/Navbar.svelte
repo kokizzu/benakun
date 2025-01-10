@@ -6,27 +6,22 @@
   } from '../../node_modules/svelte-icons-pack/dist/ri';
   import { IsShrinkMenu } from '../uiState.js';
   import { IsUnixTimeExpired } from '../xHelper';
-  // import { UserPurchaseSupport } from '../../jsApi.GEN';
 
   export let user = /** @type {import('../types/user.js').User}*/ ({});
-  let viewportWidth = window.innerWidth;
 
-  // async function purchaseSupport() {
-  //   await UserPurchaseSupport({}, async (res) => {
-  //     console.log(res);
-  //   });
-  // }
+  function handleShrinkMenu() {
+    console.log('handleShrinkMenu', $IsShrinkMenu);
+    IsShrinkMenu.set(!$IsShrinkMenu);
+    if (window.innerWidth > 768) {
+      localStorage.setItem('IsShrinkMenu', JSON.stringify($IsShrinkMenu))
+    }
+  }
 </script>
 
 <header class="navbar_container">
   <nav class="navbar">
     <div class="left">
-      <button class="shrink_btn" on:click={() => {
-        IsShrinkMenu.set(!$IsShrinkMenu);
-        if (viewportWidth > 768) {
-          localStorage.setItem('IsShrinkMenu', JSON.stringify($IsShrinkMenu))
-        }
-      }}>
+      <button class="shrink_btn" on:click={handleShrinkMenu}>
         <Icon
           src={RiDesignLayoutLeftLine}
           size={20}
@@ -40,7 +35,6 @@
       </button>
     </div>
     <div class="right">
-      <!-- <button on:click={purchaseSupport}>purchase</button> -->
       <picture>
         <img src="/assets/icons/benakun-logo.png" alt="" />
       </picture>
