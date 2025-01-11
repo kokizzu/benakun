@@ -64,7 +64,7 @@
       // TODO: Habibi
       // Replace it with the response.payment.url you retrieved from the response
       // @ts-ignore
-      // loadJokulCheckout('https://jokul.doku.com/checkout/link/SU5WFDferd561dfasfasdfae123c20200510090550775');
+      loadJokulCheckout('https://sandbox.doku.com/checkout-link-v2/80444e5ea7804f04bd6c18f0c93c134320250611230619795');
 
 			notifier.showSuccess('support+ purchased successfully');
 			return;
