@@ -786,7 +786,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
 }
 
 /* fakecss:./_components/PopUpPurchaseSupport.esbuild-svelte-fake-css */
-.popup-container.svelte-tnesgs.svelte-tnesgs {
+.popup-container.svelte-5h0mun.svelte-5h0mun {
   display: none;
   position: fixed;
   width: 100%;
@@ -802,42 +802,127 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   padding: 50px;
   overflow: auto;
 }
-.popup-container.show.svelte-tnesgs.svelte-tnesgs {
+.popup-container.show.svelte-5h0mun.svelte-5h0mun {
   display: flex;
 }
-.popup-container.svelte-tnesgs .popup.svelte-tnesgs {
+.popup-container.svelte-5h0mun .popup.svelte-5h0mun {
   border-radius: 14px;
-  background-color: #FFF;
+  background-color: var(--gray-001);
   height: fit-content;
-  width: 500px;
+  width: 600px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-.popup-container.svelte-tnesgs .popup header.svelte-tnesgs {
+.popup-container.svelte-5h0mun .popup header.svelte-5h0mun {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.popup-container.svelte-tnesgs .popup header img.svelte-tnesgs {
+.popup-container.svelte-5h0mun .popup header img.svelte-5h0mun {
   width: 100%;
   height: auto;
 }
-.popup-container.svelte-tnesgs .popup .content.svelte-tnesgs {
+.popup-container.svelte-5h0mun .popup .content.svelte-5h0mun {
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 20px;
 }
-.popup-container.svelte-tnesgs .popup .content .description p.svelte-tnesgs {
+.popup-container.svelte-5h0mun .popup .content .description p.svelte-5h0mun {
   margin: 0;
 }
-.popup-container.svelte-tnesgs .popup .content .buttons.svelte-tnesgs {
+.popup-container.svelte-5h0mun .popup .content .options.svelte-5h0mun {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;
+  justify-items: center;
+  gap: 10px;
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration.svelte-5h0mun {
+  display: flex;
+  height: 120px;
+  width: 100%;
+  position: relative;
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label.svelte-5h0mun {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid #FFF;
+  border-radius: 10px;
+  padding: 20px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #FFF;
+  cursor: pointer;
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label.monthly.svelte-5h0mun {
+  border: 2px solid var(--orange-003);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label.monthly h2.svelte-5h0mun {
+  color: var(--orange-004);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label.quarterly.svelte-5h0mun {
+  border: 2px solid var(--blue-003);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label.quarterly h2.svelte-5h0mun {
+  color: var(--blue-004);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label.yearly.svelte-5h0mun {
+  border: 2px solid var(--violet-003);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label.yearly h2.svelte-5h0mun {
+  color: var(--violet-004);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label header.svelte-5h0mun {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 16px;
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label header .icon.svelte-5h0mun {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: fit-content;
+  padding: 5px;
+  border-radius: 5px;
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label header .icon.monthly.svelte-5h0mun {
+  background-image: var(--orange-gradient);
+  color: var(--orange-006);
+  border: 1px solid var(--orange-003);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label header .icon.quarterly.svelte-5h0mun {
+  background-image: var(--blue-gradient);
+  color: var(--blue-006);
+  border: 1px solid var(--blue-003);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label header .icon.yearly.svelte-5h0mun {
+  background-image: var(--violet-gradient);
+  color: var(--violet-006);
+  border: 1px solid var(--violet-003);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration input.svelte-5h0mun {
+  display: none;
+  visibility: hidden;
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration h2.svelte-5h0mun {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+.popup-container.svelte-5h0mun .popup .content .buttons.svelte-5h0mun {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.popup-container.svelte-tnesgs .popup .content .buttons .btn.svelte-tnesgs {
+.popup-container.svelte-5h0mun .popup .content .buttons .btn.svelte-5h0mun {
   width: 100%;
   padding: 10px 20px;
   border-radius: 9999px;
@@ -845,25 +930,26 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   cursor: pointer;
   font-weight: 600;
 }
-.popup-container.svelte-tnesgs .popup .content .buttons .btn.svelte-tnesgs:disabled {
+.popup-container.svelte-5h0mun .popup .content .buttons .btn.svelte-5h0mun:disabled {
   cursor: not-allowed;
 }
-.popup-container.svelte-tnesgs .popup .content .buttons .btn.buy.svelte-tnesgs {
+.popup-container.svelte-5h0mun .popup .content .buttons .btn.buy.svelte-5h0mun {
   background-color: var(--sky-006);
   color: #FFF;
 }
-.popup-container.svelte-tnesgs .popup .content .buttons .btn.buy.svelte-tnesgs:hover {
+.popup-container.svelte-5h0mun .popup .content .buttons .btn.buy.svelte-5h0mun:hover {
   background-color: var(--sky-005);
 }
-.popup-container.svelte-tnesgs .popup .content .buttons .btn.buy.svelte-tnesgs:disabled {
+.popup-container.svelte-5h0mun .popup .content .buttons .btn.buy.svelte-5h0mun:disabled {
   background-color: var(--sky-005);
 }
-.popup-container.svelte-tnesgs .popup .content .buttons .btn.skip.svelte-tnesgs {
+.popup-container.svelte-5h0mun .popup .content .buttons .btn.skip.svelte-5h0mun {
   background-color: transparent;
   color: var(--gray-008);
 }
-.popup-container.svelte-tnesgs .popup .content .buttons .btn.skip.svelte-tnesgs:hover {
-  background-color: var(--gray-002);
+.popup-container.svelte-5h0mun .popup .content .buttons .btn.skip.svelte-5h0mun:hover {
+  text-decoration: underline;
+  color: var(--sky-006);
 }
 
 /* fakecss:./_layouts/mainLayout.esbuild-svelte-fake-css */
@@ -4135,6 +4221,20 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       attr(node, key, attributes[key]);
     }
   }
+  function init_binding_group(group) {
+    let _inputs;
+    return {
+      /* push */
+      p(...inputs) {
+        _inputs = inputs;
+        _inputs.forEach((input) => group.push(input));
+      },
+      /* remove */
+      r() {
+        _inputs.forEach((input) => group.splice(group.indexOf(input), 1));
+      }
+    };
+  }
   function to_number(value) {
     return value === "" ? null : +value;
   }
@@ -5065,6 +5165,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   var AiOutlineWarning = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M464 720a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm16-304v184c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V416c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8zm475.7 440l-416-720c-6.2-10.7-16.9-16-27.7-16s-21.6 5.3-27.7 16l-416 720C56 877.4 71.4 904 96 904h832c24.6 0 40-26.6 27.7-48zm-783.5-27.9L512 239.9l339.8 588.2H172.2z"></path>' };
   var AiOutlineEyeInvisible = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 0 0 0-51.5zm-63.57-320.64L836 122.88a8 8 0 0 0-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 0 0 0 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 0 0 0 11.31L155.17 889a8 8 0 0 0 11.31 0l712.15-712.12a8 8 0 0 0 0-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 0 0-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 0 1 146.2-106.69L401.31 546.2A112 112 0 0 1 396 512z"></path><path d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 0 0 227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 0 1-112 112z"></path>' };
   var AiOutlineEye = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 0 0 0 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"></path>' };
+  var AiFillTags = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M483.2 790.3L861.4 412c1.7-1.7 2.5-4 2.3-6.3l-25.5-301.4c-.7-7.8-6.8-13.9-14.6-14.6L522.2 64.3c-2.3-.2-4.7.6-6.3 2.3L137.7 444.8a8.03 8.03 0 0 0 0 11.3l334.2 334.2c3.1 3.2 8.2 3.2 11.3 0zm122.7-533.4c18.7-18.7 49.1-18.7 67.9 0 18.7 18.7 18.7 49.1 0 67.9-18.7 18.7-49.1 18.7-67.9 0-18.7-18.7-18.7-49.1 0-67.9zm283.8 282.9l-39.6-39.5a8.03 8.03 0 0 0-11.3 0l-362 361.3-237.6-237a8.03 8.03 0 0 0-11.3 0l-39.6 39.5a8.03 8.03 0 0 0 0 11.3l243.2 242.8 39.6 39.5c3.1 3.1 8.2 3.1 11.3 0l407.3-406.6c3.1-3.1 3.1-8.2 0-11.3z"></path>' };
 
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/bs/index.js
   var BsPostcard = { a: { fill: "currentColor", viewBox: "0 0 16 16" }, c: '<path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5M10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM13 8h-2V6h2z"></path>' };
@@ -7156,91 +7257,312 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     };
   }
   function create_fragment6(ctx) {
-    let div4;
-    let div3;
-    let header;
+    let div11;
+    let div10;
+    let header0;
     let t0;
-    let div2;
+    let div9;
     let div0;
     let t2;
+    let div7;
+    let div2;
+    let label0;
+    let header1;
     let div1;
-    let button0;
+    let icon0;
     let t3;
-    let t4;
+    let span0;
+    let t5;
+    let h20;
+    let t7;
+    let input0;
+    let t8;
+    let div4;
+    let label1;
+    let header2;
+    let div3;
+    let icon1;
+    let t9;
+    let span1;
+    let t11;
+    let h21;
+    let t13;
+    let input1;
+    let t14;
+    let div6;
+    let label2;
+    let header3;
+    let div5;
+    let icon2;
+    let t15;
+    let span2;
+    let t17;
+    let h22;
+    let t19;
+    let input2;
+    let t20;
+    let div8;
+    let button0;
+    let t21;
+    let t22;
     let button1;
-    let span;
-    let div4_class_value;
+    let span3;
+    let div11_class_value;
+    let current;
+    let binding_group;
     let mounted;
     let dispose;
+    icon0 = new Icon_default({
+      props: {
+        src: AiFillTags,
+        color: "var(--orange-004)"
+      }
+    });
+    icon1 = new Icon_default({
+      props: {
+        src: AiFillTags,
+        color: "var(--blue-004)"
+      }
+    });
+    icon2 = new Icon_default({
+      props: {
+        src: AiFillTags,
+        color: "var(--violet-004)"
+      }
+    });
     let if_block0 = (
       /*isPurchasing*/
       ctx[1] && create_if_block_16(ctx)
     );
     let if_block1 = !/*isPurchasing*/
     ctx[1] && create_if_block3(ctx);
+    binding_group = init_binding_group(
+      /*$binding_groups*/
+      ctx[7][0]
+    );
     return {
       c() {
-        div4 = element("div");
-        div3 = element("div");
-        header = element("header");
-        header.innerHTML = `<img src="/assets/img/banner-support-plus.png" alt="Banner Support Plus" class="banner svelte-tnesgs"/>`;
+        div11 = element("div");
+        div10 = element("div");
+        header0 = element("header");
+        header0.innerHTML = `<img src="/assets/img/banner-support-plus.png" alt="Banner Support Plus" class="banner svelte-5h0mun"/>`;
         t0 = space();
-        div2 = element("div");
+        div9 = element("div");
         div0 = element("div");
-        div0.innerHTML = `<p class="svelte-tnesgs">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente ad quidem magni incidunt accusantium illum amet repellat ea distinctio voluptatum! Similique molestias vel quos in omnis aut vero debitis velit.</p>`;
+        div0.innerHTML = `<p class="svelte-5h0mun">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente ad quidem magni incidunt accusantium illum amet repellat ea distinctio voluptatum! Similique molestias vel quos in omnis aut vero debitis velit.</p>`;
         t2 = space();
+        div7 = element("div");
+        div2 = element("div");
+        label0 = element("label");
+        header1 = element("header");
         div1 = element("div");
+        create_component(icon0.$.fragment);
+        t3 = space();
+        span0 = element("span");
+        span0.textContent = "Monthly";
+        t5 = space();
+        h20 = element("h2");
+        h20.textContent = "IDR 50000";
+        t7 = space();
+        input0 = element("input");
+        t8 = space();
+        div4 = element("div");
+        label1 = element("label");
+        header2 = element("header");
+        div3 = element("div");
+        create_component(icon1.$.fragment);
+        t9 = space();
+        span1 = element("span");
+        span1.textContent = "Quarterly";
+        t11 = space();
+        h21 = element("h2");
+        h21.textContent = "IDR 120000";
+        t13 = space();
+        input1 = element("input");
+        t14 = space();
+        div6 = element("div");
+        label2 = element("label");
+        header3 = element("header");
+        div5 = element("div");
+        create_component(icon2.$.fragment);
+        t15 = space();
+        span2 = element("span");
+        span2.textContent = "Yearly";
+        t17 = space();
+        h22 = element("h2");
+        h22.textContent = "IDR 450000";
+        t19 = space();
+        input2 = element("input");
+        t20 = space();
+        div8 = element("div");
         button0 = element("button");
         if (if_block0)
           if_block0.c();
-        t3 = space();
+        t21 = space();
         if (if_block1)
           if_block1.c();
-        t4 = space();
+        t22 = space();
         button1 = element("button");
-        span = element("span");
-        span.textContent = "Skip for now";
-        attr(header, "class", "svelte-tnesgs");
+        span3 = element("span");
+        span3.textContent = "Skip for now";
+        attr(header0, "class", "svelte-5h0mun");
         attr(div0, "class", "description");
-        attr(button0, "class", "btn buy svelte-tnesgs");
+        attr(div1, "class", "icon monthly svelte-5h0mun");
+        attr(header1, "class", "svelte-5h0mun");
+        attr(h20, "class", "svelte-5h0mun");
+        attr(label0, "for", "monthly");
+        attr(label0, "class", "shadow svelte-5h0mun");
+        toggle_class(
+          label0,
+          "monthly",
+          /*duration*/
+          ctx[4] === "monthly"
+        );
+        attr(input0, "id", "monthly");
+        attr(input0, "type", "radio");
+        attr(input0, "name", "duration");
+        input0.__value = "monthly";
+        set_input_value(input0, input0.__value);
+        attr(input0, "class", "svelte-5h0mun");
+        attr(div2, "class", "support-duration svelte-5h0mun");
+        attr(div3, "class", "icon quarterly svelte-5h0mun");
+        attr(header2, "class", "svelte-5h0mun");
+        attr(h21, "class", "svelte-5h0mun");
+        attr(label1, "for", "quarterly");
+        attr(label1, "class", "shadow svelte-5h0mun");
+        toggle_class(
+          label1,
+          "quarterly",
+          /*duration*/
+          ctx[4] === "quarterly"
+        );
+        attr(input1, "id", "quarterly");
+        attr(input1, "type", "radio");
+        attr(input1, "name", "duration");
+        input1.__value = "quarterly";
+        set_input_value(input1, input1.__value);
+        attr(input1, "class", "svelte-5h0mun");
+        attr(div4, "class", "support-duration svelte-5h0mun");
+        attr(div5, "class", "icon yearly svelte-5h0mun");
+        attr(header3, "class", "svelte-5h0mun");
+        attr(h22, "class", "svelte-5h0mun");
+        attr(label2, "for", "yearly");
+        attr(label2, "class", "shadow svelte-5h0mun");
+        toggle_class(
+          label2,
+          "yearly",
+          /*duration*/
+          ctx[4] === "yearly"
+        );
+        attr(input2, "id", "yearly");
+        attr(input2, "type", "radio");
+        attr(input2, "name", "duration");
+        input2.__value = "yearly";
+        set_input_value(input2, input2.__value);
+        attr(input2, "class", "svelte-5h0mun");
+        attr(div6, "class", "support-duration svelte-5h0mun");
+        attr(div7, "class", "options svelte-5h0mun");
+        attr(button0, "class", "btn buy svelte-5h0mun");
         button0.disabled = /*isPurchasing*/
         ctx[1];
-        attr(button1, "class", "btn skip svelte-tnesgs");
+        attr(button1, "class", "btn skip svelte-5h0mun");
         button1.disabled = /*isPurchasing*/
         ctx[1];
-        attr(div1, "class", "buttons svelte-tnesgs");
-        attr(div2, "class", "content svelte-tnesgs");
-        attr(div3, "class", "popup svelte-tnesgs");
-        attr(div4, "class", div4_class_value = null_to_empty(`popup-container ${/*isShow*/
-        ctx[0] ? "show" : ""}`) + " svelte-tnesgs");
+        attr(div8, "class", "buttons svelte-5h0mun");
+        attr(div9, "class", "content svelte-5h0mun");
+        attr(div10, "class", "popup svelte-5h0mun");
+        attr(div11, "class", div11_class_value = null_to_empty(`popup-container ${/*isShow*/
+        ctx[0] ? "show" : ""}`) + " svelte-5h0mun");
+        binding_group.p(input0, input1, input2);
       },
       m(target, anchor) {
-        insert(target, div4, anchor);
-        append(div4, div3);
-        append(div3, header);
-        append(div3, t0);
-        append(div3, div2);
-        append(div2, div0);
-        append(div2, t2);
-        append(div2, div1);
-        append(div1, button0);
+        insert(target, div11, anchor);
+        append(div11, div10);
+        append(div10, header0);
+        append(div10, t0);
+        append(div10, div9);
+        append(div9, div0);
+        append(div9, t2);
+        append(div9, div7);
+        append(div7, div2);
+        append(div2, label0);
+        append(label0, header1);
+        append(header1, div1);
+        mount_component(icon0, div1, null);
+        append(header1, t3);
+        append(header1, span0);
+        append(label0, t5);
+        append(label0, h20);
+        append(div2, t7);
+        append(div2, input0);
+        input0.checked = input0.__value === /*duration*/
+        ctx[4];
+        append(div7, t8);
+        append(div7, div4);
+        append(div4, label1);
+        append(label1, header2);
+        append(header2, div3);
+        mount_component(icon1, div3, null);
+        append(header2, t9);
+        append(header2, span1);
+        append(label1, t11);
+        append(label1, h21);
+        append(div4, t13);
+        append(div4, input1);
+        input1.checked = input1.__value === /*duration*/
+        ctx[4];
+        append(div7, t14);
+        append(div7, div6);
+        append(div6, label2);
+        append(label2, header3);
+        append(header3, div5);
+        mount_component(icon2, div5, null);
+        append(header3, t15);
+        append(header3, span2);
+        append(label2, t17);
+        append(label2, h22);
+        append(div6, t19);
+        append(div6, input2);
+        input2.checked = input2.__value === /*duration*/
+        ctx[4];
+        append(div9, t20);
+        append(div9, div8);
+        append(div8, button0);
         if (if_block0)
           if_block0.m(button0, null);
-        append(button0, t3);
+        append(button0, t21);
         if (if_block1)
           if_block1.m(button0, null);
-        append(div1, t4);
-        append(div1, button1);
-        append(button1, span);
+        append(div8, t22);
+        append(div8, button1);
+        append(button1, span3);
+        current = true;
         if (!mounted) {
           dispose = [
-            listen(button0, "click", function() {
-              if (is_function(
-                /*OnSubmit*/
-                ctx[3]
-              ))
-                ctx[3].apply(this, arguments);
-            }),
+            listen(
+              input0,
+              "change",
+              /*input0_change_handler*/
+              ctx[6]
+            ),
+            listen(
+              input1,
+              "change",
+              /*input1_change_handler*/
+              ctx[8]
+            ),
+            listen(
+              input2,
+              "change",
+              /*input2_change_handler*/
+              ctx[9]
+            ),
+            listen(
+              button0,
+              "click",
+              /*click_handler*/
+              ctx[10]
+            ),
             listen(
               button1,
               "click",
@@ -7251,27 +7573,68 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
           mounted = true;
         }
       },
-      p(new_ctx, [dirty]) {
-        ctx = new_ctx;
+      p(ctx2, [dirty]) {
+        if (!current || dirty & /*duration*/
+        16) {
+          toggle_class(
+            label0,
+            "monthly",
+            /*duration*/
+            ctx2[4] === "monthly"
+          );
+        }
+        if (dirty & /*duration*/
+        16) {
+          input0.checked = input0.__value === /*duration*/
+          ctx2[4];
+        }
+        if (!current || dirty & /*duration*/
+        16) {
+          toggle_class(
+            label1,
+            "quarterly",
+            /*duration*/
+            ctx2[4] === "quarterly"
+          );
+        }
+        if (dirty & /*duration*/
+        16) {
+          input1.checked = input1.__value === /*duration*/
+          ctx2[4];
+        }
+        if (!current || dirty & /*duration*/
+        16) {
+          toggle_class(
+            label2,
+            "yearly",
+            /*duration*/
+            ctx2[4] === "yearly"
+          );
+        }
+        if (dirty & /*duration*/
+        16) {
+          input2.checked = input2.__value === /*duration*/
+          ctx2[4];
+        }
         if (
           /*isPurchasing*/
-          ctx[1]
+          ctx2[1]
         ) {
           if (if_block0) {
           } else {
-            if_block0 = create_if_block_16(ctx);
+            if_block0 = create_if_block_16(ctx2);
             if_block0.c();
-            if_block0.m(button0, t3);
+            if_block0.m(button0, t21);
           }
         } else if (if_block0) {
           if_block0.d(1);
           if_block0 = null;
         }
         if (!/*isPurchasing*/
-        ctx[1]) {
+        ctx2[1]) {
           if (if_block1) {
           } else {
-            if_block1 = create_if_block3(ctx);
+            if_block1 = create_if_block3(ctx2);
             if_block1.c();
             if_block1.m(button0, null);
           }
@@ -7279,44 +7642,76 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
           if_block1.d(1);
           if_block1 = null;
         }
-        if (dirty & /*isPurchasing*/
+        if (!current || dirty & /*isPurchasing*/
         2) {
           button0.disabled = /*isPurchasing*/
-          ctx[1];
+          ctx2[1];
         }
-        if (dirty & /*isPurchasing*/
+        if (!current || dirty & /*isPurchasing*/
         2) {
           button1.disabled = /*isPurchasing*/
-          ctx[1];
+          ctx2[1];
         }
-        if (dirty & /*isShow*/
-        1 && div4_class_value !== (div4_class_value = null_to_empty(`popup-container ${/*isShow*/
-        ctx[0] ? "show" : ""}`) + " svelte-tnesgs")) {
-          attr(div4, "class", div4_class_value);
+        if (!current || dirty & /*isShow*/
+        1 && div11_class_value !== (div11_class_value = null_to_empty(`popup-container ${/*isShow*/
+        ctx2[0] ? "show" : ""}`) + " svelte-5h0mun")) {
+          attr(div11, "class", div11_class_value);
         }
       },
-      i: noop,
-      o: noop,
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon0.$.fragment, local);
+        transition_in(icon1.$.fragment, local);
+        transition_in(icon2.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon0.$.fragment, local);
+        transition_out(icon1.$.fragment, local);
+        transition_out(icon2.$.fragment, local);
+        current = false;
+      },
       d(detaching) {
         if (detaching) {
-          detach(div4);
+          detach(div11);
         }
+        destroy_component(icon0);
+        destroy_component(icon1);
+        destroy_component(icon2);
         if (if_block0)
           if_block0.d();
         if (if_block1)
           if_block1.d();
+        binding_group.r();
         mounted = false;
         run_all(dispose);
       }
     };
   }
   function instance6($self, $props, $invalidate) {
-    let { isShow = false } = $props;
+    let { isShow = true } = $props;
     let { isPurchasing = false } = $props;
     const Show = () => $invalidate(0, isShow = true);
     const Hide = () => $invalidate(0, isShow = false);
-    let { OnSubmit = async () => {
+    let duration = "quarterly";
+    let { OnSubmit = async (duration2) => {
+      console.log("OnSubmit duration:", duration2);
     } } = $props;
+    const $binding_groups = [[]];
+    function input0_change_handler() {
+      duration = this.__value;
+      $invalidate(4, duration);
+    }
+    function input1_change_handler() {
+      duration = this.__value;
+      $invalidate(4, duration);
+    }
+    function input2_change_handler() {
+      duration = this.__value;
+      $invalidate(4, duration);
+    }
+    const click_handler = () => OnSubmit(duration);
     $self.$set = ($props2) => {
       if ("isShow" in $props2)
         $invalidate(0, isShow = $props2.isShow);
@@ -7325,7 +7720,19 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       if ("OnSubmit" in $props2)
         $invalidate(3, OnSubmit = $props2.OnSubmit);
     };
-    return [isShow, isPurchasing, Hide, OnSubmit, Show];
+    return [
+      isShow,
+      isPurchasing,
+      Hide,
+      OnSubmit,
+      duration,
+      Show,
+      input0_change_handler,
+      $binding_groups,
+      input1_change_handler,
+      input2_change_handler,
+      click_handler
+    ];
   }
   var PopUpPurchaseSupport = class extends SvelteComponent {
     constructor(options) {
@@ -7333,13 +7740,13 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       init(this, options, instance6, create_fragment6, safe_not_equal, {
         isShow: 0,
         isPurchasing: 1,
-        Show: 4,
+        Show: 5,
         Hide: 2,
         OnSubmit: 3
       });
     }
     get Show() {
-      return this.$.ctx[4];
+      return this.$.ctx[5];
     }
     get Hide() {
       return this.$.ctx[2];
@@ -7628,7 +8035,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
             if (!isPopUpShowing)
               popUpPurchaseSupport.Show();
           },
-          5e3
+          1e3
         );
       }
     });
@@ -7641,14 +8048,18 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         { state: "paymentRequest" },
         /** @type {import('../jsApi.GEN').UserPurchaseSupportCallback} */
         async (res) => {
-          $invalidate(3, isPurchasing = false);
           console.log(res);
           if (res.error) {
             notifier.showError(res.error || "failed to purchase support+");
             return;
           }
-          loadJokulCheckout("https://sandbox.doku.com/checkout-link-v2/80444e5ea7804f04bd6c18f0c93c134320250611230619795");
-          notifier.showSuccess("support+ purchased successfully");
+          $invalidate(3, isPurchasing = false);
+          const paymentURL = res.paymentResponse.response.payment.url;
+          if (!paymentURL) {
+            notifier.showError("failed to purchase support+");
+            return;
+          }
+          loadJokulCheckout(paymentURL);
           return;
         }
       );

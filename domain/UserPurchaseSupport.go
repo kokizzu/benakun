@@ -14,6 +14,7 @@ import (
 	"github.com/go-resty/resty/v2"
 	"github.com/goccy/go-json"
 	"github.com/google/uuid"
+	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
 )
 
@@ -31,6 +32,7 @@ type (
 
 	UserPurchaseSupportOut struct {
 		ResponseCommon
+		PaymentResponse any `json:"paymentResponse" form:"paymentResponse" query:"paymentResponse" long:"paymentResponse" msg:"paymentResponse"`
 	}
 )
 
@@ -79,8 +81,6 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 			os.Getenv(`DOKU_API_KEY`),
 		)
 
-		fmt.Println(`Digest:`, digest)
-		fmt.Println(`Signature:`, signature)
 		client := resty.New()
 		resp, err := client.R().EnableTrace().
 			SetHeader(`Client-Id`, os.Getenv(`DOKU_CLIENT_ID`)).
@@ -96,13 +96,15 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 			return
 		}
 
-		fmt.Println(`Result:`, resp.Result())
-		fmt.Println(`IsSuccess:`, resp.IsSuccess())
-		fmt.Println(`StatusCode:`, resp.StatusCode())
-		fmt.Println(`Status:`, resp.Status())
-		fmt.Println(`Headers:`, resp.Request.Header)
-		fmt.Println(`Body:`, string(resp.Body()))
+		var respBody M.SX
+		err = json.Unmarshal(resp.Body(), &respBody)
+		if err != nil {
+			L.IsError(err, `json.Unmarshal: %#v`, respBody)
+			out.SetError(500, ErrUserPurchaseSupportUserConnection)
+			return
+		}
 
+		out.PaymentResponse = respBody
 	case zCrud.StatePaymentUpsert:
 		user := wcAuth.NewUsersMutator(d.AuthOltp)
 		user.Id = sess.UserId
@@ -131,35 +133,19 @@ func generateDOKUDigest(jsonBody string) string {
 	return (base64.StdEncoding.EncodeToString(hashedByte))
 }
 
-const CLIENT_ID = "Client-Id"
-const REQUEST_ID = "Request-Id"
-const REQUEST_TIMESTAMP = "Request-Timestamp"
-const REQUEST_TARGET = "Request-Target"
-const DIGEST = "Digest"
-const SYMBOL_COLON = ":"
-
 func generateDOKUSignature(clientId string, requestId string, requestTimestamp string, requestTarget string, digest string, secret string) string {
 	// Prepare Signature Component
 	fmt.Println("----- Component Signature -----")
 	var componentSignature strings.Builder
-	componentSignature.WriteString(CLIENT_ID + SYMBOL_COLON + clientId)
+	componentSignature.WriteString("Client-Id:" + clientId)
 	componentSignature.WriteString("\n")
-	componentSignature.WriteString(REQUEST_ID + SYMBOL_COLON + requestId)
+	componentSignature.WriteString("Request-Id:" + requestId)
 	componentSignature.WriteString("\n")
-	componentSignature.WriteString(REQUEST_TIMESTAMP + SYMBOL_COLON + requestTimestamp)
+	componentSignature.WriteString("Request-Timestamp:" + requestTimestamp)
 	componentSignature.WriteString("\n")
-	componentSignature.WriteString(REQUEST_TARGET + SYMBOL_COLON + requestTarget)
+	componentSignature.WriteString("Request-Target:" + requestTarget)
 	componentSignature.WriteString("\n")
-	componentSignature.WriteString(DIGEST + SYMBOL_COLON + digest)
-	// If body not send when access API with HTTP method GET/DELETE
-	// if len(digest) > 0 {
-	// 	componentSignature.WriteString("\n")
-	// 	componentSignature.WriteString(DIGEST + SYMBOL_COLON + digest)
-	// }
-
-	fmt.Println("componentSignature")
-	fmt.Println(componentSignature.String())
-	fmt.Println("")
+	componentSignature.WriteString("Digest:" + digest)
 
 	// Calculate HMAC-SHA256 base64 from all the components above
 	key := []byte(secret)

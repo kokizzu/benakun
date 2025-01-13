@@ -39,7 +39,7 @@
     if (!IsUnixTimeExpired(user.supportExpiredAt)) {
       setInterval(() => {
         if (!isPopUpShowing) popUpPurchaseSupport.Show();
-      }, 5000);
+      }, 1000);
     }
   });
 
@@ -51,22 +51,24 @@
 		await UserPurchaseSupport(
     /** @type {import('../jsApi.GEN').UserPurchaseSupportIn} */ ({
       state: 'paymentRequest'
-    }),
-    /** @type {import('../jsApi.GEN').UserPurchaseSupportCallback} */ async (res) => {
-			isPurchasing = false;
+    }), /** @type {import('../jsApi.GEN').UserPurchaseSupportCallback} */ async (res) => {
 			console.log(res);
-
 			if (res.error) {
 				notifier.showError(res.error || 'failed to purchase support+');
 				return;
 			}
+      isPurchasing = false;
 
-      // TODO: Habibi
-      // Replace it with the response.payment.url you retrieved from the response
+      const paymentURL = res.paymentResponse.response.payment.url;
+
+      if (!paymentURL) {
+        notifier.showError('failed to purchase support+');
+        return;
+      }
+      
       // @ts-ignore
-      loadJokulCheckout('https://sandbox.doku.com/checkout-link-v2/80444e5ea7804f04bd6c18f0c93c134320250611230619795');
+      loadJokulCheckout(paymentURL);
 
-			notifier.showSuccess('support+ purchased successfully');
 			return;
 		});
 
