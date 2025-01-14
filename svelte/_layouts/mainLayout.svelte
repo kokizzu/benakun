@@ -8,9 +8,9 @@
   import PopUpPurchaseSupport from '../_components/PopUpPurchaseSupport.svelte';
   import { IsShrinkMenu } from '../_components/uiState';
   import { onMount } from 'svelte';
-    import { UserPurchaseSupport } from '../jsApi.GEN';
-    import { notifier } from '../_components/xNotifier';
-    import { IsUnixTimeExpired } from '../_components/xHelper';
+  import { UserPurchaseSupport } from '../jsApi.GEN';
+  import { notifier } from '../_components/xNotifier';
+  import { IsUnixTimeExpired } from '../_components/xHelper';
   
   let segments = /** @type Access */ ({/* segments */});
   let user = /** @type User */ ({/* user */});
@@ -18,6 +18,11 @@
   let viewportWidth = window.innerWidth;
   let isPopUpReady = false;
   let isPopUpShowing = false;
+
+  function setPopUpIntervalTime() {
+    const timestamp = new Date().getTime();
+    localStorage.setItem('popup-date', timestamp.toString());
+  }
 
   onMount(() => {
     isPopUpReady = true;
@@ -36,24 +41,43 @@
       })
     }
 
-    if (!IsUnixTimeExpired(user.supportExpiredAt)) {
-      setInterval(() => {
-        if (!isPopUpShowing) popUpPurchaseSupport.Show();
-      }, 1000);
+    if (IsUnixTimeExpired(user.supportExpiredAt)) {
+      const storedPopupDate = localStorage.getItem('popup-date');
+      if (storedPopupDate) {
+        const savedTime = parseInt(storedPopupDate, 10);
+        const currentTime = new Date().getTime();
+        const threeDaysInMs = 3 * 24 * 60 * 60 * 1000;
+        if ((currentTime-savedTime) > threeDaysInMs) {
+          setTimeout(() => {
+            popUpPurchaseSupport.Show();
+          }, 3000);
+        }
+      } else {
+        setTimeout(() => {
+          popUpPurchaseSupport.Show();
+          setPopUpIntervalTime();
+        }, 3000);
+      }
     }
   });
 
   let popUpPurchaseSupport;
   let isPurchasing = false;
 
+  /**
+	 * @type {'yearly' | 'monthly' | 'quarterly' | any}
+	 */
+  let supportDuration = 'monthly';
+
   async function purchaseSupport() {
 		isPurchasing = true;
 		await UserPurchaseSupport(
-    /** @type {import('../jsApi.GEN').UserPurchaseSupportIn} */ ({
-      state: 'paymentRequest'
+    /** @type {import('../jsApi.GEN').UserPurchaseSupportIn | any} */ ({
+      state: 'paymentRequest',
+      supportDuration: supportDuration
     }), /** @type {import('../jsApi.GEN').UserPurchaseSupportCallback} */ async (res) => {
-			console.log(res);
-			if (res.error) {
+			console.log(res); // @ts-ignore
+			if (res.error) { // @ts-ignore
 				notifier.showError(res.error || 'failed to purchase support+');
 				return;
 			}
@@ -65,6 +89,8 @@
         notifier.showError('failed to purchase support+');
         return;
       }
+      
+      isPopUpShowing = false;
       
       // @ts-ignore
       loadJokulCheckout(paymentURL);
@@ -80,6 +106,7 @@
   <PopUpPurchaseSupport
     bind:this={popUpPurchaseSupport}
     bind:isPurchasing
+    bind:supportDuration
     bind:isShow={isPopUpShowing}
     OnSubmit={purchaseSupport}
   />

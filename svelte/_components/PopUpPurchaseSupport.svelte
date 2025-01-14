@@ -10,7 +10,7 @@
 	/**
 	 * @type {'yearly' | 'monthly' | 'quarterly'}
 	 */
-	let duration = 'quarterly';
+	export let supportDuration = 'quarterly';
 
 	/**
 	 * @description Submit purchase
@@ -38,7 +38,7 @@
 			</div>
 			<div class="options">
 				<div class="support-duration">
-					<label for="monthly" class="shadow" class:monthly={duration === 'monthly'}>
+					<label for="monthly" class="shadow" class:monthly={supportDuration === 'monthly'}>
 						<header>
 							<div class="icon monthly">
 								<Icon
@@ -55,11 +55,11 @@
 						type="radio"
 						name="duration"
 						value="monthly"
-						bind:group={duration}
+						bind:group={supportDuration}
 					/>
 				</div>
 				<div class="support-duration">
-					<label for="quarterly" class="shadow" class:quarterly={duration === 'quarterly'}>
+					<label for="quarterly" class="shadow" class:quarterly={supportDuration === 'quarterly'}>
 						<header>
 							<div class="icon quarterly">
 								<Icon
@@ -76,11 +76,11 @@
 						type="radio"
 						name="duration"
 						value="quarterly"
-						bind:group={duration}
+						bind:group={supportDuration}
 					/>
 				</div>
 				<div class="support-duration">
-					<label for="yearly" class="shadow" class:yearly={duration === 'yearly'}>
+					<label for="yearly" class="shadow" class:yearly={supportDuration === 'yearly'}>
 						<header>
 							<div class="icon yearly">
 								<Icon
@@ -97,12 +97,12 @@
 						type="radio"
 						name="duration"
 						value="yearly"
-						bind:group={duration}
+						bind:group={supportDuration}
 					/>
 				</div>
 			</div>
 			<div class="buttons">
-				<button class="btn buy" on:click={()=>OnSubmit(duration)} disabled={isPurchasing}>
+				<button class="btn buy" on:click={()=>OnSubmit(supportDuration)} disabled={isPurchasing}>
 					{#if isPurchasing}
 						<span>Purchasing...</span>
 					{/if}

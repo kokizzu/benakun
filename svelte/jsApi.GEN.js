@@ -3073,15 +3073,20 @@ exports.UserProfile = async function UserProfile( i, cb ) {
 
 /**
  * @typedef {Object} UserPurchaseSupportIn
+ * @property {String} suppportDuration
  * @property {String} state
  */
 const UserPurchaseSupportIn = {
+  suppportDuration: '', // string
   state: '', // string
 }
 /**
  * @typedef {Object} UserPurchaseSupportOut
+ * @property {Object} paymentResponse
  */
 const UserPurchaseSupportOut = {
+  paymentResponse: { // any
+  }, // any
 }
 /**
  * @callback UserPurchaseSupportCallback

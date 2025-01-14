@@ -4585,6 +4585,9 @@
 							"schema": {
 								"type": "object",
 								"properties": {
+						"suppportDuration": {
+								"type": "string"
+						},
 						"state": {
 								"type": "string"
 						}
@@ -4601,6 +4604,11 @@
 								"schema": {
 									"type": "object",
 									"properties": {
+										"paymentResponse": {
+										"type": "object",
+										"properties": {
+												}
+										}
 									}
 								}
 							}

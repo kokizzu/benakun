@@ -27,7 +27,8 @@ import (
 type (
 	UserPurchaseSupportIn struct {
 		RequestCommon
-		State string `json:"state" form:"state" query:"state" long:"state" msg:"state"`
+		SuppportDuration string `json:"supportDuration" form:"supportDuration" query:"supportDuration" long:"supportDuration" msg:"supportDuration"`
+		State            string `json:"state" form:"state" query:"state" long:"state" msg:"state"`
 	}
 
 	UserPurchaseSupportOut struct {
@@ -39,11 +40,33 @@ type (
 const (
 	UserPurchaseSupportAction = `user/purchaseSupport`
 
-	ErrUserPurchaseSupportUserNotFound      = `user not found`
-	ErrUserPurchaseSupportUserFailed        = `failed to purchase support`
-	ErrUserPurchaseSupportUserFailedPayment = `failed to create payment, try again later`
-	ErrUserPurchaseSupportUserConnection    = `failed to call DOKU API, try again later`
+	ErrUserPurchaseSupportUserNotFound               = `user not found`
+	ErrUserPurchaseSupportUserFailed                 = `failed to purchase support`
+	ErrUserPurchaseSupportUserFailedPayment          = `failed to create payment, try again later`
+	ErrUserPurchaseSupportUserConnection             = `failed to call DOKU API, try again later`
+	ErrUserPurchaseSupportUserInvalidSupportDuration = `invalid support duration, must be monthly, quarterly, yearly`
 )
+
+const (
+	AmountMonthly   int64 = 50000
+	AmountQuarterly int64 = 120000
+	AmountYearly    int64 = 450000
+)
+
+const (
+	SupportDurationMonthly   = `monthly`
+	SupportDurationQuarterly = `quarterly`
+	SupportDurationYearly    = `yearly`
+)
+
+func isValidSupportDuration(duration string) bool {
+	switch duration {
+	case SupportDurationMonthly, SupportDurationQuarterly, SupportDurationYearly:
+		return true
+	default:
+		return false
+	}
+}
 
 func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchaseSupportOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
@@ -52,12 +75,29 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 		return
 	}
 
+	L.Print(`supportDuration ` + in.SuppportDuration)
+
 	switch in.State {
 	case zCrud.StatePaymentRequest:
+		if !isValidSupportDuration(in.SuppportDuration) {
+			out.SetError(400, ErrUserPurchaseSupportUserInvalidSupportDuration)
+			return
+		}
+
+		var amount int64
+		switch in.SuppportDuration {
+		case SupportDurationMonthly:
+			amount = AmountMonthly
+		case SupportDurationQuarterly:
+			amount = AmountQuarterly
+		case SupportDurationYearly:
+			amount = AmountYearly
+		}
+
 		timeNow := time.Now().UTC().Format(time.RFC3339)
 		payload := M.SX{
 			"order": M.SX{
-				"amount":         1000,
+				"amount":         amount,
 				"invoice_number": "INV-" + timeNow,
 			},
 			"payment": M.SX{
