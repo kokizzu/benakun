@@ -19,6 +19,8 @@ var viewList = map[string]string{
 	`FieldSupervisorBusinessTransactionEdit`: `../svelte/fieldSupervisor/businessTransaction/edit.html`, // ../svelte/fieldSupervisor/businessTransaction/edit.svelte
 	`FieldSupervisorDashboard`: `../svelte/fieldSupervisor_dashboard.html`, // ../svelte/fieldSupervisor_dashboard.svelte
 	`GuestOauthCallback`: `../svelte/guest_oauthCallback.html`, // ../svelte/guest_oauthCallback.svelte
+	`GuestPaymentFailed`: `../svelte/guest_paymentFailed.html`, // ../svelte/guest_paymentFailed.svelte
+	`GuestPaymentSuccess`: `../svelte/guest_paymentSuccess.html`, // ../svelte/guest_paymentSuccess.svelte
 	`GuestResetPassword`: `../svelte/guest_resetPassword.html`, // ../svelte/guest_resetPassword.svelte
 	`GuestVerifyEmail`: `../svelte/guest_verifyEmail.html`, // ../svelte/guest_verifyEmail.svelte
 	`Index`: `../svelte/index.html`, // ../svelte/index.svelte
@@ -45,6 +47,7 @@ var viewList = map[string]string{
 	`TenantAdminTransaction`: `../svelte/tenantAdmin_transaction.html`, // ../svelte/tenantAdmin_transaction.svelte
 	`TenantAdminTransactionTemplate`: `../svelte/tenantAdmin_transactionTemplate.html`, // ../svelte/tenantAdmin_transactionTemplate.svelte
 	`UserProfile`: `../svelte/user_profile.html`, // ../svelte/user_profile.svelte
+	`UserPurchaseSupport`: `../svelte/user_purchaseSupport.html`, // ../svelte/user_purchaseSupport.svelte
 	`UserResponsejoin`: `../svelte/user_responsejoin.html`, // ../svelte/user_responsejoin.svelte
 }
 
@@ -92,6 +95,16 @@ func (v *Views) RenderFieldSupervisorDashboard(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderGuestOauthCallback(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`GuestOauthCallback`].Str(m))
+}
+
+func (v *Views) RenderGuestPaymentFailed(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`GuestPaymentFailed`].Str(m))
+}
+
+func (v *Views) RenderGuestPaymentSuccess(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`GuestPaymentSuccess`].Str(m))
 }
 
 func (v *Views) RenderGuestResetPassword(c *fiber.Ctx, m M.SX) error {
@@ -222,6 +235,11 @@ func (v *Views) RenderTenantAdminTransactionTemplate(c *fiber.Ctx, m M.SX) error
 func (v *Views) RenderUserProfile(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`UserProfile`].Str(m))
+}
+
+func (v *Views) RenderUserPurchaseSupport(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`UserPurchaseSupport`].Str(m))
 }
 
 func (v *Views) RenderUserResponsejoin(c *fiber.Ctx, m M.SX) error {

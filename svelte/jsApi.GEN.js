@@ -650,6 +650,64 @@ exports.GuestOauthCallback = async function GuestOauthCallback( i, cb ) {
 }
 
 /**
+ * @typedef {Object} GuestPaymentFailedIn
+ */
+const GuestPaymentFailedIn = {
+}
+/**
+ * @typedef {Object} GuestPaymentFailedOut
+ * @property {Object} request
+ */
+const GuestPaymentFailedOut = {
+  request: { // RequestCommon
+  }, // RequestCommon
+}
+/**
+ * @callback GuestPaymentFailedCallback
+ * @param {GuestPaymentFailedOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {GuestPaymentFailedIn} i
+ * @param {GuestPaymentFailedCallback} cb
+ * @returns {Promise}
+ */
+exports.GuestPaymentFailed = async function GuestPaymentFailed( i, cb ) {
+  return await axios.post( '/guest/paymentFailed', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} GuestPaymentSuccessIn
+ */
+const GuestPaymentSuccessIn = {
+}
+/**
+ * @typedef {Object} GuestPaymentSuccessOut
+ * @property {Object} request
+ */
+const GuestPaymentSuccessOut = {
+  request: { // RequestCommon
+  }, // RequestCommon
+}
+/**
+ * @callback GuestPaymentSuccessCallback
+ * @param {GuestPaymentSuccessOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {GuestPaymentSuccessIn} i
+ * @param {GuestPaymentSuccessCallback} cb
+ * @returns {Promise}
+ */
+exports.GuestPaymentSuccess = async function GuestPaymentSuccess( i, cb ) {
+  return await axios.post( '/guest/paymentSuccess', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} GuestRegisterIn
  * @property {String} email
  * @property {String} password

@@ -48,9 +48,9 @@ const (
 )
 
 const (
-	AmountMonthly   int64 = 50000
-	AmountQuarterly int64 = 120000
-	AmountYearly    int64 = 450000
+	AmountMonthly   uint32 = 50_000  // IDR 50.000
+	AmountQuarterly uint32 = 120_000 // IDR 120.000
+	AmountYearly    uint32 = 450_000 // IDR 450.000
 )
 
 const (
@@ -75,8 +75,6 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 		return
 	}
 
-	L.Print(`supportDuration ` + in.SuppportDuration)
-
 	switch in.State {
 	case zCrud.StatePaymentRequest:
 		if !isValidSupportDuration(in.SuppportDuration) {
@@ -84,7 +82,7 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 			return
 		}
 
-		var amount int64
+		var amount uint32
 		switch in.SuppportDuration {
 		case SupportDurationMonthly:
 			amount = AmountMonthly
@@ -97,11 +95,17 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 		timeNow := time.Now().UTC().Format(time.RFC3339)
 		payload := M.SX{
 			"order": M.SX{
-				"amount":         amount,
-				"invoice_number": "INV-" + timeNow,
+				"amount":                amount,
+				"invoice_number":        "INV-" + timeNow,
+				"language":              "EN",
+				"disable_retry_payment": true,
+				"callback_url":          in.Host + `/` + GuestPaymentSuccessAction,
+				"callback_url_cancel":   in.Host + `/` + GuestPaymentFailedAction,
+				"callback_url_result":   in.Host + `/` + GuestPaymentSuccessAction,
+				"auto_redirect":         true,
 			},
 			"payment": M.SX{
-				"payment_due_date": 60,
+				"payment_due_date": 60, // in minutes
 			},
 		}
 		jsonBody, err := json.Marshal(payload)
@@ -132,6 +136,7 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 			SetBody(payload).
 			Post(os.Getenv(`DOKU_API_URL`))
 		if err != nil {
+			L.IsError(err, `resty.Post: %#v`, payload)
 			out.SetError(500, ErrUserPurchaseSupportUserConnection)
 			return
 		}

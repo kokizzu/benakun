@@ -130,6 +130,26 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// GuestPaymentFailed
+	fw.Post("/"+domain.GuestPaymentFailedAction, func(c *fiber.Ctx) error {
+		in := domain.GuestPaymentFailedIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.GuestPaymentFailedAction); err != nil {
+			return nil
+		}
+		out := d.GuestPaymentFailed(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// GuestPaymentSuccess
+	fw.Post("/"+domain.GuestPaymentSuccessAction, func(c *fiber.Ctx) error {
+		in := domain.GuestPaymentSuccessIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.GuestPaymentSuccessAction); err != nil {
+			return nil
+		}
+		out := d.GuestPaymentSuccess(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// GuestRegister
 	fw.Post("/"+domain.GuestRegisterAction, func(c *fiber.Ctx) error {
 		in := domain.GuestRegisterIn{}

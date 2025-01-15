@@ -108,6 +108,22 @@ func cmdRun(b *domain.Domain, action string, payload []byte) {
 		out := b.GuestOauthCallback(&in)
 		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
 
+	case domain.GuestPaymentFailedAction:
+		in := domain.GuestPaymentFailedIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.GuestPaymentFailed(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
+	case domain.GuestPaymentSuccessAction:
+		in := domain.GuestPaymentSuccessIn{}
+		if !in.RequestCommon.FromCli(action, payload, &in) {
+			return
+		}
+		out := b.GuestPaymentSuccess(&in)
+		in.RequestCommon.ToCli(os.Stdout, out, out.ResponseCommon)
+
 	case domain.GuestRegisterAction:
 		in := domain.GuestRegisterIn{}
 		if !in.RequestCommon.FromCli(action, payload, &in) {

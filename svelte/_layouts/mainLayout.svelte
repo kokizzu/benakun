@@ -112,10 +112,10 @@
   />
 {/if}
 
-<div class="root_layout">
-  <div class="root_container">
+<div class="root-layout">
+  <div class="root-container">
     <SideMenu access={segments} />
-    <div class="root_content {$IsShrinkMenu ? 'shrink' : 'expand'}">
+    <div class="root-content {$IsShrinkMenu ? 'shrink' : 'expand'}">
       <Navbar {user} />
       <div class="content">
         <main><slot /></main>
@@ -126,7 +126,7 @@
 </div>
 
 <style>
-  .root_layout {
+  .root-layout {
     display: block;
 		top: 0;
 		bottom: 0;
@@ -136,13 +136,13 @@
 		width: 100vw;
   }
 
-  .root_layout .root_container {
+  .root-layout .root-container {
     height: 100%;
 		width: 100%;
 		display: flex;
   }
 
-  .root_layout .root_container .root_content {
+  .root-layout .root-container .root-content {
 		display: flex;
 		flex-direction: column;
 		-webkit-box-orient: vertical;
@@ -153,15 +153,15 @@
 		width: 100%;
   }
 
-  .root_layout .root_container .root_content.shrink {
+  .root-layout .root-container .root-content.shrink {
     margin-left: var(--sidemenu-width-sm);
   }
 
-  .root_layout .root_container .root_content.expand {
+  .root-layout .root-container .root-content.expand {
 		margin-left: var(--sidemenu-width);
   }
 
-  .root_layout .root_container .root_content .content {
+  .root-layout .root-container .root-content .content {
     width: 100%;
     padding: 20px;
     display: flex;
@@ -174,15 +174,15 @@
   }
 
   @media only screen and (max-width : 768px) {
-    .root_layout .root_container .root_content.shrink {
+    .root-layout .root-container .root-content.shrink {
       margin-left: 0;
     }
 
-    .root_layout .root_container .root_content.expand {
+    .root-layout .root-container .root-content.expand {
       margin-left: 0;
     }
 
-    .root_layout .root_container .root_content .content {
+    .root-layout .root-container .root-content .content {
       padding: 15px;
     }
   }

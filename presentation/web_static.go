@@ -77,6 +77,12 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
+	fw.Get(`/`+domain.UserPurchaseSupportAction, func(c *fiber.Ctx) error {
+		return views.RenderUserPurchaseSupport(c, M.SX{
+			`title`: `Purchase Benakun Support+`,
+		})
+	})
+
 	fw.Get(`/`+domain.UserResponseInvitationAction, func(c *fiber.Ctx) error {
 		var in domain.UserResponseInvitationIn
 		err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserResponseInvitationAction)
@@ -149,16 +155,16 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		coa := rqFinance.NewCoa(d.AuthOltp)
 		coa.TenantCode = tenantCode
 		coaChoices := coa.FindCoasChoicesByTenant()
-		
+
 		trxJournal := rqFinance.NewTransactionJournal(d.AuthOltp)
 		trxJournal.TenantCode = tenantCode
 		trxJournals := trxJournal.FindTrxJournalsByTenant()
-		
+
 		return views.RenderReportViewerGeneralLedger(ctx, M.SX{
-			`title`:    `Report Viewer General Ledger`,
-			`user`:     user,
-			`segments`: segments,
-			`coaChoices`: coaChoices,
+			`title`:               `Report Viewer General Ledger`,
+			`user`:                user,
+			`segments`:            segments,
+			`coaChoices`:          coaChoices,
 			`transactionJournals`: trxJournals,
 		})
 	})
@@ -190,10 +196,10 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		trxJournals := trxJournal.FindTrxJournalsByDateByTenant(startDate, endDate)
 
 		return views.RenderReportViewerTrialBalance(ctx, M.SX{
-			`title`:    `Report Viewer Trial Balance`,
-			`user`:     user,
-			`segments`: segments,
-			`coaChoices`: coaChoices,
+			`title`:               `Report Viewer Trial Balance`,
+			`user`:                user,
+			`segments`:            segments,
+			`coaChoices`:          coaChoices,
 			`transactionJournals`: trxJournals,
 		})
 	})
@@ -214,9 +220,9 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		financialPosition := trxJournal.FindReportOfFinancialPositionByTenant()
 
 		return views.RenderReportViewerFinancialPosition(ctx, M.SX{
-			`title`:    `Report Viewer Financial Position`,
-			`user`:     user,
-			`segments`: segments,
+			`title`:             `Report Viewer Financial Position`,
+			`user`:              user,
+			`segments`:          segments,
 			`financialPosition`: financialPosition,
 		})
 	})
@@ -241,11 +247,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		coaChoices := coa.FindCoasChoicesByTenant()
 
 		return views.RenderReportViewerLossIncomeStatements(ctx, M.SX{
-			`title`:    `Report Viewer Loss Income Statements`,
-			`user`:     user,
-			`segments`: segments,
+			`title`:               `Report Viewer Loss Income Statements`,
+			`user`:                user,
+			`segments`:            segments,
 			`transactionJournals`: trxJournals,
-			`coaChoices`: coaChoices,
+			`coaChoices`:          coaChoices,
 		})
 	})
 
@@ -255,7 +261,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if err != nil {
 			return err
 		}
-		
+
 		if notFieldSupervisorLogin(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
@@ -280,20 +286,20 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		}
 
 		return views.RenderFieldSupervisorDashboard(ctx, M.SX{
-			`title`:    `Field Supervisor Dashboard`,
-			`user`:     user,
-			`segments`: segments,
-			`pager`: out.Pager,
-			`fields`: out.Meta.Fields,
-			`transaction`: out.Transaction,
-			`transactions`: out.Transactions,
+			`title`:                `Field Supervisor Dashboard`,
+			`user`:                 user,
+			`segments`:             segments,
+			`pager`:                out.Pager,
+			`fields`:               out.Meta.Fields,
+			`transaction`:          out.Transaction,
+			`transactions`:         out.Transactions,
 			`transactionTemplates`: trxTemplates,
 		})
 	})
 
 	fw.Get(`/`+domain.FieldSupervisorBusinessTransactionEditAction+`:trxId`, func(ctx *fiber.Ctx) error {
 		in, user, segments := userInfoFromContext(ctx, d)
-		
+
 		if notFieldSupervisorLogin(d, in.RequestCommon) {
 			return ctx.Redirect(`/`, 302)
 		}
@@ -309,27 +315,27 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		transaction.TenantCode = tenantCode
 		if !transaction.FindByIdByTenantCode() {
 			return views.Render404(ctx, M.SX{
-				`title`: `Business Transaction Not Found`,
-				`description`: `Make sure given id is valid`, 
+				`title`:       `Business Transaction Not Found`,
+				`description`: `Make sure given id is valid`,
 			})
 		}
 
 		trxJournal := rqFinance.NewTransactionJournal(d.AuthOltp)
 		trxJournal.TransactionTemplateId = transaction.TransactionTemplateId
 		trxJournal.TenantCode = tenantCode
-		
+
 		trxJournals := trxJournal.FindTrxJournalsByTrxTemplateByTenant()
 
 		org := rqAuth.NewOrgs(d.AuthOltp)
 		org.FindCompanyByTenantCode(tenantCode)
 
 		return views.RenderFieldSupervisorBusinessTransactionEdit(ctx, M.SX{
-			`title`:    `Field Supervisor Edit Business Transaction`,
-			`user`:     user,
-			`segments`: segments,
-			`transaction`: transaction,
+			`title`:               `Field Supervisor Edit Business Transaction`,
+			`user`:                user,
+			`segments`:            segments,
+			`transaction`:         transaction,
 			`transactionJournals`: trxJournals,
-			`org`: org,
+			`org`:                 org,
 		})
 	})
 
@@ -398,14 +404,14 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		}
 
 		return views.RenderDataEntryTemplatesTemplate(ctx, M.SX{
-			`title`:      `Data Entry for ` + trxTemplate.Name,
-			`user`:       user,
-			`segments`:   segments,
-			`transactiontemplate`: trxTemplate,
+			`title`:                 `Data Entry for ` + trxTemplate.Name,
+			`user`:                  user,
+			`segments`:              segments,
+			`transactiontemplate`:   trxTemplate,
 			`transactionTplDetails`: trxTplDetails,
-			`coas`: coas,
-			`org`: org,
-			`coasWithChildren`: coasWithChildren,
+			`coas`:                  coas,
+			`org`:                   org,
+			`coasWithChildren`:      coasWithChildren,
 		})
 	})
 
@@ -437,7 +443,6 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.Cmd = zCrud.CmdList
 		out := d.TenantAdminDashboard(&in)
 
-		
 		return views.RenderTenantAdminDashboard(ctx, M.SX{
 			`title`:    `Tenant Admin Dashboard`,
 			`user`:     user,
@@ -542,14 +547,14 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 
 		out := d.TenantAdminManualJournal(&in)
 		return views.RenderTenantAdminManualJournal(ctx, M.SX{
-			`title`:    `Tenant Admin Manual Journal`,
-			`user`:     user,
-			`segments`: segments,
-			`fields`: out.Meta.Fields,
-			`pager`: out.Pager,
+			`title`:               `Tenant Admin Manual Journal`,
+			`user`:                user,
+			`segments`:            segments,
+			`fields`:              out.Meta.Fields,
+			`pager`:               out.Pager,
 			`transactionJournals`: out.TransactionJournals,
-			`coas`: coas,
-			`org`: org,
+			`coas`:                coas,
+			`org`:                 org,
 		})
 	})
 
@@ -567,7 +572,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		journalId, err := ctx.ParamsInt("id", 0)
 		if err != nil || journalId == 0 {
 			return views.Render404(ctx, M.SX{
-				`title`: `Invalid Journal ID`,
+				`title`:       `Invalid Journal ID`,
 				`description`: `Transaction journal ID must be number`,
 			})
 		}
@@ -576,11 +581,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.Cmd = zCrud.CmdForm
 		in.TransactionJournal.Id = uint64(journalId)
 		out := d.TenantAdminManualJournal(&in)
-		
+
 		if out.TransactionJournal == nil {
 			return views.Render404(ctx, M.SX{
-				`title`: `Journal Not Found`,
-				`description`: `Cannot found transaction journal for ID: "`+ I.ToS(int64(journalId)),
+				`title`:       `Journal Not Found`,
+				`description`: `Cannot found transaction journal for ID: "` + I.ToS(int64(journalId)),
 			})
 		}
 
@@ -592,11 +597,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		org.FindCompanyByTenantCode(user.TenantCode)
 
 		return views.RenderTenantAdminManualJournalEdit(ctx, M.SX{
-			`title`:    `Tenant Admin Manual Journal Edit`,
-			`user`:     user,
-			`segments`: segments,
-			`org`: org,
-			`coas`: coas,
+			`title`:              `Tenant Admin Manual Journal Edit`,
+			`user`:               user,
+			`segments`:           segments,
+			`org`:                org,
+			`coas`:               coas,
 			`transactionJournal`: out.TransactionJournal,
 		})
 	})
@@ -646,11 +651,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		coaChoices.TenantCode = tenant.TenantCode
 		cChoices := coaChoices.FindCoasChoicesByTenant()
 		return views.RenderTenantAdminCoa(ctx, M.SX{
-			`title`:    `Tenant Admin Coa`,
-			`user`:     user,
-			`segments`: segments,
-			`coas`:     out.Coas,
-			`tenant`: tenant,
+			`title`:      `Tenant Admin Coa`,
+			`user`:       user,
+			`segments`:   segments,
+			`coas`:       out.Coas,
+			`tenant`:     tenant,
 			`coaChoices`: cChoices,
 		})
 	})
@@ -695,7 +700,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		in.WithMeta = true
 		in.Cmd = zCrud.CmdList
 		out := d.TenantAdminBankAccounts(&in)
-		
+
 		return views.RenderTenantAdminBankAccounts(ctx, M.SX{
 			`title`:    `Tenant Admin Bank Accounts`,
 			`user`:     user,
@@ -704,7 +709,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`fields`:   out.Meta.Fields,
 			`pager`:    out.Pager,
 			`staffs`:   staffs,
-			`coas`: coas,
+			`coas`:     coas,
 		})
 	})
 
@@ -769,7 +774,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`user`:             user,
 			`segments`:         segments,
 			`product`:          product,
-			`products`: 				products,
+			`products`:         products,
 			`fields`:           out.Meta.Fields,
 			`pager`:            out.Pager,
 			`inventoryChanges`: out.InventoryChanges,
@@ -797,7 +802,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`user`:                 user,
 			`segments`:             segments,
 			`transactionTemplates`: out.TransactionTemplates,
-			`coas`: coas,
+			`coas`:                 coas,
 		})
 	})
 
@@ -843,9 +848,9 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`title`:    `Super Admin Access Log`,
 			`segments`: segments,
 			`user`:     user,
-			`logs`: out.Logs,
-			`fields`: out.Meta.Fields,
-			`pager`: out.Pager,	
+			`logs`:     out.Logs,
+			`fields`:   out.Meta.Fields,
+			`pager`:    out.Pager,
 		})
 	})
 
@@ -893,6 +898,18 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 			`pager`:    out.Pager,
 			`user`:     user,
 			`tenant`:   out.Tenant,
+		})
+	})
+
+	fw.Get(`/`+domain.GuestPaymentSuccessAction, func(ctx *fiber.Ctx) error {
+		return views.RenderGuestPaymentSuccess(ctx, M.SX{
+			`title`: `Payment Success !!`,
+		})
+	})
+
+	fw.Get(`/`+domain.GuestPaymentFailedAction, func(ctx *fiber.Ctx) error {
+		return views.RenderGuestPaymentFailed(ctx, M.SX{
+			`title`: `Payment Failed !!`,
 		})
 	})
 

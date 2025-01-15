@@ -35,13 +35,13 @@
 </script>
 
 
-<section class="reset_password_container">
-  <div class="main_content">
+<section class="reset-password-container">
+  <div class="main-content">
     <h1>
         <i class="gg-lock"/>
         <span>Reset Password</span>
     </h1>
-    <div class="input_container">
+    <div class="input-container">
       <InputBox
         id="newPass"
         type="password"
@@ -60,14 +60,14 @@
 </section>
 
 <style>
-  .reset_password_container {
-      height           : 100%;
-      width            : 100%;
-      background-color : #F1F5F9;
-      display          : flex;
-      color            : #475569;
+  .reset-password-container {
+    height           : 100%;
+    width            : 100%;
+    background-color : #F1F5F9;
+    display          : flex;
+    color            : #475569;
   }
-  .reset_password_container .main_content {
+  .reset-password-container .main-content {
     width            : 420px;
     height           : fit-content;
     padding          : 20px;
@@ -81,7 +81,7 @@
     border           : 1px solid #CBD5E1;
   }
 
-  .reset_password_container .main_content h1 {
+  .reset-password-container .main-content h1 {
     font-weight     : 700;
     font-size       : 22px;
     margin          : 0 auto 15px;
@@ -92,17 +92,17 @@
     align-items     : center;
   }
 
-  .reset_password_container .main_content h1 i {
+  .reset-password-container .main-content h1 i {
     margin-right : 15px;
   }
 
-  .reset_password_container .main_content .input_container {
+  .reset-password-container .main-content .input-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
   }
 
-  .reset_password_container .main_content button {
+  .reset-password-container .main-content button {
     padding          : 12px 0;
     font-size        : 16px;
     border           : none;
@@ -115,7 +115,7 @@
     margin           : 10px auto 0 auto;
   }
 
-  .reset_password_container .main_content button:hover {
+  .reset-password-container .main-content button:hover {
     background-color : var(--blue-005);
   }
 </style>

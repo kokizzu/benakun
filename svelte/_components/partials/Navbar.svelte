@@ -1,4 +1,5 @@
 <script>
+    import { onMount } from 'svelte';
   import { Icon } from '../../node_modules/svelte-icons-pack/dist';
   import {
     RiDesignLayoutLeftLine,
@@ -9,12 +10,24 @@
 
   export let user = /** @type {import('../types/user.js').User}*/ ({});
 
+  let isUserBoughtSupport = false;
+
+  onMount(() => {
+    if (!IsUnixTimeExpired(user.supportExpiredAt)) {
+      isUserBoughtSupport = true;
+    }
+  })
+
   function handleShrinkMenu() {
     console.log('handleShrinkMenu', $IsShrinkMenu);
     IsShrinkMenu.set(!$IsShrinkMenu);
     if (window.innerWidth > 768) {
       localStorage.setItem('IsShrinkMenu', JSON.stringify($IsShrinkMenu))
     }
+  }
+
+  function handleUpgrade() {
+    window.location.href = '/user/purchaseSupport';
   }
 </script>
 
@@ -38,7 +51,12 @@
       <picture>
         <img src="/assets/icons/benakun-logo.png" alt="" />
       </picture>
-      <span class="display-email { IsUnixTimeExpired(user.supportExpiredAt) ? 'free' : 'premium'} ">
+      {#if !isUserBoughtSupport}
+        <button class="upgrade" on:click={handleUpgrade}>
+          <span>Upgrade</span>
+        </button>
+      {/if}
+      <span class="display-email { isUserBoughtSupport ? 'premium' : 'free'} ">
         <div class="wrapper">{user.email}</div>
       </span>
     </div>
@@ -104,11 +122,6 @@
     display: none;
   }
 
-  /* .navbar_container .navbar .left .display_title {
-    font-size: var(--font-lg);
-    font-weight: 700;
-  } */
-
   .navbar_container .navbar .right .display-email.free {
     padding: 5px 15px;
     border-radius: 8px;
@@ -130,6 +143,20 @@
     padding: 5px 15px;
     color: var(--gray-009);
     border-radius: 6px;
+  }
+
+  .navbar_container .navbar .right button.upgrade {
+    padding: 5px 15px;
+    border-radius: 8px;
+    background-color: var(--violet-006);
+    color: #FFF;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+  }
+
+  .navbar_container .navbar .right button.upgrade:hover {
+    background-color: var(--violet-005);
   }
 
   .navbar_container .navbar .right picture {

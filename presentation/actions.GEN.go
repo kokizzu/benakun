@@ -19,6 +19,8 @@ var allCommands = []string{
 	domain.GuestForgotPasswordAction,
 	domain.GuestLoginAction,
 	domain.GuestOauthCallbackAction,
+	domain.GuestPaymentFailedAction,
+	domain.GuestPaymentSuccessAction,
 	domain.GuestRegisterAction,
 	domain.GuestResendVerificationEmailAction,
 	domain.GuestResetPasswordAction,
