@@ -4140,12 +4140,12 @@
         { state: "paymentRequest", supportDuration },
         /** @type {import('./jsApi.GEN').UserPurchaseSupportCallback} */
         async (res) => {
+          $invalidate(0, isPurchasing = false);
           console.log(res);
           if (res.error) {
             notifier.showError(res.error || "failed to purchase support+");
             return;
           }
-          $invalidate(0, isPurchasing = false);
           const paymentURL = res.paymentResponse.response.payment.url;
           if (!paymentURL) {
             notifier.showError("failed to purchase support+");

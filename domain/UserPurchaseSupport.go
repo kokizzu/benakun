@@ -6,7 +6,6 @@ import (
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/base64"
-	"fmt"
 	"os"
 	"strings"
 	"time"
@@ -135,6 +134,7 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 			SetHeader(`Signature`, signature).
 			SetBody(payload).
 			Post(os.Getenv(`DOKU_API_URL`))
+
 		if err != nil {
 			L.IsError(err, `resty.Post: %#v`, payload)
 			out.SetError(500, ErrUserPurchaseSupportUserConnection)
@@ -180,7 +180,6 @@ func generateDOKUDigest(jsonBody string) string {
 
 func generateDOKUSignature(clientId string, requestId string, requestTimestamp string, requestTarget string, digest string, secret string) string {
 	// Prepare Signature Component
-	fmt.Println("----- Component Signature -----")
 	var componentSignature strings.Builder
 	componentSignature.WriteString("Client-Id:" + clientId)
 	componentSignature.WriteString("\n")

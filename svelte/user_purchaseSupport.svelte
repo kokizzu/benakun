@@ -22,12 +22,13 @@
       state: 'paymentRequest',
       supportDuration: supportDuration
     }), /** @type {import('./jsApi.GEN').UserPurchaseSupportCallback} */ async (res) => {
+      isPurchasing = false;
+      
 			console.log(res); // @ts-ignore
 			if (res.error) { // @ts-ignore
 				notifier.showError(res.error || 'failed to purchase support+');
 				return;
 			}
-      isPurchasing = false;
 
       const paymentURL = res.paymentResponse.response.payment.url;
 
