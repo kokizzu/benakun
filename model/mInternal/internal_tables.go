@@ -3,34 +3,45 @@ package mInternal
 import "github.com/kokizzu/gotro/D/Tt"
 
 const (
-	Id            = `id`
-	UserId        = `userId`
-	Code          = `code`
-	Amount        = `amount`
-	Currency      = `currency`
-	PaymentMethod = `paymentMethod`
-	CreatedAt     = `createdAt`
-	CreatedBy     = `createdBy`
-	UpdatedAt     = `updatedAt`
-	UpdatedBy     = `updatedBy`
-	DeletedAt     = `deletedAt`
-	DeletedBy     = `deletedBy`
-	RestoredBy    = `restoredBy`
+	Id             = `id`
+	UserId         = `userId`
+	InvoiceNumber  = `invoiceNumber`
+	Amount         = `amount`
+	Currency       = `currency`
+	PaymentMethod  = `paymentMethod`
+	ResponseHeader = `responseHeader`
+	ResponseBody   = `responseBody`
+	Status         = `status`
+	CreatedAt      = `createdAt`
+	CreatedBy      = `createdBy`
+	UpdatedAt      = `updatedAt`
+	UpdatedBy      = `updatedBy`
+	DeletedAt      = `deletedAt`
+	DeletedBy      = `deletedBy`
+	RestoredBy     = `restoredBy`
 )
 
 const (
-	TablePayment Tt.TableName = `payment`
+	TableInvoicePayment Tt.TableName = `invoicePayment`
+
+	StatusPending  = `pending`
+	StatusSuccess  = `success`
+	StatusFailed   = `failed`
+	StatusCanceled = `canceled`
 )
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
-	TablePayment: {
+	TableInvoicePayment: {
 		Fields: []Tt.Field{
 			{Id, Tt.Unsigned},
 			{UserId, Tt.Unsigned},
-			{Code, Tt.String},
+			{InvoiceNumber, Tt.String},
 			{Amount, Tt.Integer},
 			{Currency, Tt.String},
 			{PaymentMethod, Tt.String},
+			{ResponseHeader, Tt.String},
+			{ResponseBody, Tt.String},
+			{Status, Tt.String},
 			{CreatedAt, Tt.Integer},
 			{CreatedBy, Tt.Unsigned},
 			{UpdatedAt, Tt.Integer},

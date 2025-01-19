@@ -13,6 +13,7 @@
   let isUserBoughtSupport = false;
 
   onMount(() => {
+    console.log('user:', user);
     if (!IsUnixTimeExpired(user.supportExpiredAt)) {
       isUserBoughtSupport = true;
     }

@@ -1,7 +1,7 @@
 function IsUnixTimeExpired(unixTimestamp) {
   const currentTime = new Date().getTime();
 
-  return unixTimestamp < currentTime
+  return unixTimestamp < currentTime;
 }
 
 module.exports = {

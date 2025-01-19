@@ -7594,6 +7594,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     ) } = $props;
     let isUserBoughtSupport = false;
     onMount(() => {
+      console.log("user:", user2);
       if (!(0, import_xHelper.IsUnixTimeExpired)(user2.supportExpiredAt)) {
         $invalidate(1, isUserBoughtSupport = true);
       }

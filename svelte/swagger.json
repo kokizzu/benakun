@@ -1235,7 +1235,6 @@
 				}
 			}
 		},
-		"/reportViewer/dashboard": {
 			"post": {
 				"security": [{
 					"CookieAuth": []

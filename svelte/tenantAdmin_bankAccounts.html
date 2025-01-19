@@ -27107,6 +27107,7 @@ uniform ${i3} ${a3} u_${s3};
     ) } = $props;
     let isUserBoughtSupport = false;
     onMount(() => {
+      console.log("user:", user3);
       if (!(0, import_xHelper.IsUnixTimeExpired)(user3.supportExpiredAt)) {
         $invalidate(1, isUserBoughtSupport = true);
       }

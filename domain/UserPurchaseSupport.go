@@ -106,7 +106,11 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 			"payment": M.SX{
 				"payment_due_date": 60, // in minutes
 			},
+			"additional_info": M.SX{
+				"override_notification_url": os.Getenv(`DOKU_NOTIFICATION_URL`),
+			},
 		}
+
 		jsonBody, err := json.Marshal(payload)
 		if err != nil {
 			out.SetError(500, ErrUserPurchaseSupportUserFailedPayment)

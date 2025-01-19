@@ -9839,6 +9839,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     ) } = $props;
     let isUserBoughtSupport = false;
     onMount(() => {
+      console.log("user:", user2);
       if (!(0, import_xHelper.IsUnixTimeExpired)(user2.supportExpiredAt)) {
         $invalidate(1, isUserBoughtSupport = true);
       }
@@ -11072,8 +11073,8 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     };
   }
   function create_default_slot(ctx) {
-    let div12;
-    let div10;
+    let div13;
+    let div11;
     let h30;
     let t1;
     let div0;
@@ -11083,7 +11084,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     let inputbox1;
     let updating_value_1;
     let t3;
-    let div9;
+    let div10;
     let div1;
     let span0;
     let t5;
@@ -11165,23 +11166,33 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     );
     let t35;
     let t36;
-    let submitbutton0;
-    let t37;
-    let div11;
-    let h31;
+    let div9;
+    let span16;
+    let t38;
+    let span17;
+    let t39_value = ((0, import_xformatter.localeDatetime)(
+      /*user*/
+      ctx[0].supportExpiredAt
+    ) || "--") + "";
     let t39;
-    let inputbox2;
     let t40;
-    let inputbox3;
+    let submitbutton0;
     let t41;
-    let inputbox4;
-    let t42;
-    let submitbutton1;
+    let div12;
+    let h31;
     let t43;
-    let div15;
-    let div13;
-    let t49;
+    let inputbox2;
+    let t44;
+    let inputbox3;
+    let t45;
+    let inputbox4;
+    let t46;
+    let submitbutton1;
+    let t47;
+    let div16;
     let div14;
+    let t53;
+    let div15;
     let current_block_type_index;
     let if_block;
     let current;
@@ -11295,8 +11306,8 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     return {
       c() {
-        div12 = element("div");
-        div10 = element("div");
+        div13 = element("div");
+        div11 = element("div");
         h30 = element("h3");
         h30.textContent = "Profile Details";
         t1 = space();
@@ -11305,7 +11316,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         t2 = space();
         create_component(inputbox1.$.fragment);
         t3 = space();
-        div9 = element("div");
+        div10 = element("div");
         div1 = element("div");
         span0 = element("span");
         span0.textContent = "Join At";
@@ -11363,25 +11374,32 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         span15 = element("span");
         t35 = text(t35_value);
         t36 = space();
+        div9 = element("div");
+        span16 = element("span");
+        span16.textContent = "Support Expired At";
+        t38 = space();
+        span17 = element("span");
+        t39 = text(t39_value);
+        t40 = space();
         create_component(submitbutton0.$.fragment);
-        t37 = space();
-        div11 = element("div");
+        t41 = space();
+        div12 = element("div");
         h31 = element("h3");
         h31.textContent = "Change Password";
-        t39 = space();
-        create_component(inputbox2.$.fragment);
-        t40 = space();
-        create_component(inputbox3.$.fragment);
-        t41 = space();
-        create_component(inputbox4.$.fragment);
-        t42 = space();
-        create_component(submitbutton1.$.fragment);
         t43 = space();
-        div15 = element("div");
-        div13 = element("div");
-        div13.innerHTML = `<span class="svelte-1mt8e6u">IP Address</span> <span class="svelte-1mt8e6u">Expired At</span> <span class="svelte-1mt8e6u">Device</span>`;
-        t49 = space();
+        create_component(inputbox2.$.fragment);
+        t44 = space();
+        create_component(inputbox3.$.fragment);
+        t45 = space();
+        create_component(inputbox4.$.fragment);
+        t46 = space();
+        create_component(submitbutton1.$.fragment);
+        t47 = space();
+        div16 = element("div");
         div14 = element("div");
+        div14.innerHTML = `<span class="svelte-1mt8e6u">IP Address</span> <span class="svelte-1mt8e6u">Expired At</span> <span class="svelte-1mt8e6u">Device</span>`;
+        t53 = space();
+        div15 = element("div");
         if_block.c();
         attr(h30, "class", "svelte-1mt8e6u");
         attr(div0, "class", "input_row svelte-1mt8e6u");
@@ -11409,93 +11427,102 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         attr(span14, "class", "svelte-1mt8e6u");
         attr(span15, "class", "tenant-code svelte-1mt8e6u");
         attr(div8, "class", "info svelte-1mt8e6u");
-        attr(div9, "class", "user_info svelte-1mt8e6u");
-        attr(div10, "class", "profile_details svelte-1mt8e6u");
+        attr(span16, "class", "svelte-1mt8e6u");
+        attr(span17, "class", "svelte-1mt8e6u");
+        attr(div9, "class", "info svelte-1mt8e6u");
+        attr(div10, "class", "user_info svelte-1mt8e6u");
+        attr(div11, "class", "profile_details svelte-1mt8e6u");
         attr(h31, "class", "svelte-1mt8e6u");
-        attr(div11, "class", "password_set svelte-1mt8e6u");
-        attr(div12, "class", "user_details_container svelte-1mt8e6u");
-        attr(div13, "class", "header svelte-1mt8e6u");
-        attr(div14, "class", "sessions svelte-1mt8e6u");
-        attr(div15, "class", "sessions_container svelte-1mt8e6u");
+        attr(div12, "class", "password_set svelte-1mt8e6u");
+        attr(div13, "class", "user_details_container svelte-1mt8e6u");
+        attr(div14, "class", "header svelte-1mt8e6u");
+        attr(div15, "class", "sessions svelte-1mt8e6u");
+        attr(div16, "class", "sessions_container svelte-1mt8e6u");
       },
       m(target, anchor) {
-        insert(target, div12, anchor);
-        append(div12, div10);
-        append(div10, h30);
-        append(div10, t1);
-        append(div10, div0);
+        insert(target, div13, anchor);
+        append(div13, div11);
+        append(div11, h30);
+        append(div11, t1);
+        append(div11, div0);
         mount_component(inputbox0, div0, null);
         append(div0, t2);
         mount_component(inputbox1, div0, null);
-        append(div10, t3);
-        append(div10, div9);
-        append(div9, div1);
+        append(div11, t3);
+        append(div11, div10);
+        append(div10, div1);
         append(div1, span0);
         append(div1, t5);
         append(div1, span1);
         append(span1, t6);
-        append(div9, t7);
-        append(div9, div2);
+        append(div10, t7);
+        append(div10, div2);
         append(div2, span2);
         append(div2, t9);
         append(div2, span3);
         append(span3, t10);
         append(span3, t11);
-        append(div9, t12);
-        append(div9, div3);
+        append(div10, t12);
+        append(div10, div3);
         append(div3, span4);
         append(div3, t14);
         append(div3, span5);
         append(span5, t15);
-        append(div9, t16);
-        append(div9, div4);
+        append(div10, t16);
+        append(div10, div4);
         append(div4, span6);
         append(div4, t18);
         append(div4, span7);
         append(span7, t19);
-        append(div9, t20);
-        append(div9, div5);
+        append(div10, t20);
+        append(div10, div5);
         append(div5, span8);
         append(div5, t22);
         append(div5, span9);
         append(span9, t23);
-        append(div9, t24);
-        append(div9, div6);
+        append(div10, t24);
+        append(div10, div6);
         append(div6, span10);
         append(div6, t26);
         append(div6, span11);
         append(span11, t27);
-        append(div9, t28);
-        append(div9, div7);
+        append(div10, t28);
+        append(div10, div7);
         append(div7, span12);
         append(div7, t30);
         append(div7, span13);
         append(span13, t31);
-        append(div9, t32);
-        append(div9, div8);
+        append(div10, t32);
+        append(div10, div8);
         append(div8, span14);
         append(div8, t34);
         append(div8, span15);
         append(span15, t35);
         append(div10, t36);
-        mount_component(submitbutton0, div10, null);
-        append(div12, t37);
-        append(div12, div11);
-        append(div11, h31);
-        append(div11, t39);
-        mount_component(inputbox2, div11, null);
+        append(div10, div9);
+        append(div9, span16);
+        append(div9, t38);
+        append(div9, span17);
+        append(span17, t39);
         append(div11, t40);
-        mount_component(inputbox3, div11, null);
-        append(div11, t41);
-        mount_component(inputbox4, div11, null);
-        append(div11, t42);
-        mount_component(submitbutton1, div11, null);
-        insert(target, t43, anchor);
-        insert(target, div15, anchor);
-        append(div15, div13);
-        append(div15, t49);
-        append(div15, div14);
-        if_blocks[current_block_type_index].m(div14, null);
+        mount_component(submitbutton0, div11, null);
+        append(div13, t41);
+        append(div13, div12);
+        append(div12, h31);
+        append(div12, t43);
+        mount_component(inputbox2, div12, null);
+        append(div12, t44);
+        mount_component(inputbox3, div12, null);
+        append(div12, t45);
+        mount_component(inputbox4, div12, null);
+        append(div12, t46);
+        mount_component(submitbutton1, div12, null);
+        insert(target, t47, anchor);
+        insert(target, div16, anchor);
+        append(div16, div14);
+        append(div16, t53);
+        append(div16, div15);
+        if_blocks[current_block_type_index].m(div15, null);
         current = true;
       },
       p(ctx2, dirty) {
@@ -11559,6 +11586,12 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         1) && t35_value !== (t35_value = /*user*/
         (ctx2[0].tenantCode || `--`) + ""))
           set_data(t35, t35_value);
+        if ((!current || dirty & /*user*/
+        1) && t39_value !== (t39_value = ((0, import_xformatter.localeDatetime)(
+          /*user*/
+          ctx2[0].supportExpiredAt
+        ) || "--") + ""))
+          set_data(t39, t39_value);
         const submitbutton0_changes = {};
         if (dirty & /*profileSubmit*/
         32)
@@ -11607,7 +11640,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
             if_block.p(ctx2, dirty);
           }
           transition_in(if_block, 1);
-          if_block.m(div14, null);
+          if_block.m(div15, null);
         }
       },
       i(local) {
@@ -11636,9 +11669,9 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       },
       d(detaching) {
         if (detaching) {
-          detach(div12);
-          detach(t43);
-          detach(div15);
+          detach(div13);
+          detach(t47);
+          detach(div16);
         }
         destroy_component(inputbox0);
         destroy_component(inputbox1);

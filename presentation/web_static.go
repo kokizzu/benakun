@@ -1,6 +1,7 @@
 package presentation
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -81,6 +82,12 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		return views.RenderUserPurchaseSupport(c, M.SX{
 			`title`: `Purchase Benakun Support+`,
 		})
+	})
+
+	// TEST
+	fw.All(`/payments/notifications`, func(c *fiber.Ctx) error {
+		fmt.Println(string(c.Body()))
+		return c.SendStatus(fiber.StatusOK)
 	})
 
 	fw.Get(`/`+domain.UserResponseInvitationAction, func(c *fiber.Ctx) error {

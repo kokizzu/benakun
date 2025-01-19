@@ -15,247 +15,280 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-// PaymentMutator DAO writer/command struct
+// InvoicePaymentMutator DAO writer/command struct
 //
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file wcInternal__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type wcInternal__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type wcInternal__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcInternal__ORM.GEN.go
-type PaymentMutator struct {
-	rqInternal.Payment
+type InvoicePaymentMutator struct {
+	rqInternal.InvoicePayment
 	mutations *tarantool.Operations
 	logs      []A.X
 }
 
-// NewPaymentMutator create new ORM writer/command object
-func NewPaymentMutator(adapter *Tt.Adapter) (res *PaymentMutator) {
-	res = &PaymentMutator{Payment: rqInternal.Payment{Adapter: adapter}}
+// NewInvoicePaymentMutator create new ORM writer/command object
+func NewInvoicePaymentMutator(adapter *Tt.Adapter) (res *InvoicePaymentMutator) {
+	res = &InvoicePaymentMutator{InvoicePayment: rqInternal.InvoicePayment{Adapter: adapter}}
 	res.mutations = tarantool.NewOperations()
 	return
 }
 
 // Logs get array of logs [field, old, new]
-func (p *PaymentMutator) Logs() []A.X { //nolint:dupl false positive
-	return p.logs
+func (i *InvoicePaymentMutator) Logs() []A.X { //nolint:dupl false positive
+	return i.logs
 }
 
 // HaveMutation check whether Set* methods ever called
-func (p *PaymentMutator) HaveMutation() bool { //nolint:dupl false positive
-	return len(p.logs) > 0
+func (i *InvoicePaymentMutator) HaveMutation() bool { //nolint:dupl false positive
+	return len(i.logs) > 0
 }
 
 // ClearMutations clear all previously called Set* methods
-func (p *PaymentMutator) ClearMutations() { //nolint:dupl false positive
-	p.mutations = tarantool.NewOperations()
-	p.logs = []A.X{}
+func (i *InvoicePaymentMutator) ClearMutations() { //nolint:dupl false positive
+	i.mutations = tarantool.NewOperations()
+	i.logs = []A.X{}
 }
 
 // DoOverwriteById update all columns, error if not exists, not using mutations/Set*
-func (p *PaymentMutator) DoOverwriteById() bool { //nolint:dupl false positive
-	_, err := p.Adapter.RetryDo(tarantool.NewUpdateRequest(p.SpaceName()).
-		Index(p.UniqueIndexId()).
-		Key(tarantool.UintKey{I: uint(p.Id)}).
-		Operations(p.ToUpdateArray()),
+func (i *InvoicePaymentMutator) DoOverwriteById() bool { //nolint:dupl false positive
+	_, err := i.Adapter.RetryDo(tarantool.NewUpdateRequest(i.SpaceName()).
+		Index(i.UniqueIndexId()).
+		Key(tarantool.UintKey{I: uint(i.Id)}).
+		Operations(i.ToUpdateArray()),
 	)
-	return !L.IsError(err, `Payment.DoOverwriteById failed: `+p.SpaceName())
+	return !L.IsError(err, `InvoicePayment.DoOverwriteById failed: `+i.SpaceName())
 }
 
 // DoUpdateById update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
-func (p *PaymentMutator) DoUpdateById() bool { //nolint:dupl false positive
-	if !p.HaveMutation() {
+func (i *InvoicePaymentMutator) DoUpdateById() bool { //nolint:dupl false positive
+	if !i.HaveMutation() {
 		return true
 	}
-	_, err := p.Adapter.RetryDo(
-		tarantool.NewUpdateRequest(p.SpaceName()).
-			Index(p.UniqueIndexId()).
-			Key(tarantool.UintKey{I: uint(p.Id)}).
-			Operations(p.mutations),
+	_, err := i.Adapter.RetryDo(
+		tarantool.NewUpdateRequest(i.SpaceName()).
+			Index(i.UniqueIndexId()).
+			Key(tarantool.UintKey{I: uint(i.Id)}).
+			Operations(i.mutations),
 	)
-	return !L.IsError(err, `Payment.DoUpdateById failed: `+p.SpaceName())
+	return !L.IsError(err, `InvoicePayment.DoUpdateById failed: `+i.SpaceName())
 }
 
 // DoDeletePermanentById permanent delete
-func (p *PaymentMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
-	_, err := p.Adapter.RetryDo(
-		tarantool.NewDeleteRequest(p.SpaceName()).
-			Index(p.UniqueIndexId()).
-			Key(tarantool.UintKey{I: uint(p.Id)}),
+func (i *InvoicePaymentMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
+	_, err := i.Adapter.RetryDo(
+		tarantool.NewDeleteRequest(i.SpaceName()).
+			Index(i.UniqueIndexId()).
+			Key(tarantool.UintKey{I: uint(i.Id)}),
 	)
-	return !L.IsError(err, `Payment.DoDeletePermanentById failed: `+p.SpaceName())
+	return !L.IsError(err, `InvoicePayment.DoDeletePermanentById failed: `+i.SpaceName())
 }
 
 // DoInsert insert, error if already exists
-func (p *PaymentMutator) DoInsert() bool { //nolint:dupl false positive
-	arr := p.ToArray()
-	row, err := p.Adapter.RetryDo(
-		tarantool.NewInsertRequest(p.SpaceName()).
+func (i *InvoicePaymentMutator) DoInsert() bool { //nolint:dupl false positive
+	arr := i.ToArray()
+	row, err := i.Adapter.RetryDo(
+		tarantool.NewInsertRequest(i.SpaceName()).
 			Tuple(arr),
 	)
 	if err == nil {
 		if len(row) > 0 {
 			if cells, ok := row[0].([]any); ok && len(cells) > 0 {
-				p.Id = X.ToU(cells[0])
+				i.Id = X.ToU(cells[0])
 			}
 		}
 	}
-	return !L.IsError(err, `Payment.DoInsert failed: `+p.SpaceName()+`\n%#v`, arr)
+	return !L.IsError(err, `InvoicePayment.DoInsert failed: `+i.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
 // tarantool's replace/upsert can only match by primary key
 // previous name: DoReplace
-func (p *PaymentMutator) DoUpsertById() bool { //nolint:dupl false positive
-	if p.Id > 0 {
-		return p.DoUpdateById()
+func (i *InvoicePaymentMutator) DoUpsertById() bool { //nolint:dupl false positive
+	if i.Id > 0 {
+		return i.DoUpdateById()
 	}
-	return p.DoInsert()
+	return i.DoInsert()
 }
 
 // SetId create mutations, should not duplicate
-func (p *PaymentMutator) SetId(val uint64) bool { //nolint:dupl false positive
-	if val != p.Id {
-		p.mutations.Assign(0, val)
-		p.logs = append(p.logs, A.X{`id`, p.Id, val})
-		p.Id = val
+func (i *InvoicePaymentMutator) SetId(val uint64) bool { //nolint:dupl false positive
+	if val != i.Id {
+		i.mutations.Assign(0, val)
+		i.logs = append(i.logs, A.X{`id`, i.Id, val})
+		i.Id = val
 		return true
 	}
 	return false
 }
 
 // SetUserId create mutations, should not duplicate
-func (p *PaymentMutator) SetUserId(val uint64) bool { //nolint:dupl false positive
-	if val != p.UserId {
-		p.mutations.Assign(1, val)
-		p.logs = append(p.logs, A.X{`userId`, p.UserId, val})
-		p.UserId = val
+func (i *InvoicePaymentMutator) SetUserId(val uint64) bool { //nolint:dupl false positive
+	if val != i.UserId {
+		i.mutations.Assign(1, val)
+		i.logs = append(i.logs, A.X{`userId`, i.UserId, val})
+		i.UserId = val
 		return true
 	}
 	return false
 }
 
-// SetCode create mutations, should not duplicate
-func (p *PaymentMutator) SetCode(val string) bool { //nolint:dupl false positive
-	if val != p.Code {
-		p.mutations.Assign(2, val)
-		p.logs = append(p.logs, A.X{`code`, p.Code, val})
-		p.Code = val
+// SetInvoiceNumber create mutations, should not duplicate
+func (i *InvoicePaymentMutator) SetInvoiceNumber(val string) bool { //nolint:dupl false positive
+	if val != i.InvoiceNumber {
+		i.mutations.Assign(2, val)
+		i.logs = append(i.logs, A.X{`invoiceNumber`, i.InvoiceNumber, val})
+		i.InvoiceNumber = val
 		return true
 	}
 	return false
 }
 
 // SetAmount create mutations, should not duplicate
-func (p *PaymentMutator) SetAmount(val int64) bool { //nolint:dupl false positive
-	if val != p.Amount {
-		p.mutations.Assign(3, val)
-		p.logs = append(p.logs, A.X{`amount`, p.Amount, val})
-		p.Amount = val
+func (i *InvoicePaymentMutator) SetAmount(val int64) bool { //nolint:dupl false positive
+	if val != i.Amount {
+		i.mutations.Assign(3, val)
+		i.logs = append(i.logs, A.X{`amount`, i.Amount, val})
+		i.Amount = val
 		return true
 	}
 	return false
 }
 
 // SetCurrency create mutations, should not duplicate
-func (p *PaymentMutator) SetCurrency(val string) bool { //nolint:dupl false positive
-	if val != p.Currency {
-		p.mutations.Assign(4, val)
-		p.logs = append(p.logs, A.X{`currency`, p.Currency, val})
-		p.Currency = val
+func (i *InvoicePaymentMutator) SetCurrency(val string) bool { //nolint:dupl false positive
+	if val != i.Currency {
+		i.mutations.Assign(4, val)
+		i.logs = append(i.logs, A.X{`currency`, i.Currency, val})
+		i.Currency = val
 		return true
 	}
 	return false
 }
 
 // SetPaymentMethod create mutations, should not duplicate
-func (p *PaymentMutator) SetPaymentMethod(val string) bool { //nolint:dupl false positive
-	if val != p.PaymentMethod {
-		p.mutations.Assign(5, val)
-		p.logs = append(p.logs, A.X{`paymentMethod`, p.PaymentMethod, val})
-		p.PaymentMethod = val
+func (i *InvoicePaymentMutator) SetPaymentMethod(val string) bool { //nolint:dupl false positive
+	if val != i.PaymentMethod {
+		i.mutations.Assign(5, val)
+		i.logs = append(i.logs, A.X{`paymentMethod`, i.PaymentMethod, val})
+		i.PaymentMethod = val
+		return true
+	}
+	return false
+}
+
+// SetResponseHeader create mutations, should not duplicate
+func (i *InvoicePaymentMutator) SetResponseHeader(val string) bool { //nolint:dupl false positive
+	if val != i.ResponseHeader {
+		i.mutations.Assign(6, val)
+		i.logs = append(i.logs, A.X{`responseHeader`, i.ResponseHeader, val})
+		i.ResponseHeader = val
+		return true
+	}
+	return false
+}
+
+// SetResponseBody create mutations, should not duplicate
+func (i *InvoicePaymentMutator) SetResponseBody(val string) bool { //nolint:dupl false positive
+	if val != i.ResponseBody {
+		i.mutations.Assign(7, val)
+		i.logs = append(i.logs, A.X{`responseBody`, i.ResponseBody, val})
+		i.ResponseBody = val
+		return true
+	}
+	return false
+}
+
+// SetStatus create mutations, should not duplicate
+func (i *InvoicePaymentMutator) SetStatus(val string) bool { //nolint:dupl false positive
+	if val != i.Status {
+		i.mutations.Assign(8, val)
+		i.logs = append(i.logs, A.X{`status`, i.Status, val})
+		i.Status = val
 		return true
 	}
 	return false
 }
 
 // SetCreatedAt create mutations, should not duplicate
-func (p *PaymentMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
-	if val != p.CreatedAt {
-		p.mutations.Assign(6, val)
-		p.logs = append(p.logs, A.X{`createdAt`, p.CreatedAt, val})
-		p.CreatedAt = val
+func (i *InvoicePaymentMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
+	if val != i.CreatedAt {
+		i.mutations.Assign(9, val)
+		i.logs = append(i.logs, A.X{`createdAt`, i.CreatedAt, val})
+		i.CreatedAt = val
 		return true
 	}
 	return false
 }
 
 // SetCreatedBy create mutations, should not duplicate
-func (p *PaymentMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
-	if val != p.CreatedBy {
-		p.mutations.Assign(7, val)
-		p.logs = append(p.logs, A.X{`createdBy`, p.CreatedBy, val})
-		p.CreatedBy = val
+func (i *InvoicePaymentMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
+	if val != i.CreatedBy {
+		i.mutations.Assign(10, val)
+		i.logs = append(i.logs, A.X{`createdBy`, i.CreatedBy, val})
+		i.CreatedBy = val
 		return true
 	}
 	return false
 }
 
 // SetUpdatedAt create mutations, should not duplicate
-func (p *PaymentMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
-	if val != p.UpdatedAt {
-		p.mutations.Assign(8, val)
-		p.logs = append(p.logs, A.X{`updatedAt`, p.UpdatedAt, val})
-		p.UpdatedAt = val
+func (i *InvoicePaymentMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
+	if val != i.UpdatedAt {
+		i.mutations.Assign(11, val)
+		i.logs = append(i.logs, A.X{`updatedAt`, i.UpdatedAt, val})
+		i.UpdatedAt = val
 		return true
 	}
 	return false
 }
 
 // SetUpdatedBy create mutations, should not duplicate
-func (p *PaymentMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
-	if val != p.UpdatedBy {
-		p.mutations.Assign(9, val)
-		p.logs = append(p.logs, A.X{`updatedBy`, p.UpdatedBy, val})
-		p.UpdatedBy = val
+func (i *InvoicePaymentMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
+	if val != i.UpdatedBy {
+		i.mutations.Assign(12, val)
+		i.logs = append(i.logs, A.X{`updatedBy`, i.UpdatedBy, val})
+		i.UpdatedBy = val
 		return true
 	}
 	return false
 }
 
 // SetDeletedAt create mutations, should not duplicate
-func (p *PaymentMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
-	if val != p.DeletedAt {
-		p.mutations.Assign(10, val)
-		p.logs = append(p.logs, A.X{`deletedAt`, p.DeletedAt, val})
-		p.DeletedAt = val
+func (i *InvoicePaymentMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
+	if val != i.DeletedAt {
+		i.mutations.Assign(13, val)
+		i.logs = append(i.logs, A.X{`deletedAt`, i.DeletedAt, val})
+		i.DeletedAt = val
 		return true
 	}
 	return false
 }
 
 // SetDeletedBy create mutations, should not duplicate
-func (p *PaymentMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
-	if val != p.DeletedBy {
-		p.mutations.Assign(11, val)
-		p.logs = append(p.logs, A.X{`deletedBy`, p.DeletedBy, val})
-		p.DeletedBy = val
+func (i *InvoicePaymentMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
+	if val != i.DeletedBy {
+		i.mutations.Assign(14, val)
+		i.logs = append(i.logs, A.X{`deletedBy`, i.DeletedBy, val})
+		i.DeletedBy = val
 		return true
 	}
 	return false
 }
 
 // SetRestoredBy create mutations, should not duplicate
-func (p *PaymentMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
-	if val != p.RestoredBy {
-		p.mutations.Assign(12, val)
-		p.logs = append(p.logs, A.X{`restoredBy`, p.RestoredBy, val})
-		p.RestoredBy = val
+func (i *InvoicePaymentMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
+	if val != i.RestoredBy {
+		i.mutations.Assign(15, val)
+		i.logs = append(i.logs, A.X{`restoredBy`, i.RestoredBy, val})
+		i.RestoredBy = val
 		return true
 	}
 	return false
 }
 
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
-func (p *PaymentMutator) SetAll(from rqInternal.Payment, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
+func (i *InvoicePaymentMutator) SetAll(from rqInternal.InvoicePayment, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
 		excludeMap = M.SB{}
 	}
@@ -263,55 +296,67 @@ func (p *PaymentMutator) SetAll(from rqInternal.Payment, excludeMap, forceMap M.
 		forceMap = M.SB{}
 	}
 	if !excludeMap[`id`] && (forceMap[`id`] || from.Id != 0) {
-		p.Id = from.Id
+		i.Id = from.Id
 		changed = true
 	}
 	if !excludeMap[`userId`] && (forceMap[`userId`] || from.UserId != 0) {
-		p.UserId = from.UserId
+		i.UserId = from.UserId
 		changed = true
 	}
-	if !excludeMap[`code`] && (forceMap[`code`] || from.Code != ``) {
-		p.Code = S.Trim(from.Code)
+	if !excludeMap[`invoiceNumber`] && (forceMap[`invoiceNumber`] || from.InvoiceNumber != ``) {
+		i.InvoiceNumber = S.Trim(from.InvoiceNumber)
 		changed = true
 	}
 	if !excludeMap[`amount`] && (forceMap[`amount`] || from.Amount != 0) {
-		p.Amount = from.Amount
+		i.Amount = from.Amount
 		changed = true
 	}
 	if !excludeMap[`currency`] && (forceMap[`currency`] || from.Currency != ``) {
-		p.Currency = S.Trim(from.Currency)
+		i.Currency = S.Trim(from.Currency)
 		changed = true
 	}
 	if !excludeMap[`paymentMethod`] && (forceMap[`paymentMethod`] || from.PaymentMethod != ``) {
-		p.PaymentMethod = S.Trim(from.PaymentMethod)
+		i.PaymentMethod = S.Trim(from.PaymentMethod)
+		changed = true
+	}
+	if !excludeMap[`responseHeader`] && (forceMap[`responseHeader`] || from.ResponseHeader != ``) {
+		i.ResponseHeader = S.Trim(from.ResponseHeader)
+		changed = true
+	}
+	if !excludeMap[`responseBody`] && (forceMap[`responseBody`] || from.ResponseBody != ``) {
+		i.ResponseBody = S.Trim(from.ResponseBody)
+		changed = true
+	}
+	if !excludeMap[`status`] && (forceMap[`status`] || from.Status != ``) {
+		i.Status = S.Trim(from.Status)
 		changed = true
 	}
 	if !excludeMap[`createdAt`] && (forceMap[`createdAt`] || from.CreatedAt != 0) {
-		p.CreatedAt = from.CreatedAt
+		i.CreatedAt = from.CreatedAt
 		changed = true
 	}
 	if !excludeMap[`createdBy`] && (forceMap[`createdBy`] || from.CreatedBy != 0) {
-		p.CreatedBy = from.CreatedBy
+		i.CreatedBy = from.CreatedBy
 		changed = true
 	}
 	if !excludeMap[`updatedAt`] && (forceMap[`updatedAt`] || from.UpdatedAt != 0) {
-		p.UpdatedAt = from.UpdatedAt
+		i.UpdatedAt = from.UpdatedAt
 		changed = true
 	}
 	if !excludeMap[`updatedBy`] && (forceMap[`updatedBy`] || from.UpdatedBy != 0) {
-		p.UpdatedBy = from.UpdatedBy
+		i.UpdatedBy = from.UpdatedBy
 		changed = true
 	}
 	if !excludeMap[`deletedAt`] && (forceMap[`deletedAt`] || from.DeletedAt != 0) {
-		p.DeletedAt = from.DeletedAt
+		i.DeletedAt = from.DeletedAt
 		changed = true
 	}
 	if !excludeMap[`deletedBy`] && (forceMap[`deletedBy`] || from.DeletedBy != 0) {
-		p.DeletedBy = from.DeletedBy
+		i.DeletedBy = from.DeletedBy
 		changed = true
 	}
 	if !excludeMap[`restoredBy`] && (forceMap[`restoredBy`] || from.RestoredBy != 0) {
-		p.RestoredBy = from.RestoredBy
+		i.RestoredBy = from.RestoredBy
 		changed = true
 	}
 	return

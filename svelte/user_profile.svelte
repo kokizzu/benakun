@@ -119,6 +119,10 @@
           <span>Tenant Code</span>
           <span class="tenant-code">{user.tenantCode || `--`}</span>
         </div>
+        <div class="info">
+          <span>Support Expired At</span>
+          <span>{localeDatetime(user.supportExpiredAt) || '--'}</span>
+        </div>
       </div>
       <SubmitButton
         on:click={updateProfile}

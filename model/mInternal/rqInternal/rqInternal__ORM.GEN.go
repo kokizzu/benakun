@@ -13,63 +13,66 @@ import (
 	"github.com/kokizzu/gotro/X"
 )
 
-// Payment DAO reader/query struct
+// InvoicePayment DAO reader/query struct
 //
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file rqInternal__ORM.GEN.go
 //go:generate replacer -afterprefix "Id\" form" "Id,string\" form" type rqInternal__ORM.GEN.go
 //go:generate replacer -afterprefix "json:\"id\"" "json:\"id,string\"" type rqInternal__ORM.GEN.go
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type rqInternal__ORM.GEN.go
-type Payment struct {
-	Adapter       *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
-	Id            uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
-	UserId        uint64      `json:"userId,string" form:"userId" query:"userId" long:"userId" msg:"userId"`
-	Code          string      `json:"code" form:"code" query:"code" long:"code" msg:"code"`
-	Amount        int64       `json:"amount" form:"amount" query:"amount" long:"amount" msg:"amount"`
-	Currency      string      `json:"currency" form:"currency" query:"currency" long:"currency" msg:"currency"`
-	PaymentMethod string      `json:"paymentMethod" form:"paymentMethod" query:"paymentMethod" long:"paymentMethod" msg:"paymentMethod"`
-	CreatedAt     int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
-	CreatedBy     uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
-	UpdatedAt     int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
-	UpdatedBy     uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
-	DeletedAt     int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
-	DeletedBy     uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
-	RestoredBy    uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
+type InvoicePayment struct {
+	Adapter        *Tt.Adapter `json:"-" msg:"-" query:"-" form:"-" long:"adapter"`
+	Id             uint64      `json:"id,string" form:"id" query:"id" long:"id" msg:"id"`
+	UserId         uint64      `json:"userId,string" form:"userId" query:"userId" long:"userId" msg:"userId"`
+	InvoiceNumber  string      `json:"invoiceNumber" form:"invoiceNumber" query:"invoiceNumber" long:"invoiceNumber" msg:"invoiceNumber"`
+	Amount         int64       `json:"amount" form:"amount" query:"amount" long:"amount" msg:"amount"`
+	Currency       string      `json:"currency" form:"currency" query:"currency" long:"currency" msg:"currency"`
+	PaymentMethod  string      `json:"paymentMethod" form:"paymentMethod" query:"paymentMethod" long:"paymentMethod" msg:"paymentMethod"`
+	ResponseHeader string      `json:"responseHeader" form:"responseHeader" query:"responseHeader" long:"responseHeader" msg:"responseHeader"`
+	ResponseBody   string      `json:"responseBody" form:"responseBody" query:"responseBody" long:"responseBody" msg:"responseBody"`
+	Status         string      `json:"status" form:"status" query:"status" long:"status" msg:"status"`
+	CreatedAt      int64       `json:"createdAt" form:"createdAt" query:"createdAt" long:"createdAt" msg:"createdAt"`
+	CreatedBy      uint64      `json:"createdBy,string" form:"createdBy" query:"createdBy" long:"createdBy" msg:"createdBy"`
+	UpdatedAt      int64       `json:"updatedAt" form:"updatedAt" query:"updatedAt" long:"updatedAt" msg:"updatedAt"`
+	UpdatedBy      uint64      `json:"updatedBy,string" form:"updatedBy" query:"updatedBy" long:"updatedBy" msg:"updatedBy"`
+	DeletedAt      int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
+	DeletedBy      uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
+	RestoredBy     uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
 }
 
-// NewPayment create new ORM reader/query object
-func NewPayment(adapter *Tt.Adapter) *Payment {
-	return &Payment{Adapter: adapter}
+// NewInvoicePayment create new ORM reader/query object
+func NewInvoicePayment(adapter *Tt.Adapter) *InvoicePayment {
+	return &InvoicePayment{Adapter: adapter}
 }
 
 // SpaceName returns full package and table name
-func (p *Payment) SpaceName() string { //nolint:dupl false positive
-	return string(mInternal.TablePayment) // casting required to string from Tt.TableName
+func (i *InvoicePayment) SpaceName() string { //nolint:dupl false positive
+	return string(mInternal.TableInvoicePayment) // casting required to string from Tt.TableName
 }
 
 // SqlTableName returns quoted table name
-func (p *Payment) SqlTableName() string { //nolint:dupl false positive
-	return `"payment"`
+func (i *InvoicePayment) SqlTableName() string { //nolint:dupl false positive
+	return `"invoicePayment"`
 }
 
-func (p *Payment) UniqueIndexId() string { //nolint:dupl false positive
+func (i *InvoicePayment) UniqueIndexId() string { //nolint:dupl false positive
 	return `id`
 }
 
 // FindById Find one by Id
-func (p *Payment) FindById() bool { //nolint:dupl false positive
-	res, err := p.Adapter.RetryDo(
-		tarantool.NewSelectRequest(p.SpaceName()).
-			Index(p.UniqueIndexId()).
+func (i *InvoicePayment) FindById() bool { //nolint:dupl false positive
+	res, err := i.Adapter.RetryDo(
+		tarantool.NewSelectRequest(i.SpaceName()).
+			Index(i.UniqueIndexId()).
 			Limit(1).
 			Iterator(tarantool.IterEq).
-			Key(tarantool.UintKey{I: uint(p.Id)}),
+			Key(tarantool.UintKey{I: uint(i.Id)}),
 	)
-	if L.IsError(err, `Payment.FindById failed: `+p.SpaceName()) {
+	if L.IsError(err, `InvoicePayment.FindById failed: `+i.SpaceName()) {
 		return false
 	}
 	if len(res) == 1 {
 		if row, ok := res[0].([]any); ok {
-			p.FromArray(row)
+			i.FromArray(row)
 			return true
 		}
 	}
@@ -77,13 +80,16 @@ func (p *Payment) FindById() bool { //nolint:dupl false positive
 }
 
 // SqlSelectAllFields generate Sql select fields
-func (p *Payment) SqlSelectAllFields() string { //nolint:dupl false positive
+func (i *InvoicePayment) SqlSelectAllFields() string { //nolint:dupl false positive
 	return ` "id"
 	, "userId"
-	, "code"
+	, "invoiceNumber"
 	, "amount"
 	, "currency"
 	, "paymentMethod"
+	, "responseHeader"
+	, "responseBody"
+	, "status"
 	, "createdAt"
 	, "createdBy"
 	, "updatedAt"
@@ -95,13 +101,16 @@ func (p *Payment) SqlSelectAllFields() string { //nolint:dupl false positive
 }
 
 // SqlSelectAllUncensoredFields generate Sql select fields
-func (p *Payment) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
+func (i *InvoicePayment) SqlSelectAllUncensoredFields() string { //nolint:dupl false positive
 	return ` "id"
 	, "userId"
-	, "code"
+	, "invoiceNumber"
 	, "amount"
 	, "currency"
 	, "paymentMethod"
+	, "responseHeader"
+	, "responseBody"
+	, "status"
 	, "createdAt"
 	, "createdBy"
 	, "updatedAt"
@@ -113,227 +122,269 @@ func (p *Payment) SqlSelectAllUncensoredFields() string { //nolint:dupl false po
 }
 
 // ToUpdateArray generate slice of update command
-func (p *Payment) ToUpdateArray() *tarantool.Operations { //nolint:dupl false positive
+func (i *InvoicePayment) ToUpdateArray() *tarantool.Operations { //nolint:dupl false positive
 	return tarantool.NewOperations().
-		Assign(0, p.Id).
-		Assign(1, p.UserId).
-		Assign(2, p.Code).
-		Assign(3, p.Amount).
-		Assign(4, p.Currency).
-		Assign(5, p.PaymentMethod).
-		Assign(6, p.CreatedAt).
-		Assign(7, p.CreatedBy).
-		Assign(8, p.UpdatedAt).
-		Assign(9, p.UpdatedBy).
-		Assign(10, p.DeletedAt).
-		Assign(11, p.DeletedBy).
-		Assign(12, p.RestoredBy)
+		Assign(0, i.Id).
+		Assign(1, i.UserId).
+		Assign(2, i.InvoiceNumber).
+		Assign(3, i.Amount).
+		Assign(4, i.Currency).
+		Assign(5, i.PaymentMethod).
+		Assign(6, i.ResponseHeader).
+		Assign(7, i.ResponseBody).
+		Assign(8, i.Status).
+		Assign(9, i.CreatedAt).
+		Assign(10, i.CreatedBy).
+		Assign(11, i.UpdatedAt).
+		Assign(12, i.UpdatedBy).
+		Assign(13, i.DeletedAt).
+		Assign(14, i.DeletedBy).
+		Assign(15, i.RestoredBy)
 }
 
 // IdxId return name of the index
-func (p *Payment) IdxId() int { //nolint:dupl false positive
+func (i *InvoicePayment) IdxId() int { //nolint:dupl false positive
 	return 0
 }
 
 // SqlId return name of the column being indexed
-func (p *Payment) SqlId() string { //nolint:dupl false positive
+func (i *InvoicePayment) SqlId() string { //nolint:dupl false positive
 	return `"id"`
 }
 
 // IdxUserId return name of the index
-func (p *Payment) IdxUserId() int { //nolint:dupl false positive
+func (i *InvoicePayment) IdxUserId() int { //nolint:dupl false positive
 	return 1
 }
 
 // SqlUserId return name of the column being indexed
-func (p *Payment) SqlUserId() string { //nolint:dupl false positive
+func (i *InvoicePayment) SqlUserId() string { //nolint:dupl false positive
 	return `"userId"`
 }
 
-// IdxCode return name of the index
-func (p *Payment) IdxCode() int { //nolint:dupl false positive
+// IdxInvoiceNumber return name of the index
+func (i *InvoicePayment) IdxInvoiceNumber() int { //nolint:dupl false positive
 	return 2
 }
 
-// SqlCode return name of the column being indexed
-func (p *Payment) SqlCode() string { //nolint:dupl false positive
-	return `"code"`
+// SqlInvoiceNumber return name of the column being indexed
+func (i *InvoicePayment) SqlInvoiceNumber() string { //nolint:dupl false positive
+	return `"invoiceNumber"`
 }
 
 // IdxAmount return name of the index
-func (p *Payment) IdxAmount() int { //nolint:dupl false positive
+func (i *InvoicePayment) IdxAmount() int { //nolint:dupl false positive
 	return 3
 }
 
 // SqlAmount return name of the column being indexed
-func (p *Payment) SqlAmount() string { //nolint:dupl false positive
+func (i *InvoicePayment) SqlAmount() string { //nolint:dupl false positive
 	return `"amount"`
 }
 
 // IdxCurrency return name of the index
-func (p *Payment) IdxCurrency() int { //nolint:dupl false positive
+func (i *InvoicePayment) IdxCurrency() int { //nolint:dupl false positive
 	return 4
 }
 
 // SqlCurrency return name of the column being indexed
-func (p *Payment) SqlCurrency() string { //nolint:dupl false positive
+func (i *InvoicePayment) SqlCurrency() string { //nolint:dupl false positive
 	return `"currency"`
 }
 
 // IdxPaymentMethod return name of the index
-func (p *Payment) IdxPaymentMethod() int { //nolint:dupl false positive
+func (i *InvoicePayment) IdxPaymentMethod() int { //nolint:dupl false positive
 	return 5
 }
 
 // SqlPaymentMethod return name of the column being indexed
-func (p *Payment) SqlPaymentMethod() string { //nolint:dupl false positive
+func (i *InvoicePayment) SqlPaymentMethod() string { //nolint:dupl false positive
 	return `"paymentMethod"`
 }
 
-// IdxCreatedAt return name of the index
-func (p *Payment) IdxCreatedAt() int { //nolint:dupl false positive
+// IdxResponseHeader return name of the index
+func (i *InvoicePayment) IdxResponseHeader() int { //nolint:dupl false positive
 	return 6
 }
 
+// SqlResponseHeader return name of the column being indexed
+func (i *InvoicePayment) SqlResponseHeader() string { //nolint:dupl false positive
+	return `"responseHeader"`
+}
+
+// IdxResponseBody return name of the index
+func (i *InvoicePayment) IdxResponseBody() int { //nolint:dupl false positive
+	return 7
+}
+
+// SqlResponseBody return name of the column being indexed
+func (i *InvoicePayment) SqlResponseBody() string { //nolint:dupl false positive
+	return `"responseBody"`
+}
+
+// IdxStatus return name of the index
+func (i *InvoicePayment) IdxStatus() int { //nolint:dupl false positive
+	return 8
+}
+
+// SqlStatus return name of the column being indexed
+func (i *InvoicePayment) SqlStatus() string { //nolint:dupl false positive
+	return `"status"`
+}
+
+// IdxCreatedAt return name of the index
+func (i *InvoicePayment) IdxCreatedAt() int { //nolint:dupl false positive
+	return 9
+}
+
 // SqlCreatedAt return name of the column being indexed
-func (p *Payment) SqlCreatedAt() string { //nolint:dupl false positive
+func (i *InvoicePayment) SqlCreatedAt() string { //nolint:dupl false positive
 	return `"createdAt"`
 }
 
 // IdxCreatedBy return name of the index
-func (p *Payment) IdxCreatedBy() int { //nolint:dupl false positive
-	return 7
+func (i *InvoicePayment) IdxCreatedBy() int { //nolint:dupl false positive
+	return 10
 }
 
 // SqlCreatedBy return name of the column being indexed
-func (p *Payment) SqlCreatedBy() string { //nolint:dupl false positive
+func (i *InvoicePayment) SqlCreatedBy() string { //nolint:dupl false positive
 	return `"createdBy"`
 }
 
 // IdxUpdatedAt return name of the index
-func (p *Payment) IdxUpdatedAt() int { //nolint:dupl false positive
-	return 8
+func (i *InvoicePayment) IdxUpdatedAt() int { //nolint:dupl false positive
+	return 11
 }
 
 // SqlUpdatedAt return name of the column being indexed
-func (p *Payment) SqlUpdatedAt() string { //nolint:dupl false positive
+func (i *InvoicePayment) SqlUpdatedAt() string { //nolint:dupl false positive
 	return `"updatedAt"`
 }
 
 // IdxUpdatedBy return name of the index
-func (p *Payment) IdxUpdatedBy() int { //nolint:dupl false positive
-	return 9
+func (i *InvoicePayment) IdxUpdatedBy() int { //nolint:dupl false positive
+	return 12
 }
 
 // SqlUpdatedBy return name of the column being indexed
-func (p *Payment) SqlUpdatedBy() string { //nolint:dupl false positive
+func (i *InvoicePayment) SqlUpdatedBy() string { //nolint:dupl false positive
 	return `"updatedBy"`
 }
 
 // IdxDeletedAt return name of the index
-func (p *Payment) IdxDeletedAt() int { //nolint:dupl false positive
-	return 10
+func (i *InvoicePayment) IdxDeletedAt() int { //nolint:dupl false positive
+	return 13
 }
 
 // SqlDeletedAt return name of the column being indexed
-func (p *Payment) SqlDeletedAt() string { //nolint:dupl false positive
+func (i *InvoicePayment) SqlDeletedAt() string { //nolint:dupl false positive
 	return `"deletedAt"`
 }
 
 // IdxDeletedBy return name of the index
-func (p *Payment) IdxDeletedBy() int { //nolint:dupl false positive
-	return 11
+func (i *InvoicePayment) IdxDeletedBy() int { //nolint:dupl false positive
+	return 14
 }
 
 // SqlDeletedBy return name of the column being indexed
-func (p *Payment) SqlDeletedBy() string { //nolint:dupl false positive
+func (i *InvoicePayment) SqlDeletedBy() string { //nolint:dupl false positive
 	return `"deletedBy"`
 }
 
 // IdxRestoredBy return name of the index
-func (p *Payment) IdxRestoredBy() int { //nolint:dupl false positive
-	return 12
+func (i *InvoicePayment) IdxRestoredBy() int { //nolint:dupl false positive
+	return 15
 }
 
 // SqlRestoredBy return name of the column being indexed
-func (p *Payment) SqlRestoredBy() string { //nolint:dupl false positive
+func (i *InvoicePayment) SqlRestoredBy() string { //nolint:dupl false positive
 	return `"restoredBy"`
 }
 
 // ToArray receiver fields to slice
-func (p *Payment) ToArray() A.X { //nolint:dupl false positive
+func (i *InvoicePayment) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
-	if p.Id != 0 {
-		id = p.Id
+	if i.Id != 0 {
+		id = i.Id
 	}
 	return A.X{
 		id,
-		p.UserId,        // 1
-		p.Code,          // 2
-		p.Amount,        // 3
-		p.Currency,      // 4
-		p.PaymentMethod, // 5
-		p.CreatedAt,     // 6
-		p.CreatedBy,     // 7
-		p.UpdatedAt,     // 8
-		p.UpdatedBy,     // 9
-		p.DeletedAt,     // 10
-		p.DeletedBy,     // 11
-		p.RestoredBy,    // 12
+		i.UserId,         // 1
+		i.InvoiceNumber,  // 2
+		i.Amount,         // 3
+		i.Currency,       // 4
+		i.PaymentMethod,  // 5
+		i.ResponseHeader, // 6
+		i.ResponseBody,   // 7
+		i.Status,         // 8
+		i.CreatedAt,      // 9
+		i.CreatedBy,      // 10
+		i.UpdatedAt,      // 11
+		i.UpdatedBy,      // 12
+		i.DeletedAt,      // 13
+		i.DeletedBy,      // 14
+		i.RestoredBy,     // 15
 	}
 }
 
 // FromArray convert slice to receiver fields
-func (p *Payment) FromArray(a A.X) *Payment { //nolint:dupl false positive
-	p.Id = X.ToU(a[0])
-	p.UserId = X.ToU(a[1])
-	p.Code = X.ToS(a[2])
-	p.Amount = X.ToI(a[3])
-	p.Currency = X.ToS(a[4])
-	p.PaymentMethod = X.ToS(a[5])
-	p.CreatedAt = X.ToI(a[6])
-	p.CreatedBy = X.ToU(a[7])
-	p.UpdatedAt = X.ToI(a[8])
-	p.UpdatedBy = X.ToU(a[9])
-	p.DeletedAt = X.ToI(a[10])
-	p.DeletedBy = X.ToU(a[11])
-	p.RestoredBy = X.ToU(a[12])
-	return p
+func (i *InvoicePayment) FromArray(a A.X) *InvoicePayment { //nolint:dupl false positive
+	i.Id = X.ToU(a[0])
+	i.UserId = X.ToU(a[1])
+	i.InvoiceNumber = X.ToS(a[2])
+	i.Amount = X.ToI(a[3])
+	i.Currency = X.ToS(a[4])
+	i.PaymentMethod = X.ToS(a[5])
+	i.ResponseHeader = X.ToS(a[6])
+	i.ResponseBody = X.ToS(a[7])
+	i.Status = X.ToS(a[8])
+	i.CreatedAt = X.ToI(a[9])
+	i.CreatedBy = X.ToU(a[10])
+	i.UpdatedAt = X.ToI(a[11])
+	i.UpdatedBy = X.ToU(a[12])
+	i.DeletedAt = X.ToI(a[13])
+	i.DeletedBy = X.ToU(a[14])
+	i.RestoredBy = X.ToU(a[15])
+	return i
 }
 
 // FromUncensoredArray convert slice to receiver fields
-func (p *Payment) FromUncensoredArray(a A.X) *Payment { //nolint:dupl false positive
-	p.Id = X.ToU(a[0])
-	p.UserId = X.ToU(a[1])
-	p.Code = X.ToS(a[2])
-	p.Amount = X.ToI(a[3])
-	p.Currency = X.ToS(a[4])
-	p.PaymentMethod = X.ToS(a[5])
-	p.CreatedAt = X.ToI(a[6])
-	p.CreatedBy = X.ToU(a[7])
-	p.UpdatedAt = X.ToI(a[8])
-	p.UpdatedBy = X.ToU(a[9])
-	p.DeletedAt = X.ToI(a[10])
-	p.DeletedBy = X.ToU(a[11])
-	p.RestoredBy = X.ToU(a[12])
-	return p
+func (i *InvoicePayment) FromUncensoredArray(a A.X) *InvoicePayment { //nolint:dupl false positive
+	i.Id = X.ToU(a[0])
+	i.UserId = X.ToU(a[1])
+	i.InvoiceNumber = X.ToS(a[2])
+	i.Amount = X.ToI(a[3])
+	i.Currency = X.ToS(a[4])
+	i.PaymentMethod = X.ToS(a[5])
+	i.ResponseHeader = X.ToS(a[6])
+	i.ResponseBody = X.ToS(a[7])
+	i.Status = X.ToS(a[8])
+	i.CreatedAt = X.ToI(a[9])
+	i.CreatedBy = X.ToU(a[10])
+	i.UpdatedAt = X.ToI(a[11])
+	i.UpdatedBy = X.ToU(a[12])
+	i.DeletedAt = X.ToI(a[13])
+	i.DeletedBy = X.ToU(a[14])
+	i.RestoredBy = X.ToU(a[15])
+	return i
 }
 
 // FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
-func (p *Payment) FindOffsetLimit(offset, limit uint32, idx string) []Payment { //nolint:dupl false positive
-	var rows []Payment
-	res, err := p.Adapter.RetryDo(
-		tarantool.NewSelectRequest(p.SpaceName()).
+func (i *InvoicePayment) FindOffsetLimit(offset, limit uint32, idx string) []InvoicePayment { //nolint:dupl false positive
+	var rows []InvoicePayment
+	res, err := i.Adapter.RetryDo(
+		tarantool.NewSelectRequest(i.SpaceName()).
 			Index(idx).
 			Offset(offset).
 			Limit(limit).
 			Iterator(tarantool.IterAll),
 	)
-	if L.IsError(err, `Payment.FindOffsetLimit failed: `+p.SpaceName()) {
+	if L.IsError(err, `InvoicePayment.FindOffsetLimit failed: `+i.SpaceName()) {
 		return rows
 	}
 	for _, row := range res {
-		item := Payment{}
+		item := InvoicePayment{}
 		row, ok := row.([]any)
 		if ok {
 			rows = append(rows, *item.FromArray(row))
@@ -343,20 +394,20 @@ func (p *Payment) FindOffsetLimit(offset, limit uint32, idx string) []Payment { 
 }
 
 // FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
-func (p *Payment) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
+func (i *InvoicePayment) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
 	var rows []A.X
-	resp, err := p.Adapter.RetryDoResp(
-		tarantool.NewSelectRequest(p.SpaceName()).
+	resp, err := i.Adapter.RetryDoResp(
+		tarantool.NewSelectRequest(i.SpaceName()).
 			Index(idx).
 			Offset(offset).
 			Limit(limit).
 			Iterator(tarantool.IterAll),
 	)
-	if L.IsError(err, `Payment.FindOffsetLimit failed: `+p.SpaceName()) {
+	if L.IsError(err, `InvoicePayment.FindOffsetLimit failed: `+i.SpaceName()) {
 		return rows, Tt.QueryMetaFrom(resp, err)
 	}
 	res, err := resp.Decode()
-	if L.IsError(err, `Payment.FindOffsetLimit failed: `+p.SpaceName()) {
+	if L.IsError(err, `InvoicePayment.FindOffsetLimit failed: `+i.SpaceName()) {
 		return rows, Tt.QueryMetaFrom(resp, err)
 	}
 	rows = make([]A.X, len(res))
@@ -370,29 +421,32 @@ func (p *Payment) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, T
 }
 
 // Total count number of rows
-func (p *Payment) Total() int64 { //nolint:dupl false positive
-	rows := p.Adapter.CallBoxSpace(p.SpaceName()+`:count`, A.X{})
+func (i *InvoicePayment) Total() int64 { //nolint:dupl false positive
+	rows := i.Adapter.CallBoxSpace(i.SpaceName()+`:count`, A.X{})
 	if len(rows) > 0 && len(rows[0]) > 0 {
 		return X.ToI(rows[0][0])
 	}
 	return 0
 }
 
-// PaymentFieldTypeMap returns key value of field name and key
-var PaymentFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
-	`id`:            Tt.Unsigned,
-	`userId`:        Tt.Unsigned,
-	`code`:          Tt.String,
-	`amount`:        Tt.Integer,
-	`currency`:      Tt.String,
-	`paymentMethod`: Tt.String,
-	`createdAt`:     Tt.Integer,
-	`createdBy`:     Tt.Unsigned,
-	`updatedAt`:     Tt.Integer,
-	`updatedBy`:     Tt.Unsigned,
-	`deletedAt`:     Tt.Integer,
-	`deletedBy`:     Tt.Unsigned,
-	`restoredBy`:    Tt.Unsigned,
+// InvoicePaymentFieldTypeMap returns key value of field name and key
+var InvoicePaymentFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false positive
+	`id`:             Tt.Unsigned,
+	`userId`:         Tt.Unsigned,
+	`invoiceNumber`:  Tt.String,
+	`amount`:         Tt.Integer,
+	`currency`:       Tt.String,
+	`paymentMethod`:  Tt.String,
+	`responseHeader`: Tt.String,
+	`responseBody`:   Tt.String,
+	`status`:         Tt.String,
+	`createdAt`:      Tt.Integer,
+	`createdBy`:      Tt.Unsigned,
+	`updatedAt`:      Tt.Integer,
+	`updatedBy`:      Tt.Unsigned,
+	`deletedAt`:      Tt.Integer,
+	`deletedBy`:      Tt.Unsigned,
+	`restoredBy`:     Tt.Unsigned,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go
