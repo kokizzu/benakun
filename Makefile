@@ -36,6 +36,7 @@ views:
 
 migrate:
 	# migrate table schema
+	sudo chmod -R a+rwx _tmpdb
 	go run main.go migrate
 
 test-coverage:
