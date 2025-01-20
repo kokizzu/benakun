@@ -4,6 +4,7 @@ import (
 	"benakun/model/mBudget"
 	"benakun/model/mBusiness"
 	"benakun/model/mFinance"
+	"benakun/model/mInternal"
 
 	"github.com/kokizzu/gotro/D/Ch"
 	"github.com/kokizzu/gotro/D/Tt"
@@ -45,7 +46,7 @@ func RunMigration(
 	m.BudgetOltp.MigrateTables(mBudget.TarantoolTables)
 	m.BusinessOltp.MigrateTables(mBusiness.TarantoolTables)
 	m.FinanceOltp.MigrateTables(mFinance.TarantoolTables)
-	m.InternalOltp.MigrateTables(mAuth.TarantoolTables)
+	m.InternalOltp.MigrateTables(mInternal.TarantoolTables)
 }
 
 // VerifyTables function to check whether tables are there or not
@@ -63,5 +64,5 @@ func VerifyTables(
 	Tt.CheckTarantoolTables(budgetOltp, mBudget.TarantoolTables)
 	Tt.CheckTarantoolTables(businessOltp, mBusiness.TarantoolTables)
 	Tt.CheckTarantoolTables(financeOltp, mBudget.TarantoolTables)
-	Tt.CheckTarantoolTables(internalOltp, mAuth.TarantoolTables)
+	Tt.CheckTarantoolTables(internalOltp, mInternal.TarantoolTables)
 }

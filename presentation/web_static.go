@@ -908,15 +908,15 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
-	fw.Get(`/`+domain.GuestPaymentSuccessAction, func(ctx *fiber.Ctx) error {
-		return views.RenderGuestPaymentSuccess(ctx, M.SX{
-			`title`: `Payment Success !!`,
+	fw.Get(`/`+domain.UserPaymentResultAction, func(ctx *fiber.Ctx) error {
+		return views.RenderUserPaymentResult(ctx, M.SX{
+			`title`: `Payment Result`,
 		})
 	})
 
-	fw.Get(`/`+domain.GuestPaymentFailedAction, func(ctx *fiber.Ctx) error {
-		return views.RenderGuestPaymentFailed(ctx, M.SX{
-			`title`: `Payment Failed !!`,
+	fw.Get(`/`+domain.UserPaymentCancelAction, func(ctx *fiber.Ctx) error {
+		return views.RenderUserPaymentCancel(ctx, M.SX{
+			`title`: `Payment Cancelled`,
 		})
 	})
 

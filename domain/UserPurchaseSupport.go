@@ -2,6 +2,8 @@ package domain
 
 import (
 	"benakun/model/mAuth/wcAuth"
+	"benakun/model/mInternal"
+	"benakun/model/mInternal/wcInternal"
 	"benakun/model/zCrud"
 	"crypto/hmac"
 	"crypto/sha256"
@@ -15,6 +17,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/kokizzu/gotro/L"
 	"github.com/kokizzu/gotro/M"
+	"github.com/kokizzu/gotro/X"
 )
 
 //go:generate gomodifytags -all -add-tags json,form,query,long,msg -transform camelcase --skip-unexported -w -file UserPurchaseSupport.go
@@ -44,6 +47,7 @@ const (
 	ErrUserPurchaseSupportUserFailedPayment          = `failed to create payment, try again later`
 	ErrUserPurchaseSupportUserConnection             = `failed to call DOKU API, try again later`
 	ErrUserPurchaseSupportUserInvalidSupportDuration = `invalid support duration, must be monthly, quarterly, yearly`
+	ErrUserPurchaseSupportUserFailedInsertInvoice    = `failed to save invoice`
 )
 
 const (
@@ -98,9 +102,9 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 				"invoice_number":        "INV-" + timeNow,
 				"language":              "EN",
 				"disable_retry_payment": true,
-				"callback_url":          in.Host + `/` + GuestPaymentSuccessAction,
-				"callback_url_cancel":   in.Host + `/` + GuestPaymentFailedAction,
-				"callback_url_result":   in.Host + `/` + GuestPaymentSuccessAction,
+				"callback_url":          in.Host + `/`,
+				"callback_url_cancel":   in.Host + `/` + UserPaymentCancelAction,
+				"callback_url_result":   in.Host + `/` + UserPaymentResultAction,
 				"auto_redirect":         true,
 			},
 			"payment": M.SX{
@@ -150,6 +154,29 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 		if err != nil {
 			L.IsError(err, `json.Unmarshal: %#v`, respBody)
 			out.SetError(500, ErrUserPurchaseSupportUserConnection)
+			return
+		}
+
+		invoice := wcInternal.NewInvoicePaymentMutator(d.IntrOltp)
+
+		respJSON := X.ToMSX(respBody[`response`])
+		order := X.ToMSX(respJSON[`order`])
+
+		invAmount := order[`amount`]
+		invNumber := order[`invoice_number`]
+
+		invoice.SetAmount(X.ToI(invAmount))
+		invoice.SetCurrency(mInternal.CurrencyIDR)
+		invoice.SetStatus(mInternal.InvoiceStatusPending)
+		invoice.SetInvoiceNumber(X.ToS(invNumber))
+		invoice.SetUserId(sess.UserId)
+		invoice.SetCreatedAt(in.UnixNow())
+		invoice.SetCreatedBy(sess.UserId)
+		invoice.SetUpdatedAt(in.UnixNow())
+		invoice.SetUpdatedBy(sess.UserId)
+
+		if !invoice.DoInsert() {
+			out.SetError(500, ErrUserPurchaseSupportUserFailedInsertInvoice)
 			return
 		}
 

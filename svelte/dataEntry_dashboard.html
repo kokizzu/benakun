@@ -3154,12 +3154,6 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       exports.GuestOauthCallback = async function GuestOauthCallback(i, cb) {
         return await axios.post("/guest/oauthCallback", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
-      exports.GuestPaymentFailed = async function GuestPaymentFailed(i, cb) {
-        return await axios.post("/guest/paymentFailed", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
-      exports.GuestPaymentSuccess = async function GuestPaymentSuccess(i, cb) {
-        return await axios.post("/guest/paymentSuccess", i).then(wrapOk(cb)).catch(wrapErr(cb));
-      };
       exports.GuestRegister = async function GuestRegister(i, cb) {
         return await axios.post("/guest/register", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
@@ -3252,6 +3246,12 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       };
       exports.UserLogout = async function UserLogout2(i, cb) {
         return await axios.post("/user/logout", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserPaymentCancel = async function UserPaymentCancel(i, cb) {
+        return await axios.post("/user/paymentCancel", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserPaymentResult = async function UserPaymentResult(i, cb) {
+        return await axios.post("/user/paymentResult", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserProfile = async function UserProfile(i, cb) {
         return await axios.post("/user/profile", i).then(wrapOk(cb)).catch(wrapErr(cb));

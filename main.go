@@ -87,6 +87,7 @@ func main() {
 		AuthOltp: tConn,
 		AuthOlap: cConn,
 		StorOltp: tConn,
+		IntrOltp: tConn,
 		Mailer: xMailer.Mailer{
 			SendMailFunc: mailer.SendMailFunc,
 		},

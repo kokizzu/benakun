@@ -345,7 +345,7 @@
 <main id="app"></main><script>document.getElementById('app').innerHTML=''</script><!---->
 
 
-<style>/* fakecss:./guest_paymentFailed.esbuild-svelte-fake-css */
+<style>/* fakecss:./user_paymentResult.esbuild-svelte-fake-css */
 .root-layout.svelte-bpaaa1.svelte-bpaaa1 {
   display: block;
   top: 0;
@@ -983,13 +983,13 @@
   if (typeof window !== "undefined")
     (window.__svelte || (window.__svelte = { v: /* @__PURE__ */ new Set() })).v.add(PUBLIC_VERSION);
 
-  // guest_paymentFailed.svelte
+  // user_paymentResult.svelte
   function create_fragment(ctx) {
     let div2;
     return {
       c() {
         div2 = element("div");
-        div2.innerHTML = `<section class="payment-container svelte-bpaaa1"><div class="box shadow svelte-bpaaa1"><img src="/assets/icons/payment-failed.png" alt="Payment Success" class="icon svelte-bpaaa1"/> <div class="content svelte-bpaaa1"><h1 class="svelte-bpaaa1">Payment Success</h1> <p class="svelte-bpaaa1">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore officia sed illo neque quae non blanditiis, voluptate impedit, numquam quis totam iste provident perspiciatis sapiente, et expedita. Doloribus, animi consequuntur.</p></div></div></section>`;
+        div2.innerHTML = `<section class="payment-container svelte-bpaaa1"><div class="box shadow svelte-bpaaa1"><img src="/assets/icons/payment-success.png" alt="Payment Success" class="icon svelte-bpaaa1"/> <div class="content svelte-bpaaa1"><h1 class="svelte-bpaaa1">Payment Success</h1> <p class="svelte-bpaaa1">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore officia sed illo neque quae non blanditiis, voluptate impedit, numquam quis totam iste provident perspiciatis sapiente, et expedita. Doloribus, animi consequuntur.</p></div></div></section>`;
         attr(div2, "class", "root-layout svelte-bpaaa1");
       },
       m(target, anchor) {
@@ -1005,16 +1005,16 @@
       }
     };
   }
-  var Guest_paymentFailed = class extends SvelteComponent {
+  var User_paymentResult = class extends SvelteComponent {
     constructor(options) {
       super();
       init(this, options, null, create_fragment, safe_not_equal, {});
     }
   };
-  var guest_paymentFailed_default = Guest_paymentFailed;
+  var user_paymentResult_default = User_paymentResult;
 
-  // guest_paymentFailed.svelte.ts
-  var app = new guest_paymentFailed_default({ target: document.getElementById("app") });
+  // user_paymentResult.svelte.ts
+  var app = new user_paymentResult_default({ target: document.getElementById("app") });
 })();
 </script>
 </body></html>

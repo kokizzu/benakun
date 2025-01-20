@@ -24,10 +24,15 @@ const (
 const (
 	TableInvoicePayment Tt.TableName = `invoicePayment`
 
-	StatusPending  = `pending`
-	StatusSuccess  = `success`
-	StatusFailed   = `failed`
-	StatusCanceled = `canceled`
+	InvoiceStatusPending  = `pending`
+	InvoiceStatusSuccess  = `success`
+	InvoiceStatusFailed   = `failed`
+	InvoiceStatusCanceled = `canceled`
+)
+
+const (
+	CurrencyIDR = `IDR`
+	CurrencyUSD = `USD`
 )
 
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{

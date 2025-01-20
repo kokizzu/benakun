@@ -650,64 +650,6 @@ exports.GuestOauthCallback = async function GuestOauthCallback( i, cb ) {
 }
 
 /**
- * @typedef {Object} GuestPaymentFailedIn
- */
-const GuestPaymentFailedIn = {
-}
-/**
- * @typedef {Object} GuestPaymentFailedOut
- * @property {Object} request
- */
-const GuestPaymentFailedOut = {
-  request: { // RequestCommon
-  }, // RequestCommon
-}
-/**
- * @callback GuestPaymentFailedCallback
- * @param {GuestPaymentFailedOut} o
- * @returns {Promise}
- */
-/**
- * @param  {GuestPaymentFailedIn} i
- * @param {GuestPaymentFailedCallback} cb
- * @returns {Promise}
- */
-exports.GuestPaymentFailed = async function GuestPaymentFailed( i, cb ) {
-  return await axios.post( '/guest/paymentFailed', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
- * @typedef {Object} GuestPaymentSuccessIn
- */
-const GuestPaymentSuccessIn = {
-}
-/**
- * @typedef {Object} GuestPaymentSuccessOut
- * @property {Object} request
- */
-const GuestPaymentSuccessOut = {
-  request: { // RequestCommon
-  }, // RequestCommon
-}
-/**
- * @callback GuestPaymentSuccessCallback
- * @param {GuestPaymentSuccessOut} o
- * @returns {Promise}
- */
-/**
- * @param  {GuestPaymentSuccessIn} i
- * @param {GuestPaymentSuccessCallback} cb
- * @returns {Promise}
- */
-exports.GuestPaymentSuccess = async function GuestPaymentSuccess( i, cb ) {
-  return await axios.post( '/guest/paymentSuccess', i ).
-    then( wrapOk( cb ) ).
-    catch( wrapErr( cb ) )
-}
-
-/**
  * @typedef {Object} GuestRegisterIn
  * @property {String} email
  * @property {String} password
@@ -3056,6 +2998,64 @@ const UserLogoutOut = {
  */
 exports.UserLogout = async function UserLogout( i, cb ) {
   return await axios.post( '/user/logout', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserPaymentCancelIn
+ */
+const UserPaymentCancelIn = {
+}
+/**
+ * @typedef {Object} UserPaymentCancelOut
+ * @property {Object} request
+ */
+const UserPaymentCancelOut = {
+  request: { // RequestCommon
+  }, // RequestCommon
+}
+/**
+ * @callback UserPaymentCancelCallback
+ * @param {UserPaymentCancelOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserPaymentCancelIn} i
+ * @param {UserPaymentCancelCallback} cb
+ * @returns {Promise}
+ */
+exports.UserPaymentCancel = async function UserPaymentCancel( i, cb ) {
+  return await axios.post( '/user/paymentCancel', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserPaymentResultIn
+ */
+const UserPaymentResultIn = {
+}
+/**
+ * @typedef {Object} UserPaymentResultOut
+ * @property {Object} request
+ */
+const UserPaymentResultOut = {
+  request: { // RequestCommon
+  }, // RequestCommon
+}
+/**
+ * @callback UserPaymentResultCallback
+ * @param {UserPaymentResultOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserPaymentResultIn} i
+ * @param {UserPaymentResultCallback} cb
+ * @returns {Promise}
+ */
+exports.UserPaymentResult = async function UserPaymentResult( i, cb ) {
+  return await axios.post( '/user/paymentResult', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }

@@ -7,11 +7,11 @@
     <div class="box shadow">
       <img
         src="/assets/icons/payment-failed.png"
-        alt="Payment Success"
+        alt="Payment Cancelled"
         class="icon"
       />
       <div class="content">
-        <h1>Payment Success</h1>
+        <h1>Payment Cancelled</h1>
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore officia sed illo neque quae non blanditiis, voluptate impedit, numquam quis totam iste provident perspiciatis sapiente, et expedita. Doloribus, animi consequuntur.</p>
       </div>
     </div>
