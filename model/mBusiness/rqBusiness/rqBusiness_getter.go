@@ -20,7 +20,7 @@ func (pr *Products) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zCrud
 
 	queryCount := comment + `
 SELECT COUNT(1)
-FROM SEQSCAN ` + pr.SqlTableName() + whereAndSql + whereAndSql2 + `
+FROM /* /* SEQSCAN */CAN */ */ ` + pr.SqlTableName() + whereAndSql + whereAndSql2 + `
 LIMIT 1`
 	pr.Adapter.QuerySql(queryCount, func(row []any) {
 		z3.CalculatePages(z2.Page, z2.PerPage, int(X.ToI(row[0])))
@@ -31,7 +31,7 @@ LIMIT 1`
 
 	queryRows := comment + `
 SELECT ` + z.ToSelect() + `
-FROM SEQSCAN ` + pr.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
+FROM /* /* SEQSCAN */CAN */ */ ` + pr.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
 	pr.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
@@ -47,7 +47,7 @@ func (pr *Products) FindProductsChoicesByTenantCode(tenantCode string) map[strin
 
 	queryRows := comment + `
 SELECT ` + pr.SqlId() + `, ` + pr.SqlName() + `
-FROM SEQSCAN ` + pr.SqlTableName() + whereAndSql
+FROM /* /* SEQSCAN */CAN */ */ ` + pr.SqlTableName() + whereAndSql
 
 	productChoices := make(map[string]string)
 	pr.Adapter.QuerySql(queryRows, func(row []any) {
@@ -71,7 +71,7 @@ func (l *Locations) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn, z3 *zCrud
 
 	queryCount := comment + `
 SELECT COUNT(1)
-FROM SEQSCAN ` + l.SqlTableName() + whereAndSql + whereAndSql2 + `
+FROM /* /* SEQSCAN */CAN */ */ ` + l.SqlTableName() + whereAndSql + whereAndSql2 + `
 LIMIT 1`
 	l.Adapter.QuerySql(queryCount, func(row []any) {
 		z3.CalculatePages(z2.Page, z2.PerPage, int(X.ToI(row[0])))
@@ -82,7 +82,7 @@ LIMIT 1`
 
 	queryRows := comment + `
 SELECT ` + z.ToSelect() + `
-FROM SEQSCAN ` + l.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
+FROM /* /* SEQSCAN */CAN */ */ ` + l.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
 	l.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
@@ -103,7 +103,7 @@ func (ic *InventoryChanges) FindByPagination(meta *zCrud.Meta, in *zCrud.PagerIn
 
 	queryCount := comment + `
 SELECT COUNT(1)
-FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + `
+FROM /* /* SEQSCAN */CAN */ */ ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + `
 LIMIT 1`
 	ic.Adapter.QuerySql(queryCount, func(row []any) {
 		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
@@ -114,7 +114,7 @@ LIMIT 1`
 
 	queryRows := comment + `
 SELECT ` + meta.ToSelect() + `
-FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
+FROM /* /* SEQSCAN */CAN */ */ ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
 	ic.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
@@ -135,7 +135,7 @@ func (ic *InventoryChanges) FindByPaginationByProduct(meta *zCrud.Meta, in *zCru
 
 	queryCount := comment + `
 SELECT COUNT(1)
-FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + `
+FROM /* /* SEQSCAN */CAN */ */ ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + `
 LIMIT 1`
 	ic.Adapter.QuerySql(queryCount, func(row []any) {
 		out.CalculatePages(in.Page, in.PerPage, int(X.ToI(row[0])))
@@ -146,7 +146,7 @@ LIMIT 1`
 
 	queryRows := comment + `
 SELECT ` + meta.ToSelect() + `
-FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
+FROM /* /* SEQSCAN */CAN */ */ ` + ic.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
 	ic.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
@@ -163,7 +163,7 @@ func (ic *InventoryChanges) FindByTenantCodeByProductId() (ics *[]InventoryChang
 
 	queryRows := comment + `
 SELECT ` + ic.SqlSelectAllFields() + `
-FROM SEQSCAN ` + ic.SqlTableName() + whereAndSql
+FROM /* /* SEQSCAN */CAN */ */ ` + ic.SqlTableName() + whereAndSql
 
 	var rows []InventoryChanges
 
