@@ -238,7 +238,7 @@ func (d *Domain) TenantAdminLocations(in *TenantAdminLocationsIn) (out TenantAdm
 			location.SetUpdatedBy(sess.UserId)
 		}
 
-		if !location.DoUpsertById() {
+		if !location.DoUpsert() {
 			out.SetError(500, ErrTenantAdminLocationsSaveFailed)
 		}
 

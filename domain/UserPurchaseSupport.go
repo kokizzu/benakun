@@ -96,15 +96,17 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 		}
 
 		timeNow := time.Now().UTC().Format(time.RFC3339)
+		invoiceNumber := "INV-" + timeNow
+
 		payload := M.SX{
 			"order": M.SX{
 				"amount":                amount,
-				"invoice_number":        "INV-" + timeNow,
+				"invoice_number":        invoiceNumber,
 				"language":              "EN",
 				"disable_retry_payment": true,
 				"callback_url":          in.Host + `/`,
 				"callback_url_cancel":   in.Host + `/` + UserPaymentCancelAction,
-				"callback_url_result":   in.Host + `/` + UserPaymentResultAction,
+				"callback_url_result":   in.Host + `/` + UserPaymentResultAction + `?invoiceNumber=` + invoiceNumber,
 				"auto_redirect":         true,
 			},
 			"payment": M.SX{

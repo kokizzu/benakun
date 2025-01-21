@@ -28,8 +28,8 @@ type (
 	}
 	TenantAdminCoaOut struct {
 		ResponseCommon
-		Coa  *rqFinance.Coa   `json:"coa" form:"coa" query:"coa" long:"coa" msg:"coa"`
-		Coas *[]rqFinance.Coa `json:"coas" form:"coas" query:"coas" long:"coas" msg:"coas"`
+		Coa        *rqFinance.Coa    `json:"coa" form:"coa" query:"coa" long:"coa" msg:"coa"`
+		Coas       *[]rqFinance.Coa  `json:"coas" form:"coas" query:"coas" long:"coas" msg:"coas"`
 		CoaChoices map[string]string `json:"coaChoices" form:"coaChoices" query:"coaChoices" long:"coaChoices" msg:"coaChoices"`
 	}
 )
@@ -37,24 +37,24 @@ type (
 const (
 	TenantAdminCoaAction = `tenantAdmin/coa`
 
-	ErrTenantAdminCoaUnauthorized   = `unauthorized user for coa`
-	ErrTenantAdminCoaTenantNotFound = `tenant admin not found for coa`
-	ErrTenantAdminCoaParentNotFound = `coa parent not found`
-	ErrTenantAdminCoaNotFound = `coa not found`
-	ErrTenantAdminCoaMustIncludeParentId = `must include parent id`
-	ErrTenantAdminCoaChildNotFoundInParent = `child not found in parent`
-	ErrTenantAdminCoaFailedReorderChildren = `failed reorder children`
-	ErrTenantAdminCoaParentDestinationNotFound = `cannot find parent to move coa`
-	ErrTenantAdminCoaChildNotFoundInTargetParent = `child not found in target parent`
-	ErrTenantAdminCoaFailedUpdateDestParent = `failed to update destination parent`
+	ErrTenantAdminCoaUnauthorized                  = `unauthorized user for coa`
+	ErrTenantAdminCoaTenantNotFound                = `tenant admin not found for coa`
+	ErrTenantAdminCoaParentNotFound                = `coa parent not found`
+	ErrTenantAdminCoaNotFound                      = `coa not found`
+	ErrTenantAdminCoaMustIncludeParentId           = `must include parent id`
+	ErrTenantAdminCoaChildNotFoundInParent         = `child not found in parent`
+	ErrTenantAdminCoaFailedReorderChildren         = `failed reorder children`
+	ErrTenantAdminCoaParentDestinationNotFound     = `cannot find parent to move coa`
+	ErrTenantAdminCoaChildNotFoundInTargetParent   = `child not found in target parent`
+	ErrTenantAdminCoaFailedUpdateDestParent        = `failed to update destination parent`
 	ErrTenantAdminCoaFailedRemoveChildSourceParent = `failed to remove child from source parent`
-	ErrTenantAdminCoaFailedUpdateSourceParent = `failed to update source parent`
-	ErrTenantAdminCoaFailedUpdate = `failed to update coa`
-	ErrTenantAdminCoaFailedUpdateParent = `failed to update parent of new coa`
-	ErrTenantAdminCoaFailedCreate = `failed to create a new coa`
-	ErrTenantAdminCoaSameCoa			= `cannot move coa to the same coa`
-	ErrTenantAdminCoaShouldNotChildChild = `cannot move coa to its child or grand child`
-	ErrTenantAdminCoaNotEditable = `cannot modify uneditable coa`
+	ErrTenantAdminCoaFailedUpdateSourceParent      = `failed to update source parent`
+	ErrTenantAdminCoaFailedUpdate                  = `failed to update coa`
+	ErrTenantAdminCoaFailedUpdateParent            = `failed to update parent of new coa`
+	ErrTenantAdminCoaFailedCreate                  = `failed to create a new coa`
+	ErrTenantAdminCoaSameCoa                       = `cannot move coa to the same coa`
+	ErrTenantAdminCoaShouldNotChildChild           = `cannot move coa to its child or grand child`
+	ErrTenantAdminCoaNotEditable                   = `cannot modify uneditable coa`
 )
 
 func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
@@ -170,7 +170,7 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 					isMoveToChildFunc = func(ta *Tt.Adapter, coaSrcId, coaDestId uint64) (bool, error) {
 						if coaSrcId == coaDestId {
 							isMoveToChildFound = false
-							err := errors.New(ErrTenantAdminCoaShouldNotChildChild) 
+							err := errors.New(ErrTenantAdminCoaShouldNotChildChild)
 							return false, err
 						}
 						coa := rqFinance.NewCoa(ta)
@@ -180,7 +180,7 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 							err := errors.New(ErrTenantAdminCoaParentDestinationNotFound)
 							return false, err
 						}
-					
+
 						for _, childId := range coa.Children {
 							if X.ToU(childId) == coaDestId {
 								isMoveToChildFound = true
@@ -261,7 +261,7 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 			}
 		}
 
-		if !coa.DoUpsertById() {
+		if !coa.DoUpsert() {
 			out.SetError(400, ErrTenantAdminCoaFailedUpdate)
 			return
 		}
@@ -279,7 +279,7 @@ func (d *Domain) TenantAdminCoa(in *TenantAdminCoaIn) (out TenantAdminCoaOut) {
 				}
 
 				coa.SetParentId(parent.Id)
-				if !coa.DoUpsertById() {
+				if !coa.DoUpsert() {
 					out.SetError(400, ErrTenantAdminCoaFailedCreate)
 					return
 				}

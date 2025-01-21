@@ -43,17 +43,17 @@ type (
 const (
 	UserCreateCompanyAction = `user/createCompany`
 
-	ErrUserCreateCompanyUserNotFound          = `user not found`
-	ErrUserCreateCompanyAlreadyAdded          = `company already exist`
-	ErrUserCreateCompanyTenantCodeInvalid     = `invalid tenant code, must be letters only`
-	ErrUserCreateCompanyCoaParentNotFound     = `coa parent not found when creating default coa levels`
-	ErrUserCreateCompanyFailedSaveDefaultCoa  = `save default coa failed`
-	ErrUserCreateCompanyFailedUpdateCoaParent = `failed to update coa parent`
-	ErrUserCreateCompanyAlreadyHaveCompany    = `already have company`
-	ErrUserCreateCompanyFailedSaveTrxTemplate			= `failed to save transaction template`
-	ErrUserCreateCompanyFailedSaveTrxTemplateDetail			= `failed to save transaction template detail`
-	ErrUserCreateCompanyFailedSaveBankAccount = `failed to save default bank account`
-	ErrUserCreateCompanyFailedGenerateColor = `failed to generate color for transaction template`
+	ErrUserCreateCompanyUserNotFound                = `user not found`
+	ErrUserCreateCompanyAlreadyAdded                = `company already exist`
+	ErrUserCreateCompanyTenantCodeInvalid           = `invalid tenant code, must be letters only`
+	ErrUserCreateCompanyCoaParentNotFound           = `coa parent not found when creating default coa levels`
+	ErrUserCreateCompanyFailedSaveDefaultCoa        = `save default coa failed`
+	ErrUserCreateCompanyFailedUpdateCoaParent       = `failed to update coa parent`
+	ErrUserCreateCompanyAlreadyHaveCompany          = `already have company`
+	ErrUserCreateCompanyFailedSaveTrxTemplate       = `failed to save transaction template`
+	ErrUserCreateCompanyFailedSaveTrxTemplateDetail = `failed to save transaction template detail`
+	ErrUserCreateCompanyFailedSaveBankAccount       = `failed to save default bank account`
+	ErrUserCreateCompanyFailedGenerateColor         = `failed to generate color for transaction template`
 )
 
 func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompanyOut) {
@@ -102,7 +102,7 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 	org.SetHeadTitle(in.Company.HeadTitle)
 	org.SetOrgType(mAuth.OrgTypeCompany)
 
-	if !org.DoUpsertById() {
+	if !org.DoUpsert() {
 		out.SetError(400, ErrUserCreateCompanyAlreadyAdded)
 		return
 	}
@@ -161,15 +161,15 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 		coa.SetLabel(coaDefault.Label)
 		coa.SetTenantCode(tenantCode)
 		coa.SetEditable(false)
-	
+
 		if parentId > 0 {
 			coa.SetParentId(parentId)
 		}
-	
-		if !coa.DoUpsertById() {
+
+		if !coa.DoUpdateById() {
 			return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
 		}
-	
+
 		if len(coaDefault.Children) > 0 {
 			var children []any
 			for _, childCoaDefault := range coaDefault.Children {
@@ -177,16 +177,16 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 				if err != nil {
 					return 0, err
 				}
-	
+
 				children = append(children, childId)
 			}
-	
+
 			coa.SetChildren(children)
-			if !coa.DoUpsertById() {
+			if !coa.DoUpdateById() {
 				return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
 			}
 		}
-	
+
 		switch coaDefault.Label {
 		case mFinance.LabelProducts:
 			tenant := wcAuth.NewTenantsMutator(ta)
@@ -238,11 +238,11 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 				return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
 			}
 		}
-	
-		coaMaps[coa.Name] =  coa.Id
+
+		coaMaps[coa.Name] = coa.Id
 		return coa.Id, nil
 	}
-	
+
 	coaDefaults := mFinance.GetCoaDefaults()
 	for _, coaDefault := range coaDefaults {
 		if _, err := insertDefaultCoa(d.AuthOltp, coaDefault, tenant.TenantCode, 0); err != nil {

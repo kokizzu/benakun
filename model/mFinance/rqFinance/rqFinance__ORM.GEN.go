@@ -5,7 +5,7 @@ package rqFinance
 import (
 	"benakun/model/mFinance"
 
-	"github.com/tarantool/go-tarantool/v2"
+	"github.com/tarantool/go-tarantool"
 
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/D/Tt"
@@ -56,21 +56,14 @@ func (b *BusinessTransaction) UniqueIndexId() string { //nolint:dupl false posit
 
 // FindById Find one by Id
 func (b *BusinessTransaction) FindById() bool { //nolint:dupl false positive
-	res, err := b.Adapter.RetryDo(
-		tarantool.NewSelectRequest(b.SpaceName()).
-			Index(b.UniqueIndexId()).
-			Limit(1).
-			Iterator(tarantool.IterEq).
-			Key(tarantool.UintKey{I: uint(b.Id)}),
-	)
+	res, err := b.Adapter.Select(b.SpaceName(), b.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{b.Id})
 	if L.IsError(err, `BusinessTransaction.FindById failed: `+b.SpaceName()) {
 		return false
 	}
-	if len(res) == 1 {
-		if row, ok := res[0].([]any); ok {
-			b.FromArray(row)
-			return true
-		}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		b.FromArray(rows[0])
+		return true
 	}
 	return false
 }
@@ -110,20 +103,21 @@ func (b *BusinessTransaction) SqlSelectAllUncensoredFields() string { //nolint:d
 }
 
 // ToUpdateArray generate slice of update command
-func (b *BusinessTransaction) ToUpdateArray() *tarantool.Operations { //nolint:dupl false positive
-	return tarantool.NewOperations().
-		Assign(0, b.Id).
-		Assign(1, b.TenantCode).
-		Assign(2, b.StartDate).
-		Assign(3, b.EndDate).
-		Assign(4, b.CreatedAt).
-		Assign(5, b.CreatedBy).
-		Assign(6, b.UpdatedAt).
-		Assign(7, b.UpdatedBy).
-		Assign(8, b.DeletedAt).
-		Assign(9, b.DeletedBy).
-		Assign(10, b.RestoredBy).
-		Assign(11, b.TransactionTemplateId)
+func (b *BusinessTransaction) ToUpdateArray() A.X { //nolint:dupl false positive
+	return A.X{
+		A.X{`=`, 0, b.Id},
+		A.X{`=`, 1, b.TenantCode},
+		A.X{`=`, 2, b.StartDate},
+		A.X{`=`, 3, b.EndDate},
+		A.X{`=`, 4, b.CreatedAt},
+		A.X{`=`, 5, b.CreatedBy},
+		A.X{`=`, 6, b.UpdatedAt},
+		A.X{`=`, 7, b.UpdatedBy},
+		A.X{`=`, 8, b.DeletedAt},
+		A.X{`=`, 9, b.DeletedBy},
+		A.X{`=`, 10, b.RestoredBy},
+		A.X{`=`, 11, b.TransactionTemplateId},
+	}
 }
 
 // IdxId return name of the index
@@ -305,22 +299,13 @@ func (b *BusinessTransaction) FromUncensoredArray(a A.X) *BusinessTransaction { 
 // FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
 func (b *BusinessTransaction) FindOffsetLimit(offset, limit uint32, idx string) []BusinessTransaction { //nolint:dupl false positive
 	var rows []BusinessTransaction
-	res, err := b.Adapter.RetryDo(
-		tarantool.NewSelectRequest(b.SpaceName()).
-			Index(idx).
-			Offset(offset).
-			Limit(limit).
-			Iterator(tarantool.IterAll),
-	)
+	res, err := b.Adapter.Select(b.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
 	if L.IsError(err, `BusinessTransaction.FindOffsetLimit failed: `+b.SpaceName()) {
 		return rows
 	}
-	for _, row := range res {
+	for _, row := range res.Tuples() {
 		item := BusinessTransaction{}
-		row, ok := row.([]any)
-		if ok {
-			rows = append(rows, *item.FromArray(row))
-		}
+		rows = append(rows, *item.FromArray(row))
 	}
 	return rows
 }
@@ -328,28 +313,16 @@ func (b *BusinessTransaction) FindOffsetLimit(offset, limit uint32, idx string) 
 // FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
 func (b *BusinessTransaction) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
 	var rows []A.X
-	resp, err := b.Adapter.RetryDoResp(
-		tarantool.NewSelectRequest(b.SpaceName()).
-			Index(idx).
-			Offset(offset).
-			Limit(limit).
-			Iterator(tarantool.IterAll),
-	)
+	res, err := b.Adapter.Select(b.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
 	if L.IsError(err, `BusinessTransaction.FindOffsetLimit failed: `+b.SpaceName()) {
-		return rows, Tt.QueryMetaFrom(resp, err)
+		return rows, Tt.QueryMetaFrom(res, err)
 	}
-	res, err := resp.Decode()
-	if L.IsError(err, `BusinessTransaction.FindOffsetLimit failed: `+b.SpaceName()) {
-		return rows, Tt.QueryMetaFrom(resp, err)
+	tuples := res.Tuples()
+	rows = make([]A.X, len(tuples))
+	for z, row := range tuples {
+		rows[z] = row
 	}
-	rows = make([]A.X, len(res))
-	for _, row := range res {
-		row, ok := row.([]any)
-		if ok {
-			rows = append(rows, row)
-		}
-	}
-	return rows, Tt.QueryMetaFrom(resp, nil)
+	return rows, Tt.QueryMetaFrom(res, nil)
 }
 
 // Total count number of rows
@@ -419,21 +392,14 @@ func (c *Coa) UniqueIndexId() string { //nolint:dupl false positive
 
 // FindById Find one by Id
 func (c *Coa) FindById() bool { //nolint:dupl false positive
-	res, err := c.Adapter.RetryDo(
-		tarantool.NewSelectRequest(c.SpaceName()).
-			Index(c.UniqueIndexId()).
-			Limit(1).
-			Iterator(tarantool.IterEq).
-			Key(tarantool.UintKey{I: uint(c.Id)}),
-	)
+	res, err := c.Adapter.Select(c.SpaceName(), c.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{c.Id})
 	if L.IsError(err, `Coa.FindById failed: `+c.SpaceName()) {
 		return false
 	}
-	if len(res) == 1 {
-		if row, ok := res[0].([]any); ok {
-			c.FromArray(row)
-			return true
-		}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		c.FromArray(rows[0])
+		return true
 	}
 	return false
 }
@@ -477,22 +443,23 @@ func (c *Coa) SqlSelectAllUncensoredFields() string { //nolint:dupl false positi
 }
 
 // ToUpdateArray generate slice of update command
-func (c *Coa) ToUpdateArray() *tarantool.Operations { //nolint:dupl false positive
-	return tarantool.NewOperations().
-		Assign(0, c.Id).
-		Assign(1, c.TenantCode).
-		Assign(2, c.Name).
-		Assign(3, c.Label).
-		Assign(4, c.ParentId).
-		Assign(5, c.Children).
-		Assign(6, c.CreatedAt).
-		Assign(7, c.CreatedBy).
-		Assign(8, c.UpdatedAt).
-		Assign(9, c.UpdatedBy).
-		Assign(10, c.DeletedAt).
-		Assign(11, c.DeletedBy).
-		Assign(12, c.RestoredBy).
-		Assign(13, c.Editable)
+func (c *Coa) ToUpdateArray() A.X { //nolint:dupl false positive
+	return A.X{
+		A.X{`=`, 0, c.Id},
+		A.X{`=`, 1, c.TenantCode},
+		A.X{`=`, 2, c.Name},
+		A.X{`=`, 3, c.Label},
+		A.X{`=`, 4, c.ParentId},
+		A.X{`=`, 5, c.Children},
+		A.X{`=`, 6, c.CreatedAt},
+		A.X{`=`, 7, c.CreatedBy},
+		A.X{`=`, 8, c.UpdatedAt},
+		A.X{`=`, 9, c.UpdatedBy},
+		A.X{`=`, 10, c.DeletedAt},
+		A.X{`=`, 11, c.DeletedBy},
+		A.X{`=`, 12, c.RestoredBy},
+		A.X{`=`, 13, c.Editable},
+	}
 }
 
 // IdxId return name of the index
@@ -700,22 +667,13 @@ func (c *Coa) FromUncensoredArray(a A.X) *Coa { //nolint:dupl false positive
 // FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
 func (c *Coa) FindOffsetLimit(offset, limit uint32, idx string) []Coa { //nolint:dupl false positive
 	var rows []Coa
-	res, err := c.Adapter.RetryDo(
-		tarantool.NewSelectRequest(c.SpaceName()).
-			Index(idx).
-			Offset(offset).
-			Limit(limit).
-			Iterator(tarantool.IterAll),
-	)
+	res, err := c.Adapter.Select(c.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
 	if L.IsError(err, `Coa.FindOffsetLimit failed: `+c.SpaceName()) {
 		return rows
 	}
-	for _, row := range res {
+	for _, row := range res.Tuples() {
 		item := Coa{}
-		row, ok := row.([]any)
-		if ok {
-			rows = append(rows, *item.FromArray(row))
-		}
+		rows = append(rows, *item.FromArray(row))
 	}
 	return rows
 }
@@ -723,28 +681,16 @@ func (c *Coa) FindOffsetLimit(offset, limit uint32, idx string) []Coa { //nolint
 // FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
 func (c *Coa) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
 	var rows []A.X
-	resp, err := c.Adapter.RetryDoResp(
-		tarantool.NewSelectRequest(c.SpaceName()).
-			Index(idx).
-			Offset(offset).
-			Limit(limit).
-			Iterator(tarantool.IterAll),
-	)
+	res, err := c.Adapter.Select(c.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
 	if L.IsError(err, `Coa.FindOffsetLimit failed: `+c.SpaceName()) {
-		return rows, Tt.QueryMetaFrom(resp, err)
+		return rows, Tt.QueryMetaFrom(res, err)
 	}
-	res, err := resp.Decode()
-	if L.IsError(err, `Coa.FindOffsetLimit failed: `+c.SpaceName()) {
-		return rows, Tt.QueryMetaFrom(resp, err)
+	tuples := res.Tuples()
+	rows = make([]A.X, len(tuples))
+	for z, row := range tuples {
+		rows[z] = row
 	}
-	rows = make([]A.X, len(res))
-	for _, row := range res {
-		row, ok := row.([]any)
-		if ok {
-			rows = append(rows, row)
-		}
-	}
-	return rows, Tt.QueryMetaFrom(resp, nil)
+	return rows, Tt.QueryMetaFrom(res, nil)
 }
 
 // Total count number of rows
@@ -818,21 +764,14 @@ func (t *TransactionJournal) UniqueIndexId() string { //nolint:dupl false positi
 
 // FindById Find one by Id
 func (t *TransactionJournal) FindById() bool { //nolint:dupl false positive
-	res, err := t.Adapter.RetryDo(
-		tarantool.NewSelectRequest(t.SpaceName()).
-			Index(t.UniqueIndexId()).
-			Limit(1).
-			Iterator(tarantool.IterEq).
-			Key(tarantool.UintKey{I: uint(t.Id)}),
-	)
+	res, err := t.Adapter.Select(t.SpaceName(), t.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{t.Id})
 	if L.IsError(err, `TransactionJournal.FindById failed: `+t.SpaceName()) {
 		return false
 	}
-	if len(res) == 1 {
-		if row, ok := res[0].([]any); ok {
-			t.FromArray(row)
-			return true
-		}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		t.FromArray(rows[0])
+		return true
 	}
 	return false
 }
@@ -880,24 +819,25 @@ func (t *TransactionJournal) SqlSelectAllUncensoredFields() string { //nolint:du
 }
 
 // ToUpdateArray generate slice of update command
-func (t *TransactionJournal) ToUpdateArray() *tarantool.Operations { //nolint:dupl false positive
-	return tarantool.NewOperations().
-		Assign(0, t.Id).
-		Assign(1, t.TenantCode).
-		Assign(2, t.CoaId).
-		Assign(3, t.DebitIDR).
-		Assign(4, t.CreditIDR).
-		Assign(5, t.Descriptions).
-		Assign(6, t.Date).
-		Assign(7, t.DetailObj).
-		Assign(8, t.CreatedAt).
-		Assign(9, t.CreatedBy).
-		Assign(10, t.UpdatedAt).
-		Assign(11, t.UpdatedBy).
-		Assign(12, t.DeletedAt).
-		Assign(13, t.DeletedBy).
-		Assign(14, t.RestoredBy).
-		Assign(15, t.TransactionTemplateId)
+func (t *TransactionJournal) ToUpdateArray() A.X { //nolint:dupl false positive
+	return A.X{
+		A.X{`=`, 0, t.Id},
+		A.X{`=`, 1, t.TenantCode},
+		A.X{`=`, 2, t.CoaId},
+		A.X{`=`, 3, t.DebitIDR},
+		A.X{`=`, 4, t.CreditIDR},
+		A.X{`=`, 5, t.Descriptions},
+		A.X{`=`, 6, t.Date},
+		A.X{`=`, 7, t.DetailObj},
+		A.X{`=`, 8, t.CreatedAt},
+		A.X{`=`, 9, t.CreatedBy},
+		A.X{`=`, 10, t.UpdatedAt},
+		A.X{`=`, 11, t.UpdatedBy},
+		A.X{`=`, 12, t.DeletedAt},
+		A.X{`=`, 13, t.DeletedBy},
+		A.X{`=`, 14, t.RestoredBy},
+		A.X{`=`, 15, t.TransactionTemplateId},
+	}
 }
 
 // IdxId return name of the index
@@ -1131,22 +1071,13 @@ func (t *TransactionJournal) FromUncensoredArray(a A.X) *TransactionJournal { //
 // FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
 func (t *TransactionJournal) FindOffsetLimit(offset, limit uint32, idx string) []TransactionJournal { //nolint:dupl false positive
 	var rows []TransactionJournal
-	res, err := t.Adapter.RetryDo(
-		tarantool.NewSelectRequest(t.SpaceName()).
-			Index(idx).
-			Offset(offset).
-			Limit(limit).
-			Iterator(tarantool.IterAll),
-	)
+	res, err := t.Adapter.Select(t.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
 	if L.IsError(err, `TransactionJournal.FindOffsetLimit failed: `+t.SpaceName()) {
 		return rows
 	}
-	for _, row := range res {
+	for _, row := range res.Tuples() {
 		item := TransactionJournal{}
-		row, ok := row.([]any)
-		if ok {
-			rows = append(rows, *item.FromArray(row))
-		}
+		rows = append(rows, *item.FromArray(row))
 	}
 	return rows
 }
@@ -1154,28 +1085,16 @@ func (t *TransactionJournal) FindOffsetLimit(offset, limit uint32, idx string) [
 // FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
 func (t *TransactionJournal) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
 	var rows []A.X
-	resp, err := t.Adapter.RetryDoResp(
-		tarantool.NewSelectRequest(t.SpaceName()).
-			Index(idx).
-			Offset(offset).
-			Limit(limit).
-			Iterator(tarantool.IterAll),
-	)
+	res, err := t.Adapter.Select(t.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
 	if L.IsError(err, `TransactionJournal.FindOffsetLimit failed: `+t.SpaceName()) {
-		return rows, Tt.QueryMetaFrom(resp, err)
+		return rows, Tt.QueryMetaFrom(res, err)
 	}
-	res, err := resp.Decode()
-	if L.IsError(err, `TransactionJournal.FindOffsetLimit failed: `+t.SpaceName()) {
-		return rows, Tt.QueryMetaFrom(resp, err)
+	tuples := res.Tuples()
+	rows = make([]A.X, len(tuples))
+	for z, row := range tuples {
+		rows[z] = row
 	}
-	rows = make([]A.X, len(res))
-	for _, row := range res {
-		row, ok := row.([]any)
-		if ok {
-			rows = append(rows, row)
-		}
-	}
-	return rows, Tt.QueryMetaFrom(resp, nil)
+	return rows, Tt.QueryMetaFrom(res, nil)
 }
 
 // Total count number of rows
@@ -1247,21 +1166,14 @@ func (t *TransactionTemplate) UniqueIndexId() string { //nolint:dupl false posit
 
 // FindById Find one by Id
 func (t *TransactionTemplate) FindById() bool { //nolint:dupl false positive
-	res, err := t.Adapter.RetryDo(
-		tarantool.NewSelectRequest(t.SpaceName()).
-			Index(t.UniqueIndexId()).
-			Limit(1).
-			Iterator(tarantool.IterEq).
-			Key(tarantool.UintKey{I: uint(t.Id)}),
-	)
+	res, err := t.Adapter.Select(t.SpaceName(), t.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{t.Id})
 	if L.IsError(err, `TransactionTemplate.FindById failed: `+t.SpaceName()) {
 		return false
 	}
-	if len(res) == 1 {
-		if row, ok := res[0].([]any); ok {
-			t.FromArray(row)
-			return true
-		}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		t.FromArray(rows[0])
+		return true
 	}
 	return false
 }
@@ -1301,20 +1213,21 @@ func (t *TransactionTemplate) SqlSelectAllUncensoredFields() string { //nolint:d
 }
 
 // ToUpdateArray generate slice of update command
-func (t *TransactionTemplate) ToUpdateArray() *tarantool.Operations { //nolint:dupl false positive
-	return tarantool.NewOperations().
-		Assign(0, t.Id).
-		Assign(1, t.TenantCode).
-		Assign(2, t.Name).
-		Assign(3, t.Color).
-		Assign(4, t.ImageURL).
-		Assign(5, t.CreatedAt).
-		Assign(6, t.CreatedBy).
-		Assign(7, t.UpdatedAt).
-		Assign(8, t.UpdatedBy).
-		Assign(9, t.DeletedAt).
-		Assign(10, t.DeletedBy).
-		Assign(11, t.RestoredBy)
+func (t *TransactionTemplate) ToUpdateArray() A.X { //nolint:dupl false positive
+	return A.X{
+		A.X{`=`, 0, t.Id},
+		A.X{`=`, 1, t.TenantCode},
+		A.X{`=`, 2, t.Name},
+		A.X{`=`, 3, t.Color},
+		A.X{`=`, 4, t.ImageURL},
+		A.X{`=`, 5, t.CreatedAt},
+		A.X{`=`, 6, t.CreatedBy},
+		A.X{`=`, 7, t.UpdatedAt},
+		A.X{`=`, 8, t.UpdatedBy},
+		A.X{`=`, 9, t.DeletedAt},
+		A.X{`=`, 10, t.DeletedBy},
+		A.X{`=`, 11, t.RestoredBy},
+	}
 }
 
 // IdxId return name of the index
@@ -1496,22 +1409,13 @@ func (t *TransactionTemplate) FromUncensoredArray(a A.X) *TransactionTemplate { 
 // FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
 func (t *TransactionTemplate) FindOffsetLimit(offset, limit uint32, idx string) []TransactionTemplate { //nolint:dupl false positive
 	var rows []TransactionTemplate
-	res, err := t.Adapter.RetryDo(
-		tarantool.NewSelectRequest(t.SpaceName()).
-			Index(idx).
-			Offset(offset).
-			Limit(limit).
-			Iterator(tarantool.IterAll),
-	)
+	res, err := t.Adapter.Select(t.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
 	if L.IsError(err, `TransactionTemplate.FindOffsetLimit failed: `+t.SpaceName()) {
 		return rows
 	}
-	for _, row := range res {
+	for _, row := range res.Tuples() {
 		item := TransactionTemplate{}
-		row, ok := row.([]any)
-		if ok {
-			rows = append(rows, *item.FromArray(row))
-		}
+		rows = append(rows, *item.FromArray(row))
 	}
 	return rows
 }
@@ -1519,28 +1423,16 @@ func (t *TransactionTemplate) FindOffsetLimit(offset, limit uint32, idx string) 
 // FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
 func (t *TransactionTemplate) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
 	var rows []A.X
-	resp, err := t.Adapter.RetryDoResp(
-		tarantool.NewSelectRequest(t.SpaceName()).
-			Index(idx).
-			Offset(offset).
-			Limit(limit).
-			Iterator(tarantool.IterAll),
-	)
+	res, err := t.Adapter.Select(t.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
 	if L.IsError(err, `TransactionTemplate.FindOffsetLimit failed: `+t.SpaceName()) {
-		return rows, Tt.QueryMetaFrom(resp, err)
+		return rows, Tt.QueryMetaFrom(res, err)
 	}
-	res, err := resp.Decode()
-	if L.IsError(err, `TransactionTemplate.FindOffsetLimit failed: `+t.SpaceName()) {
-		return rows, Tt.QueryMetaFrom(resp, err)
+	tuples := res.Tuples()
+	rows = make([]A.X, len(tuples))
+	for z, row := range tuples {
+		rows[z] = row
 	}
-	rows = make([]A.X, len(res))
-	for _, row := range res {
-		row, ok := row.([]any)
-		if ok {
-			rows = append(rows, row)
-		}
-	}
-	return rows, Tt.QueryMetaFrom(resp, nil)
+	return rows, Tt.QueryMetaFrom(res, nil)
 }
 
 // Total count number of rows
@@ -1609,21 +1501,14 @@ func (t *TransactionTplDetail) UniqueIndexId() string { //nolint:dupl false posi
 
 // FindById Find one by Id
 func (t *TransactionTplDetail) FindById() bool { //nolint:dupl false positive
-	res, err := t.Adapter.RetryDo(
-		tarantool.NewSelectRequest(t.SpaceName()).
-			Index(t.UniqueIndexId()).
-			Limit(1).
-			Iterator(tarantool.IterEq).
-			Key(tarantool.UintKey{I: uint(t.Id)}),
-	)
+	res, err := t.Adapter.Select(t.SpaceName(), t.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{t.Id})
 	if L.IsError(err, `TransactionTplDetail.FindById failed: `+t.SpaceName()) {
 		return false
 	}
-	if len(res) == 1 {
-		if row, ok := res[0].([]any); ok {
-			t.FromArray(row)
-			return true
-		}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		t.FromArray(rows[0])
+		return true
 	}
 	return false
 }
@@ -1665,21 +1550,22 @@ func (t *TransactionTplDetail) SqlSelectAllUncensoredFields() string { //nolint:
 }
 
 // ToUpdateArray generate slice of update command
-func (t *TransactionTplDetail) ToUpdateArray() *tarantool.Operations { //nolint:dupl false positive
-	return tarantool.NewOperations().
-		Assign(0, t.Id).
-		Assign(1, t.ParentId).
-		Assign(2, t.TenantCode).
-		Assign(3, t.CoaId).
-		Assign(4, t.IsDebit).
-		Assign(5, t.CreatedAt).
-		Assign(6, t.CreatedBy).
-		Assign(7, t.UpdatedAt).
-		Assign(8, t.UpdatedBy).
-		Assign(9, t.DeletedAt).
-		Assign(10, t.DeletedBy).
-		Assign(11, t.RestoredBy).
-		Assign(12, t.Attributes)
+func (t *TransactionTplDetail) ToUpdateArray() A.X { //nolint:dupl false positive
+	return A.X{
+		A.X{`=`, 0, t.Id},
+		A.X{`=`, 1, t.ParentId},
+		A.X{`=`, 2, t.TenantCode},
+		A.X{`=`, 3, t.CoaId},
+		A.X{`=`, 4, t.IsDebit},
+		A.X{`=`, 5, t.CreatedAt},
+		A.X{`=`, 6, t.CreatedBy},
+		A.X{`=`, 7, t.UpdatedAt},
+		A.X{`=`, 8, t.UpdatedBy},
+		A.X{`=`, 9, t.DeletedAt},
+		A.X{`=`, 10, t.DeletedBy},
+		A.X{`=`, 11, t.RestoredBy},
+		A.X{`=`, 12, t.Attributes},
+	}
 }
 
 // IdxId return name of the index
@@ -1874,22 +1760,13 @@ func (t *TransactionTplDetail) FromUncensoredArray(a A.X) *TransactionTplDetail 
 // FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
 func (t *TransactionTplDetail) FindOffsetLimit(offset, limit uint32, idx string) []TransactionTplDetail { //nolint:dupl false positive
 	var rows []TransactionTplDetail
-	res, err := t.Adapter.RetryDo(
-		tarantool.NewSelectRequest(t.SpaceName()).
-			Index(idx).
-			Offset(offset).
-			Limit(limit).
-			Iterator(tarantool.IterAll),
-	)
+	res, err := t.Adapter.Select(t.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
 	if L.IsError(err, `TransactionTplDetail.FindOffsetLimit failed: `+t.SpaceName()) {
 		return rows
 	}
-	for _, row := range res {
+	for _, row := range res.Tuples() {
 		item := TransactionTplDetail{}
-		row, ok := row.([]any)
-		if ok {
-			rows = append(rows, *item.FromArray(row))
-		}
+		rows = append(rows, *item.FromArray(row))
 	}
 	return rows
 }
@@ -1897,28 +1774,16 @@ func (t *TransactionTplDetail) FindOffsetLimit(offset, limit uint32, idx string)
 // FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
 func (t *TransactionTplDetail) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
 	var rows []A.X
-	resp, err := t.Adapter.RetryDoResp(
-		tarantool.NewSelectRequest(t.SpaceName()).
-			Index(idx).
-			Offset(offset).
-			Limit(limit).
-			Iterator(tarantool.IterAll),
-	)
+	res, err := t.Adapter.Select(t.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
 	if L.IsError(err, `TransactionTplDetail.FindOffsetLimit failed: `+t.SpaceName()) {
-		return rows, Tt.QueryMetaFrom(resp, err)
+		return rows, Tt.QueryMetaFrom(res, err)
 	}
-	res, err := resp.Decode()
-	if L.IsError(err, `TransactionTplDetail.FindOffsetLimit failed: `+t.SpaceName()) {
-		return rows, Tt.QueryMetaFrom(resp, err)
+	tuples := res.Tuples()
+	rows = make([]A.X, len(tuples))
+	for z, row := range tuples {
+		rows[z] = row
 	}
-	rows = make([]A.X, len(res))
-	for _, row := range res {
-		row, ok := row.([]any)
-		if ok {
-			rows = append(rows, row)
-		}
-	}
-	return rows, Tt.QueryMetaFrom(resp, nil)
+	return rows, Tt.QueryMetaFrom(res, nil)
 }
 
 // Total count number of rows

@@ -140,7 +140,7 @@ func (d *Domain) SuperAdminTenantManagement(in *SuperAdminTenantManagementIn) (o
 			}
 		}
 
-		if !tenant.DoUpsertById() {
+		if !tenant.DoUpsert() {
 			out.SetError(500, ErrTenantSaveFailed)
 		}
 
@@ -150,7 +150,7 @@ func (d *Domain) SuperAdminTenantManagement(in *SuperAdminTenantManagementIn) (o
 		L.Print(`tenant.DeletedAt`, tenant.DeletedAt)
 		_ = createTables
 		// if createTables {
-			// TODO: migrate tables for this tenant
+		// TODO: migrate tables for this tenant
 		// }
 
 		if in.Pager.Page == 0 {

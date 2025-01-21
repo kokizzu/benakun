@@ -5,8 +5,6 @@ package wcInternal
 import (
 	"benakun/model/mInternal/rqInternal"
 
-	"github.com/tarantool/go-tarantool/v2"
-
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
@@ -23,14 +21,13 @@ import (
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcInternal__ORM.GEN.go
 type InvoicePaymentMutator struct {
 	rqInternal.InvoicePayment
-	mutations *tarantool.Operations
+	mutations []A.X
 	logs      []A.X
 }
 
 // NewInvoicePaymentMutator create new ORM writer/command object
 func NewInvoicePaymentMutator(adapter *Tt.Adapter) (res *InvoicePaymentMutator) {
 	res = &InvoicePaymentMutator{InvoicePayment: rqInternal.InvoicePayment{Adapter: adapter}}
-	res.mutations = tarantool.NewOperations()
 	return
 }
 
@@ -41,22 +38,18 @@ func (i *InvoicePaymentMutator) Logs() []A.X { //nolint:dupl false positive
 
 // HaveMutation check whether Set* methods ever called
 func (i *InvoicePaymentMutator) HaveMutation() bool { //nolint:dupl false positive
-	return len(i.logs) > 0
+	return len(i.mutations) > 0
 }
 
 // ClearMutations clear all previously called Set* methods
 func (i *InvoicePaymentMutator) ClearMutations() { //nolint:dupl false positive
-	i.mutations = tarantool.NewOperations()
+	i.mutations = []A.X{}
 	i.logs = []A.X{}
 }
 
 // DoOverwriteById update all columns, error if not exists, not using mutations/Set*
 func (i *InvoicePaymentMutator) DoOverwriteById() bool { //nolint:dupl false positive
-	_, err := i.Adapter.RetryDo(tarantool.NewUpdateRequest(i.SpaceName()).
-		Index(i.UniqueIndexId()).
-		Key(tarantool.UintKey{I: uint(i.Id)}).
-		Operations(i.ToUpdateArray()),
-	)
+	_, err := i.Adapter.Update(i.SpaceName(), i.UniqueIndexId(), A.X{i.Id}, i.ToUpdateArray())
 	return !L.IsError(err, `InvoicePayment.DoOverwriteById failed: `+i.SpaceName())
 }
 
@@ -65,56 +58,92 @@ func (i *InvoicePaymentMutator) DoUpdateById() bool { //nolint:dupl false positi
 	if !i.HaveMutation() {
 		return true
 	}
-	_, err := i.Adapter.RetryDo(
-		tarantool.NewUpdateRequest(i.SpaceName()).
-			Index(i.UniqueIndexId()).
-			Key(tarantool.UintKey{I: uint(i.Id)}).
-			Operations(i.mutations),
-	)
+	_, err := i.Adapter.Update(i.SpaceName(), i.UniqueIndexId(), A.X{i.Id}, i.mutations)
 	return !L.IsError(err, `InvoicePayment.DoUpdateById failed: `+i.SpaceName())
 }
 
 // DoDeletePermanentById permanent delete
 func (i *InvoicePaymentMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
-	_, err := i.Adapter.RetryDo(
-		tarantool.NewDeleteRequest(i.SpaceName()).
-			Index(i.UniqueIndexId()).
-			Key(tarantool.UintKey{I: uint(i.Id)}),
-	)
+	_, err := i.Adapter.Delete(i.SpaceName(), i.UniqueIndexId(), A.X{i.Id})
 	return !L.IsError(err, `InvoicePayment.DoDeletePermanentById failed: `+i.SpaceName())
+}
+
+// func (i *InvoicePaymentMutator) DoUpsert() bool { //nolint:dupl false positive
+//	arr := i.ToArray()
+//	_, err := i.Adapter.Upsert(i.SpaceName(), arr, A.X{
+//		A.X{`=`, 0, i.Id},
+//		A.X{`=`, 1, i.UserId},
+//		A.X{`=`, 2, i.InvoiceNumber},
+//		A.X{`=`, 3, i.Amount},
+//		A.X{`=`, 4, i.Currency},
+//		A.X{`=`, 5, i.PaymentMethod},
+//		A.X{`=`, 6, i.ResponseHeader},
+//		A.X{`=`, 7, i.ResponseBody},
+//		A.X{`=`, 8, i.Status},
+//		A.X{`=`, 9, i.CreatedAt},
+//		A.X{`=`, 10, i.CreatedBy},
+//		A.X{`=`, 11, i.UpdatedAt},
+//		A.X{`=`, 12, i.UpdatedBy},
+//		A.X{`=`, 13, i.DeletedAt},
+//		A.X{`=`, 14, i.DeletedBy},
+//		A.X{`=`, 15, i.RestoredBy},
+//	})
+//	return !L.IsError(err, `InvoicePayment.DoUpsert failed: `+i.SpaceName()+ `\n%#v`, arr)
+// }
+
+// DoOverwriteByInvoiceNumber update all columns, error if not exists, not using mutations/Set*
+func (i *InvoicePaymentMutator) DoOverwriteByInvoiceNumber() bool { //nolint:dupl false positive
+	_, err := i.Adapter.Update(i.SpaceName(), i.UniqueIndexInvoiceNumber(), A.X{i.InvoiceNumber}, i.ToUpdateArray())
+	return !L.IsError(err, `InvoicePayment.DoOverwriteByInvoiceNumber failed: `+i.SpaceName())
+}
+
+// DoUpdateByInvoiceNumber update only mutated fields, error if not exists, use Find* and Set* methods instead of direct assignment
+func (i *InvoicePaymentMutator) DoUpdateByInvoiceNumber() bool { //nolint:dupl false positive
+	if !i.HaveMutation() {
+		return true
+	}
+	_, err := i.Adapter.Update(i.SpaceName(), i.UniqueIndexInvoiceNumber(), A.X{i.InvoiceNumber}, i.mutations)
+	return !L.IsError(err, `InvoicePayment.DoUpdateByInvoiceNumber failed: `+i.SpaceName())
+}
+
+// DoDeletePermanentByInvoiceNumber permanent delete
+func (i *InvoicePaymentMutator) DoDeletePermanentByInvoiceNumber() bool { //nolint:dupl false positive
+	_, err := i.Adapter.Delete(i.SpaceName(), i.UniqueIndexInvoiceNumber(), A.X{i.InvoiceNumber})
+	return !L.IsError(err, `InvoicePayment.DoDeletePermanentByInvoiceNumber failed: `+i.SpaceName())
 }
 
 // DoInsert insert, error if already exists
 func (i *InvoicePaymentMutator) DoInsert() bool { //nolint:dupl false positive
 	arr := i.ToArray()
-	row, err := i.Adapter.RetryDo(
-		tarantool.NewInsertRequest(i.SpaceName()).
-			Tuple(arr),
-	)
+	row, err := i.Adapter.Insert(i.SpaceName(), arr)
 	if err == nil {
-		if len(row) > 0 {
-			if cells, ok := row[0].([]any); ok && len(cells) > 0 {
-				i.Id = X.ToU(cells[0])
-			}
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			i.Id = X.ToU(tup[0][0])
 		}
 	}
 	return !L.IsError(err, `InvoicePayment.DoInsert failed: `+i.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
-// tarantool's replace/upsert can only match by primary key
+// replace = upsert, only error when there's unique secondary key
 // previous name: DoReplace
-func (i *InvoicePaymentMutator) DoUpsertById() bool { //nolint:dupl false positive
-	if i.Id > 0 {
-		return i.DoUpdateById()
+func (i *InvoicePaymentMutator) DoUpsert() bool { //nolint:dupl false positive
+	arr := i.ToArray()
+	row, err := i.Adapter.Replace(i.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			i.Id = X.ToU(tup[0][0])
+		}
 	}
-	return i.DoInsert()
+	return !L.IsError(err, `InvoicePayment.DoUpsert failed: `+i.SpaceName()+`\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate
 func (i *InvoicePaymentMutator) SetId(val uint64) bool { //nolint:dupl false positive
 	if val != i.Id {
-		i.mutations.Assign(0, val)
+		i.mutations = append(i.mutations, A.X{`=`, 0, val})
 		i.logs = append(i.logs, A.X{`id`, i.Id, val})
 		i.Id = val
 		return true
@@ -125,7 +154,7 @@ func (i *InvoicePaymentMutator) SetId(val uint64) bool { //nolint:dupl false pos
 // SetUserId create mutations, should not duplicate
 func (i *InvoicePaymentMutator) SetUserId(val uint64) bool { //nolint:dupl false positive
 	if val != i.UserId {
-		i.mutations.Assign(1, val)
+		i.mutations = append(i.mutations, A.X{`=`, 1, val})
 		i.logs = append(i.logs, A.X{`userId`, i.UserId, val})
 		i.UserId = val
 		return true
@@ -136,7 +165,7 @@ func (i *InvoicePaymentMutator) SetUserId(val uint64) bool { //nolint:dupl false
 // SetInvoiceNumber create mutations, should not duplicate
 func (i *InvoicePaymentMutator) SetInvoiceNumber(val string) bool { //nolint:dupl false positive
 	if val != i.InvoiceNumber {
-		i.mutations.Assign(2, val)
+		i.mutations = append(i.mutations, A.X{`=`, 2, val})
 		i.logs = append(i.logs, A.X{`invoiceNumber`, i.InvoiceNumber, val})
 		i.InvoiceNumber = val
 		return true
@@ -147,7 +176,7 @@ func (i *InvoicePaymentMutator) SetInvoiceNumber(val string) bool { //nolint:dup
 // SetAmount create mutations, should not duplicate
 func (i *InvoicePaymentMutator) SetAmount(val int64) bool { //nolint:dupl false positive
 	if val != i.Amount {
-		i.mutations.Assign(3, val)
+		i.mutations = append(i.mutations, A.X{`=`, 3, val})
 		i.logs = append(i.logs, A.X{`amount`, i.Amount, val})
 		i.Amount = val
 		return true
@@ -158,7 +187,7 @@ func (i *InvoicePaymentMutator) SetAmount(val int64) bool { //nolint:dupl false 
 // SetCurrency create mutations, should not duplicate
 func (i *InvoicePaymentMutator) SetCurrency(val string) bool { //nolint:dupl false positive
 	if val != i.Currency {
-		i.mutations.Assign(4, val)
+		i.mutations = append(i.mutations, A.X{`=`, 4, val})
 		i.logs = append(i.logs, A.X{`currency`, i.Currency, val})
 		i.Currency = val
 		return true
@@ -169,7 +198,7 @@ func (i *InvoicePaymentMutator) SetCurrency(val string) bool { //nolint:dupl fal
 // SetPaymentMethod create mutations, should not duplicate
 func (i *InvoicePaymentMutator) SetPaymentMethod(val string) bool { //nolint:dupl false positive
 	if val != i.PaymentMethod {
-		i.mutations.Assign(5, val)
+		i.mutations = append(i.mutations, A.X{`=`, 5, val})
 		i.logs = append(i.logs, A.X{`paymentMethod`, i.PaymentMethod, val})
 		i.PaymentMethod = val
 		return true
@@ -180,7 +209,7 @@ func (i *InvoicePaymentMutator) SetPaymentMethod(val string) bool { //nolint:dup
 // SetResponseHeader create mutations, should not duplicate
 func (i *InvoicePaymentMutator) SetResponseHeader(val string) bool { //nolint:dupl false positive
 	if val != i.ResponseHeader {
-		i.mutations.Assign(6, val)
+		i.mutations = append(i.mutations, A.X{`=`, 6, val})
 		i.logs = append(i.logs, A.X{`responseHeader`, i.ResponseHeader, val})
 		i.ResponseHeader = val
 		return true
@@ -191,7 +220,7 @@ func (i *InvoicePaymentMutator) SetResponseHeader(val string) bool { //nolint:du
 // SetResponseBody create mutations, should not duplicate
 func (i *InvoicePaymentMutator) SetResponseBody(val string) bool { //nolint:dupl false positive
 	if val != i.ResponseBody {
-		i.mutations.Assign(7, val)
+		i.mutations = append(i.mutations, A.X{`=`, 7, val})
 		i.logs = append(i.logs, A.X{`responseBody`, i.ResponseBody, val})
 		i.ResponseBody = val
 		return true
@@ -202,7 +231,7 @@ func (i *InvoicePaymentMutator) SetResponseBody(val string) bool { //nolint:dupl
 // SetStatus create mutations, should not duplicate
 func (i *InvoicePaymentMutator) SetStatus(val string) bool { //nolint:dupl false positive
 	if val != i.Status {
-		i.mutations.Assign(8, val)
+		i.mutations = append(i.mutations, A.X{`=`, 8, val})
 		i.logs = append(i.logs, A.X{`status`, i.Status, val})
 		i.Status = val
 		return true
@@ -213,7 +242,7 @@ func (i *InvoicePaymentMutator) SetStatus(val string) bool { //nolint:dupl false
 // SetCreatedAt create mutations, should not duplicate
 func (i *InvoicePaymentMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != i.CreatedAt {
-		i.mutations.Assign(9, val)
+		i.mutations = append(i.mutations, A.X{`=`, 9, val})
 		i.logs = append(i.logs, A.X{`createdAt`, i.CreatedAt, val})
 		i.CreatedAt = val
 		return true
@@ -224,7 +253,7 @@ func (i *InvoicePaymentMutator) SetCreatedAt(val int64) bool { //nolint:dupl fal
 // SetCreatedBy create mutations, should not duplicate
 func (i *InvoicePaymentMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != i.CreatedBy {
-		i.mutations.Assign(10, val)
+		i.mutations = append(i.mutations, A.X{`=`, 10, val})
 		i.logs = append(i.logs, A.X{`createdBy`, i.CreatedBy, val})
 		i.CreatedBy = val
 		return true
@@ -235,7 +264,7 @@ func (i *InvoicePaymentMutator) SetCreatedBy(val uint64) bool { //nolint:dupl fa
 // SetUpdatedAt create mutations, should not duplicate
 func (i *InvoicePaymentMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != i.UpdatedAt {
-		i.mutations.Assign(11, val)
+		i.mutations = append(i.mutations, A.X{`=`, 11, val})
 		i.logs = append(i.logs, A.X{`updatedAt`, i.UpdatedAt, val})
 		i.UpdatedAt = val
 		return true
@@ -246,7 +275,7 @@ func (i *InvoicePaymentMutator) SetUpdatedAt(val int64) bool { //nolint:dupl fal
 // SetUpdatedBy create mutations, should not duplicate
 func (i *InvoicePaymentMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != i.UpdatedBy {
-		i.mutations.Assign(12, val)
+		i.mutations = append(i.mutations, A.X{`=`, 12, val})
 		i.logs = append(i.logs, A.X{`updatedBy`, i.UpdatedBy, val})
 		i.UpdatedBy = val
 		return true
@@ -257,7 +286,7 @@ func (i *InvoicePaymentMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl fa
 // SetDeletedAt create mutations, should not duplicate
 func (i *InvoicePaymentMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != i.DeletedAt {
-		i.mutations.Assign(13, val)
+		i.mutations = append(i.mutations, A.X{`=`, 13, val})
 		i.logs = append(i.logs, A.X{`deletedAt`, i.DeletedAt, val})
 		i.DeletedAt = val
 		return true
@@ -268,7 +297,7 @@ func (i *InvoicePaymentMutator) SetDeletedAt(val int64) bool { //nolint:dupl fal
 // SetDeletedBy create mutations, should not duplicate
 func (i *InvoicePaymentMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
 	if val != i.DeletedBy {
-		i.mutations.Assign(14, val)
+		i.mutations = append(i.mutations, A.X{`=`, 14, val})
 		i.logs = append(i.logs, A.X{`deletedBy`, i.DeletedBy, val})
 		i.DeletedBy = val
 		return true
@@ -279,7 +308,7 @@ func (i *InvoicePaymentMutator) SetDeletedBy(val uint64) bool { //nolint:dupl fa
 // SetRestoredBy create mutations, should not duplicate
 func (i *InvoicePaymentMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
 	if val != i.RestoredBy {
-		i.mutations.Assign(15, val)
+		i.mutations = append(i.mutations, A.X{`=`, 15, val})
 		i.logs = append(i.logs, A.X{`restoredBy`, i.RestoredBy, val})
 		i.RestoredBy = val
 		return true

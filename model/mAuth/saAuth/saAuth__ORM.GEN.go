@@ -113,7 +113,7 @@ func (a *ActionLogs) ScanRowsAllCols(rows *sql.Rows, estimateRows int) (res []Ac
 
 // insert, error if exists
 func (a *ActionLogs) SqlInsert() string { //nolint:dupl false positive
-	return `INSERT INTO ` + a.SqlTableName() + ` (` + a.SqlAllFields() + `) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`
+	return `INSERT INTO ` + a.SqlTableName() + `(` + a.SqlAllFields() + `) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`
 }
 
 func (a *ActionLogs) SqlCount() string { //nolint:dupl false positive

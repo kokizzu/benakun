@@ -253,6 +253,7 @@ AND ` + o.SqlOrgType() + ` = ` + I.ToS(mAuth.OrgTypeCompany) + ` LIMIT 1`
 SELECT ` + o.SqlSelectAllFields() + `
 FROM /* SEQSCAN */ ` + o.SqlTableName() + whereAndSql
 
+	L.Print(queryRows)
 	o.Adapter.QuerySql(queryRows, func(row []any) {
 		o.FromArray(row)
 	})

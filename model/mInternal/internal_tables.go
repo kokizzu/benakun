@@ -57,5 +57,6 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,
+		Unique1:         InvoiceNumber,
 	},
 }

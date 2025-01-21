@@ -35,11 +35,8 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 		google.ResponseCommon.DecorateSession(c)
 
-		var myCompany *rqAuth.Orgs = &rqAuth.Orgs{}
-		if user != nil && user.TenantCode != `` {
-			myCompany = rqAuth.NewOrgs(d.AuthOltp)
-			myCompany.FindCompanyByTenantCode(user.TenantCode)
-		}
+		myCompany := rqAuth.NewOrgs(d.AuthOltp)
+		myCompany.FindCompanyByTenantCode(user.TenantCode)
 
 		return views.RenderIndex(c, M.SX{
 			`title`:     `BenAkun`,
@@ -909,8 +906,12 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	})
 
 	fw.Get(`/`+domain.UserPaymentResultAction, func(ctx *fiber.Ctx) error {
+		invoiceNumber := ctx.Query(`invoiceNumber`)
+		if invoiceNumber != `` {
+			invoiceNumber = `"` + invoiceNumber + `"`
+		}
 		return views.RenderUserPaymentResult(ctx, M.SX{
-			`title`: `Payment Result`,
+			`title`: `Payment Result ` + invoiceNumber,
 		})
 	})
 

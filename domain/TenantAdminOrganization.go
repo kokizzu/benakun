@@ -190,7 +190,7 @@ func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out Ten
 			}
 		}
 
-		if !org.DoUpsertById() {
+		if !org.DoUpsert() {
 			out.SetError(400, ErrTenantAdminOrganizationUpdatedChilds)
 			return
 		}
@@ -208,7 +208,7 @@ func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out Ten
 				}
 
 				org.SetParentId(parent.Id)
-				if !org.DoUpsertById() {
+				if !org.DoUpsert() {
 					out.SetError(400, ErrTenantAdminOrganizationUpdatedChilds)
 					return
 				}

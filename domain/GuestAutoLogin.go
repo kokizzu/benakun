@@ -73,7 +73,7 @@ func (d *Domain) GuestAutoLogin(in *GuestAutoLoginIn) (out GuestAutoLoginOut) {
 
 	user.SetLastLoginAt(in.UnixNow())
 	user.SetUpdatedAt(in.UnixNow()) // to expire the autologin
-	if !user.DoUpsertById() {
+	if !user.DoUpsert() {
 		out.AddTrace(WarnFailedSetLastLoginAt)
 		return
 	}

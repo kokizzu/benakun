@@ -5,7 +5,7 @@ package rqInternal
 import (
 	"benakun/model/mInternal"
 
-	"github.com/tarantool/go-tarantool/v2"
+	"github.com/tarantool/go-tarantool"
 
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/D/Tt"
@@ -60,21 +60,33 @@ func (i *InvoicePayment) UniqueIndexId() string { //nolint:dupl false positive
 
 // FindById Find one by Id
 func (i *InvoicePayment) FindById() bool { //nolint:dupl false positive
-	res, err := i.Adapter.RetryDo(
-		tarantool.NewSelectRequest(i.SpaceName()).
-			Index(i.UniqueIndexId()).
-			Limit(1).
-			Iterator(tarantool.IterEq).
-			Key(tarantool.UintKey{I: uint(i.Id)}),
-	)
+	res, err := i.Adapter.Select(i.SpaceName(), i.UniqueIndexId(), 0, 1, tarantool.IterEq, A.X{i.Id})
 	if L.IsError(err, `InvoicePayment.FindById failed: `+i.SpaceName()) {
 		return false
 	}
-	if len(res) == 1 {
-		if row, ok := res[0].([]any); ok {
-			i.FromArray(row)
-			return true
-		}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		i.FromArray(rows[0])
+		return true
+	}
+	return false
+}
+
+// UniqueIndexInvoiceNumber return unique index name
+func (i *InvoicePayment) UniqueIndexInvoiceNumber() string { //nolint:dupl false positive
+	return `invoiceNumber`
+}
+
+// FindByInvoiceNumber Find one by InvoiceNumber
+func (i *InvoicePayment) FindByInvoiceNumber() bool { //nolint:dupl false positive
+	res, err := i.Adapter.Select(i.SpaceName(), i.UniqueIndexInvoiceNumber(), 0, 1, tarantool.IterEq, A.X{i.InvoiceNumber})
+	if L.IsError(err, `InvoicePayment.FindByInvoiceNumber failed: `+i.SpaceName()) {
+		return false
+	}
+	rows := res.Tuples()
+	if len(rows) == 1 {
+		i.FromArray(rows[0])
+		return true
 	}
 	return false
 }
@@ -122,24 +134,25 @@ func (i *InvoicePayment) SqlSelectAllUncensoredFields() string { //nolint:dupl f
 }
 
 // ToUpdateArray generate slice of update command
-func (i *InvoicePayment) ToUpdateArray() *tarantool.Operations { //nolint:dupl false positive
-	return tarantool.NewOperations().
-		Assign(0, i.Id).
-		Assign(1, i.UserId).
-		Assign(2, i.InvoiceNumber).
-		Assign(3, i.Amount).
-		Assign(4, i.Currency).
-		Assign(5, i.PaymentMethod).
-		Assign(6, i.ResponseHeader).
-		Assign(7, i.ResponseBody).
-		Assign(8, i.Status).
-		Assign(9, i.CreatedAt).
-		Assign(10, i.CreatedBy).
-		Assign(11, i.UpdatedAt).
-		Assign(12, i.UpdatedBy).
-		Assign(13, i.DeletedAt).
-		Assign(14, i.DeletedBy).
-		Assign(15, i.RestoredBy)
+func (i *InvoicePayment) ToUpdateArray() A.X { //nolint:dupl false positive
+	return A.X{
+		A.X{`=`, 0, i.Id},
+		A.X{`=`, 1, i.UserId},
+		A.X{`=`, 2, i.InvoiceNumber},
+		A.X{`=`, 3, i.Amount},
+		A.X{`=`, 4, i.Currency},
+		A.X{`=`, 5, i.PaymentMethod},
+		A.X{`=`, 6, i.ResponseHeader},
+		A.X{`=`, 7, i.ResponseBody},
+		A.X{`=`, 8, i.Status},
+		A.X{`=`, 9, i.CreatedAt},
+		A.X{`=`, 10, i.CreatedBy},
+		A.X{`=`, 11, i.UpdatedAt},
+		A.X{`=`, 12, i.UpdatedBy},
+		A.X{`=`, 13, i.DeletedAt},
+		A.X{`=`, 14, i.DeletedBy},
+		A.X{`=`, 15, i.RestoredBy},
+	}
 }
 
 // IdxId return name of the index
@@ -373,22 +386,13 @@ func (i *InvoicePayment) FromUncensoredArray(a A.X) *InvoicePayment { //nolint:d
 // FindOffsetLimit returns slice of struct, order by idx, eg. .UniqueIndex*()
 func (i *InvoicePayment) FindOffsetLimit(offset, limit uint32, idx string) []InvoicePayment { //nolint:dupl false positive
 	var rows []InvoicePayment
-	res, err := i.Adapter.RetryDo(
-		tarantool.NewSelectRequest(i.SpaceName()).
-			Index(idx).
-			Offset(offset).
-			Limit(limit).
-			Iterator(tarantool.IterAll),
-	)
+	res, err := i.Adapter.Select(i.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
 	if L.IsError(err, `InvoicePayment.FindOffsetLimit failed: `+i.SpaceName()) {
 		return rows
 	}
-	for _, row := range res {
+	for _, row := range res.Tuples() {
 		item := InvoicePayment{}
-		row, ok := row.([]any)
-		if ok {
-			rows = append(rows, *item.FromArray(row))
-		}
+		rows = append(rows, *item.FromArray(row))
 	}
 	return rows
 }
@@ -396,28 +400,16 @@ func (i *InvoicePayment) FindOffsetLimit(offset, limit uint32, idx string) []Inv
 // FindArrOffsetLimit returns as slice of slice order by idx eg. .UniqueIndex*()
 func (i *InvoicePayment) FindArrOffsetLimit(offset, limit uint32, idx string) ([]A.X, Tt.QueryMeta) { //nolint:dupl false positive
 	var rows []A.X
-	resp, err := i.Adapter.RetryDoResp(
-		tarantool.NewSelectRequest(i.SpaceName()).
-			Index(idx).
-			Offset(offset).
-			Limit(limit).
-			Iterator(tarantool.IterAll),
-	)
+	res, err := i.Adapter.Select(i.SpaceName(), idx, offset, limit, tarantool.IterAll, A.X{})
 	if L.IsError(err, `InvoicePayment.FindOffsetLimit failed: `+i.SpaceName()) {
-		return rows, Tt.QueryMetaFrom(resp, err)
+		return rows, Tt.QueryMetaFrom(res, err)
 	}
-	res, err := resp.Decode()
-	if L.IsError(err, `InvoicePayment.FindOffsetLimit failed: `+i.SpaceName()) {
-		return rows, Tt.QueryMetaFrom(resp, err)
+	tuples := res.Tuples()
+	rows = make([]A.X, len(tuples))
+	for z, row := range tuples {
+		rows[z] = row
 	}
-	rows = make([]A.X, len(res))
-	for _, row := range res {
-		row, ok := row.([]any)
-		if ok {
-			rows = append(rows, row)
-		}
-	}
-	return rows, Tt.QueryMetaFrom(resp, nil)
+	return rows, Tt.QueryMetaFrom(res, nil)
 }
 
 // Total count number of rows
