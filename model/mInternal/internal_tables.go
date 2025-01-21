@@ -35,6 +35,15 @@ const (
 	CurrencyUSD = `USD`
 )
 
+type DOKUPaymentNotificationHeader struct {
+	XTimeStamp       string `json:"X-TIMESTAMP"`       // "2025-01-19T08:59:16Z"
+	XSignature       string `json:"X-SIGNATURE"`       // "HMACSHA256=Z4HbaEBoWfRDmhmt27fNkKqIg+KQlXYLaJRaKAPhMNQ="
+	ClientId         string `json:"Client-Id"`         // "BRN-0248-1736342136769"
+	RequestId        string `json:"Request-Id"`        // "422fb1f9-577a-4e06-a11c-691fe553bc3c"
+	Signature        string `json:"Signature"`         // "HMACSHA256=Leck4V4j6LoGUT95ftNklJo9lt1uxNuzB1FxLghvC6I="
+	RequestTimestamp string `json:"Request-Timestamp"` // "2025-01-19T08:59:17Z"
+}
+
 var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 	TableInvoicePayment: {
 		Fields: []Tt.Field{

@@ -3033,16 +3033,49 @@ exports.UserPaymentCancel = async function UserPaymentCancel( i, cb ) {
 
 /**
  * @typedef {Object} UserPaymentResultIn
+ * @property {String} invoiceNumber
  */
 const UserPaymentResultIn = {
+  invoiceNumber: '', // string
 }
 /**
  * @typedef {Object} UserPaymentResultOut
- * @property {Object} request
+ * @property {number} invoicePayment.id
+ * @property {number} invoicePayment.userId
+ * @property {String} invoicePayment.invoiceNumber
+ * @property {number} invoicePayment.amount
+ * @property {String} invoicePayment.currency
+ * @property {String} invoicePayment.paymentMethod
+ * @property {String} invoicePayment.responseHeader
+ * @property {String} invoicePayment.responseBody
+ * @property {String} invoicePayment.status
+ * @property {number} invoicePayment.createdAt
+ * @property {number} invoicePayment.createdBy
+ * @property {number} invoicePayment.updatedAt
+ * @property {number} invoicePayment.updatedBy
+ * @property {number} invoicePayment.deletedAt
+ * @property {number} invoicePayment.deletedBy
+ * @property {number} invoicePayment.restoredBy
  */
 const UserPaymentResultOut = {
-  request: { // RequestCommon
-  }, // RequestCommon
+  invoicePayment: { // rqInternal.InvoicePayment
+    id: 0, // uint64
+    userId: 0, // uint64
+    invoiceNumber: '', // string
+    amount: 0, // int64
+    currency: '', // string
+    paymentMethod: '', // string
+    responseHeader: '', // string
+    responseBody: '', // string
+    status: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+  }, // rqInternal.InvoicePayment
 }
 /**
  * @callback UserPaymentResultCallback

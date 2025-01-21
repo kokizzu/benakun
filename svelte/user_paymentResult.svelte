@@ -1,5 +1,44 @@
 <script>
+  /** @typedef {import('./_components/types/invoicePayment').InvoicePayment} InvoicePayment */
 
+  import { onMount } from 'svelte';
+  import { UserPaymentResult } from './jsApi.GEN';
+  import { notifier } from './_components/xNotifier';
+
+  const InvoiceStatusPending  = `pending`;
+	const InvoiceStatusSuccess  = `success`;
+	const InvoiceStatusFailed   = `failed`;
+	const InvoiceStatusCanceled = `canceled`;
+
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+
+  let invoicePayment = /** @type {InvoicePayment} */ ({});
+
+  async function fetchPaymentResult() {
+    await UserPaymentResult(
+    /** @type {import('./jsApi.GEN').UserPaymentResultIn | any} */ ({
+      invoiceNumber: urlParams.get('invoiceNumber'),
+    }), /** @type {import('./jsApi.GEN').UserPaymentResultCallback | any} */ async (/** @type {any} */ res) => {
+      if (res.error) {
+        notifier.showError(res.error || 'failed to fetch payment result');
+        return;
+      }
+
+      invoicePayment = res.invoicePayment;
+      if (invoicePayment.status === InvoiceStatusPending) {
+        setTimeout(() => {
+          fetchPaymentResult();
+        }, 1300);
+      }
+
+      return;
+    });
+  }
+
+  onMount(async () => {
+    await fetchPaymentResult();
+  });
 </script>
 
 <div class="root-layout">
@@ -12,6 +51,14 @@
       />
       <div class="content">
         <h1>Payment Success</h1>
+        {#if invoicePayment.status === InvoiceStatusPending}
+          <p>Please wait...</p>
+        {/if}
+
+        {#if invoicePayment.status !== InvoiceStatusPending}
+          <p>Invoice status : {invoicePayment.status}</p>
+        {/if}
+
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore officia sed illo neque quae non blanditiis, voluptate impedit, numquam quis totam iste provident perspiciatis sapiente, et expedita. Doloribus, animi consequuntur.</p>
       </div>
     </div>

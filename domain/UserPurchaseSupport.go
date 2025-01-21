@@ -151,6 +151,12 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 			return
 		}
 
+		if resp.StatusCode() != 200 {
+			L.Print(string(resp.Body()))
+			out.SetError(500, ErrUserPurchaseSupportUserConnection)
+			return
+		}
+
 		var respBody M.SX
 		err = json.Unmarshal(resp.Body(), &respBody)
 		if err != nil {
@@ -170,7 +176,12 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 		invoice.SetAmount(X.ToI(invAmount))
 		invoice.SetCurrency(mInternal.CurrencyIDR)
 		invoice.SetStatus(mInternal.InvoiceStatusPending)
-		invoice.SetInvoiceNumber(X.ToS(invNumber))
+
+		invoice.InvoiceNumber = X.ToS(invNumber)
+		if !invoice.FindByInvoiceNumber() {
+			invoice.SetInvoiceNumber(X.ToS(invNumber))
+		}
+
 		invoice.SetUserId(sess.UserId)
 		invoice.SetCreatedAt(in.UnixNow())
 		invoice.SetCreatedBy(sess.UserId)
@@ -178,8 +189,10 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 		invoice.SetUpdatedBy(sess.UserId)
 
 		if !invoice.DoInsert() {
-			out.SetError(500, ErrUserPurchaseSupportUserFailedInsertInvoice)
-			return
+			if !invoice.DoOverwriteByInvoiceNumber() {
+				out.SetError(500, ErrUserPurchaseSupportUserFailedInsertInvoice)
+				return
+			}
 		}
 
 		out.PaymentResponse = respBody

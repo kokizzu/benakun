@@ -1,7 +1,6 @@
 package presentation
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -35,8 +34,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 		google.ResponseCommon.DecorateSession(c)
 
-		myCompany := rqAuth.NewOrgs(d.AuthOltp)
-		myCompany.FindCompanyByTenantCode(user.TenantCode)
+		var myCompany *rqAuth.Orgs = &rqAuth.Orgs{}
+		if user != nil && user.TenantCode != `` {
+			myCompany = rqAuth.NewOrgs(d.AuthOltp)
+			myCompany.FindCompanyByTenantCode(user.TenantCode)
+		}
 
 		return views.RenderIndex(c, M.SX{
 			`title`:     `BenAkun`,
@@ -81,11 +83,7 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		})
 	})
 
-	// TEST
-	fw.All(`/payments/notifications`, func(c *fiber.Ctx) error {
-		fmt.Println(string(c.Body()))
-		return c.SendStatus(fiber.StatusOK)
-	})
+	fw.All(`/payments/notifications`, d.PaymentsNotifications)
 
 	fw.Get(`/`+domain.UserResponseInvitationAction, func(c *fiber.Ctx) error {
 		var in domain.UserResponseInvitationIn
@@ -906,12 +904,25 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 	})
 
 	fw.Get(`/`+domain.UserPaymentResultAction, func(ctx *fiber.Ctx) error {
-		invoiceNumber := ctx.Query(`invoiceNumber`)
-		if invoiceNumber != `` {
-			invoiceNumber = `"` + invoiceNumber + `"`
+		var in domain.UserPaymentResultIn
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.SuperAdminTenantManagementAction)
+		if err != nil {
+			return err
 		}
+		if notLogin(d, in.RequestCommon, true) {
+			return ctx.Redirect(`/`, 302)
+		}
+		user, segments := userInfoFromRequest(in.RequestCommon, d)
+
+		if in.InvoiceNumber != `` {
+			in.InvoiceNumber = `"` + in.InvoiceNumber + `"`
+		}
+
+		d.UserPaymentResult(&in)
 		return views.RenderUserPaymentResult(ctx, M.SX{
-			`title`: `Payment Result ` + invoiceNumber,
+			`title`:    `Payment Result ` + in.InvoiceNumber,
+			`segments`: segments,
+			`user`:     user,
 		})
 	})
 

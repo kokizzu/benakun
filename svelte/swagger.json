@@ -4473,6 +4473,7 @@
 				}
 			}
 		},
+		"/user/paymentCancel": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -4510,6 +4511,7 @@
 				}
 			}
 		},
+		"/user/paymentResult": {
 			"post": {
 				"security": [{
 					"CookieAuth": []
@@ -4521,6 +4523,9 @@
 							"schema": {
 								"type": "object",
 								"properties": {
+						"invoiceNumber": {
+								"type": "string"
+						}
 								}
 							}
 						}
@@ -4534,9 +4539,57 @@
 								"schema": {
 									"type": "object",
 									"properties": {
-										"request": {
+										"invoicePayment": {
 										"type": "object",
 										"properties": {
+												"id": {
+														"type": "number"
+												},
+												"userId": {
+														"type": "number"
+												},
+												"invoiceNumber": {
+														"type": "string"
+												},
+												"amount": {
+														"type": "number"
+												},
+												"currency": {
+														"type": "string"
+												},
+												"paymentMethod": {
+														"type": "string"
+												},
+												"responseHeader": {
+														"type": "string"
+												},
+												"responseBody": {
+														"type": "string"
+												},
+												"status": {
+														"type": "string"
+												},
+												"createdAt": {
+														"type": "number"
+												},
+												"createdBy": {
+														"type": "number"
+												},
+												"updatedAt": {
+														"type": "number"
+												},
+												"updatedBy": {
+														"type": "number"
+												},
+												"deletedAt": {
+														"type": "number"
+												},
+												"deletedBy": {
+														"type": "number"
+												},
+												"restoredBy": {
+														"type": "number"
+												}
 												}
 										}
 									}
