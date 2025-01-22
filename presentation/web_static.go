@@ -905,11 +905,11 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 
 	fw.Get(`/`+domain.UserPaymentResultAction, func(ctx *fiber.Ctx) error {
 		var in domain.UserPaymentResultIn
-		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.SuperAdminTenantManagementAction)
+		err := webApiParseInput(ctx, &in.RequestCommon, &in, domain.UserPaymentResultAction)
 		if err != nil {
 			return err
 		}
-		if notLogin(d, in.RequestCommon, true) {
+		if notLogin(d, in.RequestCommon, false) {
 			return ctx.Redirect(`/`, 302)
 		}
 		user, segments := userInfoFromRequest(in.RequestCommon, d)

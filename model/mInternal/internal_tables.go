@@ -24,10 +24,10 @@ const (
 const (
 	TableInvoicePayment Tt.TableName = `invoicePayment`
 
-	InvoiceStatusPending  = `pending`
-	InvoiceStatusSuccess  = `success`
-	InvoiceStatusFailed   = `failed`
-	InvoiceStatusCanceled = `canceled`
+	InvoiceStatusPending   = `pending`
+	InvoiceStatusSuccess   = `success`
+	InvoiceStatusFailed    = `failed`
+	InvoiceStatusCancelled = `cancelled`
 )
 
 const (

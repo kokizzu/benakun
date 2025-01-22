@@ -4,6 +4,7 @@
   import { onMount } from 'svelte';
   import { UserPaymentResult } from './jsApi.GEN';
   import { notifier } from './_components/xNotifier';
+  import { isoTime } from './_components/xformatter';
 
   const InvoiceStatusPending  = `pending`;
 	const InvoiceStatusSuccess  = `success`;
@@ -44,22 +45,71 @@
 <div class="root-layout">
   <section class="payment-container">
     <div class="box shadow">
-      <img
-        src="/assets/icons/payment-success.png"
-        alt="Payment Success"
-        class="icon"
-      />
+      {#if invoicePayment.status === InvoiceStatusPending}
+        <p>Please wait...</p>
+      {/if}
+      {#if invoicePayment.status === InvoiceStatusSuccess}
+        <img
+          src="/assets/icons/payment-success.png"
+          alt="Payment Success"
+          class="icon"
+        />
+      {/if}
+      {#if invoicePayment.status === InvoiceStatusFailed}
+        <img
+          src="/assets/icons/payment-failed.png"
+          alt="Payment Failed"
+          class="icon"
+        />
+      {/if}
       <div class="content">
-        <h1>Payment Success</h1>
-        {#if invoicePayment.status === InvoiceStatusPending}
-          <p>Please wait...</p>
+        {#if invoicePayment.status === InvoiceStatusSuccess}
+          <h1>Payment Success</h1>
+          <p>Your payment has been successfully processed. Thank you for completing the transaction.</p>
         {/if}
-
-        {#if invoicePayment.status !== InvoiceStatusPending}
-          <p>Invoice status : {invoicePayment.status}</p>
+        {#if invoicePayment.status === InvoiceStatusFailed}
+          <h1>Payment Failed</h1>
+          <p>Unfortunately, your payment could not be processed. Please review the details below to understand the issue and take corrective action.</p>
         {/if}
-
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore officia sed illo neque quae non blanditiis, voluptate impedit, numquam quis totam iste provident perspiciatis sapiente, et expedita. Doloribus, animi consequuntur.</p>
+        <div class="details">
+          <table>
+            <tr>
+              <th>Invoice Number</th>
+              <td class="sep">:</td>
+              <td>{invoicePayment.invoiceNumber}</td>
+            </tr>
+            <tr>
+              <th>Amount</th>
+              <td class="sep">:</td>
+              <td>{invoicePayment.amount}</td>
+            </tr>
+            <tr>
+              <th>Currency</th>
+              <td class="sep">:</td>
+              <td>{invoicePayment.currency}</td>
+            </tr>
+            <tr>
+              <th>Payment Method</th>
+              <td class="sep">:</td>
+              <td>{invoicePayment.paymentMethod}</td>
+            </tr>
+            <tr>
+              <th>Payment Status</th>
+              <td class="sep">:</td>
+              <td>{invoicePayment.status}</td>
+            </tr>
+            <tr>
+              <th>Payment Date</th>
+              <td class="sep">:</td>
+              <td>{isoTime(invoicePayment.createdAt)}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="footer">
+        <button class="back" on:click={() => window.location.href = '/'}>
+          Back to home
+        </button>
       </div>
     </div>
   </section>
@@ -112,6 +162,19 @@
     gap: 10px;
   }
 
+  .payment-container .box .content .details {
+    width: 100%;
+  }
+
+  .payment-container .box .content .details table {
+    width: 100%;
+    text-align: left;
+  }
+
+  .payment-container .box .content .details table .sep {
+    padding: 0 10px;
+  }
+
   .payment-container .box .content h1 {
     margin: 0;
     font-size: var(--font-xl);
@@ -120,6 +183,29 @@
   .payment-container .box .content p {
     margin: 0;
     text-align: center;
+  }
+
+  .payment-container .box .footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .payment-container .box .footer .back {
+    width: 100%;
+    background-color: var(--gray-002);
+    border: none;
+    padding: 5px 15px;
+    border-radius: 999px;
+    cursor: pointer;
+    width: fit-content;
+  }
+
+  .payment-container .box .footer .back:hover {
+    background-color: var(--gray-003);
+    border-radius: 999px;
   }
 
   @media only screen and (max-width : 768px) {

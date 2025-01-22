@@ -8,6 +8,8 @@ import (
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/base64"
+	"fmt"
+	"math/rand"
 	"os"
 	"strings"
 	"time"
@@ -96,7 +98,7 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 		}
 
 		timeNow := time.Now().UTC().Format(time.RFC3339)
-		invoiceNumber := "INV-" + timeNow
+		invoiceNumber := generateInvoiceCode()
 
 		payload := M.SX{
 			"order": M.SX{
@@ -244,4 +246,21 @@ func generateDOKUSignature(clientId string, requestId string, requestTimestamp s
 	signature := base64.StdEncoding.EncodeToString(h.Sum(nil))
 	// Prepend encoded result with algorithm info HMACSHA256=
 	return "HMACSHA256=" + signature
+}
+
+func randStringCapitalWithNumber(length int) string {
+	const letterBytes = `ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`
+
+	b := make([]byte, length)
+	for i := range b {
+		b[i] = letterBytes[rand.Intn(len(letterBytes))]
+	}
+
+	return string(b)
+}
+
+func generateInvoiceCode() string {
+	nowFormatted := time.Now().Format("20060102-150405")
+	randString := randStringCapitalWithNumber(6)
+	return fmt.Sprintf("INV-%s-%s", nowFormatted, randString)
 }
