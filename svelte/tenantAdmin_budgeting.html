@@ -12230,7 +12230,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     });
     let if_block1 = (
       /*plan*/
-      ctx[0].deletedAt <= 0 && create_if_block_33(ctx)
+      ctx[0].deletedAt === 0 && create_if_block_33(ctx)
     );
     let if_block2 = (
       /*plan*/
@@ -12454,7 +12454,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         }
         if (
           /*plan*/
-          ctx2[0].deletedAt <= 0
+          ctx2[0].deletedAt === 0
         ) {
           if (if_block1) {
             if_block1.p(ctx2, dirty);

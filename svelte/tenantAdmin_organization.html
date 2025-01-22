@@ -11544,7 +11544,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     let updating_headTitle;
     let updating_heading;
     let t0;
-    let c0;
+    let c;
     let t1;
     let div3;
     let div1;
@@ -11562,12 +11562,10 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     let span1_class_value;
     let t5;
     let div2;
-    let c1;
-    let t6;
     let current_block_type_index;
     let if_block0;
     let div3_class_value;
-    let t7;
+    let t6;
     let if_block1_anchor;
     let current;
     let mounted;
@@ -11637,7 +11635,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     function select_block_type(ctx2, dirty) {
       if (
         /*org*/
-        ctx2[0].deletedAt < 0
+        ctx2[0].deletedAt === 0
       )
         return 0;
       return 1;
@@ -11652,7 +11650,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       c() {
         create_component(popuporg.$.fragment);
         t0 = space();
-        c0 = comment(" svelte-ignore a11y-no-static-element-interactions ");
+        c = comment(" svelte-ignore a11y-no-static-element-interactions ");
         t1 = space();
         div3 = element("div");
         div1 = element("div");
@@ -11665,10 +11663,8 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         t4 = text(t4_value);
         t5 = space();
         div2 = element("div");
-        c1 = comment(" TODO: use org.deletedAt === 0 if tarantool v3 is fixed ");
-        t6 = space();
         if_block0.c();
-        t7 = space();
+        t6 = space();
         if (if_block1)
           if_block1.c();
         if_block1_anchor = empty();
@@ -11693,7 +11689,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       m(target, anchor) {
         mount_component(popuporg, target, anchor);
         insert(target, t0, anchor);
-        insert(target, c0, anchor);
+        insert(target, c, anchor);
         insert(target, t1, anchor);
         insert(target, div3, anchor);
         append(div3, div1);
@@ -11706,10 +11702,8 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         append(span1, t4);
         append(div3, t5);
         append(div3, div2);
-        append(div2, c1);
-        append(div2, t6);
         if_blocks[current_block_type_index].m(div2, null);
-        insert(target, t7, anchor);
+        insert(target, t6, anchor);
         if (if_block1)
           if_block1.m(target, anchor);
         insert(target, if_block1_anchor, anchor);
@@ -11869,10 +11863,10 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       d(detaching) {
         if (detaching) {
           detach(t0);
-          detach(c0);
+          detach(c);
           detach(t1);
           detach(div3);
-          detach(t7);
+          detach(t6);
           detach(if_block1_anchor);
         }
         ctx[17](null);
@@ -11900,6 +11894,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       /** @type Org */
       {}
     ) } = $props;
+    console.log("Org:", org);
     let orgTypeStr = OrgTypeStrCompany;
     let orgIcon = RiBuildingsCommunityLine;
     switch (org.orgType) {

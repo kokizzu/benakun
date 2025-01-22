@@ -238,7 +238,7 @@
         src={RiDesignPencilLine}
       />
     </button>
-    {#if plan.deletedAt <= 0}
+    {#if plan.deletedAt === 0}
       <button
         disabled={isSubmitPlan}
         on:click={deletePlan}

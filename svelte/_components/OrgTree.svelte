@@ -21,6 +21,7 @@
   const dispatch = createEventDispatcher();
   
   export let org = /** @type Org */ ({});
+  console.log('Org:', org);
 
   const OrgTypeStrCompany   = 'company';
   const OrgTypeStrDept      = 'department';
@@ -186,8 +187,7 @@
     <span class="title {org.deletedAt > 0 ? 'deleted' : ''}">{org.name}</span>
   </div>
   <div class="options">
-    <!-- TODO: use org.deletedAt === 0 if tarantool v3 is fixed -->
-    {#if org.deletedAt < 0}
+    {#if org.deletedAt === 0}
       {#if org.orgType !== OrgTypeJob}
         <button
           class="btn"

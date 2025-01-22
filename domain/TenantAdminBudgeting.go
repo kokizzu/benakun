@@ -181,7 +181,7 @@ func (d *Domain) TenantAdminBudgeting(in *TenantAdminBudgetingIn) (out TenantAdm
 		plan.SetUpdatedAt(in.UnixNow())
 		plan.SetUpdatedBy(sess.UserId)
 
-		if !plan.DoUpsert() {
+		if !plan.DoOverwriteById() {
 			out.SetError(500, ErrTenantAdminBudgetingSaveFailed)
 			return
 		}

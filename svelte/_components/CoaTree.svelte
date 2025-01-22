@@ -188,7 +188,7 @@
       {#if coa.tenantLabel !== ''}
         <span class="label tenant">{coa.tenantLabel}</span>
       {/if}
-      {#if coa.deletedAt <= 0}
+      {#if coa.deletedAt == 0}
         <button class="btn" title="Add child" on:click={() => {
           toggleShowPopUpCoa(0, coa.id, '', '');
         }}>

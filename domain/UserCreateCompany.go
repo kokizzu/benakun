@@ -101,8 +101,12 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 	org.SetTenantCode(tenant.TenantCode)
 	org.SetHeadTitle(in.Company.HeadTitle)
 	org.SetOrgType(mAuth.OrgTypeCompany)
+	org.SetCreatedAt(in.UnixNow())
+	org.SetCreatedBy(sess.UserId)
+	org.SetUpdatedAt(in.UnixNow())
+	org.SetUpdatedBy(sess.UserId)
 
-	if !org.DoUpsert() {
+	if !org.DoInsert() {
 		out.SetError(400, ErrUserCreateCompanyAlreadyAdded)
 		return
 	}
@@ -166,7 +170,7 @@ func (d *Domain) UserCreateCompany(in *UserCreateCompanyIn) (out UserCreateCompa
 			coa.SetParentId(parentId)
 		}
 
-		if !coa.DoUpdateById() {
+		if !coa.DoInsert() {
 			return 0, errors.New(ErrUserCreateCompanyFailedSaveDefaultCoa)
 		}
 
