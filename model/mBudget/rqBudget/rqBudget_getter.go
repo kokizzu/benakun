@@ -15,9 +15,9 @@ func (p *Plans) FindPlansByOrg(orgId uint64) (plans []Plans) {
 	queryRows := comment +
 		`
 SELECT ` + p.SqlSelectAllFields() + `
-FROM /* /* SEQSCAN */CAN */ */ ` + p.SqlTableName() +
+FROM /* SEQSCAN */ ` + p.SqlTableName() +
 		whereAndSql
-	
+
 	p.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0])
 		plans = append(plans, *p.FromArray(row))
@@ -34,7 +34,7 @@ func (p *Plans) IsVisionExist() bool {
 
 	queryRows := comment + `
 SELECT ` + p.SqlPlanType() + `
-FROM /* /* SEQSCAN */CAN */ */ ` + p.SqlTableName() + whereAndSql
+FROM /* SEQSCAN */ ` + p.SqlTableName() + whereAndSql
 
 	p.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
@@ -52,7 +52,7 @@ func (p *Plans) IsMissionExist() bool {
 
 	queryRows := comment + `
 SELECT ` + p.SqlPlanType() + `
-FROM /* /* SEQSCAN */CAN */ */ ` + p.SqlTableName() + whereAndSql
+FROM /* SEQSCAN */ ` + p.SqlTableName() + whereAndSql
 
 	p.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
@@ -76,7 +76,7 @@ WHERE ` + b.SqlTenantCode() + ` = ` + S.Z(b.TenantCode)
 
 	queryCount := comment + `
 SELECT COUNT(1)
-FROM /* /* SEQSCAN */CAN */ */ ` + b.SqlTableName() + whereAndSql + whereAndSql2 + ` 
+FROM /* SEQSCAN  */ ` + b.SqlTableName() + whereAndSql + whereAndSql2 + ` 
 LIMIT 1`
 	b.Adapter.QuerySql(queryCount, func(row []any) {
 		z3.CalculatePages(z2.Page, z2.PerPage, int(X.ToI(row[0])))
@@ -87,7 +87,7 @@ LIMIT 1`
 
 	queryRows := comment + `
 SELECT ` + z.ToSelect() + `
-FROM /* /* SEQSCAN */CAN */ */ ` + b.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
+FROM /* SEQSCAN */ ` + b.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
 	b.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)

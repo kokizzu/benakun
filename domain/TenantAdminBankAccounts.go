@@ -481,7 +481,7 @@ func (d *Domain) TenantAdminBankAccounts(in *TenantAdminBankAccountsIn) (out Ten
 			}
 		}
 
-		if !account.DoUpsert() {
+		if !account.DoOverwriteById() {
 			out.SetError(500, ErrTenantAdminBankAccountsSaveFailed)
 		}
 
