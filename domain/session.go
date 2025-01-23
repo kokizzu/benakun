@@ -280,21 +280,31 @@ func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 		sess.Segments[FieldSupervisorSegment] = true
 		sess.Segments[UserSegment] = true
 		sess.Segments[GuestSegment] = true
+
+		sess.Role = TenantAdminSegment
 	case DataEntrySegment:
 		sess.Segments[DataEntrySegment] = true
 		sess.Segments[UserSegment] = true
 		sess.Segments[GuestSegment] = true
+
+		sess.Role = DataEntrySegment
 	case ReportViewerSegment:
 		sess.Segments[ReportViewerSegment] = true
 		sess.Segments[UserSegment] = true
 		sess.Segments[GuestSegment] = true
+
+		sess.Role = ReportViewerSegment
 	case FieldSupervisorSegment:
 		sess.Segments[FieldSupervisorSegment] = true
 		sess.Segments[UserSegment] = true
 		sess.Segments[GuestSegment] = true
+
+		sess.Role = FieldSupervisorSegment
 	case UserSegment:
 		sess.Segments[GuestSegment] = true
 		sess.Segments[UserSegment] = true
+
+		sess.Role = UserSegment
 	case GuestSegment:
 		sess.Segments[GuestSegment] = true
 	}
@@ -307,6 +317,8 @@ func (d *Domain) MustLogin(in RequestCommon, out *ResponseCommon) (res *Session)
 		sess.Segments[FieldSupervisorSegment] = true
 		sess.Segments[UserSegment] = true
 		sess.Segments[GuestSegment] = true
+
+		sess.Role = SuperAdminSegment
 	}
 
 	if !sess.Segments[UserSegment] && !sess.Segments[SuperAdminSegment] {

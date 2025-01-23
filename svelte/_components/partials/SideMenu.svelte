@@ -61,12 +61,14 @@
         <a
           href="/"
           title="Home"
-          class:active={segment === ''}
+          class:active={segment === '' || window.location.pathname === '/'}
           >
           <Icon
             size="18"
             src={AiOutlineHome}
-            className="{segment === ''  ? 'icon_active' : 'icon_dark'} icon"
+            className="{segment === '' || window.location.pathname === '/'
+              ? 'icon_active' : 'icon_dark'
+            } icon"
           />
           {#if !$IsShrinkMenu}
             <div class="title">

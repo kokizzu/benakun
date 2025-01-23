@@ -20,13 +20,13 @@ import (
 type (
 	TenantAdminBudgetingIn struct {
 		RequestCommon
-		Cmd     string        	`json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		OrgId 	uint64 					`json:"orgId" form:"orgId" query:"orgId" long:"orgId" msg:"orgId"`
-		Plan 		rqBudget.Plans	`json:"plan" form:"plan" query:"plan" long:"plan" msg:"plan"`
+		Cmd   string         `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
+		OrgId uint64         `json:"orgId" form:"orgId" query:"orgId" long:"orgId" msg:"orgId"`
+		Plan  rqBudget.Plans `json:"plan" form:"plan" query:"plan" long:"plan" msg:"plan"`
 	}
 	TenantAdminBudgetingOut struct {
 		ResponseCommon
-		Orgs 	*[]rqAuth.Orgs 		`json:"orgs" form:"orgs" query:"orgs" long:"orgs" msg:"orgs"`
+		Orgs  *[]rqAuth.Orgs    `json:"orgs" form:"orgs" query:"orgs" long:"orgs" msg:"orgs"`
 		Plans *[]rqBudget.Plans `json:"plans" form:"plans" query:"plans" long:"plans" msg:"plans"`
 	}
 )
@@ -34,14 +34,14 @@ type (
 const (
 	TenantAdminBudgetingAction = `tenantAdmin/budgeting`
 
-	ErrTenantAdminBudgetingUnauthorized 			= `unauthorized user`
-	ErrTenantAdminBudgetingTenantNotFound 		= `tenant admin not found`
-	ErrTenantAdminBudgetingOrgNotFound				= `organization not found to get budget plans`
-	ErrTenantAdminBudgetingPlanNotFound				= `budget plan not found`
-	ErrTenantAdminBudgetingParentPlanNotFound	= `could not found parent of budget plan`
-	ErrTenantAdminBudgetingOrgPlanNotFound		= `organization not found to modify budget plan`
+	ErrTenantAdminBudgetingUnauthorized       = `unauthorized user`
+	ErrTenantAdminBudgetingTenantNotFound     = `tenant admin not found`
+	ErrTenantAdminBudgetingOrgNotFound        = `organization not found to get budget plans`
+	ErrTenantAdminBudgetingPlanNotFound       = `budget plan not found`
+	ErrTenantAdminBudgetingParentPlanNotFound = `could not found parent of budget plan`
+	ErrTenantAdminBudgetingOrgPlanNotFound    = `organization not found to modify budget plan`
 	ErrTenantAdminBudgetingInvalidPlanType    = `invalid plan type`
-	ErrTenantAdminBudgetingSaveFailed					= `tenant admin budgeting save failed`
+	ErrTenantAdminBudgetingSaveFailed         = `tenant admin budgeting save failed`
 )
 
 func (d *Domain) TenantAdminBudgeting(in *TenantAdminBudgetingIn) (out TenantAdminBudgetingOut) {
@@ -109,7 +109,7 @@ func (d *Domain) TenantAdminBudgeting(in *TenantAdminBudgetingIn) (out TenantAdm
 
 			switch in.Cmd {
 			case zCrud.CmdUpsert:
-				if plan.Title != in.Plan.Title{
+				if plan.Title != in.Plan.Title {
 					plan.SetTitle(in.Plan.Title)
 				}
 
@@ -181,7 +181,7 @@ func (d *Domain) TenantAdminBudgeting(in *TenantAdminBudgetingIn) (out TenantAdm
 		plan.SetUpdatedAt(in.UnixNow())
 		plan.SetUpdatedBy(sess.UserId)
 
-		if !plan.DoUpsertById() {
+		if !plan.DoOverwriteById() {
 			out.SetError(500, ErrTenantAdminBudgetingSaveFailed)
 			return
 		}

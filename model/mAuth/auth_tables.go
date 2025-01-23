@@ -6,12 +6,22 @@ import (
 )
 
 const (
-	RoleUser         		= `user`
-	RoleTenantAdmin  		= `tenantAdmin`
-	RoleDataEntry    		= `dataEntry`
-	RoleReportViewer 		= `reportViewer`
+	RoleUser            = `user`
+	RoleTenantAdmin     = `tenantAdmin`
+	RoleDataEntry       = `dataEntry`
+	RoleReportViewer    = `reportViewer`
 	RoleFieldSupervisor = `fieldSupervisor`
+	RoleSuperAdmin      = `superAdmin`
 )
+
+var RoleMap = map[string]string{
+	RoleUser:            `User`,
+	RoleTenantAdmin:     `Tenant Admin`,
+	RoleDataEntry:       `Data Entry`,
+	RoleReportViewer:    `Report Viewer`,
+	RoleFieldSupervisor: `Field Supervisor`,
+	RoleSuperAdmin:      `Super Admin`,
+}
 
 func IsValidRole(role string) bool {
 	switch role {
@@ -52,6 +62,7 @@ const (
 	Role               = `role`
 	InvitedAt          = `invitedAt`
 	InvitationState    = `invitationState`
+	SupportExpiredAt   = `supportExpiredAt`
 )
 
 const DefaultPassword = `user12345678`
@@ -91,13 +102,13 @@ const (
 const (
 	TableTenants Tt.TableName = `tenants`
 
-	ProductsCoaId 	= `productsCoaId`
-	SuppliersCoaId	= `suppliersCoaId`
-	CustomersCoaId	= `customersCoaId`
+	ProductsCoaId            = `productsCoaId`
+	SuppliersCoaId           = `suppliersCoaId`
+	CustomersCoaId           = `customersCoaId`
 	CustomerReceivablesCoaId = `customerReceivablesCoaId`
-	StaffsCoaId 		= `staffsCoaId`
-	BanksCoaId 			= `banksCoaId`
-	FundersCoaId		= `fundersCoaId`
+	StaffsCoaId              = `staffsCoaId`
+	BanksCoaId               = `banksCoaId`
+	FundersCoaId             = `fundersCoaId`
 )
 
 func IsCoaDifferent(values ...uint64) bool {
@@ -135,6 +146,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{TenantCode, Tt.String},
 			{Role, Tt.String},
 			{InvitationState, Tt.String},
+			{SupportExpiredAt, Tt.Integer},
 		},
 		AutoIncrementId:  true,
 		Unique1:          Email,

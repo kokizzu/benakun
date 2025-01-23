@@ -20,7 +20,7 @@ func (c *Coa) FindCoasByTenant() (coas []Coa) {
 
 	queryRows := comment + `
 SELECT ` + c.SqlSelectAllFields() + `
-FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
+FROM /* SEQSCAN */ ` + c.SqlTableName() + whereAndSql
 
 	c.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
@@ -200,7 +200,7 @@ func (c *Coa) FindCoasChoicesByTenant() map[string]string {
 
 	queryRows := comment + `
 SELECT ` + c.SqlId() + `, ` + c.SqlName() + `, ` + c.SqlParentId() + `, ` + c.SqlChildren() + `
-FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
+FROM /* SEQSCAN */ ` + c.SqlTableName() + whereAndSql
 
 	coasFromDBs := []coaFromDB{}
 
@@ -247,7 +247,7 @@ func (c *Coa) FindCoasChoicesChildByParentByTenant() map[string]string {
 
 	queryRows := comment + `
 	SELECT ` + c.SqlId() + `, ` + c.SqlName() + `
-	FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
+	FROM /* SEQSCAN */ ` + c.SqlTableName() + whereAndSql
 
 	coaChoices := make(map[string]string)
 	var idx int64 = 1
@@ -268,7 +268,7 @@ func (ttpl *TransactionTemplate) FindTransactionTamplatesChoicesByTenant() map[s
 
 	queryRows := comment + `
 SELECT ` + ttpl.SqlId() + `, ` + ttpl.SqlName() + `
-FROM SEQSCAN ` + ttpl.SqlTableName() + whereAndSql
+FROM /* SEQSCAN */ ` + ttpl.SqlTableName() + whereAndSql
 
 	ttplsChoices := make(map[string]string)
 	ttpl.Adapter.QuerySql(queryRows, func(row []any) {
@@ -292,7 +292,7 @@ func (ttm *TransactionTemplate) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerI
 
 	queryCount := comment + `
 SELECT COUNT(1)
-FROM SEQSCAN ` + ttm.SqlTableName() + whereAndSql + whereAndSql2 + `
+FROM /* SEQSCAN */ ` + ttm.SqlTableName() + whereAndSql + whereAndSql2 + `
 LIMIT 1`
 	ttm.Adapter.QuerySql(queryCount, func(row []any) {
 		z3.CalculatePages(z2.Page, z2.PerPage, int(X.ToI(row[0])))
@@ -303,7 +303,7 @@ LIMIT 1`
 
 	queryRows := comment + `
 SELECT ` + z.ToSelect() + `
-FROM SEQSCAN ` + ttm.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
+FROM /* SEQSCAN */ ` + ttm.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
 	ttm.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
@@ -320,7 +320,7 @@ func (ttm *TransactionTemplate) FindByIdByTenantCode() bool {
 
 	queryRows := comment + `
 SELECT ` + ttm.SqlSelectAllFields() + `
-FROM SEQSCAN ` + ttm.SqlTableName() + whereAndSql
+FROM /* SEQSCAN */ ` + ttm.SqlTableName() + whereAndSql
 
 	var res []any
 	ttm.Adapter.QuerySql(queryRows, func(row []any) {
@@ -344,7 +344,7 @@ func (ttm *TransactionTemplate) FindByNameByTenantCode() bool {
 
 	queryRows := comment + `
 SELECT ` + ttm.SqlSelectAllFields() + `
-FROM SEQSCAN ` + ttm.SqlTableName() + whereAndSql
+FROM /* SEQSCAN */ ` + ttm.SqlTableName() + whereAndSql
 
 	var res []any
 	ttm.Adapter.QuerySql(queryRows, func(row []any) {
@@ -368,7 +368,7 @@ func (tt *TransactionTemplate) FindTransactionTemplatesByTenant() (ttpls []Trans
 
 	queryRows := comment + `
 SELECT ` + tt.SqlSelectAllFields() + `
-FROM SEQSCAN ` + tt.SqlTableName() + whereAndSql
+FROM /* SEQSCAN */ ` + tt.SqlTableName() + whereAndSql
 
 	tt.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
@@ -395,7 +395,7 @@ func (ttpld *TransactionTplDetail) FindTrxTplDetailsByTenantByTrxTplId() (ttplds
 
 	queryRows := comment + `
 SELECT ` + ttpld.SqlSelectAllFields() + `
-FROM SEQSCAN ` + ttpld.SqlTableName() + whereAndSql
+FROM /* SEQSCAN */ ` + ttpld.SqlTableName() + whereAndSql
 
 	ttpld.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
@@ -425,7 +425,7 @@ func (tj *TransactionJournal) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn,
 
 	queryCount := comment + `
 SELECT COUNT(1)
-FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql + whereAndSql2 + `
+FROM /* SEQSCAN */ ` + tj.SqlTableName() + whereAndSql + whereAndSql2 + `
 LIMIT 1`
 	tj.Adapter.QuerySql(queryCount, func(row []any) {
 		z3.CalculatePages(z2.Page, z2.PerPage, int(X.ToI(row[0])))
@@ -436,7 +436,7 @@ LIMIT 1`
 
 	queryRows := comment + `
 SELECT ` + z.ToSelect() + `
-FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
+FROM /* SEQSCAN */ ` + tj.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
 	tj.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
@@ -453,7 +453,7 @@ func (tj *TransactionJournal) FindByIdByTenantCode() bool {
 
 	queryRows := comment + `
 SELECT ` + tj.SqlSelectAllFields() + `
-FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
+FROM /* SEQSCAN */ ` + tj.SqlTableName() + whereAndSql
 
 	var res []any
 	tj.Adapter.QuerySql(queryRows, func(row []any) {
@@ -477,7 +477,7 @@ func (tj *TransactionJournal) FindTrxJournalsByTenant() (trxJournals []Transacti
 
 	queryRows := comment + `
 SELECT ` + tj.SqlSelectAllFields() + `
-FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
+FROM /* SEQSCAN */ ` + tj.SqlTableName() + whereAndSql
 
 	tj.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
@@ -505,7 +505,7 @@ func (tj *TransactionJournal) FindTrxJournalsByDateByTenant(startDate, endDate s
 
 	queryRows := comment + `
 SELECT ` + tj.SqlSelectAllFields() + `
-FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
+FROM /* SEQSCAN */ ` + tj.SqlTableName() + whereAndSql
 
 	L.Print(`Query:`, queryRows)
 
@@ -534,7 +534,7 @@ func (tj *TransactionJournal) FindTrxJournalsByCoaByTenant() (trxJournals []Tran
 
 	queryRows := comment + `
 SELECT ` + tj.SqlSelectAllFields() + `
-FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
+FROM /* SEQSCAN */ ` + tj.SqlTableName() + whereAndSql
 
 	tj.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
@@ -564,7 +564,7 @@ func (bt *BusinessTransaction) FindByPagination(z *zCrud.Meta, z2 *zCrud.PagerIn
 
 	queryCount := comment + `
 SELECT COUNT(1)
-FROM SEQSCAN ` + bt.SqlTableName() + whereAndSql + whereAndSql2 + `
+FROM /* SEQSCAN */ ` + bt.SqlTableName() + whereAndSql + whereAndSql2 + `
 LIMIT 1`
 	bt.Adapter.QuerySql(queryCount, func(row []any) {
 		z3.CalculatePages(z2.Page, z2.PerPage, int(X.ToI(row[0])))
@@ -575,7 +575,7 @@ LIMIT 1`
 
 	queryRows := comment + `
 SELECT ` + z.ToSelect() + `
-FROM SEQSCAN ` + bt.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
+FROM /* SEQSCAN */ ` + bt.SqlTableName() + whereAndSql + whereAndSql2 + orderBySql + limitOffsetSql
 	bt.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
 		res = append(res, row)
@@ -592,7 +592,7 @@ func (bt *BusinessTransaction) FindByIdByTenantCode() bool {
 
 	queryRows := comment + `
 SELECT ` + bt.SqlSelectAllFields() + `
-FROM SEQSCAN ` + bt.SqlTableName() + whereAndSql
+FROM /* SEQSCAN */ ` + bt.SqlTableName() + whereAndSql
 
 	var res []any
 	bt.Adapter.QuerySql(queryRows, func(row []any) {
@@ -617,7 +617,7 @@ func (tj *TransactionJournal) FindTrxJournalsByTrxTemplateByTenant() (trxJournal
 
 	queryRows := comment + `
 SELECT ` + tj.SqlSelectAllFields() + `
-FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
+FROM /* SEQSCAN */ ` + tj.SqlTableName() + whereAndSql
 
 	tj.Adapter.QuerySql(queryRows, func(row []any) {
 		row[0] = X.ToS(row[0]) // ensure id is string
@@ -650,7 +650,7 @@ func (tj *TransactionJournal) FindTrxJournalsLossIncomeByTenant() (trxJournals [
 
 			queryRows := comment + `
 		SELECT ` + tj.SqlSelectAllFields() + `
-		FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
+		FROM /* SEQSCAN */ ` + tj.SqlTableName() + whereAndSql
 
 			tj.Adapter.QuerySql(queryRows, func(row []any) {
 				row[0] = X.ToS(row[0]) // ensure id is string
@@ -682,7 +682,7 @@ func (c *Coa) FindCoaIDsIncomeExpensesByTenant() (coaIds []int64) {
 
 		queryRows1 := comment + `
 	SELECT ` + c.SqlId() + `
-	FROM SEQSCAN ` + c.SqlTableName() + whereAndSql1
+	FROM /* SEQSCAN */ ` + c.SqlTableName() + whereAndSql1
 
 		c.Adapter.QuerySql(queryRows1, func(row []any) {
 			coaIds = append(coaIds, X.ToI(row[0]))
@@ -698,7 +698,7 @@ func (c *Coa) FindCoaIDsIncomeExpensesByTenant() (coaIds []int64) {
 
 		queryRows2 := comment + `
 	SELECT ` + c.SqlId() + `
-	FROM SEQSCAN ` + c.SqlTableName() + whereAndSql2
+	FROM /* SEQSCAN */ ` + c.SqlTableName() + whereAndSql2
 
 		c.Adapter.QuerySql(queryRows2, func(row []any) {
 			coaIds = append(coaIds, X.ToI(row[0]))
@@ -716,7 +716,7 @@ func (c *Coa) FindByNameByTenant() bool {
 
 	queryRows := comment + `
 	SELECT ` + c.SqlSelectAllFields() + `
-	FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
+	FROM /* SEQSCAN */ ` + c.SqlTableName() + whereAndSql
 
 	var res [][]any
 	c.Adapter.QuerySql(queryRows, func(row []any) {
@@ -765,7 +765,7 @@ func (tj *TransactionJournal) FindReportOfFinancialPositionByTenant() map[parent
 
 		queryRows := comment + `
 			SELECT ` + tj.SqlSelectAllFields() + `
-			FROM SEQSCAN ` + tj.SqlTableName() + whereAndSql
+			FROM /* SEQSCAN */ ` + tj.SqlTableName() + whereAndSql
 
 		tj.Adapter.QuerySql(queryRows, func(row []any) {
 			coaId := X.ToU(row[2])
@@ -841,7 +841,7 @@ func (c *Coa) FindCoaChildrenByParentNameByTenant() (coas []Coa) {
 
 		queryRows1 := comment + `
 	SELECT ` + c.SqlSelectAllFields() + `
-	FROM SEQSCAN ` + c.SqlTableName() + whereAndSql
+	FROM /* SEQSCAN */ ` + c.SqlTableName() + whereAndSql
 
 		c.Adapter.QuerySql(queryRows1, func(row []any) {
 			row[0] = X.ToS(row[0]) // ensure id is string

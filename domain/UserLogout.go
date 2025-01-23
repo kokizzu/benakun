@@ -24,6 +24,13 @@ const (
 
 func (d *Domain) UserLogout(in *UserLogoutIn) (out UserLogoutOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
-	out.LogoutAt = d.ExpireSession(in.SessionToken, &out.ResponseCommon)
+
+	logoutAt := d.ExpireSession(in.SessionToken, &out.ResponseCommon)
+	if logoutAt == 0 {
+		out.SetError(400, ErrUserSessionRemovalFailed)
+		return
+	}
+
+	out.LogoutAt = logoutAt
 	return
 }

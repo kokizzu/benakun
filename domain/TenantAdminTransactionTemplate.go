@@ -23,8 +23,8 @@ type (
 	}
 	TenantAdminTransactionTemplateOut struct {
 		ResponseCommon
-		TransactionTemplates	*[]rqFinance.TransactionTemplate	`json:"transactionTemplates" form:"transactionTemplates" query:"transactionTemplates" long:"transactionTemplates" msg:"transactionTemplates"`
-		TransactionTemplate		*rqFinance.TransactionTemplate  	`json:"transactionTemplate" form:"transactionTemplate" query:"transactionTemplate" long:"transactionTemplate" msg:"transactionTemplate"`
+		TransactionTemplates *[]rqFinance.TransactionTemplate `json:"transactionTemplates" form:"transactionTemplates" query:"transactionTemplates" long:"transactionTemplates" msg:"transactionTemplates"`
+		TransactionTemplate  *rqFinance.TransactionTemplate   `json:"transactionTemplate" form:"transactionTemplate" query:"transactionTemplate" long:"transactionTemplate" msg:"transactionTemplate"`
 	}
 )
 
@@ -112,7 +112,7 @@ func (d *Domain) TenantAdminTransactionTemplate(in *TenantAdminTransactionTempla
 			}
 		}
 
-		if !trxTemplate.DoUpsertById() {
+		if !trxTemplate.DoUpsert() {
 			out.SetError(500, ErrTenantAdminProductsSaveFailed)
 		}
 

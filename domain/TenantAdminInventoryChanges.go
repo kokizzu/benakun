@@ -20,29 +20,29 @@ import (
 type (
 	TenantAdminInventoryChangesIn struct {
 		RequestCommon
-		Cmd      				string        							`json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		ProductId  			uint64      								`json:"productId,string" form:"productId" query:"productId" long:"productId" msg:"productId"`
-		InventoryChange	rqBusiness.InventoryChanges `json:"inventoryChange" form:"inventoryChange" query:"inventoryChange" long:"inventoryChange" msg:"inventoryChange"`
-		WithMeta				bool          							`json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
-		Pager    				zCrud.PagerIn 							`json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		Cmd             string                      `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
+		ProductId       uint64                      `json:"productId,string" form:"productId" query:"productId" long:"productId" msg:"productId"`
+		InventoryChange rqBusiness.InventoryChanges `json:"inventoryChange" form:"inventoryChange" query:"inventoryChange" long:"inventoryChange" msg:"inventoryChange"`
+		WithMeta        bool                        `json:"withMeta" form:"withMeta" query:"withMeta" long:"withMeta" msg:"withMeta"`
+		Pager           zCrud.PagerIn               `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
 	}
 	TenantAdminInventoryChangesOut struct {
 		ResponseCommon
-		Pager zCrud.PagerOut `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
-		Meta  *zCrud.Meta    `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
-		InventoryChanges	[][]any `json:"inventoryChanges" form:"inventoryChanges" query:"inventoryChanges" long:"inventoryChanges" msg:"inventoryChanges"`
+		Pager            zCrud.PagerOut `json:"pager" form:"pager" query:"pager" long:"pager" msg:"pager"`
+		Meta             *zCrud.Meta    `json:"meta" form:"meta" query:"meta" long:"meta" msg:"meta"`
+		InventoryChanges [][]any        `json:"inventoryChanges" form:"inventoryChanges" query:"inventoryChanges" long:"inventoryChanges" msg:"inventoryChanges"`
 	}
 )
 
 const (
 	TenantAdminInventoryChangesAction = `tenantAdmin/inventoryChanges`
 
-	ErrTenantAdminInventoryChangesUnauthorized   			= `unauthorized user`
-	ErrTenantAdminInventoryChangesTenantNotFound 			= `tenant admin not found`
-	ErrTenantAdminInventoryChangesNotFound 						= `inventory not found` 
-	ErrTenantAdminInventoryChangesNotTenant						= `must be tenant admin to do this operation`
-	ErrTenantAdminInventoryChangesProductNotFound			= `product not found`
-	ErrTenantAdminInventoryChangesSaveFailed      		= `inventory changes save failed`
+	ErrTenantAdminInventoryChangesUnauthorized    = `unauthorized user`
+	ErrTenantAdminInventoryChangesTenantNotFound  = `tenant admin not found`
+	ErrTenantAdminInventoryChangesNotFound        = `inventory not found`
+	ErrTenantAdminInventoryChangesNotTenant       = `must be tenant admin to do this operation`
+	ErrTenantAdminInventoryChangesProductNotFound = `product not found`
+	ErrTenantAdminInventoryChangesSaveFailed      = `inventory changes save failed`
 )
 
 var TenantAdminInventoryChangesMeta = zCrud.Meta{
@@ -52,39 +52,39 @@ var TenantAdminInventoryChangesMeta = zCrud.Meta{
 			Label:     "ID",
 			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeHidden,
-			ReadOnly: true,
+			ReadOnly:  true,
 		},
 		{
-			Name: mBusiness.StockDelta,
-			Label: "Stock Delta",
-			DataType: zCrud.DataTypeInt,
+			Name:      mBusiness.StockDelta,
+			Label:     "Stock Delta",
+			DataType:  zCrud.DataTypeInt,
 			InputType: zCrud.InputTypeNumber,
 		},
 		{
-			Name: mBusiness.ProductId,
-			Label: "Produk / Product",
-			DataType: zCrud.DataTypeInt,
-			InputType: zCrud.InputTypeCombobox,
+			Name:        mBusiness.ProductId,
+			Label:       "Produk / Product",
+			DataType:    zCrud.DataTypeInt,
+			InputType:   zCrud.InputTypeCombobox,
 			Description: "Select product",
-			ReadOnly: true,
+			ReadOnly:    true,
 		},
 		{
-			Name: mBusiness.CreatedAt,
-			Label: "Dibuat pada / Created at",
+			Name:      mBusiness.CreatedAt,
+			Label:     "Dibuat pada / Created at",
 			InputType: zCrud.InputTypeDateTime,
-			ReadOnly: true,
+			ReadOnly:  true,
 		},
 		{
-			Name: mBusiness.UpdatedAt,
-			Label: "Diperbarui pada / Updated at",
+			Name:      mBusiness.UpdatedAt,
+			Label:     "Diperbarui pada / Updated at",
 			InputType: zCrud.InputTypeDateTime,
-			ReadOnly: true,
+			ReadOnly:  true,
 		},
 		{
-			Name: mBusiness.DeletedAt,
-			Label: "Dihapus pada / Deleted at",
+			Name:      mBusiness.DeletedAt,
+			Label:     "Dihapus pada / Deleted at",
 			InputType: zCrud.InputTypeDateTime,
-			ReadOnly: true,
+			ReadOnly:  true,
 		},
 	},
 }
@@ -165,7 +165,7 @@ func (d *Domain) TenantAdminInventoryChanges(in *TenantAdminInventoryChangesIn) 
 			}
 		}
 
-		if !invChange.DoUpsertById() {
+		if !invChange.DoUpsert() {
 			out.SetError(500, ErrTenantAdminInventoryChangesSaveFailed)
 		}
 

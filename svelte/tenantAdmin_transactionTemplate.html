@@ -3,6 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/assets/favicons/favicon.png">
     <title>/*! title */</title>
+    <script src="https://sandbox.doku.com/jokul-checkout-js/v1/jokul-checkout-1.0.0.js"></script>
   </head>
 
   <body>
@@ -45,6 +46,7 @@
         --violet-009: #4c1d95;
         --violet-010: #2e1065;
         --violet-transparent: #8b5cf620;
+        --violet-gradient: linear-gradient(to bottom, var(--violet-000), var(--violet-002));
 
         --blue-000: #eff6ff;
         --blue-001: #dbeafe;
@@ -641,7 +643,7 @@ a .icon {
 }
 
 /* fakecss:./_components/partials/Navbar.esbuild-svelte-fake-css */
-.navbar_container.svelte-g6zjaz.svelte-g6zjaz {
+.navbar_container.svelte-e9cqf5.svelte-e9cqf5 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -657,7 +659,7 @@ a .icon {
   z-index: 1200;
   top: 0;
 }
-.navbar_container.svelte-g6zjaz .navbar.svelte-g6zjaz {
+.navbar_container.svelte-e9cqf5 .navbar.svelte-e9cqf5 {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -665,15 +667,15 @@ a .icon {
   align-items: center;
   height: var(--navbar-height);
 }
-.navbar_container.svelte-g6zjaz .navbar .left.svelte-g6zjaz,
-.navbar_container.svelte-g6zjaz .navbar .right.svelte-g6zjaz {
+.navbar_container.svelte-e9cqf5 .navbar .left.svelte-e9cqf5,
+.navbar_container.svelte-e9cqf5 .navbar .right.svelte-e9cqf5 {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 20px;
 }
-.navbar_container.svelte-g6zjaz .navbar .left .shrink_btn.svelte-g6zjaz {
+.navbar_container.svelte-e9cqf5 .navbar .left .shrink_btn.svelte-e9cqf5 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -683,7 +685,7 @@ a .icon {
   border: none;
   cursor: pointer;
 }
-.navbar_container.svelte-g6zjaz .navbar .left .shrink_btn.svelte-g6zjaz:hover {
+.navbar_container.svelte-e9cqf5 .navbar .left .shrink_btn.svelte-e9cqf5:hover {
   background-color: var(--gray-001);
 }
 .navbar_container .navbar .left .shrink_btn .icon_wide {
@@ -692,27 +694,52 @@ a .icon {
 .navbar_container .navbar .left .shrink_btn .icon_small {
   display: none;
 }
-.navbar_container.svelte-g6zjaz .navbar .right .display_email.svelte-g6zjaz {
+.navbar_container.svelte-e9cqf5 .navbar .right .display-email.free.svelte-e9cqf5 {
   padding: 5px 15px;
   border-radius: 8px;
   background-color: #0000000e;
   color: var(--gray-009);
   font-weight: 600;
 }
-.navbar_container.svelte-g6zjaz .navbar .right picture.svelte-g6zjaz {
+.navbar_container.svelte-e9cqf5 .navbar .right .display-email.premium.svelte-e9cqf5 {
+  border: none;
+  background: linear-gradient(135deg, var(--blue-004), var(--green-004), var(--violet-005));
+  padding: 2px;
+  border-radius: 8px;
+}
+.navbar_container.svelte-e9cqf5 .navbar .right .display-email.premium .wrapper.svelte-e9cqf5 {
+  background-color: #FFF;
+  border: none;
+  padding: 5px 15px;
+  color: var(--gray-009);
+  border-radius: 6px;
+}
+.navbar_container.svelte-e9cqf5 .navbar .right button.upgrade.svelte-e9cqf5 {
+  padding: 5px 15px;
+  border-radius: 8px;
+  background-color: var(--violet-006);
+  color: #FFF;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+.navbar_container.svelte-e9cqf5 .navbar .right button.upgrade.svelte-e9cqf5:hover {
+  background-color: var(--violet-005);
+}
+.navbar_container.svelte-e9cqf5 .navbar .right picture.svelte-e9cqf5 {
   display: none;
 }
 @media only screen and (max-width : 768px) {
-  .navbar_container.svelte-g6zjaz.svelte-g6zjaz {
+  .navbar_container.svelte-e9cqf5.svelte-e9cqf5 {
     padding: 0 15px;
   }
-  .navbar_container.svelte-g6zjaz .navbar.svelte-g6zjaz {
+  .navbar_container.svelte-e9cqf5 .navbar.svelte-e9cqf5 {
     flex-direction: row-reverse;
   }
-  .navbar_container.svelte-g6zjaz .navbar .left .shrink_btn.svelte-g6zjaz {
+  .navbar_container.svelte-e9cqf5 .navbar .left .shrink_btn.svelte-e9cqf5 {
     padding: 0;
   }
-  .navbar_container.svelte-g6zjaz .navbar .left .shrink_btn.svelte-g6zjaz:hover {
+  .navbar_container.svelte-e9cqf5 .navbar .left .shrink_btn.svelte-e9cqf5:hover {
     background-color: transparent;
   }
   .navbar_container .navbar .left .shrink_btn .icon_wide {
@@ -722,16 +749,16 @@ a .icon {
     display: block;
     transform: rotate(180deg);
   }
-  .navbar_container.svelte-g6zjaz .navbar .right.svelte-g6zjaz {
+  .navbar_container.svelte-e9cqf5 .navbar .right.svelte-e9cqf5 {
     display: flex;
     flex-direction: row;
     gap: 20px;
     align-items: center;
   }
-  .navbar_container.svelte-g6zjaz .navbar .right picture.svelte-g6zjaz {
+  .navbar_container.svelte-e9cqf5 .navbar .right picture.svelte-e9cqf5 {
     display: block;
   }
-  .navbar_container.svelte-g6zjaz .navbar .right picture img.svelte-g6zjaz {
+  .navbar_container.svelte-e9cqf5 .navbar .right picture img.svelte-e9cqf5 {
     width: 30px;
     height: 30px;
   }
@@ -771,8 +798,175 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   }
 }
 
+/* fakecss:./_components/PopUpPurchaseSupport.esbuild-svelte-fake-css */
+.popup-container.svelte-5h0mun.svelte-5h0mun {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2000;
+  background-color: rgba(0 0 0 / 40%);
+  backdrop-filter: blur(1px);
+  justify-content: center;
+  padding: 50px;
+  overflow: auto;
+}
+.popup-container.show.svelte-5h0mun.svelte-5h0mun {
+  display: flex;
+}
+.popup-container.svelte-5h0mun .popup.svelte-5h0mun {
+  border-radius: 14px;
+  background-color: var(--gray-001);
+  height: fit-content;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.popup-container.svelte-5h0mun .popup header.svelte-5h0mun {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.popup-container.svelte-5h0mun .popup header img.svelte-5h0mun {
+  width: 100%;
+  height: auto;
+}
+.popup-container.svelte-5h0mun .popup .content.svelte-5h0mun {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+.popup-container.svelte-5h0mun .popup .content .description p.svelte-5h0mun {
+  margin: 0;
+}
+.popup-container.svelte-5h0mun .popup .content .options.svelte-5h0mun {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;
+  justify-items: center;
+  gap: 10px;
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration.svelte-5h0mun {
+  display: flex;
+  height: 120px;
+  width: 100%;
+  position: relative;
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label.svelte-5h0mun {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid #FFF;
+  border-radius: 10px;
+  padding: 20px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #FFF;
+  cursor: pointer;
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label.monthly.svelte-5h0mun {
+  border: 2px solid var(--orange-003);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label.monthly h2.svelte-5h0mun {
+  color: var(--orange-004);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label.quarterly.svelte-5h0mun {
+  border: 2px solid var(--blue-003);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label.quarterly h2.svelte-5h0mun {
+  color: var(--blue-004);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label.yearly.svelte-5h0mun {
+  border: 2px solid var(--violet-003);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label.yearly h2.svelte-5h0mun {
+  color: var(--violet-004);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label header.svelte-5h0mun {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 16px;
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label header .icon.svelte-5h0mun {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: fit-content;
+  padding: 5px;
+  border-radius: 5px;
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label header .icon.monthly.svelte-5h0mun {
+  background-image: var(--orange-gradient);
+  color: var(--orange-006);
+  border: 1px solid var(--orange-003);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label header .icon.quarterly.svelte-5h0mun {
+  background-image: var(--blue-gradient);
+  color: var(--blue-006);
+  border: 1px solid var(--blue-003);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration label header .icon.yearly.svelte-5h0mun {
+  background-image: var(--violet-gradient);
+  color: var(--violet-006);
+  border: 1px solid var(--violet-003);
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration input.svelte-5h0mun {
+  display: none;
+  visibility: hidden;
+}
+.popup-container.svelte-5h0mun .popup .content .options .support-duration h2.svelte-5h0mun {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+.popup-container.svelte-5h0mun .popup .content .buttons.svelte-5h0mun {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.popup-container.svelte-5h0mun .popup .content .buttons .btn.svelte-5h0mun {
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+.popup-container.svelte-5h0mun .popup .content .buttons .btn.svelte-5h0mun:disabled {
+  cursor: not-allowed;
+}
+.popup-container.svelte-5h0mun .popup .content .buttons .btn.buy.svelte-5h0mun {
+  background-color: var(--sky-006);
+  color: #FFF;
+}
+.popup-container.svelte-5h0mun .popup .content .buttons .btn.buy.svelte-5h0mun:hover {
+  background-color: var(--sky-005);
+}
+.popup-container.svelte-5h0mun .popup .content .buttons .btn.buy.svelte-5h0mun:disabled {
+  background-color: var(--sky-005);
+}
+.popup-container.svelte-5h0mun .popup .content .buttons .btn.skip.svelte-5h0mun {
+  background-color: transparent;
+  color: var(--gray-008);
+}
+.popup-container.svelte-5h0mun .popup .content .buttons .btn.skip.svelte-5h0mun:hover {
+  text-decoration: underline;
+  color: var(--sky-006);
+}
+
 /* fakecss:./_layouts/mainLayout.esbuild-svelte-fake-css */
-.root_layout.svelte-19qdxe4.svelte-19qdxe4 {
+.root-layout.svelte-1p4xmug.svelte-1p4xmug {
   display: block;
   top: 0;
   bottom: 0;
@@ -781,12 +975,12 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   height: 100vh;
   width: 100vw;
 }
-.root_layout.svelte-19qdxe4 .root_container.svelte-19qdxe4 {
+.root-layout.svelte-1p4xmug .root-container.svelte-1p4xmug {
   height: 100%;
   width: 100%;
   display: flex;
 }
-.root_layout.svelte-19qdxe4 .root_container .root_content.svelte-19qdxe4 {
+.root-layout.svelte-1p4xmug .root-container .root-content.svelte-1p4xmug {
   display: flex;
   flex-direction: column;
   -webkit-box-orient: vertical;
@@ -796,13 +990,13 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   transition: 0.3s;
   width: 100%;
 }
-.root_layout.svelte-19qdxe4 .root_container .root_content.shrink.svelte-19qdxe4 {
+.root-layout.svelte-1p4xmug .root-container .root-content.shrink.svelte-1p4xmug {
   margin-left: var(--sidemenu-width-sm);
 }
-.root_layout.svelte-19qdxe4 .root_container .root_content.expand.svelte-19qdxe4 {
+.root-layout.svelte-1p4xmug .root-container .root-content.expand.svelte-1p4xmug {
   margin-left: var(--sidemenu-width);
 }
-.root_layout.svelte-19qdxe4 .root_container .root_content .content.svelte-19qdxe4 {
+.root-layout.svelte-1p4xmug .root-container .root-content .content.svelte-1p4xmug {
   width: 100%;
   padding: 20px;
   display: flex;
@@ -814,13 +1008,13 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   overflow: inherit;
 }
 @media only screen and (max-width : 768px) {
-  .root_layout.svelte-19qdxe4 .root_container .root_content.shrink.svelte-19qdxe4 {
+  .root-layout.svelte-1p4xmug .root-container .root-content.shrink.svelte-1p4xmug {
     margin-left: 0;
   }
-  .root_layout.svelte-19qdxe4 .root_container .root_content.expand.svelte-19qdxe4 {
+  .root-layout.svelte-1p4xmug .root-container .root-content.expand.svelte-1p4xmug {
     margin-left: 0;
   }
-  .root_layout.svelte-19qdxe4 .root_container .root_content .content.svelte-19qdxe4 {
+  .root-layout.svelte-1p4xmug .root-container .root-content .content.svelte-1p4xmug {
     padding: 15px;
   }
 }
@@ -3938,13 +4132,13 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       var HttpStatusCode$1 = HttpStatusCode;
       function createInstance(defaultConfig) {
         const context = new Axios$1(defaultConfig);
-        const instance14 = bind2(Axios$1.prototype.request, context);
-        utils$1.extend(instance14, Axios$1.prototype, context, { allOwnKeys: true });
-        utils$1.extend(instance14, context, null, { allOwnKeys: true });
-        instance14.create = function create(instanceConfig) {
+        const instance15 = bind2(Axios$1.prototype.request, context);
+        utils$1.extend(instance15, Axios$1.prototype, context, { allOwnKeys: true });
+        utils$1.extend(instance15, context, null, { allOwnKeys: true });
+        instance15.create = function create(instanceConfig) {
           return createInstance(mergeConfig(defaultConfig, instanceConfig));
         };
-        return instance14;
+        return instance15;
       }
       var axios = createInstance(defaults$1);
       axios.Axios = Axios$1;
@@ -4119,8 +4313,17 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       exports.UserLogout = async function UserLogout2(i, cb) {
         return await axios.post("/user/logout", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
+      exports.UserPaymentCancel = async function UserPaymentCancel(i, cb) {
+        return await axios.post("/user/paymentCancel", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserPaymentResult = async function UserPaymentResult(i, cb) {
+        return await axios.post("/user/paymentResult", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
       exports.UserProfile = async function UserProfile(i, cb) {
         return await axios.post("/user/profile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+      exports.UserPurchaseSupport = async function UserPurchaseSupport2(i, cb) {
+        return await axios.post("/user/purchaseSupport", i).then(wrapOk(cb)).catch(wrapErr(cb));
       };
       exports.UserResponseInvitation = async function UserResponseInvitation(i, cb) {
         return await axios.post("/user/responseInvitation", i).then(wrapOk(cb)).catch(wrapErr(cb));
@@ -4133,6 +4336,19 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       };
       exports.UserUpdateProfile = async function UserUpdateProfile(i, cb) {
         return await axios.post("/user/updateProfile", i).then(wrapOk(cb)).catch(wrapErr(cb));
+      };
+    }
+  });
+
+  // _components/xHelper.js
+  var require_xHelper = __commonJS({
+    "_components/xHelper.js"(exports, module) {
+      function IsUnixTimeExpired3(unixTimestamp) {
+        const currentTime = new Date().getTime();
+        return unixTimestamp < currentTime;
+      }
+      module.exports = {
+        IsUnixTimeExpired: IsUnixTimeExpired3
       };
     }
   });
@@ -4386,6 +4602,20 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     for (const key in attributes) {
       attr(node, key, attributes[key]);
     }
+  }
+  function init_binding_group(group) {
+    let _inputs;
+    return {
+      /* push */
+      p(...inputs) {
+        _inputs = inputs;
+        _inputs.forEach((input) => group.push(input));
+      },
+      /* remove */
+      r() {
+        _inputs.forEach((input) => group.splice(group.indexOf(input), 1));
+      }
+    };
   }
   function to_number(value) {
     return value === "" ? null : +value;
@@ -4778,7 +5008,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     }
     component.$.dirty[i / 31 | 0] |= 1 << i % 31;
   }
-  function init(component, options, instance14, create_fragment17, not_equal, props, append_styles = null, dirty = [-1]) {
+  function init(component, options, instance15, create_fragment18, not_equal, props, append_styles = null, dirty = [-1]) {
     const parent_component = current_component;
     set_current_component(component);
     const $ = component.$ = {
@@ -4804,7 +5034,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     };
     append_styles && append_styles($.root);
     let ready = false;
-    $.ctx = instance14 ? instance14(component, options.props || {}, (i, ret, ...rest) => {
+    $.ctx = instance15 ? instance15(component, options.props || {}, (i, ret, ...rest) => {
       const value = rest.length ? rest[0] : ret;
       if ($.ctx && not_equal($.ctx[i], $.ctx[i] = value)) {
         if (!$.skip_bound && $.bound[i])
@@ -4817,7 +5047,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     $.update();
     ready = true;
     run_all($.before_update);
-    $.fragment = create_fragment17 ? create_fragment17($.ctx) : false;
+    $.fragment = create_fragment18 ? create_fragment18($.ctx) : false;
     if (options.target) {
       if (options.hydrate) {
         start_hydrating();
@@ -5327,6 +5557,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   var AiOutlineWarning = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M464 720a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm16-304v184c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V416c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8zm475.7 440l-416-720c-6.2-10.7-16.9-16-27.7-16s-21.6 5.3-27.7 16l-416 720C56 877.4 71.4 904 96 904h832c24.6 0 40-26.6 27.7-48zm-783.5-27.9L512 239.9l339.8 588.2H172.2z"></path>' };
   var AiOutlineEyeInvisible = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 0 0 0-51.5zm-63.57-320.64L836 122.88a8 8 0 0 0-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 0 0 0 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 0 0 0 11.31L155.17 889a8 8 0 0 0 11.31 0l712.15-712.12a8 8 0 0 0 0-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 0 0-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 0 1 146.2-106.69L401.31 546.2A112 112 0 0 1 396 512z"></path><path d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 0 0 227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 0 1-112 112z"></path>' };
   var AiOutlineEye = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M942.2 486.2C847.4 286.5 704.1 186 512 186c-192.2 0-335.4 100.5-430.2 300.3a60.3 60.3 0 0 0 0 51.5C176.6 737.5 319.9 838 512 838c192.2 0 335.4-100.5 430.2-300.3 7.7-16.2 7.7-35 0-51.5zM512 766c-161.3 0-279.4-81.8-362.7-254C232.6 339.8 350.7 258 512 258c161.3 0 279.4 81.8 362.7 254C791.5 684.2 673.4 766 512 766zm-4-430c-97.2 0-176 78.8-176 176s78.8 176 176 176 176-78.8 176-176-78.8-176-176-176zm0 288c-61.9 0-112-50.1-112-112s50.1-112 112-112 112 50.1 112 112-50.1 112-112 112z"></path>' };
+  var AiFillTags = { a: { viewBox: "0 0 1024 1024" }, c: '<path d="M483.2 790.3L861.4 412c1.7-1.7 2.5-4 2.3-6.3l-25.5-301.4c-.7-7.8-6.8-13.9-14.6-14.6L522.2 64.3c-2.3-.2-4.7.6-6.3 2.3L137.7 444.8a8.03 8.03 0 0 0 0 11.3l334.2 334.2c3.1 3.2 8.2 3.2 11.3 0zm122.7-533.4c18.7-18.7 49.1-18.7 67.9 0 18.7 18.7 18.7 49.1 0 67.9-18.7 18.7-49.1 18.7-67.9 0-18.7-18.7-18.7-49.1 0-67.9zm283.8 282.9l-39.6-39.5a8.03 8.03 0 0 0-11.3 0l-362 361.3-237.6-237a8.03 8.03 0 0 0-11.3 0l-39.6 39.5a8.03 8.03 0 0 0 0 11.3l243.2 242.8 39.6 39.5c3.1 3.1 8.2 3.1 11.3 0l407.3-406.6c3.1-3.1 3.1-8.2 0-11.3z"></path>' };
 
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/bs/index.js
   var BsPostcard = { a: { fill: "currentColor", viewBox: "0 0 16 16" }, c: '<path fill-rule="evenodd" d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm7.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zM2 5.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1H2.5a.5.5 0 0 1-.5-.5M10.5 5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM13 8h-2V6h2z"></path>' };
@@ -6744,7 +6975,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         src: AiOutlineHome,
         className: (
           /*segment*/
-          (ctx[1] === "" ? "icon_active" : "icon_dark") + " icon"
+          (ctx[1] === "" || window.location.pathname === "/" ? "icon_active" : "icon_dark") + " icon"
         )
       }
     });
@@ -6830,7 +7061,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           a,
           "active",
           /*segment*/
-          ctx[1] === ""
+          ctx[1] === "" || window.location.pathname === "/"
         );
         attr(nav0, "class", "menu_list svelte-fzhfng");
         attr(nav1, "class", "menu_list svelte-fzhfng");
@@ -6896,7 +7127,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         if (dirty & /*segment*/
         2)
           icon_changes.className = /*segment*/
-          (ctx2[1] === "" ? "icon_active" : "icon_dark") + " icon";
+          (ctx2[1] === "" || window.location.pathname === "/" ? "icon_active" : "icon_dark") + " icon";
         icon.$set(icon_changes);
         if (!/*$IsShrinkMenu*/
         ctx2[2]) {
@@ -6910,13 +7141,13 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           if_block1.d(1);
           if_block1 = null;
         }
-        if (!current || dirty & /*segment*/
+        if (!current || dirty & /*segment, window*/
         2) {
           toggle_class(
             a,
             "active",
             /*segment*/
-            ctx2[1] === ""
+            ctx2[1] === "" || window.location.pathname === "/"
           );
         }
         if (
@@ -7175,6 +7406,34 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   var SideMenu_default = SideMenu;
 
   // _components/partials/Navbar.svelte
+  var import_xHelper = __toESM(require_xHelper());
+  function create_if_block3(ctx) {
+    let button;
+    let mounted;
+    let dispose;
+    return {
+      c() {
+        button = element("button");
+        button.innerHTML = `<span>Upgrade</span>`;
+        attr(button, "class", "upgrade svelte-e9cqf5");
+      },
+      m(target, anchor) {
+        insert(target, button, anchor);
+        if (!mounted) {
+          dispose = listen(button, "click", handleUpgrade);
+          mounted = true;
+        }
+      },
+      p: noop,
+      d(detaching) {
+        if (detaching) {
+          detach(button);
+        }
+        mounted = false;
+        dispose();
+      }
+    };
+  }
   function create_fragment4(ctx) {
     let header;
     let nav;
@@ -7184,15 +7443,18 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     let t0;
     let icon1;
     let t1;
-    let div1;
+    let div2;
     let picture;
     let t2;
+    let t3;
     let span;
-    let t3_value = (
+    let div1;
+    let t4_value = (
       /*user*/
       ctx[0].email + ""
     );
-    let t3;
+    let t4;
+    let span_class_value;
     let current;
     let mounted;
     let dispose;
@@ -7210,6 +7472,8 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         className: "icon_small"
       }
     });
+    let if_block = !/*isUserBoughtSupport*/
+    ctx[1] && create_if_block3(ctx);
     return {
       c() {
         header = element("header");
@@ -7220,19 +7484,25 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         t0 = space();
         create_component(icon1.$.fragment);
         t1 = space();
-        div1 = element("div");
+        div2 = element("div");
         picture = element("picture");
-        picture.innerHTML = `<img src="/assets/icons/benakun-logo.png" alt="" class="svelte-g6zjaz"/>`;
+        picture.innerHTML = `<img src="/assets/icons/benakun-logo.png" alt="" class="svelte-e9cqf5"/>`;
         t2 = space();
+        if (if_block)
+          if_block.c();
+        t3 = space();
         span = element("span");
-        t3 = text(t3_value);
-        attr(button, "class", "shrink_btn svelte-g6zjaz");
-        attr(div0, "class", "left svelte-g6zjaz");
-        attr(picture, "class", "svelte-g6zjaz");
-        attr(span, "class", "display_email svelte-g6zjaz");
-        attr(div1, "class", "right svelte-g6zjaz");
-        attr(nav, "class", "navbar svelte-g6zjaz");
-        attr(header, "class", "navbar_container svelte-g6zjaz");
+        div1 = element("div");
+        t4 = text(t4_value);
+        attr(button, "class", "shrink_btn svelte-e9cqf5");
+        attr(div0, "class", "left svelte-e9cqf5");
+        attr(picture, "class", "svelte-e9cqf5");
+        attr(div1, "class", "wrapper svelte-e9cqf5");
+        attr(span, "class", span_class_value = "display-email " + /*isUserBoughtSupport*/
+        (ctx[1] ? "premium" : "free") + " svelte-e9cqf5");
+        attr(div2, "class", "right svelte-e9cqf5");
+        attr(nav, "class", "navbar svelte-e9cqf5");
+        attr(header, "class", "navbar_container svelte-e9cqf5");
       },
       m(target, anchor) {
         insert(target, header, anchor);
@@ -7243,27 +7513,49 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         append(button, t0);
         mount_component(icon1, button, null);
         append(nav, t1);
-        append(nav, div1);
-        append(div1, picture);
-        append(div1, t2);
-        append(div1, span);
-        append(span, t3);
+        append(nav, div2);
+        append(div2, picture);
+        append(div2, t2);
+        if (if_block)
+          if_block.m(div2, null);
+        append(div2, t3);
+        append(div2, span);
+        append(span, div1);
+        append(div1, t4);
         current = true;
         if (!mounted) {
           dispose = listen(
             button,
             "click",
-            /*click_handler*/
-            ctx[3]
+            /*handleShrinkMenu*/
+            ctx[2]
           );
           mounted = true;
         }
       },
       p(ctx2, [dirty]) {
+        if (!/*isUserBoughtSupport*/
+        ctx2[1]) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+          } else {
+            if_block = create_if_block3(ctx2);
+            if_block.c();
+            if_block.m(div2, t3);
+          }
+        } else if (if_block) {
+          if_block.d(1);
+          if_block = null;
+        }
         if ((!current || dirty & /*user*/
-        1) && t3_value !== (t3_value = /*user*/
+        1) && t4_value !== (t4_value = /*user*/
         ctx2[0].email + ""))
-          set_data(t3, t3_value);
+          set_data(t4, t4_value);
+        if (!current || dirty & /*isUserBoughtSupport*/
+        2 && span_class_value !== (span_class_value = "display-email " + /*isUserBoughtSupport*/
+        (ctx2[1] ? "premium" : "free") + " svelte-e9cqf5")) {
+          attr(span, "class", span_class_value);
+        }
       },
       i(local) {
         if (current)
@@ -7283,30 +7575,42 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         }
         destroy_component(icon0);
         destroy_component(icon1);
+        if (if_block)
+          if_block.d();
         mounted = false;
         dispose();
       }
     };
   }
+  function handleUpgrade() {
+    window.location.href = "/user/purchaseSupport";
+  }
   function instance4($self, $props, $invalidate) {
     let $IsShrinkMenu;
-    component_subscribe($self, IsShrinkMenu, ($value) => $invalidate(1, $IsShrinkMenu = $value));
+    component_subscribe($self, IsShrinkMenu, ($value) => $invalidate(3, $IsShrinkMenu = $value));
     let { user: user2 = (
       /** @type {import('../types/user.js').User}*/
       {}
     ) } = $props;
-    let viewportWidth = window.innerWidth;
-    const click_handler = () => {
+    let isUserBoughtSupport = false;
+    onMount(() => {
+      console.log("user:", user2);
+      if (!(0, import_xHelper.IsUnixTimeExpired)(user2.supportExpiredAt)) {
+        $invalidate(1, isUserBoughtSupport = true);
+      }
+    });
+    function handleShrinkMenu() {
+      console.log("handleShrinkMenu", $IsShrinkMenu);
       IsShrinkMenu.set(!$IsShrinkMenu);
-      if (viewportWidth > 768) {
+      if (window.innerWidth > 768) {
         localStorage.setItem("IsShrinkMenu", JSON.stringify($IsShrinkMenu));
       }
-    };
+    }
     $self.$set = ($props2) => {
       if ("user" in $props2)
         $invalidate(0, user2 = $props2.user);
     };
-    return [user2, $IsShrinkMenu, viewportWidth, click_handler];
+    return [user2, isUserBoughtSupport, handleShrinkMenu];
   }
   var Navbar = class extends SvelteComponent {
     constructor(options) {
@@ -7363,90 +7667,756 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   };
   var Footer_default = Footer;
 
-  // _layouts/mainLayout.svelte
+  // _components/PopUpPurchaseSupport.svelte
+  function create_if_block_16(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Purchasing...";
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
+  }
+  function create_if_block4(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Purchase";
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
+      }
+    };
+  }
   function create_fragment6(ctx) {
+    let div11;
+    let div10;
+    let header0;
+    let t0;
+    let div9;
+    let div0;
+    let t2;
+    let div7;
+    let div2;
+    let label0;
+    let header1;
+    let div1;
+    let icon0;
+    let t3;
+    let span0;
+    let t5;
+    let h20;
+    let t7;
+    let input0;
+    let t8;
+    let div4;
+    let label1;
+    let header2;
+    let div3;
+    let icon1;
+    let t9;
+    let span1;
+    let t11;
+    let h21;
+    let t13;
+    let input1;
+    let t14;
+    let div6;
+    let label2;
+    let header3;
+    let div5;
+    let icon2;
+    let t15;
+    let span2;
+    let t17;
+    let h22;
+    let t19;
+    let input2;
+    let t20;
+    let div8;
+    let button0;
+    let t21;
+    let t22;
+    let button1;
+    let span3;
+    let div11_class_value;
+    let current;
+    let binding_group;
+    let mounted;
+    let dispose;
+    icon0 = new Icon_default({
+      props: {
+        src: AiFillTags,
+        color: "var(--orange-004)"
+      }
+    });
+    icon1 = new Icon_default({
+      props: {
+        src: AiFillTags,
+        color: "var(--blue-004)"
+      }
+    });
+    icon2 = new Icon_default({
+      props: {
+        src: AiFillTags,
+        color: "var(--violet-004)"
+      }
+    });
+    let if_block0 = (
+      /*isPurchasing*/
+      ctx[2] && create_if_block_16(ctx)
+    );
+    let if_block1 = !/*isPurchasing*/
+    ctx[2] && create_if_block4(ctx);
+    binding_group = init_binding_group(
+      /*$binding_groups*/
+      ctx[7][0]
+    );
+    return {
+      c() {
+        div11 = element("div");
+        div10 = element("div");
+        header0 = element("header");
+        header0.innerHTML = `<img src="/assets/img/banner-support-plus.png" alt="Banner Support Plus" class="banner svelte-5h0mun"/>`;
+        t0 = space();
+        div9 = element("div");
+        div0 = element("div");
+        div0.innerHTML = `<p class="svelte-5h0mun">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente ad quidem magni incidunt accusantium illum amet repellat ea distinctio voluptatum! Similique molestias vel quos in omnis aut vero debitis velit.</p>`;
+        t2 = space();
+        div7 = element("div");
+        div2 = element("div");
+        label0 = element("label");
+        header1 = element("header");
+        div1 = element("div");
+        create_component(icon0.$.fragment);
+        t3 = space();
+        span0 = element("span");
+        span0.textContent = "Monthly";
+        t5 = space();
+        h20 = element("h2");
+        h20.textContent = "IDR 50000";
+        t7 = space();
+        input0 = element("input");
+        t8 = space();
+        div4 = element("div");
+        label1 = element("label");
+        header2 = element("header");
+        div3 = element("div");
+        create_component(icon1.$.fragment);
+        t9 = space();
+        span1 = element("span");
+        span1.textContent = "Quarterly";
+        t11 = space();
+        h21 = element("h2");
+        h21.textContent = "IDR 120000";
+        t13 = space();
+        input1 = element("input");
+        t14 = space();
+        div6 = element("div");
+        label2 = element("label");
+        header3 = element("header");
+        div5 = element("div");
+        create_component(icon2.$.fragment);
+        t15 = space();
+        span2 = element("span");
+        span2.textContent = "Yearly";
+        t17 = space();
+        h22 = element("h2");
+        h22.textContent = "IDR 450000";
+        t19 = space();
+        input2 = element("input");
+        t20 = space();
+        div8 = element("div");
+        button0 = element("button");
+        if (if_block0)
+          if_block0.c();
+        t21 = space();
+        if (if_block1)
+          if_block1.c();
+        t22 = space();
+        button1 = element("button");
+        span3 = element("span");
+        span3.textContent = "Skip for now";
+        attr(header0, "class", "svelte-5h0mun");
+        attr(div0, "class", "description");
+        attr(div1, "class", "icon monthly svelte-5h0mun");
+        attr(header1, "class", "svelte-5h0mun");
+        attr(h20, "class", "svelte-5h0mun");
+        attr(label0, "for", "monthly");
+        attr(label0, "class", "shadow svelte-5h0mun");
+        toggle_class(
+          label0,
+          "monthly",
+          /*supportDuration*/
+          ctx[1] === "monthly"
+        );
+        attr(input0, "id", "monthly");
+        attr(input0, "type", "radio");
+        attr(input0, "name", "duration");
+        input0.__value = "monthly";
+        set_input_value(input0, input0.__value);
+        attr(input0, "class", "svelte-5h0mun");
+        attr(div2, "class", "support-duration svelte-5h0mun");
+        attr(div3, "class", "icon quarterly svelte-5h0mun");
+        attr(header2, "class", "svelte-5h0mun");
+        attr(h21, "class", "svelte-5h0mun");
+        attr(label1, "for", "quarterly");
+        attr(label1, "class", "shadow svelte-5h0mun");
+        toggle_class(
+          label1,
+          "quarterly",
+          /*supportDuration*/
+          ctx[1] === "quarterly"
+        );
+        attr(input1, "id", "quarterly");
+        attr(input1, "type", "radio");
+        attr(input1, "name", "duration");
+        input1.__value = "quarterly";
+        set_input_value(input1, input1.__value);
+        attr(input1, "class", "svelte-5h0mun");
+        attr(div4, "class", "support-duration svelte-5h0mun");
+        attr(div5, "class", "icon yearly svelte-5h0mun");
+        attr(header3, "class", "svelte-5h0mun");
+        attr(h22, "class", "svelte-5h0mun");
+        attr(label2, "for", "yearly");
+        attr(label2, "class", "shadow svelte-5h0mun");
+        toggle_class(
+          label2,
+          "yearly",
+          /*supportDuration*/
+          ctx[1] === "yearly"
+        );
+        attr(input2, "id", "yearly");
+        attr(input2, "type", "radio");
+        attr(input2, "name", "duration");
+        input2.__value = "yearly";
+        set_input_value(input2, input2.__value);
+        attr(input2, "class", "svelte-5h0mun");
+        attr(div6, "class", "support-duration svelte-5h0mun");
+        attr(div7, "class", "options svelte-5h0mun");
+        attr(button0, "class", "btn buy svelte-5h0mun");
+        button0.disabled = /*isPurchasing*/
+        ctx[2];
+        attr(button1, "class", "btn skip svelte-5h0mun");
+        button1.disabled = /*isPurchasing*/
+        ctx[2];
+        attr(div8, "class", "buttons svelte-5h0mun");
+        attr(div9, "class", "content svelte-5h0mun");
+        attr(div10, "class", "popup svelte-5h0mun");
+        attr(div11, "class", div11_class_value = null_to_empty(`popup-container ${/*isShow*/
+        ctx[0] ? "show" : ""}`) + " svelte-5h0mun");
+        binding_group.p(input0, input1, input2);
+      },
+      m(target, anchor) {
+        insert(target, div11, anchor);
+        append(div11, div10);
+        append(div10, header0);
+        append(div10, t0);
+        append(div10, div9);
+        append(div9, div0);
+        append(div9, t2);
+        append(div9, div7);
+        append(div7, div2);
+        append(div2, label0);
+        append(label0, header1);
+        append(header1, div1);
+        mount_component(icon0, div1, null);
+        append(header1, t3);
+        append(header1, span0);
+        append(label0, t5);
+        append(label0, h20);
+        append(div2, t7);
+        append(div2, input0);
+        input0.checked = input0.__value === /*supportDuration*/
+        ctx[1];
+        append(div7, t8);
+        append(div7, div4);
+        append(div4, label1);
+        append(label1, header2);
+        append(header2, div3);
+        mount_component(icon1, div3, null);
+        append(header2, t9);
+        append(header2, span1);
+        append(label1, t11);
+        append(label1, h21);
+        append(div4, t13);
+        append(div4, input1);
+        input1.checked = input1.__value === /*supportDuration*/
+        ctx[1];
+        append(div7, t14);
+        append(div7, div6);
+        append(div6, label2);
+        append(label2, header3);
+        append(header3, div5);
+        mount_component(icon2, div5, null);
+        append(header3, t15);
+        append(header3, span2);
+        append(label2, t17);
+        append(label2, h22);
+        append(div6, t19);
+        append(div6, input2);
+        input2.checked = input2.__value === /*supportDuration*/
+        ctx[1];
+        append(div9, t20);
+        append(div9, div8);
+        append(div8, button0);
+        if (if_block0)
+          if_block0.m(button0, null);
+        append(button0, t21);
+        if (if_block1)
+          if_block1.m(button0, null);
+        append(div8, t22);
+        append(div8, button1);
+        append(button1, span3);
+        current = true;
+        if (!mounted) {
+          dispose = [
+            listen(
+              input0,
+              "change",
+              /*input0_change_handler*/
+              ctx[6]
+            ),
+            listen(
+              input1,
+              "change",
+              /*input1_change_handler*/
+              ctx[8]
+            ),
+            listen(
+              input2,
+              "change",
+              /*input2_change_handler*/
+              ctx[9]
+            ),
+            listen(
+              button0,
+              "click",
+              /*click_handler*/
+              ctx[10]
+            ),
+            listen(
+              button1,
+              "click",
+              /*Hide*/
+              ctx[3]
+            )
+          ];
+          mounted = true;
+        }
+      },
+      p(ctx2, [dirty]) {
+        if (!current || dirty & /*supportDuration*/
+        2) {
+          toggle_class(
+            label0,
+            "monthly",
+            /*supportDuration*/
+            ctx2[1] === "monthly"
+          );
+        }
+        if (dirty & /*supportDuration*/
+        2) {
+          input0.checked = input0.__value === /*supportDuration*/
+          ctx2[1];
+        }
+        if (!current || dirty & /*supportDuration*/
+        2) {
+          toggle_class(
+            label1,
+            "quarterly",
+            /*supportDuration*/
+            ctx2[1] === "quarterly"
+          );
+        }
+        if (dirty & /*supportDuration*/
+        2) {
+          input1.checked = input1.__value === /*supportDuration*/
+          ctx2[1];
+        }
+        if (!current || dirty & /*supportDuration*/
+        2) {
+          toggle_class(
+            label2,
+            "yearly",
+            /*supportDuration*/
+            ctx2[1] === "yearly"
+          );
+        }
+        if (dirty & /*supportDuration*/
+        2) {
+          input2.checked = input2.__value === /*supportDuration*/
+          ctx2[1];
+        }
+        if (
+          /*isPurchasing*/
+          ctx2[2]
+        ) {
+          if (if_block0) {
+          } else {
+            if_block0 = create_if_block_16(ctx2);
+            if_block0.c();
+            if_block0.m(button0, t21);
+          }
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        if (!/*isPurchasing*/
+        ctx2[2]) {
+          if (if_block1) {
+          } else {
+            if_block1 = create_if_block4(ctx2);
+            if_block1.c();
+            if_block1.m(button0, null);
+          }
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
+        }
+        if (!current || dirty & /*isPurchasing*/
+        4) {
+          button0.disabled = /*isPurchasing*/
+          ctx2[2];
+        }
+        if (!current || dirty & /*isPurchasing*/
+        4) {
+          button1.disabled = /*isPurchasing*/
+          ctx2[2];
+        }
+        if (!current || dirty & /*isShow*/
+        1 && div11_class_value !== (div11_class_value = null_to_empty(`popup-container ${/*isShow*/
+        ctx2[0] ? "show" : ""}`) + " svelte-5h0mun")) {
+          attr(div11, "class", div11_class_value);
+        }
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(icon0.$.fragment, local);
+        transition_in(icon1.$.fragment, local);
+        transition_in(icon2.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(icon0.$.fragment, local);
+        transition_out(icon1.$.fragment, local);
+        transition_out(icon2.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(div11);
+        }
+        destroy_component(icon0);
+        destroy_component(icon1);
+        destroy_component(icon2);
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
+        binding_group.r();
+        mounted = false;
+        run_all(dispose);
+      }
+    };
+  }
+  function instance6($self, $props, $invalidate) {
+    let { isShow = true } = $props;
+    let { isPurchasing = false } = $props;
+    const Show = () => $invalidate(0, isShow = true);
+    const Hide = () => $invalidate(0, isShow = false);
+    let { supportDuration = "quarterly" } = $props;
+    let { OnSubmit = async (duration) => {
+      console.log("OnSubmit duration:", duration);
+    } } = $props;
+    const $binding_groups = [[]];
+    function input0_change_handler() {
+      supportDuration = this.__value;
+      $invalidate(1, supportDuration);
+    }
+    function input1_change_handler() {
+      supportDuration = this.__value;
+      $invalidate(1, supportDuration);
+    }
+    function input2_change_handler() {
+      supportDuration = this.__value;
+      $invalidate(1, supportDuration);
+    }
+    const click_handler = () => OnSubmit(supportDuration);
+    $self.$set = ($props2) => {
+      if ("isShow" in $props2)
+        $invalidate(0, isShow = $props2.isShow);
+      if ("isPurchasing" in $props2)
+        $invalidate(2, isPurchasing = $props2.isPurchasing);
+      if ("supportDuration" in $props2)
+        $invalidate(1, supportDuration = $props2.supportDuration);
+      if ("OnSubmit" in $props2)
+        $invalidate(4, OnSubmit = $props2.OnSubmit);
+    };
+    return [
+      isShow,
+      supportDuration,
+      isPurchasing,
+      Hide,
+      OnSubmit,
+      Show,
+      input0_change_handler,
+      $binding_groups,
+      input1_change_handler,
+      input2_change_handler,
+      click_handler
+    ];
+  }
+  var PopUpPurchaseSupport = class extends SvelteComponent {
+    constructor(options) {
+      super();
+      init(this, options, instance6, create_fragment6, safe_not_equal, {
+        isShow: 0,
+        isPurchasing: 2,
+        Show: 5,
+        Hide: 3,
+        supportDuration: 1,
+        OnSubmit: 4
+      });
+    }
+    get Show() {
+      return this.$.ctx[5];
+    }
+    get Hide() {
+      return this.$.ctx[3];
+    }
+  };
+  var PopUpPurchaseSupport_default = PopUpPurchaseSupport;
+
+  // _layouts/mainLayout.svelte
+  var import_jsApi = __toESM(require_jsApi_GEN());
+  var import_xHelper2 = __toESM(require_xHelper());
+  function create_if_block5(ctx) {
+    let popuppurchasesupport;
+    let updating_isPurchasing;
+    let updating_supportDuration;
+    let updating_isShow;
+    let current;
+    function popuppurchasesupport_isPurchasing_binding(value) {
+      ctx[10](value);
+    }
+    function popuppurchasesupport_supportDuration_binding(value) {
+      ctx[11](value);
+    }
+    function popuppurchasesupport_isShow_binding(value) {
+      ctx[12](value);
+    }
+    let popuppurchasesupport_props = { OnSubmit: (
+      /*purchaseSupport*/
+      ctx[6]
+    ) };
+    if (
+      /*isPurchasing*/
+      ctx[3] !== void 0
+    ) {
+      popuppurchasesupport_props.isPurchasing = /*isPurchasing*/
+      ctx[3];
+    }
+    if (
+      /*supportDuration*/
+      ctx[4] !== void 0
+    ) {
+      popuppurchasesupport_props.supportDuration = /*supportDuration*/
+      ctx[4];
+    }
+    if (
+      /*isPopUpShowing*/
+      ctx[1] !== void 0
+    ) {
+      popuppurchasesupport_props.isShow = /*isPopUpShowing*/
+      ctx[1];
+    }
+    popuppurchasesupport = new PopUpPurchaseSupport_default({ props: popuppurchasesupport_props });
+    ctx[9](popuppurchasesupport);
+    binding_callbacks.push(() => bind(popuppurchasesupport, "isPurchasing", popuppurchasesupport_isPurchasing_binding));
+    binding_callbacks.push(() => bind(popuppurchasesupport, "supportDuration", popuppurchasesupport_supportDuration_binding));
+    binding_callbacks.push(() => bind(popuppurchasesupport, "isShow", popuppurchasesupport_isShow_binding));
+    return {
+      c() {
+        create_component(popuppurchasesupport.$.fragment);
+      },
+      m(target, anchor) {
+        mount_component(popuppurchasesupport, target, anchor);
+        current = true;
+      },
+      p(ctx2, dirty) {
+        const popuppurchasesupport_changes = {};
+        if (!updating_isPurchasing && dirty & /*isPurchasing*/
+        8) {
+          updating_isPurchasing = true;
+          popuppurchasesupport_changes.isPurchasing = /*isPurchasing*/
+          ctx2[3];
+          add_flush_callback(() => updating_isPurchasing = false);
+        }
+        if (!updating_supportDuration && dirty & /*supportDuration*/
+        16) {
+          updating_supportDuration = true;
+          popuppurchasesupport_changes.supportDuration = /*supportDuration*/
+          ctx2[4];
+          add_flush_callback(() => updating_supportDuration = false);
+        }
+        if (!updating_isShow && dirty & /*isPopUpShowing*/
+        2) {
+          updating_isShow = true;
+          popuppurchasesupport_changes.isShow = /*isPopUpShowing*/
+          ctx2[1];
+          add_flush_callback(() => updating_isShow = false);
+        }
+        popuppurchasesupport.$set(popuppurchasesupport_changes);
+      },
+      i(local) {
+        if (current)
+          return;
+        transition_in(popuppurchasesupport.$.fragment, local);
+        current = true;
+      },
+      o(local) {
+        transition_out(popuppurchasesupport.$.fragment, local);
+        current = false;
+      },
+      d(detaching) {
+        ctx[9](null);
+        destroy_component(popuppurchasesupport, detaching);
+      }
+    };
+  }
+  function create_fragment7(ctx) {
+    let t0;
     let div3;
     let div2;
     let sidemenu;
-    let t0;
+    let t1;
     let div1;
     let navbar;
-    let t1;
+    let t2;
     let div0;
     let main;
-    let t2;
+    let t3;
     let footer;
     let div1_class_value;
     let current;
+    let if_block = (
+      /*isPopUpReady*/
+      ctx[0] && create_if_block5(ctx)
+    );
     sidemenu = new SideMenu_default({ props: { access: segments } });
     navbar = new Navbar_default({ props: { user } });
     const default_slot_template = (
       /*#slots*/
-      ctx[2].default
+      ctx[8].default
     );
     const default_slot = create_slot(
       default_slot_template,
       ctx,
       /*$scope*/
-      ctx[1],
+      ctx[7],
       null
     );
     footer = new Footer_default({});
     return {
       c() {
+        if (if_block)
+          if_block.c();
+        t0 = space();
         div3 = element("div");
         div2 = element("div");
         create_component(sidemenu.$.fragment);
-        t0 = space();
+        t1 = space();
         div1 = element("div");
         create_component(navbar.$.fragment);
-        t1 = space();
+        t2 = space();
         div0 = element("div");
         main = element("main");
         if (default_slot)
           default_slot.c();
-        t2 = space();
+        t3 = space();
         create_component(footer.$.fragment);
-        attr(div0, "class", "content svelte-19qdxe4");
-        attr(div1, "class", div1_class_value = "root_content " + /*$IsShrinkMenu*/
-        (ctx[0] ? "shrink" : "expand") + " svelte-19qdxe4");
-        attr(div2, "class", "root_container svelte-19qdxe4");
-        attr(div3, "class", "root_layout svelte-19qdxe4");
+        attr(div0, "class", "content svelte-1p4xmug");
+        attr(div1, "class", div1_class_value = "root-content " + /*$IsShrinkMenu*/
+        (ctx[5] ? "shrink" : "expand") + " svelte-1p4xmug");
+        attr(div2, "class", "root-container svelte-1p4xmug");
+        attr(div3, "class", "root-layout svelte-1p4xmug");
       },
       m(target, anchor) {
+        if (if_block)
+          if_block.m(target, anchor);
+        insert(target, t0, anchor);
         insert(target, div3, anchor);
         append(div3, div2);
         mount_component(sidemenu, div2, null);
-        append(div2, t0);
+        append(div2, t1);
         append(div2, div1);
         mount_component(navbar, div1, null);
-        append(div1, t1);
+        append(div1, t2);
         append(div1, div0);
         append(div0, main);
         if (default_slot) {
           default_slot.m(main, null);
         }
-        append(div0, t2);
+        append(div0, t3);
         mount_component(footer, div0, null);
         current = true;
       },
       p(ctx2, [dirty]) {
+        if (
+          /*isPopUpReady*/
+          ctx2[0]
+        ) {
+          if (if_block) {
+            if_block.p(ctx2, dirty);
+            if (dirty & /*isPopUpReady*/
+            1) {
+              transition_in(if_block, 1);
+            }
+          } else {
+            if_block = create_if_block5(ctx2);
+            if_block.c();
+            transition_in(if_block, 1);
+            if_block.m(t0.parentNode, t0);
+          }
+        } else if (if_block) {
+          group_outros();
+          transition_out(if_block, 1, 1, () => {
+            if_block = null;
+          });
+          check_outros();
+        }
         if (default_slot) {
           if (default_slot.p && (!current || dirty & /*$scope*/
-          2)) {
+          128)) {
             update_slot_base(
               default_slot,
               default_slot_template,
               ctx2,
               /*$scope*/
-              ctx2[1],
+              ctx2[7],
               !current ? get_all_dirty_from_scope(
                 /*$scope*/
-                ctx2[1]
+                ctx2[7]
               ) : get_slot_changes(
                 default_slot_template,
                 /*$scope*/
-                ctx2[1],
+                ctx2[7],
                 dirty,
                 null
               ),
@@ -7455,14 +8425,15 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           }
         }
         if (!current || dirty & /*$IsShrinkMenu*/
-        1 && div1_class_value !== (div1_class_value = "root_content " + /*$IsShrinkMenu*/
-        (ctx2[0] ? "shrink" : "expand") + " svelte-19qdxe4")) {
+        32 && div1_class_value !== (div1_class_value = "root-content " + /*$IsShrinkMenu*/
+        (ctx2[5] ? "shrink" : "expand") + " svelte-1p4xmug")) {
           attr(div1, "class", div1_class_value);
         }
       },
       i(local) {
         if (current)
           return;
+        transition_in(if_block);
         transition_in(sidemenu.$.fragment, local);
         transition_in(navbar.$.fragment, local);
         transition_in(default_slot, local);
@@ -7470,6 +8441,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         current = true;
       },
       o(local) {
+        transition_out(if_block);
         transition_out(sidemenu.$.fragment, local);
         transition_out(navbar.$.fragment, local);
         transition_out(default_slot, local);
@@ -7478,8 +8450,11 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       },
       d(detaching) {
         if (detaching) {
+          detach(t0);
           detach(div3);
         }
+        if (if_block)
+          if_block.d(detaching);
         destroy_component(sidemenu);
         destroy_component(navbar);
         if (default_slot)
@@ -7496,12 +8471,19 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     /** @type User */
     {/* user */}
   );
-  function instance6($self, $props, $invalidate) {
+  function setPopUpIntervalTime() {
+    const timestamp = new Date().getTime();
+    localStorage.setItem("popup-date", timestamp.toString());
+  }
+  function instance7($self, $props, $invalidate) {
     let $IsShrinkMenu;
-    component_subscribe($self, IsShrinkMenu, ($value) => $invalidate(0, $IsShrinkMenu = $value));
+    component_subscribe($self, IsShrinkMenu, ($value) => $invalidate(5, $IsShrinkMenu = $value));
     let { $slots: slots = {}, $scope } = $props;
     let viewportWidth = window.innerWidth;
+    let isPopUpReady = false;
+    let isPopUpShowing = false;
     onMount(() => {
+      $invalidate(0, isPopUpReady = true);
       if (viewportWidth > 768) {
         const isShrink = localStorage.getItem("IsShrinkMenu");
         IsShrinkMenu.set(JSON.parse(isShrink));
@@ -7519,17 +8501,101 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
           }
         });
       }
+      if ((0, import_xHelper2.IsUnixTimeExpired)(user.supportExpiredAt)) {
+        const storedPopupDate = localStorage.getItem("popup-date");
+        if (storedPopupDate) {
+          const savedTime = parseInt(storedPopupDate, 10);
+          const currentTime = new Date().getTime();
+          const threeDaysInMs = 3 * 24 * 60 * 60 * 1e3;
+          if (currentTime - savedTime > threeDaysInMs) {
+            setTimeout(
+              () => {
+                popUpPurchaseSupport.Show();
+              },
+              3e3
+            );
+          }
+        } else {
+          setTimeout(
+            () => {
+              popUpPurchaseSupport.Show();
+              setPopUpIntervalTime();
+            },
+            3e3
+          );
+        }
+      }
     });
+    let popUpPurchaseSupport;
+    let isPurchasing = false;
+    let supportDuration = "monthly";
+    async function purchaseSupport() {
+      $invalidate(3, isPurchasing = true);
+      await (0, import_jsApi.UserPurchaseSupport)(
+        /** @type {import('../jsApi.GEN').UserPurchaseSupportIn | any} */
+        { state: "paymentRequest", supportDuration },
+        /** @type {import('../jsApi.GEN').UserPurchaseSupportCallback} */
+        async (res) => {
+          console.log(res);
+          if (res.error) {
+            notifier.showError(res.error || "failed to purchase support+");
+            return;
+          }
+          $invalidate(3, isPurchasing = false);
+          const paymentURL = res.paymentResponse.response.payment.url;
+          if (!paymentURL) {
+            notifier.showError("failed to purchase support+");
+            return;
+          }
+          $invalidate(1, isPopUpShowing = false);
+          loadJokulCheckout(paymentURL);
+          return;
+        }
+      );
+      popUpPurchaseSupport.Hide();
+    }
+    function popuppurchasesupport_binding($value) {
+      binding_callbacks[$value ? "unshift" : "push"](() => {
+        popUpPurchaseSupport = $value;
+        $invalidate(2, popUpPurchaseSupport);
+      });
+    }
+    function popuppurchasesupport_isPurchasing_binding(value) {
+      isPurchasing = value;
+      $invalidate(3, isPurchasing);
+    }
+    function popuppurchasesupport_supportDuration_binding(value) {
+      supportDuration = value;
+      $invalidate(4, supportDuration);
+    }
+    function popuppurchasesupport_isShow_binding(value) {
+      isPopUpShowing = value;
+      $invalidate(1, isPopUpShowing);
+    }
     $self.$set = ($props2) => {
       if ("$scope" in $props2)
-        $invalidate(1, $scope = $props2.$scope);
+        $invalidate(7, $scope = $props2.$scope);
     };
-    return [$IsShrinkMenu, $scope, slots];
+    return [
+      isPopUpReady,
+      isPopUpShowing,
+      popUpPurchaseSupport,
+      isPurchasing,
+      supportDuration,
+      $IsShrinkMenu,
+      purchaseSupport,
+      $scope,
+      slots,
+      popuppurchasesupport_binding,
+      popuppurchasesupport_isPurchasing_binding,
+      popuppurchasesupport_supportDuration_binding,
+      popuppurchasesupport_isShow_binding
+    ];
   }
   var MainLayout = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance6, create_fragment6, safe_not_equal, {});
+      init(this, options, instance7, create_fragment7, safe_not_equal, {});
     }
   };
   var mainLayout_default = MainLayout;
@@ -8889,7 +9955,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function create_if_block_16(ctx) {
+  function create_if_block_17(ctx) {
     let current_block_type_index;
     let if_block;
     let if_block_anchor;
@@ -8956,7 +10022,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function create_if_block3(ctx) {
+  function create_if_block6(ctx) {
     let label0;
     let t0;
     let t1;
@@ -9779,7 +10845,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function create_fragment7(ctx) {
+  function create_fragment8(ctx) {
     let div1;
     let div0;
     let current_block_type_index;
@@ -9788,8 +10854,8 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     let div1_class_value;
     let current;
     const if_block_creators = [
-      create_if_block3,
-      create_if_block_16,
+      create_if_block6,
+      create_if_block_17,
       create_if_block_32,
       create_if_block_42,
       create_if_block_52,
@@ -9942,7 +11008,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function instance7($self, $props, $invalidate) {
+  function instance8($self, $props, $invalidate) {
     let { className = "" } = $props;
     let { type = (
       /** @type {InputType} */
@@ -10257,8 +11323,8 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       init(
         this,
         options,
-        instance7,
-        create_fragment7,
+        instance8,
+        create_fragment8,
         safe_not_equal,
         {
           className: 2,
@@ -10278,7 +11344,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   var InputBox_default = InputBox;
 
   // _components/PopUpTransactionTemplate.svelte
-  function create_if_block_17(ctx) {
+  function create_if_block_18(ctx) {
     let span;
     return {
       c() {
@@ -10295,7 +11361,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function create_if_block4(ctx) {
+  function create_if_block7(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -10329,7 +11395,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function create_fragment8(ctx) {
+  function create_fragment9(ctx) {
     let div5;
     let div4;
     let header;
@@ -10401,10 +11467,10 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     inputbox1 = new InputBox_default({ props: inputbox1_props });
     binding_callbacks.push(() => bind(inputbox1, "value", inputbox1_value_binding));
     let if_block0 = !/*isSubmitted*/
-    ctx[3] && create_if_block_17(ctx);
+    ctx[3] && create_if_block_18(ctx);
     let if_block1 = (
       /*isSubmitted*/
-      ctx[3] && create_if_block4(ctx)
+      ctx[3] && create_if_block7(ctx)
     );
     return {
       c() {
@@ -10534,7 +11600,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         ctx[3]) {
           if (if_block0) {
           } else {
-            if_block0 = create_if_block_17(ctx);
+            if_block0 = create_if_block_18(ctx);
             if_block0.c();
             if_block0.m(button2, t8);
           }
@@ -10552,7 +11618,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block4(ctx);
+            if_block1 = create_if_block7(ctx);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(button2, null);
@@ -10602,7 +11668,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function instance8($self, $props, $invalidate) {
+  function instance9($self, $props, $invalidate) {
     let { heading = "Add Transaction Template" } = $props;
     let { isSubmitted = false } = $props;
     let { onSubmit = () => {
@@ -10654,7 +11720,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   var PopUpTransactionTemplate = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance8, create_fragment8, safe_not_equal, {
+      init(this, options, instance9, create_fragment9, safe_not_equal, {
         heading: 2,
         isSubmitted: 3,
         onSubmit: 4,
@@ -10674,13 +11740,13 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   var PopUpTransactionTemplate_default = PopUpTransactionTemplate;
 
   // tenantAdmin_transactionTemplate.svelte
-  var import_jsApi2 = __toESM(require_jsApi_GEN());
+  var import_jsApi3 = __toESM(require_jsApi_GEN());
 
   // node_modules/.pnpm/svelte-icons-pack@3.1.3_svelte@4.2.2/node_modules/svelte-icons-pack/dist/tr/index.js
   var TrOutlineRefresh = { a: { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" }, c: '<path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"></path><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"></path>' };
 
   // _components/TransactionTemplateTree.svelte
-  var import_jsApi = __toESM(require_jsApi_GEN());
+  var import_jsApi2 = __toESM(require_jsApi_GEN());
 
   // node_modules/.pnpm/@floating-ui+utils@0.2.7/node_modules/@floating-ui/utils/dist/floating-ui.utils.mjs
   var min = Math.min;
@@ -12089,7 +13155,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   }
 
   // node_modules/.pnpm/svelte-select@5.8.3/node_modules/svelte-select/ChevronIcon.svelte
-  function create_fragment9(ctx) {
+  function create_fragment10(ctx) {
     let svg;
     let path;
     return {
@@ -12122,13 +13188,13 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   var ChevronIcon = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment9, safe_not_equal, {});
+      init(this, options, null, create_fragment10, safe_not_equal, {});
     }
   };
   var ChevronIcon_default = ChevronIcon;
 
   // node_modules/.pnpm/svelte-select@5.8.3/node_modules/svelte-select/ClearIcon.svelte
-  function create_fragment10(ctx) {
+  function create_fragment11(ctx) {
     let svg;
     let path;
     return {
@@ -12162,13 +13228,13 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   var ClearIcon = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment10, safe_not_equal, {});
+      init(this, options, null, create_fragment11, safe_not_equal, {});
     }
   };
   var ClearIcon_default = ClearIcon;
 
   // node_modules/.pnpm/svelte-select@5.8.3/node_modules/svelte-select/LoadingIcon.svelte
-  function create_fragment11(ctx) {
+  function create_fragment12(ctx) {
     let svg;
     let circle;
     return {
@@ -12203,7 +13269,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   var LoadingIcon = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, null, create_fragment11, safe_not_equal, {});
+      init(this, options, null, create_fragment12, safe_not_equal, {});
     }
   };
   var LoadingIcon_default = LoadingIcon;
@@ -14067,7 +15133,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function create_if_block_18(ctx) {
+  function create_if_block_19(ctx) {
     let div;
     let current;
     const chevron_icon_slot_template = (
@@ -14218,7 +15284,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function create_if_block5(ctx) {
+  function create_if_block8(ctx) {
     let current;
     const required_slot_template = (
       /*#slots*/
@@ -14306,7 +15372,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function create_fragment12(ctx) {
+  function create_fragment13(ctx) {
     let div3;
     let t0;
     let span;
@@ -14385,7 +15451,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     );
     let if_block5 = (
       /*showChevron*/
-      ctx[20] && create_if_block_18(ctx)
+      ctx[20] && create_if_block_19(ctx)
     );
     const input_hidden_slot_template = (
       /*#slots*/
@@ -14403,7 +15469,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       /*required*/
       ctx[16] && (!/*value*/
       ctx[3] || /*value*/
-      ctx[3].length === 0) && create_if_block5(ctx)
+      ctx[3].length === 0) && create_if_block8(ctx)
     );
     return {
       c() {
@@ -14764,7 +15830,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
               transition_in(if_block5, 1);
             }
           } else {
-            if_block5 = create_if_block_18(ctx2);
+            if_block5 = create_if_block_19(ctx2);
             if_block5.c();
             transition_in(if_block5, 1);
             if_block5.m(div2, null);
@@ -14818,7 +15884,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
               transition_in(if_block6, 1);
             }
           } else {
-            if_block6 = create_if_block5(ctx2);
+            if_block6 = create_if_block8(ctx2);
             if_block6.c();
             transition_in(if_block6, 1);
             if_block6.m(div3, null);
@@ -14963,7 +16029,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   function isItemSelectable(item) {
     return item.groupHeader && item.selectable || item.selectable || !item.hasOwnProperty("selectable");
   }
-  function instance9($self, $props, $invalidate) {
+  function instance10($self, $props, $invalidate) {
     let hasValue;
     let hideSelectedItem;
     let showClear;
@@ -15944,8 +17010,8 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       init(
         this,
         options,
-        instance9,
-        create_fragment12,
+        instance10,
+        create_fragment13,
         safe_not_equal,
         {
           justValue: 52,
@@ -16013,7 +17079,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   var Select_default = Select;
 
   // _components/InputCoa.svelte
-  function create_fragment13(ctx) {
+  function create_fragment14(ctx) {
     let div;
     let span;
     let t0;
@@ -16133,7 +17199,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     }
     return va.length < vb.length;
   }
-  function instance10($self, $props, $invalidate) {
+  function instance11($self, $props, $invalidate) {
     let { label = (
       /** @type {string} */
       ""
@@ -16181,13 +17247,13 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   var InputCoa = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance10, create_fragment13, safe_not_equal, { label: 1, values: 3, value: 0 });
+      init(this, options, instance11, create_fragment14, safe_not_equal, { label: 1, values: 3, value: 0 });
     }
   };
   var InputCoa_default = InputCoa;
 
   // _components/PopUpTransactionTplDetail.svelte
-  function create_if_block_19(ctx) {
+  function create_if_block_110(ctx) {
     let span;
     return {
       c() {
@@ -16204,7 +17270,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function create_if_block6(ctx) {
+  function create_if_block9(ctx) {
     let icon;
     let current;
     icon = new Icon_default({
@@ -16238,7 +17304,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function create_fragment14(ctx) {
+  function create_fragment15(ctx) {
     let div5;
     let div4;
     let header;
@@ -16377,10 +17443,10 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     inputbox3 = new InputBox_default({ props: inputbox3_props });
     binding_callbacks.push(() => bind(inputbox3, "value", inputbox3_value_binding));
     let if_block0 = !/*isSubmitted*/
-    ctx[6] && create_if_block_19(ctx);
+    ctx[6] && create_if_block_110(ctx);
     let if_block1 = (
       /*isSubmitted*/
-      ctx[6] && create_if_block6(ctx)
+      ctx[6] && create_if_block9(ctx)
     );
     return {
       c() {
@@ -16553,7 +17619,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         ctx[6]) {
           if (if_block0) {
           } else {
-            if_block0 = create_if_block_19(ctx);
+            if_block0 = create_if_block_110(ctx);
             if_block0.c();
             if_block0.m(button2, t11);
           }
@@ -16571,7 +17637,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block6(ctx);
+            if_block1 = create_if_block9(ctx);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(button2, null);
@@ -16630,7 +17696,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function instance11($self, $props, $invalidate) {
+  function instance12($self, $props, $invalidate) {
     let { heading = "Add Transaction Template Detail" } = $props;
     let { isSubmitted = false } = $props;
     let { onSubmit = () => {
@@ -16717,7 +17783,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   var PopUpTransactionTplDetail = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance11, create_fragment14, safe_not_equal, {
+      init(this, options, instance12, create_fragment15, safe_not_equal, {
         heading: 5,
         isSubmitted: 6,
         onSubmit: 7,
@@ -16902,7 +17968,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function create_if_block7(ctx) {
+  function create_if_block10(ctx) {
     let div1;
     let div0;
     let table;
@@ -16912,7 +17978,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     let current_block_type_index;
     let if_block;
     let current;
-    const if_block_creators = [create_if_block_110, create_else_block3];
+    const if_block_creators = [create_if_block_111, create_else_block3];
     const if_blocks = [];
     function select_block_type_1(ctx2, dirty) {
       if (
@@ -17010,7 +18076,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function create_if_block_110(ctx) {
+  function create_if_block_111(ctx) {
     let each_blocks = [];
     let each_1_lookup = /* @__PURE__ */ new Map();
     let each_1_anchor;
@@ -17309,7 +18375,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function create_fragment15(ctx) {
+  function create_fragment16(ctx) {
     let popuptransactiontpldetail;
     let updating_coaId;
     let updating_isDebit;
@@ -17503,7 +18569,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     function select_block_type(ctx2, dirty) {
       if (
         /*transactionTemplate*/
-        ctx2[0].deletedAt < 0
+        ctx2[0].deletedAt === 0
       )
         return 0;
       return 1;
@@ -17512,7 +18578,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     let if_block1 = (
       /*isShowDetails*/
-      ctx[5] && create_if_block7(ctx)
+      ctx[5] && create_if_block10(ctx)
     );
     return {
       c() {
@@ -17726,7 +18792,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
               transition_in(if_block1, 1);
             }
           } else {
-            if_block1 = create_if_block7(ctx2);
+            if_block1 = create_if_block10(ctx2);
             if_block1.c();
             transition_in(if_block1, 1);
             if_block1.m(div4, null);
@@ -17782,7 +18848,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function instance12($self, $props, $invalidate) {
+  function instance13($self, $props, $invalidate) {
     const dispatch = createEventDispatcher();
     let { transactionTemplate = (
       /** @type {TransactionTemplate} */
@@ -17798,7 +18864,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     let isShowDetails = false;
     async function getTransactionTplDetails() {
       $invalidate(4, isSearching = true);
-      await (0, import_jsApi.TenantAdminTransactionTplDetail)(
+      await (0, import_jsApi2.TenantAdminTransactionTplDetail)(
         //@ts-ignore
         {
           cmd: "list",
@@ -17851,7 +18917,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       if (sales) {
         attributes.push("sales");
       }
-      await (0, import_jsApi.TenantAdminTransactionTplDetail)(
+      await (0, import_jsApi2.TenantAdminTransactionTplDetail)(
         //@ts-ignore
         {
           cmd: "upsert",
@@ -17890,7 +18956,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         cmd: "upsert",
         transactionTemplate: { id: idTrxTpl, name, color }
       };
-      await (0, import_jsApi.TenantAdminTransactionTemplate)(
+      await (0, import_jsApi2.TenantAdminTransactionTemplate)(
         //@ts-ignore
         i,
         /** @type {import('./jsApi.GEN').TenantAdminTransactionTemplateCallback} */
@@ -18039,7 +19105,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   var TransactionTemplateTree = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance12, create_fragment15, safe_not_equal, { transactionTemplate: 0, coas: 1 }, null, [-1, -1]);
+      init(this, options, instance13, create_fragment16, safe_not_equal, { transactionTemplate: 0, coas: 1 }, null, [-1, -1]);
     }
   };
   var TransactionTemplateTree_default = TransactionTemplateTree;
@@ -18208,7 +19274,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
       }
     };
   }
-  function create_fragment16(ctx) {
+  function create_fragment17(ctx) {
     let popuptransactiontemplate;
     let updating_isSubmitted;
     let updating_name;
@@ -18333,7 +19399,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
     /** @type {CoA[]} */
     [/* coas */]
   );
-  function instance13($self, $props, $invalidate) {
+  function instance14($self, $props, $invalidate) {
     let transactionTemplates = (
       /** @type {TransactionTemplate[]} */
       [/* transactionTemplates */]
@@ -18348,7 +19414,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
         cmd: "upsert",
         transactionTemplate: { name, color }
       };
-      await (0, import_jsApi2.TenantAdminTransactionTemplate)(
+      await (0, import_jsApi3.TenantAdminTransactionTemplate)(
         //@ts-ignore
         i,
         /** @type {import('./jsApi.GEN').TenantAdminTransactionTemplateCallback} */
@@ -18409,7 +19475,7 @@ input.svelte-82qwg8.svelte-82qwg8.svelte-82qwg8:focus {
   var TenantAdmin_transactionTemplate = class extends SvelteComponent {
     constructor(options) {
       super();
-      init(this, options, instance13, create_fragment16, safe_not_equal, {});
+      init(this, options, instance14, create_fragment17, safe_not_equal, {});
     }
   };
   var tenantAdmin_transactionTemplate_default = TenantAdmin_transactionTemplate;

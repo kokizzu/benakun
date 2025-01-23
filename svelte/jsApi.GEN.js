@@ -349,6 +349,7 @@ const GuestAutoLoginIn = {
  * @property {String} user.tenantCode
  * @property {String} user.role
  * @property {String} user.invitationState
+ * @property {number} user.supportExpiredAt
  * @property {Object} segments
  */
 const GuestAutoLoginOut = {
@@ -371,6 +372,7 @@ const GuestAutoLoginOut = {
     tenantCode: '', // string
     role: '', // string
     invitationState: '', // string
+    supportExpiredAt: 0, // int64
   }, // rqAuth.Users
   segments: { // M.SB
   }, // M.SB
@@ -521,6 +523,7 @@ const GuestLoginIn = {
  * @property {String} user.tenantCode
  * @property {String} user.role
  * @property {String} user.invitationState
+ * @property {number} user.supportExpiredAt
  * @property {Object} segments
  */
 const GuestLoginOut = {
@@ -543,6 +546,7 @@ const GuestLoginOut = {
     tenantCode: '', // string
     role: '', // string
     invitationState: '', // string
+    supportExpiredAt: 0, // int64
   }, // rqAuth.Users
   segments: { // M.SB
   }, // M.SB
@@ -596,6 +600,7 @@ const GuestOauthCallbackIn = {
  * @property {String} currentUser.tenantCode
  * @property {String} currentUser.role
  * @property {String} currentUser.invitationState
+ * @property {number} currentUser.supportExpiredAt
  * @property {String} provider
  * @property {Object} segments
  */
@@ -622,6 +627,7 @@ const GuestOauthCallbackOut = {
     tenantCode: '', // string
     role: '', // string
     invitationState: '', // string
+    supportExpiredAt: 0, // int64
   }, // rqAuth.Users
   provider: '', // string
   segments: { // M.SB
@@ -672,6 +678,7 @@ const GuestRegisterIn = {
  * @property {String} user.tenantCode
  * @property {String} user.role
  * @property {String} user.invitationState
+ * @property {number} user.supportExpiredAt
  * @property {String} verifyEmailUrl
  */
 const GuestRegisterOut = {
@@ -694,6 +701,7 @@ const GuestRegisterOut = {
     tenantCode: '', // string
     role: '', // string
     invitationState: '', // string
+    supportExpiredAt: 0, // int64
   }, // rqAuth.Users
   verifyEmailUrl: '', // string
 }
@@ -1314,6 +1322,7 @@ exports.SuperAdminTenantManagement = async function SuperAdminTenantManagement( 
  * @property {String} user.tenantCode
  * @property {String} user.role
  * @property {String} user.invitationState
+ * @property {number} user.supportExpiredAt
  * @property {Object} withMeta
  * @property {number} pager.page
  * @property {number} pager.perPage
@@ -1342,6 +1351,7 @@ const SuperAdminUserManagementIn = {
     tenantCode: '', // string
     role: '', // string
     invitationState: '', // string
+    supportExpiredAt: 0, // int64
   }, // rqAuth.Users
   withMeta: false, // bool
   pager: { // zCrud.PagerIn
@@ -1381,6 +1391,7 @@ const SuperAdminUserManagementIn = {
  * @property {String} user.tenantCode
  * @property {String} user.role
  * @property {String} user.invitationState
+ * @property {number} user.supportExpiredAt
  * @property {Object} users
  */
 const SuperAdminUserManagementOut = {
@@ -1419,6 +1430,7 @@ const SuperAdminUserManagementOut = {
     tenantCode: '', // string
     role: '', // string
     invitationState: '', // string
+    supportExpiredAt: 0, // int64
   }, // rqAuth.Users
   users: { // [][]any
   }, // [][]any
@@ -2991,6 +3003,97 @@ exports.UserLogout = async function UserLogout( i, cb ) {
 }
 
 /**
+ * @typedef {Object} UserPaymentCancelIn
+ */
+const UserPaymentCancelIn = {
+}
+/**
+ * @typedef {Object} UserPaymentCancelOut
+ * @property {Object} request
+ */
+const UserPaymentCancelOut = {
+  request: { // RequestCommon
+  }, // RequestCommon
+}
+/**
+ * @callback UserPaymentCancelCallback
+ * @param {UserPaymentCancelOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserPaymentCancelIn} i
+ * @param {UserPaymentCancelCallback} cb
+ * @returns {Promise}
+ */
+exports.UserPaymentCancel = async function UserPaymentCancel( i, cb ) {
+  return await axios.post( '/user/paymentCancel', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserPaymentResultIn
+ * @property {String} invoiceNumber
+ */
+const UserPaymentResultIn = {
+  invoiceNumber: '', // string
+}
+/**
+ * @typedef {Object} UserPaymentResultOut
+ * @property {number} invoicePayment.id
+ * @property {number} invoicePayment.userId
+ * @property {String} invoicePayment.invoiceNumber
+ * @property {number} invoicePayment.amount
+ * @property {String} invoicePayment.currency
+ * @property {String} invoicePayment.paymentMethod
+ * @property {String} invoicePayment.responseHeader
+ * @property {String} invoicePayment.responseBody
+ * @property {String} invoicePayment.status
+ * @property {number} invoicePayment.createdAt
+ * @property {number} invoicePayment.createdBy
+ * @property {number} invoicePayment.updatedAt
+ * @property {number} invoicePayment.updatedBy
+ * @property {number} invoicePayment.deletedAt
+ * @property {number} invoicePayment.deletedBy
+ * @property {number} invoicePayment.restoredBy
+ */
+const UserPaymentResultOut = {
+  invoicePayment: { // rqInternal.InvoicePayment
+    id: 0, // uint64
+    userId: 0, // uint64
+    invoiceNumber: '', // string
+    amount: 0, // int64
+    currency: '', // string
+    paymentMethod: '', // string
+    responseHeader: '', // string
+    responseBody: '', // string
+    status: '', // string
+    createdAt: 0, // int64
+    createdBy: 0, // uint64
+    updatedAt: 0, // int64
+    updatedBy: 0, // uint64
+    deletedAt: 0, // int64
+    deletedBy: 0, // uint64
+    restoredBy: 0, // uint64
+  }, // rqInternal.InvoicePayment
+}
+/**
+ * @callback UserPaymentResultCallback
+ * @param {UserPaymentResultOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserPaymentResultIn} i
+ * @param {UserPaymentResultCallback} cb
+ * @returns {Promise}
+ */
+exports.UserPaymentResult = async function UserPaymentResult( i, cb ) {
+  return await axios.post( '/user/paymentResult', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
  * @typedef {Object} UserProfileIn
  */
 const UserProfileIn = {
@@ -3015,6 +3118,7 @@ const UserProfileIn = {
  * @property {String} user.tenantCode
  * @property {String} user.role
  * @property {String} user.invitationState
+ * @property {number} user.supportExpiredAt
  * @property {Object} segments
  */
 const UserProfileOut = {
@@ -3037,6 +3141,7 @@ const UserProfileOut = {
     tenantCode: '', // string
     role: '', // string
     invitationState: '', // string
+    supportExpiredAt: 0, // int64
   }, // rqAuth.Users
   segments: { // M.SB
   }, // M.SB
@@ -3053,6 +3158,39 @@ const UserProfileOut = {
  */
 exports.UserProfile = async function UserProfile( i, cb ) {
   return await axios.post( '/user/profile', i ).
+    then( wrapOk( cb ) ).
+    catch( wrapErr( cb ) )
+}
+
+/**
+ * @typedef {Object} UserPurchaseSupportIn
+ * @property {String} suppportDuration
+ * @property {String} state
+ */
+const UserPurchaseSupportIn = {
+  suppportDuration: '', // string
+  state: '', // string
+}
+/**
+ * @typedef {Object} UserPurchaseSupportOut
+ * @property {Object} paymentResponse
+ */
+const UserPurchaseSupportOut = {
+  paymentResponse: { // any
+  }, // any
+}
+/**
+ * @callback UserPurchaseSupportCallback
+ * @param {UserPurchaseSupportOut} o
+ * @returns {Promise}
+ */
+/**
+ * @param  {UserPurchaseSupportIn} i
+ * @param {UserPurchaseSupportCallback} cb
+ * @returns {Promise}
+ */
+exports.UserPurchaseSupport = async function UserPurchaseSupport( i, cb ) {
+  return await axios.post( '/user/purchaseSupport', i ).
     then( wrapOk( cb ) ).
     catch( wrapErr( cb ) )
 }
@@ -3187,6 +3325,7 @@ const UserUpdateProfileIn = {
  * @property {String} user.tenantCode
  * @property {String} user.role
  * @property {String} user.invitationState
+ * @property {number} user.supportExpiredAt
  * @property {Object} segments
  */
 const UserUpdateProfileOut = {
@@ -3209,6 +3348,7 @@ const UserUpdateProfileOut = {
     tenantCode: '', // string
     role: '', // string
     invitationState: '', // string
+    supportExpiredAt: 0, // int64
   }, // rqAuth.Users
   segments: { // M.SB
   }, // M.SB

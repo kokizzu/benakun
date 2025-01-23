@@ -5,8 +5,6 @@ package wcFinance
 import (
 	"benakun/model/mFinance/rqFinance"
 
-	"github.com/tarantool/go-tarantool/v2"
-
 	"github.com/kokizzu/gotro/A"
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kokizzu/gotro/L"
@@ -23,14 +21,13 @@ import (
 //go:generate replacer -afterprefix "By\" form" "By,string\" form" type wcFinance__ORM.GEN.go
 type BusinessTransactionMutator struct {
 	rqFinance.BusinessTransaction
-	mutations *tarantool.Operations
+	mutations []A.X
 	logs      []A.X
 }
 
 // NewBusinessTransactionMutator create new ORM writer/command object
 func NewBusinessTransactionMutator(adapter *Tt.Adapter) (res *BusinessTransactionMutator) {
 	res = &BusinessTransactionMutator{BusinessTransaction: rqFinance.BusinessTransaction{Adapter: adapter}}
-	res.mutations = tarantool.NewOperations()
 	return
 }
 
@@ -41,22 +38,18 @@ func (b *BusinessTransactionMutator) Logs() []A.X { //nolint:dupl false positive
 
 // HaveMutation check whether Set* methods ever called
 func (b *BusinessTransactionMutator) HaveMutation() bool { //nolint:dupl false positive
-	return len(b.logs) > 0
+	return len(b.mutations) > 0
 }
 
 // ClearMutations clear all previously called Set* methods
 func (b *BusinessTransactionMutator) ClearMutations() { //nolint:dupl false positive
-	b.mutations = tarantool.NewOperations()
+	b.mutations = []A.X{}
 	b.logs = []A.X{}
 }
 
 // DoOverwriteById update all columns, error if not exists, not using mutations/Set*
 func (b *BusinessTransactionMutator) DoOverwriteById() bool { //nolint:dupl false positive
-	_, err := b.Adapter.RetryDo(tarantool.NewUpdateRequest(b.SpaceName()).
-		Index(b.UniqueIndexId()).
-		Key(tarantool.UintKey{I: uint(b.Id)}).
-		Operations(b.ToUpdateArray()),
-	)
+	_, err := b.Adapter.Update(b.SpaceName(), b.UniqueIndexId(), A.X{b.Id}, b.ToUpdateArray())
 	return !L.IsError(err, `BusinessTransaction.DoOverwriteById failed: `+b.SpaceName())
 }
 
@@ -65,56 +58,67 @@ func (b *BusinessTransactionMutator) DoUpdateById() bool { //nolint:dupl false p
 	if !b.HaveMutation() {
 		return true
 	}
-	_, err := b.Adapter.RetryDo(
-		tarantool.NewUpdateRequest(b.SpaceName()).
-			Index(b.UniqueIndexId()).
-			Key(tarantool.UintKey{I: uint(b.Id)}).
-			Operations(b.mutations),
-	)
+	_, err := b.Adapter.Update(b.SpaceName(), b.UniqueIndexId(), A.X{b.Id}, b.mutations)
 	return !L.IsError(err, `BusinessTransaction.DoUpdateById failed: `+b.SpaceName())
 }
 
 // DoDeletePermanentById permanent delete
 func (b *BusinessTransactionMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
-	_, err := b.Adapter.RetryDo(
-		tarantool.NewDeleteRequest(b.SpaceName()).
-			Index(b.UniqueIndexId()).
-			Key(tarantool.UintKey{I: uint(b.Id)}),
-	)
+	_, err := b.Adapter.Delete(b.SpaceName(), b.UniqueIndexId(), A.X{b.Id})
 	return !L.IsError(err, `BusinessTransaction.DoDeletePermanentById failed: `+b.SpaceName())
 }
+
+// func (b *BusinessTransactionMutator) DoUpsert() bool { //nolint:dupl false positive
+//	arr := b.ToArray()
+//	_, err := b.Adapter.Upsert(b.SpaceName(), arr, A.X{
+//		A.X{`=`, 0, b.Id},
+//		A.X{`=`, 1, b.TenantCode},
+//		A.X{`=`, 2, b.StartDate},
+//		A.X{`=`, 3, b.EndDate},
+//		A.X{`=`, 4, b.CreatedAt},
+//		A.X{`=`, 5, b.CreatedBy},
+//		A.X{`=`, 6, b.UpdatedAt},
+//		A.X{`=`, 7, b.UpdatedBy},
+//		A.X{`=`, 8, b.DeletedAt},
+//		A.X{`=`, 9, b.DeletedBy},
+//		A.X{`=`, 10, b.RestoredBy},
+//		A.X{`=`, 11, b.TransactionTemplateId},
+//	})
+//	return !L.IsError(err, `BusinessTransaction.DoUpsert failed: `+b.SpaceName()+ `\n%#v`, arr)
+// }
 
 // DoInsert insert, error if already exists
 func (b *BusinessTransactionMutator) DoInsert() bool { //nolint:dupl false positive
 	arr := b.ToArray()
-	row, err := b.Adapter.RetryDo(
-		tarantool.NewInsertRequest(b.SpaceName()).
-			Tuple(arr),
-	)
+	row, err := b.Adapter.Insert(b.SpaceName(), arr)
 	if err == nil {
-		if len(row) > 0 {
-			if cells, ok := row[0].([]any); ok && len(cells) > 0 {
-				b.Id = X.ToU(cells[0])
-			}
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			b.Id = X.ToU(tup[0][0])
 		}
 	}
 	return !L.IsError(err, `BusinessTransaction.DoInsert failed: `+b.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
-// tarantool's replace/upsert can only match by primary key
+// replace = upsert, only error when there's unique secondary key
 // previous name: DoReplace
-func (b *BusinessTransactionMutator) DoUpsertById() bool { //nolint:dupl false positive
-	if b.Id > 0 {
-		return b.DoUpdateById()
+func (b *BusinessTransactionMutator) DoUpsert() bool { //nolint:dupl false positive
+	arr := b.ToArray()
+	row, err := b.Adapter.Replace(b.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			b.Id = X.ToU(tup[0][0])
+		}
 	}
-	return b.DoInsert()
+	return !L.IsError(err, `BusinessTransaction.DoUpsert failed: `+b.SpaceName()+`\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate
 func (b *BusinessTransactionMutator) SetId(val uint64) bool { //nolint:dupl false positive
 	if val != b.Id {
-		b.mutations.Assign(0, val)
+		b.mutations = append(b.mutations, A.X{`=`, 0, val})
 		b.logs = append(b.logs, A.X{`id`, b.Id, val})
 		b.Id = val
 		return true
@@ -125,7 +129,7 @@ func (b *BusinessTransactionMutator) SetId(val uint64) bool { //nolint:dupl fals
 // SetTenantCode create mutations, should not duplicate
 func (b *BusinessTransactionMutator) SetTenantCode(val string) bool { //nolint:dupl false positive
 	if val != b.TenantCode {
-		b.mutations.Assign(1, val)
+		b.mutations = append(b.mutations, A.X{`=`, 1, val})
 		b.logs = append(b.logs, A.X{`tenantCode`, b.TenantCode, val})
 		b.TenantCode = val
 		return true
@@ -136,7 +140,7 @@ func (b *BusinessTransactionMutator) SetTenantCode(val string) bool { //nolint:d
 // SetStartDate create mutations, should not duplicate
 func (b *BusinessTransactionMutator) SetStartDate(val string) bool { //nolint:dupl false positive
 	if val != b.StartDate {
-		b.mutations.Assign(2, val)
+		b.mutations = append(b.mutations, A.X{`=`, 2, val})
 		b.logs = append(b.logs, A.X{`startDate`, b.StartDate, val})
 		b.StartDate = val
 		return true
@@ -147,7 +151,7 @@ func (b *BusinessTransactionMutator) SetStartDate(val string) bool { //nolint:du
 // SetEndDate create mutations, should not duplicate
 func (b *BusinessTransactionMutator) SetEndDate(val string) bool { //nolint:dupl false positive
 	if val != b.EndDate {
-		b.mutations.Assign(3, val)
+		b.mutations = append(b.mutations, A.X{`=`, 3, val})
 		b.logs = append(b.logs, A.X{`endDate`, b.EndDate, val})
 		b.EndDate = val
 		return true
@@ -158,7 +162,7 @@ func (b *BusinessTransactionMutator) SetEndDate(val string) bool { //nolint:dupl
 // SetCreatedAt create mutations, should not duplicate
 func (b *BusinessTransactionMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != b.CreatedAt {
-		b.mutations.Assign(4, val)
+		b.mutations = append(b.mutations, A.X{`=`, 4, val})
 		b.logs = append(b.logs, A.X{`createdAt`, b.CreatedAt, val})
 		b.CreatedAt = val
 		return true
@@ -169,7 +173,7 @@ func (b *BusinessTransactionMutator) SetCreatedAt(val int64) bool { //nolint:dup
 // SetCreatedBy create mutations, should not duplicate
 func (b *BusinessTransactionMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != b.CreatedBy {
-		b.mutations.Assign(5, val)
+		b.mutations = append(b.mutations, A.X{`=`, 5, val})
 		b.logs = append(b.logs, A.X{`createdBy`, b.CreatedBy, val})
 		b.CreatedBy = val
 		return true
@@ -180,7 +184,7 @@ func (b *BusinessTransactionMutator) SetCreatedBy(val uint64) bool { //nolint:du
 // SetUpdatedAt create mutations, should not duplicate
 func (b *BusinessTransactionMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != b.UpdatedAt {
-		b.mutations.Assign(6, val)
+		b.mutations = append(b.mutations, A.X{`=`, 6, val})
 		b.logs = append(b.logs, A.X{`updatedAt`, b.UpdatedAt, val})
 		b.UpdatedAt = val
 		return true
@@ -191,7 +195,7 @@ func (b *BusinessTransactionMutator) SetUpdatedAt(val int64) bool { //nolint:dup
 // SetUpdatedBy create mutations, should not duplicate
 func (b *BusinessTransactionMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != b.UpdatedBy {
-		b.mutations.Assign(7, val)
+		b.mutations = append(b.mutations, A.X{`=`, 7, val})
 		b.logs = append(b.logs, A.X{`updatedBy`, b.UpdatedBy, val})
 		b.UpdatedBy = val
 		return true
@@ -202,7 +206,7 @@ func (b *BusinessTransactionMutator) SetUpdatedBy(val uint64) bool { //nolint:du
 // SetDeletedAt create mutations, should not duplicate
 func (b *BusinessTransactionMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != b.DeletedAt {
-		b.mutations.Assign(8, val)
+		b.mutations = append(b.mutations, A.X{`=`, 8, val})
 		b.logs = append(b.logs, A.X{`deletedAt`, b.DeletedAt, val})
 		b.DeletedAt = val
 		return true
@@ -213,7 +217,7 @@ func (b *BusinessTransactionMutator) SetDeletedAt(val int64) bool { //nolint:dup
 // SetDeletedBy create mutations, should not duplicate
 func (b *BusinessTransactionMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
 	if val != b.DeletedBy {
-		b.mutations.Assign(9, val)
+		b.mutations = append(b.mutations, A.X{`=`, 9, val})
 		b.logs = append(b.logs, A.X{`deletedBy`, b.DeletedBy, val})
 		b.DeletedBy = val
 		return true
@@ -224,7 +228,7 @@ func (b *BusinessTransactionMutator) SetDeletedBy(val uint64) bool { //nolint:du
 // SetRestoredBy create mutations, should not duplicate
 func (b *BusinessTransactionMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
 	if val != b.RestoredBy {
-		b.mutations.Assign(10, val)
+		b.mutations = append(b.mutations, A.X{`=`, 10, val})
 		b.logs = append(b.logs, A.X{`restoredBy`, b.RestoredBy, val})
 		b.RestoredBy = val
 		return true
@@ -235,7 +239,7 @@ func (b *BusinessTransactionMutator) SetRestoredBy(val uint64) bool { //nolint:d
 // SetTransactionTemplateId create mutations, should not duplicate
 func (b *BusinessTransactionMutator) SetTransactionTemplateId(val uint64) bool { //nolint:dupl false positive
 	if val != b.TransactionTemplateId {
-		b.mutations.Assign(11, val)
+		b.mutations = append(b.mutations, A.X{`=`, 11, val})
 		b.logs = append(b.logs, A.X{`transactionTemplateId`, b.TransactionTemplateId, val})
 		b.TransactionTemplateId = val
 		return true
@@ -307,14 +311,13 @@ func (b *BusinessTransactionMutator) SetAll(from rqFinance.BusinessTransaction, 
 // CoaMutator DAO writer/command struct
 type CoaMutator struct {
 	rqFinance.Coa
-	mutations *tarantool.Operations
+	mutations []A.X
 	logs      []A.X
 }
 
 // NewCoaMutator create new ORM writer/command object
 func NewCoaMutator(adapter *Tt.Adapter) (res *CoaMutator) {
 	res = &CoaMutator{Coa: rqFinance.Coa{Adapter: adapter}}
-	res.mutations = tarantool.NewOperations()
 	res.Children = []any{}
 	return
 }
@@ -326,22 +329,18 @@ func (c *CoaMutator) Logs() []A.X { //nolint:dupl false positive
 
 // HaveMutation check whether Set* methods ever called
 func (c *CoaMutator) HaveMutation() bool { //nolint:dupl false positive
-	return len(c.logs) > 0
+	return len(c.mutations) > 0
 }
 
 // ClearMutations clear all previously called Set* methods
 func (c *CoaMutator) ClearMutations() { //nolint:dupl false positive
-	c.mutations = tarantool.NewOperations()
+	c.mutations = []A.X{}
 	c.logs = []A.X{}
 }
 
 // DoOverwriteById update all columns, error if not exists, not using mutations/Set*
 func (c *CoaMutator) DoOverwriteById() bool { //nolint:dupl false positive
-	_, err := c.Adapter.RetryDo(tarantool.NewUpdateRequest(c.SpaceName()).
-		Index(c.UniqueIndexId()).
-		Key(tarantool.UintKey{I: uint(c.Id)}).
-		Operations(c.ToUpdateArray()),
-	)
+	_, err := c.Adapter.Update(c.SpaceName(), c.UniqueIndexId(), A.X{c.Id}, c.ToUpdateArray())
 	return !L.IsError(err, `Coa.DoOverwriteById failed: `+c.SpaceName())
 }
 
@@ -350,56 +349,69 @@ func (c *CoaMutator) DoUpdateById() bool { //nolint:dupl false positive
 	if !c.HaveMutation() {
 		return true
 	}
-	_, err := c.Adapter.RetryDo(
-		tarantool.NewUpdateRequest(c.SpaceName()).
-			Index(c.UniqueIndexId()).
-			Key(tarantool.UintKey{I: uint(c.Id)}).
-			Operations(c.mutations),
-	)
+	_, err := c.Adapter.Update(c.SpaceName(), c.UniqueIndexId(), A.X{c.Id}, c.mutations)
 	return !L.IsError(err, `Coa.DoUpdateById failed: `+c.SpaceName())
 }
 
 // DoDeletePermanentById permanent delete
 func (c *CoaMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
-	_, err := c.Adapter.RetryDo(
-		tarantool.NewDeleteRequest(c.SpaceName()).
-			Index(c.UniqueIndexId()).
-			Key(tarantool.UintKey{I: uint(c.Id)}),
-	)
+	_, err := c.Adapter.Delete(c.SpaceName(), c.UniqueIndexId(), A.X{c.Id})
 	return !L.IsError(err, `Coa.DoDeletePermanentById failed: `+c.SpaceName())
 }
+
+// func (c *CoaMutator) DoUpsert() bool { //nolint:dupl false positive
+//	arr := c.ToArray()
+//	_, err := c.Adapter.Upsert(c.SpaceName(), arr, A.X{
+//		A.X{`=`, 0, c.Id},
+//		A.X{`=`, 1, c.TenantCode},
+//		A.X{`=`, 2, c.Name},
+//		A.X{`=`, 3, c.Label},
+//		A.X{`=`, 4, c.ParentId},
+//		A.X{`=`, 5, c.Children},
+//		A.X{`=`, 6, c.CreatedAt},
+//		A.X{`=`, 7, c.CreatedBy},
+//		A.X{`=`, 8, c.UpdatedAt},
+//		A.X{`=`, 9, c.UpdatedBy},
+//		A.X{`=`, 10, c.DeletedAt},
+//		A.X{`=`, 11, c.DeletedBy},
+//		A.X{`=`, 12, c.RestoredBy},
+//		A.X{`=`, 13, c.Editable},
+//	})
+//	return !L.IsError(err, `Coa.DoUpsert failed: `+c.SpaceName()+ `\n%#v`, arr)
+// }
 
 // DoInsert insert, error if already exists
 func (c *CoaMutator) DoInsert() bool { //nolint:dupl false positive
 	arr := c.ToArray()
-	row, err := c.Adapter.RetryDo(
-		tarantool.NewInsertRequest(c.SpaceName()).
-			Tuple(arr),
-	)
+	row, err := c.Adapter.Insert(c.SpaceName(), arr)
 	if err == nil {
-		if len(row) > 0 {
-			if cells, ok := row[0].([]any); ok && len(cells) > 0 {
-				c.Id = X.ToU(cells[0])
-			}
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			c.Id = X.ToU(tup[0][0])
 		}
 	}
 	return !L.IsError(err, `Coa.DoInsert failed: `+c.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
-// tarantool's replace/upsert can only match by primary key
+// replace = upsert, only error when there's unique secondary key
 // previous name: DoReplace
-func (c *CoaMutator) DoUpsertById() bool { //nolint:dupl false positive
-	if c.Id > 0 {
-		return c.DoUpdateById()
+func (c *CoaMutator) DoUpsert() bool { //nolint:dupl false positive
+	arr := c.ToArray()
+	row, err := c.Adapter.Replace(c.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			c.Id = X.ToU(tup[0][0])
+		}
 	}
-	return c.DoInsert()
+	return !L.IsError(err, `Coa.DoUpsert failed: `+c.SpaceName()+`\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate
 func (c *CoaMutator) SetId(val uint64) bool { //nolint:dupl false positive
 	if val != c.Id {
-		c.mutations.Assign(0, val)
+		c.mutations = append(c.mutations, A.X{`=`, 0, val})
 		c.logs = append(c.logs, A.X{`id`, c.Id, val})
 		c.Id = val
 		return true
@@ -410,7 +422,7 @@ func (c *CoaMutator) SetId(val uint64) bool { //nolint:dupl false positive
 // SetTenantCode create mutations, should not duplicate
 func (c *CoaMutator) SetTenantCode(val string) bool { //nolint:dupl false positive
 	if val != c.TenantCode {
-		c.mutations.Assign(1, val)
+		c.mutations = append(c.mutations, A.X{`=`, 1, val})
 		c.logs = append(c.logs, A.X{`tenantCode`, c.TenantCode, val})
 		c.TenantCode = val
 		return true
@@ -421,7 +433,7 @@ func (c *CoaMutator) SetTenantCode(val string) bool { //nolint:dupl false positi
 // SetName create mutations, should not duplicate
 func (c *CoaMutator) SetName(val string) bool { //nolint:dupl false positive
 	if val != c.Name {
-		c.mutations.Assign(2, val)
+		c.mutations = append(c.mutations, A.X{`=`, 2, val})
 		c.logs = append(c.logs, A.X{`name`, c.Name, val})
 		c.Name = val
 		return true
@@ -432,7 +444,7 @@ func (c *CoaMutator) SetName(val string) bool { //nolint:dupl false positive
 // SetLabel create mutations, should not duplicate
 func (c *CoaMutator) SetLabel(val string) bool { //nolint:dupl false positive
 	if val != c.Label {
-		c.mutations.Assign(3, val)
+		c.mutations = append(c.mutations, A.X{`=`, 3, val})
 		c.logs = append(c.logs, A.X{`label`, c.Label, val})
 		c.Label = val
 		return true
@@ -443,7 +455,7 @@ func (c *CoaMutator) SetLabel(val string) bool { //nolint:dupl false positive
 // SetParentId create mutations, should not duplicate
 func (c *CoaMutator) SetParentId(val uint64) bool { //nolint:dupl false positive
 	if val != c.ParentId {
-		c.mutations.Assign(4, val)
+		c.mutations = append(c.mutations, A.X{`=`, 4, val})
 		c.logs = append(c.logs, A.X{`parentId`, c.ParentId, val})
 		c.ParentId = val
 		return true
@@ -453,7 +465,7 @@ func (c *CoaMutator) SetParentId(val uint64) bool { //nolint:dupl false positive
 
 // SetChildren create mutations, should not duplicate
 func (c *CoaMutator) SetChildren(val []any) bool { //nolint:dupl false positive
-	c.mutations.Assign(5, val)
+	c.mutations = append(c.mutations, A.X{`=`, 5, val})
 	c.logs = append(c.logs, A.X{`children`, c.Children, val})
 	c.Children = val
 	return true
@@ -462,7 +474,7 @@ func (c *CoaMutator) SetChildren(val []any) bool { //nolint:dupl false positive
 // SetCreatedAt create mutations, should not duplicate
 func (c *CoaMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != c.CreatedAt {
-		c.mutations.Assign(6, val)
+		c.mutations = append(c.mutations, A.X{`=`, 6, val})
 		c.logs = append(c.logs, A.X{`createdAt`, c.CreatedAt, val})
 		c.CreatedAt = val
 		return true
@@ -473,7 +485,7 @@ func (c *CoaMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 // SetCreatedBy create mutations, should not duplicate
 func (c *CoaMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != c.CreatedBy {
-		c.mutations.Assign(7, val)
+		c.mutations = append(c.mutations, A.X{`=`, 7, val})
 		c.logs = append(c.logs, A.X{`createdBy`, c.CreatedBy, val})
 		c.CreatedBy = val
 		return true
@@ -484,7 +496,7 @@ func (c *CoaMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positiv
 // SetUpdatedAt create mutations, should not duplicate
 func (c *CoaMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != c.UpdatedAt {
-		c.mutations.Assign(8, val)
+		c.mutations = append(c.mutations, A.X{`=`, 8, val})
 		c.logs = append(c.logs, A.X{`updatedAt`, c.UpdatedAt, val})
 		c.UpdatedAt = val
 		return true
@@ -495,7 +507,7 @@ func (c *CoaMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 // SetUpdatedBy create mutations, should not duplicate
 func (c *CoaMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != c.UpdatedBy {
-		c.mutations.Assign(9, val)
+		c.mutations = append(c.mutations, A.X{`=`, 9, val})
 		c.logs = append(c.logs, A.X{`updatedBy`, c.UpdatedBy, val})
 		c.UpdatedBy = val
 		return true
@@ -506,7 +518,7 @@ func (c *CoaMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positiv
 // SetDeletedAt create mutations, should not duplicate
 func (c *CoaMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != c.DeletedAt {
-		c.mutations.Assign(10, val)
+		c.mutations = append(c.mutations, A.X{`=`, 10, val})
 		c.logs = append(c.logs, A.X{`deletedAt`, c.DeletedAt, val})
 		c.DeletedAt = val
 		return true
@@ -517,7 +529,7 @@ func (c *CoaMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 // SetDeletedBy create mutations, should not duplicate
 func (c *CoaMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
 	if val != c.DeletedBy {
-		c.mutations.Assign(11, val)
+		c.mutations = append(c.mutations, A.X{`=`, 11, val})
 		c.logs = append(c.logs, A.X{`deletedBy`, c.DeletedBy, val})
 		c.DeletedBy = val
 		return true
@@ -528,7 +540,7 @@ func (c *CoaMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positiv
 // SetRestoredBy create mutations, should not duplicate
 func (c *CoaMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
 	if val != c.RestoredBy {
-		c.mutations.Assign(12, val)
+		c.mutations = append(c.mutations, A.X{`=`, 12, val})
 		c.logs = append(c.logs, A.X{`restoredBy`, c.RestoredBy, val})
 		c.RestoredBy = val
 		return true
@@ -539,7 +551,7 @@ func (c *CoaMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positi
 // SetEditable create mutations, should not duplicate
 func (c *CoaMutator) SetEditable(val bool) bool { //nolint:dupl false positive
 	if val != c.Editable {
-		c.mutations.Assign(13, val)
+		c.mutations = append(c.mutations, A.X{`=`, 13, val})
 		c.logs = append(c.logs, A.X{`editable`, c.Editable, val})
 		c.Editable = val
 		return true
@@ -619,14 +631,13 @@ func (c *CoaMutator) SetAll(from rqFinance.Coa, excludeMap, forceMap M.SB) (chan
 // TransactionJournalMutator DAO writer/command struct
 type TransactionJournalMutator struct {
 	rqFinance.TransactionJournal
-	mutations *tarantool.Operations
+	mutations []A.X
 	logs      []A.X
 }
 
 // NewTransactionJournalMutator create new ORM writer/command object
 func NewTransactionJournalMutator(adapter *Tt.Adapter) (res *TransactionJournalMutator) {
 	res = &TransactionJournalMutator{TransactionJournal: rqFinance.TransactionJournal{Adapter: adapter}}
-	res.mutations = tarantool.NewOperations()
 	return
 }
 
@@ -637,22 +648,18 @@ func (t *TransactionJournalMutator) Logs() []A.X { //nolint:dupl false positive
 
 // HaveMutation check whether Set* methods ever called
 func (t *TransactionJournalMutator) HaveMutation() bool { //nolint:dupl false positive
-	return len(t.logs) > 0
+	return len(t.mutations) > 0
 }
 
 // ClearMutations clear all previously called Set* methods
 func (t *TransactionJournalMutator) ClearMutations() { //nolint:dupl false positive
-	t.mutations = tarantool.NewOperations()
+	t.mutations = []A.X{}
 	t.logs = []A.X{}
 }
 
 // DoOverwriteById update all columns, error if not exists, not using mutations/Set*
 func (t *TransactionJournalMutator) DoOverwriteById() bool { //nolint:dupl false positive
-	_, err := t.Adapter.RetryDo(tarantool.NewUpdateRequest(t.SpaceName()).
-		Index(t.UniqueIndexId()).
-		Key(tarantool.UintKey{I: uint(t.Id)}).
-		Operations(t.ToUpdateArray()),
-	)
+	_, err := t.Adapter.Update(t.SpaceName(), t.UniqueIndexId(), A.X{t.Id}, t.ToUpdateArray())
 	return !L.IsError(err, `TransactionJournal.DoOverwriteById failed: `+t.SpaceName())
 }
 
@@ -661,56 +668,71 @@ func (t *TransactionJournalMutator) DoUpdateById() bool { //nolint:dupl false po
 	if !t.HaveMutation() {
 		return true
 	}
-	_, err := t.Adapter.RetryDo(
-		tarantool.NewUpdateRequest(t.SpaceName()).
-			Index(t.UniqueIndexId()).
-			Key(tarantool.UintKey{I: uint(t.Id)}).
-			Operations(t.mutations),
-	)
+	_, err := t.Adapter.Update(t.SpaceName(), t.UniqueIndexId(), A.X{t.Id}, t.mutations)
 	return !L.IsError(err, `TransactionJournal.DoUpdateById failed: `+t.SpaceName())
 }
 
 // DoDeletePermanentById permanent delete
 func (t *TransactionJournalMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
-	_, err := t.Adapter.RetryDo(
-		tarantool.NewDeleteRequest(t.SpaceName()).
-			Index(t.UniqueIndexId()).
-			Key(tarantool.UintKey{I: uint(t.Id)}),
-	)
+	_, err := t.Adapter.Delete(t.SpaceName(), t.UniqueIndexId(), A.X{t.Id})
 	return !L.IsError(err, `TransactionJournal.DoDeletePermanentById failed: `+t.SpaceName())
 }
+
+// func (t *TransactionJournalMutator) DoUpsert() bool { //nolint:dupl false positive
+//	arr := t.ToArray()
+//	_, err := t.Adapter.Upsert(t.SpaceName(), arr, A.X{
+//		A.X{`=`, 0, t.Id},
+//		A.X{`=`, 1, t.TenantCode},
+//		A.X{`=`, 2, t.CoaId},
+//		A.X{`=`, 3, t.DebitIDR},
+//		A.X{`=`, 4, t.CreditIDR},
+//		A.X{`=`, 5, t.Descriptions},
+//		A.X{`=`, 6, t.Date},
+//		A.X{`=`, 7, t.DetailObj},
+//		A.X{`=`, 8, t.CreatedAt},
+//		A.X{`=`, 9, t.CreatedBy},
+//		A.X{`=`, 10, t.UpdatedAt},
+//		A.X{`=`, 11, t.UpdatedBy},
+//		A.X{`=`, 12, t.DeletedAt},
+//		A.X{`=`, 13, t.DeletedBy},
+//		A.X{`=`, 14, t.RestoredBy},
+//		A.X{`=`, 15, t.TransactionTemplateId},
+//	})
+//	return !L.IsError(err, `TransactionJournal.DoUpsert failed: `+t.SpaceName()+ `\n%#v`, arr)
+// }
 
 // DoInsert insert, error if already exists
 func (t *TransactionJournalMutator) DoInsert() bool { //nolint:dupl false positive
 	arr := t.ToArray()
-	row, err := t.Adapter.RetryDo(
-		tarantool.NewInsertRequest(t.SpaceName()).
-			Tuple(arr),
-	)
+	row, err := t.Adapter.Insert(t.SpaceName(), arr)
 	if err == nil {
-		if len(row) > 0 {
-			if cells, ok := row[0].([]any); ok && len(cells) > 0 {
-				t.Id = X.ToU(cells[0])
-			}
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			t.Id = X.ToU(tup[0][0])
 		}
 	}
 	return !L.IsError(err, `TransactionJournal.DoInsert failed: `+t.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
-// tarantool's replace/upsert can only match by primary key
+// replace = upsert, only error when there's unique secondary key
 // previous name: DoReplace
-func (t *TransactionJournalMutator) DoUpsertById() bool { //nolint:dupl false positive
-	if t.Id > 0 {
-		return t.DoUpdateById()
+func (t *TransactionJournalMutator) DoUpsert() bool { //nolint:dupl false positive
+	arr := t.ToArray()
+	row, err := t.Adapter.Replace(t.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			t.Id = X.ToU(tup[0][0])
+		}
 	}
-	return t.DoInsert()
+	return !L.IsError(err, `TransactionJournal.DoUpsert failed: `+t.SpaceName()+`\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate
 func (t *TransactionJournalMutator) SetId(val uint64) bool { //nolint:dupl false positive
 	if val != t.Id {
-		t.mutations.Assign(0, val)
+		t.mutations = append(t.mutations, A.X{`=`, 0, val})
 		t.logs = append(t.logs, A.X{`id`, t.Id, val})
 		t.Id = val
 		return true
@@ -721,7 +743,7 @@ func (t *TransactionJournalMutator) SetId(val uint64) bool { //nolint:dupl false
 // SetTenantCode create mutations, should not duplicate
 func (t *TransactionJournalMutator) SetTenantCode(val string) bool { //nolint:dupl false positive
 	if val != t.TenantCode {
-		t.mutations.Assign(1, val)
+		t.mutations = append(t.mutations, A.X{`=`, 1, val})
 		t.logs = append(t.logs, A.X{`tenantCode`, t.TenantCode, val})
 		t.TenantCode = val
 		return true
@@ -732,7 +754,7 @@ func (t *TransactionJournalMutator) SetTenantCode(val string) bool { //nolint:du
 // SetCoaId create mutations, should not duplicate
 func (t *TransactionJournalMutator) SetCoaId(val uint64) bool { //nolint:dupl false positive
 	if val != t.CoaId {
-		t.mutations.Assign(2, val)
+		t.mutations = append(t.mutations, A.X{`=`, 2, val})
 		t.logs = append(t.logs, A.X{`coaId`, t.CoaId, val})
 		t.CoaId = val
 		return true
@@ -743,7 +765,7 @@ func (t *TransactionJournalMutator) SetCoaId(val uint64) bool { //nolint:dupl fa
 // SetDebitIDR create mutations, should not duplicate
 func (t *TransactionJournalMutator) SetDebitIDR(val int64) bool { //nolint:dupl false positive
 	if val != t.DebitIDR {
-		t.mutations.Assign(3, val)
+		t.mutations = append(t.mutations, A.X{`=`, 3, val})
 		t.logs = append(t.logs, A.X{`debitIDR`, t.DebitIDR, val})
 		t.DebitIDR = val
 		return true
@@ -754,7 +776,7 @@ func (t *TransactionJournalMutator) SetDebitIDR(val int64) bool { //nolint:dupl 
 // SetCreditIDR create mutations, should not duplicate
 func (t *TransactionJournalMutator) SetCreditIDR(val int64) bool { //nolint:dupl false positive
 	if val != t.CreditIDR {
-		t.mutations.Assign(4, val)
+		t.mutations = append(t.mutations, A.X{`=`, 4, val})
 		t.logs = append(t.logs, A.X{`creditIDR`, t.CreditIDR, val})
 		t.CreditIDR = val
 		return true
@@ -765,7 +787,7 @@ func (t *TransactionJournalMutator) SetCreditIDR(val int64) bool { //nolint:dupl
 // SetDescriptions create mutations, should not duplicate
 func (t *TransactionJournalMutator) SetDescriptions(val string) bool { //nolint:dupl false positive
 	if val != t.Descriptions {
-		t.mutations.Assign(5, val)
+		t.mutations = append(t.mutations, A.X{`=`, 5, val})
 		t.logs = append(t.logs, A.X{`descriptions`, t.Descriptions, val})
 		t.Descriptions = val
 		return true
@@ -776,7 +798,7 @@ func (t *TransactionJournalMutator) SetDescriptions(val string) bool { //nolint:
 // SetDate create mutations, should not duplicate
 func (t *TransactionJournalMutator) SetDate(val string) bool { //nolint:dupl false positive
 	if val != t.Date {
-		t.mutations.Assign(6, val)
+		t.mutations = append(t.mutations, A.X{`=`, 6, val})
 		t.logs = append(t.logs, A.X{`date`, t.Date, val})
 		t.Date = val
 		return true
@@ -787,7 +809,7 @@ func (t *TransactionJournalMutator) SetDate(val string) bool { //nolint:dupl fal
 // SetDetailObj create mutations, should not duplicate
 func (t *TransactionJournalMutator) SetDetailObj(val string) bool { //nolint:dupl false positive
 	if val != t.DetailObj {
-		t.mutations.Assign(7, val)
+		t.mutations = append(t.mutations, A.X{`=`, 7, val})
 		t.logs = append(t.logs, A.X{`detailObj`, t.DetailObj, val})
 		t.DetailObj = val
 		return true
@@ -798,7 +820,7 @@ func (t *TransactionJournalMutator) SetDetailObj(val string) bool { //nolint:dup
 // SetCreatedAt create mutations, should not duplicate
 func (t *TransactionJournalMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != t.CreatedAt {
-		t.mutations.Assign(8, val)
+		t.mutations = append(t.mutations, A.X{`=`, 8, val})
 		t.logs = append(t.logs, A.X{`createdAt`, t.CreatedAt, val})
 		t.CreatedAt = val
 		return true
@@ -809,7 +831,7 @@ func (t *TransactionJournalMutator) SetCreatedAt(val int64) bool { //nolint:dupl
 // SetCreatedBy create mutations, should not duplicate
 func (t *TransactionJournalMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != t.CreatedBy {
-		t.mutations.Assign(9, val)
+		t.mutations = append(t.mutations, A.X{`=`, 9, val})
 		t.logs = append(t.logs, A.X{`createdBy`, t.CreatedBy, val})
 		t.CreatedBy = val
 		return true
@@ -820,7 +842,7 @@ func (t *TransactionJournalMutator) SetCreatedBy(val uint64) bool { //nolint:dup
 // SetUpdatedAt create mutations, should not duplicate
 func (t *TransactionJournalMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != t.UpdatedAt {
-		t.mutations.Assign(10, val)
+		t.mutations = append(t.mutations, A.X{`=`, 10, val})
 		t.logs = append(t.logs, A.X{`updatedAt`, t.UpdatedAt, val})
 		t.UpdatedAt = val
 		return true
@@ -831,7 +853,7 @@ func (t *TransactionJournalMutator) SetUpdatedAt(val int64) bool { //nolint:dupl
 // SetUpdatedBy create mutations, should not duplicate
 func (t *TransactionJournalMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != t.UpdatedBy {
-		t.mutations.Assign(11, val)
+		t.mutations = append(t.mutations, A.X{`=`, 11, val})
 		t.logs = append(t.logs, A.X{`updatedBy`, t.UpdatedBy, val})
 		t.UpdatedBy = val
 		return true
@@ -842,7 +864,7 @@ func (t *TransactionJournalMutator) SetUpdatedBy(val uint64) bool { //nolint:dup
 // SetDeletedAt create mutations, should not duplicate
 func (t *TransactionJournalMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != t.DeletedAt {
-		t.mutations.Assign(12, val)
+		t.mutations = append(t.mutations, A.X{`=`, 12, val})
 		t.logs = append(t.logs, A.X{`deletedAt`, t.DeletedAt, val})
 		t.DeletedAt = val
 		return true
@@ -853,7 +875,7 @@ func (t *TransactionJournalMutator) SetDeletedAt(val int64) bool { //nolint:dupl
 // SetDeletedBy create mutations, should not duplicate
 func (t *TransactionJournalMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
 	if val != t.DeletedBy {
-		t.mutations.Assign(13, val)
+		t.mutations = append(t.mutations, A.X{`=`, 13, val})
 		t.logs = append(t.logs, A.X{`deletedBy`, t.DeletedBy, val})
 		t.DeletedBy = val
 		return true
@@ -864,7 +886,7 @@ func (t *TransactionJournalMutator) SetDeletedBy(val uint64) bool { //nolint:dup
 // SetRestoredBy create mutations, should not duplicate
 func (t *TransactionJournalMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
 	if val != t.RestoredBy {
-		t.mutations.Assign(14, val)
+		t.mutations = append(t.mutations, A.X{`=`, 14, val})
 		t.logs = append(t.logs, A.X{`restoredBy`, t.RestoredBy, val})
 		t.RestoredBy = val
 		return true
@@ -875,7 +897,7 @@ func (t *TransactionJournalMutator) SetRestoredBy(val uint64) bool { //nolint:du
 // SetTransactionTemplateId create mutations, should not duplicate
 func (t *TransactionJournalMutator) SetTransactionTemplateId(val uint64) bool { //nolint:dupl false positive
 	if val != t.TransactionTemplateId {
-		t.mutations.Assign(15, val)
+		t.mutations = append(t.mutations, A.X{`=`, 15, val})
 		t.logs = append(t.logs, A.X{`transactionTemplateId`, t.TransactionTemplateId, val})
 		t.TransactionTemplateId = val
 		return true
@@ -963,14 +985,13 @@ func (t *TransactionJournalMutator) SetAll(from rqFinance.TransactionJournal, ex
 // TransactionTemplateMutator DAO writer/command struct
 type TransactionTemplateMutator struct {
 	rqFinance.TransactionTemplate
-	mutations *tarantool.Operations
+	mutations []A.X
 	logs      []A.X
 }
 
 // NewTransactionTemplateMutator create new ORM writer/command object
 func NewTransactionTemplateMutator(adapter *Tt.Adapter) (res *TransactionTemplateMutator) {
 	res = &TransactionTemplateMutator{TransactionTemplate: rqFinance.TransactionTemplate{Adapter: adapter}}
-	res.mutations = tarantool.NewOperations()
 	return
 }
 
@@ -981,22 +1002,18 @@ func (t *TransactionTemplateMutator) Logs() []A.X { //nolint:dupl false positive
 
 // HaveMutation check whether Set* methods ever called
 func (t *TransactionTemplateMutator) HaveMutation() bool { //nolint:dupl false positive
-	return len(t.logs) > 0
+	return len(t.mutations) > 0
 }
 
 // ClearMutations clear all previously called Set* methods
 func (t *TransactionTemplateMutator) ClearMutations() { //nolint:dupl false positive
-	t.mutations = tarantool.NewOperations()
+	t.mutations = []A.X{}
 	t.logs = []A.X{}
 }
 
 // DoOverwriteById update all columns, error if not exists, not using mutations/Set*
 func (t *TransactionTemplateMutator) DoOverwriteById() bool { //nolint:dupl false positive
-	_, err := t.Adapter.RetryDo(tarantool.NewUpdateRequest(t.SpaceName()).
-		Index(t.UniqueIndexId()).
-		Key(tarantool.UintKey{I: uint(t.Id)}).
-		Operations(t.ToUpdateArray()),
-	)
+	_, err := t.Adapter.Update(t.SpaceName(), t.UniqueIndexId(), A.X{t.Id}, t.ToUpdateArray())
 	return !L.IsError(err, `TransactionTemplate.DoOverwriteById failed: `+t.SpaceName())
 }
 
@@ -1005,56 +1022,67 @@ func (t *TransactionTemplateMutator) DoUpdateById() bool { //nolint:dupl false p
 	if !t.HaveMutation() {
 		return true
 	}
-	_, err := t.Adapter.RetryDo(
-		tarantool.NewUpdateRequest(t.SpaceName()).
-			Index(t.UniqueIndexId()).
-			Key(tarantool.UintKey{I: uint(t.Id)}).
-			Operations(t.mutations),
-	)
+	_, err := t.Adapter.Update(t.SpaceName(), t.UniqueIndexId(), A.X{t.Id}, t.mutations)
 	return !L.IsError(err, `TransactionTemplate.DoUpdateById failed: `+t.SpaceName())
 }
 
 // DoDeletePermanentById permanent delete
 func (t *TransactionTemplateMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
-	_, err := t.Adapter.RetryDo(
-		tarantool.NewDeleteRequest(t.SpaceName()).
-			Index(t.UniqueIndexId()).
-			Key(tarantool.UintKey{I: uint(t.Id)}),
-	)
+	_, err := t.Adapter.Delete(t.SpaceName(), t.UniqueIndexId(), A.X{t.Id})
 	return !L.IsError(err, `TransactionTemplate.DoDeletePermanentById failed: `+t.SpaceName())
 }
+
+// func (t *TransactionTemplateMutator) DoUpsert() bool { //nolint:dupl false positive
+//	arr := t.ToArray()
+//	_, err := t.Adapter.Upsert(t.SpaceName(), arr, A.X{
+//		A.X{`=`, 0, t.Id},
+//		A.X{`=`, 1, t.TenantCode},
+//		A.X{`=`, 2, t.Name},
+//		A.X{`=`, 3, t.Color},
+//		A.X{`=`, 4, t.ImageURL},
+//		A.X{`=`, 5, t.CreatedAt},
+//		A.X{`=`, 6, t.CreatedBy},
+//		A.X{`=`, 7, t.UpdatedAt},
+//		A.X{`=`, 8, t.UpdatedBy},
+//		A.X{`=`, 9, t.DeletedAt},
+//		A.X{`=`, 10, t.DeletedBy},
+//		A.X{`=`, 11, t.RestoredBy},
+//	})
+//	return !L.IsError(err, `TransactionTemplate.DoUpsert failed: `+t.SpaceName()+ `\n%#v`, arr)
+// }
 
 // DoInsert insert, error if already exists
 func (t *TransactionTemplateMutator) DoInsert() bool { //nolint:dupl false positive
 	arr := t.ToArray()
-	row, err := t.Adapter.RetryDo(
-		tarantool.NewInsertRequest(t.SpaceName()).
-			Tuple(arr),
-	)
+	row, err := t.Adapter.Insert(t.SpaceName(), arr)
 	if err == nil {
-		if len(row) > 0 {
-			if cells, ok := row[0].([]any); ok && len(cells) > 0 {
-				t.Id = X.ToU(cells[0])
-			}
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			t.Id = X.ToU(tup[0][0])
 		}
 	}
 	return !L.IsError(err, `TransactionTemplate.DoInsert failed: `+t.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
-// tarantool's replace/upsert can only match by primary key
+// replace = upsert, only error when there's unique secondary key
 // previous name: DoReplace
-func (t *TransactionTemplateMutator) DoUpsertById() bool { //nolint:dupl false positive
-	if t.Id > 0 {
-		return t.DoUpdateById()
+func (t *TransactionTemplateMutator) DoUpsert() bool { //nolint:dupl false positive
+	arr := t.ToArray()
+	row, err := t.Adapter.Replace(t.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			t.Id = X.ToU(tup[0][0])
+		}
 	}
-	return t.DoInsert()
+	return !L.IsError(err, `TransactionTemplate.DoUpsert failed: `+t.SpaceName()+`\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate
 func (t *TransactionTemplateMutator) SetId(val uint64) bool { //nolint:dupl false positive
 	if val != t.Id {
-		t.mutations.Assign(0, val)
+		t.mutations = append(t.mutations, A.X{`=`, 0, val})
 		t.logs = append(t.logs, A.X{`id`, t.Id, val})
 		t.Id = val
 		return true
@@ -1065,7 +1093,7 @@ func (t *TransactionTemplateMutator) SetId(val uint64) bool { //nolint:dupl fals
 // SetTenantCode create mutations, should not duplicate
 func (t *TransactionTemplateMutator) SetTenantCode(val string) bool { //nolint:dupl false positive
 	if val != t.TenantCode {
-		t.mutations.Assign(1, val)
+		t.mutations = append(t.mutations, A.X{`=`, 1, val})
 		t.logs = append(t.logs, A.X{`tenantCode`, t.TenantCode, val})
 		t.TenantCode = val
 		return true
@@ -1076,7 +1104,7 @@ func (t *TransactionTemplateMutator) SetTenantCode(val string) bool { //nolint:d
 // SetName create mutations, should not duplicate
 func (t *TransactionTemplateMutator) SetName(val string) bool { //nolint:dupl false positive
 	if val != t.Name {
-		t.mutations.Assign(2, val)
+		t.mutations = append(t.mutations, A.X{`=`, 2, val})
 		t.logs = append(t.logs, A.X{`name`, t.Name, val})
 		t.Name = val
 		return true
@@ -1087,7 +1115,7 @@ func (t *TransactionTemplateMutator) SetName(val string) bool { //nolint:dupl fa
 // SetColor create mutations, should not duplicate
 func (t *TransactionTemplateMutator) SetColor(val string) bool { //nolint:dupl false positive
 	if val != t.Color {
-		t.mutations.Assign(3, val)
+		t.mutations = append(t.mutations, A.X{`=`, 3, val})
 		t.logs = append(t.logs, A.X{`color`, t.Color, val})
 		t.Color = val
 		return true
@@ -1098,7 +1126,7 @@ func (t *TransactionTemplateMutator) SetColor(val string) bool { //nolint:dupl f
 // SetImageURL create mutations, should not duplicate
 func (t *TransactionTemplateMutator) SetImageURL(val string) bool { //nolint:dupl false positive
 	if val != t.ImageURL {
-		t.mutations.Assign(4, val)
+		t.mutations = append(t.mutations, A.X{`=`, 4, val})
 		t.logs = append(t.logs, A.X{`imageURL`, t.ImageURL, val})
 		t.ImageURL = val
 		return true
@@ -1109,7 +1137,7 @@ func (t *TransactionTemplateMutator) SetImageURL(val string) bool { //nolint:dup
 // SetCreatedAt create mutations, should not duplicate
 func (t *TransactionTemplateMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != t.CreatedAt {
-		t.mutations.Assign(5, val)
+		t.mutations = append(t.mutations, A.X{`=`, 5, val})
 		t.logs = append(t.logs, A.X{`createdAt`, t.CreatedAt, val})
 		t.CreatedAt = val
 		return true
@@ -1120,7 +1148,7 @@ func (t *TransactionTemplateMutator) SetCreatedAt(val int64) bool { //nolint:dup
 // SetCreatedBy create mutations, should not duplicate
 func (t *TransactionTemplateMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != t.CreatedBy {
-		t.mutations.Assign(6, val)
+		t.mutations = append(t.mutations, A.X{`=`, 6, val})
 		t.logs = append(t.logs, A.X{`createdBy`, t.CreatedBy, val})
 		t.CreatedBy = val
 		return true
@@ -1131,7 +1159,7 @@ func (t *TransactionTemplateMutator) SetCreatedBy(val uint64) bool { //nolint:du
 // SetUpdatedAt create mutations, should not duplicate
 func (t *TransactionTemplateMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != t.UpdatedAt {
-		t.mutations.Assign(7, val)
+		t.mutations = append(t.mutations, A.X{`=`, 7, val})
 		t.logs = append(t.logs, A.X{`updatedAt`, t.UpdatedAt, val})
 		t.UpdatedAt = val
 		return true
@@ -1142,7 +1170,7 @@ func (t *TransactionTemplateMutator) SetUpdatedAt(val int64) bool { //nolint:dup
 // SetUpdatedBy create mutations, should not duplicate
 func (t *TransactionTemplateMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != t.UpdatedBy {
-		t.mutations.Assign(8, val)
+		t.mutations = append(t.mutations, A.X{`=`, 8, val})
 		t.logs = append(t.logs, A.X{`updatedBy`, t.UpdatedBy, val})
 		t.UpdatedBy = val
 		return true
@@ -1153,7 +1181,7 @@ func (t *TransactionTemplateMutator) SetUpdatedBy(val uint64) bool { //nolint:du
 // SetDeletedAt create mutations, should not duplicate
 func (t *TransactionTemplateMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != t.DeletedAt {
-		t.mutations.Assign(9, val)
+		t.mutations = append(t.mutations, A.X{`=`, 9, val})
 		t.logs = append(t.logs, A.X{`deletedAt`, t.DeletedAt, val})
 		t.DeletedAt = val
 		return true
@@ -1164,7 +1192,7 @@ func (t *TransactionTemplateMutator) SetDeletedAt(val int64) bool { //nolint:dup
 // SetDeletedBy create mutations, should not duplicate
 func (t *TransactionTemplateMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
 	if val != t.DeletedBy {
-		t.mutations.Assign(10, val)
+		t.mutations = append(t.mutations, A.X{`=`, 10, val})
 		t.logs = append(t.logs, A.X{`deletedBy`, t.DeletedBy, val})
 		t.DeletedBy = val
 		return true
@@ -1175,7 +1203,7 @@ func (t *TransactionTemplateMutator) SetDeletedBy(val uint64) bool { //nolint:du
 // SetRestoredBy create mutations, should not duplicate
 func (t *TransactionTemplateMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
 	if val != t.RestoredBy {
-		t.mutations.Assign(11, val)
+		t.mutations = append(t.mutations, A.X{`=`, 11, val})
 		t.logs = append(t.logs, A.X{`restoredBy`, t.RestoredBy, val})
 		t.RestoredBy = val
 		return true
@@ -1247,14 +1275,13 @@ func (t *TransactionTemplateMutator) SetAll(from rqFinance.TransactionTemplate, 
 // TransactionTplDetailMutator DAO writer/command struct
 type TransactionTplDetailMutator struct {
 	rqFinance.TransactionTplDetail
-	mutations *tarantool.Operations
+	mutations []A.X
 	logs      []A.X
 }
 
 // NewTransactionTplDetailMutator create new ORM writer/command object
 func NewTransactionTplDetailMutator(adapter *Tt.Adapter) (res *TransactionTplDetailMutator) {
 	res = &TransactionTplDetailMutator{TransactionTplDetail: rqFinance.TransactionTplDetail{Adapter: adapter}}
-	res.mutations = tarantool.NewOperations()
 	res.Attributes = []any{}
 	return
 }
@@ -1266,22 +1293,18 @@ func (t *TransactionTplDetailMutator) Logs() []A.X { //nolint:dupl false positiv
 
 // HaveMutation check whether Set* methods ever called
 func (t *TransactionTplDetailMutator) HaveMutation() bool { //nolint:dupl false positive
-	return len(t.logs) > 0
+	return len(t.mutations) > 0
 }
 
 // ClearMutations clear all previously called Set* methods
 func (t *TransactionTplDetailMutator) ClearMutations() { //nolint:dupl false positive
-	t.mutations = tarantool.NewOperations()
+	t.mutations = []A.X{}
 	t.logs = []A.X{}
 }
 
 // DoOverwriteById update all columns, error if not exists, not using mutations/Set*
 func (t *TransactionTplDetailMutator) DoOverwriteById() bool { //nolint:dupl false positive
-	_, err := t.Adapter.RetryDo(tarantool.NewUpdateRequest(t.SpaceName()).
-		Index(t.UniqueIndexId()).
-		Key(tarantool.UintKey{I: uint(t.Id)}).
-		Operations(t.ToUpdateArray()),
-	)
+	_, err := t.Adapter.Update(t.SpaceName(), t.UniqueIndexId(), A.X{t.Id}, t.ToUpdateArray())
 	return !L.IsError(err, `TransactionTplDetail.DoOverwriteById failed: `+t.SpaceName())
 }
 
@@ -1290,56 +1313,68 @@ func (t *TransactionTplDetailMutator) DoUpdateById() bool { //nolint:dupl false 
 	if !t.HaveMutation() {
 		return true
 	}
-	_, err := t.Adapter.RetryDo(
-		tarantool.NewUpdateRequest(t.SpaceName()).
-			Index(t.UniqueIndexId()).
-			Key(tarantool.UintKey{I: uint(t.Id)}).
-			Operations(t.mutations),
-	)
+	_, err := t.Adapter.Update(t.SpaceName(), t.UniqueIndexId(), A.X{t.Id}, t.mutations)
 	return !L.IsError(err, `TransactionTplDetail.DoUpdateById failed: `+t.SpaceName())
 }
 
 // DoDeletePermanentById permanent delete
 func (t *TransactionTplDetailMutator) DoDeletePermanentById() bool { //nolint:dupl false positive
-	_, err := t.Adapter.RetryDo(
-		tarantool.NewDeleteRequest(t.SpaceName()).
-			Index(t.UniqueIndexId()).
-			Key(tarantool.UintKey{I: uint(t.Id)}),
-	)
+	_, err := t.Adapter.Delete(t.SpaceName(), t.UniqueIndexId(), A.X{t.Id})
 	return !L.IsError(err, `TransactionTplDetail.DoDeletePermanentById failed: `+t.SpaceName())
 }
+
+// func (t *TransactionTplDetailMutator) DoUpsert() bool { //nolint:dupl false positive
+//	arr := t.ToArray()
+//	_, err := t.Adapter.Upsert(t.SpaceName(), arr, A.X{
+//		A.X{`=`, 0, t.Id},
+//		A.X{`=`, 1, t.ParentId},
+//		A.X{`=`, 2, t.TenantCode},
+//		A.X{`=`, 3, t.CoaId},
+//		A.X{`=`, 4, t.IsDebit},
+//		A.X{`=`, 5, t.CreatedAt},
+//		A.X{`=`, 6, t.CreatedBy},
+//		A.X{`=`, 7, t.UpdatedAt},
+//		A.X{`=`, 8, t.UpdatedBy},
+//		A.X{`=`, 9, t.DeletedAt},
+//		A.X{`=`, 10, t.DeletedBy},
+//		A.X{`=`, 11, t.RestoredBy},
+//		A.X{`=`, 12, t.Attributes},
+//	})
+//	return !L.IsError(err, `TransactionTplDetail.DoUpsert failed: `+t.SpaceName()+ `\n%#v`, arr)
+// }
 
 // DoInsert insert, error if already exists
 func (t *TransactionTplDetailMutator) DoInsert() bool { //nolint:dupl false positive
 	arr := t.ToArray()
-	row, err := t.Adapter.RetryDo(
-		tarantool.NewInsertRequest(t.SpaceName()).
-			Tuple(arr),
-	)
+	row, err := t.Adapter.Insert(t.SpaceName(), arr)
 	if err == nil {
-		if len(row) > 0 {
-			if cells, ok := row[0].([]any); ok && len(cells) > 0 {
-				t.Id = X.ToU(cells[0])
-			}
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			t.Id = X.ToU(tup[0][0])
 		}
 	}
 	return !L.IsError(err, `TransactionTplDetail.DoInsert failed: `+t.SpaceName()+`\n%#v`, arr)
 }
 
 // DoUpsert upsert, insert or overwrite, will error only when there's unique secondary key being violated
-// tarantool's replace/upsert can only match by primary key
+// replace = upsert, only error when there's unique secondary key
 // previous name: DoReplace
-func (t *TransactionTplDetailMutator) DoUpsertById() bool { //nolint:dupl false positive
-	if t.Id > 0 {
-		return t.DoUpdateById()
+func (t *TransactionTplDetailMutator) DoUpsert() bool { //nolint:dupl false positive
+	arr := t.ToArray()
+	row, err := t.Adapter.Replace(t.SpaceName(), arr)
+	if err == nil {
+		tup := row.Tuples()
+		if len(tup) > 0 && len(tup[0]) > 0 && tup[0][0] != nil {
+			t.Id = X.ToU(tup[0][0])
+		}
 	}
-	return t.DoInsert()
+	return !L.IsError(err, `TransactionTplDetail.DoUpsert failed: `+t.SpaceName()+`\n%#v`, arr)
 }
 
 // SetId create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetId(val uint64) bool { //nolint:dupl false positive
 	if val != t.Id {
-		t.mutations.Assign(0, val)
+		t.mutations = append(t.mutations, A.X{`=`, 0, val})
 		t.logs = append(t.logs, A.X{`id`, t.Id, val})
 		t.Id = val
 		return true
@@ -1350,7 +1385,7 @@ func (t *TransactionTplDetailMutator) SetId(val uint64) bool { //nolint:dupl fal
 // SetParentId create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetParentId(val uint64) bool { //nolint:dupl false positive
 	if val != t.ParentId {
-		t.mutations.Assign(1, val)
+		t.mutations = append(t.mutations, A.X{`=`, 1, val})
 		t.logs = append(t.logs, A.X{`parentId`, t.ParentId, val})
 		t.ParentId = val
 		return true
@@ -1361,7 +1396,7 @@ func (t *TransactionTplDetailMutator) SetParentId(val uint64) bool { //nolint:du
 // SetTenantCode create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetTenantCode(val string) bool { //nolint:dupl false positive
 	if val != t.TenantCode {
-		t.mutations.Assign(2, val)
+		t.mutations = append(t.mutations, A.X{`=`, 2, val})
 		t.logs = append(t.logs, A.X{`tenantCode`, t.TenantCode, val})
 		t.TenantCode = val
 		return true
@@ -1372,7 +1407,7 @@ func (t *TransactionTplDetailMutator) SetTenantCode(val string) bool { //nolint:
 // SetCoaId create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetCoaId(val uint64) bool { //nolint:dupl false positive
 	if val != t.CoaId {
-		t.mutations.Assign(3, val)
+		t.mutations = append(t.mutations, A.X{`=`, 3, val})
 		t.logs = append(t.logs, A.X{`coaId`, t.CoaId, val})
 		t.CoaId = val
 		return true
@@ -1383,7 +1418,7 @@ func (t *TransactionTplDetailMutator) SetCoaId(val uint64) bool { //nolint:dupl 
 // SetIsDebit create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetIsDebit(val bool) bool { //nolint:dupl false positive
 	if val != t.IsDebit {
-		t.mutations.Assign(4, val)
+		t.mutations = append(t.mutations, A.X{`=`, 4, val})
 		t.logs = append(t.logs, A.X{`isDebit`, t.IsDebit, val})
 		t.IsDebit = val
 		return true
@@ -1394,7 +1429,7 @@ func (t *TransactionTplDetailMutator) SetIsDebit(val bool) bool { //nolint:dupl 
 // SetCreatedAt create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetCreatedAt(val int64) bool { //nolint:dupl false positive
 	if val != t.CreatedAt {
-		t.mutations.Assign(5, val)
+		t.mutations = append(t.mutations, A.X{`=`, 5, val})
 		t.logs = append(t.logs, A.X{`createdAt`, t.CreatedAt, val})
 		t.CreatedAt = val
 		return true
@@ -1405,7 +1440,7 @@ func (t *TransactionTplDetailMutator) SetCreatedAt(val int64) bool { //nolint:du
 // SetCreatedBy create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetCreatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != t.CreatedBy {
-		t.mutations.Assign(6, val)
+		t.mutations = append(t.mutations, A.X{`=`, 6, val})
 		t.logs = append(t.logs, A.X{`createdBy`, t.CreatedBy, val})
 		t.CreatedBy = val
 		return true
@@ -1416,7 +1451,7 @@ func (t *TransactionTplDetailMutator) SetCreatedBy(val uint64) bool { //nolint:d
 // SetUpdatedAt create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetUpdatedAt(val int64) bool { //nolint:dupl false positive
 	if val != t.UpdatedAt {
-		t.mutations.Assign(7, val)
+		t.mutations = append(t.mutations, A.X{`=`, 7, val})
 		t.logs = append(t.logs, A.X{`updatedAt`, t.UpdatedAt, val})
 		t.UpdatedAt = val
 		return true
@@ -1427,7 +1462,7 @@ func (t *TransactionTplDetailMutator) SetUpdatedAt(val int64) bool { //nolint:du
 // SetUpdatedBy create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetUpdatedBy(val uint64) bool { //nolint:dupl false positive
 	if val != t.UpdatedBy {
-		t.mutations.Assign(8, val)
+		t.mutations = append(t.mutations, A.X{`=`, 8, val})
 		t.logs = append(t.logs, A.X{`updatedBy`, t.UpdatedBy, val})
 		t.UpdatedBy = val
 		return true
@@ -1438,7 +1473,7 @@ func (t *TransactionTplDetailMutator) SetUpdatedBy(val uint64) bool { //nolint:d
 // SetDeletedAt create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetDeletedAt(val int64) bool { //nolint:dupl false positive
 	if val != t.DeletedAt {
-		t.mutations.Assign(9, val)
+		t.mutations = append(t.mutations, A.X{`=`, 9, val})
 		t.logs = append(t.logs, A.X{`deletedAt`, t.DeletedAt, val})
 		t.DeletedAt = val
 		return true
@@ -1449,7 +1484,7 @@ func (t *TransactionTplDetailMutator) SetDeletedAt(val int64) bool { //nolint:du
 // SetDeletedBy create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetDeletedBy(val uint64) bool { //nolint:dupl false positive
 	if val != t.DeletedBy {
-		t.mutations.Assign(10, val)
+		t.mutations = append(t.mutations, A.X{`=`, 10, val})
 		t.logs = append(t.logs, A.X{`deletedBy`, t.DeletedBy, val})
 		t.DeletedBy = val
 		return true
@@ -1460,7 +1495,7 @@ func (t *TransactionTplDetailMutator) SetDeletedBy(val uint64) bool { //nolint:d
 // SetRestoredBy create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetRestoredBy(val uint64) bool { //nolint:dupl false positive
 	if val != t.RestoredBy {
-		t.mutations.Assign(11, val)
+		t.mutations = append(t.mutations, A.X{`=`, 11, val})
 		t.logs = append(t.logs, A.X{`restoredBy`, t.RestoredBy, val})
 		t.RestoredBy = val
 		return true
@@ -1470,7 +1505,7 @@ func (t *TransactionTplDetailMutator) SetRestoredBy(val uint64) bool { //nolint:
 
 // SetAttributes create mutations, should not duplicate
 func (t *TransactionTplDetailMutator) SetAttributes(val []any) bool { //nolint:dupl false positive
-	t.mutations.Assign(12, val)
+	t.mutations = append(t.mutations, A.X{`=`, 12, val})
 	t.logs = append(t.logs, A.X{`attributes`, t.Attributes, val})
 	t.Attributes = val
 	return true

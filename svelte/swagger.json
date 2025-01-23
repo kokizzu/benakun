@@ -541,6 +541,9 @@
 												},
 												"invitationState": {
 														"type": "string"
+												},
+												"supportExpiredAt": {
+														"type": "number"
 												}
 												}
 										},
@@ -781,6 +784,9 @@
 												},
 												"invitationState": {
 														"type": "string"
+												},
+												"supportExpiredAt": {
+														"type": "number"
 												}
 												}
 										},
@@ -895,6 +901,9 @@
 												},
 												"invitationState": {
 														"type": "string"
+												},
+												"supportExpiredAt": {
+														"type": "number"
 												}
 												}
 										},
@@ -1001,6 +1010,9 @@
 												},
 												"invitationState": {
 														"type": "string"
+												},
+												"supportExpiredAt": {
+														"type": "number"
 												}
 												}
 										},
@@ -1936,6 +1948,9 @@
 								},
 								"invitationState": {
 										"type": "string"
+								},
+								"supportExpiredAt": {
+										"type": "number"
 								}
 								}
 						},
@@ -2079,6 +2094,9 @@
 												},
 												"invitationState": {
 														"type": "string"
+												},
+												"supportExpiredAt": {
+														"type": "number"
 												}
 												}
 										},
@@ -4455,6 +4473,133 @@
 				}
 			}
 		},
+		"/user/paymentCancel": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "UserPaymentCancel",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"request": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/paymentResult": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"invoiceNumber": {
+								"type": "string"
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "UserPaymentResult",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"invoicePayment": {
+										"type": "object",
+										"properties": {
+												"id": {
+														"type": "number"
+												},
+												"userId": {
+														"type": "number"
+												},
+												"invoiceNumber": {
+														"type": "string"
+												},
+												"amount": {
+														"type": "number"
+												},
+												"currency": {
+														"type": "string"
+												},
+												"paymentMethod": {
+														"type": "string"
+												},
+												"responseHeader": {
+														"type": "string"
+												},
+												"responseBody": {
+														"type": "string"
+												},
+												"status": {
+														"type": "string"
+												},
+												"createdAt": {
+														"type": "number"
+												},
+												"createdBy": {
+														"type": "number"
+												},
+												"updatedAt": {
+														"type": "number"
+												},
+												"updatedBy": {
+														"type": "number"
+												},
+												"deletedAt": {
+														"type": "number"
+												},
+												"deletedBy": {
+														"type": "number"
+												},
+												"restoredBy": {
+														"type": "number"
+												}
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/user/profile": {
 			"post": {
 				"security": [{
@@ -4536,10 +4681,57 @@
 												},
 												"invitationState": {
 														"type": "string"
+												},
+												"supportExpiredAt": {
+														"type": "number"
 												}
 												}
 										},
 										"segments": {
+										"type": "object",
+										"properties": {
+												}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/purchaseSupport": {
+			"post": {
+				"security": [{
+					"CookieAuth": []
+				}],
+				"tags": ["API"],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+						"suppportDuration": {
+								"type": "string"
+						},
+						"state": {
+								"type": "string"
+						}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "UserPurchaseSupport",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"paymentResponse": {
 										"type": "object",
 										"properties": {
 												}
@@ -4773,6 +4965,9 @@
 												},
 												"invitationState": {
 														"type": "string"
+												},
+												"supportExpiredAt": {
+														"type": "number"
 												}
 												}
 										},

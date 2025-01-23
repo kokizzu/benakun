@@ -87,6 +87,7 @@ func main() {
 		AuthOltp: tConn,
 		AuthOlap: cConn,
 		StorOltp: tConn,
+		IntrOltp: tConn,
 		Mailer: xMailer.Mailer{
 			SendMailFunc: mailer.SendMailFunc,
 		},
@@ -107,7 +108,7 @@ func main() {
 	// check table existence
 	if mode != `migrate` {
 		L.Print(`verifying table schema, if failed, run: go run main.go migrate`)
-		model.VerifyTables(tConn, cConn, tConn, tConn, tConn)
+		model.VerifyTables(tConn, cConn, tConn, tConn, tConn, tConn)
 	}
 
 	switch mode {
@@ -123,7 +124,7 @@ func main() {
 		}
 		ws.Start(log)
 	case `migrate`:
-		model.RunMigration(tConn, cConn, tConn, tConn, tConn)
+		model.RunMigration(tConn, cConn, tConn, tConn, tConn, tConn)
 		// TODO: list all tenant and run migrations
 	default:
 		log.Fatal().Msg(`must start with: ` + validArgs)

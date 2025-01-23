@@ -19,27 +19,27 @@ import (
 type (
 	TenantAdminTransactionTplDetailIn struct {
 		RequestCommon
-		Cmd                 string                         `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
-		TransactionTplDetail	*rqFinance.TransactionTplDetail `json:"transactionTplDetail" form:"transactionTplDetail" query:"transactionTplDetail" long:"transactionTplDetail" msg:"transactionTplDetail"`
+		Cmd                  string                          `json:"cmd" form:"cmd" query:"cmd" long:"cmd" msg:"cmd"`
+		TransactionTplDetail *rqFinance.TransactionTplDetail `json:"transactionTplDetail" form:"transactionTplDetail" query:"transactionTplDetail" long:"transactionTplDetail" msg:"transactionTplDetail"`
 	}
 	TenantAdminTransactionTplDetailOut struct {
 		ResponseCommon
-		TransactionTplDetail	*rqFinance.TransactionTplDetail `json:"transactionTplDetail" form:"transactionTplDetail" query:"transactionTplDetail" long:"transactionTplDetail" msg:"transactionTplDetail"`
-		TransactionTplDetails	*[]rqFinance.TransactionTplDetail `json:"transactionTplDetails" form:"transactionTplDetails" query:"transactionTplDetails" long:"transactionTplDetails" msg:"transactionTplDetails"`
+		TransactionTplDetail  *rqFinance.TransactionTplDetail   `json:"transactionTplDetail" form:"transactionTplDetail" query:"transactionTplDetail" long:"transactionTplDetail" msg:"transactionTplDetail"`
+		TransactionTplDetails *[]rqFinance.TransactionTplDetail `json:"transactionTplDetails" form:"transactionTplDetails" query:"transactionTplDetails" long:"transactionTplDetails" msg:"transactionTplDetails"`
 	}
 )
 
 const (
 	TenantAdminTransactionTplDetailAction = `tenantAdmin/transactionTplDetail`
 
-	ErrTenantAdminTransactionTplDetailUnauthorized   = `unauthorized user`
-	ErrTenantAdminTransactionTplDetailTenantNotFound = `tenant admin not found`
-	ErrTenantAdminTransactionTplDetailUserNotFound   = `user not found`
-	ErrTenantAdminTransactionTplDetailNotFound       = `transaction template not found`
-	ErrTenantAdminTransactionTplDetailParentNotFound = `parent not found`
-	ErrTenantAdminTransactionTplDetailCoaNotFound = `coa not found`
+	ErrTenantAdminTransactionTplDetailUnauthorized      = `unauthorized user`
+	ErrTenantAdminTransactionTplDetailTenantNotFound    = `tenant admin not found`
+	ErrTenantAdminTransactionTplDetailUserNotFound      = `user not found`
+	ErrTenantAdminTransactionTplDetailNotFound          = `transaction template not found`
+	ErrTenantAdminTransactionTplDetailParentNotFound    = `parent not found`
+	ErrTenantAdminTransactionTplDetailCoaNotFound       = `coa not found`
 	ErrTenantAdminTransactionTplDetailInvalidAttributes = `invalid attributes value`
-	ErrTenantAdminTransactionTplDetailFailedUpdate = `failed to update transaction template detail`
+	ErrTenantAdminTransactionTplDetailFailedUpdate      = `failed to update transaction template detail`
 )
 
 func (d *Domain) TenantAdminTransactionTplDetail(in *TenantAdminTransactionTplDetailIn) (out TenantAdminTransactionTplDetailOut) {
@@ -111,7 +111,7 @@ func (d *Domain) TenantAdminTransactionTplDetail(in *TenantAdminTransactionTplDe
 				if in.TransactionTplDetail.IsDebit != trxTplDetail.IsDebit {
 					trxTplDetail.SetIsDebit(in.TransactionTplDetail.IsDebit)
 				}
-				
+
 				if len(in.TransactionTplDetail.Attributes) > 0 {
 					if !mFinance.IsValidAttributes(in.TransactionTplDetail.Attributes) {
 						out.SetError(400, ErrTenantAdminTransactionTplDetailInvalidAttributes)
@@ -165,7 +165,7 @@ func (d *Domain) TenantAdminTransactionTplDetail(in *TenantAdminTransactionTplDe
 			}
 		}
 
-		if !trxTplDetail.DoUpsertById() {
+		if !trxTplDetail.DoUpsert() {
 			out.SetError(400, ErrTenantAdminTransactionTplDetailFailedUpdate)
 			return
 		}

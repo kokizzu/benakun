@@ -217,7 +217,7 @@
           src={TrOutlineRefresh}
         />
       </button>
-      {#if transactionTemplate.deletedAt < 0}
+      {#if transactionTemplate.deletedAt === 0}
         <button class="btn" title="Add template" on:click={() => {
           trxTplDetailId = 0;
           popUpTransactionTplDetail.show()

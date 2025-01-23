@@ -83,11 +83,11 @@ var SuperAdminUserManagementMeta = zCrud.Meta{
 			},
 		},
 		{
-			Name: mAuth.InvitationState,
-			Label: "Status Udangan / Invitation State",
-			DataType: zCrud.DataTypeString,
+			Name:      mAuth.InvitationState,
+			Label:     "Status Udangan / Invitation State",
+			DataType:  zCrud.DataTypeString,
 			InputType: zCrud.InputTypeText,
-			ReadOnly: true,
+			ReadOnly:  true,
 		},
 		{
 			Name:      mAuth.CreatedAt,
@@ -249,7 +249,7 @@ func (d *Domain) SuperAdminUserManagement(in *SuperAdminUserManagementIn) (out S
 			}
 		}
 
-		if !user.DoUpsertById() {
+		if !user.DoUpsert() {
 			out.SetError(500, ErrUserSaveFailed)
 		}
 

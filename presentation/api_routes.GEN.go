@@ -440,6 +440,26 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 
+	// UserPaymentCancel
+	fw.Post("/"+domain.UserPaymentCancelAction, func(c *fiber.Ctx) error {
+		in := domain.UserPaymentCancelIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserPaymentCancelAction); err != nil {
+			return nil
+		}
+		out := d.UserPaymentCancel(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// UserPaymentResult
+	fw.Post("/"+domain.UserPaymentResultAction, func(c *fiber.Ctx) error {
+		in := domain.UserPaymentResultIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserPaymentResultAction); err != nil {
+			return nil
+		}
+		out := d.UserPaymentResult(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
 	// UserProfile
 	fw.Post("/"+domain.UserProfileAction, func(c *fiber.Ctx) error {
 		in := domain.UserProfileIn{}
@@ -447,6 +467,16 @@ func ApiRoutes(fw *fiber.App, d *domain.Domain) {
 			return nil
 		}
 		out := d.UserProfile(&in)
+		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
+	})
+
+	// UserPurchaseSupport
+	fw.Post("/"+domain.UserPurchaseSupportAction, func(c *fiber.Ctx) error {
+		in := domain.UserPurchaseSupportIn{}
+		if err := webApiParseInput(c, &in.RequestCommon, &in, domain.UserPurchaseSupportAction); err != nil {
+			return nil
+		}
+		out := d.UserPurchaseSupport(&in)
 		return in.ToFiberCtx(c, out, &out.ResponseCommon, in)
 	})
 

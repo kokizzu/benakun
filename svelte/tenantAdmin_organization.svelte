@@ -78,9 +78,9 @@
   }
 
   onMount(() => {
-	  REFORMAT_ORGS = reformatorgs();
-	  console.log('REFORMAT_ORGS',REFORMAT_ORGS);
-	  console.log('orgs',orgs);
+    REFORMAT_ORGS = reformatorgs();
+    console.log('REFORMAT_ORGS',REFORMAT_ORGS);
+    console.log('orgs',orgs);
   });
 
   let infoOrg;

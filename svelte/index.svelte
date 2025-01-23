@@ -23,19 +23,26 @@
   console.log('User:', user);
   console.log('Segments:', segments);
 
-  let google = '#{google}';
+  const google = '#{google}';
+  const title = '#{title}';
 
+  console.log('Google OAuth link:', google);
+  console.log('Title:', title);
+
+  /**
+   * @description Get cookie
+   * @param name {string}
+   * @returns {string}
+   */
   function getCookie(name) {
     const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
     if (match) return match[2];
   }
 
-  // server state
-  const title = '#{title}';
-  // TODO: print session or fetch from cookie
-
-  // local state
-  let email = '', password = '', confirmPass = '';
+  // Login payload
+  let email       = '';
+  let password    = '';
+  let confirmPass = '';
 
   const LOGIN = 'LOGIN';
   const REGISTER = 'REGISTER';
@@ -62,9 +69,7 @@
     await tick();
   }
 
-  onMount(() => {
-	  onHashChange()
-  } );
+  onMount(() => onHashChange());
 
   async function guestRegister() {
     isSubmitted = true;
@@ -162,8 +167,10 @@
     });
   }
 
-
-  let tenantCode = '', companyName = '', headTitle = '';
+  // Payload for create company
+  let tenantCode  = '';
+  let companyName = '';
+  let headTitle   = '';
 
   onMount(() => {
     console.log('My Company:', myCompany);

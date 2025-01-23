@@ -32,19 +32,19 @@ type (
 const (
 	TenantAdminOrganizationAction = `tenantAdmin/organization`
 
-	ErrTenantAdminOrganizationUnauthorized                 		= `unauthorized user`
-	ErrTenantAdminOrganizationTenantNotFound               		= `tenant admin not found`
-	ErrTenantAdminOrganizationParentNotFound							 		= `parent of the organization cannot be found`
-	ErrTenantAdminOrganizationOldParentNotFound            		= `old parent of the organization cannot be found`
-	ErrTenantAdminOrganizationNewParentNotFound            		= `new parent of the organization cannot be found`
-	ErrTenantAdminOrganizationUpdatedOldParentChildren     		= `cannot update childs of old parent`
-	ErrTenantAdminOrganizationUpdatedNewParentChildren     		= `cannot update childs of new parent`
-	ErrTenantAdminOrganizationUpdatedParentForOrganization 		= `cannot update parent for organization`
+	ErrTenantAdminOrganizationUnauthorized                    = `unauthorized user`
+	ErrTenantAdminOrganizationTenantNotFound                  = `tenant admin not found`
+	ErrTenantAdminOrganizationParentNotFound                  = `parent of the organization cannot be found`
+	ErrTenantAdminOrganizationOldParentNotFound               = `old parent of the organization cannot be found`
+	ErrTenantAdminOrganizationNewParentNotFound               = `new parent of the organization cannot be found`
+	ErrTenantAdminOrganizationUpdatedOldParentChildren        = `cannot update childs of old parent`
+	ErrTenantAdminOrganizationUpdatedNewParentChildren        = `cannot update childs of new parent`
+	ErrTenantAdminOrganizationUpdatedParentForOrganization    = `cannot update parent for organization`
 	ErrTenantAdminOrganizationUpdatedNewParentForOrganization = `cannot update new parent for organization`
-	ErrTenantAdminOrganizationNotFound                     		= `cannot find the organization`
-	ErrTenantAdminOrganizationChildsNotFound               		= `cannot find childs for update`
-	ErrTenantAdminOrganizationUpdatedChilds                		= `cannot update childs`
-	ErrTenantAdminOrganizationInvalidOrgType									= `invalid organization type`
+	ErrTenantAdminOrganizationNotFound                        = `cannot find the organization`
+	ErrTenantAdminOrganizationChildsNotFound                  = `cannot find childs for update`
+	ErrTenantAdminOrganizationUpdatedChilds                   = `cannot update childs`
+	ErrTenantAdminOrganizationInvalidOrgType                  = `invalid organization type`
 )
 
 func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out TenantAdminOrganizationOut) {
@@ -190,7 +190,7 @@ func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out Ten
 			}
 		}
 
-		if !org.DoUpsertById() {
+		if !org.DoUpsert() {
 			out.SetError(400, ErrTenantAdminOrganizationUpdatedChilds)
 			return
 		}
@@ -208,7 +208,7 @@ func (d *Domain) TenantAdminOrganization(in *TenantAdminOrganizationIn) (out Ten
 				}
 
 				org.SetParentId(parent.Id)
-				if !org.DoUpsertById() {
+				if !org.DoUpsert() {
 					out.SetError(400, ErrTenantAdminOrganizationUpdatedChilds)
 					return
 				}

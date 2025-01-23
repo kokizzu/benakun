@@ -6,7 +6,7 @@
   import { Icon } from './../../node_modules/svelte-icons-pack/dist';
   import { RiSystemAddBoxLine } from './../../node_modules/svelte-icons-pack/dist/ri';
   import { onMount } from 'svelte';
-    import PopUpInventoryChanges from '../../_components/PopUpInventoryChanges.svelte';
+  import PopUpInventoryChanges from '../../_components/PopUpInventoryChanges.svelte';
   
   /** @typedef {import('../../_components/types/master.js').Field} Field */
 	/** @typedef {import('../../_components/types/access.js').Access} Access */

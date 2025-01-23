@@ -3,6 +3,7 @@ package domain
 import (
 	"github.com/kokizzu/gotro/M"
 
+	"benakun/model/mAuth"
 	"benakun/model/mAuth/rqAuth"
 )
 
@@ -45,6 +46,8 @@ func (d *Domain) UserProfile(in *UserProfileIn) (out UserProfileOut) {
 		return
 	}
 	out.actor = user.Id
+
+	user.Role = mAuth.RoleMap[sess.Role]
 
 	user.CensorFields()
 	out.User = user

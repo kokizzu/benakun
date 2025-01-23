@@ -19,7 +19,7 @@ import (
 	"github.com/kokizzu/lexid"
 	"github.com/kpango/fastime"
 	"github.com/ory/dockertest/v3"
-	"github.com/tarantool/go-tarantool/v2"
+	"github.com/tarantool/go-tarantool"
 	"golang.org/x/sync/errgroup"
 
 	"benakun/conf"
@@ -164,7 +164,7 @@ func TestMain(m *testing.M) {
 	}
 
 	// run migration
-	model.RunMigration(testTt, testCh, testTt, testTt, testTt)
+	model.RunMigration(testTt, testCh, testTt, testTt, testTt, testTt)
 
 	// run tests
 	m.Run()
@@ -240,7 +240,7 @@ func testAdminRequestCommon(action string) RequestCommon {
 		UserAgent:     "",
 		IpAddress:     "127.0.2.1",
 		Debug:         true,
-		Host:          "localhost:1234",
+		Host:          fmt.Sprintf("http://%s:1234", testSuperAdminTenantCode),
 		Action:        action,
 		Lat:           -1,
 		Long:          -2,

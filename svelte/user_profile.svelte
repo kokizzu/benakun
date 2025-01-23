@@ -93,7 +93,7 @@
         </div>
         <div class="info">
           <span>User ID</span>
-          <span>{user.id}</span>
+          <span>#{user.id}</span>
         </div>
         <div class="info">
           <span>Role</span>
@@ -101,23 +101,27 @@
         </div>
         <div class="info">
           <span>Last Login</span>
-          <span>{localeDatetime(user.lastLoginAt) || 0}</span>
+          <span>{localeDatetime(user.lastLoginAt) || '--'}</span>
         </div>
         <div class="info">
           <span>Updated At</span>
-          <span>{localeDatetime(user.updatedAt) || 0}</span>
+          <span>{localeDatetime(user.updatedAt) || '--'}</span>
         </div>
         <div class="info">
           <span>Verified At</span>
-          <span>{localeDatetime(user.verifiedAt) || 0}</span>
+          <span>{localeDatetime(user.verifiedAt) || '--'}</span>
         </div>
         <div class="info">
           <span>Last Updated Password</span>
-          <span>{localeDatetime(user.passwordSetAt) || 0}</span>
+          <span>{localeDatetime(user.passwordSetAt) || '--'}</span>
         </div>
         <div class="info">
           <span>Tenant Code</span>
-          <span>{user.tenantCode || `--`}</span>
+          <span class="tenant-code">{user.tenantCode || `--`}</span>
+        </div>
+        <div class="info">
+          <span>Support Expired At</span>
+          <span>{localeDatetime(user.supportExpiredAt) || '--'}</span>
         </div>
       </div>
       <SubmitButton
@@ -252,6 +256,10 @@
 
   .user_details_container .profile_details .user_info .info:last-child {
     border-bottom: none;
+  }
+
+  .user_details_container .profile_details .user_info .info .tenant-code {
+    text-transform: lowercase !important;
   }
 
   .user_details_container .password_set {
