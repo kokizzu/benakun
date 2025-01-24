@@ -1,6 +1,10 @@
 package mInternal
 
 import (
+	"fmt"
+	"math/rand"
+	"time"
+
 	"github.com/kokizzu/gotro/D/Tt"
 	"github.com/kpango/fastime"
 )
@@ -81,6 +85,20 @@ func IsValidSupportDuration(duration string) bool {
 	default:
 		return false
 	}
+}
+
+// Generate invoice code with format INV-YYMMDD-HHMMSS-RANDOM. Last 6 characters are random string
+func GenerateInvoiceCode() string {
+	const letterBytes = `ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`
+
+	b := make([]byte, 6)
+	for i := range b {
+		b[i] = letterBytes[rand.Intn(len(letterBytes))]
+	}
+
+	nowFormatted := time.Now().Format("20060102-150405")
+	randString := string(b)
+	return fmt.Sprintf("INV-%s-%s", nowFormatted, randString)
 }
 
 type DOKUPaymentNotificationHeader struct {
