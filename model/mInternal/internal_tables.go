@@ -36,7 +36,6 @@ const (
 )
 
 const (
-	DokuTransactionStatusPending  = `PENDING`
 	DokuTransactionStatusSuccess  = `SUCCESS`
 	DokuTransactionStatusFailed   = `FAILED`
 	DokuTransactionStatusExpired  = `EXPIRED`
