@@ -1,35 +1,34 @@
 <script>
-  import { Icon } from './node_modules/svelte-icons-pack/dist';
-  import { IoClose } from './node_modules/svelte-icons-pack/dist/io';
+  /** @typedef {import('./_components/types/user').User} User */
+  /** @typedef {import('./_components/types/access').Access} Access */
+  /** @typedef {import('./_components/types/user').Session} Session */
+  /** @typedef {import('./_components/types/invoicePayment').InvoicePayment} InvoicePayment */
+
   import { notifier } from './_components/xNotifier.js';
-  import { datetime, localeDatetime } from './_components/xformatter.js';
-  import { onMount } from 'svelte';
-  import { UserChangePassword, UserSessionKill, UserSessionsActive, UserUpdateProfile } from './jsApi.GEN.js';
+  import { localeDatetime } from './_components/xformatter.js';
+  import { UserChangePassword, UserUpdateProfile } from './jsApi.GEN.js';
   import InputBox from './_components/InputBox.svelte';
   import SubmitButton from './_components/SubmitButton.svelte';
   import MainLayout from './_layouts/mainLayout.svelte';
+  import ProfileSubMenu from './_components/partials/ProfileSubMenu.svelte';
 
-  let user = {/* user */};
-  let segments = {/* segments */};
-  let sessionActiveLists = [/* activeSessions */];
+  let user      = /** @type {User} */ ({/* user */});
+  let segments  = /** @type {Access} */ ({/* segments */});
+
   let oldPassword = '';
   let newPassword = '';
   let repeatNewPassword = '';
   let oldProfileJson = '';
-  let profileSubmit = false,passwordSubmit = false;
 
-  onMount(async () => {
-    console.log('onMount.user');
-    oldProfileJson = JSON.stringify(user);
-    console.log('User data = ', user);
-  });
+  let isProfileSubmitted = false;
+  let isPasswordSubmitted = false;
 
   async function updateProfile() {
-    profileSubmit = true;
+    isProfileSubmitted = true;
     if (JSON.stringify(user) === oldProfileJson) return notifier.showWarning('No changes');
     // @ts-ignore
     await UserUpdateProfile(user, function (res) {
-      profileSubmit = false;
+      isProfileSubmitted = false;
       // @ts-ignore
       if (res.error) return notifier.showError(res.error);
       // @ts-ignore
@@ -41,9 +40,9 @@
   }
 
   async function changePassword() {
-    passwordSubmit = true;
+    isPasswordSubmitted = true;
     if (newPassword !== repeatNewPassword) {
-      passwordSubmit = false;
+      isPasswordSubmitted = false;
       return notifier.showWarning('New password and repeat new password must be same');
     }
     let input = {
@@ -52,7 +51,7 @@
     };
     // @ts-ignore
     await UserChangePassword(input, function (res) {
-      passwordSubmit = false;
+      isPasswordSubmitted = false;
       // @ts-ignore
       if (res.error) return notifier.showError(res.error);
       oldPassword = '';
@@ -61,28 +60,14 @@
       notifier.showSuccess('Password updated');
     });
   }
-
-  async function killSession(sessionToken) {
-    await UserSessionKill({ sessionTokenHash: sessionToken }, async res => {
-      // @ts-ignore
-      if (res.error) return notifier.showError(res.error);
-      if (res.sessionTerminated < 1) return notifier.showError('No session terminated');
-      notifier.showInfo(res.sessionTerminated + ' session terminated');
-      // @ts-ignore
-      await UserSessionsActive({ userId: user.id }, res => {
-        // @ts-ignore
-        if (res.error) return notifier.showError(res.error);
-        sessionActiveLists = res.sessionsActive;
-      });
-    });
-  }
 </script>
 
 <MainLayout>
-  <div class="user_details_container">
-    <div class="profile_details">
+  <ProfileSubMenu />
+  <div class="user-details">
+    <div class="profile">
       <h3>Profile Details</h3>
-      <div class="input_row">
+      <div class="input-row">
         <InputBox id="fullname" label="Full Name" bind:value={user.fullName} type="text" />
         <InputBox id="email" label="E-Mail" bind:value={user.email} type="email" />
       </div>
@@ -126,49 +111,20 @@
       </div>
       <SubmitButton
         on:click={updateProfile}
-        isSubmitted={profileSubmit}
+        isSubmitted={isProfileSubmitted}
         isFullWidth={false}
       />
     </div>
-    <div class="password_set">
+    <div class="password-set">
       <h3>Change Password</h3>
       <InputBox id="oldPassword" label="Old Password" value={oldPassword} type="password" />
       <InputBox id="newPassword" label="New Password" value={newPassword} type="password" />
       <InputBox id="repeatNewPassword" label="Repeat New Password" value={repeatNewPassword} type="password" />
       <SubmitButton
         on:click={changePassword}
-        isSubmitted={passwordSubmit}
+        isSubmitted={isPasswordSubmitted}
         isFullWidth={false}
       />
-    </div>
-  </div>
-  <div class="sessions_container">
-    <div class="header">
-      <span>IP Address</span>
-      <span>Expired At</span>
-      <span>Device</span>
-    </div>
-    <div class="sessions">
-      {#if sessionActiveLists && sessionActiveLists.length}
-        {#each sessionActiveLists as session}
-          <div class="session">
-            <span>{session.loginIPs || 'no-data'}</span>
-            <span>{datetime(session.expiredAt) || 0}</span>
-            <span>{session.device || 'no-data'}</span>
-            <button
-              on:click={() => killSession(session.sessionToken)}
-              class="kill_session"
-              title="kill this session"
-            >
-              <Icon color="#FFF" size="12" src={IoClose} />
-            </button>
-          </div>
-        {/each}
-      {:else}
-        <div class="session">
-          <span>No active sessions</span>
-        </div>
-      {/if}
     </div>
   </div>
 </MainLayout>
@@ -188,23 +144,21 @@
     animation: spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
-  .user_details_container h3 {
+  .user-details h3 {
     margin: 0;
     font-size: var(--font-lg);
     width: 100%;
     text-align: left;
   }
 
-  /* +============ /// ===========+ */
-
-  .user_details_container {
+  .user-details {
     display: flex;
     flex-direction: row;
     gap: 30px;
   }
 
-  .user_details_container .profile_details,
-  .user_details_container .password_set {
+  .user-details .profile,
+  .user-details .password-set {
     padding: 20px;
     border: 1px solid var(--gray-003);
     display: flex;
@@ -215,17 +169,17 @@
     background-color: #FFF;
   }
 
-  .user_details_container .profile_details {
+  .user-details .profile {
     flex-grow: 1;
   }
 
-  .user_details_container .profile_details .input_row {
+  .user-details .profile .input-row {
     display: flex;
     flex-direction: row;
     gap: 20px;
   }
 
-  .user_details_container .profile_details .user_info {
+  .user-details .profile .user_info {
     border: 1px solid var(--gray-003);
     display: flex;
     flex-direction: column;
@@ -234,7 +188,7 @@
     overflow: hidden;
   }
 
-  .user_details_container .profile_details .user_info .info {
+  .user-details .profile .user_info .info {
     border-bottom: 1px solid var(--gray-003);
     padding: 10px 15px;
     display: flex;
@@ -244,97 +198,29 @@
     text-transform: capitalize;
   }
 
-  .user_details_container .profile_details .user_info .info span:first-child {
+  .user-details .profile .user_info .info span:first-child {
     font-weight: 700;
     width: 200px;
   }
 
-  .user_details_container .profile_details .user_info .info:nth-child(odd),
-  .sessions_container .sessions .session:nth-child(odd) {
+  .user-details .profile .user_info .info:nth-child(odd) {
     background-color: var(--gray-001);
   }
 
-  .user_details_container .profile_details .user_info .info:last-child {
+  .user-details .profile .user_info .info:last-child {
     border-bottom: none;
   }
 
-  .user_details_container .profile_details .user_info .info .tenant-code {
+  .user-details .profile .user_info .info .tenant-code {
     text-transform: lowercase !important;
   }
 
-  .user_details_container .password_set {
+  .user-details .password-set {
     width: 400px;
   }
 
-  /* +=======================================+ */
-
-  .sessions_container {
-    border: 1px solid var(--gray-003);
-    display: flex;
-    flex-direction: column;
-    height: fit-content;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-top: 30px;
-    background-color: #FFF;
-  }
-
-  .sessions_container .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    font-weight: bold;
-    padding: 12px 15px;
-    border-bottom: 1px solid #cbd5e1;
-  }
-
-  .sessions_container .sessions {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .sessions_container .sessions .session {
-    text-align: left;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 15px;
-    position: relative;
-    width: 100%;
-  }
-
-  .sessions_container .sessions .session span:nth-child(3),
-  .sessions_container .header span:nth-child(3) {
-    flex-grow: 1;
-    margin-right: 30px;
-  }
-
-  .sessions_container .sessions .session span,
-  .sessions_container .header span {
-    width: 200px;
-  }
-
-  .sessions_container .sessions .session .kill_session {
-    border: none;
-    background-color: var(--red-005);
-    padding: 5px;
-    border-radius: 50%;
-    position: absolute;
-    right: 15px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .sessions_container .sessions .session .kill_session:hover {
-    background-color: var(--red-004);
-  }
-
   @media only screen and (max-width : 768px) {
-    .user_details_container {
+    .user-details {
       flex-direction: column;
       gap: 20px;
     }

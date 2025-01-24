@@ -13,6 +13,7 @@ import (
 	"benakun/model/mAuth/rqAuth"
 	"benakun/model/mBusiness/rqBusiness"
 	"benakun/model/mFinance/rqFinance"
+	"benakun/model/mInternal/rqInternal"
 	"benakun/model/zCrud"
 )
 
@@ -107,15 +108,47 @@ func (w *WebServer) WebStatic(fw *fiber.App, d *domain.Domain) {
 		if notLogin(d, in.RequestCommon, false) {
 			return ctx.Redirect(`/`, 302)
 		}
+
+		return views.RenderUserProfile(ctx, M.SX{
+			`title`:    `Profile`,
+			`user`:     user,
+			`segments`: segments,
+		})
+	})
+
+	fw.Get(`/user/profileSessions`, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notLogin(d, in.RequestCommon, false) {
+			return ctx.Redirect(`/`, 302)
+		}
 		in.RequestCommon.Action = domain.UserSessionsActiveAction
 		out := d.UserSessionsActive(&domain.UserSessionsActiveIn{
 			RequestCommon: in.RequestCommon,
 		})
-		return views.RenderUserProfile(ctx, M.SX{
-			`title`:          `Profile`,
+
+		return views.RenderUserProfileSessions(ctx, M.SX{
+			`title`:          `Sessions`,
 			`user`:           user,
 			`segments`:       segments,
 			`activeSessions`: out.SessionsActive,
+		})
+	})
+
+	fw.Get(`/user/profileInvoices`, func(ctx *fiber.Ctx) error {
+		in, user, segments := userInfoFromContext(ctx, d)
+		if notLogin(d, in.RequestCommon, false) {
+			return ctx.Redirect(`/`, 302)
+		}
+
+		inv := rqInternal.NewInvoicePayment(d.IntrOltp)
+		var invoices = []rqInternal.InvoicePayment{}
+		invoices = inv.FindInvoicesByUserId(user.Id)
+
+		return views.RenderUserProfileInvoices(ctx, M.SX{
+			`title`:    `Invoices`,
+			`user`:     user,
+			`segments`: segments,
+			`invoices`: invoices,
 		})
 	})
 

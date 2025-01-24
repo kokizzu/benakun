@@ -134,9 +134,7 @@
               <span>Purchase</span>
             {/if}
           </button>
-          <button class="btn skip" on:click={() => {
-            window.history.back();
-          }} disabled={isPurchasing}>
+          <button class="btn skip" on:click={() => window.location.href = '/'} disabled={isPurchasing}>
             <span>Skip for now</span>
           </button>
         </div>

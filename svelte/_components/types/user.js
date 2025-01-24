@@ -21,3 +21,15 @@
  * @property {number} supportExpiredAt
  */
 module.exports = {};
+
+/**
+ * @typedef {Object} Session
+ * @property {string} sessionToken
+ * @property {number} userId
+ * @property {number} expiredAt
+ * @property {string} device
+ * @property {number} loginAt
+ * @property {string} loginIPs
+ * @property {string} tenantCode
+ */
+module.exports = {};

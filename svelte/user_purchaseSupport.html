@@ -4169,9 +4169,7 @@
       supportDuration = this.__value;
       $invalidate(1, supportDuration);
     }
-    const click_handler = () => {
-      window.history.back();
-    };
+    const click_handler = () => window.location.href = "/";
     return [
       isPurchasing,
       supportDuration,

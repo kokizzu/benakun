@@ -47,6 +47,8 @@ var viewList = map[string]string{
 	`UserPaymentCancel`: `../svelte/user_paymentCancel.html`, // ../svelte/user_paymentCancel.svelte
 	`UserPaymentResult`: `../svelte/user_paymentResult.html`, // ../svelte/user_paymentResult.svelte
 	`UserProfile`: `../svelte/user_profile.html`, // ../svelte/user_profile.svelte
+	`UserProfileInvoices`: `../svelte/user_profileInvoices.html`, // ../svelte/user_profileInvoices.svelte
+	`UserProfileSessions`: `../svelte/user_profileSessions.html`, // ../svelte/user_profileSessions.svelte
 	`UserPurchaseSupport`: `../svelte/user_purchaseSupport.html`, // ../svelte/user_purchaseSupport.svelte
 	`UserResponsejoin`: `../svelte/user_responsejoin.html`, // ../svelte/user_responsejoin.svelte
 }
@@ -235,6 +237,16 @@ func (v *Views) RenderUserPaymentResult(c *fiber.Ctx, m M.SX) error {
 func (v *Views) RenderUserProfile(c *fiber.Ctx, m M.SX) error {
 	c.Set("Content-Type", "text/html; charset=utf-8")
 	return c.SendString(v.cache[`UserProfile`].Str(m))
+}
+
+func (v *Views) RenderUserProfileInvoices(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`UserProfileInvoices`].Str(m))
+}
+
+func (v *Views) RenderUserProfileSessions(c *fiber.Ctx, m M.SX) error {
+	c.Set("Content-Type", "text/html; charset=utf-8")
+	return c.SendString(v.cache[`UserProfileSessions`].Str(m))
 }
 
 func (v *Views) RenderUserPurchaseSupport(c *fiber.Ctx, m M.SX) error {
