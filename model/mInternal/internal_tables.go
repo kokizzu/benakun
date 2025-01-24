@@ -1,6 +1,9 @@
 package mInternal
 
-import "github.com/kokizzu/gotro/D/Tt"
+import (
+	"github.com/kokizzu/gotro/D/Tt"
+	"github.com/kpango/fastime"
+)
 
 const (
 	Id             = `id`
@@ -28,12 +31,58 @@ const (
 	InvoiceStatusSuccess   = `success`
 	InvoiceStatusFailed    = `failed`
 	InvoiceStatusCancelled = `cancelled`
+	InvoiceStatusExpired   = `expired`
+	InvoiceStatusRefunded  = `refunded`
+)
+
+const (
+	DokuTransactionStatusPending  = `PENDING`
+	DokuTransactionStatusSuccess  = `SUCCESS`
+	DokuTransactionStatusFailed   = `FAILED`
+	DokuTransactionStatusExpired  = `EXPIRED`
+	DokuTransactionStatusRefunded = `REFUNDED`
 )
 
 const (
 	CurrencyIDR = `IDR`
 	CurrencyUSD = `USD`
 )
+
+const (
+	PriceSupportMonthly   uint32 = 50_000  // IDR 50.000
+	PriceSupportQuarterly uint32 = 120_000 // IDR 120.000
+	PriceSupportYearly    uint32 = 450_000 // IDR 450.000
+)
+
+const (
+	SupportDurationMonthly   = `monthly`
+	SupportDurationQuarterly = `quarterly`
+	SupportDurationYearly    = `yearly`
+)
+
+func GetSupportExpiredAtByAmount(amount uint32) int64 {
+	now := fastime.Now()
+
+	switch amount {
+	case PriceSupportMonthly:
+		return now.AddDate(0, 1, 0).Unix()
+	case PriceSupportQuarterly:
+		return now.AddDate(0, 3, 0).Unix()
+	case PriceSupportYearly:
+		return now.AddDate(1, 0, 0).Unix()
+	}
+
+	return 0
+}
+
+func IsValidSupportDuration(duration string) bool {
+	switch duration {
+	case SupportDurationMonthly, SupportDurationQuarterly, SupportDurationYearly:
+		return true
+	default:
+		return false
+	}
+}
 
 type DOKUPaymentNotificationHeader struct {
 	XTimeStamp       string `json:"X-TIMESTAMP"`       // "2025-01-19T08:59:16Z"

@@ -157,7 +157,9 @@
     font-size: var(--font-sm);
   }
 
-  .table_root .table_container table tbody tr td span.cancelled {
+  .table_root .table_container table tbody tr td span.cancelled,
+  .table_root .table_container table tbody tr td span.expired,
+  .table_root .table_container table tbody tr td span.refunded {
     background-color: var(--gray-002);
     color: var(--gray-008);
     padding: 4px 8px;

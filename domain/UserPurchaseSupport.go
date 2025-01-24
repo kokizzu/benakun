@@ -52,27 +52,6 @@ const (
 	ErrUserPurchaseSupportUserFailedInsertInvoice    = `failed to save invoice`
 )
 
-const (
-	AmountMonthly   uint32 = 50_000  // IDR 50.000
-	AmountQuarterly uint32 = 120_000 // IDR 120.000
-	AmountYearly    uint32 = 450_000 // IDR 450.000
-)
-
-const (
-	SupportDurationMonthly   = `monthly`
-	SupportDurationQuarterly = `quarterly`
-	SupportDurationYearly    = `yearly`
-)
-
-func isValidSupportDuration(duration string) bool {
-	switch duration {
-	case SupportDurationMonthly, SupportDurationQuarterly, SupportDurationYearly:
-		return true
-	default:
-		return false
-	}
-}
-
 func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchaseSupportOut) {
 	defer d.InsertActionLog(&in.RequestCommon, &out.ResponseCommon)
 	sess := d.MustLogin(in.RequestCommon, &out.ResponseCommon)
@@ -82,19 +61,19 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 
 	switch in.State {
 	case zCrud.StatePaymentRequest:
-		if !isValidSupportDuration(in.SuppportDuration) {
+		if !mInternal.IsValidSupportDuration(in.SuppportDuration) {
 			out.SetError(400, ErrUserPurchaseSupportUserInvalidSupportDuration)
 			return
 		}
 
 		var amount uint32
 		switch in.SuppportDuration {
-		case SupportDurationMonthly:
-			amount = AmountMonthly
-		case SupportDurationQuarterly:
-			amount = AmountQuarterly
-		case SupportDurationYearly:
-			amount = AmountYearly
+		case mInternal.SupportDurationMonthly:
+			amount = mInternal.PriceSupportMonthly
+		case mInternal.SupportDurationQuarterly:
+			amount = mInternal.PriceSupportQuarterly
+		case mInternal.SupportDurationYearly:
+			amount = mInternal.PriceSupportYearly
 		}
 
 		timeNow := time.Now().UTC().Format(time.RFC3339)

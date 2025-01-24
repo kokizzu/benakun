@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"benakun/model/mAuth/wcAuth"
 	"benakun/model/mInternal"
 	"benakun/model/mInternal/wcInternal"
 	"os"
@@ -78,12 +79,29 @@ func (d *Domain) PaymentsNotifications(c *fiber.Ctx) error {
 	channel := X.ToMSX(respBody[`channel`])
 	channelId := X.ToS(channel[`id`])
 
+	transaction := X.ToMSX(respBody[`transaction`])
+	transactionStatus := X.ToS(transaction[`status`])
+
 	invPayment := wcInternal.NewInvoicePaymentMutator(d.IntrOltp)
 	invPayment.InvoiceNumber = invoiceNumber
 	if !invPayment.FindByInvoiceNumber() {
 		invPayment.SetInvoiceNumber(invoiceNumber)
 	}
-	invPayment.SetStatus(mInternal.InvoiceStatusSuccess)
+
+	var status = mInternal.InvoiceStatusPending
+	switch transactionStatus {
+	case mInternal.DokuTransactionStatusSuccess:
+		status = mInternal.InvoiceStatusSuccess
+	case mInternal.DokuTransactionStatusFailed:
+		status = mInternal.InvoiceStatusFailed
+	case mInternal.DokuTransactionStatusExpired:
+		status = mInternal.InvoiceStatusExpired
+	case mInternal.DokuTransactionStatusRefunded:
+		status = mInternal.InvoiceStatusRefunded
+	default:
+		status = mInternal.InvoiceStatusPending
+	}
+	invPayment.SetStatus(status)
 	invPayment.SetPaymentMethod(channelId)
 	invPayment.SetResponseBody(string(c.Body()))
 
@@ -93,6 +111,22 @@ func (d *Domain) PaymentsNotifications(c *fiber.Ctx) error {
 	invPayment.SetResponseHeader(string(respHeaderByte))
 
 	invPayment.DoOverwriteByInvoiceNumber()
+
+	if transactionStatus == mInternal.DokuTransactionStatusSuccess {
+		user := wcAuth.NewUsersMutator(d.AuthOltp)
+		user.Id = invPayment.UserId
+		if !user.FindById() {
+			return c.SendStatus(500)
+		}
+
+		expiredAt := mInternal.GetSupportExpiredAtByAmount(uint32(invPayment.Amount))
+		user.SetSupportExpiredAt(expiredAt)
+
+		if !user.DoUpdateById() {
+			return c.SendStatus(500)
+		}
+
+	}
 
 	return c.SendStatus(200)
 }

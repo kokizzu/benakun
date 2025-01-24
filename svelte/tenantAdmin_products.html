@@ -4853,8 +4853,8 @@ a.maplibregl-ctrl-logo.maplibregl-compact {
   var require_xHelper = __commonJS({
     "_components/xHelper.js"(exports, module) {
       function IsUnixTimeExpired3(unixTimestamp) {
-        const currentTime = new Date().getTime();
-        return unixTimestamp < currentTime;
+        const currentUnixTime = Math.floor(Date.now() / 1e3);
+        return unixTimestamp < currentUnixTime;
       }
       module.exports = {
         IsUnixTimeExpired: IsUnixTimeExpired3
