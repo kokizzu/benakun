@@ -90,6 +90,25 @@ function loadScript(/** @type {string} */ url, /** @type {Function} */ callback)
   document.getElementsByTagName('head')[0].appendChild(script);
 }
 
+/**
+ * @description Format price
+ * @param {number | bigint | Intl.StringNumericLiteral} price 
+ * @param {string} currency 
+ * @returns {string}
+ */
+function formatPrice(price, currency) {
+  try {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currency,
+      maximumSignificantDigits: 4,
+    }).format(price);
+  } catch(err) {
+    console.log('formatPrice failed', err, price, currency);
+    return `${currency} ${price}`
+  }
+}
+
 module.exports = {
   datetime: datetime,
   localeDatetime: localeDatetime,
@@ -97,5 +116,6 @@ module.exports = {
   isoTime: isoTime,
   isoDate: isoDate,
   dateISOFormat: dateISOFormat,
-  loadScript: loadScript
+  loadScript: loadScript,
+  formatPrice: formatPrice
 };

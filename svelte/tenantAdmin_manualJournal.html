@@ -88,9 +88,18 @@
         --red-010: #450a0a;
         --red-transparent: #ef444430;
 
-        --yellow-001: #fbbf24;
-        --yellow-002: #f59e0b;
-        --yellow-transparent: #f59e0b30;
+        --yellow-000: #fefce8;
+        --yellow-001: #fef9c3;
+        --yellow-002: #fef08a;
+        --yellow-003: #fde047;
+        --yellow-004: #facc15;
+        --yellow-005: #eab308;
+        --yellow-006: #ca8a04;
+        --yellow-007: #a16207;
+        --yellow-008: #854d0e;
+        --yellow-009: #713f12;
+        --yellow-010: #422006;
+        --yellow-transparent: #eab30830;
 
         --green-000: #f0fdf4;
         --green-001: #dcfce7;
@@ -5347,6 +5356,18 @@ header.svelte-xhdaoc.svelte-xhdaoc {
         script.onload = () => callback();
         document.getElementsByTagName("head")[0].appendChild(script);
       }
+      function formatPrice(price, currency) {
+        try {
+          return new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency,
+            maximumSignificantDigits: 4
+          }).format(price);
+        } catch (err) {
+          console.log("formatPrice failed", err, price, currency);
+          return `${currency} ${price}`;
+        }
+      }
       module.exports = {
         datetime: datetime2,
         localeDatetime,
@@ -5354,7 +5375,8 @@ header.svelte-xhdaoc.svelte-xhdaoc {
         isoTime,
         isoDate,
         dateISOFormat: dateISOFormat2,
-        loadScript
+        loadScript,
+        formatPrice
       };
     }
   });
