@@ -355,7 +355,7 @@
 
 
 <style>/* fakecss:./user_paymentResult.esbuild-svelte-fake-css */
-.root-layout.svelte-1aqkuv6.svelte-1aqkuv6 {
+.root-layout.svelte-l2bey2.svelte-l2bey2 {
   display: block;
   top: 0;
   bottom: 0;
@@ -365,7 +365,7 @@
   width: 100vw;
   color: var(--gray-009);
 }
-.payment-container.svelte-1aqkuv6.svelte-1aqkuv6 {
+.payment-container.svelte-l2bey2.svelte-l2bey2 {
   display: flex;
   height: 100%;
   width: 100%;
@@ -373,7 +373,7 @@
   justify-content: center;
   background-color: var(--gray-001);
 }
-.payment-container.svelte-1aqkuv6 .box.svelte-1aqkuv6 {
+.payment-container.svelte-l2bey2 .box.svelte-l2bey2 {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -385,43 +385,44 @@
   border-radius: 10px;
   padding: 20px 50px 30px;
 }
-.payment-container.svelte-1aqkuv6 .box .icon.svelte-1aqkuv6 {
+.payment-container.svelte-l2bey2 .box .icon.svelte-l2bey2 {
   width: 150px;
   height: auto;
 }
-.payment-container.svelte-1aqkuv6 .box .content.svelte-1aqkuv6 {
+.payment-container.svelte-l2bey2 .box .content.svelte-l2bey2 {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
-.payment-container.svelte-1aqkuv6 .box .content .details.svelte-1aqkuv6 {
+.payment-container.svelte-l2bey2 .box .content .details.svelte-l2bey2 {
   width: 100%;
 }
-.payment-container.svelte-1aqkuv6 .box .content .details table.svelte-1aqkuv6 {
+.payment-container.svelte-l2bey2 .box .content .details table.svelte-l2bey2 {
   width: 100%;
   text-align: left;
 }
-.payment-container.svelte-1aqkuv6 .box .content .details table .sep.svelte-1aqkuv6 {
+.payment-container.svelte-l2bey2 .box .content .details table .sep.svelte-l2bey2 {
   padding: 0 10px;
 }
-.payment-container.svelte-1aqkuv6 .box .content h1.svelte-1aqkuv6 {
+.payment-container.svelte-l2bey2 .box .content h1.svelte-l2bey2 {
   margin: 0;
   font-size: var(--font-xl);
 }
-.payment-container.svelte-1aqkuv6 .box .content p.svelte-1aqkuv6 {
+.payment-container.svelte-l2bey2 .box .content p.svelte-l2bey2 {
   margin: 0;
   text-align: center;
 }
-.payment-container.svelte-1aqkuv6 .box .footer.svelte-1aqkuv6 {
+.payment-container.svelte-l2bey2 .box .footer.svelte-l2bey2 {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  gap: 10px;
   align-items: center;
   width: 100%;
 }
-.payment-container.svelte-1aqkuv6 .box .footer .back.svelte-1aqkuv6 {
+.payment-container.svelte-l2bey2 .box .footer .back.svelte-l2bey2 {
   width: 100%;
   background-color: var(--gray-002);
   border: none;
@@ -430,15 +431,15 @@
   cursor: pointer;
   width: fit-content;
 }
-.payment-container.svelte-1aqkuv6 .box .footer .back.svelte-1aqkuv6:hover {
+.payment-container.svelte-l2bey2 .box .footer .back.svelte-l2bey2:hover {
   background-color: var(--gray-003);
   border-radius: 999px;
 }
 @media only screen and (max-width : 768px) {
-  .payment-container.svelte-1aqkuv6.svelte-1aqkuv6 {
+  .payment-container.svelte-l2bey2.svelte-l2bey2 {
     align-items: baseline;
   }
-  .payment-container.svelte-1aqkuv6 .box.svelte-1aqkuv6 {
+  .payment-container.svelte-l2bey2 .box.svelte-l2bey2 {
     width: 100%;
     margin: 20px 10px;
   }
@@ -3485,7 +3486,7 @@
       c() {
         p = element("p");
         p.textContent = "Please wait...";
-        attr(p, "class", "svelte-1aqkuv6");
+        attr(p, "class", "svelte-l2bey2");
       },
       m(target, anchor) {
         insert(target, p, anchor);
@@ -3506,7 +3507,7 @@
         if (!src_url_equal(img.src, img_src_value = "/assets/icons/payment-success.png"))
           attr(img, "src", img_src_value);
         attr(img, "alt", "Payment Success");
-        attr(img, "class", "icon svelte-1aqkuv6");
+        attr(img, "class", "icon svelte-l2bey2");
       },
       m(target, anchor) {
         insert(target, img, anchor);
@@ -3527,7 +3528,7 @@
         if (!src_url_equal(img.src, img_src_value = "/assets/icons/payment-failed.png"))
           attr(img, "src", img_src_value);
         attr(img, "alt", "Payment Failed");
-        attr(img, "class", "icon svelte-1aqkuv6");
+        attr(img, "class", "icon svelte-l2bey2");
       },
       m(target, anchor) {
         insert(target, img, anchor);
@@ -3550,8 +3551,8 @@
         t1 = space();
         p = element("p");
         p.textContent = "Your payment has been successfully processed. Thank you for completing the transaction.";
-        attr(h1, "class", "svelte-1aqkuv6");
-        attr(p, "class", "svelte-1aqkuv6");
+        attr(h1, "class", "svelte-l2bey2");
+        attr(p, "class", "svelte-l2bey2");
       },
       m(target, anchor) {
         insert(target, h1, anchor);
@@ -3578,8 +3579,8 @@
         t1 = space();
         p = element("p");
         p.textContent = "Unfortunately, your payment could not be processed. Please review the details below to understand the issue and take corrective action.";
-        attr(h1, "class", "svelte-1aqkuv6");
-        attr(p, "class", "svelte-1aqkuv6");
+        attr(h1, "class", "svelte-l2bey2");
+        attr(p, "class", "svelte-l2bey2");
       },
       m(target, anchor) {
         insert(target, h1, anchor);
@@ -3680,7 +3681,9 @@
     let t39;
     let t40;
     let div2;
-    let button;
+    let button0;
+    let t42;
+    let button1;
     let mounted;
     let dispose;
     let if_block0 = (
@@ -3792,22 +3795,26 @@
         t39 = text(t39_value);
         t40 = space();
         div2 = element("div");
-        button = element("button");
-        button.textContent = "Back to home";
-        attr(td0, "class", "sep svelte-1aqkuv6");
-        attr(td2, "class", "sep svelte-1aqkuv6");
-        attr(td4, "class", "sep svelte-1aqkuv6");
-        attr(td6, "class", "sep svelte-1aqkuv6");
-        attr(td8, "class", "sep svelte-1aqkuv6");
-        attr(td10, "class", "sep svelte-1aqkuv6");
-        attr(table, "class", "svelte-1aqkuv6");
-        attr(div0, "class", "details svelte-1aqkuv6");
-        attr(div1, "class", "content svelte-1aqkuv6");
-        attr(button, "class", "back svelte-1aqkuv6");
-        attr(div2, "class", "footer svelte-1aqkuv6");
-        attr(div3, "class", "box shadow svelte-1aqkuv6");
-        attr(section, "class", "payment-container svelte-1aqkuv6");
-        attr(div4, "class", "root-layout svelte-1aqkuv6");
+        button0 = element("button");
+        button0.textContent = "Purchase again";
+        t42 = space();
+        button1 = element("button");
+        button1.textContent = "Go to invoices";
+        attr(td0, "class", "sep svelte-l2bey2");
+        attr(td2, "class", "sep svelte-l2bey2");
+        attr(td4, "class", "sep svelte-l2bey2");
+        attr(td6, "class", "sep svelte-l2bey2");
+        attr(td8, "class", "sep svelte-l2bey2");
+        attr(td10, "class", "sep svelte-l2bey2");
+        attr(table, "class", "svelte-l2bey2");
+        attr(div0, "class", "details svelte-l2bey2");
+        attr(div1, "class", "content svelte-l2bey2");
+        attr(button0, "class", "back svelte-l2bey2");
+        attr(button1, "class", "back svelte-l2bey2");
+        attr(div2, "class", "footer svelte-l2bey2");
+        attr(div3, "class", "box shadow svelte-l2bey2");
+        attr(section, "class", "payment-container svelte-l2bey2");
+        attr(div4, "class", "root-layout svelte-l2bey2");
       },
       m(target, anchor) {
         insert(target, div4, anchor);
@@ -3880,14 +3887,24 @@
         append(td11, t39);
         append(div3, t40);
         append(div3, div2);
-        append(div2, button);
+        append(div2, button0);
+        append(div2, t42);
+        append(div2, button1);
         if (!mounted) {
-          dispose = listen(
-            button,
-            "click",
-            /*click_handler*/
-            ctx[4]
-          );
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*click_handler*/
+              ctx[4]
+            ),
+            listen(
+              button1,
+              "click",
+              /*click_handler_1*/
+              ctx[5]
+            )
+          ];
           mounted = true;
         }
       },
@@ -4011,7 +4028,7 @@
         if (if_block4)
           if_block4.d();
         mounted = false;
-        dispose();
+        run_all(dispose);
       }
     };
   }
@@ -4054,13 +4071,15 @@
     onMount(async () => {
       await fetchPaymentResult();
     });
-    const click_handler = () => window.location.href = "/";
+    const click_handler = () => window.location.href = "/user/purchaseSupport";
+    const click_handler_1 = () => window.location.href = "/user/profileInvoices";
     return [
       invoicePayment,
       InvoiceStatusPending,
       InvoiceStatusSuccess,
       InvoiceStatusFailed,
-      click_handler
+      click_handler,
+      click_handler_1
     ];
   }
   var User_paymentResult = class extends SvelteComponent {

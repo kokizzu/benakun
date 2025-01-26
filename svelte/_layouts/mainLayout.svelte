@@ -41,18 +41,20 @@
       })
     }
 
+    // TODO: fix it to show once a day if user not yet buy support+
     if (IsUnixTimeExpired(user.supportExpiredAt)) {
       const storedPopupDate = localStorage.getItem('popup-date');
       if (storedPopupDate) {
         const savedTime = parseInt(storedPopupDate, 10);
         const currentTime = new Date().getTime();
         const threeDaysInMs = 3 * 24 * 60 * 60 * 1000;
-        if ((currentTime-savedTime) > threeDaysInMs) {
+        if (((currentTime / 1000)-savedTime) > threeDaysInMs) {
           setTimeout(() => {
             popUpPurchaseSupport.Show();
           }, 3000);
         }
       } else {
+        localStorage.setItem('popup-date', new Date().getTime().toString());
         setTimeout(() => {
           popUpPurchaseSupport.Show();
           setPopUpIntervalTime();

@@ -26,6 +26,8 @@ const (
 	DeletedAt      = `deletedAt`
 	DeletedBy      = `deletedBy`
 	RestoredBy     = `restoredBy`
+	SupportStartAt = `supportStartAt`
+	SupportEndAt   = `supportEndAt`
 )
 
 const (
@@ -39,6 +41,8 @@ const (
 	InvoiceStatusRefunded  = `refunded`
 )
 
+// Transaction status obtained from DOKU
+// https://dashboard.doku.com/docs/docs/technical-references/status-mapping/
 const (
 	DokuTransactionStatusSuccess  = `SUCCESS`
 	DokuTransactionStatusFailed   = `FAILED`
@@ -68,11 +72,11 @@ func GetSupportExpiredAtByAmount(amount uint32) int64 {
 
 	switch amount {
 	case PriceSupportMonthly:
-		return now.AddDate(0, 1, 0).Unix()
+		return now.AddDate(0, 1, 0).Unix() // 1 month
 	case PriceSupportQuarterly:
-		return now.AddDate(0, 3, 0).Unix()
+		return now.AddDate(0, 3, 0).Unix() // 3 months
 	case PriceSupportYearly:
-		return now.AddDate(1, 0, 0).Unix()
+		return now.AddDate(1, 0, 0).Unix() // 1 year
 	}
 
 	return 0
@@ -129,6 +133,8 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{DeletedAt, Tt.Integer},
 			{DeletedBy, Tt.Unsigned},
 			{RestoredBy, Tt.Unsigned},
+			{SupportStartAt, Tt.Integer},
+			{SupportEndAt, Tt.Integer},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,

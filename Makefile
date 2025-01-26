@@ -44,3 +44,6 @@ test-coverage:
 
 show-coverage:
 	go tool cover -html=coverage.out
+
+localhost-run:
+	ssh -R 80:localhost:1235 localhost.run

@@ -6797,30 +6797,37 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
 
   // _components/partials/Navbar.svelte
   var import_xHelper = __toESM(require_xHelper());
-  function create_if_block3(ctx) {
-    let button;
-    let mounted;
-    let dispose;
+  function create_if_block_16(ctx) {
+    let span;
     return {
       c() {
-        button = element("button");
-        button.innerHTML = `<span>Upgrade</span>`;
-        attr(button, "class", "upgrade svelte-e9cqf5");
+        span = element("span");
+        span.textContent = "Upgrade";
       },
       m(target, anchor) {
-        insert(target, button, anchor);
-        if (!mounted) {
-          dispose = listen(button, "click", handleUpgrade);
-          mounted = true;
-        }
+        insert(target, span, anchor);
       },
-      p: noop,
       d(detaching) {
         if (detaching) {
-          detach(button);
+          detach(span);
         }
-        mounted = false;
-        dispose();
+      }
+    };
+  }
+  function create_if_block3(ctx) {
+    let span;
+    return {
+      c() {
+        span = element("span");
+        span.textContent = "Extend Support";
+      },
+      m(target, anchor) {
+        insert(target, span, anchor);
+      },
+      d(detaching) {
+        if (detaching) {
+          detach(span);
+        }
       }
     };
   }
@@ -6828,7 +6835,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     let header;
     let nav;
     let div0;
-    let button;
+    let button0;
     let icon0;
     let t0;
     let icon1;
@@ -6836,14 +6843,16 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     let div2;
     let picture;
     let t2;
+    let button1;
     let t3;
+    let t4;
     let span;
     let div1;
-    let t4_value = (
+    let t5_value = (
       /*user*/
       ctx[0].email + ""
     );
-    let t4;
+    let t5;
     let span_class_value;
     let current;
     let mounted;
@@ -6862,14 +6871,18 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         className: "icon_small"
       }
     });
-    let if_block = !/*isUserBoughtSupport*/
-    ctx[1] && create_if_block3(ctx);
+    let if_block0 = !/*isUserBoughtSupport*/
+    ctx[1] && create_if_block_16(ctx);
+    let if_block1 = (
+      /*isUserBoughtSupport*/
+      ctx[1] && create_if_block3(ctx)
+    );
     return {
       c() {
         header = element("header");
         nav = element("nav");
         div0 = element("div");
-        button = element("button");
+        button0 = element("button");
         create_component(icon0.$.fragment);
         t0 = space();
         create_component(icon1.$.fragment);
@@ -6878,15 +6891,20 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         picture = element("picture");
         picture.innerHTML = `<img src="/assets/icons/benakun-logo.png" alt="" class="svelte-e9cqf5"/>`;
         t2 = space();
-        if (if_block)
-          if_block.c();
+        button1 = element("button");
+        if (if_block0)
+          if_block0.c();
         t3 = space();
+        if (if_block1)
+          if_block1.c();
+        t4 = space();
         span = element("span");
         div1 = element("div");
-        t4 = text(t4_value);
-        attr(button, "class", "shrink_btn svelte-e9cqf5");
+        t5 = text(t5_value);
+        attr(button0, "class", "shrink_btn svelte-e9cqf5");
         attr(div0, "class", "left svelte-e9cqf5");
         attr(picture, "class", "svelte-e9cqf5");
+        attr(button1, "class", "upgrade svelte-e9cqf5");
         attr(div1, "class", "wrapper svelte-e9cqf5");
         attr(span, "class", span_class_value = "display-email " + /*isUserBoughtSupport*/
         (ctx[1] ? "premium" : "free") + " svelte-e9cqf5");
@@ -6898,49 +6916,69 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         insert(target, header, anchor);
         append(header, nav);
         append(nav, div0);
-        append(div0, button);
-        mount_component(icon0, button, null);
-        append(button, t0);
-        mount_component(icon1, button, null);
+        append(div0, button0);
+        mount_component(icon0, button0, null);
+        append(button0, t0);
+        mount_component(icon1, button0, null);
         append(nav, t1);
         append(nav, div2);
         append(div2, picture);
         append(div2, t2);
-        if (if_block)
-          if_block.m(div2, null);
-        append(div2, t3);
+        append(div2, button1);
+        if (if_block0)
+          if_block0.m(button1, null);
+        append(button1, t3);
+        if (if_block1)
+          if_block1.m(button1, null);
+        append(div2, t4);
         append(div2, span);
         append(span, div1);
-        append(div1, t4);
+        append(div1, t5);
         current = true;
         if (!mounted) {
-          dispose = listen(
-            button,
-            "click",
-            /*handleShrinkMenu*/
-            ctx[2]
-          );
+          dispose = [
+            listen(
+              button0,
+              "click",
+              /*handleShrinkMenu*/
+              ctx[2]
+            ),
+            listen(button1, "click", handleUpgrade)
+          ];
           mounted = true;
         }
       },
       p(ctx2, [dirty]) {
         if (!/*isUserBoughtSupport*/
         ctx2[1]) {
-          if (if_block) {
-            if_block.p(ctx2, dirty);
+          if (if_block0) {
           } else {
-            if_block = create_if_block3(ctx2);
-            if_block.c();
-            if_block.m(div2, t3);
+            if_block0 = create_if_block_16(ctx2);
+            if_block0.c();
+            if_block0.m(button1, t3);
           }
-        } else if (if_block) {
-          if_block.d(1);
-          if_block = null;
+        } else if (if_block0) {
+          if_block0.d(1);
+          if_block0 = null;
+        }
+        if (
+          /*isUserBoughtSupport*/
+          ctx2[1]
+        ) {
+          if (if_block1) {
+          } else {
+            if_block1 = create_if_block3(ctx2);
+            if_block1.c();
+            if_block1.m(button1, null);
+          }
+        } else if (if_block1) {
+          if_block1.d(1);
+          if_block1 = null;
         }
         if ((!current || dirty & /*user*/
-        1) && t4_value !== (t4_value = /*user*/
+        1) && t5_value !== (t5_value = /*user*/
         ctx2[0].email + ""))
-          set_data(t4, t4_value);
+          set_data(t5, t5_value);
         if (!current || dirty & /*isUserBoughtSupport*/
         2 && span_class_value !== (span_class_value = "display-email " + /*isUserBoughtSupport*/
         (ctx2[1] ? "premium" : "free") + " svelte-e9cqf5")) {
@@ -6965,10 +7003,12 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         }
         destroy_component(icon0);
         destroy_component(icon1);
-        if (if_block)
-          if_block.d();
+        if (if_block0)
+          if_block0.d();
+        if (if_block1)
+          if_block1.d();
         mounted = false;
-        dispose();
+        run_all(dispose);
       }
     };
   }
@@ -7058,7 +7098,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   var Footer_default = Footer;
 
   // _components/PopUpPurchaseSupport.svelte
-  function create_if_block_16(ctx) {
+  function create_if_block_17(ctx) {
     let span;
     return {
       c() {
@@ -7168,7 +7208,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     });
     let if_block0 = (
       /*isPurchasing*/
-      ctx[2] && create_if_block_16(ctx)
+      ctx[2] && create_if_block_17(ctx)
     );
     let if_block1 = !/*isPurchasing*/
     ctx[2] && create_if_block4(ctx);
@@ -7458,7 +7498,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         ) {
           if (if_block0) {
           } else {
-            if_block0 = create_if_block_16(ctx2);
+            if_block0 = create_if_block_17(ctx2);
             if_block0.c();
             if_block0.m(button0, t21);
           }
@@ -7897,7 +7937,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
           const savedTime = parseInt(storedPopupDate, 10);
           const currentTime = new Date().getTime();
           const threeDaysInMs = 3 * 24 * 60 * 60 * 1e3;
-          if (currentTime - savedTime > threeDaysInMs) {
+          if (currentTime / 1e3 - savedTime > threeDaysInMs) {
             setTimeout(
               () => {
                 popUpPurchaseSupport.Show();
@@ -7906,6 +7946,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
             );
           }
         } else {
+          localStorage.setItem("popup-date", new Date().getTime().toString());
           setTimeout(
             () => {
               popUpPurchaseSupport.Show();
@@ -9345,7 +9386,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       }
     };
   }
-  function create_if_block_17(ctx) {
+  function create_if_block_18(ctx) {
     let current_block_type_index;
     let if_block;
     let if_block_anchor;
@@ -10245,7 +10286,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     let current;
     const if_block_creators = [
       create_if_block6,
-      create_if_block_17,
+      create_if_block_18,
       create_if_block_32,
       create_if_block_42,
       create_if_block_52,
@@ -10734,7 +10775,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   var InputBox_default = InputBox;
 
   // _components/PopUpOrg.svelte
-  function create_if_block_18(ctx) {
+  function create_if_block_19(ctx) {
     let span;
     return {
       c() {
@@ -10858,7 +10899,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     inputbox1 = new InputBox_default({ props: inputbox1_props });
     binding_callbacks.push(() => bind(inputbox1, "value", inputbox1_value_binding));
     let if_block0 = !/*isSubmitted*/
-    ctx[4] && create_if_block_18(ctx);
+    ctx[4] && create_if_block_19(ctx);
     let if_block1 = (
       /*isSubmitted*/
       ctx[4] && create_if_block7(ctx)
@@ -10991,7 +11032,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         ctx[4]) {
           if (if_block0) {
           } else {
-            if_block0 = create_if_block_18(ctx);
+            if_block0 = create_if_block_19(ctx);
             if_block0.c();
             if_block0.m(button2, t8);
           }
@@ -11180,7 +11221,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
       }
     };
   }
-  function create_if_block_19(ctx) {
+  function create_if_block_110(ctx) {
     let t0;
     let button0;
     let icon0;
@@ -11639,7 +11680,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         )
       }
     });
-    const if_block_creators = [create_if_block_19, create_else_block2];
+    const if_block_creators = [create_if_block_110, create_else_block2];
     const if_blocks = [];
     function select_block_type(ctx2, dirty) {
       if (

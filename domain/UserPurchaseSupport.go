@@ -83,7 +83,7 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 				"invoice_number":        invoiceNumber,
 				"language":              "EN",
 				"disable_retry_payment": true,
-				"callback_url":          in.Host + `/`,
+				"callback_url":          in.Host + `/` + UserPaymentResultAction + `?invoiceNumber=` + invoiceNumber,
 				"callback_url_cancel":   in.Host + `/` + UserPaymentCancelAction,
 				"callback_url_result":   in.Host + `/` + UserPaymentResultAction + `?invoiceNumber=` + invoiceNumber,
 				"auto_redirect":         true,

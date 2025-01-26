@@ -107,8 +107,11 @@
         </div>
       </div>
       <div class="footer">
-        <button class="back" on:click={() => window.location.href = '/'}>
-          Back to home
+        <button class="back" on:click={() => window.location.href = '/user/purchaseSupport'}>
+          Purchase again
+        </button>
+        <button class="back" on:click={() => window.location.href = '/user/profileInvoices'}>
+          Go to invoices
         </button>
       </div>
     </div>
@@ -189,6 +192,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    gap: 10px;
     align-items: center;
     width: 100%;
   }

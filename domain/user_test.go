@@ -164,3 +164,38 @@ func TestUserSessionKill(t *testing.T) {
 		assert.NotEmpty(t, out.Error, `session killed, it must be failed`)
 	})
 }
+
+func TestUserPurchaseSupport(t *testing.T) {
+	d, closer := testDomain()
+	defer closer()
+
+	t.Run(`purchaseSupportMustSucceed`, func(t *testing.T) {
+		in := UserPurchaseSupportIn{
+			RequestCommon: testAdminRequestCommon(UserPurchaseSupportAction),
+		}
+
+		out := d.UserPurchaseSupport(&in)
+		assert.Empty(t, out.Error, `failed to purchase support`)
+	})
+
+	t.Run(`purchaseSupportMustFailed`, func(t *testing.T) {
+		in := UserPurchaseSupportIn{
+			RequestCommon: RequestCommon{
+				SessionToken: `invalidSessionToken`,
+				RequestId:    lexid.ID(),
+				IpAddress:    "127.0.2.1",
+				Debug:        true,
+				Host:         fmt.Sprintf("http://%s:1234", testSuperAdminTenantCode),
+				Action:       UserPurchaseSupportAction,
+				Lat:          -1,
+				Long:         -2,
+				now:          testTime.Unix(),
+				start:        testTime,
+			},
+		}
+
+		out := d.UserPurchaseSupport(&in)
+		assert.NotEmpty(t, out.Error, `purchase support succeeded, it must be failed`)
+	})
+
+}

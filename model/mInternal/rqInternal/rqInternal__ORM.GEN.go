@@ -37,6 +37,8 @@ type InvoicePayment struct {
 	DeletedAt      int64       `json:"deletedAt" form:"deletedAt" query:"deletedAt" long:"deletedAt" msg:"deletedAt"`
 	DeletedBy      uint64      `json:"deletedBy,string" form:"deletedBy" query:"deletedBy" long:"deletedBy" msg:"deletedBy"`
 	RestoredBy     uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
+	SupportStartAt int64       `json:"supportStartAt" form:"supportStartAt" query:"supportStartAt" long:"supportStartAt" msg:"supportStartAt"`
+	SupportEndAt   int64       `json:"supportEndAt" form:"supportEndAt" query:"supportEndAt" long:"supportEndAt" msg:"supportEndAt"`
 }
 
 // NewInvoicePayment create new ORM reader/query object
@@ -109,6 +111,8 @@ func (i *InvoicePayment) SqlSelectAllFields() string { //nolint:dupl false posit
 	, "deletedAt"
 	, "deletedBy"
 	, "restoredBy"
+	, "supportStartAt"
+	, "supportEndAt"
 	`
 }
 
@@ -130,6 +134,8 @@ func (i *InvoicePayment) SqlSelectAllUncensoredFields() string { //nolint:dupl f
 	, "deletedAt"
 	, "deletedBy"
 	, "restoredBy"
+	, "supportStartAt"
+	, "supportEndAt"
 	`
 }
 
@@ -152,6 +158,8 @@ func (i *InvoicePayment) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 13, i.DeletedAt},
 		A.X{`=`, 14, i.DeletedBy},
 		A.X{`=`, 15, i.RestoredBy},
+		A.X{`=`, 16, i.SupportStartAt},
+		A.X{`=`, 17, i.SupportEndAt},
 	}
 }
 
@@ -315,6 +323,26 @@ func (i *InvoicePayment) SqlRestoredBy() string { //nolint:dupl false positive
 	return `"restoredBy"`
 }
 
+// IdxSupportStartAt return name of the index
+func (i *InvoicePayment) IdxSupportStartAt() int { //nolint:dupl false positive
+	return 16
+}
+
+// SqlSupportStartAt return name of the column being indexed
+func (i *InvoicePayment) SqlSupportStartAt() string { //nolint:dupl false positive
+	return `"supportStartAt"`
+}
+
+// IdxSupportEndAt return name of the index
+func (i *InvoicePayment) IdxSupportEndAt() int { //nolint:dupl false positive
+	return 17
+}
+
+// SqlSupportEndAt return name of the column being indexed
+func (i *InvoicePayment) SqlSupportEndAt() string { //nolint:dupl false positive
+	return `"supportEndAt"`
+}
+
 // ToArray receiver fields to slice
 func (i *InvoicePayment) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -338,6 +366,8 @@ func (i *InvoicePayment) ToArray() A.X { //nolint:dupl false positive
 		i.DeletedAt,      // 13
 		i.DeletedBy,      // 14
 		i.RestoredBy,     // 15
+		i.SupportStartAt, // 16
+		i.SupportEndAt,   // 17
 	}
 }
 
@@ -359,6 +389,8 @@ func (i *InvoicePayment) FromArray(a A.X) *InvoicePayment { //nolint:dupl false 
 	i.DeletedAt = X.ToI(a[13])
 	i.DeletedBy = X.ToU(a[14])
 	i.RestoredBy = X.ToU(a[15])
+	i.SupportStartAt = X.ToI(a[16])
+	i.SupportEndAt = X.ToI(a[17])
 	return i
 }
 
@@ -380,6 +412,8 @@ func (i *InvoicePayment) FromUncensoredArray(a A.X) *InvoicePayment { //nolint:d
 	i.DeletedAt = X.ToI(a[13])
 	i.DeletedBy = X.ToU(a[14])
 	i.RestoredBy = X.ToU(a[15])
+	i.SupportStartAt = X.ToI(a[16])
+	i.SupportEndAt = X.ToI(a[17])
 	return i
 }
 
@@ -439,6 +473,8 @@ var InvoicePaymentFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false pos
 	`deletedAt`:      Tt.Integer,
 	`deletedBy`:      Tt.Unsigned,
 	`restoredBy`:     Tt.Unsigned,
+	`supportStartAt`: Tt.Integer,
+	`supportEndAt`:   Tt.Integer,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

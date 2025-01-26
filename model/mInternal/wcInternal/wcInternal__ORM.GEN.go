@@ -87,6 +87,8 @@ func (i *InvoicePaymentMutator) DoDeletePermanentById() bool { //nolint:dupl fal
 //		A.X{`=`, 13, i.DeletedAt},
 //		A.X{`=`, 14, i.DeletedBy},
 //		A.X{`=`, 15, i.RestoredBy},
+//		A.X{`=`, 16, i.SupportStartAt},
+//		A.X{`=`, 17, i.SupportEndAt},
 //	})
 //	return !L.IsError(err, `InvoicePayment.DoUpsert failed: `+i.SpaceName()+ `\n%#v`, arr)
 // }
@@ -316,6 +318,28 @@ func (i *InvoicePaymentMutator) SetRestoredBy(val uint64) bool { //nolint:dupl f
 	return false
 }
 
+// SetSupportStartAt create mutations, should not duplicate
+func (i *InvoicePaymentMutator) SetSupportStartAt(val int64) bool { //nolint:dupl false positive
+	if val != i.SupportStartAt {
+		i.mutations = append(i.mutations, A.X{`=`, 16, val})
+		i.logs = append(i.logs, A.X{`supportStartAt`, i.SupportStartAt, val})
+		i.SupportStartAt = val
+		return true
+	}
+	return false
+}
+
+// SetSupportEndAt create mutations, should not duplicate
+func (i *InvoicePaymentMutator) SetSupportEndAt(val int64) bool { //nolint:dupl false positive
+	if val != i.SupportEndAt {
+		i.mutations = append(i.mutations, A.X{`=`, 17, val})
+		i.logs = append(i.logs, A.X{`supportEndAt`, i.SupportEndAt, val})
+		i.SupportEndAt = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (i *InvoicePaymentMutator) SetAll(from rqInternal.InvoicePayment, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -386,6 +410,14 @@ func (i *InvoicePaymentMutator) SetAll(from rqInternal.InvoicePayment, excludeMa
 	}
 	if !excludeMap[`restoredBy`] && (forceMap[`restoredBy`] || from.RestoredBy != 0) {
 		i.RestoredBy = from.RestoredBy
+		changed = true
+	}
+	if !excludeMap[`supportStartAt`] && (forceMap[`supportStartAt`] || from.SupportStartAt != 0) {
+		i.SupportStartAt = from.SupportStartAt
+		changed = true
+	}
+	if !excludeMap[`supportEndAt`] && (forceMap[`supportEndAt`] || from.SupportEndAt != 0) {
+		i.SupportEndAt = from.SupportEndAt
 		changed = true
 	}
 	return

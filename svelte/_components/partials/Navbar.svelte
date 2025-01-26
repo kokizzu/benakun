@@ -52,11 +52,14 @@
       <picture>
         <img src="/assets/icons/benakun-logo.png" alt="" />
       </picture>
-      {#if !isUserBoughtSupport}
         <button class="upgrade" on:click={handleUpgrade}>
-          <span>Upgrade</span>
+          {#if !isUserBoughtSupport}
+            <span>Upgrade</span>
+          {/if}
+          {#if isUserBoughtSupport}
+            <span>Extend Support</span>
+          {/if}
         </button>
-      {/if}
       <span class="display-email { isUserBoughtSupport ? 'premium' : 'free'} ">
         <div class="wrapper">{user.email}</div>
       </span>
