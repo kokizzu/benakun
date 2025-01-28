@@ -64,7 +64,7 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 			return
 		}
 
-		var amount uint32
+		var amount int64
 		switch in.SuppportDuration {
 		case mInternal.SupportDurationMonthly:
 			amount = mInternal.PriceSupportMonthly

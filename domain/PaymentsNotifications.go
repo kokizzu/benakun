@@ -5,6 +5,7 @@ import (
 	"benakun/model/mInternal"
 	"benakun/model/mInternal/wcInternal"
 	"os"
+	"time"
 
 	"github.com/goccy/go-json"
 	"github.com/gofiber/fiber/v2"
@@ -119,7 +120,13 @@ func (d *Domain) PaymentsNotifications(c *fiber.Ctx) error {
 			return c.SendStatus(500)
 		}
 
-		expiredAt := mInternal.GetSupportExpiredAtByAmount(uint32(invPayment.Amount))
+		now := time.Now()
+
+		if user.SupportExpiredAt > now.Unix() {
+			now = time.Unix(user.SupportExpiredAt, 0)
+		}
+
+		expiredAt := mInternal.GetSupportExpiredAtByAmount(invPayment.Amount, now)
 		user.SetSupportExpiredAt(expiredAt)
 
 		if !user.DoUpdateById() {

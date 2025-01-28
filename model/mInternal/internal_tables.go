@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/kokizzu/gotro/D/Tt"
-	"github.com/kpango/fastime"
 )
 
 const (
@@ -56,9 +55,9 @@ const (
 )
 
 const (
-	PriceSupportMonthly   uint32 = 50_000  // IDR 50.000
-	PriceSupportQuarterly uint32 = 120_000 // IDR 120.000
-	PriceSupportYearly    uint32 = 450_000 // IDR 450.000
+	PriceSupportMonthly   int64 = 50_000  // IDR 50.000
+	PriceSupportQuarterly int64 = 120_000 // IDR 120.000
+	PriceSupportYearly    int64 = 450_000 // IDR 450.000
 )
 
 const (
@@ -67,16 +66,14 @@ const (
 	SupportDurationYearly    = `yearly`
 )
 
-func GetSupportExpiredAtByAmount(amount uint32) int64 {
-	now := fastime.Now()
-
+func GetSupportExpiredAtByAmount(amount int64, startAt time.Time) int64 {
 	switch amount {
 	case PriceSupportMonthly:
-		return now.AddDate(0, 1, 0).Unix() // 1 month
+		return startAt.AddDate(0, 1, 0).Unix() // 1 month
 	case PriceSupportQuarterly:
-		return now.AddDate(0, 3, 0).Unix() // 3 months
+		return startAt.AddDate(0, 3, 0).Unix() // 3 months
 	case PriceSupportYearly:
-		return now.AddDate(1, 0, 0).Unix() // 1 year
+		return startAt.AddDate(1, 0, 0).Unix() // 1 year
 	}
 
 	return 0
