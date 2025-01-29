@@ -1,7 +1,7 @@
 root = "."
 
 [build]
-include_ext = ['go', 'html']
+include_ext = ['go', 'html', '.override', '.env']
 inclide_file = ['.env.override', '.env']
 exclude_regex = ['_test.go']
 exclude_dir = ['backup', '_tmpdb', 'tmp', 'deploy', 'static', 'svelte/node_modules', 'svelte/assets']

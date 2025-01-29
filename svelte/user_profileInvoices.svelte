@@ -63,8 +63,11 @@
   </div>
 </MainLayout>
 
-
 <style>
+  :global(.root-layout .root-container .root-content .content) {
+    padding: 10px 20px 20px !important;
+  }
+  
   .table_root {
     display: flex;
     flex-direction: column;

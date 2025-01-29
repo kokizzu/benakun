@@ -1075,7 +1075,10 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
 }
 
 /* fakecss:./user_profileSessions.esbuild-svelte-fake-css */
-@keyframes svelte-1kd6pn4-spin {
+.root-layout .root-container .root-content .content {
+  padding: 10px 20px 20px !important;
+}
+@keyframes svelte-1oaf1nw-spin {
   from {
     transform: rotate(0deg);
   }
@@ -1084,9 +1087,9 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   }
 }
 .spin {
-  animation: svelte-1kd6pn4-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation: svelte-1oaf1nw-spin 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
-.sessions-container.svelte-1kd6pn4.svelte-1kd6pn4 {
+.sessions-container.svelte-1oaf1nw.svelte-1oaf1nw {
   border: 1px solid var(--gray-003);
   display: flex;
   flex-direction: column;
@@ -1095,7 +1098,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   overflow: hidden;
   background-color: #FFF;
 }
-.sessions-container.svelte-1kd6pn4 .header.svelte-1kd6pn4 {
+.sessions-container.svelte-1oaf1nw .header.svelte-1oaf1nw {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -1103,12 +1106,12 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   padding: 12px 15px;
   border-bottom: 1px solid #cbd5e1;
 }
-.sessions-container.svelte-1kd6pn4 .sessions.svelte-1kd6pn4 {
+.sessions-container.svelte-1oaf1nw .sessions.svelte-1oaf1nw {
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
-.sessions-container.svelte-1kd6pn4 .sessions .session.svelte-1kd6pn4 {
+.sessions-container.svelte-1oaf1nw .sessions .session.svelte-1oaf1nw {
   text-align: left;
   display: flex;
   flex-direction: row;
@@ -1118,16 +1121,16 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   position: relative;
   width: 100%;
 }
-.sessions-container.svelte-1kd6pn4 .sessions .session span.svelte-1kd6pn4:nth-child(3),
-.sessions-container.svelte-1kd6pn4 .header span.svelte-1kd6pn4:nth-child(3) {
+.sessions-container.svelte-1oaf1nw .sessions .session span.svelte-1oaf1nw:nth-child(3),
+.sessions-container.svelte-1oaf1nw .header span.svelte-1oaf1nw:nth-child(3) {
   flex-grow: 1;
   margin-right: 30px;
 }
-.sessions-container.svelte-1kd6pn4 .sessions .session span.svelte-1kd6pn4,
-.sessions-container.svelte-1kd6pn4 .header span.svelte-1kd6pn4 {
+.sessions-container.svelte-1oaf1nw .sessions .session span.svelte-1oaf1nw,
+.sessions-container.svelte-1oaf1nw .header span.svelte-1oaf1nw {
   width: 200px;
 }
-.sessions-container.svelte-1kd6pn4 .sessions .session .kill_session.svelte-1kd6pn4 {
+.sessions-container.svelte-1oaf1nw .sessions .session .kill_session.svelte-1oaf1nw {
   border: none;
   background-color: var(--red-005);
   padding: 5px;
@@ -1139,7 +1142,7 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
   justify-content: center;
   align-items: center;
 }
-.sessions-container.svelte-1kd6pn4 .sessions .session .kill_session.svelte-1kd6pn4:hover {
+.sessions-container.svelte-1oaf1nw .sessions .session .kill_session.svelte-1oaf1nw:hover {
   background-color: var(--red-004);
 }
 </style>
@@ -7722,8 +7725,8 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
     return {
       c() {
         div = element("div");
-        div.innerHTML = `<span class="svelte-1kd6pn4">No active sessions</span>`;
-        attr(div, "class", "session svelte-1kd6pn4");
+        div.innerHTML = `<span class="svelte-1oaf1nw">No active sessions</span>`;
+        attr(div, "class", "session svelte-1oaf1nw");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -7874,12 +7877,12 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         button = element("button");
         create_component(icon.$.fragment);
         t6 = space();
-        attr(span0, "class", "svelte-1kd6pn4");
-        attr(span1, "class", "svelte-1kd6pn4");
-        attr(span2, "class", "svelte-1kd6pn4");
-        attr(button, "class", "kill_session svelte-1kd6pn4");
+        attr(span0, "class", "svelte-1oaf1nw");
+        attr(span1, "class", "svelte-1oaf1nw");
+        attr(span2, "class", "svelte-1oaf1nw");
+        attr(button, "class", "kill_session svelte-1oaf1nw");
         attr(button, "title", "kill this session");
-        attr(div, "class", "session svelte-1kd6pn4");
+        attr(div, "class", "session svelte-1oaf1nw");
       },
       m(target, anchor) {
         insert(target, div, anchor);
@@ -7968,13 +7971,13 @@ footer.svelte-yxr4y9 nav a.svelte-yxr4y9:hover {
         t0 = space();
         div2 = element("div");
         div0 = element("div");
-        div0.innerHTML = `<span class="svelte-1kd6pn4">IP Address</span> <span class="svelte-1kd6pn4">Expired At</span> <span class="svelte-1kd6pn4">User Agent</span>`;
+        div0.innerHTML = `<span class="svelte-1oaf1nw">IP Address</span> <span class="svelte-1oaf1nw">Expired At</span> <span class="svelte-1oaf1nw">User Agent</span>`;
         t6 = space();
         div1 = element("div");
         if_block.c();
-        attr(div0, "class", "header svelte-1kd6pn4");
-        attr(div1, "class", "sessions svelte-1kd6pn4");
-        attr(div2, "class", "sessions-container svelte-1kd6pn4");
+        attr(div0, "class", "header svelte-1oaf1nw");
+        attr(div1, "class", "sessions svelte-1oaf1nw");
+        attr(div2, "class", "sessions-container svelte-1oaf1nw");
       },
       m(target, anchor) {
         mount_component(profilesubmenu, target, anchor);

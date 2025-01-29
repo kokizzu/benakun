@@ -64,8 +64,11 @@
   </div>
 </MainLayout>
 
-
 <style>
+  :global(.root-layout .root-container .root-content .content) {
+    padding: 10px 20px 20px !important;
+  }
+  
   @keyframes spin {
     from {
       transform: rotate(0deg);
