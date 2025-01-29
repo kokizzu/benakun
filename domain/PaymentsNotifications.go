@@ -111,8 +111,6 @@ func (d *Domain) PaymentsNotifications(c *fiber.Ctx) error {
 
 	invPayment.SetResponseHeader(string(respHeaderByte))
 
-	invPayment.DoOverwriteByInvoiceNumber()
-
 	if transactionStatus == mInternal.DokuTransactionStatusSuccess {
 		user := wcAuth.NewUsersMutator(d.AuthOltp)
 		user.Id = invPayment.UserId
@@ -129,11 +127,15 @@ func (d *Domain) PaymentsNotifications(c *fiber.Ctx) error {
 		expiredAt := mInternal.GetSupportExpiredAtByAmount(invPayment.Amount, now)
 		user.SetSupportExpiredAt(expiredAt)
 
+		invPayment.SetSupportStartAt(now.Unix())
+		invPayment.SetSupportEndAt(expiredAt)
+
 		if !user.DoUpdateById() {
 			return c.SendStatus(500)
 		}
-
 	}
+
+	invPayment.DoOverwriteByInvoiceNumber()
 
 	return c.SendStatus(200)
 }

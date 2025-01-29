@@ -9,6 +9,8 @@
  * @property {string} responseHeader
  * @property {string} responseBody
  * @property {string} status
+ * @property {number} supportStartAt
+ * @property {number} supportEndAt
  * @property {number} createdAt
  * @property {string} createdBy
  * @property {number} updatedAt

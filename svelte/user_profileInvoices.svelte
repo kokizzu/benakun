@@ -29,8 +29,8 @@
             <th>Currency</th>
             <th>Payment Method</th>
             <th>Status</th>
-            <th>Created At</th>
-            <th>Updated At</th>
+            <th>Support Start At</th>
+            <th>Support End At</th>
           </tr>
         </thead>
         <tbody>
@@ -47,8 +47,8 @@
                     {inv.status}
                   </span>
                 </td>
-                <td>{datetime(inv.createdAt)}</td>
-                <td>{datetime(inv.updatedAt)}</td>
+                <td>{inv.supportStartAt ? datetime(inv.supportStartAt) : '--'}</td>
+                <td>{inv.supportStartAt ? datetime(inv.supportEndAt) : '--'}</td>
               </tr>
             {/each}
           {:else}
