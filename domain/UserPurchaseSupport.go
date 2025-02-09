@@ -151,10 +151,12 @@ func (d *Domain) UserPurchaseSupport(in *UserPurchaseSupportIn) (out UserPurchas
 
 		invAmount := order[`amount`]
 		invNumber := order[`invoice_number`]
+		invPayment := X.ToMSX(respJSON[`payment`])
 
 		invoice.SetAmount(X.ToI(invAmount))
 		invoice.SetCurrency(mInternal.CurrencyIDR)
 		invoice.SetStatus(mInternal.InvoiceStatusPending)
+		invoice.SetPaymentUrl(X.ToS(invPayment[`url`]))
 
 		invoice.InvoiceNumber = X.ToS(invNumber)
 		if !invoice.FindByInvoiceNumber() {

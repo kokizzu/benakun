@@ -39,6 +39,7 @@ type InvoicePayment struct {
 	RestoredBy     uint64      `json:"restoredBy,string" form:"restoredBy" query:"restoredBy" long:"restoredBy" msg:"restoredBy"`
 	SupportStartAt int64       `json:"supportStartAt" form:"supportStartAt" query:"supportStartAt" long:"supportStartAt" msg:"supportStartAt"`
 	SupportEndAt   int64       `json:"supportEndAt" form:"supportEndAt" query:"supportEndAt" long:"supportEndAt" msg:"supportEndAt"`
+	PaymentUrl     string      `json:"paymentUrl" form:"paymentUrl" query:"paymentUrl" long:"paymentUrl" msg:"paymentUrl"`
 }
 
 // NewInvoicePayment create new ORM reader/query object
@@ -113,6 +114,7 @@ func (i *InvoicePayment) SqlSelectAllFields() string { //nolint:dupl false posit
 	, "restoredBy"
 	, "supportStartAt"
 	, "supportEndAt"
+	, "paymentUrl"
 	`
 }
 
@@ -136,6 +138,7 @@ func (i *InvoicePayment) SqlSelectAllUncensoredFields() string { //nolint:dupl f
 	, "restoredBy"
 	, "supportStartAt"
 	, "supportEndAt"
+	, "paymentUrl"
 	`
 }
 
@@ -160,6 +163,7 @@ func (i *InvoicePayment) ToUpdateArray() A.X { //nolint:dupl false positive
 		A.X{`=`, 15, i.RestoredBy},
 		A.X{`=`, 16, i.SupportStartAt},
 		A.X{`=`, 17, i.SupportEndAt},
+		A.X{`=`, 18, i.PaymentUrl},
 	}
 }
 
@@ -343,6 +347,16 @@ func (i *InvoicePayment) SqlSupportEndAt() string { //nolint:dupl false positive
 	return `"supportEndAt"`
 }
 
+// IdxPaymentUrl return name of the index
+func (i *InvoicePayment) IdxPaymentUrl() int { //nolint:dupl false positive
+	return 18
+}
+
+// SqlPaymentUrl return name of the column being indexed
+func (i *InvoicePayment) SqlPaymentUrl() string { //nolint:dupl false positive
+	return `"paymentUrl"`
+}
+
 // ToArray receiver fields to slice
 func (i *InvoicePayment) ToArray() A.X { //nolint:dupl false positive
 	var id any = nil
@@ -368,6 +382,7 @@ func (i *InvoicePayment) ToArray() A.X { //nolint:dupl false positive
 		i.RestoredBy,     // 15
 		i.SupportStartAt, // 16
 		i.SupportEndAt,   // 17
+		i.PaymentUrl,     // 18
 	}
 }
 
@@ -391,6 +406,7 @@ func (i *InvoicePayment) FromArray(a A.X) *InvoicePayment { //nolint:dupl false 
 	i.RestoredBy = X.ToU(a[15])
 	i.SupportStartAt = X.ToI(a[16])
 	i.SupportEndAt = X.ToI(a[17])
+	i.PaymentUrl = X.ToS(a[18])
 	return i
 }
 
@@ -414,6 +430,7 @@ func (i *InvoicePayment) FromUncensoredArray(a A.X) *InvoicePayment { //nolint:d
 	i.RestoredBy = X.ToU(a[15])
 	i.SupportStartAt = X.ToI(a[16])
 	i.SupportEndAt = X.ToI(a[17])
+	i.PaymentUrl = X.ToS(a[18])
 	return i
 }
 
@@ -475,6 +492,7 @@ var InvoicePaymentFieldTypeMap = map[string]Tt.DataType{ //nolint:dupl false pos
 	`restoredBy`:     Tt.Unsigned,
 	`supportStartAt`: Tt.Integer,
 	`supportEndAt`:   Tt.Integer,
+	`paymentUrl`:     Tt.String,
 }
 
 // DO NOT EDIT, will be overwritten by github.com/kokizzu/D/Tt/tarantool_orm_generator.go

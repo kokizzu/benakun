@@ -27,6 +27,7 @@ const (
 	RestoredBy     = `restoredBy`
 	SupportStartAt = `supportStartAt`
 	SupportEndAt   = `supportEndAt`
+	PaymentURL     = `paymentUrl`
 )
 
 const (
@@ -132,6 +133,7 @@ var TarantoolTables = map[Tt.TableName]*Tt.TableProp{
 			{RestoredBy, Tt.Unsigned},
 			{SupportStartAt, Tt.Integer},
 			{SupportEndAt, Tt.Integer},
+			{PaymentURL, Tt.String},
 		},
 		AutoIncrementId: true,
 		Engine:          Tt.Vinyl,

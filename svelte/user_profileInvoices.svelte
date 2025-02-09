@@ -29,6 +29,7 @@
             <th>Currency</th>
             <th>Payment Method</th>
             <th>Status</th>
+            <th>Payment URL</th>
             <th>Support Start At</th>
             <th>Support End At</th>
           </tr>
@@ -47,6 +48,7 @@
                     {inv.status}
                   </span>
                 </td>
+                <td>{inv.paymentUrl || '--'}</td>
                 <td>{inv.supportStartAt ? datetime(inv.supportStartAt) : '--'}</td>
                 <td>{inv.supportStartAt ? datetime(inv.supportEndAt) : '--'}</td>
               </tr>

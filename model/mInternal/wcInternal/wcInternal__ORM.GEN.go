@@ -89,6 +89,7 @@ func (i *InvoicePaymentMutator) DoDeletePermanentById() bool { //nolint:dupl fal
 //		A.X{`=`, 15, i.RestoredBy},
 //		A.X{`=`, 16, i.SupportStartAt},
 //		A.X{`=`, 17, i.SupportEndAt},
+//		A.X{`=`, 18, i.PaymentUrl},
 //	})
 //	return !L.IsError(err, `InvoicePayment.DoUpsert failed: `+i.SpaceName()+ `\n%#v`, arr)
 // }
@@ -340,6 +341,17 @@ func (i *InvoicePaymentMutator) SetSupportEndAt(val int64) bool { //nolint:dupl 
 	return false
 }
 
+// SetPaymentUrl create mutations, should not duplicate
+func (i *InvoicePaymentMutator) SetPaymentUrl(val string) bool { //nolint:dupl false positive
+	if val != i.PaymentUrl {
+		i.mutations = append(i.mutations, A.X{`=`, 18, val})
+		i.logs = append(i.logs, A.X{`paymentUrl`, i.PaymentUrl, val})
+		i.PaymentUrl = val
+		return true
+	}
+	return false
+}
+
 // SetAll set all from another source, only if another property is not empty/nil/zero or in forceMap
 func (i *InvoicePaymentMutator) SetAll(from rqInternal.InvoicePayment, excludeMap, forceMap M.SB) (changed bool) { //nolint:dupl false positive
 	if excludeMap == nil { // list of fields to exclude
@@ -418,6 +430,10 @@ func (i *InvoicePaymentMutator) SetAll(from rqInternal.InvoicePayment, excludeMa
 	}
 	if !excludeMap[`supportEndAt`] && (forceMap[`supportEndAt`] || from.SupportEndAt != 0) {
 		i.SupportEndAt = from.SupportEndAt
+		changed = true
+	}
+	if !excludeMap[`paymentUrl`] && (forceMap[`paymentUrl`] || from.PaymentUrl != ``) {
+		i.PaymentUrl = S.Trim(from.PaymentUrl)
 		changed = true
 	}
 	return

@@ -8,6 +8,7 @@
  * @property {string} paymentMethod
  * @property {string} responseHeader
  * @property {string} responseBody
+ * @property {string} paymentUrl
  * @property {string} status
  * @property {number} supportStartAt
  * @property {number} supportEndAt
