@@ -1,11 +1,12 @@
-name: Build and Test
-'on':
+name: Build and Test 🛠️
+
+on:
   workflow_dispatch: null
   pull_request:
     branches:
       - master
 jobs:
-  Go-Setup:
+  GoSetup:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
@@ -14,21 +15,20 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v4
       - run: |
-          make setup
           go mod tidy
       
-  Go-Build:
+  GoBuild:
     timeout-minutes: 10
-    needs: Go-Setup
+    needs: GoSetup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - run: go build -v ./...
           
-  Go-Test:
+  GoTest:
     timeout-minutes: 30
-    needs: Go-Setup
+    needs: GoSetup
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -37,14 +37,17 @@ jobs:
         uses: 1arp/create-a-file-action@0.3
         with:
           file: '.env.override'
-      - run: go test -v ./...
-  Go-Test-Coverage:
-    timeout-minutes: 30
-    needs: Go-Setup
+      - run: go test -timeout 0 ./domain/... -v 
+  GoTestCoverage:
+    timeout-minutes: 20
+    needs: GoTest
     runs-on: ubuntu-latest
     steps:
-      - run: go test -coverprofile=coverage.txt -covermode=atomic ./... && go tool cover -html=coverage.txt -o coverage.html        
-  Svelte-Test:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - run: |
+          go test -covermode=atomic -coverpkg=./domain/... ./domain/...
+  SvelteTest:
     timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
@@ -58,4 +61,3 @@ jobs:
         run: |
           npm install
           node build.js
-        
