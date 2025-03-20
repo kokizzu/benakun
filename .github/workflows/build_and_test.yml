@@ -37,7 +37,7 @@ jobs:
         uses: 1arp/create-a-file-action@0.3
         with:
           file: '.env.override'
-      - run: go test -timeout 0 ./domain/... -v 
+      - run: go test ./domain/... -v 
   GoTestCoverage:
     timeout-minutes: 20
     needs: GoTest
