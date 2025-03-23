@@ -268,7 +268,12 @@
   function toggleShowPopUp(/** @type any */ id, /** @type any[]*/ row) {
     payloads = [];
     if (FIELDS && FIELDS.length > 0) {
-      FIELDS.forEach((_, i) => {
+      FIELDS.forEach((f, i) => {
+        if (f.name === 'lat') {
+          Coord.lat = row[i];
+        } else if (f.name === 'lng') {
+          Coord.lng = row[i];
+        }
         payloads = [...payloads, row[i]];
       });
     }
