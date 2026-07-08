@@ -1,4 +1,6 @@
 
+.PHONY: setup local-tarantool local-clickhouse modtidy orm views migrate test test-coverage show-coverage localhost-run verify-dependency-security
+
 setup:
 	go get -u -v github.com/kokizzu/gotro@latest
 	go install github.com/air-verse/air@latest
@@ -39,6 +41,9 @@ migrate:
 	sudo chmod -R a+rwx _tmpdb
 	go run main.go migrate
 
+test:
+	go test ./...
+
 test-coverage:
 	go test ./... -coverprofile=coverage.out -coverpkg=./...
 
@@ -47,3 +52,6 @@ show-coverage:
 
 localhost-run:
 	./localhost-run.sh
+
+verify-dependency-security:
+	bash scripts/verify-dependency-security.sh
