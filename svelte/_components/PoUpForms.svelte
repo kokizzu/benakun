@@ -55,9 +55,9 @@
     zoom: 4
   };
 
-  function OnClickMap(lngLat) {
-    payloads[IdxLatitude] = lngLat.lat;
-    payloads[IdxLongitude] = lngLat.lng;
+  function OnClickMap(/** @type {Number[]} */ coord) {
+    payloads[IdxLatitude] = coord[1];
+    payloads[IdxLongitude] = coord[0];
   }
 </script>
 

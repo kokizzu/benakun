@@ -8,10 +8,13 @@
 
   const apiKey = 'tOiu6Qb0Q3hToL89vQ4u';
 
+  const initialLat = -2.548926;
+  const initialLng = 118.0148634;
+
   // +=========== EXPORTED VARIABLES ===========+
   export let Coord = {
-    lng: 118.0148634,
-    lat: -2.548926,
+    lng: initialLng,
+    lat: initialLat,
     zoom: 4
   };
 
@@ -24,10 +27,22 @@
   /** @param {[number, number]} location */
   export function setCenter(location) {
     map.setZoom(Coord.zoom);
+    console.log('Location: ', location);
     map.setCenter(location);
   }
 
   // +===========================================+
+
+  function isValidCoordinates(lng, lat) {
+    return (
+      typeof lng === 'number' &&
+      typeof lat === 'number' &&
+      !isNaN(lng) &&
+      !isNaN(lat) &&
+      lng >= -180 && lng <= 180 &&
+      lat >= -90 && lat <= 90
+    );
+  }
 
   let marker = new Marker({
     color: '#1877F2',
@@ -35,6 +50,10 @@
   });
 
   onMount(() => {
+    if (!isValidCoordinates(Coord.lng, Coord.lat)) {
+      Coord.lng = initialLng;
+      Coord.lat = initialLat;
+    }
     map = new Map({
       container: mapContainer,
       style: `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`,

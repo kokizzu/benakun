@@ -31402,12 +31402,17 @@ uniform ${i3} ${a3} u_${s3};
     };
   }
   var apiKey = "tOiu6Qb0Q3hToL89vQ4u";
+  var initialLng = 118.0148634;
+  function isValidCoordinates(lng, lat) {
+    return typeof lng === "number" && typeof lat === "number" && !isNaN(lng) && !isNaN(lat) && lng >= -180 && lng <= 180 && lat >= -90 && lat <= 90;
+  }
   function instance10($self, $props, $invalidate) {
     let map;
     let mapContainer;
+    const initialLat = -2.548926;
     let { Coord = {
-      lng: 118.0148634,
-      lat: -2.548926,
+      lng: initialLng,
+      lat: initialLat,
       zoom: 4
     } } = $props;
     let { IsClickable = false } = $props;
@@ -31416,10 +31421,15 @@ uniform ${i3} ${a3} u_${s3};
     } } = $props;
     function setCenter(location2) {
       map.setZoom(Coord.zoom);
+      console.log("Location: ", location2);
       map.setCenter(location2);
     }
     let marker = new import_maplibre_gl2.Marker({ color: "#1877F2", draggable: IsDraggable });
     onMount(() => {
+      if (!isValidCoordinates(Coord.lng, Coord.lat)) {
+        $invalidate(1, Coord.lng = initialLng, Coord);
+        $invalidate(1, Coord.lat = initialLat, Coord);
+      }
       map = new import_maplibre_gl2.Map({
         container: mapContainer,
         style: `https://api.maptiler.com/maps/streets/style.json?key=${apiKey}`,
@@ -34924,7 +34934,12 @@ uniform ${i3} ${a3} u_${s3};
         payloads = []
       );
       if (FIELDS && FIELDS.length > 0) {
-        FIELDS.forEach((_, i) => {
+        FIELDS.forEach((f, i) => {
+          if (f.name === "lat") {
+            $invalidate(30, Coord.lat = row[i], Coord);
+          } else if (f.name === "lng") {
+            $invalidate(30, Coord.lng = row[i], Coord);
+          }
           $invalidate(28, payloads = [...payloads, row[i]]);
         });
       }
@@ -35826,9 +35841,9 @@ uniform ${i3} ${a3} u_${s3};
       lat: -2.548926,
       zoom: 4
     };
-    function OnClickMap(lngLat) {
-      $invalidate(6, payloads[IdxLatitude] = lngLat.lat, payloads);
-      $invalidate(6, payloads[IdxLongitude] = lngLat.lng, payloads);
+    function OnClickMap(coord) {
+      $invalidate(6, payloads[IdxLatitude] = coord[1], payloads);
+      $invalidate(6, payloads[IdxLongitude] = coord[0], payloads);
     }
     function inputbox_value_binding(value, idx) {
       if ($self.$.not_equal(payloads[idx], value)) {

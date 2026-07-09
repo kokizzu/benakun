@@ -90,7 +90,7 @@ func TestMain(m *testing.M) {
 			img := tdt.ImageVersion(dockerPool, ``)
 			dockerPool.Spawn(img, func(res *dockertest.Resource) error {
 				t, err := tdt.ConnectCheck(res)
-				time.Sleep(1 * time.Second)
+				time.Sleep(5 * time.Second)
 				if err != nil {
 					return err
 				}
@@ -117,7 +117,7 @@ func TestMain(m *testing.M) {
 			img := cdt.ImageVersion(dockerPool, `24.8.9`)
 			dockerPool.Spawn(img, func(res *dockertest.Resource) error {
 				c, err := cdt.ConnectCheck(res)
-				time.Sleep(1 * time.Second)
+				time.Sleep(5 * time.Second)
 				if err != nil {
 					return err
 				}
